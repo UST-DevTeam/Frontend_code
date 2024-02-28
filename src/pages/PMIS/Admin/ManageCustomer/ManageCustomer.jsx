@@ -16,6 +16,8 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
+import { useNavigate, useParams } from 'react-router-dom';
+import CCDash from '../../../../components/CCDash';
 
 
 
@@ -25,10 +27,18 @@ const ManageCustomer = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
+    const [type, settype] = useState(false)
     const [modalHead, setmodalHead] = useState(<></>)
 
 
     let dispatch = useDispatch()
+
+    let navigate= useNavigate()
+
+
+
+
+
 
 
     let dbConfigList = useSelector((state) => {
@@ -63,7 +73,7 @@ const ManageCustomer = () => {
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></EditButton>} />,
-                
+
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                     let msgdata = {
                         show: true,
@@ -99,7 +109,7 @@ const ManageCustomer = () => {
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
     // ]
-    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors }} = useForm()
+    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
 
     let table = {
         columns: [
@@ -171,33 +181,42 @@ const ManageCustomer = () => {
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
     }, [])
-    return <>
-        <AdvancedTable
-            headerButton={<><Button onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                // dispatch(OperationManagementActions.getOperationUserList())
-                setmodalHead("New User")
-                setmodalBody(<ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
-                name={"Add New"}></Button></>}
-            table={table}
-            filterAfter={onSubmit}
-            tableName={"UserListTable"}
-            handleSubmit={handleSubmit}
-            data={dbConfigList}
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            getValues={getValues}
-            totalCount={dbConfigTotalCount}
-        />
+    return type ?
+        <>
 
-        <Modal size={"lg"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+            <div className='flex p-2'>
+                <Button classes='w-auto' onClick={() => {
+                    settype(false)
+                }} name={"View"} />
+            </div>
+            <AdvancedTable
+                headerButton={<><Button onClick={(e) => {
+                    setmodalOpen(prev => !prev)
+                    // dispatch(OperationManagementActions.getOperationUserList())
+                    setmodalHead("New User")
+                    setmodalBody(<ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                }}
+                    name={"Add New"}></Button></>}
+                table={table}
+                filterAfter={onSubmit}
+                tableName={"UserListTable"}
+                handleSubmit={handleSubmit}
+                data={dbConfigList}
+                errors={errors}
+                register={register}
+                setValue={setValue}
+                getValues={getValues}
+                totalCount={dbConfigTotalCount}
+            />
 
-        {/* <CommonForm/> */}
-    </>
+            <Modal size={"lg"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
+            {/* <CommonForm/> */}
+        </>
+        : <>
+            <CCDash settype={settype} nextNavigate={"/viewcu"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' />
+        </>
+}
 
-};
 
 export default ManageCustomer;
