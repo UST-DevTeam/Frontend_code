@@ -4,6 +4,7 @@ const initialState = {
     getManageCustomer: [],
     getManageCircle:[],
     getManageProject:[],
+    getManageZone:[],
 }
 
 const adminData = createSlice({
@@ -18,6 +19,14 @@ const adminData = createSlice({
                 state.getManageCustomer  = [...state.getManageCustomer,...payload.dataAll]
             }
         },
+        GET_MANAGE_PROJECT_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageProject = payload.dataAll
+            }else{
+                state.getManageProject  = [...state.getManageProject,...payload.dataAll]
+            }
+        },
+        
         GET_MANAGE_CIRCLE:(state,{payload}) => {
             if(payload.reset){
                 state.getManageCircle = payload.dataAll
@@ -32,8 +41,16 @@ const adminData = createSlice({
                 state.getManageProject  = [...state.getManageProject,...payload.dataAll]
             }
         },
+
+        GET_MANAGE_ZONE:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageZone = payload.dataAll
+            }else{
+                state.getManageZone  = [...state.getManageZone,...payload.dataAll]
+            }
+        },
     }
 })
 
-export const { GET_MANAGE_CUSTOMER,GET_MANAGE_CIRCLE, GET_MANAGE_PROJECT} = adminData.actions
+export const { GET_MANAGE_CUSTOMER,GET_MANAGE_PROJECT_TYPE,GET_MANAGE_CIRCLE, GET_MANAGE_PROJECT,GET_MANAGE_ZONE} = adminData.actions
 export default adminData.reducer

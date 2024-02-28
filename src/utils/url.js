@@ -19,8 +19,9 @@ export const Urls={
     // new url
 
     admin_customer:"/admin/manageCustomer",
+    admin_projecttype:"/admin/manageProjectType",
     admin_circle:"/admin/manageCircle",
-    admin_project:"/admin/manageProject",
+    admin_zone:"/admin/manageZone"
     
    
 

@@ -50,7 +50,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             value: "",
             name: "img",
             type: "file",
-            // required: true,
+            required: true,
             props: {
                 onChange: ((e) => {
                     console.log(e.target.files, "e geeter")
@@ -144,31 +144,9 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             classes: "col-span-1"
         }, 
         {
-            label: "Attachment",
-
-            value: "",
-            name: "attachment",
-            type: "file",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-                    console.log(e.target.files, "e geeter")
-
-                    setValue("attachment",e.target.files[0])
-
-                }),
-            },
-            classes: "col-span-1",
-            multiple:false,
-        },
-        {
             label: "Status",
             name: "status",
-            type: "select",
-            option: [
-                { "label": "Active", "value": "Active" },
-                { "label": "Inactive", "value": "Inactive" }
-            ],
+            type: "text",
             props: {
                 onChange: ((e) => {
                   

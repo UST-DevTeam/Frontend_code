@@ -9,25 +9,26 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 
 
-const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
+    let dispatch = useDispatch()
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
     const [modalOpen, setmodalOpen] = useState(false)
 
 
-    let dispatch = useDispatch()
-    let roleList = useSelector((state) => {
-        console.log(state, "state state")
-        return state?.adminManagement?.roleList
-    })
-    let databaseList = useSelector((state) => {
-        console.log(state, "state")
-        let interdata = state?.customQuery?.databaseList
+    // let dispatch = useDispatch()
+    // let roleList = useSelector((state) => {
+    //     console.log(state, "state state")
+    //     return state?.adminManagement?.roleList
+    // })
+    // let databaseList = useSelector((state) => {
+    //     console.log(state, "state")
+    //     let interdata = state?.customQuery?.databaseList
 
-        console.log(interdata, "interdatainterdata")
-        return state?.customQuery?.databaseList
-    })
+    //     console.log(interdata, "interdatainterdata")
+    //     return state?.customQuery?.databaseList
+    // })
 
 
     let Form = [
@@ -44,96 +45,10 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         //     required: true,
         //     classes: "col-span-1"
         // },
-         {
-            label: "Logo",
-
-            value: "",
-            name: "img",
-            type: "file",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-                    console.log(e.target.files, "e geeter")
-
-                    setValue("companyimg",e.target.files[0])
-
-                }),
-            },
-            classes: "col-span-1",
-            multiple:false,
-        },
-         {
-            label: "Customer Name",
-            value: "",
-            name: "customerName",
-            type: "text",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
-            classes: "col-span-1"
-        },
+         
         {
-            label: "ShortName",
-            value: "",
-            name: "shortName",
-            type: "text",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Contact Person Name",
-            value: "",
-            name: "personName",
-            type: "text",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-                
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Email",
-            value: "",
-            name: "email",
-            type: "email",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                
-
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Mobile No.",
-            value: "",
-            name: "mobile",
-            type: "number",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                 
-
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Address",
-            name: "address",
+            label: "Project Type",
+            name: "projectType",
             type: "text",
             props: {
                 onChange: ((e) => {
@@ -144,23 +59,17 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             classes: "col-span-1"
         }, 
         {
-            label: "Attachment",
-
-            value: "",
-            name: "attachment",
-            type: "file",
-            // required: true,
+            label: " Sub Project",
+            name: "subProject",
+            type: "text",
             props: {
                 onChange: ((e) => {
-                    console.log(e.target.files, "e geeter")
-
-                    setValue("attachment",e.target.files[0])
-
+                
                 }),
             },
-            classes: "col-span-1",
-            multiple:false,
-        },
+            required: true,
+            classes: "col-span-1"
+        }, 
         {
             label: "Status",
             name: "status",
@@ -171,7 +80,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             ],
             props: {
                 onChange: ((e) => {
-                  
+                
                 }),
             },
             required: true,
@@ -189,27 +98,27 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data)
+        console.log(data, "datadatadatadata")
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
     }
     const onTableViewSubmit = (data) => {
         if (formValue?.uniqueId) {
-            dispatch(AdminActions.postManageCustomer(true, data, () => {
+            dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCustomer())
+                dispatch(AdminActions.getManageProjectType(customeruniqueId))
             }, formValue?.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCustomer(true, data, () => {
+            dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCustomer())
+                dispatch(AdminActions.getManageProjectType(customeruniqueId))
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        // dispatch(AdminActions.getManageProjectType())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -252,4 +161,4 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
 
 };
 
-export default ManageCustomerForm;
+export default ManageProjectTypeForm;

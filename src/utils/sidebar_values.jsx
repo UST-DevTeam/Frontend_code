@@ -48,13 +48,13 @@ import AgreementManagement from "../pages/Admin/AgreementManagement/AgreementMan
 
 // newimport
 import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer"
-import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle"
-import ManagePG from "../pages/PMIS/Admin/ManageProjectGroup/ManagePG"
-import ManagePT from "../pages/PMIS/Admin/ManageProjectType/ManagePT"
 import ManageEmp from "../pages/PMIS/HR/ManageEmploye/ManageEmp"
 import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation"
 import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor"
 import POLifeCycle from "../pages/PMIS/POLifeCycle/POLifeCylce";
+import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
+import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
+import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
 
 export const Sidebar_content = {
   temp: [],
@@ -70,6 +70,11 @@ export const Sidebar_content = {
           subMenu: [],
         },
       ],
+    },{
+      name: "",
+      link: "/projectType/:customeruniqueId",
+      subMenu: [],
+      component: <ManageProjectType/>,
     },
   ],
  
@@ -204,20 +209,21 @@ export const Sidebar_content = {
     {
       name: "My Dashboard",
       link: "/",
-      // component: </>,
+      component: <>Dashboard</>,
       icon: <UilAirplay />,
       subMenu: [],
     },
     {
       name: "My Home",
-      link: "/",
-      // component: </>,
+      link: "/home",
+      component: <>Home</>,
       icon: <UilAirplay />,
       subMenu: [],
     },
     {
       name: "Project Management",
-      link: "/admin",
+      link: "/customer",
+      component: <ManageCustomer/>,
       subMenu: [
         {
           name: "Manage Customer",
@@ -234,33 +240,40 @@ export const Sidebar_content = {
           icon: <Unicons.UilChannel size="16" />,
         },
         {
-          name: "Manage Project Group",
-          link: "/manageProjectGroup",
+          name: "Manage Zone",
+          link: "/manageZone",
           subMenu: [],
-          component: <ManagePG />,
+          component: <ManageZone />,
           icon: <Unicons.UilChannel size="16" />,
         },
-        {
-          name: "Manage Project Type",
-          link: "/manageProjectType",
-          subMenu: [],
-          component: <ManagePT />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
-        {
-          name: "Manage Access Control",
-          link: "/manageAccessControl",
-          subMenu: [],
-          component: <POLifeCycle />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
-        {
-          name: "View Expense/Advance",
-          link: "/viewManage",
-          subMenu: [],
-          component: <POLifeCycle />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
+        // {
+        //   name: "Manage Project Group",
+        //   link: "/manageProjectGroup",
+        //   subMenu: [],
+        //   component: <ManagePG />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
+        // {
+        //   name: "Manage Project Type",
+        //   link: "/manageProjectType",
+        //   subMenu: [],
+        //   component: <ManagePT />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
+        // {
+        //   name: "Manage Access Control",
+        //   link: "/manageAccessControl",
+        //   subMenu: [],
+        //   component: <POLifeCycle />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
+        // {
+        //   name: "View Expense/Advance",
+        //   link: "/viewManage",
+        //   subMenu: [],
+        //   component: <POLifeCycle />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
       ],
       icon: <UilLockAccess  />,
     },
@@ -268,20 +281,20 @@ export const Sidebar_content = {
       name: "Human Resource",
       link: "/hr",
       subMenu: [
-        {
-          name: "Manage Employee",
-          link: "/manageEmployee",
-          subMenu: [],
-          component: <ManageEmp />,
-          icon: <UilAirplay size="16" />,
-        },
-        {
-          name: "User Allocation",
-          link: "/userallocation",
-          subMenu: [],
-          component: <UserAllocation />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
+        // {
+        //   name: "Manage Employee",
+        //   link: "/manageEmployee",
+        //   subMenu: [],
+        //   component: <ManageEmp />,
+        //   icon: <UilAirplay size="16" />,
+        // },
+        // {
+        //   name: "User Allocation",
+        //   link: "/userallocation",
+        //   subMenu: [],
+        //   component: <UserAllocation />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
       ],
       icon: <UilLockAccess  />,
     },   
@@ -317,20 +330,20 @@ export const Sidebar_content = {
       name: "Admin",
       link: "/admin",
       subMenu: [
-        {
-          name: "User Management",
-          link: "/admin/user-management",
-          subMenu: [],
-          component: <UserManagement />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
-        {
-          name: "Role Management",
-          link: "/admin/role-management",
-          subMenu: [],
-          component: <RoleManagement />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
+        // {
+        //   name: "User Management",
+        //   link: "/admin/user-management",
+        //   subMenu: [],
+        //   component: <UserManagement />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
+        // {
+        //   name: "Role Management",
+        //   link: "/admin/role-management",
+        //   subMenu: [],
+        //   component: <RoleManagement />,
+        //   icon: <Unicons.UilChannel size="16" />,
+        // },
       ],
       icon: <Unicons.UilReact />,
     }, 

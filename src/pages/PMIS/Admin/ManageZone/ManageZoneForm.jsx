@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
+import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
+import AlertConfigurationActions from '../../../../store/actions/alertConfiguration-actions';
+import CustomQueryActions from '../../../../store/actions/customQuery-actions';
 import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 
-
-
-const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -17,19 +18,21 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
 
 
     let dispatch = useDispatch()
-    let roleList = useSelector((state) => {
-        console.log(state, "state state")
-        return state?.adminManagement?.roleList
-    })
-    let databaseList = useSelector((state) => {
-        console.log(state, "state")
-        let interdata = state?.customQuery?.databaseList
+    // let roleList = useSelector((state) => {
+    //     console.log(state, "state state")
+    //     return state?.adminManagement?.roleList
+    // })
+    // let databaseList = useSelector((state) => {
+    //     console.log(state, "state")
+    //     let interdata = state?.customQuery?.databaseList
 
-        console.log(interdata, "interdatainterdata")
-        return state?.customQuery?.databaseList
-    })
-
-
+    //     console.log(interdata, "interdatainterdata")
+    //     return state?.customQuery?.databaseList
+    // })
+    // let Form = [
+    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
+    //     { label: "Custom Queries", value: "", type: "textarea" }
+    // ]
     let Form = [
         // {
         //     label: "Login Type",
@@ -45,29 +48,12 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         //     classes: "col-span-1"
         // },
          {
-            label: "Logo",
-
+            label: "Zone Name",
             value: "",
-            name: "img",
-            type: "file",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-                    console.log(e.target.files, "e geeter")
-
-                    setValue("companyimg",e.target.files[0])
-
-                }),
-            },
-            classes: "col-span-1",
-            multiple:false,
-        },
-         {
-            label: "Customer Name",
-            value: "",
-            name: "customerName",
+            name: "zoneName",
             type: "text",
             required: true,
+            filter: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
@@ -79,102 +65,19 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             classes: "col-span-1"
         },
         {
-            label: "ShortName",
+            label: "Short Code",
             value: "",
-            name: "shortName",
+            name: "shortCode",
             type: "text",
             required: true,
             props: {
                 onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Contact Person Name",
-            value: "",
-            name: "personName",
-            type: "text",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-                
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Email",
-            value: "",
-            name: "email",
-            type: "email",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                
+                    // console.log(e.target.value, "e geeter")
+
+                    // setValue("queries",e.target.name)
 
                 }),
             },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Mobile No.",
-            value: "",
-            name: "mobile",
-            type: "number",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                 
-
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Address",
-            name: "address",
-            type: "text",
-            props: {
-                onChange: ((e) => {
-                
-                }),
-            },
-            required: true,
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Attachment",
-
-            value: "",
-            name: "attachment",
-            type: "file",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-                    console.log(e.target.files, "e geeter")
-
-                    setValue("attachment",e.target.files[0])
-
-                }),
-            },
-            classes: "col-span-1",
-            multiple:false,
-        },
-        {
-            label: "Status",
-            name: "status",
-            type: "select",
-            option: [
-                { "label": "Active", "value": "Active" },
-                { "label": "Inactive", "value": "Inactive" }
-            ],
-            props: {
-                onChange: ((e) => {
-                  
-                }),
-            },
-            required: true,
             classes: "col-span-1"
         }, 
         // { label: "User", value: "", option: ["User Name"], type: "select" }
@@ -195,21 +98,25 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         // }))
     }
     const onTableViewSubmit = (data) => {
-        if (formValue?.uniqueId) {
-            dispatch(AdminActions.postManageCustomer(true, data, () => {
+        console.log(data, "datadata")
+        // dasdsadsadasdas
+        if (formValue.uniqueId) {
+            dispatch(AdminActions.postManageZone(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCustomer())
-            }, formValue?.uniqueId))
+                dispatch(AdminActions.getManageZone())
+            }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCustomer(true, data, () => {
+            dispatch(AdminActions.postManageZone(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCustomer())
+                dispatch(AdminActions.getManageZone())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        dispatch(AdminActions.getManageZone())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -226,6 +133,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
 
 
                 } else {
+                    // console.log("formValuekey",key,key)
                     setValue(key.name, formValue[key.name]);
                 }
             })
@@ -252,4 +160,4 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
 
 };
 
-export default ManageCustomerForm;
+export default ManageZoneForm;

@@ -1,6 +1,6 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
-import {GET_MANAGE_CUSTOMER, GET_MANAGE_CIRCLE, GET_MANAGE_PROJECT} from "../reducers/admin-reducer"
+import {GET_MANAGE_CUSTOMER, GET_MANAGE_CIRCLE, GET_MANAGE_PROJECT,GET_MANAGE_ZONE} from "../reducers/admin-reducer"
 
 
 const AdminActions = {
@@ -8,7 +8,7 @@ const AdminActions = {
 
     getManageCustomer:(reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_customer}${args!=""?"?"+args:""}`, contentType:"multipart/form-data", reset })
+            const res = await Api.get({ url:`${Urls.admin_customer}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_CUSTOMER({dataAll,reset}))
@@ -36,6 +36,39 @@ const AdminActions = {
             return;
         }
     },
+
+
+    getManageProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_projecttype}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_PROJECT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postManageProjectType: (reset,customeruniqueId, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_projecttype+"/"+customeruniqueId : Urls.admin_projecttype+"/"+customeruniqueId + "/" + customeruniqueId , contentType:"multipart/form-data", reset })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+    
 
     getManageCircle:(reset=true,args="") => async (dispatch, _) => {
         try {
@@ -68,19 +101,19 @@ const AdminActions = {
         }
     },
 
-
-    getManageProject:(reset=true,args="") => async (dispatch, _) => {
+    getManageZone:(reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_project}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url:`${Urls.admin_zone}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_PROJECT({dataAll,reset}))
+            dispatch(GET_MANAGE_ZONE({dataAll,reset}))
         } catch (error) {
         }
     },
-    postManageProject: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+
+    postManageZone: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project : Urls.admin_project + "/" + uniqueId })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_zone : Urls.admin_zone + "/" + uniqueId })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -99,6 +132,38 @@ const AdminActions = {
             return;
         }
     },
+
+
+    // getManageProject:(reset=true,args="") => async (dispatch, _) => {
+    //     try {
+    //         const res = await Api.get({ url:`${Urls.admin_project}${args!=""?"?"+args:""}`})
+    //         if (res?.status !== 200) return
+    //         let dataAll = res?.data?.data
+    //         dispatch(GET_MANAGE_PROJECT({dataAll,reset}))
+    //     } catch (error) {
+    //     }
+    // },
+    // postManageProject: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    //     try {
+    //         const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_projecttype : Urls.admin_projecttype + "/" + uniqueId, contentType:"multipart/form-data", reset })
+    //         if (res?.status !== 201 && res?.status !== 200) {
+    //             let msgdata = {
+    //                 show: true,
+    //                 icon: "error",
+    //                 buttons: [],
+    //                 type: 1,
+    //                 text: res?.data?.msg,
+    //             };
+    //             dispatch(ALERTS(msgdata));
+    //         }else{
+    //             cb()
+
+    //         }
+            
+    //     } catch (error) {
+    //         return;
+    //     }
+    // },
 
 
 

@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageCircleForm from '../../Admin/ManageCircle/ManageCircleForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -163,7 +162,8 @@ const UserAllocation = () => {
                 setmodalOpen(prev => !prev)
                 dispatch(OperationManagementActions.getOperationUserList())
                 setmodalHead("New User")
-                setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody("dasda")
             }}
                 name={"Add New"}></Button></>}
             table={table}

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageCustomerForm from '../../../PMIS/Admin/ManageCustomer/ManageCustomerForm'
+import ManageProjectTypeForm from '../../../PMIS/Admin/ManageProjectType/ManageProjectTypeForm';
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,7 +14,7 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/admin-actions';
+// import AdminActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
 import CCDash from '../../../../components/CCDash';
@@ -22,8 +22,10 @@ import CCDash from '../../../../components/CCDash';
 
 
 
-const ManageCustomer = () => {
+const ManageProjectType = () => {
 
+
+    const { customeruniqueId } = useParams()
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
@@ -43,7 +45,7 @@ const ManageCustomer = () => {
 
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.adminData?.getManageProject
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -66,15 +68,35 @@ const ManageCustomer = () => {
                 //     // itm.enabled=itm.enabled==0?1:0
                 //     console.log(itm.enabled, "itm.enabled")
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+
+
+                "template": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCustomer())
-                    setmodalHead("Edit Customer Details")
+                    setmodalHead("Templates")
                     setmodalBody(<>
-                        <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                }}></EditButton>} />,
+                }}></Button>} />,
+                "milestone": <CstmButton className={"p-2"} child={<Button classes='w- 10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
+                    setmodalOpen(true)
+                    dispatch(AdminActions.getManageCustomer())
+                    setmodalHead("Milestone")
+                    setmodalBody(<>
+                        <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
+                }}></Button>} />,
+                "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
+                    setmodalOpen(true)
+                    dispatch(AdminActions.getManageCustomer())
+                    setmodalHead("Coomercial")
+                    setmodalBody(<>
+                        <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
+                }}></Button>} />,
 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                     let msgdata = {
@@ -82,8 +104,8 @@ const ManageCustomer = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCustomer())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_projecttype}/${customeruniqueId}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getManageProjectType(customeruniqueId))
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -94,27 +116,13 @@ const ManageCustomer = () => {
                         text: "Are you sure you want to Delete?"
                     }
                     dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />,
-
-
-                "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-                    setmodalOpen(true)
-                    setmodalHead("Show PDF")
-                    setmodalBody(<>
-
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                }}></Button>} />,
-
-
-
-
+                }}></DeleteButton>} />
             }
             return updateditm
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.adminData?.getManageProject
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -130,59 +138,49 @@ const ManageCustomer = () => {
     let table = {
         columns: [
             {
-                name: "Logo",
-                value: "imgshow",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
-            },
-            {
-                name: "Customer Name",
-                value: "customerName",
-                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
-            },
-            {
-                name: "Short Name",
-                value: "shortName",
+                name: "Project Type",
+                value: "projectType",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Contact Person name",
-                value: "personName",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Email ID",
-                value: "email",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Mobile No.",
-                value: "mobile",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Address",
-                value: "address",
-                style: "min-w-[250px] max-w-[450px] text-center"
+                name: "Sub Type",
+                value: "subProject",
+                style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Status",
                 value: "status",
-                style: "min-w-[250px] max-w-[450px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center"
+
+            },
+            {
+                name: "Template",
+                value: "template",
+                style: "min-w-[140px] max-w-[200px] text-center"
+
+            },
+            {
+                name: "Milestone",
+                value: "milestone",
+                style: "min-w-[140px] max-w-[200px] text-center"
+
+            },
+
+            {
+                name: "Commercial",
+                value: "commercial",
+                style: "min-w-[140px] max-w-[200px] text-center"
+
             },
             {
                 name: "Edit",
                 value: "edit",
-                style: "min-w-[100px] max-w-[100px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
             },
             {
                 name: "Delete",
                 value: "delete",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            },
-            {
-                name: "View",
-                value: "view",
-                style: "min-w-[100px] max-w-[100px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
             }
         ],
         properties: {
@@ -202,10 +200,10 @@ const ManageCustomer = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageProjectType(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        dispatch(AdminActions.getManageProjectType(customeruniqueId))
     }, [])
     return type ?
         <>
@@ -219,8 +217,8 @@ const ManageCustomer = () => {
                 headerButton={<><Button onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(OperationManagementActions.getOperationUserList())
-                    setmodalHead("Add Customer")
-                    setmodalBody(<ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                    setmodalHead("New Project Type")
+                    setmodalBody(<ManageProjectTypeForm customeruniqueId={customeruniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
                     name={"Add New"}></Button></>}
                 table={table}
@@ -240,38 +238,25 @@ const ManageCustomer = () => {
             {/* <CommonForm/> */}
         </>
         : <>
-            {/* <CCDash approveddata={
-                dbConfigList?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
-                            onClick={() => {
-                                navigate(`${"/projectType"}/${itm["uniqueId"]}`)
-                            }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["customerName"]}</div>
-                        </div>
-                    </>
-                }))
-            } settype={settype} nextNavigate={"/projectType"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' /> */}
 
-            
             <CCDash approveddata={
                 dbConfigList?.map((itm => {
                     return <>
                         <div
                             className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
                             onClick={() => {
-                                navigate(`${"/projectType"}/${itm["uniqueId"]}`)
+                                navigate(`${"/projectGroup"}/${itm["uniqueId"]}`)
                             }}>
                             {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["customerName"]}</div>
+                            <div className='m-auto '>{itm["projectType"]}</div>
                         </div>
                     </>
                 }))
-            } settype={settype} label='Add / Modify Customer' />
+            } settype={settype} label='Add / Modify Project Type' />
+
+            {/* <CCDash settype={settype} nextNavigate={"/viewcu"} name={"projectType"} img={""} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Project Type' /> */}
         </>
 }
 
 
-export default ManageCustomer;
+export default ManageProjectType;

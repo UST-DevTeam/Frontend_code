@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-// import ManageCircleForm from '../../Admin/ManageCircle/ManageCircleForm'
+import ManageZoneForm from '../../../../pages/PMIS/Admin/ManageZone/ManageZoneForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,19 +14,21 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
-const ManageEmp = () => {
+import OperationManagementActions from '../../../../store/actions/admin-actions';
+import AdminActions from '../../../../store/actions/admin-actions';
+
+const ManageZone = () => {
+
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+
+
     let dispatch = useDispatch()
-    let roleList = useSelector((state) => {
-        let interdata = state?.operationManagement?.USERS_LIST
-        return interdata
-    })
+  
+
     let dbConfigList = useSelector((state) => {
-        console.log(state, "state statejjjj")
-        let interdata = state?.OperationManagementReducer?.usersList
+        let interdata = state?.adminData?.getManageZone
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -39,7 +41,7 @@ const ManageEmp = () => {
                         // alert(e.target.checked)
                         e.target.checked = e.target.checked
                     }, itm.id))
-                    // if(itm.enabled==0){
+                    // if(itm.enabled==0){ 
                     //     itm.enabled=1
                     // }else{
                     //     itm.enabled=0
@@ -49,12 +51,12 @@ const ManageEmp = () => {
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(OperationManagementActions.getOperationUserList())
+                    dispatch(AdminActions.getManageZone())
                     setmodalHead("Edit User")
-                    // setmodalBody(<>
-                    //     <OperationManagementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                    //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    // </>)
+                    setmodalBody(<>
+                        <ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
                     console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
@@ -65,8 +67,8 @@ const ManageEmp = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.operationUser}/${itm.uniqueId}`, () => {
-                                    dispatch(OperationManagementActions.getOperationUserList())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_zone}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getManageZone())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -84,7 +86,8 @@ const ManageEmp = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminManagement?.usersList
+        let interdata = state?.adminData?.getManageZone
+        console.log(interdata,"1234567890")
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -108,33 +111,13 @@ const ManageEmp = () => {
     let table = {
         columns: [
             {
-                name: "Emp Name",
-                value: "empName",
+                name: "Zone Name",
+                value: "zoneName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Emp code",
-                value: "empCode",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },           
-            {
-                name: "Email ID",
-                value: "email",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },           
-            {
-                name: "Designation",
-                value: "desgnation",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },           
-            {
-                name: "PMIS Role",
-                value: "pmisRole",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },           
-            {
-                name: "Status",
-                value: "status",
+                name: "Short code",
+                value: "shortCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
@@ -163,23 +146,22 @@ const ManageEmp = () => {
         ]
     }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
+        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(OperationManagementActions.getOperationUserList(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageZone(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(OperationManagementActions.getOperationUserList())
+        dispatch(AdminActions.getManageZone())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
     return <>
         <AdvancedTable
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(OperationManagementActions.getOperationUserList())
+                dispatch(AdminActions.getManageZone())
                 setmodalHead("New User")
-                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                setmodalBody("")
+                setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button></>}
             table={table}
@@ -202,4 +184,4 @@ const ManageEmp = () => {
 
 };
 
-export default ManageEmp;
+export default ManageZone;

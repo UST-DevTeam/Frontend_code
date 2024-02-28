@@ -33,7 +33,7 @@ const ManageCustomer = () => {
 
     let dispatch = useDispatch()
 
-    let navigate = useNavigate()
+    let navigate= useNavigate()
 
 
 
@@ -48,7 +48,7 @@ const ManageCustomer = () => {
             let updateditm = {
                 ...itm,
 
-                imgshow: <img src={backendassetUrl + itm?.companyimg} />,
+                imgshow:<img src={backendassetUrl+itm?.companyimg}/>,
                 // "status": <CstmButton child={<ToggleButton onChange={(e) => {
                 //     console.log(e.target.checked, "e.target.checked")
                 //     let data = {
@@ -69,7 +69,7 @@ const ManageCustomer = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCustomer())
-                    setmodalHead("Edit Customer Details")
+                    setmodalHead("Edit User")
                     setmodalBody(<>
                         <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -94,21 +94,7 @@ const ManageCustomer = () => {
                         text: "Are you sure you want to Delete?"
                     }
                     dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />,
-
-
-                "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-                    setmodalOpen(true)
-                    setmodalHead("Show PDF")
-                    setmodalBody(<>
-
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                }}></Button>} />,
-
-
-
-
+                }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -132,12 +118,12 @@ const ManageCustomer = () => {
             {
                 name: "Logo",
                 value: "imgshow",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
+                style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Customer Name",
                 value: "customerName",
-                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
+                style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Short Name",
@@ -172,17 +158,12 @@ const ManageCustomer = () => {
             {
                 name: "Edit",
                 value: "edit",
-                style: "min-w-[100px] max-w-[100px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
             },
             {
                 name: "Delete",
                 value: "delete",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            },
-            {
-                name: "View",
-                value: "view",
-                style: "min-w-[100px] max-w-[100px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
             }
         ],
         properties: {
@@ -219,7 +200,7 @@ const ManageCustomer = () => {
                 headerButton={<><Button onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(OperationManagementActions.getOperationUserList())
-                    setmodalHead("Add Customer")
+                    setmodalHead("")
                     setmodalBody(<ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
                     name={"Add New"}></Button></>}
@@ -240,36 +221,7 @@ const ManageCustomer = () => {
             {/* <CommonForm/> */}
         </>
         : <>
-            {/* <CCDash approveddata={
-                dbConfigList?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
-                            onClick={() => {
-                                navigate(`${"/projectType"}/${itm["uniqueId"]}`)
-                            }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["customerName"]}</div>
-                        </div>
-                    </>
-                }))
-            } settype={settype} nextNavigate={"/projectType"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' /> */}
-
-            
-            <CCDash approveddata={
-                dbConfigList?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
-                            onClick={() => {
-                                navigate(`${"/projectType"}/${itm["uniqueId"]}`)
-                            }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["customerName"]}</div>
-                        </div>
-                    </>
-                }))
-            } settype={settype} label='Add / Modify Customer' />
+            <CCDash settype={settype} nextNavigate={"/viewcu"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' />
         </>
 }
 
