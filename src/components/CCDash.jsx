@@ -40,11 +40,11 @@ const CCDash = ({ data, name, img = "", url = "", label = "", settype,nextNaviga
                 data?.map((itm => {
                     return <>
                         <div
-                            className='bg-pink-100 shadow-md hover:shadow-xl w-full flex h-24 cursor-pointer'
+                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
                             onClick={() => {
                                 navigate(`${nextNavigate}/${itm["uniqueId"]}}`)
                             }}>
-                            {itm[img] && itm[img] != "" && <><img className='m-auto w-20 h-20' src={backendassetUrl+itm[img]} /></>}
+                            {itm[img] && itm[img] != "" && <><img className='m-auto w-24' src={backendassetUrl+itm[img]} /></>}
                             <div className='m-auto '>{itm[name]}</div>
                         </div>
                     </>
