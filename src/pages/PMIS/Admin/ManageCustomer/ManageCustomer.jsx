@@ -13,7 +13,7 @@ import ToggleButton from '../../../../components/ToggleButton';
 import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
-import { Urls } from '../../../../utils/url';
+import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -47,6 +47,8 @@ const ManageCustomer = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+
+                imgshow:<img src={backendassetUrl+itm?.companyimg}/>,
                 // "status": <CstmButton child={<ToggleButton onChange={(e) => {
                 //     console.log(e.target.checked, "e.target.checked")
                 //     let data = {
@@ -113,6 +115,11 @@ const ManageCustomer = () => {
 
     let table = {
         columns: [
+            {
+                name: "Logo",
+                value: "imgshow",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
             {
                 name: "Customer Name",
                 value: "customerName",

@@ -8,7 +8,7 @@ const AdminActions = {
 
     getManageCustomer:(reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_customer}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url:`${Urls.admin_customer}${args!=""?"?"+args:""}`, contentType:"multipart/form-data", reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_CUSTOMER({dataAll,reset}))
@@ -17,7 +17,7 @@ const AdminActions = {
     },
     postManageCustomer: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_customer : Urls.admin_customer + "/" + uniqueId })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_customer : Urls.admin_customer + "/" + uniqueId , contentType:"multipart/form-data", reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
