@@ -202,14 +202,21 @@ export const Sidebar_content = {
   ],
   Admin: [
     {
-      name: "Dashboard",
+      name: "My Dashboard",
       link: "/",
       // component: </>,
       icon: <UilAirplay />,
       subMenu: [],
     },
     {
-      name: "Admin",
+      name: "My Home",
+      link: "/",
+      // component: </>,
+      icon: <UilAirplay />,
+      subMenu: [],
+    },
+    {
+      name: "Project Management",
       link: "/admin",
       subMenu: [
         {
@@ -258,7 +265,7 @@ export const Sidebar_content = {
       icon: <UilLockAccess  />,
     },
     {
-      name: "HR",
+      name: "Human Resource",
       link: "/hr",
       subMenu: [
         {
@@ -279,21 +286,28 @@ export const Sidebar_content = {
       icon: <UilLockAccess  />,
     },   
     {
-      name: "Manage Vendor",
+      name: "Vendor Management",
       link: "/manageVendo",
       component: <ManageVendor />,
       icon: <Unicons.UilReact />,
       subMenu: [],
     },  
     {
-      name: "PO Life Cycle",
+      name: "Financial",
       link: "/POLifeCylce",
       component: <POLifeCycle />,
       icon: <Unicons.UilReact />,
       subMenu: [],
     },  
     {
-      name: "Operation Team",
+      name: "Repository",
+      link: "/operation-team",
+      component: <OperationManagement/>,
+      icon: <Unicons.UilReact />,
+      subMenu: [],
+    },  
+    {
+      name: "Form",
       link: "/operation-team",
       component: <OperationManagement/>,
       icon: <Unicons.UilReact />,
