@@ -45,6 +45,24 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         //     classes: "col-span-1"
         // },
          {
+            label: "Logo",
+
+            value: "",
+            name: "img",
+            type: "file",
+            required: true,
+            props: {
+                onChange: ((e) => {
+                    console.log(e.target.files, "e geeter")
+
+                    setValue("companyimg",e.target.files[0])
+
+                }),
+            },
+            classes: "col-span-1",
+            multiple:false,
+        },
+         {
             label: "Customer Name",
             value: "",
             name: "customerName",
