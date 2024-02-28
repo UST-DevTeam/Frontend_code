@@ -44,7 +44,7 @@ const CCDash = ({ data, name, img = "", url = "", label = "", settype,nextNaviga
                             onClick={() => {
                                 navigate(`${nextNavigate}/${itm["uniqueId"]}}`)
                             }}>
-                            {itm[img] && itm[img] != "" && <><img className='m-auto w-20 h-20' src={backendassetUrl+itm[img]} /></>}
+                            {itm[img] && itm[img] != "" && <><img className='m-auto w-24' src={backendassetUrl+itm[img]} /></>}
                             <div className='m-auto '>{itm[name]}</div>
                         </div>
                     </>
