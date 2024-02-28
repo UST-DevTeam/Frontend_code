@@ -1,4 +1,5 @@
 import * as Unicons from "@iconscout/react-unicons";
+import { UilAirplay,UilLockAccess  } from '@iconscout/react-unicons'
 import RunQuery from "../pages/CustomQuery/RunQuery";
 import QueryBuilderComponent from "../pages/CustomQuery/QueryBuilder";
 import BIDashboard from "../pages/BusinessIntelligence/BIDashboard";
@@ -19,6 +20,7 @@ import Registration from "../pages/Registration";
 import Cart from "../pages/Cart";
 import Carts from "../pages/Carts";
 import Home from "../pages/Home";
+import Dashboard from "../pages/Dashboard";
 import InvestmentDiscovery from "../pages/Investment/InvestmentDiscovery";
 import Kycregister from "../pages/Kycregister";
 import NokiaToolManagementQuery from "../pages/NokiaToolManagement/NokiaToolManagementQuery";
@@ -37,13 +39,23 @@ import ViewPitchDeck from "../pages/PitchDeck/ViewPitchDeck";
 import BlobFileViewer from "../pages/testing/BlobFile";
 import SendEmail from "../pages/Admin/RoleManagement/SendEmail";
 import KYCManagement from "../pages/KYCManagement/KYCManagement";
-
-
 import PitchDeckAdmin from "../pages/PitchDeck/viewPitchDeckAdmin";
 import InvestmentDetailsManagement from "../pages/InvestmentDetails/InvestmentDetails";
 import FundSeekerDetails from "../pages/FundSeekerDetails/FundSeekerDetails";
 import OperationManagement from "../pages/OperationManagement/OperationManagement";
 import AgreementManagement from "../pages/Admin/AgreementManagement/AgreementManagement";
+
+
+// newimport
+import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer"
+import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle"
+import ManagePG from "../pages/PMIS/Admin/ManageProjectGroup/ManagePG"
+import ManagePT from "../pages/PMIS/Admin/ManageProjectType/ManagePT"
+import ManageEmp from "../pages/PMIS/HR/ManageEmploye/ManageEmp"
+import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation"
+import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor"
+import POLifeCycle from "../pages/PMIS/POLifeCycle/POLifeCylce";
+
 export const Sidebar_content = {
   temp: [],
   GlobalUrl: [
@@ -190,21 +202,103 @@ export const Sidebar_content = {
   ],
   Admin: [
     {
+      name: "Dashboard",
+      link: "/",
+      // component: </>,
+      icon: <UilAirplay />,
+      subMenu: [],
+    },
+    {
+      name: "Admin",
+      link: "/admin",
+      subMenu: [
+        {
+          name: "Manage Customer",
+          link: "/manageCustomer",
+          subMenu: [],
+          component: <ManageCustomer />,
+          icon: <UilAirplay size="16" />,
+        },
+        {
+          name: "Manage Circle",
+          link: "/manageCircle",
+          subMenu: [],
+          component: <ManageCircle />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+        {
+          name: "Manage Project Group",
+          link: "/manageProjectGroup",
+          subMenu: [],
+          component: <ManagePG />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+        {
+          name: "Manage Project Type",
+          link: "/manageProjectType",
+          subMenu: [],
+          component: <ManagePT />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+        {
+          name: "Manage Access Control",
+          link: "/manageAccessControl",
+          subMenu: [],
+          component: <POLifeCycle />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+        {
+          name: "View Expense/Advance",
+          link: "/viewManage",
+          subMenu: [],
+          component: <POLifeCycle />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+      ],
+      icon: <UilLockAccess  />,
+    },
+    {
+      name: "HR",
+      link: "/hr",
+      subMenu: [
+        {
+          name: "Manage Employee",
+          link: "/manageEmployee",
+          subMenu: [],
+          component: <ManageEmp />,
+          icon: <UilAirplay size="16" />,
+        },
+        {
+          name: "User Allocation",
+          link: "/userallocation",
+          subMenu: [],
+          component: <UserAllocation />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+      ],
+      icon: <UilLockAccess  />,
+    },   
+    {
+      name: "Manage Vendor",
+      link: "/manageVendo",
+      component: <ManageVendor />,
+      icon: <Unicons.UilReact />,
+      subMenu: [],
+    },  
+    {
+      name: "PO Life Cycle",
+      link: "/POLifeCylce",
+      component: <POLifeCycle />,
+      icon: <Unicons.UilReact />,
+      subMenu: [],
+    },  
+    {
       name: "Operation Team",
       link: "/operation-team",
       component: <OperationManagement/>,
       icon: <Unicons.UilReact />,
       subMenu: [],
-    },
-    {
-      name: "View Pitches",
-      link: "/view-pitches",
-      component: <PitchDeckAdmin/>,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    
-   
+    },  
     {
       name: "Admin",
       link: "/admin",

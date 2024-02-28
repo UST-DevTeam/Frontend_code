@@ -45,7 +45,7 @@ const UiBottomBar = ({ sidebarOpen, setsidebarOpenn }) => {
                 </svg>
             </button> */}
             {/* <div className='flex space-x-4 items-center'> */}
-                <h1 className='text-white w-full'>AMANSAS</h1>
+                <h1 className='text-white w-full'>PMIS</h1>
                 {/* <button onClick={() => { setsidebarOpenn(prev => !prev) }} className={`border-[1.5px] rounded-full ${sidebarOpen && 'rotate-180'}`}> */}
                     {/* <Unicons.UilArrowCircleLeft size="36" style={{ color: "white" }} /> */}
                     {/* <Unicons.UilArrowRight size="24" style={{ color: "white" }} /> */}

@@ -3,7 +3,7 @@ import React from 'react'
 const Button = ({ onClick, name, classes = "", icon }) => {
 
     let data = [
-        ["bg-", "bg-neavycolor"],
+        ["bg-", "bg-[#143b64]"],
         ["w-", "w-full"]
     ]
 
@@ -20,8 +20,7 @@ const Button = ({ onClick, name, classes = "", icon }) => {
 
     return (
 
-
-        <button onClick={onClick} className={`${classes} bg-pbutton  flex justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-onHoverButton transition-colors duration-500`}>
+        <button onClick={onClick} className={`${classes} bg-pbutton  flex items-center rounded-md px-3 py-1 text-xs font-semibold leading-6 text-white shadow-md hover:bg-onHoverButton transition-colors duration-500`}>
             {name} {icon}
         </button>
     )

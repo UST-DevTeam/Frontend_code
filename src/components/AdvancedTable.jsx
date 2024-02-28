@@ -88,10 +88,10 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                         {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
 
                         {/* <PopupMenu visiblity={filterVisiblity}/> */}
-                        
 
 
-                        <FilterView tablefilter={table.filter} onSubmit={onSubmit} handleSubmit={handleSubmit} table={table} data={data} errors={errors} register={register} setValue={register} getValues={getValues}/>
+
+                        <FilterView tablefilter={table.filter} onSubmit={onSubmit} handleSubmit={handleSubmit} table={table} data={data} errors={errors} register={register} setValue={register} getValues={getValues} />
                         <PopupMenu name={"Hide / Unhide"} icon={<UilColumns size="32" className={"hello"} />} child={<>
                             <div className='flex z-40 h-60 overflow-scroll flex-col'>
                                 {
@@ -177,7 +177,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
 
                 </div>
             </div> */}
-            <div className='m-2 overflow-x-scroll h-[78vh] pb-6 border-2 border-solid border-black '>
+            <div className='m-2 overflow-x-scroll h-[73vh] pb-6 border-1 border-solid border-black rounded-lg '>
 
 
 
@@ -189,9 +189,16 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                     {
                                         table.columns.map((itts, index) => {
                                             console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
-                                            return hide.indexOf(String(index)) == -1 ? <th className=' border-primaryLine border-2 bg-primaryLine '>
-                                                <span className='text-white text-[14px]'>{itts.name}</span>
-                                            </th> : <></>
+                                            return hide.indexOf(String(index)) == -1 ? <>
+                                                {
+                                                    ["Edit", "Delete"].includes(itts.name) ?
+                                                        ["Edit"].includes(itts.name) ? <th colSpan={2} className=' border-primaryLine border-2 bg-primaryLine '>
+                                                            <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                        </th> : "" : <><th className=' border-primaryLine border-2 bg-primaryLine '>
+                                                            <span className='text-white text-[12px]'>{itts.name}</span>
+                                                        </th></>
+                                                }
+                                            </> : <></>
                                         })
                                     }
                                 </tr>
@@ -205,7 +212,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                         return <tr>
                                             {table.columns.map((innerItm, index) => {
 
-                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[14px] pl-1 border-primaryLine border-2 overflow-hidden text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
+                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[10px] pl-1 border-primaryLine border-2 overflow-hidden text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
 
                                                     <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm.value]} />
                                                 </td> : <></>
@@ -218,13 +225,31 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                         </table > : <>
                             <table border={1} className='w-[100%] table-auto'>
                                 <thead className='sticky -top-1 h-4 z-30'>
+                                    {/* <tr>
+                                        {
+                                            table.columns.map((itts, index) => {
+                                                console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
+                                                return hide.indexOf(String(index)) == -1 ? <th className=' border-primaryLine border-2 bg-orange-600 '>
+                                                    <span className='text-white text-[14px]'>{itts.name}</span>
+                                                </th> : <></>
+                                            })
+                                        }
+                                    </tr> */}
+
                                     <tr>
                                         {
                                             table.columns.map((itts, index) => {
                                                 console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
-                                                return hide.indexOf(String(index)) == -1 ? <th className=' border-primaryLine border-2 bg-primaryLine '>
-                                                    <span className='text-white text-[14px]'>{itts.name}</span>
-                                                </th> : <></>
+                                                return hide.indexOf(String(index)) == -1 ? <>
+                                                    {
+                                                        ["Edit", "Delete"].includes(itts.name) ?
+                                                            ["Edit"].includes(itts.name) ? <th colSpan={2} className=' border-primaryLine border-2 bg-primaryLine '>
+                                                                <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                            </th> : "" : <><th className=' border-primaryLine border-2 bg-primaryLine '>
+                                                                <span className='text-white text-[12px]'>{itts.name}</span>
+                                                            </th></>
+                                                    }
+                                                </> : <></>
                                             })
                                         }
                                     </tr>

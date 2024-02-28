@@ -7,7 +7,7 @@ import { Sidebar_content } from '../utils/sidebar_values';
 const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
 
 
-    // localStorage   
+    // localStorag
 
     let permission=JSON.parse(localStorage.getItem("permission")) || {}
     let user=JSON.parse(localStorage.getItem("user"))
@@ -71,15 +71,15 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
                
                 <Unicons.UilArrowLeft size="28" style={{ color: "white" }} />
             </button>
-            <h2 class="text-xl font-semibold mb-4"></h2>
-            {/* <img className="mx-auto w-[240px] mb-4" src="/logo.png" alt="Datayog" /> */}
+            <h2 class="text-xl font-semibold"></h2> 
             {
-                sidebarOpen && <h3 class="text-center text-3xl mb-8 text-white font-bold ">Amansas</h3>
-
+                sidebarOpen?<img className=" ml-3.5 w-[100px] mt-2" src="/logo.png" alt="PIMS" />:<img className=" ml-3.5 w-[50px] mt-2" src="/favico.png" alt="PIMS" />
             }
-            <ul className='space-y-2 h-[84vh] overflow-y-scroll font-medium'>
+            
+
+            
+            <ul className='space-y-2 h-[80vh] w-56 overflow-y-scroll font-medium'>
                 {
-                    
                     Roles["all_routes"].map((itm) => {
                         return <li><MenuItem sidebarOpen={sidebarOpen} itm={itm} value={6} size={0} checkp={true} permission={permission}  parenting={itm.link}/></li>
                     })

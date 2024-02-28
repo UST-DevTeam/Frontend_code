@@ -1,42 +1,30 @@
+// export const baseUrl="http://10.5.50.198:7080"
+// export const backendassetUrl="http://10.5.50.198:7080"
 
-// export const baseUrl="http://10.5.50.198:8093"
-export const baseUrl="http://10.5.50.198:8093"
+// export const baseUrl="http://192.168.29.70:7080"
+// export const backendassetUrl="http://192.168.29.70:7080"
 
-// export const baseUrl="http://127.0.0.1:8093"
-export const backendassetUrl="http://10.5.50.198:8093/"
-// export const backendassetUrl="http://127.0.0.1:8093/"
-// export const baseUrl="http://192.168.29.70:8093"
-// export const backendassetUrl="http://192.168.29.70:8093/"
+export const baseUrl="http://10.5.50.198:7080"
+export const backendassetUrl="http://10.5.50.198:7080"
+
+
 export const Urls={
+
     login:"/login",
-    register:"/register",
-    setuppassword_stepOne:"setuppassword/stepOne",
-    KycRegister :"kycRegister",
     sendMail :"/sendMail",
     logout:"/logout",
-    profile:"/profile",
     admin_userList:"/admin/users",
-    pitchdeck:"/pitchdeck",
     admin_roleList:"/admin/roles",
-    agreementl:"/agreementl",
-    agreement_byrole:"/agreement_byrole/",
+
+    // new url
+
+    admin_customer:"/admin/manageCustomer",
+    admin_circle:"/admin/manageCircle",
+    admin_project:"/admin/manageProject",
     
-    querybuilder_userList:"/userList",
-    operationUser:"/operationUser",
-    kycStatus:"/kycStatus",
-    setupRegistration:"/setupRegistration",
-    investorList:"/investorList",
-    investmentDetails:"/investmentDetails",
-    businessRegister:"/businessRegister",
-    getCountries:'/getCountries',
-    companyDiscovery:'/companyDiscovery',
-    investorCrm:'/investorCrm',
-    investorCompanyReview:'/investorCompanyReview'
+   
 
 }
 
 
-
-export const WebSocketUrls = {
-  siteAnalytics: "siteanalytics",
-};
+export const WebSocketUrls = {siteAnalytics: "siteanalytics"};

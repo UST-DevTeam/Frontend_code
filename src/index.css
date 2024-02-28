@@ -20,12 +20,12 @@
 :root {
   /* --mainprimary:linear-gradient(to left, #6102af, #1b0027); */
   
-  --mainprimary:linear-gradient(to left, #5fae93, #388f93);
-  --mainsec:#5fae93;
+  --mainprimary:linear-gradient(to left, #143b64, #143b64);
+  --mainsec:#143b64;
   background-color: rgb(252, 252, 252);
   /* --topbar:linear-gradient(to left, #af5002, #1b0027); */
-  --topbar:linear-gradient(to left, #5fae93, #388f93);
-  --oppmainprimary:linear-gradient(to right,  #5fae93, #388f93);
+  --topbar:linear-gradient(to left, #143b64, #143b64);
+  --oppmainprimary:linear-gradient(to right,  #143b64, #143b64);
 }
 
 

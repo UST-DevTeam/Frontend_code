@@ -32,7 +32,7 @@ export default {
       
       backgroundImage: {
         'login': "url('/login_background.jpg')",
-        'sideimage': "url('/bg_side.png')",
+        'sideimage': "url('6780.png')",
         'regsideimage': "url('/bg_reg_side.png')",
         "primaryLine":"var(--mainprimary)",
         "oppprimaryLine":"var(--oppmainprimary)",

@@ -56,7 +56,7 @@ const Login = () => {
     //         </div>
     //     </div>
     // </>
-    return checkauth ? <></> : <><WithSideImage  sideImage={"bg-sideimage"} formclass={" h-[60vh]"} labeling={"Sign in to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg">
+    return checkauth ? <></> : <><WithSideImage  sideImage={"bg-sideimage"} formclass={" h-[60vh]"} labeling={"Login to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" action="" method="POST">
             <div>
                 <div className="flex items-center justify-between">

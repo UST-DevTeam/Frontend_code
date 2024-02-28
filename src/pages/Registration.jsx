@@ -82,7 +82,7 @@ export default function Registration() {
     return <>
         <WithSideImage sideImage={"bg-regsideimage"} formclass={" h-[80vh]"} form={<>
             <CommonForm classes={"grid-cols-1 gap-0 font-body"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            <Button classes={"mt-4 mx-auto bg-neavycolor "} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
+            <Button classes={"mt-4 mx-auto bg-neavycolor  "} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
             <div className="p-0 m-2 flex justify-center items-center">
                 <div>
                     <p className="text-neavy text-sm">Already have an account? </p>
