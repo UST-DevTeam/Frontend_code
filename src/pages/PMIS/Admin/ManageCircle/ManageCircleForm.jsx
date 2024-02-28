@@ -52,7 +52,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "circleName",
             type: "text",
-            // required: true,
+            required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
