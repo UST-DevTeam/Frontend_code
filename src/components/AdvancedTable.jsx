@@ -177,7 +177,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
 
                 </div>
             </div> */}
-            <div className='m-2 overflow-x-scroll h-[73vh] pb-6 border-1 border-solid border-black rounded-lg '>
+            <div className='m-2 overflow-x-scroll h-[76vh] pb-6 border-1 border-solid border-black rounded-lg '>
 
 
 

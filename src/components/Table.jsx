@@ -56,7 +56,7 @@ const Table = ({ headers, classes = "", columns, commonCols = false }) => {
                     }
                 </tbody>
             }
-        </table >
+        </table>
     </>
 };
 

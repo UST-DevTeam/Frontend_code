@@ -55,6 +55,12 @@ import POLifeCycle from "../pages/PMIS/POLifeCycle/POLifeCylce";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
 import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
+import MyHome from "../pages/PMIS/MyHome/Home";
+import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
+import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
+import HRHomeView from "../pages/PMIS/HR";
+// import Home from "../pages/PMIS/MyHome/Home"
+
 
 export const Sidebar_content = {
   temp: [],
@@ -76,135 +82,151 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageProjectType/>,
     },
+    {
+      name: "",
+      link: "/empdetails",
+      subMenu: [],
+      component: <EmpDetails/>,
+    },
+    {
+      name: "",
+      link: "/empdetailstable",
+      subMenu: [],
+      component: <EmpDetailsTable />,
+    },
+
+    
   ],
  
 
-  all_routes: [
+  // all_routes: [
     
-    {
-      name: "Investment Dashboard",
-      link: "/investment/dashboard",
-      component: <Cart />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Investment Discovery",
-      link: "/investment/discovery",
-      component: <InvestmentDiscovery />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Investor crm",
-      link: "/investor/crm",
-      component: <InvestorCrm />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Investment Transactions",
-      link: "/communication",
-      component: <InvestmentTransaction />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Fundseeker Details",
-      link: "/fundseeker_details",
-      component: <FundSeekerDetails/>,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    // {
-    //     name: "Details",
-    //     link: "/details",
-    //     component: <Details/>,
-    //     icon: <Unicons.UilReact />,
-    //     subMenu: [],
-    // },
-    {
-      name: "Details",
-      link: "/investor/crm/details",
-      component: <InvestorCRMDetails />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Details",
-      link: "/investor/crm/details/:uid",
-      component: <InvestorCRMDetails />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
+  //   {
+  //     name: "Investment Dashboard",
+  //     link: "/investment/dashboard",
+  //     component: <Cart />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Investment Discovery",
+  //     link: "/investment/discovery",
+  //     component: <InvestmentDiscovery />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Investor crm",
+  //     link: "/investor/crm",
+  //     component: <InvestorCrm />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Investment Transactions",
+  //     link: "/communication",
+  //     component: <InvestmentTransaction />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Fundseeker Details",
+  //     link: "/fundseeker_details",
+  //     component: <FundSeekerDetails/>,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   // {
+  //   //     name: "Details",
+  //   //     link: "/details",
+  //   //     component: <Details/>,
+  //   //     icon: <Unicons.UilReact />,
+  //   //     subMenu: [],
+  //   // },
+  //   {
+  //     name: "Details",
+  //     link: "/investor/crm/details",
+  //     component: <InvestorCRMDetails />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Details",
+  //     link: "/investor/crm/details/:uid",
+  //     component: <InvestorCRMDetails />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
     
     
-    {
-      name: "Company Details",
-      link: "/details",
-      component: <Details />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    // {
-    //   name: "Portfolio",
-    //   link: "/portfolio",
-    //   component: <Portfolio />,
-    //   icon: <Unicons.UilReact />,
-    //   subMenu: [],
-    // },
+  //   {
+  //     name: "Company Details",
+  //     link: "/details",
+  //     component: <Details />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   // {
+  //   //   name: "Portfolio",
+  //   //   link: "/portfolio",
+  //   //   component: <Portfolio />,
+  //   //   icon: <Unicons.UilReact />,
+  //   //   subMenu: [],
+  //   // },
     
-    {
-      name: "KYC Status",
-      link: "/kyc-status",
-      component: <KYCManagement />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Investment Details",
-      link: "/investment-Details",
-      component: <InvestmentDetailsManagement />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Send Email",
-      link: "/send_email",
-      component: <SendEmail />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Pitch Deck",
-      link: "/pitch/deck",
-      component: <PitchDeck />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Pitch Deck",
-      link: "/BlobFileViewer",
-      component: <BlobFileViewer />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
-    {
-      name: "Profile",
-      link: "/profile",
-      component: <Profile />,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    }, {
-      name: "Agreement",
-      link: "/agreemenView",
-      component: <AgreementManagement/>,
-      icon: <Unicons.UilReact />,
-      subMenu: [],
-    },
+  //   {
+  //     name: "KYC Status",
+  //     link: "/kyc-status",
+  //     component: <KYCManagement />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Investment Details",
+  //     link: "/investment-Details",
+  //     component: <InvestmentDetailsManagement />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Send Email",
+  //     link: "/send_email",
+  //     component: <SendEmail />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Pitch Deck",
+  //     link: "/pitch/deck",
+  //     component: <PitchDeck />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Pitch Deck",
+  //     link: "/BlobFileViewer",
+  //     component: <BlobFileViewer />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
+  //   {
+  //     name: "Profile",
+  //     link: "/profile",
+  //     component: <Profile />,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   }, {
+  //     name: "Agreement",
+  //     link: "/agreemenView",
+  //     component: <AgreementManagement/>,
+  //     icon: <Unicons.UilReact />,
+  //     subMenu: [],
+  //   },
 
    
-  ],
+  // ],
+
+  all_routes: [],
   Admin: [
     {
       name: "My Dashboard",
@@ -216,36 +238,15 @@ export const Sidebar_content = {
     {
       name: "My Home",
       link: "/home",
-      component: <>Home</>,
+      component: <MyHome />,
       icon: <UilAirplay />,
       subMenu: [],
     },
     {
       name: "Project Management",
-      link: "/customer",
+      link: "/manageCustomer",
       component: <ManageCustomer/>,
       subMenu: [
-        {
-          name: "Manage Customer",
-          link: "/manageCustomer",
-          subMenu: [],
-          component: <ManageCustomer />,
-          icon: <UilAirplay size="16" />,
-        },
-        {
-          name: "Manage Circle",
-          link: "/manageCircle",
-          subMenu: [],
-          component: <ManageCircle />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
-        {
-          name: "Manage Zone",
-          link: "/manageZone",
-          subMenu: [],
-          component: <ManageZone />,
-          icon: <Unicons.UilChannel size="16" />,
-        },
         // {
         //   name: "Manage Project Group",
         //   link: "/manageProjectGroup",
@@ -296,6 +297,7 @@ export const Sidebar_content = {
         //   icon: <Unicons.UilChannel size="16" />,
         // },
       ],
+      component: <HRHomeView />,
       icon: <UilLockAccess  />,
     },   
     {
@@ -326,26 +328,40 @@ export const Sidebar_content = {
       icon: <Unicons.UilReact />,
       subMenu: [],
     },  
-    {
-      name: "Admin",
-      link: "/admin",
-      subMenu: [
-        // {
-        //   name: "User Management",
-        //   link: "/admin/user-management",
-        //   subMenu: [],
-        //   component: <UserManagement />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-        // {
-        //   name: "Role Management",
-        //   link: "/admin/role-management",
-        //   subMenu: [],
-        //   component: <RoleManagement />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-      ],
-      icon: <Unicons.UilReact />,
-    }, 
+    // {
+    //   name: "Super Admin",
+    //   link: "/admin",
+    //   subMenu: [
+    //     {
+    //       name: "Manage Circle",
+    //       link: "/manageCircle",
+    //       subMenu: [],
+    //       component: <ManageCircle />,
+    //       icon: <Unicons.UilChannel size="16" />,
+    //     },
+    //     {
+    //       name: "Manage Zone",
+    //       link: "/manageZone",
+    //       subMenu: [],
+    //       component: <ManageZone />,
+    //       icon: <Unicons.UilChannel size="16" />,
+    //     },
+    //     // {
+    //     //   name: "User Management",
+    //     //   link: "/admin/user-management",
+    //     //   subMenu: [],
+    //     //   component: <UserManagement />,
+    //     //   icon: <Unicons.UilChannel size="16" />,
+    //     // },
+    //     // {
+    //     //   name: "Role Management",
+    //     //   link: "/admin/role-management",
+    //     //   subMenu: [],
+    //     //   component: <RoleManagement />,
+    //     //   icon: <Unicons.UilChannel size="16" />,
+    //     // },
+    //   ],
+    //   icon: <Unicons.UilReact />,
+    // }, 
   ],
 };

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Button from './Button'
 import { backendassetUrl } from '../utils/url'
 
-const CCDash = ({ label = "", settype,approveddata }) => {
+const CCDash = ({ showbtn = true, label = "", settype, approveddata }) => {
 
     const navigate = useNavigate()
 
@@ -30,13 +30,15 @@ const CCDash = ({ label = "", settype,approveddata }) => {
 
 
     return <>
-        <div className='flex p-2'>
-            <Button classes='w-auto' onClick={() => {
-                settype(true)
-            }} name={label} />
-        </div>
+        {
+            showbtn && <div className='flex p-2'>
+                <Button classes='w-auto' onClick={() => {
+                    settype(true)
+                }} name={label} />
+            </div>
+        }
         <div className='p-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 grid col-span-12 rounded-md gap-4' >
-           {approveddata}
+            {approveddata}
         </div>
     </>
 }

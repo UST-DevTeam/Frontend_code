@@ -18,6 +18,8 @@ import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
 import CCDash from '../../../../components/CCDash';
+import CommonForm from '../../../../components/CommonForm';
+import CommonTableForm from '../../../../components/CommonTableForm';
 
 
 
@@ -33,9 +35,27 @@ const ManageProjectType = () => {
     const [modalHead, setmodalHead] = useState(<></>)
 
 
+    // setconditioncountform((prev) => {
+    //     let val = [...prev]
+    //     let sval = val.pop()
+    //     if (isNaN(sval)) {
+    //       finval = 1
+    //     } else {
+    //       finval = sval + 1
+    //     }
+    //     console.log(finval, "finval", val, prev)
+    //     return [...prev, finval]
+    //   })
+
+
     let dispatch = useDispatch()
 
     let navigate = useNavigate()
+
+    let conditionmultiForm = [
+        { label: "Doc. Number", name: "docNumber", value: "", type: "text", props: "", required: false, placeholder: "" },
+        { label: "Doc. Number1", name: "docNumber", value: "", type: "text", props: "", required: false, placeholder: "" },
+    ]
 
 
 
@@ -75,7 +95,35 @@ const ManageProjectType = () => {
                     dispatch(AdminActions.getManageCustomer())
                     setmodalHead("Templates")
                     setmodalBody(<>
-                        <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+
+
+                        <div className='flex flex-col justify-between p-2'>
+                            <div class="overflow-scroll">
+
+                                {/* {conditioncountform.map((val, index) => {
+                                        return <>
+                                            <CommonForm classes={"grid-cols-1 md:grid-cols-2 lg:gap-8 w-full"} errors={errors} Form={conditionmultiForm.map((itm) => {
+                                                return {
+                                                    ...itm,
+                                                    type: itm.name == "formovalue" ? nestfilter["wherecondition" + "_" + val + "_form"] == "joins" ? "muitiSelect" : "text" : itm.type,
+                                                    props: itm.label == "Select Column" || (itm.label == "Value" && nestfilter["wherecondition" + "_" + val + "_form"] == "joins") ? {
+                                                        ...itm.props, onSelect: (a, b) => {
+                                                            console.log("gamecall", a, b, "column" + "_" + val + "_form")
+                                                            setValue(itm.label == "Select Column" ? "wherecolumn" + "_" + val + "_form" : "formovalue" + "_" + val + "_form", b.category + "smartGame" + b.name)
+                                                        }
+                                                    } : { ...itm.props },
+                                                    option: itm.label == "Expression" ? all_command_type_wise[nestfilter["wherecondition" + "_" + val + "_form"]] : itm.option,
+                                                    name: itm.name + "_" + val + "_form"
+                                                }
+                                            })}
+                                                register={register} setValue={setValue} getValues={getValues} />
+                                        </>
+                                    })} */}
+                            </div>
+                        </div>
+                        <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            
+                        {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></Button>} />,

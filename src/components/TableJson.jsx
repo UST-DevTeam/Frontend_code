@@ -34,7 +34,7 @@ const TableJson = ({ headers, columns }) => {
                     })
                 }
             </tbody>
-        </table >
+        </table>
 
         <Modal children={modalBody} setIsOpen={setOpenModal} isOpen={openModal} size={"sm"} />
     </>
