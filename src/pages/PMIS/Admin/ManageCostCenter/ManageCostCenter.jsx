@@ -16,12 +16,14 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
+import FileUploader from '../../../../components/FIleUploader';
 
 const ManageCostCenter = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [fileOpen, setFileOpen] = useState(false)
 
 
     let dispatch = useDispatch()
@@ -154,15 +156,29 @@ const ManageCostCenter = () => {
         dispatch(AdminActions.getManageCostCenter())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
+
+    const onTableViewSubmit = (data) => {
+        data["fileType"]="ManageZone"
+        dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            dispatch(AdminActions.getManageZone())
+            setFileOpen(false)
+        }))
+    }
+
+
     return <>
         <AdvancedTable
-            headerButton={<><Button onClick={(e) => {
+            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                // dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageCostCenter())
                 setmodalHead("New User")
                 setmodalBody(<ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button></>}
+                name={"Add New"}></Button>
+                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}></Button>
+                </div>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -178,6 +194,7 @@ const ManageCostCenter = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
     </>
 
 

@@ -275,7 +275,7 @@ const SuperAdmin = () => {
     // </>\
 
     return <>
-        <CCDash approveddata={[["Manage Circle","bg-gradient-to-r from-teal-400 to-sky-500","/manageCircle"],["Manage Zone","bg-gradient-to-r from-lime-300 to-teal-400","/manageZone"],["Manage Cost Center","bg-gradient-to-r from-violet-500 to-purple-500","/manageCostCenter"]].map((itm => {
+        <CCDash approveddata={[["Manage Circle","bg-gradient-to-r from-teal-400 to-sky-500","/manageCircle"],["Manage Zone","bg-gradient-to-r from-lime-300 to-teal-400","/manageZone"],["Manage Cost Center","bg-gradient-to-r from-violet-500 to-purple-500","/manageCostCenter"],["Manage Project Group","bg-gradient-to-r from-teal-400 to-sky-500","/projectGroup"]].map((itm => {
             return <>
                 <div className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`} onClick={()=>{navigate(itm[2])}}>
                     {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
