@@ -1,5 +1,5 @@
 import * as Unicons from "@iconscout/react-unicons";
-import { UilAirplay,UilLockAccess  } from '@iconscout/react-unicons'
+import { UilAirplay,UilStore,UilFileShieldAlt,UilHome,UilUserSquare,UilCoins, UilDatabase ,UilFileContract } from '@iconscout/react-unicons'
 import RunQuery from "../pages/CustomQuery/RunQuery";
 import QueryBuilderComponent from "../pages/CustomQuery/QueryBuilder";
 import BIDashboard from "../pages/BusinessIntelligence/BIDashboard";
@@ -296,7 +296,7 @@ export const Sidebar_content = {
       name: "My Home",
       link: "/home",
       component: <MyHome />,
-      icon: <UilAirplay />,
+      icon: <UilHome />,
       subMenu: [],
     },
     {
@@ -333,7 +333,7 @@ export const Sidebar_content = {
         //   icon: <Unicons.UilChannel size="16" />,
         // },
       ],
-      icon: <UilLockAccess  />,
+      icon: <UilFileShieldAlt  />,
     },
     {
       name: "Human Resource",
@@ -355,34 +355,34 @@ export const Sidebar_content = {
         // },
       ],
       component: <HRHomeView />,
-      icon: <UilLockAccess  />,
+      icon: <UilUserSquare  />,
     },   
     {
       name: "Vendor Management",
-      link: "/manageVendo",
+      link: "/manageVendor",
       component: <ManageVendor />,
-      icon: <Unicons.UilReact />,
+      icon: <UilStore />,
       subMenu: [],
     },  
     {
       name: "Financial",
       link: "/POLifeCylce",
       component: <POLifeCycle />,
-      icon: <Unicons.UilReact />,
+      icon: <UilCoins />,
       subMenu: [],
     },  
     {
       name: "Repository",
       link: "/operation-team",
       component: <OperationManagement/>,
-      icon: <Unicons.UilReact />,
+      icon: <UilDatabase />,
       subMenu: [],
     },  
     {
       name: "Form",
       link: "/operation-team",
       component: <OperationManagement/>,
-      icon: <Unicons.UilReact />,
+      icon: <UilFileContract />,
       subMenu: [],
     },  
     // {
