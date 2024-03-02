@@ -23,7 +23,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
                 label: itm.customerName,
-                value: itm.shortName
+                value: itm.uniqueId
             }
         })
     })
@@ -32,7 +32,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         return state?.adminData?.getManageCostCenter.map((itm) => {
             return {
                 label: itm.ccId,
-                value: itm.ccId
+                value: itm.uniqueId
             }
         })
     })
@@ -41,7 +41,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         return state?.adminData?.getManageZone.map((itm) => {
             return {
                 label: itm.zoneName,
-                value: itm.shortCode
+                value: itm.uniqueId
             }
         })
     })
@@ -75,7 +75,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         {
             label: "Customer",
             value: "Select",
-            name: "customer",
+            name: "customerId",
             type: "select",
             option: customerList,
             required: true,
@@ -93,7 +93,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         {
             label: "Cost Center",
             value: "Select",
-            name: "cc",
+            name: "costcenterId",
             type: "select",
             option: ccList,
             required: true,
@@ -111,7 +111,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         {
             label: "Zone",
             value: "Select",
-            name: "zone",
+            name: "zoneId",
             type: "select",
             option: zoneList,
             required: true,
