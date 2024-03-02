@@ -35,6 +35,12 @@ function Agreement() {
         }
     };
 
+
+    const handleIBackButtonClick = () => {
+        navigate(-1)
+    }
+
+
     useEffect(() => {
         dispatch(AuthActions.getAgreement(uid))
     }, [])
@@ -42,7 +48,7 @@ function Agreement() {
     return (
         <div className='h-screen w-screen' >
             <div className="flex justify-between mx-20 sticky bg-white top-0 z-10 h-30 pb-5 ">
-                <h1 className='font-bold text-center text-txt-neavy text-5xl mt-10'>Amansas</h1>
+                <h1 className='font-bold text-center text-txt-neavy text-5xl mt-10'>PMIS</h1>
                 <h2 className=" text-2xl font-bold pt-5 tracking-tight text-txt-neavy mt-10">{agreementText?.roleName} User Agreement</h2>
             </div>
             <p className=' text-txt-neavy px-20 mt-4 overflow-y-scroll h-[700px] w-full text-justify scrollbar-thin scrollbar-thumb-gray-300 '>
@@ -55,8 +61,11 @@ function Agreement() {
                     className="mt-2 w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={handleCheckboxChange}
                 />
-                <div className="w-1/6 ">
+                <div className="w-auto ">
+                    <div className='flex gap-1 whitespace-nowrap'>
                     <Button onClick={handleIAgreeButtonClick} name="I Agree" disabled={!isChecked} />
+                    <Button onClick={handleIBackButtonClick} name="Back" />
+                    </div>
                 </div>
             </div>
 

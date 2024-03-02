@@ -10,7 +10,7 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 
-const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const AssetRegistrationForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -18,17 +18,17 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
     let dispatch = useDispatch()
-    // let roleList = useSelector((state) => {
-    //     console.log(state, "state state")
-    //     return state?.adminManagement?.roleList
-    // })
-    // let databaseList = useSelector((state) => {
-    //     console.log(state, "state")
-    //     let interdata = state?.customQuery?.databaseList
+    let roleList = useSelector((state) => {
+        console.log(state, "state state")
+        return state?.adminManagement?.roleList
+    })
+    let databaseList = useSelector((state) => {
+        console.log(state, "state")
+        let interdata = state?.customQuery?.databaseList
 
-    //     console.log(interdata, "interdatainterdata")
-    //     return state?.customQuery?.databaseList
-    // })
+        console.log(interdata, "interdatainterdata")
+        return state?.customQuery?.databaseList
+    })
     // let Form = [
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -48,9 +48,9 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         //     classes: "col-span-1"
         // },
          {
-            label: "Cirlce Name",
+            label: "Serial No.",
             value: "",
-            name: "circleName",
+            name: "serialNo",
             type: "text",
             required: true,
             filter: true,
@@ -65,9 +65,42 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Short Code",
+            label: "Product No.",
             value: "",
-            name: "shortCode",
+            name: "productNo",
+            type: "text",
+            required: true,
+            props: {
+                onChange: ((e) => {
+                    // console.log(e.target.value, "e geeter")
+
+                    // setValue("queries",e.target.name)
+
+                }),
+            },
+            classes: "col-span-1"
+        }, 
+        {
+            label: "Configurations",
+            value: "",
+            name: "configurations",
+            type: "text",
+            required: true,
+            filter: true,
+            props: {
+                onChange: ((e) => {
+                    // console.log(e.target.value, "e geeter")
+
+                    // setValue("queries",e.target.name)
+
+                }),
+            },
+            classes: "col-span-1"
+        },
+        {
+            label: "Type",
+            value: "",
+            name: "type",
             type: "text",
             required: true,
             props: {
@@ -101,20 +134,22 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postAssetRegistration(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getAssetRegistration())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postAssetRegistration(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getAssetRegistration())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getAssetRegistration())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -158,4 +193,4 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 };
 
-export default ManageCircleForm;
+export default AssetRegistrationForm;

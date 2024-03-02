@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../components/EditButton';
-import ManageCustomerForm from '../../PMIS/Admin/ManageCustomer/ManageCustomerForm'
+import EmpDetails from './EmpDetails';
 import AdvancedTable from '../../../components/AdvancedTable';
 import Modal from '../../../components/Modal';
 import Button from '../../../components/Button';
@@ -15,14 +15,13 @@ import { ALERTS } from '../../../store/reducers/component-reducer';
 import CommonActions from '../../../store/actions/common-actions';
 import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
 import OperationManagementActions from '../../../store/actions/admin-actions';
-import MyHomeActions from '../../../store/actions/myHome-actions';
+import AdminActions from '../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
-import CCDash from '../../../components/CCDash';
 
 
 
 
-const MyHome = () => {
+const Claim = () => {
 
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -36,14 +35,19 @@ const MyHome = () => {
     let navigate = useNavigate()
 
 
+
+
+
+
+
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.myHomeReducer?.getMyHome
+        let interdata = state?.adminData?.getManageCustomer
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
 
-                imgshow: <img src={backendassetUrl + itm?.companyimg} />,
+                // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
                 // "status": <CstmButton child={<ToggleButton onChange={(e) => {
                 //     console.log(e.target.checked, "e.target.checked")
                 //     let data = {
@@ -63,7 +67,7 @@ const MyHome = () => {
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(MyHomeActions.getMyHome())
+                    dispatch(AdminActions.getManageCustomer())
                     setmodalHead("Edit Customer Details")
                     setmodalBody(<>
                         <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -77,8 +81,8 @@ const MyHome = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.MyHome}/${itm.uniqueId}`, () => {
-                                    dispatch(MyHomeActionsActions.getMyHome())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getManageCustomer())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -109,7 +113,7 @@ const MyHome = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.myHomeReducer?.getMyHome
+        let interdata = state?.adminData?.getManageCustomer
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -125,38 +129,33 @@ const MyHome = () => {
     let table = {
         columns: [
             {
-                name: "Logo",
-                value: "imgshow",
+                name: "Employee Name",
+                value: "empName",
                 style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
             },
             {
-                name: "Customer Name",
-                value: "customerName",
+                name: "Emp ID",
+                value: "empId",
                 style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
             },
             {
-                name: "Short Name",
-                value: "shortName",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Contact Person name",
-                value: "personName",
+                name: "Date",
+                value: "date",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
-                name: "Email ID",
-                value: "email",
+                name: "ClaimType",
+                value: "claimType",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
-                name: "Mobile No.",
-                value: "mobile",
+                name: "Debit( Expense )",
+                value: "debit",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
-                name: "Address",
-                value: "address",
+                name: "Advance( Credit)",
+                value: "advance",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
@@ -164,25 +163,26 @@ const MyHome = () => {
                 value: "status",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            },
-            {
-                name: "View",
-                value: "view",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            }
+            // {
+            //     name: "Edit",
+            //     value: "edit",
+            //     style: "min-w-[100px] max-w-[100px] text-center"
+            // },
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[100px] text-center"
+            // },
+            // {
+            //     name: "View",
+            //     value: "view",
+            //     style: "min-w-[100px] max-w-[100px] text-center"
+            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
         },
+        
         filter: [
             // {
             //     label: "Role",
@@ -194,92 +194,37 @@ const MyHome = () => {
             // }
         ]
     }
-  
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(MyHomeActions.getMyHome(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
     }
-
-    const navigateToRoute = (uniqueId) => {
-        if (uniqueId === 101) {
-            navigate("/empDetails");
-        } else if (uniqueId === 102) {
-            navigate("/claim&Reimbursement");
-        } else if (uniqueId === 103) {
-            navigate("/assets");
-        } else if (uniqueId === 104) {
-            navigate("/approvals");
-        }
-    };
-
-
     useEffect(() => {
-        dispatch(MyHomeActions.getMyHome())
+        dispatch(AdminActions.getManageCustomer())
     }, [])
-    return type ?
-        <>
+    return <>
+        <AdvancedTable
+            headerButton={<> <Button onClick={() => {
+                // navigate(`${"/empdetails"}`)
+            }}
+                name={"Add New"}></Button></>}
+            table={table}
+            filterAfter={onSubmit}
+            tableName={"UserListTable"}
+            handleSubmit={handleSubmit}
+            data={dbConfigList}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+            totalCount={dbConfigTotalCount}
+        />
 
-            <div className='flex p-2'>
-                <Button classes='w-auto' onClick={() => {
-                    settype(false)
-                }} name={"View"} />
-            </div>
-            <AdvancedTable
-                headerButton={<><Button onClick={(e) => {
-                    setmodalOpen(prev => !prev)
-                    // dispatch(OperationManagementActions.getOperationUserList())
-                    setmodalHead("Add Customer")
-                    setmodalBody(<ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                }}
-                    name={"Add New"}></Button></>}
-                table={table}
-                filterAfter={onSubmit}
-                tableName={"UserListTable"}
-                handleSubmit={handleSubmit}
-                data={dbConfigList}
-                errors={errors}
-                register={register}
-                setValue={setValue}
-                getValues={getValues}
-                totalCount={dbConfigTotalCount}
-            />
+        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-            <Modal size={"lg"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-
-            {/* <CommonForm/> */}
-        </>
-        : <>
-            {/* <CCDash approveddata={
-                dbConfigList?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
-                            onClick={() => {
-                                navigate(`${"/projectType"}/${itm["uniqueId"]}`)
-                            }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["customerName"]}</div>
-                        </div>
-                    </>
-                }))
-            } settype={settype} nextNavigate={"/projectType"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' /> */}
-
-            
-            <CCDash showbtn={false} approveddata={
-                dbConfigList?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
-                            onClick={() => navigateToRoute(itm.uniqueId)}>
-                            {/* {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>} */}
-                            <div className='m-auto'>{itm["name"]}</div>
-                        </div>
-                    </>
-                }))
-            } />
-        </>
+        {/* <CommonForm/> */}
+    </>
 }
 
 
-export default MyHome;
+export default Claim;

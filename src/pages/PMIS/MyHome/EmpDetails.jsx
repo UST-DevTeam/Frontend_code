@@ -4,25 +4,16 @@ import QueryBuilder from 'react-querybuilder';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { all_command_type, all_command_type_wise, kyc_doc_type, where_all_command_type } from '../utils/queryBuilder';
 import CommonForm from '../../../components/CommonForm';
+import Button from '../../../components/Button';
 import AuthActions from '../../../store/actions/auth-actions';
 import * as Unicons from '@iconscout/react-unicons';
-// import CustomQueryActions from '../store/actions/customQuery-actions';
-// import nokiaPrePostActions from '../store/actions/nokiaPrePost-actions';
-// import { Urls } from '../utils/url';
 import UiTopBar from '../../../components/UiTopBar';
-import {
-  UilFacebookF,
-  UilTwitter,
-  UilGoogle,
-  UilLinkedin,
-  UilLinkAlt,
-  UilEdit,
-  UilSave,
-} from "@iconscout/react-unicons";
+import {UilFacebookF,UilTwitter,UilGoogle,UilLinkedin,UilLinkAlt,UilEdit,UilSave,} from "@iconscout/react-unicons";
 
 const EmpDetails = () => {
+
+
   const dispatch = useDispatch()
   const { uid } = useParams();
   const [oneLoad, setOneLoad] = useState(false)
@@ -37,42 +28,31 @@ const EmpDetails = () => {
   const [countform, setcountform] = useState([1])
   const [conditioncountform, setconditioncountform] = useState([])
   const [countformtwo, setcountformtwo] = useState([])
-  // console.log(filtering, "filteringfiltering")
   const navigate = useNavigate()
   const [dataValue, setDataValue] = useState([])
   const [showSocialMediaOther, setshowSocialMediaOther] = useState(false);
   const [showOtherAddressProof, setshowOtherAddressProof] = useState(false);
   const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
+
   useSelector((state) => {
     console.log(state, "state")
   })
 
-  // let dboList = useSelector((state) => {
-  //   return state?.customQuery?.dboList
+
+  // let sqlQuerData = useSelector((state) => {
+  //   return state?.customQuery?.generatedSqlQuery
   // })
-  // let tableList = useSelector((state) => {
-  //   let data = {}
-  //   // console.log(state?.customQuery?.tableList, "state?.customQuery?.tableList")
-  //   if (oneLoad && state?.customQuery?.tableList?.d1) {
-  //     setManagingFilter(state?.customQuery?.tableList.d1)
-  //     setupManagingFilter(state?.customQuery?.tableList.d1)
-  //     setDataValue(data)
-  //     setOneLoad(false)
-  //   }
-  //   // console.log(data, "dasdasasdsa")
-  //   // }
-  //   return state?.customQuery?.tableList
+
+  // let getUserRole = useSelector((state) => {
+  //   return state?.auth?.generatedSqlQuery
   // })
-  let sqlQuerData = useSelector((state) => {
-    return state?.customQuery?.generatedSqlQuery
-  })
-  let getUserRole = useSelector((state) => {
-    return state?.auth?.generatedSqlQuery
-  })
+
   let userRole = useSelector((state) => {
     return state?.auth?.user?.roleName
   })
+
   console.log("dababaselist", userRole)
+
   let Form = [
     // {
     //   label: "Select Server",
@@ -332,7 +312,7 @@ const EmpDetails = () => {
       { "label": "Single", "value": "single" },
     ],
   },
-  { label: "Personal Email-ID", name: "emailId", value: "", type: "text", props: "", required: false, placeholder: "" },
+  { label: "Email-ID", name: "emailId", value: "", type: "text", props: "", required: false, placeholder: "" },
   { label: "Date Of Birth(as Per document)", name: "dob", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true },
   { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true },
   { label: "Contact Number", name: "mobile", value: "", type: "number", props: "", required: true, placeholder: "Enter Contact Number" },
@@ -367,7 +347,7 @@ const EmpDetails = () => {
   let ContactInformation = [{
     type: 'heading',
     label: "Present Address",
-    classes: "col-span-4 font-extrabold text-black-900 text-center",
+    classes: "col-span-4 font-extrabold text-black-900 text-start",
   },
   {
     label: "Country", name: "country", value: "", type: "select", props: "", required: true, placeholder: "", option: [
@@ -380,6 +360,10 @@ const EmpDetails = () => {
     }]
   },
   { label: "city", name: "city", value: "", type: "select", props: "", required: true, placeholder: "" },
+
+  {label:"PinCode", name:"pincode", value:'', type:'text', props:'',required:true, placeholder:""},
+  {label:"Address", name:"address", value:'', type:'textarea', props:'',required:true, placeholder:""},
+  
   {
     label: "Social Media", name: "socialMedia", value: "", type: "select", props: {
       onChange: (e) => {
@@ -408,7 +392,7 @@ const EmpDetails = () => {
   let TaxInformation = [{
     type: 'heading',
     label: "Tax Information",
-    classes: "col-span-4 font-extrabold text-black-900 text-center",
+    classes: "col-span-4 font-extrabold text-black-900 text-start",
   }, { label: "TAX Identification Number(TIN)", name: "tin", value: "", type: "number", props: "", required: false, placeholder: "" },
   {
     label: "Country Of Tax Residence", name: "countryTaxRegister", value: "", type: "select", props: {}, required: false, option: [
@@ -418,7 +402,7 @@ const EmpDetails = () => {
   let BusinessInformation = [{
     type: 'heading',
     label: "Business Information",
-    classes: "col-span-4 font-extrabold text-black-900 text-center",
+    classes: "col-span-4 font-extrabold text-black-900 text-start",
   }, {
     label: "Is Business Registered", name: "businessRegistered", value: "", type: "radio", props: {
       onChange: (e) => {
@@ -473,7 +457,7 @@ const EmpDetails = () => {
   let Financialinformation = [{
     type: 'heading',
     label: "Financial Information",
-    classes: "col-span-4 font-extrabold text-black-900 text-center",
+    classes: "col-span-4 font-extrabold text-black-900 text-start",
   }, {
     label: "Account Holder Name",
     name: "accountHolderName",
@@ -536,7 +520,7 @@ const EmpDetails = () => {
     {
       type: 'heading',
       label: "Funding Purpose",
-      classes: "col-span-1 font-extrabold text-black-900 text-center",
+      classes: "col-span-2 font-extrabold text-black-900 text-start",
 
     },
     {
@@ -598,25 +582,29 @@ const EmpDetails = () => {
         {/* <UiTopBar /> */}
         <div className='w-full mt-3 bg-white'>
           <div class="grid grid-cols-12 gap-2 m-2 bg-white">
+            <Button classes='whitespace-nowrap' onClick={() => {
+              navigate(`${"/claim&Reimbursement"}`)
+            }}
+              name={"Add New"}></Button>
             <div className='col-span-12'>
               <div className='grid grid-cols-1 md:grid-cols-1'>
 
-                <CommonForm classes={"grid-cols-4 gap-4 w-full"} errors={errors} Form={PersonalInformation}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 rounded-lg"} errors={errors} Form={PersonalInformation}
                   register={register} setValue={setValue} getValues={getValues} />
 
-                <CommonForm classes={"grid-cols-4 gap-4 w-full"} errors={errors} Form={ContactInformation}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={ContactInformation}
                   register={register} setValue={setValue} getValues={getValues} />
                 {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={TaxInformation}
                   register={register} setValue={setValue} getValues={getValues} /> */}
-                <CommonForm classes={"grid-cols-4 gap-4 w-full"} errors={errors} Form={userRole != "Fund Seeker" ? TaxInformation : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? TaxInformation : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full"} errors={errors} Form={userRole != "Fund Seeker" ? BusinessInformation : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? BusinessInformation : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full"} errors={errors} Form={userRole != "Fund Seeker" ? Financialinformation : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? Financialinformation : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={userRole != "Fund Seeker" ? PurposeOfFunding : []}
+                <CommonForm classes={"grid-cols-2 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? PurposeOfFunding : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={conDet}
+                <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
                   register={register} setValue={setValue} getValues={getValues} />
               </div>
               <div class="grid h-96 grid-cols-1 gap-2 bg-white">

@@ -11,7 +11,7 @@ import websocket from "./reducers/websocket-reducer"
 import deckManagement from "./reducers/deckManagement-reducer";
 import OperationManagementReducer from "./reducers/OperationManagement-reducer";
 import adminData from "./reducers/admin-reducer"
-
+import myHomeReducer from "./reducers/myHome-reducer";
 
 
 
@@ -27,7 +27,8 @@ const store = configureStore({
         websocket,
         deckManagement,
         OperationManagementReducer,
-        adminData
+        adminData,
+        myHomeReducer
     },
     devTools: true
 })

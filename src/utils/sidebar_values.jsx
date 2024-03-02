@@ -59,7 +59,12 @@ import MyHome from "../pages/PMIS/MyHome/Home";
 import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
-// import Home from "../pages/PMIS/MyHome/Home"
+import Claim from "../pages/PMIS/MyHome/Claim";
+import Asset from "../pages/PMIS/MyHome/Asset";
+import AssetRegistration from "../pages/PMIS/Admin/AssetRegistration/AssetRegistration";
+import SuperAdmin from "../pages/PMIS/HR/SuperAdmin";
+import ManageCostCenter from "../pages/PMIS/Admin/ManageCostCenter/ManageCostCenter";
+import ManageProjectGroup from "../pages/PMIS/Admin/ManageProjectGroup/ManageProjectGroup";
 
 
 export const Sidebar_content = {
@@ -81,6 +86,11 @@ export const Sidebar_content = {
       link: "/projectType/:customeruniqueId",
       subMenu: [],
       component: <ManageProjectType/>,
+    },{
+      name: "",
+      link: "/projectGroup",
+      subMenu: [],
+      component: <ManageProjectGroup/>,
     },
     {
       name: "",
@@ -94,7 +104,54 @@ export const Sidebar_content = {
       subMenu: [],
       component: <EmpDetailsTable />,
     },
+    {
+      name: "",
+      link: "/claim&Reimbursement",
+      subMenu: [],
+      component: <Claim />,
+    },
+    {
+      name: "",
+      link: "/Assets",
+      subMenu: [],
+      component: <Asset />,
+    },
+    {
+      name: "",
+      link: "/superAdmin",
+      subMenu: [],
+      component: <SuperAdmin />,
+    },
+    {
+      name: "Manage Circle",
+      link: "/manageCircle",
+      subMenu: [],
+      component: <ManageCircle />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Manage Cost Center",
+      link: "/manageCostCenter",
+      subMenu: [],
+      component: <ManageCostCenter/>,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Asset Registration",
+      link: "/assetRegistration",
+      subMenu: [],
+      component: <AssetRegistration />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Manage Zone",
+      link: "/manageZone",
+      subMenu: [],
+      component: <ManageZone />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
 
+    
     
   ],
  
@@ -337,6 +394,13 @@ export const Sidebar_content = {
     //       link: "/manageCircle",
     //       subMenu: [],
     //       component: <ManageCircle />,
+    //       icon: <Unicons.UilChannel size="16" />,
+    //     },
+    //     {
+    //       name: "Asset Registration",
+    //       link: "/assetRegistration",
+    //       subMenu: [],
+    //       component: <AssetRegistration />,
     //       icon: <Unicons.UilChannel size="16" />,
     //     },
     //     {

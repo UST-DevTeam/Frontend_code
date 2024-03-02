@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageCircleForm from '../../../../pages/PMIS/Admin/ManageCircle/ManageCircleForm'
+import ManageCostCenterForm from '../../../../pages/PMIS/Admin/ManageCostCenter/ManageCostCenterForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -16,12 +16,10 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
-import FileUploader from '../../../../components/FIleUploader';
 
-const ManageCircle = () => {
+const ManageCostCenter = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
-    const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
 
@@ -30,7 +28,7 @@ const ManageCircle = () => {
   
 
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle
+        let interdata = state?.adminData?.getManageCostCenter
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -53,10 +51,10 @@ const ManageCircle = () => {
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCircle())
+                    dispatch(AdminActions.getManageCostCenter())
                     setmodalHead("Edit User")
                     setmodalBody(<>
-                        <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -69,8 +67,8 @@ const ManageCircle = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_circle}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCircle())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_cost_center}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getManageCostCenter())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -88,8 +86,7 @@ const ManageCircle = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle
-        console.log(interdata,"1234567890")
+        let interdata = state?.adminData?.getManageCostCenter
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -113,13 +110,13 @@ const ManageCircle = () => {
     let table = {
         columns: [
             {
-                name: "Circle Name",
-                value: "circleName",
+                name: "Cost Center Name",
+                value: "ccName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Short code",
-                value: "shortCode",
+                name: "Cost Center ID",
+                value: "ccId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
@@ -151,34 +148,21 @@ const ManageCircle = () => {
         // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageCostCenter(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getManageCostCenter())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
-
-    const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        data["fileType"]="ManageCircle"
-        dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageCircle())
-            setFileOpen(false)
-        }))
-    }
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageCircle())
+                // dispatch(AdminActions.getManageCircle())
                 setmodalHead("New User")
-                setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
-                </div>}
+                name={"Add New"}></Button></>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -194,10 +178,9 @@ const ManageCircle = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
     </>
 
 
 };
 
-export default ManageCircle;
+export default ManageCostCenter;

@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const HRHomeView = () => {
+const SuperAdmin = () => {
 
 
     // const [modalOpen, setmodalOpen] = useState(false)
@@ -275,7 +275,7 @@ const HRHomeView = () => {
     // </>\
 
     return <>
-        <CCDash approveddata={[["Manage Employee","bg-gradient-to-r from-teal-400 to-sky-500"],["Asset Management","bg-gradient-to-r from-lime-300 to-teal-400"],["Manage Policy","bg-gradient-to-r from-violet-500 to-purple-500"],["Expense & Advance","bg-gradient-to-r from-blue-200 to-cyan-200"],["Attendance","bg-gradient-to-r from-teal-200 to-teal-500"],["Super Admin","bg-gradient-to-r from-pink-400 to-red-400","/superAdmin"]].map((itm => {
+        <CCDash approveddata={[["Manage Circle","bg-gradient-to-r from-teal-400 to-sky-500","/manageCircle"],["Manage Zone","bg-gradient-to-r from-lime-300 to-teal-400","/manageZone"],["Manage Cost Center","bg-gradient-to-r from-violet-500 to-purple-500","/manageCostCenter"]].map((itm => {
             return <>
                 <div className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`} onClick={()=>{navigate(itm[2])}}>
                     {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
@@ -288,4 +288,4 @@ const HRHomeView = () => {
 }
 
 
-export default HRHomeView;
+export default SuperAdmin;

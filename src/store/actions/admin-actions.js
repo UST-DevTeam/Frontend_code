@@ -1,6 +1,6 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
-import {GET_MANAGE_CUSTOMER, GET_MANAGE_CIRCLE, GET_MANAGE_PROJECT,GET_MANAGE_ZONE} from "../reducers/admin-reducer"
+import {GET_MANAGE_CUSTOMER, GET_MANAGE_CIRCLE, GET_MANAGE_PROJECT,GET_MANAGE_ZONE,GET_MANAGE_COST_CENTER,GET_MANAGE_PROJECT_GROUP,   GET_ASSET_REGISTRATION} from "../reducers/admin-reducer"
 
 
 const AdminActions = {
@@ -133,41 +133,118 @@ const AdminActions = {
         }
     },
 
+    getManageCostCenter:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_cost_center}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_COST_CENTER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 
-    // getManageProject:(reset=true,args="") => async (dispatch, _) => {
-    //     try {
-    //         const res = await Api.get({ url:`${Urls.admin_project}${args!=""?"?"+args:""}`})
-    //         if (res?.status !== 200) return
-    //         let dataAll = res?.data?.data
-    //         dispatch(GET_MANAGE_PROJECT({dataAll,reset}))
-    //     } catch (error) {
-    //     }
-    // },
-    // postManageProject: (reset, data, cb, uniqueId) => async (dispatch, _) => {
-    //     try {
-    //         const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_projecttype : Urls.admin_projecttype + "/" + uniqueId, contentType:"multipart/form-data", reset })
-    //         if (res?.status !== 201 && res?.status !== 200) {
-    //             let msgdata = {
-    //                 show: true,
-    //                 icon: "error",
-    //                 buttons: [],
-    //                 type: 1,
-    //                 text: res?.data?.msg,
-    //             };
-    //             dispatch(ALERTS(msgdata));
-    //         }else{
-    //             cb()
+    postManageCostCenter: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_cost_center : Urls.admin_cost_center + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
 
-    //         }
+            }
             
-    //     } catch (error) {
-    //         return;
-    //     }
-    // },
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageProjectGroup:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_project_group}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_PROJECT_GROUP({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postManageProjectGroup: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project_group : Urls.admin_project_group + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    getAssetRegistration:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_assetRegistration}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ASSET_REGISTRATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postAssetRegistration: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_assetRegistration : Urls.admin_assetRegistration + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
 }
 export default AdminActions;

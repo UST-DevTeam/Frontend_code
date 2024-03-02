@@ -10,7 +10,7 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 
-const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -18,10 +18,35 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
     let dispatch = useDispatch()
-    // let roleList = useSelector((state) => {
-    //     console.log(state, "state state")
-    //     return state?.adminManagement?.roleList
-    // })
+    let customerList = useSelector((state) => {
+        console.log(state?.adminData?.getManageCustomer, "state?.adminData?.getManageCircle")
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm.customerName,
+                value: itm.shortName
+            }
+        })
+    })
+    let ccList = useSelector((state) => {
+        console.log(state?.adminData?.getManageCircle, "state?.adminData?.getManageCircle")
+        return state?.adminData?.getManageCostCenter.map((itm) => {
+            return {
+                label: itm.ccId,
+                value: itm.ccId
+            }
+        })
+    })
+    let zoneList = useSelector((state) => {
+        console.log(state?.adminData?.getManageZone, "state?.adminData?.getManageCircle")
+        return state?.adminData?.getManageZone.map((itm) => {
+            return {
+                label: itm.zoneName,
+                value: itm.shortCode
+            }
+        })
+    })
+
+    console.log(customerList,"circleList")
     // let databaseList = useSelector((state) => {
     //     console.log(state, "state")
     //     let interdata = state?.customQuery?.databaseList
@@ -47,11 +72,12 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         //     required: true,
         //     classes: "col-span-1"
         // },
-         {
-            label: "Cirlce Name",
-            value: "",
-            name: "circleName",
-            type: "text",
+        {
+            label: "Customer",
+            value: "Select",
+            name: "customer",
+            type: "select",
+            option: customerList,
             required: true,
             filter: true,
             props: {
@@ -65,11 +91,13 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Short Code",
-            value: "",
-            name: "shortCode",
-            type: "text",
+            label: "Cost Center",
+            value: "Select",
+            name: "cc",
+            type: "select",
+            option: ccList,
             required: true,
+            filter: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
@@ -79,7 +107,25 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
+        {
+            label: "Zone",
+            value: "Select",
+            name: "zone",
+            type: "select",
+            option: zoneList,
+            required: true,
+            filter: true,
+            props: {
+                onChange: ((e) => {
+                    // console.log(e.target.value, "e geeter")
+
+                    // setValue("queries",e.target.name)
+
+                }),
+            },
+            classes: "col-span-1"
+        },
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {
@@ -101,20 +147,25 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postManageProjectGroup(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageProjectGroup())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postManageProjectGroup(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageProjectGroup())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getManageCostCenter())
+        dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageCustomer())
+        dispatch(AdminActions.getManageProjectGroup())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -158,4 +209,4 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 };
 
-export default ManageCircleForm;
+export default ManageProjectGroupForm;

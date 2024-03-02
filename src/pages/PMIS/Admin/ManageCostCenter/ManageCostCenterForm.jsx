@@ -10,7 +10,7 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 
-const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -48,9 +48,9 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         //     classes: "col-span-1"
         // },
          {
-            label: "Cirlce Name",
+            label: "Cost Center Name",
             value: "",
-            name: "circleName",
+            name: "ccName",
             type: "text",
             required: true,
             filter: true,
@@ -65,9 +65,9 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Short Code",
+            label: "Cost Center ID",
             value: "",
-            name: "shortCode",
+            name: "ccId",
             type: "text",
             required: true,
             props: {
@@ -101,20 +101,22 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postManageCostCenter(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageCostCenter())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postManageCostCenter(true, data, () => {
+                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageCostCenter())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getManageCostCenter())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -158,4 +160,4 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 };
 
-export default ManageCircleForm;
+export default ManageCostCenterForm;
