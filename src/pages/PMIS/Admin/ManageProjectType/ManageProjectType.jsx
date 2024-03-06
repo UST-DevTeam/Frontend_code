@@ -53,8 +53,73 @@ const ManageProjectType = () => {
     let navigate = useNavigate()
 
     let conditionmultiForm = [
-        { label: "Doc. Number", name: "docNumber", value: "", type: "text", props: "", required: false, placeholder: "" },
-        { label: "Doc. Number1", name: "docNumber", value: "", type: "text", props: "", required: false, placeholder: "" },
+        // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
+        {
+            label: "Field Name", name: "fieldName", value: "", type: "text", props: "", required: false, placeholder: ""
+        },
+        {
+            label: "Required",
+            name: "required",
+            value: "",
+            type: "select",
+            option: [
+                {
+                    label: "Yes",
+                    value: "Yes"
+                }, {
+                    label: "No",
+                    value: "No"
+                }
+            ],
+            props: "",
+            required: false,
+            placeholder: ""
+        },
+        {
+            label: "Data Type",
+            name: "dataType",
+            value: "",
+            type: "select",
+            option: [
+                {
+                    label: "Text",
+                    value: "text"
+                }, {
+                    label: "Number",
+                    value: "Number"
+                }, {
+                    label: "Decimal",
+                    value: "Decimal"
+                }, {
+                    label: "Date",
+                    value: "Date"
+                }, {
+                    label: "Dropdown",
+                    value: "Dropdown"
+                }
+            ],
+            props: "",
+            required: false,
+            placeholder: ""
+        },
+        {
+            label: "Status",
+            name: "Status",
+            value: "",
+            type: "select",
+            option: [
+                {
+                    label: "Active",
+                    value: "Active"
+                }, {
+                    label: "Inactive",
+                    value: "Inactive"
+                }
+            ],
+            props: "",
+            required: false,
+            placeholder: ""
+        }
     ]
 
 
@@ -122,7 +187,7 @@ const ManageProjectType = () => {
                             </div>
                         </div>
                         <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            
+
                         {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
