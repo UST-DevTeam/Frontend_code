@@ -52,7 +52,7 @@ const ManageProjectGroup = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageProjectGroup())
-                    setmodalHead("Edit User")
+                    setmodalHead("Edit Project Group")
                     setmodalBody(<>
                         <ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -145,8 +145,7 @@ const ManageProjectGroup = () => {
         delete data.reseter
         dispatch(AdminActions.getManageProjectGroup(value, objectToQueryString(data)))
     }
-    useEffect(() => {
-        dispatch(AdminActions.getManageProjectGroup())
+    useEffect(() => {dispatch(AdminActions.getManageProjectGroup())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
     return <>
@@ -154,7 +153,7 @@ const ManageProjectGroup = () => {
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageCircle())
-                setmodalHead("New User")
+                setmodalHead("Add Project Group")
                 setmodalBody(<ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button></>}

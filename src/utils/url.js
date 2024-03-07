@@ -1,11 +1,16 @@
-// export const baseUrl="http://10.5.50.198:7080"
-// export const backendassetUrl="http://10.5.50.198:7080"
 
-export const baseUrl="http://192.168.29.71:7080"
-export const backendassetUrl="http://192.168.29.71:7080/"
+// export const baseUrl="http://192.168.29.70:7080"
+// export const backendassetUrl="http://192.168.29.70:7080/"
 
-// export const baseUrl="http://10.5.50.198:7080"
-// export const backendassetUrl="http://10.5.50.198:7080/"
+
+export const baseUrl="http://10.5.50.198:7080"
+export const backendassetUrl="http://10.5.50.198:7080/"
+
+// export const baseUrl="http://192.168.1.108:7080"
+// export const backendassetUrl="http://192.168.1.108:7080/"
+
+// export const baseUrl="http://127.0.0.1:7080"
+// export const backendassetUrl="http://127.0.0.1:7080/"
 
 
 export const Urls={
@@ -20,20 +25,19 @@ export const Urls={
 
     admin_customer:"/admin/manageCustomer",
     admin_projecttype:"/admin/manageProjectType",
+    admin_sub_projecttype:"/admin/manageSubProjectType",
     admin_circle:"/admin/manageCircle",
     admin_zone:"/admin/manageZone",
     admin_cost_center:"/admin/manageCostCenter",
     admin_project_group:"/admin/manageProjectGroup",
-
-
+    admin_card_projecttype:'/admin/cardProjectType',
+    admin_project:"/admin/manageProject",
+    
 
 
     MyHome:"/myHome/Cards",
     admin_assetRegistration:"/myHome/assetRegistration",
     common_file_uploadr:"/commonUploadFile"
-    
-   
-
 }
 
 

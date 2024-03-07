@@ -112,13 +112,13 @@ const ManageCostCenter = () => {
     let table = {
         columns: [
             {
-                name: "Cost Center Name",
-                value: "ccName",
+                name: "Zone",
+                value: "zone",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Cost Center ID",
-                value: "ccId",
+                name: "Cost Center",
+                value: "costCenter",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
@@ -158,7 +158,8 @@ const ManageCostCenter = () => {
     }, [])
 
     const onTableViewSubmit = (data) => {
-        data["fileType"]="ManageZone"
+        data["fileType"]="ManageCostCenter"
+        data['collection'] = "costCenter"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(AdminActions.getManageZone())
             setFileOpen(false)

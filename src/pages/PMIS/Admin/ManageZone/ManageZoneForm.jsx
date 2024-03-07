@@ -18,35 +18,21 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
     let dispatch = useDispatch()
-    // let roleList = useSelector((state) => {
-    //     console.log(state, "state state")
-    //     return state?.adminManagement?.roleList
-    // })
-    // let databaseList = useSelector((state) => {
-    //     console.log(state, "state")
-    //     let interdata = state?.customQuery?.databaseList
 
-    //     console.log(interdata, "interdatainterdata")
-    //     return state?.customQuery?.databaseList
-    // })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+
+    let circleList = useSelector((state) => {
+        return state?.adminData?.getManageCircle.map((itm) => {
+            return {
+                name: itm?.circleName,
+                id: itm?.circleName
+            }
+        })
+    })
+
+
+
     let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
          {
             label: "Zone Name",
             value: "",
@@ -65,7 +51,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Short Code",
+            label: "Zone ID",
             value: "",
             name: "shortCode",
             type: "text",
@@ -75,6 +61,20 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
                     // console.log(e.target.value, "e geeter")
 
                     // setValue("queries",e.target.name)
+
+                }),
+            },
+            classes: "col-span-1"
+        }, 
+        {
+            label: "Circle",
+            value: "",
+            name: "circle",
+            type: "muitiSelect",
+            option: circleList,
+            required: true,
+            props: {
+                onChange: ((e) => {
 
                 }),
             },
@@ -114,9 +114,9 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             }))
         }
     }
-    console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageCircle())
+        // dispatch(AdminActions.getManageZone())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -156,8 +156,6 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>
-
-
 };
 
 export default ManageZoneForm;

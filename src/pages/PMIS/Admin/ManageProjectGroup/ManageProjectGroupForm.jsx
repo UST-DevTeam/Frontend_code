@@ -12,14 +12,14 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
     const [modalOpen, setmodalOpen] = useState(false)
 
-
     let dispatch = useDispatch()
+    
     let customerList = useSelector((state) => {
-        console.log(state?.adminData?.getManageCustomer, "state?.adminData?.getManageCircle")
+        // console.log(state?.adminData?.getManageCustomer, "state?.adminData?.customerList")
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
                 label: itm.customerName,
@@ -27,17 +27,16 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }
         })
     })
-    let ccList = useSelector((state) => {
-        console.log(state?.adminData?.getManageCircle, "state?.adminData?.getManageCircle")
+    let costCenterList = useSelector((state) => {
         return state?.adminData?.getManageCostCenter.map((itm) => {
             return {
-                label: itm.ccId,
+                label: itm.costCenter,
                 value: itm.uniqueId
             }
         })
     })
     let zoneList = useSelector((state) => {
-        console.log(state?.adminData?.getManageZone, "state?.adminData?.getManageCircle")
+
         return state?.adminData?.getManageZone.map((itm) => {
             return {
                 label: itm.zoneName,
@@ -46,32 +45,9 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         })
     })
 
-    console.log(customerList,"circleList")
-    // let databaseList = useSelector((state) => {
-    //     console.log(state, "state")
-    //     let interdata = state?.customQuery?.databaseList
+    // console.log(customerList,"customerList")
 
-    //     console.log(interdata, "interdatainterdata")
-    //     return state?.customQuery?.databaseList
-    // })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
     let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
         {
             label: "Customer",
             value: "Select",
@@ -82,7 +58,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
+                    // console.log(e.target, "e_geeter")
 
                     // setValue("queries",e.target.name)
 
@@ -95,7 +71,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             value: "Select",
             name: "costcenterId",
             type: "select",
-            option: ccList,
+            option: costCenterList,
             required: true,
             filter: true,
             props: {
@@ -128,21 +104,14 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         },
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
-    const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        setValue,
-        getValues,
-        formState: { errors },
-    } = useForm()
+    const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm()
+
     const onSubmit = (data) => {
-        console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
     }
+
     const onTableViewSubmit = (data) => {
         console.log(data, "datadata")
         // dasdsadsadasdas
@@ -160,12 +129,16 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }))
         }
     }
+    
     console.log(Form, "Form 11")
     useEffect(() => {
+        dispatch(AdminActions.getManageCustomer())
         dispatch(AdminActions.getManageCostCenter())
         dispatch(AdminActions.getManageZone())
-        dispatch(AdminActions.getManageCustomer())
+        
         dispatch(AdminActions.getManageProjectGroup())
+
+        // alert(resetting)
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

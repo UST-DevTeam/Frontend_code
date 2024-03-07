@@ -47,11 +47,9 @@ const EmpDetails = () => {
   //   return state?.auth?.generatedSqlQuery
   // })
 
-  let userRole = useSelector((state) => {
-    return state?.auth?.user?.roleName
-  })
-
-  console.log("dababaselist", userRole)
+  // let userRole = useSelector((state) => {
+  //   return state?.auth?.user?.roleName
+  // })
 
   let Form = [
     // {
@@ -289,18 +287,22 @@ const EmpDetails = () => {
     { label: "Doc. Expire", name: "docExpire", type: "datetime", formattype: "date", format: "yyyy-MM-dd", formatop: "yyyy-MM-DD", required: false, classes: "z-100" },
 
   ]
+
+
   let PersonalInformation = [{
     type: 'heading',
     label: "Employee Details",
     classes: "col-span-4 font-extrabold text-black-900 text-start"
   },
   {
-    label: "Title", name: "title", value: "", type: "select", props: {}, required: true, placeholder: '', options: [
-      {
-        "label": "Mr", "value": "mr",
-        "label": "Mrs", "value": "mrs",
-        "label": "Ms", "value": "ms"
-      }
+    label: "Title", name: "title", value: "", type: "select", props: {}, required: true, placeholder: '', option: [
+        {"label": "Mr.", "value": "Mr"},
+        {"label": "Ms.", "value": "Ms"},
+        {"label": "Mrs.", "value": "Mrs"},
+        {"label": "Miss", "value": "Miss"},
+        {"label": "Sir", "value": "Sir"},
+        {"label": "Madam", "value": "Madam"},
+        {"label": "Master", "value": "Master"},
     ]
   },
   { label: "Employee Name", name: "empName", value: "", type: "text", props: "", required: true, placeholder: "" },
@@ -313,9 +315,9 @@ const EmpDetails = () => {
     ],
   },
   { label: "Email-ID", name: "emailId", value: "", type: "text", props: "", required: false, placeholder: "" },
-  { label: "Date Of Birth(as Per document)", name: "dob", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true },
+  { label: "Date Of Birth(as Per doc)", name: "dob", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true, },
   { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true },
-  { label: "Contact Number", name: "mobile", value: "", type: "number", props: "", required: true, placeholder: "Enter Contact Number" },
+  { label: "Contact Number", name: "mobile", value: "", type: "number", props: "", required: true, placeholder: "" },
   {
     label: "Blood Group", name: "blood", value: "", type: "select", props: {}, required: false, option: [
       { "label": "A+", "value": "A+" },
@@ -344,9 +346,58 @@ const EmpDetails = () => {
     //   multiple: false,
     // }
   ]
+
+
   let ContactInformation = [{
     type: 'heading',
     label: "Present Address",
+    classes: "col-span-4 font-extrabold text-black-900 text-start",
+  },
+  {
+    label: "Country", name: "country", value: "", type: "select", props: "", required: true, placeholder: "", option: [
+      { "label": "India", "value": "india" }
+    ]
+  },
+  {
+    label: "State", name: "state", value: "", type: "select", props: "", required: true, placeholder: "", option: [{
+
+    }]
+  },
+  { label: "city", name: "city", value: "", type: "select", props: "", required: true, placeholder: "" },
+
+  {label:"PinCode", name:"pincode", value:'', type:'text', props:'',required:true, placeholder:""},
+  {label:"Address", name:"address", value:'', type:'textarea',  props:'',required:true, placeholder:"",},
+  
+  {
+    label: "Social Media", name: "socialMedia", value: "", type: "select", props: {
+      onChange: (e) => {
+        setshowSocialMediaOther(e.target.value === "Other");
+      },
+    }, required: false, option: [
+      { "label": "Facebook", "value": "Facebook" },
+      { "label": "Instagram", "value": "Instagram" },
+      { "label": "Pinterest", "value": "Pinterest" },
+      { "label": "X", "value": "X" },
+      { "label": "Other", "value": "Other" },
+    ],
+  },
+  ]
+  if (showSocialMediaOther) {
+    ContactInformation.push({
+      label: "Please Specify Social Media Type",
+      name: "otherSocialMediaType",
+      value: "",
+      type: "text",
+      required: false,
+      props: {},
+      classes: "col-span-1",
+    });
+  }
+
+
+  let ContactInformation2 = [{
+    type: 'heading',
+    label: "Permanent Address",
     classes: "col-span-4 font-extrabold text-black-900 text-start",
   },
   {
@@ -389,78 +440,51 @@ const EmpDetails = () => {
       classes: "col-span-1",
     });
   }
-  let TaxInformation = [{
+
+
+  let EmploymentDetails = [{
     type: 'heading',
-    label: "Tax Information",
+    label: "Employment Details",
     classes: "col-span-4 font-extrabold text-black-900 text-start",
-  }, { label: "TAX Identification Number(TIN)", name: "tin", value: "", type: "number", props: "", required: false, placeholder: "" },
+  },
   {
-    label: "Country Of Tax Residence", name: "countryTaxRegister", value: "", type: "select", props: {}, required: false, option: [
-      { "label": "INDIA", "value": "INDIA" },
-      { "label": "USA", "value": "USA" }]
-  },]
-  let BusinessInformation = [{
+    label: "Employee Code", name: "empCode", value: "", type: "text", props: "", required: true, placeholder: "",
+  },
+  {
+    label: "PAN Number", name: "panNumber", value: "", type: "text", props: "", required: false, placeholder: "",
+  },
+  { label: "Aadhar Number", name: "adharNumber", value: "", type: "text", props: "", required: false, placeholder: "" },
+  { label: "Circle", name: "circle", value: "", type: "select", props: "", required: true, placeholder: "", },
+  { label: "Experience", name: "experience", value: "", type: "text", props: "", required: true, placeholder: "", },
+  { label: "Salary Currency", name: "salaryCurrency", value: "", type: "select", props: "", required: true, placeholder: "", option:[
+    { "label": "INR", "value": "INR" },
+    { "label": "USD", "value": "USD" },
+  ] },
+  {label:"Monthly Salary", name:"monthlySalary", value:'', type:'text', props:'',required:true, placeholder:""},
+  {label:"Gross CTC", name:"grossCtc", value:'', type:'text', props:'',required:false, placeholder:""},
+  {label:"Official Email ID", name:"email", value:'', type:'text', props:'',required:true, placeholder:""},
+  {label:"Mobile No.", name:"mobile", value:'', type:'number', props:'',required:true, placeholder:""},
+  {label:"Joining Date", name:"datetime", value:'', type:'datetime', props:'',required:false, placeholder:""},
+  {label:"Last Working Day", name:"datetime", value:'', type:'datetime', props:'',required:false, placeholder:""},
+  {label:"Passport", name:"passport", value:'', type:'select', props:'',required:true, placeholder:"", option:[
+    { "label": "No", "value": "No" },
+    { "label": "Yes", "value": "Yes" },
+  ]},
+  {label:"Bank Name", name:"bankName", value:'', type:'text', props:'',required:false, placeholder:""},
+  {label:"Bank Account Number", name:"accountNumber", value:'', type:'number', props:'',required:false, placeholder:""},
+  {label:"IFSC Code", name:"ifscCode", value:'', type:'text', props:'',required:false, placeholder:""},
+  {label:"Benificiary Name", name:"benificiaryname", value:'', type:'text', props:'',required:false, placeholder:""},
+ 
+]
+  
+
+  let EmployeeProfile = [{
     type: 'heading',
-    label: "Business Information",
+    label: "Employee Profile",
     classes: "col-span-4 font-extrabold text-black-900 text-start",
   }, {
-    label: "Is Business Registered", name: "businessRegistered", value: "", type: "radio", props: {
-      onChange: (e) => {
-        setshowBusinessRegistered(e.target.value === "YES");
-      },
-    }, required: false, option: [
-      { "label": "YES", "value": "YES" },
-      { "label": "NO", "value": "NO" }]
-  },]
-  if (showBusinessRegistered) {
-    BusinessInformation.push(
-      {
-        label: "Business Name",
-        name: "businessName",
-        value: "",
-        type: "text",
-        required: false,
-        props: {},
-        classes: "col-span-1",
-      },
-      {
-        label: "Business Registration Number",
-        name: "businessRegistrationNumber",
-        value: "",
-        type: "number",
-        required: false,
-        props: {},
-        classes: "col-span-1",
-      },
-      {
-        label: "Date Of Business Registrated",
-        name: "dateBusinessRegistrated",
-        type: "datetime",
-        required: false,
-        formattype: "date",
-        format: "yyyy-MM-dd",
-        formatop: "yyyy-MM-DD",
-      },
-      {
-        label: "Business Address",
-        name: "businessAddress",
-        value: "",
-        type: "text",
-        required: false,
-        props: {},
-        classes: "col-span-1",
-      }
-    );
-
-  }
-
-  let Financialinformation = [{
-    type: 'heading',
-    label: "Financial Information",
-    classes: "col-span-4 font-extrabold text-black-900 text-start",
-  }, {
-    label: "Account Holder Name",
-    name: "accountHolderName",
+    label: "Organization Level",
+    name: "orgLevel",
     value: "",
     type: "text",
     required: false,
@@ -468,17 +492,8 @@ const EmpDetails = () => {
     classes: "col-span-1",
   },
   {
-    label: "Account Number",
-    name: "accountNumber",
-    value: "",
-    type: "number",
-    required: false,
-    props: {},
-    classes: "col-span-1",
-  },
-  {
-    label: "Bank Name",
-    name: "bankName",
+    label: "Designation",
+    name: "designation",
     value: "",
     type: "text",
     required: false,
@@ -486,8 +501,26 @@ const EmpDetails = () => {
     classes: "col-span-1",
   },
   {
-    label: "Bank Adress",
-    name: "bankAdress",
+    label: "Role",
+    name: "role",
+    value: "",
+    type: "select",
+    required: true,
+    props: {},
+    classes: "col-span-1",
+  },
+  {
+    label: "PMIS Role",
+    name: "pmisRole",
+    value: "",
+    type: "select",
+    required: true,
+    props: {},
+    classes: "col-span-1",
+  },
+  {
+    label: "Band",
+    name: "band",
     value: "",
     type: "text",
     required: false,
@@ -495,54 +528,133 @@ const EmpDetails = () => {
     classes: "col-span-1",
   },
   {
-    label: "SWIFT/BIC Code",
-    name: "bicCode",
-    value: "",
-    type: "text",
-    required: false,
-    props: {},
-    classes: "col-span-1",
-  },
-  {
-    label: "Source Of Funds",
-    name: "fundSource",
+    label: "Department",
+    name: "department",
     value: "",
     type: "select",
     required: false,
     props: {},
     option: [
-      { "label": "Employment Income", "value": "EmploymentIncome" },
-      { "label": "Business Profits", "value": "BusinessProfits" }],
+      { "label": "Accounts", "value": "Accounts" },
+      { "label": "HR", "value": "HR" },
+      { "label": "operations", "value": "operations" },
+      { "label": "Management", "value": "Management" },
+    ],
     classes: "col-span-1",
-  },]
+  },
+  {
+    label: "Reporting Manager",
+    name: "reportingManager",
+    value: "",
+    type: "select",
+    required: false,
+    props: {},
+    option: [
+    ],
+    classes: "col-span-1",
+  },
+  {
+    label: "L2 Expense manager",
+    name: "L2expManager",
+    value: "",
+    type: "select",
+    required: false,
+    props: {},
+    option: [
+    ],
+    classes: "col-span-1",
+  },
+  {
+    label: "Finance Approver",
+    name: "financeApprover",
+    value: "",
+    type: "select",
+    required: false,
+    props: {},
+    option: [
+    ],
+    classes: "col-span-1",
+  },
+  {
+    label: "Reporting HR Manager",
+    name: "reportingHrManager",
+    value: "",
+    type: "select",
+    required: false,
+    props: {},
+    option: [
+    ],
+    classes: "col-span-1",
+  },
+  {
+    label: "Status",
+    name: "status",
+    value: "",
+    type: "select",
+    required: false,
+    props: {},
+    option: [
+      { "label": "Active", "value": "Active" },
+      { "label": "Resign", "value": "Resign" },
+      { "label": "Abscond", "value": "Abscond" },
+      { "label": "Exit", "value": "Exit" },
+    ],
+    classes: "col-span-1",
+  },
+  {
+    label: "Password",
+    name: "password",
+    value: "",
+    type: "password",
+    required: false,
+    props: {},
+    classes: "col-span-1",
+  },
+]
 
-  let PurposeOfFunding = [
-    {
-      type: 'heading',
-      label: "Funding Purpose",
-      classes: "col-span-2 font-extrabold text-black-900 text-start",
+let SupportingDoc = [{
+  type: 'heading',
+  label: "Supporting Document",
+  classes: "col-span-4 font-extrabold text-black-900 text-start",
+},
+  {
+    label: "Photo",
+    name: "img",
+    value: "",
+    type: "file",
+    required: false,
+    props: {
+      accept: "image/*" 
+    },
+    classes: "col-span-1",
+  },
+  {
+    label: "CV",
+    name: "cv",
+    value: "",
+    type: "file",
+    required: false,
+    props: {
+      accept: ".pdf,.doc,.docx" 
+    },
+    classes: "col-span-1",
+  },
+  {
+    label: "All Other Documents",
+    name: "cv",
+    value: "",
+    type: "file",
+    required: false,
+    props: {
+      accept: ".zip,.rar,.bin" 
+    },
+    classes: "col-span-1",
+  },
 
-    },
-    {
-      label: "Description About the purpose Of seeking fund",
-      name: "descriptionFundSeeking",
-      value: "",
-      type: "textarea",
-      icon: <UilEdit className={"text-white"} />,
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Description the use Of Funds",
-      name: "descriptionUsageFund",
-      value: "",
-      type: "textarea",
-      icon: <UilEdit className={"text-white"} />,
-      props: "",
-      required: false,
-      placeholder: "",
-    },]
+]
+
+
+
   const {
     register,
     handleSubmit,
@@ -581,11 +693,7 @@ const EmpDetails = () => {
       <div className=''>
         {/* <UiTopBar /> */}
         <div className='w-full mt-3 bg-white'>
-          <div class="grid grid-cols-12 gap-2 m-2 bg-white">
-            <Button classes='whitespace-nowrap' onClick={() => {
-              navigate(`${"/claim&Reimbursement"}`)
-            }}
-              name={"Add New"}></Button>
+          <div class="grid grid-cols-12 gap-2 m-2 bg-white border-2 rounded-lg">
             <div className='col-span-12'>
               <div className='grid grid-cols-1 md:grid-cols-1'>
 
@@ -594,20 +702,20 @@ const EmpDetails = () => {
 
                 <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={ContactInformation}
                   register={register} setValue={setValue} getValues={getValues} />
-                {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={TaxInformation}
+                {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={ContactInformation2}
                   register={register} setValue={setValue} getValues={getValues} /> */}
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? TaxInformation : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? ContactInformation2 : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? BusinessInformation : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? EmploymentDetails : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? Financialinformation : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? EmployeeProfile : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-2 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? PurposeOfFunding : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? SupportingDoc : []}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
-                  register={register} setValue={setValue} getValues={getValues} />
+                {/* <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
+                  register={register} setValue={setValue} getValues={getValues} /> */}
               </div>
-              <div class="grid h-96 grid-cols-1 gap-2 bg-white">
+              {/* <div class="grid h-96 grid-cols-1 gap-2 bg-white">
                 <div className='col-span-1 h-full  pt-0 overflow-scroll relative border-primaryLine border'>
 
 
@@ -665,15 +773,15 @@ const EmpDetails = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {
                 UserLyp != "" && <CommonForm classes={"grid-cols-1 lg:grid-cols-2 lg:gap-8 w-full pt-4"} errors={errors} Form={contype}
                   register={register} setValue={setValue} getValues={getValues} />
               }
-              <div className='flex gap-8'>
-                <button onClick={() => { navigate("/agreement/" + uid) }} className='mt-6 w-full justify-center rounded-md  px-3 py-1.5 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Skip</button>
-                <button onClick={(handleSubmit(onTableViewGenerateSubmit))} className='mt-6 w-full justify-center rounded-md bg-neavycolor px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button>
+              <div className='flex gap-10 mb-3 justify-center'>
+                <button onClick={() => { navigate("/empDetailsTable") }} className='mt-6 w-auto justify-center rounded-md border-black border-2 px-3 py-1  text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Back</button>
+                <button onClick={(handleSubmit(onTableViewGenerateSubmit))} className='mt-6 w-auto justify-center rounded-md bg-neavycolor px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button>
               </div>
             </div>
           </div>

@@ -269,7 +269,7 @@ const ManageCustomer = () => {
                         </div>
                     </>
                 }))
-            } settype={settype} label='Add / Modify Customer' />
+            } settype={settype} label='Add / Modify Customer'/>
         </>
 }
 

@@ -90,7 +90,7 @@ const CommonActions = {
     },
     deleteApiCaller: (urls, cb) => async (dispatch, _) => {
         try {
-            console.log("CommonPostActions.postApiCaller")
+            // console.log("CommonPostActions.postApiCaller")
             const res = await Api.delete({ url: urls })
             if (res?.status !== 201 && res?.status !== 200) return
 

@@ -85,7 +85,7 @@ const Login = () => {
                 <button type="submit" className="flex w-full justify-center rounded-lg bg-secLine 
                 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline 
                     focus-visible:outline-2  focus-visible:outline-offset-2  buttonAnim border-2 border-gray-200 font-poppins transition
-                    duration-1000 ease-in-out">Login</button>
+                    duration-300 ease-in-out hover:bg-gray-100 hover:text-black hover:border-black hover:border-2">Login</button>
             </div>
         </form>
         <div className="p-0 m-2 flex justify-center items-center">

@@ -9,7 +9,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 
 
-const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageSubProjectForm = ({projecttypeuniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
     let dispatch = useDispatch()
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
@@ -56,14 +56,12 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
                 }),
             },
             required: true,
-            value:"",
             classes: "col-span-1"
         }, 
         {
             label: " Sub Project",
             name: "subProject",
             type: "text",
-            value:"",
             props: {
                 onChange: ((e) => {
                 
@@ -74,9 +72,8 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
         }, 
         {
             label: "Status",
-            name: "status", 
+            name: "status",
             type: "select",
-            value:"",
             option: [
                 { "label": "Active", "value": "Active" },
                 { "label": "Inactive", "value": "Inactive" }
@@ -107,28 +104,24 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
         // }))
     }
     const onTableViewSubmit = (data) => {
-
         if (formValue?.uniqueId) {
-            dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
+            dispatch(AdminActions.postManageProjectType(true,projecttypeuniqueId, data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageProjectType(customeruniqueId))
+                dispatch(AdminActions.getManageProjectType(projecttypeuniqueId))
             }, formValue?.uniqueId))
         } else {
-            dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
+            dispatch(AdminActions.postManageProjectType(true,projecttypeuniqueId, data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageProjectType(customeruniqueId))
+                dispatch(AdminActions.getManageProjectType(projecttypeuniqueId))
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
         // dispatch(AdminActions.getManageProjectType())
-        
-        // alert(resetting)
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
-                console.log(fieldName,"fieldNamefieldNamefieldName")
                 setValue(fieldName["name"], fieldName["value"]);
             });
         } else {
@@ -139,6 +132,8 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
                     console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
+
+
                 } else {
                     setValue(key.name, formValue[key.name]);
                 }
@@ -166,4 +161,4 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
 
 };
 
-export default ManageProjectTypeForm;
+export default ManageSubProjectForm;

@@ -65,6 +65,9 @@ import AssetRegistration from "../pages/PMIS/Admin/AssetRegistration/AssetRegist
 import SuperAdmin from "../pages/PMIS/HR/SuperAdmin";
 import ManageCostCenter from "../pages/PMIS/Admin/ManageCostCenter/ManageCostCenter";
 import ManageProjectGroup from "../pages/PMIS/Admin/ManageProjectGroup/ManageProjectGroup";
+// import Project from "../pages/PMIS/Admin/Project/Project";
+import ManageSubProject from "../pages/PMIS/Admin/ManageSubProject/ManageSubProject";
+import ManageProject from "../pages/PMIS/Admin/ManageProject/ManageProject";
 
 
 export const Sidebar_content = {
@@ -88,9 +91,33 @@ export const Sidebar_content = {
       component: <ManageProjectType/>,
     },{
       name: "",
+      link: "/projectType/:customeruniqueId/:projecttypeuniqueId",
+      subMenu: [],
+      component: <ManageProjectType/>,
+    },
+    {
+      name: "",
       link: "/projectGroup",
       subMenu: [],
       component: <ManageProjectGroup/>,
+    },
+    {
+      name: "",
+      link: "/subProject/:projecttypeuniqueId",
+      subMenu: [],
+      component: <ManageSubProject/>,
+    },
+    {
+      name: "",
+      link: "/project/:customeruniqueId/:projecttypeuniqueId",
+      subMenu: [],
+      component: <ManageProject />,
+    },
+    {
+      name: "",
+      link: "/project/:customeruniqueId",
+      subMenu: [],
+      component: <ManageProject />,
     },
     {
       name: "",

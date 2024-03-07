@@ -27,9 +27,11 @@ const CommonForm = ({
   setValue,
   getValues,
   register,
+  reset = true
 }) => {
   const [value, onChange] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(true);
+  
   // let Form = [
   //     { label: "Name", value: "", type: "text" },
   //     { label: "Email", value: "", type: "email" },
@@ -84,7 +86,7 @@ const CommonForm = ({
     },
 
     textarea: {
-      height: "h-[200px]",
+      height: "h-[80px]",
     },
 
   };

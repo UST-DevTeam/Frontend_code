@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageCircleForm from '../../../../pages/PMIS/Admin/ManageCircle/ManageCircleForm'
+import ManageProjectForm from '../../../../pages/PMIS/Admin/ManageProject/ManageProjectForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,27 +14,32 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
+import { useParams } from 'react-router-dom';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 
-const ManageCircle = () => {
+const ManageProject = () => {
+
+
+    const { projecttypeuniqueId, customeruniqueId } = useParams()
+
 
     const [modalOpen, setmodalOpen] = useState(false)
-    const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
 
 
     let dispatch = useDispatch()
+  
 
-    
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle
+        let interdata = state?.adminData?.getProject
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child={<ToggleButton onChange={(e) => {
+                "status": <CstmButton child=
+                {<ToggleButton onChange={(e) => {
                     console.log(e.target.checked, "e.target.checked")
                     let data = {
                         "enabled": e.target.checked ? 1 : 0
@@ -51,13 +56,12 @@ const ManageCircle = () => {
                     // itm.enabled=itm.enabled==0?1:0
                     console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCircle())
+                    dispatch(AdminActions.getProject())
                     setmodalHead("Edit Circle")
                     setmodalBody(<>
-                        <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -70,8 +74,8 @@ const ManageCircle = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_circle}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCircle())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getProject())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -88,32 +92,76 @@ const ManageCircle = () => {
             return updateditm
         });
     })
-
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle
-        console.log(interdata,"1234567890")
+        let interdata = state?.adminData?.getProject
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
             return 0
         }
     })
-
-
-    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
+    // let Form = [
+    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
+    //     { label: "Custom Queries", value: "", type: "textarea" }
+    // ]
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        setValues,
+        getValues,
+        formState: { errors },
+    } = useForm()
 
     let table = {
         columns: [
             {
-                name: "Circle Name",
-                value: "circleName",
+                name: "Project ID",
+                value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Circle ID",
-                value: "shortCode",
+                name: "Project Group",
+                value: "projectGroup",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },           
+            },
+            {
+                name: "Project Type",
+                value: "projectType",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Project Manager",
+                value: "PM",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Circle",
+                value: "circle",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Start Date",
+                value: "startDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "End Date",
+                value: "endDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            // {
+            //     name: "Site Status",
+            //     value: "siteStatus",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            {
+                name: "Status",
+                value: "status",
+                style: "min-w-[140px] max-w-[200px] text-center"
+
+            },
             {
                 name: "Edit",
                 value: "edit",
@@ -139,38 +187,29 @@ const ManageCircle = () => {
             // }
         ]
     }
-
     const onSubmit = (data) => {
+        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)))
+        dispatch(AdminActions.getProject(value, objectToQueryString(data)))
     }
-
     useEffect(() => {
-        dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
+        // dispatch(OperationManagementActions.getRoleList())
     }, [])
 
-    const onTableViewSubmit = (data) => { 
-        console.log(data, "datadata")
-        data["fileType"]="ManageCircle"
-        data['collection'] = "circle"
-        dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageCircle())
-            setFileOpen(false)
-        }))
-    }
     return <>
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageCircle())
-                setmodalHead("Add Circle")
-                setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                // dispatch(AdminActions.getProject())
+                setmodalHead("Add Project")
+                setmodalBody(<ManageProjectForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
-                }}></Button>
+                }}></Button> */}
                 </div>}
             table={table}
             filterAfter={onSubmit}
@@ -187,10 +226,9 @@ const ManageCircle = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
     </>
 
 
 };
 
-export default ManageCircle;
+export default ManageProject;

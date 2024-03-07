@@ -3,11 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     getManageCustomer: [],
     getManageCircle:[],
-    getManageProject:[],
+    getCardProjectType:[],
+    getManageProjectType:[],
     getManageZone:[],
     getAssetRegistration:[],
     getManageCostCenter:[],
-    getManageProjectGroup:[]
+    getManageProjectGroup:[],
+    getManageSubProject:[],
+    getProject:[],
+    
+   
 }
 
 const adminData = createSlice({
@@ -23,27 +28,11 @@ const adminData = createSlice({
             }
         },
 
-        GET_MANAGE_PROJECT_TYPE:(state,{payload}) => {
-            if(payload.reset){
-                state.getManageProject = payload.dataAll
-            }else{
-                state.getManageProject  = [...state.getManageProject,...payload.dataAll]
-            }
-        },
-        
         GET_MANAGE_CIRCLE:(state,{payload}) => {
             if(payload.reset){
                 state.getManageCircle = payload.dataAll
             }else{
                 state.getManageCircle  = [...state.getManageCircle,...payload.dataAll]
-            }
-        },
-
-        GET_MANAGE_PROJECT:(state,{payload}) => {
-            if(payload.reset){
-                state.getManageProject = payload.dataAll
-            }else{
-                state.getManageProject  = [...state.getManageProject,...payload.dataAll]
             }
         },
 
@@ -63,6 +52,14 @@ const adminData = createSlice({
             }
         },
 
+        GET_MANAGE_PROJECT_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageProjectType = payload.dataAll
+            }else{
+                state.getManageProjectType  = [...state.getManageProjectType,...payload.dataAll]
+            }
+        },
+
         GET_MANAGE_PROJECT_GROUP:(state,{payload}) => {
             if(payload.reset){
                 state.getManageProjectGroup = payload.dataAll
@@ -71,32 +68,56 @@ const adminData = createSlice({
             }
         },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        GET_ASSET_REGISTRATION:(state,{payload}) => {
+        GET_CARD_PROJECT_TYPE:(state,{payload}) => {
             if(payload.reset){
-                state.getAssetRegistration = payload.dataAll
+                state.getCardProjectType = payload.dataAll
             }else{
-                state.getAssetRegistration  = [...state.getAssetRegistration,...payload.dataAll]
+                state.getCardProjectType  = [...state.getCardProjectType,...payload.dataAll]
             }
         },
+
+        GET_PROJECT:(state,{payload}) => {
+            if(payload.reset){
+                state.getProject = payload.dataAll
+            }else{
+                state.getProject  = [...state.getProject,...payload.dataAll]
+            }
+        },
+        
+
+        GET_MANAGE_SUB_PROJECT:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageSubProject = payload.dataAll
+            }else{
+                state.getManageSubProject  = [...state.getManageSubProject,...payload.dataAll]
+            }
+        },
+
+        // GET_ASSET_REGISTRATION:(state,{payload}) => {
+        //     if(payload.reset){
+        //         state.getAssetRegistration = payload.dataAll
+        //     }else{
+        //         state.getAssetRegistration  = [...state.getAssetRegistration,...payload.dataAll]
+        //     }
+        // },
     }
 })
 
-export const { GET_MANAGE_CUSTOMER,GET_MANAGE_PROJECT_TYPE,GET_MANAGE_CIRCLE, 
-                GET_MANAGE_PROJECT,GET_MANAGE_ZONE,GET_MANAGE_COST_CENTER, GET_MANAGE_PROJECT_GROUP,                 GET_ASSET_REGISTRATION} = adminData.actions
+export const { 
+    
+    GET_MANAGE_CUSTOMER,
+    GET_MANAGE_CIRCLE, 
+    GET_MANAGE_ZONE,
+    GET_MANAGE_COST_CENTER, 
+    GET_MANAGE_PROJECT_GROUP, 
+    GET_CARD_PROJECT_TYPE,
+    GET_MANAGE_PROJECT_TYPE,
+    GET_PROJECT,
+
+    // Not in use
+    // GET_MANAGE_PROJECT,
+    // GET_MANAGE_SUB_PROJECT,  
+    // GET_ASSET_REGISTRATION
+} = adminData.actions
     
 export default adminData.reducer

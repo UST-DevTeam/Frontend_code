@@ -18,69 +18,39 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
 
 
     let dispatch = useDispatch()
-    // let roleList = useSelector((state) => {
-    //     console.log(state, "state state")
-    //     return state?.adminManagement?.roleList
-    // })
-    // let databaseList = useSelector((state) => {
-    //     console.log(state, "state")
-    //     let interdata = state?.customQuery?.databaseList
 
-    //     console.log(interdata, "interdatainterdata")
-    //     return state?.customQuery?.databaseList
-    // })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+    let zoneList = useSelector((state) => {
+
+        return state?.adminData?.getManageZone.map((itm) => {
+            return {
+                label: itm.zoneName,
+                value: itm.uniqueId
+            }
+        })
+    })
+
+
+
     let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
          {
-            label: "Cost Center Name",
+            label: "Zone",
             value: "",
-            name: "ccName",
-            type: "text",
+            name: "zone",
+            type: "select",
             required: true,
             filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
+            option:zoneList,
             classes: "col-span-1"
         },
         {
-            label: "Cost Center ID",
+            label: "Cost Center",
             value: "",
-            name: "ccId",
+            name: "costCenter",
             type: "text",
             required: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
             classes: "col-span-1"
         }, 
-        // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {
         register,
@@ -117,6 +87,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCostCenter())
+        dispatch(AdminActions.getManageZone())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

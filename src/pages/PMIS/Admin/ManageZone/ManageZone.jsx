@@ -118,10 +118,15 @@ const ManageZone = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Short code",
+                name: "Zone ID",
                 value: "shortCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },           
+            },
+            {
+                name: "Circle",
+                value: "circle",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
             {
                 name: "Edit",
                 value: "edit",
@@ -160,6 +165,7 @@ const ManageZone = () => {
 
     const onTableViewSubmit = (data) => {
         data["fileType"]="ManageZone"
+        data['collection'] = "zone"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(AdminActions.getManageZone())
             setFileOpen(false)
@@ -171,7 +177,7 @@ const ManageZone = () => {
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageZone())
+                // dispatch(AdminActions.getManageZone())
                 setmodalHead("New User")
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
