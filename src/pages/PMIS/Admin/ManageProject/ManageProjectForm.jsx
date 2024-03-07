@@ -34,10 +34,6 @@ const ManageProjectForm = ({
   let projectTypeList = useSelector((state) => {
     return state?.adminData?.getCardProjectType.map((itm) => {
 
-
-        console.log(itm,"itmitmitmitm")
-
-
     //   if (projectTypeList === "project[uniqueId]") {
     //     const ProjectTypeValue = "projectType"; 
     //     setValue("projectType", ProjectTypeValue);

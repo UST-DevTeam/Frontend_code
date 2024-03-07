@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommonForm from '../../../components/CommonForm';
 import Button from '../../../components/Button';
-import AuthActions from '../../../store/actions/auth-actions';
+import HrActions from '../../../store/actions/hr-actions';
 import * as Unicons from '@iconscout/react-unicons';
 import UiTopBar from '../../../components/UiTopBar';
 import {UilFacebookF,UilTwitter,UilGoogle,UilLinkedin,UilLinkAlt,UilEdit,UilSave,} from "@iconscout/react-unicons";
@@ -15,7 +15,6 @@ const EmpDetails = () => {
 
 
   const dispatch = useDispatch()
-  const { uid } = useParams();
   const [oneLoad, setOneLoad] = useState(false)
   const [UserLyp, seteUserLyp] = useState("")
   const [nestfilter, setnestfilter] = useState({})
@@ -51,63 +50,64 @@ const EmpDetails = () => {
   //   return state?.auth?.user?.roleName
   // })
 
-  let Form = [
-    // {
-    //   label: "Select Server",
-    //   value: "Select",
-    //   option: databaseList,
-    //   type: "select",
-    //   name: "ServerSelection",
-    //   required: false,
-    //   props: {
-    //     onChange: ((e) => {
-    //       setOneLoad(true)
-    //       setupManagingFilter([])
-    //       setManagingFilter([])
-    //       setValue("dboSelection", "Select")
-    //       dispatch(TABLES_LIST({}))
-    //       // dispatch(CustomQueryActions.resetTablesList())
-    //       dispatch(CustomQueryActions.getdboList(true, e.target.value, () => { }))
-    //     }),
-    //   },
-    //   classes: "col-span-1"
-    // }, {
-    //   label: "Select Schema",
-    //   value: "Select",
-    //   option: dboList,
-    //   type: "select",
-    //   name: "dboSelection",
-    //   required: false,
-    //   props: {
-    //     onChange: ((e) => {
-    //       setOneLoad(true)
-    //       setupManagingFilter([])
-    //       setManagingFilter([])
-    //       // dispatch(CustomQueryActions.resetTablesList())
-    //       dispatch(CustomQueryActions.getTablesList(true, e.target.value, () => { }))
-    //     }),
-    //   },
-    //   classes: "col-span-1"
-    // }
-  ]
-  let searchForm = [
-    {
-      label: "Table Name",
-      name: "searchTablename",
-      value: "",
-      type: "text",
-      props: {
-        onChange: ((e) => {
-          // console.log(managingFilter, "managingFilter dataValuedataValue")
-          let dtew = managingFilter.filter(itm => itm.name.toLowerCase().includes(e.target.value.toLowerCase()))
-          setupManagingFilter(dtew)
-          // console.log(dtew, "dtew dataValuedataValue")
-          // console.log(dataValue, "dataValuedataValue")
-        }),
-      },
-      classes: " col-span-1"
-    },
-  ]
+  // let Form = [
+  //   // {
+  //   //   label: "Select Server",
+  //   //   value: "Select",
+  //   //   option: databaseList,
+  //   //   type: "select",
+  //   //   name: "ServerSelection",
+  //   //   required: false,
+  //   //   props: {
+  //   //     onChange: ((e) => {
+  //   //       setOneLoad(true)
+  //   //       setupManagingFilter([])
+  //   //       setManagingFilter([])
+  //   //       setValue("dboSelection", "Select")
+  //   //       dispatch(TABLES_LIST({}))
+  //   //       // dispatch(CustomQueryActions.resetTablesList())
+  //   //       dispatch(CustomQueryActions.getdboList(true, e.target.value, () => { }))
+  //   //     }),
+  //   //   },
+  //   //   classes: "col-span-1"
+  //   // }, {
+  //   //   label: "Select Schema",
+  //   //   value: "Select",
+  //   //   option: dboList,
+  //   //   type: "select",
+  //   //   name: "dboSelection",
+  //   //   required: false,
+  //   //   props: {
+  //   //     onChange: ((e) => {
+  //   //       setOneLoad(true)
+  //   //       setupManagingFilter([])
+  //   //       setManagingFilter([])
+  //   //       // dispatch(CustomQueryActions.resetTablesList())
+  //   //       dispatch(CustomQueryActions.getTablesList(true, e.target.value, () => { }))
+  //   //     }),
+  //   //   },
+  //   //   classes: "col-span-1"
+  //   // }
+  // ]
+
+  // let searchForm = [
+  //   {
+  //     label: "Table Name",
+  //     name: "searchTablename",
+  //     value: "",
+  //     type: "text",
+  //     props: {
+  //       onChange: ((e) => {
+  //         // console.log(managingFilter, "managingFilter dataValuedataValue")
+  //         let dtew = managingFilter.filter(itm => itm.name.toLowerCase().includes(e.target.value.toLowerCase()))
+  //         setupManagingFilter(dtew)
+  //         // console.log(dtew, "dtew dataValuedataValue")
+  //         // console.log(dataValue, "dataValuedataValue")
+  //       }),
+  //     },
+  //     classes: " col-span-1"
+  //   },
+  // ]
   // let ordermultiForm = [
   //   {
   //     label: "Select Column",
@@ -171,122 +171,134 @@ const EmpDetails = () => {
   //     classes: "col-span-1"
   //   }
   // ]
-  let contype = [
-    {
-      label: UserLyp != "Investor" ? UserLyp + " Name" : " Name",
-      value: "text",
-      type: UserLyp != "Investor" ? "text" : "hidden",
-      name: "cmpName",
-      required: false,
-      classes: UserLyp != "Investor" ? "col-span-1" : "",
 
-    },
-    {
-      label: UserLyp != "Investor" ? UserLyp + " Reg. No." : "Id No.",
-      value: "text",
-      type: "text",
-      name: "RegNo",
-      required: false,
-      classes: "col-span-1",
 
-    },
-    {
-      label: UserLyp != "Investor" ? UserLyp + " Address" : "Address",
-      value: "text",
-      type: "textarea",
-      name: "cAddress",
-      required: false,
-      classes: "col-span-1",
+  // let contype = [
+  //   {
+  //     label: UserLyp != "Investor" ? UserLyp + " Name" : " Name",
+  //     value: "text",
+  //     type: UserLyp != "Investor" ? "text" : "hidden",
+  //     name: "cmpName",
+  //     required: false,
+  //     classes: UserLyp != "Investor" ? "col-span-1" : "",
 
-    },
-  ]
-  let optionsList = {
-    "Investor": [{
-      "label": "Company",
-      "value": "Company"
-    }, {
-      "label": "Individual",
-      "value": "Individual"
-    }, {
-      "label": "Government Entity ",
-      "value": "Government Entity"
-    }],
-    "Fund Seeker": [{
-      "label": "Company",
-      "value": "Company"
-    }, {
-      "label": "Individual",
-      "value": "Individual"
-    }],
+  //   },
+  //   {
+  //     label: UserLyp != "Investor" ? UserLyp + " Reg. No." : "Id No.",
+  //     value: "text",
+  //     type: "text",
+  //     name: "RegNo",
+  //     required: false,
+  //     classes: "col-span-1",
 
-    "Charitable Organisation": [{
-      "label": "Company",
-      "value": "Company"
-    }]
-  }
-  let conDet = [
-    // {
-    //   label: "Reg Type",
-    //   value: "Select",
-    //   option: optionsList[userRole] || [],
-    //   type: "select",
-    //   name: "regType",
-    //   required: false,
-    //   props: {
-    //     onChange: ((e) => {
-    //       seteUserLyp(e.target.value)
-    //     })
-    //   },
-    //   classes: "col-span-1"
-    // }
-  ]
-  let conditionmultiForm = [
-    // {
-    // type:'heading',
-    // label:"Identification Documents",
-    // classes: "col-span-1 text-black-900 text-center",
-    //   },
-    {
-      label: "File ",
-      value: "",
-      name: "file",
-      type: "file",
-      onChanging: ((e) => {
+  //   },
+  //   {
+  //     label: UserLyp != "Investor" ? UserLyp + " Address" : "Address",
+  //     value: "text",
+  //     type: "textarea",
+  //     name: "cAddress",
+  //     required: false,
+  //     classes: "col-span-1",
 
-      }),
-      props: {
-        onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-      },
-      require: true,
-      classes: "col-span-1"
-    },
-    {
-      label: "Document Type",
-      value: "",
-      name: "document",
-      //   option: kyc_doc_type,
-      type: "select",
-      required: false,
-      props: {
-        onChange: ((e) => {
-          // console.log(e.target.name, "e geeter")
-          let tar = e.target.name
-          let val = e.target.value
-          setnestfilter(prev => ({
-            ...prev,
-            [tar]: val
-          }));
-          // nestfilter[e.target.name]= e.target.value
-          // setOneLoad(true)
-          // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
-        }),
-      },
-      classes: "col-span-1"
-    },
-    { label: "Doc. Number", name: "docNumber", value: "", type: "number", props: "", required: false, placeholder: "" },
-    { label: "Doc. Expire", name: "docExpire", type: "datetime", formattype: "date", format: "yyyy-MM-dd", formatop: "yyyy-MM-DD", required: false, classes: "z-100" },
+  //   },
+  // ]
 
-  ]
+
+  // let optionsList = {
+  //   "Investor": [{
+  //     "label": "Company",
+  //     "value": "Company"
+  //   }, {
+  //     "label": "Individual",
+  //     "value": "Individual"
+  //   }, {
+  //     "label": "Government Entity ",
+  //     "value": "Government Entity"
+  //   }],
+  //   "Fund Seeker": [{
+  //     "label": "Company",
+  //     "value": "Company"
+  //   }, {
+  //     "label": "Individual",
+  //     "value": "Individual"
+  //   }],
+
+  //   "Charitable Organisation": [{
+  //     "label": "Company",
+  //     "value": "Company"
+  //   }]
+  // }
+
+
+
+  // let conDet = [
+  //   // {
+  //   //   label: "Reg Type",
+  //   //   value: "Select",
+  //   //   option: optionsList[userRole] || [],
+  //   //   type: "select",
+  //   //   name: "regType",
+  //   //   required: false,
+  //   //   props: {
+  //   //     onChange: ((e) => {
+  //   //       seteUserLyp(e.target.value)
+  //   //     })
+  //   //   },
+  //   //   classes: "col-span-1"
+  //   // }
+  // ]
+
+
+
+
+
+  // let conditionmultiForm = [
+  //   // {
+  //   // type:'heading',
+  //   // label:"Identification Documents",
+  //   // classes: "col-span-1 text-black-900 text-center",
+  //   //   },
+  //   {
+  //     label: "File ",
+  //     value: "",
+  //     name: "file",
+  //     type: "file",
+  //     onChanging: ((e) => {
+
+  //     }),
+  //     props: {
+  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
+  //     },
+  //     require: true,
+  //     classes: "col-span-1"
+  //   },
+  //   {
+  //     label: "Document Type",
+  //     value: "",
+  //     name: "document",
+  //     //   option: kyc_doc_type,
+  //     type: "select",
+  //     required: false,
+  //     props: {
+  //       onChange: ((e) => {
+  //         // console.log(e.target.name, "e geeter")
+  //         let tar = e.target.name
+  //         let val = e.target.value
+  //         setnestfilter(prev => ({
+  //           ...prev,
+  //           [tar]: val
+  //         }));
+  //         // nestfilter[e.target.name]= e.target.value
+  //         // setOneLoad(true)
+  //         // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
+  //       }),
+  //     },
+  //     classes: "col-span-1"
+  //   },
+  //   { label: "Doc. Number", name: "docNumber", value: "", type: "number", props: "", required: false, placeholder: "" },
+  //   { label: "Doc. Expire", name: "docExpire", type: "datetime", formattype: "date", format: "yyyy-MM-dd", formatop: "yyyy-MM-DD", required: false, classes: "z-100" },
+
+  // ]
 
 
   let PersonalInformation = [{
@@ -315,8 +327,8 @@ const EmpDetails = () => {
     ],
   },
   { label: "Email-ID", name: "emailId", value: "", type: "text", props: "", required: false, placeholder: "" },
-  { label: "Date Of Birth(as Per doc)", name: "dob", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true, },
-  { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", formattype: "date", format: "dd-MM-yyyy", formatop: "dd-MM-yyyy", required: true },
+  { label: "Date Of Birth(as Per doc)", name: "dob", type: "datetime",  required: true, },
+  // { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", required: true },
   { label: "Contact Number", name: "mobile", value: "", type: "number", props: "", required: true, placeholder: "" },
   {
     label: "Blood Group", name: "blood", value: "", type: "select", props: {}, required: false, option: [
@@ -359,11 +371,11 @@ const EmpDetails = () => {
     ]
   },
   {
-    label: "State", name: "state", value: "", type: "select", props: "", required: true, placeholder: "", option: [{
+    label: "State", name: "state", value: "", type: "select", props: "", placeholder: "", option: [{
 
     }]
   },
-  { label: "city", name: "city", value: "", type: "select", props: "", required: true, placeholder: "" },
+  { label: "city", name: "city", value: "", type: "select", props: "", placeholder: "" },
 
   {label:"PinCode", name:"pincode", value:'', type:'text', props:'',required:true, placeholder:""},
   {label:"Address", name:"address", value:'', type:'textarea',  props:'',required:true, placeholder:"",},
@@ -406,11 +418,11 @@ const EmpDetails = () => {
     ]
   },
   {
-    label: "State", name: "state", value: "", type: "select", props: "", required: true, placeholder: "", option: [{
+    label: "State", name: "state", value: "", type: "select", props: "", placeholder: "", option: [{
 
     }]
   },
-  { label: "city", name: "city", value: "", type: "select", props: "", required: true, placeholder: "" },
+  { label: "city", name: "city", value: "", type: "select", props: "", placeholder: "" },
 
   {label:"PinCode", name:"pincode", value:'', type:'text', props:'',required:true, placeholder:""},
   {label:"Address", name:"address", value:'', type:'textarea', props:'',required:true, placeholder:""},
@@ -454,7 +466,7 @@ const EmpDetails = () => {
     label: "PAN Number", name: "panNumber", value: "", type: "text", props: "", required: false, placeholder: "",
   },
   { label: "Aadhar Number", name: "adharNumber", value: "", type: "text", props: "", required: false, placeholder: "" },
-  { label: "Circle", name: "circle", value: "", type: "select", props: "", required: true, placeholder: "", },
+  { label: "Circle", name: "circle", value: "", type: "text", props: "",  placeholder: "", },
   { label: "Experience", name: "experience", value: "", type: "text", props: "", required: true, placeholder: "", },
   { label: "Salary Currency", name: "salaryCurrency", value: "", type: "select", props: "", required: true, placeholder: "", option:[
     { "label": "INR", "value": "INR" },
@@ -469,6 +481,7 @@ const EmpDetails = () => {
   {label:"Passport", name:"passport", value:'', type:'select', props:'',required:true, placeholder:"", option:[
     { "label": "No", "value": "No" },
     { "label": "Yes", "value": "Yes" },
+
   ]},
   {label:"Bank Name", name:"bankName", value:'', type:'text', props:'',required:false, placeholder:""},
   {label:"Bank Account Number", name:"accountNumber", value:'', type:'number', props:'',required:false, placeholder:""},
@@ -505,16 +518,16 @@ const EmpDetails = () => {
     name: "role",
     value: "",
     type: "select",
-    required: true,
+    // required: true,
     props: {},
     classes: "col-span-1",
   },
   {
-    label: "PMIS Role",
+    label: "PMIS Profile",
     name: "pmisRole",
     value: "",
     type: "select",
-    required: true,
+    // required: true,
     props: {},
     classes: "col-span-1",
   },
@@ -641,7 +654,7 @@ let SupportingDoc = [{
   },
   {
     label: "All Other Documents",
-    name: "cv",
+    name: "zip",
     value: "",
     type: "file",
     required: false,
@@ -660,34 +673,37 @@ let SupportingDoc = [{
     handleSubmit,
     watch,
     setValue,
+    reset,
     getValues,
     formState: { errors },
   } = useForm()
 
   const onTableViewGenerateSubmit = (data) => {
     console.log(data, "dsadasdsadsadsadas")
-    data["uid"] = uid
-    dispatch(nokiaPrePostActions.postSubmit(Urls.KycRegister, data, () => {
-      navigate("/agreement/" + uid)
-    }))
-  }
-  const onSelect = (selectedList, selectedItem) => {
-    console.log(selectedList, selectedItem, "datadata")
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
+    dispatch(HrActions.postManageEmpDetails(true, data))
+    reset("");
   }
 
-  const onRemove = (selectedList, removedItem) => {
-    console.log(selectedList, removedItem, "datadata")
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  }
+
+  // const onSelect = (selectedList, selectedItem) => {
+  //   console.log(selectedList, selectedItem, "datadata")
+  //   // dispatch(AuthActions.signIn(data, () => {
+  //   //     navigate('/authenticate')
+  //   // }))
+  // }
+
+  // const onRemove = (selectedList, removedItem) => {
+  //   console.log(selectedList, removedItem, "datadata")
+  //   // dispatch(AuthActions.signIn(data, () => {
+  //   //     navigate('/authenticate')
+  //   // }))
+  // }
 
   useEffect(() => {
-    dispatch(AuthActions.getcountries())
+    dispatch(HrActions.getManageEmpDetails())
   }, [])
+
+  
   return <>
     <div className=' w-full h-full'>
       <div className=''>
@@ -704,13 +720,13 @@ let SupportingDoc = [{
                   register={register} setValue={setValue} getValues={getValues} />
                 {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={ContactInformation2}
                   register={register} setValue={setValue} getValues={getValues} /> */}
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? ContactInformation2 : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={ ContactInformation2}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? EmploymentDetails : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={ EmploymentDetails}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? EmployeeProfile : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={ EmployeeProfile}
                   register={register} setValue={setValue} getValues={getValues} />
-                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={userRole != "Fund Seeker" ? SupportingDoc : []}
+                <CommonForm classes={"grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"} errors={errors} Form={ SupportingDoc}
                   register={register} setValue={setValue} getValues={getValues} />
                 {/* <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
                   register={register} setValue={setValue} getValues={getValues} /> */}
@@ -775,10 +791,10 @@ let SupportingDoc = [{
                 </div>
               </div> */}
 
-              {
+              {/* {
                 UserLyp != "" && <CommonForm classes={"grid-cols-1 lg:grid-cols-2 lg:gap-8 w-full pt-4"} errors={errors} Form={contype}
                   register={register} setValue={setValue} getValues={getValues} />
-              }
+              } */}
               <div className='flex gap-10 mb-3 justify-center'>
                 <button onClick={() => { navigate("/empDetailsTable") }} className='mt-6 w-auto justify-center rounded-md border-black border-2 px-3 py-1  text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Back</button>
                 <button onClick={(handleSubmit(onTableViewGenerateSubmit))} className='mt-6 w-auto justify-center rounded-md bg-neavycolor px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button>

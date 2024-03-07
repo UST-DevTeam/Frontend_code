@@ -27,6 +27,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }
         })
     })
+    
     let costCenterList = useSelector((state) => {
         return state?.adminData?.getManageCostCenter.map((itm) => {
             return {
@@ -35,8 +36,8 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }
         })
     })
-    let zoneList = useSelector((state) => {
 
+    let zoneList = useSelector((state) => {
         return state?.adminData?.getManageZone.map((itm) => {
             return {
                 label: itm.zoneName,
@@ -135,7 +136,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         dispatch(AdminActions.getManageCustomer())
         dispatch(AdminActions.getManageCostCenter())
         dispatch(AdminActions.getManageZone())
-        
         dispatch(AdminActions.getManageProjectGroup())
 
         // alert(resetting)

@@ -32,6 +32,7 @@ export const Urls={
     admin_project_group:"/admin/manageProjectGroup",
     admin_card_projecttype:'/admin/cardProjectType',
     admin_project:"/admin/manageProject",
+    admin_empdetails:"/hr/manageEmployee",
     
 
 

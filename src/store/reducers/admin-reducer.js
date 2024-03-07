@@ -10,8 +10,7 @@ const initialState = {
     getManageCostCenter:[],
     getManageProjectGroup:[],
     getManageSubProject:[],
-    getProject:[],
-    
+    getProject:[],    
    
 }
 
@@ -92,6 +91,7 @@ const adminData = createSlice({
                 state.getManageSubProject  = [...state.getManageSubProject,...payload.dataAll]
             }
         },
+        
 
         // GET_ASSET_REGISTRATION:(state,{payload}) => {
         //     if(payload.reset){

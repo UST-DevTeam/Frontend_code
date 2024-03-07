@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../components/EditButton';
-import EmpDetails from './EmpDetails';
+import EmpDetails from '../MyHome/EmpDetails';
 import AdvancedTable from '../../../components/AdvancedTable';
 import Modal from '../../../components/Modal';
 import Button from '../../../components/Button';
@@ -15,7 +15,7 @@ import { ALERTS } from '../../../store/reducers/component-reducer';
 import CommonActions from '../../../store/actions/common-actions';
 import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
 import OperationManagementActions from '../../../store/actions/admin-actions';
-import AdminActions from '../../../store/actions/admin-actions';
+import HrActions from '../../../store/actions/hr-actions';
 import { useNavigate, useParams } from 'react-router-dom';
 
 
@@ -42,7 +42,7 @@ const EmpDetailsTable = () => {
 
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.hrReducer?.getManageEmpDetails
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -67,10 +67,10 @@ const EmpDetailsTable = () => {
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCustomer())
+                    dispatch(HrActions.getManageEmpDetails())
                     setmodalHead("Edit Customer Details")
                     setmodalBody(<>
-                        <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <EmpDetails isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></EditButton>} />,
@@ -81,8 +81,8 @@ const EmpDetailsTable = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCustomer())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_empdetails}/${itm.uniqueId}`, () => {
+                                    dispatch(HrActions.getManageEmpDetails())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -113,7 +113,7 @@ const EmpDetailsTable = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.hrReducer?.getManageEmpDetails
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -140,7 +140,7 @@ const EmpDetailsTable = () => {
             },
             {
                 name: "Email ID",
-                value: "email",
+                value: "emailId",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
@@ -173,11 +173,11 @@ const EmpDetailsTable = () => {
                 value: "delete",
                 style: "min-w-[100px] max-w-[100px] text-center"
             },
-            {
-                name: "View",
-                value: "view",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            }
+            // {
+            //     name: "View",
+            //     value: "view",
+            //     style: "min-w-[100px] max-w-[100px] text-center"
+            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -196,10 +196,10 @@ const EmpDetailsTable = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
+        dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        dispatch(HrActions.getManageEmpDetails())
     }, [])
     return <>
         <AdvancedTable

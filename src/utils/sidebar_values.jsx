@@ -67,6 +67,7 @@ import ManageCostCenter from "../pages/PMIS/Admin/ManageCostCenter/ManageCostCen
 import ManageProjectGroup from "../pages/PMIS/Admin/ManageProjectGroup/ManageProjectGroup";
 // import Project from "../pages/PMIS/Admin/Project/Project";
 import ManageSubProject from "../pages/PMIS/Admin/ManageSubProject/ManageSubProject";
+import ManageUserProjectAllocation from "../pages/PMIS/Admin/ManageUserProjectAllocation/ManageUserProjectAllocation";
 import ManageProject from "../pages/PMIS/Admin/ManageProject/ManageProject";
 
 
@@ -118,6 +119,12 @@ export const Sidebar_content = {
       link: "/project/:customeruniqueId",
       subMenu: [],
       component: <ManageProject />,
+    },
+    {
+      name: "",
+      link: "/userProjectAllocation",
+      subMenu: [],
+      component: <ManageUserProjectAllocation />,
     },
     {
       name: "",
