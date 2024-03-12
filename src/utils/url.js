@@ -1,8 +1,8 @@
-export const baseUrl="http://10.5.50.198:7980"
-export const backendassetUrl="http://10.5.50.198:7980"
+// export const baseUrl="http://10.5.50.198:7980"
+// export const backendassetUrl="http://10.5.50.198:7980"
 
-// export const baseUrl="http://192.168.29.71:7980"
-// export const backendassetUrl="http://192.168.29.71:7980"
+export const baseUrl="http://192.168.29.71:7980"
+export const backendassetUrl="http://192.168.29.71:7980/"
 
 // export const baseUrl="http://192.168.1.107:7980"
 // export const backendassetUrl="http://192.168.1.107:7980"
