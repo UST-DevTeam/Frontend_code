@@ -34,13 +34,13 @@ const adminData = createSlice({
             }
         },
 
-        GET_MANAGE_PROJECT_TYPE:(state,{payload}) => {
-            if(payload.reset){
-                state.getManageProject = payload.dataAll
-            }else{
-                state.getManageProject  = [...state.getManageProject,...payload.dataAll]
-            }
-        },
+        // GET_MANAGE_PROJECT_TYPE:(state,{payload}) => {
+        //     if(payload.reset){
+        //         state.getManageProject = payload.dataAll
+        //     }else{
+        //         state.getManageProject  = [...state.getManageProject,...payload.dataAll]
+        //     }
+        // },
         
         GET_MANAGE_CIRCLE:(state,{payload}) => {
             if(payload.reset){
