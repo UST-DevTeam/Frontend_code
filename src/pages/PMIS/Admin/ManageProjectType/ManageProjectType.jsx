@@ -141,13 +141,12 @@ const ManageProjectType = () => {
     let milestonemultiForm = [
         // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
         {
-            label: "Milestone", name: "fieldName", value: "", type: "text", props: "", required: false, placeholder: "",
+            label: "Milestone", name: "fieldName", type: "text", props: "", required: false, placeholder: "",
             value: "",
         },
         {
             label: "WCC Sign off",
             name: "WCC Sign off",
-            value: "",
             type: "select",
             option: [
                 {
@@ -166,7 +165,6 @@ const ManageProjectType = () => {
         {
             label: "Estimated Time (Days)",
             name: "Estimated Time (Days)",
-            value: "",
             type: "text",
             props: "",
             required: false,
@@ -176,7 +174,6 @@ const ManageProjectType = () => {
         {
             label: "Completion Criteria",
             name: "Completion Criteria",
-            value: "",
             type: "muitiSelect",
             option: [
                 { id: "completion_date", name: "Completion Date" },
@@ -204,7 +201,6 @@ const ManageProjectType = () => {
         {
             label: "Predecessor",
             name: "Predecessor",
-            value: "",
             type: "select",
             option: [],
             props: "",
@@ -215,7 +211,6 @@ const ManageProjectType = () => {
         {
             label: "Status",
             name: "Status",
-            value: "",
             type: "select",
             option: [
                 {

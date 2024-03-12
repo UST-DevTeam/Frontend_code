@@ -19,6 +19,7 @@ import {
     GET_MANAGE_SUB_PROJECT,
     // GET_ASSET_REGISTRATION
 } from "../reducers/admin-reducer"
+import { ALERTS } from "../reducers/component-reducer"
 
 
 const AdminActions = {
@@ -118,6 +119,29 @@ const AdminActions = {
             return;
         }
     },
+
+    patchManageProjectType: (reset,uniqueId, data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ data: data, url: Urls.admin_projecttype+"/"+uniqueId , reset })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+    
 
     getManageCostCenter:(reset=true,args="") => async (dispatch, _) => {
         try {
