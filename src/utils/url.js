@@ -60,7 +60,8 @@ export const Urls={
 
     MyHome:"/myHome/Cards",
     admin_assetRegistration:"/myHome/assetRegistration",
-    common_file_uploadr:"/commonUploadFile"
+    common_file_uploadr:"/commonUploadFile",
+    templateUploadFile:"/templateUploadFile"
 }
 
 

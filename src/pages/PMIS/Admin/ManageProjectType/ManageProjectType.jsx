@@ -506,10 +506,10 @@ const ManageProjectType = () => {
                 onClick={() => {
                   setmodalOpen(true);
                   dispatch(AdminActions.getManageCustomer());
-                  setmodalHead("Coomercial");
+                  setmodalHead("Commercial");
                   setmodalBody(
                     <>
-                      <CommonTableForm tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+                      <CommonTableForm tabHead={"Commercial"} classes={"grid-cols-2 gap-1"} Form={commercialmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );

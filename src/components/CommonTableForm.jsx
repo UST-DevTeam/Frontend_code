@@ -26,6 +26,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ALERTS } from "../store/reducers/component-reducer";
 import TableJsonDynamic from "./TableJsonDynamic";
 import { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX } from "../store/reducers/projectList-reducer";
+import FileUploader from "./FIleUploader";
+import { Urls } from "../utils/url";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
@@ -65,6 +67,7 @@ const CommonTableForm = ({
 
   const dispatch = useDispatch()
   const [selectedDate, setSelectedDate] = useState(true);
+  const [selectFile, setSelectFile] = useState(false);
   // const [selectedDate, setSelectedDate] = useState(true);
   newars["index"] = 1
   // const [listing, setlisting] = useState([]);
@@ -125,15 +128,17 @@ console.log(newdte, "listinglistinglisting")
   return (
     <>
       <div className="w-full flex justify-end gap-1 ">
-        {/* <Button name={"Bulk Upload"} icon={""} classes={"w-auto  my-auto"} onClick={() => {
+        <Button name={"Bulk Upload"} icon={""} classes={"w-auto  my-auto"} onClick={() => {
           console.log("dasdasdas")
+
+          setSelectFile(true)
           // setlisting(prev => {
           //   console.log(prev, "prevprevprev")
           //   prev.push("")
           //   return prev
           // })
 
-          setedit(prev => !prev)
+          // setedit(prev => !prev)
 
           // setlisting(prev => {
           //   const updatedListing = [...prev, ""];
@@ -142,10 +147,10 @@ console.log(newdte, "listinglistinglisting")
           // });
 
 
-          dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: oldList, reseter: false }))
+          // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: oldList, reseter: false }))
 
 
-        }} /> */}
+        }} />
 
         {
           editing ?
@@ -435,6 +440,10 @@ console.log(newdte, "listinglistinglisting")
             })
           } /></>
       }
+
+      <FileUploader isOpen={selectFile} setIsOpen={setSelectFile} fileUploadUrl={Urls.templateUploadFile} onTableViewSubmit={() => {
+        alert("dasdasdas")
+      }} />
     </>
   );
 };
