@@ -229,6 +229,100 @@ const ManageProjectType = () => {
   ]
 
 
+  let commercialmultiForm = [
+    // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
+    {
+      label: "Item Code", name: "fieldName", value: "", type: "text", props: "", required: false, placeholder: ""
+    },
+    {
+      label: "GBPA",
+      name: "required",
+      value: "Select",
+      type: "select",
+      option: [
+        {
+          label: "Yes",
+          value: "Yes"
+        }, {
+          label: "No",
+          value: "No"
+        }
+      ],
+      props: "",
+      required: false,
+      placeholder: ""
+    },
+    {
+      label: "Scope",
+      name: "dataType",
+      value: "Select",
+      innerSmart: true,
+      type: "select",
+      option: [
+        {
+          label: "Text",
+          value: "text"
+        }, {
+          label: "Number",
+          value: "Number"
+        }, {
+          label: "Decimal",
+          value: "Decimal"
+        }, {
+          label: "Date",
+          value: "Date"
+        }, {
+          label: "Dropdown",
+          value: "Dropdown",
+          extended: {
+            typer: "add",
+            type: "text",
+            option: []
+          }
+        }
+      ],
+      props: "",
+      required: false,
+      placeholder: ""
+    },
+    {
+      label: "Description",
+      name: "Status",
+      value: "Select",
+      type: "select",
+      option: [
+        {
+          label: "Active",
+          value: "Active"
+        }, {
+          label: "Inactive",
+          value: "Inactive"
+        }
+      ],
+      props: "",
+      required: false,
+      placeholder: ""
+    },
+    {
+      label: "Attachment",
+      name: "Status",
+      value: "Select",
+      type: "select",
+      option: [
+        {
+          label: "Active",
+          value: "Active"
+        }, {
+          label: "Inactive",
+          value: "Inactive"
+        }
+      ],
+      props: "",
+      required: false,
+      placeholder: ""
+    }
+  ]
+
   const handleAddActivity = (res, targ, itm) => {
     console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
 
