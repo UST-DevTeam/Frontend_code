@@ -107,10 +107,10 @@ export const Sidebar_content = {
       component: <ManageProjectType/>,
     },{
       name: "",
-      link: "/ManageSite",
+      link: "/ManageSite/:customeruniqueId",
       subMenu: [],
       component: <ManageSite/>,
-      component: <ManageProjectType />,
+      // component: <ManageProjectType />,
     },
     {
       name: "",

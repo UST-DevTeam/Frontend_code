@@ -11,6 +11,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import HrActions from "../../../../store/actions/hr-actions";
 import NewLookBadge from "../../../../components/Badge";
+import ManageSite from "../ManageSite/ManageSite";
 
 const ManageProjectSiteIdForm = ({
   isOpen,
@@ -27,6 +28,7 @@ const ManageProjectSiteIdForm = ({
 
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
+  const [modalFullOpen, setmodalFullOpen] = useState(false);
 
   //   let employeeList = useSelector((state) => {
   //     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
@@ -85,17 +87,20 @@ const ManageProjectSiteIdForm = ({
       name: "siteId",
       type: "jsxcmpt",
       value: "",
-      component:<p className="cursor-pointer" onClick={()=>{
-        setmodalOpen(true)
-        setmodalHead("Edit Site ID")
-        setmodalBody(<>
-            <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-            {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        </>)
+      component: <p className="cursor-pointer" onClick={() => {
+        setmodalFullOpen(true)
+        // setmodalHead("Edit Site ID")
+        // setmodalBody(<>
+
+        //   <ManageSite />
+        //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
+        //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
+        //   {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+        // </>)
       }}><NewLookBadge text={"Add"} notifyType={"error"} /></p>,
       //   option: employeeList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       required: true,
       classes: "col-span-1",
@@ -132,7 +137,7 @@ const ManageProjectSiteIdForm = ({
       value: "Select",
       //   option: projectList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -143,7 +148,7 @@ const ManageProjectSiteIdForm = ({
       value: "Select",
       //   option: projectList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -288,9 +293,19 @@ const ManageProjectSiteIdForm = ({
         setIsOpen={setmodalOpen}
       />
 
+
+      <Modal
+        size={"full"}
+        children={<ManageSite/>}
+        isOpen={modalFullOpen}
+        setIsOpen={setmodalFullOpen}
+      />
+
+      
+
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
 
-        
+
         <CommonForm
           classes={"grid-cols-1 gap-1"}
           Form={Form}

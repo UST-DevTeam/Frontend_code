@@ -8,6 +8,7 @@ const Modal = ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton 
         lg: 'w-[94vw] h-[90vh] md:w-[60vw] md:h-[86vh]',
         sm: 'w-[92vw]  md:w-[36vw]',
         modal: 'w-[94vw] h-[38vh] md:w-[48vw] h-[30vh]',
+        full: 'w-[98vw] h-[98vh] md:w-[98vw] md:h-[98vh]',
     }
 
     return (
