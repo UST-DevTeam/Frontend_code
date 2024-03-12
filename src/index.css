@@ -47,6 +47,15 @@
   border: none;
 }
 
+.searchWrapper {
+  height: 16px;
+  min-height:16px !important;
+}
+
+#multiselectContainerReact{
+  overflow: scroll  ;
+}
+
 
 
 /* HTML: <div class="loader"></div> */

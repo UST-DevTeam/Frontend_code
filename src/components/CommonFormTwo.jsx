@@ -6,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import { types, uiList } from '../utils/queryBuilder';
 
 
 const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, setValue, getValues, register }) => {
@@ -13,55 +14,11 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
     const [value, onChange] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(true);
 
-  
-
-    let types = ["text", "password", "email", "hidden", "number"]
 
 
-    let uiList = {
-        "text": {
-            "height": "h-[40px] w-full "
-        },
-        "file": {
-            "height": "h-[40px] w-[200px] max-w-[200px] min-w-[200px]"
-        },
-        "password": {
-            "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
-        },
-        "number": {
-            "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
-        },
-        "email": {
-            "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
-        },
-        "hidden": {
-            "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
-        },
-        "select": {
-            "height": "h-[40px] w-[90px] max-w-[90px] min-w-[90px]"
-        },
-        "datetime": {
-            "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
-        },
-        "muitiSelect": {
-            "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
-        },
-        "checkbox": {
-            "height": "h-[40px] w-[20px] max-w-[80px] min-w-[20px]"
-        },
-        "sdisabled": {
-            "height": "h-[40px] w-full"
-        },
-        "hdisabled": {
-            "height": "h-[40px] w-full"
-        },
 
-        
 
-        "textarea": {
-            "height": "h-[200px] w-[80px] max-w-[80px] min-w-[80px]"
-        }
-    }
+
     console.log(Form, "Form")
     return <>
 
@@ -104,7 +61,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                         :
                                         <></>
                                 }
-                                
+
                                 {
                                     itm.type == "sdisabled" ?
                                         <>
@@ -123,7 +80,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                         <>
                                             <input disabled type={itm.type} {...register(itm.name, {
                                                 required: false,
-                                                
+
                                                 ...itm.props
                                             })} className=" bg-white block h-8 w-full rounded-md py-1.5 p-2 text-white-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" {...itm.props} />
                                             {console.log(errors, [itm.name], itm.required, "errors?.itm?")}
@@ -132,7 +89,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                         :
                                         <></>
                                 }
-                                
+
                                 {
                                     itm.type == "checkbox" ?
                                         <>
@@ -199,12 +156,12 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                         </> :
                                         <></>
                                 }
-                               
+
                                 {
                                     itm.type == "datetime" ?
                                         <>
                                             <DatePicker
-                                                
+
 
                                                 selected={getValues(itm.name) ? moment(getValues(itm.name), itm?.formatop).toDate() : getValues(itm.name)}
                                                 onChange={(date) => {
@@ -252,10 +209,14 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                             displayValue={itm.displayValue ? itm.displayValue : "name"}
                                             style={{
                                                 searchBox: {
-                                                    border: 'none',
-                                                    'border-radius': '0px',
+                                                    border: '2px solid red', // Change the border color to red
+                                                    borderRadius: '5px', // Change the border radius
                                                     padding: "0px",
-                                                    color: "black !important"
+                                                    color: "black !important",
+                                                    height:"12px"
+                                                },
+                                                searchWrapper:{
+                                                    height:"12px"
                                                 }
                                             }}
                                             className='pt-1 text-black bg-white border-black border block h-8 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'

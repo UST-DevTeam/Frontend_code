@@ -16,6 +16,7 @@ import AutoSuggestion from "./FormElements/AutoSuggestion";
 import Radio from "./FormElements/Radio";
 import Disabled from "./FormElements/Disabled";
 import CheckBox from "./FormElements/CheckBox";
+import { types, uiList } from "../utils/queryBuilder";
 
 
 const CommonForm = ({
@@ -44,50 +45,12 @@ const CommonForm = ({
   //     { label: "Custom Queries", value: "", option: ["Please Select Your DB Server"], type: "textarea" }
   // ]
 
-  console.log("Forms....... " + Form);
+  console.log("Forms....... " + Form.map((newitm)=>{
+    console.log(newitm,"newitmnewitmnewitmnewitm")
+  }));
 
-  let types = ["text", "password", "email", "hidden", "number"];
 
-  let uiList = {
-    text: {
-      height: "h-[30px] w-full",
-    },
-    file: {
-      height: "h-[30px] w-full",
-    },
-    password: {
-      height: "h-[30px] w-full",
-    },
-    number: {
-      height: "h-[30px] w-full",
-    },
-    email: {
-      height: "h-[30px] w-full",
-    },
-    hidden: {
-      height: "h-[30px] w-full",
-    },
-    select: {
-      height: "h-[30px] w-full",
-    },
-    datetime: {
-      height: "h-[30px] w-full",
-    },
-    muitiSelect: {
-      height: "h-[30px] w-full",
-    },
-    sdisabled: {
-      height: "h-[30px] w-full",
-    },
-    hdisabled: {
-      height: "h-[30px] w-full",
-    },
-
-    textarea: {
-      height: "h-[200px]",
-    },
-
-  };
+  
   console.log(Form, "Form");
   return (
     <>
@@ -164,6 +127,8 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
+
+                    
                     {itm.type == "sdisabled" || itm.type == "hdisabled" ? (
                       <>
                         <Disabled

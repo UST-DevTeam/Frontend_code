@@ -20,6 +20,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CCDash from '../../../../components/CCDash';
 import CommonForm from '../../../../components/CommonForm';
 import CommonTableForm from '../../../../components/CommonTableForm';
+import CommonTableFormParent from '../../../../components/CommonTableFormSiteParent';
+import CommonTableFormSiteParent from '../../../../components/CommonTableFormSiteParent';
+import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer';
 
 
 
@@ -29,10 +32,16 @@ const ManageProjectType = () => {
 
     const { customeruniqueId } = useParams()
 
+    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
+
+
     const [modalOpen, setmodalOpen] = useState(false)
-    const [modalBody, setmodalBody] = useState(<></>)
+
     const [type, settype] = useState(false)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [uniqueness, setUniqueness] = useState("")
+
+    const [listing, setlisting] = useState([]);
 
 
     // setconditioncountform((prev) => {
@@ -58,9 +67,9 @@ const ManageProjectType = () => {
             label: "Field Name", name: "fieldName", value: "", type: "text", props: "", required: false, placeholder: ""
         },
         {
-            label: "Required",
+            label: "Mandatory(Y/N)",
             name: "required",
-            value: "",
+            value: "Select",
             type: "select",
             option: [
                 {
@@ -76,9 +85,10 @@ const ManageProjectType = () => {
             placeholder: ""
         },
         {
-            label: "Data Type",
+            label: "Input Type",
             name: "dataType",
-            value: "",
+            value: "Select",
+            innerSmart: true,
             type: "select",
             option: [
                 {
@@ -95,7 +105,12 @@ const ManageProjectType = () => {
                     value: "Date"
                 }, {
                     label: "Dropdown",
-                    value: "Dropdown"
+                    value: "Dropdown",
+                    extended: {
+                        typer: "add",
+                        type: "text",
+                        option: []
+                    }
                 }
             ],
             props: "",
@@ -105,7 +120,7 @@ const ManageProjectType = () => {
         {
             label: "Status",
             name: "Status",
-            value: "",
+            value: "Select",
             type: "select",
             option: [
                 {
@@ -122,6 +137,135 @@ const ManageProjectType = () => {
         }
     ]
 
+
+    let milestonemultiForm = [
+        // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
+        {
+            label: "Milestone", name: "fieldName", value: "", type: "text", props: "", required: false, placeholder: "",
+            value: "",
+        },
+        {
+            label: "WCC Sign off",
+            name: "WCC Sign off",
+            value: "",
+            type: "select",
+            option: [
+                {
+                    label: "Yes",
+                    value: "Yes"
+                }, {
+                    label: "No",
+                    value: "No"
+                }
+            ],
+            props: "",
+            required: false,
+            value: "Select",
+            placeholder: ""
+        },
+        {
+            label: "Estimated Time (Days)",
+            name: "Estimated Time (Days)",
+            value: "",
+            type: "text",
+            props: "",
+            required: false,
+            value: "",
+            placeholder: ""
+        },
+        {
+            label: "Completion Criteria",
+            name: "Completion Criteria",
+            value: "",
+            type: "muitiSelect",
+            option: [
+                { id: "completion_date", name: "Completion Date" },
+                { id: "checklist", name: "Checklist" },
+                { id: "mo_no", name: "MO No" },
+                { id: "challan_copy", name: "Challan copy" },
+                { id: "attachment", name: "Attachment" },
+                { id: "reference_no", name: "Reference No" }
+            ],
+
+            // option:[
+            //     {
+            //         label: "Active",
+            //         value: "Active"
+            //     }, {
+            //         label: "Inactive",
+            //         value: "Inactive"
+            //     }
+            // ],
+            props: "",
+            required: false,
+            value: "Select",
+            placeholder: ""
+        },
+        {
+            label: "Predecessor",
+            name: "Predecessor",
+            value: "",
+            type: "select",
+            option: [],
+            props: "",
+            required: false,
+            value: "Select",
+            placeholder: ""
+        },
+        {
+            label: "Status",
+            name: "Status",
+            value: "",
+            type: "select",
+            option: [
+                {
+                    label: "Active",
+                    value: "Active"
+                }, {
+                    label: "Deactive",
+                    value: "Deactive"
+                }
+            ],
+            props: "",
+            value: "Select",
+            required: false,
+            placeholder: ""
+        }
+    ]
+
+
+    const handleAddActivity = (res,targ, itm) => {
+        console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
+
+        let newdata = {
+            [targ]: res
+        }
+
+        dispatch(AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {
+            // alert("done")
+
+            dispatch(AdminActions.getManageProjectType(customeruniqueId))
+        }))
+
+
+
+
+
+    };
+
+
+
+    
+
+
+
+
+    const [modalBody, setmodalBody] = useState((<>
+
+
+
+        {/* <Button name={"sasaass"} onClick={(handleSubmit(handleAddActivity))}></Button> */}
+    </>))
 
 
 
@@ -156,9 +300,25 @@ const ManageProjectType = () => {
 
 
                 "template": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
+
+                    setUniqueness(prev => itm.uniqueId)
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCustomer())
+                    // console.log(itm["t_sengg"], "setUniqueness")
                     setmodalHead("Templates")
+
+                    // [""].map((itesw)=>{
+
+                    //     console.log(itesw,"itm[itesw]itm[itesw]")
+
+                    //     // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: itm[itesw]?itm[itesw]:[], reseter: true }))
+                    // })
+                    dispatch(SET_DYNAMIC_FORM({ label: "Site Engg", value: itm["t_sengg"]?itm["t_sengg"]:[], reseter: true }))
+                    dispatch(SET_DYNAMIC_FORM({ label: "Tracking", value: itm["t_tracking"]?itm["t_tracking"]:[], reseter: true }))
+                    dispatch(SET_DYNAMIC_FORM({ label: "Issues", value: itm["t_issues"]?itm['t_issues']:[], reseter: true }))
+                    dispatch(SET_DYNAMIC_FORM({ label: "Financials", value: itm["t_sFinancials"]?itm["t_sFinancials"]:[], reseter: true }))
+
+                    console.log(itm,"setmodalHeadsetmodalHead")
                     setmodalBody(<>
 
 
@@ -186,21 +346,67 @@ const ManageProjectType = () => {
                                     })} */}
                             </div>
                         </div>
-                        <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+                        {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
+                        <CommonTableFormSiteParent defaultValue={"Site Engg"} tabslist={{
+                            "Site Engg":<CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+                            "Tracking":<CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+                            "Issues":<CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+                            "Financials":<CommonTableForm tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+                            }} />
 
+                            
                         {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></Button>} />,
-                "milestone": <CstmButton className={"p-2"} child={<Button classes='w- 10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
+                "milestone": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCustomer())
-                    setmodalHead("Milestone")
+                    setmodalHead("Milestones")
+                    
+                    dispatch(SET_DYNAMIC_FORM({ label: "MileStone", value: itm["MileStone"]?itm["MileStone"]:[], reseter: true }))
                     setmodalBody(<>
-                        <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+
+
+                        <div className='flex flex-col justify-between p-2'>
+                            <div class="overflow-scroll">
+
+                                {/* {conditioncountform.map((val, index) => {
+                                        return <>
+                                            <CommonForm classes={"grid-cols-1 md:grid-cols-2 lg:gap-8 w-full"} errors={errors} Form={conditionmultiForm.map((itm) => {
+                                                return {
+                                                    ...itm,
+                                                    type: itm.name == "formovalue" ? nestfilter["wherecondition" + "_" + val + "_form"] == "joins" ? "muitiSelect" : "text" : itm.type,
+                                                    props: itm.label == "Select Column" || (itm.label == "Value" && nestfilter["wherecondition" + "_" + val + "_form"] == "joins") ? {
+                                                        ...itm.props, onSelect: (a, b) => {
+                                                            console.log("gamecall", a, b, "column" + "_" + val + "_form")
+                                                            setValue(itm.label == "Select Column" ? "wherecolumn" + "_" + val + "_form" : "formovalue" + "_" + val + "_form", b.category + "smartGame" + b.name)
+                                                        }
+                                                    } : { ...itm.props },
+                                                    option: itm.label == "Expression" ? all_command_type_wise[nestfilter["wherecondition" + "_" + val + "_form"]] : itm.option,
+                                                    name: itm.name + "_" + val + "_form"
+                                                }
+                                            })}
+                                                register={register} setValue={setValue} getValues={getValues} />
+                                        </>
+                                    })} */}
+                            </div>
+                        </div>
+                        {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"milestone", itm)} oldList={itm.milestone} listing={listing} setlisting={setlisting} /> */}
+                        <CommonTableForm tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+                        {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></Button>} />,
+                // "milestone": <CstmButton className={"p-2"} child={<Button classes='w- 10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
+                //     setmodalOpen(true)
+                //     dispatch(AdminActions.getManageCustomer())
+                //     setmodalHead("Milestone")
+                //     setmodalBody(<>
+                //         <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                //     </>)
+                // }}></Button>} />,
                 "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCustomer())
@@ -246,8 +452,6 @@ const ManageProjectType = () => {
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
     // ]
-    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
-
     let table = {
         columns: [
             {

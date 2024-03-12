@@ -59,6 +59,7 @@ import MyHome from "../pages/PMIS/MyHome/Home";
 import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
+import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
 // import Home from "../pages/PMIS/MyHome/Home"
 
 
@@ -81,7 +82,13 @@ export const Sidebar_content = {
       link: "/projectType/:customeruniqueId",
       subMenu: [],
       component: <ManageProjectType/>,
+    },{
+      name: "",
+      link: "/ManageSite",
+      subMenu: [],
+      component: <ManageSite/>,
     },
+    
     {
       name: "",
       link: "/empdetails",

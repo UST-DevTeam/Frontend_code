@@ -1,0 +1,74 @@
+
+import Button from "../../components/Button"
+import Api from "../../utils/api"
+import { Urls } from "../../utils/url"
+import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer"
+import CommonActions from "./common-actions"
+// import Notify from "./notify-actions"
+
+
+const projectListActions = {
+    postSubmit: (url, data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ url: url, data: data , contentType:"multipart/form-data"})
+            console.log(res, "res?.statusres?.status")
+
+            const dtaa = res.data
+            if (res?.status !== 201 && res?.status !== 200){
+                let msgdata = {
+                    show: true,
+                    icon: 'error',
+                    buttons: [
+
+                    ],
+                    type:1,
+                    text: dtaa.msg
+                }
+                dispatch(ALERTS(msgdata))
+            }else{
+                cb()
+            }
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
+    getIsonFormList: () => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: Urls.isonForm })
+            if (res?.status !== 200) return
+            console.log(res.data, "res.data")
+            const dataAll = res.data.data
+            dispatch(GET_ISON_FORM(dataAll))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+
+    setDynamicForm: (label,value,reseter) => async (dispatch, _) => {
+        try {
+
+            let dataAll={
+                label:label,
+                value:value,
+                reseter:reseter
+            }
+
+            dispatch(SET_DYNAMIC_FORM(dataAll))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+
+
+    
+    resetTablesList: () => async (dispatch, _) => {
+        dispatch(TABLES_LIST({}))
+    }
+}
+
+
+export default projectListActions;

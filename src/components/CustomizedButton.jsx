@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = ({ onClick, name, classes = "", icon }) => {
+const CustomizedButton = ({ onClick, name, classes = "", icon }) => {
 
     let data = [
         ["bg-", "bg-[#143b64]"],
@@ -20,10 +20,10 @@ const Button = ({ onClick, name, classes = "", icon }) => {
 
     return (
 
-        <button onClick={onClick} className={`${classes} ${classes.includes("bg")?"  ":" bg-pbutton "}  flex items-center rounded-md px-3 py-1 text-xs font-semibold leading-6 text-white shadow-md hover:bg-onHoverButton transition-colors duration-500`}>
+        <button onClick={onClick} className={`${classes} flex items-center rounded-md px-3 py-2 text-xs font-semibold leading-6 shadow-md transition-colors duration-500`}>
             {name} {icon}
         </button>
     )
 }
 
-export default Button
+export default CustomizedButton

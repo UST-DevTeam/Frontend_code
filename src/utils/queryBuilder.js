@@ -4,11 +4,11 @@ export let kyc_doc_type = [
     {
         "label": "PASSPORT",
         "value": "PASSPORT"
-    }, 
+    },
     {
         "label": "NATIONAL ID CARD",
         "value": "NATIONAL ID CARD"
-    }, 
+    },
     {
         "label": "DRIVING LICENCE",
         "value": "DRIVING LICENCE"
@@ -42,7 +42,7 @@ export let where_all_command_type = [
     {
         "label": "Select",
         "value": "blank"
-    }, 
+    },
     {
         "label": "Where",
         "value": "where"
@@ -62,7 +62,7 @@ export let all_command_type_wise = {
         {
             "label": "Select",
             "value": "blank"
-        },{
+        }, {
             "label": "Not sorted",
             "value": "Not sorted"
         },
@@ -79,7 +79,7 @@ export let all_command_type_wise = {
         {
             "label": "Select",
             "value": "blank"
-        },{
+        }, {
             "label": "starts with",
             "value": "starts with"
         },
@@ -140,7 +140,7 @@ export let all_command_type_wise = {
         {
             "label": "Select",
             "value": "blank"
-        },{
+        }, {
             "label": "INNER JOIN",
             "value": "INNER JOIN"
         },
@@ -165,11 +165,11 @@ export let all_command_type_wise = {
             "value": "SELF JOIN"
         }
     ],
-    "aggregationFunction":[
+    "aggregationFunction": [
         {
             "label": "Select",
             "value": "blank"
-        },{
+        }, {
             "label": "COUNT",
             "value": "COUNT"
         },
@@ -223,3 +223,54 @@ export function sql_data_generator(mainobj) {
 
     return ata
 }
+
+export let uiList = {
+    "text": {
+        "height": "h-[40px] w-full border-sm border-black"
+    },
+    "file": {
+        "height": "h-[40px] w-[200px] max-w-[200px] min-w-[200px]"
+    },
+    "password": {
+        "height": "h-[40px] w-full"
+    },
+    "number": {
+        "height": "h-[40px] w-full"
+    },
+    "decimal": {
+        "height": "h-[40px] w-full"
+    },
+    "email": {
+        "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
+    },
+    "hidden": {
+        "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
+    },
+    "select": {
+        "height": "h-[40px] w-[90px] max-w-[90px] min-w-[90px]"
+    },
+    "datetime": {
+        "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
+    },
+    "muitiSelect": {
+        "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
+    },
+    "checkbox": {
+        "height": "h-[40px] w-[20px] max-w-[80px] min-w-[20px]"
+    },
+    "sdisabled": {
+        "height": "h-[40px] w-full"
+    },
+    "hdisabled": {
+        "height": "h-[40px] w-full"
+    },
+
+
+
+    "textarea": {
+        "height": "h-[200px] w-[80px] max-w-[80px] min-w-[80px]"
+    }
+}
+
+
+export let types = ["text", "password", "email", "hidden", "number"];
