@@ -56,6 +56,17 @@ const AdminActions = {
         }
     },
 
+
+    getOneManageProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_projecttype}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ONE_MANAGE_PROJECT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
     getManageCircle:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_circle}${args!=""?"?"+args:""}`})
