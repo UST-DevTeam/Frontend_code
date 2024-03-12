@@ -28,6 +28,7 @@ import TableJsonDynamic from "./TableJsonDynamic";
 import { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX } from "../store/reducers/projectList-reducer";
 import FileUploader from "./FIleUploader";
 import { Urls } from "../utils/url";
+import CommonActions from "../store/actions/common-actions";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
@@ -113,6 +114,17 @@ const CommonTableForm = ({
     console.log(res, "resresresresres")
   }
 
+
+
+  const onTableViewSubmit = (data) => {
+    console.log(data, "datadata")
+    data["fileType"] = "ManageCircle"
+    data['collection'] = "circle"
+    dispatch(CommonActions.fileSubmit(Urls.templateUploadFile, data, () => {
+      dispatch(AdminActions.getManageCircle())
+      setFileOpen(false)
+    }))
+  }
 
   {/* <Button classes="w-auto" name={"Save"} onClick={(e) => {
 
@@ -441,9 +453,7 @@ console.log(newdte, "listinglistinglisting")
           } /></>
       }
 
-      <FileUploader isOpen={selectFile} setIsOpen={setSelectFile} fileUploadUrl={Urls.templateUploadFile} onTableViewSubmit={() => {
-        alert("dasdasdas")
-      }} />
+      <FileUploader isOpen={selectFile} setIsOpen={setSelectFile} fileUploadUrl={Urls.templateUploadFile} onTableViewSubmit={onTableViewSubmit} />
     </>
   );
 };
