@@ -229,7 +229,7 @@ export let uiList = {
         "height": "h-[40px] w-full border-sm border-black"
     },
     "file": {
-        "height": "h-[40px] w-[200px] max-w-[200px] min-w-[200px]"
+        "height": "h-[40px] w-full"
     },
     "password": {
         "height": "h-[40px] w-full"
@@ -247,10 +247,10 @@ export let uiList = {
         "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
     },
     "select": {
-        "height": "h-[40px] w-[90px] max-w-[90px] min-w-[90px]"
+        "height": "h-[40px] w-full"
     },
     "datetime": {
-        "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
+        "height": "h-[40px] w-full"
     },
     "muitiSelect": {
         "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
@@ -268,7 +268,7 @@ export let uiList = {
 
 
     "textarea": {
-        "height": "h-[200px] w-[80px] max-w-[80px] min-w-[80px]"
+        "height": "h-[200px] w-full"
     }
 }
 
