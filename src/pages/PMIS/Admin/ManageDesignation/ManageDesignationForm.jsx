@@ -10,104 +10,53 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 
-const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+
+    // console.log(isOpen,"isOpen")
+    // console.log(setIsOpen,"setIsOpen")
+    // console.log(resetting,"resetting")
+    // console.log(formValue,"formValue")
+
 
     const [modalOpen, setmodalOpen] = useState(false)
 
 
     let dispatch = useDispatch()
 
-
-
-    let circleList = useSelector((state) => {
-        return state?.adminData?.getManageCircle.map((itm) => {
-            return {
-                name: itm?.circleName,
-                id: itm?.circleName
-            }
-        })
+    let roleList = useSelector((state) => {
+        console.log(state, "state state")
+        return state?.adminManagement?.roleList
     })
+    let databaseList = useSelector((state) => {
+        console.log(state, "state")
+        let interdata = state?.customQuery?.databaseList
 
-    let customerList = useSelector((state) => {
-        return state?.adminData?.getManageCustomer.map((itm) => {
-            return {
-                label: itm?.customerName,
-                value:itm?.uniqueId
-            }
-        })
+        console.log(interdata, "interdatainterdata")
+        return state?.customQuery?.databaseList
     })
-
-
-
+    // let Form = [
+    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
+    //     { label: "Custom Queries", value: "", type: "textarea" }
+    // ]
     let Form = [
         {
-            label: "Customer Name",
-            value: "Select",
-            name: "customer",
-            type: "select",
-            required: true,
-            option:customerList,
-            classes: "col-span-1",
-            props: {
-                onChange: (e) => {
-                    console.log(e.target.value, "e_geeter")
-
-                    setValue("Customer",e.target.name)
-                    dispatch(AdminActions.getManageCircle(true,`customer=${e.target.value}`));
-
-                },
-            },
-        },
-        {
-            label: "Zone Name",
+            label: "Designation",
             value: "",
-            name: "zoneName",
+            name: "designation",
             type: "text",
             required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
-
                     // setValue("queries",e.target.name)
-
                 }),
             },
             classes: "col-span-1"
         },
-        {
-            label: "Zone ID",
-            value: "",
-            name: "shortCode",
-            type: "text",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        {
-            label: "Circle",
-            value: "",
-            name: "circle",
-            type: "muitiSelect",
-            option: circleList,
-            required: true,
-            props: {
-                onChange: ((e) => {
-
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-            ]
+    ]
     const {
         register,
         handleSubmit,
@@ -127,22 +76,22 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageZone(true, data, () => {
+            dispatch(AdminActions.postManageDesignation(true, data, () => {
                 console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageZone())
+                dispatch(AdminActions.getManageDesignation())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageZone(true, data, () => {
+            dispatch(AdminActions.postManageDesignation(true, data, () => {
                 console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageZone())
+                dispatch(AdminActions.getManageDesignation())
             }))
         }
     }
+    console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
-        // dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageDesignation())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -172,7 +121,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
 
-            <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}
 
 
@@ -182,6 +131,8 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>
+
+
 };
 
-export default ManageZoneForm;
+export default ManageDesignationForm;

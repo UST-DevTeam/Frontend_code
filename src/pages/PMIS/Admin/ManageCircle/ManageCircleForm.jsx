@@ -14,52 +14,52 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
-    console.log(isOpen,"isOpen")
-    console.log(setIsOpen,"setIsOpen")
-    console.log(resetting,"resetting")
-    console.log(formValue,"formValue")
+    // console.log(isOpen,"isOpen")
+    // console.log(setIsOpen,"setIsOpen")
+    // console.log(resetting,"resetting")
+    // console.log(formValue,"formValue")
 
 
     const [modalOpen, setmodalOpen] = useState(false)
 
 
     let dispatch = useDispatch()
+
+
     let roleList = useSelector((state) => {
-        console.log(state, "state state")
         return state?.adminManagement?.roleList
     })
-    let databaseList = useSelector((state) => {
-        console.log(state, "state")
-        let interdata = state?.customQuery?.databaseList
 
-        console.log(interdata, "interdatainterdata")
+    let databaseList = useSelector((state) => {
+        let interdata = state?.customQuery?.databaseList
         return state?.customQuery?.databaseList
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+    let customerList = useSelector((state) => {
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm?.customerName,
+                value:itm?.uniqueId
+            }
+        })
+    })
+
     let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
-         {
-            label: "Cirlce Name",
+        {
+            label: "Customer Name",
+            value: "Select",
+            name: "customer",
+            type: "select",
+            required: true,
+            option:customerList,
+            classes: "col-span-1"
+        },
+        {
+            label: "Circle Name",
             value: "",
             name: "circleName",
             type: "text",
             required: true,
-            filter: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
@@ -73,7 +73,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Circle ID",
             value: "",
-            name: "shortCode",
+            name: "circleCode",
             type: "text",
             required: true,
             props: {
@@ -85,8 +85,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
                 }),
             },
             classes: "col-span-1"
-        }, 
-        // { label: "User", value: "", option: ["User Name"], type: "select" }
+        }
     ]
     const {
         register,
@@ -108,7 +107,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageCircle(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCircle())
             }, formValue.uniqueId))
@@ -122,7 +120,8 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCircle())
+        // dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -131,7 +130,9 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         } else {
             reset({})
             console.log(Object.keys(formValue), "Object.keys(formValue)")
-            Form.forEach((key) => {
+            Object.keys(formValue).forEach((key) => {
+
+
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
                     console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
@@ -140,7 +141,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
                 } else {
                     // console.log("formValuekey",key,key)
-                    setValue(key.name, formValue[key.name]);
+                    setValue(key, formValue[key]);
                 }
             })
         }
@@ -152,7 +153,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
 
-            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}
 
 
@@ -162,8 +163,8 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>
-
-
 };
+
+
 
 export default ManageCircleForm;

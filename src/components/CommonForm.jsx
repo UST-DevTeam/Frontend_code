@@ -17,7 +17,6 @@ import Radio from "./FormElements/Radio";
 import Disabled from "./FormElements/Disabled";
 import CheckBox from "./FormElements/CheckBox";
 
-
 const CommonForm = ({
   classes,
   encType = false,
@@ -27,11 +26,11 @@ const CommonForm = ({
   setValue,
   getValues,
   register,
-  reset = true
+  reset = true,
 }) => {
   const [value, onChange] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(true);
-  
+
   // let Form = [
   //     { label: "Name", value: "", type: "text" },
   //     { label: "Email", value: "", type: "email" },
@@ -48,7 +47,7 @@ const CommonForm = ({
 
   console.log("Forms....... " + Form);
 
-  let types = ["text", "password", "email", "hidden", "number"];
+  let types = ["text", "password", "email", "hidden", "number", "url"];
 
   let uiList = {
     text: {
@@ -88,7 +87,6 @@ const CommonForm = ({
     textarea: {
       height: "h-[80px]",
     },
-
   };
   console.log(Form, "Form");
   return (
@@ -101,57 +99,74 @@ const CommonForm = ({
           }
           return (
             <>
-              {itm.type == "heading" ? (<>
-                <div className={`${itm.classes ? itm.classes : "col-span-1"}`}>
-                  <h1 className="pl-8">{itm.label}</h1>
-                </div>
-              </>) : <></>}
+              {itm.type == "heading" ? (
+                <>
+                  <div
+                    className={`${itm.classes ? itm.classes : "col-span-1"}`}
+                  >
+                    <h1 className="pl-8">{itm.label}</h1>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
               {itm.type != "hidden" && itm.type != "heading" ? (
                 <div
-                  className={`mx-0 my-3 p-1 ${itm.classes ? itm.classes : "col-span-1"}`}
+                  className={`mx-0 my-3 p-1 ${
+                    itm.classes ? itm.classes : "col-span-1"
+                  }`}
                 >
-                  {itm?.showlabel == false ? <></> : <div className="items-center justify-between">
-                    {
-                      <label className="block text-sm font-medium text-txt-neavy ml-3 dark:text-darkBg">
-                        {itm.label}
-                        {itm?.required && <span className="text-red-600 ml-1 ">*</span>}
-                      </label>
-                    }
-                  </div>
-                  }
+                  {itm?.showlabel == false ? (
+                    <></>
+                  ) : (
+                    <div className="items-center justify-between">
+                      {
+                        <label className="block text-sm font-medium text-txt-neavy ml-3 dark:text-darkBg">
+                          {itm.label}
+                          {itm?.required && (
+                            <span className="text-red-600 ml-1 ">*</span>
+                          )}
+                        </label>
+                      }
+                    </div>
+                  )}
                   <div
-                    className={uiList[itm.type]?.height + " mt-2  px-2  flex flex-row"}
+                    className={
+                      uiList[itm.type]?.height + " mt-2  px-2  flex flex-row"
+                    }
                   >
-                    {itm?.amp && (
+                    {itm?.amp &&
                       itm?.amp?.map((its) => {
-                        return <div className={`flex flex-row border-b-2 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${its?.styling} ${its?.styling?.includes("w-") ? "" : " w-24 "}`}>
-                          {
-                            its?.type == "select" && <SelectDropDown
-                              itm={its}
-                              errors={errors}
-                              handleSubmit={handleSubmit}
-                              setValue={setValue}
-                              getValues={getValues}
-                              register={register}
-                            />
-                          }
+                        return (
+                          <div
+                            className={`flex flex-row border-b-2 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${
+                              its?.styling
+                            } ${its?.styling?.includes("w-") ? "" : " w-24 "}`}
+                          >
+                            {its?.type == "select" && (
+                              <SelectDropDown
+                                itm={its}
+                                errors={errors}
+                                handleSubmit={handleSubmit}
+                                setValue={setValue}
+                                getValues={getValues}
+                                register={register}
+                              />
+                            )}
 
-                          {
-                            types.indexOf(its.type) != -1 && <TextBox
-                              itm={its}
-                              errors={errors}
-                              handleSubmit={handleSubmit}
-                              setValue={setValue}
-                              getValues={getValues}
-                              register={register}
-                            />
-                          }
-                        </div>
-
-                      })
-
-                    )}
-
+                            {types.indexOf(its.type) != -1 && (
+                              <TextBox
+                                itm={its}
+                                errors={errors}
+                                handleSubmit={handleSubmit}
+                                setValue={setValue}
+                                getValues={getValues}
+                                register={register}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
                     {types.indexOf(itm.type) != -1 ? (
                       <>
                         <TextBox
@@ -180,6 +195,8 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
+                    {itm.type == "jsxcmpt" ? <>{itm.component}</> : <></>}
+
                     {itm.type == "radio" ? (
                       <>
                         <Radio

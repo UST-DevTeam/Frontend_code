@@ -24,18 +24,41 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
 
         return state?.adminData?.getManageZone.map((itm) => {
             return {
-                label: itm.zoneName,
+                label: itm.shortCode,
                 value: itm.uniqueId
             }
         })
     })
 
+    let customerList = useSelector((state) => {
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm?.customerName,
+                value:itm?.uniqueId
+            }
+        })
+    })
 
 
     let Form = [
+        {
+            label: "Customer Name",
+            value: "Select",
+            name: "customer",
+            type: "select",
+            required: true,
+            option:customerList,
+            props:{
+                onChange:(e)=>{
+                    // alert(e.target.value)
+                    dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
+                }
+            },
+            classes: "col-span-1"
+        },
          {
             label: "Zone",
-            value: "",
+            value: "Select",
             name: "zone",
             type: "select",
             required: true,
@@ -87,7 +110,8 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCostCenter())
-        dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageCustomer())
+        // dispatch(AdminActions.getManageZone())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

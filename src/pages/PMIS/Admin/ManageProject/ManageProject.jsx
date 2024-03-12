@@ -14,7 +14,7 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
@@ -31,6 +31,10 @@ const ManageProject = () => {
 
 
     let dispatch = useDispatch()
+    
+
+    let navigate = useNavigate()
+    
   
 
     let dbConfigList = useSelector((state) => {
@@ -38,27 +42,40 @@ const ManageProject = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child=
-                {<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
-                    let data = {
-                        "enabled": e.target.checked ? 1 : 0
-                    }
-                    dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
-                        e.target.checked = e.target.checked
-                    }, itm.id))
-                    // if(itm.enabled==0){ 
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
-                }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+                // "status": <CstmButton child=
+                // {<ToggleButton onChange={(e) => {
+                //     console.log(e.target.checked, "e.target.checked")
+                //     let data = {
+                //         "enabled": e.target.checked ? 1 : 0
+                //     }
+                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
+                //         // alert(e.target.checked)
+                //         e.target.checked = e.target.checked
+                //     }, itm.id))
+                //     // if(itm.enabled==0){ 
+                //     //     itm.enabled=1
+                //     // }else{
+                //     //     itm.enabled=0
+                //     // }
+                //     // itm.enabled=itm.enabled==0?1:0
+                //     console.log(itm.enabled, "itm.enabled")
+                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+
+                projectId: (
+                    <button>
+                        <p
+                        // onClick={() => handleFullName(item)}
+                        onClick={() => navigate(`/projectSiteId/${customeruniqueId}`)}
+                        className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
+                    >
+                        {itm.projectId}
+                    </p>
+                    </button>
+                ),  
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getProject())
+                    dispatch(AdminActions.getProject(uniqueId))
                     setmodalHead("Edit Circle")
                     setmodalBody(<>
                         <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -206,7 +223,7 @@ const ManageProject = () => {
                 setmodalHead("Add Project")
                 setmodalBody(<ManageProjectForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button>
+                name={"Add Project"}></Button>
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}

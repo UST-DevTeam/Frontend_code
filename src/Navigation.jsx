@@ -35,7 +35,7 @@ const Navigation = ({ sidebarOpen }) => {
     }
     return <Routes>
         {
-            [...Sidebar_content["all_routes"], ...Sidebar_content["GlobalUrl"],...rolename=="Admin"?Sidebar_content[rolename]:[]].map((itm) => {
+            [...Sidebar_content["all_routes"], ...Sidebar_content["GlobalUrl"],...rolename=="SuperAdmin"?Sidebar_content[rolename]:[]].map((itm) => {
 
                 // console.log("RouteCreatorRouteCreator", RouteCreator(itm))
                 return RouteCreator(itm)

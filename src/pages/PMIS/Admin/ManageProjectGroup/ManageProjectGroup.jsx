@@ -156,7 +156,7 @@ const ManageProjectGroup = () => {
                 setmodalHead("Add Project Group")
                 setmodalBody(<ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button></>}
+                name={"Add Project Group"}></Button></>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}

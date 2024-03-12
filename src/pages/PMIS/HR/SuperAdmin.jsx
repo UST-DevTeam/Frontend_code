@@ -275,12 +275,17 @@ const SuperAdmin = () => {
     // </>\
 
     return <>
-        <CCDash showbtn={false} approveddata={[["Manage Circle","bg-gradient-to-r from-teal-400 to-sky-500","/manageCircle"],
-        ["Manage Zone","bg-gradient-to-r from-lime-300 to-teal-400","/manageZone"],
-        ["Manage Cost Center","bg-gradient-to-r from-violet-500 to-purple-500","/manageCostCenter"],
-        ["Manage Project Group","bg-gradient-to-r from-teal-400 to-sky-500","/projectGroup"],
-        ["User Access Management","bg-gradient-to-r from-teal-100 to-sky-400",""],
-        ["User Project Allocation","bg-gradient-to-r from-teal-300 to-rose-200","/userProjectAllocation"]].map((itm => {
+        <CCDash showbtn={false} approveddata={[
+                ["Manage Circle","bg-gradient-to-r from-teal-400 to-sky-500","/manageCircle"],
+                ["Manage Zone","bg-gradient-to-r from-lime-300 to-teal-400","/manageZone"],
+                ["Manage Cost Center","bg-gradient-to-r from-violet-500 to-purple-500","/manageCostCenter"],
+                ["Manage Project Group","bg-gradient-to-r from-teal-200 to-sky-800","/projectGroup"],
+                ["User Access Management","bg-gradient-to-r from-teal-100 to-sky-400","/userAccessManagement"],
+                ["User Project Allocation","bg-gradient-to-r from-teal-400 to-yellow-200","/userProjectAllocation"],
+                ["Manage Department","bg-gradient-to-r from-pink-500 to-rose-500","/manageDepartment"],
+                ["Manage Designation","bg-gradient-to-r from-emerald-400 to-cyan-400","/manageDesignation"],
+                ["Manage Profiles","bg-gradient-to-r from-amber-200 to-yellow-500","/manageProfile"]
+            ].map((itm => {
             return <>
                 <div className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`} onClick={()=>{navigate(itm[2])}}>
                     {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}

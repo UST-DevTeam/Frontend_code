@@ -22,7 +22,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         // console.log(state?.adminData?.getManageCustomer, "state?.adminData?.customerList")
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
-                label: itm.customerName,
+                label: itm.shortName,
                 value: itm.uniqueId
             }
         })
@@ -40,7 +40,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     let zoneList = useSelector((state) => {
         return state?.adminData?.getManageZone.map((itm) => {
             return {
-                label: itm.zoneName,
+                label: itm.shortCode,
                 value: itm.uniqueId
             }
         })
@@ -59,7 +59,29 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target, "e_geeter")
+
+                    alert(e.target.value)
+                    dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
+
+                    // setValue("queries",e.target.name)
+
+                }),
+            },
+            classes: "col-span-1"
+        },
+        {
+            label: "Zone",
+            value: "Select",
+            name: "zoneId",
+            type: "select",
+            option: zoneList,
+            required: true,
+            filter: true,
+            props: {
+                onChange: ((e) => {
+                    alert(e.target.value)
+                    dispatch(AdminActions.getManageCostCenter(true,`zone=${e.target.value}`))
+                    // console.log(e.target.value, "e geeter")
 
                     // setValue("queries",e.target.name)
 
@@ -85,24 +107,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             },
             classes: "col-span-1"
         },
-        {
-            label: "Zone",
-            value: "Select",
-            name: "zoneId",
-            type: "select",
-            option: zoneList,
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
-            classes: "col-span-1"
-        },
+        
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm()
@@ -134,9 +139,9 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
-        dispatch(AdminActions.getManageCostCenter())
-        dispatch(AdminActions.getManageZone())
-        dispatch(AdminActions.getManageProjectGroup())
+        // dispatch(AdminActions.getManageCostCenter())
+        // dispatch(AdminActions.getManageZone())
+        // dispatch(AdminActions.getManageProjectGroup())
 
         // alert(resetting)
         if (resetting) {
@@ -168,7 +173,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
 
-            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}
 
 

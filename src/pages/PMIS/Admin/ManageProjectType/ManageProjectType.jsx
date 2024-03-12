@@ -633,7 +633,7 @@ const ManageProjectType = () => {
                   />
                 );
               }}
-              name={"Add New"}
+              name={"Add Project Type"}
             ></Button>
           </>
         }

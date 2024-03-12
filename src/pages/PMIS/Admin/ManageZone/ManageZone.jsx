@@ -113,8 +113,8 @@ const ManageZone = () => {
     let table = {
         columns: [
             {
-                name: "Zone Name",
-                value: "zoneName",
+                name: "Customer Name",
+                value: "customerName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -178,10 +178,10 @@ const ManageZone = () => {
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageZone())
-                setmodalHead("New User")
+                setmodalHead("New Zone")
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button>
+                name={"Add Zone"}></Button>
                 <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>

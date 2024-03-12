@@ -261,10 +261,10 @@ const ManageSubProject = () => {
                 headerButton={<><Button onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(OperationManagementActions.getOperationUserList())
-                    setmodalHead("New Project Type")
+                    setmodalHead("New Sub Project ")
                     setmodalBody(<ManageSubProjectForm projecttypeuniqueId={projecttypeuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
-                    name={"Add New"}></Button></>}
+                    name={"Add Sub Project "}></Button></>}
                 table={table}
                 filterAfter={onSubmit}
                 tableName={"UserListTable"}

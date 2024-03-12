@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageCostCenterForm from '../../../../pages/PMIS/Admin/ManageCostCenter/ManageCostCenterForm'
+import ManageProjectSiteIdForm from '../../../../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteIdForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,49 +14,67 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
+import { useParams, useNavigate } from 'react-router-dom';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 
-const ManageCostCenter = () => {
+const ManageProjectSiteId = () => {
+
+
+    const { projecttypeuniqueId, customeruniqueId } = useParams()
+
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
-    const [fileOpen, setFileOpen] = useState(false)
+    const navigate = useNavigate();
 
 
     let dispatch = useDispatch()
   
 
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCostCenter
+        let interdata = state?.adminData?.getProject
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
-                    let data = {
-                        "enabled": e.target.checked ? 1 : 0
-                    }
-                    dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
-                        e.target.checked = e.target.checked
-                    }, itm.id))
-                    // if(itm.enabled==0){ 
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
-                }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+                // "status": <CstmButton child=
+                // {<ToggleButton onChange={(e) => {
+                //     console.log(e.target.checked, "e.target.checked")
+                //     let data = {
+                //         "enabled": e.target.checked ? 1 : 0
+                //     }
+                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
+                //         // alert(e.target.checked)
+                //         e.target.checked = e.target.checked
+                //     }, itm.id))
+                //     // if(itm.enabled==0){ 
+                //     //     itm.enabled=1
+                //     // }else{
+                //     //     itm.enabled=0
+                //     // }
+                //     // itm.enabled=itm.enabled==0?1:0
+                //     console.log(itm.enabled, "itm.enabled")
+                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+
+                projectId: (
+                    <p
+                        // onClick={() => handleFullName(item)}
+                        onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
+                        className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
+                    >
+                        {itm.projectId}
+                    </p>
+                ),
+
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCostCenter())
-                    setmodalHead("Edit User")
+                    dispatch(AdminActions.getProject())
+                    setmodalHead("Edit Site ID")
                     setmodalBody(<>
-                        <ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageProjectSiteIdForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -69,8 +87,8 @@ const ManageCostCenter = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_cost_center}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCostCenter())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getProject())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -88,7 +106,7 @@ const ManageCostCenter = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCostCenter
+        let interdata = state?.adminData?.getProject
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -112,20 +130,46 @@ const ManageCostCenter = () => {
     let table = {
         columns: [
             {
-                name: "Customer Name",
-                value: "customerName",
+                name: "Site ID",
+                value: "siteId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Zone",
-                value: "zone",
+                name: "Scope",
+                value: "Scope",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Cost Center",
-                value: "costCenter",
+                name: "Owner",
+                value: "owner",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },           
+            },
+            {
+                name: "SubProject",
+                value: "subproject",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "% Complete",
+                value: "complete",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Planned Start Date",
+                value: "startDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Planned End Date",
+                value: "endDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Status",
+                value: "status",
+                style: "min-w-[140px] max-w-[200px] text-center"
+
+            },
             {
                 name: "Edit",
                 value: "edit",
@@ -155,35 +199,25 @@ const ManageCostCenter = () => {
         // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCostCenter(value, objectToQueryString(data)))
+        dispatch(AdminActions.getProject(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getManageCostCenter())
+        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
-
-    const onTableViewSubmit = (data) => {
-        data["fileType"]="ManageCostCenter"
-        data['collection'] = "costCenter"
-        dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageZone())
-            setFileOpen(false)
-        }))
-    }
-
 
     return <>
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageCostCenter())
-                setmodalHead("New Cost Center")
-                setmodalBody(<ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                // dispatch(AdminActions.getProject())
+                setmodalHead("Add Site ID")
+                setmodalBody(<ManageProjectSiteIdForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Cost Center"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                name={"Add Site ID"}></Button>
+                {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
-                }}></Button>
+                }}></Button> */}
                 </div>}
             table={table}
             filterAfter={onSubmit}
@@ -200,10 +234,9 @@ const ManageCostCenter = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
     </>
 
 
 };
 
-export default ManageCostCenter;
+export default ManageProjectSiteId;

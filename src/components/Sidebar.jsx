@@ -85,7 +85,7 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
                     })
                 }
                 {
-                    [...rolename=="Admin"?Roles[rolename]:[]].map((itm) => {
+                    [...rolename=="SuperAdmin"?Roles[rolename]:[]].map((itm) => {
                         return <li><MenuItem sidebarOpen={sidebarOpen} itm={itm} value={6} size={0} checkp={false} permission={{}}  parenting={itm.link}/></li>
                     })
                 }

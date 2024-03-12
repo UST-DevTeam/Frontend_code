@@ -9,8 +9,14 @@ import {
     GET_CARD_PROJECT_TYPE,
     GET_MANAGE_PROJECT_TYPE,
     GET_PROJECT,
+    GET_MANAGE_DEPARTMENT,
+    GET_MANAGE_DESIGNATION,
+    GET_MANAGE_PROFILE,
+    GET_STATE,
+    GET_CITIES,
+    GET_PROJECT_ALLLOCATION,
     // Not in use
-    // GET_MANAGE_SUB_PROJECT,
+    GET_MANAGE_SUB_PROJECT,
     // GET_ASSET_REGISTRATION
 } from "../reducers/admin-reducer"
 
@@ -247,6 +253,155 @@ const AdminActions = {
                 cb()
 
             }
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageDepartment:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_department}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_DEPARTMENT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postManageDepartment: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_department : Urls.admin_department + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageDesignation:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_designation}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_DESIGNATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postManageDesignation: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_designation : Urls.admin_designation + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageProfile:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_profile}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_PROFILE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postManageProfile: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_profile : Urls.admin_profile + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getState:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.State}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_STATE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getCities:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            console.log("cities",args)
+            const res = await Api.get({ url:`${Urls.Cities}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_CITIES({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getProjectAllocation:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            console.log("cities",args)
+            const res = await Api.get({ url:`${Urls.admin_project_allocation}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROJECT_ALLLOCATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postProjectAllocation: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project_allocation : Urls.admin_project_allocation + "/" + uniqueId})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
         } catch (error) {
             return;
         }
