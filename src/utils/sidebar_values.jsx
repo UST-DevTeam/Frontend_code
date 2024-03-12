@@ -1,5 +1,14 @@
 import * as Unicons from "@iconscout/react-unicons";
-import { UilAirplay,UilLockAccess  } from '@iconscout/react-unicons'
+import {
+  UilAirplay,
+  UilStore,
+  UilFileShieldAlt,
+  UilHome,
+  UilUserSquare,
+  UilCoins,
+  UilDatabase,
+  UilFileContract,
+} from "@iconscout/react-unicons";
 import RunQuery from "../pages/CustomQuery/RunQuery";
 import QueryBuilderComponent from "../pages/CustomQuery/QueryBuilder";
 import BIDashboard from "../pages/BusinessIntelligence/BIDashboard";
@@ -45,12 +54,11 @@ import FundSeekerDetails from "../pages/FundSeekerDetails/FundSeekerDetails";
 import OperationManagement from "../pages/OperationManagement/OperationManagement";
 import AgreementManagement from "../pages/Admin/AgreementManagement/AgreementManagement";
 
-
 // newimport
-import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer"
-import ManageEmp from "../pages/PMIS/HR/ManageEmploye/ManageEmp"
-import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation"
-import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor"
+import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer";
+import ManageEmp from "../pages/PMIS/HR/ManageEmploye/ManageEmp";
+import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation";
+import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
 import POLifeCycle from "../pages/PMIS/POLifeCycle/POLifeCylce";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
@@ -62,6 +70,20 @@ import HRHomeView from "../pages/PMIS/HR";
 import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
 // import Home from "../pages/PMIS/MyHome/Home"
 
+import Claim from "../pages/PMIS/MyHome/Claim";
+import Asset from "../pages/PMIS/MyHome/Asset";
+import AssetRegistration from "../pages/PMIS/Admin/AssetRegistration/AssetRegistration";
+import SuperAdmin from "../pages/PMIS/HR/SuperAdmin";
+import ManageCostCenter from "../pages/PMIS/Admin/ManageCostCenter/ManageCostCenter";
+import ManageProjectGroup from "../pages/PMIS/Admin/ManageProjectGroup/ManageProjectGroup";
+// import Project from "../pages/PMIS/Admin/Project/Project";
+import ManageSubProject from "../pages/PMIS/Admin/ManageSubProject/ManageSubProject";
+import ManageUserProjectAllocation from "../pages/PMIS/Admin/ManageUserProjectAllocation/ManageUserProjectAllocation";
+import ManageProject from "../pages/PMIS/Admin/ManageProject/ManageProject";
+import ManageDepartment from "../pages/PMIS/Admin/ManageDepartment/ManageDepartment";
+import ManageDesignation from "../pages/PMIS/Admin/ManageDesignation/ManageDesignation";
+import ManageProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteId";
+import ManageProfile from "../pages/PMIS/Admin/ManageProfile(userrole)/ManageProfile";
 
 export const Sidebar_content = {
   temp: [],
@@ -77,7 +99,8 @@ export const Sidebar_content = {
           subMenu: [],
         },
       ],
-    },{
+    },
+    {
       name: "",
       link: "/projectType/:customeruniqueId",
       subMenu: [],
@@ -87,13 +110,62 @@ export const Sidebar_content = {
       link: "/ManageSite",
       subMenu: [],
       component: <ManageSite/>,
+      component: <ManageProjectType />,
+    },
+    {
+      name: "",
+      link: "/projectType/:customeruniqueId/:projecttypeuniqueId",
+      subMenu: [],
+      component: <ManageProjectType />,
+    },
+    {
+      name: "",
+      link: "/subProject/:projecttypeuniqueId",
+      subMenu: [],
+      component: <ManageSubProject />,
+    },
+    {
+      name: "",
+      link: "/project/:customeruniqueId/:projecttypeuniqueId",
+      subMenu: [],
+      component: <ManageProject />,
+    },
+    {
+      name: "",
+      link: "/project/:customeruniqueId",
+      subMenu: [],
+      component: <ManageProject />,
+    },
+    {
+      name: "",
+      link: "/projectSiteId/:customeruniqueId",
+      subMenu: [],
+      component: <ManageProjectSiteId />,
+    },
+    {
+      name: "",
+      link: "/userProjectAllocation",
+      subMenu: [],
+      component: <ManageUserProjectAllocation />,
+    },
+    {
+      name: "",
+      link: "/manageProfile",
+      subMenu: [],
+      component: <ManageProfile />,
+    },
+    {
+      name: "",
+      link: "/empdetails/:empuid",
+      subMenu: [],
+      component: <EmpDetails />,
     },
     
     {
       name: "",
       link: "/empdetails",
       subMenu: [],
-      component: <EmpDetails/>,
+      component: <EmpDetails />,
     },
     {
       name: "",
@@ -101,13 +173,80 @@ export const Sidebar_content = {
       subMenu: [],
       component: <EmpDetailsTable />,
     },
-
-    
+    {
+      name: "",
+      link: "/claim&Reimbursement",
+      subMenu: [],
+      component: <Claim />,
+    },
+    {
+      name: "",
+      link: "/Assets",
+      subMenu: [],
+      component: <Asset />,
+    },
+    {
+      name: "",
+      link: "/superAdmin",
+      subMenu: [],
+      component: <SuperAdmin />,
+    },
+    {
+      name: "Manage Circle",
+      link: "/manageCircle",
+      subMenu: [],
+      component: <ManageCircle />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Manage Zone",
+      link: "/manageZone",
+      subMenu: [],
+      component: <ManageZone />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Manage Cost Center",
+      link: "/manageCostCenter",
+      subMenu: [],
+      component: <ManageCostCenter />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "",
+      link: "/projectGroup",
+      subMenu: [],
+      component: <ManageProjectGroup />,
+    },
+    {
+      name: "",
+      link: "/userAccessManagement",
+      subMenu: [],
+      component: <RoleManagement />,
+    },
+    {
+      name: "",
+      link: "/manageDepartment",
+      subMenu: [],
+      component: <ManageDepartment />,
+    },
+    {
+      name: "",
+      link: "/manageDesignation",
+      subMenu: [],
+      component: <ManageDesignation />,
+    },
+    {
+      name: "Asset Registration",
+      link: "/assetRegistration",
+      subMenu: [],
+      component: <AssetRegistration />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
   ],
- 
 
   // all_routes: [
-    
+
   //   {
   //     name: "Investment Dashboard",
   //     link: "/investment/dashboard",
@@ -164,8 +303,7 @@ export const Sidebar_content = {
   //     icon: <Unicons.UilReact />,
   //     subMenu: [],
   //   },
-    
-    
+
   //   {
   //     name: "Company Details",
   //     link: "/details",
@@ -180,7 +318,7 @@ export const Sidebar_content = {
   //   //   icon: <Unicons.UilReact />,
   //   //   subMenu: [],
   //   // },
-    
+
   //   {
   //     name: "KYC Status",
   //     link: "/kyc-status",
@@ -230,11 +368,32 @@ export const Sidebar_content = {
   //     subMenu: [],
   //   },
 
-   
   // ],
 
-  all_routes: [],
-  Admin: [
+  SuperAdmin: [
+    {
+      name: "Super Admin",
+      link: "/admin",
+      subMenu: [
+        {
+          name: "User Management",
+          link: "/admin/user-management",
+          subMenu: [],
+          component: <UserManagement />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+        {
+          name: "Role Management",
+          link: "/admin/role-management",
+          subMenu: [],
+          component: <RoleManagement />,
+          icon: <Unicons.UilChannel size="16" />,
+        },
+      ],
+      icon: <Unicons.UilReact />,
+    },
+  ],
+  all_routes: [
     {
       name: "My Dashboard",
       link: "/",
@@ -246,13 +405,13 @@ export const Sidebar_content = {
       name: "My Home",
       link: "/home",
       component: <MyHome />,
-      icon: <UilAirplay />,
+      icon: <UilHome />,
       subMenu: [],
     },
     {
       name: "Project Management",
       link: "/manageCustomer",
-      component: <ManageCustomer/>,
+      component: <ManageCustomer />,
       subMenu: [
         // {
         //   name: "Manage Project Group",
@@ -283,7 +442,7 @@ export const Sidebar_content = {
         //   icon: <Unicons.UilChannel size="16" />,
         // },
       ],
-      icon: <UilLockAccess  />,
+      icon: <UilFileShieldAlt />,
     },
     {
       name: "Human Resource",
@@ -305,36 +464,36 @@ export const Sidebar_content = {
         // },
       ],
       component: <HRHomeView />,
-      icon: <UilLockAccess  />,
-    },   
+      icon: <UilUserSquare />,
+    },
     {
       name: "Vendor Management",
-      link: "/manageVendo",
+      link: "/manageVendor",
       component: <ManageVendor />,
-      icon: <Unicons.UilReact />,
+      icon: <UilStore />,
       subMenu: [],
-    },  
+    },
     {
       name: "Financial",
       link: "/POLifeCylce",
       component: <POLifeCycle />,
-      icon: <Unicons.UilReact />,
+      icon: <UilCoins />,
       subMenu: [],
-    },  
+    },
     {
       name: "Repository",
       link: "/operation-team",
-      component: <OperationManagement/>,
-      icon: <Unicons.UilReact />,
+      component: <OperationManagement />,
+      icon: <UilDatabase />,
       subMenu: [],
-    },  
+    },
     {
       name: "Form",
       link: "/operation-team",
-      component: <OperationManagement/>,
-      icon: <Unicons.UilReact />,
+      component: <OperationManagement />,
+      icon: <UilFileContract />,
       subMenu: [],
-    },  
+    },
     // {
     //   name: "Super Admin",
     //   link: "/admin",
@@ -344,6 +503,13 @@ export const Sidebar_content = {
     //       link: "/manageCircle",
     //       subMenu: [],
     //       component: <ManageCircle />,
+    //       icon: <Unicons.UilChannel size="16" />,
+    //     },
+    //     {
+    //       name: "Asset Registration",
+    //       link: "/assetRegistration",
+    //       subMenu: [],
+    //       component: <AssetRegistration />,
     //       icon: <Unicons.UilChannel size="16" />,
     //     },
     //     {
@@ -369,6 +535,6 @@ export const Sidebar_content = {
     //     // },
     //   ],
     //   icon: <Unicons.UilReact />,
-    // }, 
+    // },
   ],
 };

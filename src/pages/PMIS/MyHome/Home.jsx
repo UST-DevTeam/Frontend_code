@@ -15,7 +15,7 @@ import { ALERTS } from '../../../store/reducers/component-reducer';
 import CommonActions from '../../../store/actions/common-actions';
 import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
 import OperationManagementActions from '../../../store/actions/admin-actions';
-import AdminActions from '../../../store/actions/admin-actions';
+import MyHomeActions from '../../../store/actions/myHome-actions';
 import { useNavigate, useParams } from 'react-router-dom';
 import CCDash from '../../../components/CCDash';
 
@@ -36,14 +36,9 @@ const MyHome = () => {
     let navigate = useNavigate()
 
 
-
-
-
-
-
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.myHomeReducer?.getMyHome
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -68,7 +63,7 @@ const MyHome = () => {
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCustomer())
+                    dispatch(MyHomeActions.getMyHome())
                     setmodalHead("Edit Customer Details")
                     setmodalBody(<>
                         <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -82,8 +77,8 @@ const MyHome = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCustomer())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.MyHome}/${itm.uniqueId}`, () => {
+                                    dispatch(MyHomeActionsActions.getMyHome())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -114,7 +109,7 @@ const MyHome = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.myHomeReducer?.getMyHome
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -199,13 +194,28 @@ const MyHome = () => {
             // }
         ]
     }
+  
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
+        dispatch(MyHomeActions.getMyHome(value, objectToQueryString(data)))
     }
+
+    const navigateToRoute = (uniqueId) => {
+        if (uniqueId === 101) {
+            navigate("/empDetails");
+        } else if (uniqueId === 102) {
+            navigate("/claim&Reimbursement");
+        } else if (uniqueId === 103) {
+            navigate("/assets");
+        } else if (uniqueId === 104) {
+            navigate("/approvals");
+        }
+    };
+
+
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        dispatch(MyHomeActions.getMyHome())
     }, [])
     return type ?
         <>
@@ -261,11 +271,9 @@ const MyHome = () => {
                     return <>
                         <div
                             className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
-                            onClick={() => {
-                                navigate(`${"/empdetailstable"}`)
-                            }}>
+                            onClick={() => navigateToRoute(itm.uniqueId)}>
                             {/* {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>} */}
-                            <div className='m-auto'>{itm["customerName"]}</div>
+                            <div className='m-auto'>{itm["name"]}</div>
                         </div>
                     </>
                 }))

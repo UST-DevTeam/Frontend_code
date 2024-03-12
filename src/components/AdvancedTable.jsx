@@ -15,7 +15,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
 
     const [hide, setHide] = useState([])
     const [lastVisitedPage, setLastVisitedPage] = useState(100)
-    const [RPP, setRPP] = useState(15)
+    const [RPP, setRPP] = useState(50)
     const [activeFilter, setActiveFilter] = useState([])
     const [activedFilter, setActivedFilter] = useState({})
     const [currentPage, setcurrentPage] = useState(1)
@@ -25,7 +25,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
     const [modalBody, setModalBody] = useState("")
     table.properties = {
         ...table.properties,
-        rpp: [15, 30, 45, 100]
+        rpp: [50, 100, 300, 500, 1000]
     }
     console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage")
     const callApiPagination = (value) => {
@@ -212,7 +212,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                         return <tr>
                                             {table.columns.map((innerItm, index) => {
 
-                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[14px] h-14 pl-1 border-primaryLine border-2 overflow-hidden text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[300px]"}`}>
+                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[14px] h-14 pl-1 border-primaryLine border-2 overflow-hidden text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
 
                                                     <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm.value]} />
                                                 </td> : <></>

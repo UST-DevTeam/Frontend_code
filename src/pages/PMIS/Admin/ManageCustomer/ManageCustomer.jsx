@@ -222,7 +222,7 @@ const ManageCustomer = () => {
                     setmodalHead("Add Customer")
                     setmodalBody(<ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
-                    name={"Add New"}></Button></>}
+                    name={"Add Customer"}></Button></>}
                 table={table}
                 filterAfter={onSubmit}
                 tableName={"UserListTable"}
@@ -269,7 +269,7 @@ const ManageCustomer = () => {
                         </div>
                     </>
                 }))
-            } settype={settype} label='Add / Modify Customer' />
+            } settype={settype} label='Add / Modify Customer'/>
         </>
 }
 

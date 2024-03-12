@@ -15,15 +15,22 @@ import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
+
+
 const ManageEmp = () => {
+
+
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+
+
     let dispatch = useDispatch()
     let roleList = useSelector((state) => {
         let interdata = state?.operationManagement?.USERS_LIST
         return interdata
     })
+
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
         let interdata = state?.OperationManagementReducer?.usersList
@@ -83,6 +90,7 @@ const ManageEmp = () => {
             return updateditm
         });
     })
+    
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminManagement?.usersList
         if (interdata.length > 0) {

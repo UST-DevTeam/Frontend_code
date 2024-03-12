@@ -14,6 +14,8 @@ import adminData from "./reducers/admin-reducer"
 import projectList from "./reducers/projectList-reducer"
 
 
+import myHomeReducer from "./reducers/myHome-reducer";
+import hrReducer from "./reducers/hr-reduces"
 
 
 
@@ -30,7 +32,9 @@ const store = configureStore({
         deckManagement,
         OperationManagementReducer,
         adminData,
-        projectList
+        projectList,    
+        myHomeReducer,
+        hrReducer
     },
     devTools: true
 })

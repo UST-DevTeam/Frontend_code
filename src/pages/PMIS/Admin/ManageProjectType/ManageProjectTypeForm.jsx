@@ -56,12 +56,14 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
                 }),
             },
             required: true,
+            value:"",
             classes: "col-span-1"
         }, 
         {
             label: " Sub Project",
             name: "subProject",
             type: "text",
+            value:"",
             props: {
                 onChange: ((e) => {
                 
@@ -72,8 +74,9 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
         }, 
         {
             label: "Status",
-            name: "status",
+            name: "status", 
             type: "select",
+            value:"",
             option: [
                 { "label": "Active", "value": "Active" },
                 { "label": "Inactive", "value": "Inactive" }
@@ -104,6 +107,7 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
         // }))
     }
     const onTableViewSubmit = (data) => {
+
         if (formValue?.uniqueId) {
             dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
                 setIsOpen(false)
@@ -119,9 +123,12 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
     console.log(Form, "Form 11")
     useEffect(() => {
         // dispatch(AdminActions.getManageProjectType())
+        
+        // alert(resetting)
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
+                console.log(fieldName,"fieldNamefieldNamefieldName")
                 setValue(fieldName["name"], fieldName["value"]);
             });
         } else {
@@ -132,8 +139,6 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
                     console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
-
-
                 } else {
                     setValue(key.name, formValue[key.name]);
                 }

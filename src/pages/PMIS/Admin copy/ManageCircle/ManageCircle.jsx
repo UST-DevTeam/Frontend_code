@@ -139,7 +139,7 @@ const ManageCircle = () => {
             //     label: "Role",
             //     type: "select",
             //     name: "rolename",
-            //     option: roleList,
+            //     option: [],
             //     props: {
             //     }
             // }
@@ -159,7 +159,7 @@ const ManageCircle = () => {
         <AdvancedTable
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageCircle())
+                // dispatch(AdminActions.getManageCircle())
                 setmodalHead("New User")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}

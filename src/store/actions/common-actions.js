@@ -25,6 +25,30 @@ const CommonActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
+    fileSubmit: (url, data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ url: url, data: data , contentType:"multipart/form-data"})
+            console.log(res, "res?.statusres?.status")
+
+            const dtaa = res.data
+            let msgdata = {
+                show: true,
+                icon: dtaa.icon,
+                buttons: [
+
+                ],
+                type:1,
+                text: dtaa.msg
+            }
+            dispatch(ALERTS(msgdata))
+            if (res?.status !== 201 && res?.status !== 200){
+                return 
+            }
+            cb()
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
     logoutCaller: (cb=()=>{}) => async (dispatch, _) => {
         try {
             // console.log("CommonPostActions.postApiCaller")
@@ -66,7 +90,7 @@ const CommonActions = {
     },
     deleteApiCaller: (urls, cb) => async (dispatch, _) => {
         try {
-            console.log("CommonPostActions.postApiCaller")
+            // console.log("CommonPostActions.postApiCaller")
             const res = await Api.delete({ url: urls })
             if (res?.status !== 201 && res?.status !== 200) return
 

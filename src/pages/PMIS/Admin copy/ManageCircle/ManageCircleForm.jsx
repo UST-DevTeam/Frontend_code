@@ -18,17 +18,17 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
     let dispatch = useDispatch()
-    let roleList = useSelector((state) => {
-        console.log(state, "state state")
-        return state?.adminManagement?.roleList
-    })
-    let databaseList = useSelector((state) => {
-        console.log(state, "state")
-        let interdata = state?.customQuery?.databaseList
+    // let roleList = useSelector((state) => {
+    //     console.log(state, "state state")
+    //     return state?.adminManagement?.roleList
+    // })
+    // let databaseList = useSelector((state) => {
+    //     console.log(state, "state")
+    //     let interdata = state?.customQuery?.databaseList
 
-        console.log(interdata, "interdatainterdata")
-        return state?.customQuery?.databaseList
-    })
+    //     console.log(interdata, "interdatainterdata")
+    //     return state?.customQuery?.databaseList
+    // })
     // let Form = [
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -102,13 +102,11 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageCircle(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCircle())
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postManageCircle(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCircle())
             }))

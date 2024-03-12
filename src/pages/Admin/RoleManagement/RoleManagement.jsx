@@ -11,6 +11,8 @@ import DeleteButton from '../../../components/DeleteButton';
 import ToggleButton from '../../../components/ToggleButton';
 import AdminManagementActions from '../../../store/actions/adminManagement-actions';
 import RoleManagementForm from './RoleManagementForm';
+
+
 const RoleManagement = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
@@ -93,7 +95,7 @@ const RoleManagement = () => {
     let table = {
         columns: [
             {
-                name: "Role",
+                name: "Profile",
                 value: "label",
                 style: "min-w-[30px] max-w-[100px] text-center"
             },

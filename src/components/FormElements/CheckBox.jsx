@@ -11,7 +11,7 @@ const CheckBox = ({
   return (
     <>
       <div className="flex flex-col">
-        {itm.option.map((item, index) => {
+        {itm?.option?.map((item, index) => {
           return (
             <div className={`flex flex-row ${index != 0 && ""}`}>
               <input
@@ -23,9 +23,9 @@ const CheckBox = ({
                     : false,
                   ...itm.props,
                 })}
-                value={item.value}
+                // value={item.value}
                 placeholder={itm.placeholder ? itm.placeholder : ""}
-                className=" "
+                className=""
                 {...itm.props}
               />
               <label className="text-sm pl-2 dark:text-darkBg">
@@ -34,8 +34,6 @@ const CheckBox = ({
             </div>
           );
         })}
-
-        {console.log(errors, [itm.name], "esnjnjsnjsjnjnsrrors?.itm?")}
         <p className="text-xs text-red-700 ">{errors[itm.name]?.message}</p>
       </div>
     </>

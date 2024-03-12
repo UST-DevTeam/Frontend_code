@@ -37,8 +37,9 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
             showTimeSelectOnly={itm.formattype == "time" || itm.formattype == "datetime"}
             show={false}
             showIcon={true}
-            dateFormat={itm?.format}
-            timeIntervals={itm?.interval}
+            // dateFormat={itm?.format}
+            dateFormat="dd/MM/yyyy" 
+            // timeIntervals={itm?.interval}
             timeFormat={"HH:mm"}
             className='bg-white border-black border block h-8 w-full rounded-md py-0.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
         />

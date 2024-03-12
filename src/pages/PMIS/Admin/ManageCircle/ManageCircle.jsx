@@ -16,17 +16,19 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
+import FileUploader from '../../../../components/FIleUploader';
 
 const ManageCircle = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
+    const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
 
 
     let dispatch = useDispatch()
-  
 
+    
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getManageCircle
         return interdata?.map((itm) => {
@@ -49,10 +51,11 @@ const ManageCircle = () => {
                     // itm.enabled=itm.enabled==0?1:0
                     console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+                
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCircle())
-                    setmodalHead("Edit User")
+                    setmodalHead("Edit Circle")
                     setmodalBody(<>
                         <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -85,6 +88,7 @@ const ManageCircle = () => {
             return updateditm
         });
     })
+
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageCircle
         console.log(interdata,"1234567890")
@@ -94,30 +98,25 @@ const ManageCircle = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
-    const {
-        register,
-        handleSubmit,
-        watch,
-        setValue,
-        setValues,
-        getValues,
-        formState: { errors },
-    } = useForm()
+
+
+    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
     let table = {
         columns: [
+            {
+                name: "Customer Name",
+                value: "customerName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
             {
                 name: "Circle Name",
                 value: "circleName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Short code",
-                value: "shortCode",
+                name: "Circle ID",
+                value: "circleCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
@@ -145,25 +144,38 @@ const ManageCircle = () => {
             // }
         ]
     }
+
     const onSubmit = (data) => {
-        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
         dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)))
     }
+
     useEffect(() => {
         dispatch(AdminActions.getManageCircle())
-        // dispatch(OperationManagementActions.getRoleList())
     }, [])
+
+    const onTableViewSubmit = (data) => { 
+        console.log(data, "datadata")
+        data["fileType"]="ManageCircle"
+        data['collection'] = "circle"
+        dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            dispatch(AdminActions.getManageCircle())
+            setFileOpen(false)
+        }))
+    }
     return <>
         <AdvancedTable
-            headerButton={<><Button onClick={(e) => {
+            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageCircle())
-                setmodalHead("New User")
+                setmodalHead("Add Circle")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button></>}
+                name={"Add Circle"}></Button>
+                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}></Button>
+                </div>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -179,6 +191,7 @@ const ManageCircle = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
     </>
 
 

@@ -45,7 +45,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit }) => 
                     getValues={getValues}
                 />
 
-                <Button classes={"mt-2 w-[100px] mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
+                <Button classes={"mt-2 w-auto mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
             </>
         } isOpen={isOpen} setIsOpen={setIsOpen} />
 

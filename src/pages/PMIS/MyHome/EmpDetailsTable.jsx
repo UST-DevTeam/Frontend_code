@@ -1,229 +1,312 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
-import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../components/EditButton';
-import EmpDetails from './EmpDetails';
-import AdvancedTable from '../../../components/AdvancedTable';
-import Modal from '../../../components/Modal';
-import Button from '../../../components/Button';
-import DeleteButton from '../../../components/DeleteButton';
-import CstmButton from '../../../components/CstmButton';
-import ToggleButton from '../../../components/ToggleButton';
-import { objectToQueryString } from '../../../utils/commonFunnction';
-import { ALERTS } from '../../../store/reducers/component-reducer';
-import CommonActions from '../../../store/actions/common-actions';
-import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
-import OperationManagementActions from '../../../store/actions/admin-actions';
-import AdminActions from '../../../store/actions/admin-actions';
-import { useNavigate, useParams } from 'react-router-dom';
-
-
-
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as Unicons from "@iconscout/react-unicons";
+import { useDispatch, useSelector } from "react-redux";
+import EditButton from "../../../components/EditButton";
+import EmpDetails from "../MyHome/EmpDetails";
+import AdvancedTable from "../../../components/AdvancedTable";
+import Modal from "../../../components/Modal";
+import Button from "../../../components/Button";
+import DeleteButton from "../../../components/DeleteButton";
+import CstmButton from "../../../components/CstmButton";
+import ToggleButton from "../../../components/ToggleButton";
+import { objectToQueryString } from "../../../utils/commonFunnction";
+import { ALERTS } from "../../../store/reducers/component-reducer";
+import CommonActions from "../../../store/actions/common-actions";
+import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
+import OperationManagementActions from "../../../store/actions/admin-actions";
+import HrActions from "../../../store/actions/hr-actions";
+import { useNavigate, useParams } from "react-router-dom";
+import FileUploader from "../../../components/FIleUploader";
+import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 
 const EmpDetailsTable = () => {
+  const [modalOpen, setmodalOpen] = useState(false);
+  const [modalBody, setmodalBody] = useState(<></>);
+  const [type, settype] = useState(false);
+  const [fileOpen, setFileOpen] = useState(false);
+  const [modalHead, setmodalHead] = useState(<></>);
 
+  let dispatch = useDispatch();
 
-    const [modalOpen, setmodalOpen] = useState(false)
-    const [modalBody, setmodalBody] = useState(<></>)
-    const [type, settype] = useState(false)
-    const [modalHead, setmodalHead] = useState(<></>)
+  let navigate = useNavigate();
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    setValues,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
-    let dispatch = useDispatch()
+  let dbConfigList = useSelector((state) => {
+    console.log(state, "state statejjjj");
+    let interdata = state?.hrReducer?.getManageEmpDetails;
+    return interdata?.map((itm) => {
+      let updateditm = {
+        ...itm,
 
-    let navigate = useNavigate()
+        // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
+        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
+        //     console.log(e.target.checked, "e.target.checked")
+        //     let data = {
+        //         "enabled": e.target.checked ? 1 : 0
+        //     }
+        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
+        //         // alert(e.target.checked)
+        //         e.target.checked = e.target.checked
+        //     }, itm.id))
+        //     // if(itm.enabled==0){
+        //     //     itm.enabled=1
+        //     // }else{
+        //     //     itm.enabled=0
+        //     // }
+        //     // itm.enabled=itm.enabled==0?1:0
+        //     console.log(itm.enabled, "itm.enabled")
+        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+        edit: (
+          <CstmButton
+            className={"p-2"}
+            child={
+              <EditButton
+                name={""}
+                onClick={() => {
+                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
+                  navigate(`/empdetails/${itm.uniqueId}`);
+                  // dispatch(HrActions.getManageEmpDetails())
+                  // setmodalHead("Edit Customer Details")
 
+                  console.log(itm, "itmitmitmitmitmitmitmitm");
 
-
-
-
-
-
-    let dbConfigList = useSelector((state) => {
-        console.log(state, "state statejjjj")
-        let interdata = state?.adminData?.getManageCustomer
-        return interdata?.map((itm) => {
-            let updateditm = {
-                ...itm,
-
-                // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                //     console.log(e.target.checked, "e.target.checked")
-                //     let data = {
-                //         "enabled": e.target.checked ? 1 : 0
-                //     }
-                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                //         // alert(e.target.checked)
-                //         e.target.checked = e.target.checked
-                //     }, itm.id))
-                //     // if(itm.enabled==0){
-                //     //     itm.enabled=1
-                //     // }else{
-                //     //     itm.enabled=0
-                //     // }
-                //     // itm.enabled=itm.enabled==0?1:0
-                //     console.log(itm.enabled, "itm.enabled")
-                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                    setmodalOpen(true)
-                    dispatch(AdminActions.getManageCustomer())
-                    setmodalHead("Edit Customer Details")
-                    setmodalBody(<>
-                        <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                }}></EditButton>} />,
-
-                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                    let msgdata = {
-                        show: true,
-                        icon: 'warning',
-                        buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCustomer())
-                                    dispatch(ALERTS({ show: false }))
-                                }))
-                            }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
-                                dispatch(ALERTS({ show: false }))
-                            }} name={"Cancel"} />
-                        ],
-                        text: "Are you sure you want to Delete?"
-                    }
-                    dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />,
-
-
-                "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-                    setmodalOpen(true)
-                    setmodalHead("Show PDF")
-                    setmodalBody(<>
-
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                }}></Button>} />,
-
-
-
-
+                  setmodalBody(
+                    <>
+                      <EmpDetails resetting={false} formValue={itm} />
+                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>
+                  );
+                }}
+              ></EditButton>
             }
-            return updateditm
-        });
-    })
-    let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCustomer
-        if (interdata.length > 0) {
-            return interdata[0]["overall_table_count"]
-        } else {
-            return 0
+          />
+        ),
+
+        delete: (
+          <CstmButton
+            child={
+              <DeleteButton
+                name={""}
+                onClick={() => {
+                  let msgdata = {
+                    show: true,
+                    icon: "warning",
+                    buttons: [
+                      <Button
+                        classes="w-15 bg-green-500"
+                        onClick={() => {
+                          dispatch(
+                            CommonActions.deleteApiCaller(
+                              `${Urls.admin_empdetails}/${itm.uniqueId}`,
+                              () => {
+                                dispatch(HrActions.getManageEmpDetails());
+                                dispatch(ALERTS({ show: false }));
+                              }
+                            )
+                          );
+                        }}
+                        name={"OK"}
+                      />,
+                      <Button
+                        classes="w-24"
+                        onClick={() => {
+                          dispatch(ALERTS({ show: false }));
+                        }}
+                        name={"Cancel"}
+                      />,
+                    ],
+                    text: "Are you sure you want to Delete?",
+                  };
+                  dispatch(ALERTS(msgdata));
+                }}
+              ></DeleteButton>
+            }
+          />
+        ),
+
+        view: (
+          <CstmButton
+            className={"p-5"}
+            child={
+              <Button
+                name={""}
+                onClick={() => {
+                  setmodalOpen(true);
+                  setmodalHead("Show PDF");
+                  setmodalBody(
+                    <>
+                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>
+                  );
+                }}
+              ></Button>
+            }
+          />
+        ),
+      };
+      return updateditm;
+    });
+  });
+  let dbConfigTotalCount = useSelector((state) => {
+    let interdata = state?.hrReducer?.getManageEmpDetails;
+    if (interdata.length > 0) {
+      return interdata[0]["overall_table_count"];
+    } else {
+      return 0;
+    }
+  });
+  // let Form = [
+  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
+  //     { label: "Custom Queries", value: "", type: "textarea" }
+  // ]
+
+  let table = {
+    columns: [
+      {
+        name: "Emp Name",
+        value: "empName",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white",
+      },
+      {
+        name: "Emp Code",
+        value: "empCode",
+        style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white",
+      },
+      {
+        name: "Email ID",
+        value: "officialEmailId",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "Mobile No.",
+        value: "mobile",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "Designation",
+        value: "designation",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "PMIS Role",
+        value: "userRole",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "Status",
+        value: "status",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "Edit",
+        value: "edit",
+        style: "min-w-[100px] max-w-[100px] text-center",
+      },
+      {
+        name: "Delete",
+        value: "delete",
+        style: "min-w-[100px] max-w-[100px] text-center",
+      },
+      // {
+      //     name: "View",
+      //     value: "view",
+      //     style: "min-w-[100px] max-w-[100px] text-center"
+      // }
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+    filter: [
+      // {
+      //     label: "Role",
+      //     type: "select",
+      //     name: "rolename",
+      //     option: roleList,
+      //     props: {
+      //     }
+      // }
+    ],
+  };
+  const onSubmit = (data) => {
+    let value = data.reseter;
+    delete data.reseter;
+    dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)));
+  };
+  useEffect(() => {
+    dispatch(HrActions.getManageEmpDetails());
+  }, []);
+  const onTableViewSubmit = (data) => {
+    console.log(data, "datadata");
+    data["fileType"] = "ManageEmployee";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(AdminActions.getManageCircle());
+        setFileOpen(false);
+        resetting("");
+      })
+    );
+  };
+  return (
+    <>
+      <AdvancedTable
+        headerButton={
+          <div className="flex gap-1">
+            {" "}
+            <Button
+              classes="w-auto"
+              onClick={() => {
+                navigate(`${"/empdetails"}`);
+              }}
+              name={"Add New"}
+            ></Button>
+            <Button
+              name={"Upload File"}
+              classes="w-auto"
+              onClick={(e) => {
+                setFileOpen((prev) => !prev);
+              }}
+            ></Button>
+          </div>
         }
-    })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
-    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
+        table={table}
+        filterAfter={onSubmit}
+        tableName={"UserListTable"}
+        handleSubmit={handleSubmit}
+        data={dbConfigList}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+        totalCount={dbConfigTotalCount}
+      />
 
-    let table = {
-        columns: [
-            {
-                name: "Emp Name",
-                value: "empName",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
-            },
-            {
-                name: "Emp Code",
-                value: "empCode",
-                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
-            },
-            {
-                name: "Email ID",
-                value: "email",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Mobile No.",
-                value: "mobile",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Designation",
-                value: "designation",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "PMIS Role",
-                value: "pmisRole",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Status",
-                value: "status",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            },
-            {
-                name: "View",
-                value: "view",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            }
-        ],
-        properties: {
-            rpp: [10, 20, 50, 100]
-        },
-        filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
-        ]
-    }
-    const onSubmit = (data) => {
-        let value = data.reseter
-        delete data.reseter
-        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
-    }
-    useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
-    }, [])
-    return <>
-        <AdvancedTable
-            headerButton={<> <Button onClick={() => {
-                navigate(`${"/empdetails"}`)
-            }}
-                name={"Add New"}></Button></>}
-            table={table}
-            filterAfter={onSubmit}
-            tableName={"UserListTable"}
-            handleSubmit={handleSubmit}
-            data={dbConfigList}
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            getValues={getValues}
-            totalCount={dbConfigTotalCount}
-        />
+      <Modal
+        size={"sm"}
+        modalHead={modalHead}
+        children={modalBody}
+        isOpen={modalOpen}
+        setIsOpen={setmodalOpen}
+      />
 
-        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-
-        {/* <CommonForm/> */}
+      {/* <CommonForm/> */}
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+      />
     </>
-}
-
+  );
+};
 
 export default EmpDetailsTable;

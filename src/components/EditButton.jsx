@@ -4,7 +4,7 @@ import Button from './Button'
 const EditButton = ({ onClick }) => {
 
     return (
-        <div className='flex justify-around'><Button name={""} classes={"w-12"} icon={<UilEdit size="18" className={"hello"} />} onClick={onClick} /></div>
+        <div className='flex justify-around'><Button name={""} classes={"w-10"} icon={<UilEdit size="18" className={"hello"} />} onClick={onClick} /></div>
     )
 }
 

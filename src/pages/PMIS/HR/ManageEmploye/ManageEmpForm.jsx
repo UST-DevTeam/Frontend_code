@@ -18,10 +18,12 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
     let dispatch = useDispatch()
+
     let roleList = useSelector((state) => {
         console.log(state, "state state")
         return state?.adminManagement?.roleList
     })
+
     let databaseList = useSelector((state) => {
         console.log(state, "state")
         let interdata = state?.customQuery?.databaseList
@@ -29,24 +31,12 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         console.log(interdata, "interdatainterdata")
         return state?.customQuery?.databaseList
     })
+
     // let Form = [
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
     // ]
     let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
          {
             label: "Employee Name",
             value: "",
@@ -64,7 +54,7 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "EMployee Code",
+            label: "Employee Code",
             value: "",
             name: "empCode",
             type: "text",
@@ -112,7 +102,7 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         }, 
         {
-            label: "EMployee Code",
+            label: "Employee Code",
             value: "",
             name: "empCode",
             type: "text",

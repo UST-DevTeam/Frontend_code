@@ -7,7 +7,7 @@ const Modal = ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton 
         xl: 'w-[96vw] h-[96vh] md:w-[75vw] md:h-[86vh]',
         lg: 'w-[94vw] h-[90vh] md:w-[60vw] md:h-[86vh]',
         sm: 'w-[92vw]  md:w-[36vw]',
-        modal: 'w-[94vw] h-[38vh] md:w-[48vw] h-[28vh]',
+        modal: 'w-[94vw] h-[38vh] md:w-[48vw] h-[30vh]',
     }
 
     return (
