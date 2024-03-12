@@ -401,15 +401,29 @@ const ManageProjectType = () => {
         //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
         //     </>)
         // }}></Button>} />,
-        "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
-          setmodalOpen(true)
-          dispatch(AdminActions.getManageCustomer())
-          setmodalHead("Coomercial")
-          setmodalBody(<>
-            <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-            {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-          </>)
-        }}></Button>} />,
+        commercial: (
+          <CstmButton
+            className={"p-2"}
+            child={
+              <Button
+                classes="w-10"
+                icon={<Unicons.UilAirplay />}
+                name={""}
+                onClick={() => {
+                  setmodalOpen(true);
+                  dispatch(AdminActions.getManageCustomer());
+                  setmodalHead("Coomercial");
+                  setmodalBody(
+                    <>
+                      <CommonTableForm tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>
+                  );
+                }}
+              ></Button>
+            }
+          />
+        ),
 
         "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
           let msgdata = {
@@ -569,10 +583,20 @@ const ManageProjectType = () => {
         //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
         //     </>)
         // }}></Button>} />,
+        // "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
+        //   setmodalOpen(true)
+        //   dispatch(AdminActions.getManageCustomer())
+        //   setmodalHead("Coomercial")
+        //   setmodalBody(<>
+        //     <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+        //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+        //   </>)
+        // }}></Button>} />,
+
         "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
           setmodalOpen(true)
           dispatch(AdminActions.getManageCustomer())
-          setmodalHead("Coomercial")
+          setmodalHead("Commercial")
           setmodalBody(<>
             <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
