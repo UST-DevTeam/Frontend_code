@@ -268,7 +268,7 @@ export let uiList = {
 
 
     "textarea": {
-        "height": "h-[200px] w-full"
+        "height": "h-[90px] w-full"
     }
 }
 

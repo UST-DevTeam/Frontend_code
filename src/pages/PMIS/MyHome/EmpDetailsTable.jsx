@@ -175,22 +175,22 @@ const EmpDetailsTable = () => {
       {
         name: "Emp Name",
         value: "empName",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
         name: "Emp Code",
         value: "empCode",
-        style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
       },
       {
         name: "Email ID",
-        value: "officialEmailId",
+        value: "email",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Mobile No.",
         value: "mobile",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
         name: "Designation",
@@ -200,12 +200,12 @@ const EmpDetailsTable = () => {
       {
         name: "PMIS Role",
         value: "userRole",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
         name: "Status",
         value: "status",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[100px] max-w-[450px] text-center",
       },
       {
         name: "Edit",
@@ -246,7 +246,6 @@ const EmpDetailsTable = () => {
     dispatch(HrActions.getManageEmpDetails());
   }, []);
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
     data["fileType"] = "ManageEmployee";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {

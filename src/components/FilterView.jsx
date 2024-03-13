@@ -138,7 +138,7 @@ const FilterView = ({tablefilter,handleSubmit = () => { },onSubmit, table, data,
               <div className="w-18 flex justify-center grid-cols-1">
                 <Button
                   name={"Filter"}
-                  onClick={handleSubmit(onsubmit)}
+                  onClick={handleSubmit(onSubmit)}
                   classes="w-18 p-10 mx-2"
                 />
                 <Button

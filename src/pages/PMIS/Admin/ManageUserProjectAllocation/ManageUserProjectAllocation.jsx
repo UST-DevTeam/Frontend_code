@@ -16,6 +16,7 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
+import HrActions from '../../../../store/actions/hr-actions';
 import FileUploader from '../../../../components/FIleUploader';
 
 const ManageUserProjectAllocation = () => {
@@ -27,6 +28,24 @@ const ManageUserProjectAllocation = () => {
 
 
     let dispatch = useDispatch()
+
+    let employeeList = useSelector((state) => {
+        return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+            return {
+            label: itm?.empName + "(" + itm.empCode + ")",
+            value: itm?.uniqueId
+            }
+        })
+    })
+
+    let roleList = useSelector((state) => {
+        return state?.adminData?.getManageProfile.map((itm) => {
+          return {
+            label: itm?.roleName,
+            value: itm?.roleName,
+          };
+        });
+      });
 
     
     let dbConfigList = useSelector((state) => {
@@ -55,35 +74,34 @@ const ManageUserProjectAllocation = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getProjectAllocation())
-                    setmodalHead("Edit Circle")
+                    setmodalHead("Edit Project Allocation")
                     setmodalBody(<>
                         <ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
-                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                    let msgdata = {
-                        show: true,
-                        icon: 'warning',
-                        buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project_allocation}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getProjectAllocation())
-                                    dispatch(ALERTS({ show: false }))
-                                }))
-                            }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
-                                console.log('snnsnsnsns')
-                                dispatch(ALERTS({ show: false }))
-                            }} name={"Cancel"} />
-                        ],
-                        text: "Are you sure you want to Delete?"
-                    }
-                    dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />
+                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
+                //     let msgdata = {
+                //         show: true,
+                //         icon: 'warning',
+                //         buttons: [
+                //             <Button classes='w-15 bg-green-500' onClick={() => {
+                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project_allocation}/${itm.uniqueId}`, () => {
+                //                     dispatch(AdminActions.getProjectAllocation())
+                //                     dispatch(ALERTS({ show: false }))
+                //                 }))
+                //             }} name={"OK"} />,
+                //             <Button classes='w-24' onClick={() => {
+                //                 console.log('snnsnsnsns')
+                //                 dispatch(ALERTS({ show: false }))
+                //             }} name={"Cancel"} />
+                //         ],
+                //         text: "Are you sure you want to Delete?"
+                //     }
+                //     dispatch(ALERTS(msgdata))
+                // }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -111,7 +129,7 @@ const ManageUserProjectAllocation = () => {
             },
             {
                 name: "Profile",
-                value: "profile",
+                value: "userRole",
                 style: "min-w-[140px] max-w-[160px] text-center"
             },                     
             {
@@ -139,25 +157,50 @@ const ManageUserProjectAllocation = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
+            {
+                label: "Employee",
+                type: "select",
+                name: "emp",
+                option: employeeList,
+                props: {
+                }
+            },
+            {
+                label: "Project",
+                type: "select",
+                name: "project",
+                option: [
+                    { "label": "Hello", "value": "Hello" }, 
+                ],
+                props: {
+                }
+            },
+            {
+                label: "Profile",
+                type: "select",
+                name: "profile",
+                option: roleList,
+                props: {
+                }
+            },
+            
+           
         ]
     }
 
     const onSubmit = (data) => {
         let value = data.reseter
+        console.log(value,"=======Value========")
         delete data.reseter
         dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data)))
+
+        
     }
 
     useEffect(() => {
         dispatch(AdminActions.getProjectAllocation())
+        dispatch(AdminActions.getManageProfile())
+        dispatch(HrActions.getManageEmpDetails())
     }, [])
 
     const onTableViewSubmit = (data) => { 
@@ -171,16 +214,16 @@ const ManageUserProjectAllocation = () => {
     }
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<div className='flex gap-1'>
+                {/* <Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageCircle())
                 setmodalHead("Add Project Allocation")
                 setmodalBody(<ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
+                name={"Add New"}></Button> */}
+                {/* <Button name={""} classes='w-auto ' onClick={(e) => {
+                }}></Button> */}
                 </div>}
             table={table}
             filterAfter={onSubmit}

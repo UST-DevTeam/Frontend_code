@@ -92,7 +92,7 @@ const ManageProject = () => {
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getProject())
+                                    dispatch(AdminActions.getProject(customeruniqueId))
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -153,11 +153,11 @@ const ManageProject = () => {
                 value: "PM",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            {
-                name: "Circle",
-                value: "circle",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
+            // {
+            //     name: "Circle",
+            //     value: "circle",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
             {
                 name: "Start Date",
                 value: "startDate",

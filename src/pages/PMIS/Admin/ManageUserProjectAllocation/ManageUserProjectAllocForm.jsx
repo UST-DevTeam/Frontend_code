@@ -8,6 +8,7 @@ import CustomQueryActions from '../../../../store/actions/customQuery-actions';
 import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
+import { useParams } from 'react-router';
 import AdminActions from '../../../../store/actions/admin-actions';
 import HrActions from '../../../../store/actions/hr-actions';
 
@@ -19,6 +20,7 @@ const ManageUserProjectAllocForm = ({ isOpen, setIsOpen, resetting, formValue = 
     // console.log(setIsOpen,"setIsOpen")
     // console.log(resetting,"resetting")
     // console.log(formValue,"formValue")
+    // const {cus}
 
     let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -41,6 +43,14 @@ const ManageUserProjectAllocForm = ({ isOpen, setIsOpen, resetting, formValue = 
         }
     })
 })
+  let projectList = useSelector((state) => {
+        return state?.adminData?.getVishal.map((itm) => {
+            return {
+                name: itm?.projectId,
+                id: itm?.projectId
+            }
+        })
+    })
 
   // let projectTypeList = useSelector((state) => {
   //   return state?.adminData?.getCardProjectType.map((itm) => {
@@ -81,12 +91,13 @@ const ManageUserProjectAllocForm = ({ isOpen, setIsOpen, resetting, formValue = 
       name: "empId",
       type: "select",
       value: "",
+    //   type: "sdisabled",
       option: employeeList,
       props: {
         onChange: (e) => {
-            alert(e.target.value)
         },
       },
+      
       required: true,
       classes: "col-span-1",
     },
@@ -121,13 +132,13 @@ const ManageUserProjectAllocForm = ({ isOpen, setIsOpen, resetting, formValue = 
     {
       label: "Project",
       name: "project",
-      type: "select",
+      type: "muitiSelect",
       value: "",
-    //   option: projectList,
+      option: projectList,
       props: {
         onChange: (e) => {},
       },
-      classes: "col-span-1",
+      classes: "col-span-1 w-full",
     },
     // {
     //   label: "Circle",
@@ -221,7 +232,7 @@ const ManageUserProjectAllocForm = ({ isOpen, setIsOpen, resetting, formValue = 
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(HrActions.getManageEmpDetails())
-        // dispatch(AdminActions.getProjectAllocation())
+        dispatch(AdminActions.getVishal())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

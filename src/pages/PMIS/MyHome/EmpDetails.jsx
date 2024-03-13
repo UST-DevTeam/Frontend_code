@@ -478,7 +478,7 @@ const EmpDetails = (props) => {
     },
     {
       label: "Official Email-ID",
-      name: "officialEmailId",
+      name: "email",
       value: "",
       type: "text",
       props: "",
@@ -530,21 +530,7 @@ const EmpDetails = (props) => {
         { label: "O-", value: "O-" },
       ],
     },
-    //   {label: "Martial Status", name: "martialStatus", value: "", type: "radio", props: {}, required: false, option: [
-    //     { "label": "Male", "value": "Male" },
-    //     { "label": "Female", "value": "Female" }]
-    // },
-    // {
-    //   label: "Upload Residential Address",
-    //   value: "",
-    //   name: "file",
-    //   type: "file",
-    //   required: false,
-    //   props: {},
-    //   classes: "",
-    //   multiple: false,
-    // }
-  ];
+  ]
 
   let ContactInformation = [
     {
@@ -572,16 +558,11 @@ const EmpDetails = (props) => {
       option: stateList,
       props: {
         onChange: (e) => {
-          console.log(e.target.value, "e_geeter");
-
           setValue("state", e.target.value);
-
           dispatch(AdminActions.getCities(true, `stateCode=${e.target.value}`));
-          // setStateName(e.target.value)
         },
       },
     },
-    // console.log("qwertyu",stateName),
     {
       label: "city",
       name: "city",
@@ -591,7 +572,6 @@ const EmpDetails = (props) => {
       placeholder: "",
       option: cityList,
     },
-
     {
       label: "PinCode",
       name: "pincode",

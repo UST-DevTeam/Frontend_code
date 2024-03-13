@@ -28,7 +28,7 @@ const CheckBox = ({
                 className=""
                 {...itm.props}
               />
-              <label className="text-sm pl-2 dark:text-darkBg">
+              <label className="text-sm pl-2 dark:text-darkBg whitespace-nowrap">
                 {item.label}
               </label>
             </div>

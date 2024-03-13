@@ -19,6 +19,7 @@ const initialState = {
     getManageProject:[],
     getCities:[],
     getProjectAllocation:[],
+    getVishal:[],
 }
 
 const adminData = createSlice({
@@ -156,6 +157,14 @@ const adminData = createSlice({
             }
         },
 
+        GET_VISHAL:(state,{payload}) => {
+            if(payload.reset){
+                state.getVishal = payload.dataAll
+            }else{
+                state.getVishal  = [...state.getVishal,...payload.dataAll]
+            }
+        },
+
         
         
 
@@ -190,6 +199,7 @@ export const {
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  
     // GET_ASSET_REGISTRATION
+    GET_VISHAL,
 } = adminData.actions
     
 export default adminData.reducer

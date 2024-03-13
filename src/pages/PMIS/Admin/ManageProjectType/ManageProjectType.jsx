@@ -769,16 +769,16 @@ const ManageProjectType = () => {
         style: "min-w-[140px] max-w-[200px] text-center"
 
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center"
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[200px] text-center"
-      }
+      // {
+      //   name: "Edit",
+      //   value: "edit",
+      //   style: "min-w-[100px] max-w-[200px] text-center"
+      // },
+      // {
+      //   name: "Delete",
+      //   value: "delete",
+      //   style: "min-w-[100px] max-w-[200px] text-center"
+      // }
     ],
     properties: {
       rpp: [10, 20, 50, 100]

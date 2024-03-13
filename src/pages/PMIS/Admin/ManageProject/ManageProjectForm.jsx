@@ -6,6 +6,7 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
+import HrActions from "../../../../store/actions/hr-actions";
 import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 
@@ -46,6 +47,39 @@ const ManageProjectForm = ({
     });
   });
 
+  let subProjectList = useSelector((state) => {
+    return state?.adminData?.getManageProjectType.map((itm) => {
+
+    //   if (projectTypeList === "project[uniqueId]") {
+    //     const ProjectTypeValue = "projectType"; 
+    //     setValue("projectType", ProjectTypeValue);
+    //   }
+    //   else
+      return {
+        label: itm.subProject,
+        value: itm.subProject,
+      };
+    });
+  });
+
+  let PMList = useSelector((state) => {
+    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+
+    //   if (projectTypeList === "project[uniqueId]") {
+    //     const ProjectTypeValue = "projectType"; 
+    //     setValue("projectType", ProjectTypeValue);
+    //   }
+    //   else
+      return {
+        label: itm.empName,
+        value: itm.empName,
+      };
+    });
+  });
+
+
+
+
   // let SubProjectList = useSelector((state) => {
   //     return state?.adminData?.getManageSubProject.map((itm) => {
   //         return {
@@ -55,28 +89,16 @@ const ManageProjectForm = ({
   //     })
   // })
 
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm.circleName,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  // let circleList = useSelector((state) => {
+  //   return state?.adminData?.getManageCircle.map((itm) => {
+  //     return {
+  //       label: itm.circleName,
+  //       value: itm.uniqueId,
+  //     };
+  //   });
+  // });
 
   let Form = [
-    {
-      label: "Project Group",
-      name: "projectGroup",
-      type: "select",
-      value: "",
-      option: projectGroupList,
-      props: {
-        onChange: (e) => {},
-      },
-      required: true,
-      classes: "col-span-1",
-    },
     {
       label: "Project ID",
       name: "projectId",
@@ -85,6 +107,19 @@ const ManageProjectForm = ({
       required: true,
       classes: "col-span-1",
     },
+    {
+      label: "Project Group",
+      name: "projectGroup",
+      type: "text",
+      value: "",
+      option: projectGroupList,
+      props: {
+        onChange: (e) => {},
+      },
+      required: true,
+      classes: "col-span-1",
+    },
+    
     {
       label: "Project Type",
       value: "",
@@ -107,25 +142,25 @@ const ManageProjectForm = ({
     {
       label: "Sub-Project Name",
       name: "subProject",
-      type: "text",
-      value: "",
-      // option: SubProjectList,
-      props: {
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: "Circle",
-      name: "circle",
       type: "select",
       value: "",
-      option: circleList,
+      option: subProjectList,
       props: {
         onChange: (e) => {},
       },
       classes: "col-span-1",
     },
+    // {
+    //   label: "Circle",
+    //   name: "circle",
+    //   type: "select",
+    //   value: "",
+    //   option: circleList,
+    //   props: {
+    //     onChange: (e) => {},
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Start Date",
       name: "startDate",
@@ -151,8 +186,9 @@ const ManageProjectForm = ({
     {
       label: "Project Manager",
       name: "PM",
-      type: "text",
+      type: "select",
       value: "",
+      option: PMList,
       props: {
         onChange: (e) => {},
       },
@@ -217,6 +253,8 @@ const ManageProjectForm = ({
   useEffect(() => {
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
+    dispatch(AdminActions.getManageProjectType(customeruniqueId));
+    dispatch(HrActions.getManageEmpDetails());
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     // dispatch(AdminActions.getManageSubProjectType(customeruniqueId))
     // dispatch(AdminActions.getProject(customeruniqueId))

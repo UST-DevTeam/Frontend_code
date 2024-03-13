@@ -59,8 +59,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-
-                    alert(e.target.value)
                     dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
 
                     // setValue("queries",e.target.name)
@@ -79,7 +77,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-                    alert(e.target.value)
                     dispatch(AdminActions.getManageCostCenter(true,`zone=${e.target.value}`))
                     // console.log(e.target.value, "e geeter")
 

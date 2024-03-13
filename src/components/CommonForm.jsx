@@ -105,7 +105,7 @@ const CommonForm = ({
                           <div
                             className={`flex flex-row border-b-2 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${
                               its?.styling
-                            } ${its?.styling?.includes("w-") ? "" : " w-24 "}`}
+                            } ${its?.styling?.includes("w-full") ? "" : " w-24 "}`}
                           >
                             {its?.type == "select" && (
                               <SelectDropDown
