@@ -145,7 +145,8 @@ const ManageProjectGroup = () => {
         delete data.reseter
         dispatch(AdminActions.getManageProjectGroup(value, objectToQueryString(data)))
     }
-    useEffect(() => {dispatch(AdminActions.getManageProjectGroup())
+    useEffect(() => {
+        dispatch(AdminActions.getManageProjectGroup())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
     return <>

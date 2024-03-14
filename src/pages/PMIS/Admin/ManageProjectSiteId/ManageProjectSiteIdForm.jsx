@@ -296,12 +296,12 @@ const ManageProjectSiteIdForm = ({
 
       <Modal
         size={"full"}
-        children={<ManageSite/>}
+        children={<ManageSite />}
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
 
-      
+
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
 

@@ -19,6 +19,7 @@ const initialState = {
     getManageProject:[],
     getCities:[],
     getProjectAllocation:[],
+    getOneManageProject:[]
 }
 
 const adminData = createSlice({
@@ -47,6 +48,15 @@ const adminData = createSlice({
                 state.getManageCircle = payload.dataAll
             }else{
                 state.getManageCircle  = [...state.getManageCircle,...payload.dataAll]
+            }
+        },
+
+
+        GET_ONE_MANAGE_PROJECT:(state,{payload}) => {
+            if(payload.reset){
+                state.getOneManageProject = payload.dataAll
+            }else{
+                state.getOneManageProject  = [...state.getOneManageProject,...payload.dataAll]
             }
         },
 
@@ -185,7 +195,7 @@ export const {
     GET_STATE,
     GET_CITIES,
     GET_PROJECT_ALLLOCATION,
-
+    GET_ONE_MANAGE_PROJECT,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  

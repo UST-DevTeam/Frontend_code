@@ -17,6 +17,7 @@ import {
     GET_PROJECT_ALLLOCATION,
     // Not in use
     GET_MANAGE_SUB_PROJECT,
+    GET_ONE_MANAGE_PROJECT,
     // GET_ASSET_REGISTRATION
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"

@@ -56,6 +56,7 @@ const ManageSite = () => {
             let data = dataOlder[0]["t_sengg"].map((its) => {
                 return {
                     label: its.fieldName,
+                    required: its.required,
                     value: "",
                     name: its.fieldName,
                     type: its.dataType
@@ -72,6 +73,12 @@ const ManageSite = () => {
     console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
 
 
+    const handleTemplateSubmit = (data) => {
+
+
+        console.log(data, "dasugdjsahj")
+
+    }
     const handleAddActivity = (res, targ, itm) => {
         console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
 
@@ -121,7 +128,7 @@ const ManageSite = () => {
         "Decimal": "number",
         "text": "text",
         "Dropdown": "select",
-        "Number":"number"
+        "Number": "number"
     }
 
 
@@ -140,46 +147,62 @@ const ManageSite = () => {
     ];
     return <>
         <div className='p-4'>
+
+            {/* <Button /> */}
+
             <CommonTableFormSiteParent defaultValue={"Site Engg"} tabslist={{
-                "Site Engg": <CommonForm
-                    classes={"grid-cols-4 gap-1"}
-                    Form={dataOfProject ? dataOfProject["t_sengg"] ? dataOfProject["t_sengg"].map((its) => {
-                        return {
-                            label: its.fieldName,
-                            value: "",
-                            option:its.dropdownValue?its.dropdownValue.split(",").map((itm)=>{
-                                return {
-                                    value:itm,
-                                    label:itm
-                                }
-                            }):[],
-                            name: its.fieldName,
-                            type: dtype[its.dataType]
-                        }
-                    }) : [] : []}
-                    // Form={filesUploadForm}
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                />,
-                "Tracking": <CommonForm
-                    classes={"grid-cols-4 gap-1"}
-                    Form={dataOfProject ? dataOfProject["t_tracking"] ? dataOfProject["t_tracking"].map((its) => {
-                        return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: dtype[its.dataType]
-                        }
-                    }) : [] : []}
-                    // Form={filesUploadForm}
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                />,
-                "Issues": <CommonForm
+                "Site Engg": <><Button
+                    classes='w-28'
+                    name="Save Site Engg"
+                    onClick={handleSubmit(handleTemplateSubmit)}
+                /><CommonForm
+                        classes={"grid-cols-4 gap-1"}
+                        Form={dataOfProject ? dataOfProject["t_sengg"] ? dataOfProject["t_sengg"].map((its) => {
+                            return {
+                                label: its.fieldName,
+                                value: "",
+                                required: its.required == "Yes" ? true : false,
+                                option: its.dropdownValue ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                        value: itm,
+                                        label: itm
+                                    }
+                                }) : [],
+                                name: its.fieldName,
+                                type: dtype[its.dataType]
+                            }
+                        }) : [] : []}
+                        // Form={filesUploadForm}
+                        errors={errors}
+                        register={register}
+                        setValue={setValue}
+                        getValues={getValues}
+                    /></>,
+                "Tracking": <><Button
+                    classes='w-28'
+                    name="Save Tracking"
+                    onClick={handleSubmit(handleTemplateSubmit)}
+                /><CommonForm
+                        classes={"grid-cols-4 gap-1"}
+                        Form={dataOfProject ? dataOfProject["t_tracking"] ? dataOfProject["t_tracking"].map((its) => {
+                            return {
+                                label: its.fieldName,
+                                value: "abc",
+                                name: its.fieldName,
+                                type: dtype[its.dataType]
+                            }
+                        }) : [] : []}
+                        // Form={filesUploadForm}
+                        errors={errors}
+                        register={register}
+                        setValue={setValue}
+                        getValues={getValues}
+                    /></>,
+                "Issues": <><Button
+                    classes='w-28'
+                    name="Save Tracking"
+                    onClick={handleSubmit(handleTemplateSubmit)}
+                /><CommonForm
                     classes={"grid-cols-4 gap-1"}
                     Form={dataOfProject ? dataOfProject["t_issues"] ? dataOfProject["t_issues"].map((its) => {
                         return {
@@ -194,8 +217,12 @@ const ManageSite = () => {
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                />,
-                "Financials": <CommonForm
+                /></>,
+                "Financials": <><Button
+                    classes='w-28'
+                    name="Save Tracking"
+                    onClick={handleSubmit(handleTemplateSubmit)}
+                /><CommonForm
                     classes={"grid-cols-4 gap-1"}
                     Form={dataOfProject ? dataOfProject["t_sFinancials"] ? dataOfProject["t_sFinancials"].map((its) => {
                         return {
@@ -210,7 +237,7 @@ const ManageSite = () => {
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                />
+                /></>
             }} />
         </div>
     </>

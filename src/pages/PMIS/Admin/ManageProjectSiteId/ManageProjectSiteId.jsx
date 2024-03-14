@@ -22,7 +22,7 @@ import FileUploader from '../../../../components/FIleUploader';
 const ManageProjectSiteId = () => {
 
 
-    const { projecttypeuniqueId, customeruniqueId } = useParams()
+    const { projecttypeuniqueId, projectuniqueId } = useParams()
 
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -202,7 +202,7 @@ const ManageProjectSiteId = () => {
         dispatch(AdminActions.getProject(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
+        dispatch(AdminActions.getProject(`${projectuniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
 
@@ -212,7 +212,7 @@ const ManageProjectSiteId = () => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getProject())
                 setmodalHead("Add Site ID")
-                setmodalBody(<ManageProjectSiteIdForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<ManageProjectSiteIdForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} projectuniqueId={projectuniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Site ID"}></Button>
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {

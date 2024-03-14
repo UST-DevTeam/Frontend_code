@@ -138,7 +138,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/projectSiteId/:customeruniqueId",
+      link: "/projectSiteId/:projectuniqueId",
       subMenu: [],
       component: <ManageProjectSiteId />,
     },

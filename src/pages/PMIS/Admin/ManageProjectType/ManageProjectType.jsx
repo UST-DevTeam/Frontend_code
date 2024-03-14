@@ -307,16 +307,8 @@ const ManageProjectType = () => {
       label: "Attachment",
       name: "Status",
       value: "Select",
-      type: "select",
-      option: [
-        {
-          label: "Active",
-          value: "Active"
-        }, {
-          label: "Inactive",
-          value: "Inactive"
-        }
-      ],
+      type: "file",
+      option: [],
       props: "",
       required: false,
       placeholder: ""

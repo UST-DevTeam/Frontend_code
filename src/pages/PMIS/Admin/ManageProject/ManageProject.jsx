@@ -65,7 +65,7 @@ const ManageProject = () => {
                     <button>
                         <p
                         // onClick={() => handleFullName(item)}
-                        onClick={() => navigate(`/projectSiteId/${customeruniqueId}`)}
+                        onClick={() => navigate(`/projectSiteId/${itm.uniqueId}`)}
                         className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
                     >
                         {itm.projectId}

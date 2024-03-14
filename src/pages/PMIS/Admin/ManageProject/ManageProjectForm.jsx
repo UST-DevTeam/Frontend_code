@@ -8,6 +8,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
+import HrActions from "../../../../store/actions/hr-actions";
 
 const ManageProjectForm = ({
   projecttypeuniqueId,
@@ -21,6 +22,19 @@ const ManageProjectForm = ({
 
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
+
+
+  
+
+  let pmempList = useSelector((state) => {
+    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+      return {
+        label: itm.empName,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
 
   let projectGroupList = useSelector((state) => {
     return state?.adminData?.getManageProjectGroup.map((itm) => {
@@ -104,17 +118,17 @@ const ManageProjectForm = ({
       },
       classes: "col-span-1",
     },
-    {
-      label: "Sub-Project Name",
-      name: "subProject",
-      type: "text",
-      value: "",
-      // option: SubProjectList,
-      props: {
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Sub-Project Name",
+    //   name: "subProject",
+    //   type: "text",
+    //   value: "",
+    //   // option: SubProjectList,
+    //   props: {
+    //     onChange: (e) => {},
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Circle",
       name: "circle",
@@ -150,9 +164,10 @@ const ManageProjectForm = ({
     },
     {
       label: "Project Manager",
-      name: "PM",
-      type: "text",
+      name: "PMName",
+      type: "autoSuggestion",
       value: "",
+      option:pmempList,
       props: {
         onChange: (e) => {},
       },
@@ -218,6 +233,8 @@ const ManageProjectForm = ({
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    
+    dispatch(HrActions.getManageEmpDetails(true,"","userRole=Project Manager"));
     // dispatch(AdminActions.getManageSubProjectType(customeruniqueId))
     // dispatch(AdminActions.getProject(customeruniqueId))
     if (resetting) {
