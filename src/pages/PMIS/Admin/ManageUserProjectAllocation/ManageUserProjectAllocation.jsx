@@ -14,7 +14,6 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import HrActions from '../../../../store/actions/hr-actions';
 import FileUploader from '../../../../components/FIleUploader';
@@ -34,6 +33,15 @@ const ManageUserProjectAllocation = () => {
             return {
             label: itm?.empName + "(" + itm.empCode + ")",
             value: itm?.uniqueId
+            }
+        })
+    })
+
+    let projectList = useSelector((state) => {
+        return state?.adminData?.getVishal.map((itm) => {
+            return {
+            label: itm?.projectId,
+            value: itm?.projectId
             }
         })
     })
@@ -74,7 +82,8 @@ const ManageUserProjectAllocation = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getProjectAllocation())
-                    setmodalHead("Edit Project Allocation")
+                    // dispatch(AdminActions.getVishal())
+                    setmodalHead("Project Allocation")
                     setmodalBody(<>
                         <ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -143,15 +152,15 @@ const ManageUserProjectAllocation = () => {
             //     style: "min-w-[140px] max-w-[200px] text-center"
             // },           
             {
-                name: "Edit",
+                name: "Action",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
             },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -159,25 +168,23 @@ const ManageUserProjectAllocation = () => {
         filter: [
             {
                 label: "Employee",
-                type: "select",
-                name: "emp",
+                type: "autoSuggestion",
+                name: "empUniqueId",
                 option: employeeList,
                 props: {
                 }
             },
             {
                 label: "Project",
-                type: "select",
+                type: "autoSuggestion",
                 name: "project",
-                option: [
-                    { "label": "Hello", "value": "Hello" }, 
-                ],
+                option: projectList,
                 props: {
                 }
             },
             {
                 label: "Profile",
-                type: "select",
+                type: "autoSuggestion",
                 name: "profile",
                 option: roleList,
                 props: {
@@ -190,7 +197,6 @@ const ManageUserProjectAllocation = () => {
 
     const onSubmit = (data) => {
         let value = data.reseter
-        console.log(value,"=======Value========")
         delete data.reseter
         dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data)))
 
@@ -200,6 +206,7 @@ const ManageUserProjectAllocation = () => {
     useEffect(() => {
         dispatch(AdminActions.getProjectAllocation())
         dispatch(AdminActions.getManageProfile())
+        dispatch(AdminActions.getVishal())
         dispatch(HrActions.getManageEmpDetails())
     }, [])
 

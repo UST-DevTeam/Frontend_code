@@ -136,8 +136,8 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
-        // dispatch(AdminActions.getManageCostCenter())
-        // dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageCostCenter())
+        dispatch(AdminActions.getManageZone())
         // dispatch(AdminActions.getManageProjectGroup())
 
         // alert(resetting)

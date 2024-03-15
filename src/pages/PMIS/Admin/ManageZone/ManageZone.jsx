@@ -187,6 +187,8 @@ const ManageZone = () => {
                 }}></Button>
                 </div>}
             table={table}
+            templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
+            exportButton={["/export/manageZone","Export_Zone.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

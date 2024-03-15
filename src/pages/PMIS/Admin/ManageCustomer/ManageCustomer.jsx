@@ -97,14 +97,14 @@ const ManageCustomer = () => {
                 }}></DeleteButton>} />,
 
 
-                "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-                    setmodalOpen(true)
-                    setmodalHead("Show PDF")
-                    setmodalBody(<>
+                // "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
+                //     setmodalOpen(true)
+                //     setmodalHead("Show PDF")
+                //     setmodalBody(<>
 
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                }}></Button>} />,
+                //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                //     </>)
+                // }}></Button>} />,
 
 
 
@@ -132,12 +132,12 @@ const ManageCustomer = () => {
             {
                 name: "Logo",
                 value: "imgshow",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
+                style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-white"
             },
             {
                 name: "Customer Name",
                 value: "customerName",
-                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
+                style: "min-w-[200px] max-w-[450px] text-center sticky left-0 bg-white"
             },
             {
                 name: "Short Name",
@@ -147,17 +147,17 @@ const ManageCustomer = () => {
             {
                 name: "Contact Person name",
                 value: "personName",
-                style: "min-w-[250px] max-w-[450px] text-center"
+                style: "min-w-[200px] max-w-[450px] text-center"
             },
             {
                 name: "Email ID",
                 value: "email",
-                style: "min-w-[250px] max-w-[450px] text-center"
+                style: "min-w-[230px] max-w-[450px] text-center"
             },
             {
                 name: "Mobile No.",
                 value: "mobile",
-                style: "min-w-[250px] max-w-[450px] text-center"
+                style: "min-w-[130px] max-w-[450px] text-center"
             },
             {
                 name: "Address",
@@ -167,7 +167,7 @@ const ManageCustomer = () => {
             {
                 name: "Status",
                 value: "status",
-                style: "min-w-[250px] max-w-[450px] text-center"
+                style: "min-w-[100px] max-w-[450px] text-center"
             },
             {
                 name: "Edit",
@@ -179,11 +179,11 @@ const ManageCustomer = () => {
                 value: "delete",
                 style: "min-w-[100px] max-w-[100px] text-center"
             },
-            {
-                name: "View",
-                value: "view",
-                style: "min-w-[100px] max-w-[100px] text-center"
-            }
+            // {
+            //     name: "View",
+            //     value: "view",
+            //     style: "min-w-[100px] max-w-[100px] text-center"
+            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]

@@ -110,7 +110,7 @@ const ManageProjectForm = ({
     {
       label: "Project Group",
       name: "projectGroup",
-      type: "text",
+      type: "select",
       value: "",
       option: projectGroupList,
       props: {
@@ -254,7 +254,7 @@ const ManageProjectForm = ({
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
-    dispatch(HrActions.getManageEmpDetails());
+    dispatch(HrActions.getManageEmpDetails(true,"",`userRole=${"Project Manager"}`));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     // dispatch(AdminActions.getManageSubProjectType(customeruniqueId))
     // dispatch(AdminActions.getProject(customeruniqueId))

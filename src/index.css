@@ -37,7 +37,7 @@
   
 .multiSelectContainer{
   position: static !important;
-  height: 32px ;
+  /* height: 32px ; */
 }
 
 .optionListContainer{

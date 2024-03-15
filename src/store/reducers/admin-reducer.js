@@ -86,7 +86,7 @@ const adminData = createSlice({
         GET_CARD_PROJECT_TYPE:(state,{payload}) => {
             if(payload.reset){
                 state.getCardProjectType = payload.dataAll
-            }else{
+            }else{ 
                 state.getCardProjectType  = [...state.getCardProjectType,...payload.dataAll]
             }
         },

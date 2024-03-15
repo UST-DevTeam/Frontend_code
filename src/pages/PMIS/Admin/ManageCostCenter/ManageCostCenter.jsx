@@ -186,6 +186,8 @@ const ManageCostCenter = () => {
                 }}></Button>
                 </div>}
             table={table}
+            templateButton={["/template/CostCenter.xlsx","CostCenter.xlsx"]}
+            exportButton={["/export/manageCostCenter","Export_Cost_Center.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

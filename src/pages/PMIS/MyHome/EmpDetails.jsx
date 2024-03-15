@@ -80,21 +80,8 @@ const EmpDetails = (props) => {
 
   console.log(getManageEmpDetails, "getManageEmpDetails");
 
-  const fillAddress = () => {
-    var fillAddressCheckbox = document.getElementsByName("fillAddress")[0];
-    if (fillAddressCheckbox.checked) {
-      var addr = document.getElementsByName("address")[0].value;
-      var addrpo = document.getElementsByName("pincode")[0].value;
-
-      var copyaddr = addr;
-      var copyaddrpo = addrpo;
-
-      document.getElementsByName("PerFirstAddr")[0].value = copyaddr;
-      document.getElementsByName("PerFirstPO")[0].value = copyaddrpo;
-    } else {
-      document.getElementsByName("PerFirstAddr")[0].value = "";
-      document.getElementsByName("PerFirstPO")[0].value = "";
-    }
+  const AutoFillAddress = () => {
+    
   };
 
   let departmentList = useSelector((state) => {
@@ -413,6 +400,24 @@ const EmpDetails = (props) => {
 
   // ]
 
+  // const [presentAddress, setPresentAddress] = useState({
+  //   country: '',
+  //   state: '',
+  //   city: '',
+  //   pincode: '',
+  //   address: ''
+  // });
+
+  // const [permanentAddress, setPermanentAddress] = useState({
+  //   country: '',
+  //   state: '',
+  //   city: '',
+  //   pincode: '',
+  //   address: ''
+  // });
+
+
+
   let PersonalInformation = [
     {
       type: "heading",
@@ -482,7 +487,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: false,
+      required: true,
       placeholder: "",
     },
     {
@@ -540,6 +545,7 @@ const EmpDetails = (props) => {
     },
     {
       label: "Country",
+      id: "country",
       name: "country",
       value: "",
       type: "select",
@@ -551,6 +557,7 @@ const EmpDetails = (props) => {
     {
       label: "State",
       name: "state",
+      id: "state",
       value: "",
       type: "select",
       props: "",
@@ -566,6 +573,7 @@ const EmpDetails = (props) => {
     {
       label: "city",
       name: "city",
+      id: "city",
       value: "",
       type: "select",
       props: "",
@@ -584,6 +592,7 @@ const EmpDetails = (props) => {
     {
       label: "Address",
       name: "address",
+      id: "address",
       value: "",
       type: "textarea",
       props: "",
@@ -595,7 +604,7 @@ const EmpDetails = (props) => {
     //   label: "Social Media",
     //   name: "socialMedia",
     //   value: "",
-    //   type: "select",
+    //   type: "select",  
     //   props: {
     //     onChange: (e) => {
     //       setshowSocialMediaOther(e.target.value === "Other");
@@ -634,6 +643,7 @@ const EmpDetails = (props) => {
           // label:
           checked: false,
           label: "Same As Present Address",
+          onClick: AutoFillAddress,
         },
       ],
     },
@@ -645,6 +655,7 @@ const EmpDetails = (props) => {
     {
       label: "Country",
       name: "country",
+      id: "country",
       value: "",
       type: "select",
       props: "",
@@ -655,6 +666,7 @@ const EmpDetails = (props) => {
     {
       label: "State",
       name: "state",
+      id: "state",
       value: "",
       type: "select",
       props: "",
@@ -675,6 +687,7 @@ const EmpDetails = (props) => {
     {
       label: "city",
       name: "city",
+      name: "id",
       value: "",
       type: "select",
       props: "",
@@ -685,6 +698,7 @@ const EmpDetails = (props) => {
     {
       label: "PinCode",
       name: "pincode",
+      id: "pincode",
       value: "",
       type: "text",
       props: "",
@@ -694,6 +708,7 @@ const EmpDetails = (props) => {
     {
       label: "Address",
       name: "address",
+      id: "address",
       value: "",
       type: "textarea",
       props: "",
