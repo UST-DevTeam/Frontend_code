@@ -89,13 +89,13 @@ const Login = () => {
             </div>
         </form>
         <div className="p-0 m-2 flex justify-center items-center">
-            <div>
+            {/* <div>
                 <p className="text-neavy text-sm">Don't have an account? </p>
-            </div>
+            </div> */}
             <div onClick={() => {
                 navigate('/register')
             }} >
-                <button className="btn text-neavy text-sm ml-2 ">Sign Up</button>
+                {/* <button className="btn text-neavy text-sm ml-2 ">Sign Up</button> */}
             </div>
         </div>
     </div>} /></>
