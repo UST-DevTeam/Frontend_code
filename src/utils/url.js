@@ -1,5 +1,5 @@
-// export const baseUrl="http://10.5.50.198:7980"
-// export const backendassetUrl="http://10.5.50.198:7980/"
+export const baseUrl="http://10.5.50.198:7980"
+export const backendassetUrl="http://10.5.50.198:7980/"
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
@@ -27,8 +27,8 @@
 // export const baseUrl="http://192.168.1.107:7980"
 // export const backendassetUrl="http://192.168.1.107:7980/"
 
-export const baseUrl="https://mpmisapi.fourbrick.in"
-export const backendassetUrl="https://mpmisapi.fourbrick.in/"
+// export const baseUrl="https://mpmisapi.fourbrick.in"
+// export const backendassetUrl="https://mpmisapi.fourbrick.in/"
 
 
 
@@ -59,6 +59,7 @@ export const Urls={
     State:"/state",
     Cities:"/city",
     admin_vishal:"/vishal",
+    myHome_personal_info:"/personalInfo",
     
 
 

@@ -38,7 +38,7 @@ const MyHome = () => {
 
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.myHomeReducer?.getMyHome
+        let interdata = state?.myHomeData?.getMyHome
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -109,7 +109,7 @@ const MyHome = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.myHomeReducer?.getMyHome
+        let interdata = state?.myHomeData?.getMyHome
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {

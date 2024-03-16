@@ -31,6 +31,8 @@ const ManageZone = () => {
 
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getManageZone
+        console.log(interdata,"interdata")
+        // console.log(interdata[0]['circle'][1]['circleName'],"VISHAL_YADAV")
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -87,6 +89,7 @@ const ManageZone = () => {
             return updateditm
         });
     })
+
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageZone
         console.log(interdata,"1234567890")
@@ -96,10 +99,7 @@ const ManageZone = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
     const {
         register,
         handleSubmit,
@@ -115,6 +115,11 @@ const ManageZone = () => {
             {
                 name: "Customer Name",
                 value: "customerName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Zone Name",
+                value: "zoneName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -171,6 +176,7 @@ const ManageZone = () => {
             setFileOpen(false)
         }))
     }
+
 
 
     return <>

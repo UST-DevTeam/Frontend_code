@@ -47,7 +47,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     let Form = [
         {
             label: "Customer Name",
-            value: "Select",
+            value: "",
             name: "customer",
             type: "select",
             required: true,

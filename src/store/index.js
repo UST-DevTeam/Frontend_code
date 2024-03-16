@@ -12,9 +12,7 @@ import deckManagement from "./reducers/deckManagement-reducer";
 import OperationManagementReducer from "./reducers/OperationManagement-reducer";
 import adminData from "./reducers/admin-reducer"
 import projectList from "./reducers/projectList-reducer"
-
-
-import myHomeReducer from "./reducers/myHome-reducer";
+import myHomeData from "./reducers/myHome-reducer";
 import hrReducer from "./reducers/hr-reduces"
 
 
@@ -33,7 +31,7 @@ const store = configureStore({
         OperationManagementReducer,
         adminData,
         projectList,    
-        myHomeReducer,
+        myHomeData,
         hrReducer
     },
     devTools: true
