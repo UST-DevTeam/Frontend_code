@@ -390,7 +390,7 @@ const ManageProjectType = () => {
         "template": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
 
           setUniqueness(prev => itm.uniqueId)
-          setmodalOpen(true)
+          setmodalOpen(false)
           dispatch(AdminActions.getManageCustomer())
           // console.log(itm["t_sengg"], "setUniqueness")
           setmodalHead("Templates")
@@ -570,7 +570,7 @@ const ManageProjectType = () => {
 
 
         "template": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
-
+          console.log(itm.uniqueId)
           setUniqueness(prev => itm.uniqueId)
           setmodalOpen(true)
           dispatch(AdminActions.getManageCustomer())
@@ -854,11 +854,11 @@ const ManageProjectType = () => {
 
 
       <CCDash
-        approveddata={dbConfigList?.map((itm) => {
+        approveddata={dbConfigListCard?.map((itm) => {
           return (
             <>
               <div
-                className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
+                className="bg-pink-300 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
                   navigate(`${"/project"}/${customeruniqueId}/${itm["uniqueId"]}`)
                 }}

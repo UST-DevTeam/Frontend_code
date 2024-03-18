@@ -20,9 +20,9 @@ import {
   UilEdit,
   UilSave,
 } from "@iconscout/react-unicons";
-import { GET_PERSONAL_INFO } from "../../../store/reducers/hr-reduces";
+import { GET_EMPLOYEE_DETAILS, } from "../../../store/reducers/hr-reduces";
 
-const PersonalInfo = (props) => {
+const EmpDetails = (props) => {
   const {
     register,
     handleSubmit,
@@ -1433,4 +1433,4 @@ const PersonalInfo = (props) => {
     </>
   );
 };
-export default PersonalInfo;
+export default EmpDetails;

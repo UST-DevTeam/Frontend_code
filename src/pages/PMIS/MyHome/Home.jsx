@@ -203,7 +203,7 @@ const MyHome = () => {
 
     const navigateToRoute = (uniqueId) => {
         if (uniqueId === 101) {
-            navigate("/empDetails");
+            navigate("/empdetails");
         } else if (uniqueId === 102) {
             navigate("/claim&Reimbursement");
         } else if (uniqueId === 103) {

@@ -1,5 +1,5 @@
-export const baseUrl="http://10.5.50.198:7980"
-export const backendassetUrl="http://10.5.50.198:7980/"
+// export const baseUrl="http://10.5.50.198:7980"
+// export const backendassetUrl="http://10.5.50.198:7980/"
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
@@ -24,8 +24,8 @@ export const backendassetUrl="http://10.5.50.198:7980/"
 // export const backendassetUrl="http://127.0.0.1:7080/"
 
 
-// export const baseUrl="http://192.168.1.107:7980"
-// export const backendassetUrl="http://192.168.1.107:7980/"
+export const baseUrl="http://192.168.1.102:7980"
+export const backendassetUrl="http://192.168.1.102:7980/"
 
 // export const baseUrl="https://mpmisapi.fourbrick.in"
 // export const backendassetUrl="https://mpmisapi.fourbrick.in/"

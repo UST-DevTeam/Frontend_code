@@ -151,14 +151,14 @@ const ManageProject = () => {
             },
             {
                 name: "Project Manager",
-                value: "PM",
+                value: "PMName",
                 style: "min-w-[150px] max-w-[200px] text-center"
             },
-            // {
-            //     name: "Circle",
-            //     value: "circle",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },
+            {
+                name: "Circle",
+                value: "circleName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
             {
                 name: "Start Date",
                 value: "startDate",

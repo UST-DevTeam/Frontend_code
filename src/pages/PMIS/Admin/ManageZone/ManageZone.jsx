@@ -27,6 +27,14 @@ const ManageZone = () => {
 
 
     let dispatch = useDispatch()
+
+
+    const currentDate = new Date();
+    const dt = currentDate.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).replace(/\//g, '-')
   
 
     let dbConfigList = useSelector((state) => {
@@ -194,9 +202,9 @@ const ManageZone = () => {
                 </div>}
             table={table}
             templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
-            exportButton={["/export/manageZone","Export_Zone.xlsx"]}
+            exportButton={["/export/manageZone","Export_Zone("+dt+").xlsx"]}
             filterAfter={onSubmit}
-            tableName={"UserListTable"}
+            tableName={"UserListTable"} 
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}

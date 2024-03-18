@@ -252,12 +252,7 @@ const AdvancedTable = ({
           {data?.length > 0 ? (
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">
-                <tr>
-                  <th
-                    className={`border-primaryLine border-[1.5px] h-10 bg-primaryLine min-w-[20px] max-w-[30px]`}
-                  >
-                    <span className="text-white text-[14px]">Sr. No.</span>
-                  </th>
+                <tr>             
                   {table.columns.map((itts, index) => {
                     console.log(
                       hide.indexOf(itts.name),
@@ -309,11 +304,6 @@ const AdvancedTable = ({
                   .map((itm, index) => {
                     return (
                       <tr>
-                        <td
-                          className={`text-[11px] text-center h-7 pl-1 border-primaryLine border-[0.5px] overflow-hidden text-black min-w-[40px] max-w-[30px]`}
-                        >
-                          {(currentPage - 1) * RPP + index + 1 + "."}
-                        </td>
                         {table.columns.map((innerItm, index) => {
                           return hide.indexOf(String(index)) == -1 ? (
                             <td
