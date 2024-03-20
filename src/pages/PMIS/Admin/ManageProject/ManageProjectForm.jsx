@@ -169,7 +169,13 @@ const ManageProjectForm = ({
       value: "",
       option:pmempList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          let filteredData=pmempList.filter(itm=>itm.label==e.target.value)
+          if(filteredData.length > 0){
+            setValue("PMId",filteredData[0]["value"])
+          }
+          console.log(pmempList.filter(itm=>itm.label==e.target.value),e.target.value,"e.target.value")
+        },
       },
       required: true,
       classes: "col-span-1",
@@ -206,6 +212,8 @@ const ManageProjectForm = ({
   const onTableViewSubmit = (data) => {
     data["endDate"] = data?.endDate.split("T")[0];
     data["startDate"] = data?.startDate.split("T")[0];
+
+    delete data["PMName"]
     if (formValue?.uniqueId) {
       dispatch(
         AdminActions.postProject(

@@ -213,3 +213,9 @@ svg {
 .optionListContainer{
   position: fixed !important;
 }
+
+
+.bigMultiSel{
+  height: 124px !important;
+  width: 320px !important;
+}

@@ -18,6 +18,7 @@ import {
     // Not in use
     GET_MANAGE_SUB_PROJECT,
     GET_ONE_MANAGE_PROJECT,
+    GET_MANAGE_PROJECT_TYPE_DY_FORM,
     // GET_ASSET_REGISTRATION
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -67,6 +68,17 @@ const AdminActions = {
         } catch (error) {
         }
     },
+
+    getProjectTypeDyform:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_getProjectTypeDyform}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_PROJECT_TYPE_DY_FORM({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
 
     getManageCircle:(reset=true,args="") => async (dispatch, _) => {
         try {

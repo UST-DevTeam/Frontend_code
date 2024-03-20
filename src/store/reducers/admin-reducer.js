@@ -19,7 +19,8 @@ const initialState = {
     getManageProject:[],
     getCities:[],
     getProjectAllocation:[],
-    getOneManageProject:[]
+    getOneManageProject:[],
+    getProjectTypeDyform:[]
 }
 
 const adminData = createSlice({
@@ -42,6 +43,15 @@ const adminData = createSlice({
         //         state.getManageProject  = [...state.getManageProject,...payload.dataAll]
         //     }
         // },
+        GET_MANAGE_PROJECT_TYPE_DY_FORM:(state,{payload}) => {
+            if(payload.reset){
+                state.getProjectTypeDyform = payload.dataAll
+            }else{
+                state.getProjectTypeDyform  = [...state.getProjectTypeDyform,...payload.dataAll]
+            }
+        },
+
+        
         
         GET_MANAGE_CIRCLE:(state,{payload}) => {
             if(payload.reset){
@@ -196,6 +206,7 @@ export const {
     GET_CITIES,
     GET_PROJECT_ALLLOCATION,
     GET_ONE_MANAGE_PROJECT,
+    GET_MANAGE_PROJECT_TYPE_DY_FORM,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  

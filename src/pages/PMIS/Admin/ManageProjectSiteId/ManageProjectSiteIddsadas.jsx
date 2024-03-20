@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageProjectForm from '../../../../pages/PMIS/Admin/ManageProject/ManageProjectForm'
+import ManageProjectSiteIdForm from './ManageProjectSiteIdForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,27 +14,24 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 
-const ManageProject = () => {
+const ManageProjectSiteIddassdasdas = () => {
 
 
-    const { projecttypeuniqueId, customeruniqueId } = useParams()
+    const { projecttypeuniqueId, projectuniqueId } = useParams()
 
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const navigate = useNavigate();
 
 
     let dispatch = useDispatch()
-    
-
-    let navigate = useNavigate()
-    
   
 
     let dbConfigList = useSelector((state) => {
@@ -62,23 +59,22 @@ const ManageProject = () => {
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
                 projectId: (
-                    <button>
-                        <p
+                    <p
                         // onClick={() => handleFullName(item)}
-                        onClick={() => navigate(`/projectSiteId/${itm.uniqueId}`)}
+                        onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
                         className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
                     >
                         {itm.projectId}
                     </p>
-                    </button>
-                ),  
+                ),
+
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getProject(uniqueId))
-                    setmodalHead("Edit Circle")
+                    dispatch(AdminActions.getProject())
+                    setmodalHead("Edit Site ID")
                     setmodalBody(<>
-                        <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageProjectSiteIdForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -134,45 +130,35 @@ const ManageProject = () => {
     let table = {
         columns: [
             {
-                name: "Project ID",
-                value: "projectId",
+                name: "Site ID",
+                value: "siteId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Project Group",
-                value: "projectGroup",
+                name: "Sub Project",
+                value: "Scope",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Project Type",
-                value: "projectType",
+                name: "Task Owner",
+                value: "owner",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Project Manager",
-                value: "PMName",
+                name: "% Complete",
+                value: "complete",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Circle",
-                value: "circleName",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Start Date",
+                name: "Planned Start Date",
                 value: "startDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "End Date",
+                name: "Planned End Date",
                 value: "endDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            // {
-            //     name: "Site Status",
-            //     value: "siteStatus",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },
             {
                 name: "Status",
                 value: "status",
@@ -211,7 +197,7 @@ const ManageProject = () => {
         dispatch(AdminActions.getProject(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
+        dispatch(AdminActions.getProject(`${projectuniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
 
@@ -220,10 +206,10 @@ const ManageProject = () => {
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getProject())
-                setmodalHead("Add Project")
-                setmodalBody(<ManageProjectForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalHead("Add Site ID")
+                setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Project"}></Button>
+                name={"Add Site ID"}></Button>
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
@@ -248,4 +234,4 @@ const ManageProject = () => {
 
 };
 
-export default ManageProject;
+export default ManageProjectSiteIddassdasdas;

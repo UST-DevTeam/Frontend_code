@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 const initialState = {
-    dynamicForm: {}
+    dynamicForm: {},
+    getProjectTypeSub: {},
+    getprojectalllist: [],
+    getuserallocatedproject: []
 }
 
 const projectList = createSlice({
@@ -26,22 +29,55 @@ const projectList = createSlice({
 
         },
 
+        GET_PROJECT_TYPE_SUB: (state, { payload }) => {
+            if (payload.reset) {
+                state.getProjectTypeSub = payload.dataAll
+            } else {
+                state.getProjectTypeSub = [...state.getProjectTypeSub, ...payload.dataAll]
+            }
+        },
+
+
+        GET_PROJECT_ALL_LIST: (state, { payload }) => {
+            if (payload.reset) {
+                state.getprojectalllist = payload.dataAll
+            } else {
+                state.getprojectalllist = [...state.getprojectalllist, ...payload.dataAll]
+            }
+        },
+        GET_USER_ALLLOCATED_PROJECT: (state, { payload }) => {
+            if (payload.reset) {
+                state.getuserallocatedproject = payload.dataAll
+            } else {
+                state.getuserallocatedproject = [
+                    ...state.getprojectalllist, ...payload.dataAll
+                ]
+            }
+        },
+
+
+
+
+
         SET_DYNAMIC_RM_INDEX: (state, { payload }) => {
 
             state.dynamicForm[payload.label].splice(payload.indexToUpdate, 1)
 
         },
 
+
+
+
         SET_DYNAMIC_FORM_MOVE: (state, { payload }) => {
 
             // state.dynamicForm[payload.label].splice(payload.indexToUpdate, 1)
 
-            console.log(payload,"SET_DYNAMIC_FORM_MOVE")
+            console.log(payload, "SET_DYNAMIC_FORM_MOVE")
 
             // let temp = state.dynamicForm[payload.label][payload.oldIndex];
             // state.dynamicForm[payload.label][payload.oldIndex] = state.dynamicForm[payload.label][payload.newIndex];
             // state.dynamicForm[payload.label][payload.newIndex] = temp;
-            state.dynamicForm[payload.label]=arrayMove(state.dynamicForm[payload.label],payload.oldIndex,payload.newIndex)
+            state.dynamicForm[payload.label] = arrayMove(state.dynamicForm[payload.label], payload.oldIndex, payload.newIndex)
 
         },
         SET_DYNAMIC_FORM_INDEX: (state, { payload }) => {
@@ -92,5 +128,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_RM_INDEX,SET_DYNAMIC_FORM_MOVE, RESET_STATE } = projectList.actions
+export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, RESET_STATE } = projectList.actions
 export default projectList.reducer

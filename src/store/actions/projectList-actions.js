@@ -2,7 +2,7 @@
 import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
-import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer"
+import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, SET_DYNAMIC_FORM } from "../reducers/projectList-reducer"
 import CommonActions from "./common-actions"
 // import Notify from "./notify-actions"
 
@@ -43,6 +43,69 @@ const projectListActions = {
             console.log(error, "amit errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+    getProjectType: (uniqueId,reset=true) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.admin_getProjectSubType}/${uniqueId}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data[0]
+            dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+
+    getProjectTypeAll: (uniqueId,reset=true) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.projectList_siteEngineer}/${uniqueId}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROJECT_ALL_LIST({dataAll,reset}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+    submitProjectTypeData: (urle,data,cb=()=>{},reset=true) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ url: urle, data:data })
+            if (res?.status !== 200 && res?.status !== 201) return
+            cb()
+            // let dataAll = res?.data?.data[0]
+            // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+
+    globalProjectTypeDataPatch: (urle,projectuniqueId,data,cb=()=>{},reset=true) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ url: urle+"/"+projectuniqueId, data:data })
+            if (res?.status !== 200 && res?.status !== 201) return
+            cb()
+            // let dataAll = res?.data?.data[0]
+            // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+
+    getUserAllocatedProject:(reset=true,uid,args="") => async (dispatch, _) => {
+        try {
+            console.log("cities",args)
+            const res = await Api.get({ url:`${Urls.projectList_getproject_allocation}${uid}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_USER_ALLLOCATED_PROJECT({dataAll,reset}))
+        } catch (error) {
         }
     },
 

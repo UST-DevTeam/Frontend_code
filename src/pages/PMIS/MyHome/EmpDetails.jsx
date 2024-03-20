@@ -677,7 +677,6 @@ const EmpDetails = (props) => {
       name: "state",
       value: "",
       type: "select",
-      props: "",
       placeholder: "",
       option: stateList,
       props: {

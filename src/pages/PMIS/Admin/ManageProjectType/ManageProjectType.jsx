@@ -427,7 +427,7 @@ const ManageProjectType = () => {
               </div>
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
-            <CommonTableFormSiteParent defaultValue={"Site Engg"} tabslist={{
+            <CommonTableFormSiteParent funcaller={()=>{}} defaultValue={"Site Engg"} tabslist={{
               "Site Engg": <CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Tracking": <CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Issues": <CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
@@ -609,7 +609,7 @@ const ManageProjectType = () => {
               </div>
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
-            <CommonTableFormSiteParent defaultValue={"Site Engg"} tabslist={{
+            <CommonTableFormSiteParent funcaller={()=>{}} defaultValue={"Site Engg"} tabslist={{
               "Site Engg": <CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Tracking": <CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Issues": <CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
@@ -761,11 +761,11 @@ const ManageProjectType = () => {
         style: "min-w-[140px] max-w-[200px] text-center"
 
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center"
-      },
+      // {
+      //   name: "Edit",
+      //   value: "edit",
+      //   style: "min-w-[100px] max-w-[200px] text-center"
+      // },
       {
         name: "Delete",
         value: "delete",
@@ -821,6 +821,7 @@ const ManageProjectType = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        actions={["Delete"]}
       />
 
       <Modal size={"lg"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
@@ -846,7 +847,7 @@ const ManageProjectType = () => {
 
 
       <CCDash
-        approveddata={dbConfigList?.map((itm) => {
+        approveddata={dbConfigListCard?.map((itm) => {
           return (
             <>
               <div

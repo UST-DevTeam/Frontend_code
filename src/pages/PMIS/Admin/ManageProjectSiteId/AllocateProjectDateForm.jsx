@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
@@ -17,7 +19,7 @@ import { useParams } from "react-router-dom";
 import ManageMilestone from "../ManageMilestone/ManageMilestone";
 import { Urls } from "../../../../utils/url";
 
-const ManageProjectSiteIdForm = ({
+const AllocateProjectDateForm = ({
   isOpen,
   setIsOpen,
   resetting,
@@ -47,13 +49,24 @@ const ManageProjectSiteIdForm = ({
 
 
   const dataGetterOld = useSelector((state) => {
-    let oldata = state.projectList.getProjectTypeSub
-    if (old["_id"] != oldata["_id"]) {
-      setOld(oldata)
-      setValue("ptype", oldata["projectType"])
+    let oldata = state.projectList.getuserallocatedproject[0]
+    if (oldata) {
+      if (old["empDeatils"]) {
+        if (oldata != old) {
+          setValue("mileName", formValue["Name"])
+          setValue("ptypeId", oldata["PId"])
+          setOld(oldata)
+        }
+      } else {
+        setValue("mileName", formValue["Name"])
+        setValue("ptypeId", oldata["PId"])
+        setOld(oldata)
+      }
+
     }
+
     console.log(oldata, "olddataolddataolddata")
-    return state.projectList.getProjectTypeSub
+    return oldata
   })
 
   //   let employeeList = useSelector((state) => {
@@ -108,84 +121,52 @@ const ManageProjectSiteIdForm = ({
   // });
 
 
-  console.log(dataGetterOld?.projectType, "dataGetterOlddataGetterOlddataGetterOld")
+  console.log(old, "dataGetterOlddataGetterOlddataGetterOld")
   let Form = [
 
     {
-      label: "Project Type",
-      name: "ptype",
-      type: "text",
+      label: "Project Id",
+      name: "ptypeId",
+      type: "sdisabled",
       value: "",
       required: true,
       classes: "col-span-1",
     },
+    // {
+    //   label: "Milestone Name",
+    //   name: "mileName",
+    //   type: "sdisabled",
+    //   value: "",
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
     {
-      label: "SubProjet Type",
-      name: "roleName",
-      type: "select",
-      value: "",
-      option: dataGetterOld.subprojectresult,
-      props: {
-        onChange: (e) => {
-          dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
-          console.log(e.target.value, "e.target.value")
-        }
-      },
+      label: "Planned Start Date",
+      name: "plannedStartDate",
+      type: "datetime",
+      formattype:"date",
+      format:"yyyy-MM-dd",
+      formatop:"yyyy-MM-DD",
       required: true,
       classes: "col-span-1",
     },
+    // {
+    //   label: "Assign User",
+    //   name: "userId",
+    //   type: "select",
+    //   value: "",
+    //   option: dataGetterOld ? dataGetterOld["empDeatils"] ? dataGetterOld["empDeatils"] : [] : [],
+    //   props: {
+    //     onChange: (e) => {
+    //       dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
+    //       console.log(e.target.value, "e.target.value")
+    //     }
+    //   },
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
 
-    {
-      label: "Site ID",
-      name: "siteId",
-      type: "jsxcmpt",
-      value: "",
-      component: <p className="cursor-pointer" onClick={() => {
-        setmodalFullOpen(prev => !prev)
 
-
-        setmodalFullBody(<ManageSite setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
-
-
-        setmodalBody(<CommonForm
-          classes={"grid-cols-1 gap-1"}
-          Form={Form}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues} />)
-      }}><NewLookBadge text={SiteId} notifyType={"info"} /></p>,
-      //   option: employeeList,
-      props: {
-        onChange: (e) => { },
-      },
-      required: true,
-      classes: "col-span-1",
-    }, {
-      label: "Milestone",
-      name: "milestone",
-      type: "jsxcmpt",
-      value: "",
-      component: <p className="cursor-pointer" onClick={() => {
-        setmodalFullOpen(true)
-
-        setmodalFullBody(<ManageMilestone setGlobalData={setGlobalData} setSiteId={setMile} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
-        // setmodalHead("Edit Site ID")
-        // setmodalBody(<>
-
-        //   <ManageSite />
-        //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
-        //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
-        //   {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        // </>)
-      }}> <NewLookBadge text={"Add"} notifyType={"error"} /></p >,
-      //   option: employeeList,
-      props: {
-        onChange: (e) => { },
-      },
-      required: true,
-      classes: "col-span-1",
-    },
   ];
   const onSubmit = (data) => {
     console.log(data);
@@ -196,10 +177,19 @@ const ManageProjectSiteIdForm = ({
   const onTableViewSubmit = (data) => {
 
 
-    console.log(globalData, "globalDataglobalDataglobalData")
 
-    dispatch(projectListActions.submitProjectTypeData(Urls.projectList_globalSaver, globalData, () => {
+    let finaldata={
+      name:"mileStone",
+      data:{
+        "plannedStartDate":data["userId"]
+      },
+      from:{
+        "uid":formValue["uniqueId"]
+      }
+    }
 
+    console.log(finaldata,formValue,data, "globalDataglobalDataglobalData")
+    dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver,projectuniqueId, finaldata, () => {
       dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
       setIsOpen(false)
     }))
@@ -229,6 +219,7 @@ const ManageProjectSiteIdForm = ({
   console.log(Form, "Form 11");
   useEffect(() => {
 
+    // dispatch(projectListActions.getUserAllocatedProject(projectuniqueId))
   }, [isOpen]);
   return (
     <>
@@ -280,4 +271,4 @@ const ManageProjectSiteIdForm = ({
   );
 };
 
-export default ManageProjectSiteIdForm;
+export default AllocateProjectDateForm;

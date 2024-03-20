@@ -210,6 +210,8 @@ const MyHome = () => {
             navigate("/assets");
         } else if (uniqueId === 104) {
             navigate("/approvals");
+        } else if (uniqueId === 105) {
+            navigate("/approvals");
         }
     };
 

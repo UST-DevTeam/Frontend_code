@@ -241,7 +241,7 @@ export let uiList = {
         "height": "h-[40px] w-full"
     },
     "email": {
-        "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
+        "height": "h-[40px] w-full"
     },
     "hidden": {
         "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
@@ -255,6 +255,10 @@ export let uiList = {
     "muitiSelect": {
         "height": "h-[40px] w-[80px] max-w-[80px] min-w-[80px]"
     },
+    "BigmuitiSelect": {
+        "height": "h-full w-full"
+    },
+    
     "checkbox": {
         "height": "h-[40px] w-[20px] max-w-[80px] min-w-[20px]"
     },

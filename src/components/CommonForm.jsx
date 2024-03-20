@@ -17,6 +17,7 @@ import Radio from "./FormElements/Radio";
 import Disabled from "./FormElements/Disabled";
 import CheckBox from "./FormElements/CheckBox";
 import { types, uiList } from "../utils/queryBuilder";
+import BigMultiselection from "./FormElements/BigMultiselection";
 
 const CommonForm = ({
   classes,
@@ -274,6 +275,18 @@ const CommonForm = ({
                     )}
                     {itm.type == "muitiSelect" ? (
                       <Multiselection
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    {itm.type == "BigmuitiSelect" ? (
+                      <BigMultiselection
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}

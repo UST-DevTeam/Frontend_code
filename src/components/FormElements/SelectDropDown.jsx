@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SelectDropDown = ({ itm, errors, handleSubmit, setValue, getValues, register }) => {
-    console.log(itm, "SelectDropDownSelectDropDownSelectDropDown");
+    console.log(itm,getValues()[itm.name], "SelectDropDownSelectDropDownSelectDropDown");
     return (
         itm && <>
             <select
@@ -12,7 +12,7 @@ const SelectDropDown = ({ itm, errors, handleSubmit, setValue, getValues, regist
                 })}
                 className={"bg-white block h-10 w-full rounded-md text-white-900 shadow-sm ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}
             >
-                <option value={""}  disabled>Select</option>
+                <option value={""} selected={itm.value==""} disabled>Select</option>
                 {
                     itm?.option?.map((selitm) => {
                         return <option key={selitm.value} value={selitm.value}>{selitm.label}</option>

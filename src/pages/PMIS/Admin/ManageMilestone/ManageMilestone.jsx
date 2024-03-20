@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageProjectTypeForm from '../../../PMIS/Admin/ManageProjectType/ManageProjectTypeForm';
+import ManageProjectTypeForm from '../ManageProjectType/ManageProjectTypeForm';
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -24,11 +24,12 @@ import CommonTableFormParent from '../../../../components/CommonTableFormSitePar
 import CommonTableFormSiteParent from '../../../../components/CommonTableFormSiteParent';
 import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer';
 import projectListActions from '../../../../store/actions/projectList-actions';
+import TableJson from '../../../../components/TableJson';
 
 
 
 
-const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
+const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setSiteId }) => {
 
 
     const { customeruniqueId } = useParams()
@@ -49,11 +50,15 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
     const [listing, setlisting] = useState([]);
 
+    const [check, setCheck] = useState([]);
+
 
     const dispatch = useDispatch()
 
 
     let dataOfProject = useSelector((state) => {
+
+        console.log(state.adminData.getProjectTypeDyform, "state.adminData.getOneManageProject")
 
         let dataOlder = state.adminData.getProjectTypeDyform[0]
 
@@ -79,33 +84,59 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
     console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
 
 
-    const handleSiteEnggSubmit = (data) => {
+    const handleMileStoneSubmit = (data) => {
 
         // alert(projectuniqueId)
-        setSiteId(data["siteid"]?data["siteid"]:"Add")
+        console.log(check, "checkcheckcheckcheck")
+
+        let lstindex = 0
+
+        let lstindextkn = false
+
+        let dataD = []
+
+        dataOfProject["MileStone"].map((ireq, index) => {
+
+            if (check.indexOf(ireq.index.toString()) != -1) {
+                let sqw = {
+                    "Name": dataOfProject["MileStone"][index]["fieldName"],
+                    "Estimated Time (Days)": dataOfProject["MileStone"][index]["Estimated Time (Days)"],
+                    "WCC Sign off": dataOfProject["MileStone"][index]["WCC Sign off"],
+                    // "Predecessor":dataOfProject["MileStone"][lstindextkn?lstindex:index]["Predecessor"],
+                    "Predecessor": index != 0 ? dataOfProject["MileStone"][lstindex]["fieldName"] : "",
+                    "Completion Criteria": dataOfProject["MileStone"][index]["dropdownValue"]
+                }
+                dataD.push(sqw)
+                console.log(sqw, check, "sqwsqwsqwsqwsqwsqwsqw")
+                lstindex = index
+            } else {
+                // lstindex=index
+                // lstindextkn=true
+            }
+
+
+            console.log(check.indexOf(ireq.index.toString()), lstindex, index, "ireqireqireqireqireq")
+        })
+
         let final_data = {
             "SubProjectId": dataOfProject["uniqueId"],
+            "projectuniqueId": projectuniqueId,
             "new_u_id": dataOfProject["new_u_id"],
-            "projectuniqueId": projectuniqueId
+            "data":dataD
         }
-        dataOfProject["t_sengg"].map((itew) => {
-            let fieldNaming = itew.fieldName.replace(' ', "").toLowerCase()
-
-            final_data[fieldNaming] = data[fieldNaming]
-        })
 
 
         setGlobalData(prev=>{
             return {
                 ...prev,
-                "siteEngineer":final_data
+                "mileStone":final_data
             }
         })
         setmodalFullOpen(false)
 
 
-        // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_siteEngineer, final_data, () => {
-            
+        // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_milestone, final_data, () => {
+        //     setmodalFullOpen(false)
 
         //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
         // }))
@@ -118,104 +149,11 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
     }
 
-    const handleTrackingSubmit = (data) => {
-
-
-        console.log(data, "dasugdjsahj")
-        setSiteId(data["siteid"]?data["siteid"]:"Add")
-
-        let final_data = {
-            "SubProjectId": dataOfProject["uniqueId"],
-            "new_u_id": dataOfProject["new_u_id"],
-            "projectuniqueId": projectuniqueId
-
-        }
-        dataOfProject["t_tracking"].map((itew) => {
-            let fieldNaming = itew.fieldName.replace(' ', "").toLowerCase()
-
-            final_data[fieldNaming] = data[fieldNaming]
-        })
-
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_trackingData, final_data, () => {
-            setmodalFullOpen(false)
-            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-        }))
-
-    }
-
-    const handleIssuesSubmit = (data) => {
-
-
-        console.log(data, "dasugdjsahj")
-        setSiteId(data["siteid"]?data["siteid"]:"Add")
-
-        let final_data = {
-            "SubProjectId": dataOfProject["uniqueId"],
-            "new_u_id": dataOfProject["new_u_id"],
-            "projectuniqueId": projectuniqueId
-
-        }
-        dataOfProject["t_issues"].map((itew) => {
-            let fieldNaming = itew.fieldName.replace(' ', "").toLowerCase()
-
-            final_data[fieldNaming] = data[fieldNaming]
-        })
-
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_issueData, final_data, () => {
-            setmodalFullOpen(false)
-            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-        }))
-
-    }
-
-    const handleFinancialsSubmit = (data) => {
-
-
-        console.log(data, "dasugdjsahj")
-        setSiteId(data["siteid"]?data["siteid"]:"Add")
-
-        let final_data = {
-            "SubProjectId": dataOfProject["uniqueId"],
-            "new_u_id": dataOfProject["new_u_id"],
-            "projectuniqueId": projectuniqueId
-
-        }
-        dataOfProject["t_sFinancials"].map((itew) => {
-            let fieldNaming = itew.fieldName.replace(' ', "").toLowerCase()
-
-            final_data[fieldNaming] = data[fieldNaming]
-        })
-
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_financialData, final_data, () => {
-            setmodalFullOpen(false)
-            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-        }))
-
-    }
     const funcaller = () => {
 
         reset({})
 
     }
-
-    const handleAddActivity = (res, targ, itm) => {
-        console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
-
-        let newdata = {
-            [targ]: res
-        }
-
-        dispatch(AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {
-            // alert("done")
-
-            dispatch(AdminActions.getManageProjectType(customeruniqueId))
-        }))
-
-
-
-
-
-    };
 
 
 
@@ -255,6 +193,8 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
     }
 
 
+    console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
+
     // console.log(dataOfProject ? dataOfProject["t_sengg"] ? dataOfProject["t_sengg"].map((its) => {
     //     return {
     //         label: "abc",
@@ -271,9 +211,66 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
     return <>
         <div className='p-4'>
 
+
+            <><div className='flex justify-end'><Button
+                classes='w-30'
+                name="Save Milestone"
+                onClick={handleSubmitForm1(handleMileStoneSubmit)}
+            /></div>
+
+                <TableJson columns={dataOfProject ? dataOfProject["MileStone"] ? dataOfProject["MileStone"].map((onewq) => {
+                    console.log(onewq, "[onewqonewq]")
+                    return {
+                        "C": <><input type="checkbox" onChange={(e) => {
+
+                            console.log("Dasdasdasdas", e.target.value, e.target.checked)
+                            if (e.target.checked) {
+                                setCheck(prev => [...prev, e.target.value])
+                            } else {
+                                setCheck(prev => {
+                                    let lst = prev.indexOf(e.target.value)
+                                    prev.splice(lst, 1)
+                                    return prev
+                                })
+                            }
+                            // setCheck()
+                        }} value={onewq["index"]} /></>,
+                        "Name": onewq["fieldName"],
+                        "WCC Sign off": onewq["WCC Sign off"],
+                        "Estimated Time (Days)": onewq["Estimated Time (Days)"],
+                        "Completion Criteria": onewq["dropdownValue"],
+                        "Predecessor": onewq["Predecessor"]
+                    }
+                }) : [] : []} headers={["C", "Name", "WCC Sign off", "Estimated Time (Days)", "Completion Criteria", "Predecessor",]} />
+
+                {/* <CommonForm
+                    classes={"grid-cols-1 gap-1"}
+                    Form={dataOfProject ? dataOfProject["MileStone"] ? dataOfProject["MileStone"].map((its) => {
+                        return {
+                            label: its.fieldName,
+                            value: "",
+                            required: its.required == "Yes" ? true : false,
+                            option: its.dropdownValue ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                    value: itm,
+                                    label: itm
+                                }
+                            }) : [],
+                            name: its.fieldName,
+                            type: dtype[its.dataType]
+                        }
+                    }) : [] : []}
+                    // Form={filesUploadForm}
+                    errors={errorsForm1}
+                    register={registerForm1}
+                    setValue={setValueForm1}
+                    getValues={getValuesForm1}
+                /> */}
+            </>
             {/* <Button /> */}
 
-            <CommonTableFormSiteParent funcaller={funcaller} defaultValue={"Site Engg"} tabslist={{
+
+            {/* <CommonTableFormSiteParent funcaller={funcaller} defaultValue={"Site Engg"} tabslist={{
                 "Site Engg": <><div className='flex justify-end'><Button
                     classes='w-30'
                     name="Save Site Engg"
@@ -291,7 +288,7 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
                                         label: itm
                                     }
                                 }) : [],
-                                name: its.fieldName.replace(' ', "").toLowerCase(),
+                                name: its.fieldName.replace(' ',"").toLowerCase(),
                                 type: dtype[its.dataType]
                             }
                         }) : [] : []}
@@ -361,10 +358,10 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
                         setValue={setValueForm4}
                         getValues={getValuesForm4}
                     /></>
-            }} />
+            }} /> */}
         </div>
     </>
 }
 
 
-export default ManageSite;
+export default ManageMilestone;

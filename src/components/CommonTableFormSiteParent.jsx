@@ -35,6 +35,7 @@ let types = ["text", "password", "email", "hidden", "number"];
 
 const CommonTableFormSiteParent = ({
   tabslist,
+  funcaller,
   defaultValue
 }) => {
 
@@ -44,6 +45,7 @@ const CommonTableFormSiteParent = ({
   const [tabData, setTabData] = useState({}); // State to store data for each tab
 
     const handleTabClick = (index) => {
+        funcaller()
         setActiveTab(index);
     };
 

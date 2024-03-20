@@ -10,8 +10,9 @@ import DatePicker from 'react-datepicker';
 import { objectToArray } from '../utils/commonFunnction';
 import moment from 'moment';
 import FilterView from './FilterView';
+import AdvancedTableExpandableOneRow from './AdvancedTableExpandableOneRow';
 
-const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, handleSubmit = () => { }, table, data, errors, register, setValue, getValues, totalCount = 10,actions=["Edit","Delete"] }) => {
+const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = () => { }, handleSubmit = () => { }, table, data, errors, register, setValue, getValues, totalCount = 10, actions = ["Edit", "Delete"] }) => {
 
     const [hide, setHide] = useState([])
     const [lastVisitedPage, setLastVisitedPage] = useState(100)
@@ -186,6 +187,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                         <table border={1} className='w-[100%] table-auto'>
                             <thead className='sticky -top-1 h-4 z-30'>
                                 <tr >
+                                <td className='border-primaryLine h-14  border-2 bg-primaryLine min-w-[10px] max-w-[10px] text-center'></td>
                                     {
                                         table.columns.map((itts, index) => {
                                             console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
@@ -208,7 +210,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
 
 
 
-                            <tbody>
+                            {/* <tbody>
                                 {
                                     data?.slice((currentPage - 1) * RPP, currentPage * RPP).map((itm) => {
                                         return <tr>
@@ -220,6 +222,15 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                                 </td> : <></>
                                             })}
                                         </tr>
+
+                                    })
+                                }
+                            </tbody> */}
+
+                            <tbody>
+                                {
+                                    data.slice((currentPage - 1) * RPP, currentPage * RPP).map((itm) => {
+                                        return <AdvancedTableExpandableOneRow setModalBody={setModalBody} setOpenModal={setOpenModal} table={table} itm={itm} hide={hide} />
 
                                     })
                                 }
@@ -301,4 +312,4 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
 
 };
 
-export default AdvancedTable;
+export default AdvancedTableExpandable;

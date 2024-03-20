@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageProjectSiteIdForm from '../../../../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteIdForm'
+import ManageProjectGroupForm from '../ManageProjectGroup/ManageProjectGroupForm';
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,15 +14,19 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import { useParams, useNavigate } from 'react-router-dom';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
-import FileUploader from '../../../../components/FIleUploader';
+import { useNavigate, useParams } from 'react-router-dom';
+import ManageProjectSiteIdForm from './ManageProjectSiteIdForm';
+import projectListActions from '../../../../store/actions/projectList-actions';
+import AdvancedTableExpandable from '../../../../components/AdvancedTableExpandable';
+import AllocateProjectForm from './AllocateProjectForm';
+import AllocateProjectDateForm from './AllocateProjectDateForm';
 
 const ManageProjectSiteId = () => {
 
 
-    const { projecttypeuniqueId, projectuniqueId } = useParams()
+    const { projectuniqueId } = useParams()
 
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -32,13 +36,80 @@ const ManageProjectSiteId = () => {
 
 
     let dispatch = useDispatch()
-  
+
+
 
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getProject
+        let interdata = state?.projectList?.getprojectalllist
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+                siteStartDate: <div className='flex content-center w-full justify-center'>
+                    <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
+                        setmodalOpen(true)
+
+                        dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
+                        setmodalHead("Add Planned Start Date")
+                        setmodalBody(<>
+                            <AllocateProjectDateForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                            {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                        </>)
+                        console.log('ahshshhs', itm)
+                        //setmodalOpen(false)
+                    }} classes='w-full'></Button>} />
+                </div>,
+                milestoneArray: itm.milestoneArray.map((iewq) => {
+
+                    console.log(iewq, "iewqiewqiewqiewq")
+                    return {
+                        ...iewq,
+                        SubProject: "",
+                        MileDevName: <div className='flex'>
+                            {/* <CstmButton className={"p-2 w-full"} icon child={<Button name={iewq.assignerName ? iewq.assignerName : "Unassigned"} onClick={() => {
+                                setmodalOpen(true)
+
+                                dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
+                                setmodalHead("Allocate Milestone")
+                                setmodalBody(<>
+                                    <AllocateProjectForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
+                                    {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                            {/* </>) */}
+                            {/* //     console.log('ahshshhs', itm)
+                                
+                            // }} classes='w-full bg-white text-black'></Button>} /> */}
+
+                            <p className='cursor' onClick={() => {
+                                setmodalOpen(true)
+
+                                dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
+                                setmodalHead("Allocate Milestone")
+                                setmodalBody(<>
+                                    <AllocateProjectForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
+                                    {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
+                                        handleSubmit(onTableViewSubmit)
+                                    }} /></div> */}
+                                </>)
+                                console.log('ahshshhs', itm)
+                            }
+                            }>{iewq.assignerName ? <div className='flex flex-row'><p className='rounded-full text-white w-10 h-10 bg-[#ff66cc]'> {iewq.assignerName.split(" ")[0].substr(0,1)+iewq.assignerName.split(" ")[1].substr(0,1)}</p><p className='rounded-full text-white w-10 h-10 bg-[#84d5d0]'>{iewq.assignerName.split(" ")[0].substr(0,1)+iewq.assignerName.split(" ")[1].substr(0,1)}</p><p className='rounded-full text-white w-10 h-10 bg-[#84d5d0]'>{iewq.assignerName.split(" ")[0].substr(0,1)+iewq.assignerName.split(" ")[1].substr(0,1)}</p><p className='rounded-full text-white w-10 h-10 bg-[#84d5d0]'>{iewq.assignerName.split(" ")[0].substr(0,1)+iewq.assignerName.split(" ")[1].substr(0,1)}</p></div> : "Unassigned"}</p>
+
+                        </div>,
+                        // MileStartDate: <div className='flex content-center w-full justify-center'>
+                        //     <CstmButton className={"p-2 w-full"} child={<Button name={iewq.plannedStartDate ? iewq.plannedStartDate : "Assign Date"} onClick={() => {
+                        //         setmodalOpen(true)
+
+                        //         dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
+                        //         setmodalHead("Add Planned Start Date")
+                        //         setmodalBody(<>
+                        //             <AllocateProjectDateForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
+                        //             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                        //         </>)
+                        //         console.log('ahshshhs', itm)
+                        //         //setmodalOpen(false)
+                        //     }} classes='w-full'></Button>} />
+                        // </div>
+                    }
+                }),
                 // "status": <CstmButton child=
                 // {<ToggleButton onChange={(e) => {
                 //     console.log(e.target.checked, "e.target.checked")
@@ -69,7 +140,7 @@ const ManageProjectSiteId = () => {
                 ),
 
 
-                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                "edit": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getProject())
                     setmodalHead("Edit Site ID")
@@ -77,10 +148,10 @@ const ManageProjectSiteId = () => {
                         <ManageProjectSiteIdForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
+                    console.log('ahshshhs', itm)
                     //setmodalOpen(false)
-                }}></EditButton>} />,
-                
+                }}></EditButton>} /></div>,
+
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                     let msgdata = {
                         show: true,
@@ -131,32 +202,22 @@ const ManageProjectSiteId = () => {
         columns: [
             {
                 name: "Site ID",
-                value: "siteId",
+                value: "siteid",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Scope",
-                value: "Scope",
+                name: "Sub Project",
+                value: "subProject",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Owner",
-                value: "owner",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "SubProject",
-                value: "subproject",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "% Complete",
-                value: "complete",
+                value: "PMName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Planned Start Date",
-                value: "startDate",
+                value: "siteStartDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -165,11 +226,39 @@ const ManageProjectSiteId = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
+                name: "Completition Date",
+                value: "endDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Ageing",
+                value: "endDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+
+            {
+                name: "% Complete",
+                value: "complete",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Predecessor(Name/Status)",
+                value: "",
+                style: "min-w-[240px] max-w-[240px] text-center"
+
+            },
+            {
                 name: "Status",
                 value: "status",
                 style: "min-w-[140px] max-w-[200px] text-center"
 
             },
+            {
+                name: "Billing Status",
+                value: "endDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+
             {
                 name: "Edit",
                 value: "edit",
@@ -181,6 +270,80 @@ const ManageProjectSiteId = () => {
                 style: "min-w-[100px] max-w-[200px] text-center"
             }
         ],
+        childList: [""],
+        childs: {
+            "milestoneArray": [
+                {
+                    name: "Site ID",
+                    value: "Name",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Sub Project",
+                    value: "SubProject",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Owner",
+                    value: "MileDevName",
+                    style: "min-w-[180px] max-w-[180px] text-center"
+                },
+                {
+                    name: "Planned Start Date",
+                    value: "MileStartDate",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Planned End Date",
+                    value: "endDate",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Completition Date",
+                    value: "Estimated Time (Days)",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Status",
+                    value: "status",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+
+                },
+                {
+                    name: "Planned Actual Date",
+                    value: "endDate",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+
+                {
+                    name: "Predecessor(Name/Status)",
+                    value: "Predecessor",
+                    style: "min-w-[240px] max-w-[240px] text-center"
+
+                },
+                {
+                    name: "Ageing",
+                    value: "Estimated Time (Days)",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+
+                {
+                    name: "% Complete",
+                    value: "complete",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Edit",
+                    value: "edit",
+                    style: "min-w-[100px] max-w-[200px] text-center"
+                },
+                {
+                    name: "Delete",
+                    value: "delete",
+                    style: "min-w-[100px] max-w-[200px] text-center"
+                }
+            ]
+        },
         properties: {
             rpp: [10, 20, 50, 100]
         },
@@ -199,26 +362,34 @@ const ManageProjectSiteId = () => {
         // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getProject(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageProjectGroup(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getProject(`${projectuniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
+        dispatch(AdminActions.getManageProjectGroup())
+        dispatch(projectListActions.getProjectType(projectuniqueId))
+
+        dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+
+
+
+
+
+        // dispatch(AdminActions.getProject(`${projectuniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
-
     return <>
-        <AdvancedTable
+        <AdvancedTableExpandable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getProject())
                 setmodalHead("Add Site ID")
-                setmodalBody(<ManageProjectSiteIdForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} projectuniqueId={projectuniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Site ID"}></Button>
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
-                </div>}
+            </div>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
