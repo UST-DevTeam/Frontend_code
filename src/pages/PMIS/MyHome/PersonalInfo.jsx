@@ -34,8 +34,8 @@ const PersonalInfo = (props) => {
     formState: { errors },
   } = useForm();
 
-  const { empuid } = useParams();
-  console.log(empuid, "formValueformValueformValue");
+  // const { empuid } = useParams();
+  // console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState(true);
   const [UserLyp, seteUserLyp] = useState("");
