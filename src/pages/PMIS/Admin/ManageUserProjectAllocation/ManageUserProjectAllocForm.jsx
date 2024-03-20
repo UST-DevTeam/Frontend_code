@@ -51,7 +51,7 @@ const ManageUserProjectAllocForm = ({
     return state?.adminData?.getVishal.map((itm) => {
       return {
         name: itm?.projectId,
-        id: itm?.projectId,
+        id: itm?.uniqueId,
       };
     });
   });

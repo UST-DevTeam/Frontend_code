@@ -14,7 +14,7 @@ const myHome = createSlice({
             if(payload.reset){
                 state.getMyHome = payload.dataAll
             }else{
-                state.getMyHome  = [...state.getMyHome,...payload.dataAll]
+                state.getMyHome  = [...state.getMyHome, ...payload.dataAll]
             }
         },
 

@@ -64,7 +64,7 @@ const ManageZone = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageZone())
-                    setmodalHead("Edit User")
+                    setmodalHead("Edit Zone")
                     setmodalBody(<>
                         <ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -195,7 +195,7 @@ const ManageZone = () => {
                 setmodalHead("New Zone")
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Zone"}></Button>
+                name={"New Zone"}></Button>
                 <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>

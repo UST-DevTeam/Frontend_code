@@ -22,6 +22,7 @@
   
   --mainprimary:linear-gradient(to left, #143b64, #143b64);
   --mainsec:#143b64;
+  --mainsec2: orange;
   background-color: rgb(252, 252, 252);
   /* --topbar:linear-gradient(to left, #af5002, #1b0027); */
   --topbar:linear-gradient(to left, #143b64, #143b64);
@@ -107,12 +108,14 @@ svg {
 }
 ::-webkit-scrollbar{
   background-color: transparent;
-  width: 2px;
-  height: 4px;
+  width: 14px;
+  height: 14px;
 }
 
 ::-webkit-scrollbar-track{
   background-color: transparent;
+  -webkit-box-shadow: inset 0 0 6px     rgba(0,0,0,0.3); 
+    border-radius: 10px;
 }
 
 
@@ -125,9 +128,11 @@ svg {
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: --mainsec;
+  background-color: gray;
   /* height: 2px;
   width: 10px; */
+  -webkit-box-shadow: inset 0 0 2px     rgba(0,0,0,0.1); 
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
@@ -168,7 +173,8 @@ svg {
   display: block;
   margin:5px auto;
   position: absolute;
-  color: var(--mainsec);
+  color: var(--mainsec2);
+  /* color: red; */
   left: 25px;
   box-sizing: border-box;
   animation: shadowRolling 2s linear infinite;

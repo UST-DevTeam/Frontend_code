@@ -188,7 +188,7 @@ const ManageCircle = () => {
         <AdvancedTable
             headerButton={<><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("Add Circle")
+                setmodalHead("New Circle")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Circle"}></Button>

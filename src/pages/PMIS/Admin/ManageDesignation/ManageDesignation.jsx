@@ -163,7 +163,7 @@ const ManageDesignation = () => {
                     <Button classes='w-auto' 
                         onClick={(e) => {
                             setmodalOpen(prev => !prev)
-                            setmodalHead("Add Designation")
+                            setmodalHead("New Designation")
                             setmodalBody(
                                 <ManageDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />
                             )

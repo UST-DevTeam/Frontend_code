@@ -154,7 +154,7 @@ const ManageProjectGroup = () => {
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageCircle())
-                setmodalHead("Add Project Group")
+                setmodalHead("New Project Group")
                 setmodalBody(<ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Project Group"}></Button></>}

@@ -12,7 +12,7 @@ const Modal = ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton 
 
     return (
         <div className={isOpen ? 'z-[4000] flex justify-around place-items-center bg-white dark:bg-darkBg fixed rm-scroll overflow-hidden top-0 bottom-0 right-0 left-0' : 'hidden'} style={{ background: 'rgba(6, 6, 6, 0.9)' }} onClick={() => { setIsOpen(prev => !prev) }}>
-            <div onClick={(e) => e.stopPropagation()} className={`relative bg-lightBg dark:bg-darkBg  ${sizeType[size]} rounded-md overflow-scroll modal-inner `}>
+            <div onClick={(e) => e.stopPropagation()} className={`relative bg-lightBg dark:bg-darkBg  ${sizeType[size]} rounded-md overflow-hidden modal-inner `}>
                 <div className='sticky bg-primaryLine h-10 top-0 right-0'>
 
                     <h1 className='text-white text-lg pt-2 pl-4'>{modalHead}</h1>

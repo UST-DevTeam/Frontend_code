@@ -854,7 +854,8 @@ const ManageProjectType = () => {
 
 
       <CCDash
-        approveddata={dbConfigListCard?.map((itm) => {
+        approveddata={
+          dbConfigListCard?.map((itm) => {
           return (
             <>
               <div
@@ -876,6 +877,7 @@ const ManageProjectType = () => {
             </>
           );
         })}
+        className="flex flex-col"
         settype={settype}
         showbtn={true}
         label="Add / Modify Project Type"

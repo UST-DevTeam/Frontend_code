@@ -21,6 +21,7 @@ import {
 } from "@iconscout/react-unicons";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 
+
 const EmpDetails = (props) => {
   const {
     register,
@@ -36,7 +37,7 @@ const EmpDetails = (props) => {
   const { empuid } = useParams();
   console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
-  const [oneLoad, setOneLoad] = useState(true);
+  const [oneLoad, setOneLoad] = useState(false);
   const [UserLyp, seteUserLyp] = useState("");
   const [nestfilter, setnestfilter] = useState({});
   const [onestfilter, setonestfilter] = useState({});
@@ -66,9 +67,9 @@ const EmpDetails = (props) => {
     if (data.length > 0 && oneLoad) {
       setOneLoad(false);
 
-      // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
+      // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
 
-      // dispatch(HrActions.getManageEmpDetails(true, "dsadsa"));
+      // dispatch(HrActions.getManageEmpDetails(false, "dsadsa"));
 
       Object.entries(data[0]).map((iewq) => {
         console.log(iewq, "iewqiewqiewqiewqiewqiewq");
@@ -168,13 +169,13 @@ const EmpDetails = (props) => {
   //   //   required: false,
   //   //   props: {
   //   //     onChange: ((e) => {
-  //   //       setOneLoad(true)
+  //   //       setOneLoad(false)
   //   //       setupManagingFilter([])
   //   //       setManagingFilter([])
   //   //       setValue("dboSelection", "Select")
   //   //       dispatch(TABLES_LIST({}))
   //   //       // dispatch(CustomQueryActions.resetTablesList())
-  //   //       dispatch(CustomQueryActions.getdboList(true, e.target.value, () => { }))
+  //   //       dispatch(CustomQueryActions.getdboList(false, e.target.value, () => { }))
   //   //     }),
   //   //   },
   //   //   classes: "col-span-1"
@@ -187,11 +188,11 @@ const EmpDetails = (props) => {
   //   //   required: false,
   //   //   props: {
   //   //     onChange: ((e) => {
-  //   //       setOneLoad(true)
+  //   //       setOneLoad(false)
   //   //       setupManagingFilter([])
   //   //       setManagingFilter([])
   //   //       // dispatch(CustomQueryActions.resetTablesList())
-  //   //       dispatch(CustomQueryActions.getTablesList(true, e.target.value, () => { }))
+  //   //       dispatch(CustomQueryActions.getTablesList(false, e.target.value, () => { }))
   //   //     }),
   //   //   },
   //   //   classes: "col-span-1"
@@ -220,7 +221,7 @@ const EmpDetails = (props) => {
   //   {
   //     label: "Select Column",
   //     value: "",
-  //     singleSelect: true,
+  //     singleSelect: false,
   //     option: tableList?.d2,
   //     name: "order" + "column",
   //     type: "muitiSelect",
@@ -259,7 +260,7 @@ const EmpDetails = (props) => {
   //     name: "order" + "expression",
   //     required: false,
   //     onChanging: ((e) => {
-  //       // setOneLoad(true)
+  //       // setOneLoad(false)
   //       // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
   //     }),
   //     props: {
@@ -271,7 +272,7 @@ const EmpDetails = (props) => {
   //     value: "",
   //     type: "hidden",
   //     name: "order" + "formovalue",
-  //     singleSelect: true,
+  //     singleSelect: false,
   //     option: tableList?.d2,
   //     props: {
   //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
@@ -369,7 +370,7 @@ const EmpDetails = (props) => {
   //     props: {
   //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
   //     },
-  //     require: true,
+  //     require: false,
   //     classes: "col-span-1"
   //   },
   //   {
@@ -389,7 +390,7 @@ const EmpDetails = (props) => {
   //           [tar]: val
   //         }));
   //         // nestfilter[e.target.name]= e.target.value
-  //         // setOneLoad(true)
+  //         // setOneLoad(false)
   //         // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
   //       }),
   //     },
@@ -430,7 +431,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       props: {},
-      required: true,
+      required: false,
       placeholder: "",
       option: [
         { label: "Mr.", value: "Mr" },
@@ -448,7 +449,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -487,7 +488,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -505,16 +506,16 @@ const EmpDetails = (props) => {
       type: "datetime",
       value: "",
       props: "",
-      required: true,
+      required: false,
     },
-    // { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", required: true },
+    // { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", required: false },
     {
       label: "Contact Number",
       name: "mobile",
       value: "",
       type: "number",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -550,7 +551,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [{ label: "India", value: "india" }],
     },
@@ -560,13 +561,12 @@ const EmpDetails = (props) => {
       id: "state",
       value: "",
       type: "select",
-      props: "",
       placeholder: "",
       option: stateList,
       props: {
         onChange: (e) => {
           setValue("state", e.target.value);
-          dispatch(AdminActions.getCities(true, `stateCode=${e.target.value}`));
+          dispatch(AdminActions.getCities(false, `stateCode=${e.target.value}`));
         },
       },
     },
@@ -586,7 +586,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -596,7 +596,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "textarea",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
 
@@ -659,7 +659,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [{ label: "India", value: "india" }],
     },
@@ -669,7 +669,6 @@ const EmpDetails = (props) => {
       id: "state",
       value: "",
       type: "select",
-      props: "",
       placeholder: "",
       option: stateList,
       props: {
@@ -678,7 +677,7 @@ const EmpDetails = (props) => {
 
           setValue("state", e.target.value);
 
-          dispatch(AdminActions.getCities(true, `stateCode=${e.target.value}`));
+          dispatch(AdminActions.getCities(false, `stateCode=${e.target.value}`));
           // setStateName(e.target.value)
         },
       },
@@ -702,7 +701,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -712,7 +711,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "textarea",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
 
@@ -754,7 +753,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -789,7 +788,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -798,7 +797,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [
         { label: "INR", value: "INR" },
@@ -811,7 +810,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -823,8 +822,8 @@ const EmpDetails = (props) => {
       required: false,
       placeholder: "",
     },
-    // {label:"Official Email ID", name:"email", value:'', type:'text', props:'',required:true, placeholder:""},
-    // {label:"Mobile No.", name:"mobile", value:'', type:'number', props:'',required:true, placeholder:""},
+    // {label:"Official Email ID", name:"email", value:'', type:'text', props:'',required:false, placeholder:""},
+    // {label:"Mobile No.", name:"mobile", value:'', type:'number', props:'',required:false, placeholder:""},
     {
       label: "Joining Date",
       name: "datetime",
@@ -849,7 +848,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [
         { label: "Yes", value: "Yes" },
@@ -870,7 +869,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     });
   }
@@ -944,7 +943,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       option: roleList,
-      // required: true,
+      // required: false,
       props: {},
       classes: "col-span-1",
     },
@@ -954,7 +953,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       option: roleList,
-      // required: true,
+      // required: false,
       props: {},
       classes: "col-span-1",
     },
@@ -1138,7 +1137,7 @@ const EmpDetails = (props) => {
       name: "status",
       value: "",
       type: "select",
-      required: true,
+      required: false,
       props: {},
       option: [
         { label: "Active", value: "Active" },
@@ -1213,9 +1212,9 @@ const EmpDetails = (props) => {
   const onTableViewGenerateSubmit = (data) => {
     console.log(data, "dsadasdsadsadsadas");
     if (empuid) {
-      dispatch(HrActions.postManageEmpDetails(true, data, () => {}, empuid));
+      dispatch(HrActions.postManageEmpDetails(false, data, () => {}, empuid));
     } else {
-      dispatch(HrActions.postManageEmpDetails(true, data, () => {}));
+      dispatch(HrActions.postManageEmpDetails(false, data, () => {}));
     }
     reset({});
   };
@@ -1241,9 +1240,9 @@ const EmpDetails = (props) => {
     dispatch(AdminActions.getState());
     if (empuid) {
       
-      dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
-      dispatch(HrActions.getManageEmpDetails(true, empuid));
-      setOneLoad(true);
+      dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
+      dispatch(HrActions.getManageEmpDetails(false, empuid));
+      setOneLoad(false);
     } else {
       // alert("dsadsadas")
 
@@ -1266,7 +1265,7 @@ const EmpDetails = (props) => {
         <button
           onClick={() => {
             navigate("/empDetailsTable");
-            setOneLoad(true);
+            setOneLoad(false);
           }}
           className="mt-2 w-auto flex ml-auto mr-2 rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-white hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
         >

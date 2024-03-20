@@ -143,7 +143,7 @@ const ManageUserProjectAllocation = () => {
             },                     
             {
                 name: "Project",
-                value: "project",
+                value: "projectIdName",
                 style: "min-w-[300px] max-w-[250px] text-center"
             },           
             // {

@@ -89,7 +89,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         {
             label: "Cost Center",
             value: "Select",
-            name: "costcenterId",
+            name: "costCenterId",
             type: "select",
             option: costCenterList,
             required: true,

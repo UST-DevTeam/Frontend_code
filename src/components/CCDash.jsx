@@ -44,7 +44,7 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
             </div>
         }
         </div>
-        <div className='p-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 grid col-span-12 rounded-md gap-4' >
+        <div className='p-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 grid col-span-12 rounded-md gap-2' >
             {approveddata}
         </div>
     </>

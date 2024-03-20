@@ -20,9 +20,9 @@ import {
   UilEdit,
   UilSave,
 } from "@iconscout/react-unicons";
-import { GET_EMPLOYEE_DETAILS, } from "../../../store/reducers/hr-reduces";
+// import { GET_PERSONAL_INFO, } from "../../../store/reducers/hr-reduces";
 
-const EmpDetails = (props) => {
+const PersonalInfo = (props) => {
   const {
     register,
     handleSubmit,
@@ -57,13 +57,9 @@ const EmpDetails = (props) => {
   const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
   const [showPassportNumber, setshowPassportNumber] = useState(false);
   const [stateName, setStateName] = useState(false);
-  // const [CityOptions,setCityOptions] =useState("")
 
-  const getManageEmpDetails = useSelector((state) => {
-    let data = state.hrReducer.getManageEmpDetails;
-
-
-    console.log(data,"datadatadatadatadatadatadata")
+  const PersonalInfo = useSelector((state) => {
+    let data = state.myHomeData.getPersonalInfo;
     if (data.length > 0 && oneLoad) {
       setOneLoad(false);
 
@@ -72,18 +68,12 @@ const EmpDetails = (props) => {
       // dispatch(HrActions.getManageEmpDetails(true, "dsadsa"));
 
       Object.entries(data[0]).map((iewq) => {
-        console.log(iewq, "iewqiewqiewqiewqiewqiewq");
         setValue(iewq[0], iewq[1]);
       });
     }
-    return state.hrReducer.getManageEmpDetails;
+    return state.myHomeData.getPersonalInfo;
   });
 
-  console.log(getManageEmpDetails, "getManageEmpDetails");
-
-  const AutoFillAddress = () => {
-    
-  };
 
   let departmentList = useSelector((state) => {
     return state?.adminData?.getManageDepartment.map((itm) => {
@@ -142,294 +132,17 @@ const EmpDetails = (props) => {
     });
   });
 
-  //   const handleStateChange = (state) => {
-  //     const getCities = cityList.filter(city => city.stateCode === state);
-  //     setCityOptions(Cities);
-  // }
-
-  // let sqlQuerData = useSelector((state) => {
-  //   return state?.customQuery?.generatedSqlQuery
-  // })
-
-  // let getUserRole = useSelector((state) => {
-  //   return state?.auth?.generatedSqlQuery
-  // })
-
-  // let userRole = useSelector((state) => {
-  //   return state?.auth?.user?.roleName
-  // })
-
-  // let Form = [
-  //   // {
-  //   //   label: "Select Server",
-  //   //   value: "",
-  //   //   option: databaseList,
-  //   //   type: "select",
-  //   //   name: "ServerSelection",
-  //   //   required: false,
-  //   //   props: {
-  //   //     onChange: ((e) => {
-  //   //       setOneLoad(true)
-  //   //       setupManagingFilter([])
-  //   //       setManagingFilter([])
-  //   //       setValue("dboSelection", "Select")
-  //   //       dispatch(TABLES_LIST({}))
-  //   //       // dispatch(CustomQueryActions.resetTablesList())
-  //   //       dispatch(CustomQueryActions.getdboList(true, e.target.value, () => { }))
-  //   //     }),
-  //   //   },
-  //   //   classes: "col-span-1"
-  //   // }, {
-  //   //   label: "Select Schema",
-  //   //   value: "",
-  //   //   option: dboList,
-  //   //   type: "select",
-  //   //   name: "dboSelection",
-  //   //   required: false,
-  //   //   props: {
-  //   //     onChange: ((e) => {
-  //   //       setOneLoad(true)
-  //   //       setupManagingFilter([])
-  //   //       setManagingFilter([])
-  //   //       // dispatch(CustomQueryActions.resetTablesList())
-  //   //       dispatch(CustomQueryActions.getTablesList(true, e.target.value, () => { }))
-  //   //     }),
-  //   //   },
-  //   //   classes: "col-span-1"
-  //   // }
-  // ]
-
-  // let searchForm = [
-  //   {
-  //     label: "Table Name",
-  //     name: "searchTablename",
-  //     value: "",
-  //     type: "text",
-  //     props: {
-  //       onChange: ((e) => {
-  //         // console.log(managingFilter, "managingFilter dataValuedataValue")
-  //         let dtew = managingFilter.filter(itm => itm.name.toLowerCase().includes(e.target.value.toLowerCase()))
-  //         setupManagingFilter(dtew)
-  //         // console.log(dtew, "dtew dataValuedataValue")
-  //         // console.log(dataValue, "dataValuedataValue")
-  //       }),
-  //     },
-  //     classes: " col-span-1"
-  //   },
-  // ]
-  // let ordermultiForm = [
-  //   {
-  //     label: "Select Column",
-  //     value: "",
-  //     singleSelect: true,
-  //     option: tableList?.d2,
-  //     name: "order" + "column",
-  //     type: "muitiSelect",
-  //     onChanging: ((e) => {
-  //     }),
-  //     props: {
-  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-  //     },
-  //     classes: "col-span-1  "
-  //   },
-  //   {
-  //     label: "Condition",
-  //     value: "",
-  //     name: "order" + "condition",
-  //     option: all_command_type,
-  //     type: "select",
-  //     required: false,
-  //     props: {
-  //       onChange: ((e) => {
-  //         // console.log(e.target.name, "e geeter")
-  //         let tar = e.target.name
-  //         let val = e.target.value
-  //         setonestfilter(prev => ({
-  //           ...prev,
-  //           [tar]: val
-  //         }));
-  //       }),
-  //     },
-  //     classes: "col-span-1"
-  //   },
-  //   {
-  //     label: "Expression",
-  //     value: "",
-  //     option: [],
-  //     type: "select",
-  //     name: "order" + "expression",
-  //     required: false,
-  //     onChanging: ((e) => {
-  //       // setOneLoad(true)
-  //       // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
-  //     }),
-  //     props: {
-  //     },
-  //     classes: "col-span-1"
-  //   },
-  //   {
-  //     label: "Value",
-  //     value: "",
-  //     type: "hidden",
-  //     name: "order" + "formovalue",
-  //     singleSelect: true,
-  //     option: tableList?.d2,
-  //     props: {
-  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-  //     },
-  //     classes: "col-span-1"
-  //   }
-  // ]
-
-  // let contype = [
-  //   {
-  //     label: UserLyp != "Investor" ? UserLyp + " Name" : " Name",
-  //     value: "text",
-  //     type: UserLyp != "Investor" ? "text" : "hidden",
-  //     name: "cmpName",
-  //     required: false,
-  //     classes: UserLyp != "Investor" ? "col-span-1" : "",
-
-  //   },
-  //   {
-  //     label: UserLyp != "Investor" ? UserLyp + " Reg. No." : "Id No.",
-  //     value: "text",
-  //     type: "text",
-  //     name: "RegNo",
-  //     required: false,
-  //     classes: "col-span-1",
-
-  //   },
-  //   {
-  //     label: UserLyp != "Investor" ? UserLyp + " Address" : "Address",
-  //     value: "text",
-  //     type: "textarea",
-  //     name: "cAddress",
-  //     required: false,
-  //     classes: "col-span-1",
-
-  //   },
-  // ]
-
-  // let optionsList = {
-  //   "Investor": [{
-  //     "label": "Company",
-  //     "value": "Company"
-  //   }, {
-  //     "label": "Individual",
-  //     "value": "Individual"
-  //   }, {
-  //     "label": "Government Entity ",
-  //     "value": "Government Entity"
-  //   }],
-  //   "Fund Seeker": [{
-  //     "label": "Company",
-  //     "value": "Company"
-  //   }, {
-  //     "label": "Individual",
-  //     "value": "Individual"
-  //   }],
-
-  //   "Charitable Organisation": [{
-  //     "label": "Company",
-  //     "value": "Company"
-  //   }]
-  // }
-
-  // let conDet = [
-  //   // {
-  //   //   label: "Reg Type",
-  //   //   value: "",
-  //   //   option: optionsList[userRole] || [],
-  //   //   type: "select",
-  //   //   name: "regType",
-  //   //   required: false,
-  //   //   props: {
-  //   //     onChange: ((e) => {
-  //   //       seteUserLyp(e.target.value)
-  //   //     })
-  //   //   },
-  //   //   classes: "col-span-1"
-  //   // }
-  // ]
-
-  // let conditionmultiForm = [
-  //   // {
-  //   // type:'heading',
-  //   // label:"Identification Documents",
-  //   // classes: "col-span-1 text-black-900 text-center",
-  //   //   },
-  //   {
-  //     label: "File ",
-  //     value: "",
-  //     name: "file",
-  //     type: "file",
-  //     onChanging: ((e) => {
-
-  //     }),
-  //     props: {
-  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-  //     },
-  //     require: true,
-  //     classes: "col-span-1"
-  //   },
-  //   {
-  //     label: "Document Type",
-  //     value: "",
-  //     name: "document",
-  //     //   option: kyc_doc_type,
-  //     type: "select",
-  //     required: false,
-  //     props: {
-  //       onChange: ((e) => {
-  //         // console.log(e.target.name, "e geeter")
-  //         let tar = e.target.name
-  //         let val = e.target.value
-  //         setnestfilter(prev => ({
-  //           ...prev,
-  //           [tar]: val
-  //         }));
-  //         // nestfilter[e.target.name]= e.target.value
-  //         // setOneLoad(true)
-  //         // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
-  //       }),
-  //     },
-  //     classes: "col-span-1"
-  //   },
-  //   { label: "Doc. Number", name: "docNumber", value: "", type: "number", props: "", required: false, placeholder: "" },
-  //   { label: "Doc. Expire", name: "docExpire", type: "datetime", formattype: "date", format: "yyyy-MM-dd", formatop: "yyyy-MM-DD", required: false, classes: "z-100" },
-
-  // ]
-
-  // const [presentAddress, setPresentAddress] = useState({
-  //   country: '',
-  //   state: '',
-  //   city: '',
-  //   pincode: '',
-  //   address: ''
-  // });
-
-  // const [permanentAddress, setPermanentAddress] = useState({
-  //   country: '',
-  //   state: '',
-  //   city: '',
-  //   pincode: '',
-  //   address: ''
-  // });
-
-
-
   let PersonalInformation = [
     {
       type: "heading",
       label: "Employee Details",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-orange-700 text-start",
     },
     {
       label: "Title",
       name: "title",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: {},
       required: true,
       placeholder: "",
@@ -437,17 +150,13 @@ const EmpDetails = (props) => {
         { label: "Mr.", value: "Mr" },
         { label: "Mrs.", value: "Mrs" },
         { label: "Ms.", value: "Ms" },
-
-        // {"label": "Miss", "value": "Miss"},
-        // {"label": "Sir", "value": "Sir"},
-        // {"label": "Madam", "value": "Madam"},
       ],
     },
     {
       label: "Employee Name",
       name: "empName",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -456,7 +165,7 @@ const EmpDetails = (props) => {
       label: "Father's Name",
       name: "fatherName",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -465,7 +174,7 @@ const EmpDetails = (props) => {
       label: "Mother's Name",
       name: "motherName",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -474,7 +183,7 @@ const EmpDetails = (props) => {
       label: "Marital Status",
       name: "martialStatus",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: "",
       required: false,
       option: [
@@ -486,7 +195,7 @@ const EmpDetails = (props) => {
       label: "Official Email-ID",
       name: "email",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -495,7 +204,7 @@ const EmpDetails = (props) => {
       label: "Personal Email-ID",
       name: "personalEmailId",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -503,7 +212,7 @@ const EmpDetails = (props) => {
     {
       label: "Date Of Birth(as Per doc)",
       name: "dob",
-      type: "datetime",
+      type:"sdisabled",
       value: "",
       props: "",
       required: true,
@@ -513,7 +222,7 @@ const EmpDetails = (props) => {
       label: "Contact Number",
       name: "mobile",
       value: "",
-      type: "number",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -522,7 +231,7 @@ const EmpDetails = (props) => {
       label: "Blood Group",
       name: "blood",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: {},
       required: false,
       option: [
@@ -542,14 +251,14 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Present Address",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-orange-700 text-start",
     },
     {
       label: "Country",
       id: "country",
       name: "country",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -560,8 +269,7 @@ const EmpDetails = (props) => {
       name: "state",
       id: "state",
       value: "",
-      type: "select",
-      props: "",
+      type:"sdisabled",
       placeholder: "",
       option: stateList,
       props: {
@@ -576,7 +284,7 @@ const EmpDetails = (props) => {
       name: "city",
       id: "city",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: "",
       placeholder: "",
       option: cityList,
@@ -585,7 +293,7 @@ const EmpDetails = (props) => {
       label: "PinCode",
       name: "pincode",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -595,70 +303,25 @@ const EmpDetails = (props) => {
       name: "address",
       id: "address",
       value: "",
-      type: "textarea",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
     },
-
-    // {
-    //   label: "Social Media",
-    //   name: "socialMedia",
-    //   value: "",
-    //   type: "select",  
-    //   props: {
-    //     onChange: (e) => {
-    //       setshowSocialMediaOther(e.target.value === "Other");
-    //     },
-    //   },
-    //   required: false,
-    //   option: [
-    //     { label: "Facebook", value: "Facebook" },
-    //     { label: "Instagram", value: "Instagram" },
-    //     { label: "Pinterest", value: "Pinterest" },
-    //     { label: "X", value: "X" },
-    //     { label: "Other", value: "Other" },
-    //   ],
-    // },
   ];
-  // if (showSocialMediaOther) {
-  //   ContactInformation.push({
-  //     label: "Please Specify Social Media Type",
-  //     name: "otherSocialMediaType",
-  //     value: "",
-  //     type: "text",
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   });
-  // }
 
   let ContactInformation2 = [
     {
-      type: "checkbox",
-      name: "fillAddress",
-      option: [
-        {
-          type: "checkbox",
-          name: "fillAddress",
-          // label:
-          checked: false,
-          label: "Same As Present Address",
-          onClick: AutoFillAddress,
-        },
-      ],
-    },
-    {
       type: "heading",
       label: "Permanent Address",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-orange-700 text-start",
     },
     {
       label: "Country",
       name: "country",
       id: "country",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -669,8 +332,7 @@ const EmpDetails = (props) => {
       name: "state",
       id: "state",
       value: "",
-      type: "select",
-      props: "",
+      type:"sdisabled",
       placeholder: "",
       option: stateList,
       props: {
@@ -688,9 +350,9 @@ const EmpDetails = (props) => {
     {
       label: "city",
       name: "city",
-      name: "id",
+      id: "city",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: "",
       placeholder: "",
       option: cityList,
@@ -701,7 +363,7 @@ const EmpDetails = (props) => {
       name: "pincode",
       id: "pincode",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -711,49 +373,24 @@ const EmpDetails = (props) => {
       name: "address",
       id: "address",
       value: "",
-      type: "textarea",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
     },
-
-    // {
-    //   label: "Social Media", name: "socialMedia", value: "", type: "select", props: {
-    //     onChange: (e) => {
-    //       setshowSocialMediaOther(e.target.value === "Other");
-    //     },
-    //   }, required: false, option: [
-    //     { "label": "Facebook", "value": "Facebook" },
-    //     { "label": "Instagram", "value": "Instagram" },
-    //     { "label": "Pinterest", "value": "Pinterest" },
-    //     { "label": "X", "value": "X" },
-    //     { "label": "Other", "value": "Other" },
-    //   ],
-    // },
   ];
-  // if (showSocialMediaOther) {
-  //   ContactInformation.push({
-  //     label: "Please Specify Social Media Type",
-  //     name: "otherSocialMediaType",
-  //     value: "",
-  //     type: "text",
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   });
-  // }
 
   let EmploymentDetails = [
     {
       type: "heading",
       label: "Employment Details",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-orange-700 text-start",
     },
     {
       label: "Employee Code",
       name: "empCode",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -762,7 +399,7 @@ const EmpDetails = (props) => {
       label: "PAN Number",
       name: "panNumber",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -771,7 +408,7 @@ const EmpDetails = (props) => {
       label: "Aadhar Number",
       name: "adharNumber",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -780,7 +417,7 @@ const EmpDetails = (props) => {
       label: "Circle",
       name: "circle",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       placeholder: "",
     },
@@ -788,7 +425,7 @@ const EmpDetails = (props) => {
       label: "Experience",
       name: "experience",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -797,7 +434,7 @@ const EmpDetails = (props) => {
       label: "Salary Currency",
       name: "salaryCurrency",
       value: "",
-      type: "select",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -810,7 +447,7 @@ const EmpDetails = (props) => {
       label: "Monthly Salary",
       name: "monthlySalary",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -819,7 +456,7 @@ const EmpDetails = (props) => {
       label: "Gross CTC",
       name: "grossCtc",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -830,7 +467,7 @@ const EmpDetails = (props) => {
       label: "Joining Date",
       name: "datetime",
       value: "",
-      type: "datetime",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -839,7 +476,7 @@ const EmpDetails = (props) => {
       label: "Last Working Day",
       name: "datetime",
       value: "",
-      type: "datetime",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -848,8 +485,7 @@ const EmpDetails = (props) => {
       label: "Passport",
       name: "passport",
       value: "",
-      type: "select",
-      props: "",
+      type:"sdisabled",
       required: true,
       placeholder: "",
       option: [
@@ -869,7 +505,7 @@ const EmpDetails = (props) => {
       label: "Passport Number",
       name: "passportNumber",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: true,
       placeholder: "",
@@ -880,7 +516,7 @@ const EmpDetails = (props) => {
       label: "Bank Name",
       name: "bankName",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -889,7 +525,7 @@ const EmpDetails = (props) => {
       label: "Bank Account Number",
       name: "accountNumber",
       value: "",
-      type: "number",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -898,7 +534,7 @@ const EmpDetails = (props) => {
       label: "IFSC Code",
       name: "ifscCode",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -907,7 +543,7 @@ const EmpDetails = (props) => {
       label: "Benificiary Name",
       name: "benificiaryname",
       value: "",
-      type: "text",
+      type:"sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -918,13 +554,13 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Employee Profile",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-orange-700 text-start",
     },
     {
       label: "Organization Level",
       name: "orgLevel",
       value: "",
-      type: "text",
+      type:"sdisabled",
       required: false,
       props: {},
       classes: "col-span-1",
@@ -933,7 +569,7 @@ const EmpDetails = (props) => {
       label: "Designation",
       name: "designation",
       value: "",
-      type: "select",
+      type:"sdisabled",
       required: false,
       option: designationList,
       props: {},
@@ -943,7 +579,7 @@ const EmpDetails = (props) => {
       label: "Role",
       name: "role",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: roleList,
       // required: true,
       props: {},
@@ -953,7 +589,7 @@ const EmpDetails = (props) => {
       label: "PMIS Profile",
       name: "userRole",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: roleList,
       // required: true,
       props: {},
@@ -963,7 +599,7 @@ const EmpDetails = (props) => {
       label: "Band",
       name: "band",
       value: "",
-      type: "text",
+      type:"sdisabled",
       required: false,
       props: {},
       classes: "col-span-1",
@@ -972,7 +608,7 @@ const EmpDetails = (props) => {
       label: "Department",
       name: "department",
       value: "",
-      type: "select",
+      type:"sdisabled",
       required: false,
       props: {},
       option: departmentList,
@@ -988,7 +624,7 @@ const EmpDetails = (props) => {
       label: "Reporting Manager",
       name: "reportingManager",
       value: "",
-      type: "select",
+      type:"sdisabled",
       required: false,
       props: {},
       option: employeeList,
@@ -998,7 +634,7 @@ const EmpDetails = (props) => {
       label: "L1 Approver ",
       name: "L1Approver",
       value: "",
-      type: "select",
+      type:"sdisabled",
       required: false,
       props: {},
       option: employeeList,
@@ -1008,7 +644,7 @@ const EmpDetails = (props) => {
       label: "L2 Aprrover",
       name: "L2Approver",
       value: "",
-      type: "select",
+      type:"sdisabled",
       required: false,
       option: employeeList,
       props: {},
@@ -1018,7 +654,7 @@ const EmpDetails = (props) => {
       label: "Finance Approver",
       name: "financeApprover",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1028,7 +664,7 @@ const EmpDetails = (props) => {
       label: "HR Manager",
       name: "reportingHrManager",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1038,7 +674,7 @@ const EmpDetails = (props) => {
       label: "Asset Manager",
       name: "assetManager",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1048,7 +684,7 @@ const EmpDetails = (props) => {
       label: "L1 Vendor",
       name: "L1Vendor",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1058,7 +694,7 @@ const EmpDetails = (props) => {
       label: "L2 Vendor",
       name: "L2Vendor",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1068,7 +704,7 @@ const EmpDetails = (props) => {
       label: "Compliance",
       name: "compliance",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1078,7 +714,7 @@ const EmpDetails = (props) => {
       label: "L1 Compliance",
       name: "L1Compliance",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1088,7 +724,7 @@ const EmpDetails = (props) => {
       label: "L2 Compliance",
       name: "L2Compliance",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1098,7 +734,7 @@ const EmpDetails = (props) => {
       label: "HR Manager",
       name: "reportingHrManager",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1108,7 +744,7 @@ const EmpDetails = (props) => {
       label: "L1 Commercial",
       name: "L1Commercial",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1118,7 +754,7 @@ const EmpDetails = (props) => {
       label: "L1 Sales",
       name: "L1Sales",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1128,7 +764,7 @@ const EmpDetails = (props) => {
       label: "L2 Sales",
       name: "L2Sales",
       value: "",
-      type: "select",
+      type:"sdisabled",
       option: employeeList,
       required: false,
       props: {},
@@ -1138,7 +774,7 @@ const EmpDetails = (props) => {
       label: "Status",
       name: "status",
       value: "",
-      type: "select",
+      type:"sdisabled",
       required: true,
       props: {},
       option: [
@@ -1152,8 +788,8 @@ const EmpDetails = (props) => {
     {
       label: "Password",
       name: "password",
+      type:"sdisabled",
       value: "",
-      type: "password",
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1164,13 +800,13 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Supporting Document",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-orange-700 text-start",
     },
     {
       label: "Photo",
       name: "img",
       value: "",
-      type: "file",
+      type:"sdisabled",
       required: false,
       props: {
         accept: "image/*",
@@ -1181,7 +817,7 @@ const EmpDetails = (props) => {
       label: "CV",
       name: "cv",
       value: "",
-      type: "file",
+      type:"sdisabled",
       required: false,
       props: {
         accept: ".pdf,.doc,.docx",
@@ -1192,7 +828,7 @@ const EmpDetails = (props) => {
       label: "All Other Documents",
       name: "zip",
       value: "",
-      type: "file",
+      type:"sdisabled",
       required: false,
       props: {
         accept: ".zip,.rar,.bin",
@@ -1211,77 +847,28 @@ const EmpDetails = (props) => {
   //   formState: { errors },
   // } = useForm();
 
-  const onTableViewGenerateSubmit = (data) => {
-    console.log(data, "dsadasdsadsadsadas");
-    if (empuid) {
-      dispatch(HrActions.postManageEmpDetails(true, data, () => {}, empuid));
-    } else {
-      dispatch(HrActions.postManageEmpDetails(true, data, () => {}));
-    }
-    reset({});
-  };
-
-  // const onSelect = (selectedList, selectedItem) => {
-  //   console.log(selectedList, selectedItem, "datadata")
-  //   // dispatch(AuthActions.signIn(data, () => {
-  //   //     navigate('/authenticate')
-  //   // }))
-  // }
-
-  // const onRemove = (selectedList, removedItem) => {
-  //   console.log(selectedList, removedItem, "datadata")
-  //   // dispatch(AuthActions.signIn(data, () => {
-  //   //     navigate('/authenticate')
-  //   // }))
-  // }
+  const onTableViewGenerateSubmit = () => {
+    dispatch(MyHomeActions.getPersonalInfo())
+  };  
 
   useEffect(() => {
-    dispatch(AdminActions.getManageDepartment());
-    dispatch(AdminActions.getManageDesignation());
-    dispatch(AdminActions.getManageProfile());
-    dispatch(AdminActions.getState());
-    if (empuid) {
-      
-      dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
-      dispatch(HrActions.getManageEmpDetails(true, empuid));
-      setOneLoad(true);
-    } else {
-      // alert("dsadsadas")
-
-      // if (setOneLoad) {
-        // reset({});
-        [...PersonalInformation , ...ContactInformation , ...ContactInformation2 , ...EmploymentDetails , ...EmployeeProfile,...SupportingDoc].map((itss) => {
-            console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
-
-            setValue(itss.name,itss.value)
-          });
-      // }
-    }
-
-    // dispatch(AdminActions.getCities(setStateName));
-  }, [empuid]);
+    dispatch(MyHomeActions.getPersonalInfo({ reset: false }))
+    reset({});
+  }, [])
 
   return (
     <>
       <div className=" w-full h-full">
-        <button
-          onClick={() => {
-            navigate("/empDetailsTable");
-            setOneLoad(true);
-          }}
-          className="mt-2 w-auto flex ml-auto mr-2 rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-white hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
-        >
-          Back
-        </button>
+      
         <div className="">
           {/* <UiTopBar /> */}
           <div className="w-full mt-2 bg-white">
-            <div class="grid grid-cols-12 gap-2 m-2 bg-white border-2 rounded-lg">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-white ">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 rounded-lg"
                     }
                     errors={errors}
                     Form={PersonalInformation}
@@ -1292,7 +879,7 @@ const EmpDetails = (props) => {
 
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={ContactInformation}
@@ -1304,7 +891,7 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} /> */}
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={ContactInformation2}
@@ -1314,7 +901,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -1324,7 +911,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmployeeProfile}
@@ -1334,7 +921,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={SupportingDoc}
@@ -1409,8 +996,9 @@ const EmpDetails = (props) => {
                 UserLyp != "" && <CommonForm classes={"grid-cols-1 lg:grid-cols-2 lg:gap-8 w-full pt-4"} errors={errors} Form={contype}
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
+              
                 <div className="flex gap-10 mb-3 justify-center">
-                  <button
+                  {/* <button
                     onClick={() => {
                       navigate("/empDetailsTable");
                     }}
@@ -1423,7 +1011,7 @@ const EmpDetails = (props) => {
                     className="mt-6 w-auto justify-center rounded-md bg-[#143b64] hover:bg-violet-50 hover:text-black hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -1433,4 +1021,4 @@ const EmpDetails = (props) => {
     </>
   );
 };
-export default EmpDetails;
+export default PersonalInfo;
