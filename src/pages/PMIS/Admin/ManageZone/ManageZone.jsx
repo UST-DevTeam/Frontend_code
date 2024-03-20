@@ -27,10 +27,20 @@ const ManageZone = () => {
 
 
     let dispatch = useDispatch()
+
+
+    const currentDate = new Date();
+    const dt = currentDate.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).replace(/\//g, '-')
   
 
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getManageZone
+        console.log(interdata,"interdata")
+        // console.log(interdata[0]['circle'][1]['circleName'],"VISHAL_YADAV")
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -54,7 +64,7 @@ const ManageZone = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageZone())
-                    setmodalHead("Edit User")
+                    setmodalHead("Edit Zone")
                     setmodalBody(<>
                         <ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -87,6 +97,7 @@ const ManageZone = () => {
             return updateditm
         });
     })
+
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageZone
         console.log(interdata,"1234567890")
@@ -96,10 +107,7 @@ const ManageZone = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
     const {
         register,
         handleSubmit,
@@ -115,6 +123,11 @@ const ManageZone = () => {
             {
                 name: "Customer Name",
                 value: "customerName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Zone Name",
+                value: "zoneName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -173,6 +186,7 @@ const ManageZone = () => {
     }
 
 
+
     return <>
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
@@ -181,14 +195,16 @@ const ManageZone = () => {
                 setmodalHead("New Zone")
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Zone"}></Button>
+                name={"New Zone"}></Button>
                 <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 </div>}
             table={table}
+            templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
+            exportButton={["/export/manageZone","Export_Zone("+dt+").xlsx"]}
             filterAfter={onSubmit}
-            tableName={"UserListTable"}
+            tableName={"UserListTable"} 
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}

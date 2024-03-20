@@ -20,6 +20,8 @@ import {
     GET_ONE_MANAGE_PROJECT,
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     // GET_ASSET_REGISTRATION
+    GET_VISHAL,
+
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
 
@@ -455,6 +457,16 @@ const AdminActions = {
         }
     },
 
+    getVishal:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            console.log("cities",args)
+            const res = await Api.get({ url:`${Urls.admin_vishal}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_VISHAL({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 
 
 

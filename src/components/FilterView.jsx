@@ -1,11 +1,21 @@
 import React from "react";
 import PopupMenu from "./PopupMenu";
-import { UilColumns } from '@iconscout/react-unicons'
-import { UilFilter } from '@iconscout/react-unicons'
-import DatePicker from 'react-datepicker';
+import { UilColumns } from "@iconscout/react-unicons";
+import { UilFilter } from "@iconscout/react-unicons";
+import DatePicker from "react-datepicker";
 import Button from "./Button";
 
-const FilterView = ({tablefilter,handleSubmit = () => { },onSubmit, table, data, errors, register, setValue, getValues}) => {
+const FilterView = ({
+  tablefilter,
+  handleSubmit = () => {},
+  onSubmit,
+  table,
+  data,
+  errors,
+  register,
+  setValue,
+  getValues,
+}) => {
   return (
     <>
       {tablefilter.length > 0 && (
@@ -47,6 +57,33 @@ const FilterView = ({tablefilter,handleSubmit = () => { },onSubmit, table, data,
                               );
                             })}
                           </select>
+                        )}
+
+                        {itm.type == "autoSuggestion" && (
+                          <>
+                            <input
+                              list={"optiondata" + itm.label}
+                              onChange={itm.onChanging ? itm.onChanging : null}
+                              {...register(itm.name, {
+                                required: itm.required
+                                  ? "This " + " Field is required"
+                                  : false,
+                                ...itm.props,
+                              })}
+                              className={
+                                "bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              }
+                            />
+                            <datalist id={"optiondata" + itm.label}>
+                              {itm.option.map((selitm) => {
+                                return (
+                                  <option value={selitm.label}>
+                                    {selitm.label}
+                                  </option>
+                                );
+                              })}
+                            </datalist>
+                          </>
                         )}
                         {itm.type == "text" && (
                           <>
@@ -135,17 +172,17 @@ const FilterView = ({tablefilter,handleSubmit = () => { },onSubmit, table, data,
                   );
                 })}
               </div>
-              <div className="w-18 flex justify-center grid-cols-1">
-                <Button
-                  name={"Filter"}
-                  onClick={handleSubmit(onsubmit)}
-                  classes="w-18 p-10 mx-2"
-                />
+              <div className="w-18 py-3 flex justify-center grid-cols-1">
                 <Button
                   name={"Clear"}
                   onClick={() => {
                     onReset();
                   }}
+                  classes="w-18 p-10 mx-2"
+                />
+                <Button
+                  name={"Filter"}
+                  onClick={handleSubmit(onSubmit)}
                   classes="w-18 p-10 mx-2"
                 />
               </div>

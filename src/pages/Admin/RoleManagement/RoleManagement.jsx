@@ -11,6 +11,7 @@ import DeleteButton from '../../../components/DeleteButton';
 import ToggleButton from '../../../components/ToggleButton';
 import AdminManagementActions from '../../../store/actions/adminManagement-actions';
 import RoleManagementForm from './RoleManagementForm';
+import { Sidebar_content } from '../../../utils/sidebar_values';
 
 
 const RoleManagement = () => {
@@ -22,9 +23,27 @@ const RoleManagement = () => {
         console.log(state, "state state")
         let interdata = state?.adminManagement?.roleList
         return interdata.map((itm) => {
-            console.log(itm,'sjhbbhehbeh')
+
+            let getMyRoute=Object.entries(JSON.parse(itm.permission)).map((itew)=>{
+                return itew[0]
+            })
+            // console.log(getMyRoute.includes(Sidebar_content["all_routes"]["link"]),Object.entries(JSON.parse(itm.permission)).map((itew)=>{
+            //     return itew[0]
+            // }),'sjhbbhehbeh')
+
+            let getOneDet=[]
+            
+            console.log(getMyRoute,Sidebar_content["all_routes"],"sadsasadsadsadssa")
+            Sidebar_content["all_routes"].map((itew)=>{
+
+                // console.log(getMyRoute,Sidebar_content["all_routes"]["link"],"sadsasadsadsadssa")
+                if(getMyRoute.includes(itew["link"])){
+                    getOneDet.push(itew["name"])
+                }
+            })
             let updateditm = {
                 ...itm,
+                permission:getOneDet.join(", "),
                 "status": <CstmButton child={<ToggleButton onChange={(e) => {
                     console.log(e.target.checked, "e.target.checked")
                     let data = {

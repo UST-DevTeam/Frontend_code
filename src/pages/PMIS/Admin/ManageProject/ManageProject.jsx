@@ -75,13 +75,14 @@ const ManageProject = () => {
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getProject(uniqueId))
-                    setmodalHead("Edit Circle")
+                    console.log("Item:", itm); 
+                    dispatch(AdminActions.getProject(`${customeruniqueId}/${uniqueId}`))
+                    setmodalHead("Edit Project")
                     setmodalBody(<>
                         <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
+                   
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
@@ -91,8 +92,8 @@ const ManageProject = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getProject())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.customeruniqueId}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getProject(`${customeruniqueId}`))
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -136,7 +137,7 @@ const ManageProject = () => {
             {
                 name: "Project ID",
                 value: "projectId",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
                 name: "Project Group",
@@ -176,7 +177,7 @@ const ManageProject = () => {
             {
                 name: "Status",
                 value: "status",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
 
             },
             {

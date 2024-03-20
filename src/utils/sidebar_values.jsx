@@ -65,6 +65,7 @@ import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
 import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
 import MyHome from "../pages/PMIS/MyHome/Home";
 import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
+import PersonalInfo from "../pages/PMIS/MyHome/PersonalInfo";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
 import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
@@ -166,6 +167,12 @@ export const Sidebar_content = {
       link: "/empdetails",
       subMenu: [],
       component: <EmpDetails />,
+    },
+    {
+      name: "",
+      link: "/personalInfo",
+      subMenu: [],
+      component: <PersonalInfo />,
     },
     {
       name: "",

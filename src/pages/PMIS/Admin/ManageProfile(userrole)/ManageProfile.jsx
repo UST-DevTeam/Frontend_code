@@ -156,7 +156,7 @@ const ManageProfile = () => {
                     <Button classes='w-auto' 
                         onClick={(e) => {
                             setmodalOpen(prev => !prev)
-                            setmodalHead("Add Profile")
+                            setmodalHead("New Profile")
                             setmodalBody(
                                 <ManageProfileForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />
                             )

@@ -25,7 +25,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         return state?.adminData?.getManageCircle.map((itm) => {
             return {
                 name: itm?.circleName,
-                id: itm?.circleName
+                id: itm?.uniqueId
             }
         })
     })
@@ -44,7 +44,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     let Form = [
         {
             label: "Customer Name",
-            value: "Select",
+            value: "",
             name: "customer",
             type: "select",
             required: true,
@@ -52,9 +52,10 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1",
             props: {
                 onChange: (e) => {
-                    console.log(e.target.value, "e_geeter")
+                    // console.log(e.target.value, "e_geeter")
 
-                    setValue("Customer",e.target.name)
+                    // setValue("Customer",e.target.name)
+
                     dispatch(AdminActions.getManageCircle(true,`customer=${e.target.value}`));
 
                 },
@@ -75,7 +76,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
                 }),
             },
-            classes: "col-span-1"
+            classes: "col-span-1",
         },
         {
             label: "Zone ID",
@@ -102,7 +103,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             required: true,
             props: {
                 onChange: ((e) => {
-
+                    
                 }),
             },
             classes: "col-span-1"

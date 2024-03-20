@@ -102,7 +102,6 @@ const CommonActions = {
         }
     },
     commondownload: (urls, filename, method = "GET", data = {}, cb) => async (dispatch, _) => {
-        // (reqUrl, data).then((response) => {
 
         const res = await Api.blobFile({ url: urls, method: method, data: data })
 
@@ -111,15 +110,15 @@ const CommonActions = {
 
         
         dispatch(SET_FILE_BLOB(new Blob([res?.data])))
-        filename = urls.split("/").pop()
+        // filename = urls.split("/").pop()
 
 
-        // const url = window.URL.createObjectURL(new Blob([res.data]));
-        // const link = document.createElement('a');
-        // link.href = url;
-        // link.setAttribute('download', `${filename}`);
-        // document.body.appendChild(link);
-        // link.click();
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${filename}`);
+        document.body.appendChild(link);
+        link.click();
     },
     
 }

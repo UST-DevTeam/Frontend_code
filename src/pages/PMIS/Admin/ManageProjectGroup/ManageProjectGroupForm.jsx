@@ -59,8 +59,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-
-                    alert(e.target.value)
                     dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
 
                     // setValue("queries",e.target.name)
@@ -79,7 +77,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-                    alert(e.target.value)
                     dispatch(AdminActions.getManageCostCenter(true,`zone=${e.target.value}`))
                     // console.log(e.target.value, "e geeter")
 
@@ -92,7 +89,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         {
             label: "Cost Center",
             value: "Select",
-            name: "costcenterId",
+            name: "costCenterId",
             type: "select",
             option: costCenterList,
             required: true,
@@ -139,8 +136,8 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
-        // dispatch(AdminActions.getManageCostCenter())
-        // dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageCostCenter())
+        dispatch(AdminActions.getManageZone())
         // dispatch(AdminActions.getManageProjectGroup())
 
         // alert(resetting)

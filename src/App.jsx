@@ -90,7 +90,7 @@ function App() {
         "login", "register", "setupPassword"
     ]
     return (
-        <main className='flex h-screen overflow-y-scroll  justify-center'>
+        <main className='flex h-screen overflow-hidden  justify-center'>
             {
                 locdata.pathname != "/login" && <WebSocketClient />
             }

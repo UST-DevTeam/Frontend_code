@@ -43,7 +43,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
     let Form = [
         {
             label: "Customer Name",
-            value: "Select",
+            value: "",
             name: "customer",
             type: "select",
             required: true,
@@ -58,7 +58,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         },
          {
             label: "Zone",
-            value: "Select",
+            value: "",
             name: "zone",
             type: "select",
             required: true,

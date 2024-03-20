@@ -6,6 +6,7 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
+import HrActions from "../../../../store/actions/hr-actions";
 import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 import HrActions from "../../../../store/actions/hr-actions";
@@ -60,6 +61,39 @@ const ManageProjectForm = ({
     });
   });
 
+  let subProjectList = useSelector((state) => {
+    return state?.adminData?.getManageProjectType.map((itm) => {
+
+    //   if (projectTypeList === "project[uniqueId]") {
+    //     const ProjectTypeValue = "projectType"; 
+    //     setValue("projectType", ProjectTypeValue);
+    //   }
+    //   else
+      return {
+        label: itm.subProject,
+        value: itm.subProject,
+      };
+    });
+  });
+
+  let PMList = useSelector((state) => {
+    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+
+    //   if (projectTypeList === "project[uniqueId]") {
+    //     const ProjectTypeValue = "projectType"; 
+    //     setValue("projectType", ProjectTypeValue);
+    //   }
+    //   else
+      return {
+        label: itm.empName,
+        value: itm.empName,
+      };
+    });
+  });
+
+
+
+
   // let SubProjectList = useSelector((state) => {
   //     return state?.adminData?.getManageSubProject.map((itm) => {
   //         return {
@@ -69,16 +103,24 @@ const ManageProjectForm = ({
   //     })
   // })
 
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm.circleName,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  // let circleList = useSelector((state) => {
+  //   return state?.adminData?.getManageCircle.map((itm) => {
+  //     return {
+  //       label: itm.circleName,
+  //       value: itm.uniqueId,
+  //     };
+  //   });
+  // });
 
   let Form = [
+    {
+      label: "Project ID",
+      name: "projectId",
+      type: "text",
+      value: "",
+      required: true,
+      classes: "col-span-1",
+    },
     {
       label: "Project Group",
       name: "projectGroup",
@@ -91,14 +133,7 @@ const ManageProjectForm = ({
       required: true,
       classes: "col-span-1",
     },
-    {
-      label: "Project ID",
-      name: "projectId",
-      type: "text",
-      value: "",
-      required: true,
-      classes: "col-span-1",
-    },
+    
     {
       label: "Project Type",
       value: "",
@@ -134,12 +169,23 @@ const ManageProjectForm = ({
       name: "circle",
       type: "select",
       value: "",
-      option: circleList,
+      option: subProjectList,
       props: {
         onChange: (e) => {},
       },
       classes: "col-span-1",
     },
+    // {
+    //   label: "Circle",
+    //   name: "circle",
+    //   type: "select",
+    //   value: "",
+    //   option: circleList,
+    //   props: {
+    //     onChange: (e) => {},
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Start Date",
       name: "startDate",
@@ -240,6 +286,8 @@ const ManageProjectForm = ({
   useEffect(() => {
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
+    dispatch(AdminActions.getManageProjectType(customeruniqueId));
+    dispatch(HrActions.getManageEmpDetails(true,"",`userRole=${"Project Manager"}`));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     
     dispatch(HrActions.getManageEmpDetails(true,"","userRole=Project Manager"));

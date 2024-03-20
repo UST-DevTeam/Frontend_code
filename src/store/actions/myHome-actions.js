@@ -1,6 +1,6 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
-import {GET_MY_HOME} from "../reducers/myHome-reducer"
+import {GET_MY_HOME, GET_PERSONAL_INFO } from "../reducers/myHome-reducer"
 
 
 const MyHomeActions = {
@@ -36,5 +36,19 @@ const MyHomeActions = {
             return;
         }
     },
+
+    getPersonalInfo:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.myHome_personal_info}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PERSONAL_INFO({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+
+
+
 }
 export default MyHomeActions;

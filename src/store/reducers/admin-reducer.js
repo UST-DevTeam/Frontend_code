@@ -20,7 +20,8 @@ const initialState = {
     getCities:[],
     getProjectAllocation:[],
     getOneManageProject:[],
-    getProjectTypeDyform:[]
+    getProjectTypeDyform:[],
+    getVishal:[],
 }
 
 const adminData = createSlice({
@@ -105,7 +106,7 @@ const adminData = createSlice({
         GET_CARD_PROJECT_TYPE:(state,{payload}) => {
             if(payload.reset){
                 state.getCardProjectType = payload.dataAll
-            }else{
+            }else{ 
                 state.getCardProjectType  = [...state.getCardProjectType,...payload.dataAll]
             }
         },
@@ -176,6 +177,14 @@ const adminData = createSlice({
             }
         },
 
+        GET_VISHAL:(state,{payload}) => {
+            if(payload.reset){
+                state.getVishal = payload.dataAll
+            }else{
+                state.getVishal  = [...state.getVishal,...payload.dataAll]
+            }
+        },
+
         
         
 
@@ -211,6 +220,7 @@ export const {
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  
     // GET_ASSET_REGISTRATION
+    GET_VISHAL,
 } = adminData.actions
     
 export default adminData.reducer

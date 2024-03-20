@@ -32,6 +32,7 @@ const ManageProjectGroup = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+                // projectGroupId: `${itm.costCenter || ''}-${itm.shortName || ''}-${itm.shortCode || ''}`,
                 "status": <CstmButton child={<ToggleButton onChange={(e) => {
                     console.log(e.target.checked, "e.target.checked")
                     let data = {
@@ -154,11 +155,12 @@ const ManageProjectGroup = () => {
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageCircle())
-                setmodalHead("Add Project Group")
+                setmodalHead("New Project Group")
                 setmodalBody(<ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Project Group"}></Button></>}
             table={table}
+            exportButton={["/export/manageProjectGroup","ProjectGroup.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

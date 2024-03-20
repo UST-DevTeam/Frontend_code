@@ -20,17 +20,37 @@ import FileUploader from '../../../../components/FIleUploader';
 
 const ManageCircle = () => {
 
+
+
+
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
 
 
+
     let dispatch = useDispatch()
+
+    const currentDate = new Date();
+    const dt = currentDate.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).replace(/\//g, '-')
+
+
+
+
+    
+
+
+
+  
 
     
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle
+        let interdata = state?.adminData?.getManageCircle || [""]
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -40,7 +60,7 @@ const ManageCircle = () => {
                         "enabled": e.target.checked ? 1 : 0
                     }
                     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
+                        alert(e.target.checked)
                         e.target.checked = e.target.checked
                     }, itm.id))
                     // if(itm.enabled==0){ 
@@ -118,7 +138,7 @@ const ManageCircle = () => {
                 name: "Circle ID",
                 value: "circleCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },           
+            },          
             {
                 name: "Edit",
                 value: "edit",
@@ -166,17 +186,19 @@ const ManageCircle = () => {
     }
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("Add Circle")
+                setmodalHead("New Circle")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Circle"}></Button>
                 <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
-                </div>}
+                </>}
             table={table}
+            templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
+            exportButton={["/export/manageCircle","Export_Circle("+dt+").xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

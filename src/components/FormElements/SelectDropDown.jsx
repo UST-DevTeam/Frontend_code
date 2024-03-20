@@ -10,7 +10,7 @@ const SelectDropDown = ({ itm, errors, handleSubmit, setValue, getValues, regist
                     required: itm?.required ? "This Field is required" : false,
                     ...itm?.props
                 })}
-                className={"bg-white block h-10 w-full rounded-md text-white-900 shadow-sm ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}
+                className={"bg-white block h-10 w-full rounded-md text-white-900 shadow-lg ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}
             >
                 <option value={""} selected={itm.value==""} disabled>Select</option>
                 {

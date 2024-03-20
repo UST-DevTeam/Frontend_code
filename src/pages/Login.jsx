@@ -78,7 +78,7 @@ const Login = () => {
                 </div>
                 <button className="btn text-txt-neavy text-sm float-right pt-2">Forgot Password?</button>
             </div>
-            <div className='flex w-full pt-6    '>
+            <div className='flex w-full pt-6'>
                 {/* <button onClick={() => {
                 navigate('/register')
             }} type="button" className="flex w-full justify-center rounded-full bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:outline-bg-pbutton hover:animate-pulse buttonAnim border-2 hover:border-2 border-gray-700 hover:border-gray-700">Register</button> */}
@@ -89,13 +89,13 @@ const Login = () => {
             </div>
         </form>
         <div className="p-0 m-2 flex justify-center items-center">
-            <div>
+            {/* <div>
                 <p className="text-neavy text-sm">Don't have an account? </p>
-            </div>
+            </div> */}
             <div onClick={() => {
                 navigate('/register')
             }} >
-                <button className="btn text-neavy text-sm ml-2 ">Sign Up</button>
+                {/* <button className="btn text-neavy text-sm ml-2 ">Sign Up</button> */}
             </div>
         </div>
     </div>} /></>
