@@ -9,7 +9,6 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import HrActions from "../../../../store/actions/hr-actions";
 import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
-import HrActions from "../../../../store/actions/hr-actions";
 
 const ManageProjectForm = ({
   projecttypeuniqueId,
