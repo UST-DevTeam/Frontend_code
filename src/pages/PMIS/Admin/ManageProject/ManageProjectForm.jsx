@@ -70,7 +70,7 @@ const ManageProjectForm = ({
     //   else
       return {
         label: itm.subProject,
-        value: itm.subProject,
+        value: itm.uniqueId,
       };
     });
   });
@@ -289,7 +289,7 @@ const ManageProjectForm = ({
     dispatch(HrActions.getManageEmpDetails(true,"",`userRole=${"Project Manager"}`));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     
-    dispatch(HrActions.getManageEmpDetails(true,"","userRole=Project Manager"));
+    // dispatch(HrActions.getManageEmpDetails(true,"","userRole=Project Manager"));
     // dispatch(AdminActions.getManageSubProjectType(customeruniqueId))
     // dispatch(AdminActions.getProject(customeruniqueId))
     if (resetting) {

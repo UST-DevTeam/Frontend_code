@@ -193,8 +193,8 @@ console.log(newdte, "listinglistinglisting")
 
               if (listing.length > 0) {
 
-                functioning(newdte)
-                setediting(prev => !prev)
+                functioning(newdte,setediting)
+                // (prev => !prev)
               } else {
 
                 let msgdata = {

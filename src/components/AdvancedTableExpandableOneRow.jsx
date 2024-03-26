@@ -11,7 +11,7 @@ import DatePicker from 'react-datepicker';
 import { objectToArray } from '../utils/commonFunnction';
 import moment from 'moment';
 
-const AdvancedTableExpandableOneRow = ({ setOpenModal, setModalBody, table, itm, hide }) => {
+const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody, table, itm, hide }) => {
 
 
 
@@ -43,10 +43,14 @@ const AdvancedTableExpandableOneRow = ({ setOpenModal, setModalBody, table, itm,
                 console.log(itm[onewq[0]], "itm[onewq[0]]")
                 return itm[onewq[0]].map((onewqq) => {
 
+                    console.log(onewqq.uniqueId,"onewqq.uniqueId")
                     return <tr>
 
                         <td className='text-[14px] pl-1 border-primaryLine border-2 text-primaryLine '>
+                        {
 
+                            multiSelect?<div className='flex justify-center'><input type='checkbox' name='groupOfCheck[]' value={onewqq.uniqueId}/></div>:<></>
+                        }
                         </td>
                         {
 

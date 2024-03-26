@@ -20,6 +20,8 @@ import ManageMilestone from "../ManageMilestone/ManageMilestone";
 import { Urls } from "../../../../utils/url";
 
 const AllocateProjectForm = ({
+  from,
+  listsite,
   isOpen,
   setIsOpen,
   resetting,
@@ -164,25 +166,45 @@ const AllocateProjectForm = ({
     //     navigate('/authenticate')
     // }))
   };
+
+
+  console.log(errors, "dsadasdsadasdasdasdasdas")
   const onTableViewSubmit = (data) => {
 
 
-    console.log(formValue,data, "globalDataglobalDataglobalData")
-
-    let finaldata={
-      name:"mileStone",
-      data:{
-        "assignerId":data["userId"]
-      },
-      from:{
-        "uid":formValue["uniqueId"]
+    console.log(formValue, data, "globalDataglobalDataglobalData")
+    if (listsite.length == 0) {
+      let finaldata = {
+        name: from,
+        data: {
+          "assignerId": data["userId"]
+        },
+        from: {
+          "uid": formValue["uniqueId"]
+        }
       }
+
+      dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, finaldata, () => {
+        dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        setIsOpen(false)
+      }))
+    }else{
+      let finaldata={
+        name:from,
+        data:{
+          "assignerId":data["userId"]
+        },
+        from:{
+          "uid":listsite
+        }
+      }
+  
+      dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver,projectuniqueId, finaldata, () => {
+        dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        setIsOpen(false)
+      }))
     }
 
-    dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver,projectuniqueId, finaldata, () => {
-      dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-      setIsOpen(false)
-    }))
     // dsadadasdas
     // if (formValue.uniqueId) {
     //   dispatch(
@@ -253,9 +275,7 @@ const AllocateProjectForm = ({
         {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
-          onClick={()=>{
-            handleSubmit(onTableViewSubmit)
-          }}
+          onClick={handleSubmit(onTableViewSubmit)}
           name="Submit"
         />
       </div>

@@ -11,8 +11,9 @@ import { objectToArray } from '../utils/commonFunnction';
 import moment from 'moment';
 import FilterView from './FilterView';
 import AdvancedTableExpandableOneRow from './AdvancedTableExpandableOneRow';
+import SearchView from './SearchView';
 
-const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = () => { }, handleSubmit = () => { }, table, data, errors, register, setValue, getValues, totalCount = 10, actions = ["Edit", "Delete"] }) => {
+const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = () => { }, handleSubmit = () => { }, table, data, errors, register, setValue, getValues, totalCount = 10, multiSelect = false, actions = ["Edit", "Delete"], searchView = "", getmultiSelect = "", setmultiSelect = () => { } }) => {
 
     const [hide, setHide] = useState([])
     const [lastVisitedPage, setLastVisitedPage] = useState(100)
@@ -84,6 +85,12 @@ const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = (
                         }
                         {/* <label className='h-8 align-middle'>Search: </label><input className="ml-4 pl-2  bg-white border-black border block h-8 w-full rounded-md py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type='text' /> */}
                     </div>
+                </div>
+                <div className='flex justify-between'>
+                    <div className='flex flex-row'>
+
+                        {searchView}
+                    </div>
                     <div className='flex flex-row'>
 
                         {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
@@ -92,6 +99,11 @@ const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = (
 
 
 
+
+
+
+
+                        {/* <SearchView  tablefilter={table.filter} onSubmit={onSubmit} handleSubmit={handleSubmit} table={table} data={data} errors={errors} register={register} setValue={register} getValues={getValues} /> */}
                         <FilterView tablefilter={table.filter} onSubmit={onSubmit} handleSubmit={handleSubmit} table={table} data={data} errors={errors} register={register} setValue={register} getValues={getValues} />
                         <PopupMenu name={"Hide / Unhide"} icon={<UilColumns size="32" className={"hello"} />} child={<>
                             <div className='flex z-40 h-60 overflow-scroll flex-col'>
@@ -187,7 +199,7 @@ const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = (
                         <table border={1} className='w-[100%] table-auto'>
                             <thead className='sticky -top-1 h-4 z-30'>
                                 <tr >
-                                <td className='border-primaryLine h-14  border-2 bg-primaryLine min-w-[10px] max-w-[10px] text-center'></td>
+                                    <td className='border-primaryLine h-14  border-2 bg-primaryLine min-w-[10px] max-w-[10px] text-center'></td>
                                     {
                                         table.columns.map((itts, index) => {
                                             console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
@@ -230,7 +242,7 @@ const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = (
                             <tbody>
                                 {
                                     data.slice((currentPage - 1) * RPP, currentPage * RPP).map((itm) => {
-                                        return <AdvancedTableExpandableOneRow setModalBody={setModalBody} setOpenModal={setOpenModal} table={table} itm={itm} hide={hide} />
+                                        return <AdvancedTableExpandableOneRow getmultiSelect={getmultiSelect} setmultiSelect={setmultiSelect} multiSelect={multiSelect} setModalBody={setModalBody} setOpenModal={setOpenModal} table={table} itm={itm} hide={hide} />
 
                                     })
                                 }

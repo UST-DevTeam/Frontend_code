@@ -20,8 +20,8 @@ const PopupMenu = ({ dataclasses="",classes="",popupname="",name, child, icon })
     console.log(location.pathname,filterVisiblity,'navigate')
 
     return <>
-        <div className={`mr-1 z-40 relative ${classes} ${popupname==""?"w-12":"w-full"}`}>
-            <Button classes={""} onClick={() => { dispatch(ComponentActions.popmenu(location.pathname+"_"+name))}} icon={icon} name={popupname} />
+        <div className={`mr-1 h-full z-40 relative ${classes} ${popupname==""?"w-12":"w-full"}`}>
+            <Button classes={" h-full"} onClick={() => { dispatch(ComponentActions.popmenu(location.pathname+"_"+name))}} icon={icon} name={popupname} />
 
             {/* <PopupMenu visiblity={filterVisiblity} /> */}
             {

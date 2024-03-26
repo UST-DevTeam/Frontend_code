@@ -58,9 +58,9 @@ const projectListActions = {
         }
     },
 
-    getProjectTypeAll: (uniqueId,reset=true) => async (dispatch, _) => {
+    getProjectTypeAll: (uniqueId,args="",reset=true) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.projectList_siteEngineer}/${uniqueId}` })
+            const res = await Api.get({ url: `${Urls.projectList_siteEngineer}/${uniqueId}${args!=""?"?"+args:""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_PROJECT_ALL_LIST({dataAll,reset}))

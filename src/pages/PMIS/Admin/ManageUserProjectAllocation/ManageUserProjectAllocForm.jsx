@@ -93,7 +93,6 @@ const ManageUserProjectAllocForm = ({
     {
       label: "Employee",
       name: "emp",
-      type: "text",
       value: "",
       required: true,
       type:"sdisabled",
@@ -102,7 +101,6 @@ const ManageUserProjectAllocForm = ({
     {
         label: "Profile",
         name: "userRole",
-        type: "text",
         value: "",
         required: true,
         type:"sdisabled",
