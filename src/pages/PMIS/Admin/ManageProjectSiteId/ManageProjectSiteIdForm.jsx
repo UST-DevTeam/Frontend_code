@@ -42,7 +42,13 @@ const ManageProjectSiteIdForm = ({
   const [SiteId, setSiteId] = useState("Add");
   const [mile, setMile] = useState("Add");
   const [old, setOld] = useState({});
-  const [globalData, setGlobalData] = useState({});
+  const [globalData, setGlobalData] = useState({
+    "siteEngineer":{},
+    "t_issues":{},
+    "t_tracking":{},
+    "t_sFinancials":{},
+    "mileStone":{},
+  });
 
 
 

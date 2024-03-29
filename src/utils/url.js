@@ -1,7 +1,7 @@
-// export const baseUrl="http://10.5.50.198:7980"
-// export const backendassetUrl="http://10.5.50.198:7980/"
-// export const baseUrl="http://10.5.50.198:7980"
-// export const backendassetUrl="http://10.5.50.198:7980/"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://10.5.50.198:7980"
+export const backendassetUrl="http://10.5.50.198:7980/"
 
 // export const baseUrl="http://192.168.29.71:7980"
 // export const backendassetUrl="http://192.168.29.71:7980/"
@@ -33,8 +33,8 @@
 // export const baseUrl="http://192.168.1.102:7980"
 // export const backendassetUrl="http://192.168.1.102:7980/"
 
-export const baseUrl="https://mpmisapi.fourbrick.in"
-export const backendassetUrl="https://mpmisapi.fourbrick.in/"
+// export const baseUrl="https://mpmisapi.fourbrick.in"
+// export const backendassetUrl="https://mpmisapi.fourbrick.in/"
 
 
 
@@ -50,6 +50,7 @@ export const Urls={
 
     admin_customer:"/admin/manageCustomer",
     admin_projecttype:"/admin/manageProjectType",
+    admin_getOneSiteEngg:"/getOneSiteEngg",
     admin_getProjectTypeDyform:"/admin/getProjectTypeDyform",
     admin_sub_projecttype:"/admin/manageSubProjectType",
     admin_circle:"/admin/manageCircle",
@@ -74,6 +75,7 @@ export const Urls={
     projectList_siteEngineer:"/siteEngineer",
     projectList_milestone:"/milestone",
     projectList_globalSaver:"/globalSaver",
+    projectList_closeMilestone:"/closeMilestone/",
 
 
 

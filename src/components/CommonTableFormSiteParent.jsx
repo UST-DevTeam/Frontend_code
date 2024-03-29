@@ -35,6 +35,7 @@ let types = ["text", "password", "email", "hidden", "number"];
 
 const CommonTableFormSiteParent = ({
   tabslist,
+  setmodalFullOpen,
   funcaller,
   defaultValue
 }) => {
@@ -111,6 +112,15 @@ const CommonTableFormSiteParent = ({
             <p>This is the content of tab 3.</p>
           </div>
         )} */}
+      </div>
+
+      <div className="flex ">
+      {setmodalFullOpen&&
+        <Button name={"Submit"} classes="w-auto" onClick={()=>{
+          setmodalFullOpen(prev=>!prev)
+        }}/>
+
+      }
       </div>
 
     </div>

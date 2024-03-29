@@ -21,6 +21,7 @@ import {
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
+    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -77,6 +78,16 @@ const AdminActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_PROJECT_TYPE_DY_FORM({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getOneProjectTypeDyform:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_getOneSiteEngg}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll,reset}))
         } catch (error) {
         }
     },

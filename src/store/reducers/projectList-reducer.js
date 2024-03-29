@@ -80,8 +80,20 @@ const projectList = createSlice({
             state.dynamicForm[payload.label] = arrayMove(state.dynamicForm[payload.label], payload.oldIndex, payload.newIndex)
 
         },
+        SET_DYNAMIC_FORM_INDEX_INNER:(state, { payload }) => {
+
+            console.log(payload,"85payloadpayloadpayloadpayloadpayloadpayload")
+
+            state.dynamicForm[payload.label][payload.indexToUpdate] = {
+                ...state.dynamicForm[payload.label][payload.indexToUpdate],
+                ...payload.value
+            }
+            // state.dynamicForm[payload.label][payload.indexToUpdate][payload.valer] = payload.fieldNameValue;
+            // state.dynamicForm[payload.label][payload.indexToUpdate][payload.valer] = payload.fieldNameValue;
+        },
         SET_DYNAMIC_FORM_INDEX: (state, { payload }) => {
 
+            console.log(payload,"92payloadpayloadpayloadpayloadpayloadpayload")
             // const oldDataon = prev[indexToUpdate];
 
             //   console.log(oldDataon, "oldDataonoldDataon")
@@ -128,5 +140,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, RESET_STATE } = projectList.actions
+export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, RESET_STATE } = projectList.actions
 export default projectList.reducer

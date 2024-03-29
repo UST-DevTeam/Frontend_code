@@ -24,6 +24,10 @@ import AllocateProjectForm from './AllocateProjectForm';
 import AllocateProjectDateForm from './AllocateProjectDateForm';
 import SearchBarView from '../../../../components/SearchBarView';
 import ManageSite from '../ManageSite/ManageSite';
+import EditingManageSite from '../ManageSite/EditingManageSite';
+import ManageMilestoneSite from '../ManageSite/ManageMilestoneSite';
+import ProgressBar from '../../../../components/ProgressBar';
+import { onehundcolor } from '../../../../utils/queryBuilder';
 
 const ManageProjectSiteId = () => {
 
@@ -45,6 +49,18 @@ const ManageProjectSiteId = () => {
     
     const [old, setOld] = useState(<></>)
     const navigate = useNavigate();
+
+
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        setValues,
+        getValues,
+        formState: { errors },
+    } = useForm()
 
 
     let dispatch = useDispatch()
@@ -69,12 +85,14 @@ const ManageProjectSiteId = () => {
                 siteIdLink: <p className='' onClick={() => {
                     setmodalFullOpen(prev => !prev)
                     // dispatch(AdminActions.getProject())
-                    setmodalHead("Add Site ID")
+                    setmodalHead("Update Site")
                     dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
-                    setmodalBody(<ManageSite setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
+                    setmodalBody(<EditingManageSite setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
 
                     // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}>{itm.siteId}</p>,
+                
+                CompletionBar:<ProgressBar notifyType={"success"} text={`${100-((itm.milestoneArray.length-itm.milestoneArray.filter(iewq=>iewq.mileStoneStatus=="Close").length)/itm.milestoneArray.length*100)}`}/>,
                 checkboxProject: <>
                     <input type={"checkbox"} checked={parentsite.indexOf(itm.uniqueId) != -1} value={itm.uniqueId} onChange={(e) => {
                         if (e.target.checked) {
@@ -131,7 +149,7 @@ const ManageProjectSiteId = () => {
                                 dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
                                 setmodalHead("Allocate User")
                                 setmodalBody(<>
-                                    <AllocateProjectForm from={"mileStone"} listsite={[]} projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
+                                    <AllocateProjectForm  from={"mileStone"} listsite={[]} projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
                                     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
                                         handleSubmit(onTableViewSubmit)
                                     }} /></div> */}
@@ -139,11 +157,23 @@ const ManageProjectSiteId = () => {
                                 console.log('ahshshhs', itm)
                             }
                             }>{iewq.assignerResult ? <div className='flex flex-row justify-center'> {
-                                iewq.assignerResult.map((itwsw) => (<p className='flex justify-center items-center mx-0.5 rounded-full text-white w-10 h-10 bg-[#ff66cc]'> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>))
+                                iewq.assignerResult.slice(0,2).map((itwsw,index) => (<p className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>))
                             }</div> : "Unassigned"}</p>
 
                         </div>,
+
+                        SiteNaming: <p className='' onClick={() => {
+                            setmodalFullOpen(prev => !prev)
+                            // dispatch(AdminActions.getProject())
+                            setmodalHead("Update Milestone")
+                            dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId))
+                            setmodalBody(<ManageMilestoneSite uid={itm["uniqueId"]} mileStone={iewq} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
+
+                            // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                        }}>{iewq.Name}</p>,
+                        taskmageing:iewq.taskageing>0?<p className='text-green-600'>{iewq.taskageing+" Days"}</p>:<p className='text-red-600'>{iewq.taskageing+" Days"}</p>,
                         Predecessor: iewq.Predecessor,
+                        CompletionBar:<ProgressBar notifyType={iewq.taskageing>0?"success":"alert"} text={iewq.mileStoneStatus=="Open"?"0":"100"} />,
                         checkboxProject: <>
                             <input type={"checkbox"} checked={parentsite.indexOf(itm.uniqueId) != -1 || childsite.indexOf(iewq.uniqueId) != -1} value={iewq.uniqueId} onChange={(e) => {
                                 if (e.target.checked) {
@@ -251,20 +281,12 @@ const ManageProjectSiteId = () => {
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
     // ]
-    const {
-        register,
-        handleSubmit,
-        watch,
-        setValue,
-        setValues,
-        getValues,
-        formState: { errors },
-    } = useForm()
-
     let table = {
         columns: [
             {
-                name: "",
+                name: <input type={"checkbox"} onClick={()=>{
+                    alert("dasdasdas")
+                }}/>,
                 value: "checkboxProject",
                 style: "min-w-[40px] max-w-[40px] text-center"
             },
@@ -306,7 +328,7 @@ const ManageProjectSiteId = () => {
 
             {
                 name: "Completion (%)",
-                value: "Completion",
+                value: "CompletionBar",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -323,7 +345,7 @@ const ManageProjectSiteId = () => {
             },
             {
                 name: "Billing Status",
-                value: "endDate",
+                value: "siteBillingStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
 
@@ -348,7 +370,7 @@ const ManageProjectSiteId = () => {
                 },
                 {
                     name: "Site ID",
-                    value: "Name",
+                    value: "SiteNaming",
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
                 {
@@ -373,18 +395,18 @@ const ManageProjectSiteId = () => {
                 },
                 {
                     name: "Completition Date",
-                    value: "Estimated Time (Days)",
+                    value: "CC_Completion Date",
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
                 {
-                    name: "Status",
-                    value: "status",
+                    name: "Ageing",
+                    value: "taskmageing",
                     style: "min-w-[140px] max-w-[200px] text-center"
 
                 },
                 {
-                    name: "Planned Actual Date",
-                    value: "endDate",
+                    name: "Completion (%)",
+                    value: "CompletionBar",
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
 
@@ -395,14 +417,14 @@ const ManageProjectSiteId = () => {
 
                 },
                 {
-                    name: "Ageing",
-                    value: "Estimated Time (Days)",
+                    name: "Status",
+                    value: "mileStoneStatus",
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
 
                 {
-                    name: "% Complete",
-                    value: "complete",
+                    name: "Billing Status",
+                    value: "",
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
                 {

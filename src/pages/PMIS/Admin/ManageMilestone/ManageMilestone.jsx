@@ -81,7 +81,7 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
     })
 
 
-    console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
+    console.log(check, "dataOfProjectdataOfProjectdataOfProject")
 
 
     const handleMileStoneSubmit = (data) => {
@@ -96,15 +96,15 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
         let dataD = []
 
         dataOfProject["MileStone"].map((ireq, index) => {
-
-            if (check.indexOf(ireq.index.toString()) != -1) {
+            console.log(ireq.index,"ireq.index")
+            if (check.indexOf(ireq.index) != -1) {
                 let sqw = {
                     "Name": dataOfProject["MileStone"][index]["fieldName"],
                     "Estimated Time (Days)": dataOfProject["MileStone"][index]["Estimated Time (Days)"],
                     "WCC Sign off": dataOfProject["MileStone"][index]["WCC Sign off"],
                     // "Predecessor":dataOfProject["MileStone"][lstindextkn?lstindex:index]["Predecessor"],
                     "Predecessor": index != 0 ? dataOfProject["MileStone"][lstindex]["fieldName"] : "",
-                    "Completion Criteria": dataOfProject["MileStone"][index]["dropdownValue"]
+                    "Completion Criteria": dataOfProject["MileStone"][index]["Completion Criteria"]
                 }
                 dataD.push(sqw)
                 console.log(sqw, check, "sqwsqwsqwsqwsqwsqwsqw")
@@ -117,6 +117,9 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
 
             console.log(check.indexOf(ireq.index.toString()), lstindex, index, "ireqireqireqireqireq")
         })
+
+
+        console.log(dataD,"dataDdataDdataD")
 
         let final_data = {
             "SubProjectId": dataOfProject["uniqueId"],
@@ -218,19 +221,20 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
                 onClick={handleSubmitForm1(handleMileStoneSubmit)}
             /></div>
 
-                <TableJson columns={dataOfProject ? dataOfProject["MileStone"] ? dataOfProject["MileStone"].map((onewq) => {
+                <TableJson check={check} setCheck={setCheck} columns={dataOfProject ? dataOfProject["MileStone"] ? dataOfProject["MileStone"].map((onewq) => {
                     console.log(onewq, "[onewqonewq]")
                     return {
-                        "C": <><input type="checkbox" onChange={(e) => {
+                        "C": <><input type="checkbox" checked={check.indexOf(onewq["index"])!=-1?true:false} onChange={(e) => {
 
-                            console.log("Dasdasdasdas", e.target.value, e.target.checked)
+                            console.log("Dasdasdasdas",check,onewq["index"].toString(),e.target.value,check.indexOf(onewq["index"]), e.target.value, e.target.checked)
                             if (e.target.checked) {
-                                setCheck(prev => [...prev, e.target.value])
+                                setCheck(prev => [...prev, +e.target.value])
                             } else {
                                 setCheck(prev => {
-                                    let lst = prev.indexOf(e.target.value)
+                                    let lst = prev.indexOf(+e.target.value)
+                                    
                                     prev.splice(lst, 1)
-                                    return prev
+                                    return [...prev]
                                 })
                             }
                             // setCheck()
@@ -238,7 +242,7 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
                         "Name": onewq["fieldName"],
                         "WCC Sign off": onewq["WCC Sign off"],
                         "Estimated Time (Days)": onewq["Estimated Time (Days)"],
-                        "Completion Criteria": onewq["dropdownValue"],
+                        "Completion Criteria": onewq["Completion Criteria"],
                         "Predecessor": onewq["Predecessor"]
                     }
                 }) : [] : []} headers={["C", "Name", "WCC Sign off", "Estimated Time (Days)", "Completion Criteria", "Predecessor",]} />

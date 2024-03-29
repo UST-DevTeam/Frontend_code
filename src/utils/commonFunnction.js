@@ -23,4 +23,22 @@ export function objectToArray(obj) {
 }
 
 
+export function labelToValue(itew){
+    return itew.replace(' ', "").toLowerCase()
+
+}
+
+export function parseTwoDigit(text){
+    const myNumber = parseFloat(text);
+
+    console.log(myNumber,"myNumbermyNumbermyNumbermyNumber")
+    const roundedNumber = myNumber.toFixed(2);
+    return roundedNumber;
+
+
+}
+
+
+
+
 

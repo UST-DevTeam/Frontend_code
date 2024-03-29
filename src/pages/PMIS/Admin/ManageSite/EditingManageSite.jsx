@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageProjectTypeForm from '../ManageProjectType/ManageProjectTypeForm';
+import ManageProjectTypeForm from '../../../PMIS/Admin/ManageProjectType/ManageProjectTypeForm';
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -28,12 +28,12 @@ import projectListActions from '../../../../store/actions/projectList-actions';
 
 
 
-const ManageSite = ({projectuniqueId}) => {
+const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
 
 
     const { customeruniqueId } = useParams()
 
-    const { register, handleSubmit, watch, setValue, setValues, getValues,reset, formState: { errors } } = useForm()
+    const { register, handleSubmit, watch, setValue, setValues, getValues, reset, formState: { errors } } = useForm()
 
     const { register: registerForm1, setValue: setValueForm1, getValues: getValuesForm1, handleSubmit: handleSubmitForm1, formState: { errors: errorsForm1 } } = useForm();
     const { register: registerForm2, setValue: setValueForm2, getValues: getValuesForm2, handleSubmit: handleSubmitForm2, formState: { errors: errorsForm2 } } = useForm();
@@ -55,7 +55,7 @@ const ManageSite = ({projectuniqueId}) => {
 
     let dataOfProject = useSelector((state) => {
 
-        let dataOlder = state.adminData.getOneManageProject[0]
+        let dataOlder = state.adminData.getProjectTypeDyform[0]
 
         return dataOlder
         if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
@@ -82,27 +82,39 @@ const ManageSite = ({projectuniqueId}) => {
     const handleSiteEnggSubmit = (data) => {
 
         // alert(projectuniqueId)
-
-        let final_data={
-            "SubProjectId":dataOfProject["uniqueId"],
-            "projectuniqueId":projectuniqueId
+        setSiteId(data["siteid"]?data["siteid"]:"Add")
+        let final_data = {
+            "SubProjectId": dataOfProject["uniqueId"],
+            "new_u_id": dataOfProject["new_u_id"],
+            "projectuniqueId": projectuniqueId
         }
-        dataOfProject["t_sengg"].map((itew)=>{
-            let fieldNaming=labelToValue(itew.fieldName)
+        dataOfProject["t_sengg"].map((itew) => {
+            let fieldNaming = labelToValue(itew.fieldName)
 
-            final_data[fieldNaming]=data[fieldNaming]
+            final_data[fieldNaming] = data[fieldNaming]
         })
 
-        
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_siteEngineer,final_data,()=>{
+
+        setGlobalData(prev=>{
+            return {
+                ...prev,
+                "siteEngineer":final_data
+            }
+        })
+        // setmodalFullOpen(false)
+
+
+        // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_siteEngineer, final_data, () => {
             
-        }))
+
+        //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        // }))
 
 
 
 
 
-        console.log(data,dataOfProject["uniqueId"], "dasugdjsahj")
+        console.log(data, dataOfProject["uniqueId"], "dasugdjsahj")
 
     }
 
@@ -110,19 +122,24 @@ const ManageSite = ({projectuniqueId}) => {
 
 
         console.log(data, "dasugdjsahj")
-        
-        let final_data={
-            "SubProjectId":dataOfProject["uniqueId"],
-            "projectuniqueId":projectuniqueId
+        setSiteId(data["siteid"]?data["siteid"]:"Add")
+
+        let final_data = {
+            "SubProjectId": dataOfProject["uniqueId"],
+            "new_u_id": dataOfProject["new_u_id"],
+            "projectuniqueId": projectuniqueId
 
         }
-        dataOfProject["t_tracking"].map((itew)=>{
-            let fieldNaming=labelToValue(itew.fieldName)
+        dataOfProject["t_tracking"].map((itew) => {
+            let fieldNaming = labelToValue(itew.fieldName)
 
-            final_data[fieldNaming]=data[fieldNaming]
+            final_data[fieldNaming] = data[fieldNaming]
         })
 
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_trackingData,final_data))
+        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_trackingData, final_data, () => {
+            // setmodalFullOpen(false)
+            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        }))
 
     }
 
@@ -130,19 +147,24 @@ const ManageSite = ({projectuniqueId}) => {
 
 
         console.log(data, "dasugdjsahj")
-        
-        let final_data={
-            "SubProjectId":dataOfProject["uniqueId"],
-            "projectuniqueId":projectuniqueId
+        setSiteId(data["siteid"]?data["siteid"]:"Add")
+
+        let final_data = {
+            "SubProjectId": dataOfProject["uniqueId"],
+            "new_u_id": dataOfProject["new_u_id"],
+            "projectuniqueId": projectuniqueId
 
         }
-        dataOfProject["t_issues"].map((itew)=>{
-            let fieldNaming=labelToValue(itew.fieldName)
+        dataOfProject["t_issues"].map((itew) => {
+            let fieldNaming = labelToValue(itew.fieldName)
 
-            final_data[fieldNaming]=data[fieldNaming]
+            final_data[fieldNaming] = data[fieldNaming]
         })
 
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_issueData,final_data))
+        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_issueData, final_data, () => {
+            // setmodalFullOpen(false)
+            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        }))
 
     }
 
@@ -150,19 +172,24 @@ const ManageSite = ({projectuniqueId}) => {
 
 
         console.log(data, "dasugdjsahj")
-        
-        let final_data={
-            "SubProjectId":dataOfProject["uniqueId"],
-            "projectuniqueId":projectuniqueId
+        setSiteId(data["siteid"]?data["siteid"]:"Add")
+
+        let final_data = {
+            "SubProjectId": dataOfProject["uniqueId"],
+            "new_u_id": dataOfProject["new_u_id"],
+            "projectuniqueId": projectuniqueId
 
         }
-        dataOfProject["t_sFinancials"].map((itew)=>{
-            let fieldNaming=labelToValue(itew.fieldName)
+        dataOfProject["t_sFinancials"].map((itew) => {
+            let fieldNaming = labelToValue(itew.fieldName)
 
-            final_data[fieldNaming]=data[fieldNaming]
+            final_data[fieldNaming] = data[fieldNaming]
         })
 
-        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_financialData,final_data))
+        dispatch(projectListActions.submitProjectTypeData(Urls.projectList_financialData, final_data, () => {
+            // setmodalFullOpen(false)
+            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        }))
 
     }
     const funcaller = () => {
@@ -170,7 +197,7 @@ const ManageSite = ({projectuniqueId}) => {
         reset({})
 
     }
-    
+
     const handleAddActivity = (res, targ, itm) => {
         console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
 
@@ -246,6 +273,11 @@ const ManageSite = ({projectuniqueId}) => {
 
             {/* <Button /> */}
 
+            <div>
+                <h1>Comple Criteria</h1>
+                <Button></Button>
+            </div>
+
             <CommonTableFormSiteParent funcaller={funcaller} defaultValue={"Site Engg"} tabslist={{
                 "Site Engg": <><div className='flex justify-end'><Button
                     classes='w-30'
@@ -264,7 +296,7 @@ const ManageSite = ({projectuniqueId}) => {
                                         label: itm
                                     }
                                 }) : [],
-                                name: its.fieldName.replace(' ',"").toLowerCase(),
+                                name: its.fieldName.replace(' ', "").toLowerCase(),
                                 type: dtype[its.dataType]
                             }
                         }) : [] : []}
@@ -340,4 +372,4 @@ const ManageSite = ({projectuniqueId}) => {
 }
 
 
-export default ManageSite;
+export default EditingManageSite;

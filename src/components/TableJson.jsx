@@ -178,7 +178,7 @@ import React, { useState } from 'react';
 import Modalmoreinfo from './Modalmoreinfo';
 import Modal from './Modal';
 
-const TableJson = ({ headers, columns }) => {
+const TableJson = ({ headers, columns,check, setCheck=()=>{} }) => {
 
     const [openModal, setOpenModal] = useState(false)
     const [modalBody, setModalBody] = useState("")
@@ -187,10 +187,10 @@ const TableJson = ({ headers, columns }) => {
     console.log(headers, columns, "headers, columnsheaders, columns")
     columns.map((itm) => {
 
-        
+
         console.log(itm, "testtesttesttest")
         return headers.map((innerItm) => {
-            console.log(itm,innerItm, "testtesttesttest")
+            console.log(itm, innerItm, "testtesttesttest")
         })
     })
     return <>
@@ -199,8 +199,22 @@ const TableJson = ({ headers, columns }) => {
                 <tr>
                     {
                         headers.map((itm) => {
-                            return <th className='border-gray-400 border-2'>
+                            return itm != "C" ? <th className='border-gray-400 border-2'>
                                 {itm}
+                            </th> : <th className='border-gray-400 border-2'>
+                                <input type={'checkbox'} onChange={(e,index)=>{
+                                    console.log(e.target.checked,columns,check,index,"e.target.checked")
+
+                                    if(e.target.checked){
+                                        setCheck(prev=>{
+                                            return columns.map((itm,index)=>{
+                                                return index+1
+                                            })
+                                        })
+                                    }else{
+                                        setCheck([])
+                                    }
+                                }}/>
                             </th>
                         })
                     }

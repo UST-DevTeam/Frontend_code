@@ -75,7 +75,7 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
         console.log(oldIndex, newIndex, "oldIndex, newIndex")
 
-        dispatch(SET_DYNAMIC_FORM_MOVE({label:tabHead,oldIndex:oldIndex,newIndex:newIndex}))
+        dispatch(SET_DYNAMIC_FORM_MOVE({ label: tabHead, oldIndex: oldIndex, newIndex: newIndex }))
 
         // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: { ...newars }, reseter: false }))
 
@@ -120,48 +120,49 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
     const SortableItem = SortableElement(props => <TableRow {...props} />);
     return <>
-        <table border={1} className='h-auto w-full table-auto'>
-            <thead className='bg-primaryLine text-white sticky -top-1 z-10 '>
-                <tr>
+        <div className='h-[70vh]'>   
+            <table border={1} className='h-auto w-full table-auto'>
+                <thead className='bg-primaryLine text-white sticky -top-1 z-10 '>
+                    <tr>
 
-                    <th className='border-gray-400 border-2 w-28'></th>
-                    {
-                        headers.map((itm) => {
-                            return <th className='border-gray-400 border-2 w-96'>
-                                {itm}
-                            </th>
-                        })
-                    }
-                    <th className='border-gray-400 border-2 w-20 text-center'>Acton</th>
-                </tr>
-            </thead>
+                        <th className='border-gray-400 border-2 w-28'></th>
+                        {
+                            headers.map((itm) => {
+                                return <th className='border-gray-400 border-2 w-96'>
+                                    {itm}
+                                </th>
+                            })
+                        }
+                        <th className='border-gray-400 border-2 w-20 text-center'>Acton</th>
+                    </tr>
+                </thead>
 
-            <SortableCont
-                onSortEnd={onSortEnd}
-                axis="y"
-                lockAxis="y"
-                lockToContainerEdges={true}
-                lockOffset={["30%", "50%"]}
-                helperClass="helperContainerClass"
-                useDragHandle={true}
-            >
-                {columns.map((value, index) => {
+                <SortableCont
+                    onSortEnd={onSortEnd}
+                    axis="y"
+                    lockAxis="y"
+                    lockToContainerEdges={true}
+                    lockOffset={["30%", "50%"]}
+                    helperClass="helperContainerClass"
+                    useDragHandle={true}
+                >
+                    {columns.map((value, index) => {
 
-                    console.log(value, index, "value, index")
-                    return <SortableItem
-                        key={`item-${index}`}
-                        index={index}
-                        editing={editing}
-                        indexing={index}
-                        data={value}
-                        columns={columns}
-                        tabHead={tabHead}
-                    // setlisting={setlisting}
-                    />
-                })}
-            </SortableCont>
-            {/* <tbody className='overflow-scroll'> */}
-            {/* {
+                        console.log(value, index, "value, index")
+                        return <SortableItem
+                            key={`item-${index}`}
+                            index={index}
+                            editing={editing}
+                            indexing={index}
+                            data={value}
+                            columns={columns}
+                            tabHead={tabHead}
+                        // setlisting={setlisting}
+                        />
+                    })}
+                </SortableCont>
+                {/* <tbody className='overflow-scroll'> */}
+                {/* {
                     columns.map((itm,index) => {
                         return <tr >
                             {headers.map((innerItm) => {
@@ -173,11 +174,11 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
                     })
                 } */}
-            {/* </tbody> */}
+                {/* </tbody> */}
 
 
-        </table>
-
+            </table>
+        </div>
 
         <Modal children={modalBody} setIsOpen={setOpenModal} isOpen={openModal} size={"sm"} />
     </>

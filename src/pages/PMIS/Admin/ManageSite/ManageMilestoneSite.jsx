@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageProjectTypeForm from '../../../PMIS/Admin/ManageProjectType/ManageProjectTypeForm';
+import ManageProjectTypeForm from '../ManageProjectType/ManageProjectTypeForm';
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -24,14 +24,19 @@ import CommonTableFormParent from '../../../../components/CommonTableFormSitePar
 import CommonTableFormSiteParent from '../../../../components/CommonTableFormSiteParent';
 import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer';
 import projectListActions from '../../../../store/actions/projectList-actions';
+import { uiStatusColor } from '../../../../utils/queryBuilder';
+import CompletitonCreiteriaForm from './CompletitonCreiteriaForm';
 
 
 
 
-const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
+const ManageMilestoneSite = ({ uid, mileStone, setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
 
 
     const { customeruniqueId } = useParams()
+
+
+    console.log(mileStone, "mileStonemileStonemileStone")
 
     const { register, handleSubmit, watch, setValue, setValues, getValues, reset, formState: { errors } } = useForm()
 
@@ -43,8 +48,11 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
     const [modalOpen, setmodalOpen] = useState(false)
 
-    const [type, settype] = useState(false)
+    const [type, settype] = useState(true)
     const [modalHead, setmodalHead] = useState(<></>)
+
+
+    const [modalBody, setmodalBody] = useState((<></>))
     const [uniqueness, setUniqueness] = useState("")
 
     const [listing, setlisting] = useState([]);
@@ -52,10 +60,50 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
     const dispatch = useDispatch()
 
+    let dataOfOldProject = useSelector((state) => {
 
+        let datew = state.adminData.getOneProjectTypeDyform
+
+        console.log(type, datew, datew, datew, "datewdatewdatew")
+
+        if (type && datew && datew.length > 0) {
+            settype(false)
+
+            let dtresult = datew[0]["result"]
+
+            dtresult["t_sengg"] && dtresult["t_sengg"].map((iytm) => {
+
+                setValueForm1(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)])
+
+                console.log(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)], "iytmiytmiytmiytm")
+            })
+            dtresult["t_tracking"] && dtresult["t_tracking"].map((iytm) => {
+
+                setValueForm2(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)])
+
+                console.log(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)], "iytmiytmiytmiytm")
+            })
+            dtresult["t_issues"] && dtresult["t_issues"].map((iytm) => {
+
+                setValueForm3(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)])
+                console.log(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)], "iytmiytmiytmiytm")
+            })
+            dtresult["t_sFinancials"] && dtresult["t_sFinancials"].map((iytm) => {
+
+                setValueForm4(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)])
+
+                console.log(labelToValue(iytm.fieldName), datew[0][labelToValue(iytm.fieldName)], "iytmiytmiytmiytm")
+            })
+            console.log(type, state.adminData.getOneProjectTypeDyform, state.adminData.getOneProjectTypeDyform, "dataOfOldProjectdataOfOldProjectdataOfOldProject")
+
+            return datew[0]
+        }
+
+
+    })
     let dataOfProject = useSelector((state) => {
 
-        let dataOlder = state.adminData.getProjectTypeDyform[0]
+        let dataOlder = state.adminData.getOneProjectTypeDyform ? state.adminData.getOneProjectTypeDyform.length > 0 ? state.adminData.getOneProjectTypeDyform[0]["result"] : state.adminData.getOneProjectTypeDyform : state.adminData.getOneProjectTypeDyform
 
         return dataOlder
         if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
@@ -81,12 +129,7 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
     const handleSiteEnggSubmit = (data) => {
 
-        // alert(projectuniqueId)
-        setSiteId(data["siteid"]?data["siteid"]:"Add")
         let final_data = {
-            "SubProjectId": dataOfProject["uniqueId"],
-            "new_u_id": dataOfProject["new_u_id"],
-            "projectuniqueId": projectuniqueId
         }
         dataOfProject["t_sengg"].map((itew) => {
             let fieldNaming = labelToValue(itew.fieldName)
@@ -95,17 +138,36 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
         })
 
 
-        setGlobalData(prev=>{
-            return {
-                ...prev,
-                "siteEngineer":final_data
+
+        // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
+
+        let fdata = {
+            name: "updateSiteEngg",
+            data: final_data,
+            from: {
+                "uid": uid
             }
-        })
+        }
+
+
+        dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, fdata, () => { }))
+
+
+
+        // setGlobalData(prev => {
+        //     return {
+        //         ...prev,
+        //         "siteEngineer": final_data
+        //     }
+        // })
         // setmodalFullOpen(false)
 
 
+
+
+
         // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_siteEngineer, final_data, () => {
-            
+
 
         //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
         // }))
@@ -117,6 +179,81 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
         console.log(data, dataOfProject["uniqueId"], "dasugdjsahj")
 
     }
+
+    // const handleTrackingSubmit = (data) => {
+
+
+    //     console.log(data, "dasugdjsahj")
+    //     setSiteId(data["siteid"] ? data["siteid"] : "Add")
+
+    //     let final_data = {
+    //         "SubProjectId": dataOfProject["uniqueId"],
+    //         "new_u_id": dataOfProject["new_u_id"],
+    //         "projectuniqueId": projectuniqueId
+
+    //     }
+    //     dataOfProject["t_tracking"].map((itew) => {
+    //         let fieldNaming = labelToValue(itew.fieldName)
+
+    //         final_data[fieldNaming] = data[fieldNaming]
+    //     })
+
+    //     dispatch(projectListActions.submitProjectTypeData(Urls.projectList_trackingData, final_data, () => {
+    //         setmodalFullOpen(false)
+    //         dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+    //     }))
+
+    // }
+
+    // const handleIssuesSubmit = (data) => {
+
+
+    //     console.log(data, "dasugdjsahj")
+    //     setSiteId(data["siteid"] ? data["siteid"] : "Add")
+
+    //     let final_data = {
+    //         "SubProjectId": dataOfProject["uniqueId"],
+    //         "new_u_id": dataOfProject["new_u_id"],
+    //         "projectuniqueId": projectuniqueId
+
+    //     }
+    //     dataOfProject["t_issues"].map((itew) => {
+    //         let fieldNaming = labelToValue(itew.fieldName)
+
+    //         final_data[fieldNaming] = data[fieldNaming]
+    //     })
+
+    //     dispatch(projectListActions.submitProjectTypeData(Urls.projectList_issueData, final_data, () => {
+    //         setmodalFullOpen(false)
+    //         dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+    //     }))
+
+    // }
+
+    // const handleFinancialsSubmit = (data) => {
+
+
+    //     console.log(data, "dasugdjsahj")
+    //     setSiteId(data["siteid"] ? data["siteid"] : "Add")
+
+    //     let final_data = {
+    //         "SubProjectId": dataOfProject["uniqueId"],
+    //         "new_u_id": dataOfProject["new_u_id"],
+    //         "projectuniqueId": projectuniqueId
+
+    //     }
+    //     dataOfProject["t_sFinancials"].map((itew) => {
+    //         let fieldNaming = labelToValue(itew.fieldName)
+
+    //         final_data[fieldNaming] = data[fieldNaming]
+    //     })
+
+    //     dispatch(projectListActions.submitProjectTypeData(Urls.projectList_financialData, final_data, () => {
+    //         setmodalFullOpen(false)
+    //         dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+    //     }))
+
+    // }
 
     const handleTrackingSubmit = (data) => {
 
@@ -150,13 +287,32 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
             final_data[fieldNaming] = data[fieldNaming]
         })
 
-
-        setGlobalData(prev=>{
-            return {
-                ...prev,
-                "t_tracking":final_data
+        let fdata = {
+            name: "updateSiteEngg",
+            data: final_data,
+            from: {
+                "uid": uid
             }
-        })
+        }
+
+
+        dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, fdata, () => { }))
+
+        // let final_data = {
+        // }
+        // dataOfProject["t_tracking"].map((itew) => {
+        //     let fieldNaming = labelToValue(itew.fieldName)
+
+        //     final_data[fieldNaming] = data[fieldNaming]
+        // })
+
+
+        // setGlobalData(prev=>{
+        //     return {
+        //         ...prev,
+        //         "t_tracking":final_data
+        //     }
+        // })
         // setmodalFullOpen(false)
 
     }
@@ -185,7 +341,7 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
         // }))
 
 
-        
+
         let final_data = {
         }
         dataOfProject["t_issues"].map((itew) => {
@@ -194,13 +350,42 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
             final_data[fieldNaming] = data[fieldNaming]
         })
 
-
-        setGlobalData(prev=>{
-            return {
-                ...prev,
-                "t_issues":final_data
+        let fdata = {
+            name: "updateSiteEngg",
+            data: final_data,
+            from: {
+                "uid": uid
             }
-        })
+        }
+
+
+        dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, fdata, () => { }))
+
+
+
+
+
+
+
+        // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
+
+
+
+        // let final_data = {
+        // }
+        // dataOfProject["t_issues"].map((itew) => {
+        //     let fieldNaming = labelToValue(itew.fieldName)
+
+        //     final_data[fieldNaming] = data[fieldNaming]
+        // })
+
+
+        // setGlobalData(prev=>{
+        //     return {
+        //         ...prev,
+        //         "t_issues":final_data
+        //     }
+        // })
         // setmodalFullOpen(false)
 
     }
@@ -228,7 +413,6 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
         //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
         // }))
 
-        
         let final_data = {
         }
         dataOfProject["t_sFinancials"].map((itew) => {
@@ -237,13 +421,42 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
             final_data[fieldNaming] = data[fieldNaming]
         })
 
-
-        setGlobalData(prev=>{
-            return {
-                ...prev,
-                "t_sFinancials":final_data
+        let fdata = {
+            name: "updateSiteEngg",
+            data: final_data,
+            from: {
+                "uid": uid
             }
-        })
+        }
+
+
+        dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, fdata, () => { }))
+
+
+
+        // let updatedData = {
+        //     "": ""
+        // }
+
+
+        // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
+
+
+        // let final_data = {
+        // }
+        // dataOfProject["t_sFinancials"].map((itew) => {
+        //     let fieldNaming = labelToValue(itew.fieldName)
+
+        //     final_data[fieldNaming] = data[fieldNaming]
+        // })
+
+
+        // setGlobalData(prev=>{
+        //     return {
+        //         ...prev,
+        //         "t_sFinancials":final_data
+        //     }
+        // })
         // setmodalFullOpen(false)
 
     }
@@ -271,25 +484,6 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
 
     };
-
-
-
-
-
-
-
-
-
-    const [modalBody, setmodalBody] = useState((<>
-
-
-
-        {/* <Button name={"sasaass"} onClick={(handleSubmit(handleAddActivity))}></Button> */}
-    </>))
-
-
-
-
 
 
 
@@ -324,11 +518,34 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
         { label: "Note", value: "", name: "note", required: true, type: "text" },
     ];
     return <>
+
+
+
+
+        <Modal children={modalBody} setIsOpen={setmodalOpen} isOpen={modalOpen} size={"lg"} />
         <div className='p-4'>
 
             {/* <Button /> */}
 
-            <CommonTableFormSiteParent setmodalFullOpen={setmodalFullOpen} funcaller={funcaller} defaultValue={"Site Engg"} tabslist={{
+            <div className='flex flex-row'>
+
+                <div className='w-full'>
+                    <div className='w-auto'>
+                        <h1>Milestone Status</h1>
+                        {<p className={`w-20 rounded-xl text-center ${uiStatusColor[mileStone?.mileStoneStatus]}`}>{mileStone?.mileStoneStatus}</p>}
+                    </div>
+                </div>
+                <div className='w-full'>
+                    <Button classes='w-auto ' name={"Completion Criteria"} onClick={() => {
+                        // alert("sdfghjkl")
+
+                        setmodalBody(<CompletitonCreiteriaForm mileStone={mileStone} />)
+                        setmodalOpen(true)
+                    }}></Button>
+                </div>
+            </div>
+
+            <CommonTableFormSiteParent funcaller={funcaller} defaultValue={"Site Engg"} tabslist={{
                 "Site Engg": <><div className='flex justify-end'><Button
                     classes='w-30'
                     name="Save Site Engg"
@@ -422,4 +639,4 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 }
 
 
-export default ManageSite;
+export default ManageMilestoneSite;

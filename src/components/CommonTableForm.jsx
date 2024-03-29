@@ -25,7 +25,7 @@ import CreateFormField from "./CreateFormField";
 import { useDispatch, useSelector } from "react-redux";
 import { ALERTS } from "../store/reducers/component-reducer";
 import TableJsonDynamic from "./TableJsonDynamic";
-import { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX } from "../store/reducers/projectList-reducer";
+import { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER } from "../store/reducers/projectList-reducer";
 import FileUploader from "./FIleUploader";
 import { Urls } from "../utils/url";
 import CommonActions from "../store/actions/common-actions";
@@ -278,7 +278,7 @@ console.log(newdte, "listinglistinglisting")
                     console.log(newars, "newarsnewarsnewarsnewarsnewars")
                     const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
 
-                    console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
+                    console.log(indexToUpdate,newars,{label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false}, "newarsnewarsnewarsnewarsnewars")
                     dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }))
 
                     setedit(prev => !prev)
@@ -363,22 +363,26 @@ console.log(newdte, "listinglistinglisting")
 
 
 
-              console.log("its", itm[its.name], "itm", "itm[its.name]itm[its.name]")
+              // console.log("its", itm[its.name], "itm", "itm[its.name]itm[its.name]")
 
 
-              console.log(listing.filter((ityt) => {
-                if (ityt.fieldName == itm["fieldName"]) {
-                  return {
-                    "label": ityt.fieldName,
-                    "value": ityt.fieldName
-                  }
-                }
-              }), itm["fieldName"], "listinglistinglisting")
+              // console.log(listing.filter((ityt) => {
+              //   if (ityt.fieldName == itm["fieldName"]) {
+              //     return {
+              //       "label": ityt.fieldName,
+              //       "value": ityt.fieldName
+              //     }
+              //   }
+              // }), itm["fieldName"], "listinglistinglisting")
+
+
+              console.log(itm[its.name],its.name,"itm[its.dedeedxedcdeename]")
               return {
                 [its.label]: <CreateFormField itm={{
                   ...its,
                   name: its.name + itm.index,
                   value: itm[its.name],
+                  oldValue:itm[its.name],
                   option: its.name == "Predecessor" ? listing.filter((ityt) => {
                     if (ityt.fieldName != itm["fieldName"]) {
                       return ityt
@@ -389,6 +393,7 @@ console.log(newdte, "listinglistinglisting")
                       "value": ityt.fieldName
                     }
                   }) : its.option,
+                  closeOnChangedValue:false,
                   props: propscheck,
                   onSelect: (e) => {
 
@@ -396,11 +401,11 @@ console.log(newdte, "listinglistinglisting")
                     // setValue(itm.name, finalselection.join())
 
                     const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
-                    console.log(finalselection, "onselection")
+                    console.log(finalselection,e, "onselection")
                     console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
-                    dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: "dropdownValue", indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
+                    dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
 
-                    setedit(prev => !prev)
+                    // setedit(prev => !prev)
 
                   },
                   onRemove: (e) => {
@@ -412,9 +417,9 @@ console.log(newdte, "listinglistinglisting")
                     const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
 
                     console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
-                    dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: "dropdownValue", indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
+                    dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
 
-                    setedit(prev => !prev)
+                    // setedit(prev => !prev)
                   },
                   innervalue: itm["dropdownValue"],
                   innerprops: {
@@ -423,8 +428,8 @@ console.log(newdte, "listinglistinglisting")
 
                       const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
 
-                      console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
-                      dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: "dropdownValue", indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }))
+                      console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
+                      dispatch(SET_DYNAMIC_FORM_INDEX_INNER({ label:tabHead,valer: its.name,indexToUpdate: indexToUpdate, value: { dropdownValue:e.target.value }  }))
 
                       setedit(prev => !prev)
 

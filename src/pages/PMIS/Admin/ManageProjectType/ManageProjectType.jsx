@@ -23,6 +23,7 @@ import CommonTableForm from '../../../../components/CommonTableForm';
 import CommonTableFormParent from '../../../../components/CommonTableFormSiteParent';
 import CommonTableFormSiteParent from '../../../../components/CommonTableFormSiteParent';
 import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer';
+import { completiton_critieria } from '../../../../utils/queryBuilder';
 
 
 
@@ -175,14 +176,7 @@ const ManageProjectType = () => {
       label: "Completion Criteria",
       name: "Completion Criteria",
       type: "muitiSelect",
-      option: [
-        { id: "completion_date", name: "Completion Date" },
-        { id: "checklist", name: "Checklist" },
-        { id: "mo_no", name: "MO No" },
-        { id: "challan_copy", name: "Challan copy" },
-        { id: "attachment", name: "Attachment" },
-        { id: "reference_no", name: "Reference No" }
-      ],
+      option: completiton_critieria,
 
       // option:[
       //     {
@@ -232,87 +226,62 @@ const ManageProjectType = () => {
   let commercialmultiForm = [
     // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
     {
-      label: "Item Code", name: "fieldName", value: "", type: "text", props: "", required: false, placeholder: ""
-    },
-    {
       label: "GBPA",
-      name: "required",
+      name: "GBPA",
       value: "Select",
-      type: "select",
-      option: [
-        {
-          label: "Yes",
-          value: "Yes"
-        }, {
-          label: "No",
-          value: "No"
-        }
-      ],
+      type: "number",
       props: "",
       required: false,
+      placeholder: ""
+    },{
+      label: "Item Code", 
+      name: "ItemCode", 
+      value: "", 
+      type: "text", 
+      props: "", 
+      required: false, 
       placeholder: ""
     },
     {
-      label: "Scope",
-      name: "dataType",
+      label: "Unit Rate",
+      name: "UnitRate",
       value: "Select",
-      innerSmart: true,
-      type: "select",
-      option: [
-        {
-          label: "Text",
-          value: "text"
-        }, {
-          label: "Number",
-          value: "Number"
-        }, {
-          label: "Decimal",
-          value: "Decimal"
-        }, {
-          label: "Date",
-          value: "Date"
-        }, {
-          label: "Dropdown",
-          value: "Dropdown",
-          extended: {
-            typer: "add",
-            type: "text",
-            option: []
-          }
-        }
-      ],
+      type: "number",
       props: "",
       required: false,
       placeholder: ""
     },
+    // {
+    //   label: "Project Type",
+    //   name: "dataType",
+    //   value: "Select",
+    //   innerSmart: true,
+    //   type: "select",
+    //   option: [
+    //   ],
+    //   props: "",
+    //   required: false,
+    //   placeholder: ""
+    // },
     {
       label: "Description",
-      name: "Status",
+      name: "Description",
       value: "Select",
-      type: "select",
-      option: [
-        {
-          label: "Active",
-          value: "Active"
-        }, {
-          label: "Inactive",
-          value: "Inactive"
-        }
-      ],
+      type: "text",
       props: "",
       required: false,
       placeholder: ""
     },
-    {
-      label: "Attachment",
-      name: "Status",
-      value: "Select",
-      type: "file",
-      option: [],
-      props: "",
-      required: false,
-      placeholder: ""
-    }
+    // {
+    //   label: "Attachment",
+    //   name: "Attachment",
+    //   value: "Select",
+    //   type: "file",
+    //   option: [],
+    //   props: "",
+    //   required: false,
+    //   placeholder: ""
+    // }
   ]
 
   const handleAddActivity = (res,sediting, targ, itm) => {
@@ -824,7 +793,7 @@ const ManageProjectType = () => {
         actions={["Delete"]}
       />
 
-      <Modal size={"lg"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+      <Modal size={"full"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
       {/* <CommonForm/> */}
     </>

@@ -21,6 +21,7 @@ const initialState = {
     getProjectAllocation:[],
     getOneManageProject:[],
     getProjectTypeDyform:[],
+    getOneSEProjectTypeDyform:[],
     getVishal:[],
 }
 
@@ -49,6 +50,13 @@ const adminData = createSlice({
                 state.getProjectTypeDyform = payload.dataAll
             }else{
                 state.getProjectTypeDyform  = [...state.getProjectTypeDyform,...payload.dataAll]
+            }
+        },
+        GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM:(state,{payload}) => {
+            if(payload.reset){
+                state.getOneProjectTypeDyform = payload.dataAll
+            }else{
+                state.getOneProjectTypeDyform  = [...state.getProjectTypeDyform,...payload.dataAll]
             }
         },
 
@@ -216,6 +224,7 @@ export const {
     GET_PROJECT_ALLLOCATION,
     GET_ONE_MANAGE_PROJECT,
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
+    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  
