@@ -303,7 +303,7 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
     let dtype = {
         "Decimal": "number",
-        "text": "text",
+        "Text": "text",
         "Dropdown": "select",
         "Number": "number",
         "Date": "datetime"

@@ -37,6 +37,9 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
           });
           setValue(itm.name, finalselection.join());
           console.log(e, "onselection");
+          if(itm.onSelecting){
+            itm.onSelecting(finalselection)
+          }
         }} // Function will trigger on select event
         onRemove={(e) => {
           let finalselection = e.map((itm) => {
@@ -44,6 +47,9 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
           });
           setValue(itm.name, finalselection.join());
           console.log(e, "onRemove");
+          if(itm.onRemoving){
+            itm.onRemoving(finalselection)
+          }
         }} // Function will trigger on remove event
         {...itm.props}
         displayValue={itm.displayValue ? itm.displayValue : "name"}

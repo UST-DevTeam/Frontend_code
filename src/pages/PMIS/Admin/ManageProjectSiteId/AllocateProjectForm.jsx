@@ -18,6 +18,7 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { useParams } from "react-router-dom";
 import ManageMilestone from "../ManageMilestone/ManageMilestone";
 import { Urls } from "../../../../utils/url";
+import DynamicTabContent from "../../../../components/DynamicTabContent";
 
 const AllocateProjectForm = ({
   from,
@@ -40,6 +41,8 @@ const AllocateProjectForm = ({
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [activeTab, setactiveTab] = useState(null);
+
   const [modalFullBody, setmodalFullBody] = useState(<></>);
 
   const [modalBody, setmodalBody] = useState(<></>);
@@ -70,6 +73,8 @@ const AllocateProjectForm = ({
     console.log(oldata, "olddataolddataolddata")
     return oldata
   })
+
+
 
   //   let employeeList = useSelector((state) => {
   //     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
@@ -150,9 +155,65 @@ const AllocateProjectForm = ({
       option: dataGetterOld ? dataGetterOld["empDeatils"] ? dataGetterOld["empDeatils"] : [] : [],
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
+          // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
           console.log(e.target.value, "e.target.value")
         }
+      },
+      
+      onSelecting:(e)=>{
+        console.log("onRemovings user",e)
+        setValue("vendorId","")
+      },
+      onRemoving:(e)=>{
+        console.log("onRemoving  user",e)
+        setValue("vendorId","")
+      },
+      required: true,
+      classes: "col-span-1",
+    },
+
+
+  ];
+
+
+  let VendorForm = [
+
+    // {
+    //   label: "Project Id",
+    //   name: "ptypeId",
+    //   type: "sdisabled",
+    //   value: "",
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
+    // {
+    //   label: "Milestone Name",
+    //   name: "mileName",
+    //   type: "sdisabled",
+    //   value: "",
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
+    {
+      label: "Assign Vendor",
+      name: "vendorId",
+      type: "BigmuitiSelect",
+      value: "",
+      option: dataGetterOld ? dataGetterOld["vendorDetails"] ? dataGetterOld["vendorDetails"] : [] : [],
+      props: {
+        onChange: (e) => {
+          alert("dasdasdas")
+          // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
+          console.log(e.target.value, "e.target.value")
+        }
+      },
+      onSelecting:(e)=>{
+        console.log("onRemovings vendor",e)
+        setValue("userId","")
+      },
+      onRemoving:(e)=>{
+        console.log("onRemoving vendor",e)
+        setValue("userId","")
       },
       required: true,
       classes: "col-span-1",
@@ -173,11 +234,18 @@ const AllocateProjectForm = ({
 
 
     console.log(formValue, data, "globalDataglobalDataglobalData")
+
+    let dataForApp=[]
+    if(activeTab==0){
+      dataForApp= data["userId"]
+    }else if(activeTab == 1){
+      dataForApp= data["vendorId"]
+    }
     if (listsite.length == 0) {
       let finaldata = {
         name: from,
         data: {
-          "assignerId": data["userId"]
+          "assignerId": dataForApp
         },
         from: {
           "uid": formValue["uniqueId"]
@@ -188,18 +256,18 @@ const AllocateProjectForm = ({
         dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
         setIsOpen(false)
       }))
-    }else{
-      let finaldata={
-        name:from,
-        data:{
-          "assignerId":data["userId"]
+    } else {
+      let finaldata = {
+        name: from,
+        data: {
+          "assignerId": dataForApp
         },
-        from:{
-          "uid":listsite
+        from: {
+          "uid": listsite
         }
       }
-  
-      dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver,projectuniqueId, finaldata, () => {
+
+      dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, finaldata, () => {
         dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
         setIsOpen(false)
       }))
@@ -250,19 +318,37 @@ const AllocateProjectForm = ({
         setIsOpen={setmodalFullOpen}
       />
 
+      <div className="flex justify-evenly">
+        <Button name={"Allocate User"} onClick={() => {
+          setactiveTab(0)
+        }} classes="w-auto" />
+        <Button name={"Allocate Vendor"} onClick={() => {
+          setactiveTab(1)
+        }} classes="w-auto" />
+      </div>
 
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
 
 
-        <CommonForm
+        <DynamicTabContent activeTab={activeTab} tabList={[<CommonForm
           classes={"grid-cols-1 gap-1"}
           Form={Form}
           errors={errors}
           register={register}
           setValue={setValue}
           getValues={getValues}
-        />
+        />, <CommonForm
+          classes={"grid-cols-1 gap-1"}
+          Form={VendorForm}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+        />]
+        } />
+
+
         {/* <button
           onClick={() => setModalOpen(true)}
           className="bg-transparent border-none p-0 focus:outline-none"

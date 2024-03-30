@@ -497,7 +497,7 @@ const ManageMilestoneSite = ({ uid, mileStone, setGlobalData, projectuniqueId, s
 
     let dtype = {
         "Decimal": "number",
-        "text": "text",
+        "Text": "text",
         "Dropdown": "select",
         "Number": "number",
         "Date": "datetime"
@@ -539,7 +539,7 @@ const ManageMilestoneSite = ({ uid, mileStone, setGlobalData, projectuniqueId, s
                     <Button classes='w-auto ' name={"Completion Criteria"} onClick={() => {
                         // alert("sdfghjkl")
 
-                        setmodalBody(<CompletitonCreiteriaForm mileStone={mileStone} />)
+                        setmodalBody(<CompletitonCreiteriaForm customeruniqueId={customeruniqueId} projectuniqueId={projectuniqueId} setmodalFullOpen={setmodalFullOpen} setmodalOpen={setmodalOpen} mileStone={mileStone} />)
                         setmodalOpen(true)
                     }}></Button>
                 </div>

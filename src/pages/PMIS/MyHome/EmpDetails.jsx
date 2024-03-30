@@ -686,7 +686,6 @@ const EmpDetails = (props) => {
     {
       label: "city",
       name: "city",
-      name: "id",
       value: "",
       type: "select",
       props: "",

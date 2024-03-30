@@ -2,6 +2,7 @@
 import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
+import { ALERTS } from "../reducers/component-reducer"
 import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, SET_DYNAMIC_FORM } from "../reducers/projectList-reducer"
 import CommonActions from "./common-actions"
 // import Notify from "./notify-actions"
@@ -17,7 +18,7 @@ const projectListActions = {
             if (res?.status !== 201 && res?.status !== 200){
                 let msgdata = {
                     show: true,
-                    icon: 'error',
+                    icon: dtaa?.icon,
                     buttons: [
 
                     ],

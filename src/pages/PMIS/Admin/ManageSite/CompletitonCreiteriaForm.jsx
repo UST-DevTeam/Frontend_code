@@ -5,9 +5,10 @@ import Button from '../../../../components/Button';
 import projectListActions from '../../../../store/actions/projectList-actions';
 import { useDispatch } from 'react-redux';
 import { Urls } from '../../../../utils/url';
+import AdminActions from '../../../../store/actions/admin-actions';
 
 
-const CompletitonCreiteriaForm = ({ mileStone }) => {
+const CompletitonCreiteriaForm = ({ mileStone,projectuniqueId,setmodalFullOpen,setmodalOpen,customeruniqueId }) => {
 
 
     const dispatch = useDispatch()
@@ -44,6 +45,11 @@ const CompletitonCreiteriaForm = ({ mileStone }) => {
         dispatch(projectListActions.postSubmit(Urls.projectList_closeMilestone+mileStone["uniqueId"], data, () => {
             // alert("done")
             // dispatch(AdminActions.getManageProjectType(customeruniqueId))
+            
+            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+            // dispatch(AdminActions.getManageProjectType(customeruniqueId))
+            setmodalOpen(false)
+            setmodalFullOpen(false)
         }))
 
     }

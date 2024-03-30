@@ -53,10 +53,10 @@ const CommonForm = ({
 
 
   
-  console.log(Form, "Form");
+  console.log(Form, "Formdsabdjasbdhjsa");
   return (
     <>
-      <form className={"grid " + classes} encType="multipart/form-data">
+      <form className={`overflow-scroll grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
         {console.log(errors, "errors")}
         {Form.map((itm) => {
           {

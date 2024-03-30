@@ -178,7 +178,7 @@ import React, { useState } from 'react';
 import Modalmoreinfo from './Modalmoreinfo';
 import Modal from './Modal';
 
-const TableJson = ({ headers, columns,check, setCheck=()=>{} }) => {
+const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
 
     const [openModal, setOpenModal] = useState(false)
     const [modalBody, setModalBody] = useState("")
@@ -194,49 +194,52 @@ const TableJson = ({ headers, columns,check, setCheck=()=>{} }) => {
         })
     })
     return <>
-        <table border={1} className='h-auto table-auto  w-full'>
-            <thead className='bg-primaryLine text-white sticky -top-1 z-10'>
-                <tr>
-                    {
-                        headers.map((itm) => {
-                            return itm != "C" ? <th className='border-gray-400 border-2'>
-                                {itm}
-                            </th> : <th className='border-gray-400 border-2'>
-                                <input type={'checkbox'} onChange={(e,index)=>{
-                                    console.log(e.target.checked,columns,check,index,"e.target.checked")
+        <div className='h-[70vh] overflow-x-scroll'>
+            <table border={1} className=' table-auto  w-full'>
+                <thead className='bg-primaryLine text-white sticky -top-1 z-10'>
+                    <tr>
+                        {
+                            headers.map((itm) => {
+                                return itm != "C" ? <th className='border-gray-400 border-2'>
+                                    {itm}
+                                </th> : <th className='border-gray-400 border-2'>
+                                    <input type={'checkbox'} onChange={(e, index) => {
+                                        console.log(e.target.checked, columns, check, index, "e.target.checked")
 
-                                    if(e.target.checked){
-                                        setCheck(prev=>{
-                                            return columns.map((itm,index)=>{
-                                                return index+1
+                                        if (e.target.checked) {
+                                            setCheck(prev => {
+                                                return columns.map((itm, index) => {
+                                                    return index + 1
+                                                })
                                             })
-                                        })
-                                    }else{
-                                        setCheck([])
-                                    }
-                                }}/>
-                            </th>
+                                        } else {
+                                            setCheck([])
+                                        }
+                                    }} />
+                                </th>
+                            })
+                        }
+                    </tr>
+                </thead>
+                <tbody className='overflow-scroll h-8'>
+                    {
+                        columns.map((itm) => {
+                            return <tr>
+                                {headers.map((innerItm) => {
+                                    return <td className='border-gray-400 border-2 whitespace-nowrap'>
+                                        <Modalmoreinfo setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm]} />
+                                    </td>
+                                })}
+                            </tr>
+
                         })
                     }
-                </tr>
-            </thead>
-            <tbody className='overflow-scroll h-8'>
-                {
-                    columns.map((itm) => {
-                        return <tr>
-                            {headers.map((innerItm) => {
-                                return <td className='border-gray-400 border-2 whitespace-nowrap'>
-                                    <Modalmoreinfo setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm]} />
-                                </td>
-                            })}
-                        </tr>
-
-                    })
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
         <Modal children={modalBody} setIsOpen={setOpenModal} isOpen={openModal} size={"sm"} />
+
     </>
 };
 

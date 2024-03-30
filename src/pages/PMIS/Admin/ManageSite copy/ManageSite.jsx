@@ -221,7 +221,7 @@ const ManageSite = ({projectuniqueId}) => {
 
     let dtype = {
         "Decimal": "number",
-        "text": "text",
+        "Text": "text",
         "Dropdown": "select",
         "Number": "number",
         "Date": "datetime"

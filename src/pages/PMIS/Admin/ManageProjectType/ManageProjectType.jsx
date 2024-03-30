@@ -40,6 +40,7 @@ const ManageProjectType = () => {
 
   const [type, settype] = useState(false)
   const [modalHead, setmodalHead] = useState(<></>)
+  const [modalSize, setmodalSize] = useState("full")
   const [uniqueness, setUniqueness] = useState("")
 
   const [listing, setlisting] = useState([]);
@@ -94,7 +95,7 @@ const ManageProjectType = () => {
       option: [
         {
           label: "Text",
-          value: "text"
+          value: "Text"
         }, {
           label: "Number",
           value: "Number"
@@ -352,6 +353,7 @@ const ManageProjectType = () => {
 
           setUniqueness(prev => itm.uniqueId)
           setmodalOpen(true)
+          setmodalSize("full")
           dispatch(AdminActions.getManageCustomer())
           // console.log(itm["t_sengg"], "setUniqueness")
           setmodalHead("Templates")
@@ -410,6 +412,7 @@ const ManageProjectType = () => {
         }}></Button>} />,
         "milestone": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
           setmodalOpen(true)
+          setmodalSize("full")
           dispatch(AdminActions.getManageCustomer())
           setmodalHead("Milestones")
 
@@ -468,6 +471,7 @@ const ManageProjectType = () => {
                   setmodalOpen(true);
                   dispatch(AdminActions.getManageCustomer());
                   setmodalHead("Commercial");
+                  setmodalSize("full")
                   setmodalBody(
                     <>
                       <CommonTableForm tabHead={"Commercial"} classes={"grid-cols-2 gap-1"} Form={commercialmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
@@ -534,6 +538,7 @@ const ManageProjectType = () => {
           console.log(itm.uniqueId)
           setUniqueness(prev => itm.uniqueId)
           setmodalOpen(true)
+          setmodalSize("full")
           dispatch(AdminActions.getManageCustomer())
           // console.log(itm["t_sengg"], "setUniqueness")
           setmodalHead("Templates")
@@ -594,7 +599,7 @@ const ManageProjectType = () => {
           setmodalOpen(true)
           dispatch(AdminActions.getManageCustomer())
           setmodalHead("Milestones")
-
+          setmodalSize("full")
           dispatch(SET_DYNAMIC_FORM({ label: "MileStone", value: itm["MileStone"] ? itm["MileStone"] : [], reseter: true }))
           setmodalBody(<>
 
@@ -651,6 +656,7 @@ const ManageProjectType = () => {
         "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
           setmodalOpen(true)
           dispatch(AdminActions.getManageCustomer())
+          setmodalSize("full")
           setmodalHead("Commercial")
           setmodalBody(<>
             <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -777,6 +783,7 @@ const ManageProjectType = () => {
           setmodalOpen(prev => !prev)
           // dispatch(OperationManagementActions.getOperationUserList())
           setmodalHead("New Project Type")
+          setmodalSize("smsh")
           setmodalBody(<ManageProjectTypeForm customeruniqueId={customeruniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
         }}
           name={"Add New"}></Button></>}
@@ -793,7 +800,7 @@ const ManageProjectType = () => {
         actions={["Delete"]}
       />
 
-      <Modal size={"full"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+      <Modal size={modalSize} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
       {/* <CommonForm/> */}
     </>

@@ -28,6 +28,7 @@ import EditingManageSite from '../ManageSite/EditingManageSite';
 import ManageMilestoneSite from '../ManageSite/ManageMilestoneSite';
 import ProgressBar from '../../../../components/ProgressBar';
 import { onehundcolor } from '../../../../utils/queryBuilder';
+import Tooltip from '../../../../components/Tooltip';
 
 const ManageProjectSiteId = () => {
 
@@ -46,7 +47,7 @@ const ManageProjectSiteId = () => {
     const [getmultiSelect, setmultiSelect] = useState([])
 
     const [modalHead, setmodalHead] = useState(<></>)
-    
+
     const [old, setOld] = useState(<></>)
     const navigate = useNavigate();
 
@@ -68,14 +69,18 @@ const ManageProjectSiteId = () => {
     const dataGetterOld = useSelector((state) => {
         let oldata = state.projectList.getProjectTypeSub
         if (old["_id"] != oldata["_id"]) {
-          setOld(oldata)
-          setValue("ptype", oldata["projectType"])
+            setOld(oldata)
+            setValue("ptype", oldata["projectType"])
         }
         console.log(oldata, "olddataolddataolddata")
         return state.projectList.getProjectTypeSub
-      })
+    })
 
 
+    let dbConfigL = useSelector((state) => {
+        let interdata = state?.projectList?.getprojectalllist
+        return interdata
+    })
     console.log(childsite, "childsitechildsite", parentsite, "parentsiteparentsite")
     let dbConfigList = useSelector((state) => {
         let interdata = state?.projectList?.getprojectalllist
@@ -91,18 +96,34 @@ const ManageProjectSiteId = () => {
 
                     // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}>{itm.siteId}</p>,
-                
-                CompletionBar:<ProgressBar notifyType={"success"} text={`${100-((itm.milestoneArray.length-itm.milestoneArray.filter(iewq=>iewq.mileStoneStatus=="Close").length)/itm.milestoneArray.length*100)}`}/>,
+
+                CompletionBar: <ProgressBar notifyType={"success"} text={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} />,
                 checkboxProject: <>
                     <input type={"checkbox"} checked={parentsite.indexOf(itm.uniqueId) != -1} value={itm.uniqueId} onChange={(e) => {
                         if (e.target.checked) {
                             setparentsite(prev => [...prev, e.target.value])
+                            let dlisting = itm.milestoneArray.map((iewq) => {
+                                return iewq.uniqueId
+                            })
+                            setchildsite(prev => [...prev, ...dlisting])
                         } else {
                             setparentsite(prev => {
                                 let lst = prev.indexOf(e.target.value)
                                 prev.splice(lst, 1)
                                 return [...prev]
                             })
+
+
+
+                            setchildsite(prev => {
+                                itm.milestoneArray.map((iewq) => {
+                                    let lst = prev.indexOf(iewq.uniqueId)
+                                    prev.splice(lst, 1)
+                                })
+                                return [...prev]
+                            }
+                            )
+
                         }
                     }} />
                 </>,
@@ -149,7 +170,7 @@ const ManageProjectSiteId = () => {
                                 dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
                                 setmodalHead("Allocate User")
                                 setmodalBody(<>
-                                    <AllocateProjectForm  from={"mileStone"} listsite={[]} projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
+                                    <AllocateProjectForm from={"mileStone"} listsite={[]} projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
                                     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
                                         handleSubmit(onTableViewSubmit)
                                     }} /></div> */}
@@ -157,7 +178,7 @@ const ManageProjectSiteId = () => {
                                 console.log('ahshshhs', itm)
                             }
                             }>{iewq.assignerResult ? <div className='flex flex-row justify-center'> {
-                                iewq.assignerResult.slice(0,2).map((itwsw,index) => (<p className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>))
+                                iewq.assignerResult.slice(0, 2).map((itwsw, index) => (<Tooltip text={<p className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>} />))
                             }</div> : "Unassigned"}</p>
 
                         </div>,
@@ -171,19 +192,50 @@ const ManageProjectSiteId = () => {
 
                             // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                         }}>{iewq.Name}</p>,
-                        taskmageing:iewq.taskageing>0?<p className='text-green-600'>{iewq.taskageing+" Days"}</p>:<p className='text-red-600'>{iewq.taskageing+" Days"}</p>,
+                        taskmageing: iewq.taskageing >= 0 ? <p className='text-green-600'>{iewq.taskageing + " Days"}</p> : <p className='text-red-600'>{iewq.taskageing + " Days"}</p>,
                         Predecessor: iewq.Predecessor,
-                        CompletionBar:<ProgressBar notifyType={iewq.taskageing>0?"success":"alert"} text={iewq.mileStoneStatus=="Open"?"0":"100"} />,
+                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} text={iewq.mileStoneStatus == "Open" ? "0" : "100"} />,
                         checkboxProject: <>
-                            <input type={"checkbox"} checked={parentsite.indexOf(itm.uniqueId) != -1 || childsite.indexOf(iewq.uniqueId) != -1} value={iewq.uniqueId} onChange={(e) => {
+                            <input type={"checkbox"} checked={childsite.indexOf(iewq.uniqueId) != -1} value={iewq.uniqueId} onChange={(e) => {
                                 if (e.target.checked) {
-                                    setchildsite(prev => [...prev, e.target.value])
+
+
+                                    setchildsite(prev => {
+
+                                        let finalinzingdata = [...prev, e.target.value]
+
+                                        let tkChaeck = true
+                                        itm.milestoneArray.map((iefr) => {
+                                            if (finalinzingdata.indexOf(iefr.uniqueId) == -1) {
+                                                tkChaeck = false
+                                            }
+                                        })
+
+
+                                        console.log(tkChaeck, "tkChaecktkChaecktkChaeck")
+
+                                        if (tkChaeck) {
+                                            setparentsite(prev => [...prev, itm.uniqueId])
+                                        }
+
+                                        return finalinzingdata
+                                    })
+
+                                    console.log(childsite, "childsitechildsitechildsitechildsite")
                                 } else {
+
                                     setchildsite(prev => {
                                         let lst = prev.indexOf(e.target.value)
                                         prev.splice(lst, 1)
+                                        setparentsite(preving => {
+                                            let lst = preving.indexOf(itm.uniqueId)
+                                            preving.splice(lst, 1)
+                                            return [...preving]
+                                        })
                                         return [...prev]
                                     })
+
+
                                 }
                             }} />
                         </>
@@ -284,9 +336,23 @@ const ManageProjectSiteId = () => {
     let table = {
         columns: [
             {
-                name: <input type={"checkbox"} onClick={()=>{
-                    alert("dasdasdas")
-                }}/>,
+                name: <input type={"checkbox"} checked={dbConfigL.length!=0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
+                    if (e.target.checked) {
+                        dbConfigL.map((itm) => {
+                            if (childsite.indexOf(itm.uniqueId) == -1) {
+                                setparentsite(prev => [...prev, itm.uniqueId])
+                            }
+                            itm.milestoneArray.map((iewq) => {
+                                if (childsite.indexOf(iewq.uniqueId) == -1) {
+                                    setchildsite(prev => [...prev, iewq.uniqueId])
+                                }
+                            })
+                        })
+                    } else {
+                        setchildsite(prev => [])
+                        setparentsite(prev => [])
+                    }
+                }} />,
                 value: "checkboxProject",
                 style: "min-w-[40px] max-w-[40px] text-center"
             },
@@ -556,7 +622,7 @@ const ManageProjectSiteId = () => {
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
         <Modal size={"full"} modalHead={modalHead} children={modalBody} isOpen={modalFullOpen} setIsOpen={setmodalFullOpen} />
-        
+
 
         {/* <CommonForm/> */}
     </>

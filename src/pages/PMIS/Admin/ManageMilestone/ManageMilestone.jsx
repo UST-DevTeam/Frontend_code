@@ -189,7 +189,7 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
 
     let dtype = {
         "Decimal": "number",
-        "text": "text",
+        "Text": "text",
         "Dropdown": "select",
         "Number": "number",
         "Date": "datetime"

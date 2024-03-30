@@ -37,7 +37,7 @@ export default {
         "primaryLine":"var(--mainprimary)",
         "oppprimaryLine":"var(--oppmainprimary)",
         "businesssideimage":"url('/Business Registration.png')",
-        "setuppassword":"url(/SET UP PASSWORD.png)"
+        "setuppassword":"url('/SET UP PASSWORD.png)"
         
         
         // "topbarLine":"var(--topbar)",
