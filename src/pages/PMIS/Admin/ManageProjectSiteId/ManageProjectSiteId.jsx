@@ -10,7 +10,7 @@ import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
 import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { objectToQueryString, parseTwoDigit } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
@@ -97,7 +97,8 @@ const ManageProjectSiteId = () => {
                     // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}>{itm.siteId}</p>,
 
-                CompletionBar: <ProgressBar notifyType={"success"} text={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} />,
+                // CompletionBar: <ProgressBar notifyType={"success"} text={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} />,
+                CompletionBar: <ProgressBar notifyType={"success"} percent={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} text={`${itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length} / ${itm.milestoneArray.length}`} />,
                 checkboxProject: <>
                     <input type={"checkbox"} checked={parentsite.indexOf(itm.uniqueId) != -1} value={itm.uniqueId} onChange={(e) => {
                         if (e.target.checked) {
@@ -178,7 +179,7 @@ const ManageProjectSiteId = () => {
                                 console.log('ahshshhs', itm)
                             }
                             }>{iewq.assignerResult ? <div className='flex flex-row justify-center'> {
-                                iewq.assignerResult.slice(0, 2).map((itwsw, index) => (<Tooltip text={<p className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>} />))
+                                iewq.assignerResult.slice(0, 2).map((itwsw, index) => (<p className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>))
                             }</div> : "Unassigned"}</p>
 
                         </div>,
@@ -194,7 +195,7 @@ const ManageProjectSiteId = () => {
                         }}>{iewq.Name}</p>,
                         taskmageing: iewq.taskageing >= 0 ? <p className='text-green-600'>{iewq.taskageing + " Days"}</p> : <p className='text-red-600'>{iewq.taskageing + " Days"}</p>,
                         Predecessor: iewq.Predecessor,
-                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} text={iewq.mileStoneStatus == "Open" ? "0" : "100"} />,
+                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} percent={iewq.mileStoneStatus == "Open" ? "0" : "100"} text={parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100")+" %"} />,
                         checkboxProject: <>
                             <input type={"checkbox"} checked={childsite.indexOf(iewq.uniqueId) != -1} value={iewq.uniqueId} onChange={(e) => {
                                 if (e.target.checked) {

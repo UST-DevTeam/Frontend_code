@@ -230,9 +230,10 @@ const ManageProjectForm = ({
       name: "status",
       type: "select",
       option: [
-        { label: "Active", value: "active" },
-        { label: "Inactive", value: "inactive" },
-        { label: "Archive", value: "archive" },
+        { label: "Active", value: "Active" },
+        { label: "Inactive", value: "Inactive" },
+        { label: "Archive", value: "Archive" },
+        { label: "Trashed", value: "Trashed" },
         { label: "Closed", value: "closed" },
       ],
       required: true,
