@@ -876,7 +876,6 @@ const EmpDetails = (props) => {
       name: "passport",
       value: "",
       type: "select",
-      props: "",
       required: false,
       placeholder: "",
       option: [
