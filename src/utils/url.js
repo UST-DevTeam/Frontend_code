@@ -11,11 +11,12 @@ export const backendassetUrl="http://192.168.29.70:7980/"
 
 // export const baseUrl="http://localhost:65224"
 // export const backendassetUrl="http://localhost:65224//"
+
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.29.71:7980"
-// export const backendassetUrl="http://192.168.29.71:7980/"
+// export const baseUrl="http://192.168.29.70:7980"
+// export const backendassetUrl="http://192.168.29.70:7980/"
 
 
 // export const baseUrl="http://10.5.50.198:7980"
@@ -24,8 +25,7 @@ export const backendassetUrl="http://192.168.29.70:7980/"
 // export const baseUrl="http://192.168.1.108:7080"
 // export const backendassetUrl="http://192.168.29.108:7080/"
 
-// export const baseUrl="http://127.0.0.1:7080"
-// export const backendassetUrl="http://127.0.0.1:7080/"
+
 // export const baseUrl="http://127.0.0.1:7980"
 // export const backendassetUrl="http://127.0.0.1:7980/"
 
@@ -35,6 +35,12 @@ export const backendassetUrl="http://192.168.29.70:7980/"
 
 // export const baseUrl="https://mpmisapi.fourbrick.in"
 // export const backendassetUrl="https://mpmisapi.fourbrick.in/"
+
+
+// export const baseUrl="http://192.168.57.116:7980"
+// export const backendassetUrl="http://192.168.43.116:7980/"
+
+
 
 
 
@@ -83,13 +89,17 @@ export const Urls={
     Cities:"/city",
     admin_vishal:"/vishal",
     myHome_personal_info:"/myHome/getPersonalInfo",
+    Hr_Expense_Advance:"/hr/expenseAdavance",
     
 
 
     MyHome:"/myHome/Cards",
     admin_assetRegistration:"/myHome/assetRegistration",
     common_file_uploadr:"/commonUploadFile",
-    templateUploadFile:"/templateUploadFile"
+    templateUploadFile:"/templateUploadFile",
+
+
+    vendor_details:"/vendorDetails"
 }
 
 

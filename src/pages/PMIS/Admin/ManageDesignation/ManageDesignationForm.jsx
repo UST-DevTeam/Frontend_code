@@ -47,7 +47,6 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
             name: "designation",
             type: "text",
             required: true,
-            filter: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
@@ -91,6 +90,7 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
     }
     console.log(Form, "Form 11")
     useEffect(() => {
+        console.log("formValue in useEffect:", formValue);
         dispatch(AdminActions.getManageDesignation())
         if (resetting) {
             reset({})
@@ -108,7 +108,7 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
 
 
                 } else {
-                    // console.log("formValuekey",key,key)
+                    console.log("formValuekey",key,key)
                     setValue(key.name, formValue[key.name]);
                 }
             })

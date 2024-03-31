@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../components/EditButton";
-import ManageVendorForm from "../ManageVendor/ManageVendorForm";
+import EmpDetails from "../MyHome/EmpDetails";
 import AdvancedTable from "../../../components/AdvancedTable";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
@@ -13,15 +13,11 @@ import ToggleButton from "../../../components/ToggleButton";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
-// import OperationManagementActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
-import VendorActions from "../../../store/actions/vendor-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
-import { GET_VENDOR_DETAILS } from "../../../store/reducers/vendor-reducer";
 
-const ManageVendor = () => {
+const ExpenseAndAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
@@ -44,7 +40,7 @@ const ManageVendor = () => {
 
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
-    let interdata = state?.VendorReducer?.getManageVendorDetails;
+    let interdata = state?.hrReducer?.getManageEmpDetails;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -74,8 +70,8 @@ const ManageVendor = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: true }));
-                  navigate(`/vendorForm`);
+                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
+                  navigate(`/empdetails/${itm.uniqueId}`);
                   // dispatch(HrActions.getManageEmpDetails())
                   // setmodalHead("Edit Customer Details")
 
@@ -83,7 +79,7 @@ const ManageVendor = () => {
 
                   setmodalBody(
                     <>
-                      <ManageVendorForm resetting={false} formValue={itm} />
+                      <EmpDetails resetting={false} formValue={itm} />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
@@ -108,9 +104,9 @@ const ManageVendor = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.vendor_details}/${itm.uniqueId}`,
+                              `${Urls.admin_empdetails}/${itm.uniqueId}`,
                               () => {
-                                dispatch(VendorActions.getManageVendorDetails());
+                                dispatch(HrActions.getManageEmpDetails());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -159,7 +155,7 @@ const ManageVendor = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.VendorReducer?.getManageVendorDetails;
+    let interdata = state?.hrReducer?.getManageEmpDetails;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -174,40 +170,50 @@ const ManageVendor = () => {
   let table = {
     columns: [
       {
-        name: "Emp Name",
-        value: "vendorName",
+        name: "Circle",
+        value: "circle",
         style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
-        name: "Emp Code",
-        value: "empCode",
+        name: "Emp ID",
+        value: "empId",
         style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
       },
       {
-        name: "Email ID",
-        value: "email",
+        name: "Claim Type",
+        value: "claimType",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "Mobile No.",
-        value: "mobile",
+        name: "Project Type",
+        value: "projectType",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Designation",
-        value: "designation",
+        name: "Expense Category",
+        value: "expenseCategory",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "PMIS Role",
-        value: "userRole",
+        name: "Expense ID",
+        value: "expenseId",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Status",
-        value: "status",
-        style: "min-w-[100px] max-w-[450px] text-center",
+        name: "Cost Center",
+        value: "costCenter",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
+      {
+        name: "Submission Date",
+        value: "date",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
+    //   {
+    //     name: "Status",
+    //     value: "status",
+    //     style: "min-w-[100px] max-w-[450px] text-center",
+    //   },
       {
         name: "Edit",
         value: "edit",
@@ -241,10 +247,10 @@ const ManageVendor = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(VendorActions.getManageVendorDetails(value, objectToQueryString(data)));
+    dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)));
   };
   useEffect(() => {
-    dispatch(VendorActions.getManageVendorDetails());
+    dispatch(HrActions.getManageEmpDetails());
   }, []);
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageEmployee";
@@ -262,20 +268,21 @@ const ManageVendor = () => {
         headerButton={
           <div className="flex gap-1">
             {" "}
-            <Button
-              classes="w-auto"
-              onClick={() => {
-                navigate(`${"/vendorForm"}`);
-              }}
-              name={"Add New"}
-            ></Button>
-            <Button
+            <Button onClick={(e) => {
+                setmodalOpen(prev => !prev)
+                // dispatch(OperationManagementActions.getOperationUserList())
+                setmodalHead("New User")
+                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody("")
+            }}
+                name={"Add New"}></Button>
+            {/* <Button
               name={"Upload File"}
               classes="w-auto"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></Button> */}
           </div>
         }
         table={table}
@@ -309,4 +316,4 @@ const ManageVendor = () => {
   );
 };
 
-export default ManageVendor;
+export default ExpenseAndAdvance;

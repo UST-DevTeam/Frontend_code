@@ -1,162 +1,965 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import moment from 'moment';
-import * as Unicons from '@iconscout/react-unicons';
-import { useDispatch, useSelector } from 'react-redux';
-import AlertConfigurationActions from '../../../store/actions/alertConfiguration-actions';
-import CustomQueryActions from '../../../store/actions/customQuery-actions';
-import Modal from '../../../components/Modal';
-import CommonForm from '../../../components/CommonForm';
-import Button from '../../../components/Button';
-import AdminManagementActions from '../../../store/actions/adminManagement-actions';
+import React, { useEffect, useState } from "react";
+import "react-querybuilder/dist/query-builder.css"; // Import the library styles
+import QueryBuilder from "react-querybuilder";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import CommonForm from "../../../components/CommonForm";
+import Button from "../../../components/Button";
+import AdminActions from "../../../store/actions/admin-actions";
+import HrActions from "../../../store/actions/hr-actions";
+import VendorActions from "../../../store/actions/vendor-actions";
+import * as Unicons from "@iconscout/react-unicons";
+import UiTopBar from "../../../components/UiTopBar";
+import {
+  UilFacebookF,
+  UilTwitter,
+  UilGoogle,
+  UilLinkedin,
+  UilLinkAlt,
+  UilEdit,
+  UilSave,
+} from "@iconscout/react-unicons";
+// import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 
-const ManageVendorForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageVendorForm = (props) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    setValues,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+  const { empuid } = useParams();
+  console.log(empuid, "formValueformValueformValue");
+  const dispatch = useDispatch();
+  const [oneLoad, setOneLoad] = useState(false);
+  const [UserLyp, seteUserLyp] = useState("");
+  const [level, showLevel] = useState(1);
+  const [nestfilter, setnestfilter] = useState({});
+  const [onestfilter, setonestfilter] = useState({});
+  const [gopen, SetgOpen] = useState([]);
+  const [dataQuery, SetdataQuery] = useState("Select * from values;");
+  const [filtering, setFiltering] = useState("Select * from values;");
+  const [managingFilter, setManagingFilter] = useState([]);
+  const [upmanagingFilter, setupManagingFilter] = useState([]);
+  const [countform, setcountform] = useState([1]);
+  const [conditioncountform, setconditioncountform] = useState([]);
+  const [countformtwo, setcountformtwo] = useState([]);
+  const navigate = useNavigate();
+  const [passport, setpassport] = useState([]);
+  const [dataValue, setDataValue] = useState([]);
+  const [showSocialMediaOther, setshowSocialMediaOther] = useState(false);
+  const [showOtherAddressProof, setshowOtherAddressProof] = useState(false);
+  const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
+  const [showPassportNumber, setshowPassportNumber] = useState(false);
+  const [stateName, setStateName] = useState(false);
 
-    const [modalOpen, setmodalOpen] = useState(false)
+  const getManageEmpDetails = useSelector((state) => {
+    let data = state.hrReducer.getManageEmpDetails;
 
+    console.log(data, "datadatadatadatadatadatadata");
+    if (data.length > 0 && oneLoad) {
+      setOneLoad(false);
 
-    let dispatch = useDispatch()
-    let roleList = useSelector((state) => {
-        console.log(state, "state state")
-        return state?.adminManagement?.roleList
-    })
-    let databaseList = useSelector((state) => {
-        console.log(state, "state")
-        let interdata = state?.customQuery?.databaseList
+      // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
 
-        console.log(interdata, "interdatainterdata")
-        return state?.customQuery?.databaseList
-    })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
-    let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
-         {
-            label: "Cirlce Name",
-            value: "",
-            name: "circleName",
-            type: "text",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
+      // dispatch(HrActions.getManageEmpDetails(false, "dsadsa"));
 
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Short Code",
-            value: "",
-            name: "shortCode",
-            type: "text",
-            required: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-
-                    // setValue("queries",e.target.name)
-
-                }),
-            },
-            classes: "col-span-1"
-        }, 
-        // { label: "User", value: "", option: ["User Name"], type: "select" }
-    ]
-    const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        setValue,
-        getValues,
-        formState: { errors },
-    } = useForm()
-    const onSubmit = (data) => {
-        console.log(data)
-        // dispatch(AuthActions.signIn(data, () => {
-        //     navigate('/authenticate')
-        // }))
+      Object.entries(data[0]).map((iewq) => {
+        console.log(iewq, "iewqiewqiewqiewqiewqiewq");
+        setValue(iewq[0], iewq[1]);
+      });
     }
-    const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        // dasdsadsadasdas
-        if (data.id) {
-            dispatch(AdminManagementActions.postUser(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
-                setIsOpen(false)
-                dispatch(AdminManagementActions.getUsersList())
-            }, data.id))
-        } else {
-            dispatch(AdminManagementActions.postUser(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
-                setIsOpen(false)
-                dispatch(AdminManagementActions.getUsersList())
-            }))
-        }
+    return state.hrReducer.getManageEmpDetails;
+  });
+
+  console.log(getManageEmpDetails, "getManageEmpDetails");
+
+  let roleList = useSelector((state) => {
+    return state?.adminData?.getManageProfile.map((itm) => {
+      return {
+        label: itm?.roleName,
+        value: itm?.roleName,
+      };
+    });
+  });
+
+  // let employeeList = [reportingManager,L2expManager,financeApproverList,reportingHrManager],
+
+  let employeeList = useSelector((state) => {
+    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+      return {
+        label: itm?.empName + " " + itm.empCode,
+        value: itm?.empName + " " + itm.empCode + " " + itm.uniqueId,
+      };
+    });
+  });
+
+  let PersonalInformation = [
+    {
+      type: "heading",
+      label: "Vendor On-boarding Requisition Form",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    {
+      label: "Vendor Name",
+      name: "vendorName",
+      value: "",
+      type: "text",
+      props: {},
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Contact Person ",
+      name: "contactPerson",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Contact Details",
+      name: "contactDetails",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Secondary Contact Details",
+      name: "SecContactDetails",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Company Type",
+      name: "companyType",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Email-ID",
+      name: "email",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "PAN",
+      name: "pan",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Vendor Category",
+      name: "vendorCategory",
+      type: "text",
+      value: "",
+      props: "",
+      required: false,
+    },
+    {
+      label: "Vendor sub Category",
+      name: "vendorSubCategory",
+      type: "text",
+      value: "",
+      props: "",
+      required: false,
+    },
+    {
+      label: "Operational Circle's",
+      name: "operationalCircle",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+  ];
+
+  let FinancialEvaluation = [
+    {
+      type: "heading",
+      label: "Financial Evaluation",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    {
+      label: "Vendor Registered with GST (Y/N)",
+      name: "vendorRegistered",
+      value: "",
+      type: "select",
+      props: "",
+      required: false,
+      placeholder: "",
+      option: [
+        { label: "Yes", value: "Yes" },
+        { label: "No", value: "No" },
+      ],
+    },
+    {
+      label: "GST No.",
+      name: "gstNumber",
+      value: "",
+      type: "number",
+      placeholder: "",
+    },
+    {
+      label: "Upload GST (Attachment)",
+      name: "gst",
+      value: "",
+      type: "file",
+      props: "",
+      placeholder: "Upload file if GST is mentioned",
+    },
+    {
+      label: "PAN Number",
+      name: "panNumber",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Upload Vendor PAN",
+      name: "pan",
+      value: "",
+      type: "file",
+      props: "",
+      placeholder: "",
+    },
+    {
+      label: "TAN Number",
+      name: "tanNumber",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Upload Vendor TAN",
+      name: "tan",
+      value: "",
+      type: "file",
+      props: "",
+      placeholder: "",
+    },
+    {
+      label: "ESI Number",
+      name: "esiNumber",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Upload Vendor ESI",
+      name: "esi",
+      value: "",
+      type: "file",
+      props: "",
+      placeholder: "",
+    },
+    {
+      label: "EPF Number",
+      name: "epfNumber",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Upload Vendor EPF",
+      name: "epf",
+      value: "",
+      type: "file",
+      props: "",
+      placeholder: "",
+    },
+    {
+      label: "STN Number",
+      name: "stnNumber",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Upload Vendor STN",
+      name: "stn",
+      value: "",
+      type: "file",
+      props: "",
+      placeholder: "",
+    },
+    {
+      label: "Bank Account No.",
+      name: "accounctNumber",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Bank Name",
+      name: "bankName",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "IFSC Code",
+      name: "ifscCode",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Bank Address",
+      name: "bankAddress",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Financial Turnover",
+      name: "financialTurnover",
+      value: "",
+      type: "number",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Cheque File (Attachment)",
+      name: "cheque",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Other Information",
+      name: "otherInfo",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+  ];
+
+  // let TechnicalEvaluation = [
+  //   {
+  //     type: "heading",
+  //     label: "Technical Evaluation",
+  //     classes: "col-span-4 font-extrabold text-black-900 text-start",
+  //   },
+  //   {
+  //     label: "Team Capacity",
+  //     name: "teamCapacity",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Working Circle's",
+  //     name: "workingCircle",
+  //     value: "",
+  //     type: "select",
+  //     placeholder: "",
+  //   },
+
+  //   {
+  //     label: "Tecnology",
+  //     name: "technology",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     placeholder: "",
+  //   },
+
+  //   {
+  //     label: "CBT HR Certified (Y/N)",
+  //     name: "cbt",
+  //     value: "",
+  //     type: "select",
+  //     props: "",
+  //     option: [
+  //       { label: "Yes", value: "Yes" },
+  //       { label: "No", value: "No" },
+  //     ],
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Certificate Attachment",
+  //     name: "cbtCertificate",
+  //     value: "",
+  //     type: "file",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Form Tociii",
+  //     name: "formToci",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Certificate Attachment",
+  //     name: "tociCertificate",
+  //     value: "",
+  //     type: "file",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  // ];
+
+  // let CommercialEvaluation = [
+  //   {
+  //     type: "heading",
+  //     label: "Commercial Evaluation",
+  //     classes: "col-span-4 font-extrabold text-black-900 text-start",
+  //   },
+  //   {
+  //     label: "Vendor Code",
+  //     name: "vendorCode",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Date of Registration",
+  //     name: "datetime",
+  //     value: "",
+  //     type: "datetime",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Validity Upto",
+  //     name: "datetime",
+  //     value: "",
+  //     type: "datetime",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Contract Copy",
+  //     name: "contractCopy",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Payment Terms (Days)",
+  //     name: "paymentTerms",
+  //     value: "",
+  //     type: "number",
+  //     props: "",
+  //     placeholder: "",
+  //   },
+  // ];
+
+  // let EmployeeProfile = [
+  //   {
+  //     type: "heading",
+  //     label: "Vendor Profile",
+  //     classes: "col-span-4 font-extrabold text-black-900 text-start",
+  //   },
+  //   {
+  //     label: "Role",
+  //     name: "role",
+  //     value: "",
+  //     type: "select",
+  //     option: roleList,
+  //     // required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "PMIS Profile",
+  //     name: "userRole",
+  //     value: "",
+  //     type: "select",
+  //     option: roleList,
+  //     // required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Reporting Manager",
+  //     name: "reportingManager",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     props: {},
+  //     option: employeeList,
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Approver ",
+  //     name: "L1Approver",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     props: {},
+  //     option: employeeList,
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Aprrover",
+  //     name: "L2Approver",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     option: employeeList,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Finance Approver",
+  //     name: "financeApprover",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "HR Manager",
+  //     name: "reportingHrManager",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Asset Manager",
+  //     name: "assetManager",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Vendor",
+  //     name: "L1Vendor",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Vendor",
+  //     name: "L2Vendor",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Compliance",
+  //     name: "compliance",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Compliance",
+  //     name: "L1Compliance",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Compliance",
+  //     name: "L2Compliance",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "HR Manager",
+  //     name: "reportingHrManager",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Commercial",
+  //     name: "L1Commercial",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Sales",
+  //     name: "L1Sales",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Sales",
+  //     name: "L2Sales",
+  //     value: "",
+  //     type: "select",
+  //     option: employeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Status",
+  //     name: "status",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     props: {},
+  //     option: [
+  //       { label: "Active", value: "Active" },
+  //       { label: "Inactive", value: "Inactive" },
+  //       { label: "Blacklisted", value: "Blacklisted" },
+  //     ],
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Password",
+  //     name: "password",
+  //     value: "",
+  //     type: "password",
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  // ];
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   setValue,
+  //   reset,
+  //   getValues,
+  //   formState: { errors },
+  // } = useForm();
+
+  const onTableViewGenerateSubmit = (data) => {
+    console.log(data, "dsadasdsadsadsadas");
+    if (empuid) {
+      dispatch(
+        VendorActions.postManageVendorDetails(
+          false,
+          data,
+          () => {
+            showLevel((prev) => prev + 1);
+          },
+          empuid
+        )
+      );
+    } else {
+      dispatch(
+        VendorActions.postManageVendorDetails(false, data, () => {
+          showLevel((prev) => prev + 1);
+        })
+      );
     }
-    console.log(Form, "Form 11")
-    useEffect(() => {
-        dispatch(AdminManagementActions.getRoleList())
-        if (resetting) {
-            reset({})
-            Form.map((fieldName) => {
-                setValue(fieldName["name"], fieldName["value"]);
-            });
-        } else {
-            reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
-            Form.forEach((key) => {
-                if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
-                    const momentObj = moment(formValue[key.name]);
-                    setValue(key.name, momentObj.toDate());
+    reset({});
+  };
+
+  // const onSelect = (selectedList, selectedItem) => {
+  //   console.log(selectedList, selectedItem, "datadata")
+  //   // dispatch(AuthActions.signIn(data, () => {
+  //   //     navigate('/authenticate')
+  //   // }))
+  // }
+
+  // const onRemove = (selectedList, removedItem) => {
+  //   console.log(selectedList, removedItem, "datadata")
+  //   // dispatch(AuthActions.signIn(data, () => {
+  //   //     navigate('/authenticate')
+  //   // }))
+  // }
+
+  useEffect(() => {
+    dispatch(AdminActions.getManageDepartment());
+    dispatch(AdminActions.getManageDesignation());
+    dispatch(AdminActions.getManageProfile());
+    dispatch(AdminActions.getState());
+    if (empuid) {
+      dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
+      dispatch(HrActions.getManageVendorDetails(false));
+      setOneLoad(false);
+    } else {
+      // alert("dsadsadas")
+
+      // if (setOneLoad) {
+      // reset({});
+      [
+        ...PersonalInformation,
+        // ...FinancialEvaluation,
+        // ...TechnicalEvaluation,
+        // ...CommercialEvaluation,
+        // ...EmployeeProfile,
+      ].map((itss) => {
+        console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
+
+        setValue(itss.name, itss.value);
+      });
+      // }
+    }
+
+    // dispatch(AdminActions.getCities(setStateName));
+  }, [empuid]);
+
+  return (
+    <>
+      <div className=" w-full h-full">
+        <button
+          onClick={() => {
+            navigate("/manageVendor");
+            setOneLoad(false);
+          }}
+          className="mt-2 w-auto flex ml-auto mr-2 rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-white hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+        >
+          Back
+        </button>
+        <div className="">
+          {/* <UiTopBar /> */}
+          <div className="w-full mt-2 bg-white">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-white border-2 rounded-lg">
+              <div className="col-span-12">
+                <div className="grid grid-cols-1 md:grid-cols-1">
+                  {level >= 1 ? (
+                    <CommonForm
+                      classes={
+                        "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 rounded-lg"
+                      }
+                      errors={errors}
+                      Form={PersonalInformation}
+                      register={register}
+                      setValue={setValue}
+                      getValues={getValues}
+                    />
+                  ) : (
+                    <></>
+                  )}
+
+                  {level >= 2 ? (
+                    <CommonForm
+                      classes={
+                        "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      }
+                      errors={errors}
+                      Form={FinancialEvaluation}
+                      register={register}
+                      setValue={setValue}
+                      getValues={getValues}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={TechnicalEvaluation}
+                  register={register} setValue={setValue} getValues={getValues} />  */}
+                  
+                  
+                  
+                  {level >= 3 ? (<CommonForm
+                    classes={
+                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                    }
+                    errors={errors}
+                    Form={TechnicalEvaluation}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  />) : (
+                    <></>
+                  )}
+                  {/* {level >= 4 ? (<CommonForm
+                    classes={
+                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                    }
+                    errors={errors}
+                    Form={CommercialEvaluation}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  />) : (
+                    <></>
+                  )} */}
+                  {/* <CommonForm
+                    classes={
+                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                    }
+                    errors={errors}
+                    Form={EmployeeProfile}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  /> */}
+                  {/* <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
+                  register={register} setValue={setValue} getValues={getValues} /> */}
+                </div>
+                {/* <div class="grid h-96 grid-cols-1 gap-2 bg-white">
+                <div className='col-span-1 h-full  pt-0 overflow-scroll relative border-primaryLine border'>
 
 
-                } else {
-                    // console.log("formValuekey",key,key)
-                    setValue(key.name, formValue[key.name]);
-                }
-            })
-        }
-    }, [formValue, resetting])
-    return <>
+                  <div className='flex flex-col justify-between p-2'>
+                    <div class="overflow-scroll">
 
+                      {conditioncountform.map((val, index) => {
+                        return <>
+                          <CommonForm classes={"grid-cols-1 md:grid-cols-2 lg:gap-8 w-full"} errors={errors} Form={conditionmultiForm.map((itm) => {
+                            return {
+                              ...itm,
+                              type: itm.name == "formovalue" ? nestfilter["wherecondition" + "_" + val + "_form"] == "joins" ? "muitiSelect" : "text" : itm.type,
+                              props: itm.label == "Select Column" || (itm.label == "Value" && nestfilter["wherecondition" + "_" + val + "_form"] == "joins") ? {
+                                ...itm.props, onSelect: (a, b) => {
+                                  console.log("gamecall", a, b, "column" + "_" + val + "_form")
+                                  setValue(itm.label == "Select Column" ? "wherecolumn" + "_" + val + "_form" : "formovalue" + "_" + val + "_form", b.category + "smartGame" + b.name)
+                                }
+                              } : { ...itm.props },
+                              option: itm.label == "Expression" ? all_command_type_wise[nestfilter["wherecondition" + "_" + val + "_form"]] : itm.option,
+                              name: itm.name + "_" + val + "_form"
+                            }
+                          })}
+                            register={register} setValue={setValue} getValues={getValues} />
+                        </>
+                      })}
+                    </div>
+                  </div>
 
-        <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+                  <div className='flex w-full top  relative justify-between bg-primaryLine  p-2 pt-0'>
+                    <h1 className='text-white'>
+                      <p className="mt-2">
+                        Upload Document
+                      </p>
+                    </h1>
+                    <button onClick={() => {
+                      let finval = 0
+                      setconditioncountform((prev) => {
+                        let val = [...prev]
+                        let sval = val.pop()
+                        if (isNaN(sval)) {
+                          finval = 1
+                        } else {
+                          finval = sval + 1
+                        }
+                        console.log(finval, "finval", val, prev)
+                        return [...prev, finval]
+                      })
+                      setnestfilter(newprev => ({
+                        ...newprev,
+                        ["wherecondition" + "_" + finval + "_form"]: "blank"
+                      }));
+                    }}
+                      className='bg-pbutton text-white rounded-full mt-2'>
+                      <Unicons.UilPlus size="24" />
+                    </button>
+                  </div>
+                </div>
+              </div> */}
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
-
-            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            {/* <button></button> */}
-
-
-            {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-            {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-            {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
-            <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
+                {/* {
+                UserLyp != "" && <CommonForm classes={"grid-cols-1 lg:grid-cols-2 lg:gap-8 w-full pt-4"} errors={errors} Form={contype}
+                  register={register} setValue={setValue} getValues={getValues} />
+              } */}
+                <div className="flex gap-10 mb-3 justify-center">
+                  <button
+                    onClick={() => {
+                      navigate("/manageVendor");
+                    }}
+                    className="mt-6 w-auto justify-center rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-black hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={handleSubmit(onTableViewGenerateSubmit)}
+                    className="mt-6 w-auto justify-center rounded-md bg-[#143b64] hover:bg-violet-50 hover:text-black hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </>
-
-
+  );
 };
-
 export default ManageVendorForm;

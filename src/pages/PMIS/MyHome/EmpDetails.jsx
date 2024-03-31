@@ -10,6 +10,7 @@ import AdminActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import * as Unicons from "@iconscout/react-unicons";
 import UiTopBar from "../../../components/UiTopBar";
+import SweetAlerts from '../../../components/SweetAlerts';
 import {
   UilFacebookF,
   UilTwitter,
@@ -20,7 +21,6 @@ import {
   UilSave,
 } from "@iconscout/react-unicons";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
-
 
 const EmpDetails = (props) => {
   const {
@@ -62,8 +62,7 @@ const EmpDetails = (props) => {
   const getManageEmpDetails = useSelector((state) => {
     let data = state.hrReducer.getManageEmpDetails;
 
-
-    console.log(data,"datadatadatadatadatadatadata")
+    console.log(data, "datadatadatadatadatadatadata");
     if (data.length > 0 && oneLoad) {
       setOneLoad(false);
 
@@ -81,8 +80,42 @@ const EmpDetails = (props) => {
 
   console.log(getManageEmpDetails, "getManageEmpDetails");
 
-  const AutoFillAddress = () => {
-    
+  const [presentAddress, setPresentAddress] = useState({
+    country: "",
+    state: "",
+    city: "",
+    pincode: "",
+    address: "",
+  });
+
+  const [permanentAddress, setPermanentAddress] = useState({
+    country: "",
+    state: "",
+    city: "",
+    pincode: "",
+    address: "",
+  });
+  const handleCheckboxChange = (e) => {
+    if (e.target.checked === true) {
+      // Autofill permanent address from present address
+      setPermanentAddress({ ...presentAddress });
+    } else {
+      // Clear permanent address fields
+      setPermanentAddress({
+        country: "",
+        state: "",
+        city: "",
+        pincode: "",
+        address: "",
+      });
+    }
+  };
+  const handlePresentAddressChange = (e) => {
+    const { name, value } = e.target;
+    setPresentAddress({
+      ...presentAddress,
+      [name]: value,
+    });
   };
 
   let departmentList = useSelector((state) => {
@@ -417,8 +450,6 @@ const EmpDetails = (props) => {
   //   address: ''
   // });
 
-
-
   let PersonalInformation = [
     {
       type: "heading",
@@ -536,7 +567,7 @@ const EmpDetails = (props) => {
         { label: "O-", value: "O-" },
       ],
     },
-  ]
+  ];
 
   let ContactInformation = [
     {
@@ -546,65 +577,67 @@ const EmpDetails = (props) => {
     },
     {
       label: "Country",
-      id: "country",
       name: "country",
-      value: "",
+      value: presentAddress.country,
       type: "select",
       props: "",
       required: false,
       placeholder: "",
       option: [{ label: "India", value: "india" }],
+      onChange: handlePresentAddressChange,
     },
     {
       label: "State",
       name: "state",
-      id: "state",
-      value: "",
+      value: presentAddress.state,
       type: "select",
       placeholder: "",
       option: stateList,
       props: {
         onChange: (e) => {
           setValue("state", e.target.value);
-          dispatch(AdminActions.getCities(false, `stateCode=${e.target.value}`));
+          dispatch(
+            AdminActions.getCities(false, `stateCode=${e.target.value}`)
+          );
         },
       },
     },
     {
       label: "city",
       name: "city",
-      id: "city",
-      value: "",
+      value: presentAddress.city,
       type: "select",
       props: "",
       placeholder: "",
       option: cityList,
+      onChange: handlePresentAddressChange,
     },
     {
       label: "PinCode",
       name: "pincode",
-      value: "",
+      value: presentAddress.pincode,
       type: "text",
       props: "",
       required: false,
       placeholder: "",
+      onChange: handlePresentAddressChange,
     },
     {
       label: "Address",
       name: "address",
-      id: "address",
-      value: "",
+      value: presentAddress.address,
       type: "textarea",
       props: "",
       required: false,
       placeholder: "",
+      onChange: handlePresentAddressChange,
     },
 
     // {
     //   label: "Social Media",
     //   name: "socialMedia",
     //   value: "",
-    //   type: "select",  
+    //   type: "select",
     //   props: {
     //     onChange: (e) => {
     //       setshowSocialMediaOther(e.target.value === "Other");
@@ -640,10 +673,9 @@ const EmpDetails = (props) => {
         {
           type: "checkbox",
           name: "fillAddress",
-          // label:
-          checked: false,
           label: "Same As Present Address",
-          onClick: AutoFillAddress,
+          checked: presentAddress === permanentAddress,
+          onChange: handleCheckboxChange
         },
       ],
     },
@@ -655,8 +687,7 @@ const EmpDetails = (props) => {
     {
       label: "Country",
       name: "country",
-      id: "country",
-      value: "",
+      value: permanentAddress.country,
       type: "select",
       props: "",
       required: false,
@@ -666,8 +697,7 @@ const EmpDetails = (props) => {
     {
       label: "State",
       name: "state",
-      id: "state",
-      value: "",
+      value: permanentAddress.state,
       type: "select",
       placeholder: "",
       option: stateList,
@@ -677,7 +707,9 @@ const EmpDetails = (props) => {
 
           setValue("state", e.target.value);
 
-          dispatch(AdminActions.getCities(false, `stateCode=${e.target.value}`));
+          dispatch(
+            AdminActions.getCities(false, `stateCode=${e.target.value}`)
+          );
           // setStateName(e.target.value)
         },
       },
@@ -686,7 +718,7 @@ const EmpDetails = (props) => {
     {
       label: "city",
       name: "city",
-      value: "",
+      value: permanentAddress.city,
       type: "select",
       props: "",
       placeholder: "",
@@ -696,8 +728,7 @@ const EmpDetails = (props) => {
     {
       label: "PinCode",
       name: "pincode",
-      id: "pincode",
-      value: "",
+      value: permanentAddress.pincode,
       type: "text",
       props: "",
       required: false,
@@ -706,8 +737,7 @@ const EmpDetails = (props) => {
     {
       label: "Address",
       name: "address",
-      id: "address",
-      value: "",
+      value: permanentAddress.address,
       type: "textarea",
       props: "",
       required: false,
@@ -1212,6 +1242,7 @@ const EmpDetails = (props) => {
     console.log(data, "dsadasdsadsadsadas");
     if (empuid) {
       dispatch(HrActions.postManageEmpDetails(false, data, () => {}, empuid));
+      SweetAlerts();
     } else {
       dispatch(HrActions.postManageEmpDetails(false, data, () => {}));
     }
@@ -1238,7 +1269,6 @@ const EmpDetails = (props) => {
     dispatch(AdminActions.getManageProfile());
     dispatch(AdminActions.getState());
     if (empuid) {
-      
       dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
       dispatch(HrActions.getManageEmpDetails(false, empuid));
       setOneLoad(false);
@@ -1246,16 +1276,21 @@ const EmpDetails = (props) => {
       // alert("dsadsadas")
 
       // if (setOneLoad) {
-        // reset({});
-        [...PersonalInformation , ...ContactInformation , ...ContactInformation2 , ...EmploymentDetails , ...EmployeeProfile,...SupportingDoc].map((itss) => {
-            console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
+      // reset({});
+      [
+        ...PersonalInformation,
+        ...ContactInformation,
+        ...ContactInformation2,
+        ...EmploymentDetails,
+        ...EmployeeProfile,
+        ...SupportingDoc,
+      ].map((itss) => {
+        console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
 
-            setValue(itss.name,itss.value)
-          });
+        setValue(itss.name, itss.value);
+      });``
       // }
     }
-
-    // dispatch(AdminActions.getCities(setStateName));
   }, [empuid]);
 
   return (

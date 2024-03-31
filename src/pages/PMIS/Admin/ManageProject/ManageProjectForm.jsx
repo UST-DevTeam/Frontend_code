@@ -18,8 +18,6 @@ const ManageProjectForm = ({
   formValue = {},
 }) => {
   const { customeruniqueId } = useParams();
-  console.log(customeruniqueId, "hbshshhshshbsh");
-
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
 

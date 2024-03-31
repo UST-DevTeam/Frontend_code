@@ -12,39 +12,15 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 const ManageProfileForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
-    // console.log(isOpen,"isOpen")
-    // console.log(setIsOpen,"setIsOpen")
-    // console.log(resetting,"resetting")
-    // console.log(formValue,"formValue")
-
-
     const [modalOpen, setmodalOpen] = useState(false)
-
 
     let dispatch = useDispatch()
 
-    let roleList = useSelector((state) => {
-        console.log(state, "state state")
-        return state?.adminManagement?.roleList
-    })
-    let databaseList = useSelector((state) => {
-        console.log(state, "state")
-        let interdata = state?.customQuery?.databaseList
-
-        console.log(interdata, "interdatainterdata")
-        return state?.customQuery?.databaseList
-    })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
     let Form = [
         {
             label: "Role",
             value: "",
-            name: "role",
+            name: "roleName",
             type: "text",
             required: true,
             filter: true,
@@ -76,22 +52,20 @@ const ManageProfileForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => 
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageDepartment(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+            dispatch(AdminActions.postManageProfile( data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageDepartment())
+                dispatch(AdminActions.getManageProfile())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageDepartment(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+            dispatch(AdminActions.postManageProfile( data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageDepartment())
+                dispatch(AdminActions.getManageProfile())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageDepartment())
+        dispatch(AdminActions.getManageProfile())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

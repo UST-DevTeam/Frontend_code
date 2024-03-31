@@ -186,8 +186,9 @@ const ManageCircle = () => {
     }
     return <>
         <AdvancedTable
-            headerButton={<><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
+                dispatch(AdminActions.getManageCircle())
                 setmodalHead("New Circle")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
@@ -195,7 +196,7 @@ const ManageCircle = () => {
                 <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
-                </>}
+                </div>}
             table={table}
             templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
             exportButton={["/export/manageCircle","Export_Circle("+dt+").xlsx"]}

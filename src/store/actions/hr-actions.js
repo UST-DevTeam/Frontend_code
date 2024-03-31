@@ -38,5 +38,15 @@ const HrActions = {
             return;
         }
     },
+
+    getExpenseAndAdvance:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.Hr_Expense_Advance}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EMPLOYEE_DETAILS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 }
 export default HrActions;
