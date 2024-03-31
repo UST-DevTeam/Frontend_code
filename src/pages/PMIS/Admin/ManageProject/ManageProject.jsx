@@ -79,7 +79,7 @@ const ManageProject = () => {
                     dispatch(AdminActions.getProject(`${customeruniqueId}/${uniqueId}`))
                     setmodalHead("Edit Project")
                     setmodalBody(<>
-                        <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageProjectForm isOpen={modalOpen} customeruniqueId={customeruniqueId}  setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                    

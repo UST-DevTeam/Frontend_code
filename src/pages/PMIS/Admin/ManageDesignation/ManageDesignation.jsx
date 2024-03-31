@@ -51,11 +51,11 @@ const ManageDesignation = () => {
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                        setmodalOpen(true)
-                        dispatch(AdminActions.getManageDesignation())
-                        setmodalHead("Edit Department")
-                        setmodalBody(<>
-                        <ManageDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={{}} />
+                    setmodalOpen(true)
+                    dispatch(AdminActions.getManageDesignation())
+                    setmodalHead("Edit Designation")
+                    setmodalBody(<>
+                        <ManageDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)

@@ -14,7 +14,7 @@ import adminData from "./reducers/admin-reducer"
 import projectList from "./reducers/projectList-reducer"
 import myHomeData from "./reducers/myHome-reducer";
 import hrReducer from "./reducers/hr-reduces"
-
+import VendorReducer from "./reducers/vendor-reducer"
 
 
 const store = configureStore({
@@ -32,7 +32,8 @@ const store = configureStore({
         adminData,
         projectList,    
         myHomeData,
-        hrReducer
+        hrReducer,
+        VendorReducer,
     },
     devTools: true
 })

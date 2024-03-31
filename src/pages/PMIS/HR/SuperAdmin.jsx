@@ -282,6 +282,7 @@ const SuperAdmin = () => {
                 ["Manage Project Group","bg-gradient-to-r from-teal-200 to-sky-800","/projectGroup"],
                 ["User Access Management","bg-gradient-to-r from-teal-100 to-sky-400","/userAccessManagement"],
                 ["User Project Allocation","bg-gradient-to-r from-teal-400 to-yellow-200","/userProjectAllocation"],
+                ["Vendor Project Allocation","bg-gradient-to-r from-violet-200 to-blue-600","/vendorProjectAllocation"],
                 ["Manage Department","bg-gradient-to-r from-pink-500 to-rose-500","/manageDepartment"],
                 ["Manage Designation","bg-gradient-to-r from-emerald-400 to-cyan-400","/manageDesignation"],
                 ["Manage Profiles","bg-gradient-to-r from-amber-200 to-yellow-500","/manageProfile"]

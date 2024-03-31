@@ -10,6 +10,8 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 
+
+
 const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
@@ -120,7 +122,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageProjectGroup(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageProjectGroup())
             }, formValue.uniqueId))

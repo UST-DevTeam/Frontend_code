@@ -51,36 +51,36 @@ const ManageProfile = () => {
                 //     console.log(itm.enabled, "itm.enabled")
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
-                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                    setmodalOpen(true)
-                    dispatch(AdminActions.getManageProfile())
-                    setmodalHead("Edit Department")
-                    setmodalBody(<>
-                        <ManageProfileForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                    //setmodalOpen(false)
-                }}></EditButton>} />,
+                // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                //     setmodalOpen(true)
+                //     dispatch(AdminActions.getManageProfile())
+                //     setmodalHead("Edit Profile")
+                //     setmodalBody(<>
+                //         <ManageProfileForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                //     </>)
+                //     console.log('ahshshhs',itm)
+                // }}></EditButton>} />,
                 
-                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                    let msgdata = {
-                        show: true,
-                        icon: 'warning',
-                        buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_profile}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageProfile())
-                                    dispatch(ALERTS({ show: false }))
-                                }))
-                            }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
-                                dispatch(ALERTS({ show: false }))
-                            }} name={"Cancel"} />
-                        ],
-                        text: "Are you sure you want to Delete?"
-                    }
-                    dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />
+                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
+                //     let msgdata = {
+                //         show: true,
+                //         icon: 'warning',
+                //         buttons: [
+                //             <Button classes='w-15 bg-green-500' onClick={() => {
+                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_profile}/${itm.uniqueId}`, () => {
+                //                     dispatch(AdminActions.getManageProfile())
+                //                     dispatch(ALERTS({ show: false }))
+                //                 }))
+                //             }} name={"OK"} />,
+                //             <Button classes='w-24' onClick={() => {
+                //                 dispatch(ALERTS({ show: false }))
+                //             }} name={"Cancel"} />
+                //         ],
+                //         text: "Are you sure you want to Delete?"
+                //     }
+                //     dispatch(ALERTS(msgdata))
+                // }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -104,16 +104,16 @@ const ManageProfile = () => {
                 value: "roleName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },          
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            // {
+            //     name: "Edit",
+            //     value: "edit",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]

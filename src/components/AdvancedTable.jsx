@@ -192,12 +192,12 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                             return hide.indexOf(String(index)) == -1 ? <>
                                                 {
                                                     actions.includes(itts.name) ?
-                                                        ["Edit"].includes(itts.name) ? <td colSpan={actions.length} className={`border-primaryLine h-14  border-2 bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
-                                                            <span className='text-white text-[16px]'>{"Actions"}</span>
-                                                        </td> : !actions.includes("Edit") ? <td colSpan={actions.length} className={`border-primaryLine h-14  border-2 bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
-                                                            <span className='text-white text-[16px]'>{"Actions"}</span>
-                                                        </td> : "" : <><td className={`border-primaryLine border-2 h-14  bg-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
-                                                            <span className='text-white text-[16px]'>{itts.name}</span>
+                                                        ["Edit"].includes(itts.name) ? <td colSpan={actions.length} className={`border-primaryLine h-10  border-[0.1px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
+                                                            <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                        </td> : !actions.includes("Edit") ? <td colSpan={actions.length} className={`border-primaryLine h-10  border-[0.1px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
+                                                            <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                        </td> : "" : <><td className={`border-primaryLine border-2 h-10  bg-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
+                                                            <span className='text-white text-[12px]'>{itts.name}</span>
                                                         </td></>
                                                 }
                                             </> : <></>
@@ -214,7 +214,7 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                         return <tr>
                                             {table.columns.map((innerItm, index) => {
 
-                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[14px] h-14 pl-1 border-primaryLine border-2 overflow-hidden text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
+                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[11px] h-12 pl-1 border-gray-400 border-[0.1px] overflow-hidden text-slate-800 ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
 
                                                     <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm.value]} />
                                                 </td> : <></>
@@ -245,10 +245,10 @@ const AdvancedTable = ({ tableName = "", headerButton, filterAfter = () => { }, 
                                                 return hide.indexOf(String(index)) == -1 ? <>
                                                     {
                                                         ["Edit", "Delete"].includes(itts.name) ?
-                                                            ["Edit"].includes(itts.name) ? <th colSpan={actions.length} className={' border-primaryLine border-2 bg-primaryLine '}>
-                                                                <span className='text-white text-[16px]'>{"Actions"}</span>
-                                                            </th> : "" : <><th className=' border-primaryLine border-2 bg-primaryLine '>
-                                                                <span className='text-white text-[16px]'>{itts.name}</span>
+                                                            ["Edit"].includes(itts.name) ? <th colSpan={actions.length} className={' border-primaryLine border-[0.1px] bg-primaryLine '}>
+                                                                <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                            </th> : "" : <><th className=' border-gray-400 border-[0.1px] bg-primaryLine '>
+                                                                <span className='text-white text-[12px]'>{itts.name}</span>
                                                             </th></>
                                                     }
                                                 </> : <></>

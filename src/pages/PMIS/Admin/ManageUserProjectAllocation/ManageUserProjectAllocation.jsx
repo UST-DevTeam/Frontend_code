@@ -48,13 +48,13 @@ const ManageUserProjectAllocation = () => {
 
     let roleList = useSelector((state) => {
         return state?.adminData?.getManageProfile.map((itm) => {
+
           return {
             label: itm?.roleName,
-            value: itm?.roleName,
+            value:itm?.uniqueId
           };
         });
       });
-
     
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getProjectAllocation
@@ -145,22 +145,12 @@ const ManageUserProjectAllocation = () => {
                 name: "Project",
                 value: "projectIdName",
                 style: "min-w-[300px] max-w-[250px] text-center"
-            },           
-            // {
-            //     name: "Cirlce",
-            //     value: "cirlce",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },           
+            },                    
             {
                 name: "Action",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
             },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]

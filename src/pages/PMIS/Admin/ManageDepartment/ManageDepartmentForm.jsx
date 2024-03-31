@@ -91,6 +91,7 @@ const ManageDepartmentForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
     }
     console.log(Form, "Form 11")
     useEffect(() => {
+        console.log("formValue in useEffect:", formValue);
         dispatch(AdminActions.getManageDepartment())
         if (resetting) {
             reset({})

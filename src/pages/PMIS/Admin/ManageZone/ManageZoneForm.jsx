@@ -126,7 +126,6 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     const onTableViewSubmit = (data) => {
         console.log(data, "datadata")
-        // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageZone(true, data, () => {
                 console.log("CustomQueryActions.postDBConfig")
