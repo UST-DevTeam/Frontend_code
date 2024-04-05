@@ -37,7 +37,7 @@ const PersonalInfo = (props) => {
   // const { empuid } = useParams();
   // console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
-  const [oneLoad, setOneLoad] = useState(true);
+  const [oneLoad, setOneLoad] = useState({});
   const [UserLyp, seteUserLyp] = useState("");
   const [nestfilter, setnestfilter] = useState({});
   const [onestfilter, setonestfilter] = useState({});
@@ -60,8 +60,8 @@ const PersonalInfo = (props) => {
 
   const PersonalInfo = useSelector((state) => {
     let data = state.myHomeData.getPersonalInfo;
-    if (data.length > 0 && oneLoad) {
-      setOneLoad(false);
+    if (data.length > 0 && data[0]!=oneLoad) {
+      setOneLoad(data[0]);
 
       // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
 
@@ -144,7 +144,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: {},
-      required: true,
+      required: false,
       placeholder: "",
       option: [
         { label: "Mr.", value: "Mr" },
@@ -158,7 +158,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -197,7 +197,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -215,7 +215,7 @@ const PersonalInfo = (props) => {
       type:"sdisabled",
       value: "",
       props: "",
-      required: true,
+      required: false,
     },
     // { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", required: true },
     {
@@ -224,7 +224,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -260,7 +260,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [{ label: "India", value: "india" }],
     },
@@ -271,6 +271,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       placeholder: "",
+      required: false,
       option: stateList,
       props: {
         onChange: (e) => {
@@ -286,6 +287,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
+      required: false,
       placeholder: "",
       option: cityList,
     },
@@ -295,7 +297,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -305,7 +307,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
   ];
@@ -323,7 +325,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [{ label: "India", value: "india" }],
     },
@@ -354,6 +356,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
+      required: false,
       placeholder: "",
       option: cityList,
     },
@@ -365,7 +368,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -375,7 +378,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
   ];
@@ -392,7 +395,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -419,6 +422,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
+      required: false,
       placeholder: "",
     },
     {
@@ -427,7 +431,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -436,7 +440,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
       option: [
         { label: "INR", value: "INR" },
@@ -449,7 +453,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     },
     {
@@ -486,7 +490,7 @@ const PersonalInfo = (props) => {
       name: "passport",
       value: "",
       type:"sdisabled",
-      required: true,
+      required: false,
       placeholder: "",
       option: [
         { label: "Yes", value: "Yes" },
@@ -507,7 +511,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
     });
   }
@@ -581,7 +585,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       option: roleList,
-      // required: true,
+      required: false,
       props: {},
       classes: "col-span-1",
     },
@@ -591,7 +595,7 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       option: roleList,
-      // required: true,
+      required: false,
       props: {},
       classes: "col-span-1",
     },
@@ -775,7 +779,7 @@ const PersonalInfo = (props) => {
       name: "status",
       value: "",
       type:"sdisabled",
-      required: true,
+      required: false,
       props: {},
       option: [
         { label: "Active", value: "Active" },

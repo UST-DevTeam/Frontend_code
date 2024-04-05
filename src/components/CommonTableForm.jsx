@@ -139,7 +139,7 @@ console.log(newdte, "listinglistinglisting")
 }} /> */}
   return (
     <>
-      <div className="w-full flex justify-end gap-1 ">
+      <div className="w-full flex justify-end gap-1 sticky top-0 bg-white">
         <Button name={"Bulk Upload"} icon={""} classes={"w-auto  my-auto"} onClick={() => {
           console.log("dasdasdas")
 
@@ -376,9 +376,9 @@ console.log(newdte, "listinglistinglisting")
               // }), itm["fieldName"], "listinglistinglisting")
 
 
-              console.log(itm[its.name],its.name,"itm[its.dedeedxedcdeename]")
+              console.log(itm,its.name,listing,"listinglistinglistinglisting")
               return {
-                [its.label]: <CreateFormField itm={{
+                [its.label]: <CreateFormField Form={Form} listing={listing} itm={{
                   ...its,
                   name: its.name + itm.index,
                   value: itm[its.name],
@@ -395,6 +395,58 @@ console.log(newdte, "listinglistinglisting")
                   }) : its.option,
                   closeOnChangedValue:false,
                   props: propscheck,
+                  inneroption: listing.length>0 ? listing.filter((ityt) => {
+                    if (ityt["fieldName"]!="" && ityt["fieldName"]!=undefined) {
+                      return ityt
+                    }
+                  }).map((ityt) => {
+                    return {
+                      "id": ityt.fieldName,
+                      "name": ityt.fieldName
+                    }
+                  }) : [],
+                  
+                  inneronSelect: (e) => {
+
+                    let finalselection = e.map((itm) => { return itm.id })
+
+                    const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
+
+                    // console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
+                    dispatch(SET_DYNAMIC_FORM_INDEX_INNER({ label:tabHead,valer: its.name,indexToUpdate: indexToUpdate, value: { dropdownValue:finalselection.join(",") }  }))
+
+                    setedit(prev => !prev)
+                    // setValue(itm.name, finalselection.join())
+
+                    // const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
+                    // console.log(finalselection,e, "onselection")
+                    // console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
+                    // dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
+
+                    
+                    // setedit(prev => !prev)
+
+                  },
+                  inneronRemove: (e) => {
+                    let finalselection = e.map((itm) => { return itm.id })
+                    // setValue(itm.name, finalselection.join())
+                    // console.log(e, "onselection")
+                    console.log(finalselection, "onRemove")
+                    const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
+
+                    // console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
+                    dispatch(SET_DYNAMIC_FORM_INDEX_INNER({ label:tabHead,valer: its.name,indexToUpdate: indexToUpdate, value: { dropdownValue:finalselection.join(",") }  }))
+
+                    setedit(prev => !prev)
+
+                    // const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
+
+                    // console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
+                    // dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
+
+                    // setedit(prev => !prev)
+                  },
+
                   onSelect: (e) => {
 
                     let finalselection = e.map((itm) => { return itm.id })
@@ -450,7 +502,9 @@ console.log(newdte, "listinglistinglisting")
               // Inside the new object, iterate over the 'Form' array
               Form.forEach((its, innerIndex) => {
                 // Populate the new object with key-value pairs from 'Form'
-                newObj[its.label] = itm[its.name];
+                // ${itm["dropdownValue"]?" ( "+itm["dropdownValue"]+" ) ":""}
+                console.log(its,itm,"its,itmits,itmits,itmits,itm")
+                newObj[its.label] = `${itm[its.name]} ${(itm["dataType"]=="Auto Created" || itm["dataType"]=="Dropdown" ) && its.name=="dataType"?" ( "+itm["dropdownValue"]+" ) ":""}`;
               });
               // Return the newly created object
               return newObj;

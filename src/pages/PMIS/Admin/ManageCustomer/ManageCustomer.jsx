@@ -207,6 +207,8 @@ const ManageCustomer = () => {
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
     }, [])
+
+    
     return type ?
         <>
 

@@ -30,13 +30,15 @@ import CompletitonCreiteriaForm from './CompletitonCreiteriaForm';
 
 
 
-const ManageMilestoneSite = ({ uid, mileStone, setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
+const ManageMilestoneSite = ({ siteCompleteData, uid, mileStone, setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
 
 
     const { customeruniqueId } = useParams()
 
+    let assignedToCount=mileStone?.assignerResult?.length || 0
 
-    console.log(mileStone, "mileStonemileStonemileStone")
+
+    console.log(siteCompleteData, "siteCompleteDatamileStonemileStonemileStone")
 
     const { register, handleSubmit, watch, setValue, setValues, getValues, reset, formState: { errors } } = useForm()
 
@@ -537,10 +539,22 @@ const ManageMilestoneSite = ({ uid, mileStone, setGlobalData, projectuniqueId, s
                 </div>
                 <div className='w-full'>
                     <Button classes='w-auto ' name={"Completion Criteria"} onClick={() => {
-                        // alert("sdfghjkl")
 
-                        setmodalBody(<CompletitonCreiteriaForm customeruniqueId={customeruniqueId} projectuniqueId={projectuniqueId} setmodalFullOpen={setmodalFullOpen} setmodalOpen={setmodalOpen} mileStone={mileStone} />)
-                        setmodalOpen(true)
+                        if(assignedToCount!=0){
+                            setmodalBody(<CompletitonCreiteriaForm siteCompleteData={siteCompleteData} customeruniqueId={customeruniqueId} projectuniqueId={projectuniqueId} setmodalFullOpen={setmodalFullOpen} setmodalOpen={setmodalOpen} mileStone={mileStone} />)
+                            setmodalOpen(true)
+                        }else{
+                            let msgdata = {
+                                
+                                show: true,
+                                icon: "error",
+                                buttons: [],
+                                type: 1,
+                                text: "For Closing this task you need to assign first?"
+                            }
+                            dispatch(ALERTS(msgdata))
+                        }
+                        // alert("sdfghjkl")
                     }}></Button>
                 </div>
             </div>

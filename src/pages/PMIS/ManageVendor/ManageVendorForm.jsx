@@ -89,6 +89,15 @@ const ManageVendorForm = (props) => {
     });
   });
 
+  let circleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle.map((itm) => {
+        return {
+            label: itm.circleName,
+            value: itm.uniqueId
+        }
+    })
+})
+
   // let employeeList = [reportingManager,L2expManager,financeApproverList,reportingHrManager],
 
   let employeeList = useSelector((state) => {
@@ -108,7 +117,7 @@ const ManageVendorForm = (props) => {
     },
     {
       label: "Vendor Name",
-      name: "vendorName",
+      name: "empName",
       value: "",
       type: "text",
       props: {},
@@ -157,7 +166,16 @@ const ManageVendorForm = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: false,
+      required: true,
+      placeholder: "",
+    },
+    {
+      label: "Vendor Code",
+      name: "empCode",
+      value: "",
+      type: "text",
+      props: "",
+      required: true,
       placeholder: "",
     },
     {
@@ -189,9 +207,19 @@ const ManageVendorForm = (props) => {
       label: "Operational Circle's",
       name: "operationalCircle",
       value: "",
-      type: "text",
+      type: "select",
       props: "",
       required: false,
+      option: circleList,
+      placeholder: "",
+    },
+    {
+      label: "Password",
+      name: "password",
+      value: "",
+      type: "text",
+      props: "",
+      required: true,
       placeholder: "",
     },
   ];
@@ -219,7 +247,8 @@ const ManageVendorForm = (props) => {
       label: "GST No.",
       name: "gstNumber",
       value: "",
-      type: "number",
+      type: "text",
+      required: true,
       placeholder: "",
     },
     {
@@ -380,131 +409,131 @@ const ManageVendorForm = (props) => {
     },
   ];
 
-  // let TechnicalEvaluation = [
-  //   {
-  //     type: "heading",
-  //     label: "Technical Evaluation",
-  //     classes: "col-span-4 font-extrabold text-black-900 text-start",
-  //   },
-  //   {
-  //     label: "Team Capacity",
-  //     name: "teamCapacity",
-  //     value: "",
-  //     type: "text",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Working Circle's",
-  //     name: "workingCircle",
-  //     value: "",
-  //     type: "select",
-  //     placeholder: "",
-  //   },
+  let TechnicalEvaluation = [
+    {
+      type: "heading",
+      label: "Technical Evaluation",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    {
+      label: "Team Capacity",
+      name: "teamCapacity",
+      value: "",
+      type: "text",
+      props: "",
+      required: true,
+      placeholder: "",
+    },
+    {
+      label: "Working Circle's",
+      name: "workingCircle",
+      value: "",
+      type: "select",
+      placeholder: "",
+    },
 
-  //   {
-  //     label: "Tecnology",
-  //     name: "technology",
-  //     value: "",
-  //     type: "text",
-  //     props: "",
-  //     placeholder: "",
-  //   },
+    {
+      label: "Tecnology",
+      name: "technology",
+      value: "",
+      type: "text",
+      props: "",
+      placeholder: "",
+    },
 
-  //   {
-  //     label: "CBT HR Certified (Y/N)",
-  //     name: "cbt",
-  //     value: "",
-  //     type: "select",
-  //     props: "",
-  //     option: [
-  //       { label: "Yes", value: "Yes" },
-  //       { label: "No", value: "No" },
-  //     ],
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Certificate Attachment",
-  //     name: "cbtCertificate",
-  //     value: "",
-  //     type: "file",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Form Tociii",
-  //     name: "formToci",
-  //     value: "",
-  //     type: "text",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Certificate Attachment",
-  //     name: "tociCertificate",
-  //     value: "",
-  //     type: "file",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  // ];
+    {
+      label: "CBT HR Certified (Y/N)",
+      name: "cbt",
+      value: "",
+      type: "select",
+      props: "",
+      option: [
+        { label: "Yes", value: "Yes" },
+        { label: "No", value: "No" },
+      ],
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Certificate Attachment",
+      name: "cbtCertificate",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Form Tociii",
+      name: "formToci",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Certificate Attachment",
+      name: "tociCertificate",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+  ];
 
-  // let CommercialEvaluation = [
-  //   {
-  //     type: "heading",
-  //     label: "Commercial Evaluation",
-  //     classes: "col-span-4 font-extrabold text-black-900 text-start",
-  //   },
-  //   {
-  //     label: "Vendor Code",
-  //     name: "vendorCode",
-  //     value: "",
-  //     type: "text",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Date of Registration",
-  //     name: "datetime",
-  //     value: "",
-  //     type: "datetime",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Validity Upto",
-  //     name: "datetime",
-  //     value: "",
-  //     type: "datetime",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Contract Copy",
-  //     name: "contractCopy",
-  //     value: "",
-  //     type: "text",
-  //     props: "",
-  //     required: false,
-  //     placeholder: "",
-  //   },
-  //   {
-  //     label: "Payment Terms (Days)",
-  //     name: "paymentTerms",
-  //     value: "",
-  //     type: "number",
-  //     props: "",
-  //     placeholder: "",
-  //   },
-  // ];
+  let CommercialEvaluation = [
+    {
+      type: "heading",
+      label: "Commercial Evaluation",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    {
+      label: "Vendor Code",
+      name: "vendorCode",
+      value: "",
+      type: "text",
+      props: "",
+      required: true,
+      placeholder: "",
+    },
+    {
+      label: "Date of Registration",
+      name: "datetime",
+      value: "",
+      type: "datetime",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Validity Upto",
+      name: "datetime",
+      value: "",
+      type: "datetime",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Contract Copy",
+      name: "contractCopy",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Payment Terms (Days)",
+      name: "paymentTerms",
+      value: "",
+      type: "number",
+      props: "",
+      placeholder: "",
+    },
+  ];
 
   // let EmployeeProfile = [
   //   {
@@ -758,6 +787,7 @@ const ManageVendorForm = (props) => {
     dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageDesignation());
     dispatch(AdminActions.getManageProfile());
+    dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getState());
     if (empuid) {
       dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
@@ -770,9 +800,9 @@ const ManageVendorForm = (props) => {
       // reset({});
       [
         ...PersonalInformation,
-        // ...FinancialEvaluation,
-        // ...TechnicalEvaluation,
-        // ...CommercialEvaluation,
+        ...FinancialEvaluation,
+        ...TechnicalEvaluation,
+        ...CommercialEvaluation,
         // ...EmployeeProfile,
       ].map((itss) => {
         console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
@@ -849,7 +879,7 @@ const ManageVendorForm = (props) => {
                   />) : (
                     <></>
                   )}
-                  {/* {level >= 4 ? (<CommonForm
+                  {level >= 4 ? (<CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
                     }
@@ -860,7 +890,7 @@ const ManageVendorForm = (props) => {
                     getValues={getValues}
                   />) : (
                     <></>
-                  )} */}
+                  )}
                   {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"

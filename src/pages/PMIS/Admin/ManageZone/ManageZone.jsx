@@ -137,7 +137,7 @@ const ManageZone = () => {
             },
             {
                 name: "Circle",
-                value: "circle",
+                value: "circleName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {

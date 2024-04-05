@@ -5,6 +5,8 @@
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
+// export const baseUrl="http://192.168.29.72:7980"
+// export const backendassetUrl="http://192.168.29.72:7980/"
 
 // export const baseUrl="http://192.168.1.102:7980"
 // export const backendassetUrl="http://192.168.1.102:7980/"
@@ -97,9 +99,9 @@ export const Urls={
     admin_assetRegistration:"/myHome/assetRegistration",
     common_file_uploadr:"/commonUploadFile",
     templateUploadFile:"/templateUploadFile",
-
-
-    vendor_details:"/vendorDetails"
+    vendor_details:"/vendorDetails",
+    vendor_project_allocation:"/vendorProjectAllocation",
+    vendor_project_list:"/vendorSiteId"
 }
 
 

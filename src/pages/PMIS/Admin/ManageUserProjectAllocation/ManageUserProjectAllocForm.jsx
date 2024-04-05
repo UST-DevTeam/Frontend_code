@@ -99,42 +99,17 @@ const ManageUserProjectAllocForm = ({
       classes: "col-span-1",
     },
     {
-        label: "Profile",
-        name: "userRole",
-        value: "",
-        required: true,
-        type:"sdisabled",
-        classes: "col-span-1",
-      },
-    // {
-    //   label: "Profile",
-    //   name: "roleName",
-    //   type: "select",
-    //   value: "",
-    //   option: roleList,
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Employee Name",
-    //   value: "",
-    //   name: "empName",
-    //   type: "select",
-    //   option: employeeList,
-    //   required: true,
-    //   props: {
-    //     onChange: (e) => {
-    //       console.log(e.target.value, "e geeter")
-
-    //       setValue("projectType", e.target.value);
-    //     },
-    //   },
-    //   classes: "col-span-1",
-    // },
+      label: "Profile",
+      name: "userRole",
+      value: "",
+      required: true,
+      type:"sdisabled",
+      classes: "col-span-1",
+    },
     {
       label: "Project",
-      name: "project",
-      type: "muitiSelect",
+      name: "projectIds",
+      type: "BigmuitiSelect",
       value: "",
       option: projectList,
       props: {

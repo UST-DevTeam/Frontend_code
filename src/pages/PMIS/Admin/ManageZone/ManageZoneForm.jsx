@@ -98,7 +98,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             label: "Circle",
             value: "",
             name: "circle",
-            type: "muitiSelect",
+            type: "BigmuitiSelect",
             option: circleList,
             required: true,
             props: {
@@ -142,7 +142,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
-        // dispatch(AdminActions.getManageZone())
+        dispatch(AdminActions.getManageCircle())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

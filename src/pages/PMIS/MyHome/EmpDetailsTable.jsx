@@ -73,7 +73,7 @@ const EmpDetailsTable = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true,  }));
+                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
                   navigate(`/empdetails/${itm.uniqueId}`);
                   // dispatch(HrActions.getManageEmpDetails())
                   // setmodalHead("Edit Customer Details")
@@ -199,7 +199,7 @@ const EmpDetailsTable = () => {
       },
       {
         name: "PMIS Role",
-        value: "userRole",
+        value: "userRoleName",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {

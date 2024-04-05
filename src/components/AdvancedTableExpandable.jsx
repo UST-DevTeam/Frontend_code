@@ -199,19 +199,19 @@ const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = (
                         <table border={1} className='w-[100%] table-auto'>
                             <thead className='sticky -top-1 h-4 z-30'>
                                 <tr >
-                                    <td className='border-primaryLine h-14  border-2 bg-primaryLine min-w-[10px] max-w-[10px] text-center'></td>
+                                    <td className='border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[10px] max-w-[10px] text-center'></td>
                                     {
                                         table.columns.map((itts, index) => {
                                             console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
                                             return hide.indexOf(String(index)) == -1 ? <>
                                                 {
                                                     actions.includes(itts.name) ?
-                                                        ["Edit"].includes(itts.name) ? <td colSpan={actions.length} className={`border-primaryLine h-14  border-2 bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
-                                                            <span className='text-white text-[16px]'>{"Actions"}</span>
-                                                        </td> : !actions.includes("Edit") ? <td colSpan={actions.length} className={`border-primaryLine h-14  border-2 bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
-                                                            <span className='text-white text-[16px]'>{"Actions"}</span>
-                                                        </td> : "" : <><td className={`border-primaryLine border-2 h-14  bg-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
-                                                            <span className='text-white text-[16px]'>{itts.name}</span>
+                                                        ["Edit"].includes(itts.name) ? <td colSpan={actions.length} className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
+                                                            <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                        </td> : !actions.includes("Edit") ? <td colSpan={actions.length} className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}>
+                                                            <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                        </td> : "" : <><td className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
+                                                            <span className='text-white text-[12px]'>{itts.name}</span>
                                                         </td></>
                                                 }
                                             </> : <></>
@@ -268,10 +268,10 @@ const AdvancedTableExpandable = ({ tableName = "", headerButton, filterAfter = (
                                                 return hide.indexOf(String(index)) == -1 ? <>
                                                     {
                                                         ["Edit", "Delete"].includes(itts.name) ?
-                                                            ["Edit"].includes(itts.name) ? <th colSpan={actions.length} className={' border-primaryLine border-2 bg-primaryLine '}>
-                                                                <span className='text-white text-[16px]'>{"Actions"}</span>
-                                                            </th> : "" : <><th className=' border-primaryLine border-2 bg-primaryLine '>
-                                                                <span className='text-white text-[16px]'>{itts.name}</span>
+                                                            ["Edit"].includes(itts.name) ? <th colSpan={actions.length} className={' border-primaryLine border-[1.5px] bg-primaryLine '}>
+                                                                <span className='text-white text-[12px]'>{"Actions"}</span>
+                                                            </th> : "" : <><th className=' border-primaryLine border-[1.5px] bg-primaryLine '>
+                                                                <span className='text-white text-[12px]'>{itts.name}</span>
                                                             </th></>
                                                     }
                                                 </> : <></>

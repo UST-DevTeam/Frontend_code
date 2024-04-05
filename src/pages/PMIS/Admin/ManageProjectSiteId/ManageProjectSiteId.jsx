@@ -128,6 +128,8 @@ const ManageProjectSiteId = () => {
                         }
                     }} />
                 </>,
+                
+                siteage: itm.siteageing ? itm.siteageing >= 0 ? <p className='text-green-600'>{itm.siteageing + " Days"}</p> : <p className='text-red-600'>{itm.siteageing + " Days"}</p>:"",
                 // siteStartDate: <div className='flex content-center w-full justify-center'>
                 //     <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
                 //         setmodalOpen(true)
@@ -189,7 +191,7 @@ const ManageProjectSiteId = () => {
                             // dispatch(AdminActions.getProject())
                             setmodalHead("Update Milestone")
                             dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId))
-                            setmodalBody(<ManageMilestoneSite uid={itm["uniqueId"]} mileStone={iewq} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
+                            setmodalBody(<ManageMilestoneSite siteCompleteData={itm} uid={itm["uniqueId"]} mileStone={iewq} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
 
                             // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                         }}>{iewq.Name}</p>,
@@ -215,7 +217,7 @@ const ManageProjectSiteId = () => {
 
                                         console.log(tkChaeck, "tkChaecktkChaecktkChaeck")
 
-                                        if (tkChaeck) {
+                                        if (tkChaeck && itm.totalCount==itm.milestoneCount) {
                                             setparentsite(prev => [...prev, itm.uniqueId])
                                         }
 
@@ -384,12 +386,12 @@ const ManageProjectSiteId = () => {
             },
             {
                 name: "Completition Date",
-                value: "endDate",
+                value: "Site_Completion Date",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Ageing",
-                value: "endDate",
+                value: "siteage",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
 
@@ -406,7 +408,7 @@ const ManageProjectSiteId = () => {
             },
             {
                 name: "Status",
-                value: "status",
+                value: "siteStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
 
             },

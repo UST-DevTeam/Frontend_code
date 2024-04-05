@@ -33,7 +33,7 @@ const DPAOneRow = ({ name, id , fetchBackend}) => {
                 // data_from_socket[id]==undefined
                 // fivedotloader bg-secLine
                 data_from_socket[id] == undefined && fetchBackend ? <div className=''>Processing</div> : <>
-                    <h1 className='cursor-pointer'>{name}</h1>
+                    <h1 className='-pointer'>{name}</h1>
                     <UilInfoCircle size="14" />
                     
                     </>
