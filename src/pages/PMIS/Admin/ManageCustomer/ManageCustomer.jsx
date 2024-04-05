@@ -35,6 +35,13 @@ const ManageCustomer = () => {
 
     let navigate = useNavigate()
 
+    const currentDate = new Date();
+    const dt = currentDate.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).replace(/\//g, '-')
+
 
 
 
@@ -132,7 +139,7 @@ const ManageCustomer = () => {
             {
                 name: "Logo",
                 value: "imgshow",
-                style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-white"
+                style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-white"
             },
             {
                 name: "Customer Name",
@@ -218,7 +225,7 @@ const ManageCustomer = () => {
                 }} name={"View"} />
             </div>
             <AdvancedTable
-                headerButton={<><Button onClick={(e) => {
+                headerButton={<><Button classes ='mr-1' onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(OperationManagementActions.getOperationUserList())
                     setmodalHead("Add Customer")
@@ -226,6 +233,8 @@ const ManageCustomer = () => {
                 }}
                     name={"Add Customer"}></Button></>}
                 table={table}
+                // templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
+                exportButton={["/export/manageCustomer","Export_Customer("+dt+").xlsx"]}
                 filterAfter={onSubmit}
                 tableName={"UserListTable"}
                 handleSubmit={handleSubmit}
@@ -266,7 +275,7 @@ const ManageCustomer = () => {
                             onClick={() => {
                                 navigate(`${"/projectType"}/${itm["uniqueId"]}`)
                             }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
+                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto flex content-center w-24' src={backendassetUrl + itm["companyimg"]} /></>}
                             <div className='m-auto '>{itm["customerName"]}</div>
                         </div>
                     </>

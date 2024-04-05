@@ -3,8 +3,8 @@
 // export const baseUrl="http://10.5.50.198:7980"
 // export const backendassetUrl="http://10.5.50.198:7980/"
 
-// export const baseUrl="http://192.168.29.72:7980"
-// export const backendassetUrl="http://192.168.29.72:7980/"
+export const baseUrl="http://192.168.29.72:7980"
+export const backendassetUrl="http://192.168.29.72:7980/"
 
 // export const baseUrl="http://192.168.1.102:7980"
 // export const backendassetUrl="http://192.168.1.102:7980/"
@@ -33,8 +33,8 @@
 // export const baseUrl="http://192.168.1.102:7980"
 // export const backendassetUrl="http://192.168.1.102:7980/"
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"
 
 
 // export const baseUrl="http://192.168.57.116:7980"
