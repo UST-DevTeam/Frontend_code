@@ -8,8 +8,9 @@ import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 
 
-const CompletitonCreiteriaForm = ({ mileStone,projectuniqueId,setmodalFullOpen,setmodalOpen,customeruniqueId }) => {
+const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,setmodalFullOpen,setmodalOpen,customeruniqueId }) => {
 
+    console.log(siteCompleteData["siteStartDate"],"projectuniqueIdprojectuniqueIdprojectuniqueId")
 
     const dispatch = useDispatch()
     let mileStoneCompletion = {
@@ -20,6 +21,35 @@ const CompletitonCreiteriaForm = ({ mileStone,projectuniqueId,setmodalFullOpen,s
         "Attachment": "file",
         "Reference No": "number",
     }
+    const dateString = siteCompleteData["siteStartDate"];
+    const [month, day, year] = dateString.split('-').map(Number);
+    
+    const datestr = new Date(year, month - 1, day);
+
+    let mileStoneprops = {
+        "Completion Date": {
+            maxSelectableDate:new Date(),
+            minSelectableDate:datestr
+        },
+        "Checklist": {
+            
+        },
+        "MO No": {
+            
+        },
+        "Challan copy": {
+            
+        },
+        "Attachment": {
+            
+        },
+        "Reference No": {
+            
+        }
+    }
+
+
+    
 
 
     const CompletionForm = [
@@ -29,6 +59,7 @@ const CompletitonCreiteriaForm = ({ mileStone,projectuniqueId,setmodalFullOpen,s
             name: "CC_" + mileStone["Completion Criteria"],
             required: true,
             type: mileStoneCompletion[mileStone["Completion Criteria"]],
+            props:mileStoneprops[mileStone["Completion Criteria"]]
         }
     ]
 

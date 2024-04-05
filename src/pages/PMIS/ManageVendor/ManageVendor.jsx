@@ -44,7 +44,7 @@ const ManageVendor = () => {
 
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
-    let interdata = state?.VendorReducer?.getManageVendorDetails;
+    let interdata = state?.vendorData?.getManageVendorDetails;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -159,7 +159,7 @@ const ManageVendor = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.VendorReducer?.getManageVendorDetails;
+    let interdata = state?.vendorData?.getManageVendorDetails;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -174,14 +174,14 @@ const ManageVendor = () => {
   let table = {
     columns: [
       {
-        name: "Emp Name",
-        value: "vendorName",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
-      },
-      {
-        name: "Emp Code",
+        name: "Vendor Code",
         value: "empCode",
         style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+      },
+      {
+        name: "Vendor Name",
+        value: "empName",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
         name: "Email ID",
@@ -189,20 +189,25 @@ const ManageVendor = () => {
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "Mobile No.",
+        name: "Contact No.",
         value: "mobile",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Designation",
-        value: "designation",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        name: "Contact Person Name",
+        value: "mobile",
+        style: "min-w-[150px] max-w-[450px] text-center whitespace-nowrap",
       },
       {
-        name: "PMIS Role",
-        value: "userRole",
-        style: "min-w-[120px] max-w-[450px] text-center",
+        name: "Validity Upto",
+        value: "validity",
+        style: "min-w-[250px] max-w-[450px] text-center",
       },
+      // {
+      //   name: "PMIS Role",
+      //   value: "userRole",
+      //   style: "min-w-[120px] max-w-[450px] text-center",
+      // },
       {
         name: "Status",
         value: "status",

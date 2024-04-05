@@ -105,7 +105,8 @@ const ManageProjectType = () => {
         }, {
           label: "Date",
           value: "Date"
-        }, {
+        }, 
+        {
           label: "Dropdown",
           value: "Dropdown",
           extended: {
@@ -113,7 +114,16 @@ const ManageProjectType = () => {
             type: "text",
             option: []
           }
-        }
+        },
+        {
+          label: "Auto Created",
+          value: "Auto Created",
+          extended: {
+            typer: "add",
+            type: "text",
+            option: []
+          }
+        },
       ],
       props: "",
       required: false,
@@ -588,7 +598,7 @@ const ManageProjectType = () => {
               "Tracking": <CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Issues": <CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Financials": <CommonTableForm tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
-            }} />
+            }} /> 
 
 
             {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}

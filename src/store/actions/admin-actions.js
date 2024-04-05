@@ -15,6 +15,9 @@ import {
     GET_STATE,
     GET_CITIES,
     GET_PROJECT_ALLLOCATION,
+    GET_VENDOR_PROJECT_ALLLOCATION,
+
+
     // Not in use
     GET_MANAGE_SUB_PROJECT,
     GET_ONE_MANAGE_PROJECT,
@@ -476,6 +479,40 @@ const AdminActions = {
             let dataAll = res?.data?.data
             dispatch(GET_VISHAL({dataAll,reset}))
         } catch (error) {
+        }
+    },
+
+
+    getVendorProjectAllocation:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            console.log("cities",args)
+            const res = await Api.get({ url:`${Urls.vendor_project_allocation}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_VENDOR_PROJECT_ALLLOCATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postVendorProjectAllocation: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.vendor_project_allocation : Urls.vendor_project_allocation + "/" + uniqueId})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
         }
     },
 

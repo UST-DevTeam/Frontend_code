@@ -39,7 +39,7 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
             </div>
         }
         {
-            oppshowbtn && <div className='flex p-2 ml-auto'>
+            oppshowbtn && <div className='flex p-3 ml-auto'>
                 <Button classes='w-auto' onClick={onpassclick} name={opplabel} />
             </div>
         }

@@ -79,6 +79,7 @@ import ManageProjectGroup from "../pages/PMIS/Admin/ManageProjectGroup/ManagePro
 // import Project from "../pages/PMIS/Admin/Project/Project";
 import ManageSubProject from "../pages/PMIS/Admin/ManageSubProject/ManageSubProject";
 import ManageUserProjectAllocation from "../pages/PMIS/Admin/ManageUserProjectAllocation/ManageUserProjectAllocation";
+import VendorProjectAllocation from "../pages/PMIS/Admin/VendorProjectAllocation/VendorProjectAllocation";
 import ManageProject from "../pages/PMIS/Admin/ManageProject/ManageProject";
 import ManageDepartment from "../pages/PMIS/Admin/ManageDepartment/ManageDepartment";
 import ManageDesignation from "../pages/PMIS/Admin/ManageDesignation/ManageDesignation";
@@ -86,7 +87,16 @@ import ManageProfile from "../pages/PMIS/Admin/ManageProfile(userrole)/ManagePro
 import ManageProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteId";
 import ExpenseAndAdvance from "../pages/PMIS/MyHome/ExpenseAndAdvance";
 import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
+import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
+import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
+import ManageUserProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageUserProjectSiteId";
 
+
+
+let user=JSON.parse(localStorage.getItem("user"))
+let rolename=user?.roleName
+
+console.log(rolename,["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename),"rolenamerolenamerolename")
 export const Sidebar_content = {
   temp: [],
   GlobalUrl: [
@@ -246,6 +256,12 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/vendorProjectAllocation",
+      subMenu: [],
+      component: <VendorProjectAllocation/>,
+    },
+    {
+      name: "",
       link: "/manageDepartment",
       subMenu: [],
       component: <ManageDepartment />,
@@ -262,6 +278,21 @@ export const Sidebar_content = {
       subMenu: [],
       component: <AssetRegistration />,
       icon: <Unicons.UilChannel size="16" />,
+    },
+
+  {
+      name: "",
+      link: "/manageVendor",
+      component: <ManageVendor />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/vendorProject",
+      component: <VendorProject />,
+      icon: <UilStore />,
+      subMenu: [],
     },
   ],
 
@@ -431,7 +462,8 @@ export const Sidebar_content = {
     {
       name: "Project Management",
       link: "/manageCustomer",
-      component: <ManageCustomer />,
+      component: ["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename)==-1?<ManageCustomer />:<ManageUserProjectSiteId />,
+      // component: <ManageUserProjectSiteId />,
       subMenu: [
         // {
         //   name: "Manage Project Group",
@@ -488,8 +520,8 @@ export const Sidebar_content = {
     },
     {
       name: "Vendor Management",
-      link: "/manageVendor",
-      component: <ManageVendor />,
+      link: "/vendorCards",
+      component: <VendorCards />,
       icon: <UilStore />,
       subMenu: [],
     },

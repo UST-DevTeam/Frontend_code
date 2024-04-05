@@ -20,7 +20,7 @@ const Button = ({ onClick, name, classes = "", icon }) => {
 
     return (
 
-        <button onClick={onClick} className={`${classes} ${classes.includes("bg")?"  ":" bg-pbutton "}  flex text-nowrap items-center rounded-md px-3 py-1 text-xs font-semibold leading-6 text-white shadow-md hover:bg-onHoverButton transition-colors duration-500`}>
+        <button onClick={onClick} className={`${classes} ${classes.includes("bg")?"  ":" bg-pbutton "}  flex text-nowrap items-center rounded-md px-3 py-auto text-xs font-semibold leading-6 text-white shadow-md hover:bg-onHoverButton transition-colors duration-500`}>
             {name} {icon}
         </button>
     )

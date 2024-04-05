@@ -12,7 +12,7 @@ import { useParams } from "react-router";
 import AdminActions from "../../../../store/actions/admin-actions";
 import HrActions from "../../../../store/actions/hr-actions";
 
-const ManageUserProjectAllocForm = ({
+const VendorProjectAllocationForm = ({
   isOpen,
   setIsOpen,
   resetting,
@@ -91,29 +91,46 @@ const ManageUserProjectAllocForm = ({
 
   let Form = [
     {
-      label: "Employee",
-      name: "emp",
+      label: "Vendor",
+      name: "vendor",
       value: "",
       required: true,
       type:"sdisabled",
       classes: "col-span-1",
     },
-    {
-      label: "Profile",
-      name: "userRole",
-      value: "",
-      required: true,
-      type:"sdisabled",
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Profile",
+    //   name: "roleName",
+    //   type: "select",
+    //   value: "",
+    //   option: roleList,
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
+    // {
+    //   label: "Employee Name",
+    //   value: "",
+    //   name: "empName",
+    //   type: "select",
+    //   option: employeeList,
+    //   required: true,
+    //   props: {
+    //     onChange: (e) => {
+    //       console.log(e.target.value, "e geeter")
+
+    //       setValue("projectType", e.target.value);
+    //     },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Project",
-      name: "projectIds",
+      name: "project",
       type: "BigmuitiSelect",
       value: "",
       option: projectList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {}
       },
       classes: "col-span-1 w-full",
     },
@@ -137,22 +154,22 @@ const ManageUserProjectAllocForm = ({
   const onTableViewSubmit = (data) => {
     if (formValue.uniqueId) {
       dispatch(
-        AdminActions.postProjectAllocation(
+        AdminActions.postVendorProjectAllocation(
           data,
           () => {
             console.log("CustomQueryActions.postDBConfig");
             setIsOpen(false);
-            dispatch(AdminActions.getProjectAllocation());
+            dispatch(AdminActions.getVendorProjectAllocation());
           },
           formValue.uniqueId
         )
       );
     } else {
       dispatch(
-        AdminActions.postProjectAllocation(data, () => {
+        AdminActions.postVendorProjectAllocation(data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
-          dispatch(AdminActions.getProjectAllocation());
+          dispatch(AdminActions.getVendorProjectAllocation());
         })
       );
     }
@@ -226,4 +243,4 @@ const ManageUserProjectAllocForm = ({
   );
 };
 
-export default ManageUserProjectAllocForm;
+export default VendorProjectAllocationForm;

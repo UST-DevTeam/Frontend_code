@@ -126,7 +126,7 @@ const RoleManagement = () => {
             {
                 name: "Permission",
                 value: "edit",
-                style: "min-w-[30px] max-w-[200px]"
+                style: "min-w-[30px] max-w-[200px] text-center"
             }
         ],
         properties: {

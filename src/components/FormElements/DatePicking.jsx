@@ -16,6 +16,9 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
             //     setSelectedDate(prev=>!prev)
             // }}
 
+            maxDate={itm?.props?.maxSelectableDate}
+            minDate={itm?.props?.minSelectableDate}
+
             selected={getValues(itm.name) ? moment(getValues(itm.name), itm?.formatop).toDate() : getValues(itm.name)}
             onChange={(date) => {
 

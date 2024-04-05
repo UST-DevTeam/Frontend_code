@@ -57,15 +57,25 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
         let dataOlder = state.adminData.getProjectTypeDyform[0]
 
+
+        console.log(dataOlder,"dataOlderdataOlderdataOlder")
+
         return dataOlder
         if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
             let data = dataOlder[0]["t_sengg"].map((its) => {
+
+                console.log(its,"itsitsitsitsitsits")
                 return {
                     label: its.fieldName,
-                    required: its.required,
+                    required: its.dataType !="Auto Created"?its.required:false,
                     value: "",
                     name: its.fieldName,
                     type: its.dataType
+                }
+            })
+            dataOlder[0]["t_sengg"].map((its) => {
+                if(its.dataType =="Auto Created"){
+                    setValue(its.fieldName,"")
                 }
             })
             return data
@@ -306,7 +316,8 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
         "Text": "text",
         "Dropdown": "select",
         "Number": "number",
-        "Date": "datetime"
+        "Date": "datetime",
+        "Auto Created": "sdisabled"
     }
 
 

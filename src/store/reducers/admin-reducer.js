@@ -23,6 +23,8 @@ const initialState = {
     getProjectTypeDyform:[],
     getOneSEProjectTypeDyform:[],
     getVishal:[],
+    getVendorProjectAllocation:[],
+
 }
 
 const adminData = createSlice({
@@ -193,6 +195,14 @@ const adminData = createSlice({
             }
         },
 
+        GET_VENDOR_PROJECT_ALLLOCATION:(state,{payload}) => {
+            if(payload.reset){
+                state.getVendorProjectAllocation = payload.dataAll
+            }else{
+                state.getVendorProjectAllocation  = [...state.getVendorProjectAllocation,...payload.dataAll]
+            }
+        },
+
         
         
 
@@ -222,6 +232,7 @@ export const {
     GET_STATE,
     GET_CITIES,
     GET_PROJECT_ALLLOCATION,
+    GET_VENDOR_PROJECT_ALLLOCATION,
     GET_ONE_MANAGE_PROJECT,
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,

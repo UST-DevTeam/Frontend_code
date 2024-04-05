@@ -2,35 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../../components/EditButton';
-import ManageProjectGroupForm from '../ManageProjectGroup/ManageProjectGroupForm';
-import AdvancedTable from '../../../../components/AdvancedTable';
-import Modal from '../../../../components/Modal';
-import Button from '../../../../components/Button';
-import DeleteButton from '../../../../components/DeleteButton';
-import CstmButton from '../../../../components/CstmButton';
-import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString, parseTwoDigit } from '../../../../utils/commonFunnction';
-import { ALERTS } from '../../../../store/reducers/component-reducer';
-import CommonActions from '../../../../store/actions/common-actions';
-import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/admin-actions';
-import AdminActions from '../../../../store/actions/admin-actions';
+import EditButton from '../../../components/EditButton';
+// import ManageProjectGroupForm from '../ManageProjectGroup/ManageProjectGroupForm';
+import AdvancedTable from '../../../components/AdvancedTable';
+import Modal from '../../../components/Modal';
+import Button from '../../../components/Button';
+import DeleteButton from '../../../components/DeleteButton';
+import CstmButton from '../../../components/CstmButton';
+import ToggleButton from '../../../components/ToggleButton';
+import { objectToQueryString, parseTwoDigit } from '../../../utils/commonFunnction';
+import { ALERTS } from '../../../store/reducers/component-reducer';
+import CommonActions from '../../../store/actions/common-actions';
+import { Urls } from '../../../utils/url';
+import OperationManagementActions from '../../../store/actions/admin-actions';
+import AdminActions from '../../../store/actions/admin-actions';
+import VendorActions from '../../../store/actions/vendor-actions';
 import { useNavigate, useParams } from 'react-router-dom';
-import ManageProjectSiteIdForm from './ManageProjectSiteIdForm';
-import projectListActions from '../../../../store/actions/projectList-actions';
-import AdvancedTableExpandable from '../../../../components/AdvancedTableExpandable';
-import AllocateProjectForm from './AllocateProjectForm';
-import AllocateProjectDateForm from './AllocateProjectDateForm';
-import SearchBarView from '../../../../components/SearchBarView';
-import ManageSite from '../ManageSite/ManageSite';
-import EditingManageSite from '../ManageSite/EditingManageSite';
-import ManageMilestoneSite from '../ManageSite/ManageMilestoneSite';
-import ProgressBar from '../../../../components/ProgressBar';
-import { onehundcolor } from '../../../../utils/queryBuilder';
-import Tooltip from '../../../../components/Tooltip';
+// import ManageProjectSiteIdForm from './ManageProjectSiteIdForm';
+import projectListActions from '../../../store/actions/projectList-actions';
+import AdvancedTableExpandable from '../../../components/AdvancedTableExpandable';
+// import AllocateProjectForm from './AllocateProjectForm';
+// import AllocateProjectDateForm from './AllocateProjectDateForm';
+import SearchBarView from '../../../components/SearchBarView';
+// import ManageSite from '../ManageSite/ManageSite';
+// import EditingManageSite from '../ManageSite/EditingManageSite';
 
-const ManageProjectSiteId = () => {
+import ProgressBar from '../../../components/ProgressBar';
+import { onehundcolor } from '../../../utils/queryBuilder';
+import Tooltip from '../../../components/Tooltip';
+import ManageMilestoneSite from '../Admin/ManageSite/ManageMilestoneSite';
+
+const vendorProject = () => {
 
 
     const { projectuniqueId } = useParams()
@@ -78,12 +80,12 @@ const ManageProjectSiteId = () => {
 
 
     let dbConfigL = useSelector((state) => {
-        let interdata = state?.projectList?.getprojectalllist
+        let interdata = state?.vendorData?.getVendorProjectList
         return interdata
     })
     console.log(childsite, "childsitechildsite", parentsite, "parentsiteparentsite")
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.projectList?.getprojectalllist
+        let interdata = state?.vendorData?.getVendorProjectList
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -277,20 +279,20 @@ const ManageProjectSiteId = () => {
                 //     console.log(itm.enabled, "itm.enabled")
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
-                projectId: (
-                    <p
-                        // onClick={() => handleFullName(item)}
-                        onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-                        className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
-                    >
-                        {itm.projectId}
-                    </p>
-                ),
+                // projectId: (
+                //     <p
+                //         // onClick={() => handleFullName(item)}
+                //         onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
+                //         className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
+                //     >
+                //         {itm.projectId}
+                //     </p>
+                // ),
 
 
                 "edit": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getProject())
+                    dispatch(VendorActions.getManageVendorDetails())
                     setmodalHead("Edit Site ID")
                     setmodalBody(<>
                         <ManageProjectSiteIdForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -306,8 +308,8 @@ const ManageProjectSiteId = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getProject())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.vendor_project_list}/${itm.uniqueId}`, () => {
+                                    dispatch(VendorActions.getVendorProjectList())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -325,7 +327,7 @@ const ManageProjectSiteId = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getProject
+        let interdata = state?.vendorData?.getVendorProjectList
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -362,6 +364,11 @@ const ManageProjectSiteId = () => {
             {
                 name: "Site ID",
                 value: "siteIdLink",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Project ID",
+                value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -526,13 +533,13 @@ const ManageProjectSiteId = () => {
         // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageProjectGroup(value, objectToQueryString(data)))
+        dispatch(VendorActions.getVendorProjectList(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getManageProjectGroup())
-        dispatch(projectListActions.getProjectType(projectuniqueId))
+        dispatch(VendorActions.getVendorProjectList())
+        // dispatch(projectListActions.getProjectType(projectuniqueId))
 
-        dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+        // dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
 
 
 
@@ -543,23 +550,31 @@ const ManageProjectSiteId = () => {
     }, [])
     return <>
         <AdvancedTableExpandable
-            searchView={<SearchBarView onblur={(e) => {
-                console.log("SearchBarView onblur", e.target.value)
-                dispatch(projectListActions.getProjectTypeAll(projectuniqueId, e.target.value != "" ? "mileStoneName=" + e.target.value : ""))
-            }} onchange={(e) => {
+            // searchView={
+            // <SearchBarView onblur={(e) => {
+            //     console.log("SearchBarView onblur", e.target.value)
+            //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, e.target.value != "" ? "mileStoneName=" + e.target.value : ""))
+            // }} onchange={(e) => {
 
-                dispatch(projectListActions.getProjectTypeAll(projectuniqueId, e.target.value != "" ? "mileStoneName=" + e.target.value : ""))
-                console.log("SearchBarView onchange", e.target.value)
-            }} placeHolder={"Enter Milestone Name"} />}
+            //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, e.target.value != "" ? "mileStoneName=" + e.target.value : ""))
+            //     console.log("SearchBarView onchange", e.target.value)
+            // }} 
+            // placeHolder={"Enter Milestone Name"} />}
+
             headerButton={<div className='flex gap-1'>
-                <Button classes='w-auto ' onClick={(e) => {
+
+                
+                {/* <Button classes='w-auto ' onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(AdminActions.getProject())
                     setmodalHead("Add Site ID")
                     setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
-                    name={"Add Site ID"}></Button>
-                <Button classes='w-auto ' onClick={(e) => {
+                    name={"Add Site ID"}></Button> */}
+
+
+
+                {/* <Button classes='w-auto ' onClick={(e) => {
 
                     if (childsite.length > 0) {
                         setmodalOpen(prev => !prev)
@@ -579,13 +594,12 @@ const ManageProjectSiteId = () => {
                         dispatch(ALERTS(msgdata));
                     }
                 }}
-                    name={"Task Allocate"}></Button>
+                    name={"Task Allocate"}></Button> */}
 
 
 
 
-                <Button classes='w-auto ' onClick={(e) => {
-
+                {/* <Button classes='w-auto ' onClick={(e) => {
                     if (parentsite.length > 0) {
                         setmodalOpen(prev => !prev)
                         // dispatch(AdminActions.getProject())
@@ -603,7 +617,10 @@ const ManageProjectSiteId = () => {
                         dispatch(ALERTS(msgdata));
                     }
                 }}
-                    name={"Site Allocate"}></Button>
+                    name={"Site Allocate"}></Button> */}
+
+
+
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
@@ -633,4 +650,4 @@ const ManageProjectSiteId = () => {
 
 };
 
-export default ManageProjectSiteId;
+export default vendorProject;

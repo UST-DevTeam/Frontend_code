@@ -1,16 +1,14 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { 
-    GET_VENDOR_DETAILS,
+    GET_VENDOR_DETAILS,GET_VENDOR_PROJECT_LIST
 } from "../reducers/vendor-reducer"
 
 
 const VendorActions = {
 
-
     getManageVendorDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
         try {
-            // const res = await Api.get({ url:`${Urls.vendor_details}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`, reset })
             const res = await Api.get({ url:`${Urls.vendor_details}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
@@ -37,6 +35,16 @@ const VendorActions = {
             
         } catch (error) {
             return;
+        }
+    },
+
+    getVendorProjectList:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.vendor_project_list}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_VENDOR_PROJECT_LIST({dataAll,reset}))
+        } catch (error) {
         }
     },
 }

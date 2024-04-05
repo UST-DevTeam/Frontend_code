@@ -20,7 +20,7 @@ const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody
     return <>
         <tr>
 
-            <td className='text-[14px] pl-1 border-primaryLine border-2 text-primaryLine '>
+            <td className='text-[12px] pl-1 border-primaryLine border-[1.5px] text-primaryLine'>
                 <span onClick={() => {
                     setExpand(prev => !prev)
                 }}>{expand ? <UilAngleUp /> : <UilAngleDown />}
@@ -28,7 +28,7 @@ const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody
             </td>
             {table.columns.map((innerItm, index) => {
 
-                return hide.indexOf(String(index)) == -1 ? <td className={`text-[14px] pl-1 border-primaryLine border-2 text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
+                return hide.indexOf(String(index)) == -1 ? <td className={`text-[12px] pl-1 border-primaryLine border-[1.5px] text-primaryLine  ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
 
                     <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm.value]} />
                 </td> : <></>
@@ -46,7 +46,7 @@ const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody
                     console.log(onewqq.uniqueId,"onewqq.uniqueId")
                     return <tr>
 
-                        <td className='text-[14px] pl-1 border-primaryLine border-2 text-primaryLine '>
+                        <td className='text-[12px] pl-1 border-primaryLine border-[1.5px] text-primaryLine '>
                         {
 
                             multiSelect?<div className='flex justify-center'><input type='checkbox' name='groupOfCheck[]' value={onewqq.uniqueId}/></div>:<></>
@@ -60,7 +60,7 @@ const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody
                             table.childs[onewq[0]].map((itts) => {
 
                                 console.log(itts,onewqq, "ittsittsittsittsitts")
-                                return <td className={`text-[14px] pl-1 border-primaryLine border-2 text-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
+                                return <td className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] text-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
                                     <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={onewqq[itts.value]} />
                                 </td>
                             })

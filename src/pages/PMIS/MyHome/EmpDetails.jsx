@@ -10,7 +10,7 @@ import AdminActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import * as Unicons from "@iconscout/react-unicons";
 import UiTopBar from "../../../components/UiTopBar";
-import SweetAlerts from '../../../components/SweetAlerts';
+import SweetAlerts from "../../../components/SweetAlerts";
 import {
   UilFacebookF,
   UilTwitter,
@@ -37,7 +37,7 @@ const EmpDetails = (props) => {
   const { empuid } = useParams();
   console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
-  const [oneLoad, setOneLoad] = useState(false);
+  const [oneLoad, setOneLoad] = useState({});
   const [UserLyp, seteUserLyp] = useState("");
   const [nestfilter, setnestfilter] = useState({});
   const [onestfilter, setonestfilter] = useState({});
@@ -63,8 +63,8 @@ const EmpDetails = (props) => {
     let data = state.hrReducer.getManageEmpDetails;
 
     console.log(data, "datadatadatadatadatadatadata");
-    if (data.length > 0 && oneLoad) {
-      setOneLoad(false);
+    if (data.length > 0 && oneLoad != data[0]) {
+      setOneLoad(data[0]);
 
       // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
 
@@ -80,6 +80,7 @@ const EmpDetails = (props) => {
 
   console.log(getManageEmpDetails, "getManageEmpDetails");
 
+  const [isSame, setisSame] = useState(false);
   const [presentAddress, setPresentAddress] = useState({
     country: "",
     state: "",
@@ -96,6 +97,7 @@ const EmpDetails = (props) => {
     address: "",
   });
   const handleCheckboxChange = (e) => {
+    setisSame(e.target.checked);
     if (e.target.checked === true) {
       // Autofill permanent address from present address
       setPermanentAddress({ ...presentAddress });
@@ -111,7 +113,7 @@ const EmpDetails = (props) => {
     }
   };
   const handlePresentAddressChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target.value;
     setPresentAddress({
       ...presentAddress,
       [name]: value,
@@ -122,7 +124,7 @@ const EmpDetails = (props) => {
     return state?.adminData?.getManageDepartment.map((itm) => {
       return {
         label: itm?.department,
-        value: itm?.department,
+        value: itm?.uniqueId,
       };
     });
   });
@@ -131,7 +133,7 @@ const EmpDetails = (props) => {
     return state?.adminData?.getManageDesignation.map((itm) => {
       return {
         label: itm?.designation,
-        value: itm?.designation,
+        value: itm?.uniqueId,
       };
     });
   });
@@ -140,7 +142,7 @@ const EmpDetails = (props) => {
     return state?.adminData?.getManageProfile.map((itm) => {
       return {
         label: itm?.roleName,
-        value: itm?.roleName,
+        value: itm?.uniqueId,
       };
     });
   });
@@ -151,7 +153,7 @@ const EmpDetails = (props) => {
     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
       return {
         label: itm?.empName + " " + itm.empCode,
-        value: itm?.empName + " " + itm.empCode + " " + itm.uniqueId,
+        value: itm.uniqueId,
       };
     });
   });
@@ -583,7 +585,7 @@ const EmpDetails = (props) => {
       props: "",
       required: false,
       placeholder: "",
-      option: [{ label: "India", value: "india" }],
+      option: [{ label: "India", value: "India" }],
       onChange: handlePresentAddressChange,
     },
     {
@@ -669,16 +671,27 @@ const EmpDetails = (props) => {
     {
       type: "checkbox",
       name: "fillAddress",
+
+      props: {
+        onChange: (e) => {
+          handleCheckboxChange(e);
+        },
+      },
       option: [
         {
           type: "checkbox",
           name: "fillAddress",
           label: "Same As Present Address",
           checked: presentAddress === permanentAddress,
-          onChange: handleCheckboxChange
+          onChange: (e) => {
+            handleCheckboxChange(e);
+          },
         },
       ],
     },
+  ];
+
+  let datew = [
     {
       type: "heading",
       label: "Permanent Address",
@@ -686,17 +699,17 @@ const EmpDetails = (props) => {
     },
     {
       label: "Country",
-      name: "country",
+      name: "pcountry",
       value: permanentAddress.country,
       type: "select",
       props: "",
       required: false,
       placeholder: "",
-      option: [{ label: "India", value: "india" }],
+      option: [{ label: "India", value: "India" }],
     },
     {
       label: "State",
-      name: "state",
+      name: "pstate",
       value: permanentAddress.state,
       type: "select",
       placeholder: "",
@@ -705,7 +718,7 @@ const EmpDetails = (props) => {
         onChange: (e) => {
           console.log(e.target.value, "e_geeter");
 
-          setValue("state", e.target.value);
+          setValue("state1", e.target.value);
 
           dispatch(
             AdminActions.getCities(false, `stateCode=${e.target.value}`)
@@ -717,7 +730,7 @@ const EmpDetails = (props) => {
 
     {
       label: "city",
-      name: "city",
+      name: "pcity",
       value: permanentAddress.city,
       type: "select",
       props: "",
@@ -727,7 +740,7 @@ const EmpDetails = (props) => {
 
     {
       label: "PinCode",
-      name: "pincode",
+      name: "ppincode",
       value: permanentAddress.pincode,
       type: "text",
       props: "",
@@ -736,7 +749,7 @@ const EmpDetails = (props) => {
     },
     {
       label: "Address",
-      name: "address",
+      name: "paddress",
       value: permanentAddress.address,
       type: "textarea",
       props: "",
@@ -1179,7 +1192,7 @@ const EmpDetails = (props) => {
       label: "Password",
       name: "password",
       value: "",
-      type: "password",
+      type: "text",
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1239,11 +1252,34 @@ const EmpDetails = (props) => {
 
   const onTableViewGenerateSubmit = (data) => {
     console.log(data, "dsadasdsadsadsadas");
+
+    data["samePerAdd"] = isSame;
+    if (isSame) {
+      data["paddress"] = data["address"];
+      data["pstate"] = data["state"];
+      data["ppincode"] = data["pincode"];
+      data["pcountry"] = data["country"];
+      data["pcity"] = data["city"];
+    }
     if (empuid) {
-      dispatch(HrActions.postManageEmpDetails(false, data, () => {}, empuid));
-      SweetAlerts();
+      dispatch(
+        HrActions.postManageEmpDetails(
+          false,
+          data,
+          () => {
+            alert("Data submitted successfully!");
+            navigate("/empDetailsTable");
+          },
+          empuid
+        )
+      );
     } else {
-      dispatch(HrActions.postManageEmpDetails(false, data, () => {}));
+      dispatch(
+        HrActions.postManageEmpDetails(false, data, () => {
+          alert("Data submitted successfully!");
+          navigate("/empDetailsTable");
+        })
+      );
     }
     reset({});
   };
@@ -1287,7 +1323,8 @@ const EmpDetails = (props) => {
         console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
 
         setValue(itss.name, itss.value);
-      });``
+      });
+      ``;
       // }
     }
   }, [empuid]);
@@ -1335,10 +1372,14 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} /> */}
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-2 mt-2 rounded-lg"
                     }
                     errors={errors}
-                    Form={ContactInformation2}
+                    Form={
+                      isSame
+                        ? ContactInformation2
+                        : [...ContactInformation2, ...datew]
+                    }
                     register={register}
                     setValue={setValue}
                     getValues={getValues}

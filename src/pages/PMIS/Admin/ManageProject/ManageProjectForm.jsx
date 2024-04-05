@@ -162,7 +162,7 @@ const ManageProjectForm = ({
     //   classes: "col-span-1",
     // },
     {
-      label: "Circle",
+      label: "Sub-Project Type",
       name: "circle",
       type: "select",
       value: "",
