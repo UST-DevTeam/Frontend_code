@@ -45,7 +45,8 @@ const CommonTableForm = ({
   getValues,
   register,
   functioning,
-  oldList
+  oldList,
+  rowId
 }) => {
   const [value, onChange] = useState(new Date());
   const [editing, setediting] = useState(false);
@@ -54,16 +55,19 @@ const CommonTableForm = ({
     childView: false
   }
 
+  
+
 
   let listing = useSelector((state) => {
     console.log(state.projectList.dynamicForm[tabHead] ? state.projectList.dynamicForm[tabHead] : [], "statestatestatestatestate")
     return state.projectList.dynamicForm[tabHead] ? state.projectList.dynamicForm[tabHead] : []
   })
 
-
   Form.map((itm) => {
     newars[itm.name] = newars[itm.value]
   })
+
+  console.log(functioning,"functioning====functioning")
 
 
   const dispatch = useDispatch()
@@ -118,8 +122,8 @@ const CommonTableForm = ({
 
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata")
-    data["fileType"] = "ManageCircle"
-    data['collection'] = "circle"
+    data["fileType"] = "Template"
+    // data['collection'] = "circle"
     dispatch(CommonActions.fileSubmit(Urls.templateUploadFile, data, () => {
       dispatch(AdminActions.getManageCircle())
       setFileOpen(false)
@@ -163,6 +167,11 @@ console.log(newdte, "listinglistinglisting")
 
 
         }} />
+        <Button name={"Export"} icon={""} classes={"w-auto  my-auto"} onClick={() => {
+          console.log("dasdasdas")
+          dispatch(CommonActions.commondownload("/export/Template/"+`${rowId}`,"Export_Project_Type.xlsx"))
+          // setSelectFile(true)
+        }} />
 
         {
           editing ?
@@ -184,6 +193,7 @@ console.log(newdte, "listinglistinglisting")
               //   itmm["index"] = indes + 1
               //   return itmm
               // })
+              // console.log()
 
               let newdte = listing.map((item, index) => {
                 console.log(item, index, "dasdasdas");

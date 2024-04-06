@@ -59,7 +59,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
 
                 }),
             },
-            classes: "col-span-1",
+            classes: "col-span-1 flex justify-center content-center",
             multiple:false,
         },
          {

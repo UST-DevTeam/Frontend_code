@@ -364,7 +364,7 @@ const ManageProjectType = () => {
           setUniqueness(prev => itm.uniqueId)
           setmodalOpen(true)
           setmodalSize("full")
-          dispatch(AdminActions.getManageCustomer())
+          // dispatch(AdminActions.getManageCustomer())
           // console.log(itm["t_sengg"], "setUniqueness")
           setmodalHead("Templates")
 
@@ -380,6 +380,7 @@ const ManageProjectType = () => {
           dispatch(SET_DYNAMIC_FORM({ label: "Financials", value: itm["t_sFinancials"] ? itm["t_sFinancials"] : [], reseter: true }))
 
           console.log(itm, "setmodalHeadsetmodalHead")
+          console.log(itm['uniqueId'], "setmodalHeadsetmodalHead")
           setmodalBody(<>
 
 
@@ -409,7 +410,7 @@ const ManageProjectType = () => {
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
             <CommonTableFormSiteParent funcaller={()=>{}} defaultValue={"Site Engg"} tabslist={{
-              "Site Engg": <CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+              "Site Engg": <CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} />,
               "Tracking": <CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Issues": <CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
               "Financials": <CommonTableForm tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} />

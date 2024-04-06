@@ -126,11 +126,11 @@ const AdvancedTable = ({
                 icon={<UilColumns size="32" className={"hello"} />}
                 child={
                   <>
-                    <div className="flex z-40 h-60 overflow-scroll flex-col">
+                    <div className="flex z-40 max-h-96 overflow-scroll flex-col">
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                            <div className="flex m-2">
+                            <div className="flex m-1">
                               <input
                                 type="checkbox"
                                 value={String(index)}
@@ -161,7 +161,7 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-black mx-2">
+                              <span className="text-slate text-[11px] mx-2">
                                 {itts.name}
                               </span>
                             </div>

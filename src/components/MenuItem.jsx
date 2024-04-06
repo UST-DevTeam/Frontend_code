@@ -29,7 +29,7 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                 : 
                 
                 ((!checkp)||(checkp && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
-                    <div className={`pl-2 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:bg-[#143b64] hover:rounded-md  ${itm.link == pathname && "text-[#e8c670]"}`}>
+                    <div className={`pl-2 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md  ${itm.link == pathname && "text-[#e8c670]"}`}>
                         {itm.icon}
                         {
                             sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm font-light hover:text-gray-200 hover:bg- transition duration-75 rounded-lg group ${itm.link == pathname && "text-[#e8c670]"}`}>

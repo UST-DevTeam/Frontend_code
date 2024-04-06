@@ -100,14 +100,14 @@ const ManageProjectForm = ({
   //     })
   // })
 
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm.circleName,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
+  let circleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle.map((itm) => {
+      return {
+        label: itm.circleName,
+        value: itm.uniqueId,
+      };
+    });
+  });
 
   let Form = [
     {
@@ -163,7 +163,7 @@ const ManageProjectForm = ({
     // },
     {
       label: "Sub-Project Type",
-      name: "circle",
+      name: "subProject",
       type: "select",
       value: "",
       option: subProjectList,
@@ -172,17 +172,17 @@ const ManageProjectForm = ({
       },
       classes: "col-span-1",
     },
-    // {
-    //   label: "Circle",
-    //   name: "circle",
-    //   type: "select",
-    //   value: "",
-    //   option: circleList,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
+    {
+      label: "Circle",
+      name: "circle",
+      type: "select",
+      value: "",
+      option: circleList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
     {
       label: "Start Date",
       name: "startDate",

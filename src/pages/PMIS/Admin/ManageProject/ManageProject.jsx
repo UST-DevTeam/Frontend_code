@@ -218,7 +218,7 @@ const ManageProject = () => {
 
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<div className='flex gap-1'><Button classes='mr-1' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getProject())
                 setmodalHead("Add Project")
@@ -230,6 +230,7 @@ const ManageProject = () => {
                 }}></Button> */}
                 </div>}
             table={table}
+            exportButton={["/export/Project/"+(`${customeruniqueId}`)+"/"+(`${projecttypeuniqueId}`),"Export_Project.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

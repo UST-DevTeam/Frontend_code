@@ -226,7 +226,7 @@ const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
                         columns.map((itm) => {
                             return <tr>
                                 {headers.map((innerItm) => {
-                                    return <td className='border-gray-400 border-2 whitespace-nowrap text-[10px]'>
+                                    return <td className='border-gray-400 border-2 whitespace-nowrap text-[12px] text-slate-800 text-center'>
                                         <Modalmoreinfo setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm]} />
                                     </td>
                                 })}

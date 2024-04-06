@@ -152,7 +152,7 @@ const ManageProjectGroup = () => {
     }, [])
     return <>
         <AdvancedTable
-            headerButton={<><Button onClick={(e) => {
+            headerButton={<><Button classes='mr-1' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageCircle())
                 setmodalHead("New Project Group")
