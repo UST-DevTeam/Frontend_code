@@ -7,7 +7,19 @@ import {
 
 const HrActions = {
 
+    getComonentDataList: () => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: Urls.isonForm })
+            if (res?.status !== 200) return
+            console.log(res.data, "res.data")
+            const dataAll = res.data.data
+            dispatch(GET_ISON_FORM(dataAll))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
 
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
     getManageEmpDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_empdetails}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`, reset })

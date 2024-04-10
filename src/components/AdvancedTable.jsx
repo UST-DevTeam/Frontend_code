@@ -165,6 +165,7 @@ const AdvancedTable = ({
                                 {itts.name}
                               </span>
                             </div>
+                            {/* <hr /> */}
                           </>
                         );
                       })}

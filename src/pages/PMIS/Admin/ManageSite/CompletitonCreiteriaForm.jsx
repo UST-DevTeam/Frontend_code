@@ -22,9 +22,11 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         "Reference No": "number",
     }
     const dateString = siteCompleteData["siteStartDate"];
-    const [month, day, year] = dateString.split('-').map(Number);
+    const [day, month, year] = dateString.split('-').map(Number);
     
     const datestr = new Date(year, month - 1, day);
+
+    console.log(datestr,dateString,"datestr")
 
     let mileStoneprops = {
         "Completion Date": {

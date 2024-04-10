@@ -361,6 +361,7 @@ const ManageProjectType = () => {
 
         "template": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
 
+
           setUniqueness(prev => itm.uniqueId)
           setmodalOpen(true)
           setmodalSize("full")
@@ -410,10 +411,10 @@ const ManageProjectType = () => {
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
             <CommonTableFormSiteParent funcaller={()=>{}} defaultValue={"Site Engg"} tabslist={{
-              "Site Engg": <CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} />,
-              "Tracking": <CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
-              "Issues": <CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
-              "Financials": <CommonTableForm tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+              "Site Engg": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} name={"Template"}/>,
+              "Tracking": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} name={"Template"} />,
+              "Issues": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} name={"Template"} />,
+              "Financials": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} name={"Template"} />
             }} />
 
 
@@ -422,9 +423,9 @@ const ManageProjectType = () => {
           </>)
         }}></Button>} />,
         "milestone": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
+
           setmodalOpen(true)
           setmodalSize("full")
-          dispatch(AdminActions.getManageCustomer())
           setmodalHead("Milestones")
 
           dispatch(SET_DYNAMIC_FORM({ label: "MileStone", value: itm["MileStone"] ? itm["MileStone"] : [], reseter: true }))
@@ -456,7 +457,7 @@ const ManageProjectType = () => {
               </div>
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"milestone", itm)} oldList={itm.milestone} listing={listing} setlisting={setlisting} /> */}
-            <CommonTableForm tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+            <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} name={"MileStone"} />
             {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
           </>)
@@ -480,12 +481,12 @@ const ManageProjectType = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(AdminActions.getManageCustomer());
                   setmodalHead("Commercial");
+                  dispatch(SET_DYNAMIC_FORM({ label: "Commercial", value: itm["Commercial"] ? itm["Commercial"] : [], reseter: true }))
                   setmodalSize("full")
                   setmodalBody(
                     <>
-                      <CommonTableForm tabHead={"Commercial"} classes={"grid-cols-2 gap-1"} Form={commercialmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+                      <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Commercial"} classes={"grid-cols-2 gap-1"} Form={commercialmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "Commercial", itm)} oldList={[]} listing={listing} setlisting={setlisting} rowId={itm['uniqueId']} name={"Commercial"} />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
@@ -546,7 +547,6 @@ const ManageProjectType = () => {
 
 
         "template": <CstmButton className={"p-2"} child={<Button classes='w-10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
-          console.log(itm.uniqueId)
           setUniqueness(prev => itm.uniqueId)
           setmodalOpen(true)
           setmodalSize("full")
@@ -595,10 +595,10 @@ const ManageProjectType = () => {
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
             <CommonTableFormSiteParent funcaller={()=>{}} defaultValue={"Site Engg"} tabslist={{
-              "Site Engg": <CommonTableForm tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
-              "Tracking": <CommonTableForm tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
-              "Issues": <CommonTableForm tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
-              "Financials": <CommonTableForm tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+              "Site Engg": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Site Engg"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sengg", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+              "Tracking": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Tracking"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_tracking", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+              "Issues": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Issues"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_issues", itm)} oldList={[]} listing={listing} setlisting={setlisting} />,
+              "Financials": <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"Financials"} classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState, "t_sFinancials", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
             }} /> 
 
 
@@ -640,7 +640,7 @@ const ManageProjectType = () => {
               </div>
             </div>
             {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res) => handleAddActivity(res,"milestone", itm)} oldList={itm.milestone} listing={listing} setlisting={setlisting} /> */}
-            <CommonTableForm tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState,changeState, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
+            <CommonTableForm setmodalOpen={setmodalOpen} tabHead={"MileStone"} classes={"grid-cols-2 gap-1"} Form={milestonemultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} functioning={(res,changeState) => handleAddActivity(res,changeState,changeState, "MileStone", itm)} oldList={[]} listing={listing} setlisting={setlisting} />
             {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
           </>)
@@ -669,6 +669,7 @@ const ManageProjectType = () => {
           dispatch(AdminActions.getManageCustomer())
           setmodalSize("full")
           setmodalHead("Commercial")
+          dispatch(SET_DYNAMIC_FORM({ label: "Commercial", value: itm["Commercial"] ? itm["Commercial"] : [], reseter: true }))
           setmodalBody(<>
             <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}

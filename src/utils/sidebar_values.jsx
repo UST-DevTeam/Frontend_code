@@ -90,6 +90,9 @@ import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
 import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
 import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
 import ManageUserProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageUserProjectSiteId";
+import ISONForm from "../pages/iSON/ISONForm";
+import UserComponentManagement from "../pages/UserComponentManagement/UserComponentManagement";
+import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 
 
 
@@ -111,8 +114,13 @@ export const Sidebar_content = {
           subMenu: [],
         },
       ],
-    },
-    {
+    },{
+      name: "",
+      link: "/isoning",
+      subMenu: [],
+      component: <UserComponentManagement/>,
+      
+    },{
       name: "",
       link: "/projectType/:customeruniqueId",
       subMenu: [],
@@ -248,12 +256,22 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageProjectGroup />,
     },
+    
+    
+    {
+      name: "",
+      link: "/uammg",
+      subMenu: [],
+      component: <UserAccessManagement />,
+    },
+
     {
       name: "",
       link: "/userAccessManagement",
       subMenu: [],
       component: <RoleManagement />,
     },
+
     {
       name: "",
       link: "/vendorProjectAllocation",

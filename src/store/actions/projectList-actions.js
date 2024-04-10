@@ -74,8 +74,20 @@ const projectListActions = {
     submitProjectTypeData: (urle,data,cb=()=>{},reset=true) => async (dispatch, _) => {
         try {
             const res = await Api.post({ url: urle, data:data })
-            if (res?.status !== 200 && res?.status !== 201) return
-            cb()
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                  };
+                  dispatch(ALERTS(msgdata));
+            }
+            else{
+                cb()
+            }
+            
             // let dataAll = res?.data?.data[0]
             // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
         } catch (error) {

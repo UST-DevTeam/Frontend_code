@@ -391,10 +391,9 @@ const ManageProjectSiteId = () => {
             },
             {
                 name: "Ageing",
-                value: "siteage",
+                value: "siteageing",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-
             {
                 name: "Completion (%)",
                 value: "CompletionBar",
@@ -417,7 +416,6 @@ const ManageProjectSiteId = () => {
                 value: "siteBillingStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-
             {
                 name: "Edit",
                 value: "edit",
@@ -551,6 +549,7 @@ const ManageProjectSiteId = () => {
                 dispatch(projectListActions.getProjectTypeAll(projectuniqueId, e.target.value != "" ? "mileStoneName=" + e.target.value : ""))
                 console.log("SearchBarView onchange", e.target.value)
             }} placeHolder={"Enter Milestone Name"} />}
+            
             headerButton={<div className='flex gap-1'>
                 <Button classes='w-auto ' onClick={(e) => {
                     setmodalOpen(prev => !prev)
@@ -607,6 +606,10 @@ const ManageProjectSiteId = () => {
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
+                <Button name={"Export"} classes='w-auto ' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/siteId/"+`${projectuniqueId}`,"Export_Site_ID.xlsx"))
+                    
+                }}></Button>
             </div>}
             table={table}
             filterAfter={onSubmit}

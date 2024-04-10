@@ -28,7 +28,7 @@ import projectListActions from '../../../../store/actions/projectList-actions';
 
 
 
-const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
+const ManageSite = ({oldgetvalue,setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId }) => {
 
 
     const { customeruniqueId } = useParams()
@@ -62,6 +62,9 @@ const ManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, setSiteId
 
         return dataOlder
         if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
+
+
+            
             let data = dataOlder[0]["t_sengg"].map((its) => {
 
                 console.log(its,"itsitsitsitsitsits")

@@ -24,6 +24,7 @@ const initialState = {
     getOneSEProjectTypeDyform:[],
     getVishal:[],
     getVendorProjectAllocation:[],
+    getComponentAllocation:[],
 
 }
 
@@ -39,6 +40,15 @@ const adminData = createSlice({
                 state.getManageCustomer  = [...state.getManageCustomer,...payload.dataAll]
             }
         },
+        GET_COMPONENT_ALLOCATION:(state,{payload}) => {
+            if(payload.reset){
+                state.getComponentAllocation = payload.dataAll
+            }else{
+                state.getComponentAllocation  = [...state.getComponentAllocation,...payload.dataAll]
+            }
+        },
+
+        
 
         // GET_MANAGE_PROJECT_TYPE:(state,{payload}) => {
         //     if(payload.reset){
@@ -241,6 +251,8 @@ export const {
     GET_MANAGE_SUB_PROJECT,  
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
+    GET_COMPONENT_ALLOCATION
+
 } = adminData.actions
     
 export default adminData.reducer

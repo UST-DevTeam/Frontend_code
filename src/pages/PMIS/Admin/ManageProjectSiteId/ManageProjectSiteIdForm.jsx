@@ -120,13 +120,13 @@ const ManageProjectSiteIdForm = ({
     {
       label: "Project Type",
       name: "ptype",
-      type: "text",
+      type: "sdisabled",
       value: "",
       required: true,
       classes: "col-span-1",
     },
     {
-      label: "SubProjet Type",
+      label: "SubProject Type",
       name: "roleName",
       type: "select",
       value: "",
@@ -150,7 +150,7 @@ const ManageProjectSiteIdForm = ({
         setmodalFullOpen(prev => !prev)
 
 
-        setmodalFullBody(<ManageSite setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
+        setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
 
 
         setmodalBody(<CommonForm
@@ -200,6 +200,8 @@ const ManageProjectSiteIdForm = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
+
+    console.log(data,"datadatadatadatadat")
 
 
     console.log(globalData, "globalDataglobalDataglobalData")

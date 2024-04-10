@@ -273,6 +273,8 @@ const SuperAdmin = () => {
     //     // }))
     //  settype={settype} label='Add / Modify Customer' />
     // </>\
+    
+    // ["User Permission Management","bg-gradient-to-r from-teal-100 to-sky-400",""],
 
     return <>
         <CCDash showbtn={false} approveddata={[
@@ -290,7 +292,7 @@ const SuperAdmin = () => {
             return <>
                 <div className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`} onClick={()=>{navigate(itm[2])}}>
                     {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                    <div className='m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent'>{itm[0]}</div>
+                    <div className='m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent text-center'>{itm[0]}</div>
                 </div>
             </>
         }))}

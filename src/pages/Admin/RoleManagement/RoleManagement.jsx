@@ -12,6 +12,7 @@ import ToggleButton from '../../../components/ToggleButton';
 import AdminManagementActions from '../../../store/actions/adminManagement-actions';
 import RoleManagementForm from './RoleManagementForm';
 import { Sidebar_content } from '../../../utils/sidebar_values';
+import UserComponentManagement from '../../UserComponentManagement/UserComponentManagement';
 
 
 const RoleManagement = () => {
@@ -65,9 +66,19 @@ const RoleManagement = () => {
                     console.log(itm, "itm,dsadsadadada")
                     setmodalOpen(true)
                     dispatch(AdminManagementActions.getUsersList())
-                    setmodalHead("Edit User")
+                    setmodalHead("Edit Permission")
                     setmodalBody(<>
                         <RoleManagementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
+                }}></EditButton>} />,
+                "component": <CstmButton child={<EditButton name={""} onClick={() => {
+                    console.log(itm, "itm,dsadsadadada")
+                    setmodalOpen(true)
+                    dispatch(AdminManagementActions.getUsersList())
+                    setmodalHead("Component Access")
+                    setmodalBody(<>
+                        <UserComponentManagement isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></EditButton>} />,
@@ -116,17 +127,23 @@ const RoleManagement = () => {
             {
                 name: "Profile",
                 value: "label",
-                style: "min-w-[30px] max-w-[100px] text-center"
+                style: "min-w-[100px] max-w-[100px] text-center"
             },
             {
                 name: "Module Access",
                 value: "permission",
-                style:"min-w-[100px] max-w-[100px] text-center"
+                style:"min-w-[200px] max-w-[200px] text-center"
             },
+            {
+                name: "Component Access",
+                value: "component",
+                style:"min-w-[30px] max-w-[30px] text-center"
+            },
+            
             {
                 name: "Permission",
                 value: "edit",
-                style: "min-w-[30px] max-w-[200px] text-center"
+                style: "min-w-[30px] max-w-[30px] text-center"
             }
         ],
         properties: {

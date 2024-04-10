@@ -108,8 +108,8 @@ svg {
 }
 ::-webkit-scrollbar{
   background-color: transparent;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
 }
 
 ::-webkit-scrollbar-track{
@@ -128,7 +128,7 @@ svg {
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: rgb(145, 142, 142);
+  background-color: rgb(169, 169, 169);
   /* height: 2px;
   width: 10px; */
   /* -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.1);  */

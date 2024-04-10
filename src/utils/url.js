@@ -1,20 +1,3 @@
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
-// export const baseUrl="http://10.5.50.198:7980"
-// export const backendassetUrl="http://10.5.50.198:7980/"
-
-// export const baseUrl="http://192.168.29.70:7980"
-// export const backendassetUrl="http://192.168.29.70:7980/"
-
-// export const baseUrl="http://192.168.29.72:7980"
-// export const backendassetUrl="http://192.168.29.72:7980/"
-
-// export const baseUrl="http://192.168.29.72:7980"
-// export const backendassetUrl="http://192.168.29.72:7980/"
-
-// export const baseUrl="http://192.168.1.102:7980"
-// export const backendassetUrl="http://192.168.1.102:7980/"
-
 // export const baseUrl="http://localhost:65224"
 // export const backendassetUrl="http://localhost:65224//"
 
@@ -25,26 +8,16 @@
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
 
-// export const baseUrl="http://10.5.50.198:7980"
-// export const backendassetUrl="http://10.5.50.198:7980/"
-
-// export const baseUrl="http://192.168.1.108:7080"
-// export const backendassetUrl="http://192.168.29.108:7080/"
-
 
 // export const baseUrl="http://127.0.0.1:7980"
 // export const backendassetUrl="http://127.0.0.1:7980/"
 
 
-// export const baseUrl="http://192.168.1.102:7980"
-// export const backendassetUrl="http://192.168.1.102:7980/"
-
 export const baseUrl="https://pmisfbapi.fourbrick.in"
 export const backendassetUrl="https://pmisfbapi.fourbrick.in/"
 
 
-// export const baseUrl="http://192.168.57.116:7980"
-// export const backendassetUrl="http://192.168.43.116:7980/"
+
 
 
 
@@ -59,6 +32,7 @@ export const Urls={
     admin_roleList:"/admin/roles",
 
     // new url
+    admin_userAccess:"/admin/userAccess",
 
     admin_customer:"/admin/manageCustomer",
     admin_projecttype:"/admin/manageProjectType",

@@ -25,6 +25,7 @@ import {
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
+    GET_COMPONENT_ALLOCATION
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -94,6 +95,23 @@ const AdminActions = {
         } catch (error) {
         }
     },
+
+    
+
+
+    
+
+
+    getComponentAllocationList:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_userAccess}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_COMPONENT_ALLOCATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
 
 
     getManageCircle:(reset=true,args="") => async (dispatch, _) => {
@@ -291,7 +309,8 @@ const AdminActions = {
     },
 
 
-    getProject:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+    getProject:(customeruniqueId,rowId,reset=true,args="") => async (dispatch, _) => {
+
         try {
             const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return

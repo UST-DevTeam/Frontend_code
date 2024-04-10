@@ -502,7 +502,8 @@ const ManageMilestoneSite = ({ siteCompleteData, uid, mileStone, setGlobalData, 
         "Text": "text",
         "Dropdown": "select",
         "Number": "number",
-        "Date": "datetime"
+        "Date": "datetime",
+        "Auto Created": "sdisabled"
     }
 
 

@@ -36,6 +36,7 @@ let types = ["text", "password", "email", "hidden", "number"];
 
 
 const CommonTableForm = ({
+  setmodalOpen,
   classes,
   encType = false,
   Form,
@@ -46,7 +47,8 @@ const CommonTableForm = ({
   register,
   functioning,
   oldList,
-  rowId
+  rowId,
+  name
 }) => {
   const [value, onChange] = useState(new Date());
   const [editing, setediting] = useState(false);
@@ -54,6 +56,9 @@ const CommonTableForm = ({
   let newars = {
     childView: false
   }
+
+
+  console.log(tabHead,setmodalOpen,"tabHeadtabHead")
 
   
 
@@ -66,8 +71,6 @@ const CommonTableForm = ({
   Form.map((itm) => {
     newars[itm.name] = newars[itm.value]
   })
-
-  console.log(functioning,"functioning====functioning")
 
 
   const dispatch = useDispatch()
@@ -122,11 +125,13 @@ const CommonTableForm = ({
 
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata")
-    data["fileType"] = "Template"
+    data["fileType"] = tabHead
     // data['collection'] = "circle"
-    dispatch(CommonActions.fileSubmit(Urls.templateUploadFile, data, () => {
-      dispatch(AdminActions.getManageCircle())
-      setFileOpen(false)
+    dispatch(CommonActions.fileSubmit(Urls.templateUploadFile + "/" +`${rowId}`, data, () => {
+      // setFileOpen(false)
+      setSelectFile(false)
+      setmodalOpen(false)
+      // alert("dasdsadsa")
     }))
   }
 
@@ -169,7 +174,7 @@ console.log(newdte, "listinglistinglisting")
         }} />
         <Button name={"Export"} icon={""} classes={"w-auto  my-auto"} onClick={() => {
           console.log("dasdasdas")
-          dispatch(CommonActions.commondownload("/export/Template/"+`${rowId}`,"Export_Project_Type.xlsx"))
+          dispatch(CommonActions.commondownload("/export/Template/"+`${tabHead}`+"/"+`${rowId}`,"Export_Project_Type_"+name+".xlsx"))
           // setSelectFile(true)
         }} />
 

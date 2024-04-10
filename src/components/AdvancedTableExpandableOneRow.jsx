@@ -46,7 +46,7 @@ const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody
                     console.log(onewqq.uniqueId,"onewqq.uniqueId")
                     return <tr>
 
-                        <td className='text-[12px] pl-1 border-primaryLine border-[1.5px] text-primaryLine '>
+                        <td className='text-[12px] pl-1 border-primaryLine border-[1.5px] bg-violet-50 text-primaryLine '>
                         {
 
                             multiSelect?<div className='flex justify-center'><input type='checkbox' name='groupOfCheck[]' value={onewqq.uniqueId}/></div>:<></>
@@ -60,7 +60,7 @@ const AdvancedTableExpandableOneRow = ({ multiSelect, setOpenModal, setModalBody
                             table.childs[onewq[0]].map((itts) => {
 
                                 console.log(itts,onewqq, "ittsittsittsittsitts")
-                                return <td className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] text-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
+                                return <td className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg-violet-50 text-primaryLine ${itts.style ? itts.style : " min-w-[300px] max-w-[500px]"}`}>
                                     <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={onewqq[itts.value]} />
                                 </td>
                             })

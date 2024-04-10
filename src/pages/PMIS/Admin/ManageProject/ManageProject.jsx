@@ -74,8 +74,8 @@ const ManageProject = () => {
                 ),  
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                    // alert(itm.uniqueId)
                     setmodalOpen(true)
-                    console.log("Item:", itm); 
                     dispatch(AdminActions.getProject(`${customeruniqueId}/${uniqueId}`))
                     setmodalHead("Edit Project")
                     setmodalBody(<>
@@ -147,6 +147,11 @@ const ManageProject = () => {
             {
                 name: "Project Type",
                 value: "projectType",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Sub Project",
+                value: "subProject",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {

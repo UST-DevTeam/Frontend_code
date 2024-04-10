@@ -71,7 +71,7 @@ const CommonTableFormSiteParent = ({
             console.log(itm, "itmitmitmitmitm")
             return <CustomizedButton
               onClick={() => handleTabClick(itm)}
-              classes={`${activeTab === itm ? 'border-b-2 border-blue-500 text-white bg-primaryLine text-center' : 'bg-purple-200 hover:bg-red-400 hover:text-white text-black '} m-2 w-auto`}
+              classes={`${activeTab === itm ? 'border-b-2 border-blue-500 text-white bg-primaryLine text-center' : 'bg-purple-200 hover:bg-red-400 hover:text-white text-black '} m-1 w-auto`}
               name={itm}
             >
 
@@ -114,7 +114,7 @@ const CommonTableFormSiteParent = ({
         )} */}
       </div>
 
-      <div className="flex ">
+      <div className="flex">
       {setmodalFullOpen&&
         <Button name={"Submit"} classes="w-auto" onClick={()=>{
           setmodalFullOpen(prev=>!prev)
