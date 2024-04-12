@@ -414,6 +414,7 @@ const AdminActions = {
         } catch (error) {
         }
     },
+    
     postManageProfile: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_profile : Urls.admin_profile + "/" + uniqueId })

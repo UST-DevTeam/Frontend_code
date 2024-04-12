@@ -719,7 +719,7 @@ const ManageProjectType = () => {
         style: "min-w-[140px] max-w-[200px] text-center"
       },
       {
-        name: "Sub Type",
+        name: "Sub Project",
         value: "subProject",
         style: "min-w-[140px] max-w-[200px] text-center"
       },

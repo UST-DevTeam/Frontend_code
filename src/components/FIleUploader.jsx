@@ -6,7 +6,7 @@ import Button from './Button';
 import { useDispatch } from 'react-redux';
 import nokiaPrePostActions from '../store/actions/nokiaPrePost-actions';
 
-const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit }) => {
+const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbtn=false,tempbtnlink="", label="" }) => {
 
     const {
         register,
@@ -22,14 +22,14 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit }) => 
 
     let Form = [
         {
-            label: "Input File",
+            label: "Input file",
             value: "",
             name: "uploadedFile",
             type: "file",
             required: false,
             props: {},
             classes: "col-span-1 sm:col-span-1 flex justify-between items-center"
-        }
+        },
     ]
 
     
@@ -44,8 +44,12 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit }) => 
                     setValue={setValue}
                     getValues={getValues}
                 />
+                <div className = 'flex'>
+                {/* {tempbtn && <Button classes={"mt-2 w-auto"} onClick={alert(tempbtnlink)} name={label} />}, */}
+                {<Button classes={"mt-2 w-auto mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
+                </div>
 
-                <Button classes={"mt-2 w-auto mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
+                
             </>
         } isOpen={isOpen} setIsOpen={setIsOpen} />
 

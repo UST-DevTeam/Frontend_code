@@ -282,6 +282,7 @@ const UserAccessManagement = () => {
                 showData={showData}
                 setshowData={setshowData}
                 name={"name"}
+                fromCall={"permission"}
                 child={"checkbox"}
                 btnName={"Module Access"}
                 listValue={Sidebar_content["all_routes"]}
@@ -292,6 +293,7 @@ const UserAccessManagement = () => {
               <UserAccessManagementChild
                 showData={showData}
                 setshowData={setshowData}
+                fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
                 btnName={"Project Management Access"}

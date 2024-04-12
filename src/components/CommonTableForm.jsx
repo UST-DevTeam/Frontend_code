@@ -527,7 +527,7 @@ console.log(newdte, "listinglistinglisting")
           } /></>
       }
 
-      <FileUploader isOpen={selectFile} setIsOpen={setSelectFile} fileUploadUrl={Urls.templateUploadFile} onTableViewSubmit={onTableViewSubmit} />
+      <FileUploader isOpen={selectFile} setIsOpen={setSelectFile} fileUploadUrl={Urls.templateUploadFile} onTableViewSubmit={onTableViewSubmit} tempbtn={true} label={"Template"} tempbtnlink ={`${"/download/Template"}/${tabHead}`}/>
     </>
   );
 };

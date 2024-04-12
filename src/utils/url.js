@@ -4,8 +4,13 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.29.70:7980"
-// export const backendassetUrl="http://192.168.29.70:7980/"
+// export const baseUrl="http://192.168.29.72:7980"
+// export const backendassetUrl="http://192.168.29.72:7980/"
+
+
+
+// export const baseUrl="http://192.168.77.116:7980"
+// export const backendassetUrl="http://192.168.77.116:7980/"
 
 
 
@@ -50,8 +55,7 @@ export const Urls={
     admin_empdetails:"/hr/manageEmployee",
     admin_profile:"/hr/manageProfile",
     admin_project_allocation:"/hr/projectAllocation",
-
-
+    admin_uamView:"/uamView",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
     projectList_getproject_allocation:"/projectAllocationList/",

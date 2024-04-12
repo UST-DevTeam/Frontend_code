@@ -72,6 +72,30 @@ const AdminManagementActions = {
         }
     },
     
+
+    
+    PatchDataAccess: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ data: data, url: Urls.admin_uamView })
+            cb()
+            // if (res?.status !== 201 && res?.status !== 200) {
+            //     let msgdata = {
+            //         show: true,
+            //         icon: "error",
+            //         buttons: [],
+            //         type: 1,
+            //         text: res?.data?.msg,
+            //     };
+            //     dispatch(ALERTS(msgdata));
+            // }else{
+            //     cb()
+
+            // }
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
+    
     postPitchDeck: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
             console.log("AuthActions.signin", uniqueId)

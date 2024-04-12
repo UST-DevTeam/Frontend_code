@@ -607,7 +607,11 @@ const ManageProjectSiteId = () => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
                 <Button name={"Export"} classes='w-auto ' onClick={(e) => {
-                    dispatch(CommonActions.commondownload("/export/siteId/"+`${projectuniqueId}`,"Export_Site_ID.xlsx"))
+                    dispatch(CommonActions.commondownload("/export/siteId/"+`${projectuniqueId}`,"Export_Sites.xlsx"))
+                    
+                }}></Button>
+                <Button name={"Export with Task"} classes='w-auto ' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/siteIdwithMilestone/"+`${projectuniqueId}`,"Export_Sites_with_Milestone.xlsx"))
                     
                 }}></Button>
             </div>}
