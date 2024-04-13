@@ -50,7 +50,6 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             option:customerList,
             props:{
                 onChange:(e)=>{
-                    // alert(e.target.value)
                     dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
                 }
             },

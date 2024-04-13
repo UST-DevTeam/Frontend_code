@@ -52,10 +52,6 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1",
             props: {
                 onChange: (e) => {
-                    // console.log(e.target.value, "e_geeter")
-
-                    // setValue("Customer",e.target.name)
-
                     dispatch(AdminActions.getManageCircle(true,`customer=${e.target.value}`));
 
                 },

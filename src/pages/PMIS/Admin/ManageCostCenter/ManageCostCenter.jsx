@@ -118,7 +118,7 @@ const ManageCostCenter = () => {
             },
             {
                 name: "Zone",
-                value: "zone",
+                value: "zoneName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
