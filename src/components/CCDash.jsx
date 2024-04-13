@@ -2,6 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from './Button'
 import { backendassetUrl } from '../utils/url'
+import { getAccessType } from '../utils/commonFunnction'
+import ConditionalButton from './ConditionalButton'
+
 
 const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>{},  label = "", settype, approveddata }) => {
 
@@ -33,14 +36,15 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
         <div className='flex'>
         {
             showbtn && <div className='flex p-4'>
-                <Button classes='w-auto' onClick={() => {
+                <ConditionalButton showType={getAccessType(label)} classes='w-auto' onClick={() => {
                     settype(true)
                 }} name={label} />
             </div>
         }
         {
             oppshowbtn && <div className='flex p-3 ml-auto'>
-                <Button classes='w-auto' onClick={onpassclick} name={opplabel} />
+
+                <ConditionalButton showType={getAccessType(opplabel)} classes='w-auto' onClick={onpassclick} name={opplabel} />
             </div>
         }
         </div>

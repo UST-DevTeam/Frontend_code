@@ -7,11 +7,12 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
 
     const sizeArr = [ "xs", "xs"]
     const [open, SetOpen] = useState(false)
+    // console.log(permission?.permission.findIndex(prev=>prev.moduleName=="Project Management" && prev.accessType==true),"permissionpermissionpermission")
 
 
     const { pathname } = useLocation()
     // const [open,SetOpen] = useState(true)
-    // console.log(checkp,"permissionpermission")
+    // console.log(permission.permission.indexOf(itm.name),parenting,itm.name,parenting,"permissionpermission")
     // if(checkp){
     //     console.log("29",permission,itm.link,parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1 ,itm.link , "permissionpermission")
     // }
@@ -19,7 +20,8 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
 
         {
             itm.subMenu.length > 0 ?
-                ((!checkp)||(checkp != {} && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
+                // ((!checkp)||(checkp != {} && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
+                ((!checkp)||(checkp != {} && permission.permission && permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true) !=-1 && permission.permission[permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true)])) && 
                     <button onClick={((prev) => { SetOpen(!open), console.log(!open) })} type="button" class={"pl-2 flex items-center w-full p-2 text-sm font-light transition duration-75 hover:bg-[#143b64] rounded-lg group text-white"} aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         {itm.icon}
                         {sidebarOpen && <span class={"text-" + sizeArr[size] + " flex-1 ml-3 text-left whitespace-nowrap hover:text-gray-200 hover:bg-[#143b64]"} sidebar-toggle-item>{itm.name}</span>}
@@ -28,7 +30,8 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                 
                 : 
                 
-                ((!checkp)||(checkp && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
+                // ((!checkp)||(checkp && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
+                ((!checkp)||(checkp != {} && permission.permission && permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true) !=-1 && permission.permission[permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true)])) && 
                     <div className={`pl-2 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md  ${itm.link == pathname && "text-[#e8c670]"}`}>
                         {itm.icon}
                         {

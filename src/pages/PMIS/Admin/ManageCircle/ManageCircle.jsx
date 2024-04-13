@@ -186,19 +186,19 @@ const ManageCircle = () => {
     }
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 dispatch(AdminActions.getManageCircle())
                 setmodalHead("New Circle")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Circle"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 </div>}
             table={table}
-            templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
+            // templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
             exportButton={["/export/manageCircle","Export_Circle("+dt+").xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -214,7 +214,7 @@ const ManageCircle = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Circle.xlsx","Circle.xlsx"]}/>
     </>
 
 

@@ -47,16 +47,16 @@ const CommonForm = ({
   //     { label: "Custom Queries", value: "", option: ["Please Select Your DB Server"], type: "textarea" }
   // ]
 
-  console.log("Forms....... " + Form.map((newitm)=>{
-    console.log(newitm,"newitmnewitmnewitmnewitm")
-  }));
+  // console.log("Forms....... " + Form.map((newitm)=>{
+  //   console.log(newitm,"newitmnewitmnewitmnewitm")
+  // }));
 
 
   
-  console.log(Form, "Formdsabdjasbdhjsa");
+  // console.log(Form, "Formdsabdjasbdhjsa");
   return (
     <>
-      <form className={`overflow-scroll grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
+      <form className={`overflow-hidden grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
         {console.log(errors, "errors")}
         {Form.map((itm) => {
           {

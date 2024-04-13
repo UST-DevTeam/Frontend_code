@@ -10,7 +10,7 @@ import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
 import ToggleButton from '../../../../components/ToggleButton';
-import { labelToValue, objectToQueryString } from '../../../../utils/commonFunnction';
+import { getAccessType, labelToValue, objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
@@ -26,6 +26,7 @@ import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer
 import projectListActions from '../../../../store/actions/projectList-actions';
 import { uiStatusColor } from '../../../../utils/queryBuilder';
 import CompletitonCreiteriaForm from './CompletitonCreiteriaForm';
+import ConditionalButton from '../../../../components/ConditionalButton';
 
 
 
@@ -539,7 +540,7 @@ const ManageMilestoneSite = ({ siteCompleteData, uid, mileStone, setGlobalData, 
                     </div>
                 </div>
                 <div className='w-full'>
-                    <Button classes='w-auto ' name={"Completion Criteria"} onClick={() => {
+                    <ConditionalButton showType={getAccessType("Task Completion Criteria")} classes='w-auto ' name={"Completion Criteria"} onClick={() => {
 
                         if(assignedToCount!=0){
                             setmodalBody(<CompletitonCreiteriaForm siteCompleteData={siteCompleteData} customeruniqueId={customeruniqueId} projectuniqueId={projectuniqueId} setmodalFullOpen={setmodalFullOpen} setmodalOpen={setmodalOpen} mileStone={mileStone} />)
@@ -556,7 +557,7 @@ const ManageMilestoneSite = ({ siteCompleteData, uid, mileStone, setGlobalData, 
                             dispatch(ALERTS(msgdata))
                         }
                         // alert("sdfghjkl")
-                    }}></Button>
+                    }}></ConditionalButton>
                 </div>
             </div>
 

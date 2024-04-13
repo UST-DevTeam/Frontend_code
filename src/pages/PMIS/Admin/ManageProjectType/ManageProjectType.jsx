@@ -10,7 +10,7 @@ import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
 import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { getAccessType, objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
@@ -24,6 +24,7 @@ import CommonTableFormParent from '../../../../components/CommonTableFormSitePar
 import CommonTableFormSiteParent from '../../../../components/CommonTableFormSiteParent';
 import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer';
 import { completiton_critieria } from '../../../../utils/queryBuilder';
+import ConditionalButton from '../../../../components/ConditionalButton';
 
 
 
@@ -786,7 +787,7 @@ const ManageProjectType = () => {
     <>
 
       <div className='flex p-2'>
-        <Button classes='w-auto' onClick={() => {
+        <ConditionalButton showType={getAccessType("Project Page View")}  classes='w-auto' onClick={() => {
           settype(false)
         }} name={"View"} />
       </div>
@@ -860,9 +861,9 @@ const ManageProjectType = () => {
         className="flex flex-col"
         settype={settype}
         showbtn={true}
-        label="Add / Modify Project Type"
+        label="Add/Modify Project Type"
         oppshowbtn={true}
-        opplabel="Go To Project"
+        opplabel="Go to Project"
         onpassclick={() => {
           navigate(`${"/project"}/${customeruniqueId}`)
         }}

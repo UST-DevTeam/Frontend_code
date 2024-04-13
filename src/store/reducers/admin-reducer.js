@@ -25,6 +25,7 @@ const initialState = {
     getVishal:[],
     getVendorProjectAllocation:[],
     getComponentAllocation:[],
+    getOldComponentAllocation:[]
 
 }
 
@@ -47,6 +48,14 @@ const adminData = createSlice({
                 state.getComponentAllocation  = [...state.getComponentAllocation,...payload.dataAll]
             }
         },
+        GET_OLD_COMPONENT_ALLOCATION:(state,{payload}) => {
+            if(payload.reset){
+                state.getOldComponentAllocation = payload.dataAll
+            }else{
+                state.getOldComponentAllocation  = [...state.getOldComponentAllocation,...payload.dataAll]
+            }
+        },
+        
 
         
 
@@ -251,7 +260,8 @@ export const {
     GET_MANAGE_SUB_PROJECT,  
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
-    GET_COMPONENT_ALLOCATION
+    GET_COMPONENT_ALLOCATION,
+    GET_OLD_COMPONENT_ALLOCATION
 
 } = adminData.actions
     

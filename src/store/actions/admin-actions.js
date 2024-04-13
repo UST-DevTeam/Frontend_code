@@ -25,7 +25,8 @@ import {
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
-    GET_COMPONENT_ALLOCATION
+    GET_COMPONENT_ALLOCATION,
+    GET_OLD_COMPONENT_ALLOCATION
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -108,6 +109,15 @@ const AdminActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_COMPONENT_ALLOCATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getOldComponentAllocationList:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_uamView}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_OLD_COMPONENT_ALLOCATION({dataAll,reset}))
         } catch (error) {
         }
     },

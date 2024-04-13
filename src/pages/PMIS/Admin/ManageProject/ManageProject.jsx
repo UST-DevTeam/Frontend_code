@@ -10,7 +10,7 @@ import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
 import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { getAccessType, objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
@@ -18,6 +18,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
+import ConditionalButton from '../../../../components/ConditionalButton';
+
 
 const ManageProject = () => {
 
@@ -76,7 +78,7 @@ const ManageProject = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     // alert(itm.uniqueId)
                     setmodalOpen(true)
-                    dispatch(AdminActions.getProject(`${customeruniqueId}/${uniqueId}`))
+                    // dispatch(AdminActions.getProject(`${itm.customeruniqueId}/${itm.uniqueId}`))
                     setmodalHead("Edit Project")
                     setmodalBody(<>
                         <ManageProjectForm isOpen={modalOpen} customeruniqueId={customeruniqueId}  setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -223,13 +225,13 @@ const ManageProject = () => {
 
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='mr-1' onClick={(e) => {
+            headerButton={<div className='flex gap-1'><ConditionalButton showType={getAccessType("Add Project")}  classes='mr-1' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getProject())
                 setmodalHead("Add Project")
                 setmodalBody(<ManageProjectForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Project"}></Button>
+                name={"Add Project"}></ConditionalButton>
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}

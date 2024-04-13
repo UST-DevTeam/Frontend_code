@@ -181,12 +181,12 @@ const ManageCostCenter = () => {
                 setmodalBody(<ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Cost Center"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 </div>}
             table={table}
-            templateButton={["/template/CostCenter.xlsx","CostCenter.xlsx"]}
+            // templateButton={["/template/CostCenter.xlsx","CostCenter.xlsx"]}
             exportButton={["/export/manageCostCenter","Export_Cost_Center.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -202,7 +202,7 @@ const ManageCostCenter = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/CostCenter.xlsx","CostCenter.xlsx"]}  />
     </>
 
 

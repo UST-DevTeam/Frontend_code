@@ -10,7 +10,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
@@ -18,6 +18,7 @@ import OperationManagementActions from "../../../../store/actions/admin-actions"
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
+import ConditionalButton from "../../../../components/ConditionalButton";
 
 const ManageCustomer = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -258,7 +259,7 @@ const ManageCustomer = () => {
   return type ? (
     <>
       <div className="flex p-2">
-        <Button
+        <ConditionalButton showType={getAccessType("Customer Page View")} 
           classes="w-auto"
           onClick={() => {
             settype(false);
@@ -356,7 +357,7 @@ const ManageCustomer = () => {
           );
         })}
         settype={settype}
-        label="Add / Modify Customer"
+        label="Add/Modify Project Type"
       />
     </>
   );

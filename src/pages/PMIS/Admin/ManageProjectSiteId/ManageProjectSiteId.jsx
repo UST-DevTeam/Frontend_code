@@ -10,7 +10,7 @@ import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
 import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString, parseTwoDigit } from '../../../../utils/commonFunnction';
+import { getAccessType, objectToQueryString, parseTwoDigit } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
@@ -29,10 +29,16 @@ import ManageMilestoneSite from '../ManageSite/ManageMilestoneSite';
 import ProgressBar from '../../../../components/ProgressBar';
 import { onehundcolor } from '../../../../utils/queryBuilder';
 import Tooltip from '../../../../components/Tooltip';
+import ConditionalButton from '../../../../components/ConditionalButton';
 
 const ManageProjectSiteId = () => {
 
+    let permission=JSON.parse(localStorage.getItem("permission")) || {}
 
+    console.log(permission?.pmpermission,"permission")
+    console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
+
+    console.log(getAccessType("Add Site"),"getAccessType")
     const { projectuniqueId } = useParams()
 
 
@@ -521,7 +527,7 @@ const ManageProjectSiteId = () => {
         ]
     }
     const onSubmit = (data) => {
-        // console.log("jsjsjsjss", data)
+        // console.log("   ", data)
         let value = data.reseter
         delete data.reseter
         dispatch(AdminActions.getManageProjectGroup(value, objectToQueryString(data)))
@@ -551,14 +557,14 @@ const ManageProjectSiteId = () => {
             }} placeHolder={"Enter Milestone Name"} />}
             
             headerButton={<div className='flex gap-1'>
-                <Button classes='w-auto ' onClick={(e) => {
+                <ConditionalButton showType={getAccessType("Add Site")} classes='w-auto ' onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(AdminActions.getProject())
                     setmodalHead("Add Site ID")
                     setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
-                    name={"Add Site ID"}></Button>
-                <Button classes='w-auto ' onClick={(e) => {
+                    name={"Add Site ID"}></ConditionalButton>
+                <ConditionalButton showType={getAccessType("Task Allocation")} classes='w-auto ' onClick={(e) => {
 
                     if (childsite.length > 0) {
                         setmodalOpen(prev => !prev)
@@ -578,12 +584,12 @@ const ManageProjectSiteId = () => {
                         dispatch(ALERTS(msgdata));
                     }
                 }}
-                    name={"Task Allocate"}></Button>
+                    name={"Task Allocate"}></ConditionalButton>
 
 
 
 
-                <Button classes='w-auto ' onClick={(e) => {
+                <ConditionalButton showType={getAccessType("Site Allocation")} classes='w-auto ' onClick={(e) => {
 
                     if (parentsite.length > 0) {
                         setmodalOpen(prev => !prev)
@@ -602,18 +608,18 @@ const ManageProjectSiteId = () => {
                         dispatch(ALERTS(msgdata));
                     }
                 }}
-                    name={"Site Allocate"}></Button>
+                    name={"Site Allocate"}></ConditionalButton>
                 {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
-                <Button name={"Export"} classes='w-auto ' onClick={(e) => {
+                <ConditionalButton showType={getAccessType("Bulk upload-Site")} name={"Export"} classes='w-auto ' onClick={(e) => {
                     dispatch(CommonActions.commondownload("/export/siteId/"+`${projectuniqueId}`,"Export_Sites.xlsx"))
                     
-                }}></Button>
-                <Button name={"Export with Task"} classes='w-auto ' onClick={(e) => {
+                }}></ConditionalButton>
+                <ConditionalButton showType={getAccessType("Bulk upload-Task")} name={"Export with Task"} classes='w-auto ' onClick={(e) => {
                     dispatch(CommonActions.commondownload("/export/siteIdwithMilestone/"+`${projectuniqueId}`,"Export_Sites_with_Milestone.xlsx"))
                     
-                }}></Button>
+                }}></ConditionalButton>
             </div>}
             table={table}
             filterAfter={onSubmit}

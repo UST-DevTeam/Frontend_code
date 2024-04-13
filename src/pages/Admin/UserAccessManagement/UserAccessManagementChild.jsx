@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,14 +26,22 @@ const UserAccessManagementChild = ({
   name,
   child,
 }) => {
+
+  const data = useRef()
   const [showView, setShowView] = useState(false);
 
   const dispatch = useDispatch()
   let roleList = useSelector((state) => {
-    console.log(state, "state state");
+    // console.log(state, "state state");
     let interdata = state?.adminManagement?.roleList;
     return interdata;
   });
+
+  let getOldComponentAllocation = useSelector((state) => {
+    return state?.adminData?.getOldComponentAllocation;
+  });
+
+  
 
   let dataToView={
     "moduleName":btnName,
@@ -43,31 +51,50 @@ const UserAccessManagementChild = ({
   }
   return (
     <>
+    <tr>
+      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-white">
       <Button
         name={btnName}
-        classes="my-2 w-auto"
+        classes="my-2 w-auto z-[10000px]"
         onClick={() => {
           setShowView((prev) => !prev);
         }}
       />
+      </td>
+      <td colSpan={roleList.length} className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky">
+      </td>
+    </tr>
 
-      {showView ? <>{btnName}</> : <></>}
+    <tr>
+      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 z-[100px] bg-white">
+      {showView ? <p className=" z-[10000px]">{btnName}</p> : <></>}
 
+      </td>
+      <td colSpan={roleList.length} className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky">
+
+      </td>
+    </tr>
 
       {showView &&
         listValue.map((itew) => {
           return (
             <tr>
-              <td className="min-w-[300px] max-w-[300px] border-red-200 border-2">
+              <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-white">
                 {itew[name]}
                 {showdata}
               </td>
               {roleList.map((itm) => {
-                console.log(itm, "itmitmitmitm");
+                // console.log(itm.value, "itmitmitmitm");
+
+                let vale=getOldComponentAllocation.findIndex((prev) => {return prev.roleId == itm.value && prev.typeVal == fromCall})
+                // console.log(vale,"valevalevalevale");
+
+                // console.log(vale!=-1&&getOldComponentAllocation[vale]["data"],itew[name],"getOldComponentAllocation[vale]")
                 return (
-                  <td className="min-w-[200px] max-w-[200px] border-red-200 border-2 text-center">
+                  <td className="min-w-[140px] max-w-[140px] border-black border-[1px] text-center">
                     {child == "checkbox" && (
                       <input
+                        checked={vale!=-1?getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name] && prev.accessType==true)!=-1:false}
                         onChange={(e) => {
                           dataToView["moduleName"]=itew[name]
                           dataToView["roleId"]=itm.value
@@ -83,25 +110,31 @@ const UserAccessManagementChild = ({
                         type={"checkbox"}
                       />
                     )}
-                    {child == "select" && (
+                    {child == "select" && (<>
+
+                    {/* {console.log(getOldComponentAllocation[vale]["data"],,getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name]),"getOldComponentAllocation[vale]")} */}
                       <select
+                        ref={data}
+                        defaultValue={vale!=-1 && getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name])!=-1&&getOldComponentAllocation[vale]["data"][getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name])]["accessType"] || ""}
                         onChange={(e) => {
+
+                          console.log(data.current,data.current,"datadatadata")
                           dataToView["moduleName"]=itew[name]
                           dataToView["roleId"]=itm.value
                           dataToView["accessType"]=e.target.value
-                          console.log(dataToView,"dataToViewdataToView")
+                          // console.log(dataToView,"dataToViewdataToView")
                           dispatch(AdminManagementActions.PatchDataAccess(dataToView,()=>{
                             e.target.value=e.target.value
                           }));
                           // alert(e.target.value + itm.roleName + btnName);
                         }}
                       >
-                        <option value={""}>S</option>
+                        <option value={""}></option>
                         <option value={"R"}>R</option>
                         <option value={"W"}>W</option>
                         <option value={"H"}>H</option>
                       </select>
-                    )}
+                    </>)}
                   </td>
                 );
               })}

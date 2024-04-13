@@ -159,6 +159,8 @@ const UserComponentManagement = () => {
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getComponentAllocationList())
+        dispatch(AdminActions.getOldComponentAllocationList())
+        
         console.log("useEffect")
     }, [])
 

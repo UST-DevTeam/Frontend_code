@@ -195,13 +195,13 @@ const ManageZone = () => {
                 setmodalHead("New Zone")
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"New Zone"}></Button>
-                <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
+                name={"Add Zone"}></Button>
+                <Button name={"Upload File"} classes='w-auto mr-1 ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 </div>}
             table={table}
-            templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
+            // templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
             exportButton={["/export/manageZone","Export_Zone("+dt+").xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"} 
@@ -217,7 +217,7 @@ const ManageZone = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Zone.xlsx","Zone.xlsx"]}  />
     </>
 
 

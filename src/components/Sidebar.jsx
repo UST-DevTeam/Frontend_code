@@ -81,7 +81,7 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
             <ul className='space-y-2 h-[80vh] w-56 overflow-y-scroll font-medium'>
                 {
                     Roles["all_routes"].map((itm) => {
-                        return <li><MenuItem sidebarOpen={sidebarOpen} itm={itm} value={6} size={0} checkp={true} permission={permission}  parenting={itm.link}/></li>
+                        return <li><MenuItem sidebarOpen={sidebarOpen} itm={itm} value={6} size={0} checkp={true} permission={permission}  parenting={itm.name}/></li>
                     })
                 }
                 {

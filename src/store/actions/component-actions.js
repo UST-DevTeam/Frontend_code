@@ -3,9 +3,9 @@ import { LOADERS, POP_MENU } from "../reducers/component-reducer"
 
 
 const ComponentActions = {
-    popmenu: (data) => async (dispatch, _) => {
+    popmenu: (data,tkn) => async (dispatch, _) => {
         try {
-            dispatch(POP_MENU(data))
+            dispatch(POP_MENU({data,tkn}))
         } catch (error) {
             console.log(error, "amit errorerror 37")
             // dispatch(Notify.error('something went wrong! please try again after a while'))

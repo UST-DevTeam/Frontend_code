@@ -7,6 +7,30 @@ export function moreinfo(text, len) {
 }
 
 
+export function getAccessType(valName){
+
+    let permission=JSON.parse(localStorage.getItem("permission")) || {}
+    console.log(valName,permission?.pmpermission,"getTypegetType")
+    if(permission?.pmpermission.findIndex(prev=>prev.moduleName==valName)!=-1){
+
+        let getType=permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName==valName)]["accessType"]
+
+        console.log(getType,valName,"getTypegetType")
+        if(getType=="H"){
+            return "invisible"
+        }
+        if(getType=="R"){
+            return "disabled"
+        }
+        if(getType=="W"){
+            return "visible"
+        }
+    }else{
+        return {}
+    }
+
+}
+
 export function objectToQueryString(obj) {
     const queryString = Object.keys(obj)
         .filter(key => obj[key] !== "" && obj[key] !== "select")

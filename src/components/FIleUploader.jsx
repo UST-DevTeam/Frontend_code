@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import Button from './Button';
 import { useDispatch } from 'react-redux';
 import nokiaPrePostActions from '../store/actions/nokiaPrePost-actions';
+import CommonActions from "../store/actions/common-actions";
 
-const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbtn=false,tempbtnlink="", label="" }) => {
+const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbtn=false, tempbtnlink="", label="Template"}) => {
 
     const {
         register,
@@ -19,6 +20,8 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
     } = useForm()
 
     const dispatch = useDispatch()
+
+    console.log(tempbtnlink[0],"tempbtnlink")
 
     let Form = [
         {
@@ -37,7 +40,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
         <Modal size={"sm"} modalHead={"Upload Bulk File"} children={
             <>
                 <CommonForm
-                    classes={"grid-cols-1 gap-1 p-4 "}
+                    classes={"grid-cols-1 gap-1 p-4"}
                     Form={Form}
                     errors={errors}
                     register={register}
@@ -45,8 +48,15 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
                     getValues={getValues}
                 />
                 <div className = 'flex'>
-                {/* {tempbtn && <Button classes={"mt-2 w-auto"} onClick={alert(tempbtnlink)} name={label} />}, */}
-                {<Button classes={"mt-2 w-auto mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
+                {tempbtn && <Button classes={"mt-1 w-auto mx-auto"} name={label} onClick={() => {
+                    dispatch(
+                      CommonActions.commondownload(
+                        tempbtnlink[0],
+                        tempbtnlink[1]
+                      )
+                    );
+                  }} />}
+                {<Button classes={"mt-1 w-auto mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
                 </div>
 
                 

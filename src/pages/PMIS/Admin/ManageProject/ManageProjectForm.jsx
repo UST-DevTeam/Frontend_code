@@ -20,19 +20,19 @@ const ManageProjectForm = ({
   const { customeruniqueId } = useParams();
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
-
-
-  
+  const [pType, setpType] = useState("");
 
   let pmempList = useSelector((state) => {
     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
       return {
+        // label: itm.empName + "(" + itm.email + ")",
         label: itm.empName,
         value: itm.uniqueId,
       };
     });
   });
 
+  console.log(pmempList, "pmempList");
 
   let projectGroupList = useSelector((state) => {
     return state?.adminData?.getManageProjectGroup.map((itm) => {
@@ -45,12 +45,11 @@ const ManageProjectForm = ({
 
   let projectTypeList = useSelector((state) => {
     return state?.adminData?.getCardProjectType.map((itm) => {
-
-    //   if (projectTypeList === "project[uniqueId]") {
-    //     const ProjectTypeValue = "projectType"; 
-    //     setValue("projectType", ProjectTypeValue);
-    //   }
-    //   else
+      //   if (projectTypeList === "project[uniqueId]") {
+      //     const ProjectTypeValue = "projectType";
+      //     setValue("projectType", ProjectTypeValue);
+      //   }
+      //   else
       return {
         label: itm.projectType,
         value: itm.uniqueId,
@@ -59,13 +58,10 @@ const ManageProjectForm = ({
   });
 
   let subProjectList = useSelector((state) => {
-    return state?.adminData?.getManageProjectType.map((itm) => {
-
-    //   if (projectTypeList === "project[uniqueId]") {
-    //     const ProjectTypeValue = "projectType"; 
-    //     setValue("projectType", ProjectTypeValue);
-    //   }
-    //   else
+    return state?.adminData?.getManageProjectType.filter((itm) => {
+      console.log(itm.projectType==pType,"dasdsadsadas")
+      return itm.projectType==pType;
+    }).map((itm) => {
       return {
         label: itm.subProject,
         value: itm.uniqueId,
@@ -75,21 +71,17 @@ const ManageProjectForm = ({
 
   let PMList = useSelector((state) => {
     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-
-    //   if (projectTypeList === "project[uniqueId]") {
-    //     const ProjectTypeValue = "projectType"; 
-    //     setValue("projectType", ProjectTypeValue);
-    //   }
-    //   else
+      //   if (projectTypeList === "project[uniqueId]") {
+      //     const ProjectTypeValue = "projectType";
+      //     setValue("projectType", ProjectTypeValue);
+      //   }
+      //   else
       return {
         label: itm.empName,
         value: itm.empName,
       };
     });
   });
-
-
-
 
   // let SubProjectList = useSelector((state) => {
   //     return state?.adminData?.getManageSubProject.map((itm) => {
@@ -130,7 +122,7 @@ const ManageProjectForm = ({
       required: true,
       classes: "col-span-1",
     },
-    
+
     {
       label: "Project Type",
       value: "",
@@ -140,11 +132,9 @@ const ManageProjectForm = ({
       required: true,
       props: {
         onChange: (e) => {
-          console.log(e.target.value, "e geeter")
-
-
           
-
+          setpType(projectTypeList.filter(iteq=>iteq.value==e.target.value)[0]["label"])
+          console.log(e.target.value, "e geeter");
           setValue("projectType", e.target.value);
         },
       },
@@ -210,14 +200,20 @@ const ManageProjectForm = ({
       name: "PMName",
       type: "autoSuggestion",
       value: "",
-      option:pmempList,
+      option: pmempList,
       props: {
         onChange: (e) => {
-          let filteredData=pmempList.filter(itm=>itm.label==e.target.value)
-          if(filteredData.length > 0){
-            setValue("PMId",filteredData[0]["value"])
+          let filteredData = pmempList.filter(
+            (itm) => itm.label == e.target.value
+          );
+          if (filteredData.length > 0) {
+            setValue("PMId", filteredData[0]["value"]);
           }
-          console.log(pmempList.filter(itm=>itm.label==e.target.value),e.target.value,"e.target.value")
+          console.log(
+            pmempList.filter((itm) => itm.label == e.target.value),
+            e.target.value,
+            "e.target.value"
+          );
         },
       },
       required: true,
@@ -257,7 +253,7 @@ const ManageProjectForm = ({
     data["endDate"] = data?.endDate.split("T")[0];
     data["startDate"] = data?.startDate.split("T")[0];
 
-    delete data["PMName"]
+    delete data["PMName"];
     if (formValue?.uniqueId) {
       dispatch(
         AdminActions.postProject(
@@ -285,9 +281,11 @@ const ManageProjectForm = ({
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
-    dispatch(HrActions.getManageEmpDetails(true,"",`userRole=${"Project Manager"}`));
+    dispatch(
+      HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`)
+    );
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
-    
+
     // dispatch(HrActions.getManageEmpDetails(true,"","userRole=Project Manager"));
     // dispatch(AdminActions.getManageSubProjectType(customeruniqueId))
     // dispatch(AdminActions.getProject(customeruniqueId))
@@ -298,12 +296,25 @@ const ManageProjectForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      console.log(formValue, Form, "Object.keys(formValue)");
       Form.forEach((key) => {
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
+        if (["startDate", "endDate"].indexOf(key.name) != -1) {
           console.log("date formValuekey", key.name, formValue[key.name]);
-          const momentObj = moment(formValue[key.name]);
+          const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
+
+          console.log(momentObj, "momentObj");
           setValue(key.name, momentObj.toDate());
+        } else if (key.type == "select") {
+          let dtwq = key.option.filter(
+            (itq) => itq.label == formValue[key.name]
+          );
+
+          console.log(dtwq,formValue[key.name],"dtwqdtwqdtwq")
+          if (dtwq.length > 0) {
+            setValue(key.name, dtwq[0]["value"]);
+          } else {
+            setValue(key.name, formValue[key.name]);
+          }
         } else {
           setValue(key.name, formValue[key.name]);
         }

@@ -175,6 +175,9 @@ const UserAccessManagement = () => {
   let getComponentAllocation = useSelector((state) => {
     return state?.adminData?.getComponentAllocation;
   });
+
+  
+
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -254,23 +257,27 @@ const UserAccessManagement = () => {
       AdminManagementActions.getUsersList(value, objectToQueryString(data))
     );
   };
+
+  
   useEffect(() => {
     dispatch(AdminManagementActions.getUsersList());
     dispatch(AdminManagementActions.getRoleList());
+    dispatch(AdminActions.getOldComponentAllocationList());
     dispatch(AdminActions.getComponentAllocationList());
   }, []);
   return (
     <>
-      <div className="overflow-scroll w-[84vw] flex">
+      <div className=" w-[84vw] flex mx-2">
         <div className="pt-2 px-4">
-          <table className="" border={2}>
-            <tr>
-              <th className="min-w-[300px] max-w-[300px] border-red-200 border-2">
-                Module Name{showData}
+          <table className="relative" border={2}>
+            <tr className="sticky top-0 z-[10000]">
+              <th className="min-w-[300px] max-w-[300px] border-black border-[1px] bg-primaryLine text-white  sticky left-0">
+                Module Name
+                {/* {showData} */}
               </th>
               {roleList.map((itm) => {
                 return (
-                  <th className="min-w-[200px] max-w-[200px] border-red-200 border-2">
+                  <th className="min-w-[140px] max-w-[140px] border-black border-[1px] bg-primaryLine text-white">
                     {itm.label}
                   </th>
                 );
