@@ -47,25 +47,6 @@ const EmpDetailsTable = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-
-        // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
         edit: (
           <CstmButton
             className={"p-2"}
@@ -175,12 +156,12 @@ const EmpDetailsTable = () => {
       {
         name: "Emp Name",
         value: "empName",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[200px] max-w-[200px] border-2 border-black text-center sticky left-0 bg-white",
       },
       {
         name: "Emp Code",
         value: "empCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-white",
       },
       {
         name: "Email ID",
@@ -240,7 +221,7 @@ const EmpDetailsTable = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)));
+    dispatch(HrActions.getManageEmpDetails(false,value, objectToQueryString(data)));
   };
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());

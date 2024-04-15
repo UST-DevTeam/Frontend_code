@@ -48,12 +48,10 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         })
     })
 
-    // console.log(customerList,"customerList")
-
     let Form = [
         {
             label: "Customer",
-            value: "Select",
+            value: "select",
             name: "customerId",
             type: "select",
             option: customerList,
@@ -62,16 +60,13 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             props: {
                 onChange: ((e) => {
                     dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
-
-                    // setValue("queries",e.target.name)
-
                 }),
             },
             classes: "col-span-1"
         },
         {
             label: "Zone",
-            value: "Select",
+            value: "select",
             name: "zoneId",
             type: "select",
             option: zoneList,
@@ -80,7 +75,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             props: {
                 onChange: ((e) => {
                     dispatch(AdminActions.getManageCostCenter(true,`zone=${e.target.value}`))
-                    // console.log(e.target.value, "e geeter")
+                    // console.log(selectedValue, "egeeter")
 
                     // setValue("queries",e.target.name)
 
@@ -90,7 +85,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
         },
         {
             label: "Cost Center",
-            value: "Select",
+            value: "select",
             name: "costCenterId",
             type: "select",
             option: costCenterList,
@@ -106,8 +101,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             },
             classes: "col-span-1"
         },
-        
-        // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm()
 
@@ -118,8 +111,6 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     }
 
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageProjectGroup(true, data, () => {
                 setIsOpen(false)
@@ -137,8 +128,8 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
-        dispatch(AdminActions.getManageCostCenter())
         dispatch(AdminActions.getManageZone())
+        
         // dispatch(AdminActions.getManageProjectGroup())
 
         // alert(resetting)
@@ -160,6 +151,10 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
                 } else {
                     // console.log("formValuekey",key,key)
                     setValue(key.name, formValue[key.name]);
+                    console.log(key.name,"key.name", formValue[key.name])
+                    // console.log(formValue[key.name],"formValue[key.name]")
+                    
+                    dispatch(AdminActions.getManageCostCenter())
                 }
             })
         }

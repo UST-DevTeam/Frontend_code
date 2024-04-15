@@ -30,6 +30,7 @@ import ProgressBar from '../../../../components/ProgressBar';
 import { onehundcolor } from '../../../../utils/queryBuilder';
 import Tooltip from '../../../../components/Tooltip';
 import ManageMilestoneSite from '../../Admin/ManageSite/ManageMilestoneSite';
+import ComponentActions from '../../../../store/actions/component-actions';
 
 const ManageUserProjectSiteId = () => {
 
@@ -530,6 +531,9 @@ const ManageUserProjectSiteId = () => {
         dispatch(VendorActions.getVendorProjectList(value, objectToQueryString(data)))
     }
     useEffect(() => {
+
+        
+        dispatch(ComponentActions.breadcrumb("Project Management","/manageCustomer",0,true))
         dispatch(VendorActions.getVendorProjectList())
         // dispatch(projectListActions.getProjectType(projectuniqueId))
 

@@ -120,7 +120,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        // dispatch(AdminActions.getManageCircle())
         dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})

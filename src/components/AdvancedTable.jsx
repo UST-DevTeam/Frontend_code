@@ -10,10 +10,8 @@ import DatePicker from "react-datepicker";
 import { objectToArray } from "../utils/commonFunnction";
 import moment from "moment";
 import FilterView from "./FilterView";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import CommonActions from "../store/actions/common-actions";
-
-
 
 const AdvancedTable = ({
   tableName = "",
@@ -41,13 +39,13 @@ const AdvancedTable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
-  let dispatch = useDispatch()
+  let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50, 100, 300, 500, 1000],
+    rpp: [50,75,100,200],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
   const callApiPagination = (value) => {
@@ -133,6 +131,7 @@ const AdvancedTable = ({
                             <div className="flex m-1">
                               <input
                                 type="checkbox"
+                                checked={hide.indexOf(String(index)) == -1}
                                 value={String(index)}
                                 onChange={(e) => {
                                   setHide((prev) => {
@@ -144,11 +143,11 @@ const AdvancedTable = ({
                                       "e.target.checked"
                                     );
                                     // alert("caller")
-                                    if (e.target.checked) {
-                                    //   alert("pusher")
+                                    if (!e.target.checked) {
+                                      //   alert("pusher")
                                       return [...prev, e.target.value];
                                     } else {
-                                    //   alert("remover")
+                                      //   alert("remover")
                                       let vle = prev.indexOf(e.target.value);
 
                                       console.log(vle, "dsadsadsadasdsadsa");
@@ -258,7 +257,7 @@ const AdvancedTable = ({
                 </div>
             </div> */}
         <div className="m-2 overflow-x-scroll h-[76vh] pb-6 border-1 border-solid border-black rounded-lg ">
-          {data?.length > 0 ? (
+          {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">
                 <tr>
@@ -316,36 +315,44 @@ const AdvancedTable = ({
                 </tr>
               </thead>
 
-              <tbody>
-                {data
-                  ?.slice((currentPage - 1) * RPP, currentPage * RPP)
-                  .map((itm) => {
-                    return (
-                      <tr>
-                        {table.columns.map((innerItm, index) => {
-                          return hide.indexOf(String(index)) == -1 ? (
-                            <td
-                              className={`text-[11px] h-2 pl-1 border-gray-400 border-[0.1px] overflow-hidden text-slate-800 ${
-                                innerItm.style
-                                  ? innerItm.style
-                                  : " min-w-[300px] max-w-[500px]"
-                              }`}
-                            >
-                              <Modalmoreinfo
-                                ctt={32}
-                                setModalBody={setModalBody}
-                                setOpenModal={setOpenModal}
-                                value={itm[innerItm.value]}
-                              />
-                            </td>
-                          ) : (
-                            <></>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-              </tbody>
+              {data.length > 0 ? (
+                <tbody>
+                  {data
+                    ?.slice((currentPage - 1) * RPP, currentPage * RPP)
+                    .map((itm) => {
+                      return (
+                        <tr>
+                          {table.columns.map((innerItm, index) => {
+                            return hide.indexOf(String(index)) == -1 ? (
+                              <td
+                                className={`text-[11px] h-2 pl-1 border-gray-400 border-[0.1px] overflow-hidden text-slate-800 ${
+                                  innerItm.style
+                                    ? innerItm.style
+                                    : " min-w-[300px] max-w-[500px]"
+                                }`}
+                              >
+                                <Modalmoreinfo
+                                  ctt={32}
+                                  setModalBody={setModalBody}
+                                  setOpenModal={setOpenModal}
+                                  value={itm[innerItm.value]}
+                                />
+                              </td>
+                            ) : (
+                              <></>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              ) : (
+                <tbody>
+                  <tr className="border-2 border-black text-center">
+                    <td colSpan={table.columns.length} className="">No Records Found</td>
+                  </tr>
+                </tbody>
+              )}
             </table>
           ) : (
             <>
@@ -403,8 +410,13 @@ const AdvancedTable = ({
                     })}
                   </tr>
                 </thead>
+                <tbody>
+                  <tr>
+                    <td>No Records Found</td>
+                  </tr>
+                </tbody>
               </table>
-              <h1 className="flex justify-center">No Records Found</h1>
+              {/* <h1 className="flex justify-center">No Records Found</h1> */}
             </>
           )}
         </div>

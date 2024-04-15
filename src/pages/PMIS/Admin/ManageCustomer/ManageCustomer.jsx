@@ -10,7 +10,10 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
@@ -20,6 +23,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
 import ConditionalButton from "../../../../components/ConditionalButton";
 
+import ComponentActions from "../../../../store/actions/component-actions";
 const ManageCustomer = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -254,12 +258,15 @@ const ManageCustomer = () => {
   };
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
+
+    dispatch(ComponentActions.breadcrumb("Project Management", true));
   }, []);
 
   return type ? (
     <>
       <div className="flex p-2">
-        <ConditionalButton showType={getAccessType("Customer Page View")} 
+        <ConditionalButton
+          showType={getAccessType("Customer Page View")}
           classes="w-auto"
           onClick={() => {
             settype(false);
@@ -340,6 +347,9 @@ const ManageCustomer = () => {
               <div
                 className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
+                  dispatch(
+                    ComponentActions.breadcrumb(itm["customerName"], true)
+                  );
                   navigate(`${"/projectType"}/${itm["uniqueId"]}`);
                 }}
               >
@@ -357,7 +367,7 @@ const ManageCustomer = () => {
           );
         })}
         settype={settype}
-        label="Add/Modify Project Type"
+        label="Add/Modify Customer"
       />
     </>
   );

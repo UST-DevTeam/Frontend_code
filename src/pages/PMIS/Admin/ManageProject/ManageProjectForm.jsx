@@ -32,13 +32,11 @@ const ManageProjectForm = ({
     });
   });
 
-  console.log(pmempList, "pmempList");
-
   let projectGroupList = useSelector((state) => {
     return state?.adminData?.getManageProjectGroup.map((itm) => {
       return {
         label: itm.projectGroupId,
-        value: itm.projectGroupId,
+        value: itm.uniqueId,
       };
     });
   });
@@ -140,17 +138,6 @@ const ManageProjectForm = ({
       },
       classes: "col-span-1",
     },
-    // {
-    //   label: "Sub-Project Name",
-    //   name: "subProject",
-    //   type: "text",
-    //   value: "",
-    //   // option: SubProjectList,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Sub-Project Type",
       name: "subProject",
@@ -158,7 +145,9 @@ const ManageProjectForm = ({
       value: "",
       option: subProjectList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          
+        },
       },
       classes: "col-span-1",
     },
@@ -169,7 +158,9 @@ const ManageProjectForm = ({
       value: "",
       option: circleList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          
+        },
       },
       classes: "col-span-1",
     },
@@ -179,7 +170,9 @@ const ManageProjectForm = ({
       type: "datetime",
       value: "",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          // console.log(e.target.value);
+        },
       },
       required: true,
       classes: "col-span-1",
@@ -190,7 +183,9 @@ const ManageProjectForm = ({
       type: "datetime",
       value: "",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          
+        },
       },
       required: true,
       classes: "col-span-1",
@@ -226,9 +221,9 @@ const ManageProjectForm = ({
       option: [
         { label: "Active", value: "Active" },
         { label: "Inactive", value: "Inactive" },
-        { label: "Archive", value: "Archive" },
-        { label: "Trashed", value: "Trashed" },
-        { label: "Closed", value: "closed" },
+        // { label: "Archive", value: "Archive" },
+        // { label: "Trashed", value: "Trashed" },
+        { label: "Closed", value: "Closed" },
       ],
       required: true,
       classes: "col-span-1",
@@ -250,16 +245,13 @@ const ManageProjectForm = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
+    console.log(data,"123456789123456789123456789")
     data["endDate"] = data?.endDate.split("T")[0];
     data["startDate"] = data?.startDate.split("T")[0];
 
     delete data["PMName"];
     if (formValue?.uniqueId) {
-      dispatch(
-        AdminActions.postProject(
-          true,
-          customeruniqueId,
-          data,
+      dispatch(AdminActions.postProject(true,customeruniqueId,data,
           () => {
             setIsOpen(false);
             dispatch(AdminActions.getProject(customeruniqueId));
@@ -281,14 +273,9 @@ const ManageProjectForm = ({
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
-    dispatch(
-      HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`)
-    );
+    dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
 
-    // dispatch(HrActions.getManageEmpDetails(true,"","userRole=Project Manager"));
-    // dispatch(AdminActions.getManageSubProjectType(customeruniqueId))
-    // dispatch(AdminActions.getProject(customeruniqueId))
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -296,13 +283,11 @@ const ManageProjectForm = ({
       });
     } else {
       reset({});
-      console.log(formValue, Form, "Object.keys(formValue)");
+      // console.log(formValue, Form, "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["startDate", "endDate"].indexOf(key.name) != -1) {
           console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
-
-          console.log(momentObj, "momentObj");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
           let dtwq = key.option.filter(
@@ -350,11 +335,6 @@ const ManageProjectForm = ({
           setValue={setValue}
           getValues={getValues}
         />
-        {/* <button></button> */}
-
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}

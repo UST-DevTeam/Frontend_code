@@ -1,4 +1,4 @@
-import { LOADERS, POP_MENU } from "../reducers/component-reducer"
+import { LOADERS, POP_MENU, BREADCRUMB } from "../reducers/component-reducer"
 // import Notify from "./notify-actions"
 
 
@@ -6,6 +6,14 @@ const ComponentActions = {
     popmenu: (data,tkn) => async (dispatch, _) => {
         try {
             dispatch(POP_MENU({data,tkn}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+    breadcrumb: (data,link,index,tkn) => async (dispatch, _) => {
+        try {
+            dispatch(BREADCRUMB({data,link,index,tkn}))
         } catch (error) {
             console.log(error, "amit errorerror 37")
             // dispatch(Notify.error('something went wrong! please try again after a while'))

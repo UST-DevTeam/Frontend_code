@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   popmenu: "",
   alerts: {},
+  breadcrumb: [],
   loader: false,
   table_pagination: "",
   setfileblob: null,
@@ -19,6 +20,14 @@ const component = createSlice({
         state.popmenu = "";
       }
     },
+    BREADCRUMB: (state, { payload }) => {
+      if (payload.tkn) {
+        state.breadcrumb = [{name:payload.data,link:payload.link}];
+      } else {
+        state.breadcrumb = [...state.breadcrumb,{name:payload.data,link:payload.link}];
+      }
+    },
+    
     TABLE_PAGINATON: (state, { payload }) => {
       state.table_pagination = payload;
     },
@@ -41,6 +50,7 @@ const component = createSlice({
 
 export const {
   POP_MENU,
+  BREADCRUMB,
   ALERTS,
   TABLE_PAGINATON,
   LOADERS,

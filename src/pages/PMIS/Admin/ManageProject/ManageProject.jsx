@@ -143,7 +143,7 @@ const ManageProject = () => {
             },
             {
                 name: "Project Group",
-                value: "projectGroup",
+                value: "projectGroupId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {

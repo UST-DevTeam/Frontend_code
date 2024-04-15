@@ -45,7 +45,7 @@ const AdvancedTableExpandable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50, 100, 300, 500, 1000],
+    rpp: [25,50,75, 100],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
   const callApiPagination = (value) => {

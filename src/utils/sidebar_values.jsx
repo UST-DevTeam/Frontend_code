@@ -99,7 +99,7 @@ import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccess
 let user=JSON.parse(localStorage.getItem("user"))
 let rolename=user?.roleName
 
-console.log(rolename,["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename),"rolenamerolenamerolename")
+console.log(rolename,["Field Resource", "QE", "Circle Support", "Project Support", "Vendor"].indexOf(rolename),"rolenamerolenamerolename")
 export const Sidebar_content = {
   temp: [],
   GlobalUrl: [
