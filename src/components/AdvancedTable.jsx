@@ -18,6 +18,7 @@ const AdvancedTable = ({
   headerButton,
   templateButton,
   exportButton,
+  exportSiteButton,
   filterAfter = () => {},
   handleSubmit = () => {},
   table,
@@ -196,7 +197,25 @@ const AdvancedTable = ({
               )}
               {exportButton ? (
                 <Button
-                  name={"Export"}
+                  name={"Export Project"}
+                  classes="w-full mr-1"
+                  onClick={() => {
+                    dispatch(
+                      CommonActions.commondownload(
+                        exportButton[0],
+                        exportButton[1]
+                      )
+                    );
+                  }}
+                >
+                  Export
+                </Button>
+              ) : (
+                <></>
+              )}
+              {exportSiteButton ? (
+                <Button
+                  name={"Export Site"}
                   classes="w-full"
                   onClick={() => {
                     dispatch(

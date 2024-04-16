@@ -368,7 +368,7 @@ const ManageProjectSiteId = () => {
             {
                 name: "Site ID",
                 value: "siteIdLink",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
             },
             {
                 name: "Sub Project",
@@ -444,7 +444,7 @@ const ManageProjectSiteId = () => {
                 {
                     name: "Site ID",
                     value: "SiteNaming",
-                    style: "min-w-[140px] max-w-[200px] text-center"
+                    style: "min-w-[140px] max-w-[200px] sticky left-0 bg-white text-center"
                 },
                 {
                     name: "Sub Project",
@@ -563,7 +563,7 @@ const ManageProjectSiteId = () => {
                     setmodalHead("Add Site ID")
                     setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 }}
-                    name={"Add Site ID"}></ConditionalButton>
+                    name={"Add Site"}></ConditionalButton>
                 <ConditionalButton showType={getAccessType("Task Allocation")} classes='w-auto ' onClick={(e) => {
 
                     if (childsite.length > 0) {

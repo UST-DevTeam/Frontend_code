@@ -25,7 +25,8 @@ const initialState = {
     getVishal:[],
     getVendorProjectAllocation:[],
     getComponentAllocation:[],
-    getOldComponentAllocation:[]
+    getOldComponentAllocation:[],
+    getManageCompletionCriteria:[],
 
 }
 
@@ -171,6 +172,14 @@ const adminData = createSlice({
                 state.getManageProfile  = [...state.getManageProfile,...payload.dataAll]
             }
         },
+
+        GET_MANAGE_COMPLETION_CRITERIA:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageCompletionCriteria = payload.dataAll
+            }else{
+                state.getManageCompletionCriteria  = [...state.getManageCompletionCriteria,...payload.dataAll]
+            }
+        },
         
 
         GET_MANAGE_SUB_PROJECT:(state,{payload}) => {
@@ -255,6 +264,7 @@ export const {
     GET_ONE_MANAGE_PROJECT,
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
+    GET_MANAGE_COMPLETION_CRITERIA,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  

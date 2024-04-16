@@ -4,13 +4,13 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.29.72:7980"
-// export const backendassetUrl="http://192.168.29.72:7980/"
+// export const baseUrl="http://192.168.29.70:7980"
+// export const backendassetUrl="http://192.168.29.70:7980/"
 
 
 
-// export const baseUrl="http://192.168.77.116:7980"
-// export const backendassetUrl="http://192.168.77.116:7980/"
+// export const baseUrl="http://192.168.0.125:7980"
+// export const backendassetUrl="http://192.168.0.125:7980/"
 
 
 
@@ -56,6 +56,7 @@ export const Urls={
     admin_profile:"/hr/manageProfile",
     admin_project_allocation:"/hr/projectAllocation",
     admin_uamView:"/uamView",
+    admin_completion_criteria:"/",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
     projectList_getproject_allocation:"/projectAllocationList/",
@@ -66,6 +67,7 @@ export const Urls={
     projectList_milestone:"/milestone",
     projectList_globalSaver:"/globalSaver",
     projectList_closeMilestone:"/closeMilestone/",
+    project_circle:'/project/circle',
 
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+    import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,8 @@ const ManageProject = () => {
 
     const { projecttypeuniqueId, customeruniqueId } = useParams()
 
+
+    console.log(projecttypeuniqueId,"projecttypeuniqueIdprojecttypeuniqueIdprojecttypeuniqueId")
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
@@ -139,7 +141,7 @@ const ManageProject = () => {
             {
                 name: "Project ID",
                 value: "projectId",
-                style: "min-w-[200px] max-w-[200px] text-center"
+                style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white"
             },
             {
                 name: "Project Group",
@@ -148,12 +150,12 @@ const ManageProject = () => {
             },
             {
                 name: "Project Type",
-                value: "projectType",
+                value: "projectTypeName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Sub Project",
-                value: "subProject",
+                value: "subProjectName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -176,11 +178,6 @@ const ManageProject = () => {
                 value: "endDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            // {
-            //     name: "Site Status",
-            //     value: "siteStatus",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },
             {
                 name: "Status",
                 value: "status",
@@ -222,6 +219,14 @@ const ManageProject = () => {
         dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
+    // useEffect(() => {
+    //     if (customeruniqueId && projecttypeuniqueId) {
+    //         dispatch(AdminActions.getProject(`${customeruniqueId}/${projecttypeuniqueId}`))
+    //     } else if (customeruniqueId) {
+    //         dispatch(AdminActions.getProject(`${customeruniqueId}`))
+    //     }
+    // }, [customeruniqueId, projecttypeuniqueId])
+    
 
     return <>
         <AdvancedTable
@@ -238,6 +243,7 @@ const ManageProject = () => {
                 </div>}
             table={table}
             exportButton={["/export/Project/"+(`${customeruniqueId}`)+"/"+(`${projecttypeuniqueId}`),"Export_Project.xlsx"]}
+            exportSiteButton={["/export/Project/"+(`${customeruniqueId}`)+"/"+(`${projecttypeuniqueId}`),"Export_Project.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

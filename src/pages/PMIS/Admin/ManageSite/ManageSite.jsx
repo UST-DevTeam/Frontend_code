@@ -290,10 +290,14 @@ const ManageSite = ({
   );
 
   useEffect(() => {
+    if (dataOfProject) {
+      setValueForm1("project", dataOfProject.projectType); 
+      setValueForm1("subProject", dataOfProject.subProject); 
+    }
     reset({});
 
     // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
-  }, []);
+  }, [dataOfProject, reset]);
 
   let dtype = {
     Decimal: "number",
@@ -313,6 +317,8 @@ const ManageSite = ({
   //     }
   // }) : [] : [], "dsadasssssssssssssssssssssssssss")
 
+
+
   const filesUploadForm = [
     { label: "file", value: "", name: "file", required: true, type: "file" },
     { label: "Note", value: "", name: "note", required: true, type: "text" },
@@ -320,7 +326,6 @@ const ManageSite = ({
   return (
     <>
       <div className="p-4">
-        {/* <Button /> */}
 
         <CommonTableFormSiteParent
           setmodalFullOpen={setmodalFullOpen}
@@ -341,35 +346,41 @@ const ManageSite = ({
                   Form={
                     dataOfProject
                       ? dataOfProject["t_sengg"]
-                            ? [
-                                {
-                                label: "",
-                                value: "",
-                                required: true,
-                                option: [],
-                                name: "",
-                                type: "",
-                                },
-                            ] +
-                            dataOfProject["t_sengg"].map((its) => {
-                                return {
+                        ? [
+                            {
+                              label: "Project Type",
+                              value: "",
+                              name: "project",
+                              type: "sdisabled",
+                              classes: "col-span-1",
+                            },
+                            {
+                              label: "Sub Project",
+                              value: "",
+                              name: "subProject",
+                              type: "sdisabled",
+                              classes: "col-span-1",
+                            },
+                            ...dataOfProject["t_sengg"].map((its) => {
+                              return {
                                 label: its.fieldName,
                                 value: "",
                                 required: its.required == "Yes" ? true : false,
                                 option: its.dropdownValue
-                                    ? its.dropdownValue.split(",").map((itm) => {
-                                        return {
+                                  ? its.dropdownValue.split(",").map((itm) => {
+                                      return {
                                         value: itm,
                                         label: itm,
-                                        };
+                                      };
                                     })
-                                    : [],
+                                  : [],
                                 name: its.fieldName
-                                    .replace(" ", "")
-                                    .toLowerCase(),
+                                  .replace(" ", "")
+                                  .toLowerCase(),
                                 type: dtype[its.dataType],
-                                };
-                            })
+                              };
+                            }),
+                          ]
                         : []
                       : []
                   }

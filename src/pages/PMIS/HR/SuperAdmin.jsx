@@ -287,7 +287,8 @@ const SuperAdmin = () => {
                 ["Vendor Project Allocation","bg-gradient-to-r from-violet-200 to-blue-600","/vendorProjectAllocation"],
                 ["Manage Department","bg-gradient-to-r from-pink-500 to-rose-500","/manageDepartment"],
                 ["Manage Designation","bg-gradient-to-r from-emerald-400 to-cyan-400","/manageDesignation"],
-                ["Manage Profiles","bg-gradient-to-r from-amber-200 to-yellow-500","/manageProfile"]
+                ["Manage Profiles","bg-gradient-to-r from-amber-200 to-yellow-500","/manageProfile"],
+                ["Completion Criteria","bg-gradient-to-r from-lime-400 to-rose-400","/completionCriteria"]
             ].map((itm => {
             return <>
                 <div className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`} onClick={()=>{navigate(itm[2])}}>

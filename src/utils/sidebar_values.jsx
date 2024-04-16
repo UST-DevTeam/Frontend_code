@@ -93,6 +93,7 @@ import ManageUserProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/Man
 import ISONForm from "../pages/iSON/ISONForm";
 import UserComponentManagement from "../pages/UserComponentManagement/UserComponentManagement";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
+import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
 
 
 
@@ -309,6 +310,13 @@ export const Sidebar_content = {
       name: "",
       link: "/vendorProject",
       component: <VendorProject />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/completionCriteria",
+      component: <ManageCompletionCriteria/>,
       icon: <UilStore />,
       subMenu: [],
     },

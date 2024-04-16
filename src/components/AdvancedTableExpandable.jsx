@@ -132,15 +132,15 @@ const AdvancedTableExpandable = ({
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                            {index !== 0 && (
                               <div className="flex m-1">
                                 <input
                                   type="checkbox"
+                                  checked={hide.indexOf(String(index)) == -1}
                                   value={String(index)}
                                   onChange={(e) => {
                                     setHide((prev) => {
                                       // alert("caller")
-                                      if (e.target.checked) {
+                                      if (!e.target.checked) {
                                         // alert("pusher")
                                         return [...prev, e.target.value];
                                       } else {
@@ -160,7 +160,7 @@ const AdvancedTableExpandable = ({
                                   {itts.name}
                                 </span>
                               </div>
-                            )}
+                            
                           </>
                         );
                       })}
@@ -215,7 +215,7 @@ const AdvancedTableExpandable = ({
                 </div>
             </div> */}
         <div className="m-2 overflow-x-scroll h-[76vh] pb-6 border-1 border-solid border-black rounded-lg ">
-          {data?.length > 0 ? (
+          {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">
                 <tr>

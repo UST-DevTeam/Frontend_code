@@ -9,18 +9,19 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import HrActions from "../../../../store/actions/hr-actions";
 import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
+import projectListActions from "../../../../store/actions/projectList-actions";
 
-const ManageProjectForm = ({
-  projecttypeuniqueId,
-  isOpen,
-  setIsOpen,
-  resetting,
-  formValue = {},
-}) => {
+const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formValue = {},}) => {
+
+  const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm();
+
   const { customeruniqueId } = useParams();
+
   let dispatch = useDispatch();
+
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
+  const [circlewq, setcircle] = useState("");
 
   let pmempList = useSelector((state) => {
     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
@@ -43,11 +44,6 @@ const ManageProjectForm = ({
 
   let projectTypeList = useSelector((state) => {
     return state?.adminData?.getCardProjectType.map((itm) => {
-      //   if (projectTypeList === "project[uniqueId]") {
-      //     const ProjectTypeValue = "projectType";
-      //     setValue("projectType", ProjectTypeValue);
-      //   }
-      //   else
       return {
         label: itm.projectType,
         value: itm.uniqueId,
@@ -56,24 +52,21 @@ const ManageProjectForm = ({
   });
 
   let subProjectList = useSelector((state) => {
-    return state?.adminData?.getManageProjectType.filter((itm) => {
-      console.log(itm.projectType==pType,"dasdsadsadas")
-      return itm.projectType==pType;
-    }).map((itm) => {
-      return {
-        label: itm.subProject,
-        value: itm.uniqueId,
-      };
-    });
+    return state?.adminData?.getManageProjectType
+      .filter((itm) => {
+        console.log(itm.projectType == pType, "dasdsadsadas");
+        return itm.projectType == pType;
+      })
+      .map((itm) => {
+        return {
+          label: itm.subProject,
+          value: itm.uniqueId,
+        };
+      });
   });
 
   let PMList = useSelector((state) => {
     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-      //   if (projectTypeList === "project[uniqueId]") {
-      //     const ProjectTypeValue = "projectType";
-      //     setValue("projectType", ProjectTypeValue);
-      //   }
-      //   else
       return {
         label: itm.empName,
         value: itm.empName,
@@ -81,29 +74,28 @@ const ManageProjectForm = ({
     });
   });
 
-  // let SubProjectList = useSelector((state) => {
-  //     return state?.adminData?.getManageSubProject.map((itm) => {
-  //         return {
-  //             label: itm.subProject,
-  //             value: itm.subProject
-  //         }
-  //     })
-  // })
-
   let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
+    return state?.projectList?.getprojectcircle.map((itm) => {
       return {
-        label: itm.circleName,
+        label: itm.circle,
         value: itm.uniqueId,
       };
     });
+  });
+
+  useSelector((state) => {
+    console.log(circlewq, getValues(), circleList.length, "getValues");
+
+    if (circlewq && circleList.length > 0) {
+      setValue("circle", getValues()["circle"]);
+    }
   });
 
   let Form = [
     {
       label: "Project ID",
       name: "projectId",
-      type: "text",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       value: "",
       required: true,
       classes: "col-span-1",
@@ -115,7 +107,14 @@ const ManageProjectForm = ({
       value: "",
       option: projectGroupList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          dispatch(
+            projectListActions.getProjectCircle(
+              true,
+              `projectGroupId=${e.target.value}`
+            )
+          );
+        },
       },
       required: true,
       classes: "col-span-1",
@@ -126,12 +125,15 @@ const ManageProjectForm = ({
       value: "",
       name: "projectType",
       type: "select",
-      option: projectTypeList,
       required: true,
+      option: projectTypeList,
       props: {
         onChange: (e) => {
-          
-          setpType(projectTypeList.filter(iteq=>iteq.value==e.target.value)[0]["label"])
+          setpType(
+            projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
+              "label"
+            ]
+          );
           console.log(e.target.value, "e geeter");
           setValue("projectType", e.target.value);
         },
@@ -144,10 +146,9 @@ const ManageProjectForm = ({
       type: "select",
       value: "",
       option: subProjectList,
+      required: true,
       props: {
-        onChange: (e) => {
-          
-        },
+        onChange: (e) => {},
       },
       classes: "col-span-1",
     },
@@ -157,9 +158,10 @@ const ManageProjectForm = ({
       type: "select",
       value: "",
       option: circleList,
+      required: true,
       props: {
         onChange: (e) => {
-          
+          // alert(e.target.value)
         },
       },
       classes: "col-span-1",
@@ -183,9 +185,7 @@ const ManageProjectForm = ({
       type: "datetime",
       value: "",
       props: {
-        onChange: (e) => {
-          
-        },
+        onChange: (e) => {},
       },
       required: true,
       classes: "col-span-1",
@@ -220,24 +220,14 @@ const ManageProjectForm = ({
       type: "select",
       option: [
         { label: "Active", value: "Active" },
-        { label: "Inactive", value: "Inactive" },
-        // { label: "Archive", value: "Archive" },
-        // { label: "Trashed", value: "Trashed" },
+        { label: "Archive", value: "Archive" },
+        { label: "Trash", value: "Trash" },
         { label: "Closed", value: "Closed" },
       ],
       required: true,
       classes: "col-span-1",
     },
   ];
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm();
   const onSubmit = (data) => {
     console.log(data, "datadatadatadata");
     // dispatch(AuthActions.signIn(data, () => {
@@ -245,30 +235,42 @@ const ManageProjectForm = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
-    console.log(data,"123456789123456789123456789")
-    data["endDate"] = data?.endDate.split("T")[0];
-    data["startDate"] = data?.startDate.split("T")[0];
+
+
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    };
+
+    const inputStartDate = new Date(data["startDate"]);
+    const startDateISTString = inputStartDate.toLocaleString("en-IN", options);
+    data["startDate"] = startDateISTString.split(", ")[0];
+
+    const inpuEndtDate = new Date(data["endDate"]);
+    const endDateISTString = inpuEndtDate.toLocaleString("en-IN", options);
+    data["endDate"] = endDateISTString.split(", ")[0];
 
     delete data["PMName"];
+
     if (formValue?.uniqueId) {
-      dispatch(AdminActions.postProject(true,customeruniqueId,data,
-          () => {
+      dispatch(AdminActions.postProject(true,customeruniqueId,data,() => {
             setIsOpen(false);
             dispatch(AdminActions.getProject(customeruniqueId));
           },
           formValue?.uniqueId
         )
       );
-    } else {
-      dispatch(
-        AdminActions.postProject(true, customeruniqueId, data, () => {
+    } 
+    else {
+      dispatch(AdminActions.postProject(true, customeruniqueId, data, () => {
           setIsOpen(false);
           dispatch(AdminActions.getProject(customeruniqueId));
         })
       );
     }
   };
-  console.log(Form, "Form 11");
   useEffect(() => {
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(AdminActions.getManageCircle());
@@ -283,18 +285,27 @@ const ManageProjectForm = ({
       });
     } else {
       reset({});
-      // console.log(formValue, Form, "Object.keys(formValue)");
+      // console.log(formValue, "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["startDate", "endDate"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
+          if (key.name == "projectType") {
+            setpType(formValue["projectTypeName"]);
+          }
+
+          if (key.name == "projectGroup") {
+            dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
+            setcircle(true);
+          }
+
           let dtwq = key.option.filter(
             (itq) => itq.label == formValue[key.name]
           );
 
-          console.log(dtwq,formValue[key.name],"dtwqdtwqdtwq")
+          console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
           if (dtwq.length > 0) {
             setValue(key.name, dtwq[0]["value"]);
           } else {

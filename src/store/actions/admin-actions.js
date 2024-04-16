@@ -16,6 +16,7 @@ import {
     GET_CITIES,
     GET_PROJECT_ALLLOCATION,
     GET_VENDOR_PROJECT_ALLLOCATION,
+    GET_MANAGE_COMPLETION_CRITERIA,
 
 
     // Not in use
@@ -428,6 +429,38 @@ const AdminActions = {
     postManageProfile: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_profile : Urls.admin_profile + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageCompletionCriteria:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_completion_criteria}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_COMPLETION_CRITERIA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    
+    postManageCompletionCriteria: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_completion_criteria : Urls.admin_completion_criteria + "/" + uniqueId })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,

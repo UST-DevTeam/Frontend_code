@@ -57,8 +57,10 @@ const ManageProjectSiteIdForm = ({
     if (old["_id"] != oldata["_id"]) {
       setOld(oldata)
       setValue("ptype", oldata["projectType"])
+
     }
-    console.log(oldata, "olddataolddataolddata")
+    console.log(oldata, "")
+    // return state.projectList.getProjectTypeSuolddataolddataolddatab
     return state.projectList.getProjectTypeSub
   })
 
@@ -113,8 +115,7 @@ const ManageProjectSiteIdForm = ({
   //   });
   // });
 
-
-  console.log(dataGetterOld?.projectType, "dataGetterOlddataGetterOlddataGetterOld")
+  console.log(dataGetterOld, "dataGetterOlddataGetterOlddataGetterOld")
   let Form = [
 
     {

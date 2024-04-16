@@ -5,7 +5,8 @@ const initialState = {
     dynamicForm: {},
     getProjectTypeSub: {},
     getprojectalllist: [],
-    getuserallocatedproject: []
+    getuserallocatedproject: [],
+    getprojectcircle:[],
 }
 
 const projectList = createSlice({
@@ -45,6 +46,7 @@ const projectList = createSlice({
                 state.getprojectalllist = [...state.getprojectalllist, ...payload.dataAll]
             }
         },
+
         GET_USER_ALLLOCATED_PROJECT: (state, { payload }) => {
             if (payload.reset) {
                 state.getuserallocatedproject = payload.dataAll
@@ -52,6 +54,14 @@ const projectList = createSlice({
                 state.getuserallocatedproject = [
                     ...state.getprojectalllist, ...payload.dataAll
                 ]
+            }
+        },
+
+        GET_PROJECT_CIRCLE: (state, { payload }) => {
+            if (payload.reset) {
+                state.getprojectcircle = payload.dataAll
+            } else {
+                state.getprojectcircle = [...state.getprojectcircle, ...payload.dataAll]
             }
         },
 
@@ -140,5 +150,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, RESET_STATE } = projectList.actions
+export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE } = projectList.actions
 export default projectList.reducer
