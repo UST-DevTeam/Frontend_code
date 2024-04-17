@@ -18,84 +18,9 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
 
     let Form = [
         {
-            label: "Completion Date",
+            label: "Completion Criteria",
             value: "",
-            name: "completionDate",
-            type: "text",
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Chechlist",
-            value: "",
-            name: "chechlist",
-            type: "text",
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "MO No.",
-            value: "",
-            name: "MoNo",
-            type: "text",
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Challan Copy",
-            value: "",
-            name: "challanCopy",
-            type: "text",
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Attachment",
-            value: "",
-            name: "attachment",
-            type: "text",
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Reference No.",
-            value: "",
-            name: "ReferenceNo",
+            name: "completion",
             type: "text",
             required: true,
             filter: true,
@@ -127,20 +52,20 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageProfile( data, () => {
+            dispatch(AdminActions.postManageCompletionCriteria( data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageProfile())
+                dispatch(AdminActions.getManageCompletionCriteria())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageProfile( data, () => {
+            dispatch(AdminActions.postManageCompletionCriteria( data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageProfile())
+                dispatch(AdminActions.getManageCompletionCriteria())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageProfile())
+        dispatch(AdminActions.getManageCompletionCriteria())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

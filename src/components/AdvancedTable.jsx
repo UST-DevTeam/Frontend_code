@@ -7,11 +7,12 @@ import { UilFilter } from "@iconscout/react-unicons";
 import Modalmoreinfo from "./Modalmoreinfo";
 import Modal from "./Modal";
 import DatePicker from "react-datepicker";
-import { objectToArray } from "../utils/commonFunnction";
+import { getAccessType, objectToArray } from "../utils/commonFunnction";
 import moment from "moment";
 import FilterView from "./FilterView";
 import { useDispatch, useSelector } from "react-redux";
 import CommonActions from "../store/actions/common-actions";
+import ConditionalButton from "./ConditionalButton";
 
 const AdvancedTable = ({
   tableName = "",
@@ -196,7 +197,7 @@ const AdvancedTable = ({
                 <></>
               )}
               {exportButton ? (
-                <Button
+                <ConditionalButton showType={getAccessType("Add Project")}
                   name={"Export Project"}
                   classes="w-full mr-1"
                   onClick={() => {
@@ -209,12 +210,12 @@ const AdvancedTable = ({
                   }}
                 >
                   Export
-                </Button>
+                </ConditionalButton>
               ) : (
                 <></>
               )}
               {exportSiteButton ? (
-                <Button
+                <ConditionalButton showType={getAccessType("Download Project")}
                   name={"Export Site"}
                   classes="w-full"
                   onClick={() => {
@@ -227,7 +228,7 @@ const AdvancedTable = ({
                   }}
                 >
                   Export
-                </Button>
+                </ConditionalButton>
               ) : (
                 <></>
               )}
@@ -398,7 +399,7 @@ const AdvancedTable = ({
                       );
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
-                          {["Edit", "Delete"].includes(itts.name) ? (
+                          {["Edit", "Delete",].includes(itts.name) ? (
                             ["Edit"].includes(itts.name) ? (
                               <th
                                 colSpan={actions.length}

@@ -21,10 +21,12 @@ const component = createSlice({
       }
     },
     BREADCRUMB: (state, { payload }) => {
+      console.log(0,payload,"dasdassssssssssssssssss")
       if (payload.tkn) {
-        state.breadcrumb = [{name:payload.data,link:payload.link}];
+        state.breadcrumb = [{name:payload.data,index,link:payload.link}];
       } else {
-        state.breadcrumb = [...state.breadcrumb,{name:payload.data,link:payload.link}];
+        console.log(0,payload.index,"dasdassssssssssssssssss")
+        state.breadcrumb = [...state.breadcrumb.splice(0,payload.index),{name:payload.data,link:payload.link}];
       }
     },
     

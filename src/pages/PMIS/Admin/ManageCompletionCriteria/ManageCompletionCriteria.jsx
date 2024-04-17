@@ -45,25 +45,25 @@ const ManageCompletionCriteria = () => {
                     console.log('ahshshhs',itm)
                 }}></EditButton>} />,
                 
-                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                //     let msgdata = {
-                //         show: true,
-                //         icon: 'warning',
-                //         buttons: [
-                //             <Button classes='w-15 bg-green-500' onClick={() => {
-                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_completion_criteria}/${itm.uniqueId}`, () => {
-                //                     dispatch(AdminActions.getManageCompletionCriteria())
-                //                     dispatch(ALERTS({ show: false }))
-                //                 }))
-                //             }} name={"OK"} />,
-                //             <Button classes='w-24' onClick={() => {
-                //                 dispatch(ALERTS({ show: false }))
-                //             }} name={"Cancel"} />
-                //         ],
-                //         text: "Are you sure you want to Delete?"
-                //     }
-                //     dispatch(ALERTS(msgdata))
-                // }}></DeleteButton>} />
+                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
+                    let msgdata = {
+                        show: true,
+                        icon: 'warning',
+                        buttons: [
+                            <Button classes='w-15 bg-green-500' onClick={() => {
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_completion_criteria}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getManageCompletionCriteria())
+                                    dispatch(ALERTS({ show: false }))
+                                }))
+                            }} name={"OK"} />,
+                            <Button classes='w-24' onClick={() => {
+                                dispatch(ALERTS({ show: false }))
+                            }} name={"Cancel"} />
+                        ],
+                        text: "Are you sure you want to Delete?"
+                    }
+                    dispatch(ALERTS(msgdata))
+                }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -83,35 +83,10 @@ const ManageCompletionCriteria = () => {
     let table = {
         columns: [
             {
-                name: "Completion Date",
-                value: "completionDate",
+                name: "Completion Criteria",
+                value: "completion",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Chechlist",
-                value: "checkList",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "MO No.",
-                value: "MoNo",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Challan Copy",
-                value: "challanCopy",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Attachment",
-                value: "attachment",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Reference No.",
-                value: "referenceNo",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            },                   
             {
                 name: "Edit",
                 value: "edit",

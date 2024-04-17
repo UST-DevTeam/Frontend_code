@@ -35,8 +35,8 @@ const ManageProjectSiteId = () => {
 
     let permission=JSON.parse(localStorage.getItem("permission")) || {}
 
-    console.log(permission?.pmpermission,"permission")
-    console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
+    // console.log(permission?.pmpermission,"permission")
+    // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
 
     console.log(getAccessType("Add Site"),"getAccessType")
     const { projectuniqueId } = useParams()

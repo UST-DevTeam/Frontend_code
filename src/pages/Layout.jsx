@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 const Layout = ({ child }) => {
   const [sidebarOpen, setsidebarOpenn] = useState(true);
@@ -37,34 +38,7 @@ const Layout = ({ child }) => {
     <>
       {/* <Sidebar sidebarOpen={sidebarOpen} setsidebarOpenn={setsidebarOpenn}/> */}
       {/* <div style={{width:Width}} className={`flex-1 h-full bg-white p-2 overflow-y-scroll`}> */}
-      {/* <div>
-        <nav class="bg-gray-100 p-4">
-          <ol class="list-reset flex text-gray-600">
-            {breadcrumblist.map((item, index) => {
-              return (
-                <>
-                  {index != breadcrumblist.length-1 ? (
-                    <>
-                      <li>
-                        <a class="text-green-500 hover:text-green-600" onClick={()=>{
-                            navigate(item.link);
-                        }}>
-                          {item.name}
-                        </a>
-                      </li>
-                      <li class="mx-2">/</li>
-                    </>
-                  ) : (
-                    <>
-                      <li class="text-gray-700 font-semibold">{item.name}</li>
-                    </>
-                  )}
-                </>
-              );
-            })}
-          </ol>
-        </nav>
-      </div> */}
+      <BreadCrumbs />
       <div className={`flex-1 h-[40vh] overflow-y-scroll`}>
         {/* <div class="flex-1 bg-white p-4"> */}
         {child}

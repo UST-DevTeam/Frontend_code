@@ -94,13 +94,87 @@ import ISONForm from "../pages/iSON/ISONForm";
 import UserComponentManagement from "../pages/UserComponentManagement/UserComponentManagement";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
+import { getAccessType } from "./commonFunnction";
+
+let user = JSON.parse(localStorage.getItem("user"));
+let permission = JSON.parse(localStorage.getItem("permission")) || {};
+const pmpermission = permission?.pmpermission;
+
+let smartComponent = <>Hello</>;
+
+let abcd = [];
+if (user) {
+  let cpv = getAccessType("Customer Page View");
+  let ptpv = getAccessType("Project Type Page View");
+  let ppv = getAccessType("Project Page View");
+  let spv = getAccessType("Site Page View");
+
+  console.log(cpv, "cpv", ptpv, "ptpv", ppv, "ppv", spv, "spv", "mergedAll");
+  if (cpv != "invisible") {
+    smartComponent = <ManageCustomer />;
+
+    abcd = [
+      {
+        name: "Project Management",
+        link: "/manageCustomer",
+        // component: ["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename)==-1?<ManageCustomer />:<ManageUserProjectSiteId />,
+        component: <ManageCustomer />,
+        subMenu: [],
+        icon: <UilFileShieldAlt />,
+      },
+    ];
+  } else if (ptpv != "invisible") {
+    abcd = [
+      {
+        name: "Project Management",
+        link: "/projectType",
+        subMenu: [],
+        component: <ManageProjectType />,
+        icon: <UilFileShieldAlt />,
+      },
+    ];
+    smartComponent = <ManageProjectType />;
+  } else if (ppv != "invisible") {
+    abcd = [
+      {
+        name: "Project Management",
+        link: "/project",
+        subMenu: [],
+        component: <ManageProject />,
+        icon: <UilFileShieldAlt />,
+      },
+    ];
+    smartComponent = <ManageProject />;
+  } else if (spv != "invisible") {
+    abcd = [
+      {
+        name: "Project Management",
+        link: "/prjmgmt",
+        component: <ManageUserProjectSiteId />,
+        subMenu: [],
+        icon: <UilFileShieldAlt />,
+      },
+    ];
+    smartComponent = <ManageProjectSiteId />;
+  }
+}
 
 
+console.log(abcd,"abcdabcdabcd")
 
-let user=JSON.parse(localStorage.getItem("user"))
-let rolename=user?.roleName
+let rolename = user?.roleName;
 
-console.log(rolename,["Field Resource", "QE", "Circle Support", "Project Support", "Vendor"].indexOf(rolename),"rolenamerolenamerolename")
+console.log(
+  rolename,
+  [
+    "Field Resource",
+    "QE",
+    "Circle Support",
+    "Project Support",
+    "Vendor",
+  ].indexOf(rolename),
+  "rolenamerolenamerolename"
+);
 export const Sidebar_content = {
   temp: [],
   GlobalUrl: [
@@ -115,22 +189,24 @@ export const Sidebar_content = {
           subMenu: [],
         },
       ],
-    },{
+    },
+    {
       name: "",
       link: "/isoning",
       subMenu: [],
-      component: <UserComponentManagement/>,
-      
-    },{
+      component: <UserComponentManagement />,
+    },
+    {
       name: "",
       link: "/projectType/:customeruniqueId",
       subMenu: [],
-      component: <ManageProjectType/>,
-    },{
+      component: <ManageProjectType />,
+    },
+    {
       name: "",
       link: "/ManageSite/:customeruniqueId",
       subMenu: [],
-      component: <ManageSite/>,
+      component: <ManageSite />,
       // component: <ManageProjectType />,
     },
     {
@@ -181,7 +257,7 @@ export const Sidebar_content = {
       subMenu: [],
       component: <EmpDetails />,
     },
-    
+
     {
       name: "",
       link: "/empdetails",
@@ -257,8 +333,7 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageProjectGroup />,
     },
-    
-    
+
     {
       name: "",
       link: "/uammg",
@@ -277,7 +352,7 @@ export const Sidebar_content = {
       name: "",
       link: "/vendorProjectAllocation",
       subMenu: [],
-      component: <VendorProjectAllocation/>,
+      component: <VendorProjectAllocation />,
     },
     {
       name: "",
@@ -299,7 +374,7 @@ export const Sidebar_content = {
       icon: <Unicons.UilChannel size="16" />,
     },
 
-  {
+    {
       name: "",
       link: "/manageVendor",
       component: <ManageVendor />,
@@ -316,7 +391,7 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/completionCriteria",
-      component: <ManageCompletionCriteria/>,
+      component: <ManageCompletionCriteria />,
       icon: <UilStore />,
       subMenu: [],
     },
@@ -471,148 +546,118 @@ export const Sidebar_content = {
     },
   ],
   all_routes: [
-    {
-      name: "My Dashboard",
-      link: "/",
-      component: <>Dashboard</>,
-      icon: <UilAirplay />,
-      subMenu: [],
-    },
-    {
-      name: "My Home",
-      link: "/home",
-      component: <MyHome />,
-      icon: <UilHome />,
-      subMenu: [],
-    },
-    {
-      name: "Project Management",
-      link: "/manageCustomer",
-      component: ["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename)==-1?<ManageCustomer />:<ManageUserProjectSiteId />,
-      // component: <ManageUserProjectSiteId />,
-      subMenu: [
-        // {
-        //   name: "Manage Project Group",
-        //   link: "/manageProjectGroup",
-        //   subMenu: [],
-        //   component: <ManagePG />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-        // {
-        //   name: "Manage Project Type",
-        //   link: "/manageProjectType",
-        //   subMenu: [],
-        //   component: <ManagePT />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-        // {
-        //   name: "Manage Access Control",
-        //   link: "/manageAccessControl",
-        //   subMenu: [],
-        //   component: <POLifeCycle />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-        // {
-        //   name: "View Expense/Advance",
-        //   link: "/viewManage",
-        //   subMenu: [],
-        //   component: <POLifeCycle />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-      ],
-      icon: <UilFileShieldAlt />,
-    },
-    {
-      name: "Human Resource",
-      link: "/hr",
-      subMenu: [
-        // {
-        //   name: "Manage Employee",
-        //   link: "/manageEmployee",
-        //   subMenu: [],
-        //   component: <ManageEmp />,
-        //   icon: <UilAirplay size="16" />,
-        // },
-        // {
-        //   name: "User Allocation",
-        //   link: "/userallocation",
-        //   subMenu: [],
-        //   component: <UserAllocation />,
-        //   icon: <Unicons.UilChannel size="16" />,
-        // },
-      ],
-      component: <HRHomeView />,
-      icon: <UilUserSquare />,
-    },
-    {
-      name: "Vendor Management",
-      link: "/vendorCards",
-      component: <VendorCards />,
-      icon: <UilStore />,
-      subMenu: [],
-    },
-    {
-      name: "Financial",
-      link: "/POLifeCylce",
-      component: <POLifeCycle />,
-      icon: <UilCoins />,
-      subMenu: [],
-    },
-    {
-      name: "Repository",
-      link: "/operation-team",
-      component: <OperationManagement />,
-      icon: <UilDatabase />,
-      subMenu: [],
-    },
-    {
-      name: "Form",
-      link: "/operation-team",
-      component: <OperationManagement />,
-      icon: <UilFileContract />,
-      subMenu: [],
-    },
-    // {
-    //   name: "Super Admin",
-    //   link: "/admin",
-    //   subMenu: [
-    //     {
-    //       name: "Manage Circle",
-    //       link: "/manageCircle",
-    //       subMenu: [],
-    //       component: <ManageCircle />,
-    //       icon: <Unicons.UilChannel size="16" />,
-    //     },
-    //     {
-    //       name: "Asset Registration",
-    //       link: "/assetRegistration",
-    //       subMenu: [],
-    //       component: <AssetRegistration />,
-    //       icon: <Unicons.UilChannel size="16" />,
-    //     },
-    //     {
-    //       name: "Manage Zone",
-    //       link: "/manageZone",
-    //       subMenu: [],
-    //       component: <ManageZone />,
-    //       icon: <Unicons.UilChannel size="16" />,
-    //     },
-    //     // {
-    //     //   name: "User Management",
-    //     //   link: "/admin/user-management",
-    //     //   subMenu: [],
-    //     //   component: <UserManagement />,
-    //     //   icon: <Unicons.UilChannel size="16" />,
-    //     // },
-    //     // {
-    //     //   name: "Role Management",
-    //     //   link: "/admin/role-management",
-    //     //   subMenu: [],
-    //     //   component: <RoleManagement />,
-    //     //   icon: <Unicons.UilChannel size="16" />,
-    //     // },
-    //   ],
-    //   icon: <Unicons.UilReact />,
-    // },
+    ...[
+      {
+        name: "My Dashboard",
+        link: "/",
+        component: <>Dashboard</>,
+        icon: <UilAirplay />,
+        subMenu: [],
+      },
+      {
+        name: "My Home",
+        link: "/home",
+        component: <MyHome />,
+        icon: <UilHome />,
+        subMenu: [],
+      },
+    ],
+    ...abcd,
+    ...[
+      {
+        name: "Human Resource",
+        link: "/hr",
+        subMenu: [
+          // {
+          //   name: "Manage Employee",
+          //   link: "/manageEmployee",
+          //   subMenu: [],
+          //   component: <ManageEmp />,
+          //   icon: <UilAirplay size="16" />,
+          // },
+          // {
+          //   name: "User Allocation",
+          //   link: "/userallocation",
+          //   subMenu: [],
+          //   component: <UserAllocation />,
+          //   icon: <Unicons.UilChannel size="16" />,
+          // },
+        ],
+        component: <HRHomeView />,
+        icon: <UilUserSquare />,
+      },
+      {
+        name: "Vendor Management",
+        link: "/vendorCards",
+        component: <VendorCards />,
+        icon: <UilStore />,
+        subMenu: [],
+      },
+      {
+        name: "Financial",
+        link: "/POLifeCylce",
+        component: <POLifeCycle />,
+        icon: <UilCoins />,
+        subMenu: [],
+      },
+      {
+        name: "Repository",
+        link: "/operation-team",
+        component: <OperationManagement />,
+        icon: <UilDatabase />,
+        subMenu: [],
+      },
+      {
+        name: "Form",
+        link: "/operation-team",
+        component: <OperationManagement />,
+        icon: <UilFileContract />,
+        subMenu: [],
+      },
+      // {
+      //   name: "Super Admin",
+      //   link: "/admin",
+      //   subMenu: [
+      //     {
+      //       name: "Manage Circle",
+      //       link: "/manageCircle",
+      //       subMenu: [],
+      //       component: <ManageCircle />,
+      //       icon: <Unicons.UilChannel size="16" />,
+      //     },
+      //     {
+      //       name: "Asset Registration",
+      //       link: "/assetRegistration",
+      //       subMenu: [],
+      //       component: <AssetRegistration />,
+      //       icon: <Unicons.UilChannel size="16" />,
+      //     },
+      //     {
+      //       name: "Manage Zone",
+      //       link: "/manageZone",
+      //       subMenu: [],
+      //       component: <ManageZone />,
+      //       icon: <Unicons.UilChannel size="16" />,
+      //     },
+      //     // {
+      //     //   name: "User Management",
+      //     //   link: "/admin/user-management",
+      //     //   subMenu: [],
+      //     //   component: <UserManagement />,
+      //     //   icon: <Unicons.UilChannel size="16" />,
+      //     // },
+      //     // {
+      //     //   name: "Role Management",
+      //     //   link: "/admin/role-management",
+      //     //   subMenu: [],
+      //     //   component: <RoleManagement />,
+      //     //   icon: <Unicons.UilChannel size="16" />,
+      //     // },
+      //   ],
+      //   icon: <Unicons.UilReact />,
+      // },
+    ],
   ],
 };
+
+

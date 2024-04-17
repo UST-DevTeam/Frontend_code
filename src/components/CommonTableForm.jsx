@@ -258,7 +258,7 @@ console.log(newdte, "listinglistinglisting")
             newars["index"] = listing.length + 1
 
 
-            dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: { ...newars }, reseter: false }))
+            dispatch(SET_DYNAMIC_FORM({ label: tabHead, value : { ...newars }, reseter: false }))
           }} /> : <></>
         }
 

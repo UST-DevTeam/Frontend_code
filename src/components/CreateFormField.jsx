@@ -332,9 +332,9 @@ const CreateFormField = ({
 
             {itm.type == "muitiSelect" ? (
 
-              <div className="w-full">
+              <div className="w-full" style={{ position: 'relative' }}>
              
-                <div style={{ width: "220px", height: "100px" }}>
+                <div style={{ width: "220px", height: "200px" }}>
                   <Multiselect
                     menuIsOpen={true}
                     keepSearchTerm={true}
@@ -353,10 +353,19 @@ const CreateFormField = ({
                         border: 'none',
                         'border-radius': '0px',
                         padding: "0px",
-                        color: "black !important"
-                      }
+                        color: "black !important",
+                        height: "32px"            
+                      },
+                      multiselectContainer: {
+                        maxHeight: '200px',
+                        position: 'absolute',
+                        zIndex: '9999',
+                        top: 'calc(100% + 8px)',
+                        left: '0', 
+
+                       },
                     }}
-                    className='pt-1 text-black bg-white border-black border block h-12 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    className='pt-1 text-black bg-white border-black border block h-12 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm '
                   /></div></div>) : (
               <></>
             )}
@@ -492,8 +501,8 @@ const CreateFormField = ({
                           color: "black !important",
                         },
                       }}
-                      className="pt-1 text-black bg-white border-black border block  h-10 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    /></div>:  <></>
+                      className="pt-1 text-black bg-white border-black border block w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    /></div>: <></>
                   }
 
 

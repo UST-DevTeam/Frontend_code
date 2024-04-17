@@ -4,8 +4,8 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.29.70:7980"
-// export const backendassetUrl="http://192.168.29.70:7980/"
+export const baseUrl="http://192.168.0.119:7980"
+export const backendassetUrl="http://192.168.0.119:7980/"
 
 
 
@@ -18,8 +18,8 @@
 // export const backendassetUrl="http://127.0.0.1:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"
 
 
 
@@ -56,7 +56,7 @@ export const Urls={
     admin_profile:"/hr/manageProfile",
     admin_project_allocation:"/hr/projectAllocation",
     admin_uamView:"/uamView",
-    admin_completion_criteria:"/",
+    admin_completion_criteria:"/admin/complectionCriteria",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
     projectList_getproject_allocation:"/projectAllocationList/",

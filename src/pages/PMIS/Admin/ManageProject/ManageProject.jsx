@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
+import TrashButton from '../../../../components/TrashButton';
 import ManageProjectForm from '../../../../pages/PMIS/Admin/ManageProject/ManageProjectForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
@@ -38,6 +39,8 @@ const ManageProject = () => {
     
 
     let navigate = useNavigate()
+
+    
     
   
 
@@ -89,6 +92,19 @@ const ManageProject = () => {
                    
                     //setmodalOpen(false)
                 }}></EditButton>} />,
+
+                "trash": <CstmButton className={""} child={<TrashButton name={""} onClick={() => {
+                    // alert(itm.uniqueId)
+                    setmodalOpen(true)
+                    // dispatch(AdminActions.getProject(`${itm.customeruniqueId}/${itm.uniqueId}`))
+                    setmodalHead("Edit Project")
+                    setmodalBody(<>
+                        <ManageProjectForm isOpen={modalOpen} customeruniqueId={customeruniqueId}  setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
+                   
+                    //setmodalOpen(false)
+                }}></TrashButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                     let msgdata = {
@@ -189,9 +205,10 @@ const ManageProject = () => {
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
             },
+           
             {
-                name: "Delete",
-                value: "delete",
+                name: "Trash",
+                value: "trash",
                 style: "min-w-[100px] max-w-[200px] text-center"
             }
         ],
@@ -232,14 +249,16 @@ const ManageProject = () => {
         <AdvancedTable
             headerButton={<div className='flex gap-1'><ConditionalButton showType={getAccessType("Add Project")}  classes='mr-1' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                // dispatch(AdminActions.getProject())
                 setmodalHead("Add Project")
                 setmodalBody(<ManageProjectForm isOpen={modalOpen} projecttypeuniqueId={projecttypeuniqueId} customeruniqueId={customeruniqueId} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Project"}></ConditionalButton>
-                {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button> */}
+                <Button name={"Archive"} classes='w-auto mr-1' onClick={(e) => {
+                    // setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Trash"} classes='w-auto mr-1' onClick={(e) => {
+                    // setFileOpen(prev=>!prev)
+                }}></Button>
                 </div>}
             table={table}
             exportButton={["/export/Project/"+(`${customeruniqueId}`)+"/"+(`${projecttypeuniqueId}`),"Export_Project.xlsx"]}

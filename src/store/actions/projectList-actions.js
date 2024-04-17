@@ -3,7 +3,7 @@ import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, SET_DYNAMIC_FORM } from "../reducers/projectList-reducer"
+import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE,SET_DYNAMIC_FORM } from "../reducers/projectList-reducer"
 import CommonActions from "./common-actions"
 // import Notify from "./notify-actions"
 

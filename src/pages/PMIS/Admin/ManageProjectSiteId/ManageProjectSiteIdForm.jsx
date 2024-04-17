@@ -168,7 +168,8 @@ const ManageProjectSiteIdForm = ({
       },
       required: true,
       classes: "col-span-1",
-    }, {
+    }, 
+    {
       label: "Milestone",
       name: "milestone",
       type: "jsxcmpt",

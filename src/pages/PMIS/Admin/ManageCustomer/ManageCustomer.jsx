@@ -259,7 +259,8 @@ const ManageCustomer = () => {
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
 
-    dispatch(ComponentActions.breadcrumb("Project Management", true));
+    
+    dispatch(ComponentActions.breadcrumb("Project Management","/manageCustomer",0, true));
   }, []);
 
   return type ? (
@@ -348,7 +349,7 @@ const ManageCustomer = () => {
                 className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
                   dispatch(
-                    ComponentActions.breadcrumb(itm["customerName"], true)
+                    ComponentActions.breadcrumb(itm["customerName"],`${"/projectType"}/${itm["uniqueId"]}`,1, false)
                   );
                   navigate(`${"/projectType"}/${itm["uniqueId"]}`);
                 }}
