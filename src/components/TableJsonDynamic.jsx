@@ -122,7 +122,7 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
     return <>
         <div className='h-[70vh]'>   
             <table border={1} className='h-auto w-full table-auto mt-2 bg-white'>
-                <thead className='bg-primaryLine text-white text-[14px] sticky top-10 z-10  '>
+                <thead className='bg-primaryLine text-white text-[14px] sticky top-6 z-10  '>
                     <tr>
 
                         <th className='border-gray-400 border-[1.5px] w-28'></th>

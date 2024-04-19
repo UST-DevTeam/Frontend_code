@@ -153,9 +153,9 @@ console.log(newdte, "listinglistinglisting")
   }
   return (
     <>
-      <div className="relative">
-        <div className="w-full bg-black absolute">
-          <div className="w-full flex justify-end gap-1 sticky top-0  bg-black">
+      <div className="sticky -top-[5px]">
+        <div className="w-full bg-white static">
+          <div className="w-full flex justify-end gap-1 sticky top-0  bg-white">
             <Button
               name={"Bulk Upload"}
               icon={""}
@@ -290,353 +290,334 @@ console.log(newdte, "listinglistinglisting")
           </div>
         </div>
       </div>
-      {editing ? (
-        <TableJsonDynamic
-          editing={editing}
-          tabHead={tabHead}
-          functioning={functioning}
-          listing={listing}
-          headers={Form.map((its) => {
-            return its.label;
-          })}
-          columns={listing.map((itm, indexes) => {
-            // alert("dasdasdsadas")
-            console.log("indexes", itm, "itsitsitsitsitsitsitsits");
-            return Form.map((its, innerIndex) => {
-              console.log(
-                itm[its.name],
-                "indexes",
-                itm,
-                indexes,
-                "innerIndex",
-                innerIndex,
-                "dsadadaitsitsitsits"
-              );
+      <div className="mt-2">
+        {editing ? (
+          <TableJsonDynamic
+            editing={editing}
+            tabHead={tabHead}
+            functioning={functioning}
+            listing={listing}
+            headers={Form.map((its) => {
+              return its.label;
+            })}
+            columns={listing.map((itm, indexes) => {
+              // alert("dasdasdsadas")
+              console.log("indexes", itm, "itsitsitsitsitsitsitsits");
+              return Form.map((its, innerIndex) => {
+                console.log(
+                  itm[its.name],
+                  "indexes",
+                  itm,
+                  indexes,
+                  "innerIndex",
+                  innerIndex,
+                  "dsadadaitsitsitsits"
+                );
 
-              let propscheck = {};
+                let propscheck = {};
 
-              if (its.type == "select") {
-                propscheck = {
-                  onChange: (e) => {
-                    console.log(
-                      e.target.value,
-                      tabHead,
-                      listing,
-                      its,
-                      "e.target.valuee.target.value"
-                    );
+                if (its.type == "select") {
+                  propscheck = {
+                    onChange: (e) => {
+                      console.log(
+                        e.target.value,
+                        tabHead,
+                        listing,
+                        its,
+                        "e.target.valuee.target.value"
+                      );
 
-                    if (e.target.value == "Dropdown") {
-                      newars["childView"] = true;
-                    }
+                      if (e.target.value == "Dropdown") {
+                        newars["childView"] = true;
+                      }
 
-                    console.log(newars, "newarsnewarsnewarsnewarsnewars");
-                    const indexToUpdate = listing.findIndex(
-                      (ite) => ite.index === itm.index
-                    );
+                      console.log(newars, "newarsnewarsnewarsnewarsnewars");
+                      const indexToUpdate = listing.findIndex(
+                        (ite) => ite.index === itm.index
+                      );
 
-                    console.log(
-                      indexToUpdate,
-                      newars,
-                      {
-                        label: tabHead,
-                        valer: its.name,
-                        indexToUpdate: indexToUpdate,
-                        value: { ...newars },
-                        fieldNameValue: e.target.value,
-                        reseter: false,
-                      },
-                      "newarsnewarsnewarsnewarsnewars"
-                    );
-                    dispatch(
-                      SET_DYNAMIC_FORM_INDEX({
-                        label: tabHead,
-                        valer: its.name,
-                        indexToUpdate: indexToUpdate,
-                        value: { ...newars },
-                        fieldNameValue: e.target.value,
-                        reseter: false,
-                      })
-                    );
+                      console.log(
+                        indexToUpdate,
+                        newars,
+                        {
+                          label: tabHead,
+                          valer: its.name,
+                          indexToUpdate: indexToUpdate,
+                          value: { ...newars },
+                          fieldNameValue: e.target.value,
+                          reseter: false,
+                        },
+                        "newarsnewarsnewarsnewarsnewars"
+                      );
+                      dispatch(
+                        SET_DYNAMIC_FORM_INDEX({
+                          label: tabHead,
+                          valer: its.name,
+                          indexToUpdate: indexToUpdate,
+                          value: { ...newars },
+                          fieldNameValue: e.target.value,
+                          reseter: false,
+                        })
+                      );
 
-                    setedit((prev) => !prev);
-                    // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: { ...newars }, reseter: false }))
+                      setedit((prev) => !prev);
+                      // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: { ...newars }, reseter: false }))
 
-                    // setlisting((prev) => {
-                    //   const indexToUpdate = prev.findIndex((ite) => ite.index === itm.index);
-                    //   console.log(indexToUpdate, "indexToUpdate")
-                    //   const oldDataon = prev[indexToUpdate];
+                      // setlisting((prev) => {
+                      //   const indexToUpdate = prev.findIndex((ite) => ite.index === itm.index);
+                      //   console.log(indexToUpdate, "indexToUpdate")
+                      //   const oldDataon = prev[indexToUpdate];
 
-                    //   console.log(oldDataon, "oldDataonoldDataon")
+                      //   console.log(oldDataon, "oldDataonoldDataon")
 
-                    //   console.log(oldDataon[its.name], "oldDataonoldDataononew")
+                      //   console.log(oldDataon[its.name], "oldDataonoldDataononew")
 
-                    //   const updatedData = {
-                    //     ...oldDataon,
-                    //     [its.name]: e.target.value // Assuming e.target.value is the new field value
-                    //   };
+                      //   const updatedData = {
+                      //     ...oldDataon,
+                      //     [its.name]: e.target.value // Assuming e.target.value is the new field value
+                      //   };
 
-                    //   const updatedListing = [...prev];
-                    //   updatedListing[indexToUpdate] = updatedData;
-                    //   console.log(updatedListing, "updatedDataupdatedData")
-                    //   return updatedListing
+                      //   const updatedListing = [...prev];
+                      //   updatedListing[indexToUpdate] = updatedData;
+                      //   console.log(updatedListing, "updatedDataupdatedData")
+                      //   return updatedListing
 
-                    //   return prev
-                    // })
+                      //   return prev
+                      // })
 
-                    console.log(itm.index, e.target.value, "dsadasdasdasdasd");
-                  },
-                };
-              } else {
-                propscheck = {
-                  onBlur: (e) => {
-                    // setValue(name,e.target.value)
-                    // setedit(prev => !prev)
-                    // setlisting((prev) => {
-                    //   const indexToUpdate = prev.findIndex((ite) => ite.index === itm.index);
-                    //   console.log(indexToUpdate, "indexToUpdate")
-                    //   const oldDataon = prev[indexToUpdate];
+                      console.log(
+                        itm.index,
+                        e.target.value,
+                        "dsadasdasdasdasd"
+                      );
+                    },
+                  };
+                } else {
+                  propscheck = {
+                    onBlur: (e) => {
+                      // setValue(name,e.target.value)
+                      // setedit(prev => !prev)
+                      // setlisting((prev) => {
+                      //   const indexToUpdate = prev.findIndex((ite) => ite.index === itm.index);
+                      //   console.log(indexToUpdate, "indexToUpdate")
+                      //   const oldDataon = prev[indexToUpdate];
 
-                    //   console.log(oldDataon, "oldDataonoldDataon")
+                      //   console.log(oldDataon, "oldDataonoldDataon")
 
-                    //   console.log(oldDataon[its.name], "oldDataonoldDataononew")
+                      //   console.log(oldDataon[its.name], "oldDataonoldDataononew")
 
-                    //   const updatedData = {
-                    //     ...oldDataon,
-                    //     [its.name]: e.target.value // Assuming e.target.value is the new field value
-                    //   };
+                      //   const updatedData = {
+                      //     ...oldDataon,
+                      //     [its.name]: e.target.value // Assuming e.target.value is the new field value
+                      //   };
 
-                    //   const updatedListing = [...prev];
-                    //   updatedListing[indexToUpdate] = updatedData;
-                    //   console.log(updatedListing, "updatedDataupdatedData")
-                    //   return updatedListing
+                      //   const updatedListing = [...prev];
+                      //   updatedListing[indexToUpdate] = updatedData;
+                      //   console.log(updatedListing, "updatedDataupdatedData")
+                      //   return updatedListing
 
-                    //   return prev
-                    // })
+                      //   return prev
+                      // })
 
-                    console.log(
-                      e.target.value,
-                      tabHead,
-                      listing,
-                      its,
-                      "e.target.valuee.target.value"
-                    );
+                      console.log(
+                        e.target.value,
+                        tabHead,
+                        listing,
+                        its,
+                        "e.target.valuee.target.value"
+                      );
 
-                    const indexToUpdate = listing.findIndex(
-                      (ite) => ite.index === itm.index
-                    );
+                      const indexToUpdate = listing.findIndex(
+                        (ite) => ite.index === itm.index
+                      );
 
-                    console.log(
-                      indexToUpdate,
-                      "indexToUpdateindexToUpdateindexToUpdate"
-                    );
-                    dispatch(
-                      SET_DYNAMIC_FORM_INDEX({
-                        label: tabHead,
-                        valer: its.name,
-                        indexToUpdate: indexToUpdate,
-                        value: { ...newars },
-                        fieldNameValue: e.target.value,
-                        reseter: false,
-                      })
-                    );
+                      console.log(
+                        indexToUpdate,
+                        "indexToUpdateindexToUpdateindexToUpdate"
+                      );
+                      dispatch(
+                        SET_DYNAMIC_FORM_INDEX({
+                          label: tabHead,
+                          valer: its.name,
+                          indexToUpdate: indexToUpdate,
+                          value: { ...newars },
+                          fieldNameValue: e.target.value,
+                          reseter: false,
+                        })
+                      );
 
-                    setedit((prev) => !prev);
+                      setedit((prev) => !prev);
 
-                    console.log(itm.index, e.target.value, "dsadasdasdasdasd");
-                  },
-                };
-              }
+                      console.log(
+                        itm.index,
+                        e.target.value,
+                        "dsadasdasdasdasd"
+                      );
+                    },
+                  };
+                }
 
-              // console.log("its", itm[its.name], "itm", "itm[its.name]itm[its.name]")
+                // console.log("its", itm[its.name], "itm", "itm[its.name]itm[its.name]")
 
-              // console.log(listing.filter((ityt) => {
-              //   if (ityt.fieldName == itm["fieldName"]) {
-              //     return {
-              //       "label": ityt.fieldName,
-              //       "value": ityt.fieldName
-              //     }
-              //   }
-              // }), itm["fieldName"], "listinglistinglisting")
+                // console.log(listing.filter((ityt) => {
+                //   if (ityt.fieldName == itm["fieldName"]) {
+                //     return {
+                //       "label": ityt.fieldName,
+                //       "value": ityt.fieldName
+                //     }
+                //   }
+                // }), itm["fieldName"], "listinglistinglisting")
 
-              console.log(
-                itm,
-                its.name,
-                listing,
-                "listinglistinglistinglisting"
-              );
-              return {
-                [its.label]: (
-                  <CreateFormField
-                    Form={Form}
-                    listing={listing}
-                    itm={{
-                      ...its,
-                      name: its.name + itm.index,
-                      value: itm[its.name],
-                      oldValue: itm[its.name],
-                      option:
-                        its.name == "Predecessor"
-                          ? listing
-                              .filter((ityt) => {
-                                if (ityt.fieldName != itm["fieldName"]) {
-                                  return ityt;
-                                }
-                              })
-                              .map((ityt) => {
-                                return {
-                                  label: ityt.fieldName,
-                                  value: ityt.fieldName,
-                                };
-                              })
-                          : its.option,
-                      closeOnChangedValue: false,
-                      props: propscheck,
-                      inneroption:
-                        listing.length > 0
-                          ? listing
-                              .filter((ityt) => {
-                                if (
-                                  ityt["fieldName"] != "" &&
-                                  ityt["fieldName"] != undefined
-                                ) {
-                                  return ityt;
-                                }
-                              })
-                              .map((ityt) => {
-                                return {
-                                  id: ityt.fieldName,
-                                  name: ityt.fieldName,
-                                };
-                              })
-                          : [],
+                console.log(
+                  itm,
+                  its.name,
+                  listing,
+                  "listinglistinglistinglisting"
+                );
+                return {
+                  [its.label]: (
+                    <CreateFormField
+                      Form={Form}
+                      listing={listing}
+                      itm={{
+                        ...its,
+                        name: its.name + itm.index,
+                        value: itm[its.name],
+                        oldValue: itm[its.name],
+                        option:
+                          its.name == "Predecessor"
+                            ? listing
+                                .filter((ityt) => {
+                                  if (ityt.fieldName != itm["fieldName"]) {
+                                    return ityt;
+                                  }
+                                })
+                                .map((ityt) => {
+                                  return {
+                                    label: ityt.fieldName,
+                                    value: ityt.fieldName,
+                                  };
+                                })
+                            : its.option,
+                        closeOnChangedValue: false,
+                        props: propscheck,
+                        inneroption:
+                          listing.length > 0
+                            ? listing
+                                .filter((ityt) => {
+                                  if (
+                                    ityt["fieldName"] != "" &&
+                                    ityt["fieldName"] != undefined
+                                  ) {
+                                    return ityt;
+                                  }
+                                })
+                                .map((ityt) => {
+                                  return {
+                                    id: ityt.fieldName,
+                                    name: ityt.fieldName,
+                                  };
+                                })
+                            : [],
 
-                      inneronSelect: (e) => {
-                        let finalselection = e.map((itm) => {
-                          return itm.id;
-                        });
+                        inneronSelect: (e) => {
+                          let finalselection = e.map((itm) => {
+                            return itm.id;
+                          });
 
-                        const indexToUpdate = listing.findIndex(
-                          (ite) => ite.index === itm.index
-                        );
-
-                        // console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
-                        dispatch(
-                          SET_DYNAMIC_FORM_INDEX_INNER({
-                            label: tabHead,
-                            valer: its.name,
-                            indexToUpdate: indexToUpdate,
-                            value: { dropdownValue: finalselection.join(",") },
-                          })
-                        );
-
-                        setedit((prev) => !prev);
-                        // setValue(itm.name, finalselection.join())
-
-                        // const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
-                        // console.log(finalselection,e, "onselection")
-                        // console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
-                        // dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
-
-                        // setedit(prev => !prev)
-                      },
-                      inneronRemove: (e) => {
-                        let finalselection = e.map((itm) => {
-                          return itm.id;
-                        });
-                        // setValue(itm.name, finalselection.join())
-                        // console.log(e, "onselection")
-                        console.log(finalselection, "onRemove");
-                        const indexToUpdate = listing.findIndex(
-                          (ite) => ite.index === itm.index
-                        );
-
-                        // console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
-                        dispatch(
-                          SET_DYNAMIC_FORM_INDEX_INNER({
-                            label: tabHead,
-                            valer: its.name,
-                            indexToUpdate: indexToUpdate,
-                            value: { dropdownValue: finalselection.join(",") },
-                          })
-                        );
-
-                        setedit((prev) => !prev);
-
-                        // const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
-
-                        // console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
-                        // dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
-
-                        // setedit(prev => !prev)
-                      },
-
-                      onSelect: (e) => {
-                        let finalselection = e.map((itm) => {
-                          return itm.id;
-                        });
-                        // setValue(itm.name, finalselection.join())
-
-                        const indexToUpdate = listing.findIndex(
-                          (ite) => ite.index === itm.index
-                        );
-                        console.log(finalselection, e, "onselection");
-                        console.log(
-                          indexToUpdate,
-                          "indexToUpdateindexToUpdateindexToUpdate"
-                        );
-                        dispatch(
-                          SET_DYNAMIC_FORM_INDEX({
-                            label: tabHead,
-                            valer: its.name,
-                            indexToUpdate: indexToUpdate,
-                            value: { ...newars },
-                            fieldNameValue: finalselection.join(),
-                            reseter: false,
-                          })
-                        );
-
-                        // setedit(prev => !prev)
-                      },
-                      onRemove: (e) => {
-                        let finalselection = e.map((itm) => {
-                          return itm.id;
-                        });
-                        // setValue(itm.name, finalselection.join())
-                        // console.log(e, "onselection")
-                        console.log(finalselection, "onRemove");
-
-                        const indexToUpdate = listing.findIndex(
-                          (ite) => ite.index === itm.index
-                        );
-
-                        console.log(
-                          indexToUpdate,
-                          "indexToUpdateindexToUpdateindexToUpdate"
-                        );
-                        dispatch(
-                          SET_DYNAMIC_FORM_INDEX({
-                            label: tabHead,
-                            valer: its.name,
-                            indexToUpdate: indexToUpdate,
-                            value: { ...newars },
-                            fieldNameValue: finalselection.join(),
-                            reseter: false,
-                          })
-                        );
-
-                        // setedit(prev => !prev)
-                      },
-                      innervalue: itm["dropdownValue"],
-                      innerprops: {
-                        onBlur: (e) => {
-                          console.log(
-                            e.target.value,
-                            tabHead,
-                            listing,
-                            its,
-                            "e.target.valuee.target.value"
+                          const indexToUpdate = listing.findIndex(
+                            (ite) => ite.index === itm.index
                           );
+
+                          // console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
+                          dispatch(
+                            SET_DYNAMIC_FORM_INDEX_INNER({
+                              label: tabHead,
+                              valer: its.name,
+                              indexToUpdate: indexToUpdate,
+                              value: {
+                                dropdownValue: finalselection.join(","),
+                              },
+                            })
+                          );
+
+                          setedit((prev) => !prev);
+                          // setValue(itm.name, finalselection.join())
+
+                          // const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
+                          // console.log(finalselection,e, "onselection")
+                          // console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
+                          // dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
+
+                          // setedit(prev => !prev)
+                        },
+                        inneronRemove: (e) => {
+                          let finalselection = e.map((itm) => {
+                            return itm.id;
+                          });
+                          // setValue(itm.name, finalselection.join())
+                          // console.log(e, "onselection")
+                          console.log(finalselection, "onRemove");
+                          const indexToUpdate = listing.findIndex(
+                            (ite) => ite.index === itm.index
+                          );
+
+                          // console.log(indexToUpdate,{ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: e.target.value, reseter: false }, "431indexToUpdateindexToUpdateindexToUpdate")
+                          dispatch(
+                            SET_DYNAMIC_FORM_INDEX_INNER({
+                              label: tabHead,
+                              valer: its.name,
+                              indexToUpdate: indexToUpdate,
+                              value: {
+                                dropdownValue: finalselection.join(","),
+                              },
+                            })
+                          );
+
+                          setedit((prev) => !prev);
+
+                          // const indexToUpdate = listing.findIndex((ite) => ite.index === itm.index);
+
+                          // console.log(indexToUpdate, "indexToUpdateindexToUpdateindexToUpdate")
+                          // dispatch(SET_DYNAMIC_FORM_INDEX({ label: tabHead, valer: its.name, indexToUpdate: indexToUpdate, value: { ...newars }, fieldNameValue: finalselection.join(), reseter: false }))
+
+                          // setedit(prev => !prev)
+                        },
+
+                        onSelect: (e) => {
+                          let finalselection = e.map((itm) => {
+                            return itm.id;
+                          });
+                          // setValue(itm.name, finalselection.join())
+
+                          const indexToUpdate = listing.findIndex(
+                            (ite) => ite.index === itm.index
+                          );
+                          console.log(finalselection, e, "onselection");
+                          console.log(
+                            indexToUpdate,
+                            "indexToUpdateindexToUpdateindexToUpdate"
+                          );
+                          dispatch(
+                            SET_DYNAMIC_FORM_INDEX({
+                              label: tabHead,
+                              valer: its.name,
+                              indexToUpdate: indexToUpdate,
+                              value: { ...newars },
+                              fieldNameValue: finalselection.join(),
+                              reseter: false,
+                            })
+                          );
+
+                          // setedit(prev => !prev)
+                        },
+                        onRemove: (e) => {
+                          let finalselection = e.map((itm) => {
+                            return itm.id;
+                          });
+                          // setValue(itm.name, finalselection.join())
+                          // console.log(e, "onselection")
+                          console.log(finalselection, "onRemove");
 
                           const indexToUpdate = listing.findIndex(
                             (ite) => ite.index === itm.index
@@ -644,78 +625,111 @@ console.log(newdte, "listinglistinglisting")
 
                           console.log(
                             indexToUpdate,
-                            {
+                            "indexToUpdateindexToUpdateindexToUpdate"
+                          );
+                          dispatch(
+                            SET_DYNAMIC_FORM_INDEX({
                               label: tabHead,
                               valer: its.name,
                               indexToUpdate: indexToUpdate,
                               value: { ...newars },
-                              fieldNameValue: e.target.value,
+                              fieldNameValue: finalselection.join(),
                               reseter: false,
-                            },
-                            "431indexToUpdateindexToUpdateindexToUpdate"
-                          );
-                          dispatch(
-                            SET_DYNAMIC_FORM_INDEX_INNER({
-                              label: tabHead,
-                              valer: its.name,
-                              indexToUpdate: indexToUpdate,
-                              value: { dropdownValue: e.target.value },
                             })
                           );
 
-                          setedit((prev) => !prev);
-
-                          console.log(
-                            itm.index,
-                            e.target.value,
-                            "dsadasdasdasdasd"
-                          );
+                          // setedit(prev => !prev)
                         },
-                      },
-                    }}
-                    index={indexes}
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                  />
-                ),
-              };
-            }).reduce((acc, obj) => {
-              return { ...acc, ...obj };
-            }, {});
-          })}
-        />
-      ) : (
-        <>
-          <TableJson
-            headers={Form.map((its) => {
-              return its.label;
-            })}
-            columns={listing.map((itm, indexes) => {
-              // Inside the map() function for 'listing', create a new object
-              let newObj = {};
+                        innervalue: itm["dropdownValue"],
+                        innerprops: {
+                          onBlur: (e) => {
+                            console.log(
+                              e.target.value,
+                              tabHead,
+                              listing,
+                              its,
+                              "e.target.valuee.target.value"
+                            );
 
-              console.log(itm, "itmitmitm");
-              // Inside the new object, iterate over the 'Form' array
-              Form.forEach((its, innerIndex) => {
-                // Populate the new object with key-value pairs from 'Form'
-                // ${itm["dropdownValue"]?" ( "+itm["dropdownValue"]+" ) ":""}
-                console.log(its, itm, "its,itmits,itmits,itmits,itm");
-                newObj[its.label] = `${itm[its.name]} ${
-                  (itm["dataType"] == "Auto Created" ||
-                    itm["dataType"] == "Dropdown") &&
-                  its.name == "dataType"
-                    ? " ( " + itm["dropdownValue"] + " ) "
-                    : ""
-                }`;
-              });
-              // Return the newly created object
-              return newObj;
+                            const indexToUpdate = listing.findIndex(
+                              (ite) => ite.index === itm.index
+                            );
+
+                            console.log(
+                              indexToUpdate,
+                              {
+                                label: tabHead,
+                                valer: its.name,
+                                indexToUpdate: indexToUpdate,
+                                value: { ...newars },
+                                fieldNameValue: e.target.value,
+                                reseter: false,
+                              },
+                              "431indexToUpdateindexToUpdateindexToUpdate"
+                            );
+                            dispatch(
+                              SET_DYNAMIC_FORM_INDEX_INNER({
+                                label: tabHead,
+                                valer: its.name,
+                                indexToUpdate: indexToUpdate,
+                                value: { dropdownValue: e.target.value },
+                              })
+                            );
+
+                            setedit((prev) => !prev);
+
+                            console.log(
+                              itm.index,
+                              e.target.value,
+                              "dsadasdasdasdasd"
+                            );
+                          },
+                        },
+                      }}
+                      index={indexes}
+                      errors={errors}
+                      register={register}
+                      setValue={setValue}
+                      getValues={getValues}
+                    />
+                  ),
+                };
+              }).reduce((acc, obj) => {
+                return { ...acc, ...obj };
+              }, {});
             })}
           />
-        </>
-      )}
+        ) : (
+          <>
+            <TableJson
+              headers={Form.map((its) => {
+                return its.label;
+              })}
+              columns={listing.map((itm, indexes) => {
+                // Inside the map() function for 'listing', create a new object
+                let newObj = {};
+
+                console.log(itm, "itmitmitm");
+                // Inside the new object, iterate over the 'Form' array
+                Form.forEach((its, innerIndex) => {
+                  // Populate the new object with key-value pairs from 'Form'
+                  // ${itm["dropdownValue"]?" ( "+itm["dropdownValue"]+" ) ":""}
+                  console.log(its, itm, "its,itmits,itmits,itmits,itm");
+                  newObj[its.label] = `${itm[its.name]} ${
+                    (itm["dataType"] == "Auto Created" ||
+                      itm["dataType"] == "Dropdown") &&
+                    its.name == "dataType"
+                      ? " ( " + itm["dropdownValue"] + " ) "
+                      : ""
+                  }`;
+                });
+                // Return the newly created object
+                return newObj;
+              })}
+            />
+          </>
+        )}
+      </div>
 
       <FileUploader
         isOpen={selectFile}
