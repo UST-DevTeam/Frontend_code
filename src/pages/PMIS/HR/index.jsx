@@ -41,7 +41,7 @@ const HRHomeView = () => {
           [
             "Super Admin",
             "bg-gradient-to-r from-pink-400 to-red-400",
-            "/superAdmin",
+            "/hr/superAdmin",
           ],
         ].map((itm) => {
           return (
@@ -51,7 +51,10 @@ const HRHomeView = () => {
                 <div
                   className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
                   onClick={() => {
-                    if (getAccessType(itm[0]) == "disabled") {
+
+
+                    console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
+                    if (getAccessType(itm[0]) == "visible" && itm[2]) {
                       navigate(itm[2]);
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)

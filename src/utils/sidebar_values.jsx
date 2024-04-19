@@ -296,13 +296,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/assets",
+      link: "/hr/assets",
       subMenu: [],
       component: <Asset />,
     },
     {
       name: "",
-      link: "/superAdmin",
+      link: "/hr/superAdmin",
       subMenu: [],
       component: <SuperAdmin />,
     },
@@ -315,54 +315,54 @@ export const Sidebar_content = {
     },
     {
       name: "Manage Zone",
-      link: "/superAdmin/manageZone",
+      link: "/hr/superAdmin/manageZone",
       subMenu: [],
       component: <ManageZone />,
       icon: <Unicons.UilChannel size="16" />,
     },
     {
       name: "Manage Cost Center",
-      link: "/superAdmin/manageCostCenter",
+      link: "/hr/superAdmin/manageCostCenter",
       subMenu: [],
       component: <ManageCostCenter />,
       icon: <Unicons.UilChannel size="16" />,
     },
     {
       name: "",
-      link: "/superAdmin/projectGroup",
+      link: "/hr/superAdmin/projectGroup",
       subMenu: [],
       component: <ManageProjectGroup />,
     },
 
     {
       name: "",
-      link: "/superAdmin/uammg",
+      link: "/hr/superAdmin/uammg",
       subMenu: [],
       component: <UserAccessManagement />,
     },
 
     {
       name: "",
-      link: "/userAccessManagement",
+      link: "/hr/userAccessManagement",
       subMenu: [],
       component: <RoleManagement />,
     },
 
     {
       name: "",
-      link: "/superAdmin/vendorProjectAllocation",
+      link: "/hr/superAdmin/vendorProjectAllocation",
       subMenu: [],
       component: <VendorProjectAllocation />,
     },
     {
       name: "",
-      link: "/superAdmin/manageDepartment",
+      link: "/hr/superAdmin/manageDepartment",
       subMenu: [],
       component: <ManageDepartment />,
     },
     {
       name: "",
-      link: "/superAdmin/manageDesignation",
+      link: "/hr/superAdmin/manageDesignation",
       subMenu: [],
       component: <ManageDesignation />,
     },
