@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import { UilMultiply } from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
+import ComponentActions from "../store/actions/component-actions";
 const BreadCrumbs = () => {
   let breadcrumblist = useSelector((state) => {
     return state.component.breadcrumb;
   });
+
+
+  console.log(breadcrumblist,"breadcrumblistbreadcrumblist")
 
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
   return (
     <div>
-      <nav class="bg-gray-100 p-4">
+      <nav class="bg-violet-50 p-2">
         <ol class="list-reset flex text-gray-600">
-          {breadcrumblist.map((item, index) => {
+          {breadcrumblist.filter(item=>item.name!="").map((item, index) => {
             return (
               <>
                 {index != breadcrumblist.length - 1 ? (
@@ -25,9 +29,9 @@ const BreadCrumbs = () => {
                         onClick={() => {
                           dispatch(
                             ComponentActions.breadcrumb(
-                              itm[0],
-                              itm[2],
-                              1,
+                              "",
+                              "",
+                              item.index,
                               false
                             )
                           );

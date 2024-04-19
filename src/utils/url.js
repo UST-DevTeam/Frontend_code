@@ -9,8 +9,8 @@
 
 
 
-// export const baseUrl="http://192.168.0.125:7980"
-// export const backendassetUrl="http://192.168.0.125:7980/"
+// export const baseUrl="http://192.168.0.119:7980"
+// export const backendassetUrl="http://192.168.0.119:7980/"
 
 
 
@@ -86,7 +86,8 @@ export const Urls={
     templateUploadFile:"/templateUploadFile",
     vendor_details:"/vendorDetails",
     vendor_project_allocation:"/vendorProjectAllocation",
-    vendor_project_list:"/vendorSiteId"
+    vendor_project_list:"/vendorSiteId",
+    upload_update_siteId:"/siteUpload",
 }
 
 

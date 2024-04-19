@@ -6,6 +6,8 @@ import CCDash from "../../../components/CCDash";
 import { useNavigate } from "react-router-dom";
 
 import ComponentActions from "../../../store/actions/component-actions";
+import { getAccessType } from "../../../utils/commonFunnction";
+import { ALERTS } from "../../../store/reducers/component-reducer";
 const HRHomeView = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
@@ -16,7 +18,7 @@ const HRHomeView = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("HR","/hr",0, true));
+    dispatch(ComponentActions.breadcrumb("HR", "/hr", 0, true));
   }, []);
   return (
     <>
@@ -44,26 +46,43 @@ const HRHomeView = () => {
         ].map((itm) => {
           return (
             <>
-              <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
-                onClick={() => {
-                  navigate(itm[2]);
-
-                  dispatch(ComponentActions.breadcrumb(itm[0],itm[2],1, false));
-                }}
-              >
-                {itm["companyimg"] && itm["companyimg"] != "" && (
-                  <>
-                    <img
-                      className="m-auto w-24"
-                      src={backendassetUrl + itm["companyimg"]}
-                    />
-                  </>
-                )}
-                <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
-                  {itm[0]}
+              {getAccessType(itm[0]) == "visible" ||
+              getAccessType(itm[0]) == "disabled" ? (
+                <div
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
+                  onClick={() => {
+                    if (getAccessType(itm[0]) == "disabled") {
+                      navigate(itm[2]);
+                      dispatch(
+                        ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
+                      );
+                    } else {
+                      let msgdata = {
+                        show: true,
+                        icon: "error",
+                        buttons: [],
+                        type: 1,
+                        text: "This option is disabled",
+                      };
+                      dispatch(ALERTS(msgdata));
+                    }
+                  }}
+                >
+                  {itm["companyimg"] && itm["companyimg"] != "" && (
+                    <>
+                      <img
+                        className="m-auto w-24"
+                        src={backendassetUrl + itm["companyimg"]}
+                      />
+                    </>
+                  )}
+                  <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
+                    {itm[0]}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <></>
+              )}
             </>
           );
         })}

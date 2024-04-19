@@ -94,7 +94,7 @@ const UserAccessManagementChild = ({
                   <td className="min-w-[140px] max-w-[140px] border-black border-[1px] text-center">
                     {child == "checkbox" && (
                       <input
-                        checked={vale!=-1?getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name] && prev.accessType==true)!=-1:false}
+                        defaultChecked={vale!=-1?getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name] && prev.accessType==true)!=-1:false}
                         onChange={(e) => {
                           dataToView["moduleName"]=itew[name]
                           dataToView["roleId"]=itm.value
@@ -104,6 +104,8 @@ const UserAccessManagementChild = ({
                           
                           dispatch(AdminManagementActions.PatchDataAccess(dataToView,()=>{
                             e.target.checked=e.target.checked
+                            
+                              // dispatch(AdminActions.getOldComponentAllocationList());
                           }));
                           // alert(e.target.checked + itm.roleName + btnName);
                         }}
@@ -125,6 +127,7 @@ const UserAccessManagementChild = ({
                           // console.log(dataToView,"dataToViewdataToView")
                           dispatch(AdminManagementActions.PatchDataAccess(dataToView,()=>{
                             e.target.value=e.target.value
+                            // dispatch(AdminActions.getOldComponentAllocationList());
                           }));
                           // alert(e.target.value + itm.roleName + btnName);
                         }}

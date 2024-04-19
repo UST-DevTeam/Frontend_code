@@ -1,7 +1,7 @@
 import React from 'react'
 import { UilTimesCircle } from '@iconscout/react-unicons'
 import Button from './Button'
-const Modal = ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton = false }) => {
+const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton = false }) => {
 
     const sizeType = {
         xl: 'w-[96vw] h-[96vh] md:w-[75vw] md:h-[86vh]',

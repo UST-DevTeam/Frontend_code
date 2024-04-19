@@ -267,8 +267,8 @@ const UserAccessManagement = () => {
   }, []);
   return (
     <>
-      <div className=" w-[84vw] flex mx-2">
-        <div className="pt-2 px-4">
+      <div className=" w-[84vw] flex mx-1">
+        <div className="pt-2 px-2">
           <table className="relative" border={2}>
             <tr className="sticky top-0 z-[10000]">
               <th className="min-w-[300px] max-w-[300px] border-black border-[1px] bg-primaryLine text-white  sticky left-0">
@@ -304,7 +304,19 @@ const UserAccessManagement = () => {
                 name={"componentType"}
                 child={"select"}
                 btnName={"Project Management Access"}
-                listValue={getComponentAllocation}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="ProjectManagement")}
+              />
+            }
+
+            {
+              <UserAccessManagementChild
+                showData={showData}
+                setshowData={setshowData}
+                fromCall={"pmpermission"}
+                name={"componentType"}
+                child={"select"}
+                btnName={"HR Access"}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="HRView")}
               />
             }
           </table>

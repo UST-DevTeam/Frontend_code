@@ -23,12 +23,21 @@ const component = createSlice({
     BREADCRUMB: (state, { payload }) => {
       console.log(0,payload,"dasdassssssssssssssssss")
       if (payload.tkn) {
-        state.breadcrumb = [{name:payload.data,index,link:payload.link}];
+        let lendata=[...state.breadcrumb].length
+        state.breadcrumb = [{name:payload.data,index:lendata,link:payload.link}];
       } else {
         console.log(0,payload.index,"dasdassssssssssssssssss")
-        state.breadcrumb = [...state.breadcrumb.splice(0,payload.index),{name:payload.data,link:payload.link}];
+        if(payload.data!=""){
+          let lendata=[...state.breadcrumb].length
+          state.breadcrumb = [...state.breadcrumb,{name:payload.data,index:lendata,link:payload.link}];
+        }else{
+          let lendata=[...state.breadcrumb].length
+          state.breadcrumb = [...state.breadcrumb.splice(0,payload.index+1)];
+        }
       }
     },
+
+    // splice(0,payload.index)
     
     TABLE_PAGINATON: (state, { payload }) => {
       state.table_pagination = payload;

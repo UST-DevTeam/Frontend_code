@@ -267,57 +267,57 @@ const SuperAdmin = () => {
           [
             "Manage Circle",
             "bg-gradient-to-r from-teal-400 to-sky-500",
-            "/manageCircle",
+            "/superAdmin/manageCircle",
           ],
           [
             "Manage Zone",
             "bg-gradient-to-r from-lime-300 to-teal-400",
-            "/manageZone",
+            "/superAdmin/manageZone",
           ],
           [
             "Manage Cost Center",
             "bg-gradient-to-r from-violet-500 to-purple-500",
-            "/manageCostCenter",
+            "/superAdmin/manageCostCenter",
           ],
           [
             "Manage Project Group",
             "bg-gradient-to-r from-teal-200 to-sky-800",
-            "/projectGroup",
+            "/superAdmin/projectGroup",
           ],
           [
             "User Access Management",
             "bg-gradient-to-r from-teal-100 to-sky-400",
-            "/uammg",
+            "/superAdmin/uammg",
           ],
           [
             "User Project Allocation",
             "bg-gradient-to-r from-teal-400 to-yellow-200",
-            "/userProjectAllocation",
+            "/superAdmin/userProjectAllocation",
           ],
           [
             "Vendor Project Allocation",
             "bg-gradient-to-r from-violet-200 to-blue-600",
-            "/vendorProjectAllocation",
+            "/superAdmin/vendorProjectAllocation",
           ],
           [
             "Manage Department",
             "bg-gradient-to-r from-pink-500 to-rose-500",
-            "/manageDepartment",
+            "/superAdmin/manageDepartment",
           ],
           [
             "Manage Designation",
             "bg-gradient-to-r from-emerald-400 to-cyan-400",
-            "/manageDesignation",
+            "/superAdmin/manageDesignation",
           ],
           [
             "Manage Profiles",
             "bg-gradient-to-r from-amber-200 to-yellow-500",
-            "/manageProfile",
+            "/superAdmin/manageProfile",
           ],
           [
             "Completion Criteria",
             "bg-gradient-to-r from-lime-400 to-rose-400",
-            "/completionCriteria",
+            "/superAdmin/completionCriteria",
           ],
         ].map((itm) => {
           return (

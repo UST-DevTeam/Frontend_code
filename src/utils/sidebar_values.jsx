@@ -241,13 +241,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/userProjectAllocation",
+      link: "/superAdmin/userProjectAllocation",
       subMenu: [],
       component: <ManageUserProjectAllocation />,
     },
     {
       name: "",
-      link: "/manageProfile",
+      link: "/superAdmin/manageProfile",
       subMenu: [],
       component: <ManageProfile />,
     },
@@ -296,7 +296,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/Assets",
+      link: "/assets",
       subMenu: [],
       component: <Asset />,
     },
@@ -315,28 +315,28 @@ export const Sidebar_content = {
     },
     {
       name: "Manage Zone",
-      link: "/manageZone",
+      link: "/superAdmin/manageZone",
       subMenu: [],
       component: <ManageZone />,
       icon: <Unicons.UilChannel size="16" />,
     },
     {
       name: "Manage Cost Center",
-      link: "/manageCostCenter",
+      link: "/superAdmin/manageCostCenter",
       subMenu: [],
       component: <ManageCostCenter />,
       icon: <Unicons.UilChannel size="16" />,
     },
     {
       name: "",
-      link: "/projectGroup",
+      link: "/superAdmin/projectGroup",
       subMenu: [],
       component: <ManageProjectGroup />,
     },
 
     {
       name: "",
-      link: "/uammg",
+      link: "/superAdmin/uammg",
       subMenu: [],
       component: <UserAccessManagement />,
     },
@@ -350,19 +350,19 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/vendorProjectAllocation",
+      link: "/superAdmin/vendorProjectAllocation",
       subMenu: [],
       component: <VendorProjectAllocation />,
     },
     {
       name: "",
-      link: "/manageDepartment",
+      link: "/superAdmin/manageDepartment",
       subMenu: [],
       component: <ManageDepartment />,
     },
     {
       name: "",
-      link: "/manageDesignation",
+      link: "/superAdmin/manageDesignation",
       subMenu: [],
       component: <ManageDesignation />,
     },
@@ -390,7 +390,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/completionCriteria",
+      link: "/superAdmin/completionCriteria",
       component: <ManageCompletionCriteria />,
       icon: <UilStore />,
       subMenu: [],

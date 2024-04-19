@@ -102,6 +102,11 @@ function App() {
   useEffect(() => {
     // console.log("dsadsadsadsadsa", Roles);
   }, []);
+
+
+  window.addEventListener('popstate',function(event){
+    console.log("backaddEventListeneraddEventListener")
+  })
   return (
     <main className="flex h-screen overflow-hidden  justify-center">
       {locdata.pathname != "/login" && <WebSocketClient />}

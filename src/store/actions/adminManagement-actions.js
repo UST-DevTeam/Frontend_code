@@ -77,8 +77,9 @@ const AdminManagementActions = {
     PatchDataAccess: (data, cb) => async (dispatch, _) => {
         try {
             const res = await Api.patch({ data: data, url: Urls.admin_uamView })
-            cb()
-            // if (res?.status !== 201 && res?.status !== 200) {
+            if (res?.status !== 201 && res?.status !== 200) {
+                cb()
+            }
             //     let msgdata = {
             //         show: true,
             //         icon: "error",
