@@ -260,7 +260,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/empdetails",
+      link: "/hr/empdetails",
       subMenu: [],
       component: <EmpDetails />,
     },
@@ -278,7 +278,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/expenseAdvance",
+      link: "/hr/expenseAdvance",
       subMenu: [],
       component: <ExpenseAndAdvance />,
     },
@@ -308,7 +308,7 @@ export const Sidebar_content = {
     },
     {
       name: "Manage Circle",
-      link: "/manageCircle",
+      link: "/hr/superAdmin/manageCircle",
       subMenu: [],
       component: <ManageCircle />,
       icon: <Unicons.UilChannel size="16" />,

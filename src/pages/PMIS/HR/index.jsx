@@ -30,14 +30,14 @@ const HRHomeView = () => {
             "bg-gradient-to-r from-teal-400 to-sky-500",
             "/empDetailsTable",
           ],
-          ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400"],
-          ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500"],
+          ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400","/hr/assetManagement"],
+          ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500","/hr/managePolicy"],
           [
             "Expense & Advance",
             "bg-gradient-to-r from-blue-200 to-cyan-200",
             "/expenseAdvance",
           ],
-          ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500"],
+          ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500","/hr/attendance"],
           [
             "Super Admin",
             "bg-gradient-to-r from-pink-400 to-red-400",
@@ -54,7 +54,7 @@ const HRHomeView = () => {
 
 
                     console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
-                    if (getAccessType(itm[0]) == "visible" && itm[2]) {
+                    if (getAccessType(itm[0]) == "visible") {
                       navigate(itm[2]);
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
