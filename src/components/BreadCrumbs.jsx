@@ -16,7 +16,7 @@ const BreadCrumbs = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <nav class="bg-violet-50 p-2">
+      <nav class="bg-violet-50 p-3 text-[12px]">
         <ol class="list-reset flex text-gray-600">
           {breadcrumblist.filter(item=>item.name!="").map((item, index) => {
             return (
@@ -25,7 +25,7 @@ const BreadCrumbs = () => {
                   <>
                     <li>
                       <a
-                        class="text-green-500 hover:text-green-600"
+                        class="text-green-600 hover:text-green-700"
                         onClick={() => {
                           dispatch(
                             ComponentActions.breadcrumb(
@@ -45,7 +45,7 @@ const BreadCrumbs = () => {
                   </>
                 ) : (
                   <>
-                    <li class="text-gray-700 font-semibold">{item.name}</li>
+                    <li class="text-slate-600 font-semibold">{item.name}</li>
                   </>
                 )}
               </>

@@ -28,14 +28,14 @@ const HRHomeView = () => {
           [
             "Manage Employee",
             "bg-gradient-to-r from-teal-400 to-sky-500",
-            "/empDetailsTable",
+            "/hr/empDetailsTable",
           ],
           ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400","/hr/assetManagement"],
           ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500","/hr/managePolicy"],
           [
             "Expense & Advance",
             "bg-gradient-to-r from-blue-200 to-cyan-200",
-            "/expenseAdvance",
+            "/hr/expenseAdvance",
           ],
           ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500","/hr/attendance"],
           [

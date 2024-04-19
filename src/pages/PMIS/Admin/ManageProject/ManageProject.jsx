@@ -224,7 +224,7 @@ const ManageProject = () => {
       {
         name: "Project ID",
         value: "projectId",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
         name: "Project Group",
@@ -234,7 +234,7 @@ const ManageProject = () => {
       {
         name: "Project Type",
         value: "projectTypeName",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
         name: "Sub Project",

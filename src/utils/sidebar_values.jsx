@@ -241,13 +241,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/superAdmin/userProjectAllocation",
+      link: "/hr/superAdmin/userProjectAllocation",
       subMenu: [],
       component: <ManageUserProjectAllocation />,
     },
     {
       name: "",
-      link: "/superAdmin/manageProfile",
+      link: "/hr/superAdmin/manageProfile",
       subMenu: [],
       component: <ManageProfile />,
     },
@@ -260,7 +260,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/hr/empdetails",
+      link: "/empdetails",
       subMenu: [],
       component: <EmpDetails />,
     },
@@ -272,7 +272,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/empdetailstable",
+      link: "/hr/empdetailstable",
       subMenu: [],
       component: <EmpDetailsTable />,
     },
@@ -296,7 +296,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/hr/assets",
+      link: "/hr/assetManagement",
       subMenu: [],
       component: <Asset />,
     },
@@ -343,7 +343,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/hr/userAccessManagement",
+      link: "/hr/superAdmin/userAccessManagement",
       subMenu: [],
       component: <RoleManagement />,
     },
@@ -390,7 +390,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/superAdmin/completionCriteria",
+      link: "/hr/superAdmin/completionCriteria",
       component: <ManageCompletionCriteria />,
       icon: <UilStore />,
       subMenu: [],
