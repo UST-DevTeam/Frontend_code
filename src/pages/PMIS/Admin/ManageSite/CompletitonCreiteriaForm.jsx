@@ -21,15 +21,12 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     //     "Attachment": "file",
     //     "Reference No": "number",
     // };
-
-    
+  
 
     const dateString = siteCompleteData["siteStartDate"];
     const [day, month, year] = dateString.split('-').map(Number);
     
     const datestr = new Date(year, month - 1, day);
-
-    // console.log(mileStoneCompletion,"mileStoneCompletion")
 
     let mileStoneprops = {
         "Completion Date": {
@@ -71,7 +68,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
                 value: "",
                 name: "CC_" + mileStone["Completion Criteria"],
                 required: true,
-                type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
+                type: geeter.length > 0 ? dataecoder[geeter[0][dataecoder]] : "",
                 props:mileStoneprops[mileStone["Completion Criteria"]]
             }]
         return geeter.length > 0 ? geeter[0]["type"] : ""
