@@ -69,6 +69,22 @@ const ManageProjectType = () => {
 
   let navigate = useNavigate();
 
+
+  let completionCriteriaList = useSelector((state) => {
+    let interdata = state?.adminData?.getManageCompletionCriteria  || []
+    return interdata?.map((itm) => {
+      const data = {
+        name: itm.completion,
+        id: itm.completion,
+      }
+      return data
+    })})
+
+
+
+
+
+
   let conditionmultiForm = [
     // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
     {
@@ -209,7 +225,7 @@ const ManageProjectType = () => {
       label: "Completion Criteria",
       name: "Completion Criteria",
       type: "muitiSelect",
-      option: completiton_critieria,
+      option: completionCriteriaList,
 
       // option:[
       //     {
@@ -1214,6 +1230,7 @@ const ManageProjectType = () => {
   useEffect(() => {
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    dispatch(AdminActions.getManageCompletionCriteria())
   }, []);
   return type ? (
     <>

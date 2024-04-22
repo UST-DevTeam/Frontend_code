@@ -397,131 +397,6 @@ export const Sidebar_content = {
     },
   ],
 
-  // all_routes: [
-
-  //   {
-  //     name: "Investment Dashboard",
-  //     link: "/investment/dashboard",
-  //     component: <Cart />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Investment Discovery",
-  //     link: "/investment/discovery",
-  //     component: <InvestmentDiscovery />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Investor crm",
-  //     link: "/investor/crm",
-  //     component: <InvestorCrm />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Investment Transactions",
-  //     link: "/communication",
-  //     component: <InvestmentTransaction />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Fundseeker Details",
-  //     link: "/fundseeker_details",
-  //     component: <FundSeekerDetails/>,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   // {
-  //   //     name: "Details",
-  //   //     link: "/details",
-  //   //     component: <Details/>,
-  //   //     icon: <Unicons.UilReact />,
-  //   //     subMenu: [],
-  //   // },
-  //   {
-  //     name: "Details",
-  //     link: "/investor/crm/details",
-  //     component: <InvestorCRMDetails />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Details",
-  //     link: "/investor/crm/details/:uid",
-  //     component: <InvestorCRMDetails />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-
-  //   {
-  //     name: "Company Details",
-  //     link: "/details",
-  //     component: <Details />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   // {
-  //   //   name: "Portfolio",
-  //   //   link: "/portfolio",
-  //   //   component: <Portfolio />,
-  //   //   icon: <Unicons.UilReact />,
-  //   //   subMenu: [],
-  //   // },
-
-  //   {
-  //     name: "KYC Status",
-  //     link: "/kyc-status",
-  //     component: <KYCManagement />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Investment Details",
-  //     link: "/investment-Details",
-  //     component: <InvestmentDetailsManagement />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Send Email",
-  //     link: "/send_email",
-  //     component: <SendEmail />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Pitch Deck",
-  //     link: "/pitch/deck",
-  //     component: <PitchDeck />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Pitch Deck",
-  //     link: "/BlobFileViewer",
-  //     component: <BlobFileViewer />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-  //   {
-  //     name: "Profile",
-  //     link: "/profile",
-  //     component: <Profile />,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   }, {
-  //     name: "Agreement",
-  //     link: "/agreemenView",
-  //     component: <AgreementManagement/>,
-  //     icon: <Unicons.UilReact />,
-  //     subMenu: [],
-  //   },
-
-  // ],
-
   SuperAdmin: [
     {
       name: "Super Admin",
@@ -596,21 +471,21 @@ export const Sidebar_content = {
       {
         name: "Financial",
         link: "/POLifeCylce",
-        component: <POLifeCycle />,
+        // component: <POLifeCycle />,
         icon: <UilCoins />,
         subMenu: [],
       },
       {
         name: "Repository",
-        link: "/operation-team",
-        component: <OperationManagement />,
+        link: "/operationTeam",
+        // component: <OperationManagement />,
         icon: <UilDatabase />,
         subMenu: [],
       },
       {
         name: "Form",
-        link: "/operation-team",
-        component: <OperationManagement />,
+        link: "/form",
+        // component: <OperationManagement />,
         icon: <UilFileContract />,
         subMenu: [],
       },

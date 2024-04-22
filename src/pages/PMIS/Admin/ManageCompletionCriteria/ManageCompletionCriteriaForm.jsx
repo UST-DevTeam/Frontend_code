@@ -32,6 +32,22 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
             },
             classes: "col-span-1"
         },
+        {
+            label: "Type",
+            value: "",
+            name: "type",
+            type: "select",
+            required: true,
+            filter: true,
+            option: [
+                { label: "Number", value: "number" },
+                { label: "File", value: "file" },
+                { label: "Date", value: "date" },
+                { label: "Text", value: "text" },
+              ],
+
+            classes: "col-span-1"
+        },
     ]
     const {
         register,
@@ -89,7 +105,6 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
         }
     }, [formValue, resetting])
     return <>
-
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 

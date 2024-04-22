@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import projectListActions from '../../../../store/actions/projectList-actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, } from 'react-redux';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 
@@ -13,20 +13,23 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     console.log(siteCompleteData["siteStartDate"],"projectuniqueIdprojectuniqueIdprojectuniqueId")
 
     const dispatch = useDispatch()
-    let mileStoneCompletion = {
-        "Completion Date": "datetime",
-        "Checklist": "",
-        "MO No": "number",
-        "Challan copy": "file",
-        "Attachment": "file",
-        "Reference No": "number",
-    }
+    // let mileStoneCompletion = {
+    //     "Completion Date": "datetime",
+    //     "Checklist": "",
+    //     "MO No": "number",
+    //     "Challan copy": "file",
+    //     "Attachment": "file",
+    //     "Reference No": "number",
+    // };
+
+    
+
     const dateString = siteCompleteData["siteStartDate"];
     const [day, month, year] = dateString.split('-').map(Number);
     
     const datestr = new Date(year, month - 1, day);
 
-    console.log(datestr,dateString,"datestr")
+    // console.log(mileStoneCompletion,"mileStoneCompletion")
 
     let mileStoneprops = {
         "Completion Date": {
@@ -50,24 +53,36 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         }
     }
 
+    let dataecoder={
+        "Date":"datetime",
+        "Number":"number",
+        "File":"file",
+        "Text":"text",
+        
+    }
 
-    
+    let mileStoneCompletion = useSelector((state) => {
+        let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || []
+        let geeter=mtoneCompletion.filter(itm=>itm.completion==mileStone["Completion Criteria"])
+        console.log(geeter.length > 0 ? geeter[0]["type"] : "",'mileStone["Completion Criteria"]')
 
-
-    const CompletionForm = [
-        {
-            label: mileStone["Completion Criteria"],
-            value: "",
-            name: "CC_" + mileStone["Completion Criteria"],
-            required: true,
-            type: mileStoneCompletion[mileStone["Completion Criteria"]],
-            props:mileStoneprops[mileStone["Completion Criteria"]]
-        }
-    ]
-
-
-    console.log(CompletionForm,mileStone, "CompletionFormCompletionForm")
-
+        return [{
+                label: mileStone["Completion Criteria"],
+                value: "",
+                name: "CC_" + mileStone["Completion Criteria"],
+                required: true,
+                type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
+                props:mileStoneprops[mileStone["Completion Criteria"]]
+            }]
+        return geeter.length > 0 ? geeter[0]["type"] : ""
+        return state?.adminData?.getManageCompletionCriteria || []
+        return state?.adminData?.getManageCompletionCriteria.map((itm) => {
+            return {
+                label: itm?.type,
+                value: itm?.uniqueId
+            }
+        })
+    })
 
 
     const onsubmiting = (data) => {
@@ -81,11 +96,16 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
             
             dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
             // dispatch(AdminActions.getManageProjectType(customeruniqueId))
+
             setmodalOpen(false)
             setmodalFullOpen(false)
         }))
 
     }
+
+    useEffect(() => {
+        dispatch(AdminActions.getManageCompletionCriteria())
+    }, [])
 
     const {
         register,
@@ -102,7 +122,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     return <>
         <CommonForm
             classes={"grid-cols-1 gap-1"}
-            Form={CompletionForm}
+            Form={mileStoneCompletion}
             errors={errors}
             register={register}
             setValue={setValue}

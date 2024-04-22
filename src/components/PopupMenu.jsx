@@ -44,7 +44,7 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
 
             {/* <PopupMenu visiblity={filterVisiblity} /> */}
             {
-                filterVisiblity == location.pathname + "_" + name ? <div className={dataclasses + ' absolute top-12 right-0 left-1 border-black border-2 w-96 bg-white pos'}>
+                filterVisiblity == location.pathname + "_" + name ? <div className={dataclasses + ' absolute top-12 right-0 border-black border-2 w-96 bg-white pos'}>
                     <div className='flex justify-center bg-secLine text-white'><h5 className='text-base font-bold'>{name}</h5></div>
                     {child}</div> : ""
             }

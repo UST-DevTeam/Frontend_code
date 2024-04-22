@@ -404,7 +404,7 @@ const ManageUserProjectSiteId = () => {
             },
             {
                 name: "Predecessor",
-                value: "",
+                value: "Predecessor",
                 style: "min-w-[240px] max-w-[240px] text-center"
 
             },

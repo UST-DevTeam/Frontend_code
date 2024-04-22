@@ -88,6 +88,11 @@ const ManageCompletionCriteria = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },                   
             {
+                name: "Type",
+                value: "type",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
+            {
                 name: "Edit",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"

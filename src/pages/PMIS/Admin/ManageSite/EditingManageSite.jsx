@@ -285,7 +285,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
                     onClick={handleSubmitForm1(handleSiteEnggSubmit)}
                 /></div><CommonForm
                         classes={"grid-cols-4 gap-1"}
-                        Form={dataOfProject ? dataOfProject["t_sengg"] ? dataOfProject["t_sengg"].map((its) => {
+                        Form={dataOfProject ? dataOfProject["result"]["t_sengg"] ? dataOfProject["result"]["t_sengg"].map((its) => {
                             return {
                                 label: its.fieldName,
                                 value: "",
@@ -312,7 +312,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
                     onClick={handleSubmitForm2(handleTrackingSubmit)}
                 /></div><CommonForm
                         classes={"grid-cols-4 gap-1"}
-                        Form={dataOfProject ? dataOfProject["t_tracking"] ? dataOfProject["t_tracking"].map((its) => {
+                        Form={dataOfProject ? dataOfProject["result"]["t_tracking"] ? dataOfProject["result"]["t_tracking"].map((its) => {
                             return {
                                 label: its.fieldName,
                                 value: "abc",
@@ -332,7 +332,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
                     onClick={handleSubmitForm3(handleIssuesSubmit)}
                 /></div><CommonForm
                         classes={"grid-cols-4 gap-1"}
-                        Form={dataOfProject ? dataOfProject["t_issues"] ? dataOfProject["t_issues"].map((its) => {
+                        Form={dataOfProject ? dataOfProject["result"]["t_issues"] ? dataOfProject["result"]["t_issues"].map((its) => {
                             return {
                                 label: its.fieldName,
                                 value: "abc",
@@ -352,7 +352,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
                 /></div><CommonForm
                         classes={"grid-cols-4 gap-1"}
-                        Form={dataOfProject ? dataOfProject["t_sFinancials"] ? dataOfProject["t_sFinancials"].map((its) => {
+                        Form={dataOfProject ? dataOfProject["result"]["t_sFinancials"] ? dataOfProject["result"]["t_sFinancials"].map((its) => {
                             return {
                                 label: its.fieldName,
                                 value: "abc",

@@ -13,7 +13,7 @@ const FilterView = ({
   data,
   errors,
   register,
-  setValue,
+  setValue, 
   getValues,
 }) => {
   return (

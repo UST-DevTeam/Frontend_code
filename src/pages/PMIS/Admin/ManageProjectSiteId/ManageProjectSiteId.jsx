@@ -97,7 +97,9 @@ const ManageProjectSiteId = () => {
                     setmodalFullOpen(prev => !prev)
                     // dispatch(AdminActions.getProject())
                     setmodalHead("Update Site")
-                    dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
+                    
+                    dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId))
+                    // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
                     setmodalBody(<EditingManageSite setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
 
                     // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
@@ -407,7 +409,7 @@ const ManageProjectSiteId = () => {
             },
             {
                 name: "Predecessor",
-                value: "",
+                value: "Predecessor",
                 style: "min-w-[240px] max-w-[240px] text-center"
 
             },
@@ -554,7 +556,7 @@ const ManageProjectSiteId = () => {
 
                 dispatch(projectListActions.getProjectTypeAll(projectuniqueId, e.target.value != "" ? "mileStoneName=" + e.target.value : ""))
                 console.log("SearchBarView onchange", e.target.value)
-            }} placeHolder={"Enter Milestone Name"} />}
+            }} placeHolder={"S Milestone Name"} />}
             
             headerButton={<div className='flex gap-1'>
                 <ConditionalButton showType={getAccessType("Add Site")} classes='w-auto ' onClick={(e) => {
