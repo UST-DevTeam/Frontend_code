@@ -164,11 +164,11 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-slate text-[11px] mx-2">
+                              <span className="text-[11px] mx-2">
                                 {itts.name}
                               </span>
                             </div>
-                            {/* <hr /> */}
+
                           </>
                         );
                       })}

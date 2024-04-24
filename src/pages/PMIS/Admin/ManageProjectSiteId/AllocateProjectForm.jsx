@@ -197,7 +197,7 @@ const AllocateProjectForm = ({
       name: "vendorId",
       type: "BigmuitiSelect",
       value: "",
-      singleSelect:true,
+      singleSelect: true,
       option: dataGetterOld
         ? dataGetterOld["vendorDetails"]
           ? dataGetterOld["vendorDetails"]
@@ -234,16 +234,23 @@ const AllocateProjectForm = ({
     console.log(formValue, data, "globalDataglobalDataglobalData");
 
     let dataForApp = [];
+
+    let finaldata = {};
+
+    let assigningTo=""
     if (activeTab == 0) {
       dataForApp = data["userId"];
+      assigningTo="userRegister"
     } else if (activeTab == 1) {
       dataForApp = data["vendorId"];
+      assigningTo="vendor"
     }
     if (listsite.length == 0) {
       let finaldata = {
         name: from,
         data: {
           assignerId: dataForApp,
+          assigningTo:assigningTo
         },
         from: {
           uid: formValue["uniqueId"],
@@ -378,12 +385,15 @@ const AllocateProjectForm = ({
         {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
         {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
         {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
-        {activeTab!=3 ?
+        {activeTab != 3 ? (
           <Button
             classes={"mt-2 w-sm text-center flex mx-auto"}
             onClick={handleSubmit(onTableViewSubmit)}
             name="Submit"
-          />:<></>}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

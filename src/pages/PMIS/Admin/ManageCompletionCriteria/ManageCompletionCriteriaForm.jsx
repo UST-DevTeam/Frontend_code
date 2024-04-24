@@ -40,10 +40,10 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
             required: true,
             filter: true,
             option: [
-                { label: "Number", value: "number" },
-                { label: "File", value: "file" },
-                { label: "Date", value: "date" },
-                { label: "Text", value: "text" },
+                { label: "Number", value: "Number" },
+                { label: "File", value: "File" },
+                { label: "Date", value: "Date" },
+                { label: "Text", value: "Text" },
               ],
 
             classes: "col-span-1"

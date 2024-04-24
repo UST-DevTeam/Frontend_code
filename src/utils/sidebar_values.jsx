@@ -471,20 +471,20 @@ export const Sidebar_content = {
       {
         name: "Financial",
         link: "/POLifeCylce",
-        // component: <POLifeCycle />,
+        component: <POLifeCycle />,
         icon: <UilCoins />,
         subMenu: [],
       },
       {
         name: "Repository",
-        link: "/operationTeam",
+        link: "/operation-team",
         // component: <OperationManagement />,
         icon: <UilDatabase />,
         subMenu: [],
       },
       {
         name: "Form",
-        link: "/form",
+        link: "/for",
         // component: <OperationManagement />,
         icon: <UilFileContract />,
         subMenu: [],

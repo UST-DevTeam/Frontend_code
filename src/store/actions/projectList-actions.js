@@ -71,6 +71,32 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
+
+
+    postProjectTypeAll: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.projectList_siteEngineer : Urls.projectList_siteEngineer + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+
+
     submitProjectTypeData: (urle,data,cb=()=>{},reset=true) => async (dispatch, _) => {
         try {
             const res = await Api.post({ url: urle, data:data })

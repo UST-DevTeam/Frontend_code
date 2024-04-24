@@ -149,50 +149,50 @@ const ManageProject = () => {
         //   />
         // ),
 
-        delete: (
-          <CstmButton
-            child={
-              <DeleteButton
-                name={""}
-                onClick={() => {
-                  let msgdata = {
-                    show: true,
-                    icon: "warning",
-                    buttons: [
-                      <Button
-                        classes="w-15 bg-green-500"
-                        onClick={() => {
-                          dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.admin_project}/${itm.customeruniqueId}/${itm.uniqueId}`,
-                              () => {
-                                dispatch(
-                                  AdminActions.getProject(`${customeruniqueId}`)
-                                );
-                                dispatch(ALERTS({ show: false }));
-                              }
-                            )
-                          );
-                        }}
-                        name={"OK"}
-                      />,
-                      <Button
-                        classes="w-24"
-                        onClick={() => {
-                          console.log("snnsnsnsns");
-                          dispatch(ALERTS({ show: false }));
-                        }}
-                        name={"Cancel"}
-                      />,
-                    ],
-                    text: "Are you sure you want to Delete?",
-                  };
-                  dispatch(ALERTS(msgdata));
-                }}
-              ></DeleteButton>
-            }
-          />
-        ),
+        // delete: (
+        //   <CstmButton
+        //     child={
+        //       <DeleteButton
+        //         name={""}
+        //         onClick={() => {
+        //           let msgdata = {
+        //             show: true,
+        //             icon: "warning",
+        //             buttons: [
+        //               <Button
+        //                 classes="w-15 bg-green-500"
+        //                 onClick={() => {
+        //                   dispatch(
+        //                     CommonActions.deleteApiCaller(
+        //                       `${Urls.admin_project}/${itm.customeruniqueId}/${itm.uniqueId}`,
+        //                       () => {
+        //                         dispatch(
+        //                           AdminActions.getProject(`${customeruniqueId}`)
+        //                         );
+        //                         dispatch(ALERTS({ show: false }));
+        //                       }
+        //                     )
+        //                   );
+        //                 }}
+        //                 name={"OK"}
+        //               />,
+        //               <Button
+        //                 classes="w-24"
+        //                 onClick={() => {
+        //                   console.log("snnsnsnsns");
+        //                   dispatch(ALERTS({ show: false }));
+        //                 }}
+        //                 name={"Cancel"}
+        //               />,
+        //             ],
+        //             text: "Are you sure you want to Delete?",
+        //           };
+        //           dispatch(ALERTS(msgdata));
+        //         }}
+        //       ></DeleteButton>
+        //     }
+        //   />
+        // ),
       };
       return updateditm;
     });
@@ -271,12 +271,17 @@ const ManageProject = () => {
         value: "edit",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
+      // {
+      //   name: "Trash",
+      //   value: "trash",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
 
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Delete",
+      //   value: "delete",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
     ],
     properties: {
       rpp: [10, 20, 50, 100],

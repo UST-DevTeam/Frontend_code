@@ -30,11 +30,14 @@ import ProgressBar from '../../../../components/ProgressBar';
 import { onehundcolor } from '../../../../utils/queryBuilder';
 import Tooltip from '../../../../components/Tooltip';
 import ConditionalButton from '../../../../components/ConditionalButton';
+import NewLookBadge from '../../../../components/Badge';
 
 const ManageProjectSiteId = () => {
 
     let permission=JSON.parse(localStorage.getItem("permission")) || {}
 
+    let user = JSON.parse(localStorage.getItem("user"));
+    let rolename = user?.roleName;
     // console.log(permission?.pmpermission,"permission")
     // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
 
@@ -43,7 +46,8 @@ const ManageProjectSiteId = () => {
 
 
     const [modalOpen, setmodalOpen] = useState(false)
-    const [modalFullOpen, setmodalFullOpen] = useState(false)
+    const [modalFullOpen, setmodalFullOpen] = useState(false);
+    const [modalFullBody, setmodalFullBody] = useState(<></>);
 
     const [globalData, setGlobalData] = useState({});
     const [SiteId, setSiteId] = useState("Add");
@@ -62,6 +66,7 @@ const ManageProjectSiteId = () => {
     const {
         register,
         handleSubmit,
+        SubmitTask,
         watch,
         setValue,
         setValues,
@@ -81,6 +86,33 @@ const ManageProjectSiteId = () => {
         console.log(oldata, "olddataolddataolddata")
         return state.projectList.getProjectTypeSub
     })
+
+
+    // const onTaskSubmit = (data) => {
+    //     // if (siteStatus.uniqueId) {
+
+    //     //     dispatch(projectListActions.postProjectTypeAll(data))
+    //     // }
+    //     // console.log(data, "datadata")
+    //     // dasdsadsadasdas
+    //     if (data.uniqueId) {
+    //         dispatch(projectListActions.postProjectTypeAll(true, data, () => {
+    //             console.log("CustomQueryActions.postDBConfig")
+    //             setIsOpen(false)
+    //             // dispatch(AdminActions.getManageDepartment())
+    //         }, data.uniqueId))
+    //     } else {
+    //         dispatch(projectListActions.postProjectTypeAll(true, data, () => {
+    //             console.log("CustomQueryActions.postDBConfig")
+    //             setIsOpen(false)
+    //             // dispatch(AdminActions.getManageDepartment())
+    //         }))
+    //     }
+    // }
+
+    
+
+
 
 
     let dbConfigL = useSelector((state) => {
@@ -194,6 +226,22 @@ const ManageProjectSiteId = () => {
 
                         </div>,
 
+                        "mileStoneStatusUpda": iewq.mileStoneStatus=="Close" && rolename=="Admin"?<>
+                            <p className='cursor-pointer' onClick={() => {
+                                setmodalOpen(true)
+                                setmodalHead("")
+                                setmodalBody(<>
+                            <div className='flex justify-between'>
+                            <label htmlFor="" className='font-bold'> Status:</label>
+                                <p className='bg-green-400 rounded-lg w-16 text-center'>{iewq.mileStoneStatus}</p>
+                            </div>
+                            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+                                    <Button classes={"mt-2 w-sm text-center flex mx-auto"} name="Open Task" />
+                                </div>
+                                </>)
+                            }}>{iewq.mileStoneStatus}</p>
+                            </>:<p>{iewq.mileStoneStatus}</p>,
+
                         SiteNaming: <p className='' onClick={() => {
                             setmodalFullOpen(prev => !prev)
                             // dispatch(AdminActions.getProject())
@@ -296,6 +344,38 @@ const ManageProjectSiteId = () => {
                 ),
 
 
+                // "siteStatus": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                //     setmodalOpen(true)
+                //     setmodalHead("")
+                //     setmodalBody(<>
+                //    <div className='flex justify-between'>
+                //    <label htmlFor="" className='font-bold'> Status:</label>
+                //       <p className='bg-green-400 rounded-lg w-16 text-center'>{itm.siteStatus}</p>
+                //    </div>
+                //    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+                //         <Button classes={"mt-2 w-sm text-center flex mx-auto"} name="Open Task" />
+                //     </div>
+                //     </>)
+                // }}></EditButton>} /></div>,
+                
+
+                "siteStatus": itm.siteStatus=="Close" && rolename=="Admin"?<>
+                <p className='cursor-pointer' onClick={() => {
+                    setmodalOpen(true)
+                    setmodalHead("")
+                    setmodalBody(<>
+                   <div className='flex justify-between'>
+                   <label htmlFor="" className='font-bold'> Status:</label>
+                      <p className='bg-green-400 rounded-lg w-16 text-center'>{itm.siteStatus}</p>
+                   </div>
+                   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+                        <Button classes={"mt-2 w-sm text-center flex mx-auto"} name="Open Task" />
+                    </div>
+                    </>)
+                }}>{itm.siteStatus}</p>
+                </>:<p>{itm.siteStatus}</p>,
+
+                
                 "edit": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getProject())
@@ -419,6 +499,8 @@ const ManageProjectSiteId = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
 
             },
+
+
             {
                 name: "Billing Status",
                 value: "siteBillingStatus",
@@ -493,7 +575,7 @@ const ManageProjectSiteId = () => {
                 },
                 {
                     name: "Status",
-                    value: "mileStoneStatus",
+                    value: "mileStoneStatusUpda",
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
 

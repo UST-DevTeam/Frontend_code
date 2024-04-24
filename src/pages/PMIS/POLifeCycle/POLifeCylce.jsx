@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../components/EditButton';
-import ManageVendorForm from '../ManageVendor/ManageVendorForm';
 import AdvancedTable from '../../../components/AdvancedTable';
 import Modal from '../../../components/Modal';
 import Button from '../../../components/Button';
@@ -15,19 +14,20 @@ import { ALERTS } from '../../../store/reducers/component-reducer';
 import CommonActions from '../../../store/actions/common-actions';
 import { Urls } from '../../../utils/url';
 import OperationManagementActions from '../../../store/actions/OperationManagement-actions';
+import POLifeCycleForm from '../POLifeCycle/POLifeCycleForm';
 
 const POLifeCycle = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     let dispatch = useDispatch()
-    let roleList = useSelector((state) => {
-        let interdata = state?.operationManagement?.USERS_LIST
-        return interdata
-    })
+    // let roleList = useSelector((state) => {
+    //     let interdata = state?.operationManagement?.USERS_LIST
+    //     return interdata
+    // })
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.OperationManagementReducer?.usersList
+        let interdata = state?.OperationManagementReducer?.usersList || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -217,9 +217,8 @@ const POLifeCycle = () => {
         <AdvancedTable
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(OperationManagementActions.getOperationUserList())
-                setmodalHead("New User")
-                setmodalBody(<ManageVendorForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalHead("New PO Life Cycle ")
+                setmodalBody(<POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button></>}
             table={table}

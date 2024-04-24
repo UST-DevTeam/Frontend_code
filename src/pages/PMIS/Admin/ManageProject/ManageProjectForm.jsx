@@ -222,7 +222,6 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
         { label: "Active", value: "Active" },
         { label: "Archive", value: "Archive" },
         { label: "Trash", value: "Trash" },
-        { label: "Closed", value: "Closed" },
       ],
       required: true,
       classes: "col-span-1",

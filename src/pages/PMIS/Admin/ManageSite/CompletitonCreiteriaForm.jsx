@@ -51,7 +51,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     }
 
     let dataecoder={
-        "Date":"datetime",
+        "date":"datetime",
         "Number":"number",
         "File":"file",
         "Text":"text",
@@ -61,14 +61,14 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     let mileStoneCompletion = useSelector((state) => {
         let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || []
         let geeter=mtoneCompletion.filter(itm=>itm.completion==mileStone["Completion Criteria"])
-        console.log(geeter.length > 0 ? geeter[0]["type"] : "",'mileStone["Completion Criteria"]')
+        console.log(geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "dsadasjdksa",' dsadasjdksa   ')
 
         return [{
                 label: mileStone["Completion Criteria"],
                 value: "",
                 name: "CC_" + mileStone["Completion Criteria"],
                 required: true,
-                type: geeter.length > 0 ? dataecoder[geeter[0][dataecoder]] : "",
+                type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
                 props:mileStoneprops[mileStone["Completion Criteria"]]
             }]
         return geeter.length > 0 ? geeter[0]["type"] : ""
