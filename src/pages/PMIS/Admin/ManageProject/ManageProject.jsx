@@ -29,13 +29,15 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 const ManageProject = () => {
   const { projecttypeuniqueId, customeruniqueId } = useParams();
 
-  console.log(projecttypeuniqueId,"projecttypeuniqueIdprojecttypeuniqueIdprojecttypeuniqueId"
+  console.log(
+    projecttypeuniqueId,
+    "projecttypeuniqueIdprojecttypeuniqueIdprojecttypeuniqueId"
   );
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
-  const [fileOpen, setFileOpen] = useState(false)
+  const [fileOpen, setFileOpen] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -287,21 +289,25 @@ const ManageProject = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      {
+        label: "Type",
+        type: "select",
+        name: "statusType",
+        option: [
+          { "label": "Active", "value": "Active"},
+          { "label": "Trash", "value": "Trash"},
+          { "label": "Archive", "value": "Archive"},
+        ],
+        props: {},
+      },
     ],
   };
   const onSubmit = (data) => {
-    // console.log("jsjsjsjss", data)
     let value = data.reseter;
     delete data.reseter;
-    dispatch(AdminActions.getProject(value, objectToQueryString(data)));
+    const filterValue = data.statusType;
+    delete data.statusType;
+    dispatch(AdminActions.getProject(value, objectToQueryString({data, filter: filterValue })));
   };
   useEffect(() => {
     dispatch(
@@ -314,14 +320,16 @@ const ManageProject = () => {
     // dispatch(OperationManagementActions.getRoleList())
   }, []);
 
-  const onTableViewSubmit = (data) => { 
-    console.log(data, "datadata")
-    dispatch(CommonActions.fileSubmit(Urls.upload_update_siteId, data, () => {
-        dispatch(AdminActions.getProject())
-        setFileOpen(false)
-        reset("")
-    }))
-}
+  const onTableViewSubmit = (data) => {
+    console.log(data, "datadata");
+    dispatch(
+      CommonActions.fileSubmit(Urls.upload_update_siteId, data, () => {
+        dispatch(AdminActions.getProject());
+        setFileOpen(false);
+        reset("");
+      })
+    );
+  };
   // useEffect(() => {
   //     if (customeruniqueId && projecttypeuniqueId) {
   //         dispatch(AdminActions.getProject(`${customeruniqueId}/${projecttypeuniqueId}`))
@@ -368,17 +376,37 @@ const ManageProject = () => {
                 // setFileOpen(prev=>!prev)
               }}
             ></Button>
-            <Button name={"Update Site"} classes='w-auto bg-yellow-600' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
-            <Button name={"Update Task"} classes='w-auto mr-1 bg-cyan-600' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
+            <Button
+              name={"Update Site"}
+              classes="w-auto bg-yellow-600"
+              onClick={(e) => {
+                setFileOpen((prev) => !prev);
+              }}
+            ></Button>
+            <Button
+              name={"Update Task"}
+              classes="w-auto mr-1 bg-cyan-600"
+              onClick={(e) => {
+                setFileOpen((prev) => !prev);
+              }}
+            ></Button>
           </div>
         }
         table={table}
-        exportButton={["/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,"Export_Project.xlsx",]}
-        exportSiteButton={["/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,"Export_Project.xlsx",]}
+        exportButton={[
+          "/export/Project/" +
+            `${customeruniqueId}` +
+            "/" +
+            `${projecttypeuniqueId}`,
+          "Export_Project.xlsx",
+        ]}
+        exportSiteButton={[
+          "/export/Project/" +
+            `${customeruniqueId}` +
+            "/" +
+            `${projecttypeuniqueId}`,
+          "Export_Project.xlsx",
+        ]}
         // UploadSites={[]}
         // UploadTask={[]}
         filterAfter={onSubmit}
@@ -401,7 +429,12 @@ const ManageProject = () => {
       />
 
       {/* <CommonForm/> */}
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+      />
     </>
   );
 };

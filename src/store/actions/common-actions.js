@@ -35,7 +35,6 @@ const CommonActions = {
                 show: true,
                 icon: dtaa.icon,
                 buttons: [
-
                 ],
                 type:1,
                 text: dtaa.msg

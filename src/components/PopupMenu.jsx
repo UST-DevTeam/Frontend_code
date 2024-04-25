@@ -10,20 +10,22 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
 
     // const [filterVisiblity, setfilterVisiblity] = useState(false)
 
+    const buttonRef = useRef(null);
+    const modalRef = useRef(null);
+    const location = useLocation();
+    const dispatch = useDispatch();
+
     let filterVisiblity = useSelector((state) => {
         return state.component.popmenu
     })
 
-    const buttonRef = useRef(null);
-    const location = useLocation()
-    const dispatch = useDispatch()
     const handleClick = () => {
-        dispatch(ComponentActions.popmenu(location.pathname + "_" + name,true))
+        dispatch(ComponentActions.popmenu(location.pathname + "_" + name, !filterVisiblity))
     };
 
     const handleClickOutside = (event) => {
         console.log(buttonRef.current && !buttonRef.current.contains(event.target), "event.target")
-        if (buttonRef.current && !buttonRef.current.contains(event.target)) {
+        if (buttonRef.current && !buttonRef.current.contains(event.target)  && !modalRef.current.contains(event.target))  {
             dispatch(ComponentActions.popmenu(location.pathname + "_" + name,false))
         }
     };
@@ -44,7 +46,7 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
 
             {/* <PopupMenu visiblity={filterVisiblity} /> */}
             {
-                filterVisiblity == location.pathname + "_" + name ? <div className={dataclasses + ' absolute top-12 right-0 border-black border-2 w-96 bg-white pos'}>
+                filterVisiblity == location.pathname + "_" + name ? <div ref={modalRef} className={dataclasses + ' absolute top-12 right-0 border-black border-2 w-96 bg-white pos'}>
                     <div className='flex justify-center bg-secLine text-white'><h5 className='text-base font-bold'>{name}</h5></div>
                     {child}</div> : ""
             }

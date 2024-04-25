@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../components/EditButton';
-import AdvancedTable from '../../../components/AdvancedTable';
-import Modal from '../../../components/Modal';
-import Button from '../../../components/Button';
-import DeleteButton from '../../../components/DeleteButton';
-import CstmButton from '../../../components/CstmButton';
-import ToggleButton from '../../../components/ToggleButton';
-import { objectToQueryString } from '../../../utils/commonFunnction';
-import { ALERTS } from '../../../store/reducers/component-reducer';
-import CommonActions from '../../../store/actions/common-actions';
-import { Urls } from '../../../utils/url';
-import OperationManagementActions from '../../../store/actions/OperationManagement-actions';
+import EditButton from '../../../../components/EditButton';
+import AdvancedTable from '../../../../components/AdvancedTable';
+import Modal from '../../../../components/Modal';
+import Button from '../../../../components/Button';
+import DeleteButton from '../../../../components/DeleteButton';
+import CstmButton from '../../../../components/CstmButton';
+import ToggleButton from '../../../../components/ToggleButton';
+import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { ALERTS } from '../../../../store/reducers/component-reducer';
+import CommonActions from '../../../../store/actions/common-actions';
+import { Urls } from '../../../../utils/url';
+import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import POLifeCycleForm from '../POLifeCycle/POLifeCycleForm';
+import FinanceActions from '../../../../store/actions/finance-actions';
 
 const POLifeCycle = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -26,36 +27,19 @@ const POLifeCycle = () => {
     //     return interdata
     // })
     let dbConfigList = useSelector((state) => {
-        console.log(state, "state statejjjj")
-        let interdata = state?.OperationManagementReducer?.usersList || []
+        let interdata = state?.financeData?.getPoLifeCycle || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
-                    let data = {
-                        "enabled": e.target.checked ? 1 : 0
-                    }
-                    dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
-                        e.target.checked = e.target.checked
-                    }, itm.id))
-                    // if(itm.enabled==0){
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
-                }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(OperationManagementActions.getOperationUserList())
+                    dispatch(FinanceActions.getPoLifeCycle())
                     setmodalHead("Edit User")
-                    // setmodalBody(<>
-                    //     <OperationManagementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                    //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    // </>)
+                    setmodalBody(<>
+                        <POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
                     console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
@@ -66,13 +50,12 @@ const POLifeCycle = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.operationUser}/${itm.uniqueId}`, () => {
-                                    dispatch(OperationManagementActions.getOperationUserList())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poLifeCycle}/${itm.uniqueId}`, () => {
+                                    dispatch(FinanceActions.getPoLifeCycle())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-24' onClick={() => {
-                                console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],
@@ -85,7 +68,7 @@ const POLifeCycle = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminManagement?.usersList
+        let interdata = state?.financeData?.getPoLifeCycle || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -207,11 +190,10 @@ const POLifeCycle = () => {
         console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(OperationManagementActions.getOperationUserList(value, objectToQueryString(data)))
+        dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(OperationManagementActions.getOperationUserList())
-        // dispatch(OperationManagementActions.getRoleList())
+        dispatch(FinanceActions.getPoLifeCycle())
     }, [])
     return <>
         <AdvancedTable

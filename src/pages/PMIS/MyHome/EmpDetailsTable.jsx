@@ -31,6 +31,13 @@ const EmpDetailsTable = () => {
 
   let navigate = useNavigate();
 
+  const currentDate = new Date();
+  const dt = currentDate.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).replace(/\//g, '-')
+
   const {
     register,
     handleSubmit,
@@ -251,7 +258,7 @@ const EmpDetailsTable = () => {
             ></Button>
             <Button
               name={"Upload File"}
-              classes="w-auto"
+              classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
@@ -259,6 +266,7 @@ const EmpDetailsTable = () => {
           </div>
         }
         table={table}
+        exportButton={["/export/manageEmployee","Export_Employee("+dt+").xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}

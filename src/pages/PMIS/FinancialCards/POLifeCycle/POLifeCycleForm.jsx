@@ -4,10 +4,10 @@ import moment from 'moment';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Modal from '../../../components/Modal';
-import CommonForm from '../../../components/CommonForm';
-import Button from '../../../components/Button';
-import AdminActions from '../../../store/actions/admin-actions';
+import Modal from '../../../../components/Modal';
+import CommonForm from '../../../../components/CommonForm';
+import Button from '../../../../components/Button';
+import AdminActions from '../../../../store/actions/admin-actions';
 
 const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
@@ -15,6 +15,8 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     const [modalOpen, setmodalOpen] = useState(false);
     const [pType, setpType] = useState("");
+    // const [qType, setqType] = useState("");
+    // const [rType, setrType] = useState("");
 
 
     let dispatch = useDispatch()
@@ -48,11 +50,12 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             }
         })
     })
+
     // let projectGroupList = useSelector((state) => {
     //     return state?.adminData?.getManageProjectGroup
     //       .filter((itm) => {
-    //         console.log(itm.circleName == pType, "dasdsadsadas");
-    //         return itm.circleName == pType;
+    //         console.log(itm.circleName == qType, "sadsadasdasdsadsadas");
+    //         return itm.circleName == qType;
     //       })
     //       .map((itm) => {
     //         return {
@@ -61,6 +64,7 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     //         };
     //       });
     //   });
+
     let projectIdList = useSelector((state) => {
         return state?.adminData?.getProject.map((itm) => {
             return {
@@ -69,6 +73,20 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             }
         })
     })
+
+    // let projectIdList = useSelector((state) => {
+    //     return state?.adminData?.getProject
+    //       .filter((itm) => {
+    //         console.log(itm.projectId == rType, "dasdsadsadasdaadsadas");
+    //         return itm.projectId == rType;
+    //       })
+    //       .map((itm) => {
+    //         return {
+    //           label: itm.projectId,
+    //           value: itm.uniqueId,
+    //         };
+    //       });
+    //   });
 
 
 
@@ -100,14 +118,14 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             option: circleList,
             required: true,
             props: {
-                // onChange: (e) => {
-                //     setpType(
-                //         circleList.filter((iteq) => iteq.value == e.target.value)[0][
-                //         "label"
-                //       ]
-                //     );
-                //     setValue("circle", e.target.value);
-                //   },
+                onChange: (e) => {
+                    // setqType(
+                    //     circleList.filter((iteq) => iteq.value == e.target.value)[0][
+                    //     "label"
+                    //   ]
+                    // );
+                    // setValue("circle", e.target.value);
+                  },
             },
             classes: "col-span-1"
         }, 
@@ -119,9 +137,14 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             option: projectGroupList,
             required: true,
             props: {
-                onChange: ((e) => {
-                    
-                }),
+                onChange: (e) => {
+                    // setrType(
+                    //     projectGroupList.filter((iteq) => iteq.value == e.target.value)[0][
+                    //     "label"
+                    //   ]
+                    // );
+                    // setValue("projectGroup", e.target.value);
+                  },
             },
             classes: "col-span-1"
         }, 

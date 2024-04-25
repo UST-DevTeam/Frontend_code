@@ -9,6 +9,7 @@ import CommonActions from "./common-actions"
 
 
 const projectListActions = {
+    
     postSubmit: (url, data, cb) => async (dispatch, _) => {
         try {
             const res = await Api.post({ url: url, data: data , contentType:"multipart/form-data"})
@@ -20,7 +21,7 @@ const projectListActions = {
                     show: true,
                     icon: dtaa?.icon,
                     buttons: [
-
+                        
                     ],
                     type:1,
                     text: dtaa.msg

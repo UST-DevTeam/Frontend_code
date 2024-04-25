@@ -200,7 +200,7 @@ const AdvancedTable = ({
               )}
               {exportButton ? (
                 <ConditionalButton showType={getAccessType("Add Project")}
-                  name={"Export Project"}
+                  name={"Export"}
                   classes="w-full mr-1"
                   onClick={() => {
                     dispatch(

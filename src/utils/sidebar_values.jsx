@@ -58,7 +58,7 @@ import AgreementManagement from "../pages/Admin/AgreementManagement/AgreementMan
 import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer";
 import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation";
 import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
-import POLifeCycle from "../pages/PMIS/POLifeCycle/POLifeCylce";
+import POLifeCycle from "../pages/PMIS/FinancialCards/POLifeCycle/POLifeCylce";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
 import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
@@ -95,6 +95,8 @@ import UserComponentManagement from "../pages/UserComponentManagement/UserCompon
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
 import { getAccessType } from "./commonFunnction";
+import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
+import InvoiceMgmt from "../pages/PMIS/FinancialCards/InvoiceManagement/InvoiceMgmt";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -395,6 +397,20 @@ export const Sidebar_content = {
       icon: <UilStore />,
       subMenu: [],
     },
+    {
+      name: "",
+      link: "/financialCards/poLifeCycle",
+      component: <POLifeCycle />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financialCards/invoice",
+      component: <InvoiceMgmt />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
   ],
 
   SuperAdmin: [
@@ -470,8 +486,8 @@ export const Sidebar_content = {
       },
       {
         name: "Financial",
-        link: "/POLifeCylce",
-        component: <POLifeCycle />,
+        link: "/financialCards",
+        component: <FinancialCards />,
         icon: <UilCoins />,
         subMenu: [],
       },

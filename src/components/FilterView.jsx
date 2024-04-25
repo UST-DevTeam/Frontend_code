@@ -31,7 +31,7 @@ const FilterView = ({
                   return (
                     <>
                       <div className="flex flex-col ">
-                        <label className="block text-sm p-2 font-medium text-black  dark:text-black">
+                        <label className="block text-sm p-2 font-medium text-black dark:text-black">
                           {itm.label}
                         </label>
 

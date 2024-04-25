@@ -1481,6 +1481,7 @@ const EmpDetails = (props) => {
                 UserLyp != "" && <CommonForm classes={"grid-cols-1 lg:grid-cols-2 lg:gap-8 w-full pt-4"} errors={errors} Form={contype}
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
+
                 <div className="flex gap-10 mb-3 justify-center">
                   <button
                     onClick={() => {
