@@ -114,9 +114,9 @@ const ManageProjectSiteId = () => {
   });
   console.log(
     childsite,
-    "childsitechildsite",
+    "childsitechildsitechildsitechildsite",
     parentsite,
-    "parentsiteparentsite"
+    "parentsiteparentsiteparentsiteparentsite"
   );
   let dbConfigList = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist;
@@ -399,7 +399,7 @@ const ManageProjectSiteId = () => {
             editing: iewq.mileStoneStatus == "Close" && rolename == "Admin" ? (
                 <>
                   <p
-                    className="cursor-pointer bg-green-400 p-1 rounded-2xl my-auto"
+                    className="cursor-pointer bg-green-500 p-1 rounded-2xl my-auto"
                     onClick={() => {
                       setmodalOpen(true);
                       setmodalHead("");
