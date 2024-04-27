@@ -256,7 +256,7 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     if (formValue?.uniqueId) {
       dispatch(AdminActions.postProject(true,customeruniqueId,data,() => {
             setIsOpen(false);
-            dispatch(AdminActions.getProject(customeruniqueId));
+            dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
           },
           formValue?.uniqueId
         )
@@ -265,7 +265,7 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     else {
       dispatch(AdminActions.postProject(true, customeruniqueId, data, () => {
           setIsOpen(false);
-          dispatch(AdminActions.getProject(customeruniqueId));
+          dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
         })
       );
     }
