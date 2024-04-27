@@ -68,6 +68,7 @@ const ManageProject = () => {
         //     console.log(itm.enabled, "itm.enabled")
         // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
+        // status:"dsadsadsa",
         projectId: (
           <button>
             <p
@@ -97,7 +98,7 @@ const ManageProject = () => {
           </button>
         ),
 
-        edit: (
+        edit: (<><div className="flex justify-center">
           <CstmButton
             className={"p-2"}
             child={
@@ -126,6 +127,50 @@ const ManageProject = () => {
               ></EditButton>
             }
           />
+          
+          
+          {itm.status=="Trash"?<CstmButton
+          child={
+            <DeleteButton
+              name={""}
+              onClick={() => {
+                let msgdata = {
+                  show: true,
+                  icon: "warning",
+                  buttons: [
+                    <Button
+                      classes="w-15 bg-green-500"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.deleteApiCaller(
+                            `${Urls.admin_project}/${itm.customeruniqueId}/${itm.uniqueId}`,
+                            () => {
+                              dispatch(
+                                AdminActions.getProject(`${customeruniqueId}`)
+                              );
+                              dispatch(ALERTS({ show: false }));
+                            }
+                          )
+                        );
+                      }}
+                      name={"OK"}
+                    />,
+                    <Button
+                      classes="w-24"
+                      onClick={() => {
+                        console.log("snnsnsnsns");
+                        dispatch(ALERTS({ show: false }));
+                      }}
+                      name={"Cancel"}
+                    />,
+                  ],
+                  text: "Are you sure you want to Delete?",
+                };
+                dispatch(ALERTS(msgdata));
+              }}
+            ></DeleteButton>
+          }
+        />:""}</div></>
         ),
 
         // trash: (
@@ -246,11 +291,11 @@ const ManageProject = () => {
         value: "projectTypeName",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Sub Project",
-        value: "subProjectName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Sub Project",
+      //   value: "subProjectName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Project Manager",
         value: "PMName",

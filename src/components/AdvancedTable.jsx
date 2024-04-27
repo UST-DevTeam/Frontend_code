@@ -13,6 +13,7 @@ import FilterView from "./FilterView";
 import { useDispatch, useSelector } from "react-redux";
 import CommonActions from "../store/actions/common-actions";
 import ConditionalButton from "./ConditionalButton";
+import ComponentActions from "../store/actions/component-actions";
 
 const AdvancedTable = ({
   tableName = "",
@@ -74,6 +75,7 @@ const AdvancedTable = ({
     filterAfter(formdata);
     setActivedFilter(formdata);
     setActiveFilter(objectToArray(formdata));
+    dispatch(ComponentActions.popmenu(location.pathname + "_" + name,false))
   };
   const onReset = () => {
     // alert(value)

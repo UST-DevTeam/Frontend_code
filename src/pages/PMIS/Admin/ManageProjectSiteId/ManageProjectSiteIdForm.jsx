@@ -118,14 +118,14 @@ const ManageProjectSiteIdForm = ({
   console.log(dataGetterOld, "dataGetterOlddataGetterOlddataGetterOld")
   let Form = [
 
-    {
-      label: "Project Type",
-      name: "ptype",
-      type: "sdisabled",
-      value: "",
-      required: true,
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Project Type",
+    //   name: "ptype",
+    //   type: "sdisabled",
+    //   value: "",
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
     {
       label: "SubProject Type",
       name: "roleName",

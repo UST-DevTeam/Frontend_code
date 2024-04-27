@@ -24,8 +24,20 @@ const component = createSlice({
     
     GLOBAL_VALUE: (state, { payload }) => {
 
-      let data = [...state.globalValue,payload]
+      let alreadyPayloading=[...state.globalValue]
+      console.log(alreadyPayloading,"alreadyPayloading")
+      let alreadyPayload = alreadyPayloading.findIndex(item=>item.name==payload.name)
+      let data=[]
+      if(alreadyPayload!=-1){
+        data = [...state.globalValue]
+        data[alreadyPayload]=payload
+      }else{
+        data = [...state.globalValue,payload]
+      }
       localStorage.setItem("GLOBAL_VALUE",JSON.stringify(data))
+
+
+      console.log(data,"datadatadatadGLOBAL_VALUEatadatadatadatadata")
       state.globalValue = data
     },
     BREADCRUMB: (state, { payload }) => {

@@ -151,7 +151,7 @@ const AllocateProjectForm = ({
       type: "BigmuitiSelect",
       value: "",
       option: dataGetterOld
-        ? dataGetterOld["empDeatils"] || dataGetterOld["empDeatils"][0]?.["label"] 
+        ? dataGetterOld["empDeatils"] && dataGetterOld["empDeatils"][0]?.["name"] 
           ? dataGetterOld["empDeatils"]
           : []
         : [],
