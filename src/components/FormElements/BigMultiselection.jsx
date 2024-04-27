@@ -58,10 +58,13 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
             border: "none",
             "border-radius": "0px",
             padding: "0px",
-            color: "black !important",
+            color: "black !important", 
+          },
+          multiselectContainer: {
+            width: "450px", 
           },
         }}
-        className="pt-1 text-black bg-white border-black border block bigMultiSel w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        className="pt-1 text-black bg-white border-black border block h-52 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
     </>
   );

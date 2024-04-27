@@ -349,9 +349,9 @@ const ManageCustomer = () => {
                 className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
                   dispatch(
-                    ComponentActions.breadcrumb(itm["customerName"],`${"/projectType"}/${itm["uniqueId"]}`,1, false)
+                    ComponentActions.globalUrlStore(itm["customerName"],`${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
                   );
-                  navigate(`${"/projectType"}/${itm["uniqueId"]}`);
+                  navigate(`${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`);
                 }}
               >
                 {itm["companyimg"] && itm["companyimg"] != "" && (

@@ -55,6 +55,13 @@ const HRHomeView = () => {
 
                     console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
                     if (getAccessType(itm[0]) == "visible") {
+
+                      dispatch(
+                        ComponentActions.globalUrlStore(
+                          itm[0],
+                          itm[2]
+                        )
+                      );
                       navigate(itm[2]);
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)

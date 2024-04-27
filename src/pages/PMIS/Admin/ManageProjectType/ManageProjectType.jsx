@@ -32,7 +32,7 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
 
 const ManageProjectType = () => {
-  const { customeruniqueId } = useParams();
+  const { cname,customeruniqueId } = useParams();
 
   const {
     register,
@@ -1314,16 +1314,20 @@ const ManageProjectType = () => {
               <div
                 className="bg-pink-300 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
+                  // dispatch(
+                  //   ComponentActions.breadcrumb(
+                  //     itm["projectType"],
+                  //     `${"/projectManagement_1"}/${cname}/${itm["projectType"]}/${customeruniqueId}/${itm["uniqueId"]}`,
+                  //     1,
+                  //     false
+                  //   )
+                  // );
+
                   dispatch(
-                    ComponentActions.breadcrumb(
-                      itm["projectType"],
-                      `${"/project"}/${customeruniqueId}/${itm["uniqueId"]}`,
-                      1,
-                      false
-                    )
+                    ComponentActions.globalUrlStore(itm["projectType"], `${"/projectManagement_1"}/${cname}/${itm["projectType"]}/${customeruniqueId}/${itm["uniqueId"]}`)
                   );
                   navigate(
-                    `${"/project"}/${customeruniqueId}/${itm["uniqueId"]}`
+                    `${"/projectManagement_1"}/${cname}/${itm["projectType"]}/${customeruniqueId}/${itm["uniqueId"]}`
                   );
                 }}
               >
@@ -1347,7 +1351,7 @@ const ManageProjectType = () => {
         oppshowbtn={true}
         opplabel="Go to Project"
         onpassclick={() => {
-          navigate(`${"/project"}/${customeruniqueId}`);
+          navigate(`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`);
         }}
       />
 

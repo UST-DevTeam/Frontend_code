@@ -25,9 +25,10 @@ import OperationManagementActions from "../../../../store/actions/admin-actions"
 import AdminActions from "../../../../store/actions/admin-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import ButtonWithTooltip from "../../../../components/ButtonWithTooltip";
 
 const ManageProject = () => {
-  const { projecttypeuniqueId, customeruniqueId } = useParams();
+  const { cname,ptname,projecttypeuniqueId, customeruniqueId } = useParams();
 
   console.log(
     projecttypeuniqueId,
@@ -72,15 +73,22 @@ const ManageProject = () => {
             <p
               // onClick={() => handleFullName(item)}
               onClick={() => {
+
+                dispatch(
+                  ComponentActions.globalUrlStore(
+                    itm.projectId,
+                    `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`,
+                  )
+                );
                 dispatch(
                   ComponentActions.breadcrumb(
                     itm.projectId,
-                    `/projectSiteId/${itm.uniqueId}`,
+                    `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`,
                     1,
                     false
                   )
                 );
-                navigate(`/projectSiteId/${itm.uniqueId}`);
+                navigate(`/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`);
               }}
               className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
             >
@@ -303,11 +311,15 @@ const ManageProject = () => {
     ],
   };
   const onSubmit = (data) => {
-    let value = data.reseter;
-    delete data.reseter;
-    const filterValue = data.statusType;
-    delete data.statusType;
-    dispatch(AdminActions.getProject(value, objectToQueryString({data, filter: filterValue })));
+    console.log(data,"datadatadatadatadatadata")
+
+    delete data["reseter"]
+    console.log(objectToQueryString(data),"datadatadatadatadatadata")
+
+
+    dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"",true, objectToQueryString(data)));
+
+    
   };
   useEffect(() => {
     dispatch(
@@ -362,13 +374,17 @@ const ManageProject = () => {
               }}
               name={"Add Project"}
             ></ConditionalButton>
-            <Button
-              name={"Bulk Site"}
-              classes="w-auto bg-green-700"
+
+            {/* <ButtonWithTooltip text="hello" tooltipText="hiii" icon={<></>} className="" onClick={}/> */}
+
+            <ButtonWithTooltip
+              tooltipText={"Bulk Site"}
+              text={"Bulk Site"}
+              className="w-24 bg-green-700"
               onClick={(e) => {
                 // setFileOpen(prev=>!prev)
               }}
-            ></Button>
+            ></ButtonWithTooltip>
             <Button
               name={"Bulk Task"}
               classes="w-auto bg-indigo-600"

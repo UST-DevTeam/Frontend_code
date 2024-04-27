@@ -121,6 +121,7 @@ const ManageProjectSiteId = () => {
   let dbConfigList = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist;
     return interdata?.map((itm) => {
+        console.log(itm,'itmitm')
       let updateditm = {
         ...itm,
         siteIdLink: (
@@ -133,8 +134,19 @@ const ManageProjectSiteId = () => {
 
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
-              setmodalBody(
-                <EditingManageSite
+            //   setmodalBody(
+            //     <EditingManageSite
+            //       setGlobalData={setGlobalData}
+            //       setSiteId={setSiteId}
+            //       setmodalFullOpen={setmodalFullOpen}
+            //       projectuniqueId={projectuniqueId}
+            //     />
+            //   );
+            setmodalBody(
+                <ManageMilestoneSite
+                  siteCompleteData={itm}
+                  uid={itm["uniqueId"]}
+                  mileStone={{}}
                   setGlobalData={setGlobalData}
                   setSiteId={setSiteId}
                   setmodalFullOpen={setmodalFullOpen}
@@ -145,7 +157,7 @@ const ManageProjectSiteId = () => {
               // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
           >
-            {itm.siteId}
+            {itm["Site Id"]}
           </p>
         ),
 

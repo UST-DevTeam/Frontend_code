@@ -151,7 +151,7 @@ const AllocateProjectForm = ({
       type: "BigmuitiSelect",
       value: "",
       option: dataGetterOld
-        ? dataGetterOld["empDeatils"]
+        ? dataGetterOld["empDeatils"] || dataGetterOld["empDeatils"][0]?.["label"] 
           ? dataGetterOld["empDeatils"]
           : []
         : [],
@@ -329,7 +329,7 @@ const AllocateProjectForm = ({
       /> */}
 
       <Modal
-        size={"full"}
+        size={"xl"}
         children={modalFullBody}
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}

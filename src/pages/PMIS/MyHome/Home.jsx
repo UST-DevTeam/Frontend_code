@@ -347,6 +347,13 @@ const MyHome = () => {
               <div
                 className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
+
+                  dispatch(
+                    ComponentActions.globalUrlStore(
+                      itm["name"],
+                      itm.uniqueId
+                    )
+                  );
                   dispatch(
                     ComponentActions.breadcrumb(itm["name"],itm.uniqueId,1, false)
                   );

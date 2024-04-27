@@ -1,4 +1,4 @@
-import { LOADERS, POP_MENU, BREADCRUMB } from "../reducers/component-reducer"
+import { LOADERS, POP_MENU, BREADCRUMB, GLOBAL_VALUE } from "../reducers/component-reducer"
 // import Notify from "./notify-actions"
 
 
@@ -14,6 +14,15 @@ const ComponentActions = {
     breadcrumb: (data,link,index,tkn) => async (dispatch, _) => {
         try {
             dispatch(BREADCRUMB({data,link,index,tkn}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+    
+    globalUrlStore: (name,value) => async (dispatch, _) => {
+        try {
+            dispatch(GLOBAL_VALUE({name,value}))
         } catch (error) {
             console.log(error, "amit errorerror 37")
             // dispatch(Notify.error('something went wrong! please try again after a while'))

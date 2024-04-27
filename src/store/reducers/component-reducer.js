@@ -4,6 +4,7 @@ const initialState = {
   popmenu: "",
   alerts: {},
   breadcrumb: [],
+  globalValue: JSON.parse(localStorage.getItem("GLOBAL_VALUE")) || [],
   loader: false,
   table_pagination: "",
   setfileblob: null,
@@ -19,6 +20,13 @@ const component = createSlice({
       } else {
         state.popmenu = "";
       }
+    },
+    
+    GLOBAL_VALUE: (state, { payload }) => {
+
+      let data = [...state.globalValue,payload]
+      localStorage.setItem("GLOBAL_VALUE",JSON.stringify(data))
+      state.globalValue = data
     },
     BREADCRUMB: (state, { payload }) => {
       console.log(0,payload,"dasdassssssssssssssssss")
@@ -66,6 +74,7 @@ export const {
   TABLE_PAGINATON,
   LOADERS,
   SET_FILE_BLOB,
+  GLOBAL_VALUE,
   RESET_STATE,
 } = component.actions;
 export default component.reducer;

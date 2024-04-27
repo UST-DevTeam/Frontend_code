@@ -17,7 +17,7 @@ import OperationManagementActions from '../../../../store/actions/OperationManag
 import POLifeCycleForm from '../POLifeCycle/POLifeCycleForm';
 import FinanceActions from '../../../../store/actions/finance-actions';
 
-const Unbilled = () => {
+const POWorkDone = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -92,53 +92,23 @@ const Unbilled = () => {
     let table = {
         columns: [
             {
-                name: "Project ID",
-                value: "projectId",
+                name: "Customer",
+                value: "customer",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
+            },           
             {
                 name: "Project Group",
                 value: "projectGroup",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },                      
+            },            
             {
-                name: "Project Type",
-                value: "projectType",
+                name: "Project ID",
+                value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Sub Project Type",
-                value: "subProjectType",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "System Ref ID",
-                value: "systemRefId",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "Site Id",
-                value: "siteId",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "RFAI Date",
-                value: "rfaiDate",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "MD Date",
-                value: "mdDate",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "MS1 Date",
-                value: "ms1Date",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "MS2 Date",
-                value: "invoiceNumber",
+                name: "PO Number",
+                value: "poNumber",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -147,20 +117,55 @@ const Unbilled = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Total Unbilled Amount",
-                value: "totalUnbilledAmount",
+                name: "Description",
+                value: "description",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },                              
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // }    
+            },            
+            {
+                name: "Unit Rate",
+                value: "unitRate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "PO Value",
+                value: "poValue",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Initial Qty",
+                value: "initialQuantity",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Qty",
+                value: "quantity",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Used Qty",
+                value: "usedQuantity",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Workdone Qty",
+                value: "workdoneQty",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Status",
+                value: "status",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
+            {
+                name: "Delete",
+                value: "delete",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -187,12 +192,12 @@ const Unbilled = () => {
     }, [])
     return <>
         <AdvancedTable
-            // headerButton={<><Button onClick={(e) => {
-            //     setmodalOpen(prev => !prev)
-            //     setmodalHead("New PO Life Cycle ")
-            //     setmodalBody(<POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            // }}
-            //     name={"Add New"}></Button></>}
+            headerButton={<><Button onClick={(e) => {
+                setmodalOpen(prev => !prev)
+                setmodalHead("New PO Life Cycle ")
+                setmodalBody(<POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            }}
+                name={"Add New"}></Button></>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -213,4 +218,4 @@ const Unbilled = () => {
 
 };
 
-export default Unbilled;
+export default POWorkDone;

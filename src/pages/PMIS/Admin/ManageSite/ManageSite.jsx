@@ -119,14 +119,17 @@ const ManageSite = ({
 
   const handleSiteEnggSubmit = (data) => {
     // alert(projectuniqueId)
-    setSiteId(data["siteid"] ? data["siteid"] : "Add");
+
+    console.log(data, "datadatadatadata");
+    setSiteId(data["Site Id"] ? data["Site Id"] : "Add");
     let final_data = {
       SubProjectId: dataOfProject["uniqueId"],
       new_u_id: dataOfProject["new_u_id"],
       projectuniqueId: projectuniqueId,
     };
     dataOfProject["t_sengg"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
+      console.log(itew, "itewitewitewitewitew");
+      let fieldNaming = labelToValue(itew["fieldName"]);
 
       final_data[fieldNaming] = data[fieldNaming];
     });
@@ -137,6 +140,15 @@ const ManageSite = ({
         siteEngineer: final_data,
       };
     });
+
+    let msgdata = {
+      show: true,
+      icon: "success",
+      buttons: [],
+      type: 1,
+      text: "Site Engg. Data Added Click on submit to close menu",
+    };
+    dispatch(ALERTS(msgdata));
     // setmodalFullOpen(false)
 
     // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_siteEngineer, final_data, () => {
@@ -170,7 +182,7 @@ const ManageSite = ({
 
     let final_data = {};
     dataOfProject["t_tracking"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
+      let fieldNaming = labelToValue(itew["fieldName"]);
 
       final_data[fieldNaming] = data[fieldNaming];
     });
@@ -181,6 +193,15 @@ const ManageSite = ({
         t_tracking: final_data,
       };
     });
+
+    let msgdata = {
+      show: true,
+      icon: "success",
+      buttons: [],
+      type: 1,
+      text: "Tracking Data Added Click on submit to close menu",
+    };
+    dispatch(ALERTS(msgdata));
     // setmodalFullOpen(false)
   };
 
@@ -207,7 +228,7 @@ const ManageSite = ({
 
     let final_data = {};
     dataOfProject["t_issues"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
+      let fieldNaming = labelToValue(itew["fieldName"]);
 
       final_data[fieldNaming] = data[fieldNaming];
     });
@@ -218,6 +239,15 @@ const ManageSite = ({
         t_issues: final_data,
       };
     });
+
+    let msgdata = {
+      show: true,
+      icon: "success",
+      buttons: [],
+      type: 1,
+      text: "Issues Data Added Click on submit to close menu",
+    };
+    dispatch(ALERTS(msgdata));
     // setmodalFullOpen(false)
   };
 
@@ -244,7 +274,7 @@ const ManageSite = ({
 
     let final_data = {};
     dataOfProject["t_sFinancials"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
+      let fieldNaming = labelToValue(itew["fieldName"]);
 
       final_data[fieldNaming] = data[fieldNaming];
     });
@@ -255,6 +285,15 @@ const ManageSite = ({
         t_sFinancials: final_data,
       };
     });
+
+    let msgdata = {
+      show: true,
+      icon: "success",
+      buttons: [],
+      type: 1,
+      text: "Financial Data Added Click on submit to close menu",
+    };
+    dispatch(ALERTS(msgdata));
     // setmodalFullOpen(false)
   };
   const funcaller = () => {
@@ -291,8 +330,8 @@ const ManageSite = ({
 
   useEffect(() => {
     if (dataOfProject) {
-      setValueForm1("project", dataOfProject.projectType); 
-      setValueForm1("subProject", dataOfProject.subProject); 
+      setValueForm1("project", dataOfProject.projectType);
+      setValueForm1("subProject", dataOfProject.subProject);
     }
     reset({});
 
@@ -317,8 +356,6 @@ const ManageSite = ({
   //     }
   // }) : [] : [], "dsadasssssssssssssssssssssssssss")
 
-
-
   const filesUploadForm = [
     { label: "file", value: "", name: "file", required: true, type: "file" },
     { label: "Note", value: "", name: "note", required: true, type: "text" },
@@ -326,7 +363,6 @@ const ManageSite = ({
   return (
     <>
       <div className="p-4">
-
         <CommonTableFormSiteParent
           setmodalFullOpen={setmodalFullOpen}
           funcaller={funcaller}
@@ -374,9 +410,7 @@ const ManageSite = ({
                                       };
                                     })
                                   : [],
-                                name: its.fieldName
-                                  .replace(" ", "")
-                                  .toLowerCase(),
+                                name: its.fieldName,
                                 type: dtype[its.dataType],
                               };
                             }),

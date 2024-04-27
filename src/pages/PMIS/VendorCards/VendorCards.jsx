@@ -43,7 +43,12 @@ const VendorCards = () => {
               <div
                 className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
                 onClick={() => {
-                    
+                  dispatch(
+                    ComponentActions.globalUrlStore(
+                      itm[0],
+                      itm[2]
+                    )
+                  );
                   dispatch(
                     ComponentActions.breadcrumb(itm[0],itm[2],1, false)
                   );

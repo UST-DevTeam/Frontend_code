@@ -115,7 +115,7 @@ const ManageUserProjectAllocForm = ({
       props: {
         onChange: (e) => {},
       },
-      classes: "col-span-1 w-full",
+      classes: "col-span-2 w-screen",
     },
   ];
 
@@ -185,11 +185,11 @@ const ManageUserProjectAllocForm = ({
   return (
     <>
       <Modal
-        size={"xl"}
+        size={"full"}
         children={
           <>
             <CommonForm
-              classes={"grid-cols-1 gap-1"}
+              classes={"grid-cols-2 gap-1"}
               Form={Form}
               errors={errors}
               register={register}

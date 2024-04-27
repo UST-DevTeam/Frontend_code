@@ -97,6 +97,7 @@ import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriter
 import { getAccessType } from "./commonFunnction";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
 import InvoiceMgmt from "../pages/PMIS/FinancialCards/InvoiceManagement/InvoiceMgmt";
+import Unbilled from "../pages/PMIS/FinancialCards/Unbilled/Unbilled";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -129,7 +130,7 @@ if (user) {
     abcd = [
       {
         name: "Project Management",
-        link: "/projectType",
+        link: "/projectManagement",
         subMenu: [],
         component: <ManageProjectType />,
         icon: <UilFileShieldAlt />,
@@ -200,7 +201,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/projectType/:customeruniqueId",
+      link: "/projectManagement/:cname/:customeruniqueId",
       subMenu: [],
       component: <ManageProjectType />,
     },
@@ -213,7 +214,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/projectType/:customeruniqueId/:projecttypeuniqueId",
+      link: "/projectManagement/:cname/:customeruniqueId/:projecttypeuniqueId",
       subMenu: [],
       component: <ManageProjectType />,
     },
@@ -225,19 +226,19 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/project/:customeruniqueId/:projecttypeuniqueId",
+      link: "/projectManagement_1/:cname/:ptname/:customeruniqueId/:projecttypeuniqueId",
       subMenu: [],
       component: <ManageProject />,
     },
     {
       name: "",
-      link: "/project/:customeruniqueId",
+      link: "/projectManagement_1/:cname/:ptname/:customeruniqueId",
       subMenu: [],
       component: <ManageProject />,
     },
     {
       name: "",
-      link: "/projectSiteId/:projectuniqueId",
+      link: "/projectManagement_2/:cname/:ptype/:proId/:projectuniqueId",
       subMenu: [],
       component: <ManageProjectSiteId />,
     },
@@ -338,7 +339,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/hr/superAdmin/uammg",
+      link: "/hr/superAdmin/UserAccessManagement",
       subMenu: [],
       component: <UserAccessManagement />,
     },
@@ -408,6 +409,20 @@ export const Sidebar_content = {
       name: "",
       link: "/financialCards/invoice",
       component: <InvoiceMgmt />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financialCards/poWorkDone",
+      component: <Unbilled />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financialCards/unbilled",
+      component: <Unbilled />,
       icon: <UilStore />,
       subMenu: [],
     },

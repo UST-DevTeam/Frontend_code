@@ -48,9 +48,21 @@ export function objectToArray(obj) {
 
 
 export function labelToValue(itew){
+    
+    return itew
     return itew.replace(' ', "").toLowerCase()
 
 }
+
+
+export function isValidObjectId(str) {
+    // Regular expression to match MongoDB ObjectId format
+    const objectIdRegex = /^[0-9a-fA-F]{24}$/;
+  
+    // Check if the string matches the regex
+    return objectIdRegex.test(str);
+  }
+  
 
 export function parseTwoDigit(text){
     const myNumber = parseFloat(text);

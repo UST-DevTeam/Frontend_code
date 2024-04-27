@@ -268,3 +268,16 @@ svg {
 .react-datepicker-popper{
   z-index: 120000 !important;
 }
+
+.tooltip {
+  visibility: hidden;
+  width: max-content;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.relative:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}

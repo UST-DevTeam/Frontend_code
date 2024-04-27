@@ -15,8 +15,8 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     const [modalOpen, setmodalOpen] = useState(false);
     const [pType, setpType] = useState("");
-    // const [qType, setqType] = useState("");
-    // const [rType, setrType] = useState("");
+    const [qType, setqType] = useState("");
+    const [rType, setrType] = useState("");
 
 
     let dispatch = useDispatch()
@@ -42,51 +42,51 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             };
           });
       });
-    let projectGroupList = useSelector((state) => {
-        return state?.adminData?.getManageProjectGroup.map((itm) => {
-            return {
-                label: itm?.projectGroupId,
-                value:itm?.uniqueId
-            }
-        })
-    })
-
     // let projectGroupList = useSelector((state) => {
-    //     return state?.adminData?.getManageProjectGroup
-    //       .filter((itm) => {
-    //         console.log(itm.circleName == qType, "sadsadasdasdsadsadas");
-    //         return itm.circleName == qType;
-    //       })
-    //       .map((itm) => {
+    //     return state?.adminData?.getManageProjectGroup.map((itm) => {
     //         return {
-    //           label: itm.projectGroupId,
-    //           value: itm.uniqueId,
-    //         };
-    //       });
-    //   });
+    //             label: itm?.projectGroupId,
+    //             value:itm?.uniqueId
+    //         }
+    //     })
+    // })
 
-    let projectIdList = useSelector((state) => {
-        return state?.adminData?.getProject.map((itm) => {
+    let projectGroupList = useSelector((state) => {
+        return state?.adminData?.getManageProjectGroup
+          .filter((itm) => {
+            console.log(itm.circleName == qType, "sadsadasdasdsadsadas");
+            return itm.circleName == qType;
+          })
+          .map((itm) => {
             return {
-                label: itm?.projectId,
-                value:itm?.uniqueId
-            }
-        })
-    })
+              label: itm.projectGroupId,
+              value: itm.uniqueId,
+            };
+          });
+      });
 
     // let projectIdList = useSelector((state) => {
-    //     return state?.adminData?.getProject
-    //       .filter((itm) => {
-    //         console.log(itm.projectId == rType, "dasdsadsadasdaadsadas");
-    //         return itm.projectId == rType;
-    //       })
-    //       .map((itm) => {
+    //     return state?.adminData?.getProject.map((itm) => {
     //         return {
-    //           label: itm.projectId,
-    //           value: itm.uniqueId,
-    //         };
-    //       });
-    //   });
+    //             label: itm?.projectId,
+    //             value:itm?.uniqueId
+    //         }
+    //     })
+    // })
+
+    let projectIdList = useSelector((state) => {
+        return state?.adminData?.getProject
+          .filter((itm) => {
+            console.log(itm.projectId == rType, "dasdsadsadasdaadsadas");
+            return itm.projectId == rType;
+          })
+          .map((itm) => {
+            return {
+              label: itm.projectId,
+              value: itm.uniqueId,
+            };
+          });
+      });
 
 
 
@@ -119,12 +119,12 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             required: true,
             props: {
                 onChange: (e) => {
-                    // setqType(
-                    //     circleList.filter((iteq) => iteq.value == e.target.value)[0][
-                    //     "label"
-                    //   ]
-                    // );
-                    // setValue("circle", e.target.value);
+                    setqType(
+                        circleList.filter((iteq) => iteq.value == e.target.value)[0][
+                        "label"
+                      ]
+                    );
+                    setValue("circle", e.target.value);
                   },
             },
             classes: "col-span-1"
@@ -132,18 +132,18 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Project Group",
             value: "",
-            name: "projectGroup",
+            name: "projectGroupId",
             type: "select",
             option: projectGroupList,
             required: true,
             props: {
                 onChange: (e) => {
-                    // setrType(
-                    //     projectGroupList.filter((iteq) => iteq.value == e.target.value)[0][
-                    //     "label"
-                    //   ]
-                    // );
-                    // setValue("projectGroup", e.target.value);
+                    setrType(
+                        projectGroupList.filter((iteq) => iteq.value == e.target.value)[0][
+                        "label"
+                      ]
+                    );
+                    setValue("projectGroupId", e.target.value);
                   },
             },
             classes: "col-span-1"
@@ -154,7 +154,7 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             name: "projectId",
             type: "select",
             option: projectIdList,
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     

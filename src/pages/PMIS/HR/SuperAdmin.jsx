@@ -287,7 +287,7 @@ const SuperAdmin = () => {
           [
             "User Access Management",
             "bg-gradient-to-r from-teal-100 to-sky-400",
-            "/hr/superAdmin/uammg",
+            "/hr/superAdmin/UserAccessManagement",
           ],
           [
             "User Project Allocation",
@@ -325,7 +325,12 @@ const SuperAdmin = () => {
               <div
                 className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
                 onClick={() => {
-                    
+                  dispatch(
+                    ComponentActions.globalUrlStore(
+                      itm[0],
+                      itm[2]
+                    )
+                  );
                   dispatch(ComponentActions.breadcrumb(itm[0],itm[2],2, false));
                   navigate(itm[2]);
                 }}

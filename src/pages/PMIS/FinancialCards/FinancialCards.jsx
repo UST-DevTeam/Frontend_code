@@ -28,8 +28,8 @@ const FinancialCards = () => {
         approveddata={[
           ["PO Management","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financialCards/poLifeCycle",],
           ["Invoice Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financialCards/invoice"],
-          ["Open PO Workdone","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","",],
-          ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600",""],
+          ["Open PO Workdone","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","/financialCards/poWorkDone",],
+          ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600","/financialCards/unbilled"],
         ].map((itm) => {
           return (
             <>
@@ -42,7 +42,16 @@ const FinancialCards = () => {
 
                     console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
                     if (1==1 || getAccessType(itm[0]) == "visible") {
+
+                      dispatch(
+                        ComponentActions.globalUrlStore(
+                          itm[0],
+                          itm[2]
+                        )
+                      );
                       navigate(itm[2]);
+
+                      
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
                       );
