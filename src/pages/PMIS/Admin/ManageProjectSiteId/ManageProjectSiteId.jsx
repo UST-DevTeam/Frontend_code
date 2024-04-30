@@ -176,20 +176,18 @@ const ManageProjectSiteId = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${
-              100 -
+            percent={`${100 -
               ((itm.milestoneArray.length -
                 itm.milestoneArray.filter(
                   (iewq) => iewq.mileStoneStatus == "Close"
                 ).length) /
                 itm.milestoneArray.length) *
-                100
-            }`}
-            text={`${
-              itm.milestoneArray.filter(
-                (iewq) => iewq.mileStoneStatus == "Close"
-              ).length
-            } / ${itm.milestoneArray.length}`}
+              100
+              }`}
+            text={`${itm.milestoneArray.filter(
+              (iewq) => iewq.mileStoneStatus == "Close"
+            ).length
+              } / ${itm.milestoneArray.length}`}
           />
         ),
         checkboxProject: (
@@ -260,18 +258,21 @@ const ManageProjectSiteId = () => {
                 <p
                   className="cursor"
                   onClick={() => {
-                    setmodalOpen(true);
 
-                    dispatch(
-                      projectListActions.getUserAllocatedProject(
-                        true,
-                        projectuniqueId
-                      )
-                    );
-                    setmodalHead("Allocate User");
-                    setmodalBody(
-                      <>
-                        <AllocateProjectForm
+                    if (iewq.mileStoneStatus != "Close") {
+
+                      setmodalOpen(true);
+
+                      dispatch(
+                        projectListActions.getUserAllocatedProject(
+                          true,
+                          projectuniqueId
+                        )
+                      );
+
+                      setmodalHead("Allocate User");
+                      setmodalBody(
+                        <><AllocateProjectForm
                           from={"mileStone"}
                           listsite={[]}
                           projectuniqueId={projectuniqueId}
@@ -280,11 +281,24 @@ const ManageProjectSiteId = () => {
                           resetting={false}
                           formValue={iewq}
                         />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
+                          {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
                                         handleSubmit(onTableViewSubmit)
                                     }} /></div> */}
-                      </>
-                    );
+                        </>
+                      );
+                    } else {
+                      let msgdata = {
+                        show: true,
+                        icon: "error",
+                        buttons: [],
+                        type: 1,
+                        text: "This task is already closed so cannot reallocate",
+                      };
+                      dispatch(ALERTS(msgdata));
+                    }
+
+
+
                     console.log("ahshshhs", itm);
                   }}
                 >
@@ -301,14 +315,14 @@ const ManageProjectSiteId = () => {
                                 {" "}
                                 {itwsw.assignerName.split(" ").length > 1
                                   ? itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1) +
-                                    itwsw.assignerName
-                                      .split(" ")[1]
-                                      .substr(0, 1)
+                                    .split(" ")[0]
+                                    .substr(0, 1) +
+                                  itwsw.assignerName
+                                    .split(" ")[1]
+                                    .substr(0, 1)
                                   : itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}
+                                    .split(" ")[0]
+                                    .substr(0, 1)}
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
