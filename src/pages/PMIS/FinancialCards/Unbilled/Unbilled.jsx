@@ -14,7 +14,7 @@ import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
-import POLifeCycleForm from '../POLifeCycle/POLifeCycleForm';
+import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
 import FinanceActions from '../../../../store/actions/finance-actions';
 
 const Unbilled = () => {
@@ -37,7 +37,7 @@ const Unbilled = () => {
                     dispatch(FinanceActions.getPoLifeCycle())
                     setmodalHead("Edit User")
                     setmodalBody(<>
-                        <POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <InvoiceBased isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)

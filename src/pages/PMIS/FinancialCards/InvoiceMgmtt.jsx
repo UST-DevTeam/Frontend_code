@@ -9,7 +9,7 @@ import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 
-const FinancialCards = () => {
+const InvoiceMgmt = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
@@ -19,17 +19,15 @@ const FinancialCards = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
+    dispatch(ComponentActions.breadcrumb("Financial", "/financialCards", 0, true));
   }, []);
   return (
     <>
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Management","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/PO_Management",],
-          ["Invoice Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/invoiceMgmt"],
-          ["Workdone","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","/financial/poWorkDone",],
-          ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600","/financial/unbilled"],
+          ["Accrual Invoice","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","/financial/invoiceMgmt/acronym",],
+          ["Revenue Invoiced", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600","/financial/invoiceMgmt/revenueRecognition"],
         ].map((itm) => {
           return (
             <>
@@ -92,4 +90,4 @@ const FinancialCards = () => {
   );
 };
 
-export default FinancialCards;
+export default InvoiceMgmt;

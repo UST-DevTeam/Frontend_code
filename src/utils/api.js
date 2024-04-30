@@ -31,7 +31,7 @@ instance.interceptors.request.use((request) => {
     return request
 }, (error) => {
     // store.dispatch(ComponentActions.loaders(false))
-    console.error(error.message, 'hgfhjdhgf')
+    // console.error(error.message, 'hgfhjdhgf')
 })
 
 instance.interceptors.response.use((response) => {
@@ -40,7 +40,7 @@ instance.interceptors.response.use((response) => {
     return response
 }, (error) => {
     store.dispatch(ComponentActions.loaders(false))
-    console.error(error?.response, 'hgfhjdhgf')
+    // console.error(error?.response, 'hgfhjdhgf')
     if (error?.response?.status==401) {
         store.dispatch(CommonActions.logoutCaller(()=>{
             window.location.href = '/login';
@@ -58,7 +58,7 @@ axiosInstanceblobFile.interceptors.request.use((request) => {
     request.headers['Authorization'] = "Bearer " + localStorage.getItem("token")
     return request
 }, (error) => {
-    console.error(error.message, 'hgfhjdhgf')
+    // console.error(error.message, 'hgfhjdhgf')
     // store.dispatch(Notify.loading(false))
     // store.dispatch(Notify.error(error.message))
 })

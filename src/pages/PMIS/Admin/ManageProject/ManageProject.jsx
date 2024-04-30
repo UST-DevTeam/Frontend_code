@@ -26,9 +26,11 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import ButtonWithTooltip from "../../../../components/ButtonWithTooltip";
+import eventManagementActions from "../../../../store/actions/eventLogs-actions";
+import EventLog from "../../../../components/EventLogs";
 
 const ManageProject = () => {
-  const { cname,ptname,projecttypeuniqueId, customeruniqueId } = useParams();
+  const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
 
   console.log(
     projecttypeuniqueId,
@@ -39,14 +41,18 @@ const ManageProject = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
+  const [modalFullOpen, setmodalFullOpen] = useState(false);
 
   let dispatch = useDispatch();
 
   let navigate = useNavigate();
 
+
+  
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getProject;
     return interdata?.map((itm) => {
+      console.log(itm, "itmmmmmm");
       let updateditm = {
         ...itm,
         // "status": <CstmButton child=
@@ -74,11 +80,10 @@ const ManageProject = () => {
             <p
               // onClick={() => handleFullName(item)}
               onClick={() => {
-
                 dispatch(
                   ComponentActions.globalUrlStore(
                     itm.projectId,
-                    `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`,
+                    `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`
                   )
                 );
                 dispatch(
@@ -89,7 +94,9 @@ const ManageProject = () => {
                     false
                   )
                 );
-                navigate(`/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`);
+                navigate(
+                  `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`
+                );
               }}
               className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
             >
@@ -97,80 +104,109 @@ const ManageProject = () => {
             </p>
           </button>
         ),
+        eventLogs: (
+          <p
+            className=""
+            onClick={() => {
+              setmodalFullOpen((prev) => !prev);
+              // dispatch(AdminActions.getProject())
+              setmodalHead("Event Logs");
 
-        edit: (<><div className="flex justify-center">
-          <CstmButton
-            className={"p-2"}
-            child={
-              <EditButton
-                name={""}
-                onClick={() => {
-                  // alert(itm.uniqueId)
-                  setmodalOpen(true);
-                  // dispatch(AdminActions.getProject(`${itm.customeruniqueId}/${itm.uniqueId}`))
-                  setmodalHead("Edit Project");
-                  setmodalBody(
-                    <>
-                      <ManageProjectForm
-                        isOpen={modalOpen}
-                        customeruniqueId={customeruniqueId}
-                        setIsOpen={setmodalOpen}
-                        resetting={false}
-                        formValue={itm}
-                      />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>
-                  );
+              dispatch(
+                eventManagementActions.getprojecteventList(true,itm?.uniqueId)
+              );
+              
+              // dispatch(AdminActions.getOneProjectTypeDyform(iewq.uniqueId));
+              // dispatch()
+              setmodalBody(<EventLog type={"project"} unqeId={itm?.uniqueId}/>);
+              // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            }}
+          >
+            <p className="bg-yellow-400 rounded-lg"> Event Logs</p>
+          </p>
+        ),
+        edit: (
+          <>
+            <div className="flex justify-center">
+              <CstmButton
+                className={"p-2"}
+                child={
+                  <EditButton
+                    name={""}
+                    onClick={() => {
+                      // alert(itm.uniqueId)
+                      setmodalOpen(true);
+                      // dispatch(AdminActions.getProject(`${itm.customeruniqueId}/${itm.uniqueId}`))
+                      setmodalHead("Edit Project");
+                      setmodalBody(
+                        <>
+                          <ManageProjectForm
+                            isOpen={modalOpen}
+                            customeruniqueId={customeruniqueId}
+                            setIsOpen={setmodalOpen}
+                            resetting={false}
+                            formValue={itm}
+                          />
+                          {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                        </>
+                      );
 
-                  //setmodalOpen(false)
-                }}
-              ></EditButton>
-            }
-          />
-          
-          
-          {itm.status=="Trash"?<CstmButton
-          child={
-            <DeleteButton
-              name={""}
-              onClick={() => {
-                let msgdata = {
-                  show: true,
-                  icon: "warning",
-                  buttons: [
-                    <Button
-                      classes="w-15 bg-green-500"
+                      //setmodalOpen(false)
+                    }}
+                  ></EditButton>
+                }
+              />
+
+              {itm.status == "Trash" ? (
+                <CstmButton
+                  child={
+                    <DeleteButton
+                      name={""}
                       onClick={() => {
-                        dispatch(
-                          CommonActions.deleteApiCaller(
-                            `${Urls.admin_project}/${itm.customeruniqueId}/${itm.uniqueId}`,
-                            () => {
-                              dispatch(
-                                AdminActions.getProject(`${customeruniqueId}`)
-                              );
-                              dispatch(ALERTS({ show: false }));
-                            }
-                          )
-                        );
+                        let msgdata = {
+                          show: true,
+                          icon: "warning",
+                          buttons: [
+                            <Button
+                              classes="w-15 bg-green-500"
+                              onClick={() => {
+                                dispatch(
+                                  CommonActions.deleteApiCaller(
+                                    `${Urls.admin_project}/${itm.customeruniqueId}/${itm.uniqueId}`,
+                                    () => {
+                                      dispatch(
+                                        AdminActions.getProject(
+                                          `${customeruniqueId}`
+                                        )
+                                      );
+                                      dispatch(ALERTS({ show: false }));
+                                    }
+                                  )
+                                );
+                              }}
+                              name={"OK"}
+                            />,
+                            <Button
+                              classes="w-24"
+                              onClick={() => {
+                                console.log("snnsnsnsns");
+                                dispatch(ALERTS({ show: false }));
+                              }}
+                              name={"Cancel"}
+                            />,
+                          ],
+                          text: "Are you sure you want to Delete?",
+                        };
+                        dispatch(ALERTS(msgdata));
                       }}
-                      name={"OK"}
-                    />,
-                    <Button
-                      classes="w-24"
-                      onClick={() => {
-                        console.log("snnsnsnsns");
-                        dispatch(ALERTS({ show: false }));
-                      }}
-                      name={"Cancel"}
-                    />,
-                  ],
-                  text: "Are you sure you want to Delete?",
-                };
-                dispatch(ALERTS(msgdata));
-              }}
-            ></DeleteButton>
-          }
-        />:""}</div></>
+                    ></DeleteButton>
+                  }
+                />
+              ) : (
+                ""
+              )}
+            </div>
+          </>
         ),
 
         // trash: (
@@ -322,6 +358,11 @@ const ManageProject = () => {
         style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
+        name: "Event Logs",
+        value: "eventLogs",
+        style: "min-w-[100px] max-w-[200px] text-center",
+      },
+      {
         name: "Edit",
         value: "edit",
         style: "min-w-[100px] max-w-[200px] text-center",
@@ -347,24 +388,30 @@ const ManageProject = () => {
         type: "select",
         name: "statusType",
         option: [
-          { "label": "Active", "value": "Active"},
-          { "label": "Trash", "value": "Trash"},
-          { "label": "Archive", "value": "Archive"},
+          { label: "Active", value: "Active" },
+          { label: "Trash", value: "Trash" },
+          { label: "Archive", value: "Archive" },
         ],
         props: {},
       },
     ],
   };
   const onSubmit = (data) => {
-    console.log(data,"datadatadatadatadatadata")
+    console.log(data, "datadatadatadatadatadata");
 
-    delete data["reseter"]
-    console.log(objectToQueryString(data),"datadatadatadatadatadata")
+    delete data["reseter"];
+    console.log(objectToQueryString(data), "datadatadatadatadatadata");
 
-
-    dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"",true, objectToQueryString(data)));
-
-    
+    dispatch(
+      AdminActions.getProject(
+        `${customeruniqueId}${
+          projecttypeuniqueId ? "/" + projecttypeuniqueId : ""
+        }`,
+        "",
+        true,
+        objectToQueryString(data)
+      )
+    );
   };
   useEffect(() => {
     dispatch(
@@ -374,6 +421,7 @@ const ManageProject = () => {
         }`
       )
     );
+    dispatch(eventManagementActions.getprojecteventList())
     // dispatch(OperationManagementActions.getRoleList())
   }, []);
 
@@ -488,7 +536,13 @@ const ManageProject = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
+      <Modal
+        size={"lg"}
+        modalHead={modalHead}
+        children={modalBody}
+        isOpen={modalFullOpen}
+        setIsOpen={setmodalFullOpen}
+      />
       {/* <CommonForm/> */}
       <FileUploader
         isOpen={fileOpen}

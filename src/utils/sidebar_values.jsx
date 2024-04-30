@@ -58,7 +58,6 @@ import AgreementManagement from "../pages/Admin/AgreementManagement/AgreementMan
 import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer";
 import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation";
 import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
-import POLifeCycle from "../pages/PMIS/FinancialCards/POLifeCycle/POLifeCylce";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
 import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
@@ -96,6 +95,10 @@ import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccess
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
 import { getAccessType } from "./commonFunnction";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
+import InvoiceBased from "../pages/PMIS/FinancialCards/InvoiceBased/InvoiceBased";
+import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWorkDoneBased";
+import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
+import InvoiceMgmtt from "../pages/PMIS/FinancialCards/InvoiceMgmtt";
 import InvoiceMgmt from "../pages/PMIS/FinancialCards/InvoiceManagement/InvoiceMgmt";
 import Unbilled from "../pages/PMIS/FinancialCards/Unbilled/Unbilled";
 
@@ -400,28 +403,56 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financialCards/poLifeCycle",
-      component: <POLifeCycle />,
+      link: "/financial/PO_Management",
+      component: <POMgmtCards />,
       icon: <UilStore />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financialCards/invoice",
+      link: "/financial/PO_Management/PO-invoiceBased",
+      component: <InvoiceBased />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financial/PO_Management/invoice",
       component: <InvoiceMgmt />,
       icon: <UilStore />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financialCards/poWorkDone",
-      component: <Unbilled />,
+      link: "/financial/PO_Management/poWorkDoneBased",
+      component: <POWorkDoneBased />,
       icon: <UilStore />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financialCards/unbilled",
+      link: "/financial/invoiceMgmt",
+      component: <InvoiceMgmtt />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financial/invoiceMgmt/acronym",
+      // component: < />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financial/invoiceMgmt/revenueRecognition",
+      // component: < />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financial/unbilled",
       component: <Unbilled />,
       icon: <UilStore />,
       subMenu: [],
@@ -501,7 +532,7 @@ export const Sidebar_content = {
       },
       {
         name: "Financial",
-        link: "/financialCards",
+        link: "/financial",
         component: <FinancialCards />,
         icon: <UilCoins />,
         subMenu: [],

@@ -1,22 +1,53 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
-import {GET_POLIFECYCLE, } from "../reducers/finance-reducer"
+import {GET_POINVOICED_BASED, GET_POWORKDONE_BASED, } from "../reducers/finance-reducer"
 
 
 const FinanceActions = {
 
-    getPoLifeCycle:(reset=true,args="") => async (dispatch, _) => {
+    getPOInvoicedBased:(reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.finance_poLifeCycle}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.finance_poinvoice_based}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_POLIFECYCLE({dataAll,reset}))
+            dispatch(GET_POINVOICED_BASED({dataAll,reset}))
         } catch (error) {
         }
     },
-    postPoLifeCycle: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    postPOInvoicedBased: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.finance_poLifeCycle : Urls.finance_poLifeCycle + "/" + uniqueId })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.finance_poinvoice_based : Urls.finance_poinvoice_based + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getPOWorkDoneBased:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.finance_poworkdone_based}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_POWORKDONE_BASED({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postPOWorkDoneBased: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.finance_poworkdone_based : Urls.finance_poworkdone_based + "/" + uniqueId })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,

@@ -7,9 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
+import { useParams } from "react-router-dom";
 import AdminActions from '../../../../store/actions/admin-actions';
+import FinanceActions from '../../../../store/actions/finance-actions';
 
-const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+    
+    const { customeruniqueId } = useParams();
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -42,51 +46,62 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             };
           });
       });
-    // let projectGroupList = useSelector((state) => {
-    //     return state?.adminData?.getManageProjectGroup.map((itm) => {
-    //         return {
-    //             label: itm?.projectGroupId,
-    //             value:itm?.uniqueId
-    //         }
-    //     })
-    // })
+
+      let projectTypeList = useSelector((state) => {
+        return state?.adminData?.getCardProjectType.map((itm) => {
+          return {
+            label: itm.projectType,
+            value: itm.uniqueId,
+          };
+        });
+      });
+    
 
     let projectGroupList = useSelector((state) => {
-        return state?.adminData?.getManageProjectGroup
-          .filter((itm) => {
-            console.log(itm.circleName == qType, "sadsadasdasdsadsadas");
-            return itm.circleName == qType;
-          })
-          .map((itm) => {
+        return state?.adminData?.getManageProjectGroup.map((itm) => {
             return {
-              label: itm.projectGroupId,
-              value: itm.uniqueId,
-            };
-          });
-      });
+                label: itm?.projectGroupId,
+                value:itm?.uniqueId
+            }
+        })
+    })
 
-    // let projectIdList = useSelector((state) => {
-    //     return state?.adminData?.getProject.map((itm) => {
+    // let projectGroupList = useSelector((state) => {
+    //     return state?.adminData?.getManageProjectGroup
+    //       .filter((itm) => {
+    //         console.log(itm.circleName == qType, "sadsadasdasdsadsadas");
+    //         return itm.circleName == qType;
+    //       })
+    //       .map((itm) => {
     //         return {
-    //             label: itm?.projectId,
-    //             value:itm?.uniqueId
-    //         }
-    //     })
-    // })
+    //           label: itm.projectGroupId,
+    //           value: itm.uniqueId,
+    //         };
+    //       });
+    //   });
 
     let projectIdList = useSelector((state) => {
-        return state?.adminData?.getProject
-          .filter((itm) => {
-            console.log(itm.projectId == rType, "dasdsadsadasdaadsadas");
-            return itm.projectId == rType;
-          })
-          .map((itm) => {
+        return state?.adminData?.getProject.map((itm) => {
             return {
-              label: itm.projectId,
-              value: itm.uniqueId,
-            };
-          });
-      });
+                label: itm?.projectId,
+                value:itm?.uniqueId
+            }
+        })
+    })
+
+    // let projectIdList = useSelector((state) => {
+    //     return state?.adminData?.getProject
+    //       .filter((itm) => {
+    //         console.log(itm.projectId == rType, "dasdsadsadasdaadsadas");
+    //         return itm.projectId == rType;
+    //       })
+    //       .map((itm) => {
+    //         return {
+    //           label: itm.projectId,
+    //           value: itm.uniqueId,
+    //         };
+    //       });
+    //   });
 
 
 
@@ -116,7 +131,7 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             name: "circle",
             type: "select",
             option: circleList,
-            required: true,
+            // required: true,
             props: {
                 onChange: (e) => {
                     setqType(
@@ -130,9 +145,29 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         }, 
         {
+            label: "Project Type",
+            value: "",
+            name: "projectTypeId",
+            type: "select",
+            required: true,
+            option: projectTypeList,
+            props: {
+              onChange: (e) => {
+                // setpType(
+                //   projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
+                //     "label"
+                //   ]
+                // );
+                // console.log(e.target.value, "e geeter");
+                // setValue("projectType", e.target.value);
+              },
+            },
+            classes: "col-span-1",
+          },
+        {
             label: "Project Group",
             value: "",
-            name: "projectGroupId",
+            name: "projectGroup",
             type: "select",
             option: projectGroupList,
             required: true,
@@ -143,7 +178,7 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
                         "label"
                       ]
                     );
-                    setValue("projectGroupId", e.target.value);
+                    setValue("projectGroup", e.target.value);
                   },
             },
             classes: "col-span-1"
@@ -151,7 +186,7 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Project ID",
             value: "",
-            name: "projectId",
+            name: "project",
             type: "select",
             option: projectIdList,
             // required: true,
@@ -269,7 +304,7 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Open Qty",
             value: "",
-            name: "openQty",
+            name: "OpenQty",
             type: "text",
             required: true,
             props: {
@@ -312,22 +347,23 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     const onTableViewSubmit = (data) => {
         console.log(data, "datadata")
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageZone(true, data, () => {
+            dispatch(FinanceActions.postPOWorkDoneBased(true, data, () => {
                 console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageZone())
+                dispatch(FinanceActions.getPOWorkDoneBased())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageZone(true, data, () => {
+            dispatch(FinanceActions.postPOWorkDoneBased(true, data, () => {
                 console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
-                dispatch(AdminActions.getManageZone())
+                dispatch(FinanceActions.getPOWorkDoneBased())
             }))
         }
     }
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
         dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getCardProjectType());
         dispatch(AdminActions.getManageProjectGroup())
         dispatch(AdminActions.getProject())
         if (resetting) {
@@ -371,4 +407,4 @@ const POLifeCycleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     </>
 };
 
-export default POLifeCycleForm;
+export default POWorkDoneBasedForm;

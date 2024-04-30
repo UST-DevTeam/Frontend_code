@@ -14,10 +14,10 @@ import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
-import POLifeCycleForm from '../POLifeCycle/POLifeCycleForm';
+import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
 import FinanceActions from '../../../../store/actions/finance-actions';
 
-const POLifeCycle = () => {
+const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -27,17 +27,17 @@ const POLifeCycle = () => {
     //     return interdata
     // })
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.financeData?.getPoLifeCycle || []
+        let interdata = state?.financeData?.getPOInvoicedBased || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(FinanceActions.getPoLifeCycle())
+                    dispatch(FinanceActions.getPOInvoicedBased())
                     setmodalHead("Edit User")
                     setmodalBody(<>
-                        <POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -50,8 +50,8 @@ const POLifeCycle = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poLifeCycle}/${itm.uniqueId}`, () => {
-                                    dispatch(FinanceActions.getPoLifeCycle())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poinvoice_based}/${itm.uniqueId}`, () => {
+                                    dispatch(FinanceActions.getPOInvoicedBased())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -68,7 +68,7 @@ const POLifeCycle = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.financeData?.getPoLifeCycle || []
+        let interdata = state?.financeData?.getPOInvoicedBased || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -93,17 +93,17 @@ const POLifeCycle = () => {
         columns: [
             {
                 name: "Customer",
-                value: "customer",
+                value: "customerName",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Circle",
-                value: "cirlce",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },           
+            },          
             {
                 name: "Project Group",
-                value: "projectGroup",
+                value: "projectGroupId",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Project Type",
+                value: "projectType",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -112,8 +112,28 @@ const POLifeCycle = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
+                name: "GBPA",
+                value: "pogbpa",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
                 name: "PO Number",
                 value: "poNumber",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "PO Start Date",
+                value: "poStartDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "PO End Date",
+                value: "poEndDate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Validity(Days)",
+                value: "povalidity",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -127,33 +147,28 @@ const POLifeCycle = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Unit Rate",
+                name: "Unit Rate(NR)",
                 value: "unitRate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "PO Value",
-                value: "poValue",
+                name: "Initial PO Qty",
+                value: "initialPOQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Initial Qty",
-                value: "initialQuantity",
+                name: "Invoiced Quantity",
+                value: "invoicedQuantity",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Qty",
-                value: "quantity",
+                name: "Open Quantity(Past Invoice)",
+                value: "openQuantity",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            },                    
             {
-                name: "Used Qty",
-                value: "usedQuantity",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "Open Qty",
-                value: "OpenQuantity",
+                name: "Open PO Value(NR)-Invoiced",
+                value: "OpenQtyInvoiced",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -190,17 +205,17 @@ const POLifeCycle = () => {
         console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))
+        dispatch(FinanceActions.getPOInvoicedBased(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(FinanceActions.getPoLifeCycle())
+        dispatch(FinanceActions.getPOInvoicedBased())
     }, [])
     return <>
         <AdvancedTable
             headerButton={<><Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 setmodalHead("New PO Life Cycle ")
-                setmodalBody(<POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button></>}
             table={table}
@@ -215,7 +230,7 @@ const POLifeCycle = () => {
             totalCount={dbConfigTotalCount}
         />
 
-        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
     </>
@@ -223,4 +238,4 @@ const POLifeCycle = () => {
 
 };
 
-export default POLifeCycle;
+export default InvoiceBased;

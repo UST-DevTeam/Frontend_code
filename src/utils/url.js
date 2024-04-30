@@ -4,8 +4,8 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.1.107:7980/"
-// export const backendassetUrl="http://192.168.1.107:7980/"
+// export const baseUrl="http://192.168.0.123:7980/"
+// export const backendassetUrl="http://192.168.0.123:7980/"
 
 // export const baseUrl="http://192.168.0.127:7980"
 // export const backendassetUrl="http://192.168.0.127:7980/"
@@ -18,6 +18,7 @@ export const backendassetUrl="https://pmisfbapi.fourbrick.in/"
 
 export const Urls={
 
+    
     login:"/login",
     sendMail :"/sendMail",
     logout:"/logout",
@@ -77,8 +78,10 @@ export const Urls={
     vendor_project_list:"/vendorSiteId",
     upload_update_siteId:"/siteUpload",
 
-    finance_poLifeCycle:"/finance/poLifeCycle",
-
+    finance_poinvoice_based:"/finance/poInvoiceBased",
+    finance_poworkdone_based:"/finance/poWorkdoneBased",
+    projectEvent:"/projectEventLog",
+    siteEventLog:"/siteEventLog"
 
 
 }

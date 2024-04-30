@@ -35,10 +35,11 @@ import { onehundcolor } from "../../../../utils/queryBuilder";
 import Tooltip from "../../../../components/Tooltip";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import NewLookBadge from "../../../../components/Badge";
+import eventManagementActions from "../../../../store/actions/eventLogs-actions";
+import EventLog from "../../../../components/EventLogs";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
-
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
   // console.log(permission?.pmpermission,"permission")
@@ -73,9 +74,7 @@ const ManageProjectSiteId = () => {
     getValues,
     formState: { errors },
   } = useForm();
-
   let dispatch = useDispatch();
-
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub;
     if (old["_id"] != oldata["_id"]) {
@@ -85,7 +84,6 @@ const ManageProjectSiteId = () => {
     console.log(oldata, "olddataolddataolddata");
     return state.projectList.getProjectTypeSub;
   });
-
   // const onTaskSubmit = (data) => {
   //     // if (siteStatus.uniqueId) {
 
@@ -118,10 +116,23 @@ const ManageProjectSiteId = () => {
     parentsite,
     "parentsiteparentsiteparentsiteparentsite"
   );
+
+  let milestoneEventLogsData = useSelector((state) => {
+    console.log(state, "statestatestatestate");
+    let interdata = state?.eventlogsReducer?.milestoneeventList || [];
+    return interdata;
+  });
+
+  let sitelogsEventLogsData = useSelector((state) => {
+    console.log(state, "statestatestatestate");
+    let interdata = state?.eventlogsReducer?.siteeventList || [];
+    return interdata;
+  });
+
   let dbConfigList = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist;
     return interdata?.map((itm) => {
-        console.log(itm,'itmitm')
+      console.log(itm, "itmitm");
       let updateditm = {
         ...itm,
         siteIdLink: (
@@ -134,15 +145,15 @@ const ManageProjectSiteId = () => {
 
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
-            //   setmodalBody(
-            //     <EditingManageSite
-            //       setGlobalData={setGlobalData}
-            //       setSiteId={setSiteId}
-            //       setmodalFullOpen={setmodalFullOpen}
-            //       projectuniqueId={projectuniqueId}
-            //     />
-            //   );
-            setmodalBody(
+              //   setmodalBody(
+              //     <EditingManageSite
+              //       setGlobalData={setGlobalData}
+              //       setSiteId={setSiteId}
+              //       setmodalFullOpen={setmodalFullOpen}
+              //       projectuniqueId={projectuniqueId}
+              //     />
+              //   );
+              setmodalBody(
                 <ManageMilestoneSite
                   siteCompleteData={itm}
                   uid={itm["uniqueId"]}
@@ -157,7 +168,7 @@ const ManageProjectSiteId = () => {
               // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
           >
-            {itm["Site Id"]}
+            {itm["Site Id"]},
           </p>
         ),
 
@@ -391,6 +402,47 @@ const ManageProjectSiteId = () => {
                 {iewq.Name}
               </p>
             ),
+            eventLogsmilestone: (
+              <p
+                className=""
+                onClick={() => {
+                  setmodalFullOpen((prev) => !prev);
+                  // dispatch(AdminActions.getProject())
+
+                  setmodalHead("Event Log");
+                  dispatch(
+                    eventManagementActions.getmilestoneeventList(
+                      true,
+                      iewq.uniqueId
+                    )
+                  );
+
+                  setmodalBody(
+                    <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />
+                  );
+                  // dispatch(AdminActions.getOneProjectTypeDyform(iewq.uniqueId));
+                  // dispatch()
+                  // setmodalBody(
+                  //   <AdvancedTable
+                  //     headerButton={<></>}
+                  //     table={milestoneLogsTable}
+                  //     filterAfter={onSubmit}
+                  //     tableName={"Milestone Event Logs"}
+                  //     handleSubmit={handleSubmit}
+                  //     data={milestoneEventLogsData}
+                  //     errors={errors}
+                  //     register={register}
+                  //     setValue={setValue}
+                  //     getValues={getValues}
+                  //     totalCount={dbConfigTotalCount}
+                  //   />
+                  // );
+                  // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                }}
+              >
+                <p className="bg-yellow-400 rounded-lg"> Event Logs</p>
+              </p>
+            ),
             taskmageing:
               iewq.taskageing >= 0 ? (
                 <p className="text-green-600">{iewq.taskageing + " Days"}</p>
@@ -408,7 +460,8 @@ const ManageProjectSiteId = () => {
                 }
               />
             ),
-            editing: iewq.mileStoneStatus == "Close" && rolename == "Admin" ? (
+            editing:
+              iewq.mileStoneStatus == "Close" && rolename == "Admin" ? (
                 <>
                   <p
                     className="cursor-pointer bg-green-500 p-1 rounded-2xl my-auto"
@@ -430,15 +483,25 @@ const ManageProjectSiteId = () => {
                             <Button
                               classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
-                              onClick={()=>{
-
+                              onClick={() => {
                                 let finaldata = {
-                                    "mileStoneStatus":"Open"
-                                } 
-                                dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_changeTaskStatus,iewq.uniqueId, finaldata, () => {
-                                    dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-                                    setmodalOpen(false)
-                                  }))
+                                  mileStoneStatus: "Open",
+                                };
+                                dispatch(
+                                  projectListActions.globalProjectTypeDataPatch(
+                                    Urls.projectList_changeTaskStatus,
+                                    iewq.uniqueId,
+                                    finaldata,
+                                    () => {
+                                      dispatch(
+                                        projectListActions.getProjectTypeAll(
+                                          projectuniqueId
+                                        )
+                                      );
+                                      setmodalOpen(false);
+                                    }
+                                  )
+                                );
                               }}
                             />
                           </div>
@@ -471,7 +534,11 @@ const ManageProjectSiteId = () => {
                                 CommonActions.deleteApiCaller(
                                   `${Urls.projectList_changeTaskStatus}/${iewq.uniqueId}`,
                                   () => {
-                                    dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
+                                    dispatch(
+                                      projectListActions.getProjectTypeAll(
+                                        projectuniqueId
+                                      )
+                                    );
                                     dispatch(ALERTS({ show: false }));
                                   }
                                 )
@@ -638,8 +705,6 @@ const ManageProjectSiteId = () => {
         //     <p>{itm.siteStatus}</p>
         //   ),
 
-        
-
         // edit: (
         //   <div className="flex ">
         //     <CstmButton
@@ -671,55 +736,92 @@ const ManageProjectSiteId = () => {
         //   </div>
         // ),
 
-        edit: (
-            <div className="flex ">
+        edit: <div className="flex "></div>,
+        siteeventLogs: (
+          <>
+            <p
+              className=""
+              onClick={() => {
+                setmodalFullOpen((prev) => !prev);
 
-            </div>
-          ),
+                setmodalHead("Event Log");
+                dispatch(
+                  eventManagementActions.getsiteeventList(true, itm?.uniqueId)
+                );
 
+                setmodalBody(<EventLog type={"site"} unqeId={itm?.uniqueId} />);
+                // setmodalBody(
+                //   <AdvancedTable
+                //     headerButton={<></>}
+                //     table={milestoneLogsTable}
+                //     filterAfter={onSubmit}
+                //     tableName={"Site Event Logs"}
+                //     handleSubmit={handleSubmit}
+                //     data={sitelogsEventLogsData}
+                //     errors={errors}
+                //     register={register}
+                //     setValue={setValue}
+                //     getValues={getValues}
+                //     totalCount={dbConfigTotalCount}
+                //   />
+                // );
+                // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+              }}
+            >
+              <p className="bg-yellow-400 rounded-lg"> Event Logs</p>
+            </p>
+          </>
+        ),
         delete: (
           <>
-          {1==2?
-            <CstmButton
-              child={
-                <DeleteButton
-                  name={""}
-                  onClick={() => {
-                    let msgdata = {
-                      show: true,
-                      icon: "warning",
-                      buttons: [
-                        <Button
-                          classes="w-15 bg-green-500"
-                          onClick={() => {
-                            dispatch(
-                              CommonActions.deleteApiCaller(
-                                `${Urls.admin_project}/${itm.uniqueId}`,
-                                () => {
-                                  dispatch(AdminActions.getProject());
-                                  dispatch(ALERTS({ show: false }));
-                                }
-                              )
-                            );
-                          }}
-                          name={"OK"}
-                        />,
-                        <Button
-                          classes="w-24"
-                          onClick={() => {
-                            console.log("snnsnsnsns");
-                            dispatch(ALERTS({ show: false }));
-                          }}
-                          name={"Cancel"}
-                        />,
-                      ],
-                      text: "Are you sure you want to Delete?",
-                    };
-                    dispatch(ALERTS(msgdata));
-                  }}
-                ></DeleteButton>
-              }
-            />:""}
+            {1 == 1 ? (
+              <CstmButton
+                child={
+                  <DeleteButton
+                    name={""}
+                    onClick={() => {
+                      let msgdata = {
+                        show: true,
+                        icon: "warning",
+                        buttons: [
+                          <Button
+                            classes="w-15 bg-green-500"
+                            onClick={() => {
+                              dispatch(
+                                CommonActions.deleteApiCaller(
+                                  `${Urls.projectList_siteEngineer}/${itm.uniqueId}`,
+                                  () => {
+                                    dispatch(
+                                      projectListActions.getProjectTypeAll(
+                                        projectuniqueId
+                                      )
+                                    );
+                                    dispatch(ALERTS({ show: false }));
+                                  }
+                                )
+                              );
+                            }}
+                            name={"OK"}
+                          />,
+                          <Button
+                            classes="w-24"
+                            onClick={() => {
+                              console.log("snnsnsnsns");
+                              dispatch(ALERTS({ show: false }));
+                            }}
+                            name={"Cancel"}
+                          />,
+                        ],
+                        text: "Are you sure you want to Delete?",
+                      };
+                      dispatch(ALERTS(msgdata));
+                    }}
+                  ></DeleteButton>
+                }
+              />
+            ) : (
+              ""
+            )}
           </>
         ),
       };
@@ -738,6 +840,44 @@ const ManageProjectSiteId = () => {
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
   // ]
+
+  let milestoneLogsTable = {
+    columns: [
+      {
+        name: "Site Id",
+        value: "SiteId",
+        style: "min-w-[50px] max-w-[100px] text-center",
+      },
+      {
+        name: "Email",
+        value: "email",
+        style: "min-w-[50px] max-w-[200px] text-center",
+      },
+      {
+        name: "Time & Date ",
+        value: "UpdatedAt",
+        style: "min-w-[80px] max-w-[200px] text-center",
+      },
+      {
+        name: "Updated Data",
+        value: "updatedData",
+        style: "min-w-[50px] max-w-[300px] text-center",
+      },
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+    filter: [
+      // {
+      //     label: "Role",
+      //     type: "select",
+      //     name: "rolename",
+      //     option: roleList,
+      //     props: {
+      //     }
+      // }
+    ],
+  };
   let table = {
     columns: [
       {
@@ -828,6 +968,11 @@ const ManageProjectSiteId = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "Event Logs",
+        value: "siteeventLogs",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Edit",
         value: "edit",
         style: "min-w-[100px] max-w-[200px] text-center",
@@ -904,7 +1049,11 @@ const ManageProjectSiteId = () => {
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
-
+        {
+          name: "Event Logs",
+          value: "eventLogsmilestone",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "Edit",
           value: "editing",
@@ -942,7 +1091,6 @@ const ManageProjectSiteId = () => {
   useEffect(() => {
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(projectListActions.getProjectType(projectuniqueId));
-
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
 
     // dispatch(AdminActions.getProject(`${projectuniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))

@@ -123,11 +123,21 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
-
-    globalProjectTypeDataPatch: (urle,projectuniqueId,data,cb=()=>{},reset=true) => async (dispatch, _) => {
+    globalProjectTypeDataPatch: (urle,projectuniqueId,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
         try {
+            if (projectuniqueId!=null){data["projectuniqueId"]=projectuniqueId}
             const res = await Api.patch({ url: urle+"/"+projectuniqueId, data:data })
             if (res?.status !== 200 && res?.status !== 201) return
+
+            
+            let msgdata = {
+                show: true,
+                icon: res?.data?.icon,
+                buttons: [],
+                type: 1,
+                text: res?.data?.msg,
+            };
+            dispatch(ALERTS(msgdata));
             cb()
             // let dataAll = res?.data?.data[0]
             // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))

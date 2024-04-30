@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    getPoLifeCycle:[],
+    getPOInvoicedBased:[],
+    getPOWorkDoneBased:[],
+
 }
 
 const FinanceReducer = createSlice({
@@ -9,15 +11,23 @@ const FinanceReducer = createSlice({
     initialState,
     reducers:{
 
-        GET_POLIFECYCLE:(state,{payload}) => {
+        GET_POINVOICED_BASED:(state,{payload}) => {
             if(payload.reset){
-                state.getPoLifeCycle = payload.dataAll
+                state.getPOInvoicedBased = payload.dataAll
             }else{
-                state.getPoLifeCycle  = [...state.getPoLifeCycle,...payload.dataAll]
+                state.getPOInvoicedBased  = [...state.getPOInvoicedBased,...payload.dataAll]
+            }
+        },
+
+        GET_POWORKDONE_BASED:(state,{payload}) => {
+            if(payload.reset){
+                state.getPOWorkDoneBased = payload.dataAll
+            }else{
+                state.getPOWorkDoneBased  = [...state.getPOWorkDoneBased,...payload.dataAll]
             }
         },
     }
 })
 
-export const {GET_POLIFECYCLE,} = FinanceReducer.actions
+export const {GET_POINVOICED_BASED,GET_POWORKDONE_BASED,} = FinanceReducer.actions
 export default FinanceReducer.reducer
