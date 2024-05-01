@@ -13,9 +13,17 @@ import FinanceActions from "../../../../store/actions/finance-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
 
 const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        setValue,
+        getValues,
+        formState: { errors },
+      } = useForm();
+    
   const { customeruniqueId, projectuniqueId } = useParams();
-
-  console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue");
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
@@ -98,6 +106,16 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     return state?.adminData?.getProject.map((itm) => {
       return {
         label: itm?.projectId,
+        value: itm?.uniqueId,
+      };
+    });
+  });
+
+
+  let PONumberList = useSelector((state) => {
+    return state?.financeData?.getInvoice.map((itm) => {
+      return {
+        label: itm?.poNumber,
         value: itm?.uniqueId,
       };
     });
@@ -217,7 +235,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "PO Number",
       value: "",
       name: "poNumber",
-      type: "text",
+      type: "select",
+      option: PONumberList,
       required: true,
       props: {
         onChange: (e) => {},
@@ -314,15 +333,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
   ];
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm();
   const onSubmit = (data) => {
     console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
@@ -361,6 +371,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     dispatch(AdminActions.getManageProjectGroup());
     dispatch(projectListActions.getProjectTypeAll());
+    dispatch(FinanceActions.getInvoice())
     dispatch(AdminActions.getProject());
 
     if (resetting) {

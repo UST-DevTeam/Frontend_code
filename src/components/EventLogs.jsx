@@ -60,18 +60,18 @@ const EventLog = ({type,unqeId}) => {
             style: "min-w-[50px] max-w-[200px] text-center",
           },
           {
-            name: "Email",
+            name: "User Email",
             value: "email",
             style: "min-w-[50px] max-w-[200px] text-center",
           },
           {
-            name: "Update Time",
+            name: "Date & Time",
             value: "UpdatedAt",
             style: "min-w-[50px] max-w-[200px] text-center",
           },
           
           {
-            name: "updated Data",
+            name: "Event",
             value: "updatedData",
             style: "min-w-[50px] max-w-[200px] text-center",
           },

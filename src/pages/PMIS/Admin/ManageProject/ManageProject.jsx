@@ -506,13 +506,7 @@ const ManageProject = () => {
           </div>
         }
         table={table}
-        exportButton={[
-          "/export/Project/" +
-            `${customeruniqueId}` +
-            "/" +
-            `${projecttypeuniqueId}`,
-          "Export_Project.xlsx",
-        ]}
+        exportButton={["/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`, "Export_Project.xlsx",]}
         exportSiteButton={[
           "/export/Project/" +
             `${customeruniqueId}` +
