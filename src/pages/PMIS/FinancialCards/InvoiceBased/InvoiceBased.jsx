@@ -103,14 +103,19 @@ const InvoiceBased = () => {
             },            
             {
                 name: "Project Type",
-                value: "projectType",
+                value: "projectTypeName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Project Sub Type",
+                value: "projectSubType",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Project ID",
                 value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            },                        
             {
                 name: "GBPA",
                 value: "pogbpa",
@@ -162,12 +167,12 @@ const InvoiceBased = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Open Quantity(Past Invoice)",
+                name: "Open Quantity(Post Invoice)",
                 value: "openQuantity",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },                    
             {
-                name: "Open PO Value(NR)-Invoiced",
+                name: "Open PO Value(INR)-Invoiced",
                 value: "OpenQtyInvoiced",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            

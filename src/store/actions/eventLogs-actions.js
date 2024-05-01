@@ -10,7 +10,7 @@ const eventManagementActions = {
     getmilestoneeventList: (reset=true,args="") => async (dispatch, _) => {
         try {
             console.log("AuthActions.signin")
-            const res = await Api.get({ url: `${Urls.milestoneEvent}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.milestoneEvent}${args!=""?"/"+args:""}`})
             if (res?.status !== 200) return
             const dataAll = res.data.data
             dispatch(MILESTONEEVENTLIST({dataAll,reset}))

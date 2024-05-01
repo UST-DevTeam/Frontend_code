@@ -84,6 +84,14 @@ const EventLog = ({type,unqeId}) => {
         ],
       };
     
+if (type=="milestone"){
+    siteIdLogsTable?.columns.push({
+    name: "Milestone",
+    value: "mileStoneName",
+    style: "min-w-[50px] max-w-[200px] text-center",
+  })
+}
+
   return (
     <AdvancedTable
       headerButton={<></>}

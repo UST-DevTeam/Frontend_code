@@ -4,8 +4,8 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.0.123:7980/"
-// export const backendassetUrl="http://192.168.0.123:7980/"
+// export const baseUrl="http://192.168.0.103:7980/"
+// export const backendassetUrl="http://192.168.0.103:7980/"
 
 // export const baseUrl="http://192.168.0.127:7980"
 // export const backendassetUrl="http://192.168.0.127:7980/"
@@ -79,9 +79,12 @@ export const Urls={
     upload_update_siteId:"/siteUpload",
 
     finance_poinvoice_based:"/finance/poInvoiceBased",
+    finance_Invoice:"/finance/invoice",
     finance_poworkdone_based:"/finance/poWorkdoneBased",
     projectEvent:"/projectEventLog",
-    siteEventLog:"/siteEventLog"
+    siteEventLog:"/siteEventLog",
+    milestoneEvent:"/milestoneEventLog",
+
 
 
 }

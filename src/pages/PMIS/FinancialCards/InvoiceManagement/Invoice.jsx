@@ -13,10 +13,12 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
+import FinanceActions from '../../../../store/actions/finance-actions';
+// import projectListActions from "../../../../store/actions/projectList-actions";
+import InvoiceForm from '../InvoiceManagement/InvoiceForm'
 
 
-const InvoiceMgmt = () => {
+const Invoice = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -27,35 +29,19 @@ const InvoiceMgmt = () => {
     // })
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
-        let interdata = state?.OperationManagementReducer?.usersList || []
+        let interdata = state?.financeData?.getInvoice || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
-                    let data = {
-                        "enabled": e.target.checked ? 1 : 0
-                    }
-                    dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
-                        e.target.checked = e.target.checked
-                    }, itm.id))
-                    // if(itm.enabled==0){
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
-                }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(OperationManagementActions.getOperationUserList())
+                    dispatch(FinanceActions.getInvoice())
                     setmodalHead("Edit User")
-                    // setmodalBody(<>
-                    //     <OperationManagementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                    //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    // </>)
+                    setmodalBody(<>
+                        <InvoiceForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>)
                     console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
@@ -66,8 +52,8 @@ const InvoiceMgmt = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.operationUser}/${itm.uniqueId}`, () => {
-                                    dispatch(OperationManagementActions.getOperationUserList())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_Invoice}/${itm.uniqueId}`, () => {
+                                    dispatch(FinanceActions.getInvoice())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -85,7 +71,7 @@ const InvoiceMgmt = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminManagement?.usersList
+        let interdata = state?.financeData?.getInvoice
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -130,7 +116,7 @@ const InvoiceMgmt = () => {
             },            
             {
                 name: "System Ref ID",
-                value: "systemRefId",
+                value: "ssId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -140,12 +126,12 @@ const InvoiceMgmt = () => {
             },            
             {
                 name: "WCC No.",
-                value: "wccNo",
+                value: "wccNumber",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "signOff Date",
-                value: "signOffDate",
+                name: "WCC signOff Date",
+                value: "wccSignOffdate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -167,12 +153,7 @@ const InvoiceMgmt = () => {
                 name: "Unit Rate",
                 value: "unitRate",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "Service Code1",
-                value: "serviceCode1",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            },                       
             {
                 name: "Amount",
                 value: "amount",
@@ -183,16 +164,16 @@ const InvoiceMgmt = () => {
                 value: "status",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // }
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
+            {
+                name: "Delete",
+                value: "delete",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -212,21 +193,22 @@ const InvoiceMgmt = () => {
         console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(OperationManagementActions.getOperationUserList(value, objectToQueryString(data)))
+        dispatch(FinanceActions.getInvoice(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(OperationManagementActions.getOperationUserList())
+        dispatch(FinanceActions.getInvoice())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
     return <>
         <AdvancedTable
-            // headerButton={<><Button onClick={(e) => {
-            //     setmodalOpen(prev => !prev)
-            //     setmodalHead("New Invoice")
-            //     setmodalBody(<POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            // }}
-            //     name={"Add New"}></Button></>}
+            headerButton={<><Button onClick={(e) => {
+                setmodalOpen(prev => !prev)
+                setmodalHead("New Invoice")
+                setmodalBody(<InvoiceForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            }}
+                name={"Add New"}></Button></>}
             table={table}
+            exportButton={""}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
@@ -246,4 +228,4 @@ const InvoiceMgmt = () => {
 
 };
 
-export default InvoiceMgmt;
+export default Invoice;

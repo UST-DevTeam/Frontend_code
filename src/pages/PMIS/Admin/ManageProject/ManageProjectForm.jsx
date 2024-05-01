@@ -119,7 +119,6 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
       required: true,
       classes: "col-span-1",
     },
-
     {
       label: "Project Type",
       value: "",

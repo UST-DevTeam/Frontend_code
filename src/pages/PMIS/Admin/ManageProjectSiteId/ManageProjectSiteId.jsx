@@ -10,6 +10,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
+import { MdMessage } from "react-icons/md";
 import {
   getAccessType,
   objectToQueryString,
@@ -176,18 +177,20 @@ const ManageProjectSiteId = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${100 -
+            percent={`${
+              100 -
               ((itm.milestoneArray.length -
                 itm.milestoneArray.filter(
                   (iewq) => iewq.mileStoneStatus == "Close"
                 ).length) /
                 itm.milestoneArray.length) *
-              100
-              }`}
-            text={`${itm.milestoneArray.filter(
-              (iewq) => iewq.mileStoneStatus == "Close"
-            ).length
-              } / ${itm.milestoneArray.length}`}
+                100
+            }`}
+            text={`${
+              itm.milestoneArray.filter(
+                (iewq) => iewq.mileStoneStatus == "Close"
+              ).length
+            } / ${itm.milestoneArray.length}`}
           />
         ),
         checkboxProject: (
@@ -258,9 +261,7 @@ const ManageProjectSiteId = () => {
                 <p
                   className="cursor"
                   onClick={() => {
-
                     if (iewq.mileStoneStatus != "Close") {
-
                       setmodalOpen(true);
 
                       dispatch(
@@ -272,15 +273,16 @@ const ManageProjectSiteId = () => {
 
                       setmodalHead("Allocate User");
                       setmodalBody(
-                        <><AllocateProjectForm
-                          from={"mileStone"}
-                          listsite={[]}
-                          projectuniqueId={projectuniqueId}
-                          isOpen={modalOpen}
-                          setIsOpen={setmodalOpen}
-                          resetting={false}
-                          formValue={iewq}
-                        />
+                        <>
+                          <AllocateProjectForm
+                            from={"mileStone"}
+                            listsite={[]}
+                            projectuniqueId={projectuniqueId}
+                            isOpen={modalOpen}
+                            setIsOpen={setmodalOpen}
+                            resetting={false}
+                            formValue={iewq}
+                          />
                           {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
                                         handleSubmit(onTableViewSubmit)
                                     }} /></div> */}
@@ -296,8 +298,6 @@ const ManageProjectSiteId = () => {
                       };
                       dispatch(ALERTS(msgdata));
                     }
-
-
 
                     console.log("ahshshhs", itm);
                   }}
@@ -315,14 +315,14 @@ const ManageProjectSiteId = () => {
                                 {" "}
                                 {itwsw.assignerName.split(" ").length > 1
                                   ? itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1) +
-                                  itwsw.assignerName
-                                    .split(" ")[1]
-                                    .substr(0, 1)
+                                      .split(" ")[0]
+                                      .substr(0, 1) +
+                                    itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)
                                   : itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1)}
+                                      .split(" ")[0]
+                                      .substr(0, 1)}
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -416,47 +416,7 @@ const ManageProjectSiteId = () => {
                 {iewq.Name}
               </p>
             ),
-            eventLogsmilestone: (
-              <p
-                className=""
-                onClick={() => {
-                  setmodalFullOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
-
-                  setmodalHead("Event Log");
-                  dispatch(
-                    eventManagementActions.getmilestoneeventList(
-                      true,
-                      iewq.uniqueId
-                    )
-                  );
-
-                  setmodalBody(
-                    <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />
-                  );
-                  // dispatch(AdminActions.getOneProjectTypeDyform(iewq.uniqueId));
-                  // dispatch()
-                  // setmodalBody(
-                  //   <AdvancedTable
-                  //     headerButton={<></>}
-                  //     table={milestoneLogsTable}
-                  //     filterAfter={onSubmit}
-                  //     tableName={"Milestone Event Logs"}
-                  //     handleSubmit={handleSubmit}
-                  //     data={milestoneEventLogsData}
-                  //     errors={errors}
-                  //     register={register}
-                  //     setValue={setValue}
-                  //     getValues={getValues}
-                  //     totalCount={dbConfigTotalCount}
-                  //   />
-                  // );
-                  // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                }}
-              >
-                <p className="bg-yellow-400 rounded-lg"> Event Logs</p>
-              </p>
-            ),
+            eventLogsmilestone: <></>,
             taskmageing:
               iewq.taskageing >= 0 ? (
                 <p className="text-green-600">{iewq.taskageing + " Days"}</p>
@@ -531,51 +491,76 @@ const ManageProjectSiteId = () => {
               ),
 
             deleteing: (
-              <CstmButton
-                child={
-                  <DeleteButton
-                    name={""}
+              <div className="flex items-center w-30">
+                <>
+                  <p
+                    className=""
                     onClick={() => {
-                      let msgdata = {
-                        show: true,
-                        icon: "warning",
+                      setmodalFullOpen((prev) => !prev);
+                      // dispatch(AdminActions.getProject())
 
-                        buttons: [
-                          <Button
-                            classes="w-15 bg-green-500"
-                            onClick={() => {
-                              dispatch(
-                                CommonActions.deleteApiCaller(
-                                  `${Urls.projectList_changeTaskStatus}/${iewq.uniqueId}`,
-                                  () => {
-                                    dispatch(
-                                      projectListActions.getProjectTypeAll(
-                                        projectuniqueId
-                                      )
-                                    );
-                                    dispatch(ALERTS({ show: false }));
-                                  }
-                                )
-                              );
-                            }}
-                            name={"OK"}
-                          />,
-                          <Button
-                            classes="w-24"
-                            onClick={() => {
-                              console.log("snnsnsnsns");
-                              dispatch(ALERTS({ show: false }));
-                            }}
-                            name={"Cancel"}
-                          />,
-                        ],
-                        text: "Are you sure you want to Delete?",
-                      };
-                      dispatch(ALERTS(msgdata));
+                      setmodalHead("Event Log");
+                      dispatch(
+                        eventManagementActions.getmilestoneeventList(
+                          true,
+                          iewq.uniqueId
+                        )
+                      );
+
+                      setmodalBody(
+                        <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />
+                      );
                     }}
-                  ></DeleteButton>
-                }
-              />
+                  >
+                    <MdMessage size={30} />
+                  </p>
+                  <CstmButton
+                    child={
+                      <DeleteButton
+                        name={""}
+                        onClick={() => {
+                          let msgdata = {
+                            show: true,
+                            icon: "warning",
+
+                            buttons: [
+                              <Button
+                                classes="w-15 bg-green-500"
+                                onClick={() => {
+                                  dispatch(
+                                    CommonActions.deleteApiCaller(
+                                      `${Urls.projectList_changeTaskStatus}/${iewq.uniqueId}`,
+                                      () => {
+                                        dispatch(
+                                          projectListActions.getProjectTypeAll(
+                                            projectuniqueId
+                                          )
+                                        );
+                                        dispatch(ALERTS({ show: false }));
+                                      }
+                                    )
+                                  );
+                                }}
+                                name={"OK"}
+                              />,
+                              <Button
+                                classes="w-24"
+                                onClick={() => {
+                                  console.log("snnsnsnsns");
+                                  dispatch(ALERTS({ show: false }));
+                                }}
+                                name={"Cancel"}
+                              />,
+                            ],
+                            text: "Are you sure you want to Delete?",
+                          };
+                          dispatch(ALERTS(msgdata));
+                        }}
+                      ></DeleteButton>
+                    }
+                  />
+                </>
+              </div>
             ),
             checkboxProject: (
               <>
@@ -750,89 +735,77 @@ const ManageProjectSiteId = () => {
         //   </div>
         // ),
 
-        edit: <div className="flex "></div>,
-        siteeventLogs: (
-          <>
-            <p
-              className=""
-              onClick={() => {
-                setmodalFullOpen((prev) => !prev);
-
-                setmodalHead("Event Log");
-                dispatch(
-                  eventManagementActions.getsiteeventList(true, itm?.uniqueId)
-                );
-
-                setmodalBody(<EventLog type={"site"} unqeId={itm?.uniqueId} />);
-                // setmodalBody(
-                //   <AdvancedTable
-                //     headerButton={<></>}
-                //     table={milestoneLogsTable}
-                //     filterAfter={onSubmit}
-                //     tableName={"Site Event Logs"}
-                //     handleSubmit={handleSubmit}
-                //     data={sitelogsEventLogsData}
-                //     errors={errors}
-                //     register={register}
-                //     setValue={setValue}
-                //     getValues={getValues}
-                //     totalCount={dbConfigTotalCount}
-                //   />
-                // );
-                // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-              }}
-            >
-              <p className="bg-yellow-400 rounded-lg"> Event Logs</p>
-            </p>
-          </>
-        ),
+        // edit: <div className="flex "></div>,
+        siteeventLogs: <></>,
         delete: (
           <>
             {1 == 1 ? (
-              <CstmButton
-                child={
-                  <DeleteButton
-                    name={""}
+              <div className="flex items-center w-30">
+                <>
+                  <p
+                    className=""
                     onClick={() => {
-                      let msgdata = {
-                        show: true,
-                        icon: "warning",
-                        buttons: [
-                          <Button
-                            classes="w-15 bg-green-500"
-                            onClick={() => {
-                              dispatch(
-                                CommonActions.deleteApiCaller(
-                                  `${Urls.projectList_siteEngineer}/${itm.uniqueId}`,
-                                  () => {
-                                    dispatch(
-                                      projectListActions.getProjectTypeAll(
-                                        projectuniqueId
-                                      )
-                                    );
-                                    dispatch(ALERTS({ show: false }));
-                                  }
-                                )
-                              );
-                            }}
-                            name={"OK"}
-                          />,
-                          <Button
-                            classes="w-24"
-                            onClick={() => {
-                              console.log("snnsnsnsns");
-                              dispatch(ALERTS({ show: false }));
-                            }}
-                            name={"Cancel"}
-                          />,
-                        ],
-                        text: "Are you sure you want to Delete?",
-                      };
-                      dispatch(ALERTS(msgdata));
+                      setmodalFullOpen((prev) => !prev);
+                      setmodalHead("Event Log");
+                      dispatch(
+                        eventManagementActions.getsiteeventList(
+                          true,
+                          itm?.uniqueId
+                        )
+                      );
+                      setmodalBody(
+                        <EventLog type={"site"} unqeId={itm?.uniqueId} />
+                      );
                     }}
-                  ></DeleteButton>
-                }
-              />
+                  >
+                    <MdMessage size={30} />
+                  </p>
+                  <CstmButton
+                    child={
+                      <DeleteButton
+                        name={""}
+                        onClick={() => {
+                          let msgdata = {
+                            show: true,
+                            icon: "warning",
+                            buttons: [
+                              <Button
+                                classes="w-15 bg-green-500"
+                                onClick={() => {
+                                  dispatch(
+                                    CommonActions.deleteApiCaller(
+                                      `${Urls.projectList_siteEngineer}/${itm.uniqueId}`,
+                                      () => {
+                                        dispatch(
+                                          projectListActions.getProjectTypeAll(
+                                            projectuniqueId
+                                          )
+                                        );
+                                        dispatch(ALERTS({ show: false }));
+                                      }
+                                    )
+                                  );
+                                }}
+                                name={"OK"}
+                              />,
+                              <Button
+                                classes="w-24"
+                                onClick={() => {
+                                  console.log("snnsnsnsns");
+                                  dispatch(ALERTS({ show: false }));
+                                }}
+                                name={"Cancel"}
+                              />,
+                            ],
+                            text: "Are you sure you want to Delete?",
+                          };
+                          dispatch(ALERTS(msgdata));
+                        }}
+                      ></DeleteButton>
+                    }
+                  />
+                </>
+              </div>
             ) : (
               ""
             )}

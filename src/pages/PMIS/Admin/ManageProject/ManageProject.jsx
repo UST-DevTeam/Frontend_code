@@ -11,6 +11,8 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
+import { MdMessage } from "react-icons/md";
+// import { BsFillChatTextFill } from "react-icons/bs";
 import {
   getAccessType,
   objectToQueryString,
@@ -47,8 +49,6 @@ const ManageProject = () => {
 
   let navigate = useNavigate();
 
-
-  
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getProject;
     return interdata?.map((itm) => {
@@ -104,30 +104,34 @@ const ManageProject = () => {
             </p>
           </button>
         ),
-        eventLogs: (
-          <p
-            className=""
-            onClick={() => {
-              setmodalFullOpen((prev) => !prev);
-              // dispatch(AdminActions.getProject())
-              setmodalHead("Event Logs");
-
-              dispatch(
-                eventManagementActions.getprojecteventList(true,itm?.uniqueId)
-              );
-              
-              // dispatch(AdminActions.getOneProjectTypeDyform(iewq.uniqueId));
-              // dispatch()
-              setmodalBody(<EventLog type={"project"} unqeId={itm?.uniqueId}/>);
-              // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
-          >
-            <p className="bg-yellow-400 rounded-lg"> Event Logs</p>
-          </p>
-        ),
+        eventLogs: <></>,
         edit: (
           <>
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-3">
+              <p
+                className="items-center cursor-pointer"
+                onClick={() => {
+                  setmodalFullOpen((prev) => !prev);
+                  // dispatch(AdminActions.getProject())
+                  setmodalHead("Event Logs");
+
+                  dispatch(
+                    eventManagementActions.getprojecteventList(
+                      true,
+                      itm?.uniqueId
+                    )
+                  );
+
+                  // dispatch(AdminActions.getOneProjectTypeDyform(iewq.uniqueId));
+                  // dispatch()
+                  setmodalBody(
+                    <EventLog type={"project"} unqeId={itm?.uniqueId} />
+                  );
+                  // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                }}
+              >
+                <MdMessage size={30} />
+              </p>
               <CstmButton
                 className={"p-2"}
                 child={
@@ -357,11 +361,11 @@ const ManageProject = () => {
         value: "status",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Event Logs",
-        value: "eventLogs",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Event Logs",
+      //   value: "eventLogs",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
       {
         name: "Edit",
         value: "edit",
@@ -421,7 +425,7 @@ const ManageProject = () => {
         }`
       )
     );
-    dispatch(eventManagementActions.getprojecteventList())
+    dispatch(eventManagementActions.getprojecteventList());
     // dispatch(OperationManagementActions.getRoleList())
   }, []);
 

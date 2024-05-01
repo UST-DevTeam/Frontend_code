@@ -99,7 +99,7 @@ import InvoiceBased from "../pages/PMIS/FinancialCards/InvoiceBased/InvoiceBased
 import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWorkDoneBased";
 import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
 import InvoiceMgmtt from "../pages/PMIS/FinancialCards/InvoiceMgmtt";
-import InvoiceMgmt from "../pages/PMIS/FinancialCards/InvoiceManagement/InvoiceMgmt";
+import Invoice from "../pages/PMIS/FinancialCards/InvoiceManagement/Invoice";
 import Unbilled from "../pages/PMIS/FinancialCards/Unbilled/Unbilled";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -417,8 +417,8 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/PO_Management/invoice",
-      component: <InvoiceMgmt />,
+      link: "/financial/invoice",
+      component: <Invoice />,
       icon: <UilStore />,
       subMenu: [],
     },
