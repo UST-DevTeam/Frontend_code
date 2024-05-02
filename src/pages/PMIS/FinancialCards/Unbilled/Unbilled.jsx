@@ -13,7 +13,7 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
+// import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
 import FinanceActions from '../../../../store/actions/finance-actions';
 
@@ -183,7 +183,7 @@ const Unbilled = () => {
         dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(FinanceActions.getPoLifeCycle())
+        // dispatch(FinanceActions.getPoLifeCycle())
     }, [])
     return <>
         <AdvancedTable

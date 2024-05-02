@@ -27,7 +27,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
-  const [circlewq, setcircle] = useState("");
+  // const [circlewq, setcircle] = useState("");
   const [qType, setqType] = useState("");
 
   let dispatch = useDispatch();
@@ -71,22 +71,22 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       };
     });
   });
-  let circleList = useSelector((state) => {
-    return state?.projectList?.getprojectcircle.map((itm) => {
-      return {
-        label: itm.circle,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  // let circleList = useSelector((state) => {
+  //   return state?.projectList?.getprojectcircle.map((itm) => {
+  //     return {
+  //       label: itm.circle,
+  //       value: itm.uniqueId,
+  //     };
+  //   });
+  // });
 
-  useSelector((state) => {
-    console.log(circlewq, getValues(), circleList.length, "getValues");
+  // useSelector((state) => {
+  //   console.log(circlewq, getValues(), circleList.length, "getValues");
 
-    if (circlewq && circleList.length > 0) {
-      setValue("circle", getValues()["circle"]);
-    }
-  });
+  //   if (circlewq && circleList.length > 0) {
+  //     setValue("circle", getValues()["circle"]);
+  //   }
+  // });
 
   // let projectGroupList = useSelector((state) => {
   //     return state?.adminData?.getManageProjectGroup
@@ -174,19 +174,19 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       required: true,
       classes: "col-span-1",
     },
-    {
-      label: "Circle",
-      value: "",
-      name: "circle",
-      type: "select",
-      option: circleList,
-      // required: true,
-      props: {
-        onChange: (e) => {
-        },
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Circle",
+    //   value: "",
+    //   name: "circle",
+    //   type: "select",
+    //   option: circleList,
+    //   // required: true,
+    //   props: {
+    //     onChange: (e) => {
+    //     },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Project Type",
       value: "",
@@ -329,6 +329,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: [
         { label: "Open", value: "Open" },
         { label: "Closed", value: "Closed" },
+        { label: "Short Closed", value: "Short Closed" },
       ],
       classes: "col-span-1",
     },

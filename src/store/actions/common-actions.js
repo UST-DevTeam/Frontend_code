@@ -31,6 +31,8 @@ const CommonActions = {
             console.log(res, "res?.statusres?.status")
 
             const dtaa = res.data
+
+            console.log(res.data,"res.datares.data")
             let msgdata = {
                 show: true,
                 icon: dtaa.icon,

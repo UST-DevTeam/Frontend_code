@@ -445,8 +445,8 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/invoiceMgmt/revenueRecognition",
-      // component: < />,
+      link: "/financial/invoiceManagement/invoice",
+      component: <Invoice />,
       icon: <UilStore />,
       subMenu: [],
     },

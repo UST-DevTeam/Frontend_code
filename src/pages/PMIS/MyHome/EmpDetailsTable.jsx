@@ -237,7 +237,7 @@ const EmpDetailsTable = () => {
     data["fileType"] = "ManageEmployee";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(AdminActions.getManageCircle());
+        dispatch(AdminActions.getManageEmpDetails());
         setFileOpen(false);
         resetting("");
       })

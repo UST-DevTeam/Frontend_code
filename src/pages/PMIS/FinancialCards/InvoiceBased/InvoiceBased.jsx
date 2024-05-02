@@ -15,12 +15,14 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
+import FileUploader from "../../../../components/FIleUploader";
 import FinanceActions from '../../../../store/actions/finance-actions';
 
 const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [fileOpen, setFileOpen] = useState(false);
     let dispatch = useDispatch()
     // let roleList = useSelector((state) => {
     //     let interdata = state?.operationManagement?.USERS_LIST
@@ -108,17 +110,17 @@ const InvoiceBased = () => {
             },            
             {
                 name: "Project Sub Type",
-                value: "projectSubType",
+                value: "subProjectName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Project ID",
-                value: "projectId",
+                value: "projectIdName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },                        
             {
                 name: "GBPA",
-                value: "pogbpa",
+                value: "gbpa",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -152,13 +154,13 @@ const InvoiceBased = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Unit Rate(NR)",
-                value: "unitRate",
+                name: "Unit Rate(INR)",
+                value: "unitRate(INR)",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Initial PO Qty",
-                value: "initialPOQty",
+                value: "initialPoQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -215,14 +217,36 @@ const InvoiceBased = () => {
     useEffect(() => {
         dispatch(FinanceActions.getPOInvoicedBased())
     }, [])
+
+    const onTableViewSubmit = (data) => {
+        data["fileType"] = "PoInvoice";
+        dispatch(
+          CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            dispatch(FinanceActions.getPOInvoicedBased());
+            setFileOpen(false);
+            resetting("");
+          })
+        );
+      };
+
+
     return <>
         <AdvancedTable
-            headerButton={<><Button onClick={(e) => {
+            headerButton={<><Button classes="w-auto mr-1" onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("New PO Life Cycle ")
+                setmodalHead("New Invoice Based")
                 setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button></>}
+                name={"Add"}></Button>
+                <Button
+              name={"Upload File"}
+              classes="w-auto "
+              onClick={(e) => {
+                setFileOpen((prev) => !prev);
+              }}
+            ></Button>
+                
+                </>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -234,6 +258,14 @@ const InvoiceBased = () => {
             getValues={getValues}
             totalCount={dbConfigTotalCount}
         />
+        <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true} 
+        tempbtnlink = {["/template/PoInvoice.xlsx","PoInvoice.xlsx"]}
+      />
 
         <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
