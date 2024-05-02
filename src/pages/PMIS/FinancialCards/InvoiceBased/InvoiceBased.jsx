@@ -263,7 +263,7 @@ const InvoiceBased = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
-        tempbtn={true} 
+        tempbtn={   true} 
         tempbtnlink = {["/template/PoInvoice.xlsx","PoInvoice.xlsx"]}
       />
 

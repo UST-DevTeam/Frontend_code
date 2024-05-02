@@ -251,7 +251,7 @@ const Invoice = () => {
   }, []);
 
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "invoice";
+    data["fileType"] = "Invoice";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(FinanceActions.getInvoice());
@@ -281,7 +281,7 @@ const Invoice = () => {
                   />
                 );
               }}
-              name={"Add New"}
+              name={"Add Invoice"}
             ></Button>
             <Button
               name={"Upload File"}
@@ -309,6 +309,8 @@ const Invoice = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
+        tempbtn={true} 
+        tempbtnlink = {["/template/Invoice.xlsx","Invoice.xlsx"]}
       />
       <Modal
         size={"sm"}
