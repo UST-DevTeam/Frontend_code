@@ -52,8 +52,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   let subProjectList = useSelector((state) => {
     return state?.adminData?.getManageProjectType
       .filter((itm) => {
-        console.log(itm.projectType == qType, "dasdsadsadas");
-        return itm.projectType == qType;
+        console.log(itm.projectType == pType, "dasdsadsadas");
+        return itm.projectType == pType;
       })
       .map((itm) => {
         return {
@@ -196,7 +196,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectTypeList,
       props: {
         onChange: (e) => {
-          setqType(
+          setpType(
             projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
               "label"
             ]
