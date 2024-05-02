@@ -535,7 +535,7 @@ const ManageProject = () => {
         setIsOpen={setmodalOpen}
       />
       <Modal
-        size={"lg"}
+        size={"full"}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalFullOpen}

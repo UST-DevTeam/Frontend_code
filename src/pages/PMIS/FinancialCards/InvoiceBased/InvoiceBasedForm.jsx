@@ -27,7 +27,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
-  // const [circlewq, setcircle] = useState("");
+  const [circlewq, setcircle] = useState("");
   const [qType, setqType] = useState("");
 
   let dispatch = useDispatch();
@@ -40,6 +40,14 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       };
     });
   });
+  let projectGroupList = useSelector((state) => {
+    return state?.adminData?.getManageProjectGroup.map((itm) => {
+      return {
+        label: itm.projectGroupId,
+        value: itm.uniqueId,
+      };
+    });
+  });
 
   let projectTypeList = useSelector((state) => {
     return state?.adminData?.getCardProjectType.map((itm) => {
@@ -49,6 +57,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       };
     });
   });
+
   let subProjectList = useSelector((state) => {
     return state?.adminData?.getManageProjectType
       .filter((itm) => {
@@ -61,15 +70,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           value: itm.uniqueId,
         };
       });
-  });
-
-  let projectGroupList = useSelector((state) => {
-    return state?.adminData?.getManageProjectGroup.map((itm) => {
-      return {
-        label: itm.projectGroupId,
-        value: itm.uniqueId,
-      };
-    });
   });
   // let circleList = useSelector((state) => {
   //   return state?.projectList?.getprojectcircle.map((itm) => {
@@ -192,7 +192,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "projectType",
       type: "select",
-      required: true,
+      // required: true,
       option: projectTypeList,
       props: {
         onChange: (e) => {
@@ -213,7 +213,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "select",
       value: "",
       option: subProjectList,
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -235,8 +235,20 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "PO Number",
       value: "",
       name: "poNumber",
-      type: "select",
-      option: PONumberList,
+      type: "text",
+      // option: PONumberList,
+      required: true,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "PO Start Date",
+      value: "",
+      name: "poStarDate",
+      type: "text",
+      // option: PONumberList,
       required: true,
       props: {
         onChange: (e) => {},
@@ -259,7 +271,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "description",
       type: "text",
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -270,7 +282,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "uniteRate",
       type: "text",
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -281,7 +293,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "initialPoQty",
       type: "text",
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -292,7 +304,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "invoiceQty",
       type: "text",
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -303,7 +315,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "openqty",
       type: "text",
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -314,7 +326,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "openPoValue",
       type: "text",
-      required: true,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -325,7 +337,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "status",
       type: "select",
-      required: true,
+      // required: true,
       option: [
         { label: "Open", value: "Open" },
         { label: "Closed", value: "Closed" },
@@ -390,16 +402,11 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
           if (key.name == "projectType") {
-            setqType(formValue["projectTypeName"]);
+            setpType(formValue["projectTypeName"]);
           }
 
           if (key.name == "projectGroup") {
-            dispatch(
-              projectListActions.getProjectCircle(
-                true,
-                `projectGroupId=${formValue["projectGroup"]}`
-              )
-            );
+            dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
             setcircle(true);
           }
 

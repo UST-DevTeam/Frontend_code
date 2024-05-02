@@ -29,6 +29,7 @@ const InvoiceBased = () => {
     //     return interdata
     // })
     let dbConfigList = useSelector((state) => {
+        
         let interdata = state?.financeData?.getPOInvoicedBased || []
         return interdata?.map((itm) => {
             let updateditm = {
@@ -37,7 +38,7 @@ const InvoiceBased = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(FinanceActions.getPOInvoicedBased())
-                    setmodalHead("Edit User")
+                    setmodalHead("PO Invoice Based")
                     setmodalBody(<>
                         <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -116,7 +117,7 @@ const InvoiceBased = () => {
             {
                 name: "Project ID",
                 value: "projectIdName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[170px] max-w-[200px] text-center"
             },                        
             {
                 name: "GBPA",
@@ -151,7 +152,7 @@ const InvoiceBased = () => {
             {
                 name: "Description",
                 value: "description",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[200px] max-w-[300px] text-center"
             },            
             {
                 name: "Unit Rate(INR)",
@@ -171,18 +172,23 @@ const InvoiceBased = () => {
             {
                 name: "Open Quantity(Post Invoice)",
                 value: "openQuantity",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[250px] max-w-[250px] text-center"
             },                    
             {
                 name: "Open PO Value(INR)-Invoiced",
                 value: "OpenQtyInvoiced",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[250px] max-w-[250px] text-center"
             },            
             {
-                name: "Status",
-                value: "status",
+                name: "Item Code Status",
+                value: "itemCodeStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            }, 
+            {
+                name: "PO Status",
+                value: "poStatus",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },           
             {
                 name: "Edit",
                 value: "edit",
@@ -198,14 +204,14 @@ const InvoiceBased = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
+            {
+                label: "select",
+                // type: "select",
+                // name: "rolename",
+                // option: roleList,
+                // props: {
+                // }
+            }
         ]
     }
     const onSubmit = (data) => {
