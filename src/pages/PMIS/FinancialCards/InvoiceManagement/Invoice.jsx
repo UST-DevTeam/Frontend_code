@@ -150,7 +150,7 @@ const Invoice = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Sub Project Type",
+        name: "Sub-Project",
         value: "subProjectName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },

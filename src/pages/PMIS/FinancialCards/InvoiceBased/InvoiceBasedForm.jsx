@@ -25,6 +25,16 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     
   const { customeruniqueId, projectuniqueId } = useParams();
 
+  const [modalOpen, setmodalOpen] = useState(false);
+  const [pType, setpType] = useState("");
+  const [circlewq, setcircle] = useState("");
+  const [qType, setqType] = useState("");
+
+  let dispatch = useDispatch();
+  let customerList = useSelector((state) => {
+    return state?.adminData?.getManageCustomer.map((itm) => {
+      return {
+        label: itm?.customerName,
         value: itm?.uniqueId,
       };
     });
@@ -137,7 +147,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       props: {
         onChange: (e) => {
           dispatch(AdminActions.getManageProjectGroup(true,`customer=${e.target.value}`))
-          // dispatch(AdminActions.getManageProjectType(true,`customer=${e.target.value}`))
+          dispatch(AdminActions.getCardProjectType("",true,`customer=${e.target.value}`))
         },
       },
     },
