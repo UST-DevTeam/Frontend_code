@@ -146,12 +146,24 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1",
         },
         {
+            label: "Sub-Project Type",
+            name: "subProject",
+            type: "select",
+            value: "",
+            // option: subProjectList,
+            // required: true,
+            props: {
+              onChange: (e) => {},
+            },
+            classes: "col-span-1",
+        },
+        {
             label: "Site Id",
             value: "",
             name: "siteId",
             type: "select",
             option: SiteList,
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {               
                 }),
@@ -163,7 +175,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "ssId",
             type: "select",
-            required: true,
+            // required: true,
             // option:SSIDList,
             props: {
                 onChange: ((e) => {
@@ -183,7 +195,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "wccNumber",
             type: "text",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -196,7 +208,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "wccSignOffdate",
             type: "datetime",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -235,7 +247,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "qty",
             type: "text",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -248,7 +260,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "invoiceNumber",
             type: "text",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -261,7 +273,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "invoiceDate",
             type: "datetime",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -274,7 +286,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "unitRate",
             type: "text",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -287,7 +299,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "amount",
             type: "text",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     
@@ -300,7 +312,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: "status",
             type: "text",
-            required: true,
+            // required: true,
             props: {
                 onChange: ((e) => {
                     

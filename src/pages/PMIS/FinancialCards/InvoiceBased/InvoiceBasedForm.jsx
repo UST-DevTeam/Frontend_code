@@ -25,22 +25,12 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     
   const { customeruniqueId, projectuniqueId } = useParams();
 
-  const [modalOpen, setmodalOpen] = useState(false);
-  const [pType, setpType] = useState("");
-  const [circlewq, setcircle] = useState("");
-  const [qType, setqType] = useState("");
-
-  let dispatch = useDispatch();
-
-  let customerList = useSelector((state) => {
-    return state?.adminData?.getManageCustomer.map((itm) => {
-      return {
-        label: itm?.customerName,
         value: itm?.uniqueId,
       };
     });
   });
   let projectGroupList = useSelector((state) => {
+    console.log(state,'statestate')
     return state?.adminData?.getManageProjectGroup.map((itm) => {
       return {
         label: itm.projectGroupId,
@@ -146,12 +136,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
       props: {
         onChange: (e) => {
-          setpType(
-            customerList.filter((iteq) => iteq.value == e.target.value)[0][
-              "label"
-            ]
-          );
-          setValue("customer", e.target.value);
+          dispatch(AdminActions.getManageProjectGroup(true,`customer=${e.target.value}`))
+          // dispatch(AdminActions.getManageProjectType(true,`customer=${e.target.value}`))
         },
       },
     },
@@ -163,12 +149,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectGroupList,
       props: {
         onChange: (e) => {
-          dispatch(
-            projectListActions.getProjectCircle(
-              true,
-              `projectGroupId=${e.target.value}`
-            )
-          );
         },
       },
       required: true,
@@ -196,13 +176,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectTypeList,
       props: {
         onChange: (e) => {
-          setpType(
-            projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
-              "label"
-            ]
-          );
-          console.log(e.target.value, "e geeter");
-          setValue("projectType", e.target.value);
         },
       },
       classes: "col-span-1",
@@ -232,6 +205,18 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
     {
+      label: "GBPA",
+      value: "",
+      name: "gbpa",
+      type: "text",
+      // option: projectIdList,
+      // required: true,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
       label: "PO Number",
       value: "",
       name: "poNumber",
@@ -246,10 +231,22 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "PO Start Date",
       value: "",
-      name: "poStarDate",
-      type: "text",
+      name: "poStartDate",
+      type: "datetime",
       // option: PONumberList,
-      required: true,
+      // required: true,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "PO End Date",
+      value: "",
+      name: "poEndDate",
+      type: "datetime",
+      // option: PONumberList,
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -280,7 +277,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Unit Rate",
       value: "",
-      name: "uniteRate",
+      name: "unitRate",
       type: "text",
       // required: true,
       props: {
@@ -300,9 +297,9 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
     {
-      label: "Invoice Qty",
+      label: "Invoiced Qty",
       value: "",
-      name: "invoiceQty",
+      name: "invoicedQty",
       type: "text",
       // required: true,
       props: {
@@ -380,9 +377,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
     dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getManageProjectType(customeruniqueId));
-    dispatch(AdminActions.getCardProjectType(customeruniqueId));
-    dispatch(AdminActions.getManageProjectGroup());
+    // dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    // dispatch(AdminActions.getManageProjectGroup());
     dispatch(projectListActions.getProjectTypeAll());
     dispatch(FinanceActions.getInvoice())
     dispatch(AdminActions.getProject());

@@ -136,22 +136,22 @@ const Invoice = () => {
     columns: [
       {
         name: "Project Group",
-        value: "projectGroup",
+        value: "projectGroupId",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Project ID",
-        value: "projectId",
+        value: "projectIdName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Project Type",
-        value: "projectType",
+        value: "projectTypeName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Sub Project Type",
-        value: "subProjectType",
+        value: "subProjectName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -161,7 +161,7 @@ const Invoice = () => {
       },
       {
         name: "Site Id",
-        value: "siteId",
+        value: "Site Id",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -251,7 +251,7 @@ const Invoice = () => {
   }, []);
 
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "Invoice";
+    data["fileType"] = "invoice";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(FinanceActions.getInvoice());

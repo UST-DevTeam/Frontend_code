@@ -156,7 +156,7 @@ const InvoiceBased = () => {
             },            
             {
                 name: "Unit Rate(INR)",
-                value: "unitRate(INR)",
+                value: "unitRate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -166,7 +166,7 @@ const InvoiceBased = () => {
             },            
             {
                 name: "Invoiced Quantity",
-                value: "invoicedQuantity",
+                value: "invoicedQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -240,13 +240,13 @@ const InvoiceBased = () => {
         <AdvancedTable
             headerButton={<><Button classes="w-auto mr-1" onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("New Invoice Based")
+                setmodalHead("New PO Invoice Based")
                 setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add"}></Button>
                 <Button
               name={"Upload File"}
-              classes="w-auto "
+              classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
@@ -254,6 +254,7 @@ const InvoiceBased = () => {
                 
                 </>}
             table={table}
+            exportButton={["/export/poInvoice/" , "Export_PoInvoice.xlsx",]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
