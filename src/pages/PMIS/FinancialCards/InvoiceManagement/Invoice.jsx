@@ -15,7 +15,8 @@ import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import FileUploader from "../../../../components/FIleUploader";
-// import projectListActions from "../../../../store/actions/projectList-actions";
+import AdminActions from '../../../../store/actions/admin-actions';
+import projectListActions from "../../../../store/actions/projectList-actions";
 import InvoiceForm from "../InvoiceManagement/InvoiceForm";
 
 const Invoice = () => {
@@ -43,6 +44,10 @@ const Invoice = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
+                  dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
+                  dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
+                  dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
+                  dispatch(AdminActions.getInvoiceSiteId(true,`subProjectId=${itm?.projectType}`))
                   dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(
@@ -135,13 +140,13 @@ const Invoice = () => {
   let table = {
     columns: [
       {
-        name: "Project Group",
-        value: "projectGroupId",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: "Customer",
+        value: "customerName",
+        style: "min-w-[140px] max-w-[200px] text-center"
       },
       {
-        name: "Project ID",
-        value: "projectIdName",
+        name: "Project Group",
+        value: "projectGroupId",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -155,13 +160,18 @@ const Invoice = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "Project ID",
+        value: "projectIdName",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "SSID",
-        value: "ssId",
+        value: "ssidName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Site Id",
-        value: "Site Id",
+        value: "siteIdName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -247,7 +257,6 @@ const Invoice = () => {
   };
   useEffect(() => {
     dispatch(FinanceActions.getInvoice());
-    // dispatch(OperationManagementActions.getRoleList())
   }, []);
 
   const onTableViewSubmit = (data) => {

@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
+import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP } from "../../../../store/reducers/admin-reducer";
 
 const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     const {
@@ -22,8 +23,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         getValues,
         formState: { errors },
       } = useForm();
-    
-  const { customeruniqueId, projectuniqueId } = useParams();
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
@@ -40,7 +39,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
   let projectGroupList = useSelector((state) => {
-    console.log(state,'statestate')
     return state?.adminData?.getManageProjectGroup.map((itm) => {
       return {
         label: itm.projectGroupId,
@@ -50,7 +48,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   });
 
   let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
+    return state?.adminData?.getPOProjectType.map((itm) => {
       return {
         label: itm.projectType,
         value: itm.uniqueId,
@@ -58,15 +56,15 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
-  let subProjectList = useSelector((state) => {
-    return state?.adminData?.getPOSubProjectType
-      .map((itm) => {
-        return {
-          label: itm.subProject,
-          value: itm.uniqueId,
-        };
-      });
-  });
+  // let subProjectList = useSelector((state) => {
+  //   return state?.adminData?.getPOSubProjectType
+  //     .map((itm) => {
+  //       return {
+  //         label: itm.subProject,
+  //         value: itm.uniqueId,
+  //       };
+  //     });
+  // });
   // let circleList = useSelector((state) => {
   //   return state?.projectList?.getprojectcircle.map((itm) => {
   //     return {
@@ -105,9 +103,23 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       props: {
         onChange: (e) => {
           dispatch(AdminActions.getManageProjectGroup(true,`customer=${e.target.value}`))
-          dispatch(AdminActions.getCardProjectType("",true,`customer=${e.target.value}`))
+          dispatch(AdminActions.getPOProjectType(true,`customer=${e.target.value}`))
         },
       },
+    },
+    {
+      label: "Project Type (Sub Project Type)",
+      value: "",
+      name: "projectType",
+      type: "select",
+      // required: true,
+      option: projectTypeList,
+      props: {
+        onChange: (e) => {
+          // dispatch(AdminActions.getPOProjectID(true,`projectId=${e.target.value}`))
+        },
+      },
+      classes: "col-span-1",
     },
     {
       label: "Project Group",
@@ -117,51 +129,24 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectGroupList,
       props: {
         onChange: (e) => {
+          dispatch(AdminActions.getPOProjectID(true,`projectGroup=${e.target.value}`))
         },
       },
       required: true,
       classes: "col-span-1",
     },
     // {
-    //   label: "Circle",
-    //   value: "",
-    //   name: "circle",
+    //   label: "Sub-Project Type",
+    //   name: "subProject",
     //   type: "select",
-    //   option: circleList,
+    //   value: "",
+    //   option: subProjectList,
     //   // required: true,
     //   props: {
-    //     onChange: (e) => {
-    //     },
+    //     onChange: (e) => {},
     //   },
     //   classes: "col-span-1",
     // },
-    {
-      label: "Project Type",
-      value: "",
-      name: "projectType",
-      type: "select",
-      // required: true,
-      option: projectTypeList,
-      props: {
-        onChange: (e) => {
-          dispatch(AdminActions.getPOSubProjectType(true,`projectType=${e.target.value}`))
-          dispatch(AdminActions.getPOProjectID(true,`projectId=${e.target.value}`))
-        },
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: "Sub-Project Type",
-      name: "subProject",
-      type: "select",
-      value: "",
-      option: subProjectList,
-      // required: true,
-      props: {
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
     {
       label: "Project ID",
       value: "",
@@ -178,7 +163,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "GBPA",
       value: "",
       name: "gbpa",
-      type: "number",
+      type: "text",
       // option: projectIdList,
       // required: true,
       props: {
@@ -251,7 +236,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       // required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+        },
       },
       classes: "col-span-1",
     },
@@ -328,6 +314,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           data,
           () => {
             console.log("CustomQueryActions.postDBConfig");
+            dispatch(FinanceActions.getPOInvoicedBased());
             setIsOpen(false);
             dispatch(FinanceActions.getPOInvoicedBased());
           },
@@ -345,10 +332,10 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
+    dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
+    dispatch(GET_CARD_PROJECT_TYPE({dataAll:[],reset:true}))
+    
     dispatch(AdminActions.getManageCustomer());
-    dispatch(projectListActions.getProjectTypeAll());
-    dispatch(FinanceActions.getInvoice())
-    // dispatch(AdminActions.getProject());
 
     if (resetting) {
       reset({});
@@ -359,24 +346,20 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       reset({});
       // console.log(formValue, "Object.keys(formValue)");
       Form.forEach((key) => {
-        dispatch(AdminActions.getManageProjectGroup())
-        dispatch(AdminActions.getCardProjectType())
-        dispatch(AdminActions.getPOSubProjectType())
-        dispatch(AdminActions.getPOProjectID())
-          
+             
         if (["poStartDate", "poEndDate"].indexOf(key.name) != -1 &&
         formValue[key.name])  {
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
-          if (key.name == "projectType") {
-            setpType(formValue["projectTypeName"]);
-          }
+          // if (key.name == "projectType") {
+          //   setpType(formValue["projectTypeName"]);
+          // }
 
-          if (key.name == "projectGroup") {
-            dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
-            setcircle(true);
-          }
+          // if (key.name == "projectGroup") {
+          //   dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
+          //   setcircle(true);
+          // }
 
           let dtwq = key.option.filter(
             (itq) => itq.label == formValue[key.name]

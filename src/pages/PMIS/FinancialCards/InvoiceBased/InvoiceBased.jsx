@@ -17,6 +17,7 @@ import OperationManagementActions from '../../../../store/actions/OperationManag
 import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
 import FileUploader from "../../../../components/FIleUploader";
 import FinanceActions from '../../../../store/actions/finance-actions';
+import AdminActions from '../../../../store/actions/admin-actions';
 
 const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -29,19 +30,20 @@ const InvoiceBased = () => {
     //     return interdata
     // })
     let dbConfigList = useSelector((state) => {
-        
         let interdata = state?.financeData?.getPOInvoicedBased || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
+                    dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
+                    dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
+                    dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
                     dispatch(FinanceActions.getPOInvoicedBased())
                     setmodalHead("PO Invoice Based")
                     setmodalBody(<>
                         <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                        
                     </>)
                     console.log('ahshshhs',itm)
                     //setmodalOpen(false)

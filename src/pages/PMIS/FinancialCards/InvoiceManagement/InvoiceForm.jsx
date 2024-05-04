@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
+import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP,GET_PO_PROJECTTYPE,GET_PO_PROJECTID,GET_INVOICE_SITEID,GET_INVOICE_SSID } from "../../../../store/reducers/admin-reducer";
 
 const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   const {
@@ -23,8 +24,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     formState: { errors },
   } = useForm();
 
-  const { projectuniqueId } = useParams();
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
   const [qType, setqType] = useState("");
@@ -32,8 +31,25 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
   let dispatch = useDispatch();
 
+  let customerList = useSelector((state) => {
+    return state?.adminData?.getManageCustomer.map((itm) => {
+      return {
+        label: itm?.customerName,
+        value: itm?.uniqueId,
+      };
+    });
+  });
+  let projectGroupList = useSelector((state) => {
+    return state?.adminData?.getManageProjectGroup.map((itm) => {
+      return {
+        label: itm.projectGroupId,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
   let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
+    return state?.adminData?.getPOProjectType.map((itm) => {
       return {
         label: itm.projectType,
         value: itm.uniqueId,
@@ -41,41 +57,8 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
-  let projectGroupList = useSelector((state) => {
-    return state?.adminData?.getManageProjectGroup.map((itm) => {
-      return {
-        label: itm?.projectGroupId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let subProjectList = useSelector((state) => {
-    return state?.adminData?.getPOSubProjectType
-      .map((itm) => {
-        return {
-          label: itm.subProject,
-          value: itm.uniqueId,
-        };
-      });
-  });
-
-  // let projectGroupList = useSelector((state) => {
-  //     return state?.adminData?.getManageProjectGroup
-  //       .filter((itm) => {
-  //         console.log(itm.circleName == qType, "sadsadasdasdsadsadas");
-  //         return itm.circleName == qType;
-  //       })
-  //       .map((itm) => {
-  //         return {
-  //           label: itm.projectGroupId,
-  //           value: itm.uniqueId,
-  //         };
-  //       });
-  //   });
-
   let projectIdList = useSelector((state) => {
-    return state?.adminData?.getProject.map((itm) => {
+    return state?.adminData?.getPOProjectID.map((itm) => {
       return {
         label: itm?.projectId,
         value: itm?.uniqueId,
@@ -84,82 +67,87 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   });
 
   let SiteList = useSelector((state) => {
-    return state?.projectList?.getprojectalllist.map((itm) => {
+    return state?.adminData?.getInvoiceSiteId.map((itm) => {
       return {
-        label: itm["Site Id"],
+        label: itm.siteId,
         value: itm?.uniqueId,
       };
     });
   });
 
-  // let projectIdList = useSelector((state) => {
-  //     return state?.adminData?.getProject
-  //       .filter((itm) => {
-  //         console.log(itm.projectId == rType, "dasdsadsadasdaadsadas");
-  //         return itm.projectId == rType;
-  //       })
-  //       .map((itm) => {
-  //         return {
-  //           label: itm.projectId,
-  //           value: itm.uniqueId,
-  //         };
-  //       });
-  //   });
+  let SSIDList = useSelector((state) => {
+    return state?.adminData?.getInvoiceSSID.map((itm) => {
+      return {
+        label: itm.systemId,
+        value: itm?.uniqueId,
+      };
+    });
+  });
 
-  // props: {
-  //   onChange: (e) => {
-  //     setrType(
-  //       projectGroupList.filter((iteq) => iteq.value == e.target.value)[0][
-  //         "label"
-  //       ]
-  //     );
-  //     setValue("projectGroup", e.target.value);
-  //   },
-  // },
 
   let Form = [
     {
-      label: "Project Group",
+      label: "Customer",
       value: "",
+      name: "customer",
+      type: "select",
+      required: true,
+      option: customerList,
+      classes: "col-span-1",
+      props: {
+        onChange: (e) => {
+          dispatch(AdminActions.getManageProjectGroup(true,`customer=${e.target.value}`))
+          dispatch(AdminActions.getPOProjectType(true,`customer=${e.target.value}`))
+        },
+      },
+    },
+    {
+      label: "Project Group",
       name: "projectGroup",
       type: "select",
+      value: "",
       option: projectGroupList,
-      required: true,
-      classes: "col-span-1",
-    },
-    {
-      label: "Project ID",
-      value: "",
-      name: "project",
-      type: "select",
-      option: projectIdList,
-      required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          dispatch(AdminActions.getPOProjectID(true,`projectGroup=${e.target.value}`))
+        },
       },
+      required: true,
       classes: "col-span-1",
     },
+    // {
+    //   label: "Sub-Project Type",
+    //   name: "subProject",
+    //   type: "select",
+    //   value: "",
+    //   option: subProjectList,
+    //   // required: true,
+    //   props: {
+    //     onChange: (e) => {},
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
-      label: "Project Type",
+      label: "Project Type (Sub Project Type)",
       value: "",
-      name: "projectTypeId",
+      name: "projectType",
       type: "select",
-      required: true,
+      // required: true,
       option: projectTypeList,
       props: {
         onChange: (e) => {
-            dispatch(AdminActions.getPOSubProjectType(true,`projectType=${e.target.value}`))
+          dispatch(AdminActions.getInvoiceSiteId(true,`subProjectId=${e.target.value}`))
         },
       },
       classes: "col-span-1",
     },
     {
-      label: "Sub-Project Type",
-      name: "subProject",
-      type: "select",
+      label: "Project ID",
       value: "",
-      option: subProjectList,
-      required: true,
+      name: "projectId",
+      option: projectIdList,
+      type: "select",
+      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -168,34 +156,30 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Site Id",
       value: "",
-      name: "Site Id",
-      type: "text",
+      name: "siteId",
+      type: "select",
       option: SiteList,
       // required: true,
       props: {
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: "SSID",
-      value: "",
-      name: "ssId",
-      type: "text",
-      // required: true,
-      // option:SSIDList,
-      props: {
         onChange: (e) => {
-          //     setSite(
-          //   SSIDList.filter((iteq) => iteq.value == e.target.value)[0][
-          //     "label"
-          //   ]
-          // );
-          // setValue("ssId", e.target.value);
+          // dispatch(AdminActions.getInvoiceSSID(true,`siteId=${e.target.value}`))
         },
       },
       classes: "col-span-1",
     },
+    // {
+    //   label: "SSID",
+    //   value: "",
+    //   name: "systemId",
+    //   type: "select",
+    //   // required: true,
+    //   option:SSIDList,
+    //   props: {
+    //     onChange: (e) => {
+    //     },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "WCC No",
       value: "",
@@ -277,7 +261,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Unit Rate",
       value: "",
       name: "unitRate",
-      type: "text",
+      type: "number",
       // required: true,
       props: {
         onChange: (e) => {},
@@ -299,11 +283,13 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Status",
       value: "",
       name: "status",
-      type: "text",
+      type: "select",
       // required: true,
-      props: {
-        onChange: (e) => {},
-      },
+      option: [
+        { label: "Open", value: "Open" },
+        { label: "Closed", value: "Closed" },
+        { label: "Short Closed", value: "Short Closed" },
+      ],
       classes: "col-span-1",
     },
   ];
@@ -315,7 +301,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   };
 
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
+    console.log(data, "datadatbbbabaa");
     if (formValue.uniqueId) {
       dispatch(
         FinanceActions.postInvoice(
@@ -340,38 +326,58 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
+    dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
+    dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
+    dispatch(GET_PO_PROJECTTYPE({dataAll:[],reset:true}))
+    dispatch(GET_PO_PROJECTID({dataAll:[],reset:true}))
+    dispatch(GET_INVOICE_SITEID({dataAll:[],reset:true}))
+    dispatch(GET_INVOICE_SSID({dataAll:[],reset:true}))
+   
+
+
     dispatch(AdminActions.getManageCustomer());
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getCardProjectType());
-    dispatch(AdminActions.getManageProjectGroup());
-    dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    dispatch(AdminActions.getProject());
 
     if (resetting) {
-        reset({});
-        Form.map((fieldName) => {
-          setValue(fieldName["name"], fieldName["value"]);
-        });
-      } else {
-        reset({});
-        Form.forEach((key) => {
-          if (["wccSignOffdate", "invoiceDate"].indexOf(key.name) != -1 && formValue[key.name])  {
+      reset({});
+      Form.map((fieldName) => {
+        setValue(fieldName["name"], fieldName["value"]);
+      });
+    } else {
+      reset({});
+      // console.log(formValue, "Object.keys(formValue)");
+      Form.forEach((key) => {
+             
+        if (["wccSignOffdate", "invoiceDate"].indexOf(key.name) != -1 &&
+        formValue[key.name])  {
+          const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
+          setValue(key.name, momentObj.toDate());
+        } else if (key.type == "select") {
+          // if (key.name == "projectType") {
+          //   setpType(formValue["projectTypeName"]);
+          // }
 
-            if(formValue[key.name]!=""){
-              const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
-              setValue(key.name, momentObj.toDate());
-            }
-          } else if (key.type == "select") {
-            if (key.name == "projectType") {
-              setpType(formValue["projectTypeName"]);
-            }          
-          } 
-          else {
+          // if (key.name == "projectGroup") {
+          //   dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
+          //   setcircle(true);
+          // }
+
+          let dtwq = key.option.filter(
+            (itq) => itq.label == formValue[key.name]
+          );
+
+          console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
+          if (dtwq.length > 0) {
+            setValue(key.name, dtwq[0]["value"]);
+          } else {
             setValue(key.name, formValue[key.name]);
           }
-        });
-      }
-    }, [formValue, resetting]);
+        } 
+        else {
+          setValue(key.name, formValue[key.name]);
+        }
+      });
+    }
+  }, [formValue, resetting]);
   return (
     <>
       <Modal

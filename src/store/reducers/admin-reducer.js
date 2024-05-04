@@ -23,8 +23,11 @@ const initialState = {
     getProjectTypeDyform:[],
     getOneSEProjectTypeDyform:[],
     getVishal:[],
+    getPOProjectType:[],
     getPOSubProjectType:[],
     getPOProjectID:[],
+    getInvoiceSiteId:[],
+    getInvoiceSSID:[],
     getVendorProjectAllocation:[],
     getComponentAllocation:[],
     getOldComponentAllocation:[],
@@ -225,6 +228,15 @@ const adminData = createSlice({
             }
         },
 
+        GET_PO_PROJECTTYPE:(state,{payload}) => {
+            console.log('payloadpayload',payload)
+            if(payload.reset){
+                state.getPOProjectType = payload.dataAll
+            }else{
+                state.getPOProjectType  = [...state.getPOProjectType,...payload.dataAll]
+            }
+        },
+
         GET_PO_SUB_PROJECTTYPE:(state,{payload}) => {
             console.log('payloadpayload',payload)
             if(payload.reset){
@@ -240,6 +252,24 @@ const adminData = createSlice({
                 state.getPOProjectID = payload.dataAll
             }else{
                 state.getPOProjectID  = [...state.getPOProjectID,...payload.dataAll]
+            }
+        },
+        
+        GET_INVOICE_SITEID:(state,{payload}) => {
+            console.log('payloadpayload',payload)
+            if(payload.reset){
+                state.getInvoiceSiteId = payload.dataAll
+            }else{
+                state.getInvoiceSiteId  = [...state.getInvoiceSiteId,...payload.dataAll]
+            }
+        },
+
+        GET_INVOICE_SSID:(state,{payload}) => {
+            console.log('payloadpayload',payload)
+            if(payload.reset){
+                state.getInvoiceSSID = payload.dataAll
+            }else{
+                state.getInvoiceSSID  = [...state.getInvoiceSSID,...payload.dataAll]
             }
         },
 
@@ -290,8 +320,11 @@ export const {
     GET_MANAGE_SUB_PROJECT,  
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
+    GET_PO_PROJECTTYPE,
     GET_PO_SUB_PROJECTTYPE,
     GET_PO_PROJECTID,
+    GET_INVOICE_SITEID,
+    GET_INVOICE_SSID,
     GET_COMPONENT_ALLOCATION,
     GET_OLD_COMPONENT_ALLOCATION
 

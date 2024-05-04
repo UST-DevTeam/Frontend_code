@@ -25,8 +25,11 @@ import {
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
+    GET_PO_PROJECTTYPE,
     GET_PO_SUB_PROJECTTYPE,
     GET_PO_PROJECTID,
+    GET_INVOICE_SITEID,
+    GET_INVOICE_SSID,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_COMPONENT_ALLOCATION,
     GET_OLD_COMPONENT_ALLOCATION
@@ -271,13 +274,11 @@ const AdminActions = {
             }else{
                 cb()
 
-            }
-            
+            } 
         } catch (error) {
             return;
         }
     },
-
     getCardProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_card_projecttype}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
@@ -547,6 +548,15 @@ const AdminActions = {
         }
     },
 
+    getPOProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_poProjectType}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PO_PROJECTTYPE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 
     getPOSubProjectType:(reset=true,args="") => async (dispatch, _) => {
         try {
@@ -564,6 +574,26 @@ const AdminActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_PO_PROJECTID({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getInvoiceSiteId:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_invoiceSiteId}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_INVOICE_SITEID({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getInvoiceSSID:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_invoiceSSID}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_INVOICE_SSID({dataAll,reset}))
         } catch (error) {
         }
     },
