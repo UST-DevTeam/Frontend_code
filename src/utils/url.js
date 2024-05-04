@@ -84,6 +84,8 @@ export const Urls={
     projectEvent:"/projectEventLog",
     siteEventLog:"/siteEventLog",
     milestoneEvent:"/milestoneEventLog",
+    admin_poSubProjectType:"/finance/subProject",
+    admin_poProjectID:"/finance/poProjectID",
 
 
 

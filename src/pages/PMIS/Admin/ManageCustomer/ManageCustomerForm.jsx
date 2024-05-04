@@ -29,7 +29,6 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         return state?.customQuery?.databaseList
     })
 
-
     let Form = [
         // {
         //     label: "Login Type",
@@ -54,9 +53,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             props: {
                 onChange: ((e) => {
                     console.log(e.target.files, "e geeter")
-
                     setValue("companyimg",e.target.files[0])
-
                 }),
             },
             classes: "col-span-1 flex justify-center content-center",
@@ -66,14 +63,12 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             label: "Customer Name",
             value: "",
             name: "customerName",
-            type: "text",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
             required: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
-
                     // setValue("queries",e.target.name)
-
                 }),
             },
             classes: "col-span-1"
@@ -82,7 +77,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             label: "ShortName",
             value: "",
             name: "shortName",
-            type: "text",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
             required: true,
             props: {
                 onChange: ((e) => {

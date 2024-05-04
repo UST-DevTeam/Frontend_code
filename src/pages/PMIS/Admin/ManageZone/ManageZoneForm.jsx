@@ -138,7 +138,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
-        dispatch(AdminActions.getManageCircle())
+        // dispatch(AdminActions.getManageCircle())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -148,6 +148,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             reset({})
             console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
+                dispatch(AdminActions.getManageCircle())
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
                     console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
@@ -155,7 +156,6 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
                 } else {
-                    // console.log("formValuekey",key,key)
                     setValue(key.name, formValue[key.name]);
                 }
             })

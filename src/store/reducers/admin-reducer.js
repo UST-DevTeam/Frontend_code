@@ -23,6 +23,8 @@ const initialState = {
     getProjectTypeDyform:[],
     getOneSEProjectTypeDyform:[],
     getVishal:[],
+    getPOSubProjectType:[],
+    getPOProjectID:[],
     getVendorProjectAllocation:[],
     getComponentAllocation:[],
     getOldComponentAllocation:[],
@@ -223,6 +225,24 @@ const adminData = createSlice({
             }
         },
 
+        GET_PO_SUB_PROJECTTYPE:(state,{payload}) => {
+            console.log('payloadpayload',payload)
+            if(payload.reset){
+                state.getPOSubProjectType = payload.dataAll
+            }else{
+                state.getPOSubProjectType  = [...state.getPOSubProjectType,...payload.dataAll]
+            }
+        },
+
+        GET_PO_PROJECTID:(state,{payload}) => {
+            console.log('payloadpayload',payload)
+            if(payload.reset){
+                state.getPOProjectID = payload.dataAll
+            }else{
+                state.getPOProjectID  = [...state.getPOProjectID,...payload.dataAll]
+            }
+        },
+
         GET_VENDOR_PROJECT_ALLLOCATION:(state,{payload}) => {
             if(payload.reset){
                 state.getVendorProjectAllocation = payload.dataAll
@@ -270,6 +290,8 @@ export const {
     GET_MANAGE_SUB_PROJECT,  
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
+    GET_PO_SUB_PROJECTTYPE,
+    GET_PO_PROJECTID,
     GET_COMPONENT_ALLOCATION,
     GET_OLD_COMPONENT_ALLOCATION
 

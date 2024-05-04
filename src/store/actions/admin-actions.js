@@ -25,6 +25,8 @@ import {
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     // GET_ASSET_REGISTRATION
     GET_VISHAL,
+    GET_PO_SUB_PROJECTTYPE,
+    GET_PO_PROJECTID,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_COMPONENT_ALLOCATION,
     GET_OLD_COMPONENT_ALLOCATION
@@ -546,6 +548,27 @@ const AdminActions = {
     },
 
 
+    getPOSubProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_poSubProjectType}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PO_SUB_PROJECTTYPE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getPOProjectID:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_poProjectID}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PO_PROJECTID({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+
     getVendorProjectAllocation:(reset=true,args="") => async (dispatch, _) => {
         try {
             console.log("cities",args)
@@ -661,6 +684,12 @@ const AdminActions = {
                 cb()
 
             }
+
+
+
+
+
+
             
         } catch (error) {
             return;

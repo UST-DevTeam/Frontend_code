@@ -30,6 +30,8 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import ButtonWithTooltip from "../../../../components/ButtonWithTooltip";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
+import CommonForm from "../../../../components/CommonForm";
+import PopupMenu from "../../../../components/PopupMenu";
 
 const ManageProject = () => {
   const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
@@ -48,6 +50,26 @@ const ManageProject = () => {
   let dispatch = useDispatch();
 
   let navigate = useNavigate();
+
+  let projectTypeForm = [
+    {
+      label: "Select Project Type",
+      name: "projectType",
+      type: "BigmuitiSelect",
+      value: "",
+      option: [
+        { id: "hiii", name: "hello" },
+        { id: "hello", name: "hii" },
+      ],
+      props: {
+        onChange: (e) => {
+          console.log(e.target.value, "e.target.value");
+        },
+      },
+      required: true,
+      classes: "col-span-1",
+    },
+  ];
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getProject;
@@ -398,6 +420,24 @@ const ManageProject = () => {
         ],
         props: {},
       },
+      {
+        label: "Select Project Type",
+        name: "projectType",
+        type: "BigmuitiSelect",
+        value: "",
+        option: [
+          { id: "hiii", name: "hello" },
+          { id: "hello", name: "hii" },
+        ],
+        props: {
+          onChange: (e) => {
+            console.log(e.target.value, "e.target.value");
+          },
+        },
+        required: true,
+        classes: "col-span-1",
+      },
+      
     ],
   };
   const onSubmit = (data) => {
@@ -489,6 +529,24 @@ const ManageProject = () => {
                 // setFileOpen(prev=>!prev)
               }}
             ></Button>
+            {/* <PopupMenu
+              icon={"hiii"}
+              child={
+                
+                <div classes="flex z-40 max-h-96 flex-col">
+                  <CommonForm
+                    classes={"grid-cols-1 gap-1"}
+                    Form={projectTypeForm}
+                    errors={errors}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  />
+                  </div>
+                
+              }
+            /> */}
+
             <Button
               name={"Update Site"}
               classes="w-auto bg-yellow-600"
@@ -506,7 +564,13 @@ const ManageProject = () => {
           </div>
         }
         table={table}
-        exportButton={["/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`, "Export_Project.xlsx",]}
+        exportButton={[
+          "/export/Project/" +
+            `${customeruniqueId}` +
+            "/" +
+            `${projecttypeuniqueId}`,
+          "Export_Project.xlsx",
+        ]}
         exportSiteButton={[
           "/export/Project/" +
             `${customeruniqueId}` +

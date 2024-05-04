@@ -156,7 +156,7 @@ const InvoiceBased = () => {
             },            
             {
                 name: "Unit Rate(INR)",
-                value: "unitRate",
+                value: "unitRate(INR)",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -171,12 +171,12 @@ const InvoiceBased = () => {
             },            
             {
                 name: "Open Quantity(Post Invoice)",
-                value: "openQuantity",
+                value: "openQty",
                 style: "min-w-[250px] max-w-[250px] text-center"
             },                    
             {
                 name: "Open PO Value(INR)-Invoiced",
-                value: "OpenQtyInvoiced",
+                value: "OpenPoValue",
                 style: "min-w-[250px] max-w-[250px] text-center"
             },            
             {

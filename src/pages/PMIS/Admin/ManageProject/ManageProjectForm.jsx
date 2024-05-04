@@ -91,6 +91,9 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     }
   });
 
+
+
+  
   let Form = [
     {
       label: "Project ID",
@@ -139,18 +142,18 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
       },
       classes: "col-span-1",
     },
-    {
-      label: "Sub-Project Type",
-      name: "subProject",
-      type: "select",
-      value: "",
-      option: subProjectList,
-      required: true,
-      props: {
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Sub-Project Type",
+    //   name: "subProject",
+    //   type: "select",
+    //   value: "",
+    //   option: subProjectList,
+    //   required: true,
+    //   props: {
+    //     onChange: (e) => {},
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Circle",
       name: "circle",

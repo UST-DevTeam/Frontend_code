@@ -44,7 +44,7 @@ const Invoice = () => {
                 onClick={() => {
                   setmodalOpen(true);
                   dispatch(FinanceActions.getInvoice());
-                  setmodalHead("Edit User");
+                  setmodalHead("Edit Invoice");
                   setmodalBody(
                     <>
                       <InvoiceForm

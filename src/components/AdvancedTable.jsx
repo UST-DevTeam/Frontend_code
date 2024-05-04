@@ -33,6 +33,7 @@ const AdvancedTable = ({
   getValues,
   totalCount = 10,
   actions = ["Edit", "Delete"],
+  icon,
 }) => {
   const [hide, setHide] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(100);
@@ -40,6 +41,7 @@ const AdvancedTable = ({
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
+  
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
@@ -127,7 +129,8 @@ const AdvancedTable = ({
               />
               <PopupMenu
                 name={"Hide / Unhide"}
-                icon={<UilColumns size="32" className={"hello"} />}
+                //icon={<UilColumns size="32" className={"hello"} />}
+                icon={icon ? icon : <UilColumns size="32" className={"hello"} />}
                 child={
                   <>
                     <div className="flex z-40 max-h-96 overflow-scroll flex-col">

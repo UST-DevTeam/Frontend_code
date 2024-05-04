@@ -6,6 +6,8 @@ import BreadCrumbs from "../components/BreadCrumbs";
 
 const Layout = ({ child }) => {
   const [sidebarOpen, setsidebarOpenn] = useState(true);
+  const [Width, setWidth] = useState("");
+
 
   // SELECT dbConfig.*,'**********' AS A ,'**********' AS B,'**********' AS C,'**********' AS D,'**********' AS E,'**********' AS F,'**********' AS G FROM dbConfig;
   const navigate = useNavigate();
