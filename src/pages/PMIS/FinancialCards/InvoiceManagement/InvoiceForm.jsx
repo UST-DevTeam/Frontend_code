@@ -268,17 +268,17 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       },
       classes: "col-span-1",
     },
-    {
-      label: "Amount",
-      value: "",
-      name: "amount",
-      type: "text",
-      // required: true,
-      props: {
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Amount",
+    //   value: "",
+    //   name: "amount",
+    //   type: "text",
+    //   // required: true,
+    //   props: {
+    //     onChange: (e) => {},
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Status",
       value: "",
@@ -286,9 +286,8 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "select",
       // required: true,
       option: [
-        { label: "Open", value: "Open" },
-        { label: "Closed", value: "Closed" },
-        { label: "Short Closed", value: "Short Closed" },
+        { label: "Billed", value: "Billed" },
+        { label: "Partially Billed", value: "Partially Billed" },
       ],
       classes: "col-span-1",
     },
