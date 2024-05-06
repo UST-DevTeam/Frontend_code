@@ -140,6 +140,16 @@ const Invoice = () => {
   let table = {
     columns: [
       {
+        name: "Year",
+        value: "year",
+        style: "min-w-[70px] max-w-[160px] text-center sticky left-0 bg-white"
+      },
+      {
+        name: "Month",
+        value: "month",
+        style: "min-w-[100px] max-w-[160px] text-center sticky left-0 bg-white"
+      },
+      {
         name: "Customer",
         value: "customerName",
         style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white"
@@ -195,7 +205,7 @@ const Invoice = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Qty",
+        name: "Invoiced Quantity",
         value: "qty",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
@@ -217,12 +227,12 @@ const Invoice = () => {
       {
         name: "Amount",
         value: "amount",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[120px] max-w-[200px] text-center",
       },
       {
         name: "Status",
         value: "status",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[120px] max-w-[200px] text-center",
       },
       {
         name: "Edit",

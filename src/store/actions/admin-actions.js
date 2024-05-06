@@ -295,16 +295,22 @@ const AdminActions = {
             return;
         }
     },
-    getCardProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+
+    getCardProjectType: (customeruniqueId, projecttypeuniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_card_projecttype}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_CARD_PROJECT_TYPE({dataAll,reset}))
+            let url;
+            if (customeruniqueId && projecttypeuniqueId) {
+            url = `${Urls.admin_card_projecttype}/${customeruniqueId}${projecttypeuniqueId}${args !== "" ? "?" + args : ""}`;
+            } else {
+            url = `${Urls.admin_card_projecttype}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
+            }
+            const res = await Api.get({ url, reset });
+            if (res?.status !== 200) return;
+            const dataAll = res?.data?.data;
+            dispatch(GET_CARD_PROJECT_TYPE({ dataAll, reset }));
         } catch (error) {
         }
-    },
-
+},
 
 
     getManageProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {

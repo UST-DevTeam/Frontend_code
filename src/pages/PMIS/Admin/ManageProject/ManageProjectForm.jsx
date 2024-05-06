@@ -277,7 +277,14 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
+    // if (customeruniqueId && projecttypeuniqueId) {
+    //   dispatch(AdminActions.getCardProjectType(customeruniqueId, projecttypeuniqueId));
+    // } else if (customeruniqueId) {
+    //   dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    // }
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    
+
 
     if (resetting) {
       reset({});
