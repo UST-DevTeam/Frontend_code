@@ -21,6 +21,7 @@ const AdvancedTable = ({
   templateButton,
   exportButton,
   exportSiteButton,
+  exportSiteWithTask,
   UploadSites,
   UploadTask,
   filterAfter = () => {},
@@ -227,6 +228,19 @@ const AdvancedTable = ({
                   classes="w-full mr-1"
                   onClick={() => {
                     dispatch(CommonActions.commondownload(exportSiteButton[0],exportSiteButton[1]));
+                  }}
+                >
+                  Export
+                </ConditionalButton>
+              ) : (
+                <></>
+              )}
+              {exportSiteWithTask ? (
+                <ConditionalButton showType={getAccessType("Download Project")}
+                  name={"Export Site with task"}
+                  classes="w-full mr-1"
+                  onClick={() => {
+                    dispatch(CommonActions.commondownload(exportSiteWithTask[0],exportSiteWithTask[1]));
                   }}
                 >
                   Export

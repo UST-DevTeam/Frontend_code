@@ -572,6 +572,13 @@ const ManageProject = () => {
           "Export_Project.xlsx",
         ]}
         exportSiteButton={[
+          "/export/siteWithOutTask/" +
+            `${customeruniqueId}` +
+            "/" +
+            `${projecttypeuniqueId}`,
+          "Export_Project.xlsx",
+        ]}
+        exportSiteWithTask={[
           "/export/siteWithAll/" +
             `${customeruniqueId}` +
             "/" +
