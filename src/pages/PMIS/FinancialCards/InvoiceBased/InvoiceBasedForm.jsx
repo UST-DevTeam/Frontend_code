@@ -14,6 +14,8 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP } from "../../../../store/reducers/admin-reducer";
 
 const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+
+  
     const {
         register,
         handleSubmit,
@@ -38,6 +40,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       };
     });
   });
+
+
   let projectGroupList = useSelector((state) => {
     return state?.adminData?.getManageProjectGroup.map((itm) => {
       return {
@@ -46,6 +50,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       };
     });
   });
+  // const projectGroupId = projectGroupList.find(group => group.value === formValue.projectGroup)?.label || "";
 
   let projectTypeList = useSelector((state) => {
     return state?.adminData?.getPOProjectType.map((itm) => {
@@ -124,7 +129,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Project Group",
       name: "projectGroup",
-      type: "select",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+      // type: "sdisabled",
       value: "",
       option: projectGroupList,
       props: {
@@ -305,6 +311,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     //     navigate('/authenticate')
     // }))
   };
+  console.log(Object.entries(formValue) , 'adfsdds')
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata");
     if (formValue.uniqueId) {

@@ -249,15 +249,31 @@ const AdminActions = {
         }
     },
 
-    getManageProjectGroup:(reset=true,args="") => async (dispatch, _) => {
+    // getManageProjectGroup:(reset=true,args="",customeruniqueId) => async (dispatch, _) => {
+    //     try {
+    //         const res = await Api.get({ url:`${Urls.admin_project_group}${args!=""?"?"+args:""}`})
+    //         if (res?.status !== 200) return
+    //         let dataAll = res?.data?.data
+    //         dispatch(GET_MANAGE_PROJECT_GROUP({dataAll,reset}))
+    //     } catch (error) {
+    //     }
+    // },
+
+    getManageProjectGroup: (reset = true, args = "", customerUniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_project_group}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_PROJECT_GROUP({dataAll,reset}))
+          let url;
+          if (customerUniqueId) {
+            url = `${Urls.admin_project_group}/${customerUniqueId}`;
+          } else {
+            url = `${Urls.admin_project_group}${args !== "" ? "?" + args : ""}`;
+          }
+          const res = await Api.get({ url });
+          if (res?.status !== 200) return;
+          const dataAll = res?.data?.data;
+          dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll, reset }));
         } catch (error) {
         }
-    },
+      },
 
     postManageProjectGroup: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {

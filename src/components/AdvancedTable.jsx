@@ -226,7 +226,7 @@ const AdvancedTable = ({
                   name={"Export Site"}
                   classes="w-full mr-1"
                   onClick={() => {
-                    dispatch(CommonActions.commondownload(exportButton[0],exportButton[1]));
+                    dispatch(CommonActions.commondownload(exportSiteButton[0],exportSiteButton[1]));
                   }}
                 >
                   Export

@@ -273,7 +273,7 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     }
   };
   useEffect(() => {
-    dispatch(AdminActions.getManageProjectGroup());
+    dispatch(AdminActions.getManageProjectGroup(true,"",customeruniqueId));
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));

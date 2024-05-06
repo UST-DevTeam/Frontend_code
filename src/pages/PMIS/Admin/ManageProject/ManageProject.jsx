@@ -572,7 +572,7 @@ const ManageProject = () => {
           "Export_Project.xlsx",
         ]}
         exportSiteButton={[
-          "/export/Project/" +
+          "/export/siteWithAll/" +
             `${customeruniqueId}` +
             "/" +
             `${projecttypeuniqueId}`,
