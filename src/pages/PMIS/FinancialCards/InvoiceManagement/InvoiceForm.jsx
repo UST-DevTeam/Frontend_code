@@ -225,11 +225,11 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
     {
-      label: "Qty",
+      label: "Invoiced Quantity",
       value: "",
       name: "qty",
       type: "number",
-      // required: true,
+      required: true,
       props: {
         onChange: (e) => {},
       },
@@ -251,7 +251,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "invoiceDate",
       type: "datetime",
-      // required: true,
+      required: true,
       props: {
         onChange: (e) => {},
       },
@@ -262,7 +262,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "unitRate",
       type: "number",
-      // required: true,
+      required: true,
       props: {
         onChange: (e) => {},
       },

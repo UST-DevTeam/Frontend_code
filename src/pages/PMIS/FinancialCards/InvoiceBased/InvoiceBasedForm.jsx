@@ -100,8 +100,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Customer",
       value: "",
-      name: "customer",
-      type: "select",
+      name: Object.entries(formValue).length > 0 ? "customerName":"customer",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       required: true,
       option: customerList,
       classes: "col-span-1",
@@ -128,7 +128,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     },
     {
       label: "Project Group",
-      name: "projectGroup",
+      name: Object.entries(formValue).length > 0 ? "projectGroupId":"projectGroup",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       // type: "sdisabled",
       value: "",
@@ -141,25 +141,12 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       required: true,
       classes: "col-span-1",
     },
-    // {
-    //   label: "Sub-Project Type",
-    //   name: "subProject",
-    //   type: "select",
-    //   value: "",
-    //   option: subProjectList,
-    //   // required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Project ID",
       value: "",
       name: "projectId",
       option: projectIdList,
       type: "select",
-      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -170,8 +157,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "gbpa",
       type: "text",
-      // option: projectIdList,
-      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -181,21 +166,19 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "PO Number",
       value: "",
       name: "poNumber",
-      type: "text",
-      // option: PONumberList,
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       required: true,
       props: {
         onChange: (e) => {},
       },
       classes: "col-span-1",
+      min: "0",
     },
     {
       label: "PO Start Date",
       value: "",
       name: "poStartDate",
       type: "datetime",
-      // option: PONumberList,
-      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -206,8 +189,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "poEndDate",
       type: "datetime",
-      // option: PONumberList,
-      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -217,7 +198,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Item Code",
       value: "",
       name: "itemCode",
-      type: "text",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       required: true,
       props: {
         onChange: (e) => {},
@@ -229,7 +210,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "description",
       type: "text",
-      // required: true,
       props: {
         onChange: (e) => {},
       },
@@ -240,7 +220,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "unitRate(INR)",
       type: "number",
-      // required: true,
+      required: true,
       props: {
         onChange: (e) => {
         },
@@ -252,51 +232,17 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "initialPoQty",
       type: "number",
-      // required: true,
+      required: true,
       props: {
         onChange: (e) => {},
       },
       classes: "col-span-1",
     },
-    // {
-    //   label: "Invoiced Qty",
-    //   value: "",
-    //   name: "invoicedQty",
-    //   type: "text",
-    //   // required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Open Qty(Post Invoice)",
-    //   value: "",
-    //   name: "openqty",
-    //   type: "text",
-    //   // required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Open PO Value(INR)-Invoiced",
-    //   value: "",
-    //   name: "openPoValue",
-    //   type: "text",
-    //   // required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Status",
       value: "",
       name: "poStatus",
       type: "select",
-      // required: true,
       option: [
         { label: "Open", value: "Open" },
         { label: "Closed", value: "Closed" },
@@ -305,13 +251,13 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
   ];
+  
   const onSubmit = (data) => {
+    
     console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
   };
   console.log(Object.entries(formValue) , 'adfsdds')
+
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata");
     if (formValue.uniqueId) {
@@ -338,6 +284,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       );
     }
   };
+
+  
   useEffect(() => {
     dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
     dispatch(GET_CARD_PROJECT_TYPE({dataAll:[],reset:true}))
@@ -384,7 +332,10 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         }
       });
     }
-  }, [formValue, resetting]);
+  }, [formValue, resetting]);  
+
+  
+  
   return (
     <>
       <Modal
