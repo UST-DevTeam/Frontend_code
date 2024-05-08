@@ -47,7 +47,7 @@ const Invoice = () => {
                   dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
                   dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
                   dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
-                  dispatch(AdminActions.getInvoiceSiteId(true,`subProjectId=${itm?.projectType}`))
+                  dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${itm?.projectId}`))
                   dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(

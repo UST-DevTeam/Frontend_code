@@ -89,8 +89,8 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Customer",
       value: "",
-      name: "customer",
-      type: "select",
+      name: Object.entries(formValue).length > 0 ? "customerName":"customer",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       required: true,
       option: customerList,
       classes: "col-span-1",
@@ -102,9 +102,23 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       },
     },
     {
-      label: "Project Group",
-      name: "projectGroup",
+      label: "Project Type (Sub Project Type)",
+      value: "",
+      name: "projectType",
       type: "select",
+      // required: true,
+      option: projectTypeList,
+      props: {
+        onChange: (e) => {
+          dispatch(AdminActions.getInvoiceSiteId(true,`subProjectId=${e.target.value}`))
+        },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Project Group",
+      type: "select",
+      name: "projectGroup",
       value: "",
       option: projectGroupList,
       props: {
@@ -128,20 +142,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     //   classes: "col-span-1",
     // },
     {
-      label: "Project Type (Sub Project Type)",
-      value: "",
-      name: "projectType",
-      type: "select",
-      // required: true,
-      option: projectTypeList,
-      props: {
-        onChange: (e) => {
-          dispatch(AdminActions.getInvoiceSiteId(true,`subProjectId=${e.target.value}`))
-        },
-      },
-      classes: "col-span-1",
-    },
-    {
       label: "Project ID",
       value: "",
       name: "projectId",
@@ -149,7 +149,10 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "select",
       // required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => {
+          dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${e.target.value}`))
+        },
+        
       },
       classes: "col-span-1",
     },
@@ -206,7 +209,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "PO Number",
       value: "",
       name: "poNumber",
-      type: "text",
+      type: Object.entries(formValue).length > 0 ? "sdisabled":"text",
       required: true,
       props: {
         onChange: (e) => {},
@@ -217,7 +220,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Item Code",
       value: "",
       name: "itemCode",
-      type: "text",
+      type: Object.entries(formValue).length > 0 ? "sdisabled":"text",
       required: true,
       props: {
         onChange: (e) => {},

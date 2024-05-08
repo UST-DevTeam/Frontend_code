@@ -11,11 +11,15 @@ import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 import projectListActions from "../../../../store/actions/projectList-actions";
 
-const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formValue = {},}) => {
+const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
 
   const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm();
 
-  const { customeruniqueId } = useParams();
+  const { customeruniqueId,projecttypeuniqueId} = useParams();
+
+
+  console.log(customeruniqueId,"Vishal=======")
+  console.log(projecttypeuniqueId,"Vishal=======")
 
   let dispatch = useDispatch();
 
@@ -125,8 +129,9 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     {
       label: "Project Type",
       value: "",
-      name: "projectType",
-      type: "select",
+      name: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "projectTypeName":"projectType",
+      type: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "sdisabled" : "select",
+
       required: true,
       option: projectTypeList,
       props: {
@@ -277,12 +282,12 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
-    // if (customeruniqueId && projecttypeuniqueId) {
-    //   dispatch(AdminActions.getCardProjectType(customeruniqueId, projecttypeuniqueId));
-    // } else if (customeruniqueId) {
-    //   dispatch(AdminActions.getCardProjectType(customeruniqueId));
-    // }
-    dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    if (customeruniqueId && projecttypeuniqueId) {
+      dispatch(AdminActions.getCardProjectType(customeruniqueId, projecttypeuniqueId));
+    } else if (customeruniqueId) {
+      dispatch(AdminActions.getCardProjectType(customeruniqueId));
+    }
+    // dispatch(AdminActions.getCardProjectType(customeruniqueId));
     
 
 
@@ -324,7 +329,7 @@ const ManageProjectForm = ({projecttypeuniqueId,isOpen,setIsOpen,resetting,formV
         }
       });
     }
-  }, [formValue, resetting]);
+  }, [formValue, resetting,]);
   return (
     <>
       <Modal

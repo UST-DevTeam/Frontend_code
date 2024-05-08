@@ -300,7 +300,7 @@ const AdminActions = {
         try {
             let url;
             if (customeruniqueId && projecttypeuniqueId) {
-            url = `${Urls.admin_card_projecttype}/${customeruniqueId}${projecttypeuniqueId}${args !== "" ? "?" + args : ""}`;
+            url = `${Urls.admin_card_projecttype}/${customeruniqueId}/${projecttypeuniqueId}${args !== "" ? "?" + args : ""}`;
             } else {
             url = `${Urls.admin_card_projecttype}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
             }
