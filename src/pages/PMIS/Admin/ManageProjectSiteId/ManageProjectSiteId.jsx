@@ -38,6 +38,7 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import NewLookBadge from "../../../../components/Badge";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
+import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -144,6 +145,7 @@ const ManageProjectSiteId = () => {
               // dispatch(AdminActions.getProject())
               setmodalHead("Update Site");
 
+              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
               //   setmodalBody(
@@ -397,6 +399,7 @@ const ManageProjectSiteId = () => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
+                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
                   setmodalBody(
                     <ManageMilestoneSite

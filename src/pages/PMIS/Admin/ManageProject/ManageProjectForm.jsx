@@ -81,7 +81,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
   let circleList = useSelector((state) => {
     return state?.projectList?.getprojectcircle.map((itm) => {
       return {
-        label: itm.circle,
+        label: itm.circleName,
         value: itm.uniqueId,
       };
     });

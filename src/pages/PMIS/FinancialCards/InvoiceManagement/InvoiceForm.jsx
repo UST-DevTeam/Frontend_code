@@ -287,7 +287,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "status",
       type: "select",
-      // required: true,
+      required: true,
       option: [
         { label: "Billed", value: "Billed" },
         { label: "Partially Billed", value: "Partially Billed" },

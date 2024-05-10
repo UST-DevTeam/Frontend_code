@@ -31,6 +31,7 @@ import { onehundcolor } from '../../../../utils/queryBuilder';
 import Tooltip from '../../../../components/Tooltip';
 import ManageMilestoneSite from '../../Admin/ManageSite/ManageMilestoneSite';
 import ComponentActions from '../../../../store/actions/component-actions';
+import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from '../../../../store/reducers/admin-reducer';
 
 const ManageUserProjectSiteId = () => {
 
@@ -192,7 +193,9 @@ const ManageUserProjectSiteId = () => {
                             setmodalFullOpen(prev => !prev)
                             // dispatch(AdminActions.getProject())
                             setmodalHead("Update Milestone")
+                            dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
                             dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId))
+                            
                             setmodalBody(<ManageMilestoneSite siteCompleteData={itm} uid={itm["uniqueId"]} mileStone={iewq} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
 
                             // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)

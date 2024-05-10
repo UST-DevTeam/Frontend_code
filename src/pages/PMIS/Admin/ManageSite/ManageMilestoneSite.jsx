@@ -45,7 +45,6 @@ const ManageMilestoneSite = ({
 
   let assignedToCount = mileStone?.assignerResult?.length || 0;
 
-
   const {
     register,
     handleSubmit,
@@ -93,7 +92,7 @@ const ManageMilestoneSite = ({
 
   const [modalBody, setmodalBody] = useState(<></>);
   const [invoiceData, setinvoiceData] = useState([]);
-  
+
   const [uniqueness, setUniqueness] = useState("");
 
   const [listing, setlisting] = useState([]);
@@ -105,15 +104,13 @@ const ManageMilestoneSite = ({
 
     console.log(type, datew, "datewdatewdatew");
 
-
     if (type && datew && datew.length > 0) {
       settype(false);
 
       let dtresult = datew[0]["result"];
 
-      setinvoiceData(datew[0]["invoice"]?datew[0]["invoice"]:[])
-       console.log(setinvoiceData, "setinvoiceData")
-
+      setinvoiceData(datew[0]["invoice"] ? datew[0]["invoice"] : []);
+      console.log(setinvoiceData, "setinvoiceData");
 
       dtresult["t_sengg"] &&
         dtresult["t_sengg"].map((iytm) => {
@@ -530,9 +527,9 @@ const ManageMilestoneSite = ({
 
   useEffect(() => {
     reset({});
-
+    settype(true);
     // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
-  }, []);
+  }, [uid]);
 
   let dtype = {
     Decimal: "number",
@@ -779,28 +776,82 @@ const ManageMilestoneSite = ({
                     Array.isArray(dataOfProject["t_sFinancials"]) &&
                     dataOfProject["t_sFinancials"] && (
                       <table className="border-collapse border" border="2">
-                          <tr className="border border-black">
-                            {dataOfProject["t_sFinancials"].map((its) => {
-                              return (
-                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#143b64] text-white ">
-                                  {its.fieldName}
-                                </th>
-                              );
-                            })}
-                          </tr>
-                          {invoiceData.map((itm, index) => (
-                          <tr key={index} className="text-[11px] h-2 pl-1 border-gray-400 text-center border-[0.1px] overflow-hidden text-slate-800">
-                          {dataOfProject["t_sFinancials"].map((its, columnIndex) => {
-                            const value = itm[its.fieldName];
-                            if (typeof value !== 'undefined') {
-                              return <td key={columnIndex} className=" border border-gray-400">{value}</td>;
-                            } else {
-                              console.error(`Missing data for field "${its.fieldName}"`);
-                              return <td key={columnIndex}>N/A</td>;
-                            }
+                        <tr className="border border-black">
+                          {dataOfProject["t_sFinancials"].map((its) => {
+                            return (
+                              <th className="px-2 w-auto whitespace-nowrap border-[1.5px] border-black p-1 bg-[#143b64] text-white ">
+                                {its.fieldName}
+                              </th>
+                            );
                           })}
                         </tr>
-                        ))}
+
+                        {(() => {
+                          let tamount = 0;
+
+                          // Your map function
+                          return (
+                            <>
+                              {invoiceData.map((itm, index) => {
+                                return (
+                                  <tr
+                                    key={index}
+                                    className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-700"
+                                  >
+                                    {dataOfProject["t_sFinancials"].map(
+                                      (its, columnIndex) => {
+                                        const value = itm[its.fieldName];
+                                        if (typeof value !== "undefined") {
+                                          if (its.fieldName == "Amount") {
+                                            tamount = tamount + value;
+                                            return (
+                                              <td
+                                                key={columnIndex}
+                                                className=" border-black border-[1.5px]"
+                                              >
+                                                {value}
+                                              </td>
+                                            );
+                                          } else {
+                                            return (
+                                              <td
+                                                key={columnIndex}
+                                                className=" border-[1px] border-black "
+                                              >
+                                                {value}
+                                              </td>
+                                            );
+                                          }
+                                        } else {
+                                          console.error(
+                                            `Missing data for field "${its.fieldName}"`
+                                          );
+                                          return <td key={columnIndex}>N/A</td>;
+                                        }
+                                      }
+                                    )}
+                                  </tr>
+                                );
+                              })}
+                              <>
+                                <tr
+                                  className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-800"
+                                  
+                                >
+                                  <td
+                                    colSpan={
+                                      dataOfProject["t_sFinancials"].length
+                                    }
+                                  >
+                                    <p className="float-right p-2 rounded-sm bg-yellow-300">Total Amount = {tamount}</p>
+                                  </td>
+                                </tr>
+                              </>
+                            </>
+                          );
+                        })()}
+
+                        {}
                       </table>
                     )}
                 </div>
