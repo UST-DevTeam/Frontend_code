@@ -53,7 +53,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
     const dispatch = useDispatch()
 
 
-    let dataOfProject = useSelector((state) => {
+        let dataOfProject = useSelector((state) => {
 
         let dataOlder = state.adminData.getProjectTypeDyform[0]
 
@@ -348,7 +348,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
                     /></>,
                 "Financials": <><div className='flex justify-end'><Button
                     classes='w-30'
-                    name="Save Tracking"
+                    name="Save financial"
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
                 /></div><CommonForm
                         classes={"grid-cols-4 gap-1"}
@@ -365,7 +365,48 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
                         register={registerForm4}
                         setValue={setValueForm4}
                         getValues={getValuesForm4}
-                    /></>
+                    />
+                    </>,
+
+                // "Financials": <>
+                // {/* <div className="flex justify-end">
+                //   <Button
+                //     classes="w-30"
+                //     name="Save Financial"
+                //     onClick={handleSubmitForm4(handleFinancialsSubmit)}
+                //   />
+                // </div> */}
+
+                // <div className="overflow-auto h-[80vh]">
+                //   {dataOfProject &&
+                //     Array.isArray(dataOfProject["t_sFinancials"]) &&
+                //     dataOfProject["t_sFinancials"] && (
+                //       <table>
+                //         <thead>
+                //           <tr className="bg-black w-full overflow-x-auto flex ">
+                //             {dataOfProject["t_sFinancials"].map((its) => {
+                //               return (
+                //                 <th className="px-4 w-[25%] whitespace-nowrap border p-2 bg-blue-500 text-white ">
+                //                   {its.fieldName}
+                //                 </th>
+                //               );
+                //             })}
+                //           </tr>
+                //         </thead>
+                //         <tbody>
+                //           {Array.isArray(bodyData) &&
+                //             bodyData?.map((item, i) => (
+                //               <tr key={i}>
+                //                 {Object.keys(item)?.map((key, j) => {
+                //                   return <td>{item[key]}</td>;
+                //                 })}
+                //               </tr>
+                //             ))}
+                //         </tbody>
+                //       </table>
+                //     )}
+                // </div>
+                //     </>
             }} />
         </div>
     </>

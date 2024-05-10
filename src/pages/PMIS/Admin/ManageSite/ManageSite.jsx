@@ -250,6 +250,7 @@ const ManageSite = ({
     dispatch(ALERTS(msgdata));
     // setmodalFullOpen(false)
   };
+  const bodyData = [];
 
   const handleFinancialsSubmit = (data) => {
     // console.log(data, "dasugdjsahj")
@@ -494,35 +495,43 @@ const ManageSite = ({
             ),
             Financials: (
               <>
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <Button
                     classes="w-30"
-                    name="Save Tracking"
+                    name="Save Financial"
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
                   />
+                </div> */}
+
+                <div className="overflow-auto h-[80vh]">
+                  {dataOfProject &&
+                    Array.isArray(dataOfProject["t_sFinancials"]) &&
+                    dataOfProject["t_sFinancials"] && (
+                      <table>
+                        <thead>
+                          <tr className="bg-black w-full overflow-x-auto flex ">
+                            {dataOfProject["t_sFinancials"].map((its) => {
+                              return (
+                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#143b64] text-white  ">
+                                  {its.fieldName}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Array.isArray(bodyData) &&
+                            bodyData?.map((itm, i) => (
+                              <tr key={i}>
+                                {Object.keys(itm)?.map((key, j) => {
+                                  return <td>{itm[key]}</td>;
+                                })}
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    )}
                 </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["t_sFinancials"]
-                        ? dataOfProject["t_sFinancials"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                            };
-                          })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm4}
-                  register={registerForm4}
-                  setValue={setValueForm4}
-                  getValues={getValuesForm4}
-                />
               </>
             ),
           }}

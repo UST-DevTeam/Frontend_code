@@ -10,7 +10,7 @@ const Moreinfo = ({ value, msg, child, ctt = 32 }) => {
                 {console.log(child,"childchildchildchildchild")}
                 {child}
                 <span
-                    class="pointer-events-none w-max absolute -top-8 bg-gray-500 rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100"
+                    class="pointer-events-none w-max absolute -top-8 bg-gray-600 rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100"
                 >
                     {msg}
                 </span>

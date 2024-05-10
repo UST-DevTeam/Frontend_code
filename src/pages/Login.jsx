@@ -56,7 +56,7 @@ const Login = () => {
     //         </div>
     //     </div>
     // </>
-    return checkauth ? <></> : <><WithSideImage  sideImage={"bg-sideimage"} formclass={" h-[60vh]"} labeling={"Login to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg">
+    return checkauth ? <></> : <><WithSideImage  sideImage={"bg-sideimage"} formclass={" h-[60vh]"} labeling={"Login to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg ">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" action="" method="POST">
             <div>
                 <div className="flex items-center justify-between">
@@ -85,7 +85,7 @@ const Login = () => {
                 <button type="submit" className="flex w-full justify-center rounded-lg bg-secLine 
                 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline 
                     focus-visible:outline-2  focus-visible:outline-offset-2  buttonAnim border-2 border-gray-200 font-poppins transition
-                    duration-300 ease-in-out hover:bg-gray-100 hover:text-black hover:border-black hover:border-2">Login</button>
+                    duration-300 ease-in-out hover:bg-gradient-to-r from-blue-200 via-blue-300 to-violet-200 hover:text-black hover:border-black hover:border-2">Sign in</button>
             </div>
         </form>
         <div className="p-0 m-2 flex justify-center items-center">

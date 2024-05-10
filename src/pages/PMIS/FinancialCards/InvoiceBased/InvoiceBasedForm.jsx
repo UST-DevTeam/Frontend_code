@@ -243,6 +243,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "poStatus",
       type: "select",
+      required: true,
       option: [
         { label: "Open", value: "Open" },
         { label: "Closed", value: "Closed" },

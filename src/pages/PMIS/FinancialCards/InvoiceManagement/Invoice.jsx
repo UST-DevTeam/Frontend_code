@@ -185,12 +185,12 @@ const Invoice = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "WCC No.",
+        name: "WCC No",
         value: "wccNumber",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "WCC signOff Date",
+        name: "WCC SignOff Date",
         value: "wccSignOffdate",
         style: "min-w-[140px] max-w-[200px] text-center",
       },

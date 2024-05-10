@@ -13,9 +13,9 @@ const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=32 }) => {
                         setModalBody(<p className='p-3 overflow-scroll text-center'>{value}</p>)
                     }}>{moreinfo(value, ctt) + "..."}</p>
                     <span
-                        class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100"
+                        class="pointer-events-none w-max absolute -top-1 -right-0 bg-green-400 z-50 rounded-md p-[4px] opacity-0 transition-opacity group-hover:opacity-100"
                     >
-                        {"Click Here for more info"}
+                        {"Tap for moreInfo..."}
                     </span>
                 </div>
             </div>

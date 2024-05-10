@@ -45,7 +45,6 @@ const ManageMilestoneSite = ({
 
   let assignedToCount = mileStone?.assignerResult?.length || 0;
 
-  console.log(siteCompleteData, "siteCompleteDatamileStonemileStonemileStone");
 
   const {
     register,
@@ -93,6 +92,8 @@ const ManageMilestoneSite = ({
   const [modalHead, setmodalHead] = useState(<></>);
 
   const [modalBody, setmodalBody] = useState(<></>);
+  const [invoiceData, setinvoiceData] = useState([]);
+  
   const [uniqueness, setUniqueness] = useState("");
 
   const [listing, setlisting] = useState([]);
@@ -102,12 +103,17 @@ const ManageMilestoneSite = ({
   let dataOfOldProject = useSelector((state) => {
     let datew = state.adminData.getOneProjectTypeDyform;
 
-    console.log(type, datew, datew, datew, "datewdatewdatew");
+    console.log(type, datew, "datewdatewdatew");
+
 
     if (type && datew && datew.length > 0) {
       settype(false);
 
       let dtresult = datew[0]["result"];
+
+      setinvoiceData(datew[0]["invoice"]?datew[0]["invoice"]:[])
+       console.log(setinvoiceData, "setinvoiceData")
+
 
       dtresult["t_sengg"] &&
         dtresult["t_sengg"].map((iytm) => {
@@ -138,16 +144,16 @@ const ManageMilestoneSite = ({
             "iytmiytmiytmiytm"
           );
         });
-      dtresult["t_sFinancials"] &&
-        dtresult["t_sFinancials"].map((iytm) => {
-          setValueForm4(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+      // dtresult["t_sFinancials"] &&
+      //   dtresult["t_sFinancials"].map((iytm) => {
+      //     setValueForm4(iytm["fieldName"], datew[0][iytm["fieldName"]]);
 
-          console.log(
-            iytm["fieldName"],
-            datew[0][iytm["fieldName"]],
-            "iytmiytmiytmiytm"
-          );
-        });
+      //     console.log(
+      //       iytm["fieldName"],
+      //       datew[0][iytm["fieldName"]],
+      //       "====================157"
+      //     );
+      //   });
       console.log(
         type,
         state.adminData.getOneProjectTypeDyform,
@@ -498,6 +504,8 @@ const ManageMilestoneSite = ({
     reset({});
   };
 
+  const bodyData = [];
+
   const handleAddActivity = (res, targ, itm) => {
     console.log(
       res,
@@ -723,37 +731,79 @@ const ManageMilestoneSite = ({
                 />
               </>
             ),
+            // Financials: (
+            //   <>
+            //     <div className="flex justify-end">
+            //       <Button
+            //         classes="w-30"
+            //         name="Save Tracking"
+            //         onClick={handleSubmitForm4(handleFinancialsSubmit)}
+            //       />
+            //     </div>
+            //     <CommonForm
+            //       classes={"grid-cols-4 gap-1"}
+            //       Form={
+            //         dataOfProject
+            //           ? dataOfProject["t_sFinancials"]
+            //             ? dataOfProject["t_sFinancials"].map((its) => {
+            //                 return {
+            //                   label: its.fieldName,
+            //                   value: "abc",
+            //                   name: its.fieldName,
+            //                   type: dtype[its.dataType],
+            //                 };
+            //               })
+            //             : []
+            //           : []
+            //       }
+            //       // Form={filesUploadForm}
+            //       errors={errorsForm4}
+            //       register={registerForm4}
+            //       setValue={setValueForm4}
+            //       getValues={getValuesForm4}
+            //     />
+            //   </>
+            // ),
             Financials: (
               <>
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <Button
                     classes="w-30"
-                    name="Save Tracking"
+                    name="Save Financial"
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
                   />
+                </div> */}
+
+                <div className="overflow-auto h-[80vh]">
+                  {dataOfProject &&
+                    Array.isArray(dataOfProject["t_sFinancials"]) &&
+                    dataOfProject["t_sFinancials"] && (
+                      <table className="border-collapse border" border="2">
+                          <tr className="border border-black">
+                            {dataOfProject["t_sFinancials"].map((its) => {
+                              return (
+                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#143b64] text-white ">
+                                  {its.fieldName}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                          {invoiceData.map((itm, index) => (
+                          <tr key={index} className="text-[11px] h-2 pl-1 border-gray-400 text-center border-[0.1px] overflow-hidden text-slate-800">
+                          {dataOfProject["t_sFinancials"].map((its, columnIndex) => {
+                            const value = itm[its.fieldName];
+                            if (typeof value !== 'undefined') {
+                              return <td key={columnIndex} className=" border border-gray-400">{value}</td>;
+                            } else {
+                              console.error(`Missing data for field "${its.fieldName}"`);
+                              return <td key={columnIndex}>N/A</td>;
+                            }
+                          })}
+                        </tr>
+                        ))}
+                      </table>
+                    )}
                 </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["t_sFinancials"]
-                        ? dataOfProject["t_sFinancials"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                            };
-                          })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm4}
-                  register={registerForm4}
-                  setValue={setValueForm4}
-                  getValues={getValuesForm4}
-                />
               </>
             ),
           }}
