@@ -13,13 +13,15 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
+import FileUploader from "../../../../components/FIleUploader";
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import FinanceActions from '../../../../store/actions/finance-actions';
-import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
+// import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
 
-const POWorkDoneBased = () => {
+const WorkDone = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
+    const [fileOpen, setFileOpen] = useState(false);
     const [modalHead, setmodalHead] = useState(<></>)
     let dispatch = useDispatch()
     // let roleList = useSelector((state) => {
@@ -37,7 +39,7 @@ const POWorkDoneBased = () => {
                     dispatch(FinanceActions.getPOWorkDoneBased())
                     setmodalHead("Edit User")
                     setmodalBody(<>
-                        <POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -138,19 +140,139 @@ const POWorkDoneBased = () => {
             },                       
             {
                 name: "MS1 Completion Date",
-                value: "pogbpa",
+                value: "MS1",
                 style: "min-w-[160px] max-w-[200px] text-center"
             },            
             {
                 name: "MS2 Completion Date",
-                value: "itemCode",
+                value: "MS2",
                 style: "min-w-[160px] max-w-[200px] text-center"
             },                                    
             {
                 name: "Billing Status",
                 value: "siteBillingStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            }
+            },
+            {
+                name: "Item Code 1",
+                value: "itemCode1",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 1",
+                value: "qty1",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 1",
+                value: "amount1",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code 2",
+                value: "itemCode2",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 2",
+                value: "qty2",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 2",
+                value: "amount2",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code 3",
+                value: "itemCode3",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 3",
+                value: "qty3",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 3",
+                value: "amount3",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code 4",
+                value: "itemCode4",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 4",
+                value: "qty4",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 4",
+                value: "amount4",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code 5",
+                value: "itemCode5",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 5",
+                value: "qty5",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 5",
+                value: "amount5",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code 6",
+                value: "itemCode5",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 6",
+                value: "qty6",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 6",
+                value: "amount6",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code 7",
+                value: "itemCode7",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Quantity 7",
+                value: "qty7",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Amount 7",
+                value: "amount7",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Unbilled MS1 Done",
+                value: "unbilledMS1Done",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Unbilled MS2 Done",
+                value: "unbilledMS2DOne",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Total Unbilled",
+                value: "totalUnbilled",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -175,14 +297,38 @@ const POWorkDoneBased = () => {
     useEffect(() => {
         dispatch(FinanceActions.getPOWorkDoneBased())
     }, [])
+
+
+    const onTableViewSubmit = (data) => {
+        data["fileType"] = "ItemCodeforWork";
+        dispatch(
+          CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            dispatch(FinanceActions.getPOWorkDoneBased());
+            setFileOpen(false);
+            resetting("");
+          })
+        );
+      };
+
+
+
     return <>
         <AdvancedTable
-            // headerButton={<><Button onClick={(e) => {
-            //     setmodalOpen(prev => !prev)
-            //     setmodalHead("New PO Life Cycle ")
-            //     setmodalBody(<POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            // }}
-            //     name={"Add New"}></Button></>}
+            headerButton={<>
+            {/* <Button onClick={(e) => {
+                setmodalOpen(prev => !prev)
+                setmodalHead("New PO Life Cycle ")
+                setmodalBody(<POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            }}
+                name={"Add New"}></Button> */}
+                <Button
+              name={"Upload File"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                setFileOpen((prev) => !prev);
+              }}
+            ></Button>
+                </>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -196,6 +342,8 @@ const POWorkDoneBased = () => {
         />
 
         <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true}  tempbtnlink = {["/template/ItemCodeTemplate.xlsx","ItemCodeTemplate.xlsx"]}
+      />
 
         {/* <CommonForm/> */}
     </>
@@ -203,4 +351,4 @@ const POWorkDoneBased = () => {
 
 };
 
-export default POWorkDoneBased;
+export default WorkDone;

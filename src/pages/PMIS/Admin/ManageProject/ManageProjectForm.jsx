@@ -18,9 +18,6 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
   const { customeruniqueId,projecttypeuniqueId} = useParams();
 
 
-  console.log(customeruniqueId,"Vishal=======")
-  console.log(projecttypeuniqueId,"Vishal=======")
-
   let dispatch = useDispatch();
 
   const [modalOpen, setmodalOpen] = useState(false);
@@ -81,7 +78,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
   let circleList = useSelector((state) => {
     return state?.projectList?.getprojectcircle.map((itm) => {
       return {
-        label: itm.circleName,
+        label: itm.circle,
         value: itm.uniqueId,
       };
     });
@@ -94,8 +91,6 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
       setValue("circle", getValues()["circle"]);
     }
   });
-
-
 
   
   let Form = [
@@ -279,7 +274,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
   };
   useEffect(() => {
     dispatch(AdminActions.getManageProjectGroup(true,"",customeruniqueId));
-    dispatch(AdminActions.getManageCircle());
+    // dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
     if (customeruniqueId && projecttypeuniqueId) {

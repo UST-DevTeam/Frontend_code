@@ -101,6 +101,7 @@ import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
 import InvoiceMgmtt from "../pages/PMIS/FinancialCards/InvoiceMgmtt";
 import Invoice from "../pages/PMIS/FinancialCards/InvoiceManagement/Invoice";
 import Unbilled from "../pages/PMIS/FinancialCards/Unbilled/Unbilled";
+import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -433,6 +434,13 @@ export const Sidebar_content = {
       name: "",
       link: "/financial/invoiceMgmt",
       component: <InvoiceMgmtt />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financial/poWorkDone",
+      component: <WorkDone />,
       icon: <UilStore />,
       subMenu: [],
     },
