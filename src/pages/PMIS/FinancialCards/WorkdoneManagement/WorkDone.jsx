@@ -38,7 +38,7 @@ const WorkDone = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(FinanceActions.getPOWorkDoneBased())
-                    setmodalHead("Edit Workdone")
+                    setmodalHead("Edit Wodone")
                     setmodalBody(<>
                         <WorkDoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
