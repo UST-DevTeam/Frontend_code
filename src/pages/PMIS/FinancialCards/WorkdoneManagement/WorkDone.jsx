@@ -17,6 +17,7 @@ import FileUploader from "../../../../components/FIleUploader";
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import FinanceActions from '../../../../store/actions/finance-actions';
 // import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
+import WorkDoneForm from '../WorkdoneManagement/WorkDoneForm'
 
 const WorkDone = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -37,9 +38,9 @@ const WorkDone = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(FinanceActions.getPOWorkDoneBased())
-                    setmodalHead("Edit User")
+                    setmodalHead("Edit Workdone")
                     setmodalBody(<>
-                        {/* <POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
+                        <WorkDoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -106,12 +107,12 @@ const WorkDone = () => {
             {
                 name: "Project ID",
                 value: "projectId",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },            
             {
                 name: "Project Type",
                 value: "projectType",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
             },            
             {
                 name: "Sub Project",
@@ -155,123 +156,128 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 1",
-                value: "itemCode1",
+                value: "Item Code 1",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 1",
-                value: "qty1",
+                value: "Quantity 1",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 1",
-                value: "amount1",
+                value: "Amount 1",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Item Code 2",
-                value: "itemCode2",
+                value: "Item Code 2",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 2",
-                value: "qty2",
+                value: "Quantity 2",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 2",
-                value: "amount2",
+                value: "Amount 2",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Item Code 3",
-                value: "itemCode3",
+                value: "Item Code 3",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 3",
-                value: "qty3",
+                value: "Quantity 3",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 3",
-                value: "amount3",
+                value: "Amount 3",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Item Code 4",
-                value: "itemCode4",
+                value: "Item Code 4",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 4",
-                value: "qty4",
+                value: "Quantity 4",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 4",
-                value: "amount4",
+                value: "Amount 4",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Item Code 5",
-                value: "itemCode5",
+                value: "Item Code 5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 5",
-                value: "qty5",
+                value: "Item Code 5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 5",
-                value: "amount5",
+                value: "Amount 5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Item Code 6",
-                value: "itemCode5",
+                value: "Item Code 6",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 6",
-                value: "qty6",
+                value: "Quantity 6",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 6",
-                value: "amount6",
+                value: "Amount 6",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Item Code 7",
-                value: "itemCode7",
+                value: "Item Code 7",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 7",
-                value: "qty7",
+                value: "Quantity 7",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Amount 7",
-                value: "amount7",
+                value: "Amount 7",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Unbilled MS1 Done",
-                value: "unbilledMS1Done",
+                value: "ms1Amount",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Unbilled MS2 Done",
-                value: "unbilledMS2DOne",
+                value: "ms2Amount",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Total Unbilled",
-                value: "totalUnbilled",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                value: "totalAmount",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[40px] max-w-[50px] text-center"
             },
         ],
         properties: {
@@ -302,7 +308,7 @@ const WorkDone = () => {
     const onTableViewSubmit = (data) => {
         data["fileType"] = "ItemCodeforWork";
         dispatch(
-          CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+          CommonActions.fileSubmit(Urls.common_file_uploadr1, data, () => {
             dispatch(FinanceActions.getPOWorkDoneBased());
             setFileOpen(false);
             resetting("");
