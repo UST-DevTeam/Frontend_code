@@ -38,16 +38,6 @@ const ManageCircle = () => {
         month: '2-digit',
         year: 'numeric'
       }).replace(/\//g, '-')
-
-
-
-
-    
-
-
-
-  
-
     
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getManageCircle || [""]

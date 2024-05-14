@@ -186,7 +186,7 @@ const ManageProjectType = () => {
     // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
     {
       label: "Milestone",
-      name: "fieldName",
+      name: "Milestone",
       type: "text",
       props: "",
       required: false,
@@ -590,13 +590,7 @@ const ManageProjectType = () => {
                   setmodalSize("full");
                   setmodalHead("Milestones");
 
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "MileStone",
-                      value: itm["MileStone"] ? itm["MileStone"] : [],
-                      reseter: true,
-                    })
-                  );
+                  dispatch(SET_DYNAMIC_FORM({label: "MileStone", value: itm["MileStone"] ? itm["MileStone"] : [], reseter: true}));
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">

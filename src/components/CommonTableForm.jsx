@@ -133,10 +133,12 @@ const CommonTableForm = ({
           setSelectFile(false);
           setmodalOpen(false);
           // alert("dasdsadsa")
+          
         }
       )
     );
   };
+  
 
   {
     /* <Button classes="w-auto" name={"Save"} onClick={(e) => {
@@ -211,16 +213,9 @@ console.log(newdte, "listinglistinglisting")
 
                   console.log(listing, "dasdasdas");
 
-                  // let newdte = listing.map((itmm, indes) => {
-                  //   console.log(itmm, indes,"dasdasdas")
-                  //   itmm["index"] = indes + 1
-                  //   return itmm
-                  // })
-                  // console.log()
-
                   let newdte = listing.map((item, index) => {
                     console.log(item, index, "dasdasdas");
-                    return { ...item, index: index + 1 }; // Create a new object with modified 'index'
+                    return { ...item, index: index + 1 };
                   });
                   console.log("dasdasdas", newdte);
 
