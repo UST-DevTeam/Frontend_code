@@ -49,6 +49,7 @@ export const Urls={
     admin_project_allocation:"/hr/projectAllocation",
     admin_uamView:"/uamView",
     admin_completion_criteria:"/admin/complectionCriteria",
+    upload_bulk_site:"/uploadBulkSite",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
     projectList_getproject_allocation:"/projectAllocationList/",
