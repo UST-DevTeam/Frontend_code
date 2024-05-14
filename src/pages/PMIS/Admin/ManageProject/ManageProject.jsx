@@ -46,6 +46,7 @@ const ManageProject = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [bulkfileOpen, setbulkfileOpen] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -479,6 +480,22 @@ const ManageProject = () => {
       })
     );
   };
+
+
+  const onBulkUploadSite = (data, cuid, puid) => {
+    console.log(data, cuid, puid, "datadata");
+    data["fileType"]="ManageSiteBulkUpload"
+    let makeUrl = `${Urls.upload_bulk_site}${cuid ? "/" + cuid : ""}${
+      puid ? "/" + puid : ""
+    }`;
+    dispatch(
+      CommonActions.fileSubmit(makeUrl, data, () => {
+        // dispatch(AdminActions.getProject());
+        setFileOpen(false);
+        reset("");
+      })
+    );
+  };
   // useEffect(() => {
   //     if (customeruniqueId && projecttypeuniqueId) {
   //         dispatch(AdminActions.getProject(`${customeruniqueId}/${projecttypeuniqueId}`))
@@ -555,6 +572,13 @@ const ManageProject = () => {
               }}
             ></Button>
             <Button
+              name={"Bulk Upload Site"}
+              classes="w-auto bg-yellow-600"
+              onClick={(e) => {
+                setbulkfileOpen((prev) => !prev);
+              }}
+            ></Button>
+            <Button
               name={"Update Task"}
               classes="w-auto mr-1 bg-cyan-600"
               onClick={(e) => {
@@ -618,6 +642,21 @@ const ManageProject = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
+      />
+       <FileUploader
+        isOpen={bulkfileOpen}
+        fileUploadUrl={""}
+        tempbtn={true}
+        tempbtnlink={[
+          `/ProjectIDBulkUploadTemplate${
+            customeruniqueId ? "/" + customeruniqueId : ""
+          }${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,
+          "BulkSite.xlsx",
+        ]}
+        onTableViewSubmit={(data) => {
+          onBulkUploadSite(data, customeruniqueId,projecttypeuniqueId );
+        }}
+        setIsOpen={setbulkfileOpen}
       />
     </>
   );
