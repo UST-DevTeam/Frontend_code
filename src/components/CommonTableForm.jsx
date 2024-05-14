@@ -38,6 +38,7 @@ import {
 import FileUploader from "./FIleUploader";
 import { Urls } from "../utils/url";
 import CommonActions from "../store/actions/common-actions";
+import AdminActions from "../store/actions/admin-actions";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
@@ -55,6 +56,7 @@ const CommonTableForm = ({
   oldList,
   rowId,
   name,
+  customeruniqueId
 }) => {
   const [value, onChange] = useState(new Date());
   const [editing, setediting] = useState(false);
@@ -123,22 +125,15 @@ const CommonTableForm = ({
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata");
     data["fileType"] = tabHead;
-    // data['collection'] = "circle"
-    dispatch(
-      CommonActions.fileSubmit(
-        Urls.templateUploadFile + "/" + `${rowId}`,
-        data,
-        () => {
-          // setFileOpen(false)
+    dispatch(CommonActions.fileSubmit(Urls.templateUploadFile + "/" + `${rowId}`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
           // alert("dasdsadsa")
-          
         }
       )
     );
+    dispatch(AdminActions.getManageProjectType(customeruniqueId));
   };
-  
 
   {
     /* <Button classes="w-auto" name={"Save"} onClick={(e) => {

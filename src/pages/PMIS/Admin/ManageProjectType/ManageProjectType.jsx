@@ -469,6 +469,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Site Engg"}
+                              customeruniqueId = {customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -494,6 +495,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Tracking"}
+                              customeruniqueId = {customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -519,6 +521,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Issues"}
+                              customeruniqueId = {customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -544,6 +547,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Financials"}
+                              customeruniqueId = {customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -620,6 +624,7 @@ const ManageProjectType = () => {
                       <CommonTableForm
                         setmodalOpen={setmodalOpen}
                         tabHead={"MileStone"}
+                        customeruniqueId = {customeruniqueId}
                         classes={"grid-cols-2 gap-1"}
                         Form={milestonemultiForm}
                         errors={errors}
@@ -677,6 +682,7 @@ const ManageProjectType = () => {
                       <CommonTableForm
                         setmodalOpen={setmodalOpen}
                         tabHead={"Commercial"}
+                        customeruniqueId = {customeruniqueId}
                         classes={"grid-cols-2 gap-1"}
                         Form={commercialmultiForm}
                         errors={errors}
@@ -972,16 +978,10 @@ const ManageProjectType = () => {
                 icon={<Unicons.UilAirplay />}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(AdminActions.getManageCustomer());
+                  // dispatch(AdminActions.getManageCustomer());
                   setmodalHead("Milestones");
                   setmodalSize("full");
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "MileStone",
-                      value: itm["MileStone"] ? itm["MileStone"] : [],
-                      reseter: true,
-                    })
-                  );
+                  dispatch(SET_DYNAMIC_FORM({label: "MileStone",value: itm["MileStone"] ? itm["MileStone"] : [],reseter: true,}));
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">
