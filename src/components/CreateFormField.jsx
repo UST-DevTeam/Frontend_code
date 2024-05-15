@@ -432,7 +432,7 @@ const CreateFormField = ({
               <>
                 <div className="flex flex-col">
                   <select  {...itm.props} value={itm.value}>
-                    <option selected value={"Select"} >Select</option>
+                    <option selected value={""} >Select</option>
                     {
                       itm?.option?.map((selitm) => {
                         return <option key={selitm.value} value={selitm.value}>{selitm.label}</option>

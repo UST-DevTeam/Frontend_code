@@ -9,6 +9,7 @@ import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 // import { useParams } from "react-router-dom";
 import FinanceActions from "../../../../store/actions/finance-actions";
+import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
 
 const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   const {
@@ -25,13 +26,57 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
   let dispatch = useDispatch();
 
+  let ItemCodeList = useSelector((state) => {
+    return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
+      return {
+        label: itm?.ItemCode,
+        value: itm?.ItemCode,
+      };
+    });
+  });
+
+  // let ItemCodeList = useSelector((state) => {
+  //   return state?.financeData?.getPOWorkDoneBased
+  //     ?.map((itm) => {
+  //       return itm?.commercialResult?.Commercial?.map((item) => ({
+  //         label: item?.ItemCode,
+  //         value: item?.ItemCode,
+  //       }));
+        
+  //     })
+  // });
+
+//   let ItemCodeList = useSelector((state) => {
+//     return state?.financeData?.getPOWorkDoneBased
+//       ?.flatMap((itm) => {
+//         return itm?.commercialResult?.Commercial?.map((item) => {
+//           console.log(item, "==================================");
+//           return {
+//             label: item?.ItemCode,
+//             value: item?.ItemCode,
+//           };
+//         }) || []; 
+//       }) || [];
+      
+// }).filter((item, index, self) => 
+//     index === self.findIndex((t) => (
+//         t.value === item.value
+//     ))
+// );
+
+
+  
+
+  
+  
+
   let Form = [
     {
         label: "Item Code 1",
         value: "",
         name: "Item Code 1",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -42,8 +87,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 1",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -53,8 +98,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 1",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -64,7 +109,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Item Code 2",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -75,8 +120,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 2",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -86,8 +131,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 2",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -97,7 +142,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Item Code 3",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -108,8 +153,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 3",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -119,8 +164,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 3",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -130,7 +175,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Item Code 4",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -141,8 +186,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 4",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -152,18 +197,18 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 4",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
       },
-    {
+      {
         label: "Item Code 5",
         value: "",
         name: "Item Code 5",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -174,8 +219,9 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 5",
         type: "number",
-        // required: true,
+        option: ItemCodeList,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -185,18 +231,18 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 5",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
       },
-    {
+      {
         label: "Item Code 6",
         value: "",
         name: "Item Code 6",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -207,8 +253,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 6",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -218,8 +264,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 6",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -229,7 +275,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Item Code 7",
         type: "select",
-        // required: true,
+        option: ItemCodeList,
         props: {
           onChange: (e) => {},
         },
@@ -240,8 +286,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Quantity 7",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -251,8 +297,8 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         value: "",
         name: "Amount 7",
         type: "number",
-        // required: true,
         props: {
+          valueAsNumber: true,
           onChange: (e) => {},
         },
         classes: "col-span-1",
@@ -288,6 +334,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
+    dispatch(GET_POWORKDONE_ITEMCODE({dataAll:[],reset:true}))
 
     if (resetting) {
             reset({})

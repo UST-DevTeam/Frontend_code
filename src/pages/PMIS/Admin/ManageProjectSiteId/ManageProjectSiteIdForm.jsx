@@ -130,7 +130,7 @@ const ManageProjectSiteIdForm = ({
       label: "SubProject Type",
       name: "roleName",
       type: "select",
-      value: "",
+      value: "Select",
       option: dataGetterOld.subprojectresult,
       props: {
         onChange: (e) => {

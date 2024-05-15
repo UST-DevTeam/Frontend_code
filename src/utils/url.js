@@ -1,8 +1,8 @@
-// export const baseUrl="http://localhost:65224"
-// export const backendassetUrl="http://localhost:65224//"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.0.113:7980"
-// export const backendassetUrl="http://192.168.0.113:7980/"
+// export const baseUrl=" http://192.168.29.70:7980"
+// export const backendassetUrl=" http://192.168.29.70:7980/"
 
 
 // export const baseUrl="http://192.168.29.70:7980"
@@ -79,6 +79,10 @@ export const Urls={
     finance_poinvoice_based:"/finance/poInvoiceBased",
     finance_Invoice:"/finance/invoice",
     finance_poworkdone_based:"/finance/poWorkdoneBased",
+    finance_poworkdone_itemCode:"/finance/commercial",
+
+
+
     projectEvent:"/projectEventLog",
     siteEventLog:"/siteEventLog",
     milestoneEvent:"/milestoneEventLog",

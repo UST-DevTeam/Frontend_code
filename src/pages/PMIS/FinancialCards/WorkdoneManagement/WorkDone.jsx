@@ -25,10 +25,9 @@ const WorkDone = () => {
     const [fileOpen, setFileOpen] = useState(false);
     const [modalHead, setmodalHead] = useState(<></>)
     let dispatch = useDispatch()
-    // let roleList = useSelector((state) => {
-    //     let interdata = state?.operationManagement?.USERS_LIST
-    //     return interdata
-    // })
+
+
+    
     let dbConfigList = useSelector((state) => {
         let interdata = state?.financeData?.getPOWorkDoneBased || []
         return interdata?.map((itm) => {
@@ -37,14 +36,13 @@ const WorkDone = () => {
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
+                    dispatch(FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`))
                     dispatch(FinanceActions.getPOWorkDoneBased())
-                    setmodalHead("Edit Wodone")
+                    setmodalHead("Edit Workdone")
                     setmodalBody(<>
                         <WorkDoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
-                    //setmodalOpen(false)
+                    // console.log('ahshshhs',itm)
                 }}></EditButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
@@ -221,7 +219,7 @@ const WorkDone = () => {
             },
             {
                 name: "Quantity 5",
-                value: "Item Code 5",
+                value: "Quantity 5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -295,7 +293,7 @@ const WorkDone = () => {
         ]
     }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
+        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
         dispatch(FinanceActions.getPOWorkDoneBased(value, objectToQueryString(data)))

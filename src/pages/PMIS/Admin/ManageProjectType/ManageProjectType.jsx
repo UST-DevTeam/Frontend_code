@@ -186,7 +186,7 @@ const ManageProjectType = () => {
     // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
     {
       label: "Milestone",
-      name: "Milestone",
+      name: "fieldName",
       type: "text",
       props: "",
       required: false,

@@ -12,10 +12,10 @@ const SelectDropDown = ({ itm, errors, handleSubmit, setValue, getValues, regist
                 })}
                 className={"bg-white block h-10 w-full rounded-md text-white-900 shadow-lg ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}
             >
-                <option value={""} selected={itm.value==""} disabled>Select</option>
+                <option value={""} selected={itm.value=="Select"} disabled>Select</option>
                 {
                     itm?.option?.map((selitm) => {
-                        return <option key={selitm.value} value={selitm.value}>{selitm.label}</option>
+                        return selitm && selitm.label && selitm.value && <option key={selitm.value} value={selitm.value}>{selitm.label}</option>
                     })
                 }
             </select>
