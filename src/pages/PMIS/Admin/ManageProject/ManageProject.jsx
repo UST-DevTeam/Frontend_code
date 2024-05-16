@@ -553,13 +553,13 @@ const ManageProject = () => {
                 setFileOpen((prev) => !prev);
               }}
             ></Button> */}
-            {/* <Button
-              name={"Bulk Upload Site"}
+            <Button
+              name={"Bulk Upload"}
               classes="w-auto bg-yellow-600"
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
               }}
-            ></Button> */}
+            ></Button>
             {/* <Button
               name={"Update Task"}
               classes="w-auto mr-1 bg-cyan-600"
@@ -669,7 +669,7 @@ const ManageProject = () => {
                     
                   }
             />
-            <PopupMenu
+            {/* <PopupMenu
               name={"Bulk Upload"}
               icon={"Bulk Upload"}
               classes="w-auto mr-1"
@@ -702,23 +702,10 @@ const ManageProject = () => {
                       }}
                       >
                       </Button>
-                     {/* <Button
-                      name={"Export Site with Task"}
-                      classes="w-auto m-5"
-                      onClick={() => {
-                        dispatch(
-                          CommonActions.commondownload(
-                            "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
-                            "Export_Project_with_Task.xlsx"
-                          )
-                        );
-                      }}
-                      >
-                      </Button> */}
                 </div>
                     
                   }
-            />
+            /> */}
 
 
           </div>
