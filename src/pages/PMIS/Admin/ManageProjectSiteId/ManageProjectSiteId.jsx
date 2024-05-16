@@ -113,21 +113,13 @@ const ManageProjectSiteId = () => {
     let interdata = state?.projectList?.getprojectalllist;
     return interdata;
   });
-  console.log(
-    childsite,
-    "childsitechildsitechildsitechildsite",
-    parentsite,
-    "parentsiteparentsiteparentsiteparentsite"
-  );
 
   let milestoneEventLogsData = useSelector((state) => {
-    console.log(state, "statestatestatestate");
     let interdata = state?.eventlogsReducer?.milestoneeventList || [];
     return interdata;
   });
 
   let sitelogsEventLogsData = useSelector((state) => {
-    console.log(state, "statestatestatestate");
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
@@ -143,20 +135,10 @@ const ManageProjectSiteId = () => {
             className=""
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
-              // dispatch(AdminActions.getProject())
               setmodalHead("Update Site");
 
               dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-              // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + projectuniqueId))
-              //   setmodalBody(
-              //     <EditingManageSite
-              //       setGlobalData={setGlobalData}
-              //       setSiteId={setSiteId}
-              //       setmodalFullOpen={setmodalFullOpen}
-              //       projectuniqueId={projectuniqueId}
-              //     />
-              //   );
               setmodalBody(
                 <ManageMilestoneSite
                   siteCompleteData={itm}
@@ -172,7 +154,7 @@ const ManageProjectSiteId = () => {
               // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
           >
-            {itm["Site Id"]},
+            {itm["Site Id"]}
           </p>
         ),
 
@@ -286,9 +268,6 @@ const ManageProjectSiteId = () => {
                             resetting={false}
                             formValue={iewq}
                           />
-                          {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={()=>{
-                                        handleSubmit(onTableViewSubmit)
-                                    }} /></div> */}
                         </>
                       );
                     } else {
@@ -335,20 +314,6 @@ const ManageProjectSiteId = () => {
                           </span>
                         </div>
                       </div>
-                      {/* <div className="flex flex-row justify-center">
-                        {" "}
-                        {iewq.assignerResult.slice(0, 2).map((itwsw, index) => (
-                          <p
-                            className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
-                          >
-                            {" "}
-                            {itwsw.assignerName.split(" ").length > 1
-                              ? itwsw.assignerName.split(" ")[0].substr(0, 1) +
-                                itwsw.assignerName.split(" ")[1].substr(0, 1)
-                              : itwsw.assignerName.split(" ")[0].substr(0, 1)}
-                          </p>
-                        ))}
-                      </div> */}
                     </>
                   ) : (
                     "Unassigned"

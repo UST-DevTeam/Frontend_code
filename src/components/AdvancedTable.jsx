@@ -38,7 +38,7 @@ const AdvancedTable = ({
 }) => {
   const [hide, setHide] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(100);
-  const [RPP, setRPP] = useState(50);
+  const [RPP, setRPP] = useState(100);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
@@ -53,7 +53,7 @@ const AdvancedTable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50,75,100,200],
+    rpp: [100,200,300,400,500],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
   const callApiPagination = (value) => {

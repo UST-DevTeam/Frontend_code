@@ -33,7 +33,7 @@ const AdvancedTableExpandable = ({
 }) => {
   const [hide, setHide] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(100);
-  const [RPP, setRPP] = useState(50);
+  const [RPP, setRPP] = useState(100);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
@@ -45,7 +45,7 @@ const AdvancedTableExpandable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [25,50,75, 100],
+    rpp: [100,200,300,400],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
   const callApiPagination = (value) => {
