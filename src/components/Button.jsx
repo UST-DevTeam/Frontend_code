@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = ({ onClick, name, classes = "", icon }) => {
+const Button = ({ onClick, name, classes = "", icon, }) => {
 
     let data = [
         ["bg-", "bg-[#143b64]"],

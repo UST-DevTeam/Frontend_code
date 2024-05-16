@@ -1306,7 +1306,7 @@ const ManageProjectType = () => {
           return (
             <>
               <div
-                className="bg-pink-300 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
+                className="bg-pink-300 shadow-md rounded-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
                 onClick={() => {
                   // dispatch(
                   //   ComponentActions.breadcrumb(

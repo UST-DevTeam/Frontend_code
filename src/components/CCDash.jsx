@@ -6,7 +6,7 @@ import { getAccessType } from '../utils/commonFunnction'
 import ConditionalButton from './ConditionalButton'
 
 
-const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>{},  label = "", settype, approveddata }) => {
+const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>{},  label = "", settype, approveddata, className }) => {
 
     const navigate = useNavigate()
 
@@ -51,6 +51,10 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
         <div className='p-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 grid col-span-12 rounded-md gap-2' >
             {approveddata}
         </div>
+        {/* <div className={`p-2 w-1/4 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 col-span-12 rounded-md gap-2 flex flex-wrap justify-center items-start ${className}`}>
+            {approveddata}
+        </div> */}
+
     </>
 }
 

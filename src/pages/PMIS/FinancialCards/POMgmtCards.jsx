@@ -19,15 +19,15 @@ const POMgmtCards = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("Financial", "/financial/PO_Management", 0, true));
+    dispatch(ComponentActions.breadcrumb("Financial", "/financial/poManagement", 0, true));
   }, []);
   return (
     <>
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PO against Invoice","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/PO_Management/PO-invoiceBased",],
-          ["PO against Workdone", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/PO_Management/poWorkDoneBased"],
+          ["PO Status-Invoice","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/poManagement/PO-invoiceBased",],
+          ["PO Tracking-Workdone", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/poManagement/poWorkDoneBased"],
         ].map((itm) => {
           return (
             <>

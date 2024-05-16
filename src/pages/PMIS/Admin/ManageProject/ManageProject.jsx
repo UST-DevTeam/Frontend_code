@@ -531,84 +531,220 @@ const ManageProject = () => {
 
             {/* <ButtonWithTooltip text="hello" tooltipText="hiii" icon={<></>} className="" onClick={}/> */}
 
-            <ButtonWithTooltip
+            {/* <ButtonWithTooltip
               tooltipText={"Bulk Site"}
               text={"Bulk Site"}
               className="w-24 bg-green-700"
               onClick={(e) => {
                 // setFileOpen(prev=>!prev)
               }}
-            ></ButtonWithTooltip>
-            <Button
+            ></ButtonWithTooltip> */}
+            {/* <Button
               name={"Bulk Task"}
               classes="w-auto bg-indigo-600"
               onClick={(e) => {
                 // setFileOpen(prev=>!prev)
               }}
-            ></Button>
-            {/* <PopupMenu
-              icon={"hiii"}
-              child={
-                
-                <div classes="flex z-40 max-h-96 flex-col">
-                  <CommonForm
-                    classes={"grid-cols-1 gap-1"}
-                    Form={projectTypeForm}
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                  />
-                  </div>
-                
-              }
-            /> */}
-
-            <Button
+            ></Button> */}
+            {/* <Button
               name={"Update Site"}
               classes="w-auto bg-yellow-600"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
-            <Button
+            ></Button> */}
+            {/* <Button
               name={"Bulk Upload Site"}
               classes="w-auto bg-yellow-600"
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
               }}
-            ></Button>
-            <Button
+            ></Button> */}
+            {/* <Button
               name={"Update Task"}
               classes="w-auto mr-1 bg-cyan-600"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></Button> */}
+
+
+            <PopupMenu
+              name={"Export"}
+              icon={"Export"}
+              classes="w-auto"
+              child={
+                
+                <div classes="flex z-40 max-h-96 flex-col p-1">
+                     <Button
+                      name={"Export Project"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,
+                            "Export_Project.xlsx"
+                          )
+                        );
+                      }}
+                      >
+                      </Button>
+                     <Button
+                      name={"Export Site"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                            "Export_Project_with_Site.xlsx"
+                          )
+                        );
+                      }}
+                      >
+                      </Button>
+                     <Button
+                      name={"Export Site with Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                            "Export_Project_with_Task.xlsx"
+                          )
+                        );
+                      }}
+                      >
+                      </Button>
+                </div>
+                    
+                  }
+                />
+            <PopupMenu
+              name={"Upgrade"}
+              icon={"Upgrade"}
+              classes="w-auto"
+              child={
+                
+                <div classes="flex z-40 max-h-96 flex-col p-1">
+                     <Button
+                      name={"Upgrade Site"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        // dispatch(
+                        //   CommonActions.commondownload(
+                        //     "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,
+                        //     "Export_Project.xlsx"
+                        //   )
+                        // );
+                      }}
+                      >
+                      </Button>
+                     <Button
+                      name={"Upgrade Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        // dispatch(
+                        //   CommonActions.commondownload(
+                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                        //     "Export_Project_with_Site.xlsx"
+                        //   )
+                        // );
+                      }}
+                      >
+                      </Button>
+                     {/* <Button
+                      name={"Export Site with Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                            "Export_Project_with_Task.xlsx"
+                          )
+                        );
+                      }}
+                      >
+                      </Button> */}
+                </div>
+                    
+                  }
+            />
+            <PopupMenu
+              name={"Bulk Upload"}
+              icon={"Bulk Upload"}
+              classes="w-auto mr-1"
+              child={
+                
+                <div classes="flex z-40 max-h-96 flex-col p-1">
+                     <Button
+                      name={"Bulk Upload Site"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        // dispatch(
+                        //   CommonActions.commondownload(
+                        //     "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,
+                        //     "Export_Project.xlsx"
+                        //   )
+                        // );
+                      }}
+                      >
+                      </Button>
+                     <Button
+                      name={"Bulk Upload Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        // dispatch(
+                        //   CommonActions.commondownload(
+                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                        //     "Export_Project_with_Site.xlsx"
+                        //   )
+                        // );
+                      }}
+                      >
+                      </Button>
+                     {/* <Button
+                      name={"Export Site with Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                            "Export_Project_with_Task.xlsx"
+                          )
+                        );
+                      }}
+                      >
+                      </Button> */}
+                </div>
+                    
+                  }
+            />
+
+
           </div>
         }
         table={table}
-        exportButton={[
-          "/export/Project/" +
-            `${customeruniqueId}` +
-            "/" +
-            `${projecttypeuniqueId}`,
-          "Export_Project.xlsx",
-        ]}
-        exportSiteButton={[
-          "/export/siteWithOutTask/" +
-            `${customeruniqueId}` +
-            "/" +
-            `${projecttypeuniqueId}`,
-          "Export_Project.xlsx",
-        ]}
-        exportSiteWithTask={[
-          "/export/siteWithAll/" +
-            `${customeruniqueId}` +
-            "/" +
-            `${projecttypeuniqueId}`,
-          "Export_Project.xlsx",
-        ]}
+        // exportButton={[
+        //   "/export/Project/" +
+        //     `${customeruniqueId}` +
+        //     "/" +
+        //     `${projecttypeuniqueId}`,
+        //   "Export_Project.xlsx",
+        // ]}
+        // exportSiteButton={[
+        //   "/export/siteWithOutTask/" +
+        //     `${customeruniqueId}` +
+        //     "/" +
+        //     `${projecttypeuniqueId}`,
+        //   "Export_Project.xlsx",
+        // ]}
+        // exportSiteWithTask={[
+        //   "/export/siteWithAll/" +
+        //     `${customeruniqueId}` +
+        //     "/" +
+        //     `${projecttypeuniqueId}`,
+        //   "Export_Project.xlsx",
+        // ]}
         // UploadSites={[]}
         // UploadTask={[]}
         filterAfter={onSubmit}
@@ -655,6 +791,8 @@ const ManageProject = () => {
         ]}
         onTableViewSubmit={(data) => {
           onBulkUploadSite(data, customeruniqueId,projecttypeuniqueId );
+          setbulkfileOpen(false)
+          resetting("")
         }}
         setIsOpen={setbulkfileOpen}
       />

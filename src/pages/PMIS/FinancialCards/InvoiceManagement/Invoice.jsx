@@ -139,6 +139,16 @@ const Invoice = () => {
 
   let table = {
     columns: [
+      // {
+      //   name: (
+      //     <input
+      //       type={"checkbox"}
+            
+      //     />
+      //   ),
+      //   value: "checkboxProject",
+      //   style: "min-w-[40px] max-w-[40px] text-center",
+      // },
       {
         name: "Year",
         value: "year",

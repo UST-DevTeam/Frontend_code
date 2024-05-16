@@ -26,8 +26,8 @@ const FinancialCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Management","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/PO_Management",],
-          ["Invoice Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/invoiceMgmt"],
+          ["PO Management","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/poManagement",],
+          ["Revenue Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/invoiceMgmt"],
           ["Workdone","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","/financial/poWorkDone",],
           ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600","/financial/unbilled"],
         ].map((itm) => {

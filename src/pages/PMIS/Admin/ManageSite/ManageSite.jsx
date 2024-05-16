@@ -401,7 +401,7 @@ const ManageSite = ({
                             ...dataOfProject["t_sengg"].map((its) => {
                               return {
                                 label: its.fieldName,
-                                value: "",
+                                value: "Select",
                                 required: its.required == "Yes" ? true : false,
                                 option: its.dropdownValue
                                   ? its.dropdownValue.split(",").map((itm) => {

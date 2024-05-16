@@ -9,7 +9,7 @@ import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 
-const InvoiceMgmt = () => {
+const UnbilledCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
@@ -19,15 +19,15 @@ const InvoiceMgmt = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("Financial", "/financialCards", 0, true));
+    dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
   }, []);
   return (
     <>
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Revenue Invoiced", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600","/financial/invoiceManagement/invoice"],
-          ["Accrual Revenue","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","/financial/invoiceMgmt/acronym",],
+          ["Unbilled Waterfall","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/Unbilled/unbilledWaterfall",],
+          ["Unbilled View", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/PO_Management/poWorkDoneBased"],
         ].map((itm) => {
           return (
             <>
@@ -90,4 +90,4 @@ const InvoiceMgmt = () => {
   );
 };
 
-export default InvoiceMgmt;
+export default UnbilledCards;

@@ -100,8 +100,9 @@ import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWork
 import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
 import InvoiceMgmtt from "../pages/PMIS/FinancialCards/InvoiceMgmtt";
 import Invoice from "../pages/PMIS/FinancialCards/InvoiceManagement/Invoice";
-import Unbilled from "../pages/PMIS/FinancialCards/Unbilled/Unbilled";
+import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/UnbilledWaterfall";
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
+import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -404,14 +405,14 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/PO_Management",
+      link: "/financial/poManagement",
       component: <POMgmtCards />,
       icon: <UilStore />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financial/PO_Management/PO-invoiceBased",
+      link: "/financial/poManagement/PO-invoiceBased",
       component: <InvoiceBased />,
       icon: <UilStore />,
       subMenu: [],
@@ -425,7 +426,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/PO_Management/poWorkDoneBased",
+      link: "/financial/poManagement/poWorkDoneBased",
       component: <POWorkDoneBased />,
       icon: <UilStore />,
       subMenu: [],
@@ -453,6 +454,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/financial/Unbilled",
+      component: <UnbilledCards />,
+      icon: <UilStore />,
+      subMenu: [],
+    },
+    {
+      name: "",
       link: "/financial/invoiceManagement/invoice",
       component: <Invoice />,
       icon: <UilStore />,
@@ -460,8 +468,8 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/unbilled",
-      component: <Unbilled />,
+      link: "/financial/Unbilled/unbilledWaterfall",
+      component: <UnbilledWaterfall />,
       icon: <UilStore />,
       subMenu: [],
     },
