@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ComponentActions from '../store/actions/component-actions';
 
-const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child, icon }) => {
+const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child, icon, bgColor}) => {
     const buttonRef = useRef(null);
     const modalRef = useRef(null);
     const location = useLocation();
@@ -49,10 +49,10 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
 
     return (
         <div ref={buttonRef} className={`mr-1 h-10 z-40 relative left-0 right-0 mx-auto z-[1000] ${classes} ${popupname === "" ? "w-12" : "w-full"}`}>
-            <Button classes={"h-full"} onClick={handleClick} icon={icon} name={popupname} />
+            <Button classes={`h-full ${bgColor}`} onClick={handleClick} icon={icon} name={popupname} />
             {
                 filterVisibility === location.pathname + "_" + name &&
-                <div ref={modalRef} className={`${dataclasses} fixed border-black border-2 w-96 bg-white pos`}>
+                <div ref={modalRef} className={`${dataclasses} fixed border-black border-2 bg-white w-96 pos`}>
                     <div className='flex justify-center bg-secLine text-white '><h5 className='text-base font-bold'>{name}</h5></div>
                     {child}
                 </div>

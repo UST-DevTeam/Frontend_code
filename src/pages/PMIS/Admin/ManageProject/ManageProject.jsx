@@ -45,6 +45,7 @@ const ManageProject = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
+  const [fileOpenlink, setFileOpenlink] = useState([]);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [bulkfileOpen, setbulkfileOpen] = useState(false);
 
@@ -471,9 +472,9 @@ const ManageProject = () => {
   }, []);
 
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
+    data["fileType"]="updateSite"
     dispatch(
-      CommonActions.fileSubmit(Urls.upload_update_siteId, data, () => {
+      CommonActions.fileSubmit(Urls.common_update_site_milestone, data, () => {
         dispatch(AdminActions.getProject());
         setFileOpen(false);
         reset("");
@@ -555,7 +556,8 @@ const ManageProject = () => {
             ></Button> */}
             <Button
               name={"Bulk Upload"}
-              classes="w-auto bg-yellow-600"
+              classes="w-auto"
+              bgColor={"bg-yellow-600"}
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
               }}
@@ -572,13 +574,14 @@ const ManageProject = () => {
             <PopupMenu
               name={"Export"}
               icon={"Export"}
-              classes="w-auto"
+              classes={"w-auto"}
+              bgColor={"bg-[#147b99]"}
               child={
                 
-                <div classes="flex z-40 max-h-96 flex-col p-1">
+                <div classes="z-40 max-h-96 justify-center">
                      <Button
                       name={"Export Project"}
-                      classes="w-auto m-5"
+                      classes="w-auto m-4"
                       onClick={() => {
                         dispatch(
                           CommonActions.commondownload(
@@ -591,7 +594,7 @@ const ManageProject = () => {
                       </Button>
                      <Button
                       name={"Export Site"}
-                      classes="w-auto m-5"
+                      classes="w-auto m-4"
                       onClick={() => {
                         dispatch(
                           CommonActions.commondownload(
@@ -604,7 +607,7 @@ const ManageProject = () => {
                       </Button>
                      <Button
                       name={"Export Site with Task"}
-                      classes="w-auto m-5"
+                      classes="w-auto m-4"
                       onClick={() => {
                         dispatch(
                           CommonActions.commondownload(
@@ -623,26 +626,24 @@ const ManageProject = () => {
               name={"Upgrade"}
               icon={"Upgrade"}
               classes="w-auto"
+              bgColor={"bg-[#A16E83]"}
               child={
                 
                 <div classes="flex z-40 max-h-96 flex-col p-1">
-                     <Button
-                      name={"Upgrade Site"}
-                      classes="w-auto m-5"
-                      onClick={() => {
-                        // dispatch(
-                        //   CommonActions.commondownload(
-                        //     "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,
-                        //     "Export_Project.xlsx"
-                        //   )
-                        // );
-                      }}
-                      >
-                      </Button>
+                  
+                     <Button name={"Upgrade Site"} classes='w-auto m-5' 
+                     onClick={(e) => {
+                          setFileOpen(prev=>!prev)
+                          setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
+                          
+                      }}></Button>
+
                      <Button
                       name={"Upgrade Task"}
                       classes="w-auto m-5"
                       onClick={() => {
+                        setFileOpenlink([`/ProjectIDBulkUploadTemplate${customeruniqueId ? "/" + customeruniqueId : ""}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"BulkSite.xlsx"])
+                        setFileOpen(prev=>!prev)
                         // dispatch(
                         //   CommonActions.commondownload(
                         //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
@@ -762,10 +763,16 @@ const ManageProject = () => {
       {/* <CommonForm/> */}
       <FileUploader
         isOpen={fileOpen}
-        fileUploadUrl={""}
+        fileUploadUrl={""}  
         onTableViewSubmit={onTableViewSubmit}
+
+        tempbtn={fileOpenlink.length!=0}
+        tempbtnlink={fileOpenlink}
+        
         setIsOpen={setFileOpen}
       />
+
+
        <FileUploader
         isOpen={bulkfileOpen}
         fileUploadUrl={""}

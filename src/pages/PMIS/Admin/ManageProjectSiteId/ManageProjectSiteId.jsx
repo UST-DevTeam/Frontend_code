@@ -11,6 +11,7 @@ import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
+import PopupMenu from "../../../../components/PopupMenu";
 import {
   getAccessType,
   objectToQueryString,
@@ -1214,32 +1215,48 @@ const ManageProjectSiteId = () => {
             {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
-            <ConditionalButton
-              showType={getAccessType("Bulk upload-Site")}
+
+            <PopupMenu
               name={"Export"}
-              classes="w-auto "
-              onClick={(e) => {
-                dispatch(
-                  CommonActions.commondownload(
-                    "/export/siteId/" + `${projectuniqueId}`,
-                    "Export_Sites.xlsx"
-                  )
-                );
-              }}
-            ></ConditionalButton>
-            <ConditionalButton
-              showType={getAccessType("Bulk upload-Task")}
-              name={"Export with Task"}
-              classes="w-auto "
-              onClick={(e) => {
-                dispatch(
-                  CommonActions.commondownload(
-                    "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
-                    "Export_Sites_with_Milestone.xlsx"
-                  )
-                );
-              }}
-            ></ConditionalButton>
+              icon={"Export"}
+              classes={"w-auto"}
+              bgColor={"bg-[#147b99]"}
+              child={            
+                <div classes="z-40 max-h-96 justify-center">
+                      <ConditionalButton
+                        showType={getAccessType("Bulk upload-Site")}
+                        name={"Export"}
+                        classes="w-auto m-5"
+                        onClick={(e) => {
+                          dispatch(
+                            CommonActions.commondownload(
+                              "/export/siteId/" + `${projectuniqueId}`,
+                              "Export_Sites.xlsx"
+                            )
+                          );
+                        }}
+                      ></ConditionalButton>
+                     <ConditionalButton
+                        showType={getAccessType("Bulk upload-Task")}
+                        name={"Export with Task"}
+                        classes="w-auto m-5"
+                        onClick={(e) => {
+                          dispatch(
+                            CommonActions.commondownload(
+                              "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
+                              "Export_Sites_with_Milestone.xlsx"
+                            )
+                          );
+                        }}
+                      ></ConditionalButton>               
+                     
+                </div>
+                    
+                  }
+                />
+
+
+
           </div>
         }
         table={table}
