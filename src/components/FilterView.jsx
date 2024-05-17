@@ -12,8 +12,9 @@ const FilterView = ({
   table,
   data,
   errors,
+  onReset,
   register,
-  setValue, 
+  setValue,
   getValues,
 }) => {
   return (
@@ -176,7 +177,18 @@ const FilterView = ({
                 <Button
                   name={"Clear"}
                   onClick={() => {
+                    // tablefilter.map((itm)=>{
+                    //   setValue(itm.name,"")
+
+                    //   console.log(itm.name,Object.entries(getValues()),"onResetonResetonReset")
+                    // })
+                    Object.entries(getValues()).map((itew) => {
+                      setValue(itew[0], "");
+                    });
+                    console.log(getValues(), "getValues");
                     onReset();
+
+                    // console.log(onReset,"onResetonResetonReset")
                   }}
                   classes="w-18 p-10 mx-2"
                 />

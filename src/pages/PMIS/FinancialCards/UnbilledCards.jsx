@@ -27,7 +27,7 @@ const UnbilledCards = () => {
         showbtn={false}
         approveddata={[
           ["Unbilled Waterfall","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/Unbilled/unbilledWaterfall",],
-          ["Unbilled View", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/PO_Management/poWorkDoneBased"],
+          ["Unbilled View", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/PO_Management/unbilledView"],
         ].map((itm) => {
           return (
             <>

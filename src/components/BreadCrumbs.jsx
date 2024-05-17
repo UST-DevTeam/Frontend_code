@@ -77,7 +77,27 @@ const BreadCrumbs = () => {
     "superAdmin":{
       "name":"Super Admin",
       "url":"/hr/superAdmin"
-    }
+    },
+    "financial":{
+      "name":"Financial",
+      "url":"/financial"
+    },
+    "poManagement":{
+      "name":"PO Management",
+      "url":"/financial/poManagement",
+    },
+    "invoiceMgmt":{
+      "name":"Invoice Management",
+      "url":"/financial/invoiceMgmt",
+    },
+    "poWorkDone":{
+      "name":"PO WorkDone",
+      "url":"/financial/poWorkDone",
+    },
+    "unbilled":{
+      "name":"Unbilled",
+      "url":"/financial/Unbilled",
+    },
   }
   
 

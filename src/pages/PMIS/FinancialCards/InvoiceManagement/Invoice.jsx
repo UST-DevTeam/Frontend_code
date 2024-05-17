@@ -15,26 +15,58 @@ import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import FileUploader from "../../../../components/FIleUploader";
-import AdminActions from '../../../../store/actions/admin-actions';
+import AdminActions from "../../../../store/actions/admin-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import InvoiceForm from "../InvoiceManagement/InvoiceForm";
 
 const Invoice = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
+  const [invoiceRow, setInvoiceRow] = useState([]);
+  const [selectAll, setSelectAll] = useState([]);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+
   let dispatch = useDispatch();
-  // let roleList = useSelector((state) => {
-  //     let interdata = state?.operationManagement?.USERS_LIST
-  //     return interdata
-  // })
+
+  console.log("selectedAll_____", selectAll);
+
+  let dbConfigL = useSelector((state) => {
+    let interdata = state?.financeData?.getInvoice;
+    return interdata;
+  });
+
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
     let interdata = state?.financeData?.getInvoice || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
+
+        checkboxInvoice: (
+          <input
+            type="checkbox"
+            id={itm.uniqueId}
+            checked={invoiceRow.includes(itm.uniqueId)}
+            value={itm.uniqueId}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
+                setInvoiceRow((prev) => [...prev, e.target.value]);
+                
+              } else {
+                if (selectAll.includes(e.target.id)) {
+                  setSelectAll((prev) =>
+                    prev.filter((id) => id !== e.target.id)
+                  );
+                }
+                setInvoiceRow((prev) =>
+                  prev.filter((id) => id !== e.target.value)
+                );
+              }
+            }}
+          />
+        ),
 
         edit: (
           <CstmButton
@@ -44,10 +76,30 @@ const Invoice = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
-                  dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
-                  dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
-                  dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${itm?.projectId}`))
+                  dispatch(
+                    AdminActions.getManageProjectGroup(
+                      true,
+                      `customer=${itm?.customer}`
+                    )
+                  );
+                  dispatch(
+                    AdminActions.getPOProjectType(
+                      true,
+                      `customer=${itm?.customer}`
+                    )
+                  );
+                  dispatch(
+                    AdminActions.getPOProjectID(
+                      true,
+                      `projectGroup=${itm?.projectGroup}`
+                    )
+                  );
+                  dispatch(
+                    AdminActions.getInvoiceSiteId(
+                      true,
+                      `projectId=${itm?.projectId}`
+                    )
+                  );
                   dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(
@@ -83,8 +135,9 @@ const Invoice = () => {
                         classes="w-15 bg-green-500"
                         onClick={() => {
                           dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.finance_Invoice}/${itm.uniqueId}`,
+                            CommonActions.deleteApiCallerBulk(
+                              `${Urls.finance_Invoice}`,
+                              {ids : [itm.uniqueId]},
                               () => {
                                 dispatch(FinanceActions.getInvoice());
                                 dispatch(ALERTS({ show: false }));
@@ -142,32 +195,74 @@ const Invoice = () => {
       {
         name: (
           <input
-            type={"checkbox"}
-            
+            type="checkbox"
+            // checked={selectAll}
+            className='check-state'
+            onChange={(e) => {
+              if (e.target.checked) {
+                setInvoiceRow(dbConfigL.map((itm) => itm.uniqueId));
+                setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
+                try {
+                  let eleRefs = document.getElementsByClassName('check-state');
+                  if (eleRefs) {
+                    eleRefs = Array.from(eleRefs);
+                    if (Array.isArray(eleRefs)) {
+                      eleRefs.forEach(ele => {
+                        if (ele) {
+                          ele.setAttribute('checked', true);
+                        }
+                      });
+                    }
+                  }
+                } catch (error) {
+                  // Handle error if needed
+                }
+              } else {
+                setInvoiceRow([]);
+                setSelectAll([]);
+                try {
+                  let eleRefs = document.getElementsByClassName('check-state');
+                  if (eleRefs) {
+                    eleRefs = Array.from(eleRefs);
+                    if (Array.isArray(eleRefs)) {
+                      eleRefs.forEach(ele => {
+                        if (ele) {
+                          ele.removeAttribute('checked');
+                        }
+                      });
+                    }
+                  }
+                } catch (error) {
+                  // Handle error if needed
+                }
+              }
+            }}
           />
-        ),
-        value: "checkboxProject",
-        style: "min-w-[40px] max-w-[40px] text-center",
+        )
+        ,
+        value: "checkboxInvoice",
+        style: "min-w-[40px] max-w-[60px] text-center",
       },
       {
         name: "Year",
         value: "year",
-        style: "min-w-[70px] max-w-[160px] text-center sticky left-0 bg-white"
+        style: "min-w-[70px] max-w-[160px] text-center sticky left-0 bg-white",
       },
       {
         name: "Month",
         value: "month",
-        style: "min-w-[100px] max-w-[160px] text-center sticky left-0 bg-white"
+        style: "min-w-[100px] max-w-[160px] text-center sticky left-0 bg-white",
       },
       {
         name: "Customer",
         value: "customerName",
-        style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white"
+        style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white",
       },
       {
         name: "Project Group",
         value: "projectGroupId",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-white",
+        style:
+          "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-white",
       },
       {
         name: "Project Type",
@@ -290,14 +385,50 @@ const Invoice = () => {
     );
   };
 
+  const handleBulkDelte = () => {
+   
+    dispatch(
+      CommonActions.deleteApiCallerBulk(
+        `${Urls.finance_Invoice}`,
+        {
+          ids: selectAll
+        },
+        () => {
+          dispatch(FinanceActions.getInvoice());
+          dispatch(ALERTS({ show: false }));
+          setmodalOpen(false)
+        }
+      )
+    );   
+  };
 
   return (
     <>
       <AdvancedTable
         headerButton={
           <>
+            {(Array.isArray(selectAll) && selectAll?.length > 0 ) && (
+                <Button
+                  classes="w-auto mr-1"
+                  onClick={(e) => {
+                    setmodalOpen((prev) => !prev);
+                    setmodalHead("Confirm Delete");
+                    setmodalBody(
+                      <div className="flex justify-center py-6">
+                        <button 
+                          onClick={handleBulkDelte}
+                          className="w-1/4 rounded-full bg-green-600 "
+                        >
+                        OK
+                        </button>
+                      </div>
+                    );
+                  }}
+                  name={"Delete"}
+                ></Button>
+            )}
             <Button
-            classes="w-auto mr-1"
+              classes="w-auto mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Invoice");
@@ -322,7 +453,7 @@ const Invoice = () => {
           </>
         }
         table={table}
-        exportButton={["/export/Invoice/" , "Export_Invoice.xlsx",]}
+        exportButton={["/export/Invoice/", "Export_Invoice.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -338,8 +469,8 @@ const Invoice = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
-        tempbtn={true} 
-        tempbtnlink = {["/template/Invoice.xlsx","Invoice.xlsx"]}
+        tempbtn={true}
+        tempbtnlink={["/template/Invoice.xlsx", "Invoice.xlsx"]}
       />
       <Modal
         size={"sm"}

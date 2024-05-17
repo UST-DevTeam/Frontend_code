@@ -282,13 +282,45 @@ const WorkDone = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
+            {
+                label: "Type",
+                type: "select",
+                name: "status",
+                option: [
+                  { label: "Billed", value: "Billed" },
+                  { label: "UnBilled", value: "Unbilled" },
+                ],
+                props: {},
+            },
             // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
+            //     label: "Type",
+            //     type: "autoSuggestion",
+            //     name: "stus",
+            //     option: [
+            //       { label: "Billed", value: "Billed" },
+            //       { label: "UnBilled", value: "Unbilled" },
+            //     ],
+            //     props: {},
+            // },
+            // {
+            //     label: "Type",
+            //     type: "text",
+            //     name: "stus",
+            //     option: [
+            //       { label: "Billed", value: "Billed" },
+            //       { label: "UnBilled", value: "Unbilled" },
+            //     ],
+            //     props: {},
+            // },
+            // {
+            //     label: "Type",
+            //     type: "datetime",
+            //     name: "stus",
+            //     option: [
+            //       { label: "Billed", value: "Billed" },
+            //       { label: "UnBilled", value: "Unbilled" },
+            //     ],
+            //     props: {},
             // }
         ]
     }

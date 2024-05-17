@@ -29,6 +29,7 @@ const AdvancedTable = ({
   table,
   data,
   errors,
+  reset,
   register,
   setValue,
   getValues,
@@ -42,7 +43,7 @@ const AdvancedTable = ({
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
-  
+
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
@@ -53,7 +54,7 @@ const AdvancedTable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [100,200,300,400,500],
+    rpp: [100, 200, 300, 400, 500],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
   const callApiPagination = (value) => {
@@ -78,7 +79,7 @@ const AdvancedTable = ({
     filterAfter(formdata);
     setActivedFilter(formdata);
     setActiveFilter(objectToArray(formdata));
-    dispatch(ComponentActions.popmenu(location.pathname + "_" + name,false))
+    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
   const onReset = () => {
     // alert(value)
@@ -118,6 +119,8 @@ const AdvancedTable = ({
               {/* <PopupMenu visiblity={filterVisiblity}/> */}
 
               <FilterView
+               
+                onReset={onReset}
                 tablefilter={table.filter}
                 onSubmit={onSubmit}
                 handleSubmit={handleSubmit}
@@ -125,13 +128,15 @@ const AdvancedTable = ({
                 data={data}
                 errors={errors}
                 register={register}
-                setValue={register}
+                setValue={setValue}
                 getValues={getValues}
               />
               <PopupMenu
                 name={"Hide / Unhide"}
                 //icon={<UilColumns size="32" className={"hello"} />}
-                icon={icon ? icon : <UilColumns size="32" className={"hello"} />}
+                icon={
+                  icon ? icon : <UilColumns size="32" className={"hello"} />
+                }
                 child={
                   <>
                     <div className="flex z-40 max-h-96 overflow-scroll flex-col">
@@ -174,7 +179,6 @@ const AdvancedTable = ({
                                 {itts.name}
                               </span>
                             </div>
-
                           </>
                         );
                       })}
@@ -205,7 +209,8 @@ const AdvancedTable = ({
                 <></>
               )}
               {exportButton ? (
-                <ConditionalButton showType={getAccessType("Add Project")}
+                <ConditionalButton
+                  showType={getAccessType("Add Project")}
                   name={"Export"}
                   classes="w-full mr-1"
                   onClick={() => {
@@ -223,11 +228,17 @@ const AdvancedTable = ({
                 <></>
               )}
               {exportSiteButton ? (
-                <ConditionalButton showType={getAccessType("Download Project")}
+                <ConditionalButton
+                  showType={getAccessType("Download Project")}
                   name={"Export Site"}
                   classes="w-full mr-1"
                   onClick={() => {
-                    dispatch(CommonActions.commondownload(exportSiteButton[0],exportSiteButton[1]));
+                    dispatch(
+                      CommonActions.commondownload(
+                        exportSiteButton[0],
+                        exportSiteButton[1]
+                      )
+                    );
                   }}
                 >
                   Export
@@ -236,11 +247,17 @@ const AdvancedTable = ({
                 <></>
               )}
               {exportSiteWithTask ? (
-                <ConditionalButton showType={getAccessType("Download Project")}
+                <ConditionalButton
+                  showType={getAccessType("Download Project")}
                   name={"Export Site with task"}
                   classes="w-full mr-1"
                   onClick={() => {
-                    dispatch(CommonActions.commondownload(exportSiteWithTask[0],exportSiteWithTask[1]));
+                    dispatch(
+                      CommonActions.commondownload(
+                        exportSiteWithTask[0],
+                        exportSiteWithTask[1]
+                      )
+                    );
                   }}
                 >
                   Export
@@ -256,7 +273,7 @@ const AdvancedTable = ({
                     dispatch(
                       CommonActions.commondownload(
                         exportButton[0],
-                        exportButton[1],
+                        exportButton[1]
                       )
                     );
                   }}
@@ -274,7 +291,7 @@ const AdvancedTable = ({
                     dispatch(
                       CommonActions.commondownload(
                         exportButton[0],
-                        exportButton[1],
+                        exportButton[1]
                       )
                     );
                   }}
@@ -421,7 +438,9 @@ const AdvancedTable = ({
               ) : (
                 <tbody>
                   <tr className="border-2 border-black text-center">
-                    <td colSpan={table.columns.length} className="">No Records Found</td>
+                    <td colSpan={table.columns.length} className="">
+                      No Records Found
+                    </td>
                   </tr>
                 </tbody>
               )}
@@ -451,7 +470,7 @@ const AdvancedTable = ({
                       );
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
-                          {["Edit", "Delete",].includes(itts.name) ? (
+                          {["Edit", "Delete"].includes(itts.name) ? (
                             ["Edit"].includes(itts.name) ? (
                               <th
                                 colSpan={actions.length}
