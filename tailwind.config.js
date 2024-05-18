@@ -27,7 +27,8 @@ export default {
       },
       fontFamily: {
         sans: ['Libre Baskerville', 'sans-serif'],
-        poppins: 'Poppins'
+        poppins: 'Poppins',
+        oxygen:'Oxygen'
       },
       
       backgroundImage: {

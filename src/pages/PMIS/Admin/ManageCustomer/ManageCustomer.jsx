@@ -259,8 +259,8 @@ const ManageCustomer = () => {
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
 
-    
-    dispatch(ComponentActions.breadcrumb("Project Management","/manageCustomer",0, true));
+
+    dispatch(ComponentActions.breadcrumb("Project Management", "/manageCustomer", 0, true));
   }, []);
 
   return type ? (
@@ -330,7 +330,7 @@ const ManageCustomer = () => {
                 dbConfigList?.map((itm => {
                     return <>
                         <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
+                            className='bg-pink-100 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  '
                             onClick={() => {
                                 navigate(`${"/projectType"}/${itm["uniqueId"]}`)
                             }}>
@@ -346,10 +346,10 @@ const ManageCustomer = () => {
           return (
             <>
               <div
-                className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
+                className="bg-pink-100 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  "
                 onClick={() => {
                   dispatch(
-                    ComponentActions.globalUrlStore(itm["customerName"],`${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
+                    ComponentActions.globalUrlStore(itm["customerName"], `${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
                   );
                   navigate(`${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`);
                 }}

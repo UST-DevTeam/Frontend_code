@@ -41,7 +41,7 @@ const VendorCards = () => {
           return (
             <>
               <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg `}
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(
@@ -50,7 +50,7 @@ const VendorCards = () => {
                     )
                   );
                   dispatch(
-                    ComponentActions.breadcrumb(itm[0],itm[2],1, false)
+                    ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
                   );
                   navigate(itm[2]);
                 }}

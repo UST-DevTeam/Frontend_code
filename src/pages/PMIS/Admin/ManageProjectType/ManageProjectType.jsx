@@ -32,7 +32,7 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
 
 const ManageProjectType = () => {
-  const { cname,customeruniqueId } = useParams();
+  const { cname, customeruniqueId } = useParams();
 
   const {
     register,
@@ -71,14 +71,15 @@ const ManageProjectType = () => {
 
 
   let completionCriteriaList = useSelector((state) => {
-    let interdata = state?.adminData?.getManageCompletionCriteria  || []
+    let interdata = state?.adminData?.getManageCompletionCriteria || []
     return interdata?.map((itm) => {
       const data = {
         name: itm.completion,
         id: itm.completion,
       }
       return data
-    })})
+    })
+  })
 
 
 
@@ -462,14 +463,14 @@ const ManageProjectType = () => {
                       </div>
                       {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
                       <CommonTableFormSiteParent
-                        funcaller={() => {}}
+                        funcaller={() => { }}
                         defaultValue={"Site Engg"}
                         tabslist={{
                           "Site Engg": (
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Site Engg"}
-                              customeruniqueId = {customeruniqueId}
+                              customeruniqueId={customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -495,7 +496,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Tracking"}
-                              customeruniqueId = {customeruniqueId}
+                              customeruniqueId={customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -521,7 +522,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Issues"}
-                              customeruniqueId = {customeruniqueId}
+                              customeruniqueId={customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -547,7 +548,7 @@ const ManageProjectType = () => {
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
                               tabHead={"Financials"}
-                              customeruniqueId = {customeruniqueId}
+                              customeruniqueId={customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}
                               errors={errors}
@@ -594,7 +595,7 @@ const ManageProjectType = () => {
                   setmodalSize("full");
                   setmodalHead("Milestones");
 
-                  dispatch(SET_DYNAMIC_FORM({label: "MileStone", value: itm["MileStone"] ? itm["MileStone"] : [], reseter: true}));
+                  dispatch(SET_DYNAMIC_FORM({ label: "MileStone", value: itm["MileStone"] ? itm["MileStone"] : [], reseter: true }));
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">
@@ -624,7 +625,7 @@ const ManageProjectType = () => {
                       <CommonTableForm
                         setmodalOpen={setmodalOpen}
                         tabHead={"MileStone"}
-                        customeruniqueId = {customeruniqueId}
+                        customeruniqueId={customeruniqueId}
                         classes={"grid-cols-2 gap-1"}
                         Form={milestonemultiForm}
                         errors={errors}
@@ -682,7 +683,7 @@ const ManageProjectType = () => {
                       <CommonTableForm
                         setmodalOpen={setmodalOpen}
                         tabHead={"Commercial"}
-                        customeruniqueId = {customeruniqueId}
+                        customeruniqueId={customeruniqueId}
                         classes={"grid-cols-2 gap-1"}
                         Form={commercialmultiForm}
                         errors={errors}
@@ -861,7 +862,7 @@ const ManageProjectType = () => {
                       </div>
                       {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
                       <CommonTableFormSiteParent
-                        funcaller={() => {}}
+                        funcaller={() => { }}
                         defaultValue={"Site Engg"}
                         tabslist={{
                           "Site Engg": (
@@ -981,7 +982,7 @@ const ManageProjectType = () => {
                   // dispatch(AdminActions.getManageCustomer());
                   setmodalHead("Milestones");
                   setmodalSize("full");
-                  dispatch(SET_DYNAMIC_FORM({label: "MileStone",value: itm["MileStone"] ? itm["MileStone"] : [],reseter: true,}));
+                  dispatch(SET_DYNAMIC_FORM({ label: "MileStone", value: itm["MileStone"] ? itm["MileStone"] : [], reseter: true, }));
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">
@@ -1290,7 +1291,7 @@ const ManageProjectType = () => {
                 dbConfigListCard?.map((itm => {
                     return <>
                         <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
+                            className='bg-pink-100 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  '
                             onClick={() => {
                                 navigate(`${"/projectGroup"}/${itm["uniqueId"]}`)
                             }}>
