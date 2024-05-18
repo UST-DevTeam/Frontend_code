@@ -46,7 +46,7 @@ const ManagePTForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         //     required: true,
         //     classes: "col-span-1"
         // },
-         {
+        {
             label: "Select File",
             value: "",
             name: "file",
@@ -77,7 +77,7 @@ const ManagePTForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
                 }),
             },
             classes: "col-span-1"
-        },   
+        },
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {
@@ -142,7 +142,7 @@ const ManagePTForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

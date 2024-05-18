@@ -43,11 +43,11 @@ const ManageProjectSiteIdForm = ({
   const [mile, setMile] = useState("Add");
   const [old, setOld] = useState({});
   const [globalData, setGlobalData] = useState({
-    "siteEngineer":{},
-    "t_issues":{},
-    "t_tracking":{},
-    "t_sFinancials":{},
-    "mileStone":{},
+    "siteEngineer": {},
+    "t_issues": {},
+    "t_tracking": {},
+    "t_sFinancials": {},
+    "mileStone": {},
   });
 
 
@@ -168,7 +168,7 @@ const ManageProjectSiteIdForm = ({
       },
       required: true,
       classes: "col-span-1",
-    }, 
+    },
     {
       label: "Milestone",
       name: "milestone",
@@ -203,7 +203,7 @@ const ManageProjectSiteIdForm = ({
   };
   const onTableViewSubmit = (data) => {
 
-    console.log(data,"datadatadatadatadat")
+    console.log(data, "datadatadatadatadat")
 
 
     console.log(globalData, "globalDataglobalDataglobalData")
@@ -259,7 +259,7 @@ const ManageProjectSiteIdForm = ({
 
 
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
 
         <CommonForm

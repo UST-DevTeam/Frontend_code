@@ -95,7 +95,7 @@ const VendorProjectAllocationForm = ({
       name: "vendor",
       value: "",
       required: true,
-      type:"sdisabled",
+      type: "sdisabled",
       classes: "col-span-1",
     },
     // {
@@ -130,7 +130,7 @@ const VendorProjectAllocationForm = ({
       value: "",
       option: projectList,
       props: {
-        onChange: (e) => {}
+        onChange: (e) => { }
       },
       classes: "col-span-1 w-full",
     },
@@ -219,7 +219,7 @@ const VendorProjectAllocationForm = ({
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-1 gap-1"}
           Form={Form}

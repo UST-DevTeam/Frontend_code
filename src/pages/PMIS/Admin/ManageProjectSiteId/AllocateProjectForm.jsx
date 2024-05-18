@@ -151,7 +151,7 @@ const AllocateProjectForm = ({
       type: "BigmuitiSelect",
       value: "",
       option: dataGetterOld
-        ? dataGetterOld["empDeatils"] && dataGetterOld["empDeatils"][0]?.["name"] 
+        ? dataGetterOld["empDeatils"] && dataGetterOld["empDeatils"][0]?.["name"]
           ? dataGetterOld["empDeatils"]
           : []
         : [],
@@ -237,20 +237,20 @@ const AllocateProjectForm = ({
 
     let finaldata = {};
 
-    let assigningTo=""
+    let assigningTo = ""
     if (activeTab == 0) {
       dataForApp = data["userId"];
-      assigningTo="userRegister"
+      assigningTo = "userRegister"
     } else if (activeTab == 1) {
       dataForApp = data["vendorId"];
-      assigningTo="vendor"
+      assigningTo = "vendor"
     }
     if (listsite.length == 0) {
       let finaldata = {
         name: from,
         data: {
           assignerId: dataForApp,
-          assigningTo:assigningTo
+          assigningTo: assigningTo
         },
         from: {
           uid: formValue["uniqueId"],
@@ -352,7 +352,7 @@ const AllocateProjectForm = ({
         />
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <DynamicTabContent
           activeTab={activeTab}
           tabList={[

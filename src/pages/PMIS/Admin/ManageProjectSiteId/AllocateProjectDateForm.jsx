@@ -144,9 +144,9 @@ const AllocateProjectDateForm = ({
       label: "Planned Start Date",
       name: "plannedStartDate",
       type: "datetime",
-      formattype:"date",
-      format:"yyyy-MM-dd",
-      formatop:"yyyy-MM-DD",
+      formattype: "date",
+      format: "yyyy-MM-dd",
+      formatop: "yyyy-MM-DD",
       required: true,
       classes: "col-span-1",
     },
@@ -178,18 +178,18 @@ const AllocateProjectDateForm = ({
 
 
 
-    let finaldata={
-      name:"mileStone",
-      data:{
-        "plannedStartDate":data["userId"]
+    let finaldata = {
+      name: "mileStone",
+      data: {
+        "plannedStartDate": data["userId"]
       },
-      from:{
-        "uid":formValue["uniqueId"]
+      from: {
+        "uid": formValue["uniqueId"]
       }
     }
 
-    console.log(finaldata,formValue,data, "globalDataglobalDataglobalData")
-    dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver,projectuniqueId, finaldata, () => {
+    console.log(finaldata, formValue, data, "globalDataglobalDataglobalData")
+    dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, finaldata, () => {
       dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
       setIsOpen(false)
     }))
@@ -240,7 +240,7 @@ const AllocateProjectDateForm = ({
 
 
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
 
         <CommonForm

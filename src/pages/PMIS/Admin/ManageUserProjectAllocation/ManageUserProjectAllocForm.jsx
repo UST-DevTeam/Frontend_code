@@ -95,7 +95,7 @@ const ManageUserProjectAllocForm = ({
       name: "emp",
       value: "",
       required: true,
-      type:"sdisabled",
+      type: "sdisabled",
       classes: "col-span-1",
     },
     {
@@ -103,17 +103,17 @@ const ManageUserProjectAllocForm = ({
       name: "userRole",
       value: "",
       required: true,
-      type:"sdisabled",
+      type: "sdisabled",
       classes: "col-span-1",
     },
     {
       label: "Project",
       name: "projectIds",
-      type: "BigmuitiSelect", 
+      type: "BigmuitiSelect",
       value: "",
       option: projectList,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-2 w-screen",
     },
@@ -202,7 +202,7 @@ const ManageUserProjectAllocForm = ({
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-1 gap-1"}
           Form={Form}

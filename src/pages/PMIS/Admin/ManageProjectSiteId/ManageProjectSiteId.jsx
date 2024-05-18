@@ -137,7 +137,7 @@ const ManageProjectSiteId = () => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
 
-              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
+              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll: [], reset: true }))
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               setmodalBody(
                 <ManageMilestoneSite
@@ -162,20 +162,18 @@ const ManageProjectSiteId = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${
-              100 -
+            percent={`${100 -
               ((itm.milestoneArray.length -
                 itm.milestoneArray.filter(
                   (iewq) => iewq.mileStoneStatus == "Close"
                 ).length) /
                 itm.milestoneArray.length) *
-                100
-            }`}
-            text={`${
-              itm.milestoneArray.filter(
-                (iewq) => iewq.mileStoneStatus == "Close"
-              ).length
-            } / ${itm.milestoneArray.length}`}
+              100
+              }`}
+            text={`${itm.milestoneArray.filter(
+              (iewq) => iewq.mileStoneStatus == "Close"
+            ).length
+              } / ${itm.milestoneArray.length}`}
           />
         ),
         checkboxProject: (
@@ -297,14 +295,14 @@ const ManageProjectSiteId = () => {
                                 {" "}
                                 {itwsw.assignerName.split(" ").length > 1
                                   ? itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1) +
-                                    itwsw.assignerName
-                                      .split(" ")[1]
-                                      .substr(0, 1)
+                                    .split(" ")[0]
+                                    .substr(0, 1) +
+                                  itwsw.assignerName
+                                    .split(" ")[1]
+                                    .substr(0, 1)
                                   : itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}
+                                    .split(" ")[0]
+                                    .substr(0, 1)}
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -341,7 +339,7 @@ const ManageProjectSiteId = () => {
                               {iewq.mileStoneStatus}
                             </p>
                           </div>
-                          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+                          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
                             <Button
                               classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
@@ -365,7 +363,7 @@ const ManageProjectSiteId = () => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
-                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
+                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll: [], reset: true }))
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
                   setmodalBody(
                     <ManageMilestoneSite
@@ -422,7 +420,7 @@ const ManageProjectSiteId = () => {
                               {iewq.mileStoneStatus}
                             </p>
                           </div>
-                          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+                          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
                             <Button
                               classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
@@ -631,7 +629,7 @@ const ManageProjectSiteId = () => {
         //    <label htmlFor="" className='font-bold'> Status:</label>
         //       <p className='bg-green-400 rounded-lg w-16 text-center'>{itm.siteStatus}</p>
         //    </div>
-        //    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        //    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         //         <Button classes={"mt-2 w-sm text-center flex mx-auto"} name="Open Task" />
         //     </div>
         //     </>)
@@ -656,7 +654,7 @@ const ManageProjectSiteId = () => {
         //                   {itm.siteStatus}
         //                 </p>
         //               </div>
-        //               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        //               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         //                 <Button
         //                   classes={"mt-2 w-sm text-center flex mx-auto"}
         //                   name="Open Task"
@@ -1186,39 +1184,39 @@ const ManageProjectSiteId = () => {
               icon={"Export"}
               classes={"w-auto"}
               bgColor={"bg-[#147b99]"}
-              child={            
+              child={
                 <div classes="z-40 max-h-96 justify-center">
-                      <ConditionalButton
-                        showType={getAccessType("Bulk upload-Site")}
-                        name={"Export"}
-                        classes="w-auto m-5"
-                        onClick={(e) => {
-                          dispatch(
-                            CommonActions.commondownload(
-                              "/export/siteId/" + `${projectuniqueId}`,
-                              "Export_Sites.xlsx"
-                            )
-                          );
-                        }}
-                      ></ConditionalButton>
-                     <ConditionalButton
-                        showType={getAccessType("Bulk upload-Task")}
-                        name={"Export with Task"}
-                        classes="w-auto m-5"
-                        onClick={(e) => {
-                          dispatch(
-                            CommonActions.commondownload(
-                              "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
-                              "Export_Sites_with_Milestone.xlsx"
-                            )
-                          );
-                        }}
-                      ></ConditionalButton>               
-                     
+                  <ConditionalButton
+                    showType={getAccessType("Bulk upload-Site")}
+                    name={"Export"}
+                    classes="w-auto m-5"
+                    onClick={(e) => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/siteId/" + `${projectuniqueId}`,
+                          "Export_Sites.xlsx"
+                        )
+                      );
+                    }}
+                  ></ConditionalButton>
+                  <ConditionalButton
+                    showType={getAccessType("Bulk upload-Task")}
+                    name={"Export with Task"}
+                    classes="w-auto m-5"
+                    onClick={(e) => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
+                          "Export_Sites_with_Milestone.xlsx"
+                        )
+                      );
+                    }}
+                  ></ConditionalButton>
+
                 </div>
-                    
-                  }
-                />
+
+              }
+            />
 
 
 

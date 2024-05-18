@@ -12,7 +12,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 import FinanceActions from '../../../../store/actions/finance-actions';
 
 const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
-    
+
     const { customeruniqueId } = useParams();
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
@@ -29,39 +29,39 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
                 label: itm?.customerName,
-                value:itm?.uniqueId
+                value: itm?.uniqueId
             }
         })
     })
     let circleList = useSelector((state) => {
         return state?.adminData?.getManageCircle
-          .filter((itm) => {
-            console.log(itm.customerName == pType, "dasdsadsadas");
-            return itm.customerName == pType;
-          })
-          .map((itm) => {
-            return {
-              label: itm.circleName,
-              value: itm.uniqueId,
-            };
-          });
-      });
+            .filter((itm) => {
+                console.log(itm.customerName == pType, "dasdsadsadas");
+                return itm.customerName == pType;
+            })
+            .map((itm) => {
+                return {
+                    label: itm.circleName,
+                    value: itm.uniqueId,
+                };
+            });
+    });
 
-      let projectTypeList = useSelector((state) => {
+    let projectTypeList = useSelector((state) => {
         return state?.adminData?.getCardProjectType.map((itm) => {
-          return {
-            label: itm.projectType,
-            value: itm.uniqueId,
-          };
+            return {
+                label: itm.projectType,
+                value: itm.uniqueId,
+            };
         });
-      });
-    
+    });
+
 
     let projectGroupList = useSelector((state) => {
         return state?.adminData?.getManageProjectGroup.map((itm) => {
             return {
                 label: itm?.projectGroupId,
-                value:itm?.uniqueId
+                value: itm?.uniqueId
             }
         })
     })
@@ -84,7 +84,7 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
         return state?.adminData?.getProject.map((itm) => {
             return {
                 label: itm?.projectId,
-                value:itm?.uniqueId
+                value: itm?.uniqueId
             }
         })
     })
@@ -112,17 +112,17 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             name: "customer",
             type: "select",
             required: true,
-            option:customerList,
+            option: customerList,
             classes: "col-span-1",
             props: {
                 onChange: (e) => {
                     setpType(
                         customerList.filter((iteq) => iteq.value == e.target.value)[0][
                         "label"
-                      ]
+                        ]
                     );
                     setValue("customer", e.target.value);
-                  },
+                },
             },
         },
         {
@@ -137,13 +137,13 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
                     setqType(
                         circleList.filter((iteq) => iteq.value == e.target.value)[0][
                         "label"
-                      ]
+                        ]
                     );
                     setValue("circle", e.target.value);
-                  },
+                },
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Project Type",
             value: "",
@@ -152,18 +152,18 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             option: projectTypeList,
             props: {
-              onChange: (e) => {
-                // setpType(
-                //   projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
-                //     "label"
-                //   ]
-                // );
-                // console.log(e.target.value, "e geeter");
-                // setValue("projectType", e.target.value);
-              },
+                onChange: (e) => {
+                    // setpType(
+                    //   projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
+                    //     "label"
+                    //   ]
+                    // );
+                    // console.log(e.target.value, "e geeter");
+                    // setValue("projectType", e.target.value);
+                },
             },
             classes: "col-span-1",
-          },
+        },
         {
             label: "Project Group",
             value: "",
@@ -176,13 +176,13 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
                     setrType(
                         projectGroupList.filter((iteq) => iteq.value == e.target.value)[0][
                         "label"
-                      ]
+                        ]
                     );
                     setValue("projectGroup", e.target.value);
-                  },
+                },
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Project ID",
             value: "",
@@ -192,11 +192,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             // required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "PO Number",
             value: "",
@@ -205,11 +205,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Item Code",
             value: "",
@@ -218,11 +218,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Description",
             value: "",
@@ -231,11 +231,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Unit Rate",
             value: "",
@@ -244,11 +244,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "PO Value",
             value: "",
@@ -257,11 +257,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Initial Qty",
             value: "",
@@ -270,11 +270,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Qty",
             value: "",
@@ -283,11 +283,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Used Qty",
             value: "",
@@ -296,11 +296,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Open Qty",
             value: "",
@@ -309,11 +309,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Status",
             value: "",
@@ -322,11 +322,11 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             required: true,
             props: {
                 onChange: ((e) => {
-                    
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
 
     ]
     const {
@@ -393,7 +393,7 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

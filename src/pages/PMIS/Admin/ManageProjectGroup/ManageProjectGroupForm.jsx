@@ -19,7 +19,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
     const [modalOpen, setmodalOpen] = useState(false)
 
     let dispatch = useDispatch()
-    
+
     let customerList = useSelector((state) => {
         // console.log(state?.adminData?.getManageCustomer, "state?.adminData?.customerList")
         return state?.adminData?.getManageCustomer.map((itm) => {
@@ -29,7 +29,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }
         })
     })
-    
+
     let costCenterList = useSelector((state) => {
         return state?.adminData?.getManageCostCenter.map((itm) => {
             return {
@@ -59,7 +59,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-                    dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
+                    dispatch(AdminActions.getManageZone(true, `customer=${e.target.value}`))
                 }),
             },
             classes: "col-span-1"
@@ -74,7 +74,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             filter: true,
             props: {
                 onChange: ((e) => {
-                    dispatch(AdminActions.getManageCostCenter(true,`zone=${e.target.value}`))
+                    dispatch(AdminActions.getManageCostCenter(true, `zone=${e.target.value}`))
                     // console.log(selectedValue, "egeeter")
 
                     // setValue("queries",e.target.name)
@@ -102,7 +102,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             classes: "col-span-1"
         },
     ]
-    const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm()
+    const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors } } = useForm()
 
     const onSubmit = (data) => {
         // dispatch(AuthActions.signIn(data, () => {
@@ -124,12 +124,12 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }))
         }
     }
-    
+
     console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
         dispatch(AdminActions.getManageZone())
-        
+
         // dispatch(AdminActions.getManageProjectGroup())
 
         // alert(resetting)
@@ -151,9 +151,9 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
                 } else {
                     // console.log("formValuekey",key,key)
                     setValue(key.name, formValue[key.name]);
-                    console.log(key.name,"key.name", formValue[key.name])
+                    console.log(key.name, "key.name", formValue[key.name])
                     // console.log(formValue[key.name],"formValue[key.name]")
-                    
+
                     dispatch(AdminActions.getManageCostCenter())
                 }
             })
@@ -164,7 +164,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

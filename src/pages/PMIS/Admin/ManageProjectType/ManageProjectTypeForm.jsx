@@ -9,7 +9,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 
 
-const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
     let dispatch = useDispatch()
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
@@ -45,50 +45,50 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
         //     required: true,
         //     classes: "col-span-1"
         // },
-         
+
         {
             label: "Project Type",
             name: "projectType",
             type: "text",
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
-            value:"",
+            value: "",
             classes: "col-span-1"
-        }, 
+        },
         {
             label: " Sub Project",
             name: "subProject",
             type: "text",
-            value:"",
+            value: "",
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Status",
-            name: "status", 
+            name: "status",
             type: "select",
-            value:"",
+            value: "",
             option: [
                 { "label": "Active", "value": "Active" },
                 { "label": "Inactive", "value": "Inactive" }
             ],
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {
@@ -109,12 +109,12 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
     const onTableViewSubmit = (data) => {
 
         if (formValue?.uniqueId) {
-            dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
+            dispatch(AdminActions.postManageProjectType(true, customeruniqueId, data, () => {
                 setIsOpen(false)
                 dispatch(AdminActions.getManageProjectType(customeruniqueId))
             }, formValue?.uniqueId))
         } else {
-            dispatch(AdminActions.postManageProjectType(true,customeruniqueId, data, () => {
+            dispatch(AdminActions.postManageProjectType(true, customeruniqueId, data, () => {
                 setIsOpen(false)
                 dispatch(AdminActions.getManageProjectType(customeruniqueId))
             }))
@@ -123,12 +123,12 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
     console.log(Form, "Form 11")
     useEffect(() => {
         // dispatch(AdminActions.getManageProjectType())
-        
+
         // alert(resetting)
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
-                console.log(fieldName,"fieldNamefieldNamefieldName")
+                console.log(fieldName, "fieldNamefieldNamefieldName")
                 setValue(fieldName["name"], fieldName["value"]);
             });
         } else {
@@ -150,7 +150,7 @@ const ManageProjectTypeForm = ({customeruniqueId, isOpen, setIsOpen, resetting, 
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4 pb-5">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

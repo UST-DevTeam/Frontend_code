@@ -1247,7 +1247,7 @@ const ManageProjectType = () => {
                 setmodalOpen((prev) => !prev);
                 // dispatch(OperationManagementActions.getOperationUserList())
                 setmodalHead("New Project Type");
-                setmodalSize("smsh");
+                setmodalSize("sm");
                 setmodalBody(
                   <ManageProjectTypeForm
                     customeruniqueId={customeruniqueId}

@@ -11,11 +11,11 @@ import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 import projectListActions from "../../../../store/actions/projectList-actions";
 
-const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
+const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) => {
 
-  const {register,handleSubmit,watch,reset,setValue,getValues,formState: { errors }} = useForm();
+  const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors } } = useForm();
 
-  const { customeruniqueId,projecttypeuniqueId} = useParams();
+  const { customeruniqueId, projecttypeuniqueId } = useParams();
 
 
   let dispatch = useDispatch();
@@ -92,7 +92,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
     }
   });
 
-  
+
   let Form = [
     {
       label: "Project ID",
@@ -124,7 +124,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
     {
       label: "Project Type",
       value: "",
-      name: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "projectTypeName":"projectType",
+      name: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "projectTypeName" : "projectType",
       type: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "sdisabled" : "select",
 
       required: true,
@@ -133,7 +133,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
         onChange: (e) => {
           setpType(
             projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
-              "label"
+            "label"
             ]
           );
           console.log(e.target.value, "e geeter");
@@ -187,7 +187,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
       type: "datetime",
       value: "",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       required: true,
       classes: "col-span-1",
@@ -256,24 +256,24 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
     delete data["PMName"];
 
     if (formValue?.uniqueId) {
-      dispatch(AdminActions.postProject(true,customeruniqueId,data,() => {
-            setIsOpen(false);
-            dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-          },
-          formValue?.uniqueId
-        )
+      dispatch(AdminActions.postProject(true, customeruniqueId, data, () => {
+        setIsOpen(false);
+        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+      },
+        formValue?.uniqueId
+      )
       );
-    } 
+    }
     else {
       dispatch(AdminActions.postProject(true, customeruniqueId, data, () => {
-          setIsOpen(false);
-          dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-        })
+        setIsOpen(false);
+        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+      })
       );
     }
   };
   useEffect(() => {
-    dispatch(AdminActions.getManageProjectGroup(true,"",customeruniqueId));
+    dispatch(AdminActions.getManageProjectGroup(true, "", customeruniqueId));
     // dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
@@ -283,7 +283,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
       dispatch(AdminActions.getCardProjectType(customeruniqueId));
     }
     // dispatch(AdminActions.getCardProjectType(customeruniqueId));
-    
+
 
 
     if (resetting) {
@@ -305,7 +305,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
           }
 
           if (key.name == "projectGroup") {
-            dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
+            dispatch(projectListActions.getProjectCircle(true, `projectGroupId=${formValue["projectGroup"]}`));
             setcircle(true);
           }
 
@@ -345,7 +345,7 @@ const ManageProjectForm = ({isOpen,setIsOpen,resetting,formValue = {},}) => {
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
           Form={Form}

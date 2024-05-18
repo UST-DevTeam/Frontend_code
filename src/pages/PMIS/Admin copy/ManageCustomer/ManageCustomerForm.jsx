@@ -44,7 +44,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         //     required: true,
         //     classes: "col-span-1"
         // },
-         {
+        {
             label: "Logo",
 
             value: "",
@@ -55,14 +55,14 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
                 onChange: ((e) => {
                     console.log(e.target.files, "e geeter")
 
-                    setValue("companyimg",e.target.files[0])
+                    setValue("companyimg", e.target.files[0])
 
                 }),
             },
             classes: "col-span-1",
-            multiple:false,
+            multiple: false,
         },
-         {
+        {
             label: "Customer Name",
             value: "",
             name: "customerName",
@@ -89,7 +89,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Contact Person Name",
             value: "",
@@ -98,11 +98,11 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             // required: true,
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Email",
             value: "",
@@ -111,12 +111,12 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             required: true,
             props: {
                 onChange: ((e) => {
-                
+
 
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Mobile No.",
             value: "",
@@ -125,36 +125,36 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             required: true,
             props: {
                 onChange: ((e) => {
-                 
+
 
                 }),
             },
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Address",
             name: "address",
             type: "text",
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Status",
             name: "status",
             type: "text",
             props: {
                 onChange: ((e) => {
-                  
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {
@@ -214,7 +214,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

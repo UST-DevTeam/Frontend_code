@@ -44,7 +44,7 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
                 { label: "File", value: "File" },
                 { label: "Date", value: "Date" },
                 { label: "Text", value: "Text" },
-              ],
+            ],
 
             classes: "col-span-1"
         },
@@ -68,12 +68,12 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
         console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageCompletionCriteria( data, () => {
+            dispatch(AdminActions.postManageCompletionCriteria(data, () => {
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCompletionCriteria())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCompletionCriteria( data, () => {
+            dispatch(AdminActions.postManageCompletionCriteria(data, () => {
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCompletionCriteria())
             }))
@@ -108,7 +108,7 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}
