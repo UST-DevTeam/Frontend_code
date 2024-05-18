@@ -9,6 +9,7 @@ const EventLog = ({type,unqeId}) => {
     console.log(unqeId,"unqeId")
     const {
         register,
+        reset,
         handleSubmit,
         watch,
         setValue,

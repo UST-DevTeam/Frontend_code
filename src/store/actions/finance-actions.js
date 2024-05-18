@@ -1,7 +1,7 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_BASED, GET_POWORKDONE_ITEMCODE } from "../reducers/finance-reducer"
+import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_DASHBOARD, GET_POWORKDONE_BASED, GET_POWORKDONE_ITEMCODE } from "../reducers/finance-reducer"
 
 
 const FinanceActions = {
@@ -37,6 +37,15 @@ const FinanceActions = {
         }
     },
 
+    getPOWorkDoneDashboard:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.finance_poworkdone_dashboard}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_POWORKDONE_DASHBOARD({dataAll,reset}))
+        } catch (error) {
+        }
+    },
     getPOWorkDoneBased:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.finance_poworkdone_based}${args!=""?"?"+args:""}`, reset })

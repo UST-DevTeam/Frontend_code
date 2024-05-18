@@ -36,16 +36,12 @@ import PopupMenu from "../../../../components/PopupMenu";
 const ManageProject = () => {
   const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
 
-  console.log(
-    projecttypeuniqueId,
-    "projecttypeuniqueIdprojecttypeuniqueIdprojecttypeuniqueId"
-  );
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
   const [fileOpenlink, setFileOpenlink] = useState([]);
+  const [fileType, setfileType] = useState("");
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [bulkfileOpen, setbulkfileOpen] = useState(false);
 
@@ -472,7 +468,7 @@ const ManageProject = () => {
   }, []);
 
   const onTableViewSubmit = (data) => {
-    data["fileType"]="updateSite"
+    data["fileType"]=fileType
     dispatch(
       CommonActions.fileSubmit(Urls.common_update_site_milestone, data, () => {
         dispatch(AdminActions.getProject());
@@ -635,6 +631,9 @@ const ManageProject = () => {
                      onClick={(e) => {
                           setFileOpen(prev=>!prev)
                           setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
+                          setfileType(`updateSite`)
+
+
                           
                       }}></Button>
 
@@ -642,14 +641,9 @@ const ManageProject = () => {
                       name={"Upgrade Task"}
                       classes="w-auto m-5"
                       onClick={() => {
-                        setFileOpenlink([`/ProjectIDBulkUploadTemplate${customeruniqueId ? "/" + customeruniqueId : ""}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"BulkSite.xlsx"])
                         setFileOpen(prev=>!prev)
-                        // dispatch(
-                        //   CommonActions.commondownload(
-                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
-                        //     "Export_Project_with_Site.xlsx"
-                        //   )
-                        // );
+                        setFileOpenlink([`/template/Task_Update.xlsx`,"Task_Update.xlsx"])
+                        setfileType(`updateMilestone`)
                       }}
                       >
                       </Button>

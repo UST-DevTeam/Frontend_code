@@ -562,7 +562,7 @@ export const Sidebar_content = {
       },
       {
         name: "Form",
-        link: "/for",
+        link: "/form",
         // component: <OperationManagement />,
         icon: <UilFileContract />,
         subMenu: [],

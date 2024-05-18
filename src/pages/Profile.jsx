@@ -29,6 +29,7 @@ function Profile(isOpen, closeButton = false) {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
     getValues,
   } = useForm();
   const dispatch = useDispatch();

@@ -27,14 +27,14 @@ const POWorkDoneBased = () => {
     //     return interdata
     // })
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.financeData?.getPOWorkDoneBased || []
+        let interdata = state?.financeData?.getPOWorkDoneDashboard || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(FinanceActions.getPOWorkDoneBased())
+                    dispatch(FinanceActions.getPOWorkDoneDashboard())
                     setmodalHead("Edit User")
                     setmodalBody(<>
                         <POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -50,8 +50,8 @@ const POWorkDoneBased = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poworkdone_based}/${itm.uniqueId}`, () => {
-                                    dispatch(FinanceActions.getPOWorkDoneBased())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poworkdone_dashboard}/${itm.uniqueId}`, () => {
+                                    dispatch(FinanceActions.getPOWorkDoneDashboard())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -68,7 +68,7 @@ const POWorkDoneBased = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.financeData?.getPOWorkDoneBased || []
+        let interdata = state?.financeData?.getPOWorkDoneDashboard || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -100,57 +100,62 @@ const POWorkDoneBased = () => {
                 name: "Project Group",
                 value: "projectGroup",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Project ID",
-                value: "projectId",
-                style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Project Type",
                 value: "projectType",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            }, 
             {
-                name: "Sub Project",
-                value: "subProject",
+                name: "Project ID",
+                value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },                       
+            },           
+            // {
+            //     name: "Sub Project",
+            //     value: "subProject",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
             {
-                name: "SSID",
-                value: "systemId",
+                name: "GBPA",
+                value: "gbpa",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },                       
+            },                                                                     
             {
-                name: "Site ID",
-                value: "Site Id",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },                       
-            {
-                name: "Configuration",
-                value: "Configuration",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },                       
-            {
-                name: "Activity",
-                value: "Activity",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },                       
-            {
-                name: "MS1 Completion Date",
-                value: "pogbpa",
-                style: "min-w-[160px] max-w-[200px] text-center"
-            },            
-            {
-                name: "MS2 Completion Date",
+                name: "Item Code",
                 value: "itemCode",
-                style: "min-w-[160px] max-w-[200px] text-center"
-            },                                    
-            {
-                name: "Billing Status",
-                value: "siteBillingStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            }
+            },                                                                     
+            {
+                name: "Description",
+                value: "description",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                                                                     
+            {
+                name: "Unit Rate (INR)",
+                value: "description",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                                                                     
+            {
+                name: "Initial PO Qty (Sum of all Open PO)",
+                value: "initialPoQty",
+                style: "min-w-[250px] max-w-[300px] text-center"
+            },                                                                     
+            {
+                name: "Invoiced Quantity",
+                value: "invoicedQty",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                                                                     
+            {
+                name: "Workdone Quantity",
+                value: "workDoneQuantity",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                                                                     
+            {
+                name: "Open Qunatity",
+                value: "openQuantity",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                                                                     
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -170,10 +175,10 @@ const POWorkDoneBased = () => {
         console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(FinanceActions.getPOWorkDoneBased(value, objectToQueryString(data)))
+        dispatch(FinanceActions.getPOWorkDoneDashboard(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(FinanceActions.getPOWorkDoneBased())
+        dispatch(FinanceActions.getPOWorkDoneDashboard())
     }, [])
     return <>
         <AdvancedTable
