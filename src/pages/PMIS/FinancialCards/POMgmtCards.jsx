@@ -26,20 +26,20 @@ const POMgmtCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Status-Invoice","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/poManagement/poStatusInvoice",],
-          ["PO Tracking-Workdone", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/poManagement/poTrackingWorkDone"],
+          ["PO Status-Invoice", "bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500", "/financial/poManagement/PO-invoiceBased",],
+          ["PO Tracking-Workdone", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200", "/financial/poManagement/poWorkDoneBased"],
         ].map((itm) => {
           return (
             <>
-              {1==1   || (getAccessType(itm[0]) == "visible" ||
-              getAccessType(itm[0]) == "disabled") ? (
+              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
+                getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg `}
                   onClick={() => {
 
 
-                    console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
-                    if (1==1 || getAccessType(itm[0]) == "visible") {
+                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
+                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(
@@ -49,7 +49,7 @@ const POMgmtCards = () => {
                       );
                       navigate(itm[2]);
 
-                      
+
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
                       );

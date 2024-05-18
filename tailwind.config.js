@@ -13,6 +13,7 @@ export default {
       colors:{
         "primaryLine":"var(--mainprimary)",
         "secLine":"var(--mainsec)",
+        "heading":"var(--mainsec2)",
         "topbarLine":"var(--topbar)",
         "txt-primary":"#0000ff",
         "bg-primary":"#87CEEB",
@@ -27,7 +28,8 @@ export default {
       },
       fontFamily: {
         sans: ['Libre Baskerville', 'sans-serif'],
-        poppins: 'Poppins'
+        poppins: 'Poppins',
+        oxygen:'Oxygen'
       },
       
       backgroundImage: {

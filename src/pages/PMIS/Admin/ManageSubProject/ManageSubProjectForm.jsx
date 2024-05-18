@@ -9,7 +9,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 
 
-const ManageSubProjectForm = ({projecttypeuniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageSubProjectForm = ({ projecttypeuniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
     let dispatch = useDispatch()
 
     console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
@@ -45,31 +45,31 @@ const ManageSubProjectForm = ({projecttypeuniqueId, isOpen, setIsOpen, resetting
         //     required: true,
         //     classes: "col-span-1"
         // },
-         
+
         {
             label: "Project Type",
             name: "projectType",
             type: "text",
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         {
             label: " Sub Project",
             name: "subProject",
             type: "text",
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         {
             label: "Status",
             name: "status",
@@ -80,12 +80,12 @@ const ManageSubProjectForm = ({projecttypeuniqueId, isOpen, setIsOpen, resetting
             ],
             props: {
                 onChange: ((e) => {
-                
+
                 }),
             },
             required: true,
             classes: "col-span-1"
-        }, 
+        },
         // { label: "User", value: "", option: ["User Name"], type: "select" }
     ]
     const {
@@ -105,12 +105,12 @@ const ManageSubProjectForm = ({projecttypeuniqueId, isOpen, setIsOpen, resetting
     }
     const onTableViewSubmit = (data) => {
         if (formValue?.uniqueId) {
-            dispatch(AdminActions.postManageProjectType(true,projecttypeuniqueId, data, () => {
+            dispatch(AdminActions.postManageProjectType(true, projecttypeuniqueId, data, () => {
                 setIsOpen(false)
                 dispatch(AdminActions.getManageProjectType(projecttypeuniqueId))
             }, formValue?.uniqueId))
         } else {
-            dispatch(AdminActions.postManageProjectType(true,projecttypeuniqueId, data, () => {
+            dispatch(AdminActions.postManageProjectType(true, projecttypeuniqueId, data, () => {
                 setIsOpen(false)
                 dispatch(AdminActions.getManageProjectType(projecttypeuniqueId))
             }))
@@ -145,7 +145,7 @@ const ManageSubProjectForm = ({projecttypeuniqueId, isOpen, setIsOpen, resetting
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

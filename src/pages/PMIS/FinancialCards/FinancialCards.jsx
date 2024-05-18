@@ -26,22 +26,22 @@ const FinancialCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Management","bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500","/financial/poManagement",],
-          ["Revenue Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200","/financial/invoiceMgmt"],
-          ["Workdone","bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400","/financial/poWorkDone",],
-          ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600","/financial/unbilled"],
+          ["PO Management", "bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500", "/financial/poManagement",],
+          ["Revenue Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200", "/financial/invoiceMgmt"],
+          ["Workdone", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/financial/poWorkDone",],
+          ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600", "/financial/unbilled"],
         ].map((itm) => {
           return (
             <>
-              {1==1   || (getAccessType(itm[0]) == "visible" ||
-              getAccessType(itm[0]) == "disabled") ? (
+              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
+                getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
                   onClick={() => {
 
 
-                    console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
-                    if (1==1 || getAccessType(itm[0]) == "visible") {
+                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
+                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(
@@ -51,7 +51,7 @@ const FinancialCards = () => {
                       );
                       navigate(itm[2]);
 
-                      
+
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
                       );

@@ -35,7 +35,8 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
     return <>
         <div className='flex'>
         {
-            showbtn && <div className='flex p-4'>
+            showbtn && 
+            <div className='flex p-4 font-oxygen'>
                 <ConditionalButton showType={getAccessType(label)} classes='w-auto' onClick={() => {
                     settype(true)
                 }} name={label} />

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,13 +17,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
-
+/* *{
+  font-family: poppins;
+} */
 :root {
   /* --mainprimary:linear-gradient(to left, #6102af, #1b0027); */
   
   --mainprimary:linear-gradient(to left, #143b64, #143b64);
   --mainsec:#143b64;
-  --mainsec2: orange;
+  --mainsec2: #e8c670;
   background-color: rgb(252, 252, 252);
   /* --topbar:linear-gradient(to left, #af5002, #1b0027); */
   --topbar:linear-gradient(to left, #143b64, #143b64);

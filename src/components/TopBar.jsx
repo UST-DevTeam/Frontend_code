@@ -10,26 +10,26 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
 
     const dispatch = useDispatch()
 
-    const {state}=useLocation()
-    const name=state?.name
-    const navigate=useNavigate()
-    console.log(useLocation(),"userloc")
-    
-    const calllogout=()=>{
+    const { state } = useLocation()
+    const name = state?.name
+    const navigate = useNavigate()
+    console.log(useLocation(), "userloc")
+
+    const calllogout = () => {
         // localStorage.setItem("auth",false)
         // localStorage.removeItem("token")
         // localStorage.removeItem("user")
         // navigate("/login")
 
-        
-        dispatch(CommonActions.logoutCaller(()=>{
+
+        dispatch(CommonActions.logoutCaller(() => {
             navigate("/login")
         }))
     }
 
     return <>
 
-        <div class="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine">
+        <div class="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine font-oxygen font-bold">
             {/* <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" onClick={() => {
                 console.log('sdfjhkhkjshd')
                 setsidebarOpenn(prev => !prev)
@@ -47,9 +47,10 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
                 <h1 className='font-semibold text-white'>{name || ""}</h1>
             </div>
 
-            <div onClick={()=>{calllogout()}} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
-                <span className='text-white pr-1 '>Logout</span>
-                <Unicons.UilSignout className="text-white" /></div>
+            <div onClick={() => { calllogout() }} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
+                <span className='text-white pr-1 hover:text-heading hover:cursor-pointer'>Logout</span>
+                <Unicons.UilSignout className="text-white hover:text-heading hover:cursor-pointer" />
+            </div>
         </div>
 
     </>

@@ -42,267 +42,267 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   //         label: item?.ItemCode,
   //         value: item?.ItemCode,
   //       }));
-        
+
   //     })
   // });
 
-//   let ItemCodeList = useSelector((state) => {
-//     return state?.financeData?.getPOWorkDoneBased
-//       ?.flatMap((itm) => {
-//         return itm?.commercialResult?.Commercial?.map((item) => {
-//           console.log(item, "==================================");
-//           return {
-//             label: item?.ItemCode,
-//             value: item?.ItemCode,
-//           };
-//         }) || []; 
-//       }) || [];
-      
-// }).filter((item, index, self) => 
-//     index === self.findIndex((t) => (
-//         t.value === item.value
-//     ))
-// );
+  //   let ItemCodeList = useSelector((state) => {
+  //     return state?.financeData?.getPOWorkDoneBased
+  //       ?.flatMap((itm) => {
+  //         return itm?.commercialResult?.Commercial?.map((item) => {
+  //           console.log(item, "==================================");
+  //           return {
+  //             label: item?.ItemCode,
+  //             value: item?.ItemCode,
+  //           };
+  //         }) || []; 
+  //       }) || [];
+
+  // }).filter((item, index, self) => 
+  //     index === self.findIndex((t) => (
+  //         t.value === item.value
+  //     ))
+  // );
 
 
-  
 
-  
-  
+
+
+
 
   let Form = [
     {
-        label: "Item Code 1",
-        value: "",
-        name: "Item Code 1",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      label: "Item Code 1",
+      value: "",
+      name: "Item Code 1",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
       },
-      {
-        label: "Quantity 1",
-        value: "",
-        name: "Quantity 1",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Amount 1",
-        value: "",
-        name: "Amount 1",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
+      classes: "col-span-1",
+    },
     {
-        label: "Item Code 2",
-        value: "",
-        name: "Item Code 2",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      label: "Quantity 1",
+      value: "",
+      name: "Quantity 1",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
       },
-      {
-        label: "Quantity 2",
-        value: "",
-        name: "Quantity 2",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Amount 2",
-        value: "",
-        name: "Amount 2",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
+      classes: "col-span-1",
+    },
     {
-        label: "Item Code 3",
-        value: "",
-        name: "Item Code 3",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      label: "Amount 1",
+      value: "",
+      name: "Amount 1",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
       },
-      {
-        label: "Quantity 3",
-        value: "",
-        name: "Quantity 3",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Amount 3",
-        value: "",
-        name: "Amount 3",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
+      classes: "col-span-1",
+    },
     {
-        label: "Item Code 4",
-        value: "",
-        name: "Item Code 4",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      label: "Item Code 2",
+      value: "",
+      name: "Item Code 2",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
       },
-      {
-        label: "Quantity 4",
-        value: "",
-        name: "Quantity 4",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Amount 4",
-        value: "",
-        name: "Amount 4",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Item Code 5",
-        value: "",
-        name: "Item Code 5",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Quantity 5",
-        value: "",
-        name: "Quantity 5",
-        type: "number",
-        option: ItemCodeList,
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Amount 5",
-        value: "",
-        name: "Amount 5",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Item Code 6",
-        value: "",
-        name: "Item Code 6",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Quantity 6",
-        value: "",
-        name: "Quantity 6",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
-      {
-        label: "Amount 6",
-        value: "",
-        name: "Amount 6",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
-      },
+      classes: "col-span-1",
+    },
     {
-        label: "Item Code 7",
-        value: "",
-        name: "Item Code 7",
-        type: "select",
-        option: ItemCodeList,
-        props: {
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      label: "Quantity 2",
+      value: "",
+      name: "Quantity 2",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
       },
-      {
-        label: "Quantity 7",
-        value: "",
-        name: "Quantity 7",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      classes: "col-span-1",
+    },
+    {
+      label: "Amount 2",
+      value: "",
+      name: "Amount 2",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
       },
-      {
-        label: "Amount 7",
-        value: "",
-        name: "Amount 7",
-        type: "number",
-        props: {
-          valueAsNumber: true,
-          onChange: (e) => {},
-        },
-        classes: "col-span-1",
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 3",
+      value: "",
+      name: "Item Code 3",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
       },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 3",
+      value: "",
+      name: "Quantity 3",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Amount 3",
+      value: "",
+      name: "Amount 3",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 4",
+      value: "",
+      name: "Item Code 4",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 4",
+      value: "",
+      name: "Quantity 4",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Amount 4",
+      value: "",
+      name: "Amount 4",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 5",
+      value: "",
+      name: "Item Code 5",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 5",
+      value: "",
+      name: "Quantity 5",
+      type: "number",
+      option: ItemCodeList,
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Amount 5",
+      value: "",
+      name: "Amount 5",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 6",
+      value: "",
+      name: "Item Code 6",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 6",
+      value: "",
+      name: "Quantity 6",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Amount 6",
+      value: "",
+      name: "Amount 6",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 7",
+      value: "",
+      name: "Item Code 7",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 7",
+      value: "",
+      name: "Quantity 7",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Amount 7",
+      value: "",
+      name: "Amount 7",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => { },
+      },
+      classes: "col-span-1",
+    },
   ];
   const onSubmit = (data) => {
     console.log(data);
@@ -334,31 +334,31 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
-    dispatch(GET_POWORKDONE_ITEMCODE({dataAll:[],reset:true}))
+    dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }))
 
     if (resetting) {
-            reset({})
-            Form.map((fieldName) => {
-                setValue(fieldName["name"], fieldName["value"]);
-            });
+      reset({})
+      Form.map((fieldName) => {
+        setValue(fieldName["name"], fieldName["value"]);
+      });
+    } else {
+      reset({})
+      console.log(Object.keys(formValue), "Object.keys(formValue)")
+      Object.keys(formValue).forEach((key) => {
+
+
+        if (["endAt", "startAt"].indexOf(key.name) != -1) {
+          console.log("date formValuekey", key.name, formValue[key.name])
+          const momentObj = moment(formValue[key.name]);
+          setValue(key.name, momentObj.toDate());
+
+
         } else {
-            reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
-            Object.keys(formValue).forEach((key) => {
-
-
-                if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
-                    const momentObj = moment(formValue[key.name]);
-                    setValue(key.name, momentObj.toDate());
-
-
-                } else {
-                    setValue(key, formValue[key]);
-                }
-            })
+          setValue(key, formValue[key]);
         }
-    }, [formValue, resetting]) 
+      })
+    }
+  }, [formValue, resetting])
   return (
     <>
       <Modal
@@ -379,7 +379,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-3 gap-1"}
           Form={Form}

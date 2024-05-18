@@ -15,16 +15,16 @@ import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP } from "../../../../sto
 
 const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-  
-    const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        setValue,
-        getValues,
-        formState: { errors },
-      } = useForm();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [pType, setpType] = useState("");
@@ -100,15 +100,15 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Customer",
       value: "",
-      name: Object.entries(formValue).length > 0 ? "customerName":"customer",
+      name: Object.entries(formValue).length > 0 ? "customerName" : "customer",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       required: true,
       option: customerList,
       classes: "col-span-1",
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getManageProjectGroup(true,`customer=${e.target.value}`))
-          dispatch(AdminActions.getPOProjectType(true,`customer=${e.target.value}`))
+          dispatch(AdminActions.getManageProjectGroup(true, `customer=${e.target.value}`))
+          dispatch(AdminActions.getPOProjectType(true, `customer=${e.target.value}`))
         },
       },
     },
@@ -128,14 +128,14 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     },
     {
       label: "Project Group",
-      name: Object.entries(formValue).length > 0 ? "projectGroupId":"projectGroup",
+      name: Object.entries(formValue).length > 0 ? "projectGroupId" : "projectGroup",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       // type: "sdisabled",
       value: "",
       option: projectGroupList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getPOProjectID(true,`projectGroup=${e.target.value}`))
+          dispatch(AdminActions.getPOProjectID(true, `projectGroup=${e.target.value}`))
         },
       },
       required: true,
@@ -148,7 +148,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectIdList,
       type: "select",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -158,7 +158,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       name: "gbpa",
       type: "text",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -169,7 +169,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
       min: "0",
@@ -180,7 +180,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       name: "poStartDate",
       type: "datetime",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -190,7 +190,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       name: "poEndDate",
       type: "datetime",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -201,7 +201,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -211,7 +211,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       name: "description",
       type: "text",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -234,7 +234,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -252,12 +252,12 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
   ];
-  
+
   const onSubmit = (data) => {
-    
+
     console.log(data);
   };
-  console.log(Object.entries(formValue) , 'adfsdds')
+  console.log(Object.entries(formValue), 'adfsdds')
 
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata");
@@ -286,11 +286,11 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
 
-  
+
   useEffect(() => {
-    dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
-    dispatch(GET_CARD_PROJECT_TYPE({dataAll:[],reset:true}))
-    
+    dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll: [], reset: true }))
+    dispatch(GET_CARD_PROJECT_TYPE({ dataAll: [], reset: true }))
+
     dispatch(AdminActions.getManageCustomer());
 
     if (resetting) {
@@ -302,9 +302,9 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       reset({});
       // console.log(formValue, "Object.keys(formValue)");
       Form.forEach((key) => {
-             
+
         if (["poStartDate", "poEndDate"].indexOf(key.name) != -1 &&
-        formValue[key.name])  {
+          formValue[key.name]) {
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
@@ -327,16 +327,16 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           } else {
             setValue(key.name, formValue[key.name]);
           }
-        } 
+        }
         else {
           setValue(key.name, formValue[key.name]);
         }
       });
     }
-  }, [formValue, resetting]);  
+  }, [formValue, resetting]);
 
-  
-  
+
+
   return (
     <>
       <Modal
@@ -357,7 +357,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
           Form={Form}

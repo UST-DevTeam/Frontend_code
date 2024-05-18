@@ -34,7 +34,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
                 label: itm?.customerName,
-                value:itm?.uniqueId
+                value: itm?.uniqueId
             }
         })
     })
@@ -47,22 +47,22 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             name: "customer",
             type: "select",
             required: true,
-            option:customerList,
-            props:{
-                onChange:(e)=>{
-                    dispatch(AdminActions.getManageZone(true,`customer=${e.target.value}`))
+            option: customerList,
+            props: {
+                onChange: (e) => {
+                    dispatch(AdminActions.getManageZone(true, `customer=${e.target.value}`))
                 }
             },
             classes: "col-span-1"
         },
-         {
+        {
             label: "Zone",
             value: "",
             name: "zone",
             type: "select",
             required: true,
             filter: true,
-            option:zoneList,
+            option: zoneList,
             classes: "col-span-1"
         },
         {
@@ -72,7 +72,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             type: "text",
             required: true,
             classes: "col-span-1"
-        }, 
+        },
     ]
     const {
         register,
@@ -138,7 +138,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             {/* <button></button> */}

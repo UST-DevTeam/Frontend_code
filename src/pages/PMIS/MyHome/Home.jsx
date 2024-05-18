@@ -328,7 +328,7 @@ const MyHome = () => {
                 dbConfigList?.map((itm => {
                     return <>
                         <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer'
+                            className='bg-pink-100 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  '
                             onClick={() => {
                                 navigate(`${"/projectType"}/${itm["uniqueId"]}`)
                             }}>
@@ -345,7 +345,7 @@ const MyHome = () => {
           return (
             <>
               <div
-                className="bg-pink-100 shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer"
+                className="bg-gradient-to-r from-yellow-500/50 to-violet-500/50 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  "
                 onClick={() => {
 
                   dispatch(
@@ -355,7 +355,7 @@ const MyHome = () => {
                     )
                   );
                   dispatch(
-                    ComponentActions.breadcrumb(itm["name"],itm.uniqueId,1, false)
+                    ComponentActions.breadcrumb(itm["name"], itm.uniqueId, 1, false)
                   );
                   navigateToRoute(itm.uniqueId);
                 }}

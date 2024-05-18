@@ -11,7 +11,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
-import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP,GET_PO_PROJECTTYPE,GET_PO_PROJECTID,GET_INVOICE_SITEID,GET_INVOICE_SSID } from "../../../../store/reducers/admin-reducer";
+import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP, GET_PO_PROJECTTYPE, GET_PO_PROJECTID, GET_INVOICE_SITEID, GET_INVOICE_SSID } from "../../../../store/reducers/admin-reducer";
 
 const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   const {
@@ -89,15 +89,15 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     {
       label: "Customer",
       value: "",
-      name: Object.entries(formValue).length > 0 ? "customerName":"customer",
+      name: Object.entries(formValue).length > 0 ? "customerName" : "customer",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       required: true,
       option: customerList,
       classes: "col-span-1",
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getManageProjectGroup(true,`customer=${e.target.value}`))
-          dispatch(AdminActions.getPOProjectType(true,`customer=${e.target.value}`))
+          dispatch(AdminActions.getManageProjectGroup(true, `customer=${e.target.value}`))
+          dispatch(AdminActions.getPOProjectType(true, `customer=${e.target.value}`))
         },
       },
     },
@@ -110,7 +110,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectTypeList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getInvoiceSiteId(true,`subProjectId=${e.target.value}`))
+          dispatch(AdminActions.getInvoiceSiteId(true, `subProjectId=${e.target.value}`))
         },
       },
       classes: "col-span-1",
@@ -123,7 +123,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectGroupList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getPOProjectID(true,`projectGroup=${e.target.value}`))
+          dispatch(AdminActions.getPOProjectID(true, `projectGroup=${e.target.value}`))
         },
       },
       required: true,
@@ -150,9 +150,9 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       // required: true,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${e.target.value}`))
+          dispatch(AdminActions.getInvoiceSiteId(true, `projectId=${e.target.value}`))
         },
-        
+
       },
       classes: "col-span-1",
     },
@@ -190,7 +190,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "text",
       // required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -201,7 +201,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "datetime",
       // required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -209,10 +209,10 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "PO Number",
       value: "",
       name: "poNumber",
-      type: Object.entries(formValue).length > 0 ? "sdisabled":"text",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -220,10 +220,10 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Item Code",
       value: "",
       name: "itemCode",
-      type: Object.entries(formValue).length > 0 ? "sdisabled":"text",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -234,7 +234,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -245,7 +245,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "text",
       // required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -256,7 +256,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "datetime",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -267,7 +267,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       required: true,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       classes: "col-span-1",
     },
@@ -328,13 +328,13 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
-    dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
-    dispatch(GET_MANAGE_PROJECT_GROUP({dataAll:[],reset:true}))
-    dispatch(GET_PO_PROJECTTYPE({dataAll:[],reset:true}))
-    dispatch(GET_PO_PROJECTID({dataAll:[],reset:true}))
-    dispatch(GET_INVOICE_SITEID({dataAll:[],reset:true}))
-    dispatch(GET_INVOICE_SSID({dataAll:[],reset:true}))
-   
+    dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll: [], reset: true }))
+    dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll: [], reset: true }))
+    dispatch(GET_PO_PROJECTTYPE({ dataAll: [], reset: true }))
+    dispatch(GET_PO_PROJECTID({ dataAll: [], reset: true }))
+    dispatch(GET_INVOICE_SITEID({ dataAll: [], reset: true }))
+    dispatch(GET_INVOICE_SSID({ dataAll: [], reset: true }))
+
 
 
     dispatch(AdminActions.getManageCustomer());
@@ -348,9 +348,9 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       reset({});
       // console.log(formValue, "Object.keys(formValue)");
       Form.forEach((key) => {
-             
+
         if (["wccSignOffdate", "invoiceDate"].indexOf(key.name) != -1 &&
-        formValue[key.name])  {
+          formValue[key.name]) {
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
@@ -373,7 +373,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           } else {
             setValue(key.name, formValue[key.name]);
           }
-        } 
+        }
         else {
           setValue(key.name, formValue[key.name]);
         }
@@ -400,7 +400,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
           Form={Form}

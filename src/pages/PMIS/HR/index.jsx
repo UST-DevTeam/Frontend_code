@@ -30,14 +30,14 @@ const HRHomeView = () => {
             "bg-gradient-to-r from-teal-400 to-sky-500",
             "/hr/empDetailsTable",
           ],
-          ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400","/hr/assetManagement"],
-          ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500","/hr/managePolicy"],
+          ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400", "/hr/assetManagement"],
+          ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500", "/hr/managePolicy"],
           [
             "Expense & Advance",
             "bg-gradient-to-r from-blue-200 to-cyan-200",
             "/hr/expenseAdvance",
           ],
-          ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500","/hr/attendance"],
+          ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500", "/hr/attendance"],
           [
             "Super Admin",
             "bg-gradient-to-r from-pink-400 to-red-400",
@@ -47,13 +47,13 @@ const HRHomeView = () => {
           return (
             <>
               {getAccessType(itm[0]) == "visible" ||
-              getAccessType(itm[0]) == "disabled" ? (
+                getAccessType(itm[0]) == "disabled" ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full flex h-24 cursor-pointer`}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
                   onClick={() => {
 
 
-                    console.log(getAccessType(itm[0]),"getAccessType(itm[0])")
+                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                     if (getAccessType(itm[0]) == "visible") {
 
                       dispatch(

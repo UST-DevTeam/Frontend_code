@@ -22,9 +22,9 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
             itm.subMenu.length > 0 ?
                 // ((!checkp)||(checkp != {} && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
                 ((!checkp)||(checkp != {} && permission.permission && permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true) !=-1 && permission.permission[permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true)])) && 
-                    <button onClick={((prev) => { SetOpen(!open), console.log(!open) })} type="button" class={"pl-2 flex items-center w-full p-2 text-sm font-light transition duration-75 hover:bg-[#143b64] rounded-lg group text-white"} aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                    <button onClick={((prev) => { SetOpen(!open), console.log(!open) })} type="button" class={"pl-2 flex items-center w-full p-2 text-sm font-light transition duration-75 hover:bg-[#143b64] rounded-lg group text-white "} aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         {itm.icon}
-                        {sidebarOpen && <span class={"text-" + sizeArr[size] + " flex-1 ml-3 text-left whitespace-nowrap hover:text-gray-200 hover:bg-[#143b64]"} sidebar-toggle-item>{itm.name}</span>}
+                        {sidebarOpen && <span class={"text-" + sizeArr[size] + " flex-1 ml-3 text-left whitespace-nowrap hover:text-gray-200 hover:bg-[#143b64] "} sidebar-toggle-item>{itm.name}</span>}
                         {open ? <Unicons.UilAngleUp /> : <Unicons.UilAngleDown />}
                     </button> 
                 
@@ -35,7 +35,7 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                     <div className={`pl-2 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md  ${itm.link == pathname && "text-[#e8c670]"}`}>
                         {itm.icon}
                         {
-                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm font-light hover:text-gray-200 hover:bg- transition duration-75 rounded-lg group ${itm.link == pathname && "text-[#e8c670]"}`}>
+                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm font-light hover:text-gray-200 hover:bg- transition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#e8c670]"}`}>
                                 {itm.name}
                             </Link>
                         }
