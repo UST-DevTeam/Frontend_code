@@ -85,7 +85,7 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
           <img className=" ml-3.5 w-[50px] mt-2" src="/favico.png" alt="PIMS" />
         )}
 
-        <ul className="space-y-2 h-[80vh] w-56 overflow-y-scroll font-poppins font-bold ">
+        <ul className="space-y-2 h-[80vh] w-56 overflow-y-scroll font-poppins font-bold">
           {Roles["all_routes"] && Roles["all_routes"].map((itm) => {
             return (
               <li>
@@ -93,7 +93,7 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
                   sidebarOpen={sidebarOpen}
                   itm={itm}
                   value={6}
-                  size={0}
+                  size={2}
                   checkp={true}
                   permission={permission}
                   parenting={itm.name}

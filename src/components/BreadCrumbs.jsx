@@ -111,8 +111,8 @@ const BreadCrumbs = () => {
   
   return (
     <div>
-      <nav class="bg-violet-50 p-3 text-[12px]">
-        <ol class="list-reset flex text-gray-600">
+      <nav className="bg-violet-50 p-3 text-[12px] font-poppins font-bold text-sm">
+        <ol className="list-reset flex text-gray-600">
           {consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).map((item, index) => {
             return (
               <>
@@ -120,7 +120,7 @@ const BreadCrumbs = () => {
                   <>
                     <li>
                       <a
-                        class="text-green-600 hover:text-green-700"
+                        className="text-green-600 hover:text-green-700"
                         onClick={() => {
                           
                           navigate(item in Dtheader ? Dtheader[item]["url"] : checkInGlobalValue(item)!="" ? checkInGlobalValue(item) : "");
@@ -129,7 +129,7 @@ const BreadCrumbs = () => {
                         {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item)?"":changeCase(item)}
                       </a>
                     </li>
-                    <li class="mx-2">/</li>
+                    <li className="mx-2">/</li>
                   </>
                 ) : (
                   <>
@@ -145,8 +145,8 @@ const BreadCrumbs = () => {
   );
   // return (
   //   <div>
-  //     <nav class="bg-violet-50 p-3 text-[12px]">
-  //       <ol class="list-reset flex text-gray-600">
+  //     <nav className="bg-violet-50 p-3 text-[12px]">
+  //       <ol className="list-reset flex text-gray-600">
   //         {consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).map((item, index) => {
   //           return (
   //             <>
@@ -156,7 +156,7 @@ const BreadCrumbs = () => {
   //                 <>
   //                   <li>
   //                     <a
-  //                       class="text-green-600 hover:text-green-700"
+  //                       className="text-green-600 hover:text-green-700"
   //                       onClick={() => {
   //                         // dispatch(
   //                         //   ComponentActions.breadcrumb(
@@ -172,7 +172,7 @@ const BreadCrumbs = () => {
   //                       {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item)?"":item}
   //                     </a>
   //                   </li>
-  //                   <li class="mx-2">/</li>
+  //                   <li className="mx-2">/</li>
   //                 </>
   //               ) : (
   //                 <>
@@ -188,8 +188,8 @@ const BreadCrumbs = () => {
   // );
   // return (
   //   <div>
-  //     <nav class="bg-violet-50 p-3 text-[12px]">
-  //       <ol class="list-reset flex text-gray-600">
+  //     <nav className="bg-violet-50 p-3 text-[12px]">
+  //       <ol className="list-reset flex text-gray-600">
   //         {breadcrumblist.filter(item=>item.name!="").map((item, index) => {
   //           return (
   //             <>
@@ -197,7 +197,7 @@ const BreadCrumbs = () => {
   //                 <>
   //                   <li>
   //                     <a
-  //                       class="text-green-600 hover:text-green-700"
+  //                       className="text-green-600 hover:text-green-700"
   //                       onClick={() => {
   //                         dispatch(
   //                           ComponentActions.breadcrumb(
@@ -213,11 +213,11 @@ const BreadCrumbs = () => {
   //                       {item.name}
   //                     </a>
   //                   </li>
-  //                   <li class="mx-2">/</li>
+  //                   <li className="mx-2">/</li>
   //                 </>
   //               ) : (
   //                 <>
-  //                   <li class="text-slate-600 font-semibold">{item.name}</li>
+  //                   <li className="text-slate-600 font-semibold">{item.name}</li>
   //                 </>
   //               )}
   //             </>

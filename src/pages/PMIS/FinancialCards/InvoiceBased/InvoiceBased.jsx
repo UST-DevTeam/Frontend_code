@@ -43,7 +43,6 @@ const InvoiceBased = () => {
                     setmodalHead("PO Invoice Based")
                     setmodalBody(<>
                         <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        
                     </>)
                     console.log('ahshshhs',itm)
                     //setmodalOpen(false)
@@ -99,22 +98,22 @@ const InvoiceBased = () => {
             {
                 name: "Customer",
                 value: "customerName",
-                style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white z-50"
+                style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white -top-1 z-20"
             },          
             {
                 name: "Project Group",
                 value: "projectGroupId",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-white z-50"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-white -top-1 z-20"
             },            
             {
                 name: "Project Type",
                 value: "projectTypeName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center "
             },            
             {
                 name: "Project Sub Type",
                 value: "subProjectName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center "
             },            
             {
                 name: "Project ID",
@@ -154,7 +153,7 @@ const InvoiceBased = () => {
             {
                 name: "Description",
                 value: "description",
-                style: "min-w-[200px] max-w-[300px] text-center"
+                style: "min-w-[200px] max-w-[300px] text-center -z-10"
             },            
             {
                 name: "Unit Rate(INR)",

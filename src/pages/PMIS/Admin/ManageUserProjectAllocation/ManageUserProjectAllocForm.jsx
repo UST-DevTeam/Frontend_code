@@ -109,7 +109,7 @@ const ManageUserProjectAllocForm = ({
     {
       label: "Project",
       name: "projectIds",
-      type: "BigmuitiSelect",
+      type: "BigmuitiSelect", 
       value: "",
       option: projectList,
       props: {

@@ -13,6 +13,7 @@ export default {
       colors:{
         "primaryLine":"var(--mainprimary)",
         "secLine":"var(--mainsec)",
+        "heading":"var(--mainsec2)",
         "topbarLine":"var(--topbar)",
         "txt-primary":"#0000ff",
         "bg-primary":"#87CEEB",
