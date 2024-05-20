@@ -969,6 +969,7 @@ const ManageProjectType = () => {
             }
           />
         ),
+        
         milestone: (
           <CstmButton
             className={"p-2"}

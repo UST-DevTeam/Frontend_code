@@ -1,9 +1,9 @@
 import Multiselect from "multiselect-react-dropdown";
 import React from "react";
 
-const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,}) => {
+const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}) => {
   console.log("setValue====setValue", getValues());
-
+  console.log("asfaasfaswidtitmhfasfewwe",itm);
   let datew=[]
   if (getValues()[itm.name]) {
     let oldData = getValues()[itm.name].split(",");
@@ -62,7 +62,7 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
             
           },
           multiselectContainer: {
-          width: "60%",
+          width:itm?.width,
           },
         }}
         className="overflow-hidden pt-1 text-black bg-white block h-32 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"

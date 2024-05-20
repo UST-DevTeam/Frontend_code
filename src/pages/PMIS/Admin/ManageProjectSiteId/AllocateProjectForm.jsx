@@ -171,7 +171,8 @@ const AllocateProjectForm = ({
         setValue("vendorId", "");
       },
       required: true,
-      classes: "col-span-1",
+      classes: "col-span-2",
+      width:"400px"
     },
   ];
 
@@ -220,6 +221,7 @@ const AllocateProjectForm = ({
       },
       required: true,
       classes: "col-span-1",
+      width:"400px"
     },
   ];
   const onSubmit = (data) => {
@@ -341,14 +343,14 @@ const AllocateProjectForm = ({
           onClick={() => {
             setactiveTab(0);
           }}
-          classes="w-auto"
+          classes="w-auto mt-10"
         />
         <Button
           name={"Allocate Vendor"}
           onClick={() => {
             setactiveTab(1);
           }}
-          classes="w-auto"
+          classes="w-auto mt-10"
         />
       </div>
 
@@ -357,7 +359,7 @@ const AllocateProjectForm = ({
           activeTab={activeTab}
           tabList={[
             <CommonForm
-              classes={"grid-cols-1 gap-1"}
+              classes={"grid-cols-1 gap-1 w-full"}
               Form={Form}
               errors={errors}
               register={register}
