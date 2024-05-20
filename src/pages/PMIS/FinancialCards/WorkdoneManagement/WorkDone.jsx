@@ -33,11 +33,31 @@ const WorkDone = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-
+                "itemCode1":itm.itemCodeArray?.[0]?.["itemCode"],
+                "itemCode2":itm.itemCodeArray?.[1]?.["itemCode"],
+                "itemCode3":itm.itemCodeArray?.[2]?.["itemCode"],
+                "itemCode4":itm.itemCodeArray?.[3]?.["itemCode"],
+                "itemCode5":itm.itemCodeArray?.[4]?.["itemCode"],
+                "itemCode6":itm.itemCodeArray?.[5]?.["itemCode"],
+                "itemCode7":itm.itemCodeArray?.[6]?.["itemCode"],
+                "quantity1":itm.itemCodeArray?.[0]?.["quantity"],
+                "quantity2":itm.itemCodeArray?.[1]?.["quantity"],
+                "quantity3":itm.itemCodeArray?.[2]?.["quantity"],
+                "quantity4":itm.itemCodeArray?.[3]?.["quantity"],
+                "quantity5":itm.itemCodeArray?.[4]?.["quantity"],
+                "quantity6":itm.itemCodeArray?.[5]?.["quantity"],
+                "quantity7":itm.itemCodeArray?.[6]?.["quantity"],
+                "amount1":itm.itemCodeArray?.[0]?.["amount"],
+                "amount2":itm.itemCodeArray?.[1]?.["amount"],
+                "amount3":itm.itemCodeArray?.[2]?.["amount"],
+                "amount4":itm.itemCodeArray?.[3]?.["amount"],
+                "amount5":itm.itemCodeArray?.[4]?.["amount"],
+                "amount6":itm.itemCodeArray?.[5]?.["amount"],
+                "amount7":itm.itemCodeArray?.[6]?.["amount"],
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`))
-                    dispatch(FinanceActions.getPOWorkDoneBased())
+                    // dispatch(FinanceActions.getPOWorkDoneBased())
                     setmodalHead("Edit Workdone")
                     setmodalBody(<>
                         <WorkDoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -152,14 +172,16 @@ const WorkDone = () => {
                 value: "siteBillingStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
+
+
             {
                 name: "Item Code 1",
-                value: "Item Code 1",
+                value: "itemCode1",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 1",
-                value: "Quantity 1",
+                value: "quantity1",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -169,12 +191,12 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 2",
-                value: "Item Code 2",
+                value: "itemCode2",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 2",
-                value: "Quantity 2",
+                value: "quantity2",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -184,12 +206,12 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 3",
-                value: "Item Code 3",
+                value: "itemCode3",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 3",
-                value: "Quantity 3",
+                value: "quantity3",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -199,12 +221,12 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 4",
-                value: "Item Code 4",
+                value: "itemCode4",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 4",
-                value: "Quantity 4",
+                value: "quantity4",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -214,12 +236,12 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 5",
-                value: "Item Code 5",
+                value: "itemCode5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 5",
-                value: "Quantity 5",
+                value: "quantity5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -229,12 +251,12 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 6",
-                value: "Item Code 6",
+                value: "itemCode6",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 6",
-                value: "Quantity 6",
+                value: "quantity6",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -244,12 +266,12 @@ const WorkDone = () => {
             },
             {
                 name: "Item Code 7",
-                value: "Item Code 7",
+                value: "itemCode7",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Quantity 7",
-                value: "Quantity 7",
+                value: "quantity7",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {

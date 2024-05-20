@@ -26,8 +26,8 @@ const POMgmtCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Status-Invoice", "bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500", "/financial/poManagement/PO-invoiceBased",],
-          ["PO Tracking-Workdone", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200", "/financial/poManagement/poWorkDoneBased"],
+          ["PO Status-Invoice", "bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500", "/financial/poManagement/poStatusInvoice",],
+          ["PO Tracking-Workdone", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200", "/financial/poManagement/poTrackingWorkdone"],
         ].map((itm) => {
           return (
             <>

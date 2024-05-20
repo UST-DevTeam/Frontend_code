@@ -320,10 +320,6 @@ const ManageProject = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
   const {
     register,
     handleSubmit,
@@ -333,6 +329,15 @@ const ManageProject = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
+  let projectTypeList = useSelector((state) => {
+    return state?.adminData?.getCardProjectType.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.uniqueId,
+      };
+    });
+  });
 
   let table = {
     columns: [
@@ -351,11 +356,6 @@ const ManageProject = () => {
         value: "projectTypeName",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Sub Project",
-      //   value: "subProjectName",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
       {
         name: "Project Manager",
         value: "PMName",
@@ -381,27 +381,11 @@ const ManageProject = () => {
         value: "status",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Event Logs",
-      //   value: "eventLogs",
-      //   style: "min-w-[100px] max-w-[200px] text-center",
-      // },
       {
         name: "Edit",
         value: "edit",
         style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      // {
-      //   name: "Trash",
-      //   value: "trash",
-      //   style: "min-w-[100px] max-w-[200px] text-center",
-      // },
-
-      // {
-      //   name: "Delete",
-      //   value: "delete",
-      //   style: "min-w-[100px] max-w-[200px] text-center",
-      // },
+      }
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -424,8 +408,7 @@ const ManageProject = () => {
         type: "BigmuitiSelect",
         value: "",
         option: [
-          { id: "hiii", name: "hello" },
-          { id: "hello", name: "hii" },
+          // dispatch(AdminActions.getCardProjectType(customeruniqueId))
         ],
         props: {
           onChange: (e) => {
@@ -471,7 +454,7 @@ const ManageProject = () => {
     data["fileType"]=fileType
     dispatch(
       CommonActions.fileSubmit(Urls.common_update_site_milestone, data, () => {
-        dispatch(AdminActions.getProject());
+        dispatch(AdminActions.getProject(customeruniqueId));
         setFileOpen(false);
         reset("");
       })
@@ -493,13 +476,6 @@ const ManageProject = () => {
       })
     );
   };
-  // useEffect(() => {
-  //     if (customeruniqueId && projecttypeuniqueId) {
-  //         dispatch(AdminActions.getProject(`${customeruniqueId}/${projecttypeuniqueId}`))
-  //     } else if (customeruniqueId) {
-  //         dispatch(AdminActions.getProject(`${customeruniqueId}`))
-  //     }
-  // }, [customeruniqueId, projecttypeuniqueId])
 
   return (
     <>

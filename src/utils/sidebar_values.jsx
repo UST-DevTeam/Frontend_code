@@ -100,6 +100,7 @@ import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWork
 import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
 import InvoiceMgmtt from "../pages/PMIS/FinancialCards/InvoiceMgmtt";
 import Invoice from "../pages/PMIS/FinancialCards/InvoiceManagement/Invoice";
+import AccrualRevenue from "../pages/PMIS/FinancialCards/AccrualRevenue/AccrualRevenue";
 import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/UnbilledWaterfall";
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
@@ -426,14 +427,14 @@ export const Sidebar_content = {
     // },
     {
       name: "",
-      link: "/financial/invoice",
+      link: "/financial/invoiceMgmt/revenueInvoiced",
       component: <Invoice />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financial/poManagement/poWorkDoneBased",
+      link: "/financial/poManagement/poTrackingWorkdone",
       component: <POWorkDoneBased />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
@@ -454,8 +455,8 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/invoiceMgmt/acronym",
-      // component: < />,
+      link: "/financial/invoiceMgmt/accrualRevenue",
+      component: <AccrualRevenue />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
@@ -463,13 +464,6 @@ export const Sidebar_content = {
       name: "",
       link: "/financial/Unbilled",
       component: <UnbilledCards />,
-      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
-      subMenu: [],
-    },
-    {
-      name: "",
-      link: "/financial/invoiceMgmt/invoice",
-      component: <Invoice />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

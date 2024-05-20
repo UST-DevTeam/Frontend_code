@@ -26,8 +26,8 @@ const InvoiceMgmt = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Revenue Invoiced", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600", "/financial/invoiceManagement/invoice"],
-          ["Accrual Revenue", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/financial/invoiceMgmt/acronym",],
+          ["Revenue Invoiced", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600", "/financial/invoiceMgmt/revenueInvoiced"],
+          ["Accrual Revenue", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/financial/invoiceMgmt/accrualRevenue",],
         ].map((itm) => {
           return (
             <>

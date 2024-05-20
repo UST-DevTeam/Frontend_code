@@ -91,10 +91,8 @@ const CommonActions = {
     },
     deleteApiCaller: (urls,cb) => async (dispatch, _) => {
         try {
-            console.log("CommonPostActions______",urls, data,cb)
             const res = await Api.delete({ url: urls })
             if (res?.status !== 201 && res?.status !== 200) return
-
             cb()
         } catch (error) {
             console.log(error, "amit errorerror 37")
