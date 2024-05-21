@@ -95,6 +95,8 @@ import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccess
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
 import { getAccessType } from "./commonFunnction";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
+import FormsCards from "../pages/PMIS/Formss/FormsCards";
+import WorkdoneForecastCards from "../pages/PMIS/Formss/WorkdoneForecastCards";
 import InvoiceBased from "../pages/PMIS/FinancialCards/InvoiceBased/InvoiceBased";
 import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWorkDoneBased";
 import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
@@ -474,6 +476,13 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
+    {
+      name: "",
+      link: "/forms/workdoneForecast",
+      component: <WorkdoneForecastCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
   ],
 
   SuperAdmin: [
@@ -562,9 +571,9 @@ export const Sidebar_content = {
         subMenu: [],
       },
       {
-        name: "Form",
-        link: "/form",
-        // component: <OperationManagement />,
+        name: "Forms",
+        link: "/forms",
+        component: <FormsCards />,
         icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },

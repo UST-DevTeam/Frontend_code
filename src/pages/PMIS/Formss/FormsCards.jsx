@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
-const HRHomeView = () => {
+
+const FormsCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
@@ -18,43 +19,31 @@ const HRHomeView = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("HR", "/hr", 0, true));
+    dispatch(ComponentActions.breadcrumb("Forms", "/forms", 0, true));
   }, []);
   return (
     <>
       <CCDash
         showbtn={false}
         approveddata={[
-          [
-            "Manage Employee",
-            "bg-gradient-to-r from-[#427d9d] to-[#9bbec8]",
-            "/hr/empDetailsTable",
-          ],
-          ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400", "/hr/assetManagement"],
-          ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500", "/hr/managePolicy"],
-          [
-            "Expense & Advance",
-            "bg-gradient-to-r from-blue-200 to-cyan-200",
-            "/hr/expenseAdvance",
-          ],
-          ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500", "/hr/attendance"],
-          [
-            "Super Admin",
-            "bg-gradient-to-r from-pink-400 to-red-400",
-            "/hr/superAdmin",
-          ],
+          ["Financial Projection", "bg-gradient-to-r from-rose-300 via-rose-00 to-pink-500", "/forms/FinancialProjection",],
+          ["Work Done Forecast ", "bg-gradient-to-r from-yellow-400 via-yellow-200 to-rose-200", "/forms/WorkDoneForecast"],
+          ["SOB", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/forms/SOB",],
+        //   ["MDP", "bg-gradient-to-r from-violet-400 via-indigo-400 to-indigo-300", "/forms/MDP"],
+        //   ["P&L", "bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500", "/forms/P&L"],
+        //   ["Liquidation Plan", "bg-gradient-to-r from-cyan-200 via-cyan-400 to-cyan-300", "/forms/LiquidationPlan"],
         ].map((itm) => {
           return (
             <>
-              {getAccessType(itm[0]) == "visible" ||
-                getAccessType(itm[0]) == "disabled" ? (
+              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
+                getAccessType(itm[0]) == "disabled") ? (
                 <div
                   className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
                   onClick={() => {
 
 
                     console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
-                    if (getAccessType(itm[0]) == "visible") {
+                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(
@@ -63,6 +52,8 @@ const HRHomeView = () => {
                         )
                       );
                       navigate(itm[2]);
+
+
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
                       );
@@ -103,4 +94,4 @@ const HRHomeView = () => {
   );
 };
 
-export default HRHomeView;
+export default FormsCards;

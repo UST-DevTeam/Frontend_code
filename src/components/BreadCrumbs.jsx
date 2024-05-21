@@ -11,7 +11,7 @@ function changeCase(str) {
   const words = str.split(/(?=[A-Z]+)|(?=[a-z])(?=[A-Z])/);
 
   // Capitalize the first letter of each word
-  const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+  const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
 
   // Join words with spaces
   return capitalizedWords.join('');
@@ -97,6 +97,14 @@ const BreadCrumbs = () => {
     "unbilled":{
       "name":"Unbilled",
       "url":"/financial/Unbilled",
+    },
+    "forms":{
+      "name":"Forms",
+      "url":"/forms",
+    },
+    "workdoneForecast":{
+      "name":"Work Done Forecast",
+      "url":"/forms/workdoneForecast",
     },
   }
   

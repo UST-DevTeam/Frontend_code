@@ -110,7 +110,7 @@ const ManageProjectSiteId = () => {
   // }
 
   let dbConfigL = useSelector((state) => {
-    let interdata = state?.projectList?.getprojectalllist;
+    let interdata = state?.projectList?.getprojectalllist || [];
     return interdata;
   });
 
@@ -125,7 +125,7 @@ const ManageProjectSiteId = () => {
   });
 
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.projectList?.getprojectalllist;
+    let interdata = state?.projectList?.getprojectalllist || [];
     return interdata?.map((itm) => {
       console.log(itm, "itmitm");
       let updateditm = {
@@ -163,17 +163,17 @@ const ManageProjectSiteId = () => {
           <ProgressBar
             notifyType={"success"}
             percent={`${100 -
-              ((itm.milestoneArray.length -
-                itm.milestoneArray.filter(
-                  (iewq) => iewq.mileStoneStatus == "Close"
+              ((itm?.milestoneArray?.length -
+                itm?.milestoneArray?.filter(
+                  (iewq) => iewq?.mileStoneStatus == "Close"
                 ).length) /
-                itm.milestoneArray.length) *
+                itm?.milestoneArray?.length) *
               100
               }`}
-            text={`${itm.milestoneArray.filter(
-              (iewq) => iewq.mileStoneStatus == "Close"
+            text={`${itm?.milestoneArray?.filter(
+              (iewq) => iewq?.mileStoneStatus == "Close"
             ).length
-              } / ${itm.milestoneArray.length}`}
+              } / ${itm?.milestoneArray?.length}`}
           />
         ),
         checkboxProject: (
@@ -197,7 +197,7 @@ const ManageProjectSiteId = () => {
                   });
 
                   setchildsite((prev) => {
-                    itm.milestoneArray.map((iewq) => {
+                    itm?.milestoneArray?.map((iewq) => {
                       let lst = prev.indexOf(iewq.uniqueId);
                       prev.splice(lst, 1);
                     });
@@ -233,7 +233,7 @@ const ManageProjectSiteId = () => {
         //     }} classes='w-full'></Button>} />
         // </div>,
 
-        milestoneArray: itm.milestoneArray.map((iewq) => {
+        milestoneArray: itm?.milestoneArray?.map((iewq) => {
           console.log(iewq, "iewqiewqiewqiewq");
           return {
             ...iewq,

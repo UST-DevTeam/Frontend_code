@@ -32,8 +32,8 @@ const AdvancedTableExpandable = ({
   setmultiSelect = () => {},
 }) => {
   const [hide, setHide] = useState([]);
-  const [lastVisitedPage, setLastVisitedPage] = useState(100);
-  const [RPP, setRPP] = useState(100);
+  const [lastVisitedPage, setLastVisitedPage] = useState(500);
+  const [RPP, setRPP] = useState(50);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
@@ -45,17 +45,17 @@ const AdvancedTableExpandable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [100,200,300,400],
+    rpp: [50, 100, 150, 200],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);
     if (lcllastVisitedPage < totalCount) {
-      setLastVisitedPage(lcllastVisitedPage + 100);
+      setLastVisitedPage(lcllastVisitedPage + 50);
       console.log(activedFilter, "activedFilteractivedFilteractivedFilter");
       activedFilter["start"] = lcllastVisitedPage;
-      activedFilter["end"] = 100;
+      activedFilter["end"] = 50;
       activedFilter["reseter"] = false;
 
       filterAfter(activedFilter);
@@ -70,6 +70,7 @@ const AdvancedTableExpandable = ({
     filterAfter(formdata);
     setActivedFilter(formdata);
     setActiveFilter(objectToArray(formdata));
+    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
   const onReset = () => {
     // alert(value)

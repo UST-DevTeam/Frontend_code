@@ -4,7 +4,7 @@ import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
 import AdvancedTable from '../../../../components/AdvancedTable';
-import Modal from '../../../../components/Modal';
+import Modal from '../../../../components/Modal'; 
 import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
@@ -33,6 +33,7 @@ const WorkDone = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+
                 "itemCode1":itm.itemCodeArray?.[0]?.["itemCode"],
                 "itemCode2":itm.itemCodeArray?.[1]?.["itemCode"],
                 "itemCode3":itm.itemCodeArray?.[2]?.["itemCode"],
@@ -40,6 +41,7 @@ const WorkDone = () => {
                 "itemCode5":itm.itemCodeArray?.[4]?.["itemCode"],
                 "itemCode6":itm.itemCodeArray?.[5]?.["itemCode"],
                 "itemCode7":itm.itemCodeArray?.[6]?.["itemCode"],
+                
                 "quantity1":itm.itemCodeArray?.[0]?.["quantity"],
                 "quantity2":itm.itemCodeArray?.[1]?.["quantity"],
                 "quantity3":itm.itemCodeArray?.[2]?.["quantity"],
@@ -47,13 +49,15 @@ const WorkDone = () => {
                 "quantity5":itm.itemCodeArray?.[4]?.["quantity"],
                 "quantity6":itm.itemCodeArray?.[5]?.["quantity"],
                 "quantity7":itm.itemCodeArray?.[6]?.["quantity"],
-                "amount1":itm.itemCodeArray?.[0]?.["amount"],
+                
                 "amount2":itm.itemCodeArray?.[1]?.["amount"],
                 "amount3":itm.itemCodeArray?.[2]?.["amount"],
                 "amount4":itm.itemCodeArray?.[3]?.["amount"],
                 "amount5":itm.itemCodeArray?.[4]?.["amount"],
+                "amount1":itm.itemCodeArray?.[0]?.["amount"],
                 "amount6":itm.itemCodeArray?.[5]?.["amount"],
                 "amount7":itm.itemCodeArray?.[6]?.["amount"],
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`))
@@ -186,7 +190,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 1",
-                value: "Amount 1",
+                value: "amount1",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -201,7 +205,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 2",
-                value: "Amount 2",
+                value: "amount2",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -216,7 +220,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 3",
-                value: "Amount 3",
+                value: "amount3",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -231,7 +235,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 4",
-                value: "Amount 4",
+                value: "amount4",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -246,7 +250,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 5",
-                value: "Amount 5",
+                value: "amount5",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -261,7 +265,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 6",
-                value: "Amount 6",
+                value: "amount6",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -276,7 +280,7 @@ const WorkDone = () => {
             },
             {
                 name: "Amount 7",
-                value: "Amount 7",
+                value: "amount7",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -360,7 +364,7 @@ const WorkDone = () => {
     const onTableViewSubmit = (data) => {
         data["fileType"] = "ItemCodeforWork";
         dispatch(
-          CommonActions.fileSubmit(Urls.common_file_uploadr1, data, () => {
+          CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(FinanceActions.getPOWorkDoneBased());
             setFileOpen(false);
             resetting("");
@@ -400,7 +404,7 @@ const WorkDone = () => {
         />
 
         <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true}  tempbtnlink = {["/template/ItemCodeTemplate.xlsx","ItemCodeTemplate.xlsx"]}
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true}  tempbtnlink = {["/template/Work_Done_Template.xlsx","Work_Done_Template.xlsx"]}
       />
 
         {/* <CommonForm/> */}

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-
+ 
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
@@ -310,6 +310,30 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
 
+  let inwoForm = [
+    {
+      label: "Item Code",
+      value: "",
+      name: "itemCode",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity",
+      value: "",
+      name: "quantity",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    }
+  ];
   let sForm = [
     {
       label: "Item Code",
@@ -409,6 +433,14 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         size={"xl"}
         children={
           <>
+            <CommonForm
+              classes={"grid-cols-1 gap-1"}
+              Form={inwoForm}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            />
             <CommonForm
               classes={"grid-cols-1 gap-1"}
               Form={["", "", "", ""].map((itw) => {

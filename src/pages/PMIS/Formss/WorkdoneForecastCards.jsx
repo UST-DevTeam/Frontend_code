@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
-const HRHomeView = () => {
+
+const WorkdoneForecastCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
@@ -18,43 +19,27 @@ const HRHomeView = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("HR", "/hr", 0, true));
+    dispatch(ComponentActions.breadcrumb("Forms", "/forms", 0, true));
   }, []);
   return (
     <>
       <CCDash
         showbtn={false}
         approveddata={[
-          [
-            "Manage Employee",
-            "bg-gradient-to-r from-[#427d9d] to-[#9bbec8]",
-            "/hr/empDetailsTable",
-          ],
-          ["Asset Management", "bg-gradient-to-r from-lime-300 to-teal-400", "/hr/assetManagement"],
-          ["Manage Policy", "bg-gradient-to-r from-violet-500 to-purple-500", "/hr/managePolicy"],
-          [
-            "Expense & Advance",
-            "bg-gradient-to-r from-blue-200 to-cyan-200",
-            "/hr/expenseAdvance",
-          ],
-          ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500", "/hr/attendance"],
-          [
-            "Super Admin",
-            "bg-gradient-to-r from-pink-400 to-red-400",
-            "/hr/superAdmin",
-          ],
+          ["Actual Work Done", "bg-gradient-to-r from-lime-500 via-lime-400 to-lime-300", "/forms/workdoneForecast/ActualWorkDone",],
+          ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
         ].map((itm) => {
           return (
             <>
-              {getAccessType(itm[0]) == "visible" ||
-                getAccessType(itm[0]) == "disabled" ? (
+              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
+                getAccessType(itm[0]) == "disabled") ? (
                 <div
                   className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
                   onClick={() => {
 
 
                     console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
-                    if (getAccessType(itm[0]) == "visible") {
+                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(
@@ -63,6 +48,8 @@ const HRHomeView = () => {
                         )
                       );
                       navigate(itm[2]);
+
+
                       dispatch(
                         ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
                       );
@@ -103,4 +90,4 @@ const HRHomeView = () => {
   );
 };
 
-export default HRHomeView;
+export default WorkdoneForecastCards;
