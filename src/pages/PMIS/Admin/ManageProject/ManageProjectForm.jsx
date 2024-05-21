@@ -25,7 +25,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
   const [circlewq, setcircle] = useState("");
 
   let pmempList = useSelector((state) => {
-    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+    return state?.hrReducer?.getManageEmpDetails?.map((itm) => {
       return {
         // label: itm.empName + "(" + itm.email + ")",
         label: itm.empName,
@@ -178,7 +178,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
           // console.log(e.target.value);
         },
       },
-      required: true,
+      required: false,
       classes: "col-span-1",
     },
     {
@@ -189,7 +189,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
       props: {
         onChange: (e) => { },
       },
-      required: true,
+      required: false,
       classes: "col-span-1",
     },
     {
