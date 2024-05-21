@@ -140,9 +140,9 @@ const BreadCrumbs = () => {
                   <>
                     <li>
                       <a
-                        className="text-green-600 hover:text-green-700"
+                        className="text-green-600 hover:text-green-700 cursor-pointer"
                         onClick={() => {
-                          
+
                           navigate(item in Dtheader ? Dtheader[item]["url"] : checkInGlobalValue(item)!="" ? checkInGlobalValue(item) : "");
                         }}
                       >
