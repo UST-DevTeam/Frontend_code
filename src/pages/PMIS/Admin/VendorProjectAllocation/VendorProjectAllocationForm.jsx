@@ -133,6 +133,7 @@ const VendorProjectAllocationForm = ({
         onChange: (e) => { }
       },
       classes: "col-span-1 w-full",
+      width:"350px"
     },
   ];
 

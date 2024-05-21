@@ -66,6 +66,7 @@ const ManageProject = () => {
       },
       required: true,
       classes: "col-span-1",
+      width:"350px"
     },
   ];
 
@@ -417,6 +418,7 @@ const ManageProject = () => {
         },
         required: true,
         classes: "col-span-1",
+        width:"350px"
       },
       
     ],

@@ -126,9 +126,11 @@ const projectListActions = {
     },
     globalProjectTypeDataPatch: (urle,projectuniqueId,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
         try {
+            console.log("maiglaosdfaofsddfdfsfcawefwefs",cb);
             if (projectuniqueId!=null){data["projectuniqueId"]=projectuniqueId}
             const res = await Api.patch({ url: urle+"/"+projectuniqueId, data:data })
             if (res?.status !== 200 && res?.status !== 201) return
+            cb()
 
             
             let msgdata = {
@@ -139,7 +141,6 @@ const projectListActions = {
                 text: res?.data?.msg,
             };
             dispatch(ALERTS(msgdata));
-            cb()
             // let dataAll = res?.data?.data[0]
             // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
         } catch (error) {

@@ -102,7 +102,8 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
                 }),
             },
-            classes: "col-span-1"
+            classes: "col-span-1",
+            width:"350px"
         },
     ]
     const {

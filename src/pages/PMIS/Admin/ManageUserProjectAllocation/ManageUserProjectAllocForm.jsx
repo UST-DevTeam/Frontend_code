@@ -116,6 +116,7 @@ const ManageUserProjectAllocForm = ({
         onChange: (e) => { },
       },
       classes: "col-span-2 w-screen",
+      width:"350px"
     },
   ];
 
