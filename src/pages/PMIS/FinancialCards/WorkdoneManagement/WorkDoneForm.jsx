@@ -3,15 +3,23 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
- 
+
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 // import { useParams } from "react-router-dom";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
+import { Form } from "react-router-dom";
 
-const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const WorkDoneForm = ({
+  setcallSt,
+  callSt,
+  isOpen,
+  setIsOpen,
+  resetting,
+  formValue = {},
+}) => {
   const {
     register,
     handleSubmit,
@@ -22,21 +30,29 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     formState: { errors },
   } = useForm();
 
-  
-
   const [finalForm, setFinalForm] = useState({});
-
 
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
 
+  // let ItemCodeList = [];
+  // if (callSt) {
+  //   useSelector((state) => {
+  //     return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
+  //       ItemCodeList.push({
+  //         label: itm?.ItemCode,
+  //         value: itm?.ItemCode,
+  //       })
+  //     });
+  //   });
+  // }
   let ItemCodeList = useSelector((state) => {
     return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
       return {
         label: itm?.ItemCode,
         value: itm?.ItemCode,
-      };
+      }
     });
   });
 
@@ -68,9 +84,6 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   //         t.value === item.value
   //     ))
   // );
-
-
-
 
   // let Form = [
   //   {
@@ -307,9 +320,6 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   //   },
   // ];
 
-
-
-
   let inwoForm = [
     {
       label: "Item Code",
@@ -329,16 +339,38 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       props: {
         valueAsNumber: true,
+        min: -2,
         onChange: (e) => {},
       },
       classes: "col-span-1",
-    }
+    },
   ];
+
   let sForm = [
     {
-      label: "Item Code",
+      label: "Work Done Bucket",
       value: "",
-      name: "itemCode",
+      name: "workdonebucket",
+      type: "text",
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Invoice Bucket",
+      value: "",
+      name: "invoicebucket",
+      type: "text",
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 1",
+      value: "",
+      name: "itemCode1",
       type: "select",
       option: ItemCodeList,
       props: {
@@ -347,35 +379,184 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
     {
-      label: "Quantity",
+      label: "Quantity 1",
       value: "",
-      name: "quantity",
+      name: "quantity1",
       type: "number",
       props: {
         valueAsNumber: true,
+        min: 0,
         onChange: (e) => {},
       },
       classes: "col-span-1",
-    }
+    },
+    {
+      label: "Item Code 2",
+      value: "",
+      name: "itemCode2",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 2",
+      value: "",
+      name: "quantity2",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 3",
+      value: "",
+      name: "itemCode3",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 3",
+      value: "",
+      name: "quantity3",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 4",
+      value: "",
+      name: "itemCode4",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 4",
+      value: "",
+      name: "quantity4",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 5",
+      value: "",
+      name: "itemCode5",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 5",
+      value: "",
+      name: "quantity5",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 6",
+      value: "",
+      name: "itemCode6",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+        min: 0,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 6",
+      value: "",
+      name: "quantity6",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Item Code 7",
+      value: "",
+      name: "itemCode7",
+      type: "select",
+      option: ItemCodeList,
+      props: {
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Quantity 7",
+      value: "",
+      name: "quantity7",
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
   ];
 
-  let cForm=[]
+  let cForm = [
+    
+  ];
 
-  console.log(["","","","","","",""].map((itwq,index)=>{
-    return sForm.map((iets)=>{
-      cForm.push({
-        ...iets,
-        label:iets.label+" "+(+index+1),
-        name:iets.name+""+(+index+1),
-        props:{
-          ...iets.props,
-          onChange: (e) => {
-            console.log("sadsadsadas",iets.name+(+index+1),e.target.value)
+  console.log(
+    ["", "", "", "", "", "", ""].map((itwq, index) => {
+      return sForm.map((iets) => {
+        cForm.push({
+          ...iets,
+          label: iets.label + " " + (+index + 1),
+          name: iets.name + "" + (+index + 1),
+          props: {
+            ...iets.props,
+            onChange: (e) => {
+              console.log(
+                "sadsadsadas",
+                iets.name + (+index + 1),
+                e.target.value
+              );
+            },
           },
-        }
-      })
-    })
-  }),"dfghj")
+        });
+      });
+    }),
+    "dfghj"
+  );
   const onSubmit = (data) => {
     console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
@@ -406,7 +587,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
-    dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }));
+    // dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }));
 
     if (resetting) {
       reset({});
@@ -414,10 +595,14 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         setValue(fieldName["name"], fieldName["value"]);
       });
     } else {
+      // setcallSt(false)
       reset({});
       console.log(Object.keys(formValue), "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
+        console.log(key, "keykeykeykeykey");
+        if (key == "itemCodeArray") {
+          console.log(formValue["itemCodeArray"], "formValue");
+        } else if (["endAt", "startAt"].indexOf(key.name) != -1) {
           console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
@@ -426,7 +611,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         }
       });
     }
-  }, [formValue, resetting]);
+  }, [callSt]);
   return (
     <>
       <Modal
@@ -443,11 +628,7 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             />
             <CommonForm
               classes={"grid-cols-1 gap-1"}
-              Form={["", "", "", ""].map((itw) => {
-                return cForm.map((itq) => {
-                  return itq;
-                });
-              })}
+              Form={sForm}
               errors={errors}
               register={register}
               setValue={setValue}
@@ -459,11 +640,15 @@ const WorkDoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         setIsOpen={setmodalOpen}
       />
 
-      {console.log([""].map((itw) => {return cForm}, "cFormcFormcForm"))}
+      {console.log(
+        [""].map((itw) => {
+          return cForm;
+        }, "cFormcFormcForm")
+      )}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
-          Form={cForm}
+          Form={sForm}
           errors={errors}
           register={register}
           setValue={setValue}

@@ -29,9 +29,9 @@ const FormsCards = () => {
           ["Financial Projection", "bg-gradient-to-r from-rose-300 via-rose-00 to-pink-500", "/forms/FinancialProjection",],
           ["Work Done Forecast ", "bg-gradient-to-r from-yellow-400 via-yellow-200 to-rose-200", "/forms/WorkDoneForecast"],
           ["SOB", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/forms/SOB",],
-        //   ["MDP", "bg-gradient-to-r from-violet-400 via-indigo-400 to-indigo-300", "/forms/MDP"],
-        //   ["P&L", "bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500", "/forms/P&L"],
-        //   ["Liquidation Plan", "bg-gradient-to-r from-cyan-200 via-cyan-400 to-cyan-300", "/forms/LiquidationPlan"],
+          ["MDP", "bg-gradient-to-r from-violet-400 via-indigo-400 to-indigo-300", "/forms/MDP"],
+          ["P&L", "bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500", "/forms/P&L"],
+          ["Liquidation Plan", "bg-gradient-to-r from-cyan-200 via-cyan-400 to-cyan-300", "/forms/LiquidationPlan"],
         ].map((itm) => {
           return (
             <>

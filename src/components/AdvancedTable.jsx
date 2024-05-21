@@ -48,6 +48,9 @@ const AdvancedTable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
+  console.log(pages,"pagespages")
+  console.log(RPP,"RRP")
+
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -57,6 +60,7 @@ const AdvancedTable = ({
     rpp: [50, 100, 150, 200],
   };
   console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
+  console.log(totalCount,"totalCounttotalCounttotalCount")
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);

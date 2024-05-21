@@ -108,12 +108,13 @@ const FinanceActions = {
         }
     },
 
-    getPOWorkDoneItemCode:(reset=true,args="") => async (dispatch, _) => {
+    getPOWorkDoneItemCode:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.finance_poworkdone_itemCode}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_POWORKDONE_ITEMCODE({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },

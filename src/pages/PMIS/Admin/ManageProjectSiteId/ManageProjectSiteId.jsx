@@ -783,7 +783,7 @@ const ManageProjectSiteId = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.adminData?.getProject;
+    let interdata = state?.projectList?.getprojectalllist;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {

@@ -32,14 +32,19 @@ const AdvancedTableExpandable = ({
   setmultiSelect = () => {},
 }) => {
   const [hide, setHide] = useState([]);
-  const [lastVisitedPage, setLastVisitedPage] = useState(500);
+  const [lastVisitedPage, setLastVisitedPage] = useState(50);
   const [RPP, setRPP] = useState(50);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
+
+
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
+
+  console.log(pages,"pagespages")
+  console.log(RPP,"RRP")
 
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
@@ -70,7 +75,6 @@ const AdvancedTableExpandable = ({
     filterAfter(formdata);
     setActivedFilter(formdata);
     setActiveFilter(objectToArray(formdata));
-    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
   const onReset = () => {
     // alert(value)
