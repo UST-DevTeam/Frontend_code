@@ -90,13 +90,16 @@ const AccrualRevenue = () => {
     } = useForm()
 
 
+    const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
-    const currentYearShort = currentYear.toString().substring(2);
-    const months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec","Jan", "Feb", "Mar", ];
+    const fiscalYearStart = currentMonth >= 3 ? currentYear : currentYear - 1;
+    const fiscalYearEnd = fiscalYearStart + 1;
 
+    const months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"];
+    
     const YearList = (startYear) => {
         const years = [];
-        for (let year = startYear; year <= currentYear; year++) {
+        for (let year = startYear; year <= fiscalYearEnd; year++) {
             years.push({ label: `${year}`, value: `${year.toString().substring(2)}` });
         }
         return years;
@@ -139,11 +142,14 @@ const AccrualRevenue = () => {
                 value: "itemCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },  
-            ...months.map(month => ({
-                name: `Accrual ${month} ${currentYear}`,
-                value: "mdDate",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            }))                
+            ...months.map((month, index) => {
+                const years = index >= 9 ? fiscalYearEnd : fiscalYearStart; 
+                return {
+                    name: `Accrual ${month} ${years}`,
+                    value: "mdDate",
+                    style: "min-w-[140px] max-w-[200px] text-center"
+                };
+            })                
                                           
             // {
             //     name: "Edit",

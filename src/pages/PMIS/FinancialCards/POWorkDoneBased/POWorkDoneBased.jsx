@@ -191,6 +191,7 @@ const POWorkDoneBased = () => {
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
+            exportButton={["/export/trackingWorkDone","Export_Tracking_WorkDone.xlsx"]}
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}

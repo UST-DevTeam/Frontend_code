@@ -311,7 +311,7 @@ const CreateFormField = ({
                   register={register}
                 /> */}
 
-                <input className="p-2 block w-full border-b-2 py-1.5 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30" type={itm.type} defaultValue={itm.value} {...itm.props} />
+                <input className="p-2 block w-full border-b-2 py-1.5 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30" type={itm.type} min={0} defaultValue={itm.value}  {...itm.props} />
               </>
             ) : (
               <></>
