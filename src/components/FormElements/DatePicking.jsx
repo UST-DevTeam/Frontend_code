@@ -51,3 +51,61 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
 };
 
 export default DatePicking;
+
+
+// import React, { useState, useEffect } from 'react';
+// import DatePicker from 'react-datepicker';
+// import moment from 'moment';
+
+// const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register, reset }) => {
+//     const [selectedDate, setSelectedDate] = useState(null);
+
+//     useEffect(() => {
+//         const initialDate = getValues(itm.name);
+//         if (initialDate) {
+//             const parsedDate = moment(initialDate, itm?.formatop).isValid() 
+//                 ? moment(initialDate, itm?.formatop).toDate() 
+//                 : null;
+//             setSelectedDate(parsedDate);
+//         }
+//     }, [getValues, itm.name, itm?.formatop]);
+
+//     useEffect(() => {
+//         setSelectedDate(null);
+//         setValue(itm.name, null);
+//     }, [reset, setValue, itm.name]);
+
+//     const handleDateChange = (date) => {
+//         if (!date) {
+//             setValue(itm.name, null);
+//             setSelectedDate(null);
+//             return;
+//         }
+
+//         const formattedDate = moment(date).format(itm?.formatop);
+//         setValue(itm.name, formattedDate);
+//         setSelectedDate(date);
+//         console.log(formattedDate, "FormattedDate");
+//     };
+
+//     return (
+//         <>
+//             <DatePicker
+//                 maxDate={itm?.props?.maxSelectableDate}
+//                 minDate={itm?.props?.minSelectableDate}
+//                 showIcon={true}
+//                 selected={selectedDate}
+//                 onChange={handleDateChange}
+//                 showTimeSelect={itm.formattype === "time" || itm.formattype === "datetime"}
+//                 showTimeSelectOnly={itm.formattype === "time"}
+//                 dateFormat={itm?.format || "dd/MM/yyyy"}
+//                 timeFormat="HH:mm"
+//                 className='bg-white border-black border block h-8 w-full rounded-md py-0.5 p-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+//             />
+//             <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
+//         </>
+//     );
+// };
+
+// export default DatePicking;
+

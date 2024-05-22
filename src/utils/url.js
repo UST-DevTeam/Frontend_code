@@ -80,6 +80,7 @@ export const Urls={
     finance_Invoice:"/finance/invoice",
     finance_poworkdone_based:"/finance/poWorkdoneBased",
     finance_poworkdone_itemCode:"/finance/commercial",
+    finance_poworkdone_dashboard:"/finance/poTrackingWorkdone",
 
 
 

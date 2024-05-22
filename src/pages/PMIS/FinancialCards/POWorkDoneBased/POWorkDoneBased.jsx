@@ -94,22 +94,22 @@ const POWorkDoneBased = () => {
             {
                 name: "Customer",
                 value: "customer",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },          
             {
                 name: "Project Group",
                 value: "projectGroup",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },            
             {
                 name: "Project Type",
                 value: "projectType",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             }, 
             {
                 name: "Project ID",
                 value: "projectId",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },           
             // {
             //     name: "Sub Project",
@@ -119,22 +119,22 @@ const POWorkDoneBased = () => {
             {
                 name: "GBPA",
                 value: "gbpa",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
             {
                 name: "Item Code",
                 value: "itemCode",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
             {
                 name: "Description",
                 value: "description",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[250px] max-w-[350px] text-center"
             },                                                                     
             {
                 name: "Unit Rate (INR)",
-                value: "description",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                value: "unitRate(INR)",
+                style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
             {
                 name: "Initial PO Qty (Sum of all Open PO)",
@@ -144,22 +144,22 @@ const POWorkDoneBased = () => {
             {
                 name: "Invoiced Quantity",
                 value: "invoicedQty",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
             {
                 name: "Workdone Quantity",
-                value: "workDoneQuantity",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                value: "workDoneQty",
+                style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
             {
                 name: "Open Qunatity",
-                value: "openQuantity",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                value: "openQty",
+                style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
         ],
-        properties: {
-            rpp: [10, 20, 50, 100]
-        },
+        // properties: {
+        //     rpp: [10, 20, 50, 100]
+        // },
         filter: [
             // {
             //     label: "Role",
