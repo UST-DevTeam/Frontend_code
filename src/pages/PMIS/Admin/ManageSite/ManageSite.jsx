@@ -120,7 +120,35 @@ const ManageSite = ({
   const handleSiteEnggSubmit = (data) => {
     // alert(projectuniqueId)
 
-    console.log(data, "datadatadatadata");
+
+
+
+    let filData = []
+    filData = dataOfProject["t_sengg"].filter(itew => itew["required"] == "Yes")
+    let filDataCount = 0
+    let datamsg = ""
+    filData.map((itew) => {
+      if (data[itew["fieldName"]] == undefined || data[itew["fieldName"]] == "") {
+        filDataCount += 1
+        datamsg += itew["fieldName"] + ", "
+      }
+      console.log(itew["fieldName"], "nathnathamarnath")
+    })
+
+
+    if (filDataCount != 0) {
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: datamsg + " is required field.",
+      };
+      dispatch(ALERTS(msgdata));
+
+      return
+    }
+    console.log(data, "datadatadatadatanathnathamarnath");
     setSiteId(data["Site Id"] ? data["Site Id"] : "Add");
     let final_data = {
       SubProjectId: dataOfProject["uniqueId"],
@@ -384,38 +412,38 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_sengg"]
                         ? [
-                            {
-                              label: "Project Type",
-                              value: "",
-                              name: "project",
-                              type: "sdisabled",
-                              classes: "col-span-1",
-                            },
-                            {
-                              label: "Sub Project",
-                              value: "",
-                              name: "subProject",
-                              type: "sdisabled",
-                              classes: "col-span-1",
-                            },
-                            ...dataOfProject["t_sengg"].map((its) => {
-                              return {
-                                label: its.fieldName,
-                                value: "Select",
-                                required: its.required == "Yes" ? true : false,
-                                option: its.dropdownValue
-                                  ? its.dropdownValue.split(",").map((itm) => {
-                                      return {
-                                        value: itm,
-                                        label: itm,
-                                      };
-                                    })
-                                  : [],
-                                name: its.fieldName,
-                                type: dtype[its.dataType],
-                              };
-                            }),
-                          ]
+                          {
+                            label: "Project Type",
+                            value: "",
+                            name: "project",
+                            type: "sdisabled",
+                            classes: "col-span-1",
+                          },
+                          {
+                            label: "Sub Project",
+                            value: "",
+                            name: "subProject",
+                            type: "sdisabled",
+                            classes: "col-span-1",
+                          },
+                          ...dataOfProject["t_sengg"].map((its) => {
+                            return {
+                              label: its.fieldName,
+                              value: "Select",
+                              required: its.required == "Yes" ? true : false,
+                              option: its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                  return {
+                                    value: itm,
+                                    label: itm,
+                                  };
+                                })
+                                : [],
+                              name: its.fieldName,
+                              type: dtype[its.dataType],
+                            };
+                          }),
+                        ]
                         : []
                       : []
                   }
@@ -442,13 +470,13 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_tracking"]
                         ? dataOfProject["t_tracking"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: dtype[its.dataType],
+                          };
+                        })
                         : []
                       : []
                   }
@@ -475,13 +503,13 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_issues"]
                         ? dataOfProject["t_issues"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: dtype[its.dataType],
+                          };
+                        })
                         : []
                       : []
                   }

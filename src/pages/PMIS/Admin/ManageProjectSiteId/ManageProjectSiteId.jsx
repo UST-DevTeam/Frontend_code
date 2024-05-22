@@ -137,7 +137,12 @@ const ManageProjectSiteId = () => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
 
-              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll: [], reset: true }))
+              dispatch(
+                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                  dataAll: [],
+                  reset: true,
+                })
+              );
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               setmodalBody(
                 <ManageMilestoneSite
@@ -162,18 +167,20 @@ const ManageProjectSiteId = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${100 -
+            percent={`${
+              100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
                   (iewq) => iewq?.mileStoneStatus == "Close"
                 ).length) /
                 itm?.milestoneArray?.length) *
-              100
-              }`}
-            text={`${itm?.milestoneArray?.filter(
-              (iewq) => iewq?.mileStoneStatus == "Close"
-            ).length
-              } / ${itm?.milestoneArray?.length}`}
+                100
+            }`}
+            text={`${
+              itm?.milestoneArray?.filter(
+                (iewq) => iewq?.mileStoneStatus == "Close"
+              ).length
+            } / ${itm?.milestoneArray?.length}`}
           />
         ),
         checkboxProject: (
@@ -295,14 +302,14 @@ const ManageProjectSiteId = () => {
                                 {" "}
                                 {itwsw.assignerName.split(" ").length > 1
                                   ? itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1) +
-                                  itwsw.assignerName
-                                    .split(" ")[1]
-                                    .substr(0, 1)
+                                      .split(" ")[0]
+                                      .substr(0, 1) +
+                                    itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)
                                   : itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1)}
+                                      .split(" ")[0]
+                                      .substr(0, 1)}
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -363,7 +370,12 @@ const ManageProjectSiteId = () => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
-                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll: [], reset: true }))
+                  dispatch(
+                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                      dataAll: [],
+                      reset: true,
+                    })
+                  );
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
                   setmodalBody(
                     <ManageMilestoneSite
@@ -782,14 +794,20 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-  let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.projectList?.getprojectalllist;
-    if (interdata.length > 0) {
-      return interdata[0]["overall_table_count"];
-    } else {
-      return 0;
-    }
-  });
+  console.log("safasfasfasfasfasdfasdfasdfabc", dbConfigList[0]?.uniqueId);
+  let dbConfigTotalCount =
+    useSelector((state) => {
+      let interdata = state?.projectList?.getprojectalllist;
+      console.log("afdsdasfasfasfasfadfs", interdata[0]);
+      if (interdata.length > 0) {
+        console.log(
+          "asdfas0fjasofnafsdna",
+          interdata[0]["overall_table_count"]
+        );
+        return interdata[0]["overall_table_count"];
+      }
+    }) || [];
+  console.log("afdasfoja0jdfamssdfghjsdc", dbConfigTotalCount.length);
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -868,7 +886,8 @@ const ManageProjectSiteId = () => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white z-20",
+        style:
+          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white z-20 cursor-pointer",
       },
       {
         name: "Sub Project",
@@ -949,7 +968,7 @@ const ManageProjectSiteId = () => {
           name: "Site ID",
           value: "SiteNaming",
           style:
-            "min-w-[140px] max-w-[200px] sticky left-0 bg-white text-center",
+            "min-w-[140px] max-w-[200px] sticky left-0 bg-white text-center z-20",
         },
         {
           name: "Sub Project",
@@ -1054,27 +1073,109 @@ const ManageProjectSiteId = () => {
     <>
       <AdvancedTableExpandable
         searchView={
-          <SearchBarView
-            onblur={(e) => {
-              console.log("SearchBarView onblur", e.target.value);
-              dispatch(
-                projectListActions.getProjectTypeAll(
-                  projectuniqueId,
-                  e.target.value != "" ? "mileStoneName=" + e.target.value : ""
-                )
-              );
-            }}
-            onchange={(e) => {
-              dispatch(
-                projectListActions.getProjectTypeAll(
-                  projectuniqueId,
-                  e.target.value != "" ? "mileStoneName=" + e.target.value : ""
-                )
-              );
-              console.log("SearchBarView onchange", e.target.value);
-            }}
-            placeHolder={"S Milestone Name"}
-          />
+          <>
+            <SearchBarView
+              onblur={(e) => {
+                console.log("SearchBarView onblur", e.target.value);
+                dispatch(
+                  projectListActions.getProjectTypeAll(
+                    projectuniqueId,
+                    e.target.value != ""
+                      ? "mileStoneName=" + e.target.value
+                      : ""
+                  )
+                );
+              }}
+              onchange={(e) => {
+                dispatch(
+                  projectListActions.getProjectTypeAll(
+                    projectuniqueId,
+                    e.target.value != ""
+                      ? "mileStoneName=" + e.target.value
+                      : ""
+                  )
+                );
+                console.log("SearchBarView onchange", e.target.value);
+              }}
+              placeHolder={"S Milestone Name"}
+            />
+
+            <ConditionalButton
+              showType={getAccessType("Site Allocation")}
+              classes="w-auto "
+              onClick={(e) => {
+                if (parentsite.length > 0) {
+                  setmodalOpen((prev) => !prev);
+                  // dispatch(AdminActions.getProject())
+                  dispatch(
+                    projectListActions.getUserAllocatedProject(
+                      true,
+                      projectuniqueId
+                    )
+                  );
+                  setmodalHead("Allocate Site");
+                  setmodalBody(
+                    <AllocateProjectForm
+                      from={"bulksite"}
+                      listsite={parentsite}
+                      projectuniqueId={projectuniqueId}
+                      isOpen={modalOpen}
+                      setIsOpen={setmodalOpen}
+                      resetting={false}
+                      formValue={{}}
+                    />
+                  );
+                } else {
+                  let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: "Please Select at least one site for bulk allocate",
+                  };
+                  dispatch(ALERTS(msgdata));
+                }
+              }}
+              name={"Site Allocate"}
+            ></ConditionalButton>
+
+            <PopupMenu
+              name={"Export"}
+              icon={"Export"}
+              classes={"w-auto"}
+              bgColor={"bg-[#147b99]"}
+              child={
+                <div classes="z-40 max-h-96 justify-center">
+                  <ConditionalButton
+                    showType={getAccessType("Bulk upload-Site")}
+                    name={"Export"}
+                    classes="w-auto m-5"
+                    onClick={(e) => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/siteId/" + `${projectuniqueId}`,
+                          "Export_Sites.xlsx"
+                        )
+                      );
+                    }}
+                  ></ConditionalButton>
+                  <ConditionalButton
+                    showType={getAccessType("Bulk upload-Task")}
+                    name={"Export with Task"}
+                    classes="w-auto m-5"
+                    onClick={(e) => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
+                          "Export_Sites_with_Milestone.xlsx"
+                        )
+                      );
+                    }}
+                  ></ConditionalButton>
+                </div>
+              }
+            />
+          </>
         }
         headerButton={
           <div className="flex gap-1">
@@ -1176,8 +1277,8 @@ const ManageProjectSiteId = () => {
               name={"Site Allocate"}
             ></ConditionalButton>
             {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button> */}
+                setFileOpen(prev=>!prev)
+            }}></Button> */}
 
             <PopupMenu
               name={"Export"}
@@ -1204,7 +1305,6 @@ const ManageProjectSiteId = () => {
                     name={"Export with Task"}
                     classes="w-auto m-5"
                     onClick={(e) => {
-                      
                       dispatch(
                         CommonActions.commondownload(
                           "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
@@ -1213,21 +1313,16 @@ const ManageProjectSiteId = () => {
                       );
                     }}
                   ></ConditionalButton>
-
                 </div>
-
               }
             />
-
-
-
           </div>
         }
         table={table}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
-        data={dbConfigList}
+        data={dbConfigList[0]?.uniqueId ? dbConfigList : []}
         errors={errors}
         register={register}
         setValue={setValue}
@@ -1252,7 +1347,6 @@ const ManageProjectSiteId = () => {
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
-
       {/* <CommonForm/> */}
     </>
   );

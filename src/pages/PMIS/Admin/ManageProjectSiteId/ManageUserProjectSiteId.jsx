@@ -131,8 +131,8 @@ const ManageUserProjectSiteId = () => {
                         }
                     }} />
                 </>,
-                
-                siteage: itm.siteageing ? itm.siteageing >= 0 ? <p className='text-green-600'>{itm.siteageing + " Days"}</p> : <p className='text-red-600'>{itm.siteageing + " Days"}</p>:"",
+
+                siteage: itm.siteageing ? itm.siteageing >= 0 ? <p className='text-green-600'>{itm.siteageing + " Days"}</p> : <p className='text-red-600'>{itm.siteageing + " Days"}</p> : "",
                 // siteStartDate: <div className='flex content-center w-full justify-center'>
                 //     <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
                 //         setmodalOpen(true)
@@ -193,16 +193,16 @@ const ManageUserProjectSiteId = () => {
                             setmodalFullOpen(prev => !prev)
                             // dispatch(AdminActions.getProject())
                             setmodalHead("Update Milestone")
-                            dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll:[],reset:true}))
+                            dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll: [], reset: true }))
                             dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId))
-                            
+
                             setmodalBody(<ManageMilestoneSite siteCompleteData={itm} uid={itm["uniqueId"]} mileStone={iewq} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
 
                             // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                         }}>{iewq.Name}</p>,
                         taskmageing: iewq.taskageing >= 0 ? <p className='text-green-600'>{iewq.taskageing + " Days"}</p> : <p className='text-red-600'>{iewq.taskageing + " Days"}</p>,
                         Predecessor: iewq.Predecessor,
-                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} percent={iewq.mileStoneStatus == "Open" ? "0" : "100"} text={parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100")+" %"} />,
+                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} percent={iewq.mileStoneStatus == "Open" ? "0" : "100"} text={parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100") + " %"} />,
                         checkboxProject: <>
                             <input type={"checkbox"} checked={childsite.indexOf(iewq.uniqueId) != -1} value={iewq.uniqueId} onChange={(e) => {
                                 if (e.target.checked) {
@@ -222,7 +222,7 @@ const ManageUserProjectSiteId = () => {
 
                                         console.log(tkChaeck, "tkChaecktkChaecktkChaeck")
 
-                                        if (tkChaeck && itm.totalCount==itm.milestoneCount) {
+                                        if (tkChaeck && itm.totalCount == itm.milestoneCount) {
                                             setparentsite(prev => [...prev, itm.uniqueId])
                                         }
 
@@ -344,7 +344,7 @@ const ManageUserProjectSiteId = () => {
     let table = {
         columns: [
             {
-                name: <input type={"checkbox"} checked={dbConfigL.length!=0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
+                name: <input type={"checkbox"} checked={dbConfigL.length != 0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
                     if (e.target.checked) {
                         dbConfigL.map((itm) => {
                             if (childsite.indexOf(itm.uniqueId) == -1) {
@@ -535,8 +535,8 @@ const ManageUserProjectSiteId = () => {
     }
     useEffect(() => {
 
-        
-        dispatch(ComponentActions.breadcrumb("Project Management","/manageCustomer",0,true))
+
+        dispatch(ComponentActions.breadcrumb("Project Management", "/manageCustomer", 0, true))
         dispatch(VendorActions.getVendorProjectList())
         // dispatch(projectListActions.getProjectType(projectuniqueId))
 
@@ -564,7 +564,7 @@ const ManageUserProjectSiteId = () => {
 
             headerButton={<div className='flex gap-1'>
 
-                
+
                 {/* <Button classes='w-auto ' onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(AdminActions.getProject())
@@ -630,7 +630,8 @@ const ManageUserProjectSiteId = () => {
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList}
+            data={(dbConfigList[0]?.uniqueId) ?
+                dbConfigList : []}
             errors={errors}
             register={register}
             setValue={setValue}

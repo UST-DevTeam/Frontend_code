@@ -184,7 +184,7 @@ const ManageCustomer = () => {
       {
         name: "Logo",
         value: "imgshow",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white z-20",
       },
       {
         name: "Customer Name",

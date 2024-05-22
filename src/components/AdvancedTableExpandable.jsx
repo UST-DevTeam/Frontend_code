@@ -16,8 +16,8 @@ import SearchView from "./SearchView";
 const AdvancedTableExpandable = ({
   tableName = "",
   headerButton,
-  filterAfter = () => {},
-  handleSubmit = () => {},
+  filterAfter = () => { },
+  handleSubmit = () => { },
   table,
   data,
   errors,
@@ -29,7 +29,7 @@ const AdvancedTableExpandable = ({
   actions = ["Edit", "Delete"],
   searchView = "",
   getmultiSelect = "",
-  setmultiSelect = () => {},
+  setmultiSelect = () => { },
 }) => {
   const [hide, setHide] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
@@ -43,8 +43,8 @@ const AdvancedTableExpandable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
-  console.log(pages,"pagespages")
-  console.log(RPP,"RRP")
+  console.log(pages, "pagespages")
+  console.log(RPP, "RRP")
 
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
@@ -90,6 +90,7 @@ const AdvancedTableExpandable = ({
   }, [tableName]);
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
+  console.log("fasodfjanflasdfnaifaewasdf",data.length);
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">
@@ -137,35 +138,34 @@ const AdvancedTableExpandable = ({
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                              <div className="flex m-1">
-                                <input
-                                  type="checkbox"
-                                  checked={hide.indexOf(String(index)) == -1}
-                                  value={String(index)}
-                                  onChange={(e) => {
-                                    setHide((prev) => {
-                                      // alert("caller")
-                                      if (!e.target.checked) {
-                                        // alert("pusher")
-                                        return [...prev, e.target.value];
-                                      } else {
-                                        // alert("remover")
-                                        let vle = prev.indexOf(e.target.value);
+                            <div className="flex m-1">
+                              <input
+                                type="checkbox"
+                                checked={hide.indexOf(String(index)) == -1}
+                                value={String(index)}
+                                onChange={(e) => {
+                                  setHide((prev) => {
+                                    // alert("caller")
+                                    if (!e.target.checked) {
+                                      // alert("pusher")
+                                      return [...prev, e.target.value];
+                                    } else {
+                                      // alert("remover")
+                                      let vle = prev.indexOf(e.target.value);
 
-                                        if (vle != -1) {
-                                          prev.splice(vle, 1);
-                                        }
-                                        return [...prev];
+                                      if (vle != -1) {
+                                        prev.splice(vle, 1);
                                       }
-                                    });
-                                  }}
-                                  name={itts.name}
-                                />
-                                <span className="text-slate-800 text-[11px] mx-2">
-                                  {itts.name}
-                                </span>
-                              </div>
-                            
+                                      return [...prev];
+                                    }
+                                  });
+                                }}
+                                name={itts.name}
+                              />
+                              <span className="text-slate-800 text-[11px] mx-2">
+                                {itts.name}
+                              </span>
+                            </div>
                           </>
                         );
                       })}
@@ -259,11 +259,10 @@ const AdvancedTableExpandable = ({
                         ) : (
                           <>
                             <td
-                              className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${
-                                itts.style
-                                  ? itts.style
-                                  : " min-w-[300px] max-w-[500px]"
-                              }`}
+                              className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${itts.style
+                                ? itts.style
+                                : " min-w-[300px] max-w-[500px]"
+                                }`}
                             >
                               <span className="text-white text-[12px]">
                                 {itts.name}
@@ -296,24 +295,42 @@ const AdvancedTableExpandable = ({
                                 }
                             </tbody> */}
 
-              <tbody>
-                {data
-                  .slice((currentPage - 1) * RPP, currentPage * RPP)
-                  .map((itm) => {
-                    return (
-                      <AdvancedTableExpandableOneRow
-                        getmultiSelect={getmultiSelect}
-                        setmultiSelect={setmultiSelect}
-                        multiSelect={multiSelect}
-                        setModalBody={setModalBody}
-                        setOpenModal={setOpenModal}
-                        table={table}
-                        itm={itm}
-                        hide={hide}
-                      />
-                    );
-                  })}
-              </tbody>
+
+              {
+                data.length > 0 ? (
+                  <>
+                    <tbody>
+                      {data
+                        .slice((currentPage - 1) * RPP, currentPage * RPP)
+                        .map((itm) => {
+                          return (
+                            <AdvancedTableExpandableOneRow
+                              getmultiSelect={getmultiSelect}
+                              setmultiSelect={setmultiSelect}
+                              multiSelect={multiSelect}
+                              setModalBody={setModalBody}
+                              setOpenModal={setOpenModal}
+                              table={table}
+                              itm={itm}
+                              hide={hide}
+                            />
+                          );
+                        })}
+                    </tbody>
+                  </>
+                ) :
+                  (
+                    <>
+                      <tbody>
+                        <tr className="border-2 border-black text-center">
+                          <td colSpan={table.columns.length} className="">
+                            No Records Found
+                          </td>
+                        </tr>
+                      </tbody>
+                    </>
+                  )
+              }
             </table>
           ) : (
             <>
@@ -371,8 +388,13 @@ const AdvancedTableExpandable = ({
                     })}
                   </tr>
                 </thead>
+                <tbody>
+                  <tr>
+                    <td>No Records Found</td>
+                  </tr>
+                </tbody>
               </table>
-              <h1 className="flex justify-center">No Records Found</h1>
+              {/* <h1 className="flex justify-center">No Records Found</h1> */}
             </>
           )}
         </div>
@@ -391,17 +413,16 @@ const AdvancedTableExpandable = ({
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
                   (index + 3 > currentPage && index - 1 < currentPage) ||
-                  index + 1 == 1 ||
-                  index + 1 == pages.length ? (
+                    index + 1 == 1 ||
+                    index + 1 == pages.length ? (
                     <span
                       onClick={(e) => {
                         callApiPagination(index + 1);
                       }}
-                      className={`border cursor-pointer px-2 mx-2 ${
-                        currentPage == index + 1
-                          ? "bg-primaryLine text-white border-primaryLine"
-                          : "bg-white text-black border-primaryLine"
-                      } `}
+                      className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
+                        ? "bg-primaryLine text-white border-primaryLine"
+                        : "bg-white text-black border-primaryLine"
+                        } `}
                     >
                       {index + 1}
                     </span>
@@ -413,11 +434,10 @@ const AdvancedTableExpandable = ({
                     onClick={(e) => {
                       callApiPagination(index + 1);
                     }}
-                    className={`border cursor-pointer border-primaryLine ${
-                      currentPage == index + 1
-                        ? "bg-primaryLine text-white"
-                        : "bg-white"
-                    } px-2 mx-2`}
+                    className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
+                      ? "bg-primaryLine text-white"
+                      : "bg-white"
+                      } px-2 mx-2`}
                   >
                     {index + 1}
                   </span>

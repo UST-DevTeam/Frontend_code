@@ -130,8 +130,8 @@ const vendorProject = () => {
                         }
                     }} />
                 </>,
-                
-                siteage: itm.siteageing ? itm.siteageing >= 0 ? <p className='text-green-600'>{itm.siteageing + " Days"}</p> : <p className='text-red-600'>{itm.siteageing + " Days"}</p>:"",
+
+                siteage: itm.siteageing ? itm.siteageing >= 0 ? <p className='text-green-600'>{itm.siteageing + " Days"}</p> : <p className='text-red-600'>{itm.siteageing + " Days"}</p> : "",
                 // siteStartDate: <div className='flex content-center w-full justify-center'>
                 //     <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
                 //         setmodalOpen(true)
@@ -199,7 +199,7 @@ const vendorProject = () => {
                         }}>{iewq.Name}</p>,
                         taskmageing: iewq.taskageing >= 0 ? <p className='text-green-600'>{iewq.taskageing + " Days"}</p> : <p className='text-red-600'>{iewq.taskageing + " Days"}</p>,
                         Predecessor: iewq.Predecessor,
-                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} percent={iewq.mileStoneStatus == "Open" ? "0" : "100"} text={parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100")+" %"} />,
+                        CompletionBar: <ProgressBar notifyType={iewq.taskageing >= 0 ? "success" : "alert"} percent={iewq.mileStoneStatus == "Open" ? "0" : "100"} text={parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100") + " %"} />,
                         checkboxProject: <>
                             <input type={"checkbox"} checked={childsite.indexOf(iewq.uniqueId) != -1} value={iewq.uniqueId} onChange={(e) => {
                                 if (e.target.checked) {
@@ -219,7 +219,7 @@ const vendorProject = () => {
 
                                         console.log(tkChaeck, "tkChaecktkChaecktkChaeck")
 
-                                        if (tkChaeck && itm.totalCount==itm.milestoneCount) {
+                                        if (tkChaeck && itm.totalCount == itm.milestoneCount) {
                                             setparentsite(prev => [...prev, itm.uniqueId])
                                         }
 
@@ -341,7 +341,7 @@ const vendorProject = () => {
     let table = {
         columns: [
             {
-                name: <input type={"checkbox"} checked={dbConfigL.length!=0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
+                name: <input type={"checkbox"} checked={dbConfigL.length != 0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
                     if (e.target.checked) {
                         dbConfigL.map((itm) => {
                             if (childsite.indexOf(itm.uniqueId) == -1) {
@@ -563,7 +563,7 @@ const vendorProject = () => {
 
             headerButton={<div className='flex gap-1'>
 
-                
+
                 {/* <Button classes='w-auto ' onClick={(e) => {
                     setmodalOpen(prev => !prev)
                     // dispatch(AdminActions.getProject())
@@ -629,7 +629,8 @@ const vendorProject = () => {
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList}
+            data={(dbConfigList[0]?.uniqueId) ?
+                dbConfigList : []}
             errors={errors}
             register={register}
             setValue={setValue}
