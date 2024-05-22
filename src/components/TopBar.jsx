@@ -26,7 +26,7 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
             navigate("/login")
         }))
     }
-
+    // const [isHovered,setIsHovered] = useState(false)
     return <>
 
         <div class="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine font-oxygen font-bold">
@@ -42,7 +42,15 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
             <div className='flex space-x-4 items-center'>
                 <button onClick={() => { setsidebarOpenn(prev => !prev) }} className={`border-[1.5px] rounded-full ${sidebarOpen && 'rotate-180'}`}>
                     {/* <Unicons.UilArrowCircleLeft size="36" style={{ color: "white" }} /> */}
-                    <Unicons.UilArrowRight size="24" style={{ color: "white" }} />
+                    <Unicons.UilArrowRight 
+                    className="hover:text-heading transition-all duration-300 text-white"
+                    size="24" 
+                    // style={{ color: isHovered ? "green" :"white",
+                    // transition: 'all 300ms ease-in-out'
+                    // }} 
+                    // onMouseEnter ={()=>{setIsHovered(true)}}
+                    // onMouseLeave ={()=>{setIsHovered(false)}}
+                    />
                 </button>
                 <h1 className='font-semibold text-white'>{name || ""}</h1>
             </div>

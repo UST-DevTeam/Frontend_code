@@ -443,7 +443,7 @@ const AdvancedTable = ({
                 <tbody>
                   <tr className="border-2 border-black text-center">
                     <td colSpan={table.columns.length} className="">
-                      No Records Found
+                      No Records Found 
                     </td>
                   </tr>
                 </tbody>

@@ -189,6 +189,7 @@ const ManageMilestoneSite = ({
 
   const handleSiteEnggSubmit = (data) => {
     let final_data = {};
+    console.log("afasdflasdfghfjioasdfoa",data);
     dataOfProject["t_sengg"].map((itew) => {
       let fieldNaming = labelToValue(itew.fieldName);
 
