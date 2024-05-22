@@ -2,22 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../../components/EditButton';
-import AdvancedTable from '../../../../components/AdvancedTable';
-import Modal from '../../../../components/Modal';
-import Button from '../../../../components/Button';
-import DeleteButton from '../../../../components/DeleteButton';
-import CstmButton from '../../../../components/CstmButton';
-import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString } from '../../../../utils/commonFunnction';
-import { ALERTS } from '../../../../store/reducers/component-reducer';
-import CommonActions from '../../../../store/actions/common-actions';
-import { Urls } from '../../../../utils/url';
+import EditButton from '../../../components/EditButton';
+import AdvancedTable from '../../../components/AdvancedTable';
+import Modal from '../../../components/Modal';
+import Button from '../../../components/Button';
+import DeleteButton from '../../../components/DeleteButton';
+import CstmButton from '../../../components/CstmButton';
+import ToggleButton from '../../../components/ToggleButton';
+import { objectToQueryString } from '../../../utils/commonFunnction';
+import { ALERTS } from '../../../store/reducers/component-reducer';
+import CommonActions from '../../../store/actions/common-actions';
+import { Urls } from '../../../utils/url';
 // import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
-import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
-import FinanceActions from '../../../../store/actions/finance-actions';
+// import InvoiceBasedForm from './InvoiceBased/InvoiceBasedForm';
+import FinanceActions from '../../../store/actions/finance-actions';
 
-const AccrualRevenue = () => {
+const EarnValueMgmtFinancial = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -89,97 +89,81 @@ const AccrualRevenue = () => {
         formState: { errors },
     } = useForm()
 
-
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
-    const fiscalYearStart = currentMonth >= 3 ? currentYear : currentYear - 1;
-    const fiscalYearEnd = fiscalYearStart + 1;
-
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    const getCurrentAndPreviousMonth = () => {
+    const getPreviousCurrentAndNextMonth = () => {
         const currentDate = new Date();
         const currentMonthIndex = currentDate.getMonth();
         const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
+        const nextMonthIndex = (currentMonthIndex + 1) % 12;
         const currentYear = currentDate.getFullYear();
         const previousMonthYear = currentMonthIndex === 0 ? currentYear - 1 : currentYear;
+        const nextMonthYear = currentMonthIndex === 11 ? currentYear + 1 : currentYear;
 
         return [
             { month: months[previousMonthIndex], year: previousMonthYear },
-            { month: months[currentMonthIndex], year: currentYear }
+            { month: months[currentMonthIndex], year: currentYear },
+            { month: months[nextMonthIndex], year: nextMonthYear }
         ];
     };
 
-    const [previousMonthData, currentMonthData] = getCurrentAndPreviousMonth();
+    const [previousMonthData, currentMonthData, nextMonthData] = getPreviousCurrentAndNextMonth();
+
+
 
     let table = {
         columns: [
             {
-                name: "Customer",
-                value: "customer",
+                name: "Circle",
+                value: "circle",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },                      
-            {
-                name: "Project Group",
-                value: "projectGroup",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },                      
+            },
             {
                 name: "Project Type",
                 value: "projectType",
                 style: "min-w-[140px] max-w-[200px] text-center"
+            },                      
+            {
+                name: "Cost Center",
+                value: "costCenter",
+                style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Project ID",
-                value: "projectId",
+                value: "ProjectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
+                value: "prevPlanValue",
+                style: "min-w-[200px] max-w-[200px] text-center"
             },            
             {
-                name: "GBPA",
-                value: "gbpa",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                name: `Achievement (${previousMonthData.month} ${previousMonthData.year})`,
+                value: "prevAchievementValue",
+                style: "min-w-[200px] max-w-[200px] text-center"
             },            
             {
-                name: "PO Number",
-                value: "poNumber",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                name: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
+                value: "currPlanValue",
+                style: "min-w-[200px] max-w-[200px] text-center"
             },            
             {
-                name: "Item Code",
-                value: "itemCode",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },  
-            {
-                name: `MS1 Quantity (${previousMonthData.month} ${previousMonthData.year})`,
-                value: "prevMonthMS1",
+                name: `Achievement (${currentMonthData.month} ${currentMonthData.year})`,
+                value: "currAchievementValue",
                 style: "min-w-[200px] max-w-[200px] text-center"
-            },
+            },            
             {
-                name: `MS2 Quantity (${previousMonthData.month} ${previousMonthData.year})`,
-                value: "prevMonthMS2",
+                name: `Plan (${nextMonthData.month} ${nextMonthData.year})`,
+                value: "nextPlanValue",
                 style: "min-w-[200px] max-w-[200px] text-center"
-            },
+            },            
             {
-                name: `Accrual (${previousMonthData.month} ${previousMonthData.year})`,
-                value: "prevAccrualDate",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: `MS1 Quantity (${currentMonthData.month} ${currentMonthData.year})`,
-                value: "currMonthMS1",
+                name: `Achievement (${nextMonthData.month} ${nextMonthData.year})`,
+                value: "nextAchievementValue",
                 style: "min-w-[200px] max-w-[200px] text-center"
-            },
-            {
-                name: `MS2 Quantity (${currentMonthData.month} ${currentMonthData.year})`,
-                value: "currMonthMS2",
-                style: "min-w-[200px] max-w-[200px] text-center"
-            },
-            {
-                name: `Accrual ${currentMonthData.month} ${currentMonthData.year}`,
-                value: "currAccrualDate",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            }               
-                                          
+            },            
+                         
             // {
             //     name: "Edit",
             //     value: "edit",
@@ -195,15 +179,15 @@ const AccrualRevenue = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
-            {
-                label: "Accrual Year",
-                // type: "select",
-                // name: "currentYear",
-                // option:YearList(2010),
-                // props: {},
-            }
-            
-          ],
+            // {
+            //     label: "Role",
+            //     type: "select",
+            //     name: "rolename",
+            //     option: roleList,
+            //     props: {
+            //     }
+            // }
+        ]
     }
     const onSubmit = (data) => {
         console.log("jsjsjsjss", data)
@@ -242,4 +226,4 @@ const AccrualRevenue = () => {
 
 };
 
-export default AccrualRevenue;
+export default EarnValueMgmtFinancial;

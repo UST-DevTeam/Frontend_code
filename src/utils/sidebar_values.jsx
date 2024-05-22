@@ -106,6 +106,7 @@ import AccrualRevenue from "../pages/PMIS/FinancialCards/AccrualRevenue/AccrualR
 import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/UnbilledWaterfall";
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
+import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial'
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -480,6 +481,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/workdoneForecast",
       component: <WorkdoneForecastCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/earnValueManagementFinancial",
+      component: <EarnValueMgmtFinancial />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
