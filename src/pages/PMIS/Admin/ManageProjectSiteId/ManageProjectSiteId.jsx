@@ -1100,7 +1100,7 @@ const ManageProjectSiteId = () => {
               placeHolder={"S Milestone Name"}
             />
 
-            <ConditionalButton
+            {/* <ConditionalButton
               showType={getAccessType("Site Allocation")}
               classes="w-auto "
               onClick={(e) => {
@@ -1137,9 +1137,9 @@ const ManageProjectSiteId = () => {
                 }
               }}
               name={"Site Allocate"}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
 
-            <PopupMenu
+            {/* <PopupMenu
               name={"Export"}
               icon={"Export"}
               classes={"w-auto"}
@@ -1174,7 +1174,7 @@ const ManageProjectSiteId = () => {
                   ></ConditionalButton>
                 </div>
               }
-            />
+            /> */}
           </>
         }
         headerButton={

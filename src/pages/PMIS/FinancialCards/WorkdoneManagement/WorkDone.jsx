@@ -250,12 +250,12 @@ const WorkDone = () => {
       },
       {
         name: "MS1 Completion Date",
-        value: "MS1",
+        value: "MS1Date",
         style: "min-w-[160px] max-w-[200px] text-center",
       },
       {
         name: "MS2 Completion Date",
-        value: "MS2",
+        value: "MS2Date",
         style: "min-w-[160px] max-w-[200px] text-center",
       },
       {
