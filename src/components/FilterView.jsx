@@ -4,7 +4,6 @@ import { UilColumns } from "@iconscout/react-unicons";
 import { UilFilter } from "@iconscout/react-unicons";
 import DatePicker from "react-datepicker";
 import Button from "./Button";
-
 const FilterView = ({
   tablefilter,
   handleSubmit = () => {},
@@ -17,7 +16,10 @@ const FilterView = ({
   setValue,
   getValues,
 }) => {
-  return (
+  console.log("afasfasfamarnathafasfasdfasf",tablefilter);
+  console.log("asdfajoiawjfdatableasdfasfas",table);
+  console.log("asfajpsfjasfastdatadfadfae",data);
+  return ( 
     <>
       {tablefilter.length > 0 && (
         <PopupMenu
@@ -29,6 +31,7 @@ const FilterView = ({
             <>
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => {
+                  console.log("asfasewtitemfafasdfasfd",itm);
                   return (
                     <>
                       <div className="flex flex-col ">

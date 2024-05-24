@@ -69,7 +69,7 @@ const AdvancedTableExpandable = ({
 
   const onSubmit = (formdata) => {
     // alert(value)
-    console.log("onSubmit", formdata);
+    console.log("onSubfasfasfasdfasfmit", formdata);
     formdata["reseter"] = true;
 
     filterAfter(formdata);
@@ -91,6 +91,7 @@ const AdvancedTableExpandable = ({
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
   console.log("fasodfjanflasdfnaifaewasdf",data.length);
+  console.log("asdfamarnathadfasfasdfadfs",activeFilter);
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">

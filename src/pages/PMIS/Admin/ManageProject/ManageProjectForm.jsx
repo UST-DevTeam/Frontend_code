@@ -10,6 +10,7 @@ import HrActions from "../../../../store/actions/hr-actions";
 import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 import projectListActions from "../../../../store/actions/projectList-actions";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
 
 const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) => {
 
@@ -236,6 +237,31 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
     // }))
   };
   const onTableViewSubmit = (data) => {
+
+    console.log("aofjaiosdjfoasmdfoas", data);
+    let startDate = data['startDate'];
+    console.log("asfasfasfapsf",startDate);
+    let endDate = data['endDate']
+    console.log("afapfafsampsdf",endDate);
+    let start = new Date(startDate)
+    let end = new Date(endDate)
+    
+    if (start>end) {
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Start Date should not be greater than End Date",
+      };
+      dispatch(ALERTS(msgdata));
+      return;
+    }
+
+
+
+
+
 
 
     const options = {

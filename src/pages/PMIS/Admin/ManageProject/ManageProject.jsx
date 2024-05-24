@@ -183,7 +183,7 @@ const ManageProject = () => {
               />
 
               {itm.status == "Trash" ? (
-                <CstmButton
+                <CstmButton 
                   child={
                     <DeleteButton
                       name={""}
