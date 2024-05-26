@@ -20,7 +20,7 @@ const CustomizedButton = ({ onClick, name, classes = "", icon }) => {
 
     return (
 
-        <button onClick={onClick} className={`${classes} flex items-center rounded-md px-3 py-2 text-xs font-semibold leading-6 shadow-md transition-colors duration-500`}>
+        <button onClick={onClick} className={`${classes} flex items-center rounded-md px-3 py-1 text-xs font-semibold leading-6 shadow-md transition-colors duration-500`}>
             {name} {icon}
         </button>
     )

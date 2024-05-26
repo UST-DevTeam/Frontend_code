@@ -608,7 +608,6 @@ const ManageMilestoneSite = ({
                     };
                     dispatch(ALERTS(msgdata));
                   }
-                  // alert("sdfghjkl")
                 }}
               ></ConditionalButton>
             </div>
@@ -764,13 +763,13 @@ const ManageMilestoneSite = ({
             // ),
             Financials: (
               <>
-                {/* <div className="flex justify-end">
+                <div className="flex justify-end">
                   <Button
                     classes="w-30"
                     name="Save Financial"
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
                   />
-                </div> */}
+                </div>
 
                 <div className="overflow-auto h-[80vh]">
                   {dataOfProject &&

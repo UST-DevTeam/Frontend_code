@@ -267,17 +267,17 @@ const UserAccessManagement = () => {
   }, []);
   return (
     <>
-      <div className=" w-[84vw] flex mx-1">
+      <div className=" w-[68vw] flex mx-1">
         <div className="pt-2 px-2">
           <table className="relative" border={2}>
             <tr className="sticky top-0 z-[10000]">
-              <th className="min-w-[300px] max-w-[300px] border-black border-[1px] bg-primaryLine text-white  sticky left-0">
+              <th className="min-w-[300px] max-w-[300px] border-black border-[1.5px]  bg-primaryLine text-white  sticky left-0">
                 Module Name
                 {/* {showData} */}
               </th>
               {roleList.map((itm) => {
                 return (
-                  <th className="min-w-[140px] max-w-[140px] border-black border-[1px] bg-primaryLine text-white">
+                  <th className="min-w-[200px] max-w-[230px] border-black border-[1.5px] bg-primaryLine text-white whitespace-nowrap">
                     {itm.label}
                   </th>
                 );
@@ -317,6 +317,29 @@ const UserAccessManagement = () => {
                 child={"select"}
                 btnName={"HR Access"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="HRView")}
+              />
+            }
+
+            {
+              <UserAccessManagementChild
+                showData={showData}
+                setshowData={setshowData}
+                fromCall={"pmpermission"}
+                name={"componentType"}
+                child={"select"}
+                btnName={"Financial Access"}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="FinancialView")}
+              />
+            }
+            {
+              <UserAccessManagementChild
+                showData={showData}
+                setshowData={setshowData}
+                fromCall={"pmpermission"}
+                name={"componentType"}
+                child={"select"}
+                btnName={"Forms Access"}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="FormsView")}
               />
             }
           </table>

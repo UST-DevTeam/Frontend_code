@@ -161,7 +161,9 @@ const ManageProjectSiteIdForm = ({
           register={register}
           setValue={setValue}
           getValues={getValues} />)
-      }}><NewLookBadge text={SiteId} notifyType={"info"} /></p>,
+      }}>
+        <NewLookBadge text={SiteId} notifyType={"info"} />
+        </p>,
       //   option: employeeList,
       props: {
         onChange: (e) => { },
@@ -186,7 +188,9 @@ const ManageProjectSiteIdForm = ({
         //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
         //   {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
         // </>)
-      }}> <NewLookBadge text={"Add"} notifyType={"error"} /></p >,
+      }}> 
+      <NewLookBadge text={"Add"} notifyType={"error"} />
+      </p >,
       //   option: employeeList,
       props: {
         onChange: (e) => { },
@@ -283,7 +287,7 @@ const ManageProjectSiteIdForm = ({
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}
-          name="Submit"
+          name="Submit" 
         />
       </div>
     </>

@@ -106,7 +106,7 @@ import AccrualRevenue from "../pages/PMIS/FinancialCards/AccrualRevenue/AccrualR
 import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/UnbilledWaterfall";
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
-import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial'
+import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};

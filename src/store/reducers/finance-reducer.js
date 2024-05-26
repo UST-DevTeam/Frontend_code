@@ -6,6 +6,7 @@ const initialState = {
     getInvoice:[],
     getPOWorkDoneItemCode:[],
     getPOWorkDoneDashboard:[],
+    getPOAccrualRevenue:[],
 
 }
 
@@ -52,8 +53,16 @@ const FinanceReducer = createSlice({
                 state.getInvoice  = [...state.getInvoice,...payload.dataAll]
             }
         },
+        
+        GET_POACCRUAL_REVENUE:(state,{payload}) => {
+            if(payload.reset){
+                state.getPOAccrualRevenue = payload.dataAll
+            }else{
+                state.getPOAccrualRevenue  = [...state.getPOAccrualRevenue,...payload.dataAll]
+            }
+        },
     }
 })
 
-export const {GET_INVOICE,GET_POWORKDONE_DASHBOARD,GET_POINVOICED_BASED,GET_POWORKDONE_BASED,GET_POWORKDONE_ITEMCODE} = FinanceReducer.actions
+export const {GET_INVOICE,GET_POWORKDONE_DASHBOARD,GET_POINVOICED_BASED,GET_POWORKDONE_BASED,GET_POWORKDONE_ITEMCODE,GET_POACCRUAL_REVENUE} = FinanceReducer.actions
 export default FinanceReducer.reducer

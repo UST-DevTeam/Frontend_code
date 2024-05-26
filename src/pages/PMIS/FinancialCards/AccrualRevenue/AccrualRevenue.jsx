@@ -27,14 +27,14 @@ const AccrualRevenue = () => {
     //     return interdata
     // })
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.financeData?.getPoLifeCycle || []
+        let interdata = state?.financeData?.getPOAccrualRevenue || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(FinanceActions.getPoLifeCycle())
+                    dispatch(FinanceActions.getPOAccrualRevenue())
                     setmodalHead("Edit User")
                     setmodalBody(<>
                         <InvoiceBased isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -50,8 +50,8 @@ const AccrualRevenue = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poLifeCycle}/${itm.uniqueId}`, () => {
-                                    dispatch(FinanceActions.getPoLifeCycle())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poaccrual_revenue}/${itm.uniqueId}`, () => {
+                                    dispatch(FinanceActions.getPOAccrualRevenue())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -68,7 +68,7 @@ const AccrualRevenue = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.financeData?.getPoLifeCycle || []
+        let interdata = state?.financeData?.getPOAccrualRevenue || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -134,16 +134,16 @@ const AccrualRevenue = () => {
                 value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
-            {
-                name: "GBPA",
-                value: "gbpa",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "PO Number",
-                value: "poNumber",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            // {
+            //     name: "GBPA",
+            //     value: "gbpa",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },            
+            // {
+            //     name: "PO Number",
+            //     value: "poNumber",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },            
             {
                 name: "Item Code",
                 value: "itemCode",
@@ -209,10 +209,10 @@ const AccrualRevenue = () => {
         console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))
+        dispatch(FinanceActions.getPOAccrualRevenue(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        // dispatch(FinanceActions.getPoLifeCycle())
+        dispatch(FinanceActions.getPOAccrualRevenue())
     }, [])
     return <>
         <AdvancedTable

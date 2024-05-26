@@ -120,15 +120,15 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
     const SortableItem = SortableElement(props => <TableRow {...props} />);
     return <>
-        <div className='h-[70vh]'>   
+        <div className='h-[61.6vh]'>   
             <table border={1} className='h-auto w-full table-auto mt-2 bg-white'>
-                <thead className='bg-primaryLine text-white text-[14px] sticky top-6 z-10  '>
+                <thead className='bg-primaryLine text-white text-[12px] sticky top-6 z-10  '>
                     <tr>
 
-                        <th className='border-gray-400 border-[1.5px] w-28'></th>
+                        <th className='border-gray-400 border-[1.5px] w-28'> ☰ </th>
                         {
                             headers.map((itm) => {
-                                return <th className='border-gray-400 border-[1.5px] w-96'>
+                                return <th className='border-gray-400 border-[1.5px] w-96 '>
                                     {itm}
                                 </th>
                             })

@@ -1,8 +1,8 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.0.123:7980"
-// export const backendassetUrl="http://192.168.0.123:7980/"
+// export const baseUrl="http://192.168.29.70:7980"
+// export const backendassetUrl="http://192.168.29.70:7980/"
 
 
 // export const baseUrl="http://192.168.29.70:7980"
@@ -23,7 +23,6 @@ export const Urls={
 
     // new url
     admin_userAccess:"/admin/userAccess",
-
     admin_customer:"/admin/manageCustomer",
     admin_projecttype:"/admin/manageProjectType",
     admin_getOneSiteEngg:"/getOneSiteEngg",
@@ -81,6 +80,7 @@ export const Urls={
     finance_poworkdone_based:"/finance/poWorkdoneBased",
     finance_poworkdone_itemCode:"/finance/commercial",
     finance_poworkdone_dashboard:"/finance/poTrackingWorkdone",
+    finance_poaccrual_revenue:"/finance/accrualRevenue",
 
 
 
@@ -92,6 +92,8 @@ export const Urls={
     admin_poProjectID:"/finance/poProjectID",
     admin_invoiceSiteId:"/finance/siteId",
     admin_invoiceSSID:"/finance/ssId",
+
+    formss_earnValue_mgmt_financial:"/forms/earnValue",
 
 
 

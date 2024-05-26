@@ -16,6 +16,7 @@ import myHomeData from "./reducers/myHome-reducer";
 import hrReducer from "./reducers/hr-reduces"
 import vendorData from "./reducers/vendor-reducer"
 import financeData from "./reducers/finance-reducer"
+import formssData from "./reducers/formss-reducer"
 import eventlogsReducer from "./reducers/eventlogs-reducer";
 
 const store = configureStore({
@@ -36,6 +37,7 @@ const store = configureStore({
         hrReducer,
         vendorData,
         financeData,
+        formssData,
         eventlogsReducer
     },
     devTools: true

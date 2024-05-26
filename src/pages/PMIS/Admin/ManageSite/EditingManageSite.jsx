@@ -279,11 +279,13 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
             </div>
 
             <CommonTableFormSiteParent funcaller={funcaller} defaultValue={"Site Engg"} tabslist={{
-                "Site Engg": <><div className='flex justify-end'><Button
+                "Site Engg": <><div className='flex justify-end'>
+                    <Button
                     classes='w-30'
                     name="Save Site Engg"
                     onClick={handleSubmitForm1(handleSiteEnggSubmit)}
-                /></div><CommonForm
+                />
+                </div><CommonForm
                         classes={"grid-cols-4 gap-1"}
                         Form={dataOfProject ? dataOfProject["result"]["t_sengg"] ? dataOfProject["result"]["t_sengg"].map((its) => {
                             return {

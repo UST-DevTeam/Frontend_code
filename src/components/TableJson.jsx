@@ -194,7 +194,7 @@ const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
         })
     })
     return <>
-        <div className='h-[70vh] overflow-x-scroll'>
+        <div className='h-[67.4vh] overflow-x-scroll'>
             <table border={1} className=' table-auto  w-full'>
                 <thead className='bg-primaryLine text-white sticky -top-1 z-10'>
                     <tr>

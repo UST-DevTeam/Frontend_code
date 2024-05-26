@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../components/EditButton';
-import AdvancedTable from '../../../components/AdvancedTable';
-import Modal from '../../../components/Modal';
-import Button from '../../../components/Button';
-import DeleteButton from '../../../components/DeleteButton';
-import CstmButton from '../../../components/CstmButton';
-import ToggleButton from '../../../components/ToggleButton';
-import { objectToQueryString } from '../../../utils/commonFunnction';
-import { ALERTS } from '../../../store/reducers/component-reducer';
-import CommonActions from '../../../store/actions/common-actions';
-import { Urls } from '../../../utils/url';
-// import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
-// import InvoiceBasedForm from './InvoiceBased/InvoiceBasedForm';
-import FinanceActions from '../../../store/actions/finance-actions';
+import EditButton from '../../../../components/EditButton';
+import AdvancedTable from '../../../../components/AdvancedTable';
+import Modal from '../../../../components/Modal';
+import Button from '../../../../components/Button';
+import DeleteButton from '../../../../components/DeleteButton';
+import CstmButton from '../../../../components/CstmButton';
+import ToggleButton from '../../../../components/ToggleButton';
+import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { ALERTS } from '../../../../store/reducers/component-reducer';
+import CommonActions from '../../../../store/actions/common-actions';
+import { Urls } from '../../../../utils/url';
+import EarnValueMgmtForm from '../../../../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtForm'
+import FinanceActions from '../../../../store/actions/finance-actions';
+import FormssActions from '../../../../store/actions/formss-actions';
+import AdminActions from '../../../../store/actions/admin-actions';
 
 const EarnValueMgmtFinancial = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -26,18 +27,57 @@ const EarnValueMgmtFinancial = () => {
     //     let interdata = state?.operationManagement?.USERS_LIST
     //     return interdata
     // })
+
+
+    let circleList = useSelector((state) => {
+        return state?.adminData?.getManageCircle.map((itm) => {
+            return {
+            label: itm?.circleName,
+            value: itm?.uniqueId
+            }
+        })
+    })
+
+    let projectTypeList = useSelector((state) => {
+        return state?.adminData?.getCardProjectType.map((itm) => {
+            return {
+            label: itm?.projectType,
+            value: itm?.uniqueId
+            }
+        })
+    })
+
+    let ccList = useSelector((state) => {
+        return state?.adminData?.getManageCostCenter.map((itm) => {
+            return {
+            label: itm?.costCenter,
+            value: itm?.uniqueId
+            }
+        })
+    })
+    let projectList = useSelector((state) => {
+        return state?.adminData?.getProject.map((itm) => {
+            return {
+            label: itm?.projectId,
+            value: itm?.uniqueId
+            }
+        })
+    })
+
+
+
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.financeData?.getPoLifeCycle || []
+        let interdata = state?.formssData?.getEarnValueMgmtFinancial || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(FinanceActions.getPoLifeCycle())
+                    dispatch(FormssActions.getEarnValueMgmtFinancial())
                     setmodalHead("Edit User")
                     setmodalBody(<>
-                        <InvoiceBased isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <InvoiceBased isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -50,8 +90,8 @@ const EarnValueMgmtFinancial = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poLifeCycle}/${itm.uniqueId}`, () => {
-                                    dispatch(FinanceActions.getPoLifeCycle())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`, () => {
+                                    dispatch(FormssActions.getEarnValueMgmtFinancial())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -68,7 +108,7 @@ const EarnValueMgmtFinancial = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.financeData?.getPoLifeCycle || []
+        let interdata = state?.formssData?.getEarnValueMgmtFinancial || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -130,8 +170,8 @@ const EarnValueMgmtFinancial = () => {
             },            
             {
                 name: "Project ID",
-                value: "ProjectId",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                value: "projectId",
+                style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
                 name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
@@ -179,14 +219,46 @@ const EarnValueMgmtFinancial = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
+            {
+                label: "Cirlce",
+                type: "autoSuggestion",
+                name: "cirlce",
+                option: circleList,
+                props: {
+                }
+            },
+            {
+                label: "Project Type",
+                type: "autoSuggestion",
+                name: "projectType",
+                option: projectTypeList,
+                props: {
+                }
+            },
+            {
+                label: "Cost Center",
+                type: "autoSuggestion",
+                name: "costCenter",
+                option: ccList,
+                props: {
+                }
+            },
+            {
+                label: "Project ID",
+                type: "autoSuggestion",
+                name: "projectId",
+                option: projectList,
+                props: {
+                }
+            },
             // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
+            //     label: "Project ID",
+            //     type: "autoSuggestion",
+            //     name: "projectId",
+            //     option: `${}`,
             //     props: {
             //     }
-            // }
+            // },
         ]
     }
     const onSubmit = (data) => {
@@ -196,16 +268,21 @@ const EarnValueMgmtFinancial = () => {
         dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        // dispatch(FinanceActions.getPoLifeCycle())
+
+        dispatch(FormssActions.getEarnValueMgmtFinancial())
+        dispatch(AdminActions.getManageCircle())
+        dispatch(AdminActions.getCardProjectType());
+        dispatch(AdminActions.getManageCostCenter());
+        dispatch(AdminActions.getProject());
     }, [])
     return <>
         <AdvancedTable
-            // headerButton={<><Button onClick={(e) => {
-            //     setmodalOpen(prev => !prev)
-            //     setmodalHead("New PO Life Cycle ")
-            //     setmodalBody(<POLifeCycleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            // }}
-            //     name={"Add New"}></Button></>}
+            headerButton={<><Button onClick={(e) => {
+                setmodalOpen(prev => !prev)
+                setmodalHead("New Plan")
+                setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            }}
+                name={"Add New"}></Button></>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}

@@ -69,7 +69,7 @@ const CommonForm = ({
                   <div
                     className={`${itm.classes ? itm.classes : "col-span-1"}`}
                   >
-                    <h1 className="pl-8">{itm.label}</h1>
+                    <h1 className="pl-8 break-words	">{itm.label}</h1>
                   </div>
                 </>
               ) : (
@@ -86,7 +86,7 @@ const CommonForm = ({
                   ) : (
                     <div className="items-center justify-between">
                       {
-                        <label className="block text-sm font-medium text-txt-neavy ml-3 dark:text-darkBg">
+                        <label className="block text-sm font-medium text-txt-neavy ml-3 dark:text-darkBg break-words	">
                           {itm.label}
                           {itm?.required && (
                             <span className="text-red-600 ml-1 ">*</span>

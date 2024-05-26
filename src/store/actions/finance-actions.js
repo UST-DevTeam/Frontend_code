@@ -1,7 +1,7 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_DASHBOARD, GET_POWORKDONE_BASED, GET_POWORKDONE_ITEMCODE } from "../reducers/finance-reducer"
+import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_DASHBOARD, GET_POWORKDONE_BASED, GET_POWORKDONE_ITEMCODE, GET_POACCRUAL_REVENUE } from "../reducers/finance-reducer"
 
 
 const FinanceActions = {
@@ -114,6 +114,16 @@ const FinanceActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_POWORKDONE_ITEMCODE({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    },
+    getPOAccrualRevenue:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.finance_poaccrual_revenue}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_POACCRUAL_REVENUE({dataAll,reset}))
             cb()
         } catch (error) {
         }

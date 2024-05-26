@@ -171,14 +171,14 @@ const ManageProjectSiteId = () => {
               100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
-                  (iewq) => iewq?.mileStoneStatus == "Close"
+                  (iewq) => iewq?.mileStoneStatus == "Closed"
                 ).length) /
                 itm?.milestoneArray?.length) *
                 100
             }`}
             text={`${
               itm?.milestoneArray?.filter(
-                (iewq) => iewq?.mileStoneStatus == "Close"
+                (iewq) => iewq?.mileStoneStatus == "Closed"
               ).length
             } / ${itm?.milestoneArray?.length}`}
           />
@@ -251,7 +251,7 @@ const ManageProjectSiteId = () => {
                 <p
                   className="cursor"
                   onClick={() => {
-                    if (iewq.mileStoneStatus != "Close") {
+                    if (iewq.mileStoneStatus != "Closed") {
                       setmodalOpen(true);
 
                       dispatch(
@@ -328,7 +328,7 @@ const ManageProjectSiteId = () => {
             ),
 
             mileStoneStatusUpda:
-              iewq.mileStoneStatus == "Close" && rolename == "Admin" ? (
+              iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
                 <>
                   <p
                     className="cursor-pointer"
@@ -414,7 +414,7 @@ const ManageProjectSiteId = () => {
               />
             ),
             editing:
-              iewq.mileStoneStatus == "Close" && rolename == "Admin" ? (
+              iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
                 <>
                   <p
                     className="cursor-pointer bg-green-500 p-1 rounded-2xl my-auto"
@@ -1058,16 +1058,12 @@ const ManageProjectSiteId = () => {
     let value = data.reseter;
     delete data.reseter;
     dispatch(
-      AdminActions.getManageProjectGroup(value, objectToQueryString(data))
+      projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data))
     );
   };
   useEffect(() => {
-    dispatch(AdminActions.getManageProjectGroup());
     dispatch(projectListActions.getProjectType(projectuniqueId));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-
-    // dispatch(AdminActions.getProject(`${projectuniqueId}${projecttypeuniqueId?"/"+projecttypeuniqueId:""}`))
-    // dispatch(OperationManagementActions.getRoleList())
   }, []);
   return (
     <>

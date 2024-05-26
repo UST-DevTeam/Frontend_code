@@ -1485,7 +1485,7 @@ const EmpDetails = (props) => {
                 <div className="flex gap-10 mb-3 justify-center">
                   <button
                     onClick={() => {
-                      navigate("/empDetailsTable");
+                      navigate("/hr/empDetailsTable");
                     }}
                     className="mt-6 w-auto justify-center rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-black hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >

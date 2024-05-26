@@ -315,7 +315,7 @@ const ManageCustomer = () => {
       />
 
       <Modal
-        size={"lg"}
+        size={"sm"}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
