@@ -93,6 +93,7 @@ import ISONForm from "../pages/iSON/ISONForm";
 import UserComponentManagement from "../pages/UserComponentManagement/UserComponentManagement";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
+import ManageClaimType from "../pages/PMIS/Admin/ManageClaimType/ManageClaimType";
 import { getAccessType } from "./commonFunnction";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
 import FormsCards from "../pages/PMIS/Formss/FormsCards";
@@ -404,6 +405,13 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/completionCriteria",
       component: <ManageCompletionCriteria />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType",
+      component: <ManageClaimType />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

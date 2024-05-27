@@ -5,12 +5,15 @@
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
 
-// export const baseUrl="http://192.168.29.70:7980"
-// export const backendassetUrl="http://192.168.29.70:7980/"
+export const baseUrl="http://192.168.0.116:7980"
+export const backendassetUrl="http://192.168.0.116:7980/"
+
+// export const baseUrl="http://192.168.0.101:7980"
+// export const backendassetUrl="http://192.168.0.101:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -94,6 +97,7 @@ export const Urls={
     admin_invoiceSSID:"/finance/ssId",
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
+    admin_claim_type:"/expenses/ClaimType",
 
 
 

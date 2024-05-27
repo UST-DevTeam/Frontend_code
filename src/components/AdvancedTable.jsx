@@ -48,9 +48,6 @@ const AdvancedTable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
-  console.log(pages,"pagespages")
-  console.log(RPP,"RRP")
-
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -59,14 +56,13 @@ const AdvancedTable = ({
     ...table.properties,
     rpp: [50, 100, 150, 200],
   };
-  console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
-  console.log(totalCount,"totalCounttotalCounttotalCount")
+
+
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);
     if (lcllastVisitedPage < totalCount) {
       setLastVisitedPage(lcllastVisitedPage + 50);
-      console.log(activedFilter, "activedFilteractivedFilteractivedFilter");
       activedFilter["start"] = lcllastVisitedPage;
       activedFilter["end"] = 50;
       activedFilter["reseter"] = false;
@@ -74,6 +70,7 @@ const AdvancedTable = ({
       filterAfter(activedFilter);
     }
   };
+
 
   const onSubmit = (formdata) => {
     // alert(value)

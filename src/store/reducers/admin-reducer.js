@@ -32,6 +32,7 @@ const initialState = {
     getComponentAllocation:[],
     getOldComponentAllocation:[],
     getManageCompletionCriteria:[],
+    getManageClaimType:[],
 
 }
 
@@ -185,6 +186,14 @@ const adminData = createSlice({
                 state.getManageCompletionCriteria  = [...state.getManageCompletionCriteria,...payload.dataAll]
             }
         },
+
+        GET_MANAGE_CLAIM_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageClaimType = payload.dataAll
+            }else{
+                state.getManageClaimType  = [...state.getManageClaimType,...payload.dataAll]
+            }
+        },
         
 
         GET_MANAGE_SUB_PROJECT:(state,{payload}) => {
@@ -315,6 +324,7 @@ export const {
     GET_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_MANAGE_COMPLETION_CRITERIA,
+    GET_MANAGE_CLAIM_TYPE,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  

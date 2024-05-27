@@ -74,10 +74,10 @@ const EarnValueMgmtFinancial = () => {
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(FormssActions.getEarnValueMgmtFinancial())
+                    dispatch(FormssActions.getEarnValueMgmtFinancial(true, ))
                     setmodalHead("Edit User")
                     setmodalBody(<>
-                        {/* <InvoiceBased isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
+                        <EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     console.log('ahshshhs',itm)
@@ -204,11 +204,11 @@ const EarnValueMgmtFinancial = () => {
                 style: "min-w-[200px] max-w-[200px] text-center"
             },            
                          
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
             // {
             //     name: "Delete",
             //     value: "delete",
@@ -277,12 +277,14 @@ const EarnValueMgmtFinancial = () => {
     }, [])
     return <>
         <AdvancedTable
-            headerButton={<><Button onClick={(e) => {
+            headerButton={<>
+            {/* <Button onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 setmodalHead("New Plan")
                 setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add New"}></Button></>}
+                name={"Add New"}></Button> */}
+                </>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}

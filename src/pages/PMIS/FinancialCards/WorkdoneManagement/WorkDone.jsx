@@ -70,11 +70,7 @@ const WorkDone = () => {
                 name={""}
                 onClick={() => {
                   dispatch(
-                    FinanceActions.getPOWorkDoneItemCode(
-                      true,
-                      `subProjectId=${itm?.SubProjectId}`,
-                      setmodalOpen(true)
-                    )
+                    FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`,setmodalOpen(true))
                   );
                   // dispatch(FinanceActions.getPOWorkDoneBased())
                   setmodalHead("Edit Workdone");

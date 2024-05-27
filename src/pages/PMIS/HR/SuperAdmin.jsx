@@ -319,6 +319,11 @@ const SuperAdmin = () => {
             "bg-gradient-to-r from-lime-400 to-rose-400",
             "/hr/superAdmin/completionCriteria",
           ],
+          [
+            "Claim Type",
+            "bg-gradient-to-r from-lime-600 to-rose-500",
+            "/hr/superAdmin/claimType",
+          ],
         ].map((itm) => {
           return (
             <>

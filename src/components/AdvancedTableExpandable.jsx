@@ -43,22 +43,19 @@ const AdvancedTableExpandable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
-  console.log(pages, "pagespages")
-  console.log(RPP, "RRP")
-
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
     rpp: [50, 100, 150, 200],
   };
-  console.log(lastVisitedPage, "lastVisitedPagelastVisitedPage");
+  
+
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);
     if (lcllastVisitedPage < totalCount) {
       setLastVisitedPage(lcllastVisitedPage + 50);
-      console.log(activedFilter, "activedFilteractivedFilteractivedFilter");
       activedFilter["start"] = lcllastVisitedPage;
       activedFilter["end"] = 50;
       activedFilter["reseter"] = false;
@@ -66,6 +63,7 @@ const AdvancedTableExpandable = ({
       filterAfter(activedFilter);
     }
   };
+
 
   const onSubmit = (formdata) => {
     // alert(value)
