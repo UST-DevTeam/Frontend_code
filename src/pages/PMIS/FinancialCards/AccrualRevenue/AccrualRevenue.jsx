@@ -166,7 +166,7 @@ const AccrualRevenue = () => {
             },
             {
                 name: `Accrual (${previousMonthData.month} ${previousMonthData.year})`,
-                value: "curramount",
+                value: "prevamount",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -181,7 +181,7 @@ const AccrualRevenue = () => {
             },
             {
                 name: `Accrual ${currentMonthData.month} ${currentMonthData.year}`,
-                value: "prevamount",
+                value: "curramount",
                 style: "min-w-[140px] max-w-[200px] text-center"
             }               
                                           
