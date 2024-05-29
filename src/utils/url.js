@@ -5,15 +5,15 @@
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
 
-export const baseUrl="http://192.168.0.116:7980"
-export const backendassetUrl="http://192.168.0.116:7980/"
+// export const baseUrl="http://192.168.0.116:7980"
+// export const backendassetUrl="http://192.168.0.116:7980/"
 
-// export const baseUrl="http://192.168.0.101:7980"
-// export const backendassetUrl="http://192.168.0.101:7980/"
+// export const baseUrl="http://192.168.0.128:7980"
+// export const backendassetUrl="http://192.168.0.128:7980/"
 
 
-// export const baseUrl="https://pmisfbapi.fourbrick.in"
-// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+export const baseUrl="https://pmisfbapi.fourbrick.in"
+export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -83,6 +83,7 @@ export const Urls={
     finance_poworkdone_based:"/finance/poWorkdoneBased",
     finance_poworkdone_itemCode:"/finance/commercial",
     finance_poworkdone_dashboard:"/finance/poTrackingWorkdone",
+    // finance_poaccrual_revenue:"/finance/accrualRevenue",
     finance_poaccrual_revenue:"/finance/accrualRevenue",
 
 

@@ -1058,7 +1058,7 @@ const ManageProjectSiteId = () => {
     let value = data.reseter;
     delete data.reseter;
     dispatch(
-      projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data))
+      projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),false)
     );
   };
   useEffect(() => {

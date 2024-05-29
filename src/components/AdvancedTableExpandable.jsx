@@ -47,7 +47,7 @@ const AdvancedTableExpandable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50, 100, 150, 200],
+    rpp: [10, 20, 50],
   };
   
 
@@ -90,6 +90,12 @@ const AdvancedTableExpandable = ({
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
   console.log("fasodfjanflasdfnaifaewasdf",data.length);
   console.log("asdfamarnathadfasfasdfadfs",activeFilter);
+
+
+  console.log((currentPage - 1) * RPP,"(currentPage - 1) * RPP", currentPage,"currentPage" , RPP,"RPP","currentPageRPP")
+
+
+  console.log(data.slice((currentPage - 1) * RPP, currentPage * RPP),"currentPageRPPcurrentPageRPP")
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">
