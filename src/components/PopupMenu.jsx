@@ -151,7 +151,7 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
     };
 
     const handleClickOutside = (event) => {
-        if (!buttonRef.current.contains(event.target) && !modalRef.current.contains(event.target)) {
+        if (!buttonRef.current?.contains(event?.target) && !modalRef.current?.contains(event?.target)) {
             dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
         }
     };

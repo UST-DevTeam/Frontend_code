@@ -29,17 +29,23 @@ const AdvancedTable = ({
   table,
   data,
   errors,
+  // upDatq=false,
+  // setupDatq=()=>{},
+  // currentPage,
+  // setcurrentPage,
   reset,
   register,
   setValue,
   getValues,
-  totalCount = 10,
+  totalCount = 0,
   actions = ["Edit", "Delete"],
   icon,
 }) => {
   const [hide, setHide] = useState([]);
+  const [finalData , setFinalData] = useState([])
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
   const [RPP, setRPP] = useState(50);
+  const [sRPP, ssRPP] = useState(0);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
@@ -48,29 +54,43 @@ const AdvancedTable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
+  // const pages = Math.ceil(totalCount / RPP);
+
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50, 100, 150, 200],
+    rpp: [10,20,30,50],
   };
 
+  const callApiPagination = (value, callApi) => {
 
-  const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);
-    if (lcllastVisitedPage < totalCount) {
+    // if (lcllastVisitedPage < totalCount) {
       setLastVisitedPage(lcllastVisitedPage + 50);
-      activedFilter["start"] = lcllastVisitedPage;
-      activedFilter["end"] = 50;
-      activedFilter["reseter"] = false;
-
-      filterAfter(activedFilter);
-    }
+      const filters = {
+        start: lcllastVisitedPage,
+        end: 50,
+        reseter: true,
+        page: value,
+      };
+      // setActiveFilter({
+      //   start: lcllastVisitedPage,
+      //   end: 50,
+      //   reseter: false,
+      //   page: value,
+      // });
+      sessionStorage.setItem("page",value)
+      console.info("filters_______", filters);
+      // return;
+      filterAfter(filters);
+    // }
   };
 
+  console.log("setcurrentPage", currentPage);
 
   const onSubmit = (formdata) => {
     // alert(value)
@@ -84,7 +104,6 @@ const AdvancedTable = ({
   };
   const onReset = () => {
     // alert(value)
-
     filterAfter({ reseter: true });
     setActiveFilter([]);
     setActivedFilter({});
@@ -93,7 +112,15 @@ const AdvancedTable = ({
   useEffect(() => {
     setActiveFilter([]);
     setActivedFilter({});
-  }, [tableName]);
+  }, [tableName, currentPage]);
+
+  useEffect(()=>{
+    console.log("after_paginate", data)
+    setFinalData(data)
+  },[data])
+
+  console.log("setFinalData", finalData)
+
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
   return (
@@ -120,7 +147,6 @@ const AdvancedTable = ({
               {/* <PopupMenu visiblity={filterVisiblity}/> */}
 
               <FilterView
-               
                 onReset={onReset}
                 tablefilter={table.filter}
                 onSubmit={onSubmit}
@@ -405,10 +431,10 @@ const AdvancedTable = ({
                 </tr>
               </thead>
 
-              {data.length > 0 ? (
+              {finalData.length > 0 ? (
                 <tbody>
-                  {data
-                    ?.slice((currentPage - 1) * RPP, currentPage * RPP)
+                  {finalData
+                   
                     .map((itm) => {
                       return (
                         <tr>
@@ -440,7 +466,7 @@ const AdvancedTable = ({
                 <tbody>
                   <tr className="border-2 border-black text-center">
                     <td colSpan={table.columns.length} className="">
-                      No Records Found 
+                      No Records Found
                     </td>
                   </tr>
                 </tbody>
@@ -515,12 +541,12 @@ const AdvancedTable = ({
         <div className="m-2">
           <div className="flex justify-between">
             <div>
-              <label>Rows Per Page: </label>
+              {/* <label>Rows Per Page: </label>
               <select onChange={(e) => setRPP(e.target.value)}>
                 {table.properties.rpp.map((itm) => {
                   return <option>{itm}</option>;
                 })}
-              </select>
+              </select> */}
             </div>
 
             <div className="flex ">
@@ -531,7 +557,7 @@ const AdvancedTable = ({
                   index + 1 == pages.length ? (
                     <span
                       onClick={(e) => {
-                        callApiPagination(index + 1);
+                        callApiPagination(index + 1, "558");
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${
                         currentPage == index + 1

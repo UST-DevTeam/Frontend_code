@@ -12,9 +12,13 @@ import FinanceActions from "../../../../store/actions/finance-actions";
 import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
 import { Form } from "react-router-dom";
 
+import { objectToQueryString } from "../../../../utils/commonFunnction";
+
 const WorkDoneForm = ({
+  // setupDatq,
   setcallSt,
   callSt,
+  setcurrentPage,
   isOpen,
   setIsOpen,
   resetting,
@@ -52,7 +56,7 @@ const WorkDoneForm = ({
       return {
         label: itm?.ItemCode,
         value: itm?.ItemCode,
-      }
+      };
     });
   });
 
@@ -296,9 +300,7 @@ const WorkDoneForm = ({
     },
   ];
 
-  let cForm = [
-    
-  ];
+  let cForm = [];
 
   console.log(
     ["", "", "", "", "", "", ""].map((itwq, index) => {
@@ -330,6 +332,11 @@ const WorkDoneForm = ({
   };
 
   const onTableViewSubmit = (data) => {
+    
+    const page = sessionStorage.getItem("page") || 1
+    // setupDatq(prev=>!prev)
+    // setcurrentPage(1)
+    
     if (formValue.uniqueId) {
       dispatch(
         FinanceActions.postPOWorkDoneBased(
@@ -337,7 +344,7 @@ const WorkDoneForm = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(FinanceActions.getPOWorkDoneBased());
+            dispatch(FinanceActions.getPOWorkDoneBased(true , {} , objectToQueryString({page})));
           },
           formValue.uniqueId
         )

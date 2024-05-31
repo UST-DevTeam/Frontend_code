@@ -229,6 +229,7 @@ const AccrualRevenue = () => {
             //     name={"Add New"}></Button></>}
             table={table}
             filterAfter={onSubmit}
+            exportButton={["/export/accrualRevenue","Export_Accrual_Revenue.xlsx"]}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
             data={dbConfigList}
