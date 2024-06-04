@@ -5,15 +5,15 @@
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
 
-export const baseUrl="http://192.168.0.116:7980"
-export const backendassetUrl="http://192.168.0.116:7980/"
+// export const baseUrl="http://192.168.0.122:7980"
+// export const backendassetUrl="http://192.168.0.122:7980/"
 
-// export const baseUrl="http://192.168.0.101:7980"
-// export const backendassetUrl="http://192.168.0.101:7980/"
+// export const baseUrl="http://192.168.29.236:7980"
+// export const backendassetUrl="http://192.168.29.236:7980/"
 
 
-// export const baseUrl="https://pmisfbapi.fourbrick.in"
-// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+export const baseUrl="https://pmisfbapi.fourbrick.in"
+export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -97,7 +97,20 @@ export const Urls={
     admin_invoiceSSID:"/finance/ssId",
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
+
     admin_claim_type:"/expenses/ClaimType",
+    admin_claim_type_unit_rate:"/expenses/unitRate",
+    admin_claim_type_designation:"/expenses/ClaimTypeDesignation",
+    admin_expense_advance:"/expenses/claimTypeRole",
+    expAdv_fill_expense:"/expenses/fillExpense",
+    expAdv_fill_advance:"/expenses/fillAdvance",
+    expAdv_project_details:"/expenses/projectDetails",
+    expAdv_siteId:"/expenses/projectSite",
+    expAdv_taskName:"/expenses/projectSiteTask",
+    expAdv_unitRate_claimType:"/expenses/unitRateClaimType",
+    expAdv_L1Data:"/approval/l1Approval",
+    expAdv_L2Data:"/approval/l2Approval",
+    expAdv_L3Data:"/approval/l3Approval",
 
 
 

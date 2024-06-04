@@ -2,26 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../components/EditButton';
-import EmpDetails from './EmpDetails';
-import AdvancedTable from '../../../components/AdvancedTable';
-import Modal from '../../../components/Modal';
-import Button from '../../../components/Button';
-import DeleteButton from '../../../components/DeleteButton';
-import CstmButton from '../../../components/CstmButton';
-import ToggleButton from '../../../components/ToggleButton';
-import { objectToQueryString } from '../../../utils/commonFunnction';
-import { ALERTS } from '../../../store/reducers/component-reducer';
-import CommonActions from '../../../store/actions/common-actions';
-import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
-import OperationManagementActions from '../../../store/actions/admin-actions';
-import AdminActions from '../../../store/actions/admin-actions';
+import EditButton from '../../../../components/EditButton';
+import AdvancedTable from '../../../../components/AdvancedTable';
+import Modal from '../../../../components/Modal';
+import Button from '../../../../components/Button';
+import DeleteButton from '../../../../components/DeleteButton';
+import CstmButton from '../../../../components/CstmButton';
+import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { ALERTS } from '../../../../store/reducers/component-reducer';
+import CommonActions from '../../../../store/actions/common-actions';
+import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
+import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
 
 
 
 
-const Claim = () => {
+const ClaimAndAdvance = () => {
 
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -129,33 +126,48 @@ const Claim = () => {
     let table = {
         columns: [
             {
-                name: "Employee Name",
-                value: "empName",
+                name: "Year",
+                value: "year",
                 style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
             },
             {
-                name: "Emp ID",
-                value: "empId",
+                name: "Month",
+                value: "month",
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
+            },
+            {
+                name: "Expense/Advance ID",
+                value: "expAdvId",
                 style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
             },
             {
-                name: "Date",
-                value: "date",
+                name: "Cost Center",
+                value: "costcenter",
+                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
+            },
+            {
+                name: "Project ID",
+                value: "projectId",
+                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
+            },
+            {
+                name: "Submission Date",
+                value: "submissionDate",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
-                name: "ClaimType",
-                value: "claimType",
+                name: "Claim Date",
+                value: "claimDate",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
-                name: "Debit( Expense )",
-                value: "debit",
+                name: "Debit(Expense)",
+                value: "debitExpense",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
-                name: "Advance( Credit)",
-                value: "advance",
+                name: "Advance(Credit)",
+                value: "advanceCredit",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
             {
@@ -163,16 +175,21 @@ const Claim = () => {
                 value: "status",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[100px] text-center"
-            // },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[100px] text-center"
-            // },
+            {
+                name: "Remarks",
+                value: "remark",
+                style: "min-w-[350px] max-w-[450px] text-center"
+            },
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[100px] max-w-[100px] text-center"
+            },
+            {
+                name: "Delete",
+                value: "delete",
+                style: "min-w-[100px] max-w-[100px] text-center"
+            },
             // {
             //     name: "View",
             //     value: "view",
@@ -204,10 +221,17 @@ const Claim = () => {
     }, [])
     return <>
         <AdvancedTable
-            headerButton={<> <Button onClick={() => {
-                // navigate(`${"/empdetails"}`)
+            headerButton={<> 
+            <Button onClick={() => {
+                navigate(`${"/home/claimAndAdvance/Expense"}`)
             }}
-                name={"Add New"}></Button></>}
+                name={"Fill Expense"}></Button>
+
+            <Button classes='ml-1' onClick={() => {
+                navigate(`${"/home/claimAndAdvance/Advance"}`)
+            }}
+                name={"Fill Advance"}></Button>
+                </>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -227,4 +251,4 @@ const Claim = () => {
 }
 
 
-export default Claim;
+export default ClaimAndAdvance;

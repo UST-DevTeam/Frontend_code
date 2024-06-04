@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageClaimTypeForm from '../../../../pages/PMIS/Admin/ManageClaimType/ManageClaimTypeForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -13,12 +12,14 @@ import ToggleButton from '../../../../components/ToggleButton';
 import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
-import { Urls } from '../../../../utils/url';
+import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
 import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
+import ExpenseAdvanceActions from '../../../../store/actions/expenseAdvance-actions';
+import FillExpenseForm from '../../../../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpenseForm'
 
-const ManageClaimType = () => {
+const FillExpense = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
@@ -35,23 +36,30 @@ const ManageClaimType = () => {
       }).replace(/\//g, '-')
     
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimType || [""]
+        let interdata = state?.expenseAdvanceData?.getFillExpense || [""]
         return interdata?.map((itm) => {
             let categoriesArray = itm.categories ? itm.categories.split(',') : [];
             let updateditm = {
                 ...itm,
 
-                categories: categoriesArray.join(', '),
+                categories: categoriesArray.join(','),
 
-                
+                attachment: (
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={backendassetUrl + itm?.attachment}
+                      className="w-24 h-14 content-center flex object-contain"
+                    />
+                  </div>
+                ),
                 
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageClaimType())
+                    dispatch(ExpenseAdvanceActions.getFillExpense())
                     setmodalHead("Edit Claim Type")
                     setmodalBody(<>
-                        <ManageClaimTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <FillExpenseForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     //setmodalOpen(false)
@@ -63,8 +71,8 @@ const ManageClaimType = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_claim_type}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageClaimType())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.expAdv_fill_expense}/${itm.uniqueId}`, () => {
+                                    dispatch(ExpenseAdvanceActions.getFillExpense())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -82,7 +90,7 @@ const ManageClaimType = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimType
+        let interdata = state?.expenseAdvanceData?.getFillExpense || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -94,36 +102,96 @@ const ManageClaimType = () => {
 
     let table = {
         columns: [
-            {
-                name: "Claim Type",
-                value: "claimType",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Short Code",
-                value: "shortCode",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Category",
-                value: "categories",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Attachment",
-                value: "attachment",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            }
+          {
+            name: "Expense No.",
+            value: "ExpenseNo",
+            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+          },
+          {
+            name: "ClaimType",
+            value: "ClaimType",
+            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+          },
+          {
+            name: "Category",
+            value: "categories",
+            style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+          },
+          {
+            name: "Claim Date",
+            value: "Claim_Date",
+            style: "min-w-[250px] max-w-[450px] text-center",
+          },
+          {
+            name: "Cost Center",
+            value: "costcenter",
+            style: "min-w-[250px] max-w-[450px] text-center",
+          },
+          {
+            name: "Project ID",
+            value: "projectId",
+            style: "min-w-[120px] max-w-[450px] text-center",
+          },
+          {
+            name: "Site Id",
+            value: "Site_Id",
+            style: "min-w-[250px] max-w-[450px] text-center",
+          },
+          {
+            name: "Task Name",
+            value: "Task",
+            style: "min-w-[120px] max-w-[450px] text-center",
+          },
+          {
+            name: "Bill Number",
+            value: "billNumber",
+            style: "min-w-[120px] max-w-[450px] text-center",
+          },
+          {
+            name: "Amount",
+            value: "Amount",
+            style: "min-w-[120px] max-w-[450px] text-center",
+          },
+          {
+            name: "Start Km",
+            value: "startKm",
+            style: "min-w-[100px] max-w-[450px] text-center",
+          },
+          {
+            name: "end Km",
+            value: "endKm",
+            style: "min-w-[100px] max-w-[450px] text-center",
+          },
+          // {
+          //   name: "Mode Of Start Location",
+          //   value: "modeOfStartLocation",
+          //   style: "min-w-[100px] max-w-[450px] text-center",
+          // },
+          // {
+          //   name: "Mode Of End Location",
+          //   value: "modeOfEndLocation",
+          //   style: "min-w-[100px] max-w-[450px] text-center",
+          // },
+          {
+            name: "Attachment",
+            value: "attachment",
+            style: "min-w-[100px] max-w-[450px] text-center",
+          },
+          {
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[100px] text-center",
+          },
+          {
+            name: "Delete",
+            value: "delete",
+            style: "min-w-[100px] max-w-[100px] text-center",
+          },
+          // {
+          //     name: "View",
+          //     value: "view",
+          //     style: "min-w-[100px] max-w-[100px] text-center"
+          // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -143,17 +211,17 @@ const ManageClaimType = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageClaimType(value, objectToQueryString(data)))
+        dispatch(ExpenseAdvanceActions.getFillExpense(value, objectToQueryString(data)))
     }
 
-    useEffect(() => {
-        dispatch(AdminActions.getManageClaimType())
+    useEffect(() => { 
+        dispatch(ExpenseAdvanceActions.getFillExpense())
     }, [])
 
     const onTableViewSubmit = (data) => { 
         data["fileType"]="ManageClaimType"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageClaimType())
+            dispatch(ExpenseAdvanceActions.getFillExpense())
             setFileOpen(false)
         }))
     }
@@ -161,11 +229,10 @@ const ManageClaimType = () => {
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageClaimType())
-                setmodalHead("New Claim Type")
-                setmodalBody(<ManageClaimTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalHead("Add Expense")
+                setmodalBody(<FillExpenseForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Claim Type"}></Button>
+                name={"Add Expense"}></Button>
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
@@ -184,7 +251,7 @@ const ManageClaimType = () => {
             totalCount={dbConfigTotalCount}
         />
 
-        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
         <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Circle.xlsx","Circle.xlsx"]}/>
@@ -193,4 +260,4 @@ const ManageClaimType = () => {
 
 };
 
-export default ManageClaimType;
+export default FillExpense;

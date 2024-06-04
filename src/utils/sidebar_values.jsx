@@ -28,7 +28,6 @@ import RoleManagement from "../pages/Admin/RoleManagement/RoleManagement";
 import Registration from "../pages/Registration";
 import Cart from "../pages/Cart";
 import Carts from "../pages/Carts";
-import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import InvestmentDiscovery from "../pages/Investment/InvestmentDiscovery";
 import Kycregister from "../pages/Kycregister";
@@ -61,15 +60,12 @@ import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
 import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
-import MyHome from "../pages/PMIS/MyHome/Home";
 import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
 import PersonalInfo from "../pages/PMIS/MyHome/PersonalInfo";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
 import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
 // import Home from "../pages/PMIS/MyHome/Home"
-
-import Claim from "../pages/PMIS/MyHome/Claim";
 import Asset from "../pages/PMIS/MyHome/Asset";
 import AssetRegistration from "../pages/PMIS/Admin/AssetRegistration/AssetRegistration";
 import SuperAdmin from "../pages/PMIS/HR/SuperAdmin";
@@ -84,7 +80,6 @@ import ManageDepartment from "../pages/PMIS/Admin/ManageDepartment/ManageDepartm
 import ManageDesignation from "../pages/PMIS/Admin/ManageDesignation/ManageDesignation";
 import ManageProfile from "../pages/PMIS/Admin/ManageProfile(userrole)/ManageProfile";
 import ManageProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteId";
-import ExpenseAndAdvance from "../pages/PMIS/MyHome/ExpenseAndAdvance";
 import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
 import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
 import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
@@ -108,6 +103,17 @@ import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/Un
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
 import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
+import ClaimTypeCards from "../pages/PMIS/HR/ClaimTypeCards";
+import ManageClaimTypeDesignation from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
+import ManageClaimTypeUnitRate from "../pages/PMIS/Admin/ManageClaimTypeUnitRate/ManageClaimTypeUnitRate";
+import ClaimAndAdvance from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAndAdvance";
+import HomeCards from "../pages/PMIS/MyHome/HomeCards";
+import FillExpense from "../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpense";
+import FillAdvance from "../pages/PMIS/MyHome/ClaimAdvAdvanceForm/FillAdvance";
+import L1Form from "../pages/PMIS/MyHome/L1Form/L1Form";
+import ApproverCards from "../pages/PMIS/MyHome/ApproverCards";
+import L2Form from "../pages/PMIS/MyHome/L2Form/L2Form";
+import L3Form from "../pages/PMIS/MyHome/L3Form/L3Form";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -279,7 +285,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/personalInfo",
+      link: "/home/personalInfo",
       subMenu: [],
       component: <PersonalInfo />,
     },
@@ -291,21 +297,51 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/hr/expenseAdvance",
-      subMenu: [],
-      component: <ExpenseAndAdvance />,
-    },
-    {
-      name: "",
       link: "/vendorForm",
       subMenu: [],
       component: <ManageVendorForm />,
     },
     {
       name: "",
-      link: "/claim&Reimbursement",
+      link: "/home/approverCards",
       subMenu: [],
-      component: <Claim />,
+      component: <ApproverCards />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance",
+      subMenu: [],
+      component: <ClaimAndAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance/Expense",
+      subMenu: [],
+      component: <FillExpense />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance/Advance",
+      subMenu: [],
+      component: <FillAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L1Approver",
+      subMenu: [],
+      component: <L1Form />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L2Approver",
+      subMenu: [],
+      component: <L2Form />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/financeApprover",
+      subMenu: [],
+      component: <L3Form />,
     },
     {
       name: "",
@@ -411,7 +447,28 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/hr/superAdmin/claimType",
+      component: <ClaimTypeCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType/claimTypeCategories",
       component: <ManageClaimType />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType/claimTypeDesignation",
+      component: <ManageClaimTypeDesignation />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType/claimTypeUnitRate",
+      component: <ManageClaimTypeUnitRate />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
@@ -536,7 +593,7 @@ export const Sidebar_content = {
       {
         name: "My Home",
         link: "/home",
-        component: <MyHome />,
+        component: <HomeCards />,
         icon: <UilHome className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },

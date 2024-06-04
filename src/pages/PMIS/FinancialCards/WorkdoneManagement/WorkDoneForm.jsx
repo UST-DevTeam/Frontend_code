@@ -36,17 +36,6 @@ const WorkDoneForm = ({
 
   let dispatch = useDispatch();
 
-  // let ItemCodeList = [];
-  // if (callSt) {
-  //   useSelector((state) => {
-  //     return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
-  //       ItemCodeList.push({
-  //         label: itm?.ItemCode,
-  //         value: itm?.ItemCode,
-  //       })
-  //     });
-  //   });
-  // }
   let ItemCodeList = useSelector((state) => {
     return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
       return {
@@ -56,34 +45,6 @@ const WorkDoneForm = ({
     });
   });
 
-  // let ItemCodeList = useSelector((state) => {
-  //   return state?.financeData?.getPOWorkDoneBased
-  //     ?.map((itm) => {
-  //       return itm?.commercialResult?.Commercial?.map((item) => ({
-  //         label: item?.ItemCode,
-  //         value: item?.ItemCode,
-  //       }));
-
-  //     })
-  // });
-
-  //   let ItemCodeList = useSelector((state) => {
-  //     return state?.financeData?.getPOWorkDoneBased
-  //       ?.flatMap((itm) => {
-  //         return itm?.commercialResult?.Commercial?.map((item) => {
-  //           console.log(item, "==================================");
-  //           return {
-  //             label: item?.ItemCode,
-  //             value: item?.ItemCode,
-  //           };
-  //         }) || [];
-  //       }) || [];
-
-  // }).filter((item, index, self) =>
-  //     index === self.findIndex((t) => (
-  //         t.value === item.value
-  //     ))
-  // );
 
   let inwoForm = [
     {

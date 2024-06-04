@@ -18,6 +18,7 @@ import Disabled from "./FormElements/Disabled";
 import CheckBox from "./FormElements/CheckBox";
 import { types, uiList } from "../utils/queryBuilder";
 import BigMultiselection from "./FormElements/BigMultiselection";
+import ObjectInput from "./FormElements/ObjectInput";
 
 const CommonForm = ({
   classes,
@@ -78,6 +79,7 @@ const CommonForm = ({
               {itm.type != "hidden" && itm.type != "heading" ? (
                 <div
                   className={`mx-0 my-3 p-1 ${
+                  // className={`mx-0 ${
                     itm.classes ? itm.classes : "col-span-1"
                   }`}
                 >
@@ -98,6 +100,7 @@ const CommonForm = ({
                   <div
                     className={
                       uiList[itm.type]?.height + " mt-2  px-2  flex flex-row"
+                      // uiList[itm.type]?.height + "px-2 flex flex-row"
                     }
                   >
                     {itm?.amp &&
@@ -146,6 +149,7 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
+                    
 
                     
                     {itm.type == "sdisabled" || itm.type == "hdisabled" ? (

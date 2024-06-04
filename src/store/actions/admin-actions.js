@@ -18,6 +18,9 @@ import {
     GET_VENDOR_PROJECT_ALLLOCATION,
     GET_MANAGE_COMPLETION_CRITERIA,
     GET_MANAGE_CLAIM_TYPE,
+    GET_MANAGE_CLAIM_TYPE_UNIT_RATE,
+    GET_MANAGE_CLAIM_TYPE_DESIGNATION,
+    GET_MANAGE_EXPENSE_ADVANCE,
 
 
     // Not in use
@@ -517,6 +520,100 @@ const AdminActions = {
     postManageClaimType: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_claim_type : Urls.admin_claim_type + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageClaimTypeUnitRate:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_claim_type_unit_rate}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_CLAIM_TYPE_UNIT_RATE({dataAll,reset}))
+        } catch (error) {
+        }
+    },   
+    postManageClaimTypeUnitRate: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_claim_type_unit_rate : Urls.admin_claim_type_unit_rate + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageClaimTypeDesignation:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_claim_type_designation}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_CLAIM_TYPE_DESIGNATION({dataAll,reset}))
+        } catch (error) {
+        }
+    },   
+    postManageClaimTypeDesignation: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_claim_type_designation : Urls.admin_claim_type_designation + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getManageExpenseAdvance:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_expense_advance}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_EXPENSE_ADVANCE({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    },   
+    postManageExpenseAdvance: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_expense_advance : Urls.admin_expense_advance + "/" + uniqueId })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,

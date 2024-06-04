@@ -17,7 +17,6 @@ import {
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
@@ -44,7 +43,6 @@ const ManageCustomer = () => {
     .replace(/\//g, "-");
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.adminData?.getManageCustomer;
     return interdata?.map((itm) => {
       let updateditm = {
