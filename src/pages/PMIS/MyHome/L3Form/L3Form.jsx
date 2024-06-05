@@ -14,8 +14,9 @@ import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 import ExpenseAdvanceActions from '../../../../store/actions/expenseAdvance-actions';
-import L1FormFORM from '../../../../pages/PMIS/MyHome/L1Form/L1FormFORM'
+import L3FormFORM from '../../../../pages/PMIS/MyHome/L3Form/L3FormFORM'
 import CommonForm from '../../../../components/CommonForm';
+import { useNavigate } from 'react-router-dom';
 
 const L3Form = () => {
 
@@ -23,6 +24,8 @@ const L3Form = () => {
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+
+     const navigate = useNavigate()
 
     let dispatch = useDispatch()
 
@@ -42,22 +45,22 @@ const L3Form = () => {
             let updateditm = {
                 ...itm,
 
-                // attachment: (
-                //   <div className="flex justify-center items-center">
-                //     <img
-                //       src={backendassetUrl + itm?.attachment}
-                //       className="w-24 h-14 content-center flex object-contain"
-                //     />
-                //   </div>
-                // ),
+                attachment: (
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={backendassetUrl + itm?.attachment}
+                      className="w-24 h-14 content-center flex object-contain"
+                    />
+                  </div>
+                ),
                 expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
                               
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(ExpenseAdvanceActions.getL3Data())
-                    setmodalHead("Edit Claim Type")
+                    setmodalHead("Edit L3 Expense Approval")
                     setmodalBody(<>
-                        <L1FormFORM isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <L3FormFORM isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     //setmodalOpen(false)
@@ -162,7 +165,7 @@ const L3Form = () => {
           },
           {
             name: "Approved Amount",
-            value: "approvedAmount",
+            value: "ApprovedAmount",
             style: "min-w-[170px] max-w-[450px] text-center",
           },
           {
@@ -172,7 +175,7 @@ const L3Form = () => {
           },
           {
             name: "Last Action Date",
-            value: "lastActionDate",
+            value: "actionAt",
             style: "min-w-[200px] max-w-[450px] text-center",
           },
           {
@@ -180,11 +183,11 @@ const L3Form = () => {
             value: "attachment",
             style: "min-w-[150px] max-w-[450px] text-center",
           },
-          {
-            name: "Status",
-            value: "status",
-            style: "min-w-[100px] max-w-[450px] text-center",
-          },
+          // {
+          //   name: "Status",
+          //   value: "status",
+          //   style: "min-w-[100px] max-w-[450px] text-center",
+          // },
           {
             name: "Remarks",
             value: "remark",
@@ -265,20 +268,16 @@ const L3Form = () => {
     return <>
         <AdvancedTable
             headerButton={<div className='flex gap-1'>
-            {/* <CommonForm
-              classes={"w-32"}
-              Form={FormD}
-              errors={errors}
-              register={register}
-              setValue={setValue}
-              getValues={getValues}
-            /> */}
-                {/* <Button classes='w-auto' onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                setmodalHead("Add Advance")
-                setmodalBody(<FillAdvanceForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
-                name={"Add Advance"}></Button> */}
+            <Button classes='w-auto' onClick={(e) => {
+                  navigate("/home/approverCards/financeApprover")
+                }}
+                name={"L3 Expense"}>
+                </Button>
+                <Button classes='w-auto' onClick={(e) => {
+                  navigate("/home/approverCards/L3Advance")
+                }}
+                name={"L3 Advance"}>
+                </Button>
                 
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)

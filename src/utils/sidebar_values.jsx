@@ -114,6 +114,9 @@ import L1Form from "../pages/PMIS/MyHome/L1Form/L1Form";
 import ApproverCards from "../pages/PMIS/MyHome/ApproverCards";
 import L2Form from "../pages/PMIS/MyHome/L2Form/L2Form";
 import L3Form from "../pages/PMIS/MyHome/L3Form/L3Form";
+import L1AdvanceForm from "../pages/PMIS/MyHome/L1Form/L1AdvanceForm";
+import L2AdvanceForm from "../pages/PMIS/MyHome/L2Form/L2AdvanceForm";
+import L3AdvanceForm from "../pages/PMIS/MyHome/L3Form/L3AdvanceForm";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -333,15 +336,33 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/home/approverCards/L1Advance",
+      subMenu: [],
+      component: <L1AdvanceForm />,
+    },
+    {
+      name: "",
       link: "/home/approverCards/L2Approver",
       subMenu: [],
       component: <L2Form />,
     },
     {
       name: "",
+      link: "/home/approverCards/L2Advance",
+      subMenu: [],
+      component: <L2AdvanceForm />,
+    },
+    {
+      name: "",
       link: "/home/approverCards/financeApprover",
       subMenu: [],
       component: <L3Form />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L3Advance",
+      subMenu: [],
+      component: <L3AdvanceForm />,
     },
     {
       name: "",

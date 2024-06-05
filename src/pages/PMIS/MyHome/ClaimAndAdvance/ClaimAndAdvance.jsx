@@ -25,6 +25,7 @@ const ClaimAndAdvance = () => {
     const [modalBody, setmodalBody] = useState(<></>)
     const [type, settype] = useState(false)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [balance, setBalance] = useState(0);
 
 
     let dispatch = useDispatch()
@@ -45,23 +46,6 @@ const ClaimAndAdvance = () => {
                 ...itm,
 
                 // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                //     console.log(e.target.checked, "e.target.checked")
-                //     let data = {
-                //         "enabled": e.target.checked ? 1 : 0
-                //     }
-                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                //         // alert(e.target.checked)
-                //         e.target.checked = e.target.checked
-                //     }, itm.id))
-                //     // if(itm.enabled==0){
-                //     //     itm.enabled=1
-                //     // }else{
-                //     //     itm.enabled=0
-                //     // }
-                //     // itm.enabled=itm.enabled==0?1:0
-                //     console.log(itm.enabled, "itm.enabled")
-                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCustomer())
@@ -218,8 +202,19 @@ const ClaimAndAdvance = () => {
     }
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
+        const balance = () => {
+            let balanceValue = 0;
+            dbConfigList?.map(itm => {
+            });
+            setBalance(balanceValue);
+        };
+        balance();
     }, [])
+
     return <>
+        <p className='mb-[-55px] p-4'>
+            Current Balance - {balance}
+        </p>
         <AdvancedTable
             headerButton={<> 
             <Button onClick={() => {

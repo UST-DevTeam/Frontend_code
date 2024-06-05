@@ -91,11 +91,11 @@ const L2FormFORM = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
-    // dasdsadsadasdas
+    console.log(data,"yyyyyyyyy")
+    data.approver = "L2-"+ data.status
     if (formValue.uniqueId) {
       dispatch(
-        ExpenseAdvanceActions.postL2Data(
+        ExpenseAdvanceActions.postApprovalStatus(
           true,
           data,
           () => {
@@ -107,7 +107,7 @@ const L2FormFORM = ({
       );
     } else {
       dispatch(
-        ExpenseAdvanceActions.postL2Data(true, data, () => {
+        ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
           setIsOpen(false);
           dispatch(ExpenseAdvanceActions.getL2Data());
         })

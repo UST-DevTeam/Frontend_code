@@ -7,10 +7,11 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
+import { useNavigate, useParams } from "react-router-dom";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
-const L3FormFORM = ({
+const L2AdvanceFormFORM = ({
   isOpen,
   setIsOpen,
   resetting,
@@ -31,7 +32,7 @@ const L3FormFORM = ({
         min: 0,
         onChange: (e) => {},
         },
-      required: true,
+      // required: true,
       classes: "col-span-1",
     },
     {
@@ -91,7 +92,7 @@ const L3FormFORM = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
-    data.approver = "L3-"+data.status
+    data.approver = "L2-"+data.status
     if (formValue.uniqueId) {
       dispatch(
         ExpenseAdvanceActions.postApprovalStatus(
@@ -99,16 +100,18 @@ const L3FormFORM = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(ExpenseAdvanceActions.getL3Data());
+            dispatch(ExpenseAdvanceActions.getL2AdvanceData());
           },
           formValue.uniqueId
         )
       );
     } else {
-      dispatch(
+        // const type = window.location.pathname.split('/L1Approver')[window.location.pathname.split('/L1Approver').length - 1]
+        // const payload = { ...data, type };
+              dispatch(
         ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
           setIsOpen(false);
-          dispatch(ExpenseAdvanceActions.getL3Data());
+          dispatch(ExpenseAdvanceActions.getL2AdvanceData());
         })
       );
     }
@@ -117,6 +120,7 @@ const L3FormFORM = ({
 
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
+    // dispatch(ExpenseAdvanceActions.postApprovalStatus());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -181,4 +185,4 @@ const L3FormFORM = ({
   );
 };
 
-export default L3FormFORM;
+export default L2AdvanceFormFORM;

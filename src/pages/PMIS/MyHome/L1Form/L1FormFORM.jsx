@@ -7,6 +7,7 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
+import { useNavigate, useParams } from "react-router-dom";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
@@ -31,7 +32,7 @@ const L1FormFORM = ({
         min: 0,
         onChange: (e) => {},
         },
-      required: true,
+      // required: true,
       classes: "col-span-1",
     },
     {
@@ -91,11 +92,10 @@ const L1FormFORM = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
-    // dasdsadsadasdas
+    data.approver = "L1-"+data.status
     if (formValue.uniqueId) {
       dispatch(
-        ExpenseAdvanceActions.postL1Data(
+        ExpenseAdvanceActions.postApprovalStatus(
           true,
           data,
           () => {
@@ -106,8 +106,10 @@ const L1FormFORM = ({
         )
       );
     } else {
-      dispatch(
-        ExpenseAdvanceActions.postL1Data(true, data, () => {
+        // const type = window.location.pathname.split('/L1Approver')[window.location.pathname.split('/L1Approver').length - 1]
+        // const payload = { ...data, type };
+              dispatch(
+        ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
           setIsOpen(false);
           dispatch(ExpenseAdvanceActions.getL1Data());
         })
@@ -118,6 +120,7 @@ const L1FormFORM = ({
 
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
+    // dispatch(ExpenseAdvanceActions.postApprovalStatus());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

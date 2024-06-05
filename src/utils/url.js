@@ -5,15 +5,15 @@
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
 
-// export const baseUrl="http://192.168.0.122:7980"
-// export const backendassetUrl="http://192.168.0.122:7980/"
+export const baseUrl="http://192.168.0.124:7980"
+export const backendassetUrl="http://192.168.0.124:7980/"
 
 // export const baseUrl="http://192.168.29.236:7980"
 // export const backendassetUrl="http://192.168.29.236:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -109,8 +109,12 @@ export const Urls={
     expAdv_taskName:"/expenses/projectSiteTask",
     expAdv_unitRate_claimType:"/expenses/unitRateClaimType",
     expAdv_L1Data:"/approval/l1Approval",
+    expAdv_L1AdvanceData:"/Advance/approval/l1Approval",
     expAdv_L2Data:"/approval/l2Approval",
-    expAdv_L3Data:"/approval/l3Approval",
+    expAdv_L2AdvanceData:"/Advance/approval/l2Approval",
+    expAdv_L3Data:"/approval/financeApprover",
+    expAdv_L3AdvanceData:"/Advance/approval/l3Approval",
+    expAdv_Approval:"/approval/status",
 
 
 

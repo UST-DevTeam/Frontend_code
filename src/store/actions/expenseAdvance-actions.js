@@ -9,8 +9,12 @@ import {
     GET_EXPADV_TASK_NAME,
     GET_UNIT_RATE_CLAIM_TYPE,
     GET_L1_DATA,
+    GET_L1_ADVANCE_DATA,
     GET_L2_DATA,
+    GET_L2_ADVANCE_DATA,
     GET_L3_DATA,
+    GET_L3_ADVANCE_DATA,
+    GET_APPROVAL_STATUS,
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -127,6 +131,16 @@ const ExpenseAdvanceActions = {
         } catch (error) {
         }
     },
+    getL1AdvanceData:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_L1AdvanceData}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_L1_ADVANCE_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
     getL2Data:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_L2Data}${args!=""?"?"+args:""}`, reset })
@@ -136,6 +150,16 @@ const ExpenseAdvanceActions = {
         } catch (error) {
         }
     },
+    getL2AdvanceData:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_L2AdvanceData}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_L2_ADVANCE_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
     getL3Data:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_L3Data}${args!=""?"?"+args:""}`, reset })
@@ -143,6 +167,48 @@ const ExpenseAdvanceActions = {
             let dataAll = res?.data?.data
             dispatch(GET_L3_DATA({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    getL3AdvanceData:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_L3AdvanceData}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_L3_ADVANCE_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    approvalStatus:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_Approval}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_APPROVAL_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postApprovalStatus: (reset, data, cb, uniqueId,) => async (dispatch, _) => {
+        console.log('datattatata',data)
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.expAdv_Approval : Urls.expAdv_Approval + "/" + uniqueId, reset} )
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
         }
     },
 

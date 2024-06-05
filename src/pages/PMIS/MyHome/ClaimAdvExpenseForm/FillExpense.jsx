@@ -52,8 +52,7 @@ const FillExpense = () => {
                     />
                   </div>
                 ),
-                
-                
+                            
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(ExpenseAdvanceActions.getFillExpense())
@@ -64,7 +63,9 @@ const FillExpense = () => {
                     </>)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
-                
+
+                "addRow": <CstmButton className={"p-2"} child={  <Button classes='w-1/2 h-5 bg-green-500' />} />,
+
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                     let msgdata = {
                         show: true,
@@ -178,6 +179,16 @@ const FillExpense = () => {
             style: "min-w-[100px] max-w-[450px] text-center",
           },
           {
+            name: "Status",
+            value: "status",
+            style: "min-w-[100px] max-w-[450px] text-center",
+          },
+          {
+            name: "Add Row",
+            value: "addRow",
+            style: "min-w-[100px] max-w-[100px] text-center"
+          },
+          {
             name: "Edit",
             value: "edit",
             style: "min-w-[100px] max-w-[100px] text-center",
@@ -187,11 +198,6 @@ const FillExpense = () => {
             value: "delete",
             style: "min-w-[100px] max-w-[100px] text-center",
           },
-          // {
-          //     name: "View",
-          //     value: "view",
-          //     style: "min-w-[100px] max-w-[100px] text-center"
-          // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]

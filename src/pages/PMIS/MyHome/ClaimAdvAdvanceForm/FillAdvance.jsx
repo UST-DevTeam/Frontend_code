@@ -125,7 +125,7 @@ const FillAdvance = () => {
           },
           {
             name: "Amount",
-            value: "amount",
+            value: "Amount",
             style: "min-w-[170px] max-w-[450px] text-center",
           },
         //   {

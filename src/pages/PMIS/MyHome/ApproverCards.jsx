@@ -23,9 +23,9 @@ const ApproverCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["L1 Approver", "bg-gradient-to-r from-indigo-500/50 to-green-500/50", "/home/approverCards/L1Approver"],
-          ["L2 Approver", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/home/approverCards/L2Approver",],
-          ["Finance Approver", "bg-gradient-to-r from-indigo-500/50 to-green-500/50", "/home/approverCards/FinanceApprover",],
+          ["L1 Approver", "bg-gradient-to-r from-indigo-500/50 to-green-500/50", "/home/approverCards/L1Approver", "/home/approverCards/L1Advance"],
+          ["L2 Approver", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/home/approverCards/L2Approver", "/home/approverCards/L2Advance"],
+          ["Finance Approver", "bg-gradient-to-r from-indigo-500/50 to-green-500/50", "/home/approverCards/FinanceApprover", "/home/approverCards/L2Advance"],
         ].map((itm) => {
           return (
             <>
@@ -35,7 +35,7 @@ const ApproverCards = () => {
                   className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
                   onClick={() => {
 
-
+                    
                     console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                     if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
