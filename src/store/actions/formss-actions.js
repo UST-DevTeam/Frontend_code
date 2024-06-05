@@ -1,23 +1,34 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import {GET_EARNVALUE_MGMT_FINANCIAL, } from "../reducers/formss-reducer"
+import { GET_EARNVALUE_MGMT_FINANCIAL, } from "../reducers/formss-reducer"
 
 
 const FormssActions = {
 
-    getEarnValueMgmtFinancial:(reset=true,args="") => async (dispatch, _) => {
+    getEarnValueMgmtFinancial: (projectId,reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.formss_earnValue_mgmt_financial}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.formss_earnValue_mgmt_financial +'/'+projectId}${args != "" ? "?" + args : ""} `, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_EARNVALUE_MGMT_FINANCIAL({dataAll,reset}))
+            dispatch(GET_EARNVALUE_MGMT_FINANCIAL({ dataAll, reset }))
         } catch (error) {
         }
     },
-    postEarnValueMgmtFinancial: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    // putGetEarnValueMgmtFinancial: (reset = true, args = "") => async (dispatch, _) => {
+    //     try {
+    //         const res = await Api.put({ url: `${Urls.formss_earnValue_mgmt_financial}${args != "" ? "?" + args : ""}`, reset })
+    //         console.log("adfsasfasfdaiasdfasdf",res);
+    //         if (res?.status !== 200) return
+    //         let dataAll = res?.data?.data
+    //         dispatch(GET_EARNVALUE_MGMT_FINANCIAL({ dataAll, reset }))
+    //     } catch (error) {
+    //     }
+    // },
+    postEarnValueMgmtFinancial: (data, cb) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.formss_earnValue_mgmt_financial : Urls.formss_earnValue_mgmt_financial + "/" + uniqueId })
+            console.log("adfasfasfasasfadfsa",data);
+            const res = await Api.post({ data: data, url: Urls.formss_earnValue_mgmt_financial })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -27,11 +38,45 @@ const FormssActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
                 cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_EARNVALUE_MGMT_FINANCIAL({ dataAll, reset:true }))
 
             }
-            
+
+        } catch (error) {
+            return;
+        }
+    },
+    putEarnValueMgmtFinancial: (data, cb) => async (dispatch, _) => {
+        try {
+            console.log("adfasfasfasasfadfsa",data);
+            const res = await Api.put({ data: data, url: Urls.formss_earnValue_mgmt_financial })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_EARNVALUE_MGMT_FINANCIAL({ dataAll, reset:true }))
+                let msgdata = {
+                    show: true,
+                    icon: "success",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            }
+
         } catch (error) {
             return;
         }

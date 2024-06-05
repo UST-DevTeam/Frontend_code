@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SelectDropDown = ({ itm, errors, handleSubmit, setValue, getValues, register }) => {
-    console.log(itm,"project_type_itm");
+
     return (
         itm && <>
             <select

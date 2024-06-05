@@ -21,5 +21,5 @@ const FormssReducer = createSlice({
     }
 })
 
-export const {GET_EARNVALUE_MGMT_FINANCIAL,} = FormssReducer.actions
+export const {GET_EARNVALUE_MGMT_FINANCIAL} = FormssReducer.actions
 export default FormssReducer.reducer

@@ -108,6 +108,7 @@ import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/Un
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
 import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
+import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -489,6 +490,27 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/workdoneForecast",
       component: <WorkdoneForecastCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/gapAnalysis",
+      component: <GapAnalysisCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/gapAnalysis/ETPPendingReason",
+      // component: <E />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/gapAnalysis/MS2VSWCCPendingReason",
+      // component: <E />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

@@ -10,12 +10,14 @@ import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
-
+ 
 const EarnValueMgmtForm = ({
   isOpen,
   setIsOpen,
   resetting,
   formValue = {},
+  year,
+  monthss,
 }) => {
   // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -23,6 +25,13 @@ const EarnValueMgmtForm = ({
   // console.log(setIsOpen,"setIsOpen")
   // console.log(resetting,"resetting")
   // console.log(formValue,"formValue")
+  let roleName = useSelector((state)=>{
+    console.log("afafasdfasdfasdfasfasdadfs",state);
+    let role = state?.auth?.user?.roleName
+    return role
+  })
+  console.log("adsfasfasdfasdfadfs",roleName);
+
 
   const [modalOpen, setmodalOpen] = useState(false);
 
@@ -56,53 +65,121 @@ const EarnValueMgmtForm = ({
   };
 
   const [previousMonthData, currentMonthData, nextMonthData] = getPreviousCurrentAndNextMonth();
-
-  let Form = [
-    {
-      label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      value: "",
-      name: 'plan1',
-      type: "number",
-      filter: true,
-      props: {
-        valueAsNumber:true,
-        min: 0,
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
-      value: "",
-      name: 'plan2',
-      type: "number",
-      props: {
-        valueAsNumber:true,
-        min: 0,
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
-    {
-      label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      value: "",
-      name: 'plan3',
-      type: "number",
-      props: {
-        valueAsNumber:true,
-        min: 0,
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
-    // {
-    //   label: "Project ID",
-    //   type: "autoSuggestion",
-    //   name: "projectId",
-    //   option: projectList,
-    //   props: {},
-    // },
+  const monthsss = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
+console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
+    console.log("afdasfasfasfasdfafasdfasafds",...monthss);
+    
+    
+    let Form = [
+      // {
+      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
+      //   value: "",
+      //   name: 'plan1',
+      //   type: "number",
+      //   filter: true,
+      //   props: {
+      //     valueAsNumber:true,
+      //     min: 0,
+      //     onChange: (e) => {},
+      //   },
+      //   classes: "col-span-1",
+      // },
+      ...monthss.map((itm)=>(
+        {
+          label: `Plan (${monthsss[itm]} ${year})`,
+          value: "",
+          name: `M-${itm}_y`,
+          type: "number",
+          props: {
+            valueAsNumber:true,
+            min: 0,
+            onChange: (e) => {},
+          },
+          classes: "col-span-1",
+        }))
+      // {
+      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
+      //   value: "",
+      //   name: 'plan3',
+      //   type: "number",
+      //   props: {
+      //     valueAsNumber:true,
+      //     min: 0,
+      //     onChange: (e) => {},
+      //   },
+      //   classes: "col-span-1",
+      // },
+      // {
+      //   label: "Project ID",
+      //   type: "autoSuggestion",
+      //   name: "projectId",
+      //   option: projectList,
+      //   props: {},
+      // },
+    ];
+    let Form2 = [
+      // {
+      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
+      //   value: "",
+      //   name: 'plan1',
+      //   type: "number",
+      //   filter: true,
+      //   props: {
+      //     valueAsNumber:true,
+      //     min: 0,
+      //     onChange: (e) => {},
+      //   },
+      //   classes: "col-span-1",
+      // },        
+        {
+          label: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
+          value: "",
+          name: `${monthss[0]}`,
+          type: "number",
+          props: {
+            valueAsNumber:true,
+            min: 0,
+            onChange: (e) => {},
+          },
+          classes: "col-span-1",
+        }
+      
+      // {
+      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
+      //   value: "",
+      //   name: 'plan3',
+      //   type: "number",
+      //   props: {
+      //     valueAsNumber:true,
+      //     min: 0,
+      //     onChange: (e) => {},
+      //   },
+      //   classes: "col-span-1",
+      // },
+      // {
+      //   label: "Project ID",
+      //   type: "autoSuggestion",
+      //   name: "projectId",
+      //   option: projectList,
+      //   props: {},
+      // },
+    ];
+
+
   const {
     register,
     handleSubmit,
@@ -118,25 +195,45 @@ const EarnValueMgmtForm = ({
     //     navigate('/authenticate')
     // }))
   };
+  console.log("afasafsasfasasfasfiajsfon",formValue);
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
+
+
+    for(let i = 0; i<monthss.length; i++){
+      data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
+    }
+
+
+
+
+    // data['totalInvoice'] = formValue?.totalInvoice;
+
+
+
+
+    data['projectType'] = formValue?.projectType;
+    data['costCenter'] = formValue?.costCenter;
+    data['circle'] = formValue?.circle;
+    data['roleName'] = roleName;
+    data['uniqueId'] = formValue?.uniqueId;
+    data['year'] = year;
+    data['projectId'] = formValue?.projectId;
+    console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
     if (formValue.uniqueId) {
       dispatch(
-        FormssActions.postEarnValueMgmtFinancial(
-          true,
+        FormssActions.putEarnValueMgmtFinancial(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig");
+            console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
             setIsOpen(false);
-            dispatch(FormssActions.getEarnValueMgmtFinancial());
+            dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
           },
-          formValue.uniqueId
         )
       );
     } else {
       dispatch(
-        FormssActions.postEarnValueMgmtFinancial(true, data, () => {
+        FormssActions.postEarnValueMgmtFinancial(data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(FormssActions.getEarnValueMgmtFinancial());
@@ -168,6 +265,9 @@ const EarnValueMgmtForm = ({
       });
     }
   }, [formValue, resetting]);
+
+
+  console.log("afafasdfasdfjasdf0adfsa",monthss);
   return (
     <>
       <Modal
@@ -189,14 +289,21 @@ const EarnValueMgmtForm = ({
       />
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
+       {/* {
+        monthss.map((itm)=>
+        )
+      } */}
+        
+      <>
         <CommonForm
           classes={"grid-cols-2 gap-1"}
-          Form={Form}
+          Form={(roleName==='Admin')?Form:Form2}
           errors={errors}
           register={register}
           setValue={setValue}
           getValues={getValues}
         />
+      </>
         {/* <button></button> */}
 
         {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
