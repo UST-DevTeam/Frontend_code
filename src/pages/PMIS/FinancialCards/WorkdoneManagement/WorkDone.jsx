@@ -394,7 +394,47 @@ const WorkDone = () => {
     },
     filter: [
       {
-        label: "Type",
+        label: "Customer",
+        type: "text",
+        name: "customer",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Project Group",
+        type: "text",
+        name: "project",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Project Type",
+        type: "text",
+        name: "project",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Site ID",
+        type: "text",
+        name: "project",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Billing Status",
         type: "select",
         name: "status",
         option: [
@@ -440,9 +480,7 @@ const WorkDone = () => {
     let shouldReset = data.reseter;
     delete data.reseter;
     console.info("page_data",data)
-    dispatch(
-      FinanceActions.getPOWorkDoneBased(shouldReset,{}, objectToQueryString(data))
-    );
+    dispatch(FinanceActions.getPOWorkDoneBased(shouldReset,{}, objectToQueryString(data)));
   };
   useEffect(() => {
     dispatch(FinanceActions.getPOWorkDoneBased());

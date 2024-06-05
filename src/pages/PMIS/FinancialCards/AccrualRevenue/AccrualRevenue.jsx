@@ -201,12 +201,54 @@ const AccrualRevenue = () => {
         },
         filter: [
             {
-                label: "Accrual Year",
-                // type: "select",
-                // name: "currentYear",
+                label: "Customer",
+                type: "text",
+                name: "currentYear",
                 // option:YearList(2010),
-                // props: {},
-            }
+                props: {},
+            },
+            {
+                label: "Project Group",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Project Type",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Project ID",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Item Code",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Year",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Month",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
             
           ],
     }

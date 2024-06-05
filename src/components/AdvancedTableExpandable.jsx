@@ -26,7 +26,7 @@ const AdvancedTableExpandable = ({
   getValues,
   totalCount = 10,
   multiSelect = false,
-  actions = ["Edit", "Delete"],
+  actions = ["Delete"],
   searchView = "",
   getmultiSelect = "",
   setmultiSelect = () => { },
@@ -49,7 +49,6 @@ const AdvancedTableExpandable = ({
     ...table.properties,
     rpp: [10, 20, 50],
   };
-  
 
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
@@ -59,24 +58,23 @@ const AdvancedTableExpandable = ({
       activedFilter["start"] = lcllastVisitedPage;
       activedFilter["end"] = 50;
       activedFilter["reseter"] = false;
-
       filterAfter(activedFilter);
     }
   };
 
-
   const onSubmit = (formdata) => {
     // alert(value)
-    console.log("onSubfasfasfasdfasfmit", formdata);
-    formdata["reseter"] = true;
-
-    filterAfter(formdata);
-    setActivedFilter(formdata);
-    setActiveFilter(objectToArray(formdata));
+    // const data = {...formdata, reseter : true}
+    // console.log("vishal_____data", data);
+    filterAfter( {...formdata, reseter : true});
+    setActivedFilter( {...formdata, reseter : true});
+    setActiveFilter(objectToArray( {...formdata, reseter : true}));
   };
+
+  console.log('setActivedFilter____',activedFilter)
+
   const onReset = () => {
     // alert(value)
-
     filterAfter({ reseter: true });
     setActiveFilter([]);
     setActivedFilter({});
@@ -91,16 +89,15 @@ const AdvancedTableExpandable = ({
   console.log("fasodfjanflasdfnaifaewasdf",data.length);
   console.log("asdfamarnathadfasfasdfadfs",activeFilter);
 
+  // console.log((currentPage - 1) * RPP,"(currentPage - 1) * RPP", currentPage,"currentPage" , RPP,"RPP","currentPageRPP")
 
-  console.log((currentPage - 1) * RPP,"(currentPage - 1) * RPP", currentPage,"currentPage" , RPP,"RPP","currentPageRPP")
+  // console.log(data.slice((currentPage - 1) * RPP, currentPage * RPP),"currentPageRPPcurrentPageRPP")
 
-
-  console.log(data.slice((currentPage - 1) * RPP, currentPage * RPP),"currentPageRPPcurrentPageRPP")
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">
         <div className="m-2 ">
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <div className="flex flex-row">
               {activeFilter.length > 0 && (
                 <h1 className="p-1 m-1">Active Filter: </h1>
@@ -112,9 +109,9 @@ const AdvancedTableExpandable = ({
                   </h1>
                 );
               })}
-              {/* <label className='h-8 align-middle'>Search: </label><input className="ml-4 pl-2  bg-white border-black border block h-8 w-full rounded-md py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type='text' /> */}
+              <label className='h-8 align-middle'>Search: </label><input className="ml-4 pl-2  bg-white border-black border block h-8 w-full rounded-md py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type='text' />
             </div>
-          </div>
+          </div> */}
           <div className="flex justify-between">
             <div className="flex flex-row">{searchView}</div>
             <div className="flex flex-row">
@@ -252,7 +249,7 @@ const AdvancedTableExpandable = ({
                           ) : !actions.includes("Edit") ? (
                             <td
                               colSpan={actions.length}
-                              className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
+                              className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[120px] max-w-[200px] text-center`}
                             >
                               <span className="text-white text-[12px]">
                                 {"Actions"}

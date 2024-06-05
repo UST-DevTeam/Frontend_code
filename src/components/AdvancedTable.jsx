@@ -49,7 +49,7 @@ const AdvancedTable = ({
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
-
+  data = (data[0]?.uniqueId)?data : [];
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
@@ -430,6 +430,8 @@ const AdvancedTable = ({
                   })}
                 </tr>
               </thead>
+
+              
 
               {finalData.length > 0 ? (
                 <tbody>

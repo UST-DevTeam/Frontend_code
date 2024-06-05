@@ -18,12 +18,15 @@ import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
 import FileUploader from "../../../../components/FIleUploader";
 import FinanceActions from '../../../../store/actions/finance-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
+import FilterActions from '../../../../store/actions/filter-actions';
+import moment from 'moment';
 
 const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     const [fileOpen, setFileOpen] = useState(false);
+    const endDate = moment().format("Y");
     let dispatch = useDispatch()
     // let roleList = useSelector((state) => {
     //     let interdata = state?.operationManagement?.USERS_LIST
@@ -79,10 +82,35 @@ const InvoiceBased = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+    let customerList = useSelector((state) => {
+        return state?.filterData?.getfinancialPoManagementCustomer.map((itm) => {
+          return {
+            label: itm.customer,
+            value: itm.customer,
+          };
+        });
+      });
+
+    let projectGroupList = useSelector((state) => {
+        return state?.filterData?.getfinancialPoManagementProjectGroup.map((itm) => {
+          return {
+            label: itm.projectGroup,
+            value: itm.projectGroup,
+          };
+        });
+      });
+
+    let projectIdList = useSelector((state) => {
+        return state?.filterData?.getfinancialPoManagementProjectId.map((itm) => {
+          return {
+            label: itm.projectId,
+            value: itm.projectId,
+          };
+        });
+      });
+
+
     const {
         register,
         handleSubmit,
@@ -206,13 +234,87 @@ const InvoiceBased = () => {
         },
         filter: [
             {
-                label: "select",
-                // type: "select",
-                // name: "rolename",
-                // option: roleList,
-                // props: {
-                // }
-            }
+                label: "Customer",
+                type: "select",
+                name: "customer",
+                option:customerList,
+                props: {
+                }
+            },
+            {
+                label: "ProjectGroup",
+                type: "text",
+                name: "projectGroup",
+                option:projectGroupList,
+                props: {
+                }
+            },
+            // {
+            //     label: "Project Type",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
+            // {
+            //     label: "Sub Project",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
+            {
+                label: "Project ID",
+                type: "text",
+                name: "projectId",
+                option:projectIdList,
+                props: {
+                }
+            },
+            {
+                label: "GBPA",
+                type: "text",
+                name: "gbpa",
+                props: {
+                }
+            },
+            {
+                label: "PO Number",
+                type: "text",
+                name: "poNumber",
+                props: {
+                }
+            },
+            {
+                label: "Item Code",
+                type: "text",
+                name: "itemCode",
+                props: {
+                }
+            },
+            {
+                label: "Item Code Status",
+                type: "select",
+                name: "itemCodeStatus",
+                option:[
+                    {label:"Open",value:'Open'},
+                    {label:"Closed",value:'Closed'},
+                ],
+                props: {
+                }
+            },
+            {
+                label: "PO Status",
+                type: "select",
+                name: "poStatus",
+                option:[
+                    {label:"Open",value:'Open'},
+                    {label:"Closed",value:'Closed'},
+                    {label:"Short Closed",value:'Short Closed'},
+                ],
+                props: {
+                }
+            },
         ]
     }
     const onSubmit = (data) => {
@@ -223,6 +325,9 @@ const InvoiceBased = () => {
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOInvoicedBased())
+        dispatch(FilterActions.getfinancialPoManagementCustomer())
+        dispatch(FilterActions.getfinancialPoManagementProjectGroup())
+        dispatch(FilterActions.getfinancialPoManagementProjectId())
     }, [])
 
     const onTableViewSubmit = (data) => {

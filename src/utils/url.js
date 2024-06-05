@@ -1,5 +1,5 @@
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
@@ -12,8 +12,8 @@
 // export const backendassetUrl="http://192.168.0.128:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -101,6 +101,22 @@ export const Urls={
     admin_claim_type:"/expenses/ClaimType",
 
 
+
+
+    filter_project_circle:'/filter/project/circle',
+    filter_project_projectId:'/filter/project/projectId',
+    filter_project_projectGroup:'/filter/project/projectGroup',
+    filter_project_projectType:'/filter/project/projectType',
+    filter_project_projectManager:'/filter/project/projectManager',
+
+    filter_site_subProject:'/filter/site/subProject',
+
+    filter_financial_poManagement_customer:'/filter/financial/pomanagement/customer',
+    filter_financial_poManagement_projectGroup:'/filter/financial/pomanagement/projectGroup',
+    filter_financial_poManagement_projectId:'/filter/financial/pomanagement/projectId',
+
+    filter_financial_RevenueManagement_customer:'/filter/financial/revenueManagement/customer',
+    filter_financial_RevenueManagement_projectGroup:'/filter/financial/revenueManagement/projectGroup',
 
 }
 

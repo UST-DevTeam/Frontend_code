@@ -215,14 +215,34 @@ const EmpDetailsTable = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      {
+          label: "EMP Name",
+          type: "text",
+          name: "rolename",
+          props: {
+          }
+      },
+      {
+          label: "EMP Code",
+          type: "text",
+          name: "rolename",
+          props: {
+          }
+      },
+      {
+          label: "PMIS Role",
+          type: "text",
+          name: "rolename",
+          props: {
+          }
+      },
+      {
+          label: "Status",
+          type: "text",
+          name: "rolename",
+          props: {
+          }
+      },
     ],
   };
   const onSubmit = (data) => {
