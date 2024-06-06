@@ -5,11 +5,11 @@ export const backendassetUrl="http://localhost:7980/"
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
 
-// export const baseUrl="http://192.168.0.116:7980"
-// export const backendassetUrl="http://192.168.0.116:7980/"
+export const baseUrl="http://192.168.0.124:7980"
+export const backendassetUrl="http://192.168.0.124:7980/"
 
-// export const baseUrl="http://192.168.0.128:7980"
-// export const backendassetUrl="http://192.168.0.128:7980/"
+// export const baseUrl="http://192.168.29.236:7980"
+// export const backendassetUrl="http://192.168.29.236:7980/"
 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
@@ -98,25 +98,26 @@ export const Urls={
     admin_invoiceSSID:"/finance/ssId",
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
+
     admin_claim_type:"/expenses/ClaimType",
+    admin_claim_type_unit_rate:"/expenses/unitRate",
+    admin_claim_type_designation:"/expenses/ClaimTypeDesignation",
+    admin_expense_advance:"/expenses/claimTypeRole",
+    expAdv_fill_expense:"/expenses/fillExpense",
+    expAdv_fill_advance:"/expenses/fillAdvance",
+    expAdv_project_details:"/expenses/projectDetails",
+    expAdv_siteId:"/expenses/projectSite",
+    expAdv_taskName:"/expenses/projectSiteTask",
+    expAdv_unitRate_claimType:"/expenses/unitRateClaimType",
+    expAdv_L1Data:"/approval/l1Approval",
+    expAdv_L1AdvanceData:"/Advance/approval/l1Approval",
+    expAdv_L2Data:"/approval/l2Approval",
+    expAdv_L2AdvanceData:"/Advance/approval/l2Approval",
+    expAdv_L3Data:"/approval/financeApprover",
+    expAdv_L3AdvanceData:"/Advance/approval/l3Approval",
+    expAdv_Approval:"/approval/status",
 
 
-
-
-    filter_project_circle:'/filter/project/circle',
-    filter_project_projectId:'/filter/project/projectId',
-    filter_project_projectGroup:'/filter/project/projectGroup',
-    filter_project_projectType:'/filter/project/projectType',
-    filter_project_projectManager:'/filter/project/projectManager',
-
-    filter_site_subProject:'/filter/site/subProject',
-
-    filter_financial_poManagement_customer:'/filter/financial/pomanagement/customer',
-    filter_financial_poManagement_projectGroup:'/filter/financial/pomanagement/projectGroup',
-    filter_financial_poManagement_projectId:'/filter/financial/pomanagement/projectId',
-
-    filter_financial_RevenueManagement_customer:'/filter/financial/revenueManagement/customer',
-    filter_financial_RevenueManagement_projectGroup:'/filter/financial/revenueManagement/projectGroup',
 
 }
 

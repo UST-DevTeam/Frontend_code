@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageClaimTypeForm from '../../../../pages/PMIS/Admin/ManageClaimType/ManageClaimTypeForm'
+import ManageCircleForm from '../../../../pages/PMIS/Admin/ManageCircle/ManageCircleForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -14,16 +14,18 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
+import ManageClaimTypeUnitRateForm from './ManageClaimTypeUnitRateForm';
 
-const ManageClaimType = () => {
+const ManageClaimTypeUnitRate = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+
+
 
     let dispatch = useDispatch()
 
@@ -35,25 +37,22 @@ const ManageClaimType = () => {
       }).replace(/\//g, '-')
     
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimType || [""]
+        let interdata = state?.adminData?.getManageClaimTypeUnitRate || [""]
         return interdata?.map((itm) => {
-            let categoriesArray = itm.categories ? itm.categories.split(',') : [];
             let updateditm = {
                 ...itm,
 
-                categories: categoriesArray.join(', '),
+                unitRate: `${itm.unitRate}/km`, 
 
-                
-                
-                
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageClaimType())
-                    setmodalHead("Edit Claim Type")
+                    dispatch(AdminActions.getManageClaimTypeUnitRate())
+                    setmodalHead("Edit Unit Rate")
                     setmodalBody(<>
-                        <ManageClaimTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageClaimTypeUnitRateForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
+                    console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
@@ -63,12 +62,13 @@ const ManageClaimType = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_claim_type}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageClaimType())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_claim_type_unit_rate}/${itm.uniqueId}`, () => {
+                                    dispatch(AdminActions.getManageClaimTypeUnitRate())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-24' onClick={() => {
+                                console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],
@@ -82,7 +82,7 @@ const ManageClaimType = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimType
+        let interdata = state?.adminData?.getManageClaimTypeUnitRate
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -90,30 +90,21 @@ const ManageClaimType = () => {
         }
     })
 
+
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
     let table = {
         columns: [
             {
-                name: "Claim Type",
-                value: "claimType",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
-                name: "Short Code",
-                value: "shortCode",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
-            {
                 name: "Category",
                 value: "categories",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            },
             {
-                name: "Attachment",
-                value: "attachment",
+                name: "Unit Rate",
+                value: "unitRate",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            },         
             {
                 name: "Edit",
                 value: "edit",
@@ -143,17 +134,17 @@ const ManageClaimType = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageClaimType(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageClaimTypeUnitRate(value, objectToQueryString(data)))
     }
 
     useEffect(() => {
-        dispatch(AdminActions.getManageClaimType())
+        dispatch(AdminActions.getManageClaimTypeUnitRate())
     }, [])
 
     const onTableViewSubmit = (data) => { 
-        data["fileType"]="ManageClaimType"
+        data["fileType"]="ManageCircle"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageClaimType())
+            dispatch(AdminActions.getManageClaimTypeUnitRate())
             setFileOpen(false)
         }))
     }
@@ -161,14 +152,16 @@ const ManageClaimType = () => {
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageClaimType())
-                setmodalHead("New Claim Type")
-                setmodalBody(<ManageClaimTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalHead("New Unit Rate")
+                setmodalBody(<ManageClaimTypeUnitRateForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Claim Type"}></Button>
+                name={"Add Unit Rate"}>                  
+                </Button>
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
-                }}></Button> */}
+                }}>
+
+                </Button> */}
                 </div>}
             table={table}
             // templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
@@ -193,4 +186,4 @@ const ManageClaimType = () => {
 
 };
 
-export default ManageClaimType;
+export default ManageClaimTypeUnitRate;

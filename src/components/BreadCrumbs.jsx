@@ -57,6 +57,10 @@ const BreadCrumbs = () => {
       "name":"Project Management",
       "url":"/manageCustomer"
     },
+    "home":{
+      "name":"My Home",
+      "url":"/home"
+    },
     "hr":{
       "name":"Human Resource",
       "url":"/hr"
@@ -77,6 +81,10 @@ const BreadCrumbs = () => {
     "superAdmin":{
       "name":"Super Admin",
       "url":"/hr/superAdmin"
+    },
+    "claimType":{
+      "name":"Claim Type",
+      "url":"/hr/superAdmin/claimType"
     },
     "financial":{
       "name":"Financial",
@@ -105,6 +113,14 @@ const BreadCrumbs = () => {
     "workdoneForecast":{
       "name":"Work Done Forecast",
       "url":"/forms/workdoneForecast",
+    },
+    "claimAndAdvance":{
+      "name":"Claim And Advance",
+      "url":"/home/claimAndAdvance",
+    },
+    "approverCards":{
+      "name":"Approval",
+      "url":"/home/approverCards",
     },
   }
   
