@@ -1,7 +1,11 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_EARNVALUE_MGMT_FINANCIAL, } from "../reducers/formss-reducer"
+import { 
+    GET_EARNVALUE_MGMT_FINANCIAL,
+    GET_EVM_DELIVERY,
+    } 
+    from "../reducers/formss-reducer"
 
 
 const FormssActions = {
@@ -66,6 +70,71 @@ const FormssActions = {
             } else {
                 let dataAll = res?.data?.data
                 dispatch(GET_EARNVALUE_MGMT_FINANCIAL({ dataAll, reset:true }))
+                let msgdata = {
+                    show: true,
+                    icon: "success",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    getEVMDelivery: (projectId,reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.formss_EVM_delivery +'/'+projectId}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EVM_DELIVERY({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    postEVMDelivery: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.formss_EVM_delivery })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_EVM_DELIVERY({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+    putEVMDelivery: (data, cb) => async (dispatch, _) => {
+        try {
+            console.log("adfasfasfasasfadfsa",data);
+            const res = await Api.put({ data: data, url: Urls.formss_EVM_delivery })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_EVM_DELIVERY({ dataAll, reset:true }))
                 let msgdata = {
                     show: true,
                     icon: "success",

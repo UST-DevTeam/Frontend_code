@@ -24,6 +24,7 @@ import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 
 import { UilSearch } from "@iconscout/react-unicons";
+import ActualWorkdoneForm from "./ActualWorkdoneForm";
 
 const ActualWorkdone = () => {
   const currentMonth = new Date().getMonth() + 1;
@@ -84,7 +85,7 @@ const ActualWorkdone = () => {
 
   console.log("afasfasdfasfafasdfasfafd",year);
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getEVMDelivery || [];
     console.log("asdfasfasfafdadsfafd",interdata);
     return interdata?.map((itm) => {
       let updateditm = {
@@ -101,11 +102,11 @@ const ActualWorkdone = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  // dispatch(FormssActions.getEarnValueMgmtFinancial(true));
-                  setmodalHead("Edit Plan");
+                  dispatch(FormssActions.getEVMDelivery(true));
+                  setmodalHead("Edit Actual");
                   setmodalBody(
                     <>
-                      <EarnValueMgmtForm
+                      <ActualWorkdoneForm
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
@@ -139,10 +140,10 @@ const ActualWorkdone = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`,
+                              `${Urls.formss_EVM_delivery}/${itm.uniqueId}`,
                               () => {
                                 dispatch(
-                                  FormssActions.getEarnValueMgmtFinancial()
+                                  FormssActions.getEVMDelivery()
                                 );
                                 dispatch(ALERTS({ show: false }));
                               }
@@ -172,7 +173,7 @@ const ActualWorkdone = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getEVMDelivery || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -233,7 +234,7 @@ const ActualWorkdone = () => {
     columns: [
       {
         name: "Circle",
-        value: "circle",
+        value: "circleName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -414,11 +415,11 @@ const ActualWorkdone = () => {
     console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
+    dispatch(FormssActions.getEVMDelivery(value, objectToQueryString(data)));
   };
   useEffect(() => {
     dispatch(
-      FormssActions.postEarnValueMgmtFinancial(
+      FormssActions.postEVMDelivery(
         {
           viewBy: extraColumns.join(","),
           year: `${currrentYear}`,
@@ -537,7 +538,7 @@ const ActualWorkdone = () => {
           {
             name: `PV Target (${monthMap[index]} ${year})`,
             // value: "M-"+index+"_y",
-            // value: "plan-"+index+"",
+            value: "plan-"+index+"",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
@@ -594,7 +595,7 @@ const ActualWorkdone = () => {
         }));
       }
 
-      dispatch(FormssActions.postEarnValueMgmtFinancial(res, () => {}));
+      dispatch(FormssActions.postEVMDelivery(res, () => {}));
     } catch (error) {
       console.error("[ERROR] :: " + error.message);
     }

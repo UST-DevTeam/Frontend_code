@@ -11,8 +11,8 @@
 // export const baseUrl="http://192.168.0.115:7978"
 // export const backendassetUrl="http://192.168.0.115:7978/"
 
-export const baseUrl="http://192.168.0.118:7978"
-export const backendassetUrl="http://192.168.0.118:7978/"
+export const baseUrl="http://192.168.1.107:7978"
+export const backendassetUrl="http://192.168.1.107:7978/"
 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
@@ -99,6 +99,7 @@ export const Urls={
     admin_invoiceSSID:"/finance/ssId",
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
+    formss_EVM_delivery:"/forms/EVMActual",
     admin_claim_type:"/expenses/ClaimType",
 
 
