@@ -28,6 +28,7 @@ import RoleManagement from "../pages/Admin/RoleManagement/RoleManagement";
 import Registration from "../pages/Registration";
 import Cart from "../pages/Cart";
 import Carts from "../pages/Carts";
+import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import InvestmentDiscovery from "../pages/Investment/InvestmentDiscovery";
 import Kycregister from "../pages/Kycregister";
@@ -60,12 +61,15 @@ import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
 import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
+import MyHome from "../pages/PMIS/MyHome/Home";
 import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
 import PersonalInfo from "../pages/PMIS/MyHome/PersonalInfo";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
 import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
 // import Home from "../pages/PMIS/MyHome/Home"
+
+import Claim from "../pages/PMIS/MyHome/Claim";
 import Asset from "../pages/PMIS/MyHome/Asset";
 import AssetRegistration from "../pages/PMIS/Admin/AssetRegistration/AssetRegistration";
 import SuperAdmin from "../pages/PMIS/HR/SuperAdmin";
@@ -80,6 +84,7 @@ import ManageDepartment from "../pages/PMIS/Admin/ManageDepartment/ManageDepartm
 import ManageDesignation from "../pages/PMIS/Admin/ManageDesignation/ManageDesignation";
 import ManageProfile from "../pages/PMIS/Admin/ManageProfile(userrole)/ManageProfile";
 import ManageProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteId";
+import ExpenseAndAdvance from "../pages/PMIS/MyHome/ExpenseAndAdvance";
 import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
 import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
 import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
@@ -297,6 +302,12 @@ export const Sidebar_content = {
       link: "/hr/empdetailstable",
       subMenu: [],
       component: <EmpDetailsTable />,
+    },
+    {
+      name: "",
+      link: "/hr/expenseAdvance",
+      subMenu: [],
+      component: <ExpenseAndAdvance />,
     },
     {
       name: "",

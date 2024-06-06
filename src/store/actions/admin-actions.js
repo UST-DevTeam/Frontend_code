@@ -355,7 +355,6 @@ const AdminActions = {
             const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            console.log('hshshshsh',res.data)
             dispatch(GET_PROJECT({dataAll,reset}))
         } catch (error) {
         }

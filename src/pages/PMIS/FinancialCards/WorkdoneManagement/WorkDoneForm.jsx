@@ -12,9 +12,13 @@ import FinanceActions from "../../../../store/actions/finance-actions";
 import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
 import { Form } from "react-router-dom";
 
+import { objectToQueryString } from "../../../../utils/commonFunnction";
+
 const WorkDoneForm = ({
+  // setupDatq,
   setcallSt,
   callSt,
+  setcurrentPage,
   isOpen,
   setIsOpen,
   resetting,
@@ -36,15 +40,54 @@ const WorkDoneForm = ({
 
   let dispatch = useDispatch();
 
+  // let ItemCodeList = [];
+  // if (callSt) {
+  //   useSelector((state) => {
+  //     return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
+  //       ItemCodeList.push({
+  //         label: itm?.ItemCode,
+  //         value: itm?.ItemCode,
+  //       })
+  //     });
+  //   });
+  // }
   let ItemCodeList = useSelector((state) => {
     return state?.financeData?.getPOWorkDoneItemCode?.map((itm) => {
       return {
         label: itm?.ItemCode,
         value: itm?.ItemCode,
-      }
+      };
     });
   });
 
+  // let ItemCodeList = useSelector((state) => {
+  //   return state?.financeData?.getPOWorkDoneBased
+  //     ?.map((itm) => {
+  //       return itm?.commercialResult?.Commercial?.map((item) => ({
+  //         label: item?.ItemCode,
+  //         value: item?.ItemCode,
+  //       }));
+
+  //     })
+  // });
+
+  //   let ItemCodeList = useSelector((state) => {
+  //     return state?.financeData?.getPOWorkDoneBased
+  //       ?.flatMap((itm) => {
+  //         return itm?.commercialResult?.Commercial?.map((item) => {
+  //           console.log(item, "==================================");
+  //           return {
+  //             label: item?.ItemCode,
+  //             value: item?.ItemCode,
+  //           };
+  //         }) || [];
+  //       }) || [];
+
+  // }).filter((item, index, self) =>
+  //     index === self.findIndex((t) => (
+  //         t.value === item.value
+  //     ))
+  // );
 
   let inwoForm = [
     {
@@ -65,7 +108,7 @@ const WorkDoneForm = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: -2,
+        min: 0,
         onChange: (e) => {},
       },
       classes: "col-span-1",
@@ -257,9 +300,7 @@ const WorkDoneForm = ({
     },
   ];
 
-  let cForm = [
-    
-  ];
+  let cForm = [];
 
   console.log(
     ["", "", "", "", "", "", ""].map((itwq, index) => {
@@ -291,6 +332,11 @@ const WorkDoneForm = ({
   };
 
   const onTableViewSubmit = (data) => {
+    
+    const page = sessionStorage.getItem("page") || 1
+    // setupDatq(prev=>!prev)
+    // setcurrentPage(1)
+    
     if (formValue.uniqueId) {
       dispatch(
         FinanceActions.postPOWorkDoneBased(
@@ -298,7 +344,7 @@ const WorkDoneForm = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(FinanceActions.getPOWorkDoneBased());
+            dispatch(FinanceActions.getPOWorkDoneBased(true , {} , objectToQueryString({page})));
           },
           formValue.uniqueId
         )

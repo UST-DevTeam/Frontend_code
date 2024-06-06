@@ -2,29 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
-import ManageCustomerForm from "../../../PMIS/Admin/ManageCustomer/ManageCustomerForm";
-import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal";
-import Button from "../../../../components/Button";
-import DeleteButton from "../../../../components/DeleteButton";
-import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
-import {
-  getAccessType,
-  objectToQueryString,
-} from "../../../../utils/commonFunnction";
-import { ALERTS } from "../../../../store/reducers/component-reducer";
-import CommonActions from "../../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
-import AdminActions from "../../../../store/actions/admin-actions";
-import { useNavigate, useParams } from "react-router-dom";
-import CCDash from "../../../../components/CCDash";
-import ConditionalButton from "../../../../components/ConditionalButton";
+import EditButton from "../../../components/EditButton";
+import ManageCustomerForm from "../../PMIS/Admin/ManageCustomer/ManageCustomerForm";
+import AdvancedTable from "../../../components/AdvancedTable";
+import Modal from "../../../components/Modal";
+import Button from "../../../components/Button";
+import DeleteButton from "../../../components/DeleteButton";
+import CstmButton from "../../../components/CstmButton";
+import ToggleButton from "../../../components/ToggleButton";
+import { objectToQueryString } from "../../../utils/commonFunnction";
+import { ALERTS } from "../../../store/reducers/component-reducer";
+import CommonActions from "../../../store/actions/common-actions";
+import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
+import OperationManagementActions from "../../../store/actions/admin-actions";
+import MyHomeActions from "../../../store/actions/myHome-actions";
+import ComponentActions from "../../../store/actions/component-actions";
 
-import ComponentActions from "../../../../store/actions/component-actions";
-const ManageCustomer = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import CCDash from "../../../components/CCDash";
+
+const MyHome = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
@@ -34,31 +31,14 @@ const ManageCustomer = () => {
 
   let navigate = useNavigate();
 
-  const currentDate = new Date();
-  const dt = currentDate
-    .toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
-    .replace(/\//g, "-");
-
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
-    let interdata = state?.adminData?.getManageCustomer;
+    let interdata = state?.myHomeData?.getMyHome;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
 
-        imgshow: (
-          <div className="flex justify-center items-center">
-            <img
-              src={backendassetUrl + itm?.companyimg}
-              className="w-24 h-14 content-center flex object-contain"
-            />
-          </div>
-        ),
-        shortName: <span className="text-[#143b64]">{itm.shortName}</span>,
+        imgshow: <img src={backendassetUrl + itm?.companyimg} />,
         // "status": <CstmButton child={<ToggleButton onChange={(e) => {
         //     console.log(e.target.checked, "e.target.checked")
         //     let data = {
@@ -84,7 +64,7 @@ const ManageCustomer = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(AdminActions.getManageCustomer());
+                  dispatch(MyHomeActions.getMyHome());
                   setmodalHead("Edit Customer Details");
                   setmodalBody(
                     <>
@@ -118,9 +98,9 @@ const ManageCustomer = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.admin_customer}/${itm.uniqueId}`,
+                              `${Urls.MyHome}/${itm.uniqueId}`,
                               () => {
-                                dispatch(AdminActions.getManageCustomer());
+                                dispatch(MyHomeActionsActions.getMyHome());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -145,20 +125,31 @@ const ManageCustomer = () => {
           />
         ),
 
-        // "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-        //     setmodalOpen(true)
-        //     setmodalHead("Show PDF")
-        //     setmodalBody(<>
-
-        //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //     </>)
-        // }}></Button>} />,
+        view: (
+          <CstmButton
+            className={"p-5"}
+            child={
+              <Button
+                name={""}
+                onClick={() => {
+                  setmodalOpen(true);
+                  setmodalHead("Show PDF");
+                  setmodalBody(
+                    <>
+                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>
+                  );
+                }}
+              ></Button>
+            }
+          />
+        ),
       };
       return updateditm;
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.adminData?.getManageCustomer;
+    let interdata = state?.myHomeData?.getMyHome;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -184,32 +175,32 @@ const ManageCustomer = () => {
       {
         name: "Logo",
         value: "imgshow",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white z-20",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
         name: "Customer Name",
         value: "customerName",
-        style: "min-w-[140px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white",
       },
       {
         name: "Short Name",
         value: "shortName",
-        style: "min-w-[100px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Contact Person name",
         value: "personName",
-        style: "min-w-[160px] max-w-[450px] text-center",
+        style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Email ID",
         value: "email",
-        style: "min-w-[190px] max-w-[450px] text-center",
+        style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Mobile No.",
         value: "mobile",
-        style: "min-w-[110px] max-w-[450px] text-center",
+        style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Address",
@@ -219,7 +210,7 @@ const ManageCustomer = () => {
       {
         name: "Status",
         value: "status",
-        style: "min-w-[100px] max-w-[450px] text-center",
+        style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Edit",
@@ -231,11 +222,11 @@ const ManageCustomer = () => {
         value: "delete",
         style: "min-w-[100px] max-w-[100px] text-center",
       },
-      // {
-      //     name: "View",
-      //     value: "view",
-      //     style: "min-w-[100px] max-w-[100px] text-center"
-      // }
+      {
+        name: "View",
+        value: "view",
+        style: "min-w-[100px] max-w-[100px] text-center",
+      },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -251,23 +242,36 @@ const ManageCustomer = () => {
       // }
     ],
   };
+
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)));
+    dispatch(MyHomeActions.getMyHome(value, objectToQueryString(data)));
   };
+
+  const navigateToRoute = (uniqueId) => {
+    if (uniqueId === 101) {
+      navigate("/personalInfo");
+    } else if (uniqueId === 102) {
+      navigate("/claim&Reimbursement");
+    } else if (uniqueId === 103) {
+      navigate("/assets");
+    } else if (uniqueId === 104) {
+      navigate("/approvals");
+    } else if (uniqueId === 105) {
+      navigate("/approvals");
+    }
+  };
+
   useEffect(() => {
-    dispatch(AdminActions.getManageCustomer());
+    dispatch(MyHomeActions.getMyHome());
 
-
-    dispatch(ComponentActions.breadcrumb("Project Management", "/manageCustomer", 0, true));
+    dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
   }, []);
-
   return type ? (
     <>
       <div className="flex p-2">
-        <ConditionalButton
-          showType={getAccessType("Customer Page View")}
+        <Button
           classes="w-auto"
           onClick={() => {
             settype(false);
@@ -279,7 +283,6 @@ const ManageCustomer = () => {
         headerButton={
           <>
             <Button
-              classes="mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 // dispatch(OperationManagementActions.getOperationUserList())
@@ -293,16 +296,11 @@ const ManageCustomer = () => {
                   />
                 );
               }}
-              name={"Add Customer"}
+              name={"Add New"}
             ></Button>
           </>
         }
         table={table}
-        // templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
-        exportButton={[
-          "/export/manageCustomer",
-          "Export_Customer(" + dt + ").xlsx",
-        ]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -315,7 +313,7 @@ const ManageCustomer = () => {
       />
 
       <Modal
-        size={"sm"}
+        size={"lg"}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
@@ -342,36 +340,35 @@ const ManageCustomer = () => {
             } settype={settype} nextNavigate={"/projectType"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' /> */}
 
       <CCDash
+        showbtn={false}
         approveddata={dbConfigList?.map((itm) => {
           return (
             <>
               <div
                 className="bg-gradient-to-r from-indigo-500/50 to-green-500/50 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  "
                 onClick={() => {
+
                   dispatch(
-                    ComponentActions.globalUrlStore(itm["customerName"], `${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
+                    ComponentActions.globalUrlStore(
+                      itm["name"],
+                      itm.uniqueId
+                    )
                   );
-                  navigate(`${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`);
+                  dispatch(
+                    ComponentActions.breadcrumb(itm["name"], itm.uniqueId, 1, false)
+                  );
+                  navigateToRoute(itm.uniqueId);
                 }}
               >
-                {itm["companyimg"] && itm["companyimg"] != "" && (
-                  <>
-                    <img
-                      className="m-auto w-16"
-                      src={backendassetUrl + itm["companyimg"]}
-                    />
-                  </>
-                )}
-                <div className="m-auto ">{itm["customerName"]}</div>
+                {/* {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>} */}
+                <div className="m-auto">{itm["name"]}</div>
               </div>
             </>
           );
         })}
-        settype={settype}
-        label="Add/Modify Customer"
       />
     </>
   );
 };
 
-export default ManageCustomer;
+export default MyHome;

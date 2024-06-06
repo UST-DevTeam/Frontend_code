@@ -28,35 +28,80 @@ const EarnValueMgmtForm = ({
 
   let dispatch = useDispatch();
 
-  const projectList = useSelector((state) => {
-    return state?.adminData?.getProject.map((itm) => {
-      return {
-        label: itm?.projectId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+  // const projectList = useSelector((state) => {
+  //   return state?.adminData?.getProject.map((itm) => {
+  //     return {
+  //       label: itm?.projectId,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
+
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const getPreviousCurrentAndNextMonth = () => {
+      const currentDate = new Date();
+      const currentMonthIndex = currentDate.getMonth();
+      const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
+      const nextMonthIndex = (currentMonthIndex + 1) % 12;
+      const currentYear = currentDate.getFullYear();
+      const previousMonthYear = currentMonthIndex === 0 ? currentYear - 1 : currentYear;
+      const nextMonthYear = currentMonthIndex === 11 ? currentYear + 1 : currentYear;
+
+      return [
+          { month: months[previousMonthIndex], year: previousMonthYear },
+          { month: months[currentMonthIndex], year: currentYear },
+          { month: months[nextMonthIndex], year: nextMonthYear }
+      ];
+  };
+
+  const [previousMonthData, currentMonthData, nextMonthData] = getPreviousCurrentAndNextMonth();
 
   let Form = [
     {
-      label: "Plan",
+      label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
       value: "",
-      name: "plan",
-      type: "text",
-      required: true,
+      name: 'plan1',
+      type: "number",
       filter: true,
       props: {
+        valueAsNumber:true,
+        min: 0,
         onChange: (e) => {},
       },
       classes: "col-span-1",
     },
     {
-      label: "Project ID",
-      type: "autoSuggestion",
-      name: "projectId",
-      option: projectList,
-      props: {},
+      label: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
+      value: "",
+      name: 'plan2',
+      type: "number",
+      props: {
+        valueAsNumber:true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
     },
+    {
+      label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
+      value: "",
+      name: 'plan3',
+      type: "number",
+      props: {
+        valueAsNumber:true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    // {
+    //   label: "Project ID",
+    //   type: "autoSuggestion",
+    //   name: "projectId",
+    //   option: projectList,
+    //   props: {},
+    // },
   ];
   const {
     register,
@@ -78,7 +123,7 @@ const EarnValueMgmtForm = ({
     // dasdsadsadasdas
     if (formValue.uniqueId) {
       dispatch(
-        FormssActions.formss_earnValue_mgmt_financial(
+        FormssActions.postEarnValueMgmtFinancial(
           true,
           data,
           () => {
@@ -91,7 +136,7 @@ const EarnValueMgmtForm = ({
       );
     } else {
       dispatch(
-        FormssActions.formss_earnValue_mgmt_financial(true, data, () => {
+        FormssActions.postEarnValueMgmtFinancial(true, data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(FormssActions.getEarnValueMgmtFinancial());
@@ -102,7 +147,7 @@ const EarnValueMgmtForm = ({
   console.log(Form, "Form 11");
   useEffect(() => {
     console.log("formValue in useEffect:", formValue);
-    dispatch(FormssActions.getEarnValueMgmtFinancial());
+    // dispatch(FormssActions.getEarnValueMgmtFinancial());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

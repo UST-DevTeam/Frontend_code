@@ -36,7 +36,6 @@ instance.interceptors.request.use((request) => {
 
 instance.interceptors.response.use((response) => {
     store.dispatch(ComponentActions.loaders(false))
-    console.log(response, "responseresponseresponse")
     return response
 }, (error) => {
     store.dispatch(ComponentActions.loaders(false))

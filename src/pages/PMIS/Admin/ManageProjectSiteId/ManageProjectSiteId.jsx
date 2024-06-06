@@ -40,6 +40,7 @@ import NewLookBadge from "../../../../components/Badge";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
+import FilterActions from "../../../../store/actions/filter-actions";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -48,7 +49,7 @@ const ManageProjectSiteId = () => {
   // console.log(permission?.pmpermission,"permission")
   // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
 
-  console.log(getAccessType("Add Site"), "getAccessType");
+  // console.log(getAccessType("Add Site"), "getAccessType");
   const { projectuniqueId } = useParams();
 
   const [modalOpen, setmodalOpen] = useState(false);
@@ -77,7 +78,6 @@ const ManageProjectSiteId = () => {
     getValues,
     formState: { errors },
   } = useForm();
-  
   let dispatch = useDispatch();
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub;
@@ -87,6 +87,15 @@ const ManageProjectSiteId = () => {
     }
     console.log(oldata, "olddataolddataolddata");
     return state.projectList.getProjectTypeSub;
+  });
+
+  let subProjectList = useSelector((state) => {
+    return state?.filterData?.getSiteSubProject.map((itm) => {
+      return {
+        label: itm.subproject,
+        value: itm.subproject,
+      };
+    });
   });
   // const onTaskSubmit = (data) => {
   //     // if (siteStatus.uniqueId) {
@@ -843,9 +852,9 @@ const ManageProjectSiteId = () => {
     filter: [
       // {
       //     label: "Role",
-      //     type: "select",
+      //     type: "text",
       //     name: "rolename",
-      //     option: roleList,
+      //     // option: roleList,
       //     props: {
       //     }
       // }
@@ -941,20 +950,20 @@ const ManageProjectSiteId = () => {
         value: "siteBillingStatus",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Event Logs",
-        value: "siteeventLogs",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Event Logs",
+      //   value: "siteeventLogs",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Edit",
+      //   value: "edit",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
       {
         name: "Delete",
         value: "delete",
-        style: "min-w-[100px] max-w-[200px] text-center",
+        style: "min-w-[50px] max-w-[100px] text-center",
       },
     ],
     childList: [""],
@@ -1023,20 +1032,20 @@ const ManageProjectSiteId = () => {
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
-        {
-          name: "Event Logs",
-          value: "eventLogsmilestone",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
-        {
-          name: "Edit",
-          value: "editing",
-          style: "min-w-[100px] max-w-[200px] text-center",
-        },
+        // {
+        //   name: "Event Logs",
+        //   value: "eventLogsmilestone",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
+        // {
+        //   name: "Edit",
+        //   value: "editing",
+        //   style: "min-w-[100px] max-w-[200px] text-center",
+        // },
         {
           name: "Delete",
           value: "deleteing",
-          style: "min-w-[100px] max-w-[200px] text-center",
+          style: "min-w-[50px] max-w-[100px] text-center",
         },
       ],
     },
@@ -1044,136 +1053,164 @@ const ManageProjectSiteId = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      {
+          label: "Site ID",
+          type: "text",
+          name: "siteId",
+          props: {}
+      },
+      {
+        label: "Sub Project",
+        type: "select",
+        name: "subProject",
+        option:subProjectList,
+        props: {}
+      },
+      {
+          label: "Site Status",
+          type: "select",
+          name: "siteStatus",
+          option: [
+            { label: "Open", value: "Open" },
+            { label: "Closed", value: "Closed" },
+            { label: "Drop", value: "Drop" },
+          ],
+          props: {}
+      },
+      {
+          label: "Billing Status",
+          type: "select",
+          name: "siteBillingStatus",
+          option:[
+            {label:'Unbilled', value:'Unbilled'},
+            {label:'Billed', value:'Billed'},
+          ],
+          props: {}
+      }
     ],
   };
   const onSubmit = (data) => {
     // console.log("   ", data)
     let value = data.reseter;
-    delete data.reseter;
+    // delete data.reseter;
+    console.log("called______")
     dispatch(
-      projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data))
+      projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),value)
     );
   };
   useEffect(() => {
     dispatch(projectListActions.getProjectType(projectuniqueId));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+    dispatch(FilterActions.getSiteSubProject(projectuniqueId));
   }, []);
   return (
     <>
       <AdvancedTableExpandable
-        searchView={
-          <>
-            <SearchBarView
-              onblur={(e) => {
-                console.log("SearchBarView onblur", e.target.value);
-                dispatch(
-                  projectListActions.getProjectTypeAll(
-                    projectuniqueId,
-                    e.target.value != ""
-                      ? "mileStoneName=" + e.target.value
-                      : ""
-                  )
-                );
-              }}
-              onchange={(e) => {
-                dispatch(
-                  projectListActions.getProjectTypeAll(
-                    projectuniqueId,
-                    e.target.value != ""
-                      ? "mileStoneName=" + e.target.value
-                      : ""
-                  )
-                );
-                console.log("SearchBarView onchange", e.target.value);
-              }}
-              placeHolder={"S Milestone Name"}
-            />
+        // searchView={
+        //   <>
+        //     <SearchBarView
+        //       onblur={(e) => {
+        //         console.log("SearchBarView onblur", e.target.value);
+        //         dispatch(
+        //           projectListActions.getProjectTypeAll(
+        //             projectuniqueId,
+        //             e.target.value != ""
+        //               ? "mileStoneName=" + e.target.value
+        //               : ""
+        //           )
+        //         );
+        //       }}
+        //       onchange={(e) => {
+        //         dispatch(
+        //           projectListActions.getProjectTypeAll(
+        //             projectuniqueId,
+        //             e.target.value != ""
+        //               ? "mileStoneName=" + e.target.value
+        //               : ""
+        //           )
+        //         );
+        //         console.log("SearchBarView onchange", e.target.value);
+        //       }}
+        //       placeHolder={"S Milestone Name"}
+        //     />
 
-            {/* <ConditionalButton
-              showType={getAccessType("Site Allocation")}
-              classes="w-auto "
-              onClick={(e) => {
-                if (parentsite.length > 0) {
-                  setmodalOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
-                  dispatch(
-                    projectListActions.getUserAllocatedProject(
-                      true,
-                      projectuniqueId
-                    )
-                  );
-                  setmodalHead("Allocate Site");
-                  setmodalBody(
-                    <AllocateProjectForm
-                      from={"bulksite"}
-                      listsite={parentsite}
-                      projectuniqueId={projectuniqueId}
-                      isOpen={modalOpen}
-                      setIsOpen={setmodalOpen}
-                      resetting={false}
-                      formValue={{}}
-                    />
-                  );
-                } else {
-                  let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: "Please Select at least one site for bulk allocate",
-                  };
-                  dispatch(ALERTS(msgdata));
-                }
-              }}
-              name={"Site Allocate"}
-            ></ConditionalButton> */}
+        //     {/* <ConditionalButton
+        //       showType={getAccessType("Site Allocation")}
+        //       classes="w-auto "
+        //       onClick={(e) => {
+        //         if (parentsite.length > 0) {
+        //           setmodalOpen((prev) => !prev);
+        //           // dispatch(AdminActions.getProject())
+        //           dispatch(
+        //             projectListActions.getUserAllocatedProject(
+        //               true,
+        //               projectuniqueId
+        //             )
+        //           );
+        //           setmodalHead("Allocate Site");
+        //           setmodalBody(
+        //             <AllocateProjectForm
+        //               from={"bulksite"}
+        //               listsite={parentsite}
+        //               projectuniqueId={projectuniqueId}
+        //               isOpen={modalOpen}
+        //               setIsOpen={setmodalOpen}
+        //               resetting={false}
+        //               formValue={{}}
+        //             />
+        //           );
+        //         } else {
+        //           let msgdata = {
+        //             show: true,
+        //             icon: "error",
+        //             buttons: [],
+        //             type: 1,
+        //             text: "Please Select at least one site for bulk allocate",
+        //           };
+        //           dispatch(ALERTS(msgdata));
+        //         }
+        //       }}
+        //       name={"Site Allocate"}
+        //     ></ConditionalButton> */}
 
-            {/* <PopupMenu
-              name={"Export"}
-              icon={"Export"}
-              classes={"w-auto"}
-              bgColor={"bg-[#147b99]"}
-              child={
-                <div classes="z-40 max-h-96 justify-center">
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Site")}
-                    name={"Export"}
-                    classes="w-auto m-5"
-                    onClick={(e) => {
-                      dispatch(
-                        CommonActions.commondownload(
-                          "/export/siteId/" + `${projectuniqueId}`,
-                          "Export_Sites.xlsx"
-                        )
-                      );
-                    }}
-                  ></ConditionalButton>
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Task")}
-                    name={"Export with Task"}
-                    classes="w-auto m-5"
-                    onClick={(e) => {
-                      dispatch(
-                        CommonActions.commondownload(
-                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
-                          "Export_Sites_with_Milestone.xlsx"
-                        )
-                      );
-                    }}
-                  ></ConditionalButton>
-                </div>
-              }
-            /> */}
-          </>
-        }
+        //     {/* <PopupMenu
+        //       name={"Export"}
+        //       icon={"Export"}
+        //       classes={"w-auto"}
+        //       bgColor={"bg-[#147b99]"}
+        //       child={
+        //         <div classes="z-40 max-h-96 justify-center">
+        //           <ConditionalButton
+        //             showType={getAccessType("Bulk upload-Site")}
+        //             name={"Export"}
+        //             classes="w-auto m-5"
+        //             onClick={(e) => {
+        //               dispatch(
+        //                 CommonActions.commondownload(
+        //                   "/export/siteId/" + `${projectuniqueId}`,
+        //                   "Export_Sites.xlsx"
+        //                 )
+        //               );
+        //             }}
+        //           ></ConditionalButton>
+        //           <ConditionalButton
+        //             showType={getAccessType("Bulk upload-Task")}
+        //             name={"Export with Task"}
+        //             classes="w-auto m-5"
+        //             onClick={(e) => {
+        //               dispatch(
+        //                 CommonActions.commondownload(
+        //                   "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
+        //                   "Export_Sites_with_Milestone.xlsx"
+        //                 )
+        //               );
+        //             }}
+        //           ></ConditionalButton>
+        //         </div>
+        //       }
+        //     /> */}
+        //   </>
+        // }
         headerButton={
           <div className="flex gap-1">
             <ConditionalButton

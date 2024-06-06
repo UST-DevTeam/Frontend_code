@@ -18,6 +18,8 @@ import FileUploader from "../../../../components/FIleUploader";
 import AdminActions from "../../../../store/actions/admin-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import InvoiceForm from "../InvoiceManagement/InvoiceForm";
+import moment from "moment";
+import FilterActions from "../../../../store/actions/filter-actions";
 
 const Invoice = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -26,6 +28,7 @@ const Invoice = () => {
   const [selectAll, setSelectAll] = useState([]);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+  const endDate = moment().format("Y");
 
   let dispatch = useDispatch();
 
@@ -176,10 +179,39 @@ const Invoice = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+
+  let listYear = [];
+
+  for (let ywq = 2019; ywq <= +endDate; ywq++) {
+    listYear.push({'label':ywq,'value':ywq});
+  }
+
+  let monthList = [
+    {'label':'January', 'value':'January'},
+    {'label':'February', 'value':'February'},
+    {'label':'March', 'value':'March'},
+    {'label':'April', 'value':'April'},
+    {'label':'May', 'value':'May'},
+    {'label':'June', 'value':'June'},
+    {'label':'July', 'value':'July'},
+    {'label':'August', 'value':'August'},
+    {'label':'September', 'value':'September'},
+    {'label':'October', 'value':'October'},
+    {'label':'November', 'value':'November'},
+    {'label':'December', 'value':'December'},
+  ]
+
+  let customerList = useSelector((state) => {
+    return state?.filterData?.getfinancialRevenueManagementCustomer.map((itm) => {
+      return {
+        label: itm.customer,
+        value: itm.customer,
+      };
+    });
+  });
+
+
+
   const {
     register,
     handleSubmit,
@@ -354,14 +386,76 @@ const Invoice = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      {
+        label: "Year",
+        type: "select",
+        name: "year",
+        option:listYear,
+        props: {
+        }
+      },
+      {
+        label: "Month",
+        type: "select",
+        name: "month",
+        option:monthList,
+        props: {
+        }
+      },
+      {
+        label: "Customer",
+        type: "select",
+        name: "customer",
+        option:customerList,
+        props: {
+        }
+      },
+      {
+        label: "Project Group",
+        type: "text",
+        name: "projectGroup",
+        props: {
+        }
+      },
+      {
+        label: "Project ID",
+        type: "text",
+        name: "projectId",
+        props: {
+        }
+      },
+      {
+        label: "Site ID",
+        type: "text",
+        name: "siteId",
+        props: {
+        }
+      },
+      {
+        label: "WCC NO",
+        type: "text",
+        name: "wccNumber",
+        props: {
+        }
+      },
+      {
+        label: "Invoice No",
+        type: "text",
+        name: "invoiceNumber",
+        props: {
+        }
+      },
+      {
+        label: "Status",
+        type: "select",
+        name: "status",
+        option:[
+        {label:'Partially Billed',value:'Partially Billed'},
+        {label:'Billed',value:'Billed'},
+        ],
+        props: {
+        }
+      },
     ],
   };
   const onSubmit = (data) => {
@@ -372,6 +466,8 @@ const Invoice = () => {
   };
   useEffect(() => {
     dispatch(FinanceActions.getInvoice());
+    dispatch(FilterActions.getfinancialRevenueManagementCustomer());
+    dispatch(FilterActions.getfinancialRevenueManagementProjectGroup());
   }, []);
 
   const onTableViewSubmit = (data) => {

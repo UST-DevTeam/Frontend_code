@@ -284,11 +284,3 @@ svg {
   visibility: visible;
   opacity: 1;
 }
-
-th{
-  border: 2px solid;
-  padding: 20px; 
-  width: 300px;
-  resize: vertical;
-  overflow: auto;
-}

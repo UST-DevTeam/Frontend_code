@@ -31,7 +31,12 @@ const AccrualRevenue = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-
+                "prevMonthMS1":itm.MS1_p,
+                "prevMonthMS2":itm.MS2_p,
+                "currMonthMS1":itm.MS1_c,
+                "currMonthMS2":itm.MS2_c,
+                "prevamount":itm.amount_p,
+                "curramount":itm.amount_c,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(FinanceActions.getPOAccrualRevenue())
@@ -161,7 +166,7 @@ const AccrualRevenue = () => {
             },
             {
                 name: `Accrual (${previousMonthData.month} ${previousMonthData.year})`,
-                value: "prevAccrualDate",
+                value: "prevamount",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -176,7 +181,7 @@ const AccrualRevenue = () => {
             },
             {
                 name: `Accrual ${currentMonthData.month} ${currentMonthData.year}`,
-                value: "currAccrualDate",
+                value: "curramount",
                 style: "min-w-[140px] max-w-[200px] text-center"
             }               
                                           
@@ -196,12 +201,54 @@ const AccrualRevenue = () => {
         },
         filter: [
             {
-                label: "Accrual Year",
-                // type: "select",
-                // name: "currentYear",
+                label: "Customer",
+                type: "text",
+                name: "currentYear",
                 // option:YearList(2010),
-                // props: {},
-            }
+                props: {},
+            },
+            {
+                label: "Project Group",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Project Type",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Project ID",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Item Code",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Year",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
+            {
+                label: "Month",
+                type: "text",
+                name: "currentYear",
+                // option:YearList(2010),
+                props: {},
+            },
             
           ],
     }
@@ -224,6 +271,7 @@ const AccrualRevenue = () => {
             //     name={"Add New"}></Button></>}
             table={table}
             filterAfter={onSubmit}
+            exportButton={["/export/accrualRevenue","Export_Accrual_Revenue.xlsx"]}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
             data={dbConfigList}

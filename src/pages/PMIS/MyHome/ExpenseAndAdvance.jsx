@@ -13,14 +13,11 @@ import ToggleButton from "../../../components/ToggleButton";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
-import OperationManagementActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
-import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 
-const EmpDetailsTable = () => {
+const ExpenseAndAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
@@ -30,13 +27,6 @@ const EmpDetailsTable = () => {
   let dispatch = useDispatch();
 
   let navigate = useNavigate();
-
-  const currentDate = new Date();
-  const dt = currentDate.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    }).replace(/\//g, '-')
 
   const {
     register,
@@ -54,6 +44,25 @@ const EmpDetailsTable = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
+
+        // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
+        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
+        //     console.log(e.target.checked, "e.target.checked")
+        //     let data = {
+        //         "enabled": e.target.checked ? 1 : 0
+        //     }
+        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
+        //         // alert(e.target.checked)
+        //         e.target.checked = e.target.checked
+        //     }, itm.id))
+        //     // if(itm.enabled==0){
+        //     //     itm.enabled=1
+        //     // }else{
+        //     //     itm.enabled=0
+        //     // }
+        //     // itm.enabled=itm.enabled==0?1:0
+        //     console.log(itm.enabled, "itm.enabled")
+        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
         edit: (
           <CstmButton
             className={"p-2"}
@@ -61,7 +70,7 @@ const EmpDetailsTable = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
+                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
                   navigate(`/empdetails/${itm.uniqueId}`);
                   // dispatch(HrActions.getManageEmpDetails())
                   // setmodalHead("Edit Customer Details")
@@ -161,40 +170,50 @@ const EmpDetailsTable = () => {
   let table = {
     columns: [
       {
-        name: "Emp Name",
-        value: "empName",
-        style: "min-w-[200px] max-w-[200px] border-2 border-black text-center sticky left-0 bg-white",
+        name: "Circle",
+        value: "circle",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
-        name: "Emp Code",
-        value: "empCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-white",
+        name: "Emp ID",
+        value: "empId",
+        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
       },
       {
-        name: "Email ID",
-        value: "email",
+        name: "Claim Type",
+        value: "claimType",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "Mobile No.",
-        value: "mobile",
+        name: "Project Type",
+        value: "projectType",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Designation",
-        value: "designation",
+        name: "Expense Category",
+        value: "expenseCategory",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "PMIS Role",
-        value: "userRoleName",
+        name: "Expense ID",
+        value: "expenseId",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Status",
-        value: "status",
-        style: "min-w-[100px] max-w-[450px] text-center",
+        name: "Cost Center",
+        value: "costCenter",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
+      {
+        name: "Submission Date",
+        value: "date",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
+    //   {
+    //     name: "Status",
+    //     value: "status",
+    //     style: "min-w-[100px] max-w-[450px] text-center",
+    //   },
       {
         name: "Edit",
         value: "edit",
@@ -215,40 +234,20 @@ const EmpDetailsTable = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      {
-          label: "EMP Name",
-          type: "text",
-          name: "rolename",
-          props: {
-          }
-      },
-      {
-          label: "EMP Code",
-          type: "text",
-          name: "rolename",
-          props: {
-          }
-      },
-      {
-          label: "PMIS Role",
-          type: "text",
-          name: "rolename",
-          props: {
-          }
-      },
-      {
-          label: "Status",
-          type: "text",
-          name: "rolename",
-          props: {
-          }
-      },
+      // {
+      //     label: "Role",
+      //     type: "select",
+      //     name: "rolename",
+      //     option: roleList,
+      //     props: {
+      //     }
+      // }
     ],
   };
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(HrActions.getManageEmpDetails(false,value, objectToQueryString(data)));
+    dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)));
   };
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
@@ -257,7 +256,7 @@ const EmpDetailsTable = () => {
     data["fileType"] = "ManageEmployee";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(AdminActions.getManageEmpDetails());
+        dispatch(AdminActions.getManageCircle());
         setFileOpen(false);
         resetting("");
       })
@@ -269,24 +268,24 @@ const EmpDetailsTable = () => {
         headerButton={
           <div className="flex gap-1">
             {" "}
-            <Button
-              classes="w-auto"
-              onClick={() => {
-                navigate(`${"/empdetails"}`);
-              }}
-              name={"Add New"}
-            ></Button>
-            <Button
+            <Button onClick={(e) => {
+                setmodalOpen(prev => !prev)
+                // dispatch(OperationManagementActions.getOperationUserList())
+                setmodalHead("New User")
+                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody("")
+            }}
+                name={"Add New"}></Button>
+            {/* <Button
               name={"Upload File"}
-              classes="w-auto mr-1"
+              classes="w-auto"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></Button> */}
           </div>
         }
         table={table}
-        exportButton={["/export/manageEmployee","Export_Employee("+dt+").xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -317,4 +316,4 @@ const EmpDetailsTable = () => {
   );
 };
 
-export default EmpDetailsTable;
+export default ExpenseAndAdvance;
