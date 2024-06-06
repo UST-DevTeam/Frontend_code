@@ -109,6 +109,7 @@ import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
 import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
 import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
+import ActualWorkdone from "../pages/PMIS/Formss/ActualWorkdone/ActualWorkdone";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -488,7 +489,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/forms/workdoneForecast",
+      link: "/forms/EVMDelivery",
       component: <WorkdoneForecastCards />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
@@ -518,6 +519,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/earnValueManagementFinancial",
       component: <EarnValueMgmtFinancial />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/EVMDelivery/ActualWorkDone",
+      component: <ActualWorkdone />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

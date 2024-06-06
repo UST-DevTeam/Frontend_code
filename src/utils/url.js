@@ -11,8 +11,8 @@
 // export const baseUrl="http://192.168.0.115:7978"
 // export const backendassetUrl="http://192.168.0.115:7978/"
 
-export const baseUrl="http://192.168.0.120:7978"
-export const backendassetUrl="http://192.168.0.120:7978/"
+export const baseUrl="http://192.168.0.118:7978"
+export const backendassetUrl="http://192.168.0.118:7978/"
 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"

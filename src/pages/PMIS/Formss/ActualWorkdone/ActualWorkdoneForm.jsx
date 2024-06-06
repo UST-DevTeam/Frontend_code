@@ -11,7 +11,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
  
-const EarnValueMgmtForm = ({
+const ActualWorkdoneForm = ({
   isOpen,
   setIsOpen,
   resetting,
@@ -102,7 +102,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
         {
           label: `PV Target (${monthsss[itm]} ${year})`,
           value: "",
-          name: `M-${itm}_y`,
+        //   name: `M-${itm}_y`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -111,19 +111,19 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         })),
-      ...monthss.map((itm)=>(
-        {
-          label: `AOP Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `aop_target-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
+    //   ...monthss.map((itm)=>(
+    //     {
+    //       label: `AOP Target (${monthsss[itm]} ${year})`,
+    //       value: "",
+    //       name: `aop_target-${itm}`,
+    //       type: "number",
+    //       props: {
+    //         valueAsNumber:true,
+    //         min: 0,
+    //         onChange: (e) => {},
+    //       },
+    //       classes: "col-span-1",
+    //     })),
       // {
       //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
       //   value: "",
@@ -161,7 +161,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
         {
           label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-          name:  `M-${monthss[0]}_y`,
+        //   name: `${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -171,9 +171,9 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           classes: "col-span-1",
         },
         {
-          label: `AOP Target (${currentMonthData.month} ${currentMonthData.year})`,
+          label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-          name: `aop_target-${monthss[0]}`,
+        //   name: `${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -344,4 +344,4 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
   );
 };
 
-export default EarnValueMgmtForm;
+export default ActualWorkdoneForm;

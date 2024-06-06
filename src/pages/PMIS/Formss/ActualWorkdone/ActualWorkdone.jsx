@@ -25,7 +25,7 @@ import CommonForm from "../../../../components/CommonForm";
 
 import { UilSearch } from "@iconscout/react-unicons";
 
-const EarnValueMgmtFinancial = () => {
+const ActualWorkdone = () => {
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [refresh, setRefresh] = useState(false);
@@ -469,10 +469,10 @@ const EarnValueMgmtFinancial = () => {
           label: "Monthly View",
           value: "Monthly",
         },
-        // {
-        //   label: "Weekly View",
-        //   value: "Weekly",
-        // },
+        {
+          label: "Weekly View",
+          value: "Weekly",
+        },
       ],
       props: {
         onChange: (e) => {
@@ -529,30 +529,30 @@ const EarnValueMgmtFinancial = () => {
     extraColumns.forEach((index) => {
       if (ValGm && ValGm === "Monthly") {
         cols.push([
-          {
-            name: `AOP Target (${monthMap[index]} ${year})`,
-            value: "aop_target-"+index+"",
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
+        //   {
+        //     name: `AOP Target (${monthMap[index]} ${year})`,
+        //     value: "aop_target-"+index+"",
+        //     style: "min-w-[200px] max-w-[200px] text-center",
+        //   },
           {
             name: `PV Target (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_y",
+            // value: "M-"+index+"_y",
             // value: "plan-"+index+"",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_x",
+            // value: "M-"+index+"_x",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
       } else {
         cols.push([
-          {
-            name: `AOP Target (${index} ${year})`,
-            value: '',
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
+        //   {
+        //     name: `AOP Target (${index} ${year})`,
+        //     value: '',
+        //     style: "min-w-[200px] max-w-[200px] text-center",
+        //   },
           {
             name: `PV Target (${index} ${year})`,
             value: '',
@@ -560,7 +560,7 @@ const EarnValueMgmtFinancial = () => {
           },
           {
             name: `Achievement (${index} ${year})`,
-            value: index,
+            // value: index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -661,4 +661,4 @@ const EarnValueMgmtFinancial = () => {
   );
 };
 
-export default EarnValueMgmtFinancial;
+export default ActualWorkdone;

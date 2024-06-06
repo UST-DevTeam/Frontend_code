@@ -27,7 +27,7 @@ const FormsCards = () => {
         showbtn={false}
         approveddata={[
           ["EVM-Financial", "bg-gradient-to-r from-rose-300 via-rose-00 to-pink-500", "/forms/earnValueManagementFinancial",],
-          ["EVM-Delivery", "bg-gradient-to-r from-yellow-400 via-yellow-200 to-rose-200", "/forms/WorkDoneForecast"],
+          ["EVM-Delivery", "bg-gradient-to-r from-yellow-400 via-yellow-200 to-rose-200", "/forms/EVMDelivery"],
           ["SOB", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/forms/SOB",],
           ["Gap Analysis", "bg-gradient-to-r from-violet-400 via-indigo-400 to-indigo-300", "/forms/GapAnalysis"],
           ["P&L", "bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500", "/forms/P&L"],

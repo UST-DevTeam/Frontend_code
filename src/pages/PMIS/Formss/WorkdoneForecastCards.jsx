@@ -26,7 +26,7 @@ const WorkdoneForecastCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Actual Work Done", "bg-gradient-to-r from-lime-500 via-lime-400 to-lime-300", "/forms/workdoneForecast/ActualWorkDone",],
+          ["Actual Work Done", "bg-gradient-to-r from-lime-500 via-lime-400 to-lime-300", "/forms/EVMDelivery/ActualWorkDone",],
           // ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
         ].map((itm) => {
           return (
