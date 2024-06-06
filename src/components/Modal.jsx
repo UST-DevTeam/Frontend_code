@@ -6,7 +6,7 @@ const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButto
     const sizeType = {
         xl: 'w-[96vw] h-[96vh] md:w-[75vw] md:h-[86vh]',
         lg: 'w-[94vw] h-[90vh] md:w-[60vw] md:h-[93vh]',
-        sm: 'w-[92vw] md:w-[36vw]',
+        sm: 'w-[92vw] md:w-[34vw]',
         smsh: 'w-[64vw] h-[92vh]',
         modal: 'w-[94vw] h-[38vh] md:w-[48vw] h-[30vh]',
         full: 'w-[96vw] h-[96vh] md:w-[98vw] md:h-[98vh]',

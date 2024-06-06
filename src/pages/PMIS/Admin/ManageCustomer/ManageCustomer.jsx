@@ -280,7 +280,6 @@ const ManageCustomer = () => {
               classes="mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
-                // dispatch(OperationManagementActions.getOperationUserList())
                 setmodalHead("Add Customer");
                 setmodalBody(
                   <ManageCustomerForm

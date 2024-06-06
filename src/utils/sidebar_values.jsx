@@ -117,6 +117,7 @@ import L3Form from "../pages/PMIS/MyHome/L3Form/L3Form";
 import L1AdvanceForm from "../pages/PMIS/MyHome/L1Form/L1AdvanceForm";
 import L2AdvanceForm from "../pages/PMIS/MyHome/L2Form/L2AdvanceForm";
 import L3AdvanceForm from "../pages/PMIS/MyHome/L3Form/L3AdvanceForm";
+import DAFormFill from "../pages/PMIS/MyHome/DAFormFill/DAFormFill";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -327,6 +328,12 @@ export const Sidebar_content = {
       link: "/home/claimAndAdvance/Advance",
       subMenu: [],
       component: <FillAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance/DAFormFill",
+      subMenu: [],
+      component: <DAFormFill />,
     },
     {
       name: "",

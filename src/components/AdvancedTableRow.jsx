@@ -7,35 +7,29 @@ import { UilFilter } from "@iconscout/react-unicons";
 import Modalmoreinfo from "./Modalmoreinfo";
 import Modal from "./Modal";
 import DatePicker from "react-datepicker";
-import { getAccessType, objectToArray } from "../utils/commonFunnction";
+import { objectToArray } from "../utils/commonFunnction";
 import moment from "moment";
 import FilterView from "./FilterView";
-import { useDispatch, useSelector } from "react-redux";
-import CommonActions from "../store/actions/common-actions";
-import ConditionalButton from "./ConditionalButton";
-import ComponentActions from "../store/actions/component-actions";
+import SearchView from "./SearchView";
+import AdvancedTableExpandableOneRow from "./AdvancedTableExpandableOneRow";
 
 const AdvancedTableRow = ({
   tableName = "",
   headerButton,
-  templateButton,
-  exportButton,
-  exportSiteButton,
-  exportSiteWithTask,
-  UploadSites,
-  UploadTask,
-  filterAfter = () => {},
-  handleSubmit = () => {},
+  filterAfter = () => { },
+  handleSubmit = () => { },
   table,
   data,
   errors,
-  reset,
   register,
   setValue,
   getValues,
   totalCount = 10,
+  multiSelect = false,
   actions = ["Edit", "Delete"],
-  icon,
+  searchView = "",
+  getmultiSelect = "",
+  setmultiSelect = () => { },
 }) => {
   const [hide, setHide] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
@@ -44,11 +38,10 @@ const AdvancedTableRow = ({
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
 
+
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
-
-  let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
@@ -56,7 +49,7 @@ const AdvancedTableRow = ({
     ...table.properties,
     rpp: [50, 100, 150, 200],
   };
-
+  
 
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
@@ -74,13 +67,12 @@ const AdvancedTableRow = ({
 
   const onSubmit = (formdata) => {
     // alert(value)
-    console.log("onSubmit", formdata);
+    console.log("onSubfasfasfasdfasfmit", formdata);
     formdata["reseter"] = true;
 
     filterAfter(formdata);
     setActivedFilter(formdata);
     setActiveFilter(objectToArray(formdata));
-    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
   const onReset = () => {
     // alert(value)
@@ -96,14 +88,16 @@ const AdvancedTableRow = ({
   }, [tableName]);
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
+  console.log("fasodfjanflasdfnaifaewasdf",data.length);
+  console.log("asdfamarnathadfasfasdfadfs",activeFilter);
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
-              {/* {activeFilter.length > 0 && (
-                <h1 className="p-1 m-1">Active Filter:</h1>
+              {activeFilter.length > 0 && (
+                <h1 className="p-1 m-1">Active Filter: </h1>
               )}
               {activeFilter.map((itm) => {
                 return (
@@ -111,17 +105,19 @@ const AdvancedTableRow = ({
                     {itm}
                   </h1>
                 );
-              })} */}
+              })}
               {/* <label className='h-8 align-middle'>Search: </label><input className="ml-4 pl-2  bg-white border-black border block h-8 w-full rounded-md py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type='text' /> */}
             </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex flex-row">{searchView}</div>
             <div className="flex flex-row">
               {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
 
               {/* <PopupMenu visiblity={filterVisiblity}/> */}
 
+              {/* <SearchView  tablefilter={table.filter} onSubmit={onSubmit} handleSubmit={handleSubmit} table={table} data={data} errors={errors} register={register} setValue={register} getValues={getValues} /> */}
               <FilterView
-               
-                onReset={onReset}
                 tablefilter={table.filter}
                 onSubmit={onSubmit}
                 handleSubmit={handleSubmit}
@@ -129,15 +125,12 @@ const AdvancedTableRow = ({
                 data={data}
                 errors={errors}
                 register={register}
-                setValue={setValue}
+                setValue={register}
                 getValues={getValues}
               />
               <PopupMenu
                 name={"Hide / Unhide"}
-                //icon={<UilColumns size="32" className={"hello"} />}
-                icon={
-                  icon ? icon : <UilColumns size="32" className={"hello"} />
-                }
+                icon={<UilColumns size="32" className={"hello"} />}
                 child={
                   <>
                     <div className="flex z-40 max-h-96 overflow-scroll flex-col">
@@ -151,22 +144,14 @@ const AdvancedTableRow = ({
                                 value={String(index)}
                                 onChange={(e) => {
                                   setHide((prev) => {
-                                    // console.log(e.target.checked,prev,[e.target.value],e.target.value,"checkboxchecked")
-
-                                    console.log(
-                                      e.target.checked,
-                                      e.target.value,
-                                      "e.target.checked"
-                                    );
                                     // alert("caller")
                                     if (!e.target.checked) {
-                                      //   alert("pusher")
+                                      // alert("pusher")
                                       return [...prev, e.target.value];
                                     } else {
-                                      //   alert("remover")
+                                      // alert("remover")
                                       let vle = prev.indexOf(e.target.value);
 
-                                      console.log(vle, "dsadsadsadasdsadsa");
                                       if (vle != -1) {
                                         prev.splice(vle, 1);
                                       }
@@ -176,7 +161,7 @@ const AdvancedTableRow = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-[11px] mx-2">
+                              <span className="text-slate-800 text-[11px] mx-2">
                                 {itts.name}
                               </span>
                             </div>
@@ -189,119 +174,6 @@ const AdvancedTableRow = ({
               />
 
               {headerButton}
-
-              {/* {headerButton} */}
-              {templateButton ? (
-                <Button
-                  name={"Template"}
-                  classes="w-full mx-1"
-                  onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        templateButton[0],
-                        templateButton[1]
-                      )
-                    );
-                  }}
-                >
-                  Template
-                </Button>
-              ) : (
-                <></>
-              )}
-              {exportButton ? (
-                <ConditionalButton
-                  showType={getAccessType("Add Project")}
-                  name={"Export"}
-                  classes="w-full mr-1"
-                  onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        exportButton[0],
-                        exportButton[1]
-                      )
-                    );
-                  }}
-                >
-                  Export
-                </ConditionalButton>
-              ) : (
-                <></>
-              )}
-              {exportSiteButton ? (
-                <ConditionalButton
-                  showType={getAccessType("Download Project")}
-                  name={"Export Site"}
-                  classes="w-full mr-1"
-                  onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        exportSiteButton[0],
-                        exportSiteButton[1]
-                      )
-                    );
-                  }}
-                >
-                  Export
-                </ConditionalButton>
-              ) : (
-                <></>
-              )}
-              {exportSiteWithTask ? (
-                <ConditionalButton
-                  showType={getAccessType("Download Project")}
-                  name={"Export Site with task"}
-                  classes="w-full mr-1"
-                  onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        exportSiteWithTask[0],
-                        exportSiteWithTask[1]
-                      )
-                    );
-                  }}
-                >
-                  Export
-                </ConditionalButton>
-              ) : (
-                <></>
-              )}
-              {UploadSites ? (
-                <Button
-                  name={"Upload Sites"}
-                  classes="w-full mr-1"
-                  onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        exportButton[0],
-                        exportButton[1]
-                      )
-                    );
-                  }}
-                >
-                  Export
-                </Button>
-              ) : (
-                <></>
-              )}
-              {UploadTask ? (
-                <Button
-                  name={"Upload Task"}
-                  classes="w-full"
-                  onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        exportButton[0],
-                        exportButton[1]
-                      )
-                    );
-                  }}
-                >
-                  Export
-                </Button>
-              ) : (
-                <></>
-              )}
               {console.log(headerButton, "headerButton")}
             </div>
           </div>
@@ -351,6 +223,7 @@ const AdvancedTableRow = ({
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">
                 <tr>
+                  <td className="border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[10px] max-w-[10px] text-center"></td>
                   {table.columns.map((itts, index) => {
                     console.log(
                       hide.indexOf(itts.name),
@@ -385,11 +258,10 @@ const AdvancedTableRow = ({
                         ) : (
                           <>
                             <td
-                              className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${
-                                itts.style
-                                  ? itts.style
-                                  : " min-w-[300px] max-w-[500px]"
-                              }`}
+                              className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${itts.style
+                                ? itts.style
+                                : " min-w-[300px] max-w-[500px]"
+                                }`}
                             >
                               <span className="text-white text-[12px]">
                                 {itts.name}
@@ -405,46 +277,59 @@ const AdvancedTableRow = ({
                 </tr>
               </thead>
 
-              {data.length > 0 ? (
-                <tbody>
-                  {data
-                    ?.slice((currentPage - 1) * RPP, currentPage * RPP)
-                    .map((itm) => {
-                      return (
-                        <tr>
-                          {table.columns.map((innerItm, index) => {
-                            return hide.indexOf(String(index)) == -1 ? (
-                              <td
-                                className={`text-[11px] h-2 pl-1 border-gray-400 border-[0.1px] overflow-hidden text-slate-800 ${
-                                  innerItm.style
-                                    ? innerItm.style
-                                    : " min-w-[300px] max-w-[500px]"
-                                }`}
-                              >
-                                <Modalmoreinfo
-                                  ctt={32}
-                                  setModalBody={setModalBody}
-                                  setOpenModal={setOpenModal}
-                                  value={itm[innerItm.value]}
-                                />
-                              </td>
-                            ) : (
-                              <></>
-                            );
-                          })}
+              {/* <tbody>
+                                {
+                                    data?.slice((currentPage - 1) * RPP, currentPage * RPP).map((itm) => {
+                                        return <tr>
+                                            {table.columns.map((innerItm, index) => {
+
+                                                return hide.indexOf(String(index)) == -1 ? <td className={`text-[14px] h-14 pl-1 border-primaryLine border-2 overflow-hidden text-primaryLine ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"}`}>
+
+                                                    <Modalmoreinfo ctt={32} setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm.value]} />
+                                                </td> : <></>
+                                            })}
+                                        </tr>
+
+                                    })
+                                }
+                            </tbody> */}
+
+
+              {
+                data.length > 0 ? (
+                  <>
+                    <tbody>
+                      {data
+                        .slice((currentPage - 1) * RPP, currentPage * RPP)
+                        .map((itm) => {
+                          return (
+                            <AdvancedTableExpandableOneRow
+                              getmultiSelect={getmultiSelect}
+                              setmultiSelect={setmultiSelect}
+                              multiSelect={multiSelect}
+                              setModalBody={setModalBody}
+                              setOpenModal={setOpenModal}
+                              table={table}
+                              itm={itm}
+                              hide={hide}
+                            />
+                          );
+                        })}
+                    </tbody>
+                  </>
+                ) :
+                  (
+                    <>
+                      <tbody>
+                        <tr className="border-2 border-black text-center">
+                          <td colSpan={table.columns.length} className="">
+                            No Records Found
+                          </td>
                         </tr>
-                      );
-                    })}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr className="border-2 border-black text-center">
-                    <td colSpan={table.columns.length} className="">
-                      No Records Found 
-                    </td>
-                  </tr>
-                </tbody>
-              )}
+                      </tbody>
+                    </>
+                  )
+              }
             </table>
           ) : (
             <>
@@ -471,12 +356,12 @@ const AdvancedTableRow = ({
                       );
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
-                          {["Edit", "Delete", "AddRow"].includes(itts.name) ? (
+                          {["Edit", "Delete"].includes(itts.name) ? (
                             ["Edit"].includes(itts.name) ? (
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  "border-primaryLine border-[0.1px] bg-primaryLine"
+                                  " border-primaryLine border-[1.5px] bg-primaryLine "
                                 }
                               >
                                 <span className="text-white text-[12px]">
@@ -488,7 +373,7 @@ const AdvancedTableRow = ({
                             )
                           ) : (
                             <>
-                              <th className=" border-gray-400 border-[0.1px] bg-primaryLine ">
+                              <th className=" border-primaryLine border-[1.5px] bg-primaryLine ">
                                 <span className="text-white text-[12px]">
                                   {itts.name}
                                 </span>
@@ -527,17 +412,16 @@ const AdvancedTableRow = ({
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
                   (index + 3 > currentPage && index - 1 < currentPage) ||
-                  index + 1 == 1 ||
-                  index + 1 == pages.length ? (
+                    index + 1 == 1 ||
+                    index + 1 == pages.length ? (
                     <span
                       onClick={(e) => {
                         callApiPagination(index + 1);
                       }}
-                      className={`border cursor-pointer px-2 mx-2 ${
-                        currentPage == index + 1
-                          ? "bg-primaryLine text-white border-primaryLine"
-                          : "bg-white text-black border-primaryLine"
-                      } `}
+                      className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
+                        ? "bg-primaryLine text-white border-primaryLine"
+                        : "bg-white text-black border-primaryLine"
+                        } `}
                     >
                       {index + 1}
                     </span>
@@ -549,11 +433,10 @@ const AdvancedTableRow = ({
                     onClick={(e) => {
                       callApiPagination(index + 1);
                     }}
-                    className={`border cursor-pointer border-primaryLine ${
-                      currentPage == index + 1
-                        ? "bg-primaryLine text-white"
-                        : "bg-white"
-                    } px-2 mx-2`}
+                    className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
+                      ? "bg-primaryLine text-white"
+                      : "bg-white"
+                      } px-2 mx-2`}
                   >
                     {index + 1}
                   </span>

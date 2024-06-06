@@ -226,6 +226,10 @@ const ClaimAndAdvance = () => {
                 navigate(`${"/home/claimAndAdvance/Advance"}`)
             }}
                 name={"Fill Advance"}></Button>
+            <Button classes='ml-1' onClick={() => {
+                navigate(`${"/home/claimAndAdvance/DAFormFill"}`)
+            }}
+                name={"Fill DA"}></Button>
                 </>}
             table={table}
             filterAfter={onSubmit}

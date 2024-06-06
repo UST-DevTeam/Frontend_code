@@ -115,6 +115,10 @@ export const Urls={
     expAdv_L3Data:"/approval/financeApprover",
     expAdv_L3AdvanceData:"/Advance/approval/l3Approval",
     expAdv_Approval:"/approval/status",
+    expAdv_expense_emp_code:"/expenses/fillDAEmpData",
+    expAdv_DA_Fill:"/expenses/fillDA",
+    expAdv_DA_project_Id:"/expenses/DAFillProjectId",
+    expAdv_DA_cost_center:"expenses/DAFillcostCenter",
 
 
 
