@@ -16,16 +16,15 @@ import { Urls } from '../../../../utils/url';
 import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import FinanceActions from '../../../../store/actions/finance-actions';
 import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
+import FilterActions from '../../../../store/actions/filter-actions';
 
 const POWorkDoneBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     let dispatch = useDispatch()
-    // let roleList = useSelector((state) => {
-    //     let interdata = state?.operationManagement?.USERS_LIST
-    //     return interdata
-    // })
+
+
     let dbConfigList = useSelector((state) => {
         let interdata = state?.financeData?.getPOWorkDoneDashboard || []
         return interdata?.map((itm) => {
@@ -75,10 +74,8 @@ const POWorkDoneBased = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+
     const {
         register,
         handleSubmit,
@@ -88,6 +85,15 @@ const POWorkDoneBased = () => {
         getValues,
         formState: { errors },
     } = useForm()
+
+    let customerList = useSelector((state) => {
+        return state?.filterData?.getfinancialPoWOrkDoneCustomer.map((itm) => {
+          return {
+            label: itm.customer,
+            value: itm.customer,
+          };
+        });
+      });
 
     let table = {
         columns: [
@@ -157,80 +163,34 @@ const POWorkDoneBased = () => {
                 style: "min-w-[160px] max-w-[200px] text-center"
             },                                                                     
         ],
-        // properties: {
-        //     rpp: [10, 20, 50, 100]
-        // },
+
+
         filter: [
             {
                 label: "Customer",
-                type: "text",
+                type: "select",
                 name: "customer",
-                props: {
-                }
+                option:customerList,
+                props: {}
             },
             {
                 label: "ProjectGroup",
                 type: "text",
-                name: "customer",
-                props: {
-                }
+                name: "projectGroup",
+                props: {}
             },
-            // {
-            //     label: "Project Type",
-            //     type: "text",
-            //     name: "customer",
-            //     props: {
-            //     }
-            // },
-            // {
-            //     label: "Sub Project",
-            //     type: "text",
-            //     name: "customer",
-            //     props: {
-            //     }
-            // },
             {
                 label: "Project ID",
                 type: "text",
-                name: "customer",
-                props: {
-                }
+                name: "projectId",
+                props: {}
             },
-            // {
-            //     label: "GBPA",
-            //     type: "text",
-            //     name: "customer",
-            //     props: {
-            //     }
-            // },
-            // {
-            //     label: "PO Number",
-            //     type: "text",
-            //     name: "customer",
-            //     props: {
-            //     }
-            // },
             {
                 label: "Item Code",
                 type: "text",
-                name: "customer",
-                props: {
-                }
+                name: "itemCode",
+                props: {}
             },
-            // {
-            //     label: "Item Code Status",
-            //     type: "text",
-            //     name: "customer",
-            //     props: {
-            //     }
-            // },
-            // {
-            //     label: "PO Status",
-            //     type: "text",
-            //     name: "customer",
-            //     props: {
-            //     }
-            // },
         ]
     }
     const onSubmit = (data) => {
@@ -242,6 +202,7 @@ const POWorkDoneBased = () => {
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOWorkDoneDashboard())
+        dispatch(FilterActions.getfinancialPoWorkDoneCustomer());
     }, [])
     return <>
         <AdvancedTable

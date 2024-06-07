@@ -26,6 +26,7 @@ const InvoiceBased = () => {
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     const [fileOpen, setFileOpen] = useState(false);
+    const [strValFil, setstrVal] = useState(false);
     const endDate = moment().format("Y");
     let dispatch = useDispatch()
     // let roleList = useSelector((state) => {
@@ -321,7 +322,14 @@ const InvoiceBased = () => {
         console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
-        dispatch(FinanceActions.getPOInvoicedBased(value, objectToQueryString(data)))
+
+        let strVal=objectToQueryString(data)
+
+        setstrVal(strVal)
+
+
+
+        dispatch(FinanceActions.getPOInvoicedBased(value, strVal))
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOInvoicedBased())
@@ -360,7 +368,7 @@ const InvoiceBased = () => {
                 
                 </>}
             table={table}
-            exportButton={["/export/poInvoice/" , "Export_PoInvoice.xlsx",]}
+            exportButton={["/export/poInvoice/"+"?"+strValFil , "Export_PoInvoice.xlsx",]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

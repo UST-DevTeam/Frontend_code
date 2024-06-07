@@ -11,7 +11,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
  
-const EarnValueMgmtForm = ({
+const ActualWorkdoneForm = ({
   isOpen,
   setIsOpen,
   resetting,
@@ -102,7 +102,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
         {
           label: `PV Target (${monthsss[itm]} ${year})`,
           value: "",
-          name: `M-${itm}_y`,
+          name: `plan-${itm}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -111,19 +111,19 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         })),
-      ...monthss.map((itm)=>(
-        {
-          label: `AOP Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `aop_target-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
+    //   ...monthss.map((itm)=>(
+    //     {
+    //       label: `AOP Target (${monthsss[itm]} ${year})`,
+    //       value: "",
+    //       name: `aop_target-${itm}`,
+    //       type: "number",
+    //       props: {
+    //         valueAsNumber:true,
+    //         min: 0,
+    //         onChange: (e) => {},
+    //       },
+    //       classes: "col-span-1",
+    //     })),
       // {
       //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
       //   value: "",
@@ -145,23 +145,11 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
       // },
     ];
     let Form2 = [
-      // {
-      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "",
-      //   name: 'plan1',
-      //   type: "number",
-      //   filter: true,
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },        
+      
         {
           label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-          name:  `M-${monthss[0]}_y`,
+        //   name: `${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -171,9 +159,9 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           classes: "col-span-1",
         },
         {
-          label: `AOP Target (${currentMonthData.month} ${currentMonthData.year})`,
+          label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-          name: `aop_target-${monthss[0]}`,
+        //   name: `${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -183,25 +171,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           classes: "col-span-1",
         },
       
-      // {
-      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "",
-      //   name: 'plan3',
-      //   type: "number",
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
+      
     ];
 
 
@@ -238,33 +208,34 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
     data['projectType'] = formValue?.projectType;
     data['costCenter'] = formValue?.costCenter;
-    data['circle'] = formValue?.circle;
+    data['circleName'] = formValue?.circleName;
     data['roleName'] = roleName;
-    data['uniqueId'] = formValue?.uniqueId;
+    data['project_uId'] = formValue?.project_uId;
     data['year'] = year;
     data['projectId'] = formValue?.projectId;
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
-    if (formValue.uniqueId) {
+    // if (formValue.uniqueId) {
       dispatch(
-        FormssActions.putEarnValueMgmtFinancial(
+        FormssActions.putEVMDelivery(
           data,
           () => {
             console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
             setIsOpen(false);
-            dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
+            dispatch(FormssActions.getEVMDelivery( formValue?.projectId));
           },
         )
       );
-    } else {
-      dispatch(
-        FormssActions.postEarnValueMgmtFinancial(data, () => {
-          console.log("CustomQueryActions.postDBConfig");
-          setIsOpen(false);
-          dispatch(FormssActions.getEarnValueMgmtFinancial());
-        })
-      );
-    }
+    // } 
+    // else {
+    //   dispatch(
+    //     FormssActions.postEVMDelivery(data, () => {
+    //       console.log("CustomQueryActions.postDBConfig");
+    //       setIsOpen(false);
+    //       dispatch(FormssActions.getEVMDelivery());
+    //     })
+    //   );
+    // }
   };
   console.log(Form, "Form 11");
   useEffect(() => {
@@ -344,4 +315,4 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
   );
 };
 
-export default EarnValueMgmtForm;
+export default ActualWorkdoneForm;

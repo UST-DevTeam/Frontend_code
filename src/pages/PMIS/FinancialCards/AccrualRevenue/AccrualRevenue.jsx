@@ -16,6 +16,7 @@ import { Urls } from '../../../../utils/url';
 // import OperationManagementActions from '../../../../store/actions/OperationManagement-actions';
 import InvoiceBasedForm from '../InvoiceBased/InvoiceBasedForm';
 import FinanceActions from '../../../../store/actions/finance-actions';
+import FilterActions from '../../../../store/actions/filter-actions';
 
 const AccrualRevenue = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -117,6 +118,15 @@ const AccrualRevenue = () => {
 
     const [previousMonthData, currentMonthData] = getCurrentAndPreviousMonth();
 
+    let customerList = useSelector((state) => {
+        return state?.filterData?.getfinancialPoWOrkDoneCustomer.map((itm) => {
+          return {
+            label: itm.customer,
+            value: itm.customer,
+          };
+        });
+    });
+
     let table = {
         columns: [
             {
@@ -202,53 +212,49 @@ const AccrualRevenue = () => {
         filter: [
             {
                 label: "Customer",
-                type: "text",
+                type: "select",
                 name: "currentYear",
-                // option:YearList(2010),
+                option:customerList,
                 props: {},
             },
             {
                 label: "Project Group",
                 type: "text",
                 name: "currentYear",
-                // option:YearList(2010),
                 props: {},
             },
             {
                 label: "Project Type",
                 type: "text",
                 name: "currentYear",
-                // option:YearList(2010),
                 props: {},
             },
             {
                 label: "Project ID",
                 type: "text",
                 name: "currentYear",
-                // option:YearList(2010),
                 props: {},
             },
             {
                 label: "Item Code",
                 type: "text",
                 name: "currentYear",
-                // option:YearList(2010),
                 props: {},
             },
-            {
-                label: "Year",
-                type: "text",
-                name: "currentYear",
-                // option:YearList(2010),
-                props: {},
-            },
-            {
-                label: "Month",
-                type: "text",
-                name: "currentYear",
-                // option:YearList(2010),
-                props: {},
-            },
+            // {
+            //     label: "Year",
+            //     type: "text",
+            //     name: "currentYear",
+            //     // option:YearList(2010),
+            //     props: {},
+            // },
+            // {
+            //     label: "Month",
+            //     type: "text",
+            //     name: "currentYear",
+            //     // option:YearList(2010),
+            //     props: {},
+            // },
             
           ],
     }
@@ -260,6 +266,7 @@ const AccrualRevenue = () => {
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOAccrualRevenue())
+        dispatch(FilterActions.getfinancialPoWorkDoneCustomer());
     }, [])
     return <>
         <AdvancedTable

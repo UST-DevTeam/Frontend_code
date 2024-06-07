@@ -11,7 +11,8 @@ import {
         GET_FILTER_FINANCIAL_POMANAGEMENT_PEOJECTGROUP,
         GET_FILTER_FINANCIAL_POMANAGEMENT_PEOJECTID,
         GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_CUSTOMER,
-        GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP
+        GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP,
+        GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER,
  } from "../reducers/filter-reducer"
 
 
@@ -129,6 +130,17 @@ const FilterActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP({dataAll,reset}))
+        } catch (error){
+
+        }
+    },
+
+    getfinancialPoWorkDoneCustomer:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.filter_financial_poWorkDone_customer}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER({dataAll,reset}))
         } catch (error){
 
         }

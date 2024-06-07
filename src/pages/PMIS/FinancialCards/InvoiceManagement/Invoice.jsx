@@ -187,18 +187,18 @@ const Invoice = () => {
   }
 
   let monthList = [
-    {'label':'January', 'value':'January'},
-    {'label':'February', 'value':'February'},
-    {'label':'March', 'value':'March'},
-    {'label':'April', 'value':'April'},
+    {'label':'Jan', 'value':'Jan'},
+    {'label':'Feb', 'value':'Feb'},
+    {'label':'Mar', 'value':'Mar'},
+    {'label':'Apr', 'value':'Apr'},
     {'label':'May', 'value':'May'},
-    {'label':'June', 'value':'June'},
-    {'label':'July', 'value':'July'},
-    {'label':'August', 'value':'August'},
-    {'label':'September', 'value':'September'},
-    {'label':'October', 'value':'October'},
-    {'label':'November', 'value':'November'},
-    {'label':'December', 'value':'December'},
+    {'label':'Jun', 'value':'Jun'},
+    {'label':'Jul', 'value':'Jul'},
+    {'label':'Aug', 'value':'Aug'},
+    {'label':'Sep', 'value':'Sep'},
+    {'label':'Oct', 'value':'Oct'},
+    {'label':'Nov', 'value':'Nov'},
+    {'label':'Dec', 'value':'Dec'},
   ]
 
   let customerList = useSelector((state) => {

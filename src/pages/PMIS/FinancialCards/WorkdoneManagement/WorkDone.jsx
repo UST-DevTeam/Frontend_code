@@ -19,6 +19,8 @@ import FinanceActions from "../../../../store/actions/finance-actions";
 // import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
 import WorkDoneForm from "../WorkdoneManagement/WorkDoneForm";
 import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
+import moment from "moment";
+import FilterActions from "../../../../store/actions/filter-actions";
 
 const WorkDone = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -29,6 +31,7 @@ const WorkDone = () => {
   // const [upDatq, setupDatq] = useState(false);
   // const [currentPage, setcurrentPage] = useState(1);
   const [modalHead, setmodalHead] = useState(<></>);
+  const endDate = moment().format("Y");
   let dispatch = useDispatch();
 
   let dbConfigList = useSelector((state) => {
@@ -177,10 +180,36 @@ const WorkDone = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+  let listYear = [];
+
+  for (let ywq = 2019; ywq <= +endDate; ywq++) {
+    listYear.push({'label':ywq,'value':ywq});
+  }
+  let monthList = [
+    {'label':'Jan', 'value':'1'},
+    {'label':'Feb', 'value':'2'},
+    {'label':'Mar', 'value':'3'},
+    {'label':'Apr', 'value':'4'},
+    {'label':'May', 'value':'5'},
+    {'label':'Jun', 'value':'6'},
+    {'label':'Jul', 'value':'7'},
+    {'label':'Aug', 'value':'8'},
+    {'label':'Sep', 'value':'9'},
+    {'label':'Oct', 'value':'10'},
+    {'label':'Nov', 'value':'11'},
+    {'label':'Dec', 'value':'12'},
+  ]
+
+  let customerList = useSelector((state) => {
+    return state?.filterData?.getfinancialPoWOrkDoneCustomer.map((itm) => {
+      return {
+        label: itm.customer,
+        value: itm.customer,
+      };
+    });
+  });
+
+
   const {
     register,
     handleSubmit,
@@ -394,49 +423,61 @@ const WorkDone = () => {
     },
     filter: [
       {
+        label: "Select Milestone",
+        type: "select",
+        name: "milestone",
+        required: true,
+        option:[
+          {label:'MS1',value:'MS1'},
+          {label:'MS2',value:'MS2'},
+          {label:'MS1 & MS2 Both',value:'both'},
+
+        ],
+        props: {},
+      },
+      {
         label: "Customer",
-        type: "text",
+        type: "select",
         name: "customer",
-        // option: [
-        //   { label: "Billed", value: "Billed" },
-        //   { label: "UnBilled", value: "Unbilled" },
-        // ],
+        option:customerList,
+        props: {},
+      },
+      {
+        label: "Year",
+        type: "select",
+        name: "year",
+        option:listYear,
+        props: {},
+      },
+      {
+        label: "Month",
+        type: "select",
+        name: "month",
+        option:monthList,
         props: {},
       },
       {
         label: "Project Group",
         type: "text",
-        name: "project",
-        // option: [
-        //   { label: "Billed", value: "Billed" },
-        //   { label: "UnBilled", value: "Unbilled" },
-        // ],
+        name: "projectGroup",
         props: {},
       },
       {
         label: "Project Type",
         type: "text",
-        name: "project",
-        // option: [
-        //   { label: "Billed", value: "Billed" },
-        //   { label: "UnBilled", value: "Unbilled" },
-        // ],
+        name: "projectType",
         props: {},
       },
       {
         label: "Site ID",
         type: "text",
-        name: "project",
-        // option: [
-        //   { label: "Billed", value: "Billed" },
-        //   { label: "UnBilled", value: "Unbilled" },
-        // ],
+        name: "siteId",
         props: {},
       },
       {
         label: "Billing Status",
         type: "select",
-        name: "status",
+        name: "siteBillingStatus",
         option: [
           { label: "Billed", value: "Billed" },
           { label: "UnBilled", value: "Unbilled" },
@@ -484,6 +525,7 @@ const WorkDone = () => {
   };
   useEffect(() => {
     dispatch(FinanceActions.getPOWorkDoneBased());
+    dispatch(FilterActions.getfinancialPoWorkDoneCustomer());
   }, []);
 
   const onTableViewSubmit = (data) => {

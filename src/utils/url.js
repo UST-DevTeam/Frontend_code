@@ -98,6 +98,7 @@ export const Urls={
     admin_invoiceSSID:"/finance/ssId",
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
+    formss_EVM_delivery:"/forms/EVMActual",
     admin_claim_type:"/expenses/ClaimType",
 
 
@@ -117,6 +118,9 @@ export const Urls={
 
     filter_financial_RevenueManagement_customer:'/filter/financial/revenueManagement/customer',
     filter_financial_RevenueManagement_projectGroup:'/filter/financial/revenueManagement/projectGroup',
+
+
+    filter_financial_poWorkDone_customer:'/filter/financial/poWorkDone/customer',
 
 }
 

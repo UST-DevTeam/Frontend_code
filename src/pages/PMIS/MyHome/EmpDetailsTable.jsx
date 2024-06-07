@@ -153,10 +153,8 @@ const EmpDetailsTable = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+
+  
 
   let table = {
     columns: [

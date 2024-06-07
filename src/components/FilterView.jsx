@@ -40,6 +40,7 @@ const FilterView = ({
                         </label>
 
                         {itm.type == "select" && (
+                          <>
                           <select
                             onChange={itm.onChanging ? itm.onChanging : null}
                             {...register(itm.name, {
@@ -61,6 +62,16 @@ const FilterView = ({
                               );
                             })}
                           </select>
+                          {console.log(
+                              errors[itm.name],
+                              itm.required,
+                              "errors?.itm?"
+                            )}
+                            <p className="text-xs text-red-700">
+                              {errors[itm.name]?.message}
+                            </p>
+                          </>
+                          
                         )}
 
                         {itm.type == "autoSuggestion" && (
@@ -95,7 +106,7 @@ const FilterView = ({
                               type={itm.type}
                               {...register(itm.name, {
                                 required: itm.required
-                                  ? "This " + " Field is required"
+                                  ? "This " + " Field is required" 
                                   : false,
                                 ...itm.props,
                               })}

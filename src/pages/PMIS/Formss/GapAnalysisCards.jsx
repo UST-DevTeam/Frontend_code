@@ -9,7 +9,7 @@ import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 
-const WorkdoneForecastCards = () => {
+const   GapAnalysisCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
@@ -26,8 +26,8 @@ const WorkdoneForecastCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Actual Work Done", "bg-gradient-to-r from-lime-500 via-lime-400 to-lime-300", "/forms/EVMDelivery/ActualWorkDone",],
-          // ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
+          ["ETP Pending Reason", "bg-gradient-to-r from-lime-500 via-lime-400 to-lime-300", "/forms/gapAnalysis/ETPPendingReason",],
+          ["MS2 VS WCC Pending Reason", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/gapAnalysis/MS2VSWCCPendingReason"],
         ].map((itm) => {
           return (
             <>
@@ -90,4 +90,4 @@ const WorkdoneForecastCards = () => {
   );
 };
 
-export default WorkdoneForecastCards;
+export default GapAnalysisCards;

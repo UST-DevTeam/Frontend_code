@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     getEarnValueMgmtFinancial:[],
+    getEVMDelivery:[],
 }
 
 const FormssReducer = createSlice({
@@ -17,9 +18,20 @@ const FormssReducer = createSlice({
             }
         },
 
+        GET_EVM_DELIVERY:(state,{payload}) => {
+            if(payload.reset){
+                state.getEVMDelivery = payload.dataAll
+            }else{
+                state.getEVMDelivery  = [...state.getEVMDelivery,...payload.dataAll]
+            }
+        },
+
         
     }
 })
 
-export const {GET_EARNVALUE_MGMT_FINANCIAL,} = FormssReducer.actions
+export const {
+    GET_EARNVALUE_MGMT_FINANCIAL,
+    GET_EVM_DELIVERY,
+} = FormssReducer.actions
 export default FormssReducer.reducer

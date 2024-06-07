@@ -37,9 +37,9 @@ const FinanceActions = {
         }
     },
 
-    getPOWorkDoneDashboard:(reset=true,args="") => async (dispatch, _) => {
+    getPOWorkDoneDashboard:(reset=true,value,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.finance_poworkdone_dashboard}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.finance_poworkdone_dashboard}${args!=""?"?"+args:""}`, value })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_POWORKDONE_DASHBOARD({dataAll,reset}))

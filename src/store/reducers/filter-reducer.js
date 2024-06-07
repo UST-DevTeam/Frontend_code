@@ -13,6 +13,7 @@ const initialState = {
     getfinancialPoManagementProjectId: [],
     getfinancialRevenueManagementCustomer: [],
     getfinancialRevenueManagementProjectGroup: [],
+    getfinancialPoWOrkDoneCustomer:[],
 
 }
 
@@ -110,6 +111,14 @@ const filterData = createSlice({
             }
         },
 
+        GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER:(state,{payload}) => {
+            if(payload.reset){
+                state.getfinancialPoWOrkDoneCustomer = payload.dataAll
+            }else{
+                state.getfinancialPoWOrkDoneCustomer  = [...state.getfinancialPoWOrkDoneCustomer,...payload.dataAll]
+            }
+        },
+
 
     }
 })
@@ -124,7 +133,8 @@ export const {  GET_FILTER_PROJECT_CIRCLE,
                 GET_FILTER_FINANCIAL_POMANAGEMENT_PEOJECTGROUP,
                 GET_FILTER_FINANCIAL_POMANAGEMENT_PEOJECTID,
                 GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_CUSTOMER,
-                GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP
+                GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP,
+                GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER
             } = filterData.actions
     
 export default filterData.reducer
