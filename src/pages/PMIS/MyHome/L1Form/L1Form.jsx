@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
@@ -17,10 +17,13 @@ import ExpenseAdvanceActions from '../../../../store/actions/expenseAdvance-acti
 import L1FormFORM from '../../../../pages/PMIS/MyHome/L1Form/L1FormFORM'
 import CommonForm from '../../../../components/CommonForm';
 import { useNavigate } from 'react-router-dom';
+import AdvancedTableRow from '../../../../components/AdvancedTableRow';
 
 const L1Form = () => {
+  const expenseRef = useRef("");
 
     const [modalOpen, setmodalOpen] = useState(false)
+    const [modalFullOpen, setmodalFullOpen] = useState(false);
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -44,7 +47,7 @@ const L1Form = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-
+                amount : <AmountInput /> ,
                 attachment: (
                   <div className="flex justify-center items-center">
                     <img
@@ -54,6 +57,29 @@ const L1Form = () => {
                   </div>
                 ),
                 expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
+
+                ExpenseNo: (
+                  <p
+                    className="cursor-pointer text-blue-500 underline"
+                    onClick={(e) => {
+                      console.log(itm?.ExpenseNo, "pppppppp");
+                      expenseRef.current = itm;
+                      dispatch(
+                        ExpenseAdvanceActions.getL1Data(
+                          true,
+                          `ExpenseNo=${itm?.ExpenseNo}`
+                        )
+                      );
+                      setmodalFullOpen((prev) => !prev);
+                      setHide(true);
+                      setmodalHead(itm?.ExpenseNo);
+        
+                      
+                    }}
+                  >
+                    {itm.ExpenseNo}
+                  </p>
+                ),
                               
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
@@ -89,6 +115,12 @@ const L1Form = () => {
             return updateditm
         });
     })
+
+    // useEffect(() => {
+    //   if(!modalFullOpen){
+    //     // setHide(false)
+    //   }
+    // } , [modalFullOpen])
 
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.expenseAdvanceData?.getL1Data || []
@@ -183,6 +215,11 @@ const L1Form = () => {
             value: "attachment",
             style: "min-w-[150px] max-w-[450px] text-center",
           },
+          {
+            name: "Amount",
+            value: "amount",
+            style: "min-w-[150px] max-w-[450px] text-center",
+          },
           // {
           //   name: "Status",
           //   value: "status",
@@ -193,11 +230,12 @@ const L1Form = () => {
             value: "remark",
             style: "min-w-[350px] max-w-[450px] text-center",
           },
-          {
-            name: "Edit",
-            value: "edit",
-            style: "min-w-[100px] max-w-[100px] text-center",
-          },
+          
+          // {
+          //   name: "Edit",
+          //   value: "edit",
+          //   style: "min-w-[100px] max-w-[100px] text-center",
+          // },
         //   {
         //     name: "Delete",
         //     value: "delete",
@@ -255,8 +293,10 @@ const L1Form = () => {
     }
 
     useEffect(() => { 
-        dispatch(ExpenseAdvanceActions.getL1Data())
-    }, [])
+        if(!  modalFullOpen){
+          dispatch(ExpenseAdvanceActions.getL1Data())
+        }
+    }, [modalFullOpen])
 
     const onTableViewSubmit = (data) => { 
         data["fileType"]="ManageClaimType"
@@ -296,6 +336,34 @@ const L1Form = () => {
             getValues={getValues}
             totalCount={dbConfigTotalCount}
         />
+
+<Modal
+        size={"full"}
+        modalHead={modalHead}
+        children={ <AdvancedTable
+          headerButton={<div className="flex gap-1"></div>}
+          // table={{
+          //   ...table,
+          //   columns: [...table.columns].splice(table.columns.length - 3, 0, {
+          //     name: "Add Row",
+          //     value: "addRow",
+          //     style: "min-w-[100px] max-w-[100px] text-center",
+          //   }),
+          // }}
+          table={table}
+          filterAfter={onSubmit}
+          tableName={"UserListTable"}
+          handleSubmit={handleSubmit}
+          data={dbConfigList}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+          totalCount={dbConfigTotalCount}
+        />}
+        isOpen={modalFullOpen}
+        setIsOpen={setmodalFullOpen}
+      />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 

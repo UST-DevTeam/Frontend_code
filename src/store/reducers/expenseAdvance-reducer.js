@@ -17,6 +17,7 @@ const initialState = {
     getExpenseEMPCode:[],
     getDAFill:[],
     getExpenseDAProjectId:[],
+    getExpensesByExpenseNoInPopUp:[],
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -156,6 +157,14 @@ const ExpenseAdvanceReducer = createSlice({
                 state.getExpenseDACostCenter  = [...state.getExpenseDACostCenter,...payload.dataAll]
             }
         },
+        
+        GET_EXPENSES_BY_EXPENSESNO_IN_POPUP:(state,{payload}) => {
+            if(payload.reset){
+                state.getExpensesByExpenseNoInPopUp = payload.dataAll
+            }else{
+                state.getExpensesByExpenseNoInPopUp  = [...state.getExpensesByExpenseNoInPopUp,...payload.dataAll]
+            }
+        },
 
         
     }
@@ -179,5 +188,6 @@ export const {
     GET_DA_FILL,
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
+    GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

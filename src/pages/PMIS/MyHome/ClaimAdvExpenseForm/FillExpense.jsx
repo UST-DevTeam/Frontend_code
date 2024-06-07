@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,10 +19,13 @@ import FileUploader from "../../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import FillExpenseForm from "../../../../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpenseForm";
 import AdvancedTableRow from "../../../../components/AdvancedTableRow";
+import { objectKeys } from "react-querybuilder";
 
 const FillExpense = () => {
   const expenseRef = useRef("");
+  const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
+  const [hide, setHide] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -38,8 +41,9 @@ const FillExpense = () => {
     })
     .replace(/\//g, "-");
 
-  let dbConfigList = useSelector((state) => {
-    let interdata = state?.expenseAdvanceData?.getFillExpense || [""];
+  let dbConfigListL = useSelector((state) => {
+    let interdata = state?.expenseAdvanceData
+      ?.getExpensesByExpenseNoInPopUp || [""];
     return interdata?.map((itm) => {
       let categoriesArray = itm.categories ? itm.categories.split(",") : [];
       let updateditm = {
@@ -84,6 +88,129 @@ const FillExpense = () => {
           />
         ),
 
+        delete: (
+          <CstmButton
+            child={
+              <DeleteButton
+                name={""}
+                onClick={() => {
+                  let msgdata = {
+                    show: true,
+                    icon: "warning",
+                    buttons: [
+                      <Button
+                        classes="w-15 bg-green-500"
+                        onClick={() => {
+                          dispatch(
+                            CommonActions.deleteApiCaller(
+                              `${Urls.expAdv_fill_expense}/${itm.uniqueId}`,
+                              () => {
+                                dispatch(
+                                  ExpenseAdvanceActions.getFillExpense()
+                                );
+                                dispatch(ALERTS({ show: false }));
+                              }
+                            )
+                          );
+                        }}
+                        name={"OK"}
+                      />,
+                      <Button
+                        classes="w-24"
+                        onClick={() => {
+                          dispatch(ALERTS({ show: false }));
+                        }}
+                        name={"Cancel"}
+                      />,
+                    ],
+                    text: "Are you sure you want to Delete?",
+                  };
+                  dispatch(ALERTS(msgdata));
+                }}
+              ></DeleteButton>
+            }
+          />
+        ),
+      };
+      return updateditm;
+    });
+  });
+
+  useEffect(() => {
+    if(!modalFullOpen){
+      setHide(false)
+    }
+  } , [modalFullOpen])
+
+  let dbConfigList = useSelector((state) => {
+    let interdata = state?.expenseAdvanceData?.getFillExpense || [""];
+    return interdata?.map((itm) => {
+      let categoriesArray = itm.categories ? itm.categories.split(",") : [];
+      let updateditm = {
+        ...itm,
+
+        categories: categoriesArray.join(","),
+
+        attachment: (
+          <div className="flex justify-center items-center">
+            <img
+              src={backendassetUrl + itm?.attachment}
+              className="w-24 h-14 content-center flex object-contain"
+            />
+          </div>
+        ),
+
+        ExpenseNo: (
+          <p
+            className="cursor-pointer text-blue-500 underline"
+            onClick={(e) => {
+              console.log(itm?.ExpenseNo, "pppppppp");
+              expenseRef.current = itm;
+              dispatch(
+                ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp(
+                  true,
+                  `ExpenseNo=${itm?.ExpenseNo}`
+                )
+              );
+              setmodalFullOpen((prev) => !prev);
+              setHide(true);
+              setmodalHead(itm?.ExpenseNo);
+
+              
+            }}
+          >
+            {itm.ExpenseNo}
+          </p>
+        ),
+
+        edit: (
+          <CstmButton
+            className={"p-2"}
+            child={
+              <EditButton
+                name={""}
+                onClick={() => {
+                  setmodalOpen(true);
+                  dispatch(ExpenseAdvanceActions.getFillExpense());
+                  setmodalHead("Edit Claim Type");
+                  setmodalBody(
+                    <>
+                      <FillExpenseForm
+                        isOpen={modalOpen}
+                        setIsOpen={setmodalOpen}
+                        resetting={false}
+                        formValue={itm}
+                      />
+                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                    </>
+                  );
+                  //setmodalOpen(false)
+                }}
+              ></EditButton>
+            }
+          />
+        ),
+
         addRow: (
           <CstmButton
             className={"p-2"}
@@ -93,7 +220,7 @@ const FillExpense = () => {
                 classes="w-1/2 h-5 bg-green-500"
                 onClick={() => {
                   expenseRef.current = itm;
-                  setmodalHead("Add new expense under " + itm?.ExpenseNo);
+                  setmodalHead("New expense under " + itm?.ExpenseNo);
                   setmodalBody(
                     <FillExpenseForm
                       isOpen={modalOpen}
@@ -167,6 +294,8 @@ const FillExpense = () => {
       return 0;
     }
   });
+
+  
 
   const {
     register,
@@ -260,11 +389,12 @@ const FillExpense = () => {
         value: "status",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
-      {
+      ...( !hide ? [{
         name: "Add Row",
         value: "addRow",
         style: "min-w-[100px] max-w-[100px] text-center",
       },
+    ] : [
       {
         name: "Edit",
         value: "edit",
@@ -275,6 +405,9 @@ const FillExpense = () => {
         value: "delete",
         style: "min-w-[100px] max-w-[100px] text-center",
       },
+    ]),
+
+      
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -301,17 +434,9 @@ const FillExpense = () => {
 
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getFillExpense());
+    // dispatch(ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp());
   }, []);
 
-  const onTableViewSubmit = (data) => {
-    data["fileType"] = "ManageClaimType";
-    dispatch(
-      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(ExpenseAdvanceActions.getFillExpense());
-        setFileOpen(false);
-      })
-    );
-  };
   return (
     <>
       <AdvancedTableRow
@@ -333,14 +458,9 @@ const FillExpense = () => {
               }}
               name={"Add Expense"}
             ></Button>
-            {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button> */}
           </div>
         }
         table={table}
-        // templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
-        // exportButton={["/export/manageCircle","Export_Circle("+dt+").xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -360,14 +480,32 @@ const FillExpense = () => {
         setIsOpen={setmodalOpen}
       />
 
-      {/* <CommonForm/> */}
-      <FileUploader
-        isOpen={fileOpen}
-        fileUploadUrl={""}
-        onTableViewSubmit={onTableViewSubmit}
-        setIsOpen={setFileOpen}
-        tempbtn={true}
-        tempbtnlink={["/template/Circle.xlsx", "Circle.xlsx"]}
+      <Modal
+        size={"full"}
+        modalHead={modalHead}
+        children={ <AdvancedTableRow
+          headerButton={<div className="flex gap-1"></div>}
+          // table={{
+          //   ...table,
+          //   columns: [...table.columns].splice(table.columns.length - 3, 0, {
+          //     name: "Add Row",
+          //     value: "addRow",
+          //     style: "min-w-[100px] max-w-[100px] text-center",
+          //   }),
+          // }}
+          table={table}
+          filterAfter={onSubmit}
+          tableName={"UserListTable"}
+          handleSubmit={handleSubmit}
+          data={dbConfigListL}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+          totalCount={dbConfigTotalCount}
+        />}
+        isOpen={modalFullOpen}
+        setIsOpen={setmodalFullOpen}
       />
     </>
   );

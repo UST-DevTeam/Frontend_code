@@ -19,6 +19,7 @@ import {
     GET_EXPENSE_EMP_CODE,
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
+    GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -273,6 +274,17 @@ const ExpenseAdvanceActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_EXPENSE_DA_COST_CENTER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getExpensesByExpenseNoInPopUp:(reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_expenses_by_expensesNo_in_popup}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EXPENSES_BY_EXPENSESNO_IN_POPUP({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },

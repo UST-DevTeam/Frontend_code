@@ -42,7 +42,7 @@ const store = configureStore({
         formssData,
         expenseAdvanceData,
         eventlogsReducer,
-        filterData
+        filterData  
     },
     devTools: true
 })

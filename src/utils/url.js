@@ -119,6 +119,7 @@ export const Urls={
     expAdv_DA_Fill:"/expenses/fillDA",
     expAdv_DA_project_Id:"/expenses/DAFillProjectId",
     expAdv_DA_cost_center:"expenses/DAFillcostCenter",
+    expAdv_expenses_by_expensesNo_in_popup:"/expenses/ExpenseNo",
 
 
 
