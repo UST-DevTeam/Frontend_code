@@ -128,8 +128,6 @@ const CommonActions = {
 
         console.log(res, "resresresrescommondownload")
 
-
-        
         dispatch(SET_FILE_BLOB(new Blob([res?.data])))
         // filename = urls.split("/").pop()
 

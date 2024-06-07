@@ -161,21 +161,84 @@ const POWorkDoneBased = () => {
         //     rpp: [10, 20, 50, 100]
         // },
         filter: [
+            {
+                label: "Customer",
+                type: "text",
+                name: "customer",
+                props: {
+                }
+            },
+            {
+                label: "ProjectGroup",
+                type: "text",
+                name: "customer",
+                props: {
+                }
+            },
             // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
+            //     label: "Project Type",
+            //     type: "text",
+            //     name: "customer",
             //     props: {
             //     }
-            // }
+            // },
+            // {
+            //     label: "Sub Project",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
+            {
+                label: "Project ID",
+                type: "text",
+                name: "customer",
+                props: {
+                }
+            },
+            // {
+            //     label: "GBPA",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
+            // {
+            //     label: "PO Number",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
+            {
+                label: "Item Code",
+                type: "text",
+                name: "customer",
+                props: {
+                }
+            },
+            // {
+            //     label: "Item Code Status",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
+            // {
+            //     label: "PO Status",
+            //     type: "text",
+            //     name: "customer",
+            //     props: {
+            //     }
+            // },
         ]
     }
     const onSubmit = (data) => {
         console.log("jsjsjsjss", data)
-        let value = data.reseter
+        let shouldReset = data.reseter;
+        // let value = data.reseter
         delete data.reseter
-        dispatch(FinanceActions.getPOWorkDoneDashboard(value, objectToQueryString(data)))
+        dispatch(FinanceActions.getPOWorkDoneDashboard(shouldReset, {},objectToQueryString(data)))
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOWorkDoneDashboard())

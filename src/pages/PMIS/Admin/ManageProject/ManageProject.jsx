@@ -32,6 +32,7 @@ import eventManagementActions from "../../../../store/actions/eventLogs-actions"
 import EventLog from "../../../../components/EventLogs";
 import CommonForm from "../../../../components/CommonForm";
 import PopupMenu from "../../../../components/PopupMenu";
+import FilterActions from "../../../../store/actions/filter-actions";
 
 const ManageProject = () => {
   const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
@@ -331,14 +332,51 @@ const ManageProject = () => {
     formState: { errors },
   } = useForm();
 
-  let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
+  let circleList = useSelector((state) => {
+    return state?.filterData?.getProjectCircle.map((itm) => {
       return {
-        label: itm.projectType,
-        value: itm.uniqueId,
+        label: itm.circle,
+        value: itm.circle,
       };
     });
   });
+
+  let projectIdList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectId.map((itm) => {
+      return {
+        label: itm.projectId,
+        value: itm.projectId,
+      };
+    });
+  });
+
+  let projectGroupList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectGroup.map((itm) => {
+      return {
+        label: itm.ProjectGroup,
+        value: itm.ProjectGroup,
+      };
+    });
+  });
+
+  let projectTypeList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectType.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.projectType,
+      };
+    });
+  });
+
+  let projectManagerList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectManager.map((itm) => {
+      return {
+        label: itm.projectManager,
+        value: itm.projectManager,
+      };
+    });
+  });
+
 
   let table = {
     columns: [
@@ -393,7 +431,42 @@ const ManageProject = () => {
     },
     filter: [
       {
-        label: "Type",
+        label: "Project ID",
+        type: "select",
+        name: "projectId",
+        option: projectIdList,
+        props: {},
+      },
+      {
+        label: "Project Group",
+        type: "select",
+        name: "projectGroup",
+        option: projectGroupList,
+        props: {},
+      },
+      {
+        label: "Project Type",
+        type: "select",
+        name: "projectType",
+        option: projectTypeList,
+        props: {},
+      },
+      {
+        label: "Project Manager",
+        type: "autoSuggestion",
+        name: "projectManager",
+        option: projectManagerList,
+        props: {},
+      },
+      {
+        label: "Circle",
+        type: "select",
+        name: "circle",
+        option: circleList,
+        props: {},
+      },
+      {
+        label: "Status",
         type: "select",
         name: "statusType",
         option: [
@@ -403,23 +476,23 @@ const ManageProject = () => {
         ],
         props: {},
       },
-      {
-        label: "Select Project Type",
-        name: "projectType",
-        type: "BigmuitiSelect",
-        value: "",
-        option: [
-          // dispatch(AdminActions.getCardProjectType(customeruniqueId))
-        ],
-        props: {
-          onChange: (e) => {
-            console.log(e.target.value, "e.target.value");
-          },
-        },
-        required: true,
-        classes: "col-span-1",
-        width:"350px"
-      },
+      // {
+      //   label: "Select Project Type",
+      //   name: "projectType",
+      //   type: "BigmuitiSelect",
+      //   value: "",
+      //   option: [
+      //     // dispatch(AdminActions.getCardProjectType(customeruniqueId))
+      //   ],
+      //   props: {
+      //     onChange: (e) => {
+      //       console.log(e.target.value, "e.target.value");
+      //     },
+      //   },
+      //   required: true,
+      //   classes: "col-span-1",
+      //   width:"350px"
+      // },
       
     ],
   };
@@ -441,15 +514,13 @@ const ManageProject = () => {
     );
   };
   useEffect(() => {
-    dispatch(
-      AdminActions.getProject(
-        `${customeruniqueId}${
-          projecttypeuniqueId ? "/" + projecttypeuniqueId : ""
-        }`
-      )
-    );
+    dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    dispatch(FilterActions.getProjectCircle(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
     dispatch(eventManagementActions.getprojecteventList());
-    // dispatch(OperationManagementActions.getRoleList())
   }, []);
 
   const onTableViewSubmit = (data) => {

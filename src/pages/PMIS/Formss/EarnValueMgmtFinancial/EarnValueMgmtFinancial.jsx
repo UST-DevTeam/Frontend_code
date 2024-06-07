@@ -71,6 +71,9 @@ const EarnValueMgmtFinancial = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+                plan1: itm.earnvalueArray?.[0]?.["plan"],
+                plan2: itm.earnvalueArray?.[1]?.["plan"],
+                plan3: itm.earnvalueArray?.[2]?.["plan"],
 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
@@ -175,7 +178,7 @@ const EarnValueMgmtFinancial = () => {
             },
             {
                 name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-                value: "prevPlanValue",
+                value: "plan1",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },            
             {
@@ -185,7 +188,7 @@ const EarnValueMgmtFinancial = () => {
             },            
             {
                 name: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
-                value: "currPlanValue",
+                value: "plan2",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },            
             {
@@ -195,7 +198,7 @@ const EarnValueMgmtFinancial = () => {
             },            
             {
                 name: `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-                value: "nextPlanValue",
+                value: "plan3",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },            
             {

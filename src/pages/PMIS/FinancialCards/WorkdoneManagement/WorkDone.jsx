@@ -26,6 +26,8 @@ const WorkDone = () => {
   
   const [modalBody, setmodalBody] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
+  // const [upDatq, setupDatq] = useState(false);
+  // const [currentPage, setcurrentPage] = useState(1);
   const [modalHead, setmodalHead] = useState(<></>);
   let dispatch = useDispatch();
 
@@ -69,24 +71,16 @@ const WorkDone = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(
-                    FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`,setmodalOpen(true))
-                  );
-                  // dispatch(FinanceActions.getPOWorkDoneBased())
+                  dispatch(FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`,setmodalOpen(true)));
+                  // dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }));
                   setmodalHead("Edit Workdone");
-
-                  dispatch(
-                    GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true })
-                  );
-
-                  //   console.log(itm.itemCodeArray.map((itqq,itqqindex)=>{
-                  //     return {["itemCode"+itqqindex]:itqq["itemCode"]}
-                  //   }),"itm.itemCodeArray")
                   setcallSt(true)
                   setmodalBody(
                     <>
                       <WorkDoneForm
-
+                        // setupDatq={setupDatq}
+                        // currentPage={currentPage}
+                        // setcurrentPage={setcurrentPage}
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         callSt={callSt}
@@ -400,7 +394,47 @@ const WorkDone = () => {
     },
     filter: [
       {
-        label: "Type",
+        label: "Customer",
+        type: "text",
+        name: "customer",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Project Group",
+        type: "text",
+        name: "project",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Project Type",
+        type: "text",
+        name: "project",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Site ID",
+        type: "text",
+        name: "project",
+        // option: [
+        //   { label: "Billed", value: "Billed" },
+        //   { label: "UnBilled", value: "Unbilled" },
+        // ],
+        props: {},
+      },
+      {
+        label: "Billing Status",
         type: "select",
         name: "status",
         option: [
@@ -442,12 +476,11 @@ const WorkDone = () => {
     ],
   };
   const onSubmit = (data) => {
-    // console.log("jsjsjsjss", data)
-    let value = data.reseter;
+    console.log("data________", data)
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(
-      FinanceActions.getPOWorkDoneBased(value, objectToQueryString(data))
-    );
+    console.info("page_data",data)
+    dispatch(FinanceActions.getPOWorkDoneBased(shouldReset,{}, objectToQueryString(data)));
   };
   useEffect(() => {
     dispatch(FinanceActions.getPOWorkDoneBased());
@@ -467,6 +500,10 @@ const WorkDone = () => {
   return (
     <>
       <AdvancedTable
+        // upDatq={upDatq}
+        // currentPage={currentPage}
+        // setcurrentPage={setcurrentPage}
+        // setupDatq={setupDatq}
         headerButton={
           <>
             {/* <Button onClick={(e) => {
@@ -485,6 +522,7 @@ const WorkDone = () => {
           </>
         }
         table={table}
+        exportButton={["/export/poWorkDone","Export_PO_WorkDone.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
