@@ -45,6 +45,7 @@ const ManageProject = () => {
   const [fileType, setfileType] = useState("");
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [bulkfileOpen, setbulkfileOpen] = useState(false);
+  const [strValFil, setstrVal] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -497,21 +498,15 @@ const ManageProject = () => {
     ],
   };
   const onSubmit = (data) => {
-    console.log(data, "datadatadatadatadatadata");
 
+    let value = data.reseter
     delete data["reseter"];
-    console.log(objectToQueryString(data), "datadatadatadatadatadata");
 
-    dispatch(
-      AdminActions.getProject(
-        `${customeruniqueId}${
-          projecttypeuniqueId ? "/" + projecttypeuniqueId : ""
-        }`,
-        "",
-        true,
-        objectToQueryString(data)
-      )
-    );
+    let strVal=objectToQueryString(data)
+
+    setstrVal(strVal)
+
+    dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"",true,strVal));
   };
   useEffect(() => {
     dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
@@ -631,7 +626,7 @@ const ManageProject = () => {
                       onClick={() => {
                         dispatch(
                           CommonActions.commondownload(
-                            "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,
+                            "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`+"?"+strValFil,
                             "Export_Project.xlsx"
                           )
                         );

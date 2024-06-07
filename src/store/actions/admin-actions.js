@@ -352,7 +352,7 @@ const AdminActions = {
     getProject:(customeruniqueId,rowId,reset=true,args="") => async (dispatch, _) => {
 
         try {
-            const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`},reset)
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_PROJECT({dataAll,reset}))

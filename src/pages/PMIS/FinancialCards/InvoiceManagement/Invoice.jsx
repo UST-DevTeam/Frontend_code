@@ -28,6 +28,7 @@ const Invoice = () => {
   const [selectAll, setSelectAll] = useState([]);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [strValFil, setstrVal] = useState(false);
   const endDate = moment().format("Y");
 
   let dispatch = useDispatch();
@@ -462,7 +463,12 @@ const Invoice = () => {
     console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FinanceActions.getInvoice(value, objectToQueryString(data)));
+
+    let strVal=objectToQueryString(data)
+
+    setstrVal(strVal)
+
+    dispatch(FinanceActions.getInvoice(value, strVal));
   };
   useEffect(() => {
     dispatch(FinanceActions.getInvoice());
@@ -549,7 +555,7 @@ const Invoice = () => {
           </>
         }
         table={table}
-        exportButton={["/export/Invoice/", "Export_Invoice.xlsx"]}
+        exportButton={["/export/Invoice"+"?"+strValFil, "Export_Invoice.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}

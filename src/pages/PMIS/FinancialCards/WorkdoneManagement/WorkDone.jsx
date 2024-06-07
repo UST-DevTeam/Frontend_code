@@ -28,6 +28,7 @@ const WorkDone = () => {
   
   const [modalBody, setmodalBody] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
+  const [strValFil, setstrVal] = useState(false);
   // const [upDatq, setupDatq] = useState(false);
   // const [currentPage, setcurrentPage] = useState(1);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -521,7 +522,9 @@ const WorkDone = () => {
     let shouldReset = data.reseter;
     delete data.reseter;
     console.info("page_data",data)
-    dispatch(FinanceActions.getPOWorkDoneBased(shouldReset,{}, objectToQueryString(data)));
+    let strVal=objectToQueryString(data)
+    setstrVal(strVal)
+    dispatch(FinanceActions.getPOWorkDoneBased(shouldReset,{},strVal));
   };
   useEffect(() => {
     dispatch(FinanceActions.getPOWorkDoneBased());
@@ -564,7 +567,7 @@ const WorkDone = () => {
           </>
         }
         table={table}
-        exportButton={["/export/poWorkDone","Export_PO_WorkDone.xlsx"]}
+        exportButton={["/export/poWorkDone"+"?"+strValFil,"Export_PO_WorkDone.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
