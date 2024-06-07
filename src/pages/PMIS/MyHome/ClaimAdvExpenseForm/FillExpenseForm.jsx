@@ -15,6 +15,7 @@ const FillExpenseForm = ({
   setIsOpen,
   resetting,
   formValue = {},
+  expenseRef={ current : {}}
 }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
@@ -22,7 +23,6 @@ const FillExpenseForm = ({
   let dispatch = useDispatch();
 
   let claimTypeList = useSelector((state) => {
-    console.log(state?.adminData?.getManageExpenseAdvance, "__________itmitmitm");
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
       
       return {
@@ -295,6 +295,9 @@ const FillExpenseForm = ({
         )
       );
     } else {
+    if(expenseRef.current){
+        data.expenseId = expenseRef.current?.ExpenseNo
+    }
       dispatch(
         ExpenseAdvanceActions.postFillExpense(true, data, () => {
           console.log("CustomQueryActions.postDBConfig");

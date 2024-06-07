@@ -14,6 +14,9 @@ const initialState = {
     getL3Data:[],
     getL3AdvanceData:[],
     approvalStatus:[],
+    getExpenseEMPCode:[],
+    getDAFill:[],
+    getExpenseDAProjectId:[],
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -122,6 +125,38 @@ const ExpenseAdvanceReducer = createSlice({
             }
         },
 
+        GET_EXPENSE_EMP_CODE:(state,{payload}) => {
+            if(payload.reset){
+                state.getExpenseEMPCode = payload.dataAll
+            }else{
+                state.getExpenseEMPCode  = [...state.getExpenseEMPCode,...payload.dataAll]
+            }
+        },
+
+        GET_DA_FILL:(state,{payload}) => {
+            if(payload.reset){
+                state.getDAFill = payload.dataAll
+            }else{
+                state.getDAFill  = [...state.getDAFill,...payload.dataAll]
+            }
+        },
+
+        GET_EXPENSE_DA_PROJECT_ID:(state,{payload}) => {
+            if(payload.reset){
+                state.getExpenseDAProjectId = payload.dataAll
+            }else{
+                state.getExpenseDAProjectId  = [...state.getExpenseDAProjectId,...payload.dataAll]
+            }
+        },
+
+        GET_EXPENSE_DA_COST_CENTER:(state,{payload}) => {
+            if(payload.reset){
+                state.getExpenseDACostCenter = payload.dataAll
+            }else{
+                state.getExpenseDACostCenter  = [...state.getExpenseDACostCenter,...payload.dataAll]
+            }
+        },
+
         
     }
 })
@@ -140,5 +175,9 @@ export const {
     GET_L3_DATA,
     GET_L3_ADVANCE_DATA,
     GET_APPROVAL_STATUS,
+    GET_EXPENSE_EMP_CODE,
+    GET_DA_FILL,
+    GET_EXPENSE_DA_PROJECT_ID,
+    GET_EXPENSE_DA_COST_CENTER,
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

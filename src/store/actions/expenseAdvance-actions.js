@@ -15,6 +15,10 @@ import {
     GET_L3_DATA,
     GET_L3_ADVANCE_DATA,
     GET_APPROVAL_STATUS,
+    GET_DA_FILL,
+    GET_EXPENSE_EMP_CODE,
+    GET_EXPENSE_DA_PROJECT_ID,
+    GET_EXPENSE_DA_COST_CENTER,
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -209,6 +213,67 @@ const ExpenseAdvanceActions = {
             
         } catch (error) {
             return;
+        }
+    },
+
+    getExpenseEMPCode:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_expense_emp_code}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EXPENSE_EMP_CODE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getDAFill:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_DA_Fill}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_DA_FILL({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postDAFill: (reset, data, cb, uniqueId,) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.expAdv_DA_Fill : Urls.expAdv_DA_Fill + "/" + uniqueId, reset} )
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getExpenseDAProjectId:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_DA_project_Id}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EXPENSE_DA_PROJECT_ID({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getExpenseDACostCenter:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_DA_cost_center}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EXPENSE_DA_COST_CENTER({dataAll,reset}))
+        } catch (error) {
         }
     },
 
