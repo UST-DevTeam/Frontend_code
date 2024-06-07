@@ -1,5 +1,5 @@
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
@@ -7,8 +7,8 @@
 
 
 
-export const baseUrl="http://192.168.0.102:7980"
-export const backendassetUrl="http://192.168.0.102:7980/"
+// export const baseUrl="http://192.168.0.102:7980"
+// export const backendassetUrl="http://192.168.0.102:7980/"
 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
@@ -97,6 +97,8 @@ export const Urls={
     admin_invoiceSSID:"/finance/ssId",
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
+    formss_EVM_delivery:"/forms/EVMActual",
+    admin_claim_type:"/expenses/ClaimType",
 
     admin_claim_type:"/expenses/ClaimType",
     admin_claim_type_unit_rate:"/expenses/unitRate",
@@ -119,6 +121,24 @@ export const Urls={
     expAdv_DA_Fill:"/expenses/fillDA",
     expAdv_DA_project_Id:"/expenses/DAFillProjectId",
     expAdv_DA_cost_center:"expenses/DAFillcostCenter",
+
+    filter_project_circle:'/filter/project/circle',
+    filter_project_projectId:'/filter/project/projectId',
+    filter_project_projectGroup:'/filter/project/projectGroup',
+    filter_project_projectType:'/filter/project/projectType',
+    filter_project_projectManager:'/filter/project/projectManager',
+
+    filter_site_subProject:'/filter/site/subProject',
+
+    filter_financial_poManagement_customer:'/filter/financial/pomanagement/customer',
+    filter_financial_poManagement_projectGroup:'/filter/financial/pomanagement/projectGroup',
+    filter_financial_poManagement_projectId:'/filter/financial/pomanagement/projectId',
+
+    filter_financial_RevenueManagement_customer:'/filter/financial/revenueManagement/customer',
+    filter_financial_RevenueManagement_projectGroup:'/filter/financial/revenueManagement/projectGroup',
+
+
+    filter_financial_poWorkDone_customer:'/filter/financial/poWorkDone/customer',
 
 
 
