@@ -108,6 +108,20 @@ import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/Un
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
 import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
+import ClaimTypeCards from "../pages/PMIS/HR/ClaimTypeCards";
+import ManageClaimTypeDesignation from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
+import ManageClaimTypeUnitRate from "../pages/PMIS/Admin/ManageClaimTypeUnitRate/ManageClaimTypeUnitRate";
+import ClaimAndAdvance from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAndAdvance";
+import HomeCards from "../pages/PMIS/MyHome/HomeCards";
+import FillExpense from "../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpense";
+import FillAdvance from "../pages/PMIS/MyHome/ClaimAdvAdvanceForm/FillAdvance";
+import L1Form from "../pages/PMIS/MyHome/L1Form/L1Form";
+import ApproverCards from "../pages/PMIS/MyHome/ApproverCards";
+import L2Form from "../pages/PMIS/MyHome/L2Form/L2Form";
+import L3Form from "../pages/PMIS/MyHome/L3Form/L3Form";
+import L1AdvanceForm from "../pages/PMIS/MyHome/L1Form/L1AdvanceForm";
+import L2AdvanceForm from "../pages/PMIS/MyHome/L2Form/L2AdvanceForm";
+import L3AdvanceForm from "../pages/PMIS/MyHome/L3Form/L3AdvanceForm";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -279,7 +293,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/personalInfo",
+      link: "/home/personalInfo",
       subMenu: [],
       component: <PersonalInfo />,
     },
@@ -303,9 +317,63 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/claim&Reimbursement",
+      link: "/home/approverCards",
       subMenu: [],
-      component: <Claim />,
+      component: <ApproverCards />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance",
+      subMenu: [],
+      component: <ClaimAndAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance/Expense",
+      subMenu: [],
+      component: <FillExpense />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance/Advance",
+      subMenu: [],
+      component: <FillAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L1Approver",
+      subMenu: [],
+      component: <L1Form />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L1Advance",
+      subMenu: [],
+      component: <L1AdvanceForm />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L2Approver",
+      subMenu: [],
+      component: <L2Form />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L2Advance",
+      subMenu: [],
+      component: <L2AdvanceForm />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/financeApprover",
+      subMenu: [],
+      component: <L3Form />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards/L3Advance",
+      subMenu: [],
+      component: <L3AdvanceForm />,
     },
     {
       name: "",
@@ -411,7 +479,28 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/hr/superAdmin/claimType",
+      component: <ClaimTypeCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType/claimTypeCategories",
       component: <ManageClaimType />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType/claimTypeDesignation",
+      component: <ManageClaimTypeDesignation />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/claimType/claimTypeUnitRate",
+      component: <ManageClaimTypeUnitRate />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
@@ -536,7 +625,7 @@ export const Sidebar_content = {
       {
         name: "My Home",
         link: "/home",
-        component: <MyHome />,
+        component: <HomeCards />,
         icon: <UilHome className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },

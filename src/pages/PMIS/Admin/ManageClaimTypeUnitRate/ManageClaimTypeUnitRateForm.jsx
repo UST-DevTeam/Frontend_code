@@ -9,38 +9,44 @@ import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
+import ExpenseAdvanceActions from '../../../../store/actions/expenseAdvance-actions';
 
-const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageClaimTypeUnitRateForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
     const [modalOpen, setmodalOpen] = useState(false)
 
-
+    const [category,setCategory] = useState()
     let dispatch = useDispatch()
 
-    let CategoryList = useSelector((state) => {
-        return state?.adminData?.getManageClaimTypeUnitRate.map((itm) => {
-            console.log(itm,"itmitmitm")
-            return {
-                name: itm?.categories +  "="  + `${itm.unitRate}/km`,
-                id: itm?.uniqueId,
-            }
-        })
-    })
+    let UnitRateClaimTypeList = useSelector((state) => {
+        return state?.expenseAdvanceData?.getUnitRateClaimType.map((itm) => {
+          return {
+            label: itm?.claimType,
+            value: itm?.claimTypeId,
+            categories : itm?.categories?.split(",")?.map(item => {
+                return {
+                    label : item,
+                    value : item
+                }
+            })
+          };
+        });
+      });
+
+      console.log("UnitRateClaimTypeList",UnitRateClaimTypeList)
 
     let Form = [
         {
             label: "Claim Type",
             value: "",
             name: "claimType",
-            type: "text",
-            required: true,
-            classes: "col-span-1"
-        },
-        {
-            label: "Short Code",
-            value: "",
-            name: "shortCode",
-            type: "text",
+            type: "select",
+            option: UnitRateClaimTypeList,
+            props: {
+                onChange: (e) => {
+                    setCategory(UnitRateClaimTypeList.find(item => item.value === e.target.value)?.categories || [])
+                },
+              },
             required: true,
             classes: "col-span-1"
         },
@@ -48,22 +54,17 @@ const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             label: "Category",
             value: "",
             name: "categories",
-            // type: "BigmuitiSelect",
-            type: "text",
-            // option: CategoryList,
-            // required: true,
+            option: category,
+            type: "select",
+            required: true,
             classes: "col-span-1"
         },
         {
-            label: "Attachment",
+            label: "Unit Rate",
             value: "",
-            name: "attachment",
-            type: "select",
-            "option": [
-                {"name": "Yes", "label": "Yes"},
-                {"name": "No", "label": "No"}
-            ],
-            // required: true,
+            name: "unitRate",
+            type: "number",
+            required: true,
             classes: "col-span-1"
         },
     ]
@@ -84,19 +85,20 @@ const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
     }
     const onTableViewSubmit = (data) => {
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageClaimType( data, () => {
+            dispatch(AdminActions.postManageClaimTypeUnitRate(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageClaimType())
+                dispatch(AdminActions.getManageClaimTypeUnitRate())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageClaimType( data, () => {
+            dispatch(AdminActions.postManageClaimTypeUnitRate(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageClaimType())
+                dispatch(AdminActions.getManageClaimTypeUnitRate())
             }))
         }
     }
     console.log(Form, "Form 11")
     useEffect(() => {
+        dispatch(ExpenseAdvanceActions.getUnitRateClaimType())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -142,4 +144,4 @@ const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
 
 
 
-export default ManageClaimTypeForm;
+export default ManageClaimTypeUnitRateForm;

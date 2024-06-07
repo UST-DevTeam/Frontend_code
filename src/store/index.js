@@ -17,9 +17,8 @@ import hrReducer from "./reducers/hr-reduces"
 import vendorData from "./reducers/vendor-reducer"
 import financeData from "./reducers/finance-reducer"
 import formssData from "./reducers/formss-reducer"
+import expenseAdvanceData from "./reducers/expenseAdvance-reducer"
 import eventlogsReducer from "./reducers/eventlogs-reducer";
-import filterData from "./reducers/filter-reducer";
-
 
 const store = configureStore({
     reducer: {
@@ -40,8 +39,8 @@ const store = configureStore({
         vendorData,
         financeData,
         formssData,
-        eventlogsReducer,
-        filterData
+        expenseAdvanceData,
+        eventlogsReducer
     },
     devTools: true
 })

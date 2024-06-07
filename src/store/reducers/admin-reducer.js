@@ -33,6 +33,9 @@ const initialState = {
     getOldComponentAllocation:[],
     getManageCompletionCriteria:[],
     getManageClaimType:[],
+    getManageClaimTypeUnitRate:[],
+    getManageClaimTypeDesignation:[],
+    getManageExpenseAdvance:[],
 
 }
 
@@ -194,6 +197,31 @@ const adminData = createSlice({
                 state.getManageClaimType  = [...state.getManageClaimType,...payload.dataAll]
             }
         },
+
+        GET_MANAGE_CLAIM_TYPE_UNIT_RATE:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageClaimTypeUnitRate = payload.dataAll
+            }else{
+                state.getManageClaimTypeUnitRate  = [...state.getManageClaimTypeUnitRate,...payload.dataAll]
+            }
+        },
+
+        GET_MANAGE_CLAIM_TYPE_DESIGNATION:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageClaimTypeDesignation = payload.dataAll
+            }else{
+                state.getManageClaimTypeDesignation  = [...state.getManageClaimTypeDesignation,...payload.dataAll]
+            }
+        },
+
+        GET_MANAGE_EXPENSE_ADVANCE:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageExpenseAdvance = payload.dataAll
+            }else{
+                state.getManageExpenseAdvance  = [...state.getManageExpenseAdvance,...payload.dataAll]
+            }
+            
+        },
         
 
         GET_MANAGE_SUB_PROJECT:(state,{payload}) => {
@@ -325,6 +353,9 @@ export const {
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_MANAGE_COMPLETION_CRITERIA,
     GET_MANAGE_CLAIM_TYPE,
+    GET_MANAGE_CLAIM_TYPE_UNIT_RATE,
+    GET_MANAGE_CLAIM_TYPE_DESIGNATION,
+    GET_MANAGE_EXPENSE_ADVANCE,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  
