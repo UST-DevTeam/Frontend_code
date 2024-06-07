@@ -89,7 +89,7 @@ const FillExpense = () => {
             className={"p-2"}
             child={
               <Button
-                name="Add Expense"
+                name="➕"
                 classes="w-1/2 h-5 bg-green-500"
                 onClick={() => {
                   expenseRef.current = itm;
@@ -188,37 +188,37 @@ const FillExpense = () => {
       {
         name: "ClaimType",
         value: "ClaimType",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-white",
       },
       {
         name: "Category",
         value: "categories",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[140px] max-w-[450px] text-center sticky left-0 bg-white",
       },
       {
         name: "Claim Date",
         value: "Claim_Date",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
         name: "Cost Center",
         value: "costcenter",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
         name: "Project ID",
         value: "projectId",
-        style: "min-w-[120px] max-w-[450px] text-center",
+        style: "min-w-[200px] max-w-[450px] text-center",
       },
       {
         name: "Site Id",
         value: "Site_Id",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
         name: "Task Name",
         value: "Task",
-        style: "min-w-[120px] max-w-[450px] text-center",
+        style: "min-w-[200px] max-w-[450px] text-center",
       },
       {
         name: "Bill Number",
@@ -258,7 +258,7 @@ const FillExpense = () => {
       {
         name: "Status",
         value: "status",
-        style: "min-w-[100px] max-w-[450px] text-center",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
         name: "Add Row",

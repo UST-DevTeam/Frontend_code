@@ -23,7 +23,6 @@ const FillExpenseForm = ({
   let dispatch = useDispatch();
 
   let claimTypeList = useSelector((state) => {
-    console.log(state?.adminData?.getManageExpenseAdvance, "__________itmitmitm");
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
       
       return {

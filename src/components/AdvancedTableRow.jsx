@@ -361,7 +361,7 @@ const AdvancedTableRow = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-primaryLine border-[1.5px] bg-primaryLine "
+                                  " border-primaryLine border-[1.5px] bg-primaryLine"
                                 }
                               >
                                 <span className="text-white text-[12px]">
