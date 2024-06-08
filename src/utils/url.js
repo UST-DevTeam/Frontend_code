@@ -8,10 +8,7 @@
 
 export const baseUrl="https://pmisfbapi.fourbrick.in"
 export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
-
 export const Urls={
-
-    
     login:"/login",
     sendMail :"/sendMail",
     logout:"/logout",
