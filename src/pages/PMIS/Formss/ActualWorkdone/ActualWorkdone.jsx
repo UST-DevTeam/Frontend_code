@@ -113,6 +113,7 @@ const ActualWorkdone = () => {
                         formValue={itm}
                         year = {year}
                         monthss = {extraColumns}
+                        weeks = {extraColumns}
                       />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
@@ -528,6 +529,7 @@ const ActualWorkdone = () => {
     };
     let cols = [];
     extraColumns.forEach((index) => {
+      console.log("afafafafasfsadfafasfafd",index)
       if (ValGm && ValGm === "Monthly") {
         cols.push([
         //   {
@@ -537,17 +539,32 @@ const ActualWorkdone = () => {
         //   },
           {
             name: `PV Target (${monthMap[index]} ${year})`,
-            // value: "M-"+index+"_y",
-            value: "plan-"+index+"",
+            value: "M-"+index+"_y",
+            // value: "plan-"+index+"",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            // value: "M-"+index+"_x",
+            value:"totalCountMS2",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
-      } else {
+      }
+      // else if (ValGm && ValGm === "Weekly"){
+      //   cols.push([
+      //       {
+      //         name: `PV Target (${listW[index]} ${year})`,
+      //         value: "W-"+index,
+      //         style: "min-w-[200px] max-w-[200px] text-center",
+      //       },
+      //       {
+      //         name: `Achievement (${listW[index]} ${year})`,
+      //         value:"totalCountMS2",
+      //         style: "min-w-[200px] max-w-[200px] text-center",
+      //       },
+      //     ]);
+      // }
+      else {
         cols.push([
         //   {
         //     name: `AOP Target (${index} ${year})`,
@@ -556,12 +573,13 @@ const ActualWorkdone = () => {
         //   },
           {
             name: `PV Target (${index} ${year})`,
-            value: '',
+            value: `${index}`,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${index} ${year})`,
             // value: index,
+            value:"totalCountMS2",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -601,7 +619,7 @@ const ActualWorkdone = () => {
     }
   };
   console.log("afadfasfasfadfadsfafaf",extraColumns);
-
+  console.log("afasfdasfasfasfafds_amar")
   return (
     <>
       <div className="flex">

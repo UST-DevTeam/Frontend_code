@@ -18,6 +18,7 @@ const ActualWorkdoneForm = ({
   formValue = {},
   year,
   monthss,
+  weeks
 }) => {
   // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -31,7 +32,7 @@ const ActualWorkdoneForm = ({
     return role
   })
   console.log("adsfasfasdfasdfadfs",roleName);
-
+  console.log("afasfasdfasfasfaasdaddsafafdfa_amar",weeks)
 
   const [modalOpen, setmodalOpen] = useState(false);
 
@@ -98,11 +99,18 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
       //   },
       //   classes: "col-span-1",
       // },
+
+
+
+
+
+
       ...monthss.map((itm)=>(
         {
           label: `PV Target (${monthsss[itm]} ${year})`,
           value: "",
-          name: `plan-${itm}`,
+          // name: `plan-${itm}`,
+          name: `M-${itm}_y`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -111,6 +119,28 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         })),
+
+
+        // ...weeks.map((itm)=>(
+        //   {
+        //     label: `PV Target (${itm} ${year})`,
+        //     value: "",
+        //     // name: `plan-${itm}`,
+        //     name: {itm},
+        //     type: "number",
+        //     props: {
+        //       valueAsNumber:true,
+        //       min: 0,
+        //       onChange: (e) => {},
+        //     },
+        //     classes: "col-span-1",
+        //   })),
+
+
+
+
+
+
     //   ...monthss.map((itm)=>(
     //     {
     //       label: `AOP Target (${monthsss[itm]} ${year})`,
@@ -213,6 +243,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
     data['project_uId'] = formValue?.project_uId;
     data['year'] = year;
     data['projectId'] = formValue?.projectId;
+    data['totalCountMS2'] = formValue?.totalCountMS2;
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
     // if (formValue.uniqueId) {
