@@ -22,6 +22,7 @@ const POWorkDoneBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [strValFil, setstrVal] = useState(false);
     let dispatch = useDispatch()
 
 
@@ -198,7 +199,9 @@ const POWorkDoneBased = () => {
         let shouldReset = data.reseter;
         // let value = data.reseter
         delete data.reseter
-        dispatch(FinanceActions.getPOWorkDoneDashboard(shouldReset, {},objectToQueryString(data)))
+        let strVal=objectToQueryString(data)
+        setstrVal(strVal)
+        dispatch(FinanceActions.getPOWorkDoneDashboard(shouldReset, {},strVal))
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOWorkDoneDashboard())
@@ -215,7 +218,7 @@ const POWorkDoneBased = () => {
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
-            exportButton={["/export/trackingWorkDone","Export_Tracking_WorkDone.xlsx"]}
+            exportButton={["/export/trackingWorkDone"+"?"+strValFil,"Export_Tracking_WorkDone.xlsx"]}
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}
