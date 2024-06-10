@@ -123,6 +123,8 @@ import L1AdvanceForm from "../pages/PMIS/MyHome/L1Form/L1AdvanceForm";
 import L2AdvanceForm from "../pages/PMIS/MyHome/L2Form/L2AdvanceForm";
 import L3AdvanceForm from "../pages/PMIS/MyHome/L3Form/L3AdvanceForm";
 import DAFormFill from "../pages/PMIS/MyHome/DAFormFill/DAFormFill";
+import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
+import ActualWorkdone from "../pages/PMIS/Formss/ActualWorkdone/ActualWorkdone";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -583,8 +585,29 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/forms/workdoneForecast",
+      link: "/forms/EVMDelivery",
       component: <WorkdoneForecastCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/gapAnalysis",
+      component: <GapAnalysisCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/gapAnalysis/ETPPendingReason",
+      // component: <E />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/gapAnalysis/MS2VSWCCPendingReason",
+      // component: <E />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
@@ -595,6 +618,21 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
+    {
+      name: "",
+      link: "/forms/EVMDelivery/ActualWorkDone",
+      component: <ActualWorkdone />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    // {
+    //   name: "",
+    //   link: "/forms/P&L",
+    //   component: <PL />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+    //   subMenu: [],
+    // },
+    
   ],
 
   SuperAdmin: [

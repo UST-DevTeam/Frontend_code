@@ -3,7 +3,7 @@ import React from "react";
 
 const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}) => {
   console.log("setValue====setValue", getValues());
-  console.log("asfaasfaswidtitmhfasfewwe",itm);
+  console.log("asfaasfaswighjhjkdtitmhfasfewwe",itm);
   let datew=[] 
   if (getValues()[itm.name]) {
     let oldData = getValues()[itm.name].split(",");
@@ -35,18 +35,24 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}
           let finalselection = e.map((itm) => {
             return itm.id;
           });
+          console.log("asfasfasdfasdasdf",finalselection);
           setValue(itm.name, finalselection.join());
-          console.log(e, "onselection");
+          console.log(e, "onselectiofsdsgsdfsgn");
+          // if(true){
+          //   console.log("asfasfasfasdfasfafasfaasfasdf");
+          //   setValue();
+          // }
           if(itm.onSelecting){
             itm.onSelecting(finalselection)
           }
+
         }} // Function will trigger on select event
         onRemove={(e) => {
           let finalselection = e.map((itm) => {
             return itm.id;
           });
           setValue(itm.name, finalselection.join());
-          console.log(e, "onRemove");
+          console.log(e, "onRemovesdfasasf");
           if(itm.onRemoving){
             itm.onRemoving(finalselection)
           }

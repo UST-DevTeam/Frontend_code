@@ -11,17 +11,13 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
  
-const ActualWorkdoneForm = ({
+const PLform = ({
   isOpen,
   setIsOpen,
   resetting,
   formValue = {},
   year,
   monthss,
-
-
-  weeks
-
 }) => {
   // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -102,17 +98,10 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
       //   },
       //   classes: "col-span-1",
       // },
-
-
-
-
-
-
       ...monthss.map((itm)=>(
         {
           label: `PV Target (${monthsss[itm]} ${year})`,
           value: "",
-          // name: `plan-${itm}`,
           name: `M-${itm}_y`,
           type: "number",
           props: {
@@ -122,41 +111,19 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         })),
-
-
-        // ...weeks.map((itm)=>(
-        //   {
-        //     label: `PV Target (${itm} ${year})`,
-        //     value: "",
-        //     // name: `plan-${itm}`,
-        //     name: {itm},
-        //     type: "number",
-        //     props: {
-        //       valueAsNumber:true,
-        //       min: 0,
-        //       onChange: (e) => {},
-        //     },
-        //     classes: "col-span-1",
-        //   })),
-
-
-
-
-
-
-    //   ...monthss.map((itm)=>(
-    //     {
-    //       label: `AOP Target (${monthsss[itm]} ${year})`,
-    //       value: "",
-    //       name: `aop_target-${itm}`,
-    //       type: "number",
-    //       props: {
-    //         valueAsNumber:true,
-    //         min: 0,
-    //         onChange: (e) => {},
-    //       },
-    //       classes: "col-span-1",
-    //     })),
+      ...monthss.map((itm)=>(
+        {
+          label: `AOP Target (${monthsss[itm]} ${year})`,
+          value: "",
+          name: `aop_target-${itm}`,
+          type: "number",
+          props: {
+            valueAsNumber:true,
+            min: 0,
+            onChange: (e) => {},
+          },
+          classes: "col-span-1",
+        })),
       // {
       //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
       //   value: "",
@@ -178,11 +145,23 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
       // },
     ];
     let Form2 = [
-      
+      // {
+      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
+      //   value: "",
+      //   name: 'plan1',
+      //   type: "number",
+      //   filter: true,
+      //   props: {
+      //     valueAsNumber:true,
+      //     min: 0,
+      //     onChange: (e) => {},
+      //   },
+      //   classes: "col-span-1",
+      // },        
         {
           label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-        //   name: `${monthss[0]}`,
+          name:  `M-${monthss[0]}_y`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -192,9 +171,9 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           classes: "col-span-1",
         },
         {
-          label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
+          label: `AOP Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-        //   name: `${monthss[0]}`,
+          name: `aop_target-${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -204,7 +183,25 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           classes: "col-span-1",
         },
       
-      
+      // {
+      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
+      //   value: "",
+      //   name: 'plan3',
+      //   type: "number",
+      //   props: {
+      //     valueAsNumber:true,
+      //     min: 0,
+      //     onChange: (e) => {},
+      //   },
+      //   classes: "col-span-1",
+      // },
+      // {
+      //   label: "Project ID",
+      //   type: "autoSuggestion",
+      //   name: "projectId",
+      //   option: projectList,
+      //   props: {},
+      // },
     ];
 
 
@@ -241,35 +238,33 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
     data['projectType'] = formValue?.projectType;
     data['costCenter'] = formValue?.costCenter;
-    data['circleName'] = formValue?.circleName;
+    data['circle'] = formValue?.circle;
     data['roleName'] = roleName;
-    data['project_uId'] = formValue?.project_uId;
+    data['uniqueId'] = formValue?.uniqueId;
     data['year'] = year;
     data['projectId'] = formValue?.projectId;
-    data['totalCountMS2'] = formValue?.totalCountMS2;
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
-    // if (formValue.uniqueId) {
+    if (formValue.uniqueId) {
       dispatch(
-        FormssActions.putEVMDelivery(
+        FormssActions.putEarnValueMgmtFinancial(
           data,
           () => {
             console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
             setIsOpen(false);
-            dispatch(FormssActions.getEVMDelivery( formValue?.projectId));
+            dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
           },
         )
       );
-    // } 
-    // else {
-    //   dispatch(
-    //     FormssActions.postEVMDelivery(data, () => {
-    //       console.log("CustomQueryActions.postDBConfig");
-    //       setIsOpen(false);
-    //       dispatch(FormssActions.getEVMDelivery());
-    //     })
-    //   );
-    // }
+    } else {
+      dispatch(
+        FormssActions.postEarnValueMgmtFinancial(data, () => {
+          console.log("CustomQueryActions.postDBConfig");
+          setIsOpen(false);
+          dispatch(FormssActions.getEarnValueMgmtFinancial());
+        })
+      );
+    }
   };
   console.log(Form, "Form 11");
   useEffect(() => {
@@ -349,4 +344,4 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
   );
 };
 
-export default ActualWorkdoneForm;
+export default PLform;

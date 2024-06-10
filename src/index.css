@@ -41,11 +41,12 @@
   
 .multiSelectContainer{
   position: static !important;
-  /* height: 32px ; */
+  /* height: 38px ; */
 }
 
 .optionListContainer{
   width: auto !important ;
+  z-index: 10000 !important;
 }
 .react-datetime-picker__wrapper{
   border: none;
@@ -260,6 +261,7 @@ svg {
 
 .optionListContainer{
   position: absolute !important;
+  z-index: 10000 !important;
 }
 
 

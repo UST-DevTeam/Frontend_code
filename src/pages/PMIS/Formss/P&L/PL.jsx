@@ -13,7 +13,7 @@ import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
-import EarnValueMgmtForm from "../../../../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtForm";
+import EarnValueMgmtForm from "../EarnValueMgmtFinancial/EarnValueMgmtForm";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
 import AdminActions from "../../../../store/actions/admin-actions";
@@ -23,10 +23,10 @@ import { data } from "autoprefixer";
 import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 
+import PLform from "./PLform";
 import { UilSearch } from "@iconscout/react-unicons";
-import ActualWorkdoneForm from "./ActualWorkdoneForm";
 
-const ActualWorkdone = () => {
+const PL = () => {
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [refresh, setRefresh] = useState(false);
@@ -85,7 +85,7 @@ const ActualWorkdone = () => {
 
   console.log("afasfasdfasfafasdfasfafd",year);
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getEVMDelivery || [];
+    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     console.log("asdfasfasfafdadsfafd",interdata);
     return interdata?.map((itm) => {
       let updateditm = {
@@ -102,18 +102,17 @@ const ActualWorkdone = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(FormssActions.getEVMDelivery(true));
-                  setmodalHead("Edit Actual");
+                  // dispatch(FormssActions.getEarnValueMgmtFinancial(true));
+                  setmodalHead("Edit Plan");
                   setmodalBody(
                     <>
-                      <ActualWorkdoneForm
+                      <EarnValueMgmtForm
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={itm}
                         year = {year}
                         monthss = {extraColumns}
-                        weeks = {extraColumns}
                       />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
@@ -141,10 +140,10 @@ const ActualWorkdone = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.formss_EVM_delivery}/${itm.uniqueId}`,
+                              `${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`,
                               () => {
                                 dispatch(
-                                  FormssActions.getEVMDelivery()
+                                  FormssActions.getEarnValueMgmtFinancial()
                                 );
                                 dispatch(ALERTS({ show: false }));
                               }
@@ -174,7 +173,7 @@ const ActualWorkdone = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getEVMDelivery || [];
+    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -235,7 +234,7 @@ const ActualWorkdone = () => {
     columns: [
       {
         name: "Circle",
-        value: "circleName",
+        value: "circle",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -416,11 +415,11 @@ const ActualWorkdone = () => {
     console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FormssActions.getEVMDelivery(value, objectToQueryString(data)));
+    dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
   };
   useEffect(() => {
     dispatch(
-      FormssActions.postEVMDelivery(
+      FormssActions.postEarnValueMgmtFinancial(
         {
           viewBy: extraColumns.join(","),
           year: `${currrentYear}`,
@@ -471,10 +470,10 @@ const ActualWorkdone = () => {
           label: "Monthly View",
           value: "Monthly",
         },
-        {
-          label: "Weekly View",
-          value: "Weekly",
-        },
+        // {
+        //   label: "Weekly View",
+        //   value: "Weekly",
+        // },
       ],
       props: {
         onChange: (e) => {
@@ -529,14 +528,13 @@ const ActualWorkdone = () => {
     };
     let cols = [];
     extraColumns.forEach((index) => {
-      console.log("afafafafasfsadfafasfafd",index)
       if (ValGm && ValGm === "Monthly") {
         cols.push([
-        //   {
-        //     name: `AOP Target (${monthMap[index]} ${year})`,
-        //     value: "aop_target-"+index+"",
-        //     style: "min-w-[200px] max-w-[200px] text-center",
-        //   },
+          {
+            name: `AOP Target (${monthMap[index]} ${year})`,
+            value: "aop_target-"+index+"",
+            style: "min-w-[200px] max-w-[200px] text-center",
+          },
           {
             name: `PV Target (${monthMap[index]} ${year})`,
             value: "M-"+index+"_y",
@@ -545,41 +543,25 @@ const ActualWorkdone = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value:"totalCountMS2",
+            value: "M-"+index+"_x",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
-      }
-      // else if (ValGm && ValGm === "Weekly"){
-      //   cols.push([
-      //       {
-      //         name: `PV Target (${listW[index]} ${year})`,
-      //         value: "W-"+index,
-      //         style: "min-w-[200px] max-w-[200px] text-center",
-      //       },
-      //       {
-      //         name: `Achievement (${listW[index]} ${year})`,
-      //         value:"totalCountMS2",
-      //         style: "min-w-[200px] max-w-[200px] text-center",
-      //       },
-      //     ]);
-      // }
-      else {
+      } else {
         cols.push([
-        //   {
-        //     name: `AOP Target (${index} ${year})`,
-        //     value: '',
-        //     style: "min-w-[200px] max-w-[200px] text-center",
-        //   },
+          {
+            name: `AOP Target (${index} ${year})`,
+            value: '',
+            style: "min-w-[200px] max-w-[200px] text-center",
+          },
           {
             name: `PV Target (${index} ${year})`,
-            value: `${index}`,
+            value: '',
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${index} ${year})`,
-            // value: index,
-            value:"totalCountMS2",
+            value: index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -613,13 +595,13 @@ const ActualWorkdone = () => {
         }));
       }
 
-      dispatch(FormssActions.postEVMDelivery(res, () => {}));
+      dispatch(FormssActions.postEarnValueMgmtFinancial(res, () => {}));
     } catch (error) {
       console.error("[ERROR] :: " + error.message);
     }
   };
   console.log("afadfasfasfadfadsfafaf",extraColumns);
-  console.log("afasfdasfasfasfafds_amar")
+
   return (
     <>
       <div className="flex">
@@ -680,4 +662,4 @@ const ActualWorkdone = () => {
   );
 };
 
-export default ActualWorkdone;
+export default PL;
