@@ -529,6 +529,14 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
+    // {
+    //   name: "",
+    //   link: "/forms/P&L",
+    //   component: <PL />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+    //   subMenu: [],
+    // },
+    
   ],
 
   SuperAdmin: [
