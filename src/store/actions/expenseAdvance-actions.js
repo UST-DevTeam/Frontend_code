@@ -29,13 +29,24 @@ const ExpenseAdvanceActions = {
     getClaimAndAdvance:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_claim_and_advance}${args!=""?"?"+args:""}`, reset })
+            console.log('responseresponse',res)
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_CLAIM_AND_ADVANCE({dataAll,reset}))
         } catch (error) {
         }
     },
-    
+    getClaimAndAdvancebyNumber:(reset=true,args="" , cb=() => {}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_claim_and_advance}${args!=""?"?"+args:""}`, reset })
+            console.log('responseresponse',res)
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            cb(dataAll)
+        } catch (error) {
+        }
+    },
+
     getFillExpense:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_fill_expense}${args!=""?"?"+args:""}`, reset })
