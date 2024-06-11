@@ -197,6 +197,14 @@ const FillExpenseForm = ({
       classes: "col-span-1",
     },
     {
+      label: "Expense Date",
+      value: "",
+      name: "expenseDate",
+      type: "datetime",
+      // required: true,
+      classes: "col-span-1",
+    },
+    {
       label: "Bill Number ",
       value: "",
       name: "billNumber",

@@ -228,12 +228,12 @@ const AdvancedTableExpandable = ({
                 <tr>
                   <td className="border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[10px] max-w-[10px] text-center"></td>
                   {table.columns.map((itts, index) => {
-                    console.log(
-                      hide.indexOf(itts.name),
-                      itts.name,
-                      hide,
-                      "hidehidehide"
-                    );
+                    // console.log(
+                    //   hide.indexOf(itts.name),
+                    //   itts.name,
+                    //   hide,
+                    //   "hidehidehide"
+                    // );
                     return hide.indexOf(String(index)) == -1 ? (
                       <>
                         {actions.includes(itts.name) ? (
@@ -351,12 +351,12 @@ const AdvancedTableExpandable = ({
 
                   <tr className="flex">
                     {table.columns.map((itts, index) => {
-                      console.log(
-                        hide.indexOf(itts.name),
-                        itts.name,
-                        hide,
-                        "hidehidehide"
-                      );
+                      // console.log(
+                      //   hide.indexOf(itts.name),
+                      //   itts.name,
+                      //   hide,
+                      //   "hidehidehide"
+                      // );
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
                           {["Edit", "Delete"].includes(itts.name) ? (

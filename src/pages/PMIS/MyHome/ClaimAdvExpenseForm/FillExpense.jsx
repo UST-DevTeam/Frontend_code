@@ -26,7 +26,6 @@ const FillExpense = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
   const [hide, setHide] = useState(false);
-  const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
 

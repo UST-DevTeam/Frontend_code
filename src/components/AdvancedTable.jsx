@@ -84,13 +84,13 @@ const AdvancedTable = ({
       //   page: value,
       // });
       sessionStorage.setItem("page",value)
-      console.info("filters_______", filters);
+      // console.info("filters_______", filters);
       // return;
       filterAfter(filters);
     // }
   };
 
-  console.log("setcurrentPage", currentPage);
+  // console.log("setcurrentPage", currentPage);
 
   const onSubmit = (formdata) => {
     // alert(value)
@@ -119,7 +119,7 @@ const AdvancedTable = ({
     setFinalData(data)
   },[data])
 
-  console.log("setFinalData", finalData)
+  // console.log("setFinalData", finalData)
 
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
@@ -179,11 +179,11 @@ const AdvancedTable = ({
                                   setHide((prev) => {
                                     // console.log(e.target.checked,prev,[e.target.value],e.target.value,"checkboxchecked")
 
-                                    console.log(
-                                      e.target.checked,
-                                      e.target.value,
-                                      "e.target.checked"
-                                    );
+                                    // console.log(
+                                    //   e.target.checked,
+                                    //   e.target.value,
+                                    //   "e.target.checked"
+                                    // );
                                     // alert("caller")
                                     if (!e.target.checked) {
                                       //   alert("pusher")
@@ -192,7 +192,7 @@ const AdvancedTable = ({
                                       //   alert("remover")
                                       let vle = prev.indexOf(e.target.value);
 
-                                      console.log(vle, "dsadsadsadasdsadsa");
+                                      // console.log(vle, "dsadsadsadasdsadsa");
                                       if (vle != -1) {
                                         prev.splice(vle, 1);
                                       }
@@ -328,7 +328,7 @@ const AdvancedTable = ({
               ) : (
                 <></>
               )}
-              {console.log(headerButton, "headerButton")}
+              {/* {console.log(headerButton, "headerButton")} */}
             </div>
           </div>
         </div>
@@ -378,12 +378,12 @@ const AdvancedTable = ({
               <thead className="sticky -top-1 h-4 z-30">
                 <tr>
                   {table.columns.map((itts, index) => {
-                    console.log(
-                      hide.indexOf(itts.name),
-                      itts.name,
-                      hide,
-                      "hidehidehide"
-                    );
+                    // console.log(
+                    //   hide.indexOf(itts.name),
+                    //   itts.name,
+                    //   hide,
+                    //   "hidehidehide"
+                    // );
                     return hide.indexOf(String(index)) == -1 ? (
                       <>
                         {actions.includes(itts.name) ? (
@@ -491,12 +491,12 @@ const AdvancedTable = ({
 
                   <tr className="flex">
                     {table.columns.map((itts, index) => {
-                      console.log(
-                        hide.indexOf(itts.name),
-                        itts.name,
-                        hide,
-                        "hidehidehide"
-                      );
+                      // console.log(
+                      //   hide.indexOf(itts.name),
+                      //   itts.name,
+                      //   hide,
+                      //   "hidehidehide"
+                      // );
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
                           {["Edit", "Delete"].includes(itts.name) ? (

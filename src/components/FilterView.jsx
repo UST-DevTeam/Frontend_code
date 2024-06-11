@@ -16,9 +16,9 @@ const FilterView = ({
   setValue,
   getValues,
 }) => {
-  console.log("afasfasfamarnathafasfasdfasf",tablefilter);
-  console.log("asdfajoiawjfdatableasdfasfas",table);
-  console.log("asfajpsfjasfastdatadfadfae",data);
+  // console.log("afasfasfamarnathafasfasdfasf",tablefilter);
+  // console.log("asdfajoiawjfdatableasdfasfas",table);
+  // console.log("asfajpsfjasfastdatadfadfae",data);
   return ( 
     <>
       {tablefilter.length > 0 && (

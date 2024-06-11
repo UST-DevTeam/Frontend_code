@@ -170,6 +170,7 @@ const ExpenseAdvanceReducer = createSlice({
         GET_EXPENSES_BY_EXPENSESNO_IN_POPUP:(state,{payload}) => {
             if(payload.reset){
                 state.getExpensesByExpenseNoInPopUp = payload.dataAll
+                console.log(state.getExpensesByExpenseNoInPopUp,"stategetExpensesByExpenseNoInPopUpstategetExpensesByExpenseNoInPopUp")
             }else{
                 state.getExpensesByExpenseNoInPopUp  = [...state.getExpensesByExpenseNoInPopUp,...payload.dataAll]
             }
