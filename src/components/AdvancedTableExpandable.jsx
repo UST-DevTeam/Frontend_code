@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import { objectToArray } from "../utils/commonFunnction";
 import moment from "moment";
 import FilterView from "./FilterView";
+import { useDispatch, useSelector } from "react-redux";
 import AdvancedTableExpandableOneRow from "./AdvancedTableExpandableOneRow";
 import SearchView from "./SearchView";
 
@@ -24,7 +25,7 @@ const AdvancedTableExpandable = ({
   register,
   setValue,
   getValues,
-  totalCount = 10,
+  totalCount = 0,
   multiSelect = false,
   actions = ["Delete"],
   searchView = "",
@@ -32,43 +33,71 @@ const AdvancedTableExpandable = ({
   setmultiSelect = () => { },
 }) => {
   const [hide, setHide] = useState([]);
+  const [finalData , setFinalData] = useState([])
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
   const [RPP, setRPP] = useState(50);
+  const [sRPP, ssRPP] = useState(0);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
-
+  data = (data[0]?.uniqueId)?data : [];
 
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
+  let dispatch = useDispatch();
+
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [10, 20, 50],
+    rpp: [10, 20, 30,50],
   };
 
   const callApiPagination = (value) => {
     let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);
-    if (lcllastVisitedPage < totalCount) {
+    // if (lcllastVisitedPage < totalCount) {
       setLastVisitedPage(lcllastVisitedPage + 50);
-      activedFilter["start"] = lcllastVisitedPage;
-      activedFilter["end"] = 50;
-      activedFilter["reseter"] = false;
-      filterAfter(activedFilter);
+      const filters = {
+        ...activedFilter,
+        start: lcllastVisitedPage,
+        end: 50,
+        reseter: true,
+        page: value,
+        
+      };
+      // activedFilter["start"] = lcllastVisitedPage;
+      // activedFilter["end"] = 50;
+      // activedFilter["reseter"] = false;
+      // filterAfter(activedFilter);
+      sessionStorage.setItem("page",value)
+      console.info("filters_______", filters);
+      // return;
+      filterAfter(filters);
+      
+    setActivedFilter(filters);
+
+    console.log("__paginate_filter",filters)
+    setActiveFilter(objectToArray(filters));
     }
-  };
 
   const onSubmit = (formdata) => {
     // alert(value)
     // const data = {...formdata, reseter : true}
     // console.log("vishal_____data", data);
-    filterAfter( {...formdata, reseter : true});
-    setActivedFilter( {...formdata, reseter : true});
-    setActiveFilter(objectToArray( {...formdata, reseter : true}));
+    console.log("__________formdata______", formdata);
+    formdata["reseter"] = true;
+    const data = {
+      ...activedFilter,
+      ...formdata
+    }
+    console.log("_filter_data",data)
+    filterAfter(data);
+    setActivedFilter(data);
+    setActiveFilter(objectToArray(data));
+    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
 
   console.log('setActivedFilter____',activedFilter)
@@ -84,6 +113,11 @@ const AdvancedTableExpandable = ({
     setActiveFilter([]);
     setActivedFilter({});
   }, [tableName]);
+
+  useEffect(()=>{
+    console.log("after_paginate", data)
+    setFinalData(data)
+  },[data])
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
   console.log("fasodfjanflasdfnaifaewasdf",data.length);
@@ -121,6 +155,7 @@ const AdvancedTableExpandable = ({
 
               {/* <SearchView  tablefilter={table.filter} onSubmit={onSubmit} handleSubmit={handleSubmit} table={table} data={data} errors={errors} register={register} setValue={register} getValues={getValues} /> */}
               <FilterView
+                onReset={onReset}
                 tablefilter={table.filter}
                 onSubmit={onSubmit}
                 handleSubmit={handleSubmit}
@@ -128,7 +163,7 @@ const AdvancedTableExpandable = ({
                 data={data}
                 errors={errors}
                 register={register}
-                setValue={register}
+                setValue={setValue}
                 getValues={getValues}
               />
               <PopupMenu
@@ -299,11 +334,11 @@ const AdvancedTableExpandable = ({
 
 
               {
-                data.length > 0 ? (
+                finalData.length > 0 ? (
                   <>
                     <tbody>
-                      {data
-                        .slice((currentPage - 1) * RPP, currentPage * RPP)
+                      {finalData
+                        
                         .map((itm) => {
                           return (
                             <AdvancedTableExpandableOneRow
@@ -403,12 +438,12 @@ const AdvancedTableExpandable = ({
         <div className="m-2">
           <div className="flex justify-between">
             <div>
-              <label>Rows Per Page: </label>
+              {/* <label>Rows Per Page: </label>
               <select onChange={(e) => setRPP(e.target.value)}>
                 {table.properties.rpp.map((itm) => {
                   return <option>{itm}</option>;
                 })}
-              </select>
+              </select> */}
             </div>
 
             <div className="flex ">

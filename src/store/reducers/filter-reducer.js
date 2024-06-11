@@ -14,7 +14,7 @@ const initialState = {
     getfinancialRevenueManagementCustomer: [],
     getfinancialRevenueManagementProjectGroup: [],
     getfinancialPoWOrkDoneCustomer:[],
-
+    getautosuggestionProjectManager:[],
 }
 
 const filterData = createSlice({
@@ -119,6 +119,14 @@ const filterData = createSlice({
             }
         },
 
+        GET_AUTO_SUGGESTION_PROJECT_MANAGER:(state,{payload}) => {
+            if(payload.reset){
+                state.getautosuggestionProjectManager = payload.dataAll
+            }else{
+                state.getautosuggestionProjectManager  = [...state.getautosuggestionProjectManager,...payload.dataAll]
+            }
+        },
+
 
     }
 })
@@ -134,7 +142,8 @@ export const {  GET_FILTER_PROJECT_CIRCLE,
                 GET_FILTER_FINANCIAL_POMANAGEMENT_PEOJECTID,
                 GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_CUSTOMER,
                 GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP,
-                GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER
+                GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER,
+                GET_AUTO_SUGGESTION_PROJECT_MANAGER
             } = filterData.actions
     
 export default filterData.reducer

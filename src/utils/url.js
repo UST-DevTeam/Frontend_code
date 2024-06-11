@@ -1,6 +1,6 @@
 
-// export const baseUrl="http://localhost:7978"
-// export const backendassetUrl="http://localhost:7978/"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
@@ -11,7 +11,7 @@
 
 export const baseUrl="https://pmisfbapi.fourbrick.in"
 export const backendassetUrl="https://pmisfbapi.fourbrick.in/" 
-  
+
 export const Urls={
     login:"/login",
     sendMail :"/sendMail",
@@ -95,6 +95,7 @@ export const Urls={
     formss_earnValue_mgmt_financial:"/forms/earnValue",
     formss_EVM_delivery:"/forms/EVMActual",
     admin_claim_type:"/expenses/ClaimType",
+    forms_profit_loss:"/forms/profilt&loss",
 
     admin_claim_type:"/expenses/ClaimType",
     admin_claim_type_unit_rate:"/expenses/unitRate",
@@ -136,6 +137,8 @@ export const Urls={
 
 
     filter_financial_poWorkDone_customer:'/filter/financial/poWorkDone/customer',
+
+    autosuggestion_projectManager:'/autosuggestion/projectManger',
 
 
 

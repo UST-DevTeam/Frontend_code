@@ -72,10 +72,12 @@ const AdvancedTable = ({
     // if (lcllastVisitedPage < totalCount) {
       setLastVisitedPage(lcllastVisitedPage + 50);
       const filters = {
+        ...activedFilter,
         start: lcllastVisitedPage,
         end: 50,
         reseter: true,
         page: value,
+        
       };
       // setActiveFilter({
       //   start: lcllastVisitedPage,
@@ -87,6 +89,11 @@ const AdvancedTable = ({
       console.info("filters_______", filters);
       // return;
       filterAfter(filters);
+      
+    setActivedFilter(filters);
+
+    console.log("__paginate_filter",filters)
+    setActiveFilter(objectToArray(filters));
     // }
   };
 
@@ -94,14 +101,20 @@ const AdvancedTable = ({
 
   const onSubmit = (formdata) => {
     // alert(value)
-    console.log("onSubmit", formdata);
+    console.log("__________formdata______", formdata);
     formdata["reseter"] = true;
-
-    filterAfter(formdata);
-    setActivedFilter(formdata);
-    setActiveFilter(objectToArray(formdata));
+    const data = {
+      ...activedFilter,
+      ...formdata
+    }
+    console.log("_filter_data",data)
+    filterAfter(data);
+    setActivedFilter(data);
+    setActiveFilter(objectToArray(data));
     dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
+
+  console.log("____activedFilter__",activedFilter)
   const onReset = () => {
     // alert(value)
     filterAfter({ reseter: true });
@@ -112,7 +125,7 @@ const AdvancedTable = ({
   useEffect(() => {
     setActiveFilter([]);
     setActivedFilter({});
-  }, [tableName, currentPage]);
+  }, [tableName]);
 
   useEffect(()=>{
     console.log("after_paginate", data)

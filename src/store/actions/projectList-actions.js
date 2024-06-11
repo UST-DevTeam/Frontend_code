@@ -62,10 +62,9 @@ const projectListActions = {
 
     getProjectTypeAll: (uniqueId,args="",reset=true) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.projectList_siteEngineer}/${uniqueId}${args!=""?"?"+args:""}` })
+            const res = await Api.get({ url: `${Urls.projectList_siteEngineer}/${uniqueId}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            console.log(dataAll, "amit errorerror 37")
             dispatch(GET_PROJECT_ALL_LIST({dataAll,reset}))
         } catch (error) {
             // console.log(error, "amit errorerror 37")

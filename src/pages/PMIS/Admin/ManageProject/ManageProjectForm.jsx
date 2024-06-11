@@ -11,6 +11,7 @@ import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import FilterActions from "../../../../store/actions/filter-actions";
 
 const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) => {
 
@@ -26,7 +27,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
   const [circlewq, setcircle] = useState("");
 
   let pmempList = useSelector((state) => {
-    return state?.hrReducer?.getManageEmpDetails?.map((itm) => {
+    return state?.filterData?.getautosuggestionProjectManager?.map((itm) => {
       return {
         // label: itm.empName + "(" + itm.email + ")",
         label: itm.empName,
@@ -34,6 +35,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
       };
     });
   });
+
 
   let projectGroupList = useSelector((state) => {
     return state?.adminData?.getManageProjectGroup.map((itm) => {
@@ -43,6 +45,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
       };
     });
   });
+
 
   let projectTypeList = useSelector((state) => {
     return state?.adminData?.getCardProjectType.map((itm) => {
@@ -302,7 +305,8 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
     dispatch(AdminActions.getManageProjectGroup(true, "", customeruniqueId));
     // dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
-    dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
+    dispatch(FilterActions.getautosuggestionProjectManager());
+    // dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
     if (customeruniqueId && projecttypeuniqueId) {
       dispatch(AdminActions.getCardProjectType(customeruniqueId, projecttypeuniqueId));
     } else if (customeruniqueId) {

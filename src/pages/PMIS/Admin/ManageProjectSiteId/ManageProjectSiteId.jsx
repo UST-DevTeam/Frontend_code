@@ -55,6 +55,7 @@ const ManageProjectSiteId = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
+  const [strValFil, setstrVal] = useState(false);
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -1090,13 +1091,12 @@ const ManageProjectSiteId = () => {
     ],
   };
   const onSubmit = (data) => {
-    // console.log("   ", data)
-    let value = data.reseter;
-    // delete data.reseter;
+    let shouldReset = data.reseter;
+    delete data.reseter;
+    let strVal=objectToQueryString(data)
+    setstrVal(strVal)
     console.log("called______")
-    dispatch(
-      projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),value)
-    );
+    dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
   };
   useEffect(() => {
     dispatch(projectListActions.getProjectType(projectuniqueId));

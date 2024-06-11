@@ -26,6 +26,7 @@ const EmpDetailsTable = () => {
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [strValFil, setstrVal] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -216,41 +217,54 @@ const EmpDetailsTable = () => {
       {
           label: "EMP Name",
           type: "text",
-          name: "rolename",
+          name: "empName",
           props: {
           }
       },
       {
           label: "EMP Code",
           type: "text",
-          name: "rolename",
+          name: "empCode",
           props: {
           }
       },
       {
           label: "PMIS Role",
           type: "text",
-          name: "rolename",
+          name: "pmisRole",
           props: {
           }
       },
       {
           label: "Status",
-          type: "text",
-          name: "rolename",
-          props: {
-          }
+          type: "select",
+          name: "status",
+          option: [
+            { label: "Active", value: "Active" },
+            { label: "Resign", value: "Resign" },
+            { label: "Abscond", value: "Abscond" },
+            { label: "Exit", value: "Exit" },
+          ],
+          props: {}
       },
     ],
   };
   const onSubmit = (data) => {
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(HrActions.getManageEmpDetails(false,value, objectToQueryString(data)));
+    let strVal=objectToQueryString(data)
+    setstrVal(strVal)
+    // if(strValFil){
+    //   strVal=strValFil
+    // }
+    // console.log("____strVal____",strVal)
+    dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };
+
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
   }, []);
+
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageEmployee";
     dispatch(
