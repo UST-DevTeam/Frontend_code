@@ -1,6 +1,6 @@
 
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
@@ -9,8 +9,8 @@
 // export const backendassetUrl="http://192.168.0.108:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
     login:"/login",
@@ -121,6 +121,9 @@ export const Urls={
     expAdv_expenses_by_expensesNo_in_popup:"/expenses/ExpenseNo",
     expAdv_claim_and_advance:"/expenses/claimAndAdvance",
 
+
+    // FILTER
+
     filter_project_circle:'/filter/project/circle',
     filter_project_projectId:'/filter/project/projectId',
     filter_project_projectGroup:'/filter/project/projectGroup',
@@ -140,6 +143,10 @@ export const Urls={
     filter_financial_poWorkDone_customer:'/filter/financial/poWorkDone/customer',
 
     autosuggestion_projectManager:'/autosuggestion/projectManger',
+
+    //  GRAPH
+
+    graph_project_status:"/graph/projectStatus",
 
 
 
