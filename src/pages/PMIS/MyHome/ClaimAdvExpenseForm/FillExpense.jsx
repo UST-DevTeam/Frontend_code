@@ -69,7 +69,7 @@ const FillExpense = () => {
                 onClick={() => {
                   setmodalOpen(true);
                   dispatch(ExpenseAdvanceActions.getFillExpense());
-                  setmodalHead("Edit Claim Type");
+                  setmodalHead("Edit Expense");
                   setmodalBody(
                     <>
                       <FillExpenseForm
@@ -192,7 +192,7 @@ const FillExpense = () => {
                 onClick={() => {
                   setmodalOpen(true);
                   dispatch(ExpenseAdvanceActions.getFillExpense());
-                  setmodalHead("Edit Claim Type");
+                  setmodalHead("Edit Expense");
                   setmodalBody(
                     <>
                       <FillExpenseForm
@@ -317,12 +317,12 @@ const FillExpense = () => {
       {
         name: "ClaimType",
         value: "ClaimType",
-        style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[150px] max-w-[200px]",
       },
       {
         name: "Category",
         value: "categories",
-        style: "min-w-[140px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[140px] max-w-[450px]",
       },
       {
         name: "Claim Date",

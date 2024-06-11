@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    getClaimAndAdvance:[],
     getExpADvPrjectDetails:[],
     getExpADvSiteID:[],
     getExpADvTaskName:[],
@@ -24,6 +25,14 @@ const ExpenseAdvanceReducer = createSlice({
     name:'ExpenseAdvanceReducer',
     initialState,
     reducers:{
+
+        GET_CLAIM_AND_ADVANCE:(state,{payload}) => {
+            if(payload.reset){
+                state.getClaimAndAdvance = payload.dataAll
+            }else{
+                state.getClaimAndAdvance  = [...state.getClaimAndAdvance,...payload.dataAll]
+            }
+        },
 
         GET_FILL_EXPENSE:(state,{payload}) => {
             if(payload.reset){
@@ -171,6 +180,7 @@ const ExpenseAdvanceReducer = createSlice({
 })
 
 export const {
+    GET_CLAIM_AND_ADVANCE,
     GET_FILL_EXPENSE,
     GET_FILL_ADVANCE,
     GET_EXPADV_PROJECT_DETAILS,

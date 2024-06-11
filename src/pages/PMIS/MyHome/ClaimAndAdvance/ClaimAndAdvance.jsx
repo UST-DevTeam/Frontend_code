@@ -11,36 +11,23 @@ import CstmButton from '../../../../components/CstmButton';
 import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
+import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
 
-
-
-
 const ClaimAndAdvance = () => {
-
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
-    const [type, settype] = useState(false)
     const [modalHead, setmodalHead] = useState(<></>)
     const [balance, setBalance] = useState(0);
-
-
+    
     let dispatch = useDispatch()
-
     let navigate = useNavigate()
 
-
-
-
-
-
-
     let dbConfigList = useSelector((state) => {
-        console.log(state, "state statejjjj")
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.expenseAdvanceData?.getClaimAndAdvance || [""];
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -48,10 +35,10 @@ const ClaimAndAdvance = () => {
                 // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCustomer())
-                    setmodalHead("Edit Customer Details")
+                    dispatch(AdminActions.getClaimAndAdvance())
+                    setmodalHead("Edit Claim Advance")
                     setmodalBody(<>
-                        <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        {/* <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                 }}></EditButton>} />,
@@ -62,8 +49,8 @@ const ClaimAndAdvance = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCustomer())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.expAdv_claim_and_advance}/${itm.uniqueId}`, () => {
+                                    dispatch(ExpenseAdvanceActions.getClaimAndAdvance())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -94,7 +81,7 @@ const ClaimAndAdvance = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.adminData?.getManageCustomer || [""];
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -159,11 +146,11 @@ const ClaimAndAdvance = () => {
                 value: "status",
                 style: "min-w-[250px] max-w-[450px] text-center"
             },
-            {
-                name: "Remarks",
-                value: "remark",
-                style: "min-w-[350px] max-w-[450px] text-center"
-            },
+            // {
+            //     name: "Remarks",
+            //     value: "remark",
+            //     style: "min-w-[350px] max-w-[450px] text-center"
+            // },
             {
                 name: "Edit",
                 value: "edit",
@@ -198,10 +185,10 @@ const ClaimAndAdvance = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
+        dispatch(ExpenseAdvanceActions.getClaimAndAdvance(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        dispatch(ExpenseAdvanceActions.getClaimAndAdvance())
         const balance = () => {
             let balanceValue = 0;
             dbConfigList?.map(itm => {
