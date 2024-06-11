@@ -4,12 +4,13 @@
 // export const baseUrl="http://192.168.29.70:7980"
 // export const backendassetUrl="http://192.168.29.70:7980/"
 
-// export const baseUrl="http://192.168.0.102:7980"
-// export const backendassetUrl="http://192.168.0.102:7980/"
+// export const baseUrl="http://192.168.0.108:7980"
+// export const backendassetUrl="http://192.168.0.108:7980/"
 
 
 export const baseUrl="https://pmisfbapi.fourbrick.in"
 export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+
 export const Urls={
     login:"/login",
     sendMail :"/sendMail",
@@ -116,6 +117,7 @@ export const Urls={
     expAdv_DA_project_Id:"/expenses/DAFillProjectId",
     expAdv_DA_cost_center:"expenses/DAFillcostCenter",
     expAdv_expenses_by_expensesNo_in_popup:"/expenses/ExpenseNo",
+    expAdv_claim_and_advance:"/expenses/claimAndAdvance",
 
     filter_project_circle:'/filter/project/circle',
     filter_project_projectId:'/filter/project/projectId',
