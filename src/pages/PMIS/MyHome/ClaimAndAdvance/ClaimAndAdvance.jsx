@@ -15,6 +15,7 @@ import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-acti
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
+import ClaimAdvanceForm from "./ClaimAdvanceForm";
 
 const ClaimAndAdvance = () => {
   const expenseRef = useRef("");
@@ -30,6 +31,7 @@ const ClaimAndAdvance = () => {
 
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getClaimAndAdvance());
+    // dispatch(ExpenseAdvanceActions.getFillExpensesss());
   }, []);
 
   let Amounts = useSelector((state) => {
@@ -84,7 +86,34 @@ const ClaimAndAdvance = () => {
                 ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
                   true,
                   `Number=${itm?.name}`,
-                  (data) => setClaimByNumber(data)
+                  (data) => setClaimByNumber(data?.map(item => {
+                    return {
+                      ...item,
+                      edit : (
+                        <CstmButton
+                          className={"p-2"}
+                          child={
+                            <EditButton
+                              name={""}
+                              onClick={() => {
+                                
+                                setmodalOpen(true);
+                                dispatch(ExpenseAdvanceActions.getFillExpense(true, `ExpenseNo=${item.ExpenseNo}`));
+                                setmodalHead("Edit Claim Advance");
+                                setmodalBody(
+                                  <>
+                                    <ClaimAdvanceForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                                    {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                                  </>
+                                );
+                                
+                              }}
+                            ></EditButton>
+                          }
+                        />
+                      ),
+                    }
+                  }))
                 )
               );
               setmodalFullOpen((prev) => !prev);
@@ -368,16 +397,13 @@ const ClaimAndAdvance = () => {
               value: "remark",
               style: "min-w-[200px] max-w-[100px] text-center",
             },
-          ]),
-      ...(!hide
-        ? [
             {
               name: "Edit",
               value: "edit",
               style: "min-w-[250px] max-w-[450px] text-center",
             },
-          ]
-        : []),
+          ]),
+      
     ],
     properties: {
       rpp: [10, 20, 50, 100],

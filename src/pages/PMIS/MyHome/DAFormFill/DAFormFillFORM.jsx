@@ -27,7 +27,6 @@ const DAFormFillFORM = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        // active : false
       };
     });
   });
@@ -76,6 +75,12 @@ const DAFormFillFORM = ({
         option: claimTypeList,
         props: {
             onChange: (e) => {
+              dispatch(
+                AdminActions.getManageExpenseAdvance(
+                  true,
+                  `claimtypeDa=${e.target.value}`
+                )
+              );
             },
           },
         // required: true,
@@ -210,7 +215,7 @@ const DAFormFillFORM = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(AdminActions.getManageExpenseAdvance());
+    dispatch(AdminActions.getManageExpenseAdvance(true,`claimtypeDa=${"value"}`));
     dispatch(ExpenseAdvanceActions.getExpenseEMPCode());
     dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());
     dispatch(ExpenseAdvanceActions.getExpenseDACostCenter());

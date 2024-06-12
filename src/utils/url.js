@@ -2,15 +2,15 @@
 // export const baseUrl="http://localhost:7978"
 // export const backendassetUrl="http://localhost:7978/"
 
-// export const baseUrl="http://192.168.29.236:7980"
-// export const backendassetUrl="http://192.168.29.236:7980/"
+export const baseUrl="http://192.168.29.236:7980"
+export const backendassetUrl="http://192.168.29.236:7980/"
 
 // export const baseUrl="http://192.168.0.108:7980"
 // export const backendassetUrl="http://192.168.0.108:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
     login:"/login",

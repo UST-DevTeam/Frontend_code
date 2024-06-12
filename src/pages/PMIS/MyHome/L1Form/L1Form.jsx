@@ -340,22 +340,6 @@ const L1Form = () => {
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
 
-    
-
-    // const refs = document.querySelectorAll(".amountWithRemark");
-    // console.log("refs___",refs)
-    // if (refs) {
-    //   const data = Array.from(refs);
-    //   console.log("__data_nodes__",data)
-    //   if (data && Array.isArray(data)) {
-    //     data.foreach((ele) => {
-    //       ele.value = "";
-    //     });
-    //   }
-    // }
-
-    // return
-
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
         // setIsOpen(false);
