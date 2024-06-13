@@ -112,6 +112,7 @@ import ClaimTypeCards from "../pages/PMIS/HR/ClaimTypeCards";
 import ManageClaimTypeDesignation from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
 import ManageClaimTypeUnitRate from "../pages/PMIS/Admin/ManageClaimTypeUnitRate/ManageClaimTypeUnitRate";
 import ClaimAndAdvance from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAndAdvance";
+import ClaimAndAdvanceOnclick from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAdvanceOnclick";
 import HomeCards from "../pages/PMIS/MyHome/HomeCards";
 import FillExpense from "../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpense";
 import FillAdvance from "../pages/PMIS/MyHome/ClaimAdvAdvanceForm/FillAdvance";
@@ -331,6 +332,12 @@ export const Sidebar_content = {
       link: "/home/claimAndAdvance",
       subMenu: [],
       component: <ClaimAndAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvanceOnclick/:id",
+      subMenu: [],
+      component: <ClaimAndAdvanceOnclick />,
     },
     {
       name: "",

@@ -21,6 +21,7 @@ import {
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
     GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
+    GET_DOWNLOAD_ATTACHMENT,
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -310,6 +311,16 @@ const ExpenseAdvanceActions = {
             let dataAll = res?.data?.data
             dispatch(GET_EXPENSES_BY_EXPENSESNO_IN_POPUP({dataAll,reset}))
             cb()
+        } catch (error) {
+        }
+    },
+
+    DownloadExpenseAttachment:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_download_attachment}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_DOWNLOAD_ATTACHMENT({dataAll,reset}))
         } catch (error) {
         }
     },

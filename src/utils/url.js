@@ -120,6 +120,7 @@ export const Urls={
     expAdv_DA_cost_center:"expenses/DAFillcostCenter",
     expAdv_expenses_by_expensesNo_in_popup:"/expenses/ExpenseNo",
     expAdv_claim_and_advance:"/expenses/claimAndAdvance",
+    expAdv_download_attachment:"/expenses/DownloadAttachment",
 
 
     // FILTER

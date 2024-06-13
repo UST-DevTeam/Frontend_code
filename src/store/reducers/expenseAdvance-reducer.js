@@ -19,6 +19,7 @@ const initialState = {
     getDAFill:[],
     getExpenseDAProjectId:[],
     getExpensesByExpenseNoInPopUp:[],
+    DownloadExpenseAttachment:[],
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -170,9 +171,16 @@ const ExpenseAdvanceReducer = createSlice({
         GET_EXPENSES_BY_EXPENSESNO_IN_POPUP:(state,{payload}) => {
             if(payload.reset){
                 state.getExpensesByExpenseNoInPopUp = payload.dataAll
-                console.log(state.getExpensesByExpenseNoInPopUp,"stategetExpensesByExpenseNoInPopUpstategetExpensesByExpenseNoInPopUp")
             }else{
                 state.getExpensesByExpenseNoInPopUp  = [...state.getExpensesByExpenseNoInPopUp,...payload.dataAll]
+            }
+        },
+
+        GET_DOWNLOAD_ATTACHMENT:(state,{payload}) => {
+            if(payload.reset){
+                state.DownloadExpenseAttachment = payload.dataAll
+            }else{
+                state.DownloadExpenseAttachment  = [...state.DownloadExpenseAttachment,...payload.dataAll]
             }
         },
 
@@ -200,5 +208,6 @@ export const {
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
     GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
+    GET_DOWNLOAD_ATTACHMENT,
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

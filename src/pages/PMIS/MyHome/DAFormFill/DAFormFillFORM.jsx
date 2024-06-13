@@ -70,7 +70,7 @@ const DAFormFillFORM = ({
     {
         label: "Claim Type",
         value: "",
-        name: "claimType",
+        name: Object.entries(formValue).length > 0 ? "name" : "claimType",
         type: "select",
         option: claimTypeList,
         props: {
@@ -147,7 +147,7 @@ const DAFormFillFORM = ({
     {
         label: "Cost Center",
         value: "",
-        name: "costCenter",
+        name: "CostCenter",
         type: "select",
         option: CostCenterList,
         // required: true,

@@ -67,6 +67,7 @@ const FillExpense = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
+                  setmodalFullOpen(false)
                   dispatch(ExpenseAdvanceActions.getFillExpense());
                   setmodalHead("Edit Expense");
                   setmodalBody(
@@ -80,7 +81,7 @@ const FillExpense = () => {
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  //setmodalOpen(false)
+                  
                 }}
               ></EditButton>
             }
