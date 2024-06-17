@@ -70,9 +70,9 @@ const BreadCrumbs = () => {
       "url":"/hr/empDetailsTable"
     },
     
-    "expenseAdvance":{
-      "name":"Expense & Advance",
-      "url":"/hr/expenseAdvance"
+    "Claim":{
+      "name":"Claim",
+      "url":"/hr/Claim" 
     },
     "attendance":{
       "name":"Attendance",

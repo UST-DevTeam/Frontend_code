@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../components/EditButton";
-import EmpDetails from "../MyHome/EmpDetails";
+import EmpDetails from "./EmpDetails";
 import AdvancedTable from "../../../components/AdvancedTable";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
@@ -17,7 +17,7 @@ import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 
-const ExpenseAndAdvance = () => {
+const ExpAdvForAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
@@ -268,14 +268,20 @@ const ExpenseAndAdvance = () => {
         headerButton={
           <div className="flex gap-1">
             {" "}
-            <Button onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                // dispatch(OperationManagementActions.getOperationUserList())
-                setmodalHead("New User")
-                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                setmodalBody("")
-            }}
-                name={"Add New"}></Button>
+            <Button
+              classes="w-auto"
+              onClick={(e) => {
+                navigate("/hr/Claim");
+              }}
+              name={"Claim"}
+            ></Button>
+            <Button
+              classes="w-auto"
+              onClick={(e) => {
+                navigate("/home/approve");
+              }}
+              name={"Advance"}
+            ></Button>
             {/* <Button
               name={"Upload File"}
               classes="w-auto"
@@ -316,4 +322,4 @@ const ExpenseAndAdvance = () => {
   );
 };
 
-export default ExpenseAndAdvance;
+export default ExpAdvForAdvance;

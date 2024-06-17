@@ -317,12 +317,12 @@ const FillExpense = () => {
       {
         name: "ClaimType",
         value: "ClaimType",
-        style: "min-w-[150px] max-w-[200px]",
+        style: "min-w-[150px] max-w-[200px] text-center",
       },
       {
         name: "Category",
         value: "categories",
-        style: "min-w-[140px] max-w-[450px]",
+        style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
         name: "Claim Date",
@@ -367,6 +367,16 @@ const FillExpense = () => {
       {
         name: "end Km",
         value: "endKm",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "Start Location",
+        value: "startLocation",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "End Location",
+        value: "endLocation",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
       {

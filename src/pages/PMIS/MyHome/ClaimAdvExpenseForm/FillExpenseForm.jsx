@@ -19,6 +19,7 @@ const FillExpenseForm = ({
 }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
+  const [category,setCategory] = useState()
 
   let dispatch = useDispatch();
 
@@ -28,7 +29,12 @@ const FillExpenseForm = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-       
+        categories : itm?.categories?.split(",")?.map(item => {
+          return {
+              label : item,
+              value : item
+          }
+      })
       };
     });
   });
@@ -88,25 +94,8 @@ const FillExpenseForm = ({
       option: claimTypeList,
       props: {
         onChange: (e) => {
-          // dispatch(AdminActions.getManageExpenseAdvance(true,`categories=${e.target.value}`,
-        //       () => {
-        //         const ref = document.querySelector("#category-expand");
-        
-        //   if (ref && e.target.value) {
-           
-        //         console.log('Triggering click on category-expand');
-        //         const event = new MouseEvent('mousedown', {
-        //           view: window,
-        //           bubbles: true,
-        //           cancelable: true
-        //         });
-        //         ref.dispatchEvent(event);
-        //   }
-        //       }
-        //     )
-        //   );
-          
-        },
+          setCategory(claimTypeList.find(item => item.value === e.target.value)?.categories || [])
+      },
       },
       required: true,
       classes: "col-span-1",
@@ -116,10 +105,9 @@ const FillExpenseForm = ({
       value: "",
       name: "categories",
       type: "select",
-      option: categoriesList,
+      option: category,
       props: {
         onChange: handleCategoryChange,
-        // id: "category-expand",
       },
       // required: true,
       classes: "col-span-1",
@@ -145,6 +133,20 @@ const FillExpenseForm = ({
             value: "",
             name: "totalKm",
             type: "sdisabled",
+            classes: "col-span-1",
+          },
+          {
+            label: "Start Location",
+            value: "",
+            name: "startLocation",
+            type: "text",
+            classes: "col-span-1",
+          },
+          {
+            label: "End Location",
+            value: "",
+            name: "endLocation",
+            type: "text",
             classes: "col-span-1",
           },
         ]
