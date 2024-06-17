@@ -326,7 +326,7 @@ const FillExpense = () => {
       },
       {
         name: "Claim Date",
-        value: "Claim_Date",
+        value: "expenseDate",
         style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
@@ -336,7 +336,7 @@ const FillExpense = () => {
       },
       {
         name: "Project ID",
-        value: "ProjectIdName",
+        value: "projectIdName",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
       {
@@ -369,16 +369,11 @@ const FillExpense = () => {
         value: "endKm",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
-      // {
-      //   name: "Mode Of Start Location",
-      //   value: "modeOfStartLocation",
-      //   style: "min-w-[100px] max-w-[450px] text-center",
-      // },
-      // {
-      //   name: "Mode Of End Location",
-      //   value: "modeOfEndLocation",
-      //   style: "min-w-[100px] max-w-[450px] text-center",
-      // },
+      {
+        name: "Submission Date",
+        value: "SubmissionDate",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
       {
         name: "Attachment",
         value: "attachment",

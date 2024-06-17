@@ -215,7 +215,7 @@ const DAFormFillFORM = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(AdminActions.getManageExpenseAdvance(true,`claimtypeDa=${"value"}`));
+    dispatch(AdminActions.getManageExpenseAdvance(true,`claimtypeDa=${"DailyAllowance"}`));
     dispatch(ExpenseAdvanceActions.getExpenseEMPCode());
     dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());
     dispatch(ExpenseAdvanceActions.getExpenseDACostCenter());

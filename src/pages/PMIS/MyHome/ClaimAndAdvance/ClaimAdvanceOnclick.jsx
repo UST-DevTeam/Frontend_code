@@ -104,7 +104,7 @@ const ClaimAdvanceOnclick = () => {
     columns: [
       {
         name: "Month-Year",
-        value: "addedMonth",
+        value: "expensemonth",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
 
@@ -276,7 +276,7 @@ const ClaimAdvanceOnclick = () => {
                         name={""}
                         onClick={() => {
                           setmodalOpen(true);
-                          dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${item?.name}`));
+                        //   dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${item?.name}`));
                           setmodalHead("Edit Claim Type");
                           setmodalBody(
                             <>

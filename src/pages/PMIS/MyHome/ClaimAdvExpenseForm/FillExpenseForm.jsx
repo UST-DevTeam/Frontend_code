@@ -152,7 +152,7 @@ const FillExpenseForm = ({
     {
       label: "Project Id",
       value: "",
-      name:Object.entries(formValue).length > 0 ? "ProjectIdName" : "projectId",
+      name:Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectDetailsList,
       props: {
@@ -190,7 +190,7 @@ const FillExpenseForm = ({
     {
       label: "Task Name",
       value: "",
-      name:Object.entries(formValue).length > 0 ? "Task" : "Name",
+      name:Object.entries(formValue).length > 0 ? "taskName" : "Name",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectTaskNameList,
       // required: true,

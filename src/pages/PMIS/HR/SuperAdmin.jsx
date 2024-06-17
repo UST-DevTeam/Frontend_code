@@ -321,7 +321,7 @@ const SuperAdmin = () => {
           ],
           [
             "Claim Type",
-            "bg-gradient-to-r from-lime-600 to-rose-500",
+            "bg-gradient-to-r from-violet-400 to-sky-500",
             "/hr/superAdmin/claimType",
           ],
         ].map((itm) => {

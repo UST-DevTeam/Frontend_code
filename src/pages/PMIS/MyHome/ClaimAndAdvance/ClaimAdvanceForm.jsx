@@ -32,7 +32,7 @@ const ClaimAdvanceForm = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        active : false
+     
       };
     });
   });
@@ -94,7 +94,7 @@ const ClaimAdvanceForm = ({
       {
         label: "Expense Date",
         value: "",
-        name: "expenseDate",
+        name: "ExpenseDate",
         type: "datetime",
         // required: true,
         classes: "col-span-1",
@@ -103,7 +103,6 @@ const ClaimAdvanceForm = ({
       label: "Claim Type",
       value: "",
       name: "ClaimType",
-      isDissable : 'true',
       type: "select",
       option: claimTypeList,
       props: {

@@ -61,7 +61,7 @@ const FillAdvanceForm = ({
     {
       label: "Advance Type",
       value: "",
-      name:Object.entries(formValue).length > 0 ? "advanceType" : "name",
+      name:Object.entries(formValue).length > 0 ? "name" : "advanceType",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: AdvanceProject,
       // required: true,

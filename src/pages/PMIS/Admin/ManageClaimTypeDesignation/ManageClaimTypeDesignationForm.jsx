@@ -35,7 +35,7 @@ const ManageClaimTypeDesignationForm = ({
     const names = item?.claimType + "__" + item?.uniqueId;
     return {
       label: item.claimType,
-      value: formValue[item?.claimType] || "", 
+      value:    "", 
       name: names,
       // required: true,
       type: "text",
