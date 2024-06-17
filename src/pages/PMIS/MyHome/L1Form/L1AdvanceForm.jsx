@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
@@ -20,9 +20,19 @@ import L1AdvanceFormFORM from './L1AdvanceFormFORM';
 import { useNavigate } from 'react-router-dom';
 
 const L1AdvanceForm = () => {
+    const expenseRef = useRef("");
+    const [amount, setAmount] = useState({
+      AdvanceNo: {},
+      amount: {},
+      claimedAmount: {},
+      remark: {},
+      addedFor: {},
+    });
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
+    const [advanceRow, setAdvanceRow] = useState([]);
+    const [selectAll, setSelectAll] = useState([]);
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
 
@@ -38,6 +48,11 @@ const L1AdvanceForm = () => {
       }).replace(/\//g, '-')
 
       const monthMap = { "01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr", "05": "May", "06": "Jun", "07": "Jul", "08": "Aug", "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dec" };
+
+      let dbConfigL = useSelector((state) => {
+        let interdata = state?.expenseAdvanceData?.getL1AdvanceData || [""]
+        return interdata;
+      });
 
     
     let dbConfigList = useSelector((state) => {
@@ -55,6 +70,32 @@ const L1AdvanceForm = () => {
                 //   </div>
                 // ),
                 expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
+
+                checkboxAdvance: (
+                  <input
+                    type="checkbox"
+                    id={itm.uniqueId}
+                    checked={advanceRow.includes(itm.uniqueId)}
+                    value={itm.uniqueId}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
+                        setAdvanceRow((prev) => [...prev, e.target.value]);
+                        
+                      } else {
+                        if (selectAll.includes(e.target.id)) {
+                          setSelectAll((prev) =>
+                            prev.filter((id) => id !== e.target.id)
+                          );
+                        }
+                        setAdvanceRow((prev) =>
+                          prev.filter((id) => id !== e.target.value)
+                        );
+                      }
+                    }}
+                  />
+                ),
+                
                               
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
@@ -104,6 +145,57 @@ const L1AdvanceForm = () => {
 
     let table = {
         columns: [
+          {
+            name: (
+              <input
+                type="checkbox"
+                // checked={selectAll}
+                className='check-state'
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setAdvanceRow(dbConfigL.map((itm) => itm.uniqueId));
+                    setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
+                    try {
+                      let eleRefs = document.getElementsByClassName('check-state');
+                      if (eleRefs) {
+                        eleRefs = Array.from(eleRefs);
+                        if (Array.isArray(eleRefs)) {
+                          eleRefs.forEach(ele => {
+                            if (ele) {
+                              ele.setAttribute('checked', true);
+                            }
+                          });
+                        }
+                      }
+                    } catch (error) {
+                      // Handle error if needed
+                    }
+                  } else {
+                    setAdvanceRow([]);
+                    setSelectAll([]);
+                    try {
+                      let eleRefs = document.getElementsByClassName('check-state');
+                      if (eleRefs) {
+                        eleRefs = Array.from(eleRefs);
+                        if (Array.isArray(eleRefs)) {
+                          eleRefs.forEach(ele => {
+                            if (ele) {
+                              ele.removeAttribute('checked');
+                            }
+                          });
+                        }
+                      }
+                    } catch (error) {
+                      // Handle error if needed
+                    }
+                  }
+                }}
+              />
+            )
+            ,
+            value: "checkboxAdvance",
+            style: "min-w-[40px] max-w-[60px] text-center",
+          },
           {
             name: "Month",
             value: "expensemonth",
@@ -165,11 +257,6 @@ const L1AdvanceForm = () => {
             style: "min-w-[170px] max-w-[450px] text-center",
           },
           {
-            name: "Approved Amount",
-            value: "ApprovedAmount",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
             name: "Current Status",
             value: "customStatus",
             style: "min-w-[120px] max-w-[450px] text-center",
@@ -189,6 +276,11 @@ const L1AdvanceForm = () => {
           //   value: "status",
           //   style: "min-w-[100px] max-w-[450px] text-center",
           // },
+          {
+            name: "Approved Amount",
+            value: "amount",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
           {
             name: "Remarks",
             value: "remark",
@@ -228,27 +320,53 @@ const L1AdvanceForm = () => {
         ]
     }
 
-    // let FormD = [  
-    //     {
-    //       value: "",
-    //       name: "L1Form",
-    //       type: "select",
-    //       classes: "border-[0.6px] ",
-    //       option:[
-    //         { "label":"Submitted", "value":"Submitted" },
-    //         { "label":"L1-Approved", "value":"L1-Approved" },
-    //         { "label":"L1-Rejected", "value":"L1-Rejected" },
-    //         { "label":"L2-Approved", "value":"L2-Approved" },
-    //         { "label":"L2-Rejected", "value":"L2-Rejected" },
-    //         { "label":"L3-Approved", "value":"L3-Approved" },
-    //         { "label":"L3-Rejected", "value":"L3-Rejected" },
-    //       ],
-    //       props: {
-    //         onChange: (e) => {},
-    //         },
-    //     },
-    //   ];
-
+    function handleAmountAndRemark(type) {
+      const data = { approver: "L1-" + type, type: "Advance", status: type };
+      const amountRemark = [];
+    
+      if (typeof amount === "undefined" || typeof expenseRef === "undefined") {
+        console.error("amount or expenseRef is not defined");
+        return;
+      }
+    
+      let selectRows = [];
+      if (selectAll.length === dbConfigList.length) {
+        selectRows = selectAll;
+      } else {
+        selectRows = advanceRow;
+      }
+    
+      selectRows.forEach((key) => {
+        amountRemark.push({
+          _id: key,
+          ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
+          Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
+          remark: key in amount.remark ? amount.remark[key] : "",
+          addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
+          AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo,
+        });
+      });
+    
+      data.data = amountRemark;
+      data.AdvanceId = expenseRef.current?.AdvanceNo;
+    
+      dispatch(
+        ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
+          dispatch(ExpenseAdvanceActions.getL1AdvanceData({ids : selectAll}))
+    
+          const refs = document.querySelectorAll(".amountWithRemark");
+          if (refs) {
+            const data = Array.from(refs);
+            if (data && Array.isArray(data)) {
+              data.forEach((ele) => {
+                ele.value = "";
+              });
+            }
+          }
+        })
+      );
+    }
+    
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
@@ -279,6 +397,21 @@ const L1AdvanceForm = () => {
                 }}
                 name={"L1 Advance"}>
                 </Button>
+
+                <div className="flex gap-1">
+                <Button
+                  onClick={() => {
+                    handleAmountAndRemark("Rejected");
+                  }}
+                  name="Reject"
+                />
+                <Button
+                  onClick={() => {
+                    handleAmountAndRemark("Approved");
+                  }}
+                  name="Approve"
+                />
+              </div>
                 
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
@@ -290,7 +423,72 @@ const L1AdvanceForm = () => {
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList}
+            data={dbConfigList?.map((item) => {
+              return {
+                ...item,
+                amount: (
+                  <input
+                    type="number"
+                    className="p-5 w-full !border amountWithRemark"
+                    placeholder="Enter Amount"
+                    onChange={(e) => {
+                      setAmount((prev) => {
+                        return {
+                          ...prev,
+                          amount: {
+                            ...prev.amount,
+                            [item.uniqueId]: e.target.value,
+                          },
+                          claimedAmount: {
+                            ...prev.claimedAmount,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                          },
+                          addedFor: {
+                            ...prev.addedFor,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.addedFor,
+                          },
+                          AdvanceNo: {
+                            ...prev.AdvanceNo,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.AdvanceNo,
+                          },
+                        };
+                      });
+                    }}
+                  />
+                ),
+                remark: (
+                  <input
+                    type="text"
+                    className="p-5 w-full !border amountWithRemark"
+                    placeholder="Enter Your Remark..."
+                    onChange={(e) => {
+                      
+                      setAmount((prev) => {
+                        return {
+                          ...prev,
+                          remark: {
+                            ...prev.remark,
+                            [item.uniqueId]: e.target.value,
+                          },
+                          claimedAmount: {
+                            ...prev.claimedAmount,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                          },
+                          addedFor: {
+                            ...prev.addedFor,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.addedFor,
+                          },
+                          AdvanceNo: {
+                            ...prev.AdvanceNo,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.AdvanceNo,
+                          },
+                        };
+                      });
+                    }}
+                  />
+                ),
+              };
+            })}
             errors={errors}
             register={register}
             setValue={setValue}

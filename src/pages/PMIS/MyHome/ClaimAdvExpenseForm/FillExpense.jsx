@@ -67,6 +67,7 @@ const FillExpense = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
+                  setmodalFullOpen(false)
                   dispatch(ExpenseAdvanceActions.getFillExpense());
                   setmodalHead("Edit Expense");
                   setmodalBody(
@@ -80,7 +81,7 @@ const FillExpense = () => {
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  //setmodalOpen(false)
+                  
                 }}
               ></EditButton>
             }
@@ -316,16 +317,16 @@ const FillExpense = () => {
       {
         name: "ClaimType",
         value: "ClaimType",
-        style: "min-w-[150px] max-w-[200px]",
+        style: "min-w-[150px] max-w-[200px] text-center",
       },
       {
         name: "Category",
         value: "categories",
-        style: "min-w-[140px] max-w-[450px]",
+        style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
         name: "Claim Date",
-        value: "Claim_Date",
+        value: "expenseDate",
         style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
@@ -335,7 +336,7 @@ const FillExpense = () => {
       },
       {
         name: "Project ID",
-        value: "projectId",
+        value: "projectIdName",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
       {
@@ -368,16 +369,21 @@ const FillExpense = () => {
         value: "endKm",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
-      // {
-      //   name: "Mode Of Start Location",
-      //   value: "modeOfStartLocation",
-      //   style: "min-w-[100px] max-w-[450px] text-center",
-      // },
-      // {
-      //   name: "Mode Of End Location",
-      //   value: "modeOfEndLocation",
-      //   style: "min-w-[100px] max-w-[450px] text-center",
-      // },
+      {
+        name: "Start Location",
+        value: "startLocation",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "End Location",
+        value: "endLocation",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "Submission Date",
+        value: "SubmissionDate",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
       {
         name: "Attachment",
         value: "attachment",

@@ -35,7 +35,7 @@ const HRHomeView = () => {
           [
             "Expense & Advance",
             "bg-gradient-to-r from-blue-200 to-cyan-200",
-            "/hr/expenseAdvance",
+            "/hr/Claim", "/hr/Advance",
           ],
           ["Attendance", "bg-gradient-to-r from-teal-200 to-teal-500", "/hr/attendance"],
           [

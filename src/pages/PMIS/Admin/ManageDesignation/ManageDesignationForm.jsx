@@ -90,8 +90,6 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        console.log("formValue in useEffect:", formValue);
-        dispatch(AdminActions.getManageDesignation())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

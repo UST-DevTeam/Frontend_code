@@ -34,18 +34,17 @@ const ManageClaimTypeDesignation = () => {
       }).replace(/\//g, '-')
     
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimTypeDesignation || [""]
-        console.log('poppp',interdata)
+        let interdata = state?.adminData?.getManageClaimTypeDesignation || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,              
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageClaimTypeDesignation())
+                    dispatch(AdminActions.getManageClaimTypeDesignation(true, `claimTypeId=${itm?.uniqueId}`))
                     setmodalHead("Edit ClaimType Designation")
                     setmodalBody(<>
-                        <ManageClaimTypeDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                        <ManageClaimTypeDesignationForm isEditable={true} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
                     //setmodalOpen(false)
@@ -118,116 +117,6 @@ const ManageClaimTypeDesignation = () => {
                 value: "taskName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },          
-            // {
-            //     name: "Hotel",
-            //     value: "Hotel",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Daily Allowance",
-            //     value: "Daily Allowance",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Traval Allowance",
-            //     value: "Traval Allowance",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Local Conveyance",
-            //     value: "Local Conveyance",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Consumables",
-            //     value: "Consumables",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Own Accomodation",
-            //     value: "Own Accommodation",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Own Conveyance",
-            //     value: "Own Conveyance",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "CAB",
-            //     value: "CAB",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Project Advance",
-            //     value: "Project Advance",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Postage & Courrier",
-            //     value: "Postage & Courrier",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Salary Deduction Against Advance",
-            //     value: "Salary Deduction Against Advance",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Entertainment Expenses",
-            //     value: "Entertainment Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Staff Wellfare Expenses",
-            //     value: "Staff Welfare Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "House keeping Expenses",
-            //     value: "House Keeping Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Internet Expenses",
-            //     value: "Internet Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Office Maintenance Expenses",
-            //     value: "Office Maintenance Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Vehicle Parking Expenses",
-            //     value: "Vehicle Parking Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Electriciy & Water Expenses",
-            //     value: "Electricity & Water Expenses",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Printer & Stationary",
-            //     value: "Printer Stationery",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Repair & Maintenance & Other",
-            //     value: "Repair & Maintenance & Other",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },          
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // }
         ],
 
         
@@ -255,6 +144,7 @@ const ManageClaimTypeDesignation = () => {
         value: "delete",
         style: "min-w-[100px] max-w-[200px] text-center"
     }]
+
     if (table?.columns) {
         table.columns.push(...hh);
     }
@@ -271,7 +161,7 @@ const ManageClaimTypeDesignation = () => {
     useEffect(() => {
         dispatch(AdminActions.getManageClaimType())
         dispatch(AdminActions.getManageClaimTypeDesignation())
-    }, [])
+    }, [modalOpen])
     
 
     const onTableViewSubmit = (data) => { 
@@ -287,7 +177,7 @@ const ManageClaimTypeDesignation = () => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageClaimTypeDesignation())
                 setmodalHead("New Claim Type Designation")
-                setmodalBody(<ManageClaimTypeDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<ManageClaimTypeDesignationForm claimTypeHeaders={claimTypeHeaders} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button>
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {

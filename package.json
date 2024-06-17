@@ -24,6 +24,7 @@
     "highcharts": "^11.4.3",
     "highcharts-react-official": "^3.2.1",
     "install": "^0.13.0",
+    "jspdf": "^2.5.1",
     "leaflet": "^1.9.4",
     "moment": "^2.29.4",
     "multiselect-react-dropdown": "^2.0.25",

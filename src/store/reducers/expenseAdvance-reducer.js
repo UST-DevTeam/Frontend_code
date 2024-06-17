@@ -7,6 +7,7 @@ const initialState = {
     getExpADvTaskName:[],
     getFillExpense:[],
     getFillAdvance:[],
+    getClaimTypeAdvance:[],
     getUnitRateClaimType:[],
     getL1Data:[],
     getL1AdvanceData:[],
@@ -19,6 +20,7 @@ const initialState = {
     getDAFill:[],
     getExpenseDAProjectId:[],
     getExpensesByExpenseNoInPopUp:[],
+    DownloadExpenseAttachment:[],
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -47,6 +49,14 @@ const ExpenseAdvanceReducer = createSlice({
                 state.getFillAdvance = payload.dataAll
             }else{
                 state.getFillAdvance  = [...state.getFillAdvance,...payload.dataAll]
+            }
+        },
+
+        GET_CLAIMTYPE_ADVANCE:(state,{payload}) => {
+            if(payload.reset){
+                state.getClaimTypeAdvance = payload.dataAll
+            }else{
+                state.getClaimTypeAdvance  = [...state.getClaimTypeAdvance,...payload.dataAll]
             }
         },
 
@@ -170,9 +180,16 @@ const ExpenseAdvanceReducer = createSlice({
         GET_EXPENSES_BY_EXPENSESNO_IN_POPUP:(state,{payload}) => {
             if(payload.reset){
                 state.getExpensesByExpenseNoInPopUp = payload.dataAll
-                console.log(state.getExpensesByExpenseNoInPopUp,"stategetExpensesByExpenseNoInPopUpstategetExpensesByExpenseNoInPopUp")
             }else{
                 state.getExpensesByExpenseNoInPopUp  = [...state.getExpensesByExpenseNoInPopUp,...payload.dataAll]
+            }
+        },
+
+        GET_DOWNLOAD_ATTACHMENT:(state,{payload}) => {
+            if(payload.reset){
+                state.DownloadExpenseAttachment = payload.dataAll
+            }else{
+                state.DownloadExpenseAttachment  = [...state.DownloadExpenseAttachment,...payload.dataAll]
             }
         },
 
@@ -184,6 +201,7 @@ export const {
     GET_CLAIM_AND_ADVANCE,
     GET_FILL_EXPENSE,
     GET_FILL_ADVANCE,
+    GET_CLAIMTYPE_ADVANCE,
     GET_EXPADV_PROJECT_DETAILS,
     GET_EXPADV_SITE_ID,
     GET_EXPADV_TASK_NAME,
@@ -200,5 +218,6 @@ export const {
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
     GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
+    GET_DOWNLOAD_ATTACHMENT,
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

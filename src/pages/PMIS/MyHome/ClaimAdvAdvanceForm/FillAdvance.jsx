@@ -28,6 +28,8 @@ const FillAdvance = () => {
 
     let dispatch = useDispatch()
 
+    // let Advnumber  = itm?.AdvanceNo || ""
+
     const currentDate = new Date();
     const dt = currentDate.toLocaleDateString('en-GB', {
         day: '2-digit',
@@ -184,6 +186,7 @@ const FillAdvance = () => {
     return <>
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
+                // dispatch(ExpenseAdvanceActions.getClaimTypeAdvance(true, `claimTypeAdvance=${Advnumber}`))
                 setmodalOpen(prev => !prev)
                 setmodalHead("Add Advance")
                 setmodalBody(<FillAdvanceForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
@@ -207,7 +210,7 @@ const FillAdvance = () => {
             totalCount={dbConfigTotalCount}
         />
 
-        <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
         <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Circle.xlsx","Circle.xlsx"]}/>

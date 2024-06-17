@@ -83,7 +83,7 @@ import ManageDepartment from "../pages/PMIS/Admin/ManageDepartment/ManageDepartm
 import ManageDesignation from "../pages/PMIS/Admin/ManageDesignation/ManageDesignation";
 import ManageProfile from "../pages/PMIS/Admin/ManageProfile(userrole)/ManageProfile";
 import ManageProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteId";
-import ExpenseAndAdvance from "../pages/PMIS/MyHome/ExpenseAndAdvance";
+import ExpenseAndAdvance from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
 import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
 import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
@@ -111,6 +111,7 @@ import ClaimTypeCards from "../pages/PMIS/HR/ClaimTypeCards";
 import ManageClaimTypeDesignation from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
 import ManageClaimTypeUnitRate from "../pages/PMIS/Admin/ManageClaimTypeUnitRate/ManageClaimTypeUnitRate";
 import ClaimAndAdvance from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAndAdvance";
+import ClaimAndAdvanceOnclick from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAdvanceOnclick";
 import HomeCards from "../pages/PMIS/MyHome/HomeCards";
 import FillExpense from "../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpense";
 import FillAdvance from "../pages/PMIS/MyHome/ClaimAdvAdvanceForm/FillAdvance";
@@ -127,6 +128,9 @@ import ActualWorkdone from "../pages/PMIS/Formss/ActualWorkdone/ActualWorkdone";
 import PL from "../pages/PMIS/Formss/P&L/PL";
 import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
 import Dashboard from "../pages/Dashboard";
+import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
+import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
+// import Dashboard1 from "../pages/PMIS/Dashboard/Dashboard1";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -310,9 +314,15 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/hr/expenseAdvance",
+      link: "/hr/Claim",
       subMenu: [],
-      component: <ExpenseAndAdvance />,
+      component: <ExpAdvForClaim />,
+    },
+    {
+      name: "",
+      link: "/hr/Advance",
+      subMenu: [],
+      component: <ExpAdvForAdvance />,
     },
     {
       name: "",
@@ -331,6 +341,12 @@ export const Sidebar_content = {
       link: "/home/claimAndAdvance",
       subMenu: [],
       component: <ClaimAndAdvance />,
+    },
+    {
+      name: "",
+      link: "/home/claimAndAdvance/claimAndAdvanceOnclick/:id",
+      subMenu: [],
+      component: <ClaimAndAdvanceOnclick />,
     },
     {
       name: "",

@@ -15,6 +15,7 @@ import FileUploader from '../../../../components/FIleUploader';
 import ExpenseAdvanceActions from '../../../../store/actions/expenseAdvance-actions';
 import { useNavigate } from 'react-router-dom';
 import DAFormFillFORM from './DAFormFillFORM';
+import DownloadButton from '../../../../components/DownloadButton';
 
 const DAFormFill = () => {
 
@@ -39,7 +40,7 @@ const DAFormFill = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                              
+                
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(ExpenseAdvanceActions.getDAFill())
@@ -90,8 +91,8 @@ const DAFormFill = () => {
         columns: [
           {
             name: "DA Date",
-            value: "daDate",
-            style: "min-w-[120px] max-w-[450px] text-center",
+            value: "Claim_Date",
+            style: "min-w-[100px] max-w-[450px] text-center",
           },
           {
             name: "Employee Code",
@@ -101,12 +102,12 @@ const DAFormFill = () => {
           {
             name: "Employee Name",
             value: "empName",
-            style: "min-w-[170px] max-w-[450px] text-center",
+            style: "min-w-[150px] max-w-[450px] text-center",
           },
           {
             name: "Cost Center",
             value: "costcenter",
-            style: "min-w-[170px] max-w-[450px] text-center",
+            style: "min-w-[130px] max-w-[450px] text-center",
           },
           {
             name: "Project ID",
@@ -115,13 +116,13 @@ const DAFormFill = () => {
           },
           {
             name: "DA Amount",
-            value: "daAmount",
-            style: "min-w-[350px] max-w-[450px] text-center",
+            value: "Amount",
+            style: "min-w-[110px] max-w-[450px] text-center",
           },
           {
             name: "Remarks",
             value: "remark",
-            style: "min-w-[350px] max-w-[450px] text-center",
+            style: "min-w-[370px] max-w-[450px] text-center",
           },
           {
             name: "Edit",

@@ -19,6 +19,7 @@ const FillExpenseForm = ({
 }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
+  const [category,setCategory] = useState()
 
   let dispatch = useDispatch();
 
@@ -28,7 +29,12 @@ const FillExpenseForm = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        active : false
+        categories : itm?.categories?.split(",")?.map(item => {
+          return {
+              label : item,
+              value : item
+          }
+      })
       };
     });
   });
@@ -88,25 +94,8 @@ const FillExpenseForm = ({
       option: claimTypeList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getManageExpenseAdvance(true,`categories=${e.target.value}`,
-        //       () => {
-        //         const ref = document.querySelector("#category-expand");
-        
-        //   if (ref && e.target.value) {
-           
-        //         console.log('Triggering click on category-expand');
-        //         const event = new MouseEvent('mousedown', {
-        //           view: window,
-        //           bubbles: true,
-        //           cancelable: true
-        //         });
-        //         ref.dispatchEvent(event);
-        //   }
-        //       }
-            )
-          );
-          
-        },
+          setCategory(claimTypeList.find(item => item.value === e.target.value)?.categories || [])
+      },
       },
       required: true,
       classes: "col-span-1",
@@ -116,10 +105,9 @@ const FillExpenseForm = ({
       value: "",
       name: "categories",
       type: "select",
-      option: categoriesList,
+      option: category,
       props: {
         onChange: handleCategoryChange,
-        // id: "category-expand",
       },
       // required: true,
       classes: "col-span-1",
@@ -147,13 +135,27 @@ const FillExpenseForm = ({
             type: "sdisabled",
             classes: "col-span-1",
           },
+          {
+            label: "Start Location",
+            value: "",
+            name: "startLocation",
+            type: "text",
+            classes: "col-span-1",
+          },
+          {
+            label: "End Location",
+            value: "",
+            name: "endLocation",
+            type: "text",
+            classes: "col-span-1",
+          },
         ]
       : []),
     {
       label: "Project Id",
       value: "",
-      name: "projectId",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectDetailsList,
       props: {
         onChange: (e) => {
@@ -171,8 +173,8 @@ const FillExpenseForm = ({
     {
       label: "Site Id",
       value: "",
-      name: "Site Id",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "Site_Id" : "Site Id",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectSiteIdList,
       props: {
         onChange: (e) => {
@@ -190,8 +192,8 @@ const FillExpenseForm = ({
     {
       label: "Task Name",
       value: "",
-      name: "taskName",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "taskName" : "Name",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectTaskNameList,
       // required: true,
       classes: "col-span-1",

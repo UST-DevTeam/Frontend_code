@@ -27,7 +27,6 @@ const DAFormFillFORM = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        // active : false
       };
     });
   });
@@ -71,11 +70,17 @@ const DAFormFillFORM = ({
     {
         label: "Claim Type",
         value: "",
-        name: "claimType",
+        name: Object.entries(formValue).length > 0 ? "name" : "claimType",
         type: "select",
         option: claimTypeList,
         props: {
             onChange: (e) => {
+              // dispatch(
+              //   AdminActions.getManageExpenseAdvance(
+              //     true,
+              //     `claimtypeDa=${e.target.value}`
+              //   )
+              // );
             },
           },
         // required: true,
@@ -142,7 +147,7 @@ const DAFormFillFORM = ({
     {
         label: "Cost Center",
         value: "",
-        name: "costCenter",
+        name: "CostCenter",
         type: "select",
         option: CostCenterList,
         // required: true,
@@ -210,7 +215,7 @@ const DAFormFillFORM = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(AdminActions.getManageExpenseAdvance());
+    dispatch(AdminActions.getManageExpenseAdvance(true,`claimtypeDa=${"DailyAllowance"}`));
     dispatch(ExpenseAdvanceActions.getExpenseEMPCode());
     dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());
     dispatch(ExpenseAdvanceActions.getExpenseDACostCenter());

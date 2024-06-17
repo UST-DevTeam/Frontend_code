@@ -5,6 +5,7 @@ import {
     GET_CLAIM_AND_ADVANCE,
     GET_FILL_EXPENSE,
     GET_FILL_ADVANCE,
+    GET_CLAIMTYPE_ADVANCE,
     GET_EXPADV_PROJECT_DETAILS,
     GET_EXPADV_SITE_ID,
     GET_EXPADV_TASK_NAME,
@@ -21,6 +22,7 @@ import {
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
     GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
+    GET_DOWNLOAD_ATTACHMENT,
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -109,6 +111,16 @@ const ExpenseAdvanceActions = {
         }
     },
 
+    getClaimTypeAdvance:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_claimType_advance}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_CLAIMTYPE_ADVANCE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
     getExpADvPrjectDetails:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_project_details}${args!=""?"?"+args:""}`, reset })
@@ -158,12 +170,13 @@ const ExpenseAdvanceActions = {
         } catch (error) {
         }
     },
-    getL1AdvanceData:(reset=true,args="") => async (dispatch, _) => {
+    getL1AdvanceData:(reset=true,args="", cb = () => {}) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_L1AdvanceData}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_L1_ADVANCE_DATA({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },
@@ -177,12 +190,13 @@ const ExpenseAdvanceActions = {
         } catch (error) {
         }
     },
-    getL2AdvanceData:(reset=true,args="") => async (dispatch, _) => {
+    getL2AdvanceData:(reset=true,args="", cb = () => {}) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_L2AdvanceData}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_L2_ADVANCE_DATA({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },
@@ -196,12 +210,13 @@ const ExpenseAdvanceActions = {
         } catch (error) {
         }
     },
-    getL3AdvanceData:(reset=true,args="") => async (dispatch, _) => {
+    getL3AdvanceData:(reset=true,args="", cb = () => {}) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_L3AdvanceData}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_L3_ADVANCE_DATA({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },
@@ -307,6 +322,16 @@ const ExpenseAdvanceActions = {
             let dataAll = res?.data?.data
             dispatch(GET_EXPENSES_BY_EXPENSESNO_IN_POPUP({dataAll,reset}))
             cb()
+        } catch (error) {
+        }
+    },
+
+    DownloadExpenseAttachment:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_download_attachment}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_DOWNLOAD_ATTACHMENT({dataAll,reset}))
         } catch (error) {
         }
     },

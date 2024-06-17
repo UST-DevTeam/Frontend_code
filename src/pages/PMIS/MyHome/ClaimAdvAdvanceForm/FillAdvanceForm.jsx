@@ -29,12 +29,21 @@ const FillAdvanceForm = ({
     });
   });
 
+  let AdvanceProject = useSelector((state) => {
+    return state?.expenseAdvanceData?.getClaimTypeAdvance.map((itm) => {
+      return {
+        label: itm?.name,
+        value: itm?.claimTypeId,
+      };
+    });
+  });
+
   let Form = [
     {
       label: "Project Id",
       value: "",
-      name: "projectId",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectDetailsList,
       props: {
         onChange: (e) => {
@@ -52,18 +61,16 @@ const FillAdvanceForm = ({
     {
       label: "Advance Type",
       value: "",
-      name: "advanceType",
+      name:Object.entries(formValue).length > 0 ? "name" : "advanceType",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-      option: [
-        {"label": "Project Advance", "value": "Project Advance"},
-      ],
+      option: AdvanceProject,
       // required: true,
       classes: "col-span-1",
     },
     {
       label: "Amount ",
       value: "",
-      name: "amount",
+      name: "Amount",
       type: "number",
       props: {
         valueAsNumber: true,
@@ -146,6 +153,7 @@ const FillAdvanceForm = ({
 
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
+    dispatch(ExpenseAdvanceActions.getClaimTypeAdvance());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -188,7 +196,7 @@ const FillAdvanceForm = ({
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
-          classes={"grid-cols-3 gap-1"}
+          classes={"grid-cols-2 gap-1"}
           Form={Form}
           errors={errors}
           register={register}
