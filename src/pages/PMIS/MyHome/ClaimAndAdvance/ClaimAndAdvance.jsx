@@ -77,7 +77,7 @@ const ClaimAndAdvance = () => {
             onClick={(e) => {
               expenseRef.current = itm;
               sessionStorage.setItem("claimName", itm?.name);
-              navigate(`/home/claimAndAdvanceOnclick/${item?._id}`);
+              navigate(`/home/claimAndAdvance/claimAndAdvanceOnclick/${item?._id}`);
               // dispatch(
               //   ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
               //     true,
@@ -316,7 +316,7 @@ const ClaimAndAdvance = () => {
           Current Balance :{" "}
           <span
             className={
-              Amounts?.finalAmount > 0 ? "text-green-600" : "text-rose-500"
+              Amounts?.finalAmount > 0 ? "text-rose-600" : "text-green-500"
             }
           >
             {Amounts?.finalAmount}

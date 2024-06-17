@@ -61,8 +61,6 @@ export const Urls={
     myHome_personal_info:"/myHome/getPersonalInfo",
     Hr_Expense_Advance:"/hr/expenseAdavance",
     
-
-
     MyHome:"/myHome/Cards",
     admin_assetRegistration:"/myHome/assetRegistration",
     common_file_uploadr:"/commonUploadFile",
@@ -94,7 +92,7 @@ export const Urls={
 
     formss_earnValue_mgmt_financial:"/forms/earnValue",
     formss_EVM_delivery:"/forms/EVMActual",
-    admin_claim_type:"/expenses/ClaimType",
+    
     forms_profit_loss:"/forms/profilt&loss",
 
     admin_claim_type:"/expenses/ClaimType",
@@ -103,6 +101,7 @@ export const Urls={
     admin_expense_advance:"/expenses/claimTypeRole",
     expAdv_fill_expense:"/expenses/fillExpense",
     expAdv_fill_advance:"/expenses/fillAdvance",
+    expAdv_claimType_advance:"/expenses/claimTypeAdvance",
     expAdv_project_details:"/expenses/projectDetails",
     expAdv_siteId:"/expenses/projectSite",
     expAdv_taskName:"/expenses/projectSiteTask",

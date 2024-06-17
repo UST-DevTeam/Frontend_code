@@ -18,6 +18,9 @@ const ClaimAdvanceForm = ({
   formValue = {},
   expenseRef={ current : {}}
 }) => {
+
+  let expnumber  = formValue?.ExpenseNo || ""
+
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
 
@@ -105,7 +108,7 @@ const ClaimAdvanceForm = ({
       option: claimTypeList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getManageExpenseAdvance(true,`categories=${e.target.value}`,
+          // dispatch(AdminActions.getManageExpenseAdvance(true,`categories=${e.target.value}`,
         //       () => {
         //         const ref = document.querySelector("#category-expand");
         
@@ -120,8 +123,8 @@ const ClaimAdvanceForm = ({
         //         ref.dispatchEvent(event);
         //   }
         //       }
-            )
-          );
+            // )
+          // );
           
         },
       },
@@ -160,7 +163,7 @@ const ClaimAdvanceForm = ({
           {
             label: "Total Km",
             value: "",
-            name: "Total_distance",
+            name: "totalKm",
             type: "sdisabled",
             classes: "col-span-1",
           },
@@ -188,23 +191,23 @@ const ClaimAdvanceForm = ({
       classes: "col-span-1",
     },
     {
-        label: "Attachment",
+      label: "Attachment",
 
-        value: "",
-        name: "attachment",
-        type: "file",
-        // required: true,
-        
-        props: {
-            onChange: ((e) => {
-                console.log(e.target.files, "e geeter")
-                setValue("attachment",e.target.files[0])
-            }),
-            accept: '.img, .png, .jpg, .jpeg, .webp, .pdf',
-        },
-        classes: "col-span-1",
-        multiple:false,
-    },
+      value: "",
+      name: "Attachment",
+      type: "file",
+      // required: true,
+      
+      props: {
+          onChange: ((e) => {
+              console.log(e.target.files, "e geeter")
+              setValue("attachment",e.target.files[0])
+          }),
+          accept: '.img, .png, .jpg, .jpeg, .webp, .pdf',
+      },
+      classes: "col-span-1",
+      multiple:false,
+  },
   ];
   const {
     register,
@@ -259,7 +262,7 @@ const ClaimAdvanceForm = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(ExpenseAdvanceActions.getFillExpense());
+            dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${expnumber}`));
           },
           formValue.uniqueId
         )
@@ -272,7 +275,7 @@ const ClaimAdvanceForm = ({
         ExpenseAdvanceActions.postFillExpense(true, data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
-          dispatch(ExpenseAdvanceActions.getFillExpense());
+          dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${expnumber}`));
         })
       );
     }
@@ -324,7 +327,7 @@ const ClaimAdvanceForm = ({
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
-          classes={"grid-cols-2 gap-1"}
+          classes={"grid-cols-3 gap-1"}
           Form={Form}
           errors={errors}
           register={register}

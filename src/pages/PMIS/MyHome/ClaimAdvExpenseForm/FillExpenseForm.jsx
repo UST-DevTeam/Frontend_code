@@ -28,7 +28,7 @@ const FillExpenseForm = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        active : false
+       
       };
     });
   });
@@ -88,7 +88,7 @@ const FillExpenseForm = ({
       option: claimTypeList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getManageExpenseAdvance(true,`categories=${e.target.value}`,
+          // dispatch(AdminActions.getManageExpenseAdvance(true,`categories=${e.target.value}`,
         //       () => {
         //         const ref = document.querySelector("#category-expand");
         
@@ -103,8 +103,8 @@ const FillExpenseForm = ({
         //         ref.dispatchEvent(event);
         //   }
         //       }
-            )
-          );
+        //     )
+        //   );
           
         },
       },
@@ -152,8 +152,8 @@ const FillExpenseForm = ({
     {
       label: "Project Id",
       value: "",
-      name: "projectId",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "ProjectIdName" : "projectId",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectDetailsList,
       props: {
         onChange: (e) => {
@@ -171,8 +171,8 @@ const FillExpenseForm = ({
     {
       label: "Site Id",
       value: "",
-      name: "Site Id",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "Site_Id" : "Site Id",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectSiteIdList,
       props: {
         onChange: (e) => {
@@ -190,8 +190,8 @@ const FillExpenseForm = ({
     {
       label: "Task Name",
       value: "",
-      name: "taskName",
-      type: "select",
+      name:Object.entries(formValue).length > 0 ? "Task" : "Name",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectTaskNameList,
       // required: true,
       classes: "col-span-1",

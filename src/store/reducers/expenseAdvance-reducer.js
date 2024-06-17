@@ -7,6 +7,7 @@ const initialState = {
     getExpADvTaskName:[],
     getFillExpense:[],
     getFillAdvance:[],
+    getClaimTypeAdvance:[],
     getUnitRateClaimType:[],
     getL1Data:[],
     getL1AdvanceData:[],
@@ -48,6 +49,14 @@ const ExpenseAdvanceReducer = createSlice({
                 state.getFillAdvance = payload.dataAll
             }else{
                 state.getFillAdvance  = [...state.getFillAdvance,...payload.dataAll]
+            }
+        },
+
+        GET_CLAIMTYPE_ADVANCE:(state,{payload}) => {
+            if(payload.reset){
+                state.getClaimTypeAdvance = payload.dataAll
+            }else{
+                state.getClaimTypeAdvance  = [...state.getClaimTypeAdvance,...payload.dataAll]
             }
         },
 
@@ -192,6 +201,7 @@ export const {
     GET_CLAIM_AND_ADVANCE,
     GET_FILL_EXPENSE,
     GET_FILL_ADVANCE,
+    GET_CLAIMTYPE_ADVANCE,
     GET_EXPADV_PROJECT_DETAILS,
     GET_EXPADV_SITE_ID,
     GET_EXPADV_TASK_NAME,

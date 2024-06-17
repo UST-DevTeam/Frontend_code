@@ -75,12 +75,12 @@ const DAFormFillFORM = ({
         option: claimTypeList,
         props: {
             onChange: (e) => {
-              dispatch(
-                AdminActions.getManageExpenseAdvance(
-                  true,
-                  `claimtypeDa=${e.target.value}`
-                )
-              );
+              // dispatch(
+              //   AdminActions.getManageExpenseAdvance(
+              //     true,
+              //     `claimtypeDa=${e.target.value}`
+              //   )
+              // );
             },
           },
         // required: true,

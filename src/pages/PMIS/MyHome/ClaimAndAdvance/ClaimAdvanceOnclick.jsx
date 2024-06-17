@@ -145,7 +145,7 @@ const ClaimAdvanceOnclick = () => {
       },
       {
         name: "Total Distance",
-        value: "Total_distance",
+        value: "totalKm",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
       {
@@ -195,11 +195,6 @@ const ClaimAdvanceOnclick = () => {
         style: "min-w-[200px] max-w-[100px] text-center",
       },
       {
-        name: "Attachment",
-        value: "attachment",
-        style: "min-w-[200px] max-w-[100px] text-center",
-      },
-      {
         name: "Edit",
         value: "edit",
         style: "min-w-[250px] max-w-[450px] text-center",
@@ -236,11 +231,7 @@ const ClaimAdvanceOnclick = () => {
             true,
             `Number=${name}`,
             (data) => setClaimByNumber(data)))
-            
-    // return () => {
-    //     sessionStorage.removeItem('claimName')
-    // }
-  }, [id]);
+  }, [id, dispatch]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";
@@ -256,13 +247,13 @@ const ClaimAdvanceOnclick = () => {
       <AdvancedTable
         headerButton={
           <div className="flex gap-1">
-            <Button
+            {/* <Button
               classes="w-auto"
               onClick={(e) => {
                 navigate("/home/claimAndAdvance")
               }}
               name={"Back"}
-            ></Button>
+            ></Button> */}
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
@@ -275,7 +266,6 @@ const ClaimAdvanceOnclick = () => {
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
         data={claimByNumber?.length > 0 ? claimByNumber?.map((item) => {
-            console.log('ggtttt',item)
             return {
                 ...item,
                 edit: (
@@ -286,7 +276,7 @@ const ClaimAdvanceOnclick = () => {
                         name={""}
                         onClick={() => {
                           setmodalOpen(true);
-                        //   dispatch(ExpenseAdvanceActions.getFillAdvance());
+                          dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${item?.name}`));
                           setmodalHead("Edit Claim Type");
                           setmodalBody(
                             <>
@@ -304,19 +294,6 @@ const ClaimAdvanceOnclick = () => {
                     }
                   />
                 ),
-                attachment: (
-                  <CstmButton
-                    className={"p-2"}
-                    child={
-                    <DownloadButton
-                        name={""}
-                        onClick={() => {
-                            dispatch(ExpenseAdvanceActions.DownloadExpenseAttachment(true,`downloadAttachment=${item.uniqueId}`))                      
-                        }}
-                      ></DownloadButton>
-                    }
-                  />
-                ),
               };
         }) : ''}
         errors={errors}
@@ -327,7 +304,7 @@ const ClaimAdvanceOnclick = () => {
       />
 
       <Modal
-        size={"smsh"}
+        size={"xlss"}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}

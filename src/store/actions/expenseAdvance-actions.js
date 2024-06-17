@@ -5,6 +5,7 @@ import {
     GET_CLAIM_AND_ADVANCE,
     GET_FILL_EXPENSE,
     GET_FILL_ADVANCE,
+    GET_CLAIMTYPE_ADVANCE,
     GET_EXPADV_PROJECT_DETAILS,
     GET_EXPADV_SITE_ID,
     GET_EXPADV_TASK_NAME,
@@ -107,6 +108,16 @@ const ExpenseAdvanceActions = {
             
         } catch (error) {
             return;
+        }
+    },
+
+    getClaimTypeAdvance:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_claimType_advance}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_CLAIMTYPE_ADVANCE({dataAll,reset}))
+        } catch (error) {
         }
     },
 

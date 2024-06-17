@@ -335,7 +335,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/claimAndAdvanceOnclick/:id",
+      link: "/home/claimAndAdvance/claimAndAdvanceOnclick/:id",
       subMenu: [],
       component: <ClaimAndAdvanceOnclick />,
     },
