@@ -3,7 +3,7 @@ import React from 'react'
 const Button = ({ onClick, name, classes = "", icon, bgColor}) => {
 
     let data = [
-        ["bg-", "bg-[#143b64]"],
+        ["bg-", "bg-[#13B497]"],
         ["w-", "w-full"]
     ]
 

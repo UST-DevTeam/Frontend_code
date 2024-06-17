@@ -23,12 +23,12 @@ export default {
         "med-gray": "#D0D0D0",
         "bg-brown2": "#404040",
         "txt-neavy":"#001F3F",
-        "onHoverButton":"#1d8762"
+        "onHoverButton":"#ffab2d"
         // "topbarLine":"#6102af",
       },
       fontFamily: {
         sans: ['Libre Baskerville', 'sans-serif'],
-        poppins: 'Poppins',
+        // poppins: 'Poppins',
         oxygen:'Oxygen'
       },
       

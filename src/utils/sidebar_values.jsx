@@ -29,7 +29,6 @@ import Registration from "../pages/Registration";
 import Cart from "../pages/Cart";
 import Carts from "../pages/Carts";
 import Home from "../pages/Home";
-import Dashboard from "../pages/Dashboard";
 import InvestmentDiscovery from "../pages/Investment/InvestmentDiscovery";
 import Kycregister from "../pages/Kycregister";
 import NokiaToolManagementQuery from "../pages/NokiaToolManagement/NokiaToolManagementQuery";
@@ -126,7 +125,8 @@ import DAFormFill from "../pages/PMIS/MyHome/DAFormFill/DAFormFill";
 import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
 import ActualWorkdone from "../pages/PMIS/Formss/ActualWorkdone/ActualWorkdone";
 import PL from "../pages/PMIS/Formss/P&L/PL";
-// import Dashboard1 from "../pages/PMIS/Dashboard/Dashboard1";
+import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
+import Dashboard from "../pages/Dashboard";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -665,7 +665,7 @@ export const Sidebar_content = {
       {
         name: "My Dashboard",
         link: "/",
-        component: <Dashboard/>,
+        component: <Dashboard1/>,
         icon: <UilAirplay className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },

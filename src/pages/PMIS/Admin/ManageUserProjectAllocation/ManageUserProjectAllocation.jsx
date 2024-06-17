@@ -48,13 +48,12 @@ const ManageUserProjectAllocation = () => {
 
     let roleList = useSelector((state) => {
         return state?.adminData?.getManageProfile.map((itm) => {
-
           return {
             label: itm?.roleName,
             value:itm?.uniqueId
           };
         });
-      });
+    });
     
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getProjectAllocation

@@ -401,20 +401,20 @@ const AdvancedTable = ({
                       <>
                         {actions.includes(itts.name) ? (
                           ["Edit"].includes(itts.name) ? (
-                            <td
+                            <th
                               colSpan={actions.length}
                               className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
                             >
-                              <span className="text-white text-[12px]">
+                              <span className="text-white text-[14px]">
                                 {"Actions"}
                               </span>
-                            </td>
+                            </th>
                           ) : !actions.includes("Edit") ? (
                             <td
                               colSpan={actions.length}
                               className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
                             >
-                              <span className="text-white text-[12px]">
+                              <span className="text-white text-[14px]">
                                 {"Actions"}
                               </span>
                             </td>
@@ -423,17 +423,17 @@ const AdvancedTable = ({
                           )
                         ) : (
                           <>
-                            <td
+                            <th
                               className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${
                                 itts.style
                                   ? itts.style
                                   : " min-w-[300px] max-w-[500px]"
                               }`}
                             >
-                              <span className="text-white text-[12px]">
+                              <span className="text-white text-[14px]">
                                 {itts.name}
                               </span>
-                            </td>
+                            </th>
                           </>
                         )}
                       </>
@@ -455,8 +455,8 @@ const AdvancedTable = ({
                         <tr>
                           {table.columns.map((innerItm, index) => {
                             return hide.indexOf(String(index)) == -1 ? (
-                              <td
-                                className={`text-[11px] h-2 pl-1 border-gray-400 border-[0.1px] overflow-hidden text-slate-800 ${
+                              <td 
+                                className={`text-[12px] h-2 pl-1 border-green-400  border overflow-hidden text-white ${
                                   innerItm.style
                                     ? innerItm.style
                                     : " min-w-[300px] max-w-[500px]"

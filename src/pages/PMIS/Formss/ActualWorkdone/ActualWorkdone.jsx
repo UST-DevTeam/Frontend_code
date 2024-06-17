@@ -90,6 +90,7 @@ const ActualWorkdone = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
+        "uniqueId":"1",
         plan1: itm.earnvalueArray?.[0]?.["plan"],
         plan2: itm.earnvalueArray?.[1]?.["plan"],
         plan3: itm.earnvalueArray?.[2]?.["plan"],

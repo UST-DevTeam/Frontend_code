@@ -18,6 +18,7 @@ import Disabled from "./FormElements/Disabled";
 import CheckBox from "./FormElements/CheckBox";
 import { types, uiList } from "../utils/queryBuilder";
 import BigMultiselection from "./FormElements/BigMultiselection";
+import NewMultiSelectsForm from "./FormElements/NewMultiSelectForm";
 
 const CommonForm = ({
   classes,
@@ -275,6 +276,18 @@ const CommonForm = ({
                     )}
                     {itm.type == "muitiSelect" ? (
                       <Multiselection
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    {itm.type == "newmultiselect" ? (
+                      <NewMultiSelectsForm
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}

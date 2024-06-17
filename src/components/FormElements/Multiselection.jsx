@@ -116,6 +116,120 @@
 
 
 
+// import Multiselect from "multiselect-react-dropdown";
+// import React, { useEffect, useState } from "react";
+
+// const Multiselection = ({
+//   itm,
+//   errors,
+//   handleSubmit,
+//   setValue,
+//   getValues,
+//   register,
+//   classes,
+// }) => {
+//   const [selectedValues, setSelectedValues] = useState([]);
+
+//   const SelectAllOption = { name: "Select All", id: "select-all" };
+//   let datew = [];
+//   if (getValues()[itm.name]) {
+//     let oldData = getValues()[itm.name].split(",");
+
+//     datew = itm.option.filter((itm) => {
+//       if (oldData.indexOf(itm.id) != -1) {
+//         return itm;
+//       }
+//     });
+//   }
+
+//   useEffect(() => {
+//     if (itm.props.selectType) {
+//       setSelectedValues([]);
+//       setValue(itm.name, '');
+//     }
+//   }, [itm.props.selectType]);
+
+
+
+//   // const handleSelect = (e) => {
+//   //   let finalselection = e.map((itm) => itm.id);
+//   //   setSelectedValues(e);
+//   //   console.log("asasfasfasfafasfadsaf__onSelect",e);
+//   //   setValue(itm.name, finalselection.join());
+//   // };
+
+//   // const handleRemove = (e) => {
+//   //   let finalselection = e.map((itm) => itm.id);
+//   //   setSelectedValues(e);
+//   //   console.log("afafafafasdfadsasfasdf__onRemove",e);
+//   //   setValue(itm.name, finalselection.join());
+//   // };
+
+
+
+
+//   const handleSelect = (selectedList, selectedItem) => {
+//     let finalselection;
+//     if (selectedItem.id === "select-all") {
+//       // If "Select All" option is selected, select all other options
+//       finalselection = itm.option.map((item) => item.id);
+//       setSelectedValues(itm.option);
+//     } else {
+//       // If any other option is selected
+//       finalselection = selectedList.map((item) => item.id);
+//       setSelectedValues(selectedList);
+//     }
+//     setValue(itm.name, finalselection.join());
+//   };
+//   const handleRemove = (selectedList, removedItem) => {
+//     let finalselection;
+//     if (removedItem.id === "select-all") {
+//       // If "Select All" option is removed, deselect all other options
+//       finalselection = [];
+//       setSelectedValues([]);
+//     } else {
+//       // If any other option is removed
+//       finalselection = selectedList.map((item) => item.id);
+//       setSelectedValues(selectedList);
+//     }
+//     setValue(itm.name, finalselection.join());
+//   };
+
+  
+//   console.log("asdfasadfsasafasfadsfadf__selectedValues",selectedValues);
+//   return (
+//     <>
+//       <Multiselect
+//         menuIsOpen={true}
+//         keepSearchTerm={true}
+//         groupBy="category"
+//         options={itm.option}
+//         hasSelectAll={itm.hasSelectAll ? itm.hasSelectAll : false}
+//         showCheckbox
+//         singleSelect={itm.singleSelect ? itm.singleSelect : false}
+//         selectedValues={selectedValues} // Preselected value to persist in dropdown
+//         onSelect={handleSelect} // Function will trigger on select event
+//         onRemove={handleRemove} // Function will trigger on remove event
+//         {...itm.props}
+//         displayValue={itm.displayValue ? itm.displayValue : "name"}
+//         style={{
+//           searchBox: {
+//             border: "none",
+//             "border-radius": "0px",
+//             padding: "0px",
+//             color: "black !important",
+//             height: "38px",
+//           },
+//         }}
+//         className="pt-1 text-black bg-white border-black border block h-12 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+//       />
+//     </>
+//   );
+// };
+
+// export default Multiselection;
+
+
 import Multiselect from "multiselect-react-dropdown";
 import React, { useEffect, useState } from "react";
 

@@ -41,7 +41,7 @@ const Layout = ({ child }) => {
       {/* <Sidebar sidebarOpen={sidebarOpen} setsidebarOpenn={setsidebarOpenn}/> */}
       {/* <div style={{width:Width}} className={`flex-1 h-full bg-white p-2 overflow-y-scroll`}> */}
       <BreadCrumbs />
-      <div className={`flex-1 h-[30vh] overflow-y-scroll`}>
+      <div className={`flex-1 h-[30vh] overflow-y-scroll bg-[#3e454d]`}>
         {/* <div class="flex-1 bg-white p-4"> */}
         {child}
       </div>

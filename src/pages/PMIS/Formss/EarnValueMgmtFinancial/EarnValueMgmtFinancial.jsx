@@ -40,12 +40,7 @@ const EarnValueMgmtFinancial = () => {
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
-  // let roleList = useSelector((state) => {
-  //     let interdata = state?.operationManagement?.USERS_LIST
-  //     return interdata
-  // })
 
-  console.log("extraColumns_____", extraColumns);
 
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
@@ -459,35 +454,35 @@ const EarnValueMgmtFinancial = () => {
     },
 
     
-    {
-      label: "View As",
-      name: "typeSelectional",
-      value: "Select",
-      type: "select",
-      option: [
-        {
-          label: "Monthly View",
-          value: "Monthly",
-        },
-        // {
-        //   label: "Weekly View",
-        //   value: "Weekly",
-        // },
-      ],
-      props: {
-        onChange: (e) => {
-          setValue("selectional", e.target.value);
-          setValGm(e.target.value);
-          setSelectType(e.target.value)
-          console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-          console.log(selectType,'adsfasfasdfasdfadfsa');
-          // handle resert multiselect
-          // alert()
-        },
-      },
-      required: true,
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "View As",
+    //   name: "typeSelectional",
+    //   value: "Select",
+    //   type: "select",
+    //   option: [
+    //     {
+    //       label: "Monthly View",
+    //       value: "Monthly",
+    //     },
+    //     // {
+    //     //   label: "Weekly View",
+    //     //   value: "Weekly",
+    //     // },
+    //   ],
+    //   props: {
+    //     onChange: (e) => {
+    //       setValue("selectional", e.target.value);
+    //       setValGm(e.target.value);
+    //       setSelectType(e.target.value)
+    //       console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
+    //       console.log(selectType,'adsfasfasdfasdfadfsa');
+    //       // handle resert multiselect
+    //       // alert()
+    //     },
+    //   },
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
 
 
     {

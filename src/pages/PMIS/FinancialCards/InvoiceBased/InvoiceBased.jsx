@@ -127,12 +127,12 @@ const InvoiceBased = () => {
             {
                 name: "Customer",
                 value: "customerName",
-                style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white -top-1 z-20"
+                style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]  -top-1 z-20"
             },          
             {
                 name: "Project Group",
                 value: "projectGroupId",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-white -top-1 z-20"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-[#3e454d]  -top-1 z-20"
             },            
             {
                 name: "Project Type",

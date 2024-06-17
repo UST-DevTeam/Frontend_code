@@ -1,0 +1,109 @@
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as Unicons from "@iconscout/react-unicons";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import NewMultiSelects from "../../../components/NewMultiSelect";
+import GraphActions from "../../../store/actions/graph-actions";
+import FilterActions from "../../../store/actions/filter-actions";
+import Button from "../../../components/Button";
+import DountChart from "../../../components/DountChart";
+import { UilImport, UilSearch,UilTimes,UilRefresh } from '@iconscout/react-unicons'
+
+
+const ProjectChart = () => {
+  const [type, settype] = useState(false);
+  const [selectedProjectGroup, setSelectedProjectGroup] = useState([]);
+  const [selectedProjectType, setSelectedProjectType] = useState([]);
+  const [selectedProjectManager, setSelectedProjectManager] = useState([]);
+  let dispatch = useDispatch();
+  const [data, setData] = useState([])
+
+  let customeruniqueId = "666fd31788b10e1613d827da"
+
+  let projectGroupList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectGroup.map((itm) => {
+      return {
+        label: itm.ProjectGroup,
+        value: itm.ProjectGroup,
+      };
+    });
+  });
+
+  let projectTypeList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectType.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.projectType,
+      };
+    });
+  });
+
+  let projectManagerList = useSelector((state) => {
+    return state?.filterData?.getProjectProjectManager.map((itm) => {
+      return {
+        label: itm.projectManager,
+        value: itm.projectManager,
+      };
+    });
+  });
+
+  let pieGraphData = useSelector((state) => {
+    return state?.GraphData?.getGraphProjectStatus || [""]
+  });
+
+
+  useEffect(() => {
+    dispatch(GraphActions.getGraphProjectStatus());
+    dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
+    dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
+    dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
+  }, []);
+
+  const handleFilter = () => {
+    const filterData = {
+      ...(selectedProjectGroup.length && { selectedProjectGroup: selectedProjectGroup.map(item => item.value) }),
+      ...(selectedProjectType.length && { selectedProjectType: selectedProjectType.map(item => item.value) }),
+      ...(selectedProjectManager.length && { selectedProjectManager: selectedProjectManager.map(item => item.value) }),
+    }
+
+    dispatch(GraphActions.postGraphProjectStatus(filterData,() => {}))
+
+    console.info("filterData____", filterData)
+  }
+  const handleClear = () => {
+    setSelectedProjectGroup([]);
+    setSelectedProjectType([]);
+    setSelectedProjectManager([]);
+    dispatch(GraphActions.getGraphProjectStatus());
+  };
+
+  return (
+    <div className="bg-[#1c1c1c] h-full p-4">
+
+      <div className="flex items-center space-x-4 mb-8">
+        <div className=" flex-1">
+          <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
+        </div>
+        <div className=" flex-1">
+          <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
+        </div>
+        <div className="flex-1">
+          <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} />
+        </div>
+        <div className="flex-1">
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
+        </div>
+        <div className="flex-1">
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36"  />}></Button>
+        </div>
+
+      </div>
+
+      <DountChart data={pieGraphData} />
+
+    </div>
+
+  );
+};
+export default ProjectChart;

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const PieChart = ({ data }) => {
+const PieChart = ({ data,colors }) => {
+
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || []
 
+  let colorSeries = colors
+
+
 
   const options = {
-
     chart: {
       type: 'pie',
+      background: 'transparent',
       toolbar: {
         show: true,
         offsetX: 0,
@@ -19,58 +23,58 @@ const PieChart = ({ data }) => {
         },
         export: {
           csv: {
-            filename: "Project_Status_Pie_Chart",
-            columnDelimiter: ',',
-            headerCategory: 'Project Status',
-            headerValue: 'value',
+            filename: "",
+            columnDelimiter: '',
+            headerCategory: '',
+            headerValue: '',
             dateFormatter(timestamp) {
               return new Date(timestamp).toDateString();
             }
           },
           svg: {
-            filename: 'Project_Status_Pie_Chart',
+            filename: '',
           },
           png: {
-            filename: 'Project_Status_Pie_Chart',
+            filename: '',
           }
         },
       }
     },
-
-    title: {
-      text: 'Project Status',
-      align: 'left',
-      style: {
-        fontSize: '14px',
-        fontWeight: 'normal',
-        fontFamily: 'poppins, sans-serif',
-        color: '#fff',
+    dataLabels: {
+      enabled: true
+    },
+    series: dataSeries,
+    labels: name,
+    // colors: ['#2B98D6','#2bc155', '#D07407',"#DCB12D","#3F9F9F"],
+    colors:colorSeries,
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }],
+    legend:{
+      position:"bottom",
+      labels:{
+        colors:'#ffffff'
       },
     },
-
-    legend: {
-      position: 'bottom',
-      horizontalAlign: 'center',
-      labels: {
-        colors: '#ffffff'
-      }
-    },
-    labels: name,
-    series: dataSeries,
-
   }
 
-  console.log("options___",options)
 
   return (
-    <div className="bg-[#3e454d] rounded-lg">
+    
       <ReactApexChart
         options={options}
         type="pie"
         series={options.series}
-        height="400"
+        height="350"
       />
-    // </div>  
   );
 };
 
