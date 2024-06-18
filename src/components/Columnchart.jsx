@@ -5,7 +5,7 @@ const ColumnChart = ({data,colors}) => {
   const chartData = {
     series: [{
       name:"Count",
-      data: [21, 22, 10,]
+      data: data
     }],
     options: {
       chart: {

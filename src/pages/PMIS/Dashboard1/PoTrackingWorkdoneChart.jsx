@@ -34,9 +34,21 @@ const PoTrackingWorkdoneChart = () => {
 
   
 
-  let pieGraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphPoStatus || [""]
+  let GraphData = useSelector((state) => {
+    return state?.GraphData?.getGraphPoTrackingWorkdone || [""]
   });
+
+
+  let value = []
+
+  if (GraphData.length > 0) {
+    const { invoicedQty = 0, workDoneQty = 0, openQty = 0 } = GraphData[0];
+    value.push(invoicedQty, workDoneQty, openQty);
+  } else {
+    value.push(0, 0, 0);
+  }
+
+
 
   let colors = ['#003459','#007EA7','#00A8E8']
 
@@ -52,15 +64,13 @@ const PoTrackingWorkdoneChart = () => {
       ...(selectedProjectGroup.length && { selectedProjectGroup: selectedProjectGroup.map(item => item.value) }),
     }
 
-    dispatch(GraphActions.postGraphPOStatus(filterData,() => {}))
+    dispatch(GraphActions.postGraphPOTrackingWorkdone(filterData,() => {}))
   }
 
   
 
   const handleClear = () => {
     setSelectedProjectGroup([]);
-    setSelectedProjectType([]);
-    setSelectedProjectManager([]);
     dispatch(GraphActions.getGraphPOTrackingWorkdone());
   };
 
@@ -74,7 +84,7 @@ const PoTrackingWorkdoneChart = () => {
           <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
         </div>
       </div>
-      <ColumnChart data={pieGraphData}/>
+      <ColumnChart data={value}/>
     </div>
 
   );
