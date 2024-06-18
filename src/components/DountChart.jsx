@@ -55,7 +55,6 @@ const DountChart = ({ data }) => {
                   return a + b
                 }, 0)
               },
-              className: 'apexcharts-donut-total-custom' 
             }
           },
         }

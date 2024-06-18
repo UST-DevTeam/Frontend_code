@@ -52,5 +52,28 @@ const GraphActions = {
         } catch (error) {
         }
     },
+
+    postGraphPOStatus: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_po_status })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_PO_STATUS({ dataAll, reset:true }))
+
+            }
+        } catch (error) {
+            return;
+        }
+    },
 }
 export default GraphActions;

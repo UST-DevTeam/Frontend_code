@@ -21,13 +21,12 @@ const PoStatusChart = () => {
   let dispatch = useDispatch();
   const [data, setData] = useState([])
 
-  let customeruniqueId = "666fd31788b10e1613d827da"
-
   let projectGroupList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectGroup.map((itm) => {
+    return state?.filterData?.getfinancialPoManagementProjectGroup
+    .map((itm) => {
       return {
-        label: itm.ProjectGroup,
-        value: itm.ProjectGroup,
+        label: itm.projectGroup,
+        value: itm.projectGroup,
       };
     });
   });
@@ -54,11 +53,12 @@ const PoStatusChart = () => {
     return state?.GraphData?.getGraphPoStatus || [""]
   });
 
-  let colors = ['#DCB12D','#8871A0','#3F9F9F']
+  let colors = ['#003459','#007EA7','#00A8E8']
 
 
   useEffect(() => {
     dispatch(GraphActions.getGraphPOStatus());
+    dispatch(FilterActions.getfinancialPoManagementProjectGroup())
   }, []);
 
   const handleFilter = () => {
@@ -68,40 +68,27 @@ const PoStatusChart = () => {
       ...(selectedProjectManager.length && { selectedProjectManager: selectedProjectManager.map(item => item.value) }),
     }
 
-    dispatch(GraphActions.postGraphProjectStatus(filterData,() => {}))
+    dispatch(GraphActions.postGraphPOStatus(filterData,() => {}))
 
   }
   const handleClear = () => {
     setSelectedProjectGroup([]);
     setSelectedProjectType([]);
     setSelectedProjectManager([]);
-    dispatch(GraphActions.getGraphProjectStatus());
+    dispatch(GraphActions.getGraphPOStatus());
   };
 
   return (
     <div className="bg-[#1c1c1c] h-full p-4">
 
-      <div className="flex items-center space-x-4 mb-8">
-        <div className=" flex-1">
+      <div className="flex items-center space-x-4 mb-8 justify-between ">
+        <div className="flex items-center space-x-4">
           <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"}/>}></Button>
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
         </div>
-        <div className=" flex-1">
-          <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
-        </div>
-        <div className="flex-1">
-          <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} />
-        </div>
-        <div className="flex-1">
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
-        </div>
-        <div className="flex-1">
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36"  />}></Button>
-        </div>
-
       </div>
-
-      <RadialBarChart data={pieGraphData}  colors = {colors} />
-
+      <PieChart data={pieGraphData}  colors = {colors} />
     </div>
 
   );

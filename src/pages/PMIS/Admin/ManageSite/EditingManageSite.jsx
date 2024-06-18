@@ -242,7 +242,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
 
         reset({})
 
-        // dispatch(AdminActions.getOneManageProjectType("666fd31788b10e1613d827da/65e59c4488b1db430076f576"))
+        // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
     }, [])
 
 

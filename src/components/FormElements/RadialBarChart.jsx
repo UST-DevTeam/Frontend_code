@@ -7,7 +7,8 @@ const RadialBarChart = ({ data }) => {
     let dataSeries = data?.map(item => item.count) || []
 
     const options = {
-        series: [44, 55, 67, 83],
+        series: dataSeries,
+        // series: [44, 55, 67, 200],
         chart: {
             height: 350,
             type: 'radialBar',
@@ -22,17 +23,22 @@ const RadialBarChart = ({ data }) => {
                 fontSize: '16px',
                 },
                 total: {
-                show: true,
-                label: 'Total',
-                formatter: function (w) {
-                    // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                    return 249
-                }
+                  show: true,
+                  label: 'Total',
+                  color: '#373d3f',
+                  fontSize: '16px',
+                  fontFamily: undefined,
+                  fontWeight: 600,
+                  formatter: function (w) {
+                    return w.globals.seriesTotals.reduce((a, b) => {
+                      return a + b
+                    }, 0) 
+                  }
                 }
             }
             }
         },
-        labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
+        labels: name,
 
     };
 

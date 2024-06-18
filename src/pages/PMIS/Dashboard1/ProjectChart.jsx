@@ -8,7 +8,7 @@ import GraphActions from "../../../store/actions/graph-actions";
 import FilterActions from "../../../store/actions/filter-actions";
 import Button from "../../../components/Button";
 import DountChart from "../../../components/DountChart";
-import { UilImport, UilSearch,UilTimes,UilRefresh } from '@iconscout/react-unicons'
+import { UilImport, UilSearch, UilTimes, UilRefresh } from '@iconscout/react-unicons'
 
 
 const ProjectChart = () => {
@@ -19,7 +19,7 @@ const ProjectChart = () => {
   let dispatch = useDispatch();
   const [data, setData] = useState([])
 
-  let customeruniqueId = "666fd31788b10e1613d827da"
+  let customeruniqueId = "65dee316811c797c9f26d836"
 
   let projectGroupList = useSelector((state) => {
     return state?.filterData?.getProjectProjectGroup.map((itm) => {
@@ -67,7 +67,7 @@ const ProjectChart = () => {
       ...(selectedProjectManager.length && { selectedProjectManager: selectedProjectManager.map(item => item.value) }),
     }
 
-    dispatch(GraphActions.postGraphProjectStatus(filterData,() => {}))
+    dispatch(GraphActions.postGraphProjectStatus(filterData, () => { }))
 
     console.info("filterData____", filterData)
   }
@@ -81,21 +81,19 @@ const ProjectChart = () => {
   return (
     <div className="bg-[#1c1c1c] h-full p-4">
 
-      <div className="flex items-center space-x-4 mb-8">
-        <div className=" flex-1">
+      <div className="flex items-center space-x-4 mb-8 justify-between ">
+        <div className="flex items-center space-x-4 ">
           <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
-        </div>
-        <div className=" flex-1">
+
           <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
-        </div>
-        <div className="flex-1">
+
           <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} />
         </div>
-        <div className="flex-1">
+
+        <div className="flex items-center space-x-4 ">
           <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
-        </div>
-        <div className="flex-1">
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36"  />}></Button>
+
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
         </div>
 
       </div>
