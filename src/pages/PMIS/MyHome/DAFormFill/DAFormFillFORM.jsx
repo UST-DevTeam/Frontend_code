@@ -10,6 +10,7 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import { GET_EXPENSE_DA_COST_CENTER } from "../../../../store/reducers/expenseAdvance-reducer";
 
 const DAFormFillFORM = ({
   isOpen,
@@ -89,14 +90,14 @@ const DAFormFillFORM = ({
     {
       label: "DA Date",
       value: "",
-      name: "daDate",
+      name: "Claim_Date",
       type: "datetime",
       classes: "col-span-1",
     },
     {
         label: "Employee Code ",
         value: "",
-        name: "empCode",
+        name: "EmpCode",
         type: "select",
         option: EmpCodeList,
         props: {
@@ -156,7 +157,7 @@ const DAFormFillFORM = ({
     {
         label: "DA Amount",
         value: "",
-        name: "daAmount",
+        name: "Amount",
         type: "number",
         props: {
             onchange: (e) => {},
@@ -215,6 +216,7 @@ const DAFormFillFORM = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
+    // dispatch(GET_EXPENSE_DA_COST_CENTER({ dataAll: [], reset: true }))
     dispatch(AdminActions.getManageExpenseAdvance(true,`claimtypeDa=${"DailyAllowance"}`));
     dispatch(ExpenseAdvanceActions.getExpenseEMPCode());
     dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());

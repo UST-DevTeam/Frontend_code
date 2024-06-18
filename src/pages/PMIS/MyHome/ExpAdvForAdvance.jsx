@@ -16,6 +16,7 @@ import CommonActions from "../../../store/actions/common-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
+import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
 
 const ExpAdvForAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -28,6 +29,8 @@ const ExpAdvForAdvance = () => {
 
   let navigate = useNavigate();
 
+  const monthMap = { "01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr", "05": "May", "06": "Jun", "07": "Jul", "08": "Aug", "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dec" };
+  
   const {
     register,
     handleSubmit,
@@ -39,30 +42,13 @@ const ExpAdvForAdvance = () => {
   } = useForm();
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
-    let interdata = state?.hrReducer?.getManageEmpDetails;
+    let interdata = state?.expenseAdvanceData?.getHRAllAdvance || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
 
-        // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+        Month: monthMap[itm.Month] || itm.Month,
+      
         edit: (
           <CstmButton
             className={"p-2"}
@@ -70,13 +56,8 @@ const ExpAdvForAdvance = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
-                  navigate(`/empdetails/${itm.uniqueId}`);
                   // dispatch(HrActions.getManageEmpDetails())
-                  // setmodalHead("Edit Customer Details")
-
-                  console.log(itm, "itmitmitmitmitmitmitmitm");
-
+                  setmodalHead("Edit Customer Details")
                   setmodalBody(
                     <>
                       <EmpDetails resetting={false} formValue={itm} />
@@ -104,9 +85,9 @@ const ExpAdvForAdvance = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.admin_empdetails}/${itm.uniqueId}`,
+                              `${Urls.expAdv_hr_all_advance}/${itm.uniqueId}`,
                               () => {
-                                dispatch(HrActions.getManageEmpDetails());
+                                dispatch(ExpenseAdvanceActions.getHRAllAdvance());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -155,7 +136,7 @@ const ExpAdvForAdvance = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.hrReducer?.getManageEmpDetails;
+    let interdata = state?.expenseAdvanceData?.getHRAllAdvance;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -169,67 +150,113 @@ const ExpAdvForAdvance = () => {
 
   let table = {
     columns: [
-      {
-        name: "Circle",
-        value: "circle",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
-      },
-      {
-        name: "Emp ID",
-        value: "empId",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
-      },
-      {
-        name: "Claim Type",
-        value: "claimType",
-        style: "min-w-[250px] max-w-[450px] text-center",
-      },
-      {
-        name: "Project Type",
-        value: "projectType",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Expense Category",
-        value: "expenseCategory",
-        style: "min-w-[250px] max-w-[450px] text-center",
-      },
-      {
-        name: "Expense ID",
-        value: "expenseId",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Cost Center",
-        value: "costCenter",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Submission Date",
-        value: "date",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-    //   {
-    //     name: "Status",
-    //     value: "status",
-    //     style: "min-w-[100px] max-w-[450px] text-center",
-    //   },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      // {
-      //     name: "View",
-      //     value: "view",
-      //     style: "min-w-[100px] max-w-[100px] text-center"
-      // }
+        {
+            name: "Month",
+            value: "Month",
+            style: "min-w-[80px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Employee Name",
+            value: "Employee Name",
+            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Employee Code",
+            value: "Employee Code",
+            style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Contact No.",
+            value: "Contact Number",
+            style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Advance No.",
+            value: "Advance number",
+            style: "min-w-[120px] max-w-[450px] text-center",
+        },
+        {
+            name: "Advance Date",
+            value: "Advance Date",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Advance Type",
+            value: "Advance Type",
+            style: "min-w-[250px] max-w-[450px] text-center",
+        },
+        {
+            name: "Circle",
+            value: "Circle",
+            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Project ID",
+            value: "Project ID",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Cost Center",
+            value: "Cost Center",
+            style: "min-w-[120px] max-w-[450px] text-center",
+        },
+        {
+            name: "Amount",
+            value: "Amount",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Submission Date",
+            value: "Submission Date",
+            style: "min-w-[120px] max-w-[450px] text-center",
+        },
+        {
+            name: "Approval Amount",
+            value: "Approved Amount",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Last Action Date",
+            value: "Last Action Date",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "L1 Status",
+            value: "L1 Status",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "L2 Status",
+            value: "L2 Status",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Finance Approve Status",
+            value: "L3 Status",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "L1 Approver",
+            value: "L1 Approver",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "L2 Approver",
+            value: "L2 Approver",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Finance Approver",
+            value: "L3 Approver",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Remarks",
+            value: "Remarks",
+            style: "min-w-[200px] max-w-[450px] text-center",
+        },
     ],
+
     properties: {
       rpp: [10, 20, 50, 100],
     },
@@ -247,16 +274,16 @@ const ExpAdvForAdvance = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)));
+    dispatch(ExpenseAdvanceActions.getHRAllAdvance(value, objectToQueryString(data)));
   };
   useEffect(() => {
-    dispatch(HrActions.getManageEmpDetails());
+    dispatch(ExpenseAdvanceActions.getHRAllAdvance());
   }, []);
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageEmployee";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(AdminActions.getManageCircle());
+        dispatch(ExpenseAdvanceActions.getHRAllAdvance());
         setFileOpen(false);
         resetting("");
       })
@@ -273,12 +300,12 @@ const ExpAdvForAdvance = () => {
               onClick={(e) => {
                 navigate("/hr/Claim");
               }}
-              name={"Claim"}
+              name={"Expense"}
             ></Button>
             <Button
-              classes="w-auto"
+              classes="w-auto mr-1"
               onClick={(e) => {
-                navigate("/home/approve");
+                navigate("/hr/Advance");
               }}
               name={"Advance"}
             ></Button>
@@ -292,6 +319,7 @@ const ExpAdvForAdvance = () => {
           </div>
         }
         table={table}
+        exportButton={["export/AllAdvance","Export_AllAdvance.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
