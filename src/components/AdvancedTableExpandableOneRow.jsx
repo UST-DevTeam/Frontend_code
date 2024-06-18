@@ -46,7 +46,7 @@ const AdvancedTableExpandableOneRow = ({
         {table.columns.map((innerItm, index) => {
           return hide.indexOf(String(index)) == -1 ? (
             <td
-              className={`text-[12px] pl-1 border-primaryLine border-[1.5px] text-primaryLine  ${
+              className={`text-[12px] pl-1 border-primaryLine border-[1.5px] text-white ${
                 innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"
               }`}
             >

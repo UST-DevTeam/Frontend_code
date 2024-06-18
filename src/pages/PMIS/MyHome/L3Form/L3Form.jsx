@@ -454,7 +454,7 @@ const L3Form = () => {
                   <input
                     type="number"
                     
-                    className="p-5 w-full !border amountWithRemark"
+                    className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Amount"
                     onChange={(e) => {
                       setAmount((prev) => {
@@ -476,7 +476,7 @@ const L3Form = () => {
                 remark: (
                   <input
                     type="text"
-                    className="p-5 w-full !border amountWithRemark"
+                    className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {
                       
