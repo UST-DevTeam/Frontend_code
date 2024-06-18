@@ -1,71 +1,67 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const ColumnChart = () => {
+const ColumnChart = ({data,colors}) => {
   const chartData = {
-    series: [
-      {
-        name: 'Net Profit',
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-      },
-      {
-        name: 'Revenue',
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-      },
-      {
-        name: 'Free Cash Flow',
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-      }
-    ],
+    series: [{
+      name:"Count",
+      data: [21, 22, 10,]
+    }],
     options: {
       chart: {
+        height: 350,
         type: 'bar',
-        height: 320
+        background:''
       },
+      colors: colors,
       plotOptions: {
         bar: {
-          horizontal: false,
-          columnWidth: '55%',
-          endingShape: 'rounded'
-        },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-      },
-      yaxis: {
-        title: {
-          text: '$ (thousands)'
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return "$ " + val + " thousands"
+          columnWidth: '45%',
+          distributed: true,
+          dataLabels: {
+            position: 'top',
           }
         }
-      }
+      },
+      xaxis: {
+        categories: [
+          ['Invoiced Quantity'],
+          ['Workdone Quantity'],
+          ['Open Qunatity']
+        ],
+        labels: {
+          style: {
+            colors: 'White',
+          }
+        }
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: 'White',
+          }
+        }
+      },
+      grid: {
+        borderColor: '#bdcdf1'
+      },
+      // tooltip: {
+      //   x: {
+      //     show: false,
+      //   }
+      // },
+      legend: {
+        show: true,
+        labels: {
+          colors: '#ffffff',
+        },
+      },
     }
   };
 
   return (
-    <div>
-      <div id="chart" className="bg-gray-200 shadow-md rounded-md">
-        <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={240} />
-      </div>
-      <div id="html-dist"></div>
-    </div>
+  
+      <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={350} />
   );
 };
-
 export default ColumnChart;

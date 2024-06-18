@@ -4,6 +4,7 @@ const initialState = {
 
     getGraphProjectStatus: [],
     getGraphPoStatus: [],
+    getGraphPoTrackingWorkdone: [],
 }
 
 const GraphData = createSlice({
@@ -28,10 +29,18 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_PO_Tracking_WorkDone:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphPoTrackingWorkdone = payload.dataAll
+            }else{
+                state.getGraphPoTrackingWorkdone  = [...state.getGraphPoTrackingWorkdone,...payload.dataAll]
+            }
+        },
+
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_PO_STATUS
+export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone
             } = GraphData.actions
     
 export default GraphData.reducer

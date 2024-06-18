@@ -9,6 +9,8 @@ import MileStoneChart from "./MileStoneChart";
 import PolarChart from "../../../components/FormElements/PolarChart";
 import PoStatusChart from "./PoStatusChart";
 import RadialBarChart from "../../../components/FormElements/RadialBarChart";
+import ColumnChart from "../../../components/Columnchart";
+import PoTrackingWorkdoneChart from "./PoTrackingWorkdoneChart";
 
 
 
@@ -24,6 +26,8 @@ const Dashboard1 = () => {
             <ClaimAndAdvanceChart />
             <MileStoneChart />
             <PoStatusChart />
+            <PoTrackingWorkdoneChart />
+    
             
             
         </div>
