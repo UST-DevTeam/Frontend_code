@@ -23,6 +23,8 @@ import {
     GET_EXPENSE_DA_COST_CENTER,
     GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
     GET_DOWNLOAD_ATTACHMENT,
+    GET_HR_ALL_EXPENSES,
+    GET_HR_ALL_ADVANCE,
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -332,6 +334,27 @@ const ExpenseAdvanceActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_DOWNLOAD_ATTACHMENT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getHRAllExpenses:(reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_hr_all_expenses}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_HR_ALL_EXPENSES({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    },
+    getHRAllAdvance:(reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_hr_all_advance}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_HR_ALL_ADVANCE({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },

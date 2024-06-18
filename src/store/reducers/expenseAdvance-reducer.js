@@ -21,6 +21,8 @@ const initialState = {
     getExpenseDAProjectId:[],
     getExpensesByExpenseNoInPopUp:[],
     DownloadExpenseAttachment:[],
+    getHRAllExpenses:[],
+    getHRAllAdvance:[],
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -193,6 +195,21 @@ const ExpenseAdvanceReducer = createSlice({
             }
         },
 
+        GET_HR_ALL_EXPENSES:(state,{payload}) => {
+            if(payload.reset){
+                state.getHRAllExpenses = payload.dataAll
+            }else{
+                state.getHRAllExpenses  = [...state.getHRAllExpenses,...payload.dataAll]
+            }
+        },
+        GET_HR_ALL_ADVANCE:(state,{payload}) => {
+            if(payload.reset){
+                state.getHRAllAdvance = payload.dataAll
+            }else{
+                state.getHRAllAdvance  = [...state.getHRAllAdvance,...payload.dataAll]
+            }
+        },
+
         
     }
 })
@@ -219,5 +236,7 @@ export const {
     GET_EXPENSE_DA_COST_CENTER,
     GET_EXPENSES_BY_EXPENSESNO_IN_POPUP,
     GET_DOWNLOAD_ATTACHMENT,
+    GET_HR_ALL_EXPENSES,
+    GET_HR_ALL_ADVANCE,
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

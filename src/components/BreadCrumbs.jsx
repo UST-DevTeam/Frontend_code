@@ -71,7 +71,7 @@ const BreadCrumbs = () => {
     },
     
     "Claim":{
-      "name":"Claim",
+      "name":"Expense",
       "url":"/hr/Claim" 
     },
     "attendance":{

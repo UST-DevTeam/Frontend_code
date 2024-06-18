@@ -16,6 +16,7 @@ import CommonActions from "../../../store/actions/common-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
+import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
 
 const ExpAdvForClaim = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -28,6 +29,8 @@ const ExpAdvForClaim = () => {
 
   let navigate = useNavigate();
 
+  const monthMap = { "01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr", "05": "May", "06": "Jun", "07": "Jul", "08": "Aug", "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dec" };
+  
   const {
     register,
     handleSubmit,
@@ -39,30 +42,13 @@ const ExpAdvForClaim = () => {
   } = useForm();
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
-    let interdata = state?.hrReducer?.getManageEmpDetails;
+    let interdata = state?.expenseAdvanceData?.getHRAllExpenses || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
 
-        // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+        Month: monthMap[itm.Month] || itm.Month,
+      
         edit: (
           <CstmButton
             className={"p-2"}
@@ -70,13 +56,8 @@ const ExpAdvForClaim = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true }));
-                  navigate(`/empdetails/${itm.uniqueId}`);
                   // dispatch(HrActions.getManageEmpDetails())
-                  // setmodalHead("Edit Customer Details")
-
-                  console.log(itm, "itmitmitmitmitmitmitmitm");
-
+                  setmodalHead("Edit Customer Details")
                   setmodalBody(
                     <>
                       <EmpDetails resetting={false} formValue={itm} />
@@ -104,9 +85,9 @@ const ExpAdvForClaim = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.admin_empdetails}/${itm.uniqueId}`,
+                              `${Urls.expAdv_hr_all_expenses}/${itm.uniqueId}`,
                               () => {
-                                dispatch(HrActions.getManageEmpDetails());
+                                dispatch(ExpenseAdvanceActions.getHRAllExpenses());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -155,7 +136,7 @@ const ExpAdvForClaim = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.hrReducer?.getManageEmpDetails;
+    let interdata = state?.expenseAdvanceData?.getHRAllExpenses;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -169,67 +150,158 @@ const ExpAdvForClaim = () => {
 
   let table = {
     columns: [
-      {
-        name: "Circle",
-        value: "circle",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
-      },
-      {
-        name: "Emp ID",
-        value: "empId",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
-      },
-      {
-        name: "Claim Type",
-        value: "claimType",
-        style: "min-w-[250px] max-w-[450px] text-center",
-      },
-      {
-        name: "Project Type",
-        value: "projectType",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Expense Category",
-        value: "expenseCategory",
-        style: "min-w-[250px] max-w-[450px] text-center",
-      },
-      {
-        name: "Expense ID",
-        value: "expenseId",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Cost Center",
-        value: "costCenter",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Submission Date",
-        value: "date",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-    //   {
-    //     name: "Status",
-    //     value: "status",
-    //     style: "min-w-[100px] max-w-[450px] text-center",
-    //   },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      // {
-      //     name: "View",
-      //     value: "view",
-      //     style: "min-w-[100px] max-w-[100px] text-center"
-      // }
+        {
+            name: "Month",
+            value: "Month",
+            style: "min-w-[80px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Employee Name",
+            value: "Employee Name",
+            style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Employee Code",
+            value: "Employee Code",
+            style: "min-w-[130px] max-w-[450px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Contact No.",
+            value: "Contact Number",
+            style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Expense No.",
+            value: "Expense number",
+            style: "min-w-[120px] max-w-[450px] text-center",
+        },
+        {
+            name: "Claim Date",
+            value: "Claim Date",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Claim Type",
+            value: "Claim Type",
+            style: "min-w-[250px] max-w-[450px] text-center",
+        },
+        {
+            name: "Category",
+            value: "Category",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Circle",
+            value: "Circle",
+            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        },
+        {
+            name: "Project ID",
+            value: "Project ID",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Cost Center",
+            value: "Cost Center",
+            style: "min-w-[120px] max-w-[450px] text-center",
+        },
+        {
+            name: "Site ID",
+            value: "Site ID",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Task Name",
+            value: "Task",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Amount",
+            value: "Amount",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Submission Date",
+            value: "Submission Date",
+            style: "min-w-[120px] max-w-[450px] text-center",
+        },
+        {
+            name: "Approval Amount",
+            value: "Approved Amount",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Bill No",
+            value: "Bill No",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Start KM",
+            value: "Start KM",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "End KM",
+            value: "End KM",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Start Location",
+            value: "Start Location",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "End Location",
+            value: "End Location",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Transportation Mode",
+            value: "Transport Mode",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Last Action Date",
+            value: "Last Action Date",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "L1 Status",
+            value: "L1 Status",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "L2 Status",
+            value: "L2 Status",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Finance Approve Status",
+            value: "L3 Status",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "L1 Approver",
+            value: "L1 Approver",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "L2 Approver",
+            value: "L2 Approver",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Finance Approver",
+            value: "L3 Approver",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
+            name: "Remarks",
+            value: "Remarks",
+            style: "min-w-[200px] max-w-[450px] text-center",
+        },
     ],
+
     properties: {
       rpp: [10, 20, 50, 100],
     },
@@ -247,16 +319,16 @@ const ExpAdvForClaim = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(HrActions.getManageEmpDetails(value, objectToQueryString(data)));
+    dispatch(ExpenseAdvanceActions.getHRAllExpenses(value, objectToQueryString(data)));
   };
   useEffect(() => {
-    dispatch(HrActions.getManageEmpDetails());
+    dispatch(ExpenseAdvanceActions.getHRAllExpenses());
   }, []);
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageEmployee";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(AdminActions.getManageCircle());
+        dispatch(ExpenseAdvanceActions.getHRAllExpenses());
         setFileOpen(false);
         resetting("");
       })
@@ -273,10 +345,10 @@ const ExpAdvForClaim = () => {
               onClick={(e) => {
                 navigate("/hr/Claim");
               }}
-              name={"Claim"}
+              name={"Expense"}
             ></Button>
             <Button
-              classes="w-auto"
+              classes="w-auto mr-1"
               onClick={(e) => {
                 navigate("/hr/Advance");
               }}
@@ -292,6 +364,7 @@ const ExpAdvForClaim = () => {
           </div>
         }
         table={table}
+        exportButton={["export/AllExpenses","Export_AllExpenses.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
