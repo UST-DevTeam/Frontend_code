@@ -312,7 +312,7 @@ const FillExpense = () => {
       {
         name: "Expense No.",
         value: "ExpenseNo",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-0",
       },
       {
         name: "ClaimType",
