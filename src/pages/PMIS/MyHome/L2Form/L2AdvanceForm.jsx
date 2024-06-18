@@ -412,7 +412,7 @@ const L2AdvanceForm = () => {
                 amount: (
                   <input
                     type="number"
-                    className="p-5 w-full !border amountWithRemark"
+                    className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Amount"
                     onChange={(e) => {
                       setAmount((prev) => {
@@ -442,7 +442,7 @@ const L2AdvanceForm = () => {
                 remark: (
                   <input
                     type="text"
-                    className="p-5 w-full !border amountWithRemark"
+                    className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {
                       

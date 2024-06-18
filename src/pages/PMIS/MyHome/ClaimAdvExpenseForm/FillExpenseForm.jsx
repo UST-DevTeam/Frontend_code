@@ -21,6 +21,8 @@ const FillExpenseForm = ({
   const [Km, setKm] = useState(false);
   const [category,setCategory] = useState()
 
+  const today = moment().format('YYYY-MM-DD');
+
   let dispatch = useDispatch();
 
   let claimTypeList = useSelector((state) => {
@@ -203,6 +205,9 @@ const FillExpenseForm = ({
       value: "",
       name: "expenseDate",
       type: "datetime",
+      props: {
+        min: today,  // Set the min attribute to today’s date
+      },
       // required: true,
       classes: "col-span-1",
     },

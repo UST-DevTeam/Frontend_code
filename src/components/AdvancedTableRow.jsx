@@ -419,7 +419,7 @@ const AdvancedTableRow = ({
                         callApiPagination(index + 1);
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
-                        ? "bg-primaryLine text-white border-primaryLine"
+                        ? "bg-primaryLine text-black border-primaryLine"
                         : "bg-white text-black border-primaryLine"
                         } `}
                     >
