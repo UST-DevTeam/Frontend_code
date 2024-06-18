@@ -153,22 +153,22 @@ const ExpAdvForAdvance = () => {
         {
             name: "Month",
             value: "Month",
-            style: "min-w-[80px] max-w-[200px] text-center sticky left-0 bg-white",
+            style: "min-w-[80px] max-w-[200px] text-center",
         },
         {
             name: "Employee Name",
             value: "Employee Name",
-            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+            style: "min-w-[200px] max-w-[200px] text-center sticky left-0",
         },
         {
             name: "Employee Code",
             value: "Employee Code",
-            style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+            style: "min-w-[150px] max-w-[450px] text-center sticky left-0",
         },
         {
             name: "Contact No.",
             value: "Contact Number",
-            style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-white",
+            style: "min-w-[150px] max-w-[200px] text-center",
         },
         {
             name: "Advance No.",
@@ -188,7 +188,7 @@ const ExpAdvForAdvance = () => {
         {
             name: "Circle",
             value: "Circle",
-            style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-white",
+            style: "min-w-[200px] max-w-[200px] text-center",
         },
         {
             name: "Project ID",

@@ -248,7 +248,7 @@ const ClaimAndAdvance = () => {
       {
         name: "Expense/Advance No",
         value: "name",
-        style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[250px] max-w-[450px] text-center sticky left-0",
       },
       {
         name: "Cost Center",
