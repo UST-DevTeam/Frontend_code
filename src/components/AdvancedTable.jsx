@@ -49,7 +49,7 @@ const AdvancedTable = ({
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
-  data = (data[0]?.uniqueId)?data : [];
+  data = (data[0]?.uniqueId) ? data : [];
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
@@ -129,7 +129,9 @@ const AdvancedTable = ({
 
   useEffect(()=>{
     console.log("after_paginate", data)
-    setFinalData(data)
+    if (data !== finalData) {
+      setFinalData(data);
+    }
   },[data])
 
   // console.log("setFinalData", finalData)

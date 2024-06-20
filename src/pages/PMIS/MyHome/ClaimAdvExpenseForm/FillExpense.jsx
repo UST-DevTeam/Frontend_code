@@ -162,9 +162,8 @@ const FillExpense = () => {
 
         ExpenseNo: (
           <p
-            className="cursor-pointer text-blue-500 underline"
+            className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
-              console.log(itm?.ExpenseNo, "pppppppp");
               expenseRef.current = itm;
               dispatch(
                 ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp(
@@ -191,7 +190,7 @@ const FillExpense = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(ExpenseAdvanceActions.getFillExpense());
+                  dispatch(ExpenseAdvanceActions.getFillExpense(uniqueId));
                   setmodalHead("Edit Expense");
                   setmodalBody(
                     <>
@@ -312,7 +311,7 @@ const FillExpense = () => {
       {
         name: "Expense No.",
         value: "ExpenseNo",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-0",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "ClaimType",
@@ -399,6 +398,7 @@ const FillExpense = () => {
         value: "addRow",
         style: "min-w-[100px] max-w-[100px] text-center",
       },
+
     ] : [
       {
         name: "Edit",

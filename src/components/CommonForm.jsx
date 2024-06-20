@@ -89,7 +89,7 @@ const CommonForm = ({
                   ) : (
                     <div className="items-center justify-between">
                       {
-                        <label className="block text-sm font-medium text-txt-neavy ml-3 dark:text-darkBg break-words	">
+                        <label className="block text-sm font-medium text-white ml-3 dark:text-darkBg break-words	">
                           {itm.label}
                           {itm?.required && (
                             <span className="text-red-600 ml-1 ">*</span>

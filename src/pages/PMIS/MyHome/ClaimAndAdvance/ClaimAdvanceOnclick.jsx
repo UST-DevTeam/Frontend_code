@@ -145,7 +145,7 @@ const ClaimAdvanceOnclick = () => {
       },
       {
         name: "Total Distance",
-        value: "totalKm",
+        value: "Total_distance",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
       {
@@ -276,8 +276,8 @@ const ClaimAdvanceOnclick = () => {
                         name={""}
                         onClick={() => {
                           setmodalOpen(true);
-                        //   dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${item?.name}`));
-                          setmodalHead("Edit Claim Type");
+                          dispatch(AdminActions.getManageExpenseAdvance());
+                          setmodalHead(item.name + " : " + `Approved Amount : ${item.ApprovedAmount}`);
                           setmodalBody(
                             <>
                               <ClaimAdvanceForm

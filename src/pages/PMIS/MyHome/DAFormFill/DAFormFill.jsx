@@ -91,19 +91,19 @@ const DAFormFill = () => {
     let table = {
         columns: [
           {
-            name: "DA Date",
-            value: "Claim_Date",
-            style: "min-w-[100px] max-w-[450px] text-center",
-          },
-          {
             name: "Employee Code",
             value: "empCode",
-            style: "min-w-[170px] max-w-[450px] text-center",
+            style: "min-w-[170px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
           },
           {
             name: "Employee Name",
             value: "empName",
-            style: "min-w-[150px] max-w-[450px] text-center",
+            style: "min-w-[150px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
+          },
+          {
+            name: "DA Date",
+            value: "Claim_Date",
+            style: "min-w-[100px] max-w-[450px] text-center",
           },
           {
             name: "Cost Center",

@@ -17,6 +17,7 @@ import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
+import DownloadButton from "../../../components/DownloadButton";
 
 const ExpAdvForClaim = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -108,6 +109,19 @@ const ExpAdvForClaim = () => {
                   dispatch(ALERTS(msgdata));
                 }}
               ></DeleteButton>
+            }
+          />
+        ),
+        attachment: (
+          <CstmButton
+            className={"p-2"}
+            child={
+            <DownloadButton
+                name={""}
+                onClick={() => {
+                    dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${itm["Expense number"]}`,"expense.pdf"))                      
+                }}
+              ></DownloadButton>
             }
           />
         ),
@@ -298,6 +312,11 @@ const ExpAdvForClaim = () => {
         {
             name: "Remarks",
             value: "Remarks",
+            style: "min-w-[200px] max-w-[450px] text-center",
+        },
+        {
+            name: "Attachment",
+            value: "attachment",
             style: "min-w-[200px] max-w-[450px] text-center",
         },
     ],
