@@ -23,25 +23,31 @@ import { data } from "autoprefixer";
 import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 
+
 import { UilSearch } from "@iconscout/react-unicons";
+import AccrualRevenueTrendForm from "./AccrualRevenueTrendForm";
 
 const AccrualRevenueTrend = () => {
 
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
+
   const [refresh, setRefresh] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
   const [change, setChange] = useState(false);
-  const [modalBody, setmodalBody] = useState(<></> );
+  const [modalBody, setmodalBody] = useState(<></>);
+
   const [ValGm, setValGm] = useState("Monthly");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
-  let dispatch = useDispatch();
 
-  const [extraColumns, setExtraColumns] = useState([currentMonth]);
+
+  const [extraColumns, setExtraColumns] = useState([currentMonth-2,currentMonth-1,currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
+
+  let dispatch = useDispatch();
 
 
   let circleList = useSelector((state) => {
@@ -84,8 +90,7 @@ const AccrualRevenueTrend = () => {
 
 
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
-    console.log("asdfasfasfafdadsfafd",interdata);
+    let interdata = state?.formssData?.getAccrualRevenueTrend || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -101,11 +106,10 @@ const AccrualRevenueTrend = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  // dispatch(FormssActions.getEarnValueMgmtFinancial(true));
-                  setmodalHead("Edit Plan");
+                  setmodalHead("Edit Amount");
                   setmodalBody(
                     <>
-                      <EarnValueMgmtForm
+                      <AccrualRevenueTrendForm
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
@@ -113,11 +117,8 @@ const AccrualRevenueTrend = () => {
                         year = {year}
                         monthss = {extraColumns}
                       />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  console.log("ahshshhs", itm);
-                  //setmodalOpen(false)
                 }}
               ></EditButton>
             }
@@ -171,7 +172,7 @@ const AccrualRevenueTrend = () => {
       return updateditm;
     });
   });
-  
+
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
@@ -325,14 +326,13 @@ const AccrualRevenueTrend = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
   };
+
   useEffect(() => {
     dispatch(
-      FormssActions.postEarnValueMgmtFinancial(
+      FormssActions.postAccrualRevenueTrend(
         {
           viewBy: extraColumns.join(","),
           year: `${currrentYear}`,
@@ -343,10 +343,6 @@ const AccrualRevenueTrend = () => {
         () => {}
       )
     );
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getCardProjectType());
-    dispatch(AdminActions.getManageCostCenter());
-    dispatch(AdminActions.getProject());
   }, []);
 
   let formD = [
@@ -392,107 +388,27 @@ const AccrualRevenueTrend = () => {
   ];
 
   useEffect(() => {
-    const monthMap = {
-      1: "Jan",
-      2: "Feb",
-      3: "Mar",
-      4: "Apr",
-      5: "May",
-      6: "Jun",
-      7: "Jul",
-      8: "Aug",
-      9: "Sep",
-      10: "Oct",
-      11: "Nov",  
-      12: "Dec",
-    };
+
+    const monthMap = {1:"Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"};
     let cols = [];
     extraColumns.forEach((index) => {
-      // if (ValGm && ValGm === "Monthly") {
-      //   cols.push([
-      //     {
-      //       name: `(${monthMap[index-2]} ${year})`,
-      //       value: "aop_target-"+index+"",
-      //       style: "min-w-[200px] max-w-[200px] text-center",
-      //     },
-      //     {
-      //       name: `(${monthMap[index-1]} ${year})`,
-      //       value: "M-"+index+"_y",
-      //       // value: "plan-"+index+"",
-      //       style: "min-w-[200px] max-w-[200px] text-center",
-      //     },
-      //     {
-      //       name: `(${monthMap[index]} ${year})`,
-      //       value: "M-"+index+"_x",
-      //       style: "min-w-[200px] max-w-[200px] text-center",
-      //     },
-      //   ]);
-      // } else {
-      //   cols.push([
-      //     {
-      //       name: `AOP Target (${index} ${year})`,
-      //       value: '',
-      //       style: "min-w-[200px] max-w-[200px] text-center",
-      //     },
-      //   //   {
-      //   //     name: `PV Target (${index} ${year})`,
-      //   //     value: '',
-      //   //     style: "min-w-[200px] max-w-[200px] text-center",
-      //   //   },
-      //   //   {
-      //   //     name: `Achievement (${index} ${year})`,
-      //   //     value: index,
-      //   //     style: "min-w-[200px] max-w-[200px] text-center",
-      //   //   },
-      //   ]);
-      // }
-
       cols.push([
         {
           name: `${monthMap[index]} ${year}`,
           value: "aop_target-"+index+"",
           style: "min-w-[200px] max-w-[200px] text-center",
         },
-        {
-          name: `${monthMap[index]} ${year}`,
-          value: "M-"+index+"_y",
-          // value: "plan-"+index+"",
-          style: "min-w-[200px] max-w-[200px] text-center",
-        },
-        {
-          name: `${monthMap[index]} ${year}`,
-          value: "M-"+index+"_x",
-          style: "min-w-[200px] max-w-[200px] text-center",
-        },
       ]);
   
     });
     cols = cols.flat(Infinity);
-    console.log("cols_cols_____", cols);
 
     setNewColumns(cols);
 
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
-    alert(JSON.stringify(res))
     try {
-      // if (res?.typeSelectional === "Monthly") {
-      //   setExtraColumns(
-      //     res?.viewBy
-      //       ?.split(",")
-      //       ?.map((key) => +key)
-      //       ?.sort((a, b) => a - b)
-      //   );
-      // } else {
-      //   setExtraColumns(res?.viewBy?.split(",")?.sort((a, b) => {
-      //     const numA = parseInt(a.split("-")[1]);
-      //     const numB = parseInt(b.split("-")[1]);
-          
-      //     return numA - numB;
-      //   }));
-     
-      // }
       setExtraColumns(
         res?.Monthly
           ?.split(",")
@@ -504,7 +420,6 @@ const AccrualRevenueTrend = () => {
       console.error("[ERROR] :: " + error.message);
     }
   };
-  console.log("afadfasfasfadfadsfafaf",extraColumns);
 
   return (
     <>
@@ -531,14 +446,14 @@ const AccrualRevenueTrend = () => {
       <AdvancedTable 
         headerButton={
           <>
-            <Button
+            {/* <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Plan");
                 // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
               name={"Add New"}
-            ></Button>
+            ></Button> */}
           </>
         }
         table={table}

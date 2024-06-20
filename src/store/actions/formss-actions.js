@@ -5,6 +5,7 @@ import {
     GET_EARNVALUE_MGMT_FINANCIAL,
     GET_EVM_DELIVERY,
     GET_PROFIT_LOSS,
+    GET_ACCRUAL_REVENUE_TREND,
     } 
     from "../reducers/formss-reducer"
 
@@ -20,16 +21,6 @@ const FormssActions = {
         } catch (error) {
         }
     },
-    // putGetEarnValueMgmtFinancial: (reset = true, args = "") => async (dispatch, _) => {
-    //     try {
-    //         const res = await Api.put({ url: `${Urls.formss_earnValue_mgmt_financial}${args != "" ? "?" + args : ""}`, reset })
-    //         console.log("adfsasfasfdaiasdfasdf",res);
-    //         if (res?.status !== 200) return
-    //         let dataAll = res?.data?.data
-    //         dispatch(GET_EARNVALUE_MGMT_FINANCIAL({ dataAll, reset }))
-    //     } catch (error) {
-    //     }
-    // },
     postEarnValueMgmtFinancial: (data, cb) => async (dispatch, _) => {
         try {
             console.log("adfasfasfasasfadfsa",data);
@@ -136,6 +127,72 @@ const FormssActions = {
             } else {
                 let dataAll = res?.data?.data
                 dispatch(GET_EVM_DELIVERY({ dataAll, reset:true }))
+                let msgdata = {
+                    show: true,
+                    icon: "success",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    getAccrualRevenueTrend: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.formss_accrualrevenue_trend}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ACCRUAL_REVENUE_TREND({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+
+    postAccrualRevenueTrend: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.formss_accrualrevenue_trend})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_ACCRUAL_REVENUE_TREND({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    putAccrualRevenueTrend: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.put({ data: data, url: Urls.formss_accrualrevenue_trend})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_ACCRUAL_REVENUE_TREND({ dataAll, reset:true }))
                 let msgdata = {
                     show: true,
                     icon: "success",

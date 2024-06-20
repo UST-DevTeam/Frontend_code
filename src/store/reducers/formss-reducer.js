@@ -4,6 +4,7 @@ const initialState = {
     getEarnValueMgmtFinancial:[],
     getEVMDelivery:[],
     getProfitloss:[],
+    getAccrualRevenueTrend:[],
 }
 
 const FormssReducer = createSlice({
@@ -35,6 +36,14 @@ const FormssReducer = createSlice({
             }
         },
 
+        GET_ACCRUAL_REVENUE_TREND:(state,{payload}) => {
+            if(payload.reset){
+                state.getAccrualRevenueTrend = payload.dataAll
+            }else{
+                state.getAccrualRevenueTrend  = [...state.getAccrualRevenueTrend,...payload.dataAll]
+            }
+        },
+
         
     }
 })
@@ -43,5 +52,6 @@ export const {
     GET_EARNVALUE_MGMT_FINANCIAL,
     GET_EVM_DELIVERY,
     GET_PROFIT_LOSS,
+    GET_ACCRUAL_REVENUE_TREND,
 } = FormssReducer.actions
 export default FormssReducer.reducer

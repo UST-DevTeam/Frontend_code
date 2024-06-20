@@ -32,9 +32,7 @@ const Invoice = () => {
   const endDate = moment().format("Y");
 
   let dispatch = useDispatch();
-
-  console.log("selectedAll_____", selectAll);
-
+  
   let dbConfigL = useSelector((state) => {
     let interdata = state?.financeData?.getInvoice;
     return interdata;
@@ -279,23 +277,23 @@ const Invoice = () => {
       {
         name: "Year",
         value: "year",
-        style: "min-w-[70px] max-w-[160px] text-center sticky left-0 bg-white",
+        style: "min-w-[70px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Month",
         value: "month",
-        style: "min-w-[100px] max-w-[160px] text-center sticky left-0 bg-white",
+        style: "min-w-[100px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Customer",
         value: "customerName",
-        style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-white",
+        style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Project Group",
         value: "projectGroupId",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-white",
+          "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-[#3e454d]",
       },
       {
         name: "Project Type",
