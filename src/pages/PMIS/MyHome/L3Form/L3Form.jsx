@@ -205,6 +205,11 @@ const L3Form = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "Claim Type",
+        value: "claimType",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
         name: "Circle",
         value: "circle",
         style: "min-w-[170px] max-w-[450px] text-center",

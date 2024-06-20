@@ -17,32 +17,32 @@ const ClaimAdvanceForm = ({
   setIsOpen,
   resetting,
   formValue = {},
-  expenseRef={ current : {}}
+  expenseRef = { current: {} },
 }) => {
-
-  let expnumber  = formValue?.ExpenseNo || ""
+  let expnumber = formValue?.ExpenseNo || "";
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
-  const [category,setCategory] = useState()
-
+  const [category, setCategory] = useState();
   let dispatch = useDispatch();
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().format("YYYY-MM-DD");
 
   let claimTypeList = useSelector((state) => {
-    return state?.adminData?.getManageExpenseAdvance?.map((itm) => {    
+    return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        categories : itm?.categories?.split(",")?.map(item => {
+        categories: itm?.categories?.split(",")?.map((item) => {
           return {
-              label : item,
-              value : item
-          }
-      })
+            label: item,
+            value: item,
+          };
+        }),
       };
     });
   });
+
+  console.log(claimTypeList, "claimTypeListclaimTypeList");
 
   let projectDetailsList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvPrjectDetails.map((itm) => {
@@ -77,34 +77,36 @@ const ClaimAdvanceForm = ({
 
   let Form = [
     {
-        label: "Expense",
-        value: "",
-        name: "name",
-        type: "text",
-        // required: true,
-        classes: "col-span-1",
+      label: "Expense",
+      value: "",
+      name: "name",
+      type: "text",
+      // required: true,
+      classes: "col-span-1",
+    },
+    {
+      label: "Expense Date",
+      value: "expenseDate",
+      name: "ExpenseDate",
+      type: "datetime",
+      props: {
+        maxSelectableDate: today,
       },
-      {
-        label: "Expense Date",
-        value: "expenseDate",
-        name: "ExpenseDate",
-        type: "datetime",
-        props: {
-          maxSelectableDate: today,
-        },
-        // required: true,
-        classes: "col-span-1",
-      },
+      // required: true,
+      classes: "col-span-1",
+    },
     {
       label: "Claim Type",
-      value: '',
-      name: "ClaimType",
-      selected : item?.types,
+      value: "",
+      name: "claimType",
       type: "select",
       option: claimTypeList,
       props: {
         onChange: (e) => {
-            setCategory(claimTypeList.find(item => item.value === e.target.value)?.categories || [])
+          setCategory(
+            claimTypeList.find((item) => item.value === e.target.value)
+              ?.categories || []
+          );
         },
       },
       required: true,
@@ -165,7 +167,7 @@ const ClaimAdvanceForm = ({
         valueAsNumber: true,
         min: 0,
         onChange: (e) => {},
-        },
+      },
       // required: true,
       classes: "col-span-1",
     },
@@ -176,17 +178,17 @@ const ClaimAdvanceForm = ({
       name: "Attachment",
       type: "file",
       // required: true,
-      
+
       props: {
-          onChange: ((e) => {
-              console.log(e.target.files, "e geeter")
-              setValue("attachment",e.target.files[0])
-          }),
-          accept: '.img, .png, .jpg, .jpeg, .webp, .pdf',
+        onChange: (e) => {
+          console.log(e.target.files, "e geeter");
+          setValue("attachment", e.target.files[0]);
+        },
+        accept: ".img, .png, .jpg, .jpeg, .webp, .pdf",
       },
       classes: "col-span-1",
-      multiple:false,
-  },
+      multiple: false,
+    },
   ];
   const {
     register,
@@ -204,26 +206,26 @@ const ClaimAdvanceForm = ({
   useEffect(() => {
     if (startKm !== undefined && endKm !== undefined) {
       const totalKm = endKm - startKm;
-    //   if (totalKm <= 0) {
-    //     let msgdata = {
-    //       show: true,
-    //       icon: 'warning',
-    //       buttons: [
-    //         <Button
-    //           classes='w-24'
-    //           onClick={() => {
-    //             dispatch(ALERTS({ show: false }));
-    //           }}
-    //           name={"OK"}
-    //         />
-    //       ],
-    //       text: "Total Km cannot be zero or negative.",
-    //     };
-    //     dispatch(ALERTS(msgdata));
-    //   }
+      //   if (totalKm <= 0) {
+      //     let msgdata = {
+      //       show: true,
+      //       icon: 'warning',
+      //       buttons: [
+      //         <Button
+      //           classes='w-24'
+      //           onClick={() => {
+      //             dispatch(ALERTS({ show: false }));
+      //           }}
+      //           name={"OK"}
+      //         />
+      //       ],
+      //       text: "Total Km cannot be zero or negative.",
+      //     };
+      //     dispatch(ALERTS(msgdata));
+      //   }
       setValue("totalKm", totalKm >= 0 ? totalKm : 0);
     }
-  }, [startKm, endKm, setValue,]);
+  }, [startKm, endKm, setValue]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -241,20 +243,30 @@ const ClaimAdvanceForm = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${expnumber}`));
+            dispatch(
+              ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
+                true,
+                `Number=${expnumber}`
+              )
+            );
           },
           formValue.uniqueId
         )
       );
     } else {
-    if(expenseRef.current){
-        data.expenseId = expenseRef.current?.ExpenseNo
-    }
+      if (expenseRef.current) {
+        data.expenseId = expenseRef.current?.ExpenseNo;
+      }
       dispatch(
         ExpenseAdvanceActions.postFillExpense(true, data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
-          dispatch(ExpenseAdvanceActions.getClaimAndAdvancebyNumber(true, `Number=${expnumber}`));
+          dispatch(
+            ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
+              true,
+              `Number=${expnumber}`
+            )
+          );
         })
       );
     }
@@ -262,7 +274,7 @@ const ClaimAdvanceForm = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(GET_MANAGE_EXPENSE_ADVANCE({ dataAll: [], reset: true }))
+    dispatch(GET_MANAGE_EXPENSE_ADVANCE({ dataAll: [], reset: true }));
     dispatch(AdminActions.getManageExpenseAdvance());
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
     if (resetting) {
@@ -279,15 +291,17 @@ const ClaimAdvanceForm = ({
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
+          console.warn(`________________________`, key, formValue[key]);
           setValue(key, formValue[key]);
+          // setValue(key, '667276486619c27f4c4a28f3');
         }
       });
-      
-      claimTypeList.map((itm)=>{
-        setValue(itm.name,itm.value);
-      })
+      claimTypeList.map((itm) => {
+        setValue(itm.name, itm.value);
+      });
     }
-  }, [formValue, resetting , setValue]);
+  }, [formValue, resetting, setValue]);
+
   return (
     <>
       <Modal

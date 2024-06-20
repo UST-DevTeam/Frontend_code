@@ -130,7 +130,7 @@ const L1Form = () => {
             <DownloadButton
                 name={""}
                 onClick={() => {
-                    dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${itm.name}`,"expense.pdf"))                      
+                    dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${itm.ExpenseNo}`,"expense.pdf"))                      
                 }}
               ></DownloadButton>
             }
@@ -217,6 +217,11 @@ const L1Form = () => {
       {
         name: "Expense Date",
         value: "expenseDate",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
+        name: "Claim Type",
+        value: "claimType",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
@@ -536,6 +541,19 @@ const L1Form = () => {
                         };
                       });
                     }}
+                  />
+                ),
+                attachment: (
+                  <CstmButton
+                    className={"p-2"}
+                    child={
+                    <DownloadButton
+                        name={""}
+                        onClick={() => {
+                            dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${item.uniqueId}`,"expense.pdf"))                      
+                        }}
+                      ></DownloadButton>
+                    }
                   />
                 ),
               };

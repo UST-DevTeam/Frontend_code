@@ -21,6 +21,7 @@ import FillAdvanceForm from "../../../../pages/PMIS/MyHome/ClaimAdvAdvanceForm/F
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import ClaimAdvanceForm from "./ClaimAdvanceForm";
 import DownloadButton from "../../../../components/DownloadButton";
+import FillExpenseForm from "../ClaimAdvExpenseForm/FillExpenseForm";
 
 const ClaimAdvanceOnclick = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -231,7 +232,7 @@ const ClaimAdvanceOnclick = () => {
             true,
             `Number=${name}`,
             (data) => setClaimByNumber(data)))
-  }, [id, dispatch]);
+  }, [id, modalOpen , dispatch]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";
@@ -278,17 +279,40 @@ const ClaimAdvanceOnclick = () => {
                           setmodalOpen(true);
                           dispatch(AdminActions.getManageExpenseAdvance());
                           setmodalHead(item.name + " : " + `Approved Amount : ${item.ApprovedAmount}`);
-                          setmodalBody(
-                            <>
-                              <ClaimAdvanceForm
-                                isOpen={modalOpen}
-                                setIsOpen={setmodalOpen}
-                                resetting={false}
-                                formValue={item}
-                              />
-                              {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                            </>
-                          );                      
+                          // setmodalBody(
+                          //   <>
+                          //     <ClaimAdvanceForm
+                          //       isOpen={modalOpen}
+                          //       setIsOpen={setmodalOpen}
+                          //       resetting={false}
+                          //       formValue={item}
+                          //     />
+                          //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                          //   </>
+                          // );        
+                          if (item.advanceType === "Project Advance" && item.type === "Advance") {
+                            setmodalBody(
+                              <>
+                                <FillAdvanceForm
+                                  isOpen={modalOpen}
+                                  setIsOpen={setmodalOpen}
+                                  resetting={false}
+                                  formValue={item}
+                                />
+                              </>
+                            );
+                          } else if (item.advanceType !== "Project Advance" && item.type === "Expense") {
+                            setmodalBody(
+                              <>
+                                <FillExpenseForm
+                                  isOpen={modalOpen}
+                                  setIsOpen={setmodalOpen}
+                                  resetting={false}
+                                  formValue={item}
+                                />
+                              </>
+                            );
+                          }           
                         }}
                       ></EditButton>
                     }

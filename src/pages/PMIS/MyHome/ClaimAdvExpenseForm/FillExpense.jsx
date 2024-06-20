@@ -66,6 +66,7 @@ const FillExpense = () => {
               <EditButton
                 name={""}
                 onClick={() => {
+               console.log(itm,"asdfghjkllkjhgfdsasdfghjklkjhgfd")
                   setmodalOpen(true);
                   setmodalFullOpen(false)
                   dispatch(ExpenseAdvanceActions.getFillExpense());
@@ -190,7 +191,7 @@ const FillExpense = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(ExpenseAdvanceActions.getFillExpense(uniqueId));
+                  dispatch(ExpenseAdvanceActions.getFillExpense());
                   setmodalHead("Edit Expense");
                   setmodalBody(
                     <>

@@ -172,12 +172,12 @@ const ExpAdvForClaim = () => {
         {
             name: "Employee Name",
             value: "Employee Name",
-            style: "min-w-[150px] max-w-[200px] text-center sticky left-0",
+            style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
         },
         {
             name: "Employee Code",
             value: "Employee Code",
-            style: "min-w-[130px] max-w-[450px] text-center sticky left-0",
+            style: "min-w-[130px] max-w-[450px] text-center sticky left-[149px] bg-[#3e454d]",
         },
         {
             name: "Contact No.",
@@ -257,6 +257,11 @@ const ExpAdvForClaim = () => {
         {
             name: "End KM",
             value: "End KM",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Total KM",
+            value: "Total KM",
             style: "min-w-[100px] max-w-[200px] text-center",
         },
         {

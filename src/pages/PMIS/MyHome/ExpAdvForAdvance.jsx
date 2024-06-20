@@ -158,12 +158,12 @@ const ExpAdvForAdvance = () => {
         {
             name: "Employee Name",
             value: "Employee Name",
-            style: "min-w-[200px] max-w-[200px] text-center sticky left-0",
+            style: "min-w-[170px] max-w-[200px] text-center sticky left-[0px] bg-[#3e454d]",
         },
         {
             name: "Employee Code",
             value: "Employee Code",
-            style: "min-w-[150px] max-w-[450px] text-center sticky left-0",
+            style: "min-w-[150px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
         },
         {
             name: "Contact No.",
