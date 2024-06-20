@@ -2,6 +2,7 @@ import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import {
     GET_GRAPH_PROJECT_STATUS,
+    GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_PO_Tracking_WorkDone,
     
@@ -37,6 +38,40 @@ const GraphActions = {
             } else {
                 let dataAll = res?.data?.data
                 dispatch(GET_GRAPH_PROJECT_STATUS({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    getGraphMilestoneStatus:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_milestone_status}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_MILESTONE_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    postGraphMilestoneStatus: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_milestone_status })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_MILESTONE_STATUS({ dataAll, reset:true }))
 
             }
 

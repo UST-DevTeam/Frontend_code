@@ -130,6 +130,7 @@ import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
 import Dashboard from "../pages/Dashboard";
 import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
+import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/AccrualRevenueTrend";
 // import Dashboard1 from "../pages/PMIS/Dashboard/Dashboard1";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -647,6 +648,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/P&L",
       component: <PL />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/AccrualRevenueTrend",
+      component: <AccrualRevenueTrend />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

@@ -486,7 +486,7 @@ const EarnValueMgmtFinancial = () => {
 
 
     {
-      label: ValGm,
+      label: ValGm, 
       name: "viewBy",
       value: "Select",
       type: "muitiSelect",

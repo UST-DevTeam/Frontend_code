@@ -8,19 +8,30 @@ import GraphActions from "../../../store/actions/graph-actions";
 import FilterActions from "../../../store/actions/filter-actions";
 import Button from "../../../components/Button";
 import PieChart from "../../../components/PieChart";
-import { UilImport,UilSearch } from '@iconscout/react-unicons'
+import { UilImport,UilSearch,UilRefresh} from '@iconscout/react-unicons'
 
 
 const MileStoneChart = () => {
     
     const [type, settype] = useState(false);
-    const [selectedOptions1, setSelectedOptions1] = useState([]);
-    const [selectedOptions2, setSelectedOptions2] = useState([]);
-    const [selectedOptions3, setSelectedOptions3] = useState([]);
+    const [selectedProjectType, setselectedProjectType] = useState([]);
+    const [selectedProjectGroup, setselectedProjectGroup] = useState([]);
+    const [selectedProjectId, setselectedProjectId] = useState([]);
+    const [selectedOptions4, setSelectedOptions4] = useState([]);
+    
     let dispatch = useDispatch();
     const [ data ,setData] = useState([])
 
-    let customeruniqueId = "666fd31788b10e1613d827da"
+    let customeruniqueId = "65dee316811c797c9f26d836"
+
+    let projectTypeList = useSelector((state) => {
+      return state?.filterData?.getProjectProjectType.map((itm) => {
+        return {
+          label: itm.projectType,
+          value: itm.projectType,
+        };
+      });
+    });
 
     let projectGroupList = useSelector((state) => {
         return state?.filterData?.getProjectProjectGroup.map((itm) => {
@@ -31,67 +42,62 @@ const MileStoneChart = () => {
         });
       });
 
-      let projectTypeList = useSelector((state) => {
-        return state?.filterData?.getProjectProjectType.map((itm) => {
+
+      let projectIdList = useSelector((state) => {
+        return state?.filterData?.getProjectProjectId.map((itm) => {
           return {
-            label: itm.projectType,
-            value: itm.projectType,
+            label: itm.projectId,
+            value: itm.projectId,
           };
         });
       });
 
-      let projectManagerList = useSelector((state) => {
-        return state?.filterData?.getProjectProjectManager.map((itm) => {
-          return {
-            label: itm.projectManager,
-            value: itm.projectManager,
-          };
-        });
-      });
-
-    // let pieGraphData = useSelector((state) => {
-    //     return state?.GraphData?.getGraphProjectStatus || [""]
-    // });
-
-
-    let pieGraphData = [
-
-      {"status":"Open","count":100},
-      {"status":"Closed","count":40},
-    ]
+    let pieGraphData = useSelector((state) => {
+        return state?.GraphData?.getGraphMilestoneStatus || [""]
+    });
 
 
     useEffect(() => {
-        dispatch(GraphActions.getGraphProjectStatus());
+        dispatch(GraphActions.getGraphMilestoneStatus());
         dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
         dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
-        dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
+        dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}`));
     }, []);
+
+    const handleFilter = () => {
+      const filterData = {
+        ...(selectedProjectType.length && { selectedProjectType: selectedProjectType.map(item => item.value) }),
+        ...(selectedProjectGroup.length && { selectedProjectGroup: selectedProjectGroup.map(item => item.value) }),
+        ...(selectedProjectId.length && { selectedProjectId: selectedProjectId.map(item => item.value) }),
+      }
+  
+      dispatch(GraphActions.postGraphMilestoneStatus(filterData, () => { }))
+  
+      console.info("filterData____", filterData)
+    }
+
+    const handleClear = () => {
+      setselectedProjectType([]);
+      setselectedProjectGroup([]);
+      setselectedProjectId([]);
+      dispatch(GraphActions.getGraphMilestoneStatus());
+    };
 
     return (
             <div className="bg-[#1c1c1c] h-full p-4">
-              
-                    <div className="flex items-center space-x-4 mb-8">
-                        <div className="flex flex-col flex-1">
-                            {/* <label className = "text-white">Project Group</label>*/}
-                            <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                        {/* <Button classes = "text-white !py-2 mt-6 flex justify-center" name={"Search"}></Button> */}
-                        <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]"  icon={<UilSearch size="18" className={"hello"} />}></Button>
-                        </div>
-                    </div>
-
-                <PieChart data={pieGraphData} />
-
+              <div className=" flex items-center space-x-4 mb-8 justify-between">
+                <div className="flex items-center space-x-4">
+                  <NewMultiSelects label='Project Group' option={projectTypeList} value={selectedProjectType} cb={( data ) => setselectedProjectType(data)} />
+                  <NewMultiSelects label='Project Type' option={projectGroupList} value={selectedProjectGroup} cb={( data ) => setselectedProjectGroup(data)} />
+                  <NewMultiSelects label='Project Manager' option={projectIdList} value={selectedProjectId} cb={( data ) => setselectedProjectId(data)} />
+                </div>
+                <div className="flex items-center space-x-4">
+                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
+                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+                </div>
+              </div>
+              <PieChart data={pieGraphData} />
             </div>
-
     );
 };
 export default MileStoneChart;

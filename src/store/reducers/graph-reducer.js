@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 
     getGraphProjectStatus: [],
+    getGraphMilestoneStatus: [],
     getGraphPoStatus: [],
     getGraphPoTrackingWorkdone: [],
 }
@@ -18,6 +19,14 @@ const GraphData = createSlice({
                 state.getGraphProjectStatus = payload.dataAll
             }else{
                 state.getGraphProjectStatus  = [...state.getGraphProjectStatus,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_MILESTONE_STATUS:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphMilestoneStatus = payload.dataAll
+            }else{
+                state.getGraphMilestoneStatus  = [...state.getGraphMilestoneStatus,...payload.dataAll]
             }
         },
 
@@ -40,7 +49,7 @@ const GraphData = createSlice({
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone
+export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone
             } = GraphData.actions
     
 export default GraphData.reducer

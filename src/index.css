@@ -578,6 +578,7 @@ td p {
 
 .dropdown-content {
   padding: 0 !important;
+  z-index: 100 !important;
 }
 
 .panel-content , .panel-content *{

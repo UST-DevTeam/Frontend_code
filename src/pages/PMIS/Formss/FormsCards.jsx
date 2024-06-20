@@ -32,6 +32,7 @@ const FormsCards = () => {
           ["Gap Analysis", "bg-gradient-to-r from-violet-400 via-indigo-400 to-indigo-300", "/forms/GapAnalysis"],
           ["P&L", "bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500", "/forms/P&L"],
           ["Liquidation Plan", "bg-gradient-to-r from-cyan-200 via-cyan-400 to-cyan-300", "/forms/LiquidationPlan"],
+          ["Accrual Revenue Trend", "bg-gradient-to-r from-cyan-500 via-indigo-400 to-cyan-300", "/forms/AccrualRevenueTrend"],
         ].map((itm) => {
           return (
             <>
