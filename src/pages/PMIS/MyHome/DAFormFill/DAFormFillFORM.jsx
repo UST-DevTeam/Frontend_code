@@ -21,6 +21,7 @@ const DAFormFillFORM = ({
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
+  const today = moment().format('YYYY-MM-DD');
 
   let claimTypeList = useSelector((state) => {
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
@@ -92,6 +93,9 @@ const DAFormFillFORM = ({
       value: "",
       name: "Claim_Date",
       type: "datetime",
+      props: {
+        maxSelectableDate: today,
+      },
       classes: "col-span-1",
     },
     {

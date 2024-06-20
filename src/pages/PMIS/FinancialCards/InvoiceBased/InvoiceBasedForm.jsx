@@ -308,15 +308,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
-          // if (key.name == "projectType") {
-          //   setpType(formValue["projectTypeName"]);
-          // }
-
-          // if (key.name == "projectGroup") {
-          //   dispatch(projectListActions.getProjectCircle(true,`projectGroupId=${formValue["projectGroup"]}`));
-          //   setcircle(true);
-          // }
-
           let dtwq = key.option.filter(
             (itq) => itq.label == formValue[key.name]
           );

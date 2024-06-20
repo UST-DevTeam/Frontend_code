@@ -76,7 +76,7 @@ const L2Form = () => {
 
         ExpenseNo: (
           <p
-            className="cursor-pointer text-blue-500 underline"
+            className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
               
               expenseRef.current = itm;

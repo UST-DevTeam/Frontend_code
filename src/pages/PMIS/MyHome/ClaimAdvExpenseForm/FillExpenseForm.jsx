@@ -20,7 +20,6 @@ const FillExpenseForm = ({
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
   const [category,setCategory] = useState()
-
   const today = moment().format('YYYY-MM-DD');
 
   let dispatch = useDispatch();
@@ -206,7 +205,7 @@ const FillExpenseForm = ({
       name: "expenseDate",
       type: "datetime",
       props: {
-        min: today,  // Set the min attribute to today’s date
+        maxSelectableDate: today,
       },
       // required: true,
       classes: "col-span-1",
@@ -297,7 +296,7 @@ const FillExpenseForm = ({
   const onTableViewSubmit = (data) => {
     console.log(data, "datadata");
     // dasdsadsadasdas
-    if (formValue.uniqueId) {
+    if (formValue.expenseuniqueId) {
       dispatch(
         ExpenseAdvanceActions.postFillExpense(
           true,
@@ -306,7 +305,7 @@ const FillExpenseForm = ({
             setIsOpen(false);
             dispatch(ExpenseAdvanceActions.getFillExpense());
           },
-          formValue.uniqueId
+          formValue.expenseuniqueId
         )
       );
     } else {
@@ -337,11 +336,9 @@ const FillExpenseForm = ({
       console.log(Object.keys(formValue), "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
-          // console.log("formValuekey",key,key)
           setValue(key, formValue[key]);
         }
       });

@@ -73,7 +73,7 @@ const ClaimAndAdvance = () => {
 
         name: (
           <p
-            className="cursor-pointer text-blue-500 underline"
+            className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
               expenseRef.current = itm;
               sessionStorage.setItem("claimName", itm?.name);
@@ -187,22 +187,6 @@ const ClaimAndAdvance = () => {
             }
           />
         ),
-        // attachment: (
-        //   <CstmButton
-        //     className={"p-2"}
-        //     child={
-        //       <div>
-        //         <a href={Urls?.backendassetUrl + item?.downloadAttachment}>
-        //           <UilImport
-        //             fill="white"
-        //             size="18"
-        //             className="cursor-pointer bg-[#143b64] w-10 rounded-md"
-        //           />
-        //         </a>
-        //       </div>
-        //     }
-        //   />
-        // ),
       };
       return updateditm;
     });
@@ -248,7 +232,7 @@ const ClaimAndAdvance = () => {
       {
         name: "Expense/Advance No",
         value: "name",
-        style: "min-w-[250px] max-w-[450px] text-center sticky left-0",
+        style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Cost Center",
@@ -257,7 +241,7 @@ const ClaimAndAdvance = () => {
       },
       {
         name: "Submission Date",
-        value: "AddedAt",
+        value: "submissionDate",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
@@ -312,36 +296,30 @@ const ClaimAndAdvance = () => {
   return (
     <>
       <div className="flex text-sm space-x-2">
-        <p className="mb-[-30px] p-2 ">
+        <p className="mb-[-30px] p-2 text-white">
           Current Balance :{" "}
           <span
             className={
-              Amounts?.finalAmount > 0 ? "text-rose-600" : "text-green-500"
+              Amounts?.finalAmount > 0 ? "text-rose-400 font-extrabold" : "text-[#13b497] font-extrabold"
             }
           >
             {Amounts?.finalAmount}
           </span>
         </p>
-        <p className="mb-[-30px] p-2">
+        <p className="mb-[-30px] p-2 text-white">
           Expenses Approved :{" "}
           <span
             className={
-              Amounts?.ExpenseAmountTotal > 0
-                ? "text-rose-600"
-                : "text-green-500"
-            }
+              Amounts?.ExpenseAmountTotal > 0 ? "text-rose-400 font-extrabold" : "text-[#13b497] font-extrabold"}
           >
             {Amounts?.ExpenseAmountTotal}
           </span>
         </p>
-        <p className="mb-[-30px] p-2">
+        <p className="mb-[-30px] p-2 text-white">
           Advance Approved :{" "}
           <span
             className={
-              Amounts?.AdvanceAmountTotal > 0
-                ? "text-green-600"
-                : "text-rose-500"
-            }
+              Amounts?.AdvanceAmountTotal > 0 ? "text-[#13b497] font-extrabold" : "text-rose-500 font-extrabold"}
           >
             {Amounts?.AdvanceAmountTotal}
           </span>
@@ -412,7 +390,7 @@ const ClaimAndAdvance = () => {
         setIsOpen={setmodalFullOpen}
       />
 
-      <Modal
+      <Modal  
         size={"sm"}
         modalHead={modalHead}
         children={modalBody}

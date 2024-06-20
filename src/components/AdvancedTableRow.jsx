@@ -234,7 +234,7 @@ const AdvancedTableRow = ({
                     return hide.indexOf(String(index)) == -1 ? (
                       <>
                         {actions.includes(itts.name) ? (
-                          ["Edit"].includes(itts.name) ? (
+                          ["Edit",].includes(itts.name) ? (
                             <td
                               colSpan={actions.length}
                               className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}

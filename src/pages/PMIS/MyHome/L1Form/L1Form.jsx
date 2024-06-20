@@ -17,6 +17,7 @@ import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-acti
 import L1FormFORM from "../../../../pages/PMIS/MyHome/L1Form/L1FormFORM";
 import CommonForm from "../../../../components/CommonForm";
 import { useNavigate } from "react-router-dom";
+import DownloadButton from "../../../../components/DownloadButton";
 
 const L1Form = () => {
   const expenseRef = useRef("");
@@ -76,7 +77,7 @@ const L1Form = () => {
 
         ExpenseNo: (
           <p
-            className="cursor-pointer text-blue-500 underline"
+            className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
               
               expenseRef.current = itm;
@@ -118,6 +119,20 @@ const L1Form = () => {
                   //setmodalOpen(false)
                 }}
               ></EditButton>
+            }
+          />
+        ),
+
+        attachment: (
+          <CstmButton
+            className={"p-2"}
+            child={
+            <DownloadButton
+                name={""}
+                onClick={() => {
+                    dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${itm.name}`,"expense.pdf"))                      
+                }}
+              ></DownloadButton>
             }
           />
         ),
