@@ -78,7 +78,6 @@ const L2Form = () => {
           <p
             className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
-              
               expenseRef.current = itm;
               dispatch(
                 ExpenseAdvanceActions.getL2Data(
@@ -205,6 +204,11 @@ const L2Form = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "Claim Type",
+        value: "claimType",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
         name: "Circle",
         value: "circle",
         style: "min-w-[170px] max-w-[450px] text-center",
@@ -313,7 +317,6 @@ const L2Form = () => {
       },
     ],
   };
-  
 
   function handleAmountAndRemark(type) {
     const data = { approver: "L2-" + type, type: "Expense", status: type };
@@ -331,7 +334,10 @@ const L2Form = () => {
       amountRemark.push({
         _id: key,
         ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
-        Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
+        Amount:
+          key in amount.claimedAmount
+            ? +amount.claimedAmount[key]
+            : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
         remark: key in amount.remark ? amount.remark[key] : "",
       });
     });
@@ -340,8 +346,6 @@ const L2Form = () => {
     data.data = amountRemark;
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
-
-
 
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
@@ -449,18 +453,40 @@ const L2Form = () => {
                 />
               </div>
             }
-
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList?.map((item) => {
+            data={dbConfigList?.map((item, index) => {
+              // if (index === 0) {
+              //   setAmount((prev) => {
+              //     return {
+              //       ...prev,
+              //       amount: {
+              //         ...prev.amount,
+              //         [item.uniqueId]: item?.Amount,
+              //       },
+              //       remark: {
+              //         ...prev.remark,
+              //         [item.uniqueId]: item?.remark,
+              //       },
+              //       claimedAmount: {
+              //         ...prev.claimedAmount,
+              //         [item.uniqueId]:
+              //           dbConfigList.find(
+              //             (item) => item.uniqueId === item.uniqueId
+              //           )?.Amount || 0,
+              //       },
+              //     };
+              //   });
+              // }
+
               return {
                 ...item,
                 amount: (
                   <input
                     type="number"
-                    
+                    defaultValue={`${item?.Amount}`}
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Amount"
                     onChange={(e) => {
@@ -473,7 +499,10 @@ const L2Form = () => {
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]:
+                              dbConfigList.find(
+                                (item) => item.uniqueId === item.uniqueId
+                              )?.Amount || 0,
                           },
                         };
                       });
@@ -483,10 +512,10 @@ const L2Form = () => {
                 remark: (
                   <input
                     type="text"
+                    defaultValue={item?.remark}
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {
-                      
                       setAmount((prev) => {
                         return {
                           ...prev,
@@ -496,7 +525,10 @@ const L2Form = () => {
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]:
+                              dbConfigList.find(
+                                (item) => item.uniqueId === item.uniqueId
+                              )?.Amount || 0,
                           },
                         };
                       });

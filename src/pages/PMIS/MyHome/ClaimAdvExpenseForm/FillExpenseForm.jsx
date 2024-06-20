@@ -9,6 +9,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import { json } from "react-router-dom";
 
 const FillExpenseForm = ({
   isOpen,
@@ -19,17 +20,16 @@ const FillExpenseForm = ({
 }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
-  const [category,setCategory] = useState()
+  const [category,setCategory] = useState([])
   const today = moment().format('YYYY-MM-DD');
 
   let dispatch = useDispatch();
 
   let claimTypeList = useSelector((state) => {
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
-      
       return {
         label: itm?.name,
-        value: itm?.claimTypeId,
+        value: itm?.name,
         categories : itm?.categories?.split(",")?.map(item => {
           return {
               label : item,
@@ -82,6 +82,7 @@ const FillExpenseForm = ({
   });
 
   const handleCategoryChange = (e) => {
+    
     setKm(e.target.value !== "");
   };
 
@@ -90,11 +91,15 @@ const FillExpenseForm = ({
       label: "Claim Type",
       value: "",
       name: "claimType",
-      isDissable : 'true',
       type: "select",
       option: claimTypeList,
       props: {
         onChange: (e) => {
+          if(e.target.categories){
+            setKm(true);
+          }else{
+            setKm(false);
+          }
           setCategory(claimTypeList.find(item => item.value === e.target.value)?.categories || [])
       },
       },
@@ -113,7 +118,7 @@ const FillExpenseForm = ({
       // required: true,
       classes: "col-span-1",
     },
-    ...(Km
+    ...(Km 
       ? [
           {
             label: "Start Km",
@@ -202,7 +207,7 @@ const FillExpenseForm = ({
     {
       label: "Expense Date",
       value: "",
-      name: "expenseDate",
+      name: "ExpenseDate",
       type: "datetime",
       props: {
         maxSelectableDate: today,
@@ -218,10 +223,11 @@ const FillExpenseForm = ({
       // required: true,
       classes: "col-span-1",
     },
-    {
+    ...(
+      !Km ? [{
       label: "Amount ",
       value: "",
-      name: "amount",
+      name: "Amount",
       type: "number",
       props: {
         valueAsNumber: true,
@@ -230,7 +236,9 @@ const FillExpenseForm = ({
         },
       // required: true,
       classes: "col-span-1",
-    },
+    },] : []
+    ),
+    
     {
         label: "Attachment",
 
@@ -335,13 +343,23 @@ const FillExpenseForm = ({
       reset({});
       console.log(Object.keys(formValue), "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
+        // alert(key)
+        
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
           setValue(key, formValue[key]);
+          
+          // setValue(key, "6673dca38e7429449a637611");
         }
       });
+      
+      
+      // claimTypeList.map((itm)=>{
+      //   setValue(itm.claimType,itm.value);
+      // })
+      
     }
   }, [formValue, resetting]);
   return (
