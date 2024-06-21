@@ -207,10 +207,6 @@ const ClaimAndAdvance = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
   const {
     register,
     handleSubmit,

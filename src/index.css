@@ -402,9 +402,9 @@ svg {
   background-color: #1b0027;
 }
 
-form::-webkit-scrollbar{
+/* form::-webkit-scrollbar{
   width:0;
-}
+} */
 
 
 
