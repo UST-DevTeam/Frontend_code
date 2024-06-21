@@ -154,7 +154,7 @@ const WorkDoneForm = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
         onChange: (e) => {},
       },
       classes: "col-span-1",
