@@ -70,7 +70,7 @@ const AdvancedTableExpandableOneRow = ({
             console.log(onewqq.uniqueId, "onewqq.uniqueId");
             return (
               <tr>
-                <td className="text-[12px] pl-1 border-primaryLine border-[1.5px] bg-violet-50 text-primaryLine ">
+                <td className="text-[12px] pl-1 border-primaryLine border-[1.5px] bg-[#3e454d] text-primaryLine ">
                   {multiSelect ? (
                     <div className="flex justify-center">
                       <input
@@ -88,7 +88,7 @@ const AdvancedTableExpandableOneRow = ({
                   console.log(itts, onewqq, "ittsittsittsittsitts");
                   return (
                     <td
-                      className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg-violet-50 text-primaryLine ${
+                      className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg-[#3e454d] text-white ${
                         itts.style ? itts.style : " min-w-[300px] max-w-[500px]"
                       }`}
                     >

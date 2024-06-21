@@ -301,7 +301,7 @@ const AdvancedTableExpandable = ({
                                 : " min-w-[300px] max-w-[500px]"
                                 }`}
                             >
-                              <span className="text-black text-[12px]">
+                              <span className="text-white text-[12px]">
                                 {itts.name}
                               </span>
                             </td>

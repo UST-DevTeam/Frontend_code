@@ -283,7 +283,7 @@ const vendorProject = () => {
                 //     <p
                 //         // onClick={() => handleFullName(item)}
                 //         onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-                //         className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
+                //         className="text-[#13b497] font-extrabold hover:underline focus:outline-none hover:font-semibold"
                 //     >
                 //         {itm.projectId}
                 //     </p>

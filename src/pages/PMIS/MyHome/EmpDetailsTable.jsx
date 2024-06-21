@@ -162,12 +162,12 @@ const EmpDetailsTable = () => {
       {
         name: "Emp Name",
         value: "empName",
-        style: "min-w-[200px] max-w-[200px] border-2 border-black text-center sticky left-0 bg-white",
+        style: "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Emp Code",
         value: "empCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-white",
+        style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
       },
       {
         name: "Email ID",
