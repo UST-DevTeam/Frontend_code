@@ -30,7 +30,7 @@ const SelectDropDown = ({
           </option>
           {itm?.option?.map((selitm) => {
             return (
-              <option key={selitm.value} selected={selitm.selected == selitm.value} value={selitm.value}>
+              <option key={selitm.value}  value={selitm.value}>
                 {selitm.label}
               </option>
             );
