@@ -31,6 +31,7 @@ const L1Form = () => {
   const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [hide, setHide] = useState(false);
 
   const navigate = useNavigate();
 
@@ -88,6 +89,7 @@ const L1Form = () => {
                 )
               );
               setmodalFullOpen((prev) => !prev);
+              setHide(true);
               setmodalHead("(L1)" + " " + itm?.ExpenseNo);
             }}
           >
@@ -219,11 +221,14 @@ const L1Form = () => {
         value: "expenseDate",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
-      {
-        name: "Claim Type",
-        value: "claimType",
-        style: "min-w-[170px] max-w-[450px] text-center",
-      },
+      ...( !hide ? [] : 
+      [
+        {
+          name: "Claim Type",
+          value: "claimType",
+          style: "min-w-[170px] max-w-[450px] text-center",
+        },
+      ]),
       {
         name: "Circle",
         value: "circle",
@@ -284,21 +289,24 @@ const L1Form = () => {
         value: "attachment",
         style: "min-w-[150px] max-w-[450px] text-center",
       },
-      {
-        name: "Amount",
-        value: "amount",
-        style: "min-w-[150px] max-w-[450px] text-center",
-      },
-      // {
-      //   name: "Status",
-      //   value: "status",
-      //   style: "min-w-[100px] max-w-[450px] text-center",
-      // },
-      {
-        name: "Remarks",
-        value: "remark",
-        style: "min-w-[350px] max-w-[450px] text-center",
-      },
+      ...( !hide ? [] : 
+        [
+          {
+            name: "Amount",
+            value: "amount",
+            style: "min-w-[150px] max-w-[450px] text-center",
+          },
+          // {
+          //   name: "Status",
+          //   value: "status",
+          //   style: "min-w-[100px] max-w-[450px] text-center",
+          // },
+          {
+            name: "Remarks",
+            value: "remark",
+            style: "min-w-[350px] max-w-[450px] text-center",
+          },
+        ]),
 
       // {
       //   name: "Edit",
@@ -333,6 +341,12 @@ const L1Form = () => {
       },
     ],
   };
+
+  useEffect(() => {
+    if(!modalFullOpen){
+      setHide(false)
+    }
+  } , [modalFullOpen])
   
 
   function handleAmountAndRemark(type) {

@@ -30,6 +30,7 @@ const L3Form = () => {
   const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [hide, setHide] = useState(false);
 
   const navigate = useNavigate();
 
@@ -87,6 +88,7 @@ const L3Form = () => {
                 )
               );
               setmodalFullOpen((prev) => !prev);
+              setHide(true);
               setmodalHead("(L3)" + " " + itm?.ExpenseNo);
             }}
           >
@@ -204,11 +206,14 @@ const L3Form = () => {
         value: "expenseDate",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
-      {
-        name: "Claim Type",
-        value: "claimType",
-        style: "min-w-[170px] max-w-[450px] text-center",
-      },
+      ...( !hide ? [] : 
+      [
+        {
+          name: "Claim Type",
+          value: "claimType",
+          style: "min-w-[170px] max-w-[450px] text-center",
+        },
+      ]),
       {
         name: "Circle",
         value: "circle",
@@ -269,21 +274,24 @@ const L3Form = () => {
         value: "attachment",
         style: "min-w-[150px] max-w-[450px] text-center",
       },
-      {
-        name: "Amount",
-        value: "amount",
-        style: "min-w-[150px] max-w-[450px] text-center",
-      },
-      // {
-      //   name: "Status",
-      //   value: "status",
-      //   style: "min-w-[100px] max-w-[450px] text-center",
-      // },
-      {
-        name: "Remarks",
-        value: "remark",
-        style: "min-w-[350px] max-w-[450px] text-center",
-      },
+      ...( !hide ? [] : 
+        [
+          {
+            name: "Amount",
+            value: "amount",
+            style: "min-w-[150px] max-w-[450px] text-center",
+          },
+          // {
+          //   name: "Status",
+          //   value: "status",
+          //   style: "min-w-[100px] max-w-[450px] text-center",
+          // },
+          {
+            name: "Remarks",
+            value: "remark",
+            style: "min-w-[350px] max-w-[450px] text-center",
+          },
+        ]),
 
       // {
       //   name: "Edit",
@@ -305,6 +313,13 @@ const L3Form = () => {
         type: "select",
         name: "status",
         option: [
+          { label: "Submitted", value: "Submitted" },
+          { label: "L1-Approved", value: "L1-Approved" },
+          { label: "L1-Rejected", value: "L1-Rejected" },
+          { label: "L2-Approved", value: "L2-Approved" },
+          { label: "L2-Rejected", value: "L2-Rejected" },
+          { label: "L3-Approved", value: "L3-Approved" },
+          { label: "L3-Rejected", value: "L3-Rejected" },
         ],
         // props: {
         // }
@@ -312,6 +327,11 @@ const L3Form = () => {
     ],
   };
   
+  useEffect(() => {
+    if(!modalFullOpen){
+      setHide(false)
+    }
+  } , [modalFullOpen])
 
   function handleAmountAndRemark(type) {
     const data = { approver: "L3-" + type, type: "Expense", status: type };
