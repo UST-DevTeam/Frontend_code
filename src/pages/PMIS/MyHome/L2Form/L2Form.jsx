@@ -265,7 +265,7 @@ const L2Form = () => {
       },
       {
         name: "Last Action Date",
-        value: "lastActionDate",
+        value: "actionAt",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
       {
@@ -500,7 +500,7 @@ const L2Form = () => {
                 amount: (
                   <input
                     type="number"
-                    defaultValue={`${item?.Amount}`}
+                    defaultValue={`${item?.ApprovedAmount}`}
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Amount"
                     onChange={(e) => {

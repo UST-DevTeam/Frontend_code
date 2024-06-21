@@ -29,7 +29,7 @@ const FillExpenseForm = ({
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
       return {
         label: itm?.name,
-        value: itm?.name,
+        value: itm?.claimTypeId,
         categories : itm?.categories?.split(",")?.map(item => {
           return {
               label : item,

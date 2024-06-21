@@ -200,9 +200,9 @@ const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
                     <tr>
                         {
                             headers.map((itm) => {
-                                return itm != "C" ? <th className='border-gray-400 border-2'>
+                                return itm != "C" ? <th className='border-gray-400 border-[1.5px]'>
                                     {itm}
-                                </th> : <th className='border-gray-400 border-2'>
+                                </th> : <th className='border-gray-400 border-[1.5px]'>
                                     <input type={'checkbox'} onChange={(e, index) => {
                                         console.log(e.target.checked, columns, check, index, "e.target.checked")
 
@@ -226,7 +226,7 @@ const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
                         columns.map((itm) => {
                             return <tr>
                                 {headers.map((innerItm) => {
-                                    return <td className='border-gray-400 border-2 whitespace-nowrap text-[12px] text-slate-800 text-center'>
+                                    return <td className='border-gray-400 border-[1px] whitespace-nowrap text-[12px] text-white text-center'>
                                         <Modalmoreinfo setModalBody={setModalBody} setOpenModal={setOpenModal} value={itm[innerItm]} />
                                     </td>
                                 })}

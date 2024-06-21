@@ -638,7 +638,7 @@ const ManageProjectSiteId = () => {
           <p
             // onClick={() => handleFullName(item)}
             onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-            className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
+            className="text-[#13b497] font-extrabold hover:underline focus:outline-none hover:font-semibold"
           >
             {itm.projectId}
           </p>
@@ -898,7 +898,7 @@ const ManageProjectSiteId = () => {
         name: "Site ID",
         value: "siteIdLink",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white z-20 cursor-pointer",
+          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "Sub Project",
@@ -979,7 +979,7 @@ const ManageProjectSiteId = () => {
           name: "Site ID",
           value: "SiteNaming",
           style:
-            "min-w-[140px] max-w-[200px] sticky left-0 bg-white text-center z-20",
+            "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
         },
         {
           name: "Sub Project",
