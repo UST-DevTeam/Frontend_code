@@ -42,8 +42,19 @@ const AccrualRevenueTrend = () => {
   const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
 
+  let extraColumns;
 
-  const [extraColumns, setExtraColumns] = useState([currentMonth-2,currentMonth-1,currentMonth]);
+  if (currentMonth === 1) {
+    extraColumns = [11, 12, 1];
+  } else if (currentMonth === 2) {
+    extraColumns = [12, 1, 2];
+  } else {
+    extraColumns = [currentMonth - 2, currentMonth - 1, currentMonth];
+  }
+  const [extraColumnsState, setExtraColumns] = useState(extraColumns);
+
+
+
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
 
@@ -115,7 +126,7 @@ const AccrualRevenueTrend = () => {
                         resetting={false}
                         formValue={itm}
                         year = {year}
-                        monthss = {extraColumns}
+                        monthss = {extraColumnsState}
                       />
                     </>
                   );
@@ -334,7 +345,7 @@ const AccrualRevenueTrend = () => {
     dispatch(
       FormssActions.postAccrualRevenueTrend(
         {
-          viewBy: extraColumns.join(","),
+          viewBy: extraColumnsState.join(","),
           year: `${currrentYear}`,
           yyear: `${currrentYear}`,
           selectional: "Monthly",
@@ -391,7 +402,7 @@ const AccrualRevenueTrend = () => {
 
     const monthMap = {1:"Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"};
     let cols = [];
-    extraColumns.forEach((index) => {
+    extraColumnsState.forEach((index) => {
       cols.push([
         {
           name: `${monthMap[index]} ${year}`,
@@ -405,7 +416,7 @@ const AccrualRevenueTrend = () => {
 
     setNewColumns(cols);
 
-  }, [extraColumns]);
+  }, [extraColumnsState]);
 
   const handleAddActivity = (res) => {
     try {
