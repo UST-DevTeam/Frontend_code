@@ -358,9 +358,29 @@ const ManageProjectSiteId = () => {
                             </p>
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-                            <Button
+                          <Button
                               classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
+                              onClick={() => {
+                                let finaldata = {
+                                  mileStoneStatus: "Open",
+                                };
+                                dispatch(
+                                  projectListActions.globalProjectTypeDataPatch(
+                                    Urls.projectList_changeTaskStatus,
+                                    iewq.uniqueId,
+                                    finaldata,
+                                    () => {
+                                      dispatch(
+                                        projectListActions.getProjectTypeAll(
+                                          projectuniqueId
+                                        )
+                                      );
+                                      setmodalOpen(false);
+                                    }
+                                  )
+                                );
+                              }}
                             />
                           </div>
                         </>
@@ -1106,111 +1126,111 @@ const ManageProjectSiteId = () => {
   return (
     <>
       <AdvancedTableExpandable
-        // searchView={
-        //   <>
-        //     <SearchBarView
-        //       onblur={(e) => {
-        //         console.log("SearchBarView onblur", e.target.value);
-        //         dispatch(
-        //           projectListActions.getProjectTypeAll(
-        //             projectuniqueId,
-        //             e.target.value != ""
-        //               ? "mileStoneName=" + e.target.value
-        //               : ""
-        //           )
-        //         );
-        //       }}
-        //       onchange={(e) => {
-        //         dispatch(
-        //           projectListActions.getProjectTypeAll(
-        //             projectuniqueId,
-        //             e.target.value != ""
-        //               ? "mileStoneName=" + e.target.value
-        //               : ""
-        //           )
-        //         );
-        //         console.log("SearchBarView onchange", e.target.value);
-        //       }}
-        //       placeHolder={"S Milestone Name"}
-        //     />
+        searchView={
+          <>
+            <SearchBarView
+              onblur={(e) => {
+                console.log("SearchBarView onblur", e.target.value);
+                dispatch(
+                  projectListActions.getProjectTypeAll(
+                    projectuniqueId,
+                    e.target.value != ""
+                      ? "mileStoneName=" + e.target.value
+                      : ""
+                  )
+                );
+              }}
+              onchange={(e) => {
+                dispatch(
+                  projectListActions.getProjectTypeAll(
+                    projectuniqueId,
+                    e.target.value != ""
+                      ? "mileStoneName=" + e.target.value
+                      : ""
+                  )
+                );
+                console.log("SearchBarView onchange", e.target.value);
+              }}
+              placeHolder={"S Milestone Name"}
+            />
 
-        //     {/* <ConditionalButton
-        //       showType={getAccessType("Site Allocation")}
-        //       classes="w-auto "
-        //       onClick={(e) => {
-        //         if (parentsite.length > 0) {
-        //           setmodalOpen((prev) => !prev);
-        //           // dispatch(AdminActions.getProject())
-        //           dispatch(
-        //             projectListActions.getUserAllocatedProject(
-        //               true,
-        //               projectuniqueId
-        //             )
-        //           );
-        //           setmodalHead("Allocate Site");
-        //           setmodalBody(
-        //             <AllocateProjectForm
-        //               from={"bulksite"}
-        //               listsite={parentsite}
-        //               projectuniqueId={projectuniqueId}
-        //               isOpen={modalOpen}
-        //               setIsOpen={setmodalOpen}
-        //               resetting={false}
-        //               formValue={{}}
-        //             />
-        //           );
-        //         } else {
-        //           let msgdata = {
-        //             show: true,
-        //             icon: "error",
-        //             buttons: [],
-        //             type: 1,
-        //             text: "Please Select at least one site for bulk allocate",
-        //           };
-        //           dispatch(ALERTS(msgdata));
-        //         }
-        //       }}
-        //       name={"Site Allocate"}
-        //     ></ConditionalButton> */}
+            {/* <ConditionalButton
+              showType={getAccessType("Site Allocation")}
+              classes="w-auto "
+              onClick={(e) => {
+                if (parentsite.length > 0) {
+                  setmodalOpen((prev) => !prev);
+                  // dispatch(AdminActions.getProject())
+                  dispatch(
+                    projectListActions.getUserAllocatedProject(
+                      true,
+                      projectuniqueId
+                    )
+                  );
+                  setmodalHead("Allocate Site");
+                  setmodalBody(
+                    <AllocateProjectForm
+                      from={"bulksite"}
+                      listsite={parentsite}
+                      projectuniqueId={projectuniqueId}
+                      isOpen={modalOpen}
+                      setIsOpen={setmodalOpen}
+                      resetting={false}
+                      formValue={{}}
+                    />
+                  );
+                } else {
+                  let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: "Please Select at least one site for bulk allocate",
+                  };
+                  dispatch(ALERTS(msgdata));
+                }
+              }}
+              name={"Site Allocate"}
+            ></ConditionalButton> */}
 
-        //     {/* <PopupMenu
-        //       name={"Export"}
-        //       icon={"Export"}
-        //       classes={"w-auto"}
-        //       bgColor={"bg-[#147b99]"}
-        //       child={
-        //         <div classes="z-40 max-h-96 justify-center">
-        //           <ConditionalButton
-        //             showType={getAccessType("Bulk upload-Site")}
-        //             name={"Export"}
-        //             classes="w-auto m-5"
-        //             onClick={(e) => {
-        //               dispatch(
-        //                 CommonActions.commondownload(
-        //                   "/export/siteId/" + `${projectuniqueId}`,
-        //                   "Export_Sites.xlsx"
-        //                 )
-        //               );
-        //             }}
-        //           ></ConditionalButton>
-        //           <ConditionalButton
-        //             showType={getAccessType("Bulk upload-Task")}
-        //             name={"Export with Task"}
-        //             classes="w-auto m-5"
-        //             onClick={(e) => {
-        //               dispatch(
-        //                 CommonActions.commondownload(
-        //                   "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
-        //                   "Export_Sites_with_Milestone.xlsx"
-        //                 )
-        //               );
-        //             }}
-        //           ></ConditionalButton>
-        //         </div>
-        //       }
-        //     /> */}
-        //   </>
-        // }
+            {/* <PopupMenu
+              name={"Export"}
+              icon={"Export"}
+              classes={"w-auto"}
+              bgColor={"bg-[#147b99]"}
+              child={
+                <div classes="z-40 max-h-96 justify-center">
+                  <ConditionalButton
+                    showType={getAccessType("Bulk upload-Site")}
+                    name={"Export"}
+                    classes="w-auto m-5"
+                    onClick={(e) => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/siteId/" + `${projectuniqueId}`,
+                          "Export_Sites.xlsx"
+                        )
+                      );
+                    }}
+                  ></ConditionalButton>
+                  <ConditionalButton
+                    showType={getAccessType("Bulk upload-Task")}
+                    name={"Export with Task"}
+                    classes="w-auto m-5"
+                    onClick={(e) => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
+                          "Export_Sites_with_Milestone.xlsx"
+                        )
+                      );
+                    }}
+                  ></ConditionalButton>
+                </div>
+              }
+            /> */}
+          </>
+        }
         headerButton={
           <div className="flex gap-1">
             <ConditionalButton
@@ -1365,6 +1385,7 @@ const ManageProjectSiteId = () => {
         getmultiSelect={getmultiSelect}
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
+        heading = {'Total Sites:-'}
       />
 
       <Modal

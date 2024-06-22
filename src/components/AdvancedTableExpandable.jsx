@@ -28,6 +28,7 @@ const AdvancedTableExpandable = ({
   totalCount = 0,
   multiSelect = false,
   actions = ["Delete"],
+  heading,
   searchView = "",
   getmultiSelect = "",
   setmultiSelect = () => { },
@@ -87,20 +88,20 @@ const AdvancedTableExpandable = ({
     // alert(value)
     // const data = {...formdata, reseter : true}
     // console.log("vishal_____data", data);
-    console.log("__________formdata______", formdata);
+    // console.log("__________formdata______", formdata);
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,
       ...formdata
     }
-    console.log("_filter_data",data)
+    // console.log("_filter_data",data)
     filterAfter(data);
     setActivedFilter(data);
     setActiveFilter(objectToArray(data));
     dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
 
-  console.log('setActivedFilter____',activedFilter)
+  // console.log('setActivedFilter____',activedFilter)
 
   const onReset = () => {
     // alert(value)
@@ -120,8 +121,8 @@ const AdvancedTableExpandable = ({
   },[data])
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
-  console.log("fasodfjanflasdfnaifaewasdf",data.length);
-  console.log("asdfamarnathadfasfasdfadfs",activeFilter);
+  // console.log("fasodfjanflasdfnaifaewasdf",data.length);
+  // console.log("asdfamarnathadfasfasdfadfs",activeFilter);
 
   // console.log((currentPage - 1) * RPP,"(currentPage - 1) * RPP", currentPage,"currentPage" , RPP,"RPP","currentPageRPP")
 
@@ -147,7 +148,11 @@ const AdvancedTableExpandable = ({
             </div>
           </div> */}
           <div className="flex justify-between">
-            <div className="flex flex-row">{searchView}</div>
+            <div className="flex flex-row">
+             
+            <div className="flex flex-row mt-[6px] text-white">{heading}{totalCount}</div>
+            <div className="flex flex-row mx-4">{searchView}</div>
+            </div>
             <div className="flex flex-row">
               {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
 
