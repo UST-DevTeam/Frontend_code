@@ -226,13 +226,15 @@ const ClaimAdvanceOnclick = () => {
   };
 
   useEffect(() => {
+    
+    dispatch(AdminActions.getManageExpenseAdvance());
     const name = sessionStorage.getItem('claimName')
     dispatch(
           ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
             true,
             `Number=${name}`,
             (data) => setClaimByNumber(data)))
-  }, [id, modalOpen , dispatch]);
+  }, [id , dispatch]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";
@@ -277,8 +279,8 @@ const ClaimAdvanceOnclick = () => {
                         name={""}
                         onClick={() => {
                           setmodalOpen(true);
-                          dispatch(AdminActions.getManageExpenseAdvance());
-                          setmodalHead(item.name + " : " + `Approved Amount : ${item.ApprovedAmount}`);
+                          // dispatch(AdminActions.getManageExpenseAdvance());
+                          setmodalHead(item.name + " : " + `Approved Amount : ${item.Amount}`);
                           // setmodalBody(
                           //   <>
                           //     <ClaimAdvanceForm

@@ -478,7 +478,7 @@ const L3Form = () => {
                 amount: (
                   <input
                     type="number"
-                    
+                    defaultValue={`${item?.ApprovedAmount}`}
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Amount"
                     onChange={(e) => {
@@ -501,10 +501,10 @@ const L3Form = () => {
                 remark: (
                   <input
                     type="text"
+                    defaultValue={`${item?.remark}`}
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Your Remark..."
-                    onChange={(e) => {
-                      
+                    onChange={(e) => {                    
                       setAmount((prev) => {
                         return {
                           ...prev,

@@ -128,11 +128,11 @@ const AdvancedTable = ({
   }, [tableName]);
 
   useEffect(()=>{
-    console.log("after_paginate", data)
+    console.log("after_paginate", data.length)
     if (data !== finalData) {
       setFinalData(data);
     }
-  },[data])
+  },[data.length])
 
   // console.log("setFinalData", finalData)
 

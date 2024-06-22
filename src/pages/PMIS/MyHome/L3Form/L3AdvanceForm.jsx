@@ -407,7 +407,74 @@ const L3AdvanceForm = () => {
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList}
+            data={dbConfigList?.map((item) => {
+              return {
+                ...item,
+                amount: (
+                  <input
+                    type="number"
+                    defaultValue={`${item?.amount}`}
+                    className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
+                    placeholder="Enter Amount"
+                    onChange={(e) => {
+                      setAmount((prev) => {
+                        return {
+                          ...prev,
+                          amount: {
+                            ...prev.amount,
+                            [item.uniqueId]: e.target.value,
+                          },
+                          claimedAmount: {
+                            ...prev.claimedAmount,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                          },
+                          addedFor: {
+                            ...prev.addedFor,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.addedFor,
+                          },
+                          AdvanceNo: {
+                            ...prev.AdvanceNo,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.AdvanceNo,
+                          },
+                        };
+                      });
+                    }}
+                  />
+                ),
+                remark: (
+                  <input
+                    type="text"
+                    defaultValue={`${item?.remark}`}
+                    className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
+                    placeholder="Enter Your Remark..."
+                    onChange={(e) => {
+                      
+                      setAmount((prev) => {
+                        return {
+                          ...prev,
+                          remark: {
+                            ...prev.remark,
+                            [item.uniqueId]: e.target.value,
+                          },
+                          claimedAmount: {
+                            ...prev.claimedAmount,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                          },
+                          addedFor: {
+                            ...prev.addedFor,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.addedFor,
+                          },
+                          AdvanceNo: {
+                            ...prev.AdvanceNo,
+                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.AdvanceNo,
+                          },
+                        };
+                      });
+                    }}
+                  />
+                ),
+              };
+            })}
             errors={errors}
             register={register}
             setValue={setValue}
