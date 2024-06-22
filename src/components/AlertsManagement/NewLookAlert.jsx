@@ -12,7 +12,7 @@ const NewLookAlert = ({ text, notifyType, notifyCat,showAlert,setshowAlert }) =>
         "info": ["bg-blue-900", "bg-blue-500"]
     }
 
-    console.log(notifyType, "notifyType colorList", colorList)
+    // console.log(notifyType, "notifyType colorList", colorList)
     return <div>
         {showAlert?<div class={` text-center py-4 px-4`}>
             <div class={`${colorList[notifyType][0]} p-2 items-center text-white leading-none lg:rounded-full flex lg:inline-flex rounded-2xl`} role="alert">

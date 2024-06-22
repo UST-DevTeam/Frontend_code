@@ -29,10 +29,12 @@ const InvoiceBased = () => {
     const [strValFil, setstrVal] = useState(false);
     const endDate = moment().format("Y");
     let dispatch = useDispatch()
+
     // let roleList = useSelector((state) => {
     //     let interdata = state?.operationManagement?.USERS_LIST
     //     return interdata
     // })
+
     let dbConfigList = useSelector((state) => {
         let interdata = state?.financeData?.getPOInvoicedBased || []
         return interdata?.map((itm) => {
@@ -75,6 +77,7 @@ const InvoiceBased = () => {
             return updateditm
         });
     })
+    
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.financeData?.getPOInvoicedBased || []
         if (interdata.length > 0) {

@@ -121,7 +121,7 @@ const ManageProject = () => {
                   `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`
                 );
               }}
-              className="text-[#13b497] font-extrabold hover:underline focus:outline-none hover:font-semibold"
+              className="text-[#143b64] font-bold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
             >
               {itm.projectId}
             </p>
@@ -384,7 +384,7 @@ const ManageProject = () => {
       {
         name: "Project ID",
         value: "projectId",
-        style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-[]",
       },
       {
         name: "Project Group",

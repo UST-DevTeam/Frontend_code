@@ -96,6 +96,8 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
+  console.log(formValue['poStatus'],"______")
+
   let Form = [
     {
       label: "Customer",
@@ -219,6 +221,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Unit Rate",
       value: "",
       name: "unitRate(INR)",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "number",
       type: "number",
       required: true,
       props: {
@@ -231,7 +234,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Initial PO Qty",
       value: "",
       name: "initialPoQty",
-      type: "number",
+      type: formValue['poStatus'] === "Closed" || formValue['poStatus'] === "Short Closed" ? "sdisabled" : "number",
       required: true,
       props: {
         onChange: (e) => { },
@@ -255,19 +258,18 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
   const onSubmit = (data) => {
 
-    console.log(data);
+    // console.log(data);
   };
-  console.log(Object.entries(formValue), 'adfsdds')
 
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
+    // console.log(data, "datadata");
     if (formValue.uniqueId) {
       dispatch(
         FinanceActions.postPOInvoicedBased(
           true,
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig");
+            // console.log("CustomQueryActions.postDBConfig");
             dispatch(FinanceActions.getPOInvoicedBased());
             setIsOpen(false);
             dispatch(FinanceActions.getPOInvoicedBased());
@@ -278,7 +280,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     } else {
       dispatch(
         FinanceActions.postPOInvoicedBased(true, data, () => {
-          console.log("CustomQueryActions.postDBConfig");
+          // console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(FinanceActions.getPOInvoicedBased());
         })
@@ -312,7 +314,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             (itq) => itq.label == formValue[key.name]
           );
 
-          console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
+          // console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
           if (dtwq.length > 0) {
             setValue(key.name, dtwq[0]["value"]);
           } else {

@@ -67,7 +67,7 @@ const AdvancedTableExpandableOneRow = ({
         table?.childs &&
         Object.entries(table.childs)?.map((onewq) => {
           return itm[onewq[0]]?.map((onewqq) => {
-            console.log(onewqq.uniqueId, "onewqq.uniqueId");
+            {/* console.log(onewqq.uniqueId, "onewqq.uniqueId"); */}
             return (
               <tr>
                 <td className="text-[12px] pl-1 border-primaryLine border-[1.5px] bg-[#3e454d] text-primaryLine ">
@@ -85,7 +85,7 @@ const AdvancedTableExpandableOneRow = ({
                 </td>
 
                 {table?.childs[onewq[0]]?.map((itts) => {
-                  console.log(itts, onewqq, "ittsittsittsittsitts");
+                  {/* console.log(itts, onewqq, "ittsittsittsittsitts"); */}
                   return (
                     <td
                       className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg-[#3e454d] text-white ${
