@@ -1,6 +1,6 @@
 
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.29.236:7980"
 // export const backendassetUrl="http://192.168.29.236:7980/"
