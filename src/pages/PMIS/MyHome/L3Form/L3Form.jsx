@@ -341,8 +341,7 @@ const L3Form = () => {
       console.error("amount or expenseRef is not defined");
       return;
     }
-
-    // const keys = [...new Set([...Object.keys(amount.amount), ...Object.keys(amount.remark)])];
+    
     const keys = dbConfigList.map((item) => item.uniqueId);
 
     keys.forEach((key) => {
