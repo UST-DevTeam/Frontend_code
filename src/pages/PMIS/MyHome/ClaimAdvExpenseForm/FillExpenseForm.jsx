@@ -15,13 +15,14 @@ const FillExpenseForm = ({
   isOpen,
   setIsOpen,
   resetting,
+  dataItm=undefined,
   formValue = {},
-  expenseRef={ current : {}}
+  expenseRef = { current: {} },
 }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
-  const [category,setCategory] = useState([])
-  const today = moment().format('YYYY-MM-DD');
+  const [category, setCategory] = useState([]);
+  const today = moment().format("YYYY-MM-DD");
 
   let dispatch = useDispatch();
 
@@ -30,15 +31,19 @@ const FillExpenseForm = ({
       return {
         label: itm?.name,
         value: itm?.claimTypeId,
-        categories : itm?.categories?.split(",")?.map(item => {
+        categories: itm?.categories?.split(",")?.map((item) => {
           return {
-              label : item,
-              value : item
-          }
-      })
+            label: item,
+            value: item,
+          };
+        }),
       };
     });
   });
+
+
+
+  console.log(claimTypeList,"claimTypeListclaimTypeList")
 
   let projectDetailsList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvPrjectDetails.map((itm) => {
@@ -49,19 +54,19 @@ const FillExpenseForm = ({
     });
   });
 
-  let categoriesList = useSelector((state) => {
-    return state?.adminData?.getManageExpenseAdvance.flatMap((itm) => {
-      if (itm?.categories) {
-        return itm.categories.split(",").map((category) => {
-          return {
-            label: category.trim(),
-            value: category.trim(),
-          };
-        });
-      }
-      return [];
-    });
-  });
+  // let categoriesList = useSelector((state) => {
+  //   return state?.adminData?.getManageExpenseAdvance.flatMap((itm) => {
+  //     if (itm?.categories) {
+  //       return itm.categories.split(",").map((category) => {
+  //         return {
+  //           label: category.trim(),
+  //           value: category.trim(),
+  //         };
+  //       });
+  //     }
+  //     return [];
+  //   });
+  // });
 
   let projectSiteIdList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvSiteID.map((itm) => {
@@ -82,7 +87,6 @@ const FillExpenseForm = ({
   });
 
   const handleCategoryChange = (e) => {
-    
     setKm(e.target.value !== "");
   };
 
@@ -95,13 +99,16 @@ const FillExpenseForm = ({
       option: claimTypeList,
       props: {
         onChange: (e) => {
-          if(e.target.categories){
+          if (e.target.categories) {
             setKm(true);
-          }else{
+          } else {
             setKm(false);
           }
-          setCategory(claimTypeList.find(item => item.value === e.target.value)?.categories || [])
-      },
+          setCategory(
+            claimTypeList.find((item) => item.value === e.target.value)
+              ?.categories || []
+          );
+        },
       },
       required: true,
       classes: "col-span-1",
@@ -118,7 +125,7 @@ const FillExpenseForm = ({
       // required: true,
       classes: "col-span-1",
     },
-    ...(Km 
+    ...(Km
       ? [
           {
             label: "Start Km",
@@ -160,7 +167,8 @@ const FillExpenseForm = ({
     {
       label: "Project Id",
       value: "",
-      name:Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
+      name:
+        Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectDetailsList,
       props: {
@@ -179,7 +187,7 @@ const FillExpenseForm = ({
     {
       label: "Site Id",
       value: "",
-      name:Object.entries(formValue).length > 0 ? "Site_Id" : "Site Id",
+      name: Object.entries(formValue).length > 0 ? "Site_Id" : "Site Id",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectSiteIdList,
       props: {
@@ -192,13 +200,13 @@ const FillExpenseForm = ({
           );
         },
       },
-    //   required: true,
+      //   required: true,
       classes: "col-span-1",
     },
     {
       label: "Task Name",
       value: "",
-      name:Object.entries(formValue).length > 0 ? "taskName" : "Name",
+      name: Object.entries(formValue).length > 0 ? "taskName" : "Name",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: projectTaskNameList,
       // required: true,
@@ -207,8 +215,8 @@ const FillExpenseForm = ({
     {
       label: "Expense Date",
       value: "",
-      name: "ExpenseDate",
-      type: "datetime",
+      name: dataItm ? "EeDate": "ExpenseDate",
+      type: dataItm ? "sdisabled": "datetime" ,
       props: {
         maxSelectableDate: today,
       },
@@ -223,39 +231,41 @@ const FillExpenseForm = ({
       // required: true,
       classes: "col-span-1",
     },
-    ...(
-      !Km ? [{
-      label: "Amount ",
-      value: "",
-      name: "Amount",
-      type: "number",
-      props: {
-        valueAsNumber: true,
-        min: 0,
-        onChange: (e) => {},
-        },
-      // required: true,
-      classes: "col-span-1",
-    },] : []
-    ),
-    
-    {
-        label: "Attachment",
+    ...(!Km
+      ? [
+          {
+            label: "Amount ",
+            value: "",
+            name: "Amount",
+            type: "number",
+            props: {
+              valueAsNumber: true,
+              min: 0,
+              onChange: (e) => {},
+            },
+            // required: true,
+            classes: "col-span-1",
+          },
+        ]
+      : []),
 
-        value: "",
-        name: "Attachment",
-        type: "file",
-        // required: true,
-        
-        props: {
-            onChange: ((e) => {
-                console.log(e.target.files, "e geeter")
-                setValue("attachment",e.target.files[0])
-            }),
-            accept: '.img, .png, .jpg, .jpeg, .webp, .pdf',
+    {
+      label: "Attachment",
+
+      value: "",
+      name: "Attachment",
+      type: "file",
+      // required: true,
+
+      props: {
+        onChange: (e) => {
+          console.log(e.target.files, "e geeter");
+          setValue("attachment", e.target.files[0]);
         },
-        classes: "col-span-1",
-        multiple:false,
+        accept: ".img, .png, .jpg, .jpeg, .webp, .pdf",
+      },
+      classes: "col-span-1",
+      multiple: false,
     },
   ];
   const {
@@ -274,26 +284,26 @@ const FillExpenseForm = ({
   useEffect(() => {
     if (startKm !== undefined && endKm !== undefined) {
       const totalKm = endKm - startKm;
-    //   if (totalKm <= 0) {
-    //     let msgdata = {
-    //       show: true,
-    //       icon: 'warning',
-    //       buttons: [
-    //         <Button
-    //           classes='w-24'
-    //           onClick={() => {
-    //             dispatch(ALERTS({ show: false }));
-    //           }}
-    //           name={"OK"}
-    //         />
-    //       ],
-    //       text: "Total Km cannot be zero or negative.",
-    //     };
-    //     dispatch(ALERTS(msgdata));
-    //   }
+      //   if (totalKm <= 0) {
+      //     let msgdata = {
+      //       show: true,
+      //       icon: 'warning',
+      //       buttons: [
+      //         <Button
+      //           classes='w-24'
+      //           onClick={() => {
+      //             dispatch(ALERTS({ show: false }));
+      //           }}
+      //           name={"OK"}
+      //         />
+      //       ],
+      //       text: "Total Km cannot be zero or negative.",
+      //     };
+      //     dispatch(ALERTS(msgdata));
+      //   }
       setValue("totalKm", totalKm >= 0 ? totalKm : 0);
     }
-  }, [startKm, endKm, setValue,]);
+  }, [startKm, endKm, setValue]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -317,9 +327,9 @@ const FillExpenseForm = ({
         )
       );
     } else {
-    if(expenseRef.current){
-        data.expenseId = expenseRef.current?.ExpenseNo
-    }
+      if (expenseRef.current) {
+        data.expenseId = expenseRef.current?.ExpenseNo;
+      }
       dispatch(
         ExpenseAdvanceActions.postFillExpense(true, data, () => {
           console.log("CustomQueryActions.postDBConfig");
@@ -332,8 +342,12 @@ const FillExpenseForm = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(AdminActions.getManageExpenseAdvance());
+    // dispatch(AdminActions.getManageExpenseAdvance());
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
+
+    console.log(dataItm,"dataItmdataItmdataItm")
+    
+    console.log(resetting, formValue["categories"], "resettingresetting");
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -341,25 +355,46 @@ const FillExpenseForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+
+
+      setCategory(claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"])
+
+
+      if (claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"][0]['label']!="") {
+        setKm(true);
+      } else {
+        setKm(false);
+      }
+
+      
+      console.log(Object.keys(formValue),claimTypeList.filter((itm)=>itm.label==formValue["types"])[0],formValue,formValue["categories"], "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
         // alert(key)
-        
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          const momentObj = moment(formValue[key.name]);
-          setValue(key.name, momentObj.toDate());
+
+        console.log(key,"key.name")
+
+        if (["expenseDate"].indexOf(key) != -1) {
+          const momentObj = moment(formValue[key],"DD-MM-yyyy");
+          console.log(momentObj.toDate(),"momentObjmomentObj")
+          setValue("ExpenseDate", momentObj.toDate());
         } else {
           setValue(key, formValue[key]);
-          
-          // setValue(key, "6673dca38e7429449a637611");
         }
       });
-      
-      
+
+      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["value"])
+
       // claimTypeList.map((itm)=>{
       //   setValue(itm.claimType,itm.value);
       // })
+    }
+
+    if(dataItm){
       
+      const momentObj = moment(dataItm["expenseDate"],"yyyy-MM-DD");
+      console.log(momentObj.toDate(),"momentObjmomentObj")
+      setValue("ExpenseDate", momentObj.toDate());
+      setValue("EeDate", momentObj.format("DD/MM/yyyy"));
     }
   }, [formValue, resetting]);
   return (

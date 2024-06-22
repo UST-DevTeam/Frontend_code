@@ -412,6 +412,7 @@ const L2AdvanceForm = () => {
                 amount: (
                   <input
                     type="number"
+                    defaultValue={`${item?.ApprovedAmount}`}
                     className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Amount"
                     onChange={(e) => {
@@ -442,6 +443,7 @@ const L2AdvanceForm = () => {
                 remark: (
                   <input
                     type="text"
+                    defaultValue={`${item?.remark}`}
                     className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {

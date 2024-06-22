@@ -77,7 +77,9 @@ const ClaimAndAdvance = () => {
             onClick={(e) => {
               expenseRef.current = itm;
               sessionStorage.setItem("claimName", itm?.name);
-              navigate(`/home/claimAndAdvance/claimAndAdvanceOnclick/${item?._id}`);
+              navigate(
+                `/home/claimAndAdvance/claimAndAdvanceOnclick/${item?._id}`
+              );
               // dispatch(
               //   ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
               //     true,
@@ -178,10 +180,17 @@ const ClaimAndAdvance = () => {
           <CstmButton
             className={"p-2"}
             child={
-            <DownloadButton
+              <DownloadButton
                 name={""}
                 onClick={() => {
-                    dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${itm.name}`,"expense.pdf"))                      
+                  dispatch(
+                    CommonActions.commondownload(
+                      "/expenses/DownloadAttachment" +
+                        "?" +
+                        `expenseId=${itm.name}`,
+                      "expense.pdf"
+                    )
+                  );
                 }}
               ></DownloadButton>
             }
@@ -197,7 +206,6 @@ const ClaimAndAdvance = () => {
       setHide(false);
     }
   }, [modalFullOpen]);
-
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getClaimAndAdvance || [""];
@@ -228,7 +236,8 @@ const ClaimAndAdvance = () => {
       {
         name: "Expense/Advance No",
         value: "name",
-        style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+        style:
+          "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Cost Center",
@@ -291,79 +300,87 @@ const ClaimAndAdvance = () => {
 
   return (
     <>
-      <div className="flex text-sm space-x-2">
-        <p className="mb-[-30px] p-2 text-white">
+      <div className="flex md:flex-col md:absolute text-sm space-x-2">
+        <p className="mb-[-30px] md:mb-0 p-2 md:pl-4 text-white">
           Current Balance :{" "}
           <span
             className={
-              Amounts?.finalAmount > 0 ? "text-rose-400 font-extrabold" : "text-[#13b497] font-extrabold"
+              Amounts?.finalAmount > 0
+                ? "text-rose-400 font-extrabold"
+                : "text-[#13b497] font-extrabold"
             }
           >
             {Amounts?.finalAmount}
           </span>
         </p>
-        <p className="mb-[-30px] p-2 text-white">
+        <p className="mb-[-30px] md:mb-0 p-2 text-white">
           Expenses Approved :{" "}
           <span
             className={
-              Amounts?.ExpenseAmountTotal > 0 ? "text-rose-400 font-extrabold" : "text-[#13b497] font-extrabold"}
+              Amounts?.ExpenseAmountTotal > 0
+                ? "text-rose-400 font-extrabold"
+                : "text-[#13b497] font-extrabold"
+            }
           >
             {Amounts?.ExpenseAmountTotal}
           </span>
         </p>
-        <p className="mb-[-30px] p-2 text-white">
+        <p className="mb-[-30px] md:mb-0 p-2 text-white">
           Advance Approved :{" "}
           <span
             className={
-              Amounts?.AdvanceAmountTotal > 0 ? "text-[#13b497] font-extrabold" : "text-rose-500 font-extrabold"}
+              Amounts?.AdvanceAmountTotal > 0
+                ? "text-[#13b497] font-extrabold"
+                : "text-rose-500 font-extrabold"
+            }
           >
             {Amounts?.AdvanceAmountTotal}
           </span>
         </p>
       </div>
+      <div className="md:mt-14">
+        <AdvancedTable
+          headerButton={
+            <>
+              <Button
+                onClick={() => {
+                  navigate(`${"/home/claimAndAdvance/Expense"}`);
+                }}
+                name={"Fill Expense"}
+              ></Button>
 
-      <AdvancedTable
-        headerButton={
-          <>
-            <Button
-              onClick={() => {
-                navigate(`${"/home/claimAndAdvance/Expense"}`);
-              }}
-              name={"Fill Expense"}
-            ></Button>
-
-            <Button
-              classes="ml-1"
-              onClick={() => {
-                navigate(`${"/home/claimAndAdvance/Advance"}`);
-              }}
-              name={"Fill Advance"}
-            ></Button>
-            <Button
-              classes="ml-1 mr-1"
-              onClick={() => {
-                navigate(`${"/home/claimAndAdvance/DAFormFill"}`);
-              }}
-              name={"Fill DA"}
-            ></Button>
-          </>
-        }
-        table={table}
-        exportButton={[
-          "/export/ExpensesAndAdvance",
-          "Export_ExpensesAndAdvance.xlsx",
-        ]}
-        filterAfter={onSubmit}
-        tableName={"UserListTable"}
-        handleSubmit={handleSubmit}
-        data={dbConfigList}
-        errors={errors}
-        register={register}
-        setValue={setValue}
-        getValues={getValues}
-        totalCount={dbConfigTotalCount}
-      />
-
+              <Button
+                classes="ml-1"
+                onClick={() => {
+                  navigate(`${"/home/claimAndAdvance/Advance"}`);
+                }}
+                name={"Fill Advance"}
+              ></Button>
+              <Button
+                classes="ml-1 mr-1"
+                onClick={() => {
+                  navigate(`${"/home/claimAndAdvance/DAFormFill"}`);
+                }}
+                name={"Fill DA"}
+              ></Button>
+            </>
+          }
+          table={table}
+          exportButton={[
+            "/export/ExpensesAndAdvance",
+            "Export_ExpensesAndAdvance.xlsx",
+          ]}
+          filterAfter={onSubmit}
+          tableName={"UserListTable"}
+          handleSubmit={handleSubmit}
+          data={dbConfigList}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+          totalCount={dbConfigTotalCount}
+        />
+      </div>
       <Modal
         size={"full"}
         modalHead={modalHead}
@@ -386,7 +403,7 @@ const ClaimAndAdvance = () => {
         setIsOpen={setmodalFullOpen}
       />
 
-      <Modal  
+      <Modal
         size={"sm"}
         modalHead={modalHead}
         children={modalBody}

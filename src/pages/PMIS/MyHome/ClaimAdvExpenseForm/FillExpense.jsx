@@ -226,6 +226,7 @@ const FillExpense = () => {
                       isOpen={modalOpen}
                       setIsOpen={setmodalOpen}
                       resetting={true}
+                      dataItm={itm}
                       formValue={{}}
                       expenseRef={expenseRef}
                     />

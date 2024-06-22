@@ -88,7 +88,7 @@ const AdvancedTableExpandableOneRow = ({
                   {/* console.log(itts, onewqq, "ittsittsittsittsitts"); */}
                   return (
                     <td
-                      className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg-[#3e454d] text-white ${
+                      className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg- text-white ${
                         itts.style ? itts.style : " min-w-[300px] max-w-[500px]"
                       }`}
                     >

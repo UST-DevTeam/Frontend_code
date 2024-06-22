@@ -275,7 +275,7 @@ const ClaimAdvanceForm = ({
 
   useEffect(() => {
     dispatch(GET_MANAGE_EXPENSE_ADVANCE({ dataAll: [], reset: true }));
-    dispatch(AdminActions.getManageExpenseAdvance());
+    // dispatch(AdminActions.getManageExpenseAdvance());
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
     if (resetting) {
       reset({});
