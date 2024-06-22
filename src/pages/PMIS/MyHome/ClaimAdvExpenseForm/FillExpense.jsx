@@ -138,6 +138,9 @@ const FillExpense = () => {
   });
 
   useEffect(() => {
+
+    
+    dispatch(AdminActions.getManageExpenseAdvance());
     if(!modalFullOpen){
       setHide(false)
     }
@@ -440,6 +443,7 @@ const FillExpense = () => {
   };
 
   useEffect(() => {
+    
     dispatch(ExpenseAdvanceActions.getFillExpense());
     // dispatch(ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp());
   }, []);

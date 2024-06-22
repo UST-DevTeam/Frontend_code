@@ -342,7 +342,7 @@ const FillExpenseForm = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    // dispatch(AdminActions.getManageExpenseAdvance());
+    dispatch(AdminActions.getManageExpenseAdvance());
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
 
     console.log(dataItm,"dataItmdataItmdataItm")
@@ -357,8 +357,12 @@ const FillExpenseForm = ({
       reset({});
 
 
-      setCategory(claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"])
-
+      // setCategory(claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"])
+      setCategory(
+        claimTypeList.filter((itm) => itm.label == formValue["types"])[0]?.categories || []
+      );
+      
+      // setCategory(claimTypeList.length > 0 && claimTypeList[0].categories ? claimTypeList.find((item) => item.value === formValue["types"])?.categories || [] : []);
 
       if (claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"][0]['label']!="") {
         setKm(true);
