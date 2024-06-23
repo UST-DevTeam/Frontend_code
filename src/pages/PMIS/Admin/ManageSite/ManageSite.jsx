@@ -27,6 +27,7 @@ import CommonTableFormParent from "../../../../components/CommonTableFormSitePar
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
 import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer";
 import projectListActions from "../../../../store/actions/projectList-actions";
+import moment from "moment";
 
 const ManageSite = ({
   oldgetvalue,
@@ -36,6 +37,7 @@ const ManageSite = ({
   setSiteId,
 }) => {
   const { customeruniqueId } = useParams();
+  const today = moment().format("YYYY-MM-DD");
 
   const {
     register,
@@ -87,10 +89,20 @@ const ManageSite = ({
 
   const dispatch = useDispatch();
 
+    // let mappedDataList = useSelector((state) => {
+    //   return state?.projectList?.getMappedData 
+    // })
+
+    let mappedDataList = useSelector((state) => {
+      const data = state?.projectList?.getMappedData;
+      return data && data.length > 0 ? data : [{'headerName': ""}];
+    });
+
+   
+
   let dataOfProject = useSelector((state) => {
     let dataOlder = state.adminData.getProjectTypeDyform[0];
 
-    console.log(dataOlder, "dataOlderdataOlderdataOlder");
 
     return dataOlder;
     if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
@@ -148,7 +160,6 @@ const ManageSite = ({
 
       return
     }
-    console.log(data, "datadatadatadatanathnathamarnath");
     setSiteId(data["Site Id"] ? data["Site Id"] : "Add");
     let final_data = {
       SubProjectId: dataOfProject["uniqueId"],
@@ -361,6 +372,7 @@ const ManageSite = ({
     if (dataOfProject) {
       setValueForm1("project", dataOfProject.projectType);
       setValueForm1("subProject", dataOfProject.subProject);
+
     }
     reset({});
 
@@ -441,6 +453,10 @@ const ManageSite = ({
                                 : [],
                               name: its.fieldName,
                               type: dtype[its.dataType],
+                              // type: "sdisabled",
+                              props: {
+                                maxSelectableDate: today,
+                              },
                             };
                           }),
                         ]
@@ -470,11 +486,20 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_tracking"]
                         ? dataOfProject["t_tracking"].map((its) => {
+                          let type = dtype[its.dataType];
+                          // if (mappedDataList.some(field => field.headerName === its['fieldName'])) {
+                          //       type = "sdisabled";
+                          // }                     
                           return {
                             label: its.fieldName,
                             value: "abc",
                             name: its.fieldName,
-                            type: dtype[its.dataType],
+                            type: type,
+                            props: {
+                                maxSelectableDate: today,
+                                valueAsNumber:true,
+                                min: 0,
+                              },
                           };
                         })
                         : []

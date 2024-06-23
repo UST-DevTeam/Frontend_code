@@ -7,6 +7,7 @@ const initialState = {
     getprojectalllist: [],
     getuserallocatedproject: [],
     getprojectcircle:[],
+    getMappedData:[],
 }
 
 const projectList = createSlice({
@@ -35,6 +36,14 @@ const projectList = createSlice({
                 state.getProjectTypeSub = payload.dataAll
             } else {
                 state.getProjectTypeSub = [...state.getProjectTypeSub, ...payload.dataAll]
+            }
+        },
+
+        GET_MAPPED_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.getMappedData = payload.dataAll
+            } else {
+                state.getMappedData = [...state.getMappedData, ...payload.dataAll]
             }
         },
 
@@ -150,5 +159,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE } = projectList.actions
+export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE,GET_MAPPED_DATA } = projectList.actions
 export default projectList.reducer

@@ -1121,6 +1121,7 @@ const ManageProjectSiteId = () => {
   useEffect(() => {
     dispatch(projectListActions.getProjectType(projectuniqueId));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+    dispatch(projectListActions.getMappedData(projectuniqueId));
     dispatch(FilterActions.getSiteSubProject(projectuniqueId));
   }, []);
   return (
