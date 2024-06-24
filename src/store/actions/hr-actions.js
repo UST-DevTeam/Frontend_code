@@ -2,6 +2,8 @@ import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { 
     GET_EMPLOYEE_DETAILS,
+    GET_HR_ALL_EMPLOYEE,
+    GET_HR_MANAGER_EMP,
 } from "../reducers/hr-reduces"
 
 
@@ -48,6 +50,26 @@ const HrActions = {
             
         } catch (error) {
             return;
+        }
+    },
+
+    getHRAllEmployee:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_all_empdetails}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_HR_ALL_EMPLOYEE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getHRManagerInEmployee:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_hr_manager_emp}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_HR_MANAGER_EMP({dataAll,reset}))
+        } catch (error) {
         }
     },
 

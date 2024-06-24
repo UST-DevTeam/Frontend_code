@@ -1,16 +1,16 @@
 
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.29.236:7980"
 // export const backendassetUrl="http://192.168.29.236:7980/"
 
-// export const baseUrl="http://192.168.0.127:7980"
-// export const backendassetUrl="http://192.168.0.127:7980/"
+export const baseUrl="http://192.168.0.108:7980"
+export const backendassetUrl="http://192.168.0.108:7980/"
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -36,6 +36,8 @@ export const Urls={
     admin_department:"/admin/manageDepartment",
     admin_designation:"/admin/manageDesignation",
     admin_empdetails:"/hr/manageEmployee",
+    admin_all_empdetails:"/hr/allEmployee",
+    admin_hr_manager_emp:"/hr/allHr",
     admin_profile:"/hr/manageProfile",
     admin_project_allocation:"/hr/projectAllocation",
     admin_uamView:"/uamView",

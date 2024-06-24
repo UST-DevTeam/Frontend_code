@@ -158,6 +158,24 @@ const EmpDetails = (props) => {
     });
   });
 
+  let allEmployeeList = useSelector((state) => {
+    return state?.hrReducer?.getHRAllEmployee.map((itm) => {
+      return {
+        label: itm?.empName,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
+  let allHrList = useSelector((state) => {
+    return state?.hrReducer?.getHRManagerInEmployee.map((itm) => {
+      return {
+        label: itm?.empName,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
   let stateList = useSelector((state) => {
     return state?.adminData?.getState.map((itm) => {
       return {
@@ -456,7 +474,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Employee Details",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Title",
@@ -575,7 +593,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Present Address",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Country",
@@ -688,6 +706,7 @@ const EmpDetails = (props) => {
           },
         },
       ],
+      classes: "col-span-4 font-bold text-[#13b497] text-start mb-[-25px]",
     },
   ];
 
@@ -695,7 +714,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Permanent Address",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Country",
@@ -787,7 +806,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Employment Details",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Employee Code",
@@ -957,7 +976,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Employee Profile",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Organization Level",
@@ -1030,7 +1049,7 @@ const EmpDetails = (props) => {
       type: "select",
       required: false,
       props: {},
-      option: employeeList,
+      option: allEmployeeList,
       classes: "col-span-1",
     },
     {
@@ -1040,7 +1059,7 @@ const EmpDetails = (props) => {
       type: "select",
       required: false,
       props: {},
-      option: employeeList,
+      option: allEmployeeList,
       classes: "col-span-1",
     },
     {
@@ -1049,7 +1068,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       required: false,
-      option: employeeList,
+      option: allEmployeeList,
       props: {},
       classes: "col-span-1",
     },
@@ -1058,7 +1077,7 @@ const EmpDetails = (props) => {
       name: "financeApprover",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1068,7 +1087,7 @@ const EmpDetails = (props) => {
       name: "reportingHrManager",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allHrList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1078,7 +1097,7 @@ const EmpDetails = (props) => {
       name: "assetManager",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1088,7 +1107,7 @@ const EmpDetails = (props) => {
       name: "L1Vendor",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1098,7 +1117,7 @@ const EmpDetails = (props) => {
       name: "L2Vendor",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1108,7 +1127,7 @@ const EmpDetails = (props) => {
       name: "compliance",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1118,7 +1137,7 @@ const EmpDetails = (props) => {
       name: "L1Compliance",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1128,17 +1147,7 @@ const EmpDetails = (props) => {
       name: "L2Compliance",
       value: "",
       type: "select",
-      option: employeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "HR Manager",
-      name: "reportingHrManager",
-      value: "",
-      type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1148,7 +1157,7 @@ const EmpDetails = (props) => {
       name: "L1Commercial",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1158,7 +1167,7 @@ const EmpDetails = (props) => {
       name: "L1Sales",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1168,7 +1177,7 @@ const EmpDetails = (props) => {
       name: "L2Sales",
       value: "",
       type: "select",
-      option: employeeList,
+      option: allEmployeeList,
       required: false,
       props: {},
       classes: "col-span-1",
@@ -1203,7 +1212,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Supporting Document",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Photo",
@@ -1268,7 +1277,7 @@ const EmpDetails = (props) => {
           data,
           () => {
             alert("Data submitted successfully!");
-            navigate("/empDetailsTable");
+            navigate("/hr/empDetailsTable");
           },
           empuid
         )
@@ -1277,7 +1286,7 @@ const EmpDetails = (props) => {
       dispatch(
         HrActions.postManageEmpDetails(false, data, () => {
           alert("Data submitted successfully!");
-          navigate("/empDetailsTable");
+          navigate("/hr/empDetailsTable");
         })
       );
     }
@@ -1302,7 +1311,11 @@ const EmpDetails = (props) => {
     dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageDesignation());
     dispatch(AdminActions.getManageProfile());
+    dispatch(AdminActions.getManageProfile());
     dispatch(AdminActions.getState());
+    dispatch(AdminActions.getCities());
+    dispatch(HrActions.getHRAllEmployee());
+    dispatch(HrActions.getHRManagerInEmployee());
     if (empuid) {
       dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
       dispatch(HrActions.getManageEmpDetails(false, empuid));
@@ -1334,22 +1347,22 @@ const EmpDetails = (props) => {
       <div className=" w-full h-full">
         <button
           onClick={() => {
-            navigate("/empDetailsTable");
+            navigate("/hr/empDetailsTable");
             setOneLoad(false);
           }}
-          className="mt-2 w-auto flex ml-auto mr-2 rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-white hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+          className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-[#13b497]  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
         >
           Back
         </button>
         <div className="">
           {/* <UiTopBar /> */}
-          <div className="w-full mt-2 bg-white">
-            <div class="grid grid-cols-12 gap-2 m-2 bg-white border-2 rounded-lg">
+          <div className="w-full mt-2 bg-[#3e454d]">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
                     }
                     errors={errors}
                     Form={PersonalInformation}
@@ -1360,7 +1373,7 @@ const EmpDetails = (props) => {
 
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={ContactInformation}
@@ -1372,7 +1385,7 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} /> */}
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-2 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-2 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={
@@ -1386,7 +1399,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -1396,7 +1409,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmployeeProfile}
@@ -1406,7 +1419,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={SupportingDoc}
@@ -1487,13 +1500,13 @@ const EmpDetails = (props) => {
                     onClick={() => {
                       navigate("/hr/empDetailsTable");
                     }}
-                    className="mt-6 w-auto justify-center rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-black hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-6 w-auto justify-center rounded-md px-10 py-1  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-6 w-auto justify-center rounded-md bg-[#143b64] hover:bg-violet-50 hover:text-black hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-6 w-auto justify-center rounded-md bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>

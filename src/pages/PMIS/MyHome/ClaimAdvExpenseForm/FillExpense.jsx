@@ -144,7 +144,7 @@ const FillExpense = () => {
     if(!modalFullOpen){
       setHide(false)
     }
-  } , [modalFullOpen])
+  } , [modalFullOpen, ],)
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getFillExpense || [""];

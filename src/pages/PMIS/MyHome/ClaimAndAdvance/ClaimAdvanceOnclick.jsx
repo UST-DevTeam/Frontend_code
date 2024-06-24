@@ -234,7 +234,7 @@ const ClaimAdvanceOnclick = () => {
             true,
             `Number=${name}`,
             (data) => setClaimByNumber(data)))
-  }, [id , dispatch]);
+  }, [id , dispatch, ]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";

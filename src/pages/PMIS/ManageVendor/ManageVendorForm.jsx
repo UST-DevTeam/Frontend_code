@@ -829,7 +829,7 @@ const ManageVendorForm = (props) => {
         </button>
         <div className="">
           {/* <UiTopBar /> */}
-          <div className="w-full mt-2 bg-white">
+          <div className="w-full mt-2 bg-[#3e454d]">
             <div class="grid grid-cols-12 gap-2 m-2 bg-white border-2 rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
