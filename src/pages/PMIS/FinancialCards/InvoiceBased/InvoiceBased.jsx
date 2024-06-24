@@ -25,6 +25,8 @@ const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [invoiceRow, setInvoiceRow] = useState([]);
+    const [selectAll, setSelectAll] = useState([]);
     const [fileOpen, setFileOpen] = useState(false);
     const [strValFil, setstrVal] = useState(false);
     const endDate = moment().format("Y");
@@ -34,12 +36,40 @@ const InvoiceBased = () => {
     //     let interdata = state?.operationManagement?.USERS_LIST
     //     return interdata
     // })
+    let dbConfigL = useSelector((state) => {
+        let interdata = state?.financeData?.getPOInvoicedBased;
+        return interdata;
+      });
 
     let dbConfigList = useSelector((state) => {
         let interdata = state?.financeData?.getPOInvoicedBased || []
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+                checkboxInvoice: (
+                    <input
+                        type="checkbox"
+                        id={itm.uniqueId}
+                        checked={invoiceRow.includes(itm.uniqueId)}
+                        value={itm.uniqueId}
+                        onChange={(e) => {
+                        if (e.target.checked) {
+                            setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
+                            setInvoiceRow((prev) => [...prev, e.target.value]);
+                            
+                        } else {
+                            if (selectAll.includes(e.target.id)) {
+                            setSelectAll((prev) =>
+                                prev.filter((id) => id !== e.target.id)
+                            );
+                            }
+                            setInvoiceRow((prev) =>
+                            prev.filter((id) => id !== e.target.value)
+                            );
+                        }
+                        }}
+                    />
+                    ),
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
@@ -60,7 +90,7 @@ const InvoiceBased = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-green-500' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.finance_poinvoice_based}/${itm.uniqueId}`, () => {
+                                dispatch(CommonActions.deleteApiCallerBulk(`${Urls.finance_poinvoice_based}`,{ids : [itm.uniqueId]}, () => {
                                     dispatch(FinanceActions.getPOInvoicedBased())
                                     dispatch(ALERTS({ show: false }))
                                 }))
@@ -128,6 +158,57 @@ const InvoiceBased = () => {
     let table = {
         columns: [
             {
+                name: (
+                  <input
+                    type="checkbox"
+                    // checked={selectAll}
+                    className='check-state'
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setInvoiceRow(dbConfigL.map((itm) => itm.uniqueId));
+                        setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
+                        try {
+                          let eleRefs = document.getElementsByClassName('check-state');
+                          if (eleRefs) {
+                            eleRefs = Array.from(eleRefs);
+                            if (Array.isArray(eleRefs)) {
+                              eleRefs.forEach(ele => {
+                                if (ele) {
+                                  ele.setAttribute('checked', true);
+                                }
+                              });
+                            }
+                          }
+                        } catch (error) {
+                          // Handle error if needed
+                        }
+                      } else {
+                        setInvoiceRow([]);
+                        setSelectAll([]);
+                        try {
+                          let eleRefs = document.getElementsByClassName('check-state');
+                          if (eleRefs) {
+                            eleRefs = Array.from(eleRefs);
+                            if (Array.isArray(eleRefs)) {
+                              eleRefs.forEach(ele => {
+                                if (ele) {
+                                  ele.removeAttribute('checked');
+                                }
+                              });
+                            }
+                          }
+                        } catch (error) {
+                          // Handle error if needed
+                        }
+                      }
+                    }}
+                  />
+                )
+                ,
+                value: "checkboxInvoice",
+                style: "min-w-[40px] max-w-[60px] text-center",
+              },
+              {
                 name: "Customer",
                 value: "customerName",
                 style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]  -top-1 z-20"
@@ -352,10 +433,49 @@ const InvoiceBased = () => {
         );
       };
 
+      const handleBulkDelte = () => {
+   
+        dispatch(
+          CommonActions.deleteApiCallerBulk(
+            `${Urls.finance_poinvoice_based}`,
+            {
+              ids: selectAll
+            },
+            () => {
+              dispatch(FinanceActions.getPOInvoicedBased());
+            //   dispatch(ALERTS({ show: false }));
+              setmodalOpen(false)
+            }
+          )
+        );   
+      };
+
 
     return <>
         <AdvancedTable
-            headerButton={<><Button classes="w-auto mr-1" onClick={(e) => {
+            headerButton={
+            <>
+            {(Array.isArray(selectAll) && selectAll?.length > 0 ) && (
+                <Button
+                  classes="w-auto mr-1"
+                  onClick={(e) => {
+                    setmodalOpen((prev) => !prev);
+                    setmodalHead("Confirm Delete");
+                    setmodalBody(
+                      <div className="flex justify-center py-6">
+                        <button 
+                          onClick={handleBulkDelte}
+                          className="w-1/4 rounded-full bg-green-600 "
+                        >
+                        OK
+                        </button>
+                      </div>
+                    );
+                  }}
+                  name={"Delete"}
+                ></Button>
+            )}
+            <Button classes="w-auto mr-1" onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 setmodalHead("New PO Invoice Based")
                 setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)

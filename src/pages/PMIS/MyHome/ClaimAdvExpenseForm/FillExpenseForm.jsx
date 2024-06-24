@@ -372,7 +372,7 @@ const FillExpenseForm = ({
       
       // setCategory(claimTypeList.length > 0 && claimTypeList[0].categories ? claimTypeList.find((item) => item.value === formValue["types"])?.categories || [] : []);
 
-      if (claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"][0]['label']!="") {
+      if (claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["categories"][0]['label']!="") {
         setKm(true);
       } else {
         setKm(false);
@@ -394,7 +394,7 @@ const FillExpenseForm = ({
         }
       });
 
-      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["value"])
+      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"])
 
       // claimTypeList.map((itm)=>{
       //   setValue(itm.claimType,itm.value);
