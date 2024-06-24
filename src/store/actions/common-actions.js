@@ -111,11 +111,21 @@ const CommonActions = {
     },
     deleteApiCallerBulk: (urls,data,cb) => async (dispatch, _) => {
         try {
-            console.log("CommonPostActions______",urls, data,cb)
             const res = await Api.delete({ url: urls  , data })
-            if (res?.status !== 201 && res?.status !== 200) return
-
-            cb()
+            // if (res?.status !== 201 && res?.status !== 200) return
+            if (res?.status !== 201 && res?.status !== 200){
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            }else{
+                cb()
+            }
         } catch (error) {
             console.log(error, "amit errorerror 37")
 

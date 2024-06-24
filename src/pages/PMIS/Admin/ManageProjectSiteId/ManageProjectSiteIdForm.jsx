@@ -22,8 +22,10 @@ const ManageProjectSiteIdForm = ({
   setIsOpen,
   resetting,
   formValue = {},
-  projectuniqueId
+  projectuniqueId,
 }) => {
+
+
 
   // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -118,14 +120,14 @@ const ManageProjectSiteIdForm = ({
   console.log(dataGetterOld, "dataGetterOlddataGetterOlddataGetterOld")
   let Form = [
 
-    // {
-    //   label: "Project Type",
-    //   name: "ptype",
-    //   type: "sdisabled",
-    //   value: "",
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
+    {
+      label: "Project Type",
+      name: "ptype",
+      type: "sdisabled",
+      value: "",
+      required: true,
+      classes: "col-span-1",
+    },
     {
       label: "SubProject Type",
       name: "roleName",
@@ -135,7 +137,7 @@ const ManageProjectSiteIdForm = ({
       props: {
         onChange: (e) => {
           dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
-          console.log(e.target.value, "e.target.value")
+          // alert(e.target.value, "e.target.value")
         }
       },
       required: true,
@@ -151,7 +153,7 @@ const ManageProjectSiteIdForm = ({
         setmodalFullOpen(prev => !prev)
 
 
-        setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
+        setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
 
 
         setmodalBody(<CommonForm
@@ -240,7 +242,6 @@ const ManageProjectSiteIdForm = ({
     //   );
     // }
   };
-  console.log(Form, "Form 11");
   useEffect(() => {
 
   }, [isOpen]);

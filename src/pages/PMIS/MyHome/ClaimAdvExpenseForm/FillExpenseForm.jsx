@@ -133,6 +133,10 @@ const FillExpenseForm = ({
             name: "startKm",
             type: "number",
             classes: "col-span-1",
+            props:{
+              valueAsNumber:true,
+              min: 0,
+            }
           },
           {
             label: "End Km",
@@ -140,6 +144,10 @@ const FillExpenseForm = ({
             name: "endKm",
             type: "number",
             classes: "col-span-1",
+            props:{
+              valueAsNumber:true,
+              min: 0,
+            }
           },
           {
             label: "Total Km",

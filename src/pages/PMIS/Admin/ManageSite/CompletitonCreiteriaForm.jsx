@@ -31,7 +31,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     let mileStoneprops = {
         "Completion Date": {
             maxSelectableDate:new Date(),
-            minSelectableDate:datestr
+            minSelectableDate:datestr,
         },
         "Checklist": {
             
@@ -55,7 +55,6 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         "Number":"number",
         "File":"file",
         "Text":"text",
-        
     }
 
     let mileStoneCompletion = useSelector((state) => {
@@ -92,7 +91,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
 
 
     const onsubmiting = (data) => {
-        console.log(data, "onsubmitingonsubmitingonsubmitingssS")
+        // console.log(data, "onsubmitingonsubmitingonsubmitingssS")
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
@@ -123,7 +122,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         formState: { errors },
     } = useForm();
 
-    console.log(mileStone["Completion Criteria"], "mileStonemileStonemileStonex")
+    // console.log(mileStone["Completion Criteria"], "mileStonemileStonemileStonex")
 
     return <>
         <CommonForm

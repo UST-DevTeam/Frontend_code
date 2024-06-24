@@ -222,7 +222,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "unitRate(INR)",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "number",
-      type: "number",
+      // type: "number",
       required: true,
       props: {
         onChange: (e) => {
