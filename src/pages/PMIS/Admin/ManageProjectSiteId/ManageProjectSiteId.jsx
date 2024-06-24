@@ -64,6 +64,12 @@ const ManageProjectSiteId = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
 
+
+  console.log(parentsite,"++++")
+  console.log(getmultiSelect,"+++")
+
+
+
   const [modalHead, setmodalHead] = useState(<></>);
 
   const [old, setOld] = useState(<></>);
@@ -198,6 +204,7 @@ const ManageProjectSiteId = () => {
           <>
             <input
               type={"checkbox"}
+              id={itm.uniqueId}
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
@@ -1115,7 +1122,7 @@ const ManageProjectSiteId = () => {
     delete data.reseter;
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    console.log("called______")
+    // console.log("called______")
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
   };
   useEffect(() => {
@@ -1124,6 +1131,22 @@ const ManageProjectSiteId = () => {
     dispatch(projectListActions.getMappedData(projectuniqueId));
     dispatch(FilterActions.getSiteSubProject(projectuniqueId));
   }, []);
+  const handleBulkDelte = () => {
+   
+    dispatch(
+      CommonActions.deleteApiCallerBulk(
+        `${Urls.projectList_siteEngineer}`,
+        {
+          ids: parentsite
+        },
+        () => {
+          dispatch(FinanceActions.getProjectTypeAll(projectuniqueId));
+          dispatch(ALERTS({ show: false }));
+          setmodalOpen(false)
+        }
+      )
+    );   
+  };
   return (
     <>
       <AdvancedTableExpandable
@@ -1232,8 +1255,29 @@ const ManageProjectSiteId = () => {
             /> */}
           </>
         }
+        
         headerButton={
           <div className="flex gap-1">
+          {(Array.isArray(parentsite) && parentsite?.length > 0 ) && (
+                <Button
+                  classes="w-auto"
+                  onClick={(e) => {
+                    setmodalOpen((prev) => !prev);
+                    setmodalHead("Confirm Delete");
+                    setmodalBody(
+                      <div className="flex justify-center py-6">
+                        <button 
+                          onClick={handleBulkDelte}
+                          className="w-1/4 rounded-full bg-green-600"
+                        >
+                        OK
+                        </button>
+                      </div>
+                    );
+                  }}
+                  name={"Delete"}
+                ></Button>
+            )}
             <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="w-auto "
@@ -1331,10 +1375,6 @@ const ManageProjectSiteId = () => {
               }}
               name={"Site Allocate"}
             ></ConditionalButton>
-            {/* <Button name={"Upload File"} classes='w-auto ' onClick={(e) => {
-                setFileOpen(prev=>!prev)
-            }}></Button> */}
-
             <PopupMenu
               name={"Export"}
               icon={"Export"}

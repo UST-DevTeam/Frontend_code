@@ -32,6 +32,10 @@ const InvoiceBased = () => {
     const endDate = moment().format("Y");
     let dispatch = useDispatch()
 
+
+
+
+
     // let roleList = useSelector((state) => {
     //     let interdata = state?.operationManagement?.USERS_LIST
     //     return interdata
@@ -443,8 +447,9 @@ const InvoiceBased = () => {
             },
             () => {
               dispatch(FinanceActions.getPOInvoicedBased());
-            //   dispatch(ALERTS({ show: false }));
               setmodalOpen(false)
+              setInvoiceRow([]);
+              setSelectAll([]);
             }
           )
         );   
@@ -463,11 +468,8 @@ const InvoiceBased = () => {
                     setmodalHead("Confirm Delete");
                     setmodalBody(
                       <div className="flex justify-center py-6">
-                        <button 
-                          onClick={handleBulkDelte}
-                          className="w-1/4 rounded-full bg-green-600 "
-                        >
-                        OK
+                        <button onClick={handleBulkDelte} className="w-1/4 rounded-full bg-green-600 ">
+                            OK
                         </button>
                       </div>
                     );
@@ -511,7 +513,7 @@ const InvoiceBased = () => {
         tempbtnlink = {["/template/PoInvoice.xlsx","PoInvoice.xlsx"]}
       />
 
-        <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
     </>

@@ -122,6 +122,7 @@ const CommonActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
+                cb()
             }else{
                 cb()
             }
