@@ -189,7 +189,7 @@ const FillExpenseForm = ({
           );
         },
       },
-      required: true,
+      // required: true,
       classes: "col-span-1",
     },
     {
@@ -352,9 +352,7 @@ const FillExpenseForm = ({
   useEffect(() => {
     dispatch(AdminActions.getManageExpenseAdvance());
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
-
-    console.log(dataItm,"dataItmdataItmdataItm")
-    
+  
     console.log(resetting, formValue["categories"], "resettingresetting");
     if (resetting) {
       reset({});
@@ -369,8 +367,6 @@ const FillExpenseForm = ({
       setCategory(
         claimTypeList.filter((itm) => itm.label == formValue["types"])[0]?.categories || []
       );
-      
-      // setCategory(claimTypeList.length > 0 && claimTypeList[0].categories ? claimTypeList.find((item) => item.value === formValue["types"])?.categories || [] : []);
 
       if (claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["categories"][0]['label']!="") {
         setKm(true);
@@ -381,9 +377,7 @@ const FillExpenseForm = ({
       
       console.log(Object.keys(formValue),claimTypeList.filter((itm)=>itm.label==formValue["types"])[0],formValue,formValue["categories"], "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
-        // alert(key)
-
-        console.log(key,"key.name")
+        console.log(key,"key. name")
 
         if (["expenseDate"].indexOf(key) != -1) {
           const momentObj = moment(formValue[key],"DD-MM-yyyy");
@@ -394,7 +388,7 @@ const FillExpenseForm = ({
         }
       });
 
-      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"])
+      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"]) ||[]
 
       // claimTypeList.map((itm)=>{
       //   setValue(itm.claimType,itm.value);
@@ -403,11 +397,12 @@ const FillExpenseForm = ({
 
     if(dataItm){
       
-      const momentObj = moment(dataItm["expenseDate"],"yyyy-MM-DD");
+      const momentObj = moment(dataItm["expenseDate"],"YYYY-MM-DD");
       console.log(momentObj.toDate(),"momentObjmomentObj")
       setValue("ExpenseDate", momentObj.toDate());
-      setValue("EeDate", momentObj.format("DD/MM/yyyy"));
+      setValue("EeDate", momentObj.format("YYYY-MM-DD"));
     }
+    
   }, [formValue, resetting]);
   return (
     <>

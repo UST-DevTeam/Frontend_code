@@ -35,6 +35,7 @@ const L2AdvanceForm = () => {
     const [modalHead, setmodalHead] = useState(<></>)
     const [advanceRow, setAdvanceRow] = useState([]);
     const [selectAll, setSelectAll] = useState([]);
+    // const [isSelectAllChecked, setIsSelectAllChecked] = useState(false);
 
     const navigate = useNavigate()
 
@@ -148,9 +149,10 @@ const L2AdvanceForm = () => {
             name: (
               <input
                 type="checkbox"
-                // checked={selectAll}
+                // checked={isSelectAllChecked}
                 className='check-state'
                 onChange={(e) => {
+                  // setIsSelectAllChecked(e.target.checked);
                   if (e.target.checked) {
                     setAdvanceRow(dbConfigL.map((itm) => itm.uniqueId));
                     setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
@@ -321,11 +323,12 @@ const L2AdvanceForm = () => {
       }
     
       selectRows.forEach((key) => {
+        const originalItem = dbConfigList.find((item) => item.uniqueId === key);
         amountRemark.push({
           _id: key,
-          ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
+          ApprovedAmount: key in amount.amount ? +amount.amount[key] : originalItem?.ApprovedAmount || 0,
           Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-          remark: key in amount.remark ? amount.remark[key] : "",
+          remark: key in amount.remark ? amount.remark[key] : originalItem?.remark,
           addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
           AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo,
         });

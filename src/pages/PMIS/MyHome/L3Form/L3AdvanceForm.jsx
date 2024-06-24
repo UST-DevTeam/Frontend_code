@@ -321,11 +321,12 @@ const L3AdvanceForm = () => {
       }
     
       selectRows.forEach((key) => {
+        const originalItem = dbConfigList.find((item) => item.uniqueId === key);
         amountRemark.push({
           _id: key,
-          ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
+          ApprovedAmount: key in amount.amount ? +amount.amount[key] : originalItem?.ApprovedAmount || 0,
           Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-          remark: key in amount.remark ? amount.remark[key] : "",
+          remark: key in amount.remark ? amount.remark[key] : originalItem?.remark,
           addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
           AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo,
         });
@@ -413,7 +414,7 @@ const L3AdvanceForm = () => {
                 amount: (
                   <input
                     type="number"
-                    defaultValue={`${item?.amount}`}
+                    defaultValue={`${item?.ApprovedAmount}`}
                     className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Amount"
                     onChange={(e) => {
