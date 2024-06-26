@@ -67,7 +67,7 @@ const AdvancedTableRow = ({
 
   const onSubmit = (formdata) => {
     // alert(value)
-    console.log("onSubfasfasfasdfasfmit", formdata);
+    // console.log("onSubfasfasfasdfasfmit", formdata);
     formdata["reseter"] = true;
 
     filterAfter(formdata);

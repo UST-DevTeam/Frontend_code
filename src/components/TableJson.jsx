@@ -231,7 +231,6 @@ const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
                                     </td>
                                 })}
                             </tr>
-
                         })
                     }
                 </tbody>

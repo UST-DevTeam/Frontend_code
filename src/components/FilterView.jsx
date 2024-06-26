@@ -31,7 +31,7 @@ const FilterView = ({
             <>
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => {
-                  console.log("asfasewtitemfafasdfasfd",itm);
+
                   return (
                     <>
                       <div className="flex flex-col ">

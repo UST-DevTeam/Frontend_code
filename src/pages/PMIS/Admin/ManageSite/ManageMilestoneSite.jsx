@@ -101,16 +101,16 @@ const ManageMilestoneSite = ({
 
   let dataOfOldProject = useSelector((state) => {
     let datew = state.adminData.getOneProjectTypeDyform;
-
-    console.log(type, datew, "datewdatewdatew");
-
+    
     if (type && datew && datew.length > 0) {
       settype(false);
 
       let dtresult = datew[0]["result"];
 
-      setinvoiceData(datew[0]["invoice"] ? datew[0]["invoice"] : []);
-      console.log(setinvoiceData, "setinvoiceData");
+      // setinvoiceData(datew[0]["invoice"] ? datew[0]["invoice"] : []);
+      // console.log(setinvoiceData, "setinvoiceData");
+
+      // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
 
       dtresult["t_sengg"] &&
         dtresult["t_sengg"].map((iytm) => {
@@ -122,6 +122,17 @@ const ManageMilestoneSite = ({
             "iytmiytmiytmiytm"
           );
         });
+      // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
+
+      //   dtresult1.map((iytm) => {
+      //     setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+
+      //     console.log(
+      //       iytm["fieldName"],
+      //       datew[0][iytm["fieldName"]],
+      //       "iytmiytmiytmiytm"
+      //     );
+      //   });
       dtresult["t_tracking"] &&
         dtresult["t_tracking"].map((iytm) => {
           setValueForm2(iytm["fieldName"], datew[0][iytm["fieldName"]]);

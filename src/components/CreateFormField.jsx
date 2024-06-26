@@ -232,8 +232,8 @@ import Multiselect from "multiselect-react-dropdown";
 
 
 const CreateFormField = ({
-  Form=[],
-  listing=[],
+  Form = [],
+  listing = [],
   itm,
   index,
   handleSubmit,
@@ -333,7 +333,7 @@ const CreateFormField = ({
             {itm.type == "muitiSelect" ? (
 
               <div className="w-full" style={{ position: 'relative' }}>
-             
+
                 <div style={{ width: "220px", height: "200px" }}>
                   <Multiselect
                     menuIsOpen={true}
@@ -343,7 +343,7 @@ const CreateFormField = ({
                     showCheckbox
                     closeOnChangedValue={false}
                     singleSelect={itm.singleSelect ? itm.singleSelect : false}
-                    selectedValues={itm.oldValue ? itm.option.filter((iwq) => { if (itm.oldValue.split(",").indexOf(iwq.id)!=-1) {return iwq}}) : []} // Preselected value to persist in dropdown
+                    selectedValues={itm.oldValue ? itm.option.filter((iwq) => { if (itm.oldValue.split(",").indexOf(iwq.id) != -1) { return iwq } }) : []} // Preselected value to persist in dropdown
                     onSelect={itm.onSelect} // Function will trigger on select event
                     onRemove={itm.onRemove} // Function will trigger on remove event
                     {...itm.props}
@@ -354,16 +354,16 @@ const CreateFormField = ({
                         'border-radius': '0px',
                         padding: "0px",
                         color: "black !important",
-                        height: "32px"            
+                        height: "32px"
                       },
                       multiselectContainer: {
                         maxHeight: '200px',
                         position: 'absolute',
                         zIndex: '9999',
                         top: 'calc(100% + 8px)',
-                        left: '0', 
+                        left: '0',
 
-                       },
+                      },
                     }}
                     className='pt-1 text-black bg-white border-black border block h-12 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm '
                   /></div></div>) : (
@@ -445,64 +445,58 @@ const CreateFormField = ({
                   }
 
                   {
-                    
+
                   }
                   {
-                    itm.value == "Auto Created" ? 
-                    <div className="relative">
-                    <Multiselect
-                      menuIsOpen={true}
-                      keepSearchTerm={true}
-                      groupBy="category"
-                      // options={listing.length > 0 ? listing
-                      //   .filter(iyyy => iyyy["fieldName"] !== "")
-                      //   .map((iyyy, index) => ({
-                      //       id: iyyy["fieldName"],
-                      //       name: iyyy["fieldName"]
-                      //   })) : []}
-
-                      options={itm.inneroption}
-                      showCheckbox
-                      singleSelect={false}
-                    //   selectedValues={itm.option.length>0?itm.option.filter((itm)=>{
-                    //     console.log(itm,"itmitmitmitmitm")
-              
-
-                    //     let letdata=getValues()[itm.name+"ai"]?getValues()[itm.name+"ai"]:""
-                    //     if(letdata.split(",").indexOf(itm.id)!=-1){
-                    //         return itm
-                    //     }
-                    // }):[]} // Preselected value to persist in dropdown
-                    //   onSelect={(e) => {
-                    //     let finalselection = e.map((itm) => {
-                    //       return itm.id;
-                    //     });
-                    //     setValue(itm.name+"ai", finalselection.join());
-                    //     console.log(e, "onselection");
-                    //   }} // Function will trigger on select event
-                    //   onRemove={(e) => {
-                    //     let finalselection = e.map((itm) => {
-                    //       return itm.id;
-                    //     });
-                    //     setValue(itm.name+"ai", finalselection.join());
-                    //     console.log(e, "onRemove");
-                    //   }} // Function will trigger on remove event
-
-                    
-                      selectedValues={itm.innervalue ? itm.inneroption.filter((iwq) => { if (itm.innervalue.split(",").indexOf(iwq.id)!=-1) {return iwq}}) : []} // Preselected value to persist in dropdown
-                      onSelect={itm.inneronSelect} // Function will trigger on select event
-                      onRemove={itm.inneronRemove} 
-                      displayValue={"name"}
-                      style={{
-                        searchBox: {
-                          border: "none",
-                          "border-radius": "0px",
-                          padding: "0px",
-                          color: "black !important",
-                        },
-                      }}
-                      className="pt-1 text-black bg-white border-black border block w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    /></div>: <></>
+                    itm.value == "Auto Created" ?
+                      <div className="relative">
+                        <Multiselect
+                          menuIsOpen={true}
+                          keepSearchTerm={true}
+                          groupBy="category"
+                          options={[{ "id": "Circle", "name": "Circle" },{ "id": "BAND", "name": "BAND" }, ...itm.inneroption]}
+                          showCheckbox
+                          singleSelect={false}
+                          selectedValues={itm.innervalue ? [{ "id": "Circle", "name": "Circle" },{ "id": "BAND", "name": "BAND" }, ...itm.inneroption].filter((iwq) => { if (itm.innervalue.split(",").indexOf(iwq.id) != -1) { return iwq } }) : []} // Preselected value to persist in dropdown
+                          onSelect={itm.inneronSelect}
+                          onRemove={itm.inneronRemove}
+                          displayValue={"name"}
+                          style={{
+                            searchBox: {
+                              border: "none",
+                              "border-radius": "0px",
+                              padding: "0px",
+                              color: "black !important",
+                            },
+                          }}
+                          className="pt-1 text-black bg-white border-black border block w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                        </div> : <></>
+                  }
+                  {
+                    itm.value == "mselect" ?
+                      <div className="relative">
+                        <Multiselect
+                          menuIsOpen={true}
+                          keepSearchTerm={true}
+                          groupBy="category"
+                          options={itm.inneroption}
+                          showCheckbox
+                          singleSelect={false}
+                          selectedValues={itm.innervalue ? itm.inneroption.filter((iwq) => { if (itm.innervalue.split(",").indexOf(iwq.id) != -1) { return iwq } }) : []} // Preselected value to persist in dropdown
+                          onSelect={itm.inneronSelect} 
+                          onRemove={itm.inneronRemove}
+                          displayValue={"name"}
+                          style={{
+                            searchBox: {
+                              border: "none",
+                              "border-radius": "0px",
+                              padding: "0px",
+                              color: "black !important",
+                            },
+                          }}
+                          className="pt-1 text-black bg-white border-black border block w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        /></div> : <></>
                   }
 
 
@@ -574,7 +568,7 @@ const CreateFormField = ({
             ) : (
               <></>
             )} */}
-            {console.log(errors, "errorsendDateendDate")}
+            {/* {console.log(errors, "errorsendDateendDate")} */}
           </div>
         </div>
       ) : (

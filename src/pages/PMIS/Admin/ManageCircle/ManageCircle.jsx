@@ -110,7 +110,7 @@ const ManageCircle = () => {
     })
 
 
-    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
+    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors }} = useForm()
 
     let table = {
         columns: [
@@ -127,6 +127,11 @@ const ManageCircle = () => {
             {
                 name: "Circle ID",
                 value: "circleCode",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },          
+            {
+                name: "Band",
+                value: "band",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },          
             {

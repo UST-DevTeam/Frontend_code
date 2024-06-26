@@ -87,7 +87,6 @@ const ManageProjectType = () => {
 
 
   let conditionmultiForm = [
-    // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
     {
       label: "Field Name",
       name: "fieldName",
@@ -184,7 +183,6 @@ const ManageProjectType = () => {
   ];
 
   let milestonemultiForm = [
-    // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
     {
       label: "Milestone",
       name: "fieldName",
@@ -227,16 +225,6 @@ const ManageProjectType = () => {
       name: "Completion Criteria",
       type: "muitiSelect",
       option: completionCriteriaList,
-
-      // option:[
-      //     {
-      //         label: "Active",
-      //         value: "Active"
-      //     }, {
-      //         label: "Inactive",
-      //         value: "Inactive"
-      //     }
-      // ],
       props: "",
       required: false,
       value: "Select",
@@ -761,30 +749,12 @@ const ManageProjectType = () => {
     });
   });
   let dbConfigListCard = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.adminData?.getCardProjectType;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
 
         imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
         template: (
           <CstmButton
@@ -799,15 +769,7 @@ const ManageProjectType = () => {
                   setmodalOpen(true);
                   setmodalSize("full");
                   dispatch(AdminActions.getManageCustomer());
-                  // console.log(itm["t_sengg"], "setUniqueness")
                   setmodalHead("Templates");
-
-                  // [""].map((itesw)=>{
-
-                  //     console.log(itesw,"itm[itesw]itm[itesw]")
-
-                  //     // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: itm[itesw]?itm[itesw]:[], reseter: true }))
-                  // })
                   dispatch(
                     SET_DYNAMIC_FORM({
                       label: "Site Engg",
@@ -836,7 +798,6 @@ const ManageProjectType = () => {
                       reseter: true,
                     })
                   );
-
                   console.log(itm, "setmodalHeadsetmodalHead");
                   setmodalBody(
                     <>

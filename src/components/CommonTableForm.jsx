@@ -65,7 +65,6 @@ const CommonTableForm = ({
     childView: false,
   };
 
-  console.log(tabHead, setmodalOpen, "tabHeadtabHead");
 
   let listing = useSelector((state) => {
     console.log(
@@ -91,22 +90,7 @@ const CommonTableForm = ({
   // const [listing, setlisting] = useState([]);
 
   console.log(Form, newars, "FormFormForm");
-  // let Form = [
-  //     { label: "Name", value: "", type: "text" },
-  //     { label: "Email", value: "", type: "email" },
-  //     { label: "Password", value: "", type: "password" },
-  //     { label: "DB Server", value: "", option: ["Abc","bca"], type: "select" }
-  // ]
-  // let Form = [
-  //     { label: "Name", value: "", type: "text" },
-  //     { label: "Email", value: "", type: "email" },
-  //     { label: "Password", value: "", type: "password" },
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", option: ["Please Select Your DB Server"], type: "textarea" }
-  // ]
 
-  console.log("Forms....... " + Form);
-  console.log(listing, "listinglisting");
 
   // let listing = ["a", "b", "c", "b", "c", "b", "c"]
 
@@ -209,7 +193,7 @@ console.log(newdte, "listinglistinglisting")
                   console.log(listing, "dasdasdas");
 
                   let newdte = listing.map((item, index) => {
-                    console.log(item, index, "dasdasdas");
+                    console.log(item, index, "dasdasdas"); 
                     return { ...item, index: index + 1 };
                   });
                   console.log("dasdasdas", newdte);
@@ -583,11 +567,6 @@ console.log(newdte, "listinglistinglisting")
                           const indexToUpdate = listing.findIndex(
                             (ite) => ite.index === itm.index
                           );
-                          console.log(finalselection, e, "onselection");
-                          console.log(
-                            indexToUpdate,
-                            "indexToUpdateindexToUpdateindexToUpdate"
-                          );
                           dispatch(
                             SET_DYNAMIC_FORM_INDEX({
                               label: tabHead,
@@ -598,8 +577,6 @@ console.log(newdte, "listinglistinglisting")
                               reseter: false,
                             })
                           );
-
-                          // setedit(prev => !prev)
                         },
                         onRemove: (e) => {
                           let finalselection = e.map((itm) => {
@@ -696,14 +673,10 @@ console.log(newdte, "listinglistinglisting")
                 return its.label;
               })}
               columns={listing.map((itm, indexes) => {
-                // Inside the map() function for 'listing', create a new object
                 let newObj = {};
 
                 console.log(itm, "itmitmitm");
-                // Inside the new object, iterate over the 'Form' array
                 Form.forEach((its, innerIndex) => {
-                  // Populate the new object with key-value pairs from 'Form'
-                  // ${itm["dropdownValue"]?" ( "+itm["dropdownValue"]+" ) ":""}
                   console.log(its, itm, "its,itmits,itmits,itmits,itm");
                   newObj[its.label] = `${itm[its.name]} ${
                     (itm["dataType"] == "Auto Created" ||
@@ -720,6 +693,7 @@ console.log(newdte, "listinglistinglisting")
           </>
         )}
       </div>
+      
 
       <FileUploader
         isOpen={selectFile}

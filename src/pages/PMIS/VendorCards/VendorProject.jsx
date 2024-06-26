@@ -150,7 +150,7 @@ const vendorProject = () => {
 
                 milestoneArray: itm.milestoneArray.map((iewq) => {
 
-                    console.log(iewq, "iewqiewqiewqiewq")
+                    // console.log(iewq, "iewqiewqiewqiewq")
                     return {
                         ...iewq,
                         SubProject: "",

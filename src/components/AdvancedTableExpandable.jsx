@@ -15,6 +15,8 @@ import AdvancedTableExpandableOneRow from "./AdvancedTableExpandableOneRow";
 import SearchView from "./SearchView";
 
 const AdvancedTableExpandable = ({
+  parentsite=[],
+  childsite=[],
   tableName = "",
   headerButton,
   filterAfter = () => { },
@@ -118,7 +120,7 @@ const AdvancedTableExpandable = ({
   useEffect(()=>{
     console.log("after_paginate", data)
     setFinalData(data)
-  },[data])
+  },[data?.length,childsite,parentsite])
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
   // console.log("fasodfjanflasdfnaifaewasdf",data.length);

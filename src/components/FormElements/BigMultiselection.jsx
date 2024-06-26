@@ -3,7 +3,7 @@ import React from "react";
 
 const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}) => {
   console.log("setValue====setValue", getValues());
-  console.log("asfaasfaswighjhjkdtitmhfasfewwe",itm);
+  // console.log("asfaasfaswighjhjkdtitmhfasfewwe",itm);
   let datew=[] 
   if (getValues()[itm.name]) {
     let oldData = getValues()[itm.name].split(",");

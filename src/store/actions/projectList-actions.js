@@ -3,7 +3,7 @@ import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE,SET_DYNAMIC_FORM,GET_MAPPED_DATA } from "../reducers/projectList-reducer"
+import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE,SET_DYNAMIC_FORM,GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA } from "../reducers/projectList-reducer"
 import CommonActions from "./common-actions"
 // import Notify from "./notify-actions"
 
@@ -68,6 +68,18 @@ const projectListActions = {
         } catch (error) {
             console.log(error, "amit errorerror 37")
 
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
+
+    getCircleWithPGData: (uniqueId,reset=true) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.admin_getCircleWithPG}/${uniqueId}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll,reset}))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },

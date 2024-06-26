@@ -266,7 +266,7 @@ const Multiselection = ({
   const handleSelect = (e) => {
     let finalselection = e.map((itm) => itm.id);
     setSelectedValues(e);
-    console.log("asasfasfasfafasfadsaf__onSelect",e);
+    // console.log("asasfasfasfafasfadsaf__onSelect",e);
     setValue(itm.name, finalselection.join());
   };
 

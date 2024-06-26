@@ -48,8 +48,10 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Customer Name",
             value: "",
-            name: "customer",
-            type: "select",
+            name: Object.entries(formValue).length > 0  ? "customerName" : "customer",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+            // name: "customer",
+            // type: "select",
             required: true,
             option: customerList,
             classes: "col-span-1"
@@ -70,9 +72,23 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Circle ID",
             value: "",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
             name: "circleCode",
-            type: "text",
             required: true,
+            props: {
+                onChange: ((e) => {
+                    // console.log(e.target.value, "e geeter")
+
+                }),
+            },
+            classes: "col-span-1"
+        },
+        {
+            label: "Band",
+            value: "",
+            name: "band",
+            type: "text",
+            // required: true,
             props: {
                 onChange: ((e) => {
                     // console.log(e.target.value, "e geeter")
@@ -115,7 +131,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        // dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

@@ -65,8 +65,7 @@ const ManageProjectSiteId = () => {
   const [getmultiSelect, setmultiSelect] = useState([]);
 
 
-  console.log(parentsite,"++++")
-  console.log(getmultiSelect,"+++")
+
 
 
 
@@ -104,6 +103,9 @@ const ManageProjectSiteId = () => {
       };
     });
   });
+
+  
+
   // const onTaskSubmit = (data) => {
   //     // if (siteStatus.uniqueId) {
 
@@ -259,7 +261,7 @@ const ManageProjectSiteId = () => {
         // </div>,
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
-          console.log(iewq, "iewqiewqiewqiewq");
+          // console.log(iewq, "iewqiewqiewqiewq");
           return {
             ...iewq,
             SubProject: "",
@@ -790,8 +792,8 @@ const ManageProjectSiteId = () => {
                                 classes="w-15 bg-green-500"
                                 onClick={() => {
                                   dispatch(
-                                    CommonActions.deleteApiCaller(
-                                      `${Urls.projectList_siteEngineer}/${itm.uniqueId}`,
+                                    CommonActions.deleteApiCallerBulk(
+                                      `${Urls.projectList_siteEngineer}`,{ids : [itm.uniqueId]},
                                       () => {
                                         dispatch(
                                           projectListActions.getProjectTypeAll(
@@ -832,11 +834,11 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-  console.log("safasfasfasfasfasdfasdfasdfabc", dbConfigList[0]?.uniqueId);
+  // console.log("safasfasfasfasfasdfasdfasdfabc", dbConfigList[0]?.uniqueId);
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
-      console.log("afdsdasfasfasfasfadfs", interdata[0]);
+      // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
         console.log(
           "asdfas0fjasofnafsdna",
@@ -1129,6 +1131,8 @@ const ManageProjectSiteId = () => {
     dispatch(projectListActions.getProjectType(projectuniqueId));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
     dispatch(projectListActions.getMappedData(projectuniqueId));
+    dispatch(projectListActions.getMappedData(projectuniqueId));
+    dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
     dispatch(FilterActions.getSiteSubProject(projectuniqueId));
   }, []);
   const handleBulkDelte = () => {
@@ -1140,9 +1144,10 @@ const ManageProjectSiteId = () => {
           ids: parentsite
         },
         () => {
-          dispatch(FinanceActions.getProjectTypeAll(projectuniqueId));
-          dispatch(ALERTS({ show: false }));
+          dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
           setmodalOpen(false)
+          setparentsite([])
+          setmultiSelect([])
         }
       )
     );   
@@ -1150,6 +1155,8 @@ const ManageProjectSiteId = () => {
   return (
     <>
       <AdvancedTableExpandable
+      parentsite={parentsite}
+      childsite={childsite}
         searchView={
           <>
             <SearchBarView

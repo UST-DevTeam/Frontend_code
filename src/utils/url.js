@@ -45,7 +45,8 @@ export const Urls={
     upload_bulk_site:"/uploadBulkSite",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
-    admin_getMappedData:"mappedData",
+    admin_getMappedData:"/mappedData",
+    admin_getCircleWithPG:"/circlewithPG",
     projectList_getproject_allocation:"/projectAllocationList/",
     projectList_financialData:"/financialData",
     projectList_issueData:"/issueData",

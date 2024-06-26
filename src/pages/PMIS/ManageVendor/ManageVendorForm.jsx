@@ -71,7 +71,7 @@ const ManageVendorForm = (props) => {
       // dispatch(HrActions.getManageEmpDetails(false, "dsadsa"));
 
       Object.entries(data[0]).map((iewq) => {
-        console.log(iewq, "iewqiewqiewqiewqiewqiewq");
+        // console.log(iewq, "iewqiewqiewqiewqiewqiewq");
         setValue(iewq[0], iewq[1]);
       });
     }

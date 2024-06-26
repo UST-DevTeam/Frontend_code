@@ -89,16 +89,38 @@ const ManageSite = ({
 
   const dispatch = useDispatch();
 
-    // let mappedDataList = useSelector((state) => {
-    //   return state?.projectList?.getMappedData 
-    // })
+  // let mappedDataList = useSelector((state) => {
+  //   return state?.projectList?.getMappedData 
+  // })
 
-    let mappedDataList = useSelector((state) => {
-      const data = state?.projectList?.getMappedData;
-      return data && data.length > 0 ? data : [{'headerName': ""}];
+  let mappedDataList = useSelector((state) => {
+    const data = state?.projectList?.getMappedData;
+    return data && data.length > 0 ? data : [{ 'headerName': "" }];
+  });
+
+  let circleWithPGList = useSelector((state) => {
+    return state?.projectList?.getCircleWithPGData?.map((itm) => {
+      return {
+        label: itm.Circle,
+        value: itm.Circle,
+      };
     });
+  });
 
-   
+
+  let bandList = useSelector((state) => {
+    return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
+      
+      return Object.keys(itm).includes('BAND') ? itm?.BAND?.split(",").map((its) => {
+        return {
+          "label": its,
+          "value": its
+        }
+      }) : []
+    }) || []
+  });
+
+
 
   let dataOfProject = useSelector((state) => {
     let dataOlder = state.adminData.getProjectTypeDyform[0];
@@ -127,7 +149,6 @@ const ManageSite = ({
     }
   });
 
-  console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject");
 
   const handleSiteEnggSubmit = (data) => {
     // alert(projectuniqueId)
@@ -166,13 +187,18 @@ const ManageSite = ({
       new_u_id: dataOfProject["new_u_id"],
       projectuniqueId: projectuniqueId,
     };
-    dataOfProject["t_sengg"].map((itew) => {
-      console.log(itew, "itewitewitewitewitew");
+
+
+    let dat = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dataOfProject["t_sengg"]]
+    dat.map((itew) => {
+      // console.log(itew["fieldName"], data, "itewitewitewitewitew");
       let fieldNaming = labelToValue(itew["fieldName"]);
 
       final_data[fieldNaming] = data[fieldNaming];
     });
 
+
+    console.log(final_data, "final_datafinal_data")
     setGlobalData((prev) => {
       return {
         ...prev,
@@ -438,7 +464,24 @@ const ManageSite = ({
                             type: "sdisabled",
                             classes: "col-span-1",
                           },
+                          {
+                            label: "Circle",
+                            value: "",
+                            name: "Circle",
+                            type: "select",
+                            option: circleWithPGList,
+                            classes: "col-span-1",
+                          },
+                          {
+                            label: "BAND",
+                            value: "",
+                            name: "BAND",
+                            type: "select",
+                            option: bandList,
+                            classes: "col-span-1",
+                          },
                           ...dataOfProject["t_sengg"].map((its) => {
+                            
                             return {
                               label: its.fieldName,
                               value: "Select",
@@ -496,10 +539,10 @@ const ManageSite = ({
                             name: its.fieldName,
                             type: type,
                             props: {
-                                maxSelectableDate: today,
-                                valueAsNumber:true,
-                                min: 0,
-                              },
+                              maxSelectableDate: today,
+                              valueAsNumber: true,
+                              min: 0,
+                            },
                           };
                         })
                         : []
