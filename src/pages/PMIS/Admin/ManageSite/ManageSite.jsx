@@ -39,6 +39,7 @@ const ManageSite = ({
   const { customeruniqueId } = useParams();
   const today = moment().format("YYYY-MM-DD");
 
+
   const {
     register,
     handleSubmit,
@@ -394,6 +395,10 @@ const ManageSite = ({
     </>
   );
 
+  // useEffect(() => {
+  //   dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
+  // }, [])
+
   useEffect(() => {
     if (dataOfProject) {
       setValueForm1("project", dataOfProject.projectType);
@@ -404,6 +409,8 @@ const ManageSite = ({
 
     // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
   }, [dataOfProject, reset]);
+
+
 
   let dtype = {
     Decimal: "number",
@@ -464,41 +471,36 @@ const ManageSite = ({
                             type: "sdisabled",
                             classes: "col-span-1",
                           },
-                          {
-                            label: "Circle",
-                            value: "",
-                            name: "Circle",
-                            type: "select",
-                            option: circleWithPGList,
-                            classes: "col-span-1",
-                          },
-                          {
-                            label: "BAND",
-                            value: "",
-                            name: "BAND",
-                            type: "select",
-                            option: bandList,
-                            classes: "col-span-1",
-                          },
                           ...dataOfProject["t_sengg"].map((its) => {
-                            
-                            return {
-                              label: its.fieldName,
-                              value: "Select",
-                              required: its.required == "Yes" ? true : false,
-                              option: its.dropdownValue
+                            let option = its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                   return {
                                     value: itm,
                                     label: itm,
                                   };
                                 })
-                                : [],
+                                : []
+
+                            let type = dtype[its.dataType]
+                            
+                            if (its['fieldName'] === "Circle"){
+                              option = circleWithPGList;
+                            }
+                            if (its['fieldName'] === "BAND"){
+                              option = bandList;
+                            }
+                            return {
+                              label: its.fieldName,
+                              value: "Select",
+                              required: its.required == "Yes" ? true : false,
+                              option: option,
                               name: its.fieldName,
-                              type: dtype[its.dataType],
+                              type:type ,
                               // type: "sdisabled",
                               props: {
                                 maxSelectableDate: today,
+                                valueAsNumber: true,
+                                min: 0,
                               },
                             };
                           }),

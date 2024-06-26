@@ -132,7 +132,7 @@ const AdvancedTable = ({
     if (data !== finalData) {
       setFinalData(data);
     }
-  },[data?.length])
+  },[data])
 
   // console.log("setFinalData", finalData)
 

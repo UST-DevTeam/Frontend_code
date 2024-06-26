@@ -1131,7 +1131,6 @@ const ManageProjectSiteId = () => {
     dispatch(projectListActions.getProjectType(projectuniqueId));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
     dispatch(projectListActions.getMappedData(projectuniqueId));
-    dispatch(projectListActions.getMappedData(projectuniqueId));
     dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
     dispatch(FilterActions.getSiteSubProject(projectuniqueId));
   }, []);

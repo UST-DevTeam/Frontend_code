@@ -454,10 +454,10 @@ const CreateFormField = ({
                           menuIsOpen={true}
                           keepSearchTerm={true}
                           groupBy="category"
-                          options={[{ "id": "Circle", "name": "Circle" },{ "id": "BAND", "name": "BAND" }, ...itm.inneroption]}
+                          options={itm.inneroption}
                           showCheckbox
                           singleSelect={false}
-                          selectedValues={itm.innervalue ? [{ "id": "Circle", "name": "Circle" },{ "id": "BAND", "name": "BAND" }, ...itm.inneroption].filter((iwq) => { if (itm.innervalue.split(",").indexOf(iwq.id) != -1) { return iwq } }) : []} // Preselected value to persist in dropdown
+                          selectedValues={itm.innervalue ? itm.inneroption.filter((iwq) => { if (itm.innervalue.split(",").indexOf(iwq.id) != -1) { return iwq } }) : []} // Preselected value to persist in dropdown
                           onSelect={itm.inneronSelect}
                           onRemove={itm.inneronRemove}
                           displayValue={"name"}

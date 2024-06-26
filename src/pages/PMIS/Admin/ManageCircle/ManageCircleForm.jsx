@@ -91,7 +91,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             // required: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
 
                 }),
             },
@@ -115,7 +114,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
     const onTableViewSubmit = (data) => {
         console.log(data, "datadata")
-        // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageCircle(true, data, () => {
                 setIsOpen(false)
@@ -123,15 +121,14 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postManageCircle(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCircle())
             }))
         }
     }
-    console.log(Form, "Form 11")
+    // console.log(Form, "Form 11")
     useEffect(() => {
-        // dispatch(AdminActions.getManageCustomer())
+        dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -141,7 +138,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             reset({})
             console.log(Object.keys(formValue), "Object.keys(formValue)")
             Object.keys(formValue).forEach((key) => {
-
 
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
                     console.log("date formValuekey", key.name, formValue[key.name])
