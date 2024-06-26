@@ -104,12 +104,14 @@ const FillExpense = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.expAdv_fill_expense}/${itm.uniqueId}`,
+                              `${Urls.expAdv_fill_expense}/${itm.expenseuniqueId}`,
                               () => {
                                 dispatch(
                                   ExpenseAdvanceActions.getFillExpense()
+                                  // ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp()
                                 );
                                 dispatch(ALERTS({ show: false }));
+                                setmodalFullOpen(false); 
                               }
                             )
                           );

@@ -469,7 +469,7 @@ const PersonalInfo = (props) => {
     // {label:"Mobile No.", name:"mobile", value:'', type:'number', props:'',required:true, placeholder:""},
     {
       label: "Joining Date",
-      name: "datetime",
+      name: "joiningDate",
       value: "",
       type:"sdisabled",
       props: "",
@@ -478,7 +478,7 @@ const PersonalInfo = (props) => {
     },
     {
       label: "Last Working Day",
-      name: "datetime",
+      name: "lastWorkingDay",
       value: "",
       type:"sdisabled",
       props: "",

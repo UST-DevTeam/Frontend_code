@@ -29,7 +29,13 @@ const ExpenseAdvanceReducer = createSlice({
     name:'ExpenseAdvanceReducer',
     initialState,
     reducers:{
-
+        CLEAR_GET_CLAIM_AND_ADVANCE:(state,{payload}) => {
+            // if(payload.reset){
+                state.getL2Data =[]
+            // }else{
+            //     state.getClaimAndAdvance  = [...state.getClaimAndAdvance,...payload.dataAll]
+            // }
+        },
         GET_CLAIM_AND_ADVANCE:(state,{payload}) => {
             if(payload.reset){
                 state.getClaimAndAdvance = payload.dataAll
@@ -238,5 +244,6 @@ export const {
     GET_DOWNLOAD_ATTACHMENT,
     GET_HR_ALL_EXPENSES,
     GET_HR_ALL_ADVANCE,
+    CLEAR_GET_CLAIM_AND_ADVANCE
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

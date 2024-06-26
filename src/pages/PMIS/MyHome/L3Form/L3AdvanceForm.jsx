@@ -320,17 +320,21 @@ const L3AdvanceForm = () => {
         selectRows = advanceRow;
       }
     
-      selectRows.forEach((key) => {
+      selectAll.forEach((key) => {
         const originalItem = dbConfigList.find((item) => item.uniqueId === key);
-        amountRemark.push({
-          _id: key,
-          ApprovedAmount: key in amount.amount ? +amount.amount[key] : originalItem?.ApprovedAmount || 0,
-          Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-          remark: key in amount.remark ? amount.remark[key] : originalItem?.remark,
-          addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
-          AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo,
-        });
-      });
+        if (originalItem) {
+            amountRemark.push({
+                _id: key,
+                ApprovedAmount: key in amount.amount ? +amount.amount[key] : originalItem?.ApprovedAmount || 0,
+                Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
+                remark: key in amount.remark ? amount.remark[key] : originalItem?.remark,
+                addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
+                AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo, 
+
+
+            });
+        }
+    });
     
       data.data = amountRemark;
       data.AdvanceId = expenseRef.current?.AdvanceNo;

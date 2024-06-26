@@ -130,11 +130,11 @@ const FillAdvance = () => {
             value: "Amount",
             style: "min-w-[170px] max-w-[450px] text-center",
           },
-        //   {
-        //     name: "Attachment",
-        //     value: "attachment",
-        //     style: "min-w-[100px] max-w-[450px] text-center",
-        //   },
+          {
+            name: "Current Status",
+            value: "status",
+            style: "min-w-[140px] max-w-[450px] text-center",
+          },
           {
             name: "Remarks",
             value: "remark",
