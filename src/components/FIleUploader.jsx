@@ -48,7 +48,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
                     getValues={getValues}
                 />
                 <div className = 'flex'>
-                {tempbtn && <Button classes={"mt-1 w-auto mx-auto mb-4 bg-[#14bc81] text-black py-1"} name={label} onClick={() => {
+                {tempbtn && <Button classes={"mt-1 w-auto mx-auto mb-4 bg-[#13b497] text-black py-1"} name={label} onClick={() => {
                     dispatch(
                       CommonActions.commondownload(
                         tempbtnlink[0],

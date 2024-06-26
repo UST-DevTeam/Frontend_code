@@ -92,6 +92,7 @@ const L1AdvanceForm = () => {
                           prev.filter((id) => id !== e.target.value)
                         );
                       }
+                      
                     }}
                   />
                 ),
@@ -321,6 +322,7 @@ const L1AdvanceForm = () => {
     }
 
     function handleAmountAndRemark(type) {
+      console.log(handleAmountAndRemark, "handleAmountAndRemarkhandleAmountAndRemark")
       const data = { approver: "L1-" + type, type: "Advance", status: type };
       const amountRemark = [];
     
@@ -329,26 +331,31 @@ const L1AdvanceForm = () => {
         return;
       }
     
-      let selectRows = [];
-      if (selectAll.length === dbConfigList.length) {
-        selectRows = selectAll;
-      } else {
-        selectRows = advanceRow;
-      }
+      // let selectRows = [];
+      // if (selectAll.length === dbConfigList.length) {
+      //   selectRows = selectAll;
+      // } else {
+      //   selectRows = advanceRow;
+      // }
     
-      selectRows.forEach((key) => {
-        amountRemark.push({
-          _id: key,
-          ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
-          Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-          remark: key in amount.remark ? amount.remark[key] : "",
-          addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
-          AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo,
-        });
-      });
+      selectAll.forEach((key) => {
+        const item = dbConfigList.find(item => item.uniqueId === key);
+        if (item) {
+            amountRemark.push({
+                _id: key,
+                ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
+                Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
+                remark: key in amount.remark ? amount.remark[key] : "",
+                addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
+                AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo,
+
+            });
+        }
+    });
     
       data.data = amountRemark;
-      data.AdvanceId = expenseRef.current?.AdvanceNo;
+      // data.AdvanceId = expenseRef.current?.AdvanceNo;
+      data.AdvanceNo = amountRemark.length > 0 ? amountRemark[0].AdvanceNo : null;
     
       dispatch(
         ExpenseAdvanceActions.postApprovalStatus(true, data, () => {

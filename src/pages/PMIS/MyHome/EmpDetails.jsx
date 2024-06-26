@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "react-querybuilder/dist/query-builder.css"; // Import the library styles
+import "react-querybuilder/dist/query-builder.css";
 import QueryBuilder from "react-querybuilder";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,31 +33,14 @@ const EmpDetails = (props) => {
     reset,
     formState: { errors },
   } = useForm();
-
   const { empuid } = useParams();
   console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState({});
-  const [UserLyp, seteUserLyp] = useState("");
-  const [nestfilter, setnestfilter] = useState({});
-  const [onestfilter, setonestfilter] = useState({});
-  const [gopen, SetgOpen] = useState([]);
   const [dataQuery, SetdataQuery] = useState("Select * from values;");
   const [filtering, setFiltering] = useState("Select * from values;");
-  const [managingFilter, setManagingFilter] = useState([]);
-  const [upmanagingFilter, setupManagingFilter] = useState([]);
-  const [countform, setcountform] = useState([1]);
-  const [conditioncountform, setconditioncountform] = useState([]);
-  const [countformtwo, setcountformtwo] = useState([]);
   const navigate = useNavigate();
-  const [passport, setpassport] = useState([]);
-  const [dataValue, setDataValue] = useState([]);
-  const [showSocialMediaOther, setshowSocialMediaOther] = useState(false);
-  const [showOtherAddressProof, setshowOtherAddressProof] = useState(false);
-  const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
   const [showPassportNumber, setshowPassportNumber] = useState(false);
-  const [stateName, setStateName] = useState(false);
-  // const [CityOptions,setCityOptions] =useState("")
 
   const getManageEmpDetails = useSelector((state) => {
     let data = state.hrReducer.getManageEmpDetails;
@@ -137,6 +120,7 @@ const EmpDetails = (props) => {
       };
     });
   });
+  console.log(designationList,"")
 
   let roleList = useSelector((state) => {
     return state?.adminData?.getManageProfile.map((itm) => {
@@ -171,6 +155,15 @@ const EmpDetails = (props) => {
     return state?.hrReducer?.getHRManagerInEmployee.map((itm) => {
       return {
         label: itm?.empName,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
+  let circleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle.map((itm) => {
+      return {
+        label: itm?.circleName,
         value: itm.uniqueId,
       };
     });
@@ -839,7 +832,8 @@ const EmpDetails = (props) => {
       label: "Circle",
       name: "circle",
       value: "",
-      type: "text",
+      type: "select",
+      option: circleList,
       props: "",
       placeholder: "",
     },
@@ -887,7 +881,7 @@ const EmpDetails = (props) => {
     // {label:"Mobile No.", name:"mobile", value:'', type:'number', props:'',required:false, placeholder:""},
     {
       label: "Joining Date",
-      name: "datetime",
+      name: "joiningDate",
       value: "",
       type: "datetime",
       props: "",
@@ -896,7 +890,7 @@ const EmpDetails = (props) => {
     },
     {
       label: "Last Working Day",
-      name: "datetime",
+      name: "lastWorkingDay",
       value: "",
       type: "datetime",
       props: "",
@@ -1311,7 +1305,7 @@ const EmpDetails = (props) => {
     dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageDesignation());
     dispatch(AdminActions.getManageProfile());
-    dispatch(AdminActions.getManageProfile());
+    dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getState());
     dispatch(AdminActions.getCities());
     dispatch(HrActions.getHRAllEmployee());

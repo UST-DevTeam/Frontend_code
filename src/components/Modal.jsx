@@ -1,7 +1,7 @@
 import React from 'react'
 import { UilTimesCircle } from '@iconscout/react-unicons'
 import Button from './Button'
-const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton = false }) => {
+const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton = false, onClose }) => {
 
     const sizeType = {
         xlss: 'w-[96vw] h-[90vh] md:w-[60vw] md:h-[93vh]',

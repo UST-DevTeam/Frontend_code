@@ -6,6 +6,7 @@ import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
+import DownloadButton from "../../../../components/DownloadButton";
 import CstmButton from "../../../../components/CstmButton";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
@@ -17,13 +18,16 @@ import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-acti
 import L3FormFORM from "../../../../pages/PMIS/MyHome/L3Form/L3FormFORM";
 import CommonForm from "../../../../components/CommonForm";
 import { useNavigate } from "react-router-dom";
+import { CLEAR_GET_CLAIM_AND_ADVANCE } from "../../../../store/reducers/expenseAdvance-reducer";
 
 const L3Form = () => {
   const expenseRef = useRef("");
   const [amount, setAmount] = useState({
+    ExpenseNo: {},
     amount: {},
     claimedAmount: {},
     remark: {},
+    addedFor: {},
   });
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
@@ -31,8 +35,9 @@ const L3Form = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [hide, setHide] = useState(false);
-
+  const [expensAmount, setExpensAmount] = useState(false);
   const navigate = useNavigate();
+  const amountRef = useRef();
 
   let dispatch = useDispatch();
 
@@ -65,31 +70,33 @@ const L3Form = () => {
       let updateditm = {
         ...itm,
 
-        attachment: (
-          <div className="flex justify-center items-center">
-            <img
-              src={backendassetUrl + itm?.attachment}
-              className="w-24 h-14 content-center flex object-contain"
-            />
-          </div>
-        ),
+        // attachment: (
+        //   <div className="flex justify-center items-center">
+        //     <img
+        //       src={backendassetUrl + itm?.attachment}
+        //       className="w-24 h-14 content-center flex object-contain"
+        //     />
+        //   </div>
+        // ),
         expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
 
         ExpenseNo: (
           <p
             className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
-              
               expenseRef.current = itm;
+              
               dispatch(
                 ExpenseAdvanceActions.getL3Data(
                   true,
                   `ExpenseNo=${itm?.ExpenseNo}`
                 )
               );
+              
               setmodalFullOpen((prev) => !prev);
               setHide(true);
               setmodalHead("(L3)" + " " + itm?.ExpenseNo);
+              // dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
             }}
           >
             {itm.ExpenseNo}
@@ -206,14 +213,15 @@ const L3Form = () => {
         value: "expenseDate",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
-      ...( !hide ? [] : 
-      [
-        {
-          name: "Claim Type",
-          value: "claimType",
-          style: "min-w-[170px] max-w-[450px] text-center",
-        },
-      ]),
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Claim Type",
+              value: "claimType",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+          ]),
       {
         name: "Circle",
         value: "circle",
@@ -266,32 +274,37 @@ const L3Form = () => {
       },
       {
         name: "Last Action Date",
-        value: "lastActionDate",
+        value: "actionAt",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
-      {
-        name: "Attachment",
-        value: "attachment",
-        style: "min-w-[150px] max-w-[450px] text-center",
-      },
-      ...( !hide ? [] : 
-        [
-          {
-            name: "Amount",
-            value: "amount",
-            style: "min-w-[150px] max-w-[450px] text-center",
-          },
-          // {
-          //   name: "Status",
-          //   value: "status",
-          //   style: "min-w-[100px] max-w-[450px] text-center",
-          // },
-          {
-            name: "Remarks",
-            value: "remark",
-            style: "min-w-[350px] max-w-[450px] text-center",
-          },
-        ]),
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Attachment",
+              value: "attachment",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+          ]),
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Amount",
+              value: "amount",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+            // {
+            //   name: "Status",
+            //   value: "status",
+            //   style: "min-w-[100px] max-w-[450px] text-center",
+            // },
+            {
+              name: "Remarks",
+              value: "remark",
+              style: "min-w-[350px] max-w-[450px] text-center",
+            },
+          ]),
 
       // {
       //   name: "Edit",
@@ -316,8 +329,8 @@ const L3Form = () => {
           { label: "Submitted", value: "Submitted" },
           { label: "L1-Approved", value: "L1-Approved" },
           { label: "L1-Rejected", value: "L1-Rejected" },
-          { label: "L2-Approved", value: "L2-Approved" },
-          { label: "L2-Rejected", value: "L2-Rejected" },
+          { label: "L3-Approved", value: "L3-Approved" },
+          { label: "L3-Rejected", value: "L3-Rejected" },
           { label: "L3-Approved", value: "L3-Approved" },
           { label: "L3-Rejected", value: "L3-Rejected" },
         ],
@@ -326,12 +339,12 @@ const L3Form = () => {
       },
     ],
   };
-  
+
   useEffect(() => {
-    if(!modalFullOpen){
-      setHide(false)
+    if (!modalFullOpen) {
+      setHide(false);
     }
-  } , [modalFullOpen])
+  }, [modalFullOpen]);
 
   function handleAmountAndRemark(type) {
     const data = { approver: "L3-" + type, type: "Expense", status: type };
@@ -341,25 +354,34 @@ const L3Form = () => {
       console.error("amount or expenseRef is not defined");
       return;
     }
-    
-    const keys = dbConfigList.map((item) => item.uniqueId);
+
+    // const keys = [...new Set([...Object.keys(amount.amount), ...Object.keys(amount.remark)])];
+    const keys = dbConfigList?.map((item) => item.uniqueId);
 
     keys.forEach((key) => {
-      amountRemark.push({
-        _id: key,
-        ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
-        Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-        remark: key in amount.remark ? amount.remark[key] : "",
-      });
+      const item = dbConfigList.find((item) => item.uniqueId === key);
+      console.log(item,"=afdfadfsdfgfdgdgfddfgsddfassfadf=" ,amount);
+      console.log(item,"=afdfadfsdfgfdgdgfddfgsddfassfadf=" ,amount);
+      if (item) {
+        amountRemark.push({
+          _id: key,
+          ApprovedAmount: amount?.amount?.[item?.uniqueId]?+amount["amount"][item?.uniqueId]:+item?.ApprovedAmount||0 ,
+          Amount:
+            key in amount.claimedAmount
+              ? +item?.Amount
+              : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
+          remark: key in amount.remark ? amount.remark[key] : "",
+        });
+      }
     });
 
     // Populate the data object
     data.data = amountRemark;
+    // dbConfigList.expensAmount=data.data
+    // setExpensAmount(amountRemark)
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
-
-
-
+    console.log("kjhgfdghkjl;khgfdsfghjkljhgfdsfghjkjhgfdsdgjhk",data)
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
         // setIsOpen(false);
@@ -390,11 +412,27 @@ const L3Form = () => {
     delete data.reseter;
     dispatch(ExpenseAdvanceActions.getL3Data(value, objectToQueryString(data)));
   };
+  console.log(
+    "amountamountamountamountamountamountamountamount======",
+    expensAmount
+  );
 
+  // useEffect(()=>{
+  //   dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
+  // },[])
   useEffect(() => {
     if (!modalFullOpen) {
       dispatch(ExpenseAdvanceActions.getL3Data());
+      setExpensAmount(false);
+    setAmount({
+      ExpenseNo: {},
+      amount: {},
+      claimedAmount: {},
+      remark: {},
+      addedFor: {},
+    })
     }
+    
   }, [modalFullOpen]);
 
   const onTableViewSubmit = (data) => {
@@ -406,6 +444,10 @@ const L3Form = () => {
       })
     );
   };
+  // const convertToInputFieldHandler =(e)=>{
+  //   amountRef.current.replaceWith(
+
+  // }
   return (
     <>
       <AdvancedTable
@@ -414,7 +456,7 @@ const L3Form = () => {
             <Button
               classes="w-auto"
               onClick={(e) => {
-                navigate("/home/approverCards/financeApprover");
+                navigate("/home/approverCards/L3Approver");
               }}
               name={"L3 Expense"}
             ></Button>
@@ -466,44 +508,73 @@ const L3Form = () => {
                 />
               </div>
             }
-
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList?.map((item) => {
+            data={dbConfigList?.map((item, index) => {
+              console.log("nkwjdwoiekjdlkdmalkdmlksamdlksamdlks=", item);
               return {
                 ...item,
                 amount: (
-                  <input
-                    type="number"
-                    defaultValue={`${item?.ApprovedAmount}`}
-                    className="p-5 w-full !border amountWithRemark bg-black"
-                    placeholder="Enter Amount"
-                    onChange={(e) => {
-                      setAmount((prev) => {
-                        return {
-                          ...prev,
-                          amount: {
-                            ...prev.amount,
-                            [item.uniqueId]: e.target.value,
-                          },
-                          claimedAmount: {
-                            ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
-                          },
-                        };
-                      });
+                  <div
+                    onClick={() => {
+                      setExpensAmount(true);
+                      console.log(
+                        "kwihdiwjdowkedowkedoiewkdowedoewd",
+                        setExpensAmount
+                      );
                     }}
-                  />
+                  >
+                    {expensAmount ? (
+                      <input
+                        type="number"
+                        defaultValue={item?.ApprovedAmount}
+                        className="p-5 w-full !border amountWithRemark bg-black"
+                        placeholder="Enter Amount"
+                        onChange={(e) => {
+                          setAmount((prev) => {
+                            return {
+                              ...prev,
+                              amount: {
+                                ...prev.amount,
+                                [item.uniqueId]: e.target.value,
+                              },
+                              claimedAmount: {
+                                ...prev.claimedAmount,
+                                [item.uniqueId]:
+                                  dbConfigList.find(
+                                    (item) => item.uniqueId === item.uniqueId
+                                  )?.Amount || 0,
+                              },
+                              addedFor: {
+                                ...prev.addedFor,
+                                [item.uniqueId]: dbConfigList.find(
+                                  (item) => item.uniqueId === item.uniqueId
+                                )?.addedFor,
+                              },
+                              ExpenseNo: {
+                                ...prev.ExpenseNo,
+                                [item.uniqueId]: dbConfigList.find(
+                                  (item) => item.uniqueId === item.uniqueId
+                                )?.ExpenseNo,
+                              },
+                            };
+                          });
+                        }}
+                      />
+                    ) : (
+                      <p>{item?.ApprovedAmount}</p>
+                    )}
+                  </div>
                 ),
                 remark: (
                   <input
                     type="text"
-                    defaultValue={`${item?.remark}`}
+                    defaultValue={item?.remark || ""}
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Your Remark..."
-                    onChange={(e) => {                    
+                    onChange={(e) => {
                       setAmount((prev) => {
                         return {
                           ...prev,
@@ -513,11 +584,47 @@ const L3Form = () => {
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]:
+                              dbConfigList.find(
+                                (item) => item.uniqueId === item.uniqueId
+                              )?.Amount || 0,
+                          },
+                          addedFor: {
+                            ...prev.addedFor,
+                            [item.uniqueId]: dbConfigList.find(
+                              (item) => item.uniqueId === item.uniqueId
+                            )?.addedFor,
+                          },
+                          ExpenseNo: {
+                            ...prev.ExpenseNo,
+                            [item.uniqueId]: dbConfigList.find(
+                              (item) => item.uniqueId === item.uniqueId
+                            )?.ExpenseNo,
                           },
                         };
                       });
                     }}
+                  />
+                ),
+
+                attachment: (
+                  <CstmButton
+                    className={"p-2"}
+                    child={
+                      <DownloadButton
+                        name={""}
+                        onClick={() => {
+                          dispatch(
+                            CommonActions.commondownload(
+                              "/expenses/downloadFile" +
+                                "?" +
+                                `attachment=${item.attachment}`,
+                              `${item?.attachment}`
+                            )
+                          );
+                        }}
+                      ></DownloadButton>
+                    }
                   />
                 ),
               };

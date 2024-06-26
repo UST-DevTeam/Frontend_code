@@ -71,6 +71,7 @@ const ExpenseAdvanceActions = {
                     type: 1,
                     text: res?.data?.msg,
                 };
+                
                 dispatch(ALERTS(msgdata));
             }else{
                 cb()
@@ -78,6 +79,7 @@ const ExpenseAdvanceActions = {
             }
             
         } catch (error) {
+            console.log(error,'errorerror')
             return;
         }
     },
@@ -163,12 +165,13 @@ const ExpenseAdvanceActions = {
         }
     },
 
-    getL1Data:(reset=true,args="") => async (dispatch, _) => {
+    getL1Data:(reset=true,args="", cb = () => {}) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.expAdv_L1Data}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_L1_DATA({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     },
@@ -233,10 +236,12 @@ const ExpenseAdvanceActions = {
         }
     },
 
-    postApprovalStatus: (reset, data, cb, uniqueId,) => async (dispatch, _) => {
-        console.log('datattatata',data)
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.expAdv_Approval : Urls.expAdv_Approval + "/" + uniqueId, reset} )
+    postApprovalStatus: (reset, data, cb = () => {}, uniqueId) => async (dispatch, _) => {
+        
+        try {   
+            console.log('datattatata',data , Urls[uniqueId ? 'expAdv_Approval' : 'expAdv_Approval'] , uniqueId)
+            const res = await Api.post({ url: Urls[uniqueId ? 'expAdv_Approval' : 'expAdv_Approval'] + `${uniqueId ? '/'+uniqueId : ''}` , data , reset} )
+            console.log(res , 'dfasdfsdfsadfadsf')
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,

@@ -22,9 +22,11 @@ import DownloadButton from "../../../../components/DownloadButton";
 const L1Form = () => {
   const expenseRef = useRef("");
   const [amount, setAmount] = useState({
+    ExpenseNo: {},
     amount: {},
     claimedAmount: {},
     remark: {},
+    addedFor: {},
   });
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
@@ -56,26 +58,27 @@ const L1Form = () => {
     "07": "Jul",
     "08": "Aug",
     "09": "Sep",
-    10: "Oct",
-    11: "Nov",
-    12: "Dec",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Dec",
   };
   let dbConfigList = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getL1Data || [""];
     return interdata?.map((itm) => {
+      
       let updateditm = {
         ...itm,
 
-        attachment: (
-          <div className="flex justify-center items-center">
-            <img
-              src={backendassetUrl + itm?.attachment}
-              className="w-24 h-14 content-center flex object-contain"
-            />
-          </div>
-        ),
+        // attachment: (
+        //   <div className="flex justify-center items-center">
+        //     <img
+        //       src={backendassetUrl + itm?.attachment}
+        //       className="w-24 h-14 content-center flex object-contain"
+        //     />
+        //   </div>
+        // ),
         expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
-
+        
         ExpenseNo: (
           <p
             className="cursor-pointer text-[#13b497] font-extrabold"
@@ -125,19 +128,19 @@ const L1Form = () => {
           />
         ),
 
-        attachment: (
-          <CstmButton
-            className={"p-2"}
-            child={
-            <DownloadButton
-                name={""}
-                onClick={() => {
-                    dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${itm.ExpenseNo}`,"expense.pdf"))                      
-                }}
-              ></DownloadButton>
-            }
-          />
-        ),
+        // attachment: (
+        //   <CstmButton
+        //     className={"p-2"}
+        //     child={
+        //     <DownloadButton
+        //         name={""}
+        //         onClick={() => {
+        //             dispatch(CommonActions.commondownload("/expenses/downloadFile"+"?"+`expenseId=${itm.ExpenseNo}`,"expense.pdf"))                      
+        //         }}
+        //       ></DownloadButton>
+        //     }
+        //   />
+        // ),
 
         delete: (
           <CstmButton
@@ -284,11 +287,14 @@ const L1Form = () => {
         value: "lastActionDate",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
-      {
-        name: "Attachment",
-        value: "attachment",
-        style: "min-w-[150px] max-w-[450px] text-center",
-      },
+      ...( !hide ? [] : 
+        [
+          {
+            name: "Attachment",
+            value: "attachment",
+            style: "min-w-[150px] max-w-[450px] text-center",
+          },
+        ]),
       ...( !hide ? [] : 
         [
           {
@@ -360,36 +366,25 @@ const L1Form = () => {
 
     // const keys = [...new Set([...Object.keys(amount.amount), ...Object.keys(amount.remark)])];
     const keys = dbConfigList.map((item) => item.uniqueId);
-    console.log('dbConfigListdbConfigList',dbConfigList)
-    keys.forEach((key) => {      
-      amountRemark.push({
-        _id: key,
-        ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
-        Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-        remark: key in amount.remark ? amount.remark[key] : "",
-      });
-    });
 
+    keys.forEach((key) => {
+      const item = dbConfigList.find(item => item.uniqueId === key);
+      console.log(item , amount , 'afdfadfsdfgfdgdgfddfgsddfassfadf')
+      if (item) {
+          amountRemark.push({
+              _id: key,
+              ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
+              Amount: key in amount.claimedAmount ? +item?.Amount : dbConfigList.find(item => item.uniqueId === key)?.Amount,
+              remark: key in amount.remark ? amount.remark[key] : "",
+              
+          });
+      }
+  });
+
+    // Populate the data object
     data.data = amountRemark;
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
-
-    
-
-    // const refs = document.querySelectorAll(".amountWithRemark");
-    // console.log("refs___",refs)
-    // if (refs) {
-    //   const data = Array.from(refs);
-    //   console.log("__data_nodes__",data)
-    //   if (data && Array.isArray(data)) {
-    //     data.foreach((ele) => {
-    //       ele.value = "";
-    //     });
-    //   }
-    // }
-
-    // return
-
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
         // setIsOpen(false);
@@ -418,12 +413,12 @@ const L1Form = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getL1Data(value, objectToQueryString(data)));
+    dispatch(ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data)));
   };
 
   useEffect(() => {
     if (!modalFullOpen) {
-      dispatch(ExpenseAdvanceActions.getL1Data());
+      dispatch(ExpenseAdvanceActions?.getL1Data());
     }
   }, [modalFullOpen]);
 
@@ -496,20 +491,12 @@ const L1Form = () => {
                 />
               </div>
             }
-            // table={{
-            //   ...table,
-            //   columns: [...table.columns].splice(table.columns.length - 3, 0, {
-            //     name: "Add Row",
-            //     value: "addRow",
-            //     style: "min-w-[100px] max-w-[100px] text-center",
-            //   }),
-            // }}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
-            data={dbConfigList?.map((item) => {
-              console.log('rtyuioytrtyui')
+            data={dbConfigList?.map((item, index) => {
+
               return {
                 ...item,
                 amount: (
@@ -527,7 +514,10 @@ const L1Form = () => {
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]:
+                              dbConfigList.find(
+                                (item) => item.uniqueId === item.uniqueId
+                              )?.Amount || 0,
                           },
                         };
                       });
@@ -540,7 +530,6 @@ const L1Form = () => {
                     className="p-5 w-full !border amountWithRemark bg-black"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {
-                      
                       setAmount((prev) => {
                         return {
                           ...prev,
@@ -550,13 +539,17 @@ const L1Form = () => {
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]:
+                              dbConfigList.find(
+                                (item) => item.uniqueId === item.uniqueId
+                              )?.Amount || 0,
                           },
                         };
                       });
                     }}
                   />
                 ),
+
                 attachment: (
                   <CstmButton
                     className={"p-2"}
@@ -564,7 +557,7 @@ const L1Form = () => {
                     <DownloadButton
                         name={""}
                         onClick={() => {
-                            dispatch(CommonActions.commondownload("/expenses/DownloadAttachment"+"?"+`expenseId=${item.uniqueId}`,"expense.pdf"))                      
+                            dispatch(CommonActions.commondownload("/expenses/downloadFile"+"?"+`attachment=${item.attachment}`,`${item?.attachment}`))                      
                         }}
                       ></DownloadButton>
                     }

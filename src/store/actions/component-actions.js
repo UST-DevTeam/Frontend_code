@@ -7,7 +7,7 @@ const ComponentActions = {
         try {
             dispatch(POP_MENU({data,tkn}))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "amit errorerror 390")
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },

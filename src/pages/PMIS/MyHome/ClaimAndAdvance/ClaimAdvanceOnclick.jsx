@@ -4,7 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
-import { UilImport } from '@iconscout/react-unicons'
+import { UilImport } from "@iconscout/react-unicons";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
@@ -29,10 +29,9 @@ const ClaimAdvanceOnclick = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [claimByNumber, setClaimByNumber] = useState([]);
-  const {id} = useParams()
+  const { id } = useParams();
 
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   let dispatch = useDispatch();
 
@@ -45,42 +44,42 @@ const ClaimAdvanceOnclick = () => {
     })
     .replace(/\//g, "-");
 
-//   let dbConfigList = useSelector((state) => {
-//     let interdata = []
-//     return interdata?.map((itm) => {
-//       let updateditm = {
-//         ...itm,
-//         edit: (
-//           <CstmButton
-//             className={"p-2"}
-//             child={
-//               <EditButton
-//                 name={""}
-//                 onClick={() => {
-//                   setmodalOpen(true);
-//                   dispatch(ExpenseAdvanceActions.getFillAdvance());
-//                   setmodalHead("Edit Claim Type");
-//                   setmodalBody(
-//                     <>
-//                       <FillAdvanceForm
-//                         isOpen={modalOpen}
-//                         setIsOpen={setmodalOpen}
-//                         resetting={false}
-//                         formValue={itm}
-//                       />
-//                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-//                     </>
-//                   );
-//                   //setmodalOpen(false)
-//                 }}
-//               ></EditButton>
-//             }
-//           />
-//         ),
-//       };
-//       return updateditm;
-//     });
-//   });
+  //   let dbConfigList = useSelector((state) => {
+  //     let interdata = []
+  //     return interdata?.map((itm) => {
+  //       let updateditm = {
+  //         ...itm,
+  //         edit: (
+  //           <CstmButton
+  //             className={"p-2"}
+  //             child={
+  //               <EditButton
+  //                 name={""}
+  //                 onClick={() => {
+  //                   setmodalOpen(true);
+  //                   dispatch(ExpenseAdvanceActions.getFillAdvance());
+  //                   setmodalHead("Edit Claim Type");
+  //                   setmodalBody(
+  //                     <>
+  //                       <FillAdvanceForm
+  //                         isOpen={modalOpen}
+  //                         setIsOpen={setmodalOpen}
+  //                         resetting={false}
+  //                         formValue={itm}
+  //                       />
+  //                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+  //                     </>
+  //                   );
+  //                   //setmodalOpen(false)
+  //                 }}
+  //               ></EditButton>
+  //             }
+  //           />
+  //         ),
+  //       };
+  //       return updateditm;
+  //     });
+  //   });
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getClaimAndAdvancebyNumber || [];
@@ -226,15 +225,16 @@ const ClaimAdvanceOnclick = () => {
   };
 
   useEffect(() => {
-    
     dispatch(AdminActions.getManageExpenseAdvance());
-    const name = sessionStorage.getItem('claimName')
+    const name = sessionStorage.getItem("claimName");
     dispatch(
-          ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
-            true,
-            `Number=${name}`,
-            (data) => setClaimByNumber(data)))
-  }, [id , dispatch, ]);
+      ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
+        true,
+        `Number=${name}`,
+        (data) => setClaimByNumber(data)
+      )
+    );
+  }, [id, dispatch, modalOpen]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";
@@ -268,60 +268,74 @@ const ClaimAdvanceOnclick = () => {
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
-        data={claimByNumber?.length > 0 ? claimByNumber?.map((item) => {
-            return {
-                ...item,
-                edit: (
-                  <CstmButton
-                    className={"p-2"}
-                    child={
-                      <EditButton
-                        name={""}
-                        onClick={() => {
-                          setmodalOpen(true);
-                          // dispatch(AdminActions.getManageExpenseAdvance());
-                          setmodalHead(item.name + " : " + `Approved Amount : ${item.Amount}`);
-                          // setmodalBody(
-                          //   <>
-                          //     <ClaimAdvanceForm
-                          //       isOpen={modalOpen}
-                          //       setIsOpen={setmodalOpen}
-                          //       resetting={false}
-                          //       formValue={item}
-                          //     />
-                          //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                          //   </>
-                          // );        
-                          if (item.advanceType === "Project Advance" && item.type === "Advance") {
-                            setmodalBody(
-                              <>
-                                <FillAdvanceForm
-                                  isOpen={modalOpen}
-                                  setIsOpen={setmodalOpen}
-                                  resetting={false}
-                                  formValue={item}
-                                />
-                              </>
+        data={
+          claimByNumber?.length > 0
+            ? claimByNumber?.map((item) => {
+                return {
+                  ...item,
+                  edit: (
+                    <CstmButton
+                      className={"p-2"}
+                      child={
+                        <EditButton
+                          name={""}
+                          onClick={() => {
+                            setmodalOpen(true);
+                            // dispatch(AdminActions.getManageExpenseAdvance());
+                            setmodalHead(
+                              item.name +
+                                " : " +
+                                `Approved Amount : ${item.Amount}`
                             );
-                          } else if (item.advanceType !== "Project Advance" && item.type === "Expense") {
-                            setmodalBody(
-                              <>
-                                <FillExpenseForm
-                                  isOpen={modalOpen}
-                                  setIsOpen={setmodalOpen}
-                                  resetting={false}
-                                  formValue={item}
-                                />
-                              </>
-                            );
-                          }           
-                        }}
-                      ></EditButton>
-                    }
-                  />
-                ),
-              };
-        }) : ''}
+                            // setmodalBody(
+                            //   <>
+                            //     <ClaimAdvanceForm
+                            //       isOpen={modalOpen}
+                            //       setIsOpen={setmodalOpen}
+                            //       resetting={false}
+                            //       formValue={item}
+                            //     />
+                            //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                            //   </>
+                            // );
+                            if (
+                              item.advanceType === "Project Advance" &&
+                              item.type === "Advance"
+                            ) {
+                              setmodalBody(
+                                <>
+                                  <FillAdvanceForm
+                                    isOpen={modalOpen}
+                                    setIsOpen={setmodalOpen}
+                                    resetting={false}
+                                    formValue={item}
+                                  />
+                                </>
+                              );
+                            } else if (
+                              item.advanceType !== "Project Advance" &&
+                              item.type === "Expense"
+                            ) {
+                              setmodalBody(
+                                <>
+                                  <FillExpenseForm
+                                    isOpen={modalOpen}
+                                    setIsOpen={setmodalOpen}
+                                    resetting={false}
+                                    formValue={item}
+                                  />
+                                </>
+                              );
+                            }
+                          }}
+                        ></EditButton>
+                      }
+                    />
+                  ),
+                };
+              })
+            : ""
+        }
         errors={errors}
         register={register}
         setValue={setValue}
