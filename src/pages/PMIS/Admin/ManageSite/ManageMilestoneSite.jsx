@@ -676,7 +676,7 @@ const ManageMilestoneSite = ({
                                 })
                                 : []
                             
-                            if (its['fieldName'] === "Circle"){
+                            if (its['fieldName'] === "CIRCLE"){
                                option = circleWithPGList;
                                type = "select"
                             }
