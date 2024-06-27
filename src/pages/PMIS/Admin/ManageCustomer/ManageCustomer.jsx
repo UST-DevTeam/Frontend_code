@@ -184,12 +184,12 @@ const ManageCustomer = () => {
       {
         name: "Logo",
         value: "imgshow",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-['']",
+        style: "min-w-[140px] max-w-[200px] text-center sticky bg-['']",
       },
       {
         name: "Customer Name",
         value: "customerName",
-        style: "min-w-[140px] max-w-[450px] text-center sticky left-0 bg-['']",
+        style: "min-w-[140px] max-w-[450px] text-center sticky  bg-['']",
       },
       {
         name: "Short Name",
@@ -297,7 +297,6 @@ const ManageCustomer = () => {
           </>
         }
         table={table}
-        // templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
         exportButton={[
           "/export/manageCustomer",
           "Export_Customer(" + dt + ").xlsx",
@@ -325,20 +324,7 @@ const ManageCustomer = () => {
     </>
   ) : (
     <>
-      {/* <CCDash approveddata={
-                dbConfigList?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  '
-                            onClick={() => {
-                                navigate(`${"/projectType"}/${itm["uniqueId"]}`)
-                            }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["customerName"]}</div>
-                        </div>
-                    </>
-                }))
-            } settype={settype} nextNavigate={"/projectType"} name={"customerName"} img={"companyimg"} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Customer' /> */}
+      
 
       <CCDash
         approveddata={dbConfigList?.map((itm) => {
