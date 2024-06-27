@@ -84,9 +84,7 @@ const L2Form = () => {
           <p
             className="cursor-pointer text-[#13b497] font-extrabold"
             onClick={(e) => {
-              dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
               expenseRef.current = itm;
-              // dispatch(ExpenseAdvanceActions.getL2Data());
               dispatch(
                 ExpenseAdvanceActions.getL2Data(
                   true,
@@ -344,7 +342,7 @@ const L2Form = () => {
     if (!modalFullOpen) {
       setHide(false);
     }
-  }, [modalFullOpen]);
+  }, [modalFullOpen,]);
 
   function handleAmountAndRemark(type) {
     const data = { approver: "L2-" + type, type: "Expense", status: type };
@@ -365,22 +363,17 @@ const L2Form = () => {
       if (item) {
         amountRemark.push({
           _id: key,
-          ApprovedAmount: amount?.amount?.[item?.uniqueId]?+amount["amount"][item?.uniqueId]:+item?.ApprovedAmount||0 ,
-          Amount:
-            key in amount.claimedAmount
-              ? +item?.Amount
-              : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
-          remark: key in amount.remark ? amount.remark[key] : "",
+          ApprovedAmount: amount?.amount?.[item?.uniqueId] ? +amount["amount"][item?.uniqueId] : +item?.ApprovedAmount || 0 ,
+          Amount: key in amount.claimedAmount ? +item?.Amount : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
+          remark: key in amount.remark ? amount.remark[key] : item?.remark || "",
         });
       }
     });
 
-    // Populate the data object
     data.data = amountRemark;
-    // dbConfigList.expensAmount=data.data
-    // setExpensAmount(amountRemark)
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
+
     console.log("kjhgfdghkjl;khgfdsfghjkljhgfdsfghjkjhgfdsdgjhk",data)
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
@@ -423,8 +416,7 @@ const L2Form = () => {
   useEffect(() => {
     if (!modalFullOpen) {
       dispatch(ExpenseAdvanceActions.getL2Data());
-      dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
-    }
+      dispatch({ type: CLEAR_GET_CLAIM_AND_ADVANCE });    }
     setExpensAmount(false);
     setAmount({
       ExpenseNo: {},
@@ -433,8 +425,7 @@ const L2Form = () => {
       remark: {},
       addedFor: {},
     })
-    dispatch(ExpenseAdvanceActions.getL2Data());
-  }, [modalFullOpen]);
+  }, [modalFullOpen,]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";
@@ -521,10 +512,6 @@ const L2Form = () => {
                   <div
                     onClick={() => {
                       setExpensAmount(true);
-                      // console.log(
-                      //   "kwihdiwjdowkedowkedoiewkdowedoewd",
-                      //   setExpensAmount
-                      // );
                     }}
                   >
                     {expensAmount ? (

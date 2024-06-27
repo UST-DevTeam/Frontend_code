@@ -365,22 +365,17 @@ const L3Form = () => {
       if (item) {
         amountRemark.push({
           _id: key,
-          ApprovedAmount: amount?.amount?.[item?.uniqueId]?+amount["amount"][item?.uniqueId]:+item?.ApprovedAmount||0 ,
-          Amount:
-            key in amount.claimedAmount
-              ? +item?.Amount
-              : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
-          remark: key in amount.remark ? amount.remark[key] : "",
+          ApprovedAmount: amount?.amount?.[item?.uniqueId] ? +amount["amount"][item?.uniqueId] : +item?.ApprovedAmount || 0 ,
+          Amount: key in amount.claimedAmount ? +item?.Amount : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
+          remark: key in amount.remark ? amount.remark[key] : item?.remark || "",
         });
       }
     });
 
-    // Populate the data object
     data.data = amountRemark;
-    // dbConfigList.expensAmount=data.data
-    // setExpensAmount(amountRemark)
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
+
     console.log("kjhgfdghkjl;khgfdsfghjkljhgfdsfghjkjhgfdsdgjhk",data)
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
@@ -417,13 +412,12 @@ const L3Form = () => {
     expensAmount
   );
 
-  // useEffect(()=>{
-  //   dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
-  // },[])
+  
   useEffect(() => {
     if (!modalFullOpen) {
       dispatch(ExpenseAdvanceActions.getL3Data());
-      setExpensAmount(false);
+      dispatch({ type: CLEAR_GET_CLAIM_AND_ADVANCE });    }
+    setExpensAmount(false);
     setAmount({
       ExpenseNo: {},
       amount: {},
@@ -431,9 +425,7 @@ const L3Form = () => {
       remark: {},
       addedFor: {},
     })
-    }
-    
-  }, [modalFullOpen]);
+  }, [modalFullOpen,]);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";

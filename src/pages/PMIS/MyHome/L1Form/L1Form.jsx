@@ -217,7 +217,7 @@ const L1Form = () => {
       {
         name: "Expense ID",
         value: "ExpenseNo",
-        style: "min-w-[170px] max-w-[450px] text-center",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense Date",
