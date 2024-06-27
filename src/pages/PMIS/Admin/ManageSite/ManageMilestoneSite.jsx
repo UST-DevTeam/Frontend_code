@@ -31,6 +31,7 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { uiStatusColor } from "../../../../utils/queryBuilder";
 import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import moment from "moment";
 
 const ManageMilestoneSite = ({
   siteCompleteData,
@@ -42,6 +43,7 @@ const ManageMilestoneSite = ({
   setSiteId,
 }) => {
   const { customeruniqueId } = useParams();
+  const today = moment().format("YYYY-MM-DD");
 
   let assignedToCount = mileStone?.assignerResult?.length || 0;
 
@@ -691,6 +693,9 @@ const ManageMilestoneSite = ({
                               option: option,
                               name: its.fieldName,
                               type: type,
+                              props: {
+                              maxSelectableDate: today,
+                            },
                             };
                           })
                         : []
@@ -724,6 +729,9 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
+                              props: {
+                              maxSelectableDate: today,
+                            },
                             };
                           })
                         : []
@@ -757,6 +765,9 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
+                              props: {
+                              maxSelectableDate: today,
+                            },
                             };
                           })
                         : []

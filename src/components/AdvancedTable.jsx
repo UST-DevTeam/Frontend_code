@@ -79,44 +79,28 @@ const AdvancedTable = ({
         page: value,
         
       };
-      // setActiveFilter({
-      //   start: lcllastVisitedPage,
-      //   end: 50,
-      //   reseter: false,
-      //   page: value,
-      // });
       sessionStorage.setItem("page",value)
-      // console.info("filters_______", filters);
-      // return;
       filterAfter(filters);
       
     setActivedFilter(filters);
-
-    console.log("__paginate_filter",filters)
     setActiveFilter(objectToArray(filters));
-    // }
   };
 
-  // console.log("setcurrentPage", currentPage);
 
   const onSubmit = (formdata) => {
-    // alert(value)
-    console.log("__________formdata______", formdata);
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,
       ...formdata
     }
-    console.log("_filter_data",data)
+
     filterAfter(data);
     setActivedFilter(data);
     setActiveFilter(objectToArray(data));
     dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
 
-  console.log("____activedFilter__",activedFilter)
   const onReset = () => {
-    // alert(value)
     filterAfter({ reseter: true });
     setActiveFilter([]);
     setActivedFilter({});
@@ -128,16 +112,11 @@ const AdvancedTable = ({
   }, [tableName]);
 
   useEffect(()=>{
-    console.log("after_paginate", data.length)
     if (data !== finalData) {
       setFinalData(data);
     }
   },[data])
 
-  // console.log("setFinalData", finalData)
-
-
-  // const [filterVisiblity, setfilterVisiblity] = useState(false)
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">
@@ -204,10 +183,7 @@ const AdvancedTable = ({
                                       //   alert("pusher")
                                       return [...prev, e.target.value];
                                     } else {
-                                      //   alert("remover")
                                       let vle = prev.indexOf(e.target.value);
-
-                                      // console.log(vle, "dsadsadsadasdsadsa");
                                       if (vle != -1) {
                                         prev.splice(vle, 1);
                                       }

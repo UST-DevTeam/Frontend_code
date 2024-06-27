@@ -543,8 +543,6 @@ const ManageSite = ({
                             type: type,
                             props: {
                               maxSelectableDate: today,
-                              valueAsNumber: true,
-                              min: 0,
                             },
                           };
                         })
@@ -579,6 +577,9 @@ const ManageSite = ({
                             value: "abc",
                             name: its.fieldName,
                             type: dtype[its.dataType],
+                            props: {
+                              maxSelectableDate: today,
+                            },
                           };
                         })
                         : []

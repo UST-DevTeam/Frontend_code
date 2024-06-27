@@ -148,14 +148,8 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
     };
 
     const handleClickOutside = (event) => {
-        if (!buttonRef.current?.contains(event.target) && !modalRef?.current?.contains(event.target)) {
-            try {
-                dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
-            } catch (error) {
-                console.log(error, "amit errorerror 390")
-                // dispatch(Notify.error('something went wrong! please try again after a while'))
-            }
-           
+        if (!buttonRef.current.contains(event.target) && !modalRef.current.contains(event.target)) {
+            dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
         }
     };
 
