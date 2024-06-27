@@ -31,7 +31,6 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { uiStatusColor } from "../../../../utils/queryBuilder";
 import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
-import moment from "moment";
 
 const ManageMilestoneSite = ({
   siteCompleteData,
@@ -43,8 +42,6 @@ const ManageMilestoneSite = ({
   setSiteId,
 }) => {
   const { customeruniqueId } = useParams();
-
-  const today = moment().format("YYYY-MM-DD");
 
   let assignedToCount = mileStone?.assignerResult?.length || 0;
 
@@ -136,9 +133,15 @@ const ManageMilestoneSite = ({
 
       // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
 
-      dtresult["t_sengg"] && dtresult["t_sengg"].map((iytm) => {
+      dtresult["t_sengg"] &&
+        dtresult["t_sengg"].map((iytm) => {
           setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
-          console.log(iytm["fieldName"],datew[0][iytm["fieldName"]],"iytmiytmiytmiytm");
+
+          console.log(
+            iytm["fieldName"],
+            datew[0][iytm["fieldName"]],
+            "iytmiytmiytmiytm"
+          );
         });
       // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
 
@@ -151,7 +154,7 @@ const ManageMilestoneSite = ({
       //       "iytmiytmiytmiytm"
       //     );
       //   });
-      dtresult["t_tracking"] && 
+      dtresult["t_tracking"] &&
         dtresult["t_tracking"].map((iytm) => {
           setValueForm2(iytm["fieldName"], datew[0][iytm["fieldName"]]);
 
@@ -213,8 +216,6 @@ const ManageMilestoneSite = ({
       return [];
     }
   });
-
-  // console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject");
 
   const handleSiteEnggSubmit = (data) => {
     let final_data = {};
@@ -665,34 +666,31 @@ const ManageMilestoneSite = ({
                       ? dataOfProject["t_sengg"]
                         ? dataOfProject["t_sengg"].map((its) => {
                           let type = dtype[its.dataType]
-                          let option = its.dropdownValue
-                          
-                              ? its.dropdownValue.split(",").map((itm) => {
+                            let option = its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
                                   return {
                                     value: itm,
                                     label: itm,
                                   };
                                 })
-                              : []
-                          if (its['fieldName'] === "Circle"){
-                            option = circleWithPGList
-                          }
-                          if (its['fieldName'] === "BAND"){
-                            option = bandList;
-                          }
+                                : []
+                            
+                            if (its['fieldName'] === "Circle"){
+                               option = circleWithPGList;
+                               type = "select"
+                            }
+                            if (its['fieldName'] === "BAND"){
+                              option = bandList;
+                              type = "select"
+                            }
+
                             return {
                               label: its.fieldName,
                               value: "",
                               required: its.required == "Yes" ? true : false,
                               option: option,
                               name: its.fieldName,
-                              // type: dtype[its.dataType],
                               type: type,
-                              props: {
-                                maxSelectableDate: today,
-                                valueAsNumber: true,
-                                min: 0,
-                              },
                             };
                           })
                         : []
@@ -726,11 +724,6 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
-                              props: {
-                                maxSelectableDate: today,
-                                valueAsNumber: true,
-                                min: 0,
-                              },
                             };
                           })
                         : []
@@ -764,11 +757,6 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
-                              props: {
-                                maxSelectableDate: today,
-                                valueAsNumber: true,
-                                min: 0,
-                              },
                             };
                           })
                         : []
@@ -818,11 +806,11 @@ const ManageMilestoneSite = ({
             Financials: (
               <>
                 <div className="flex justify-end">
-                  {/* <Button
+                  <Button
                     classes="w-30"
                     name="Save Financial"
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
-                  /> */}
+                  />
                 </div>
 
                 <div className="overflow-auto h-[80vh]">

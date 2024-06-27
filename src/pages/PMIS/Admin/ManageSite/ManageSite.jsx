@@ -39,7 +39,6 @@ const ManageSite = ({
   const { customeruniqueId } = useParams();
   const today = moment().format("YYYY-MM-DD");
 
-
   const {
     register,
     handleSubmit,
@@ -109,6 +108,18 @@ const ManageSite = ({
   });
 
 
+  // let bandList = useSelector((state) => {
+  //   return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
+      
+  //     return Object.keys(itm).includes('BAND') ? itm?.BAND?.split(",").map((its) => {
+  //       return {
+  //         "label": its,
+  //         "value": its
+  //       }
+  //     }) : []
+  //   }) || []
+  // });
+
   let bandList = useSelector((state) => {
     return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
       
@@ -154,7 +165,7 @@ const ManageSite = ({
   const handleSiteEnggSubmit = (data) => {
     // alert(projectuniqueId)
 
-
+    console.log(data,"data+++++++++++")
 
 
     let filData = []
@@ -190,11 +201,9 @@ const ManageSite = ({
     };
 
 
-    let dat = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dataOfProject["t_sengg"]]
+    let dat = dataOfProject["t_sengg"]
     dat.map((itew) => {
-      // console.log(itew["fieldName"], data, "itewitewitewitewitew");
       let fieldNaming = labelToValue(itew["fieldName"]);
-
       final_data[fieldNaming] = data[fieldNaming];
     });
 
@@ -395,10 +404,6 @@ const ManageSite = ({
     </>
   );
 
-  // useEffect(() => {
-  //   dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
-  // }, [])
-
   useEffect(() => {
     if (dataOfProject) {
       setValueForm1("project", dataOfProject.projectType);
@@ -409,8 +414,6 @@ const ManageSite = ({
 
     // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
   }, [dataOfProject, reset]);
-
-
 
   let dtype = {
     Decimal: "number",
@@ -472,6 +475,7 @@ const ManageSite = ({
                             classes: "col-span-1",
                           },
                           ...dataOfProject["t_sengg"].map((its) => {
+                            let type = dtype[its.dataType]
                             let option = its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                   return {
@@ -480,14 +484,14 @@ const ManageSite = ({
                                   };
                                 })
                                 : []
-
-                            let type = dtype[its.dataType]
                             
                             if (its['fieldName'] === "Circle"){
-                              option = circleWithPGList;
+                               option = circleWithPGList;
+                               type = "select"
                             }
                             if (its['fieldName'] === "BAND"){
                               option = bandList;
+                              type = "select"
                             }
                             return {
                               label: its.fieldName,
@@ -495,12 +499,9 @@ const ManageSite = ({
                               required: its.required == "Yes" ? true : false,
                               option: option,
                               name: its.fieldName,
-                              type:type ,
-                              // type: "sdisabled",
+                              type: type,
                               props: {
                                 maxSelectableDate: today,
-                                valueAsNumber: true,
-                                min: 0,
                               },
                             };
                           }),

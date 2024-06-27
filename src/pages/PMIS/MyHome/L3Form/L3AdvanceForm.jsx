@@ -313,12 +313,12 @@ const L3AdvanceForm = () => {
         return;
       }
     
-      let selectRows = [];
-      if (selectAll.length === dbConfigList.length) {
-        selectRows = selectAll;
-      } else {
-        selectRows = advanceRow;
-      }
+      // let selectRows = [];
+      // if (selectAll.length === dbConfigList.length) {
+      //   selectRows = selectAll;
+      // } else {
+      //   selectRows = advanceRow;
+      // }
     
       selectAll.forEach((key) => {
         const originalItem = dbConfigList.find((item) => item.uniqueId === key);
@@ -327,7 +327,7 @@ const L3AdvanceForm = () => {
                 _id: key,
                 ApprovedAmount: key in amount.amount ? +amount.amount[key] : originalItem?.ApprovedAmount || 0,
                 Amount: key in amount.claimedAmount ? +amount.claimedAmount[key] : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-                remark: key in amount.remark ? amount.remark[key] : originalItem?.remark,
+                remark: key in amount.remark ? amount.remark[key] : originalItem?.remark || "Not Mentioned",
                 addedFor: key in amount.addedFor ? amount.addedFor[key] : dbConfigList.find(item => item.uniqueId === key)?.addedFor,
                 AdvanceNo: key in amount.AdvanceNo ? amount.AdvanceNo[key] : dbConfigList.find(item => item.uniqueId === key)?.AdvanceNo, 
 
@@ -418,7 +418,7 @@ const L3AdvanceForm = () => {
                 amount: (
                   <input
                     type="number"
-                    defaultValue={`${item?.ApprovedAmount}`}
+                    defaultValue={`${item?.ApprovedAmount || 0}`}
                     className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Amount"
                     onChange={(e) => {
@@ -427,19 +427,19 @@ const L3AdvanceForm = () => {
                           ...prev,
                           amount: {
                             ...prev.amount,
-                            [item.uniqueId]: e.target.value,
+                            [item.uniqueId]: +e.target.value,
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]: dbConfigList.find(item2 => item.uniqueId === item2.uniqueId)?.Amount || 0,
                           },
                           addedFor: {
                             ...prev.addedFor,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.addedFor,
+                            [item.uniqueId]: dbConfigList.find(item2 => item.uniqueId === item2.uniqueId)?.addedFor,
                           },
                           AdvanceNo: {
                             ...prev.AdvanceNo,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.AdvanceNo,
+                            [item.uniqueId]: dbConfigList.find(item2 => item.uniqueId === item2.uniqueId)?.AdvanceNo,
                           },
                         };
                       });
@@ -449,7 +449,7 @@ const L3AdvanceForm = () => {
                 remark: (
                   <input
                     type="text"
-                    defaultValue={`${item?.remark}`}
+                    defaultValue={`${item?.remark || ""}`}
                     className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {
@@ -463,15 +463,15 @@ const L3AdvanceForm = () => {
                           },
                           claimedAmount: {
                             ...prev.claimedAmount,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.Amount || 0,
+                            [item.uniqueId]: dbConfigList.find(item2 => item.uniqueId === item2.uniqueId)?.Amount || 0,
                           },
                           addedFor: {
                             ...prev.addedFor,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.addedFor,
+                            [item.uniqueId]: dbConfigList.find(item2 => item.uniqueId === item2.uniqueId)?.addedFor,
                           },
                           AdvanceNo: {
                             ...prev.AdvanceNo,
-                            [item.uniqueId]: dbConfigList.find(item => item.uniqueId === item.uniqueId)?.AdvanceNo,
+                            [item.uniqueId]: dbConfigList.find(item2 => item.uniqueId === item2.uniqueId)?.AdvanceNo,
                           },
                         };
                       });
