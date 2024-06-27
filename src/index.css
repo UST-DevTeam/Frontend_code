@@ -406,6 +406,14 @@ svg {
   width:0;
 } */
 
+.amountWithRemark::placeholder {
+  color: white !important;
+  /* padding-left: 10px !important; */
+}
+
+.amountWithRemark:focus::placeholder {
+  color: gray !important;
+}
 
 
 .parentGetterClass ::-webkit-scrollbar {

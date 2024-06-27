@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
@@ -28,7 +28,7 @@ const L2AdvanceForm = () => {
     remark: {},
     addedFor: {},
   });
-
+// const [refresh ,setRefresh] = useState(false)
   const [modalOpen, setmodalOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -382,8 +382,6 @@ const L2AdvanceForm = () => {
 
     let selectRows = [];
 
-
-    console.log("selectAll",selectAll)
     if (selectAll.length === dbConfigList.length) {
       selectRows = selectAll;
     } else {
@@ -421,7 +419,6 @@ const L2AdvanceForm = () => {
 
     });
 
-   console.log("amountRemark____",amountRemark)
     data.data = amountRemark;
     data.AdvanceId = expenseRef.current?.AdvanceNo;
 
@@ -454,8 +451,6 @@ const L2AdvanceForm = () => {
     dispatch(ExpenseAdvanceActions.getL2AdvanceData());
   }, []);
 
-  console.log("amount_______", amount);
-
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaimType";
     dispatch(
@@ -465,6 +460,91 @@ const L2AdvanceForm = () => {
       })
     );
   };
+
+  const data = useMemo(() => dbConfigList?.map((item) => {
+    return {
+      ...item,
+      amount: (
+        <input
+          type="number"
+          className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
+          placeholder={item?.ApprovedAmount || "Enter Amount"}
+          onChange={(e) => {
+            setAmount((prev) => {
+              return {
+                ...prev,
+                amount: {
+                  ...prev.amount,
+                  [item.uniqueId]: +e.target.value,
+                },
+                claimedAmount: {
+                  ...prev.claimedAmount,
+                  [item.uniqueId]:
+                    dbConfigList.find(
+                      (item2) => item.uniqueId === item2.uniqueId
+                    )?.Amount || 0,
+                },
+                addedFor: {
+                  ...prev.addedFor,
+                  [item.uniqueId]: dbConfigList.find(
+                    (item2) => item.uniqueId === item2.uniqueId
+                  )?.addedFor,
+                },
+                AdvanceNo: {
+                  ...prev.AdvanceNo,
+                  [item.uniqueId]: dbConfigList.find(
+                    (item2) => item.uniqueId === item2.uniqueId
+                  )?.AdvanceNo,
+                },
+              };
+            });
+          }}
+          defaultValue={`${item?.ApprovedAmount || 0}`}
+        />
+      ),
+      remark: (
+        <input
+          type="text"
+          className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
+          placeholder={item?.remark || "Enter Your Remark..."}
+          onChange={(e) => {
+            setAmount((prev) => {
+              return {
+                ...prev,
+                remark: {
+                  ...prev.remark,
+                  [item.uniqueId]: e.target.value,
+                },
+                claimedAmount: {
+                  ...prev.claimedAmount,
+                  [item.uniqueId]:
+                    dbConfigList.find(
+                      (item2) => item.uniqueId === item2.uniqueId
+                    )?.Amount || 0,
+                },
+                addedFor: {
+                  ...prev.addedFor,
+                  [item.uniqueId]: dbConfigList.find(
+                    (item2) => item.uniqueId === item2.uniqueId
+                  )?.addedFor,
+                },
+                AdvanceNo: {
+                  ...prev.AdvanceNo,
+                  [item.uniqueId]: dbConfigList.find(
+                    (item2) => item.uniqueId === item2.uniqueId
+                  )?.AdvanceNo,
+                },
+              };
+            });
+          }}
+          defaultValue={`${item?.remark || ''}`}
+        />
+      ),
+    };
+  }),[dbConfigList])
+
+  console.log("data___",data)
+
   return (
     <>
       <AdvancedTable
@@ -510,87 +590,7 @@ const L2AdvanceForm = () => {
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
-        data={dbConfigList?.map((item) => {
-          return {
-            ...item,
-            amount: (
-              <input
-                type="number"
-                defaultValue={`${item?.ApprovedAmount || 0}`}
-                className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
-                placeholder="Enter Amount"
-                onChange={(e) => {
-                  setAmount((prev) => {
-                    return {
-                      ...prev,
-                      amount: {
-                        ...prev.amount,
-                        [item.uniqueId]: +e.target.value,
-                      },
-                      claimedAmount: {
-                        ...prev.claimedAmount,
-                        [item.uniqueId]:
-                          dbConfigList.find(
-                            (item2) => item.uniqueId === item2.uniqueId
-                          )?.Amount || 0,
-                      },
-                      addedFor: {
-                        ...prev.addedFor,
-                        [item.uniqueId]: dbConfigList.find(
-                          (item2) => item.uniqueId === item2.uniqueId
-                        )?.addedFor,
-                      },
-                      AdvanceNo: {
-                        ...prev.AdvanceNo,
-                        [item.uniqueId]: dbConfigList.find(
-                          (item2) => item.uniqueId === item2.uniqueId
-                        )?.AdvanceNo,
-                      },
-                    };
-                  });
-                }}
-              />
-            ),
-            remark: (
-              <input
-                type="text"
-                defaultValue={`${item?.remark}`}
-                className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
-                placeholder="Enter Your Remark..."
-                onChange={(e) => {
-                  setAmount((prev) => {
-                    return {
-                      ...prev,
-                      remark: {
-                        ...prev.remark,
-                        [item.uniqueId]: e.target.value,
-                      },
-                      claimedAmount: {
-                        ...prev.claimedAmount,
-                        [item.uniqueId]:
-                          dbConfigList.find(
-                            (item2) => item.uniqueId === item2.uniqueId
-                          )?.Amount || 0,
-                      },
-                      addedFor: {
-                        ...prev.addedFor,
-                        [item.uniqueId]: dbConfigList.find(
-                          (item2) => item.uniqueId === item2.uniqueId
-                        )?.addedFor,
-                      },
-                      AdvanceNo: {
-                        ...prev.AdvanceNo,
-                        [item.uniqueId]: dbConfigList.find(
-                          (item2) => item.uniqueId === item2.uniqueId
-                        )?.AdvanceNo,
-                      },
-                    };
-                  });
-                }}
-              />
-            ),
-          };
-        })}
+        data={data}
         errors={errors}
         register={register}
         setValue={setValue}
