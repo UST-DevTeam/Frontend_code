@@ -176,12 +176,12 @@ const ManageVendor = () => {
       {
         name: "Vendor Code",
         value: "empCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-[]",
       },
       {
         name: "Vendor Name",
         value: "empName",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-white",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-",
       },
       {
         name: "Email ID",
@@ -252,10 +252,10 @@ const ManageVendor = () => {
     dispatch(VendorActions.getManageVendorDetails());
   }, []);
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "ManageEmployee";
+    data["fileType"] = "ManageVendor";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(AdminActions.getManageCircle());
+        dispatch(VendorActions.getManageVendorDetails());
         setFileOpen(false);
         resetting("");
       })

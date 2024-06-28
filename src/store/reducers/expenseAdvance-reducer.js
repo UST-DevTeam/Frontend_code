@@ -29,7 +29,7 @@ const ExpenseAdvanceReducer = createSlice({
     name:'ExpenseAdvanceReducer',
     initialState,
     reducers:{
-        CLEAR_GET_CLAIM_AND_ADVANCE:(state,{payload}) => {
+       CLEAR_GET_CLAIM_AND_ADVANCE :(state,{payload}) => {
             // if(payload.reset){
                 state.getL2Data =[]
             // }else{

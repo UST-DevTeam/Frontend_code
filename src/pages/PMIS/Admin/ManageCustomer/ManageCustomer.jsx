@@ -58,7 +58,7 @@ const ManageCustomer = () => {
             />
           </div>
         ),
-        shortName: <span className="text-[#143b64]">{itm.shortName}</span>,
+        shortName: <span className="text-[#13b497] font-extrabold">{itm.shortName}</span>,
         // "status": <CstmButton child={<ToggleButton onChange={(e) => {
         //     console.log(e.target.checked, "e.target.checked")
         //     let data = {
@@ -184,12 +184,12 @@ const ManageCustomer = () => {
       {
         name: "Logo",
         value: "imgshow",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white z-20",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]  z-20",
       },
       {
         name: "Customer Name",
         value: "customerName",
-        style: "min-w-[140px] max-w-[450px] text-center sticky left-0 bg-white",
+        style: "min-w-[140px] max-w-[450px] text-center sticky left-[139px] bg-[#3e454d]",
       },
       {
         name: "Short Name",
