@@ -129,17 +129,17 @@ const AccrualRevenueTrendForm = ({
   const onTableViewSubmit = (data) => {
 
 
+    console.log(data,"______________data")
+
+
     for(let i = 0; i<monthss.length; i++){
       data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
     }
-    console.log(data, "datadagsdfsfsdfsta");
-    // dasdsadsadasdas
     if (formValue.uniqueId) {
       dispatch(
         FormssActions.putAccrualRevenueTrend(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
             setIsOpen(false);
             dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
           },
