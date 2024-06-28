@@ -23,7 +23,6 @@ const FormssActions = {
     },
     postEarnValueMgmtFinancial: (data, cb) => async (dispatch, _) => {
         try {
-            console.log("adfasfasfasasfadfsa",data);
             const res = await Api.post({ data: data, url: Urls.formss_earnValue_mgmt_financial })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {

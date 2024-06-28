@@ -26,6 +26,7 @@ import CommonForm from "../../../../components/CommonForm";
 
 import { UilSearch } from "@iconscout/react-unicons";
 import AccrualRevenueTrendForm from "./AccrualRevenueTrendForm";
+import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-reducer";
 
 const AccrualRevenueTrend = () => {
 
@@ -52,6 +53,8 @@ const AccrualRevenueTrend = () => {
     extraColumns = [currentMonth - 2, currentMonth - 1, currentMonth];
   }
   const [extraColumnsState, setExtraColumns] = useState(extraColumns);
+  
+
 
 
 
@@ -105,10 +108,6 @@ const AccrualRevenueTrend = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        plan1: itm.earnvalueArray?.[0]?.["plan"],
-        plan2: itm.earnvalueArray?.[1]?.["plan"],
-        plan3: itm.earnvalueArray?.[2]?.["plan"],
-
         edit: (
           <CstmButton
             className={"p-2"}
@@ -116,6 +115,7 @@ const AccrualRevenueTrend = () => {
               <EditButton
                 name={""}
                 onClick={() => {
+
                   setmodalOpen(true);
                   setmodalHead("Edit Amount");
                   setmodalBody(
@@ -148,19 +148,19 @@ const AccrualRevenueTrend = () => {
                     buttons: [
                       <Button
                         classes="w-15 bg-green-500"
-                        onClick={() => {
-                          dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`,
-                              () => {
-                                dispatch(
-                                  FormssActions.getEarnValueMgmtFinancial()
-                                );
-                                dispatch(ALERTS({ show: false }));
-                              }
-                            )
-                          );
-                        }}
+                        // onClick={() => {
+                        //   dispatch(
+                        //     CommonActions.deleteApiCaller(
+                        //       `${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`,
+                        //       () => {
+                        //         dispatch(
+                        //           FormssActions.getEarnValueMgmtFinancial()
+                        //         );
+                        //         dispatch(ALERTS({ show: false }));
+                        //       }
+                        //     )
+                        //   );
+                        // }}
                         name={"OK"}
                       />,
                       <Button
@@ -202,42 +202,6 @@ const AccrualRevenueTrend = () => {
     getValues,
     formState: { errors },
   } = useForm();
-
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  const getPreviousCurrentAndNextMonth = () => {
-    const currentDate = new Date();
-    const currentMonthIndex = currentDate.getMonth();
-    const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
-    const nextMonthIndex = (currentMonthIndex + 1) % 12;
-    const currentYear = currentDate.getFullYear();
-    const previousMonthYear =
-      currentMonthIndex === 0 ? currentYear - 1 : currentYear;
-    const nextMonthYear =
-      currentMonthIndex === 11 ? currentYear + 1 : currentYear;
-
-    return [
-      { month: months[previousMonthIndex], year: previousMonthYear },
-      { month: months[currentMonthIndex], year: currentYear },
-      { month: months[nextMonthIndex], year: nextMonthYear },
-    ];
-  };
-
-  const [previousMonthData, currentMonthData, nextMonthData] =
-    getPreviousCurrentAndNextMonth();
 
   let table = {
     columns: [
@@ -345,11 +309,8 @@ const AccrualRevenueTrend = () => {
     dispatch(
       FormssActions.postAccrualRevenueTrend(
         {
-          viewBy: extraColumnsState.join(","),
+          Monthly: extraColumnsState.join(","),
           year: `${currrentYear}`,
-          yyear: `${currrentYear}`,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",
         },
         () => {}
       )
@@ -372,7 +333,6 @@ const AccrualRevenueTrend = () => {
         onChange: (e) => {
           setValue("yyear", e.target.value);
           setyear(e.target.value);
-          // alert()
         },
       },
       required: true,
@@ -406,7 +366,7 @@ const AccrualRevenueTrend = () => {
       cols.push([
         {
           name: `${monthMap[index]} ${year}`,
-          value: "aop_target-"+index+"",
+          value: "M-"+index,
           style: "min-w-[200px] max-w-[200px] text-center",
         },
       ]);
@@ -426,7 +386,7 @@ const AccrualRevenueTrend = () => {
           ?.map((key) => +key)
           ?.sort((a, b) => a - b)
       );
-      dispatch(FormssActions.postEarnValueMgmtFinancial(res, () => {}));
+      dispatch(FormssActions.postAccrualRevenueTrend(res, () => {}));
     } catch (error) {
       console.error("[ERROR] :: " + error.message);
     }
@@ -455,18 +415,6 @@ const AccrualRevenueTrend = () => {
       </div>
 
       <AdvancedTable 
-        headerButton={
-          <>
-            {/* <Button
-              onClick={(e) => {
-                setmodalOpen((prev) => !prev);
-                setmodalHead("New Plan");
-                // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-              }}
-              name={"Add New"}
-            ></Button> */}
-          </>
-        }
         table={table}
         filterAfter={onSubmit}
         tableName={"UserListTable"}

@@ -26,6 +26,7 @@ const AccrualRevenueTrendForm = ({
   })
 
 
+
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
@@ -72,7 +73,7 @@ const AccrualRevenueTrendForm = ({
         {
           label: `${monthsss[itm]} ${year}`,
           value: "",
-          name: `M-${itm}_y`,
+          name: `M-${itm}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -82,32 +83,6 @@ const AccrualRevenueTrendForm = ({
           classes: "col-span-1",
         })),
      
-    ];
-    let Form2 = [     
-        {
-          label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
-          value: "",
-          name:  `M-${monthss[0]}_y`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        },
-        {
-          label: `AOP Target (${currentMonthData.month} ${currentMonthData.year})`,
-          value: "",
-          name: `aop_target-${monthss[0]}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        },
     ];
 
 
@@ -128,37 +103,31 @@ const AccrualRevenueTrendForm = ({
   };
   const onTableViewSubmit = (data) => {
 
-
-    console.log(data,"______________data")
-
-
-    for(let i = 0; i<monthss.length; i++){
-      data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
-    }
+    data['year'] = year
+    data['costCenteruid'] = formValue['uniqueId']
     if (formValue.uniqueId) {
       dispatch(
         FormssActions.putAccrualRevenueTrend(
           data,
           () => {
             setIsOpen(false);
-            dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
+            dispatch(
+              FormssActions.postAccrualRevenueTrend(
+                {
+                  Monthly: monthss.join(","),
+                  year: `${year}`,
+                },
+                () => {}
+              )
+            );
           },
         )
-      );
-    } else {
-      dispatch(
-        FormssActions.postEarnValueMgmtFinancial(data, () => {
-          console.log("CustomQueryActions.postDBConfig");
-          setIsOpen(false);
-          dispatch(FormssActions.getEarnValueMgmtFinancial());
-        })
       );
     }
   };
   console.log(Form, "Form 11");
   useEffect(() => {
     console.log("formValue in useEffect:", formValue);
-    // dispatch(FormssActions.getEarnValueMgmtFinancial());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -211,7 +180,7 @@ const AccrualRevenueTrendForm = ({
       <>
         <CommonForm
           classes={"grid-cols-2 gap-1"}
-          Form={(roleName==='Admin')?Form:Form2}
+          Form={Form}
           errors={errors}
           register={register}
           setValue={setValue}

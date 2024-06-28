@@ -224,6 +224,9 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
   const onTableViewSubmit = (data) => {
 
 
+    console.log(data,"______________data")
+
+
     for(let i = 0; i<monthss.length; i++){
       data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
     }
