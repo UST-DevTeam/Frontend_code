@@ -18,7 +18,7 @@ const VendorCards = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(ComponentActions.breadcrumb("Vendor", "/vendorCards", 0, true));
+    dispatch(ComponentActions.breadcrumb("Vendor", "/vendor", 0, true));
   }, []);
 
   return (
@@ -27,9 +27,9 @@ const VendorCards = () => {
         showbtn={false}
         approveddata={[
           [
-            "Vendor On-Board",
+            "Partner On-Board",
             "bg-gradient-to-r from-teal-400 to-sky-500",
-            "/manageVendor",
+            "/vendor/managePartner",
           ],
           [
             "Project Tracking",

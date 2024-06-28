@@ -174,14 +174,14 @@ const ManageVendor = () => {
   let table = {
     columns: [
       {
-        name: "Vendor Code",
-        value: "empCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-[]",
+        name: "Partner Code",
+        value: "vendorCode",
+        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
-        name: "Vendor Name",
-        value: "empName",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-",
+        name: "Partner Name",
+        value: "vendorName",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-[#3e454d]",
       },
       {
         name: "Email ID",
@@ -190,17 +190,17 @@ const ManageVendor = () => {
       },
       {
         name: "Contact No.",
-        value: "mobile",
+        value: "contactDetails",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
         name: "Contact Person Name",
-        value: "mobile",
+        value: "contactPerson",
         style: "min-w-[150px] max-w-[450px] text-center whitespace-nowrap",
       },
       {
         name: "Validity Upto",
-        value: "validity",
+        value: "validityUpto",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       // {
@@ -276,7 +276,7 @@ const ManageVendor = () => {
             ></Button>
             <Button
               name={"Upload File"}
-              classes="w-auto"
+              classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
@@ -284,6 +284,7 @@ const ManageVendor = () => {
           </div>
         }
         table={table}
+        exportButton={["/export/vendor","Vendor.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -309,6 +310,7 @@ const ManageVendor = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
+        tempbtn={true} tempbtnlink = {["/template/ManageVendor.xlsx","ManageVendor.xlsx"]}
       />
     </>
   );

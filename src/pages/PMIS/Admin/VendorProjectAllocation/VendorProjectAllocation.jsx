@@ -131,7 +131,7 @@ const VendorProjectAllocation = () => {
     let table = {
         columns: [
             {
-                name: "Vendor",
+                name: "Partner",
                 value: "vendor",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },                    

@@ -126,6 +126,10 @@ const BreadCrumbs = () => {
       "name":"Approval",
       "url":"/home/approverCards",
     },
+    "vendor":{
+      "name":"Partner",
+      "url":"/vendor",
+    },
   }
   
 

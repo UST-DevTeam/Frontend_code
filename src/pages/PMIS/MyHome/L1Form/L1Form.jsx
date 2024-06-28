@@ -31,6 +31,8 @@ const L1Form = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
+  const [advanceRow, setAdvanceRow] = useState([]);
+  const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [hide, setHide] = useState(false);
@@ -78,6 +80,32 @@ const L1Form = () => {
         //   </div>
         // ),
         expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
+        
+        // checkboxAdvance: (
+        //   <input
+        //     type="checkbox"
+        //     id={itm.uniqueId}
+        //     checked={advanceRow.includes(itm.uniqueId)}
+        //     value={itm.uniqueId}
+        //     onChange={(e) => {
+        //       if (e.target.checked) {
+        //         setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
+        //         setAdvanceRow((prev) => [...prev, e.target.value]);
+                
+        //       } else {
+        //         if (selectAll.includes(e.target.id)) {
+        //           setSelectAll((prev) =>
+        //             prev.filter((id) => id !== e.target.id)
+        //           );
+        //         }
+        //         setAdvanceRow((prev) =>
+        //           prev.filter((id) => id !== e.target.value)
+        //         );
+        //       }
+              
+        //     }}
+        //   />
+        // ),
         
         ExpenseNo: (
           <p
@@ -209,15 +237,70 @@ const L1Form = () => {
 
   let table = {
     columns: [
+      // {
+      //   name: (
+      //     <input
+      //       type="checkbox"
+      //       checked={(dbConfigList?.length === selectAll?.length)}
+      //       className='check-state'
+      //       onChange={(e) => {
+              
+      //         if (e.target.checked) {
+      //           setAdvanceRow(dbConfigList.map((itm) => itm.uniqueId));
+      //           setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
+                
+      //           try {
+      //             let eleRefs = document.getElementsByClassName('check-state');
+      //             if (eleRefs) {
+      //               eleRefs = Array.from(eleRefs);
+      //               if (Array.isArray(eleRefs)) {
+      //                 eleRefs.forEach(ele => {
+      //                   if (ele) {
+      //                     ele.setAttribute('checked', true);
+      //                   }
+      //                 });
+      //               }
+      //             }
+      //           } catch (error) {
+      //             // Handle error if needed
+      //           }
+      //         } else {
+      //           setAdvanceRow([]);
+      //           setSelectAll([]);
+                
+      //           try {
+      //             let eleRefs = document.getElementsByClassName('check-state');
+      //             if (eleRefs) {
+      //               eleRefs = Array.from(eleRefs);
+      //               if (Array.isArray(eleRefs)) {
+      //                 eleRefs.forEach(ele => {
+      //                   if (ele) {
+      //                     ele.removeAttribute('checked');
+      //                   }
+      //                 });
+      //               }
+      //             }
+      //           } catch (error) {
+      //             // Handle error if needed
+      //           }
+      //         }
+              
+      //       }}
+      //     />
+      //   )
+      //   ,
+      //   value: "checkboxAdvance",
+      //   style: "min-w-[40px] max-w-[60px] text-center sticky left-0 bg-[#3e454d]",
+      // },
       {
         name: "Month",
         value: "expensemonth",
-        style: "min-w-[80px] max-w-[450px] text-center",
+        style: "min-w-[80px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense ID",
         value: "ExpenseNo",
-        style: "min-w-[170px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d]",
       },
       {
         name: "Expense Date",
@@ -275,17 +358,12 @@ const L1Form = () => {
       {
         name: "Claimed Amount",
         value: "Amount",
-        style: "min-w-[170px] max-w-[450px] text-center",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[248px] bg-[#3e454d]",
       },
       {
         name: "Current Status",
         value: "customStatus",
         style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "Last Action Date",
-        value: "lastActionDate",
-        style: "min-w-[200px] max-w-[450px] text-center",
       },
       ...( !hide ? [] : 
         [
@@ -450,6 +528,20 @@ const L1Form = () => {
               }}
               name={"L1 Advance"}
             ></Button>
+            {/* <div className="flex gap-1">
+                <Button
+                  onClick={() => {
+                    handleAmountAndRemark("Rejected");
+                  }}
+                  name="Reject"
+                />
+                <Button
+                  onClick={() => {
+                    handleAmountAndRemark("Approved");
+                  }}
+                  name="Approve"
+                />
+              </div> */}
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)

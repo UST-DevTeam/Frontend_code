@@ -56,7 +56,7 @@ const ManageVendorForm = (props) => {
   const [showSocialMediaOther, setshowSocialMediaOther] = useState(false);
   const [showOtherAddressProof, setshowOtherAddressProof] = useState(false);
   const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
-  const [showPassportNumber, setshowPassportNumber] = useState(false);
+  const [showVendorRegistered, setshowVendorRegistered] = useState(false);
   const [stateName, setStateName] = useState(false);
 
   const getManageEmpDetails = useSelector((state) => {
@@ -134,6 +134,15 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
+      label: "UST Partner Code",
+      name: "ustCode",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
       label: "Email Address",
       name: "email",
       value: "",
@@ -152,10 +161,10 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Registered Addresss ",
+      label: "Registered Partner Addresss ",
       name: "registeredAddress",
       value: "",
-      type: "text",
+      type: "textarea",
       props: "",
       required: false,
       placeholder: "",
@@ -258,7 +267,11 @@ const ManageVendorForm = (props) => {
       label: "Current Status",
       name: "status",
       value: "",
-      type: "text",
+      type: "select",
+      option: [
+        {"label": "Active", "value": "Active"},
+        {"label": "Inactive", "value": "Inactive"},
+      ],
       props: "",
       required: false,
       placeholder: "",
@@ -286,10 +299,32 @@ const ManageVendorForm = (props) => {
       ],
       props: {
         onChange: (e) => {
-          setshowPassportNumber(e.target.value === "Yes");
+          setshowVendorRegistered(e.target.value === "Yes");
         },
       },
     },
+  ];
+  if (showVendorRegistered) {
+    PersonalInformation.push(
+      {
+        label: "GST No.",
+        name: "gstNumber",
+        value: "",
+        type: "text",
+        required: true,
+        placeholder: "",
+      },
+      {
+        label: "Upload GST (Attachment)",
+        name: "gst",
+        value: "",
+        type: "file",
+        props: "",
+        placeholder: "Upload file if GST is mentioned",
+      },
+  );
+  }
+  PersonalInformation.push(
     {
       label: "PAN Number",
       name: "panNumber",
@@ -421,6 +456,42 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
+      label: "Approval Mail",
+      name: "approvalMail",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Contact Copy",
+      name: "contactCopy",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Partner Rate Card",
+      name: "partnerRateCard",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Mail Communication Attachment",
+      name: "approvalMail",
+      value: "",
+      type: "file",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
       label: "Cheque File (Attachment)",
       name: "cheque",
       value: "",
@@ -448,14 +519,6 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Working Circle's",
-      name: "workingCircle",
-      value: "",
-      type: "select",
-      placeholder: "",
-    },
-
-    {
       label: "Tecnology",
       name: "technology",
       value: "",
@@ -465,7 +528,7 @@ const ManageVendorForm = (props) => {
     },
 
     {
-      label: "CBT HR Certified (Y/N)",
+      label: "CBTHR Certified (Y/N)",
       name: "cbt",
       value: "",
       type: "select",
@@ -487,7 +550,7 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Form Tociii",
+      label: "Form Toclii",
       name: "formToci",
       value: "",
       type: "text",
@@ -505,15 +568,6 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Contract Copy",
-      name: "contractCopy",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
       label: "Payment Terms (Days)",
       name: "paymentTerms",
       value: "",
@@ -521,7 +575,7 @@ const ManageVendorForm = (props) => {
       props: "",
       placeholder: "",
     },
-  ];
+  );
 
   let FinancialEvaluation = [
     {
@@ -782,26 +836,7 @@ const ManageVendorForm = (props) => {
     // },
   ];
 
-  if (showPassportNumber) {
-    PersonalInformation.push(
-      {
-        label: "GST No.",
-        name: "gstNumber",
-        value: "",
-        type: "text",
-        required: true,
-        placeholder: "",
-      },
-      {
-        label: "Upload GST (Attachment)",
-        name: "gst",
-        value: "",
-        type: "file",
-        props: "",
-        placeholder: "Upload file if GST is mentioned",
-      },
-  );
-  }
+  
 
 
   let CommercialEvaluation = [
@@ -1075,7 +1110,9 @@ const ManageVendorForm = (props) => {
           false,
           data,
           () => {
-            showLevel((prev) => prev + 1);
+            // showLevel((prev) => prev + 1);
+            alert("Data submitted successfully!");
+            navigate("/vendor/managePartner");
           },
           empuid
         )
@@ -1083,7 +1120,9 @@ const ManageVendorForm = (props) => {
     } else {
       dispatch(
         VendorActions.postManageVendorDetails(false, data, () => {
-          showLevel((prev) => prev + 1);
+          // showLevel((prev) => prev + 1);
+          alert("Data submitted successfully!");
+            navigate("/vendor/managePartner");
         })
       );
     }
@@ -1141,7 +1180,7 @@ const ManageVendorForm = (props) => {
       <div className=" w-full h-full">
         <button
           onClick={() => {
-            navigate("/manageVendor");
+            navigate("/vendor/managePartner");
             setOneLoad(false);
           }}
           className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-[#13b497]  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
@@ -1293,15 +1332,15 @@ const ManageVendorForm = (props) => {
                 <div className="flex gap-10 mb-3 justify-center">
                   <button
                     onClick={() => {
-                      navigate("/manageVendor");
+                      navigate("/vendor/managePartner");
                     }}
-                    className="mt-6 w-auto justify-center rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-black hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                   className="mt-6 w-auto justify-center rounded-md px-10 py-1  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-6 w-auto justify-center rounded-md bg-[#143b64] hover:bg-violet-50 hover:text-black hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-6 w-auto justify-center rounded-md bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>

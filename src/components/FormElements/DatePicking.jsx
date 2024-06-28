@@ -9,7 +9,6 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
     const [selectedDate, setSelectedDate] = useState(true);
 
 
-
     console.log(getValues(), "dfghjks")
 
     return <>

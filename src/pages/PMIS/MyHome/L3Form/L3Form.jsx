@@ -201,12 +201,12 @@ const L3Form = () => {
       {
         name: "Month",
         value: "expensemonth",
-        style: "min-w-[80px] max-w-[450px] text-center",
+        style: "min-w-[80px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense ID",
         value: "ExpenseNo",
-        style: "min-w-[170px] max-w-[450px] text-center",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d]",
       },
       {
         name: "Expense Date",
@@ -265,7 +265,7 @@ const L3Form = () => {
       {
         name: "Claimed Amount",
         value: "Amount",
-        style: "min-w-[170px] max-w-[450px] text-center",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[248px] bg-[#3e454d]",
       },
       {
         name: "Current Status",
@@ -448,7 +448,7 @@ const L3Form = () => {
             <Button
               classes="w-auto"
               onClick={(e) => {
-                navigate("/home/approverCards/L3Approver");
+                navigate("/home/approverCards/FinanceApprover");
               }}
               name={"L3 Expense"}
             ></Button>

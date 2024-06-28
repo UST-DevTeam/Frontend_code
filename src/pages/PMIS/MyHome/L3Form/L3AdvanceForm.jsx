@@ -553,7 +553,7 @@ const L3AdvanceForm = () => {
             <Button
               classes="w-auto"
               onClick={(e) => {
-                navigate("/home/approverCards/L3Approver");
+                navigate("/home/approverCards/FinanceApprover");
               }}
               name={"L3 Expense"}
             ></Button>
