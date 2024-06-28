@@ -29,7 +29,7 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
             selected={getValues(itm.name) ? moment(getValues(itm.name), itm?.formatop).toDate() : ""}
             onChange={(date) => {
 
-                console.log(date, getValues(itm.name), "datedatedatedatedate")
+                // console.log(date, getValues(itm.name), "datedatedatedatedate")
 
                 if (date != null) {
                     let curr = moment(date)
