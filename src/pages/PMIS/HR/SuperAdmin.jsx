@@ -295,9 +295,9 @@ const SuperAdmin = () => {
             "/hr/superAdmin/userProjectAllocation",
           ],
           [
-            "Vendor Project Allocation",
+            "Partner Project Allocation",
             "bg-gradient-to-r from-violet-200 to-blue-600",
-            "/hr/superAdmin/vendorProjectAllocation",
+            "/hr/superAdmin/partnerProjectAllocation",
           ],
           [
             "Manage Department",

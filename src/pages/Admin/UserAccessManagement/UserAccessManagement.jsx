@@ -342,6 +342,17 @@ const UserAccessManagement = () => {
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FormsView")}
               />
             }
+            {
+              <UserAccessManagementChild
+                showData={showData}
+                setshowData={setshowData}
+                fromCall={"pmpermission"}
+                name={"componentType"}
+                child={"select"}
+                btnName={"Partner Management"}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="PartnerView")}
+              />
+            }
           </table>
         </div>
       </div>

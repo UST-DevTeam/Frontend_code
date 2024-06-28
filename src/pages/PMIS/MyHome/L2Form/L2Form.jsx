@@ -199,12 +199,12 @@ const L2Form = () => {
       {
         name: "Month",
         value: "expensemonth",
-        style: "min-w-[80px] max-w-[450px] text-center",
+        style: "min-w-[80px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense ID",
         value: "ExpenseNo",
-        style: "min-w-[170px] max-w-[450px] text-center",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d]",
       },
       {
         name: "Expense Date",
@@ -263,7 +263,7 @@ const L2Form = () => {
       {
         name: "Claimed Amount",
         value: "Amount",
-        style: "min-w-[170px] max-w-[450px] text-center",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[248px] bg-[#3e454d]",
       },
       {
         name: "Current Status",

@@ -459,7 +459,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/hr/superAdmin/vendorProjectAllocation",
+      link: "/hr/superAdmin/partnerProjectAllocation",
       subMenu: [],
       component: <VendorProjectAllocation />,
     },
@@ -485,7 +485,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/manageVendor",
+      link: "/vendor/managePartner",
       component: <ManageVendor />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
@@ -726,8 +726,8 @@ export const Sidebar_content = {
         icon: <UilUserSquare className="hover:text-heading cursor-pointer"/>,
       },
       {
-        name: "Vendor Management",
-        link: "/vendorCards",
+        name: "Partner Management",
+        link: "/vendor",
         component: <VendorCards />,
         icon: <UilStore className="hover:text-heading cursor-pointer"/>,
         subMenu: [],

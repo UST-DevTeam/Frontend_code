@@ -255,7 +255,7 @@ const L1AdvanceForm = () => {
           {
             name: "Claimed Amount",
             value: "Amount",
-            style: "min-w-[170px] max-w-[450px] text-center",
+            style: "min-w-[170px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
           },
           {
             name: "Current Status",
