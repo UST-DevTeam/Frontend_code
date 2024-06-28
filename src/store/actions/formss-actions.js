@@ -4,6 +4,7 @@ import { ALERTS } from "../reducers/component-reducer"
 import { 
     GET_EARNVALUE_MGMT_FINANCIAL,
     GET_EVM_DELIVERY,
+    GET_PROFIT_LOSS,
     } 
     from "../reducers/formss-reducer"
 
@@ -148,6 +149,17 @@ const FormssActions = {
 
         } catch (error) {
             return;
+        }
+    },
+
+
+    getProfiltLoss: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.forms_profit_loss}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROFIT_LOSS({ dataAll, reset }))
+        } catch (error) {
         }
     },
 

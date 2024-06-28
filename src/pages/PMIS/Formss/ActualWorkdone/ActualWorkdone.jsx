@@ -4,7 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal"; 
+import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
@@ -32,7 +32,7 @@ const ActualWorkdone = () => {
   const [refresh, setRefresh] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
   const [change, setChange] = useState(false);
-  const [modalBody, setmodalBody] = useState(<></> );
+  const [modalBody, setmodalBody] = useState(<></>);
   const [ValGm, setValGm] = useState("Monthly");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
@@ -83,10 +83,10 @@ const ActualWorkdone = () => {
     });
   });
 
-  console.log("afasfasdfasfafasdfasfafd",year);
+  console.log("afasfasdfasfafasdfasfafd", year);
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEVMDelivery || [];
-    console.log("asdfasfasfafdadsfafd",interdata);
+    console.log("asdfasfasfafdadsfafd", interdata);
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -111,9 +111,9 @@ const ActualWorkdone = () => {
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={itm}
-                        year = {year}
-                        monthss = {extraColumns}
-                        weeks = {extraColumns}
+                        year={year}
+                        monthss={extraColumns}
+                        weeks={extraColumns}
                       />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
@@ -143,9 +143,7 @@ const ActualWorkdone = () => {
                             CommonActions.deleteApiCaller(
                               `${Urls.formss_EVM_delivery}/${itm.uniqueId}`,
                               () => {
-                                dispatch(
-                                  FormssActions.getEVMDelivery()
-                                );
+                                dispatch(FormssActions.getEVMDelivery());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -185,6 +183,7 @@ const ActualWorkdone = () => {
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
   // ]
+
   const {
     register,
     handleSubmit,
@@ -243,7 +242,6 @@ const ActualWorkdone = () => {
         value: "projectType",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-
       {
         name: "Cost Center",
         value: "costCenter",
@@ -304,7 +302,7 @@ const ActualWorkdone = () => {
       {
         label: "Cirlce",
         type: "autoSuggestion",
-        name: "cirlce",
+        name: "circleName",
         option: circleList,
         props: {},
       },
@@ -325,7 +323,7 @@ const ActualWorkdone = () => {
       {
         label: "Project ID",
         type: "autoSuggestion",
-        name: "projectId",
+        name: "projectId",  
         option: projectList,
         props: {},
       },
@@ -380,14 +378,6 @@ const ActualWorkdone = () => {
     listW.push({ id: weekString, name: weekString });
   }
 
-
-
-
-
-
-
-
-
   for (let ywq = 2021; ywq <= +endDate; ywq++) {
     listYear.push(ywq);
   }
@@ -408,7 +398,7 @@ const ActualWorkdone = () => {
       { id: 9, name: "Sep" },
       { id: 10, name: "Oct" },
       { id: 11, name: "Nov" },
-      { id: 12, name: "Dec" }
+      { id: 12, name: "Dec" },
     ],
   };
 
@@ -460,7 +450,6 @@ const ActualWorkdone = () => {
       classes: "col-span-1 h-38px",
     },
 
-    
     {
       label: "View As",
       name: "typeSelectional",
@@ -480,9 +469,9 @@ const ActualWorkdone = () => {
         onChange: (e) => {
           setValue("selectional", e.target.value);
           setValGm(e.target.value);
-          setSelectType(e.target.value)
-          console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-          console.log(selectType,'adsfasfasdfasdfadfsa');
+          setSelectType(e.target.value);
+          console.log("afasfadfaamarafasdfasdfasdf", e.target.value);
+          console.log(selectType, "adsfasfasdfasdfadfsa");
           // handle resert multiselect
           // alert()
         },
@@ -490,7 +479,6 @@ const ActualWorkdone = () => {
       required: true,
       classes: "col-span-1",
     },
-
 
     {
       label: ValGm,
@@ -504,9 +492,9 @@ const ActualWorkdone = () => {
         };
       }),
       props: {
-        selectType:selectType
+        selectType: selectType,
       },
-      hasSelectAll:true,
+      hasSelectAll: true,
       required: true,
       classes: "col-span-1 h-10",
     },
@@ -524,28 +512,28 @@ const ActualWorkdone = () => {
       8: "Aug",
       9: "Sep",
       10: "Oct",
-      11: "Nov",  
+      11: "Nov",
       12: "Dec",
     };
     let cols = [];
     extraColumns.forEach((index) => {
-      console.log("afafafafasfsadfafasfafd",index)
+      console.log("afafafafasfsadfafasfafd", index);
       if (ValGm && ValGm === "Monthly") {
         cols.push([
-        //   {
-        //     name: `AOP Target (${monthMap[index]} ${year})`,
-        //     value: "aop_target-"+index+"",
-        //     style: "min-w-[200px] max-w-[200px] text-center",
-        //   },
+          //   {
+          //     name: `AOP Target (${monthMap[index]} ${year})`,
+          //     value: "aop_target-"+index+"",
+          //     style: "min-w-[200px] max-w-[200px] text-center",
+          //   },
           {
             name: `PV Target (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_y",
+            value: "M-" + index + "_y",
             // value: "plan-"+index+"",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value:"totalCountMS2",
+            value: "totalCountMS2",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -566,11 +554,11 @@ const ActualWorkdone = () => {
       // }
       else {
         cols.push([
-        //   {
-        //     name: `AOP Target (${index} ${year})`,
-        //     value: '',
-        //     style: "min-w-[200px] max-w-[200px] text-center",
-        //   },
+          //   {
+          //     name: `AOP Target (${index} ${year})`,
+          //     value: '',
+          //     style: "min-w-[200px] max-w-[200px] text-center",
+          //   },
           {
             name: `PV Target (${index} ${year})`,
             value: `${index}`,
@@ -579,7 +567,7 @@ const ActualWorkdone = () => {
           {
             name: `Achievement (${index} ${year})`,
             // value: index,
-            value:"totalCountMS2",
+            value: "totalCountMS2",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -605,12 +593,14 @@ const ActualWorkdone = () => {
             ?.sort((a, b) => a - b)
         );
       } else {
-        setExtraColumns(res?.viewBy?.split(",")?.sort((a, b) => {
-          const numA = parseInt(a.split("-")[1]);
-          const numB = parseInt(b.split("-")[1]);
-          
-          return numA - numB;
-        }));
+        setExtraColumns(
+          res?.viewBy?.split(",")?.sort((a, b) => {
+            const numA = parseInt(a.split("-")[1]);
+            const numB = parseInt(b.split("-")[1]);
+
+            return numA - numB;
+          })
+        );
       }
 
       dispatch(FormssActions.postEVMDelivery(res, () => {}));
@@ -618,8 +608,8 @@ const ActualWorkdone = () => {
       console.error("[ERROR] :: " + error.message);
     }
   };
-  console.log("afadfasfasfadfadsfafaf",extraColumns);
-  console.log("afasfdasfasfasfafds_amar")
+  console.log("afadfasfasfadfadsfafaf", extraColumns);
+  console.log("afasfdasfasfasfafds_amar");
   return (
     <>
       <div className="flex">
@@ -642,17 +632,17 @@ const ActualWorkdone = () => {
         </div>
       </div>
 
-      <AdvancedTable 
+      <AdvancedTable
         headerButton={
           <>
-            <Button
+            {/* <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Plan");
                 // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
               name={"Add New"}
-            ></Button>
+            ></Button> */}
           </>
         }
         table={table}

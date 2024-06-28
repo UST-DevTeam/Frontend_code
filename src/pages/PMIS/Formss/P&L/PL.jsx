@@ -85,7 +85,7 @@ const PL = () => {
 
   console.log("afasfasdfasfafasdfasfafd",year);
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getProfitloss || [];
     console.log("asdfasfasfafdadsfafd",interdata);
     return interdata?.map((itm) => {
       let updateditm = {
@@ -93,6 +93,8 @@ const PL = () => {
         plan1: itm.earnvalueArray?.[0]?.["plan"],
         plan2: itm.earnvalueArray?.[1]?.["plan"],
         plan3: itm.earnvalueArray?.[2]?.["plan"],
+
+        
 
         edit: (
           <CstmButton
@@ -143,7 +145,7 @@ const PL = () => {
                               `${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`,
                               () => {
                                 dispatch(
-                                  FormssActions.getEarnValueMgmtFinancial()
+                                  FormssActions.getProfitloss()
                                 );
                                 dispatch(ALERTS({ show: false }));
                               }
@@ -173,7 +175,7 @@ const PL = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getProfiltLoss || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -233,26 +235,71 @@ const PL = () => {
   let table = {
     columns: [
       {
-        name: "Circle",
-        value: "circle",
+        name: "Year",
+        value: "year",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Project Type",
-        value: "projectType",
+        name: "Month",
+        value: "month",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-
+      {
+        name: "Customer",
+        value: "customer",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
       {
         name: "Cost Center",
         value: "costCenter",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Project ID",
-        value: "projectId",
+        name: "Project Group",
+        value: "projectGroup",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
+      {
+        name: "Projected Revenue",
+        value: "projectedRevenue",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Projected Cost",
+        value: "projectedCost",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Projected Gros Profit",
+        value: "projectGrosProfit",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Projected Margin(%)",
+        value: "projectedMargin",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Actual Revenue",
+        value: "actualRevenue",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Actual Cost",
+        value: "actualCost",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "ActalGrosProfit",
+        value: "actualGosProfit",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Actual Margin(%)",
+        value: "actualMargin",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      
       ...newColumns,
       // {
       //   name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
@@ -415,25 +462,26 @@ const PL = () => {
     console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
+    dispatch(FinanceActions.getProfiltLoss(value, objectToQueryString(data)));
   };
   useEffect(() => {
-    dispatch(
-      FormssActions.postEarnValueMgmtFinancial(
-        {
-          viewBy: extraColumns.join(","),
-          year: `${currrentYear}`,
-          yyear: `${currrentYear}`,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",
-        },
-        () => {}
-      )
-    );
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getCardProjectType());
-    dispatch(AdminActions.getManageCostCenter());
-    dispatch(AdminActions.getProject());
+    // dispatch(
+    //   FormssActions.postEarnValueMgmtFinancial(
+    //     {
+    //       viewBy: extraColumns.join(","),
+    //       year: `${currrentYear}`,
+    //       yyear: `${currrentYear}`,
+    //       selectional: "Monthly",
+    //       typeSelectional: "Monthly",
+    //     },
+    //     () => {}
+    //   )
+    // );
+    // dispatch(AdminActions.getManageCircle());
+    // dispatch(AdminActions.getCardProjectType());
+    // dispatch(AdminActions.getManageCostCenter());
+    // dispatch(AdminActions.getProject());
+    dispatch(FormssActions.getProfiltLoss());
   }, []);
 
   let formD = [
@@ -527,46 +575,46 @@ const PL = () => {
       12: "Dec",
     };
     let cols = [];
-    extraColumns.forEach((index) => {
-      if (ValGm && ValGm === "Monthly") {
-        cols.push([
-          {
-            name: `AOP Target (${monthMap[index]} ${year})`,
-            value: "aop_target-"+index+"",
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
-          {
-            name: `PV Target (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_y",
-            // value: "plan-"+index+"",
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
-          {
-            name: `Achievement (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_x",
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
-        ]);
-      } else {
-        cols.push([
-          {
-            name: `AOP Target (${index} ${year})`,
-            value: '',
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
-          {
-            name: `PV Target (${index} ${year})`,
-            value: '',
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
-          {
-            name: `Achievement (${index} ${year})`,
-            value: index,
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
-        ]);
-      }
-    });
+    // extraColumns.forEach((index) => {
+    //   if (ValGm && ValGm === "Monthly") {
+    //     cols.push([
+    //       {
+    //         name: `AOP Target (${monthMap[index]} ${year})`,
+    //         value: "aop_target-"+index+"",
+    //         style: "min-w-[200px] max-w-[200px] text-center",
+    //       },
+    //       {
+    //         name: `PV Target (${monthMap[index]} ${year})`,
+    //         value: "M-"+index+"_y",
+    //         // value: "plan-"+index+"",
+    //         style: "min-w-[200px] max-w-[200px] text-center",
+    //       },
+    //       {
+    //         name: `Achievement (${monthMap[index]} ${year})`,
+    //         value: "M-"+index+"_x",
+    //         style: "min-w-[200px] max-w-[200px] text-center",
+    //       },
+    //     ]);
+    //   } else {
+    //     cols.push([
+    //       {
+    //         name: `AOP Target (${index} ${year})`,
+    //         value: '',
+    //         style: "min-w-[200px] max-w-[200px] text-center",
+    //       },
+    //       {
+    //         name: `PV Target (${index} ${year})`,
+    //         value: '',
+    //         style: "min-w-[200px] max-w-[200px] text-center",
+    //       },
+    //       {
+    //         name: `Achievement (${index} ${year})`,
+    //         value: index,
+    //         style: "min-w-[200px] max-w-[200px] text-center",
+    //       },
+    //     ]);
+    //   }
+    // });
     cols = cols.flat(Infinity);
     console.log("cols_cols_____", cols);
 
@@ -627,14 +675,14 @@ const PL = () => {
       <AdvancedTable 
         headerButton={
           <>
-            <Button
+            {/* <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Plan");
                 // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
               name={"Add New"}
-            ></Button>
+            ></Button> */}
           </>
         }
         table={table}

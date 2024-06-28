@@ -224,6 +224,9 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
   const onTableViewSubmit = (data) => {
 
 
+    console.log(data,"___________data")
+
+
     for(let i = 0; i<monthss.length; i++){
       data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
     }
@@ -237,6 +240,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
 
     data['projectType'] = formValue?.projectType;
+    data['totalInvoice'] = formValue?.totalInvoice;
     data['costCenter'] = formValue?.costCenter;
     data['circle'] = formValue?.circle;
     data['roleName'] = roleName;
