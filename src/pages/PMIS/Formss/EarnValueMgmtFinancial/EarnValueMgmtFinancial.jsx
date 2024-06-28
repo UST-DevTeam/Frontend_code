@@ -537,7 +537,9 @@ const EarnValueMgmtFinancial = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_x",
+            // value: "M-"+index+"_x",
+            value: "totalInvoice",
+
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -621,14 +623,14 @@ const EarnValueMgmtFinancial = () => {
       <AdvancedTable 
         headerButton={
           <>
-            <Button
+            {/* <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Plan");
                 // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
               name={"Add New"}
-            ></Button>
+            ></Button> */}
           </>
         }
         table={table}
