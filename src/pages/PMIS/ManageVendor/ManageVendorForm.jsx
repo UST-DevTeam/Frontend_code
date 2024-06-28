@@ -112,16 +112,34 @@ const ManageVendorForm = (props) => {
   let PersonalInformation = [
     {
       type: "heading",
-      label: "Vendor On-boarding Requisition Form",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
+      label: "Partner On-boarding Requisition Form",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start ",
     },
     {
-      label: "Vendor Name",
-      name: "empName",
+      label: "Partner Code",
+      name: "vendorCode",
+      value: "",
+      type: "text",
+      props: "",
+      required: true,
+      placeholder: "",
+    },
+    {
+      label: "Partner Name",
+      name: "vendorName",
       value: "",
       type: "text",
       props: {},
-      required: false,
+      required: true,
+      placeholder: "",
+    },
+    {
+      label: "Email Address",
+      name: "email",
+      value: "",
+      type: "text",
+      props: "",
+      required: true,
       placeholder: "",
     },
     {
@@ -132,6 +150,31 @@ const ManageVendorForm = (props) => {
       props: "",
       required: false,
       placeholder: "",
+    },
+    {
+      label: "Registered Addresss ",
+      name: "registeredAddress",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Partner's Category",
+      name: "vendorCategory",
+      type: "text",
+      value: "",
+      props: "",
+      required: false,
+    },
+    {
+      label: "Partner's sub Category",
+      name: "vendorSubCategory",
+      type: "text",
+      value: "",
+      props: "",
+      required: false,
     },
     {
       label: "Contact Details",
@@ -152,6 +195,24 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
+      label: "Date of Registration",
+      name: "dateOfRegistration",
+      value: "",
+      type: "datetime",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Validity Upto",
+      name: "validityUpto",
+      value: "",
+      type: "datetime",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
       label: "Company Type",
       name: "companyType",
       value: "",
@@ -159,25 +220,21 @@ const ManageVendorForm = (props) => {
       props: "",
       required: false,
       placeholder: "",
-    },
+    },   
     {
-      label: "Email-ID",
-      name: "email",
+      label: "Partner Ranking",
+      name: "ranking",
       value: "",
-      type: "text",
+      type: "select",
+      option: [
+        {"label": "L1", "value": "L1"},
+        {"label": "L2", "value": "L2"},
+        {"label": "L3", "value": "L3"},
+      ],
       props: "",
-      required: true,
+      required: false,
       placeholder: "",
-    },
-    {
-      label: "Vendor Code",
-      name: "empCode",
-      value: "",
-      type: "text",
-      props: "",
-      required: true,
-      placeholder: "",
-    },
+    },   
     {
       label: "PAN",
       name: "pan",
@@ -188,29 +245,22 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Vendor Category",
-      name: "vendorCategory",
-      type: "text",
-      value: "",
-      props: "",
-      required: false,
-    },
-    {
-      label: "Vendor sub Category",
-      name: "vendorSubCategory",
-      type: "text",
-      value: "",
-      props: "",
-      required: false,
-    },
-    {
-      label: "Operational Circle's",
-      name: "operationalCircle",
+      label: "Working Circle's",
+      name: "Circle",
       value: "",
       type: "select",
       props: "",
       required: false,
       option: circleList,
+      placeholder: "",
+    },
+    {
+      label: "Current Status",
+      name: "status",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
       placeholder: "",
     },
     {
@@ -222,16 +272,8 @@ const ManageVendorForm = (props) => {
       required: true,
       placeholder: "",
     },
-  ];
-
-  let FinancialEvaluation = [
     {
-      type: "heading",
-      label: "Financial Evaluation",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
-    },
-    {
-      label: "Vendor Registered with GST (Y/N)",
+      label: "Partner's Registered with GST (Y/N)",
       name: "vendorRegistered",
       value: "",
       type: "select",
@@ -242,22 +284,11 @@ const ManageVendorForm = (props) => {
         { label: "Yes", value: "Yes" },
         { label: "No", value: "No" },
       ],
-    },
-    {
-      label: "GST No.",
-      name: "gstNumber",
-      value: "",
-      type: "text",
-      required: true,
-      placeholder: "",
-    },
-    {
-      label: "Upload GST (Attachment)",
-      name: "gst",
-      value: "",
-      type: "file",
-      props: "",
-      placeholder: "Upload file if GST is mentioned",
+      props: {
+        onChange: (e) => {
+          setshowPassportNumber(e.target.value === "Yes");
+        },
+      },
     },
     {
       label: "PAN Number",
@@ -269,7 +300,7 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Upload Vendor PAN",
+      label: "Upload Partner PAN",
       name: "pan",
       value: "",
       type: "file",
@@ -286,7 +317,7 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Upload Vendor TAN",
+      label: "Upload Partner TAN",
       name: "tan",
       value: "",
       type: "file",
@@ -303,7 +334,7 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Upload Vendor ESI",
+      label: "Upload Partner ESI",
       name: "esi",
       value: "",
       type: "file",
@@ -320,7 +351,7 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Upload Vendor EPF",
+      label: "Upload Partner EPF",
       name: "epf",
       value: "",
       type: "file",
@@ -337,7 +368,7 @@ const ManageVendorForm = (props) => {
       placeholder: "",
     },
     {
-      label: "Upload Vendor STN",
+      label: "Upload Partner STN",
       name: "stn",
       value: "",
       type: "file",
@@ -407,14 +438,6 @@ const ManageVendorForm = (props) => {
       required: false,
       placeholder: "",
     },
-  ];
-
-  let TechnicalEvaluation = [
-    {
-      type: "heading",
-      label: "Technical Evaluation",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
-    },
     {
       label: "Team Capacity",
       name: "teamCapacity",
@@ -481,41 +504,6 @@ const ManageVendorForm = (props) => {
       required: false,
       placeholder: "",
     },
-  ];
-
-  let CommercialEvaluation = [
-    {
-      type: "heading",
-      label: "Commercial Evaluation",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
-    },
-    {
-      label: "Vendor Code",
-      name: "vendorCode",
-      value: "",
-      type: "text",
-      props: "",
-      required: true,
-      placeholder: "",
-    },
-    {
-      label: "Date of Registration",
-      name: "datetime",
-      value: "",
-      type: "datetime",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Validity Upto",
-      name: "datetime",
-      value: "",
-      type: "datetime",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
     {
       label: "Contract Copy",
       name: "contractCopy",
@@ -533,6 +521,339 @@ const ManageVendorForm = (props) => {
       props: "",
       placeholder: "",
     },
+  ];
+
+  let FinancialEvaluation = [
+    {
+      type: "heading",
+      label: "Financial Evaluation",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    // {
+    //   label: "Vendor Registered with GST (Y/N)",
+    //   name: "vendorRegistered",
+    //   value: "",
+    //   type: "select",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    //   option: [
+    //     { label: "Yes", value: "Yes" },
+    //     { label: "No", value: "No" },
+    //   ],
+    // },
+    // {
+    //   label: "GST No.",
+    //   name: "gstNumber",
+    //   value: "",
+    //   type: "text",
+    //   required: true,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Upload GST (Attachment)",
+    //   name: "gst",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   placeholder: "Upload file if GST is mentioned",
+    // },
+    // {
+    //   label: "PAN Number",
+    //   name: "panNumber",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Upload Vendor PAN",
+    //   name: "pan",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "TAN Number",
+    //   name: "tanNumber",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Upload Vendor TAN",
+    //   name: "tan",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "ESI Number",
+    //   name: "esiNumber",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Upload Vendor ESI",
+    //   name: "esi",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "EPF Number",
+    //   name: "epfNumber",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Upload Vendor EPF",
+    //   name: "epf",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "STN Number",
+    //   name: "stnNumber",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Upload Vendor STN",
+    //   name: "stn",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Bank Account No.",
+    //   name: "accounctNumber",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Bank Name",
+    //   name: "bankName",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "IFSC Code",
+    //   name: "ifscCode",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Bank Address",
+    //   name: "bankAddress",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Financial Turnover",
+    //   name: "financialTurnover",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Cheque File (Attachment)",
+    //   name: "cheque",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Other Information",
+    //   name: "otherInfo",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+  ];
+
+  let TechnicalEvaluation = [
+    {
+      type: "heading",
+      label: "Technical Evaluation",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    // {
+    //   label: "Team Capacity",
+    //   name: "teamCapacity",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: true,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Working Circle's",
+    //   name: "workingCircle",
+    //   value: "",
+    //   type: "select",
+    //   placeholder: "",
+    // },
+
+    // {
+    //   label: "Tecnology",
+    //   name: "technology",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   placeholder: "",
+    // },
+
+    // {
+    //   label: "CBT HR Certified (Y/N)",
+    //   name: "cbt",
+    //   value: "",
+    //   type: "select",
+    //   props: "",
+    //   option: [
+    //     { label: "Yes", value: "Yes" },
+    //     { label: "No", value: "No" },
+    //   ],
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Certificate Attachment",
+    //   name: "cbtCertificate",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Form Tociii",
+    //   name: "formToci",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Certificate Attachment",
+    //   name: "tociCertificate",
+    //   value: "",
+    //   type: "file",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+  ];
+
+  if (showPassportNumber) {
+    PersonalInformation.push(
+      {
+        label: "GST No.",
+        name: "gstNumber",
+        value: "",
+        type: "text",
+        required: true,
+        placeholder: "",
+      },
+      {
+        label: "Upload GST (Attachment)",
+        name: "gst",
+        value: "",
+        type: "file",
+        props: "",
+        placeholder: "Upload file if GST is mentioned",
+      },
+  );
+  }
+
+
+  let CommercialEvaluation = [
+    {
+      type: "heading",
+      label: "Commercial Evaluation",
+      classes: "col-span-4 font-extrabold text-black-900 text-start",
+    },
+    // {
+    //   label: "Vendor Code",
+    //   name: "vendorCode",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: true,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Date of Registration",
+    //   name: "datetime",
+    //   value: "",
+    //   type: "datetime",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Validity Upto",
+    //   name: "datetime",
+    //   value: "",
+    //   type: "datetime",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Contract Copy",
+    //   name: "contractCopy",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Payment Terms (Days)",
+    //   name: "paymentTerms",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   placeholder: "",
+    // },
   ];
 
   // let EmployeeProfile = [
@@ -823,20 +1144,20 @@ const ManageVendorForm = (props) => {
             navigate("/manageVendor");
             setOneLoad(false);
           }}
-          className="mt-2 w-auto flex ml-auto mr-2 rounded-md border-black border-2 px-10 py-1 bg-violet-50 hover:bg-[#143b64] hover:text-white hover:border-white hover:border-2 text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+          className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-[#13b497]  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
         >
           Back
         </button>
         <div className="">
           {/* <UiTopBar /> */}
           <div className="w-full mt-2 bg-[#3e454d]">
-            <div class="grid grid-cols-12 gap-2 m-2 bg-white border-2 rounded-lg">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px]  rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
                   {level >= 1 ? (
                     <CommonForm
                       classes={
-                        "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 rounded-lg"
+                        "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
                       }
                       errors={errors}
                       Form={PersonalInformation}
@@ -847,8 +1168,9 @@ const ManageVendorForm = (props) => {
                   ) : (
                     <></>
                   )}
+                    
 
-                  {level >= 2 ? (
+                  {/* {level >= 2 ? (
                     <CommonForm
                       classes={
                         "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
@@ -861,13 +1183,13 @@ const ManageVendorForm = (props) => {
                     />
                   ) : (
                     <></>
-                  )}
+                  )} */}
                   {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={TechnicalEvaluation}
                   register={register} setValue={setValue} getValues={getValues} />  */}
                   
                   
                   
-                  {level >= 3 ? (<CommonForm
+                  {/* {level >= 3 ? (<CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
                     }
@@ -878,8 +1200,8 @@ const ManageVendorForm = (props) => {
                     getValues={getValues}
                   />) : (
                     <></>
-                  )}
-                  {level >= 4 ? (<CommonForm
+                  )} */}
+                  {/* {level >= 4 ? (<CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
                     }
@@ -890,7 +1212,7 @@ const ManageVendorForm = (props) => {
                     getValues={getValues}
                   />) : (
                     <></>
-                  )}
+                  )} */}
                   {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"

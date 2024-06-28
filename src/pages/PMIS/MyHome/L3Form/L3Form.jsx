@@ -416,7 +416,7 @@ const L3Form = () => {
   useEffect(() => {
     if (!modalFullOpen) {
       dispatch(ExpenseAdvanceActions.getL3Data());
-      dispatch({ type: CLEAR_GET_CLAIM_AND_ADVANCE });    }
+      dispatch( CLEAR_GET_CLAIM_AND_ADVANCE() );    }
     setExpensAmount(false);
     setAmount({
       ExpenseNo: {},
