@@ -18,8 +18,7 @@ import {
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-// import AdminActions from '../../../../store/actions/admin-actions';
-import AdminActions from "../../../../store/actions/admin-actions";
+import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
 import CommonForm from "../../../../components/CommonForm";
@@ -31,6 +30,8 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { uiStatusColor } from "../../../../utils/queryBuilder";
 import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import moment from "moment";
+
 
 const ManageMilestoneSite = ({
   siteCompleteData,
@@ -676,7 +677,7 @@ const ManageMilestoneSite = ({
                                 })
                                 : []
                             
-                            if (its['fieldName'] === "Circle"){
+                            if (its['fieldName'] === "CIRCLE"){
                                option = circleWithPGList;
                                type = "select"
                             }

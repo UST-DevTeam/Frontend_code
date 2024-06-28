@@ -165,8 +165,6 @@ const ManageSite = ({
   const handleSiteEnggSubmit = (data) => {
     // alert(projectuniqueId)
 
-    console.log(data,"data+++++++++++")
-
 
     let filData = []
     filData = dataOfProject["t_sengg"].filter(itew => itew["required"] == "Yes")
@@ -485,7 +483,7 @@ const ManageSite = ({
                                 })
                                 : []
                             
-                            if (its['fieldName'] === "Circle"){
+                            if (its['fieldName'] === "CIRCLE"){
                                option = circleWithPGList;
                                type = "select"
                             }
