@@ -454,35 +454,35 @@ const EarnValueMgmtFinancial = () => {
     },
 
     
-    // {
-    //   label: "View As",
-    //   name: "typeSelectional",
-    //   value: "Select",
-    //   type: "select",
-    //   option: [
-    //     {
-    //       label: "Monthly View",
-    //       value: "Monthly",
-    //     },
-    //     // {
-    //     //   label: "Weekly View",
-    //     //   value: "Weekly",
-    //     // },
-    //   ],
-    //   props: {
-    //     onChange: (e) => {
-    //       setValue("selectional", e.target.value);
-    //       setValGm(e.target.value);
-    //       setSelectType(e.target.value)
-    //       console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-    //       console.log(selectType,'adsfasfasdfasdfadfsa');
-    //       // handle resert multiselect
-    //       // alert()
-    //     },
-    //   },
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
+    {
+      label: "View As",
+      name: "typeSelectional",
+      value: "Select",
+      type: "select",
+      option: [
+        {
+          label: "Monthly View",
+          value: "Monthly",
+        },
+        // {
+        //   label: "Weekly View",
+        //   value: "Weekly",
+        // },
+      ],
+      props: {
+        onChange: (e) => {
+          setValue("selectional", e.target.value);
+          setValGm(e.target.value);
+          setSelectType(e.target.value)
+          console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
+          console.log(selectType,'adsfasfasdfasdfadfsa');
+          // handle resert multiselect
+          // alert()
+        },
+      },
+      required: true,
+      classes: "col-span-1",
+    },
 
 
     {
