@@ -329,13 +329,10 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   };
   useEffect(() => {
     dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll: [], reset: true }))
-    dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll: [], reset: true }))
     dispatch(GET_PO_PROJECTTYPE({ dataAll: [], reset: true }))
     dispatch(GET_PO_PROJECTID({ dataAll: [], reset: true }))
     dispatch(GET_INVOICE_SITEID({ dataAll: [], reset: true }))
     dispatch(GET_INVOICE_SSID({ dataAll: [], reset: true }))
-
-
 
     dispatch(AdminActions.getManageCustomer());
 

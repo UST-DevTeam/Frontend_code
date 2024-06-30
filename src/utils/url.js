@@ -1,12 +1,6 @@
 
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
-
-// export const baseUrl="http://192.168.29.169:7980"
-// export const backendassetUrl="http://192.168.29.169:7980/"
-
-// export const baseUrl="http://192.168.0.117:7980"
-// export const backendassetUrl="http://192.168.0.117:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
 
 export const baseUrl="https://pmisfbapi.fourbrick.in"
@@ -99,6 +93,8 @@ export const Urls={
     formss_EVM_delivery:"/forms/EVMActual",
     formss_accrualrevenue_trend: "/forms/accrualRevenueTrend",
     forms_profit_loss: "/forms/profilt&loss",
+    admin_claim_type:"/expenses/ClaimType",
+    forms_profit_loss:"/forms/profilt&loss",
 
     admin_claim_type:"/expenses/ClaimType",
     admin_claim_type_unit_rate:"/expenses/unitRate",

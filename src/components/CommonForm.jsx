@@ -62,6 +62,9 @@ const CommonForm = ({
       <form className={`overflow-scroll grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
         {console.log(errors, "errors")}
         {Form.map((itm) => {
+          {
+            {/* console.log(itm, "itmnewitmnewitm"); */}
+          }
           return (
             <>
               {itm.type == "heading" ? (

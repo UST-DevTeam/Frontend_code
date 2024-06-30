@@ -64,15 +64,9 @@ const EmpDetailsTable = () => {
                 onClick={() => {
                   dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
                   navigate(`/empdetails/${itm.uniqueId}`);
-                  // dispatch(HrActions.getManageEmpDetails())
-                  // setmodalHead("Edit Customer Details")
-
-                  console.log(itm, "itmitmitmitmitmitmitmitm");
-
                   setmodalBody(
                     <>
                       <EmpDetails resetting={false} formValue={itm} />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
                 }}

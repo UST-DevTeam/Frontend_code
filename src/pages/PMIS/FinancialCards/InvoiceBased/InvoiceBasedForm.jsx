@@ -96,7 +96,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
-  console.log(formValue['poStatus'],"______")
 
   let Form = [
     {

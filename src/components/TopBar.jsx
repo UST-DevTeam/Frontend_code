@@ -12,7 +12,7 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
     const { state } = useLocation()
     const name = state?.name
     const navigate = useNavigate()
-    console.log(useLocation(), "userloc")
+    // console.log(useLocation(), "userloc")
 
     const calllogout = () => {
         // localStorage.setItem("auth",false)

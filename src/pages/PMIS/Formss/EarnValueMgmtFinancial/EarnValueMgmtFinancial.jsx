@@ -424,10 +424,10 @@ const EarnValueMgmtFinancial = () => {
         () => {}
       )
     );
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getCardProjectType());
-    dispatch(AdminActions.getManageCostCenter());
-    dispatch(AdminActions.getProject());
+    // dispatch(AdminActions.getManageCircle());
+    // dispatch(AdminActions.getCardProjectType());
+    // dispatch(AdminActions.getManageCostCenter());
+    // dispatch(AdminActions.getProject());
   }, []);
 
   let formD = [
@@ -454,35 +454,35 @@ const EarnValueMgmtFinancial = () => {
     },
 
     
-    // {
-    //   label: "View As",
-    //   name: "typeSelectional",
-    //   value: "Select",
-    //   type: "select",
-    //   option: [
-    //     {
-    //       label: "Monthly View",
-    //       value: "Monthly",
-    //     },
-    //     // {
-    //     //   label: "Weekly View",
-    //     //   value: "Weekly",
-    //     // },
-    //   ],
-    //   props: {
-    //     onChange: (e) => {
-    //       setValue("selectional", e.target.value);
-    //       setValGm(e.target.value);
-    //       setSelectType(e.target.value)
-    //       console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-    //       console.log(selectType,'adsfasfasdfasdfadfsa');
-    //       // handle resert multiselect
-    //       // alert()
-    //     },
-    //   },
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
+    {
+      label: "View As",
+      name: "typeSelectional",
+      value: "Select",
+      type: "select",
+      option: [
+        {
+          label: "Monthly View",
+          value: "Monthly",
+        },
+        // {
+        //   label: "Weekly View",
+        //   value: "Weekly",
+        // },
+      ],
+      props: {
+        onChange: (e) => {
+          setValue("selectional", e.target.value);
+          setValGm(e.target.value);
+          setSelectType(e.target.value)
+          console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
+          console.log(selectType,'adsfasfasdfasdfadfsa');
+          // handle resert multiselect
+          // alert()
+        },
+      },
+      required: true,
+      classes: "col-span-1",
+    },
 
 
     {
@@ -537,7 +537,9 @@ const EarnValueMgmtFinancial = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_x",
+            // value: "M-"+index+"_x",
+            value: "totalInvoice",
+
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -621,14 +623,14 @@ const EarnValueMgmtFinancial = () => {
       <AdvancedTable 
         headerButton={
           <>
-            <Button
+            {/* <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Plan");
                 // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
               name={"Add New"}
-            ></Button>
+            ></Button> */}
           </>
         }
         table={table}

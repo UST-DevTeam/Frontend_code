@@ -34,7 +34,7 @@ const EmpDetails = (props) => {
     formState: { errors },
   } = useForm();
   const { empuid } = useParams();
-  console.log(empuid, "formValueformValueformValue");
+  // console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState({});
   const [dataQuery, SetdataQuery] = useState("Select * from values;");
@@ -188,280 +188,6 @@ const EmpDetails = (props) => {
     });
   });
 
-  //   const handleStateChange = (state) => {
-  //     const getCities = cityList.filter(city => city.stateCode === state);
-  //     setCityOptions(Cities);
-  // }
-
-  // let sqlQuerData = useSelector((state) => {
-  //   return state?.customQuery?.generatedSqlQuery
-  // })
-
-  // let getUserRole = useSelector((state) => {
-  //   return state?.auth?.generatedSqlQuery
-  // })
-
-  // let userRole = useSelector((state) => {
-  //   return state?.auth?.user?.roleName
-  // })
-
-  // let Form = [
-  //   // {
-  //   //   label: "Select Server",
-  //   //   value: "",
-  //   //   option: databaseList,
-  //   //   type: "select",
-  //   //   name: "ServerSelection",
-  //   //   required: false,
-  //   //   props: {
-  //   //     onChange: ((e) => {
-  //   //       setOneLoad(false)
-  //   //       setupManagingFilter([])
-  //   //       setManagingFilter([])
-  //   //       setValue("dboSelection", "Select")
-  //   //       dispatch(TABLES_LIST({}))
-  //   //       // dispatch(CustomQueryActions.resetTablesList())
-  //   //       dispatch(CustomQueryActions.getdboList(false, e.target.value, () => { }))
-  //   //     }),
-  //   //   },
-  //   //   classes: "col-span-1"
-  //   // }, {
-  //   //   label: "Select Schema",
-  //   //   value: "",
-  //   //   option: dboList,
-  //   //   type: "select",
-  //   //   name: "dboSelection",
-  //   //   required: false,
-  //   //   props: {
-  //   //     onChange: ((e) => {
-  //   //       setOneLoad(false)
-  //   //       setupManagingFilter([])
-  //   //       setManagingFilter([])
-  //   //       // dispatch(CustomQueryActions.resetTablesList())
-  //   //       dispatch(CustomQueryActions.getTablesList(false, e.target.value, () => { }))
-  //   //     }),
-  //   //   },
-  //   //   classes: "col-span-1"
-  //   // }
-  // ]
-
-  // let searchForm = [
-  //   {
-  //     label: "Table Name",
-  //     name: "searchTablename",
-  //     value: "",
-  //     type: "text",
-  //     props: {
-  //       onChange: ((e) => {
-  //         // console.log(managingFilter, "managingFilter dataValuedataValue")
-  //         let dtew = managingFilter.filter(itm => itm.name.toLowerCase().includes(e.target.value.toLowerCase()))
-  //         setupManagingFilter(dtew)
-  //         // console.log(dtew, "dtew dataValuedataValue")
-  //         // console.log(dataValue, "dataValuedataValue")
-  //       }),
-  //     },
-  //     classes: " col-span-1"
-  //   },
-  // ]
-  // let ordermultiForm = [
-  //   {
-  //     label: "Select Column",
-  //     value: "",
-  //     singleSelect: false,
-  //     option: tableList?.d2,
-  //     name: "order" + "column",
-  //     type: "muitiSelect",
-  //     onChanging: ((e) => {
-  //     }),
-  //     props: {
-  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-  //     },
-  //     classes: "col-span-1  "
-  //   },
-  //   {
-  //     label: "Condition",
-  //     value: "",
-  //     name: "order" + "condition",
-  //     option: all_command_type,
-  //     type: "select",
-  //     required: false,
-  //     props: {
-  //       onChange: ((e) => {
-  //         // console.log(e.target.name, "e geeter")
-  //         let tar = e.target.name
-  //         let val = e.target.value
-  //         setonestfilter(prev => ({
-  //           ...prev,
-  //           [tar]: val
-  //         }));
-  //       }),
-  //     },
-  //     classes: "col-span-1"
-  //   },
-  //   {
-  //     label: "Expression",
-  //     value: "",
-  //     option: [],
-  //     type: "select",
-  //     name: "order" + "expression",
-  //     required: false,
-  //     onChanging: ((e) => {
-  //       // setOneLoad(false)
-  //       // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
-  //     }),
-  //     props: {
-  //     },
-  //     classes: "col-span-1"
-  //   },
-  //   {
-  //     label: "Value",
-  //     value: "",
-  //     type: "hidden",
-  //     name: "order" + "formovalue",
-  //     singleSelect: false,
-  //     option: tableList?.d2,
-  //     props: {
-  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-  //     },
-  //     classes: "col-span-1"
-  //   }
-  // ]
-
-  // let contype = [
-  //   {
-  //     label: UserLyp != "Investor" ? UserLyp + " Name" : " Name",
-  //     value: "text",
-  //     type: UserLyp != "Investor" ? "text" : "hidden",
-  //     name: "cmpName",
-  //     required: false,
-  //     classes: UserLyp != "Investor" ? "col-span-1" : "",
-
-  //   },
-  //   {
-  //     label: UserLyp != "Investor" ? UserLyp + " Reg. No." : "Id No.",
-  //     value: "text",
-  //     type: "text",
-  //     name: "RegNo",
-  //     required: false,
-  //     classes: "col-span-1",
-
-  //   },
-  //   {
-  //     label: UserLyp != "Investor" ? UserLyp + " Address" : "Address",
-  //     value: "text",
-  //     type: "textarea",
-  //     name: "cAddress",
-  //     required: false,
-  //     classes: "col-span-1",
-
-  //   },
-  // ]
-
-  // let optionsList = {
-  //   "Investor": [{
-  //     "label": "Company",
-  //     "value": "Company"
-  //   }, {
-  //     "label": "Individual",
-  //     "value": "Individual"
-  //   }, {
-  //     "label": "Government Entity ",
-  //     "value": "Government Entity"
-  //   }],
-  //   "Fund Seeker": [{
-  //     "label": "Company",
-  //     "value": "Company"
-  //   }, {
-  //     "label": "Individual",
-  //     "value": "Individual"
-  //   }],
-
-  //   "Charitable Organisation": [{
-  //     "label": "Company",
-  //     "value": "Company"
-  //   }]
-  // }
-
-  // let conDet = [
-  //   // {
-  //   //   label: "Reg Type",
-  //   //   value: "",
-  //   //   option: optionsList[userRole] || [],
-  //   //   type: "select",
-  //   //   name: "regType",
-  //   //   required: false,
-  //   //   props: {
-  //   //     onChange: ((e) => {
-  //   //       seteUserLyp(e.target.value)
-  //   //     })
-  //   //   },
-  //   //   classes: "col-span-1"
-  //   // }
-  // ]
-
-  // let conditionmultiForm = [
-  //   // {
-  //   // type:'heading',
-  //   // label:"Identification Documents",
-  //   // classes: "col-span-1 text-black-900 text-center",
-  //   //   },
-  //   {
-  //     label: "File ",
-  //     value: "",
-  //     name: "file",
-  //     type: "file",
-  //     onChanging: ((e) => {
-
-  //     }),
-  //     props: {
-  //       onSelect: (e, a, b, c) => { console.log({ e, a, b, c }) }
-  //     },
-  //     require: false,
-  //     classes: "col-span-1"
-  //   },
-  //   {
-  //     label: "Document Type",
-  //     value: "",
-  //     name: "document",
-  //     //   option: kyc_doc_type,
-  //     type: "select",
-  //     required: false,
-  //     props: {
-  //       onChange: ((e) => {
-  //         // console.log(e.target.name, "e geeter")
-  //         let tar = e.target.name
-  //         let val = e.target.value
-  //         setnestfilter(prev => ({
-  //           ...prev,
-  //           [tar]: val
-  //         }));
-  //         // nestfilter[e.target.name]= e.target.value
-  //         // setOneLoad(false)
-  //         // dispatch(CustomQueryActions.getTablesList(e.target.value, () => { }))
-  //       }),
-  //     },
-  //     classes: "col-span-1"
-  //   },
-  //   { label: "Doc. Number", name: "docNumber", value: "", type: "number", props: "", required: false, placeholder: "" },
-  //   { label: "Doc. Expire", name: "docExpire", type: "datetime", formattype: "date", format: "yyyy-MM-dd", formatop: "yyyy-MM-DD", required: false, classes: "z-100" },
-
-  // ]
-
-  // const [presentAddress, setPresentAddress] = useState({
-  //   country: '',
-  //   state: '',
-  //   city: '',
-  //   pincode: '',
-  //   address: ''
-  // });
-
-  // const [permanentAddress, setPermanentAddress] = useState({
-  //   country: '',
-  //   state: '',
-  //   city: '',
-  //   pincode: '',
-  //   address: ''
-  // });
 
   let PersonalInformation = [
     {
@@ -481,10 +207,6 @@ const EmpDetails = (props) => {
         { label: "Mr.", value: "Mr" },
         { label: "Mrs.", value: "Mrs" },
         { label: "Ms.", value: "Ms" },
-
-        // {"label": "Miss", "value": "Miss"},
-        // {"label": "Sir", "value": "Sir"},
-        // {"label": "Madam", "value": "Madam"},
       ],
     },
     {
@@ -570,7 +292,6 @@ const EmpDetails = (props) => {
       props: "",
       required: false,
     },
-    // { label: "Anniversay Date", name: "anniversaryDate", type: "datetime", required: false },
     {
       label: "Contact Number",
       name: "mobile",
@@ -786,32 +507,8 @@ const EmpDetails = (props) => {
       required: false,
       placeholder: "",
     },
-
-    // {
-    //   label: "Social Media", name: "socialMedia", value: "", type: "select", props: {
-    //     onChange: (e) => {
-    //       setshowSocialMediaOther(e.target.value === "Other");
-    //     },
-    //   }, required: false, option: [
-    //     { "label": "Facebook", "value": "Facebook" },
-    //     { "label": "Instagram", "value": "Instagram" },
-    //     { "label": "Pinterest", "value": "Pinterest" },
-    //     { "label": "X", "value": "X" },
-    //     { "label": "Other", "value": "Other" },
-    //   ],
-    // },
-  ];
-  // if (showSocialMediaOther) {
-  //   ContactInformation.push({
-  //     label: "Please Specify Social Media Type",
-  //     name: "otherSocialMediaType",
-  //     value: "",
-  //     type: "text",
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   });
-  // }
+  ]
+ 
 
   let EmploymentDetails = [
     {
@@ -886,8 +583,6 @@ const EmpDetails = (props) => {
       required: false,
       placeholder: "",
     },
-    // {label:"Official Email ID", name:"email", value:'', type:'text', props:'',required:false, placeholder:""},
-    // {label:"Mobile No.", name:"mobile", value:'', type:'number', props:'',required:false, placeholder:""},
     {
       label: "Joining Date",
       name: "joiningDate",
@@ -1037,12 +732,6 @@ const EmpDetails = (props) => {
       required: false,
       props: {},
       option: departmentList,
-      // option: [
-      //   { "label": "Accounts", "value": "Accounts" },
-      //   { "label": "HR", "value": "HR" },
-      //   { "label": "operations", "value": "operations" },
-      //   { "label": "Management", "value": "Management" },
-      // ],
       classes: "col-span-1",
     },
     {
@@ -1056,7 +745,7 @@ const EmpDetails = (props) => {
       classes: "col-span-1",
     },
     {
-      label: "L1 Approver ",
+      label: "L1 Approver",
       name: "L1Approver",
       value: "",
       type: "select",
@@ -1252,16 +941,6 @@ const EmpDetails = (props) => {
     },
   ];
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   setValue,
-  //   reset,
-  //   getValues,
-  //   formState: { errors },
-  // } = useForm();
-
   const onTableViewGenerateSubmit = (data) => {
     console.log(data, "dsadasdsadsadsadas");
 
@@ -1296,20 +975,6 @@ const EmpDetails = (props) => {
     reset({});
   };
 
-  // const onSelect = (selectedList, selectedItem) => {
-  //   console.log(selectedList, selectedItem, "datadata")
-  //   // dispatch(AuthActions.signIn(data, () => {
-  //   //     navigate('/authenticate')
-  //   // }))
-  // }
-
-  // const onRemove = (selectedList, removedItem) => {
-  //   console.log(selectedList, removedItem, "datadata")
-  //   // dispatch(AuthActions.signIn(data, () => {
-  //   //     navigate('/authenticate')
-  //   // }))
-  // }
-
   useEffect(() => {
     dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageDesignation());
@@ -1324,10 +989,6 @@ const EmpDetails = (props) => {
       dispatch(HrActions.getManageEmpDetails(false, empuid));
       setOneLoad(false);
     } else {
-      // alert("dsadsadas")
-
-      // if (setOneLoad) {
-      // reset({});
       [
         ...PersonalInformation,
         ...ContactInformation,
@@ -1336,12 +997,10 @@ const EmpDetails = (props) => {
         ...EmployeeProfile,
         ...SupportingDoc,
       ].map((itss) => {
-        console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
 
         setValue(itss.name, itss.value);
       });
       ``;
-      // }
     }
   }, [empuid]);
 
@@ -1384,8 +1043,6 @@ const EmpDetails = (props) => {
                     setValue={setValue}
                     getValues={getValues}
                   />
-                  {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={ContactInformation2}
-                  register={register} setValue={setValue} getValues={getValues} /> */}
                   <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#3e454d] p-2 mt-2 rounded-lg"

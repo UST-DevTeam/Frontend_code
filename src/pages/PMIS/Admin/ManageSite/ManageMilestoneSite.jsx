@@ -18,8 +18,7 @@ import {
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-// import AdminActions from '../../../../store/actions/admin-actions';
-import AdminActions from "../../../../store/actions/admin-actions";
+import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
 import CommonForm from "../../../../components/CommonForm";
@@ -31,6 +30,8 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { uiStatusColor } from "../../../../utils/queryBuilder";
 import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import moment from "moment";
+
 
 const ManageMilestoneSite = ({
   siteCompleteData,
@@ -129,7 +130,7 @@ const ManageMilestoneSite = ({
 
       let dtresult = datew[0]["result"];
 
-      // setinvoiceData(datew[0]["invoice"] ? datew[0]["invoice"] : []);
+      setinvoiceData(datew[0]["invoice"] ? datew[0]["invoice"] : []);
       // console.log(setinvoiceData, "setinvoiceData");
 
       // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
@@ -676,7 +677,7 @@ const ManageMilestoneSite = ({
                                 })
                                 : []
                             
-                            if (its['fieldName'] === "Circle"){
+                            if (its['fieldName'] === "CIRCLE"){
                                option = circleWithPGList;
                                type = "select"
                             }
@@ -815,13 +816,13 @@ const ManageMilestoneSite = ({
             // ),
             Financials: (
               <>
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <Button
                     classes="w-30"
                     name="Save Financial"
                     onClick={handleSubmitForm4(handleFinancialsSubmit)}
                   />
-                </div>
+                </div> */}
 
                 <div className="overflow-auto h-[80vh]">
                   {dataOfProject &&
@@ -848,7 +849,7 @@ const ManageMilestoneSite = ({
                                 return (
                                   <tr
                                     key={index}
-                                    className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-700"
+                                    className="text-[11px] h-2 pl-1 border-['#4ADE80'] text-center border-[1.5px] overflow-hidden text-white"
                                   >
                                     {dataOfProject["t_sFinancials"].map(
                                       (its, columnIndex) => {
