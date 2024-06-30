@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "react-querybuilder/dist/query-builder.css"; // Import the library styles
+import "react-querybuilder/dist/query-builder.css";
+import moment from "moment";
 import QueryBuilder from "react-querybuilder";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,19 +9,11 @@ import CommonForm from "../../../components/CommonForm";
 import Button from "../../../components/Button";
 import AdminActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
-import VendorActions from "../../../store/actions/vendor-actions";
 import * as Unicons from "@iconscout/react-unicons";
-import UiTopBar from "../../../components/UiTopBar";
-import {
-  UilFacebookF,
-  UilTwitter,
-  UilGoogle,
-  UilLinkedin,
-  UilLinkAlt,
-  UilEdit,
-  UilSave,
-} from "@iconscout/react-unicons";
-// import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
+import SweetAlerts from "../../../components/SweetAlerts";
+import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
+import VendorActions from "../../../store/actions/vendor-actions";
+import { GET_VENDOR_DETAILS } from "../../../store/reducers/vendor-reducer";
 
 const ManageVendorForm = (props) => {
   const {
@@ -37,48 +30,46 @@ const ManageVendorForm = (props) => {
   const { empuid } = useParams();
   console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
-  const [oneLoad, setOneLoad] = useState(false);
-  const [UserLyp, seteUserLyp] = useState("");
-  const [level, showLevel] = useState(1);
-  const [nestfilter, setnestfilter] = useState({});
-  const [onestfilter, setonestfilter] = useState({});
-  const [gopen, SetgOpen] = useState([]);
+  const [oneLoad, setOneLoad] = useState({});
   const [dataQuery, SetdataQuery] = useState("Select * from values;");
   const [filtering, setFiltering] = useState("Select * from values;");
-  const [managingFilter, setManagingFilter] = useState([]);
-  const [upmanagingFilter, setupManagingFilter] = useState([]);
-  const [countform, setcountform] = useState([1]);
-  const [conditioncountform, setconditioncountform] = useState([]);
-  const [countformtwo, setcountformtwo] = useState([]);
   const navigate = useNavigate();
-  const [passport, setpassport] = useState([]);
-  const [dataValue, setDataValue] = useState([]);
-  const [showSocialMediaOther, setshowSocialMediaOther] = useState(false);
-  const [showOtherAddressProof, setshowOtherAddressProof] = useState(false);
-  const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
   const [showVendorRegistered, setshowVendorRegistered] = useState(false);
-  const [stateName, setStateName] = useState(false);
 
-  const getManageEmpDetails = useSelector((state) => {
-    let data = state.hrReducer.getManageEmpDetails;
+  const getManageVendorDetails = useSelector((state) => {
+
+    let data = state.vendorData.getManageVendorDetails;
 
     console.log(data, "datadatadatadatadatadatadata");
-    if (data.length > 0 && oneLoad) {
-      setOneLoad(false);
+    if (data.length > 0 && oneLoad != data[0]) {
+      setOneLoad(data[0]);
 
       // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
 
-      // dispatch(HrActions.getManageEmpDetails(false, "dsadsa"));
+      // dispatch(HrActions.getManageVendorDetails(false, "dsadsa"));
 
       Object.entries(data[0]).map((iewq) => {
         // console.log(iewq, "iewqiewqiewqiewqiewqiewq");
         setValue(iewq[0], iewq[1]);
       });
+      
+      Object.entries(data[0]).forEach(([key, value]) => {
+        if (["dateOfRegistration", "validityUpto"].includes(key)) {
+          const momentObj = moment(value, "YYYY-MM-DD");
+          setValue(key, momentObj.toDate());
+        } else {
+          setValue(key, value);
+        }
+      });
+      
+      
     }
-    return state.hrReducer.getManageEmpDetails;
+    return state.vendorData.getManageVendorDetails;
   });
 
-  console.log(getManageEmpDetails, "getManageEmpDetails");
+  console.log(getManageVendorDetails, "getManageVendorDetails");
+
+  const today = moment().format("YYYY-MM-DD");
 
   let roleList = useSelector((state) => {
     return state?.adminData?.getManageProfile.map((itm) => {
@@ -208,7 +199,9 @@ const ManageVendorForm = (props) => {
       name: "dateOfRegistration",
       value: "",
       type: "datetime",
-      props: "",
+      props: {
+        maxSelectableDate: today,
+      },
       required: false,
       placeholder: "",
     },
@@ -217,7 +210,9 @@ const ManageVendorForm = (props) => {
       name: "validityUpto",
       value: "",
       type: "datetime",
-      props: "",
+      props: {
+        minSelectableDate: today,
+      },
       required: false,
       placeholder: "",
     },
@@ -577,531 +572,7 @@ const ManageVendorForm = (props) => {
     },
   );
 
-  let FinancialEvaluation = [
-    {
-      type: "heading",
-      label: "Financial Evaluation",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
-    },
-    // {
-    //   label: "Vendor Registered with GST (Y/N)",
-    //   name: "vendorRegistered",
-    //   value: "",
-    //   type: "select",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    //   option: [
-    //     { label: "Yes", value: "Yes" },
-    //     { label: "No", value: "No" },
-    //   ],
-    // },
-    // {
-    //   label: "GST No.",
-    //   name: "gstNumber",
-    //   value: "",
-    //   type: "text",
-    //   required: true,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Upload GST (Attachment)",
-    //   name: "gst",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   placeholder: "Upload file if GST is mentioned",
-    // },
-    // {
-    //   label: "PAN Number",
-    //   name: "panNumber",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Upload Vendor PAN",
-    //   name: "pan",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "TAN Number",
-    //   name: "tanNumber",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Upload Vendor TAN",
-    //   name: "tan",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "ESI Number",
-    //   name: "esiNumber",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Upload Vendor ESI",
-    //   name: "esi",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "EPF Number",
-    //   name: "epfNumber",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Upload Vendor EPF",
-    //   name: "epf",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "STN Number",
-    //   name: "stnNumber",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Upload Vendor STN",
-    //   name: "stn",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Bank Account No.",
-    //   name: "accounctNumber",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Bank Name",
-    //   name: "bankName",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "IFSC Code",
-    //   name: "ifscCode",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Bank Address",
-    //   name: "bankAddress",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Financial Turnover",
-    //   name: "financialTurnover",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Cheque File (Attachment)",
-    //   name: "cheque",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Other Information",
-    //   name: "otherInfo",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-  ];
-
-  let TechnicalEvaluation = [
-    {
-      type: "heading",
-      label: "Technical Evaluation",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
-    },
-    // {
-    //   label: "Team Capacity",
-    //   name: "teamCapacity",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: true,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Working Circle's",
-    //   name: "workingCircle",
-    //   value: "",
-    //   type: "select",
-    //   placeholder: "",
-    // },
-
-    // {
-    //   label: "Tecnology",
-    //   name: "technology",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   placeholder: "",
-    // },
-
-    // {
-    //   label: "CBT HR Certified (Y/N)",
-    //   name: "cbt",
-    //   value: "",
-    //   type: "select",
-    //   props: "",
-    //   option: [
-    //     { label: "Yes", value: "Yes" },
-    //     { label: "No", value: "No" },
-    //   ],
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Certificate Attachment",
-    //   name: "cbtCertificate",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Form Tociii",
-    //   name: "formToci",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Certificate Attachment",
-    //   name: "tociCertificate",
-    //   value: "",
-    //   type: "file",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-  ];
-
   
-
-
-  let CommercialEvaluation = [
-    {
-      type: "heading",
-      label: "Commercial Evaluation",
-      classes: "col-span-4 font-extrabold text-black-900 text-start",
-    },
-    // {
-    //   label: "Vendor Code",
-    //   name: "vendorCode",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: true,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Date of Registration",
-    //   name: "datetime",
-    //   value: "",
-    //   type: "datetime",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Validity Upto",
-    //   name: "datetime",
-    //   value: "",
-    //   type: "datetime",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Contract Copy",
-    //   name: "contractCopy",
-    //   value: "",
-    //   type: "text",
-    //   props: "",
-    //   required: false,
-    //   placeholder: "",
-    // },
-    // {
-    //   label: "Payment Terms (Days)",
-    //   name: "paymentTerms",
-    //   value: "",
-    //   type: "number",
-    //   props: "",
-    //   placeholder: "",
-    // },
-  ];
-
-  // let EmployeeProfile = [
-  //   {
-  //     type: "heading",
-  //     label: "Vendor Profile",
-  //     classes: "col-span-4 font-extrabold text-black-900 text-start",
-  //   },
-  //   {
-  //     label: "Role",
-  //     name: "role",
-  //     value: "",
-  //     type: "select",
-  //     option: roleList,
-  //     // required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "PMIS Profile",
-  //     name: "userRole",
-  //     value: "",
-  //     type: "select",
-  //     option: roleList,
-  //     // required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "Reporting Manager",
-  //     name: "reportingManager",
-  //     value: "",
-  //     type: "select",
-  //     required: false,
-  //     props: {},
-  //     option: employeeList,
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L1 Approver ",
-  //     name: "L1Approver",
-  //     value: "",
-  //     type: "select",
-  //     required: false,
-  //     props: {},
-  //     option: employeeList,
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L2 Aprrover",
-  //     name: "L2Approver",
-  //     value: "",
-  //     type: "select",
-  //     required: false,
-  //     option: employeeList,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "Finance Approver",
-  //     name: "financeApprover",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "HR Manager",
-  //     name: "reportingHrManager",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "Asset Manager",
-  //     name: "assetManager",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L1 Vendor",
-  //     name: "L1Vendor",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L2 Vendor",
-  //     name: "L2Vendor",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "Compliance",
-  //     name: "compliance",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L1 Compliance",
-  //     name: "L1Compliance",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L2 Compliance",
-  //     name: "L2Compliance",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "HR Manager",
-  //     name: "reportingHrManager",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L1 Commercial",
-  //     name: "L1Commercial",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L1 Sales",
-  //     name: "L1Sales",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "L2 Sales",
-  //     name: "L2Sales",
-  //     value: "",
-  //     type: "select",
-  //     option: employeeList,
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "Status",
-  //     name: "status",
-  //     value: "",
-  //     type: "select",
-  //     required: false,
-  //     props: {},
-  //     option: [
-  //       { label: "Active", value: "Active" },
-  //       { label: "Inactive", value: "Inactive" },
-  //       { label: "Blacklisted", value: "Blacklisted" },
-  //     ],
-  //     classes: "col-span-1",
-  //   },
-  //   {
-  //     label: "Password",
-  //     name: "password",
-  //     value: "",
-  //     type: "password",
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   },
-  // ];
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   setValue,
-  //   reset,
-  //   getValues,
-  //   formState: { errors },
-  // } = useForm();
-
   const onTableViewGenerateSubmit = (data) => {
     console.log(data, "dsadasdsadsadsadas");
     if (empuid) {
@@ -1110,7 +581,6 @@ const ManageVendorForm = (props) => {
           false,
           data,
           () => {
-            // showLevel((prev) => prev + 1);
             alert("Data submitted successfully!");
             navigate("/vendor/managePartner");
           },
@@ -1120,28 +590,14 @@ const ManageVendorForm = (props) => {
     } else {
       dispatch(
         VendorActions.postManageVendorDetails(false, data, () => {
-          // showLevel((prev) => prev + 1);
           alert("Data submitted successfully!");
-            navigate("/vendor/managePartner");
+          navigate("/vendor/managePartner");
         })
       );
     }
     reset({});
   };
 
-  // const onSelect = (selectedList, selectedItem) => {
-  //   console.log(selectedList, selectedItem, "datadata")
-  //   // dispatch(AuthActions.signIn(data, () => {
-  //   //     navigate('/authenticate')
-  //   // }))
-  // }
-
-  // const onRemove = (selectedList, removedItem) => {
-  //   console.log(selectedList, removedItem, "datadata")
-  //   // dispatch(AuthActions.signIn(data, () => {
-  //   //     navigate('/authenticate')
-  //   // }))
-  // }
 
   useEffect(() => {
     dispatch(AdminActions.getManageDepartment());
@@ -1149,9 +605,12 @@ const ManageVendorForm = (props) => {
     dispatch(AdminActions.getManageProfile());
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getState());
+    dispatch(AdminActions.getCities());
+    dispatch(HrActions.getHRAllEmployee());
+    dispatch(HrActions.getHRManagerInEmployee());
     if (empuid) {
-      dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
-      dispatch(HrActions.getManageVendorDetails(false));
+      dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: false }));
+      dispatch(VendorActions.getManageVendorDetails(false, empuid));
       setOneLoad(false);
     } else {
       // alert("dsadsadas")
@@ -1160,19 +619,15 @@ const ManageVendorForm = (props) => {
       // reset({});
       [
         ...PersonalInformation,
-        ...FinancialEvaluation,
-        ...TechnicalEvaluation,
-        ...CommercialEvaluation,
-        // ...EmployeeProfile,
+
       ].map((itss) => {
         console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
 
         setValue(itss.name, itss.value);
       });
+      ``;
       // }
     }
-
-    // dispatch(AdminActions.getCities(setStateName));
   }, [empuid]);
 
   return (
@@ -1190,80 +645,19 @@ const ManageVendorForm = (props) => {
         <div className="">
           {/* <UiTopBar /> */}
           <div className="w-full mt-2 bg-[#3e454d]">
-            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px]  rounded-lg">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
-                  {level >= 1 ? (
-                    <CommonForm
-                      classes={
-                        "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
-                      }
-                      errors={errors}
-                      Form={PersonalInformation}
-                      register={register}
-                      setValue={setValue}
-                      getValues={getValues}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                    
-
-                  {/* {level >= 2 ? (
-                    <CommonForm
-                      classes={
-                        "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
-                      }
-                      errors={errors}
-                      Form={FinancialEvaluation}
-                      register={register}
-                      setValue={setValue}
-                      getValues={getValues}
-                    />
-                  ) : (
-                    <></>
-                  )} */}
-                  {/* <CommonForm classes={"grid-cols-2 gap-4 w-full"} errors={errors} Form={TechnicalEvaluation}
-                  register={register} setValue={setValue} getValues={getValues} />  */}
-                  
-                  
-                  
-                  {/* {level >= 3 ? (<CommonForm
+                  <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
                     }
                     errors={errors}
-                    Form={TechnicalEvaluation}
+                    Form={PersonalInformation}
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />) : (
-                    <></>
-                  )} */}
-                  {/* {level >= 4 ? (<CommonForm
-                    classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
-                    }
-                    errors={errors}
-                    Form={CommercialEvaluation}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                  />) : (
-                    <></>
-                  )} */}
-                  {/* <CommonForm
-                    classes={
-                      "grid-cols-4 gap-4 w-full bg-[#e7ebef] p-4 mt-2 rounded-lg"
-                    }
-                    errors={errors}
-                    Form={EmployeeProfile}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                  /> */}
-                  {/* <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
-                  register={register} setValue={setValue} getValues={getValues} /> */}
+                  />
                 </div>
                 {/* <div class="grid h-96 grid-cols-1 gap-2 bg-white">
                 <div className='col-span-1 h-full  pt-0 overflow-scroll relative border-primaryLine border'>
@@ -1329,12 +723,13 @@ const ManageVendorForm = (props) => {
                 UserLyp != "" && <CommonForm classes={"grid-cols-1 lg:grid-cols-2 lg:gap-8 w-full pt-4"} errors={errors} Form={contype}
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
+
                 <div className="flex gap-10 mb-3 justify-center">
                   <button
                     onClick={() => {
                       navigate("/vendor/managePartner");
                     }}
-                   className="mt-6 w-auto justify-center rounded-md px-10 py-1  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-6 w-auto justify-center rounded-md px-10 py-1  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>

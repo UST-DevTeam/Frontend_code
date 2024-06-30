@@ -529,7 +529,7 @@ const EmpDetails = (props) => {
       label: "Aadhar Number",
       name: "adharNumber",
       value: "",
-      type: "text",
+      type: "number",
       props: "",
       required: false,
       placeholder: "",

@@ -136,7 +136,7 @@ const PersonalInfo = (props) => {
     {
       type: "heading",
       label: "Employee Details",
-      classes: "col-span-4 font-extrabold text-orange-700 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Title",
@@ -251,7 +251,7 @@ const PersonalInfo = (props) => {
     {
       type: "heading",
       label: "Present Address",
-      classes: "col-span-4 font-extrabold text-orange-700 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Country",
@@ -316,7 +316,7 @@ const PersonalInfo = (props) => {
     {
       type: "heading",
       label: "Permanent Address",
-      classes: "col-span-4 font-extrabold text-orange-700 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Country",
@@ -387,7 +387,7 @@ const PersonalInfo = (props) => {
     {
       type: "heading",
       label: "Employment Details",
-      classes: "col-span-4 font-extrabold text-orange-700 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Employee Code",
@@ -558,7 +558,7 @@ const PersonalInfo = (props) => {
     {
       type: "heading",
       label: "Employee Profile",
-      classes: "col-span-4 font-extrabold text-orange-700 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Organization Level",
@@ -804,7 +804,7 @@ const PersonalInfo = (props) => {
     {
       type: "heading",
       label: "Supporting Document",
-      classes: "col-span-4 font-extrabold text-orange-700 text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
     },
     {
       label: "Photo",
@@ -867,12 +867,12 @@ const PersonalInfo = (props) => {
         <div className="">
           {/* <UiTopBar /> */}
           <div className="w-full mt-2 bg-[#3e454d]">
-            <div class="grid grid-cols-12 gap-2 m-2 bg-white ">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 rounded-lg"
                     }
                     errors={errors}
                     Form={PersonalInformation}
@@ -883,7 +883,7 @@ const PersonalInfo = (props) => {
 
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={ContactInformation}
@@ -895,7 +895,7 @@ const PersonalInfo = (props) => {
                   register={register} setValue={setValue} getValues={getValues} /> */}
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={ContactInformation2}
@@ -905,7 +905,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -915,7 +915,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmployeeProfile}
@@ -925,7 +925,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-violet-50 border border-[0.7px] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={SupportingDoc}
