@@ -56,6 +56,8 @@ const AdvancedTable = ({
 
   // const pages = Math.ceil(totalCount / RPP);
 
+
+
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
@@ -432,6 +434,7 @@ const AdvancedTable = ({
                       return (
                         <tr>
                           {table.columns.map((innerItm, index) => {
+                            {/* console.log(innerItm,index,"_________index") */}
                             return hide.indexOf(String(index)) == -1 ? (
                               <td 
                                 className={`text-[12px] h-2 pl-1 border-green-400  border overflow-hidden text-white ${
@@ -454,6 +457,17 @@ const AdvancedTable = ({
                         </tr>
                       );
                     })}
+                    {/* {
+                      tableName === "AccrualRevenueTrend" &&
+                      <tr>
+                        <td className={`text-[12px] h-2 pl-1 border-[#3E454D] border overflow-hidden text-white min-w-[140px] max-w-[200px] text-center`}></td>
+                        <td className={`text-[12px] h-2 pl-1 border-[#3E454D]  border overflow-hidden text-white min-w-[140px] max-w-[200px] text-center`}></td>
+                        {table.columns.map((innerItm, index) => {
+                          <td></td>
+                        })}
+                      </tr>
+                    } */}
+                  
                 </tbody>
               ) : (
                 <tbody>

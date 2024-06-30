@@ -11,7 +11,7 @@ export const SweetAlerts = () => {
 
     const dispatch = useDispatch()
     let swAlerts = useSelector((state) => {
-        console.log(state, "statedsadsadsadsadasdsada")
+        // console.log(state, "statedsadsadsadsadasdsada")
         let interdata = state?.component?.alerts
         interdata = {
             ...interdata,
@@ -20,7 +20,7 @@ export const SweetAlerts = () => {
                     dispatch(ALERTS({ show: false }))
                 }} name={"OK"} />]
         }
-        console.log(interdata.buttons, "interdatainterdatadsadassadsadas")
+        // console.log(interdata.buttons, "interdatainterdatadsadassadsadas")
         return interdata
     })
 

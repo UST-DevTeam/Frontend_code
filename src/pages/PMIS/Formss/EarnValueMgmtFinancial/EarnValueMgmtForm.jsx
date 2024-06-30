@@ -30,7 +30,7 @@ const EarnValueMgmtForm = ({
     let role = state?.auth?.user?.roleName
     return role
   })
-  console.log("adsfasfasdfasdfadfs",roleName);
+  console.log("adsfasfasdfasdfadfs",monthss);
 
 
   const [modalOpen, setmodalOpen] = useState(false);

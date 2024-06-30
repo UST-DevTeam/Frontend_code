@@ -96,7 +96,7 @@ function App() {
   //     return interdata
   // })
   let locdata = useLocation();
-  console.log(locdata, "locdatalocdata");
+  // console.log(locdata, "locdatalocdata");
   let unsecured = ["login", "register", "setupPassword"];
 
   useEffect(() => {

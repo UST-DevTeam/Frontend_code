@@ -11,7 +11,7 @@ import WithSideImage from "../components/WithSideImage";
 import getCountries from "./CountryCode";
 const countries = getCountries();
 
-console.log(countries, 'jsjsjsjsjjs');
+// console.log(countries, 'jsjsjsjsjjs');
 
 export default function SetUpRegistration() {
     const { uid } = useParams()

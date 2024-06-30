@@ -10,15 +10,30 @@ import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
+import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-reducer";
  
-const AccrualRevenueTrendForm = ({
-  isOpen,
-  setIsOpen,
-  resetting,
-  formValue = {},
-  year,
-  monthss,
-}) => {
+const AccrualRevenueTrendForm = ({isOpen,setIsOpen,resetting,year,monthss,formValue = {} }) => {
+
+
+  console.log(isOpen,"++++++++++++++++++")
+
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+
+
+  const [modalOpen, setmodalOpen] = useState(false);
+
+  
+  let dispatch = useDispatch();
 
   let roleName = useSelector((state)=>{
     let role = state?.auth?.user?.roleName
@@ -26,31 +41,8 @@ const AccrualRevenueTrendForm = ({
   })
 
 
+  
 
-  const [modalOpen, setmodalOpen] = useState(false);
-
-  let dispatch = useDispatch();
-
-
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-  const getPreviousCurrentAndNextMonth = () => {
-      const currentDate = new Date();
-      const currentMonthIndex = currentDate.getMonth();
-      const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
-      const nextMonthIndex = (currentMonthIndex + 1) % 12;
-      const currentYear = currentDate.getFullYear();
-      const previousMonthYear = currentMonthIndex === 0 ? currentYear - 1 : currentYear;
-      const nextMonthYear = currentMonthIndex === 11 ? currentYear + 1 : currentYear;
-
-      return [
-          { month: months[previousMonthIndex], year: previousMonthYear },
-          { month: months[currentMonthIndex], year: currentYear },
-          { month: months[nextMonthIndex], year: nextMonthYear }
-      ];
-  };
-
-  const [previousMonthData, currentMonthData, nextMonthData] = getPreviousCurrentAndNextMonth();
   const monthsss = [
     "",
     "Jan",
@@ -68,42 +60,30 @@ const AccrualRevenueTrendForm = ({
   ];
     
     
-    let Form = [
-      ...monthss.map((itm)=>(
-        {
-          label: `${monthsss[itm]} ${year}`,
-          value: "",
-          name: `M-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 1,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
-     
-    ];
+  let Form = [
+    ...monthss.map((itm)=>(
+      {
+        label: `${monthsss[itm.month]} ${[itm.year]}`,
+        value: "",
+        name: `M-${itm.month}Y-${itm.year}`,
+        type: "number",
+        props: {
+          valueAsNumber:true,
+          min: 1,
+          onChange: (e) => {},
+        },
+        classes: "col-span-1",
+      }
+    )),
+    
+  ];
 
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
+    // console.log(data);
   };
-  const onTableViewSubmit = (data) => {
 
-    data['year'] = year
+
+  const onTableViewSubmit = (data) => {
     data['costCenteruid'] = formValue['uniqueId']
     if (formValue.uniqueId) {
       dispatch(
@@ -111,11 +91,17 @@ const AccrualRevenueTrendForm = ({
           data,
           () => {
             setIsOpen(false);
+            let setData = [];
+            monthss.forEach((itm) => {
+              setData.push([
+                'M-'+itm.month+"Y-"+itm.year
+              ]);
+          
+            });
             dispatch(
               FormssActions.postAccrualRevenueTrend(
                 {
-                  Monthly: monthss.join(","),
-                  year: `${year}`,
+                  Monthly: setData.join(",")
                 },
                 () => {}
               )
@@ -125,57 +111,21 @@ const AccrualRevenueTrendForm = ({
       );
     }
   };
-  console.log(Form, "Form 11");
+
   useEffect(() => {
-    console.log("formValue in useEffect:", formValue);
-    if (resetting) {
+    if (!isOpen) {
       reset({});
-      Form.map((fieldName) => {
-        setValue(fieldName["name"], fieldName["value"]);
-      });
+      Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
-      Form.forEach((key) => {
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
-          const momentObj = moment(formValue[key.name]);
-          setValue(key.name, momentObj.toDate());
-        } else {
-          // console.log("formValuekey",key,key)
-          setValue(key.name, formValue[key.name]);
-        }
-      });
     }
-  }, [formValue, resetting]);
+  }, [isOpen, formValue,resetting]);
 
 
-  console.log("afafasdfasdfjasdf0adfsa",monthss);
+
   return (
     <>
-      <Modal
-        size={"xl"}
-        children={
-          <>
-            <CommonForm
-              classes={"grid-cols-1 gap-1"}
-              Form={Form}
-              errors={errors}
-              register={register}
-              setValue={setValue}
-              getValues={getValues}
-            />
-          </>
-        }
-        isOpen={modalOpen}
-        setIsOpen={setmodalOpen}
-      />
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-       {/* {
-        monthss.map((itm)=>
-        )
-      } */}
         
       <>
         <CommonForm
@@ -187,11 +137,6 @@ const AccrualRevenueTrendForm = ({
           getValues={getValues}
         />
       </>
-        {/* <button></button> */}
-
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}
@@ -200,6 +145,8 @@ const AccrualRevenueTrendForm = ({
       </div>
     </>
   );
+
+
 };
 
 export default AccrualRevenueTrendForm;

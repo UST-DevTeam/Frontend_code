@@ -22,7 +22,7 @@ const field = [{
     roleName: "roleName"
 }]
 const countries = getCountries();
-console.log(countries, 'jsjsjsjsjjs');
+// console.log(countries, 'jsjsjsjsjjs');
 export default function Registration() {
     const dispatch = useDispatch()
     const navigate = useNavigate()

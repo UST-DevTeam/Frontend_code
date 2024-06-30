@@ -63,7 +63,7 @@ const CommonForm = ({
         {console.log(errors, "errors")}
         {Form.map((itm) => {
           {
-            console.log(itm, "itmnewitmnewitm");
+            {/* console.log(itm, "itmnewitmnewitm"); */}
           }
           return (
             <>

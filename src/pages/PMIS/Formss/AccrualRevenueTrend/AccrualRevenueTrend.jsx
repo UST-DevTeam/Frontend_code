@@ -30,77 +30,58 @@ import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-red
 
 const AccrualRevenueTrend = () => {
 
-  const currentMonth = new Date().getMonth() + 1;
+  // const currentMonth = new Date().getMonth() + 1;
+  const currentMonth =  1;
   const currrentYear = new Date().getFullYear();
 
   const [refresh, setRefresh] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
   const [change, setChange] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
+  const [modalHead, setmodalHead] = useState(<></>);
 
   const [ValGm, setValGm] = useState("Monthly");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
-  const [modalHead, setmodalHead] = useState(<></>);
+
+ 
 
   let extraColumns;
 
   if (currentMonth === 1) {
-    extraColumns = [11, 12, 1];
+    extraColumns = [
+      {'month':11,"year":currrentYear-1},
+      {'month':12,"year":currrentYear-1},
+      {'month':1,"year":currrentYear}
+    ];
   } else if (currentMonth === 2) {
-    extraColumns = [12, 1, 2];
+    extraColumns = [
+      {'month':12,"year":currrentYear-1},
+      {'month':1,"year":currrentYear},
+      {'month':2,"year":currrentYear}
+    ];
   } else {
-    extraColumns = [currentMonth - 2, currentMonth - 1, currentMonth];
+    extraColumns = [
+      {'month':currentMonth-2,"year":currrentYear},
+      {'month':currentMonth-1,"year":currrentYear},
+      {'month':currentMonth,"year":currrentYear}
+    ];
   }
   const [extraColumnsState, setExtraColumns] = useState(extraColumns);
-  
-
-
-
-
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
 
   let dispatch = useDispatch();
 
 
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm?.circleName,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
-      return {
-        label: itm?.projectType,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let ccList = useSelector((state) => {
-    return state?.adminData?.getManageCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-
-
-  let projectList = useSelector((state) => {
-    return state?.adminData?.getProject.map((itm) => {
-      return {
-        label: itm?.projectId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+  // let circleList = useSelector((state) => {
+  //   return state?.adminData?.getManageCircle.map((itm) => {
+  //     return {
+  //       label: itm?.circleName,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
 
 
   let dbConfigList = useSelector((state) => {
@@ -108,14 +89,15 @@ const AccrualRevenueTrend = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        edit: (
+        'edit': (
           <CstmButton
+            
             className={"p-2"}
             child={
               <EditButton
+                key={`edit-button-${itm.uniqueId}`}
                 name={""}
                 onClick={() => {
-
                   setmodalOpen(true);
                   setmodalHead("Edit Amount");
                   setmodalBody(
@@ -184,6 +166,7 @@ const AccrualRevenueTrend = () => {
     });
   });
 
+
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
@@ -205,6 +188,11 @@ const AccrualRevenueTrend = () => {
 
   let table = {
     columns: [
+      {
+        name: "Customer",
+        value: "customer",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
       {
         name: "Cost center",
         value: "costCenter",
@@ -235,55 +223,12 @@ const AccrualRevenueTrend = () => {
   };
 
   let listYear = [];
-
-  function getWeekNumber(d) {
-    // Copy date so don't modify original
-    d = new Date(+d);
-    d.setHours(0, 0, 0, 0);
-    // Set to nearest Thursday: current date + 4 - current day number
-    // Make Sunday's day number 7
-    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-    // Get first day of year
-    var yearStart = new Date(d.getFullYear(), 0, 1);
-    // Calculate full weeks to nearest Thursday
-    var weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-    // Return array of year and week number
-    return [d.getFullYear(), weekNo];
-  }
-
-  function weeksInYear(year) {
-    var month = 11,
-      day = 31,
-      week;
-    do {
-      let d = new Date(year, month, day--);
-      week = getWeekNumber(d)[1];
-    } while (week == 1);
-
-    return week;
-  }
-
-  let listW = [];
-  for (let wwq = 1; wwq <= +weeksInYear(year); wwq++) {
-    const weekString = "W-" + wwq;
-    listW.push({ id: weekString, name: weekString });
-  }
-
-
-
-
-
-
-
-
-
   for (let ywq = 2021; ywq <= +endDate; ywq++) {
     listYear.push(ywq);
   }
 
   let listDict = {
     "": [],
-    Weekly: listW,
     Monthly: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
@@ -306,11 +251,17 @@ const AccrualRevenueTrend = () => {
   };
 
   useEffect(() => {
+    let setData = [];
+    extraColumnsState.forEach((itm) => {
+      setData.push([
+        'M-'+itm.month+"Y-"+itm.year
+      ]);
+  
+    });
     dispatch(
       FormssActions.postAccrualRevenueTrend(
         {
-          Monthly: extraColumnsState.join(","),
-          year: `${currrentYear}`,
+          Monthly: setData.join(",")
         },
         () => {}
       )
@@ -362,11 +313,13 @@ const AccrualRevenueTrend = () => {
 
     const monthMap = {1:"Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"};
     let cols = [];
-    extraColumnsState.forEach((index) => {
+    extraColumnsState.forEach((itm) => {
+      let monthName = monthMap[itm.month];
+      let year = itm.year;
       cols.push([
         {
-          name: `${monthMap[index]} ${year}`,
-          value: "M-"+index,
+          name: `${monthName} ${year}`,
+          value: "M-"+itm.month+'Y-'+year,
           style: "min-w-[200px] max-w-[200px] text-center",
         },
       ]);
@@ -380,13 +333,24 @@ const AccrualRevenueTrend = () => {
 
   const handleAddActivity = (res) => {
     try {
-      setExtraColumns(
-        res?.Monthly
-          ?.split(",")
-          ?.map((key) => +key)
-          ?.sort((a, b) => a - b)
-      );
-      dispatch(FormssActions.postAccrualRevenueTrend(res, () => {}));
+      let months = res?.Monthly?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
+      let extraCol = months.map((month) => ({
+        month: month,
+        year: res.year
+      }));
+      setExtraColumns(extraCol);
+      let setDataafter = [];
+      months.forEach((itm) => {
+        setDataafter.push([
+          'M-'+itm+"Y-"+res.year
+        ])
+      }
+
+      )
+      dispatch(FormssActions.postAccrualRevenueTrend(
+        {
+          Monthly: setDataafter.join(",")
+        }, () => {}));
     } catch (error) {
       console.error("[ERROR] :: " + error.message);
     }
@@ -407,17 +371,16 @@ const AccrualRevenueTrend = () => {
         <div className="pt-12 p-6  flex justify-center">
           <Button
             classes=""
-            name="Search "
+            name=""
             icon={<UilSearch className="w-4 h-4 mx-2" />}
             onClick={handleSubmit(handleAddActivity)}
           />
         </div>
       </div>
-
       <AdvancedTable 
         table={table}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"AccrualRevenueTrend"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -426,7 +389,6 @@ const AccrualRevenueTrend = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
       />
-
       <Modal
         size={"sm"}
         modalHead={modalHead}
@@ -434,8 +396,6 @@ const AccrualRevenueTrend = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
-      {/* <CommonForm/> */}
     </>
   );
 };

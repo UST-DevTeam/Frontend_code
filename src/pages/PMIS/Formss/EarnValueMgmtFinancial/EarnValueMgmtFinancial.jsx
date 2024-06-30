@@ -424,10 +424,10 @@ const EarnValueMgmtFinancial = () => {
         () => {}
       )
     );
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getCardProjectType());
-    dispatch(AdminActions.getManageCostCenter());
-    dispatch(AdminActions.getProject());
+    // dispatch(AdminActions.getManageCircle());
+    // dispatch(AdminActions.getCardProjectType());
+    // dispatch(AdminActions.getManageCostCenter());
+    // dispatch(AdminActions.getProject());
   }, []);
 
   let formD = [

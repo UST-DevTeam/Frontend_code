@@ -10,9 +10,9 @@ export const Loaders = () => {
 
     const dispatch = useDispatch()
     let swAlerts = useSelector((state) => {
-        console.log(state, "statedsadsadsadsadasdsada")
+        console.log(state, "++++state")
         let interdata = state?.component?.loader
-        console.log(interdata.buttons, "interdatainterdatadsadassadsadas")
+        // console.log(interdata.buttons, "interdatainterdatadsadassadsadas")
         return interdata
     })
 
