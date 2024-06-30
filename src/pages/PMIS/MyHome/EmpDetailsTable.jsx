@@ -181,7 +181,7 @@ const EmpDetailsTable = () => {
       },
       {
         name: "Designation",
-        value: "designation",
+        value: "designationName",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
@@ -269,7 +269,7 @@ const EmpDetailsTable = () => {
     data["fileType"] = "ManageEmployee";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(AdminActions.getManageEmpDetails());
+        dispatch(HrActions.getManageEmpDetails());
         setFileOpen(false);
         resetting("");
       })

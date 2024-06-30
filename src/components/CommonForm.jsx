@@ -62,9 +62,6 @@ const CommonForm = ({
       <form className={`overflow-scroll grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
         {console.log(errors, "errors")}
         {Form.map((itm) => {
-          {
-            console.log(itm, "itmnewitmnewitm");
-          }
           return (
             <>
               {itm.type == "heading" ? (
@@ -111,6 +108,8 @@ const CommonForm = ({
                               its?.styling
                             } ${its?.styling?.includes("w-full") ? "" : " w-24 "}`}
                           >
+                        
+                            
                             {its?.type == "select" && (
                               <SelectDropDown
                                 itm={its}
@@ -181,6 +180,18 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
+                    {/* {itm.type == "img" ? (
+                      <>
+                        <div className="w-14 h-14 rounded-full">
+                          {
+                            console.log(register(itm?.name) , 'dfasdsadffdsaadfssd')
+                          }
+                          <img src={itm.name} alt={itm.alt} />
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )} */}
                     {itm.type == "checkbox" ? (
                       <>
                         <CheckBox
@@ -207,7 +218,10 @@ const CommonForm = ({
                         />
                       </>
                     ) : (
-                      <></>
+                      itm?.name == 'img' ? <div>
+                        <img src={itm.value} alt="" />
+                        
+                      </div> : <></>
                     )}
                     {itm.type == "select" ? (
                       <>

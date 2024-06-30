@@ -27,6 +27,7 @@ const ManageVendor = () => {
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [strValFil, setstrVal] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -44,7 +45,7 @@ const ManageVendor = () => {
 
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
-    let interdata = state?.vendorData?.getManageVendorDetails;
+    let interdata = state?.vendorData?.getManageVendorDetails || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -75,7 +76,7 @@ const ManageVendor = () => {
                 name={""}
                 onClick={() => {
                   dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: true }));
-                  navigate(`/vendorForm`);
+                  navigate(`/vendorForm/${itm.uniqueId}`);
                   // dispatch(HrActions.getManageEmpDetails())
                   // setmodalHead("Edit Customer Details")
 

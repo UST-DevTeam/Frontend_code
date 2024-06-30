@@ -416,7 +416,7 @@ const AccrualRevenueTrend = () => {
 
     setNewColumns(cols);
 
-  }, [extraColumnsState]);
+  }, [extraColumnsState,  modalOpen]);
 
   const handleAddActivity = (res) => {
     try {
