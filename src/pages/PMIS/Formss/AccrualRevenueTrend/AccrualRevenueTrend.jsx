@@ -30,8 +30,8 @@ import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-red
 
 const AccrualRevenueTrend = () => {
 
-  // const currentMonth = new Date().getMonth() + 1;
-  const currentMonth =  1;
+  const currentMonth = new Date().getMonth() + 1;
+  // const currentMonth =  1;
   const currrentYear = new Date().getFullYear();
 
   const [refresh, setRefresh] = useState(false);
