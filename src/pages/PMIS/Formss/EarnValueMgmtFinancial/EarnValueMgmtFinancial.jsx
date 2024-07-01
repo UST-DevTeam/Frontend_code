@@ -454,35 +454,35 @@ const EarnValueMgmtFinancial = () => {
     },
 
     
-    {
-      label: "View As",
-      name: "typeSelectional",
-      value: "Select",
-      type: "select",
-      option: [
-        {
-          label: "Monthly View",
-          value: "Monthly",
-        },
-        // {
-        //   label: "Weekly View",
-        //   value: "Weekly",
-        // },
-      ],
-      props: {
-        onChange: (e) => {
-          setValue("selectional", e.target.value);
-          setValGm(e.target.value);
-          setSelectType(e.target.value)
-          console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-          console.log(selectType,'adsfasfasdfasdfadfsa');
-          // handle resert multiselect
-          // alert()
-        },
-      },
-      required: true,
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "View As",
+    //   name: "typeSelectional",
+    //   value: "Select",
+    //   type: "select",
+    //   option: [
+    //     {
+    //       label: "Monthly View",
+    //       value: "Monthly",
+    //     },
+    //     // {
+    //     //   label: "Weekly View",
+    //     //   value: "Weekly",
+    //     // },
+    //   ],
+    //   props: {
+    //     onChange: (e) => {
+    //       setValue("selectional", e.target.value);
+    //       setValGm(e.target.value);
+    //       setSelectType(e.target.value)
+    //       console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
+    //       console.log(selectType,'adsfasfasdfasdfadfsa');
+    //       // handle resert multiselect
+    //       // alert()
+    //     },
+    //   },
+    //   // required: true,
+    //   classes: "col-span-1",
+    // },
 
 
     {
@@ -537,9 +537,8 @@ const EarnValueMgmtFinancial = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            // value: "M-"+index+"_x",
-            value: "totalInvoice",
-
+            // value: "totalInvoice",
+            value: "amount",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
