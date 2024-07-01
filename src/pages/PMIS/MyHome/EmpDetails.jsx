@@ -49,12 +49,7 @@ const EmpDetails = (props) => {
     if (data.length > 0 && oneLoad != data[0]) {
       setOneLoad(data[0]);
 
-      // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
-
-      // dispatch(HrActions.getManageEmpDetails(false, "dsadsa"));
-
       Object.entries(data[0]).map((iewq) => {
-        // console.log(iewq, "iewqiewqiewqiewqiewqiewq");
         setValue(iewq[0], iewq[1]);
       });
     }
@@ -120,7 +115,6 @@ const EmpDetails = (props) => {
       };
     });
   });
-  console.log(designationList,"")
 
   let roleList = useSelector((state) => {
     return state?.adminData?.getManageProfile.map((itm) => {
@@ -1002,7 +996,7 @@ const EmpDetails = (props) => {
       });
       ``;
     }
-  }, [empuid]);
+  }, [empuid, ]);
 
   return (
     <>

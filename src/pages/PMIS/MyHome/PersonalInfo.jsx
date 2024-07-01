@@ -1,26 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "react-querybuilder/dist/query-builder.css"; // Import the library styles
+import "react-querybuilder/dist/query-builder.css";
 import QueryBuilder from "react-querybuilder";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import CommonForm from "../../../components/CommonForm";
-import Button from "../../../components/Button";
 import AdminActions from "../../../store/actions/admin-actions";
 import MyHomeActions from "../../../store/actions/myHome-actions"
-import HrActions from "../../../store/actions/hr-actions";
-import * as Unicons from "@iconscout/react-unicons";
-import UiTopBar from "../../../components/UiTopBar";
-import {
-  UilFacebookF,
-  UilTwitter,
-  UilGoogle,
-  UilLinkedin,
-  UilLinkAlt,
-  UilEdit,
-  UilSave,
-} from "@iconscout/react-unicons";
-// import { GET_PERSONAL_INFO, } from "../../../store/reducers/hr-reduces";
 
 const PersonalInfo = (props) => {
   const {
@@ -35,28 +21,13 @@ const PersonalInfo = (props) => {
   } = useForm();
 
   // const { empuid } = useParams();
-  // console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState({});
-  const [UserLyp, seteUserLyp] = useState("");
-  const [nestfilter, setnestfilter] = useState({});
-  const [onestfilter, setonestfilter] = useState({});
-  const [gopen, SetgOpen] = useState([]);
   const [dataQuery, SetdataQuery] = useState("Select * from values;");
   const [filtering, setFiltering] = useState("Select * from values;");
-  const [managingFilter, setManagingFilter] = useState([]);
-  const [upmanagingFilter, setupManagingFilter] = useState([]);
   const [countform, setcountform] = useState([1]);
-  const [conditioncountform, setconditioncountform] = useState([]);
-  const [countformtwo, setcountformtwo] = useState([]);
   const navigate = useNavigate();
-  const [passport, setpassport] = useState([]);
-  const [dataValue, setDataValue] = useState([]);
-  const [showSocialMediaOther, setshowSocialMediaOther] = useState(false);
-  const [showOtherAddressProof, setshowOtherAddressProof] = useState(false);
-  const [showBusinessRegistered, setshowBusinessRegistered] = useState(false);
   const [showPassportNumber, setshowPassportNumber] = useState(false);
-  const [stateName, setStateName] = useState(false);
 
   const PersonalInfo = useSelector((state) => {
     let data = state.myHomeData.getPersonalInfo;
@@ -581,7 +552,7 @@ const PersonalInfo = (props) => {
     },
     {
       label: "Role",
-      name: "role",
+      name: "userRole",
       value: "",
       type:"sdisabled",
       option: roleList,
@@ -591,7 +562,7 @@ const PersonalInfo = (props) => {
     },
     {
       label: "PMIS Profile",
-      name: "userRole",
+      name: "userRoleName",
       value: "",
       type:"sdisabled",
       option: roleList,
