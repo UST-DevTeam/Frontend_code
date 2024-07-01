@@ -184,6 +184,41 @@ const CommonActions = {
         
 
     },
+    commondownloadpost: (urls, filename, method = "POST", data = {}, cb=()=>{}) => async (dispatch, _) => {
+
+        try {
+            const res = await Api.blobFile({ url: urls, method: method, data: data })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                console.log(res, "resresresrescommondownload")
+                dispatch(SET_FILE_BLOB(new Blob([res?.data])))
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `${filename}`);
+                document.body.appendChild(link);
+                link.click();
+
+            }
+        
+
+        }
+        catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+
+        
+
+    },
     
 }
 

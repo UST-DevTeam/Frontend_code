@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,7 +43,7 @@ const AccrualRevenueTrend = () => {
   const [ValGm, setValGm] = useState("Monthly");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
-
+  const exportData = useRef([])
  
 
   let extraColumns;
@@ -198,6 +198,11 @@ const AccrualRevenueTrend = () => {
         value: "costCenter",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
+      {
+        name: "UST Project ID",
+        value: "ustProjectid",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
       
       ...newColumns,
      
@@ -251,17 +256,13 @@ const AccrualRevenueTrend = () => {
   };
 
   useEffect(() => {
-    let setData = [];
     extraColumnsState.forEach((itm) => {
-      setData.push([
-        'M-'+itm.month+"Y-"+itm.year
-      ]);
-  
+      exportData.current =  [...exportData.current, 'M-'+itm.month+"Y-"+itm.year]
     });
     dispatch(
       FormssActions.postAccrualRevenueTrend(
         {
-          Monthly: setData.join(",")
+          Monthly: exportData.current.join(",")
         },
         () => {}
       )
@@ -339,17 +340,16 @@ const AccrualRevenueTrend = () => {
         year: res.year
       }));
       setExtraColumns(extraCol);
-      let setDataafter = [];
+      
       months.forEach((itm) => {
-        setDataafter.push([
-          'M-'+itm+"Y-"+res.year
-        ])
+        
+      exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
       }
 
       )
       dispatch(FormssActions.postAccrualRevenueTrend(
         {
-          Monthly: setDataafter.join(",")
+          Monthly: exportData.current.join(",")
         }, () => {}));
     } catch (error) {
       console.error("[ERROR] :: " + error.message);
@@ -379,6 +379,7 @@ const AccrualRevenueTrend = () => {
       </div>
       <AdvancedTable 
         table={table}
+        exportButton={["/export/accrualRevenueTrend", "Export_Accrual_Revenue_Trend_Form.xlsx","POST",{ Monthly  :exportData.current}]}
         filterAfter={onSubmit}
         tableName={"AccrualRevenueTrend"}
         handleSubmit={handleSubmit}

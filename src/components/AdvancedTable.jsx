@@ -234,12 +234,12 @@ const AdvancedTable = ({
                   name={"Export"}
                   classes="w-full mr-1"
                   onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        exportButton[0],
-                        exportButton[1]
-                      )
-                    );
+                    if (tableName === "AccrualRevenueTrend") {
+                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                      );
+                    } else {
+                      dispatch(CommonActions.commondownload(exportButton[0],exportButton[1]))
+                    }
                   }}
                 >
                   Export

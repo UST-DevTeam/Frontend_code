@@ -615,13 +615,6 @@ const PersonalInfo = (props) => {
       type:"sdisabled",
       required: false,
       props: {},
-      option: departmentList,
-      // option: [
-      //   { "label": "Accounts", "value": "Accounts" },
-      //   { "label": "HR", "value": "HR" },
-      //   { "label": "operations", "value": "operations" },
-      //   { "label": "Management", "value": "Management" },
-      // ],
       classes: "col-span-1",
     },
     {
@@ -631,7 +624,6 @@ const PersonalInfo = (props) => {
       type:"sdisabled",
       required: false,
       props: {},
-      option: employeeList,
       classes: "col-span-1",
     },
     {
@@ -705,16 +697,6 @@ const PersonalInfo = (props) => {
       classes: "col-span-1",
     },
     {
-      label: "Compliance",
-      name: "compliance",
-      value: "",
-      type:"sdisabled",
-      option: employeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
       label: "L1 Compliance",
       name: "L1Compliance",
       value: "",
@@ -727,16 +709,6 @@ const PersonalInfo = (props) => {
     {
       label: "L2 Compliance",
       name: "L2Compliance",
-      value: "",
-      type:"sdisabled",
-      option: employeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "HR Manager",
-      name: "reportingHrManager",
       value: "",
       type:"sdisabled",
       option: employeeList,
