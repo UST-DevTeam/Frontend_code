@@ -38,38 +38,43 @@ const ManageVendorForm = (props) => {
 
   const getManageVendorDetails = useSelector((state) => {
 
-    let data = state.vendorData.getManageVendorDetails;
+    let data = state.vendorData.getManageVendorDetails || [];
 
     console.log(data, "datadatadatadatadatadatadata");
     if (data.length > 0 && oneLoad != data[0]) {
       setOneLoad(data[0]);
 
-      // dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
-
-      // dispatch(HrActions.getManageVendorDetails(false, "dsadsa"));
-
-      Object.entries(data[0]).map((iewq) => {
-        // console.log(iewq, "iewqiewqiewqiewqiewqiewq");
+      Object.entries(data[0])?.map((iewq) => {
         setValue(iewq[0], iewq[1]);
       });
       
+      // Object.entries(data[0]).forEach(([key, value]) => {
+      //   if (["dateOfRegistration", "validityUpto"].includes(key)) {
+      //     const momentObj = moment(value, "DD-MM-yyyy");
+      //     setValue(key, momentObj.toDate());
+      //   } else {
+      //     setValue(key, value);
+      //   }
+      // });
       Object.entries(data[0]).forEach(([key, value]) => {
-        if (["dateOfRegistration", "validityUpto"].includes(key)) {
-          const momentObj = moment(value, "YYYY-MM-DD");
+        if (["dateOfRegistration", "validityUpto"].includes(key) && value) {
+          const momentObj = moment(value, "DD-MM-yyyy");
           setValue(key, momentObj.toDate());
         } else {
           setValue(key, value);
         }
       });
       
-      
+      if (empuid) {
+        setshowVendorRegistered(data[0].vendorRegistered === "Yes");
+      }
     }
-    return state.vendorData.getManageVendorDetails;
+    return state.vendorData.getManageVendorDetails || "";
   });
 
   console.log(getManageVendorDetails, "getManageVendorDetails");
 
-  const today = moment().format("YYYY-MM-DD");
+  const today = moment().format("DD-MM-yyyy");
 
   let roleList = useSelector((state) => {
     return state?.adminData?.getManageProfile.map((itm) => {
@@ -89,17 +94,6 @@ const ManageVendorForm = (props) => {
     })
 })
 
-  // let employeeList = [reportingManager,L2expManager,financeApproverList,reportingHrManager],
-
-  let employeeList = useSelector((state) => {
-    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-      return {
-        label: itm?.empName + " " + itm.empCode,
-        value: itm?.empName + " " + itm.empCode + " " + itm.uniqueId,
-      };
-    });
-  });
-
   let PersonalInformation = [
     {
       type: "heading",
@@ -110,8 +104,10 @@ const ManageVendorForm = (props) => {
       label: "Partner Code",
       name: "vendorCode",
       value: "",
-      type: "text",
-      props: "",
+      type: empuid ? "sdisabled" : "text",
+      props: {
+        disabled: empuid ? true : false, 
+      },
       required: true,
       placeholder: "",
     },
@@ -238,16 +234,7 @@ const ManageVendorForm = (props) => {
       props: "",
       required: false,
       placeholder: "",
-    },   
-    {
-      label: "PAN",
-      name: "pan",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
+    }, 
     {
       label: "Working Circle's",
       name: "Circle",
@@ -324,7 +311,7 @@ const ManageVendorForm = (props) => {
       label: "PAN Number",
       name: "panNumber",
       value: "",
-      type: "number",
+      type: "text",
       props: "",
       required: false,
       placeholder: "",
@@ -341,7 +328,7 @@ const ManageVendorForm = (props) => {
       label: "TAN Number",
       name: "tanNumber",
       value: "",
-      type: "number",
+      type: "text",
       props: "",
       required: false,
       placeholder: "",
@@ -358,7 +345,7 @@ const ManageVendorForm = (props) => {
       label: "ESI Number",
       name: "esiNumber",
       value: "",
-      type: "number",
+      type: "text",
       props: "",
       required: false,
       placeholder: "",
@@ -375,7 +362,7 @@ const ManageVendorForm = (props) => {
       label: "EPF Number",
       name: "epfNumber",
       value: "",
-      type: "number",
+      type: "text",
       props: "",
       required: false,
       placeholder: "",
@@ -392,7 +379,7 @@ const ManageVendorForm = (props) => {
       label: "STN Number",
       name: "stnNumber",
       value: "",
-      type: "number",
+      type: "text",
       props: "",
       required: false,
       placeholder: "",
@@ -409,7 +396,7 @@ const ManageVendorForm = (props) => {
       label: "Bank Account No.",
       name: "accounctNumber",
       value: "",
-      type: "number",
+      type: "text",
       props: "",
       required: false,
       placeholder: "",
@@ -446,7 +433,11 @@ const ManageVendorForm = (props) => {
       name: "financialTurnover",
       value: "",
       type: "number",
-      props: "",
+      props: {
+        valueAsNumber:true,
+        min: 0,
+        onChange: (e) => {},
+    },
       required: false,
       placeholder: "",
     },
@@ -567,7 +558,11 @@ const ManageVendorForm = (props) => {
       name: "paymentTerms",
       value: "",
       type: "number",
-      props: "",
+      props: {
+          valueAsNumber:true,
+          min: 0,
+          onChange: (e) => {},
+      },
       placeholder: "",
     },
   );
@@ -597,6 +592,7 @@ const ManageVendorForm = (props) => {
     }
     reset({});
   };
+  
 
 
   useEffect(() => {
@@ -623,12 +619,12 @@ const ManageVendorForm = (props) => {
       ].map((itss) => {
         console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
 
-        setValue(itss.name, itss.value);
+        setValue(itss.name, itss.value );
       });
       ``;
       // }
     }
-  }, [empuid]);
+  }, [empuid, ]);
 
   return (
     <>

@@ -197,6 +197,12 @@ const VendorProjectAllocationForm = ({
           // console.log("formValuekey",key,key)
           setValue(key.name, formValue[key.name]);
         }
+
+        projectList.map(()=>{
+          if(key.name == "projectName" && formValue[key.name] == "All Projects"){
+            setValue(key.name, formValue[key.name]);
+        }})
+
       });
     }
   }, [formValue, resetting]);

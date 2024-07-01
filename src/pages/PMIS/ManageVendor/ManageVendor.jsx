@@ -17,7 +17,7 @@ import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
 // import OperationManagementActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import VendorActions from "../../../store/actions/vendor-actions";
-import { useNavigate, useParams } from "react-router-dom";
+import { json, useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import { GET_VENDOR_DETAILS } from "../../../store/reducers/vendor-reducer";
 
@@ -50,24 +50,6 @@ const ManageVendor = () => {
       let updateditm = {
         ...itm,
 
-        // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
         edit: (
           <CstmButton
             className={"p-2"}
@@ -75,9 +57,10 @@ const ManageVendor = () => {
               <EditButton
                 name={""}
                 onClick={() => {
+                  // sessionStorage.setItem('singleData' , JSON.stringify(itm))
                   dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: true }));
                   navigate(`/vendorForm/${itm.uniqueId}`);
-                  // dispatch(HrActions.getManageEmpDetails())
+                  // dispatch(VendorActions.getManageVendorDetails())
                   // setmodalHead("Edit Customer Details")
 
                   console.log(itm, "itmitmitmitmitmitmitmitm");
