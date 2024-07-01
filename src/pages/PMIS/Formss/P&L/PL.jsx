@@ -236,12 +236,12 @@ const PL = () => {
     columns: [
       {
         name: "Year",
-        value: "year",
+        value: "MSYear",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Month",
-        value: "month",
+        value: "MSMonth",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -643,7 +643,7 @@ const PL = () => {
         }));
       }
 
-      dispatch(FormssActions.postEarnValueMgmtFinancial(res, () => {}));
+      dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
     } catch (error) {
       console.error("[ERROR] :: " + error.message);
     }

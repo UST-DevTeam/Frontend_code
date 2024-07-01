@@ -239,8 +239,8 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
 
 
-    data['projectType'] = formValue?.projectType;
-    data['totalInvoice'] = formValue?.totalInvoice;
+    // data['projectType'] = formValue?.projectType;
+    // data['totalInvoice'] = formValue?.totalInvoice;
     data['costCenter'] = formValue?.costCenter;
     data['circle'] = formValue?.circle;
     data['roleName'] = roleName;
