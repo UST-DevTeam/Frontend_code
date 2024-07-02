@@ -517,58 +517,55 @@ const ActualWorkdone = () => {
       12: "Dec",
     };
     let cols = [];
-    extraColumns.forEach((index) => {
+    
+    extraColumns.forEach((index , i) => {
+
       console.log("afafafafasfsadfafasfafd", index);
       if (ValGm && ValGm === "Monthly") {
         cols.push([
-          //   {
-          //     name: `AOP Target (${monthMap[index]} ${year})`,
-          //     value: "aop_target-"+index+"",
-          //     style: "min-w-[200px] max-w-[200px] text-center",
-          //   },
           {
             name: `PV Target (${monthMap[index]} ${year})`,
-            value: "M-" + index + "_y",
-            // value: "plan-"+index+"",
+            value: "M-" + (index) + "_y",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value: "totalCountMS2",
+            // value: "totalCountMS2",
+            value: "MS2-M-" + (index) + "_y",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
       }
-      // else if (ValGm && ValGm === "Weekly"){
+      // else  if (ValGm && ValGm === "Weekly") {
       //   cols.push([
       //       {
-      //         name: `PV Target (${listW[index]} ${year})`,
-      //         value: "W-"+index,
+      //         // name: `PV Target (${listW[index]} ${year})`,
+      //         name: `PV Target (${index} ${year})`,
+      //         value: `${index}`,
       //         style: "min-w-[200px] max-w-[200px] text-center",
       //       },
       //       {
-      //         name: `Achievement (${listW[index]} ${year})`,
-      //         value:"totalCountMS2",
+      //         // name: `Achievement (${listW[index]} ${year})`,
+      //         name: `Achievement (${index} ${year})`,
+      //         // value:"totalCountMS2",
+      //         value:"MS2-W-" + index,
       //         style: "min-w-[200px] max-w-[200px] text-center",
       //       },
       //     ]);
       // }
       else {
         cols.push([
-          //   {
-          //     name: `AOP Target (${index} ${year})`,
-          //     value: '',
-          //     style: "min-w-[200px] max-w-[200px] text-center",
-          //   },
+
           {
             name: `PV Target (${index} ${year})`,
-            value: `${index}`,
+            // value: `${index}`,
+            value:index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${index} ${year})`,
-            // value: index,
-            value: "totalCountMS2",
+            // value: "totalCountMS2",
+            value:"MS2-" + index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
