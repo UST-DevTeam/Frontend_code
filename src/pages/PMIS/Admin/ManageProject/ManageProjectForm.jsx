@@ -26,6 +26,8 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
   const [pType, setpType] = useState("");
   const [circlewq, setcircle] = useState("");
 
+  const today = moment().format("YYYY-MM-DD");
+
   let pmempList = useSelector((state) => {
     return state?.filterData?.getautosuggestionProjectManager?.map((itm) => {
       return {
@@ -178,11 +180,12 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
       type: "datetime",
       value: "",
       props: {
+        maxSelectableDate:today,
         onChange: (e) => {
           // console.log(e.target.value);
         },
       },
-      required: false,
+      required: true,
       classes: "col-span-1",
     },
     {
@@ -191,9 +194,10 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
       type: "datetime",
       value: "",
       props: {
+        minSelectableDate:today,
         onChange: (e) => { },
       },
-      required: false,
+      required: true,
       classes: "col-span-1",
     },
     {

@@ -569,7 +569,6 @@ const ManageVendorForm = (props) => {
 
   
   const onTableViewGenerateSubmit = (data) => {
-    console.log(data, "dsadasdsadsadsadas");
     if (empuid) {
       dispatch(
         VendorActions.postManageVendorDetails(
@@ -617,7 +616,6 @@ const ManageVendorForm = (props) => {
         ...PersonalInformation,
 
       ].map((itss) => {
-        console.log("dsadsadsadsadsadsadsadsadsadsadsadsa", itss);
 
         setValue(itss.name, itss.value );
       });
