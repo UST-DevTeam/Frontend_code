@@ -27,6 +27,7 @@ import { UilSearch } from "@iconscout/react-unicons";
 import ActualWorkdoneForm from "./ActualWorkdoneForm";
 
 const ActualWorkdone = () => {
+  
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [refresh, setRefresh] = useState(false);
@@ -48,42 +49,41 @@ const ActualWorkdone = () => {
 
   console.log("extraColumns_____", extraColumns);
 
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm?.circleName,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+  // let circleList = useSelector((state) => {
+  //   return state?.adminData?.getManageCircle.map((itm) => {
+  //     return {
+  //       label: itm?.circleName,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
 
-  let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
-      return {
-        label: itm?.projectType,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+  // let projectTypeList = useSelector((state) => {
+  //   return state?.adminData?.getCardProjectType.map((itm) => {
+  //     return {
+  //       label: itm?.projectType,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
 
-  let ccList = useSelector((state) => {
-    return state?.adminData?.getManageCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-  let projectList = useSelector((state) => {
-    return state?.adminData?.getProject.map((itm) => {
-      return {
-        label: itm?.projectId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+  // let ccList = useSelector((state) => {
+  //   return state?.adminData?.getManageCostCenter.map((itm) => {
+  //     return {
+  //       label: itm?.costCenter,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
+  // let projectList = useSelector((state) => {
+  //   return state?.adminData?.getProject.map((itm) => {
+  //     return {
+  //       label: itm?.projectId,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
 
-  console.log("afasfasdfasfafasdfasfafd", year);
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEVMDelivery || [];
     console.log("asdfasfasfafdadsfafd", interdata);
@@ -180,10 +180,7 @@ const ActualWorkdone = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+
 
   const {
     register,
@@ -300,34 +297,34 @@ const ActualWorkdone = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      {
-        label: "Cirlce",
-        type: "autoSuggestion",
-        name: "circleName",
-        option: circleList,
-        props: {},
-      },
-      {
-        label: "Project Type",
-        type: "autoSuggestion",
-        name: "projectType",
-        option: projectTypeList,
-        props: {},
-      },
-      {
-        label: "Cost Center",
-        type: "autoSuggestion",
-        name: "costCenter",
-        option: ccList,
-        props: {},
-      },
-      {
-        label: "Project ID",
-        type: "autoSuggestion",
-        name: "projectId",  
-        option: projectList,
-        props: {},
-      },
+      // {
+      //   label: "Cirlce",
+      //   type: "autoSuggestion",
+      //   name: "circleName",
+      //   option: circleList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project Type",
+      //   type: "autoSuggestion",
+      //   name: "projectType",
+      //   option: projectTypeList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Cost Center",
+      //   type: "autoSuggestion",
+      //   name: "costCenter",
+      //   option: ccList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project ID",
+      //   type: "autoSuggestion",
+      //   name: "projectId",  
+      //   option: projectList,
+      //   props: {},
+      // },
       // {
       //     label: "Project ID",
       //     type: "autoSuggestion",
@@ -422,10 +419,6 @@ const ActualWorkdone = () => {
         () => {}
       )
     );
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getCardProjectType());
-    dispatch(AdminActions.getManageCostCenter());
-    dispatch(AdminActions.getProject());
   }, []);
 
   let formD = [
@@ -644,9 +637,13 @@ const ActualWorkdone = () => {
           </>
         }
         table={table}
-        // exportButton={["/export/EvmDelivery", "Export_EvmDelivery.xlsx"]}
+        exportButton={["/export/EvmDelivery", "Export_EvmDelivery.xlsx","POST",{viewBy: extraColumns.join(","),
+          year: `${currrentYear}`,
+          yyear: `${currrentYear}`,
+          selectional: "Monthly",
+          typeSelectional: "Monthly",}]}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"AcctualWorkdoneform"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
