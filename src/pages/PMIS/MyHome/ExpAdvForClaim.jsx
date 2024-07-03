@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,8 +18,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
 import DownloadButton from "../../../components/DownloadButton";
+import { Urls } from "../../../utils/url";
 
 const ExpAdvForClaim = () => {
+  const expenseRef = useRef("");
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
@@ -322,6 +324,11 @@ const ExpAdvForClaim = () => {
         {
             name: "Attachment",
             value: "attachment",
+            style: "min-w-[200px] max-w-[450px] text-center",
+        },
+        {
+            name: "Actions",
+            value: "delete",
             style: "min-w-[200px] max-w-[450px] text-center",
         },
     ],

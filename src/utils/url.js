@@ -1,10 +1,10 @@
 
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
 
 
-// export const baseUrl="https://pmisfbapi.fourbrick.in"
-// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+export const baseUrl="https://pmisfbapi.fourbrick.in"
+export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -114,6 +114,8 @@ export const Urls={
     expAdv_L3Data:"/approval/financeApprover",
     expAdv_L3AdvanceData:"/Advance/approval/l3Approval",
     expAdv_Approval:"/approval/status",
+    expAdv_all_expense_approve:"/approval/statusBulk",
+    expAdv_expense_emp_name:"/expenses/fillDAEmpName",
     expAdv_expense_emp_code:"/expenses/fillDAEmpData",
     expAdv_DA_Fill:"/expenses/fillDA",
     expAdv_DA_project_Id:"/expenses/DAFillProjectId",

@@ -19,6 +19,7 @@ import L2FormFORM from "../../../../pages/PMIS/MyHome/L2Form/L2FormFORM";
 import CommonForm from "../../../../components/CommonForm";
 import { useNavigate } from "react-router-dom";
 import { CLEAR_GET_CLAIM_AND_ADVANCE } from "../../../../store/reducers/expenseAdvance-reducer";
+import ViewButton from "../../../../components/ViewButton";
 
 const L2Form = () => {
   const expenseRef = useRef("");
@@ -32,6 +33,8 @@ const L2Form = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
+  const [advanceRow, setAdvanceRow] = useState([]);
+  const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [hide, setHide] = useState(false);
@@ -79,6 +82,32 @@ const L2Form = () => {
         //   </div>
         // ),
         expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
+
+        checkboxAdvance: (
+          <input
+            type="checkbox"
+            id={itm.uniqueId}
+            checked={advanceRow.includes(itm.uniqueId)}
+            value={itm.uniqueId}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
+                setAdvanceRow((prev) => [...prev, e.target.value]);
+                
+              } else {
+                if (selectAll.includes(e.target.id)) {
+                  setSelectAll((prev) =>
+                    prev.filter((id) => id !== e.target.id)
+                  );
+                }
+                setAdvanceRow((prev) =>
+                  prev.filter((id) => id !== e.target.value)
+                );
+              }
+              
+            }}
+          />
+        ),
 
         ExpenseNo: (
           <p
@@ -196,6 +225,62 @@ const L2Form = () => {
 
   let table = {
     columns: [
+      ...( !hide ? [
+        {
+          name: (
+            <input
+              type="checkbox"
+              checked={(dbConfigList?.length === selectAll?.length)}
+              className='check-state'
+              onChange={(e) => {
+                
+                if (e.target.checked) {
+                  setAdvanceRow(dbConfigList.map((itm) => itm.uniqueId));
+                  setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
+                  
+                  try {
+                    let eleRefs = document.getElementsByClassName('check-state');
+                    if (eleRefs) {
+                      eleRefs = Array.from(eleRefs);
+                      if (Array.isArray(eleRefs)) {
+                        eleRefs.forEach(ele => {
+                          if (ele) {
+                            ele.setAttribute('checked', true);
+                          }
+                        });
+                      }
+                    }
+                  } catch (error) {
+                  }
+                } else {
+                  setAdvanceRow([]);
+                  setSelectAll([]);
+                  
+                  try {
+                    let eleRefs = document.getElementsByClassName('check-state');
+                    if (eleRefs) {
+                      eleRefs = Array.from(eleRefs);
+                      if (Array.isArray(eleRefs)) {
+                        eleRefs.forEach(ele => {
+                          if (ele) {
+                            ele.removeAttribute('checked');
+                          }
+                        });
+                      }
+                    }
+                  } catch (error) {
+                  }
+                }
+                
+              }}
+            />
+          )
+          ,
+          value: "checkboxAdvance",
+          style: "min-w-[40px] max-w-[60px] text-center sticky left-0 bg-[#3e454d]",
+        },
+      ] : 
+        []),
       {
         name: "Month",
         value: "expensemonth",
@@ -204,7 +289,7 @@ const L2Form = () => {
       {
         name: "Expense ID",
         value: "ExpenseNo",
-        style: "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d]",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d] p-2",
       },
       {
         name: "Expense Date",
@@ -283,6 +368,11 @@ const L2Form = () => {
               value: "attachment",
               style: "min-w-[150px] max-w-[450px] text-center",
             },
+            {
+              name: "Attachment Preview",
+              value: "view",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },           
           ]),
       ...(!hide
         ? []
@@ -400,6 +490,31 @@ const L2Form = () => {
     // console.log("___data___", data);
   }
 
+  function AllAmountAndRemark(type) {
+    const data = { approver: "L2-" + type, type: "Expense", status: type };
+    const selectedExpenses = advanceRow; 
+
+    if (!selectedExpenses || selectedExpenses.length === 0) {
+        console.error("No expenses selected for approval/rejection");
+        return;
+    }
+
+    data.data = selectedExpenses.map(expenseId => {
+        const allExpense = dbConfigList.find(item => item.uniqueId === expenseId);
+        return {
+            ExpenseNo: allExpense?.ExpenseNo.props.children || "",
+        };
+    }); 
+
+    dispatch(
+        ExpenseAdvanceActions.postApprovalAllExpenseStatus(true, data, () => {
+            dispatch(ExpenseAdvanceActions.getL2Data());
+            setAdvanceRow([]);
+            setSelectAll([]);
+        })
+    );
+}
+
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
@@ -459,6 +574,22 @@ const L2Form = () => {
               }}
               name={"L2 Advance"}
             ></Button>
+            <div className="flex gap-1">
+                <Button
+                  onClick={() => {
+                    // alert("Checked")
+                    AllAmountAndRemark("Rejected");
+                  }}
+                  name="Reject"
+                />
+                <Button
+                  onClick={() => {
+                    // alert("Checked")
+                    AllAmountAndRemark("Approved");
+                  }}
+                  name="Approve"
+                />
+              </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
@@ -615,6 +746,36 @@ const L2Form = () => {
                     }
                   />
                 ),
+
+
+                view: (
+                  <CstmButton
+                    className={"p-2"}
+                    child={
+                      <ViewButton
+                        name={""}
+                        onClick={() => {
+                          setmodalOpen(true);
+                          setmodalHead("Attachment Preview");
+                          setmodalBody(
+                            <>
+                    
+                               <div className="flex justify-center items-center">
+                               <img
+                                   src={backendassetUrl + item?.attachment}
+                                   className="w-full h-full content-center flex object-contain"
+                                 />
+                             </div>
+                    
+                            </>
+                          );
+                        }}
+                      ></ViewButton>
+                    }
+            />
+                ),
+
+
               };
             })}
             errors={errors}

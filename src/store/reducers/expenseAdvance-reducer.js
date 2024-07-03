@@ -17,6 +17,7 @@ const initialState = {
     getL3AdvanceData:[],
     approvalStatus:[],
     getExpenseEMPCode:[],
+    getExpenseEMPName:[],
     getDAFill:[],
     getExpenseDAProjectId:[],
     getExpensesByExpenseNoInPopUp:[],
@@ -153,6 +154,14 @@ const ExpenseAdvanceReducer = createSlice({
             }
         },
 
+        GET_EXPENSE_EMP_NAME:(state,{payload}) => {
+            if(payload.reset){
+                state.getExpenseEMPName = payload.dataAll
+            }else{
+                state.getExpenseEMPName  = [...state.getExpenseEMPName,...payload.dataAll]
+            }
+        },
+
         GET_EXPENSE_EMP_CODE:(state,{payload}) => {
             if(payload.reset){
                 state.getExpenseEMPCode = payload.dataAll
@@ -236,6 +245,7 @@ export const {
     GET_L3_DATA,
     GET_L3_ADVANCE_DATA,
     GET_APPROVAL_STATUS,
+    GET_EXPENSE_EMP_NAME,
     GET_EXPENSE_EMP_CODE,
     GET_DA_FILL,
     GET_EXPENSE_DA_PROJECT_ID,

@@ -42,13 +42,20 @@ const DAFormFillFORM = ({
     });
   });
   let EmpNameList = useSelector((state) => {
-    return state?.expenseAdvanceData?.getExpenseEMPCode.map((itm) => {
+    return state?.expenseAdvanceData?.getExpenseEMPName.map((itm) => {
       return {
         label: itm?.empName,
         value: itm?.uniqueId,
       };
     });
   });
+
+
+  // let EmpName = useSelector((state) => {
+  //   return state?.expenseAdvanceData?.getExpenseEMPName.map((itm) => {
+  //     return itm?.empName || ""
+  //   });
+  // });
 
   let projectList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpenseDAProjectId?.map((itm) => {
@@ -73,7 +80,8 @@ const DAFormFillFORM = ({
         label: "Claim Type",
         value: "",
         name: Object.entries(formValue).length > 0 ? "name" : "claimType",
-        type: "select",
+        // type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+        type:"select",
         option: claimTypeList,
         props: {
             onChange: (e) => {
@@ -106,13 +114,10 @@ const DAFormFillFORM = ({
         option: EmpCodeList,
         props: {
             onChange: (e) => {
-              dispatch(
-                ExpenseAdvanceActions.getExpenseDAProjectId(
-                  true,
-                  `empCode=${e.target.value}`
-                )
-              );
+              dispatch(ExpenseAdvanceActions.getExpenseDAProjectId(true,`empCode=${e.target.value}`));
+               dispatch( ExpenseAdvanceActions.getExpenseEMPName(true,`empCode=${e.target.value}`));
             },
+
           },
         // required: true,
         classes: "col-span-1",
@@ -130,6 +135,7 @@ const DAFormFillFORM = ({
         // required: true,
         classes: "col-span-1",
     },
+    
     {
         label: "Project ID",
         value: "",
@@ -223,7 +229,7 @@ const DAFormFillFORM = ({
     // dispatch(GET_EXPENSE_DA_COST_CENTER({ dataAll: [], reset: true }))
     dispatch(AdminActions.getManageExpenseAdvance(true,`claimtypeDa=${"DailyAllowance"}`));
     dispatch(ExpenseAdvanceActions.getExpenseEMPCode());
-    dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());
+    // dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());
     dispatch(ExpenseAdvanceActions.getExpenseDACostCenter());
     if (resetting) {
       reset({});
@@ -239,7 +245,6 @@ const DAFormFillFORM = ({
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
-          // console.log("formValuekey",key,key)
           setValue(key, formValue[key]);
         }
       });

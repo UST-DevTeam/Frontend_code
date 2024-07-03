@@ -17,6 +17,7 @@ import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
+import { Urls } from "../../../utils/url";
 
 const ExpAdvForAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -253,6 +254,11 @@ const ExpAdvForAdvance = () => {
         {
             name: "Remarks",
             value: "Remarks",
+            style: "min-w-[200px] max-w-[450px] text-center",
+        },
+        {
+            name: "Actions",
+            value: "delete",
             style: "min-w-[200px] max-w-[450px] text-center",
         },
     ],
