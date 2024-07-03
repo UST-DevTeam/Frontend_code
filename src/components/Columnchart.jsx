@@ -43,7 +43,7 @@ const ColumnChart = ({data,colors}) => {
         }
       },
       grid: {
-        borderColor: '#bdcdf1'
+        borderColor: '#1c1c1c'
       },
       // tooltip: {
       //   x: {

@@ -69,7 +69,6 @@ const ProjectChart = () => {
 
     dispatch(GraphActions.postGraphProjectStatus(filterData, () => { }))
 
-    console.info("filterData____", filterData)
   }
   const handleClear = () => {
     setSelectedProjectGroup([]);
