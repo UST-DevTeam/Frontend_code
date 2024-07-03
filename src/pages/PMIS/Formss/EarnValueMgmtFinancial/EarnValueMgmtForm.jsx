@@ -231,19 +231,16 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
 
 
-    // data['totalInvoice'] = formValue?.totalInvoice;
-
-
-
-
-    // data['projectType'] = formValue?.projectType;
-    // data['totalInvoice'] = formValue?.totalInvoice;
+    data['projectType'] = formValue?.projectType;
     data['costCenter'] = formValue?.costCenter;
     data['circle'] = formValue?.circle;
     data['roleName'] = roleName;
     data['uniqueId'] = formValue?.uniqueId;
     data['year'] = year;
     data['projectId'] = formValue?.projectId;
+    // data['totalInvoice'] = formValue?.totalInvoice;
+
+
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
     if (formValue.uniqueId) {
