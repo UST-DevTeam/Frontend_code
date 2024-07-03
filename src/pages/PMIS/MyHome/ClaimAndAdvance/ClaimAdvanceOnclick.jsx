@@ -111,7 +111,7 @@ const ClaimAdvanceOnclick = () => {
       {
         name: "Expense/Advance ID",
         value: "name",
-        style: "min-w-[180px] max-w-[100px] text-center sticky left-0 bg-[]",
+        style: "min-w-[180px] max-w-[100px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense Date",

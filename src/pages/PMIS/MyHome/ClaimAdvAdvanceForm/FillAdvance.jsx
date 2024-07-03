@@ -103,7 +103,7 @@ const FillAdvance = () => {
           {
             name: "Advance No.",
             value: "AdvanceNo",
-            style: "min-w-[170px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+            style: "min-w-[170px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d]",
           },
           {
             name: "Project ID",

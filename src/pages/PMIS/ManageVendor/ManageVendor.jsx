@@ -13,13 +13,12 @@ import ToggleButton from "../../../components/ToggleButton";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
-// import OperationManagementActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import VendorActions from "../../../store/actions/vendor-actions";
 import { json, useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import { GET_VENDOR_DETAILS } from "../../../store/reducers/vendor-reducer";
+import { Urls } from "../../../utils/url";
 
 const ManageVendor = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -160,12 +159,12 @@ const ManageVendor = () => {
       {
         name: "Partner Code",
         value: "vendorCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[150px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d] z-10",
       },
       {
         name: "Partner Name",
         value: "vendorName",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-[#3e454d]",
+        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-[#3e454d] z-10",
       },
       {
         name: "Email ID",
@@ -180,12 +179,12 @@ const ManageVendor = () => {
       {
         name: "Contact Person Name",
         value: "contactPerson",
-        style: "min-w-[150px] max-w-[450px] text-center whitespace-nowrap",
+        style: "min-w-[170px] max-w-[450px] text-center whitespace-nowrap",
       },
       {
         name: "Validity Upto",
         value: "validityUpto",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[120px] max-w-[450px] text-center",
       },
       // {
       //   name: "PMIS Role",

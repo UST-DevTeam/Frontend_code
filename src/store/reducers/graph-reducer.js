@@ -6,6 +6,7 @@ const initialState = {
     getGraphMilestoneStatus: [],
     getGraphPoStatus: [],
     getGraphPoTrackingWorkdone: [],
+    getGraphAccrualRevenueTrend:[],
 }
 
 const GraphData = createSlice({
@@ -46,10 +47,18 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_ACCRUAL_REVENUE_TREND:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphAccrualRevenueTrend = payload.dataAll
+            }else{
+                state.getGraphAccrualRevenueTrend  = [...state.getGraphAccrualRevenueTrend,...payload.dataAll]
+            }
+        },
+
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone
+export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone,GET_GRAPH_ACCRUAL_REVENUE_TREND
             } = GraphData.actions
     
 export default GraphData.reducer

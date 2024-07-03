@@ -5,6 +5,7 @@ import {
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_PO_Tracking_WorkDone,
+    GET_GRAPH_ACCRUAL_REVENUE_TREND
     
  } from "../reducers/graph-reducer"
 
@@ -139,6 +140,29 @@ const GraphActions = {
             } else {
                 let dataAll = res?.data?.data
                 dispatch(GET_GRAPH_PO_Tracking_WorkDone({ dataAll, reset:true }))
+
+            }
+        } catch (error) {
+            return;
+        }
+    },
+
+    postGraphAccrualRevenueTrend: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_accrual_revenue_trend })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_ACCRUAL_REVENUE_TREND({ dataAll, reset:true }))
 
             }
         } catch (error) {

@@ -256,6 +256,7 @@ const AccrualRevenueTrend = () => {
   };
 
   useEffect(() => {
+    exportData.current = []
     extraColumnsState.forEach((itm) => {
       exportData.current =  [...exportData.current, 'M-'+itm.month+"Y-"+itm.year]
     });
@@ -340,9 +341,9 @@ const AccrualRevenueTrend = () => {
         year: res.year
       }));
       setExtraColumns(extraCol);
-      
+      exportData.current = []
+
       months.forEach((itm) => {
-        
       exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
       }
 

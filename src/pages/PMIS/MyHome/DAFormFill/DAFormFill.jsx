@@ -45,7 +45,7 @@ const DAFormFill = () => {
                     setmodalOpen(true)
                     dispatch(ExpenseAdvanceActions.getDAFill())
                     // dispatch(ExpenseAdvanceActions.getExpenseDACostCenter(true,`projectId=${e.target.value}`));
-                    setmodalHead("Edit L1 Advance Approval")
+                    setmodalHead("Edit DA")
                     setmodalBody(<>
                         <DAFormFillFORM isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -92,13 +92,13 @@ const DAFormFill = () => {
         columns: [
           {
             name: "Employee Code",
-            value: "empCode",
-            style: "min-w-[170px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+            value: "employeeCode",
+            style: "min-w-[170px] max-w-[450px] text-center sticky left-0 bg-[#3e454d] z-10",
           },
           {
             name: "Employee Name",
-            value: "empName",
-            style: "min-w-[150px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
+            value: "employeeName",
+            style: "min-w-[150px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d] z-10",
           },
           {
             name: "DA Date",
@@ -107,7 +107,7 @@ const DAFormFill = () => {
           },
           {
             name: "Cost Center",
-            value: "costcenter",
+            value: "costcenterName",
             style: "min-w-[130px] max-w-[450px] text-center",
           },
           {

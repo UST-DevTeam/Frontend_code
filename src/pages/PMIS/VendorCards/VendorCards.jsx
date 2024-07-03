@@ -34,9 +34,9 @@ const VendorCards = () => {
           [
             "Project Tracking",
             "bg-gradient-to-r from-teal-200 to-teal-500",
-            "/vendorProject",
+            "/vendor/projectTracking",
           ],
-          ["Commercial", "bg-gradient-to-r from-pink-400 to-red-400"],
+          ["Commercial", "bg-gradient-to-r from-pink-400 to-red-400", "/vendor/commercial"],
         ].map((itm) => {
           return (
             <>

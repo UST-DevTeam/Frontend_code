@@ -11,6 +11,7 @@ import PoStatusChart from "./PoStatusChart";
 import RadialBarChart from "../../../components/FormElements/RadialBarChart";
 import ColumnChart from "../../../components/Columnchart";
 import PoTrackingWorkdoneChart from "./PoTrackingWorkdoneChart";
+import AccrualRevenueTrendChart from "./AccrualRevenueTrendChart";
 
 
 
@@ -27,6 +28,7 @@ const Dashboard1 = () => {
             <MileStoneChart />
             <PoStatusChart />
             <PoTrackingWorkdoneChart />
+            <AccrualRevenueTrendChart />
     
             
             

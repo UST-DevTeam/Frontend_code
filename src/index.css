@@ -600,3 +600,34 @@ td p {
 .apexcharts-datalabel-value {
  fill:white
 }
+
+.css-13cymwt-control{
+  background:#252525 !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+.css-1dimb5e-singleValue{
+  color:white!important
+}
+.css-t3ipsp-control{
+  background:#252525 !important;
+  border: none !important;
+  outline: none !important;
+  border-color: #1c1c1c !important;
+}
+.css-t3ipsp-control:hover{
+  background:#252525 !important;
+  outline: none !important;
+  border-color: #1c1c1c !important;
+}
+.css-1u9des2-indicatorSeparator{
+  background-color: #252525 !important;
+}
+.css-1nmdiq5-menu{
+  background-color: #252525 !important;
+  color:white !important;
+}
+.css-1nmdiq5-menu >*{
+  background-color: #252525 !important;
+}
