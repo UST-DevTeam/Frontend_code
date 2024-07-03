@@ -497,8 +497,15 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/vendorProject",
+      link: "/vendor/projectTracking",
       component: <VendorProject />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/vendor/commercial",
+      component: <p className="text-white text-center"> Commercial data is comming soon</p>,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

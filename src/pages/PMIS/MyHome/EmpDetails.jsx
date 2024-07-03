@@ -494,8 +494,10 @@ const EmpDetails = (props) => {
       label: "Employee Code",
       name: "empCode",
       value: "",
-      type: "text",
-      props: "",
+      type: empuid ? "sdisabled" : "text",
+      props: {
+        disabled: empuid ? true : false, 
+      },
       required: false,
       placeholder: "",
     },    

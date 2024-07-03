@@ -73,60 +73,13 @@ const ClaimAndAdvance = () => {
 
         name: (
           <p
-            className="cursor-pointer text-[#13b497] font-extrabold"
+          className={`cursor-pointer font-extrabold ${itm.type === 'Expense' ? 'text-rose-400' : 'text-[#13b497]'}`}
             onClick={(e) => {
               expenseRef.current = itm;
               sessionStorage.setItem("claimName", itm?.name);
               navigate(
                 `/home/claimAndAdvance/claimAndAdvanceOnclick/${item?._id}`
               );
-              // dispatch(
-              //   ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
-              //     true,
-              //     `Number=${itm?.name}`,
-              //     (data) => setClaimByNumber(data?.map(item => {
-              //       return {
-              //         ...item,
-              //         edit : (
-              //           <CstmButton
-              //             className={"p-2"}
-              //             child={
-              //               <EditButton
-              //                 name={""}
-              //                 onClick={() => {
-              //                   setmodalOpen(true);
-              //                   dispatch(ExpenseAdvanceActions.getFillExpense(true, `ExpenseNo=${item.ExpenseNo}`));
-              //                   setmodalHead("Edit Claim Advance");
-              //                   setmodalBody(
-              //                     <>
-              //                       <ClaimAdvanceForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-              //                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-              //                     </>
-              //                   );
-
-              //                 }}
-              //               ></EditButton>
-              //             }
-              //           />
-              //         ),
-              //         attachment: (
-              //           <CstmButton
-              //             className={"p-2"}
-              //             child={
-              //               <DownloadButton
-              //                     name={""}
-              //                     onClick={() => DownloadPDF(claimByNumber)}
-              //                   ></DownloadButton>
-              //             }
-              //           />
-              //         ),
-              //       }
-              //     }))
-              //   )
-              // );
-              // setmodalFullOpen((prev) => !prev);
-              // setHide(true);
-              // setmodalHead("(Claim And Advance)" + " " + itm?.name);
             }}
           >
             {itm.name}

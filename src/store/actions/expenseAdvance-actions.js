@@ -18,6 +18,7 @@ import {
     GET_L3_ADVANCE_DATA,
     GET_APPROVAL_STATUS,
     GET_DA_FILL,
+    GET_EXPENSE_EMP_NAME,
     GET_EXPENSE_EMP_CODE,
     GET_EXPENSE_DA_PROJECT_ID,
     GET_EXPENSE_DA_COST_CENTER,
@@ -238,10 +239,8 @@ const ExpenseAdvanceActions = {
 
     postApprovalStatus: (reset, data, cb = () => {}, uniqueId) => async (dispatch, _) => {
         
-        try {   
-            console.log('datattatata',data , Urls[uniqueId ? 'expAdv_Approval' : 'expAdv_Approval'] , uniqueId)
+        try { 
             const res = await Api.post({ url: Urls[uniqueId ? 'expAdv_Approval' : 'expAdv_Approval'] + `${uniqueId ? '/'+uniqueId : ''}` , data , reset} )
-            console.log(res , 'dfasdfsdfsadfadsf')
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -258,6 +257,38 @@ const ExpenseAdvanceActions = {
             
         } catch (error) {
             return;
+        }
+    },
+
+    postApprovalAllExpenseStatus: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.expAdv_all_expense_approve : Urls.expAdv_all_expense_approve + "/" + uniqueId, reset} )
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    getExpenseEMPName:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.expAdv_expense_emp_name}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_EXPENSE_EMP_NAME({dataAll,reset}))
+        } catch (error) {
         }
     },
 

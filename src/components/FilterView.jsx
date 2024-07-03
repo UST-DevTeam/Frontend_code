@@ -62,11 +62,11 @@ const FilterView = ({
                               );
                             })}
                           </select>
-                          {console.log(
+                          {/* {console.log(
                               errors[itm.name],
                               itm.required,
                               "errors?.itm?"
-                            )}
+                            )} */}
                             <p className="text-xs text-red-700">
                               {errors[itm.name]?.message}
                             </p>

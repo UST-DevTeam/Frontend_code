@@ -28,14 +28,13 @@ const L2AdvanceForm = () => {
     remark: {},
     addedFor: {},
   });
-// const [refresh ,setRefresh] = useState(false)
+
   const [modalOpen, setmodalOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [advanceRow, setAdvanceRow] = useState([]);
   const [selectAll, setSelectAll] = useState([]);
-  // const [isSelectAllChecked, setIsSelectAllChecked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -211,10 +210,9 @@ const L2AdvanceForm = () => {
         name: (
           <input
             type="checkbox"
-            // checked={isSelectAllChecked}
+            checked={(dbConfigList?.length === selectAll?.length)}
             className="check-state"
             onChange={(e) => {
-              // setIsSelectAllChecked(e.target.checked);
               if (e.target.checked) {
                 setAdvanceRow(dbConfigL.map((itm) => itm.uniqueId));
                 setSelectAll(

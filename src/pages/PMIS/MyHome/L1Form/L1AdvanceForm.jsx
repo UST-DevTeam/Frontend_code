@@ -150,7 +150,7 @@ const L1AdvanceForm = () => {
             name: (
               <input
                 type="checkbox"
-                // checked={selectAll}
+                checked={(dbConfigList?.length === selectAll?.length)}
                 className='check-state'
                 onChange={(e) => {
                   if (e.target.checked) {
