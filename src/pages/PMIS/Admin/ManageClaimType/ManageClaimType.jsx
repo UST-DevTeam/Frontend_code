@@ -98,6 +98,11 @@ const ManageClaimType = () => {
                 name: "Claim Type",
                 value: "claimType",
                 style: "min-w-[140px] max-w-[200px] text-center"
+            }, 
+            {
+                name: "Expense/Advance/DA",
+                value: "categoriesType",
+                style: "min-w-[140px] max-w-[200px] text-center"
             },          
             {
                 name: "Short Code",
@@ -113,7 +118,8 @@ const ManageClaimType = () => {
                 name: "Attachment",
                 value: "attachment",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            },
+                     
             {
                 name: "Edit",
                 value: "edit",

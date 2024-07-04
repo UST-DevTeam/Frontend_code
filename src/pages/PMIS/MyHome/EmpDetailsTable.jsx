@@ -25,6 +25,7 @@ const EmpDetailsTable = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
+  const [fileOpen2, setFileOpen2] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
 
@@ -269,6 +270,17 @@ const EmpDetailsTable = () => {
       })
     );
   };
+  const onTableViewSubmit2 = (data) => {
+    data["fileType"] = "UpgradeEmployee";
+    console.log('datadatadatadatadata',data)
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(HrActions.getManageEmpDetails());
+        setFileOpen2(false);
+        resetting("");
+      })
+    );
+  };
   return (
     <>
       <AdvancedTable
@@ -289,6 +301,14 @@ const EmpDetailsTable = () => {
                 setFileOpen((prev) => !prev);
               }}
             ></Button>
+            <Button
+              name={"Bulk Upgrade"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                setFileOpen2((prev) => !prev);
+              }}
+            ></Button>
+            
           </div>
         }
         table={table}
@@ -318,6 +338,13 @@ const EmpDetailsTable = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
+        tempbtn={true} tempbtnlink = {["/template/ManageEmployee.xlsx","ManageEmployee.xlsx"]}
+      />
+      <FileUploader
+        isOpen={fileOpen2}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit2}
+        setIsOpen={setFileOpen2}
         tempbtn={true} tempbtnlink = {["/template/ManageEmployee.xlsx","ManageEmployee.xlsx"]}
       />
     </>

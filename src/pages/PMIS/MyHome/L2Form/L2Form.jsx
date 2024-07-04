@@ -340,6 +340,51 @@ const L2Form = () => {
         value: "categories",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+      ...(!hide
+        ? []
+        : [
+          {
+            name: "Start KM",
+            value: "startKm",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "End KM",
+            value: "endKm",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Total KM",
+            value: "Total_distance",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Start Location",
+            value: "startLocation",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "End Location",
+            value: "endLocation",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Check-IN Date",
+            value: "checkInDate",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Check-Out Date",
+            value: "checkOutDate",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Total Days",
+            value: "totaldays",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },          
+          ]),
+      
       {
         name: "Bill Number",
         value: "billNumber",

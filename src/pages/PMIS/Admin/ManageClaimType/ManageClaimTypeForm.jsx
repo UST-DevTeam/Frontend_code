@@ -37,6 +37,19 @@ const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             classes: "col-span-1"
         },
         {
+            label: "Expense/Advance/DA",
+            value: "",
+            name: "categoriesType",
+            type: "select",
+            "option": [
+                {"name": "expense", "label": "Expense"},
+                {"name": "advance", "label": "Advance"},
+                {"name": "dailyAllowance", "label": "Daily Allowance"}
+            ],
+             required: true,
+            classes: "col-span-1"
+        },
+        {
             label: "Short Code",
             value: "",
             name: "shortCode",
@@ -66,6 +79,7 @@ const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             // required: true,
             classes: "col-span-1"
         },
+        
     ]
     const {
         register,

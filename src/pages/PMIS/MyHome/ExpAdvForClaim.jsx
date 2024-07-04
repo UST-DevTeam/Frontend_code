@@ -228,7 +228,7 @@ const ExpAdvForClaim = () => {
         },
         {
             name: "Task Name",
-            value: "Task",
+            value: "Task Name",
             style: "min-w-[150px] max-w-[450px] text-center",
         },
         {
@@ -281,6 +281,22 @@ const ExpAdvForClaim = () => {
             value: "Transport Mode",
             style: "min-w-[150px] max-w-[450px] text-center",
         },
+        
+      {
+        name: "Check-IN Date",
+        value: "Check-IN Date",
+        style: "min-w-[150px] max-w-[450px] text-center",
+    },
+    {
+      name: "Check-OUT Date",
+      value: "Check-OUT Date",
+      style: "min-w-[150px] max-w-[450px] text-center",
+  },
+    {
+      name: "Total Days",
+      value: "Total Days",
+      style: "min-w-[150px] max-w-[450px] text-center",
+  },
         {
             name: "Last Action Date",
             value: "Last Action Date",
