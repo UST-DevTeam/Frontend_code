@@ -131,6 +131,7 @@ import Dashboard from "../pages/Dashboard";
 import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
 import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/AccrualRevenueTrend";
+import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -701,7 +702,7 @@ export const Sidebar_content = {
       {
         name: "My Dashboard",
         link: "/",
-        component: <Dashboard1/>,
+        component: <DashboardCard/>,
         icon: <UilAirplay className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },
