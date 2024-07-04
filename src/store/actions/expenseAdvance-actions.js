@@ -302,12 +302,21 @@ const ExpenseAdvanceActions = {
         }
     },
 
-    getDAFill:(reset=true,args="") => async (dispatch, _) => {
+    getDAFill:(uniqueId,reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.expAdv_DA_Fill}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_DA_FILL({dataAll,reset}))
+            if(uniqueId === 'undefined'){
+                const res = await Api.get({ url:`${Urls.expAdv_DA_Fill}/${args!=""?"?"+args:""}`, reset })
+                if (res?.status !== 200) return
+                let dataAll = res?.data?.data
+                dispatch(GET_DA_FILL({dataAll,reset}))
+            }
+            else{
+                const res = await Api.get({ url:`${Urls.expAdv_DA_Fill}/${uniqueId}${args!=""?"?"+args:""}`, reset })
+                if (res?.status !== 200) return
+                let dataAll = res?.data?.data
+                dispatch(GET_DA_FILL({dataAll,reset}))
+            }
+            
         } catch (error) {
         }
     },

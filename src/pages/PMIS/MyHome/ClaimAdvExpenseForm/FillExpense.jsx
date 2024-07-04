@@ -318,21 +318,7 @@ const FillExpense = () => {
         value: "ExpenseNo",
         style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
-      {
-        name: "ClaimType",
-        value: "ClaimType",
-        style: "min-w-[150px] max-w-[200px] text-center",
-      },
-      {
-        name: "Category",
-        value: "categories",
-        style: "min-w-[140px] max-w-[450px] text-center",
-      },
-      {
-        name: "Claim Date",
-        value: "expenseDate",
-        style: "min-w-[140px] max-w-[450px] text-center",
-      },
+      
       {
         name: "Cost Center",
         value: "costcenter",
@@ -353,14 +339,33 @@ const FillExpense = () => {
         value: "Task",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
-      {
-        name: "Bill Number",
-        value: "billNumber",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
+      
       {
         name: "Amount",
         value: "Amount",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
+      ...( !hide ? [
+
+    ] : [
+      {
+        name: "ClaimType",
+        value: "ClaimType",
+        style: "min-w-[150px] max-w-[200px] text-center",
+      },
+      {
+        name: "Category",
+        value: "categories",
+        style: "min-w-[140px] max-w-[450px] text-center",
+      },
+      {
+        name: "Claim Date",
+        value: "expenseDate",
+        style: "min-w-[140px] max-w-[450px] text-center",
+      },
+      {
+        name: "Bill Number",
+        value: "billNumber",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
@@ -383,6 +388,23 @@ const FillExpense = () => {
         value: "endLocation",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
+      {
+        name: "Check-IN Date",
+        value: "checkInDate",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
+        name: "Check-Out Date",
+        value: "checkOutDate",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
+        name: "Total Days",
+        value: "totaldays",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+    ]),
+      
       {
         name: "Submission Date",
         value: "SubmissionDate",

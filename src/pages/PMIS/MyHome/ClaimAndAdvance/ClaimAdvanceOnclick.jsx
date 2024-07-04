@@ -149,6 +149,21 @@ const ClaimAdvanceOnclick = () => {
         style: "min-w-[150px] max-w-[100px] text-center",
       },
       {
+        name: "Check-IN Date",
+        value: "checkInDate",
+        style: "min-w-[130px] max-w-[450px] text-center ",
+      },
+      {
+        name: "Check-Out Date",
+        value: "checkOutDate",
+        style: "min-w-[130px] max-w-[450px] text-center ",
+      },
+      {
+        name: "Total Days",
+        value: "totaldays",
+        style: "min-w-[130px] max-w-[450px] text-center ",
+      },
+      {
         name: "Project ID",
         value: "projectIdName",
         style: "min-w-[150px] max-w-[100px] text-center",
@@ -163,6 +178,7 @@ const ClaimAdvanceOnclick = () => {
         value: "empCode",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
+      
       {
         name: "Cost Center",
         value: "costcenter",
@@ -299,7 +315,7 @@ const ClaimAdvanceOnclick = () => {
                             //   </>
                             // );
                             if (
-                              item.advanceType === "Project Advance" &&
+                              item.advanceType === "Project Advance" || 
                               item.type === "Advance"
                             ) {
                               setmodalBody(
@@ -313,7 +329,7 @@ const ClaimAdvanceOnclick = () => {
                                 </>
                               );
                             } else if (
-                              item.advanceType !== "Project Advance" &&
+                              item.advanceType !== "Project Advance" || 
                               item.type === "Expense"
                             ) {
                               setmodalBody(

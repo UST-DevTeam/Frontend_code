@@ -21,11 +21,12 @@ const FillExpenseForm = ({
 }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
+  const [selectedLabel, setSelectedLabel] = useState('');
+  const [selectedValue, setSelectedValue] = useState('');
   const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const today = moment().format("YYYY-MM-DD");
-
   let dispatch = useDispatch();
-
   let claimTypeList = useSelector((state) => {
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
       return {
@@ -40,11 +41,6 @@ const FillExpenseForm = ({
       };
     });
   });
-
-
-
-  console.log(claimTypeList,"claimTypeListclaimTypeList")
-
   let projectDetailsList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvPrjectDetails.map((itm) => {
       return {
@@ -86,8 +82,32 @@ const FillExpenseForm = ({
     });
   });
 
+  // const handleCategoryChange = (e) => {
+  //   setKm(e.target.value !== "");
+  // };
   const handleCategoryChange = (e) => {
-    setKm(e.target.value !== "");
+    const selectedCategoryValue = e.target.value;
+    setSelectedCategory(selectedCategoryValue);
+    setKm(selectedCategoryValue !== "");
+  };
+
+
+  const handleClaimTypeChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedValue(selectedValue);
+
+    const selectedOption = claimTypeList.find(
+      (option) => option.value === selectedValue
+    );
+    setSelectedLabel(selectedOption ? selectedOption.label : '');
+
+    if (selectedOption?.categories.length > 0) {
+      setKm(true);
+    } else {
+      setKm(false);
+    }
+
+    setCategory(selectedOption?.categories || []);
   };
 
   let Form = [
@@ -98,17 +118,24 @@ const FillExpenseForm = ({
       type: "select",
       option: claimTypeList,
       props: {
-        onChange: (e) => {
-          if (e.target.categories) {
-            setKm(true);
-          } else {
-            setKm(false);
-          }
-          setCategory(
-            claimTypeList.find((item) => item.value === e.target.value)
-              ?.categories || []
-          );
-        },
+        onChange: handleClaimTypeChange,
+        // onChange: (e) => {
+        //   console.log('eeeeeeee',e.target.value)
+        //   const selectedValue = e.target.value;
+        //   setSelectedValue(selectedValue);
+        //   const selectedOption = claimTypeList.find(option => option.value === selectedValue);
+        //   setSelectedLabel(selectedOption ? selectedOption.label : '');  
+          
+        //   if (e.target.categories) {
+        //     setKm(true);
+        //   } else {
+        //     setKm(false);
+        //   }
+        //   setCategory(
+        //     claimTypeList.find((item) => item.value === e.target.value)
+        //       ?.categories || []
+        //   );
+        // },
       },
       required: true,
       classes: "col-span-1",
@@ -125,7 +152,7 @@ const FillExpenseForm = ({
       // required: true,
       classes: "col-span-1",
     },
-    ...(Km
+    ...(Km && selectedCategory
       ? [
           {
             label: "Start Km",
@@ -239,7 +266,7 @@ const FillExpenseForm = ({
       // required: true,
       classes: "col-span-1",
     },
-    ...(!Km
+    ...(!Km || !selectedCategory
       ? [
           {
             label: "Amount ",
@@ -276,6 +303,43 @@ const FillExpenseForm = ({
       multiple: false,
     },
   ];
+  if (selectedLabel === "Hotel") {
+    Form.splice(1, 0,
+      { 
+        label: "Check In Date", 
+        name: "checkInDate", 
+        type: "datetime", 
+        formattype: "date", 
+        format: "yyyy-MM-dd", 
+        formatop: "yyyy-MM-DD", 
+        required: true,
+        classes: "col-span-1",
+        props:{
+          maxSelectableDate:today,
+        }
+      },
+      { 
+        label: "Check Out Date", 
+        name: "checkOutDate", 
+        type: "datetime", 
+        formattype: "date", 
+        format: "yyyy-MM-dd", 
+        formatop: "yyyy-MM-DD", 
+        required: true,
+        classes: "col-span-1",
+        props:{
+          maxSelectableDate:today,
+        }
+      },
+      {
+        label: "Total Days",
+        value: "",
+        name: "totaldays",
+        type: "sdisabled",
+        classes: "col-span-1",
+      }
+    );
+  }
   const {
     register,
     handleSubmit,
@@ -288,30 +352,36 @@ const FillExpenseForm = ({
 
   const startKm = watch("startKm");
   const endKm = watch("endKm");
+  const checkInDate = watch("checkInDate");
+  const checkOutDate = watch("checkOutDate");
+
+  useEffect(() => {
+    if (!Km) {
+      reset({
+        startKm: "",
+        endKm: "",
+        totalKm: "",
+        startLocation: "",
+        endLocation: "",
+      });
+    }
+  }, [Km, reset]);
 
   useEffect(() => {
     if (startKm !== undefined && endKm !== undefined) {
       const totalKm = endKm - startKm;
-      //   if (totalKm <= 0) {
-      //     let msgdata = {
-      //       show: true,
-      //       icon: 'warning',
-      //       buttons: [
-      //         <Button
-      //           classes='w-24'
-      //           onClick={() => {
-      //             dispatch(ALERTS({ show: false }));
-      //           }}
-      //           name={"OK"}
-      //         />
-      //       ],
-      //       text: "Total Km cannot be zero or negative.",
-      //     };
-      //     dispatch(ALERTS(msgdata));
-      //   }
       setValue("totalKm", totalKm >= 0 ? totalKm : 0);
     }
   }, [startKm, endKm, setValue]);
+
+
+  useEffect(() => {
+    if (checkInDate && checkOutDate) {
+      const totalDays = moment(checkOutDate).diff(moment(checkInDate), 'days');
+      setValue("totaldays", totalDays >= 0 ? totalDays : 0);
+    }
+  }, [checkInDate, checkOutDate, setValue]);
+
 
   const onSubmit = (data) => {
     console.log(data);

@@ -38,18 +38,22 @@ const DAFormFill = () => {
     let dbConfigList = useSelector((state) => {
         let interdata = state?.expenseAdvanceData?.getDAFill || [""]
         return interdata?.map((itm) => {
+
+            console.log('itmitmitm',itm)
             let updateditm = {
                 ...itm,
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(ExpenseAdvanceActions.getDAFill())
+                    // dispatch(ExpenseAdvanceActions.getDAFill(true,`${itm?.uniqueId}`))
+                    dispatch(ExpenseAdvanceActions.getDAFill(itm?.uniqueId));
                     // dispatch(ExpenseAdvanceActions.getExpenseDACostCenter(true,`projectId=${e.target.value}`));
                     setmodalHead("Edit DA")
                     setmodalBody(<>
                         <DAFormFillFORM isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
+                    dispatch(ExpenseAdvanceActions.getDAFill());
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
