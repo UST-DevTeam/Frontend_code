@@ -512,8 +512,6 @@ const ActualWorkdone = () => {
     let cols = [];
     
     extraColumns.forEach((index , i) => {
-
-      console.log("afafafafasfsadfafasfafd", index);
       if (ValGm && ValGm === "Monthly") {
         cols.push([
           {
@@ -523,7 +521,6 @@ const ActualWorkdone = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            // value: "totalCountMS2",
             value: "MS2-M-" + (index) + "_y",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
