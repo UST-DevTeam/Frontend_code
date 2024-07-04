@@ -538,7 +538,8 @@ const EarnValueMgmtFinancial = () => {
           {
             name: `Achievement (${monthMap[index]} ${year})`,
             // value: "totalInvoice",
-            value: "amount",
+            // value: "amount",
+            value:'M-totalInvoice-'+index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);

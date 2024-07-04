@@ -15,7 +15,6 @@ import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-red
 const AccrualRevenueTrendForm = ({isOpen,setIsOpen,resetting,year,monthss,formValue = {} }) => {
 
 
-  console.log(isOpen,"++++++++++++++++++")
 
 
   const {
