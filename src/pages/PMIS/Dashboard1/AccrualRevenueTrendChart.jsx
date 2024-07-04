@@ -9,7 +9,7 @@ import FilterActions from "../../../store/actions/filter-actions";
 import Button from "../../../components/Button";
 import DountChart from "../../../components/DountChart";
 import PieChart from "../../../components/PieChart";
-import { UilImport,UilSearch } from '@iconscout/react-unicons'
+import { UilImport,UilSearch,UilRefresh } from '@iconscout/react-unicons'
 import PolarChart from "../../../components/FormElements/PolarChart";
 import AreaChart from "../../../components/AreaChart";
 import moment from "moment/moment";
@@ -22,15 +22,20 @@ const AccrualRevenueTrendChart = () => {
     const exportData = useRef([])
     const months = [];
     const now = new Date();
+    const monthsNumber = []
 
   for (let i = 0; i < 6; i++) {
     const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
     const month = date.getMonth() + 1;
+    monthsNumber.push(month)
     const year = date.getFullYear();
     months.push({ month, year });
   }
 
-  months.reverse();
+    months.reverse();
+    monthsNumber.reverse();
+
+  console.log(monthsNumber,'__________monthsNumber')
 
   const [extraColumnsState, setExtraColumns] = useState(months);
 
@@ -45,11 +50,6 @@ const AccrualRevenueTrendChart = () => {
     let dispatch = useDispatch();
     const [ data ,setData] = useState([])
 
-
-
-    console.log(selectedOptions1,"_______selectedOptions1")
-    console.log(selectedOptions2,"_______selectedOptions1")
-    console.log(selectedOptions3,"_______selectedOptions1")
    
 
 
@@ -110,6 +110,7 @@ const AccrualRevenueTrendChart = () => {
 
 
     useEffect(() => {
+        exportData.current = []
         extraColumnsState.forEach((itm) => {
             exportData.current =  [...exportData.current, 'M-'+itm.month+"Y-"+itm.year]
           });
@@ -137,9 +138,35 @@ const AccrualRevenueTrendChart = () => {
       const filterData = {
         selectedOptions1: selectedOptions1.value || "",
         selectedOptions2: selectedOptions2.value || currrentYear,
-        ...(selectedOptions3.length && { selectedOptions3: selectedOptions3.map(item => item.value) }),
+        selectedOptions3: selectedOptions3.length ? selectedOptions3.map(item => item.value) : monthsNumber,
       }
+      exportData.current = []
+      filterData?.selectedOptions3.forEach((itm) =>{
+        exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+filterData?.selectedOptions2]
+      })
+      dispatch(GraphActions.postGraphAccrualRevenueTrend(
+        {
+          Monthly: exportData.current.join(","),costCenter:filterData?.selectedOptions1 || ""
+        }, () => {}));
     }
+
+    const handleClear = () => {
+      setSelectedOptions1([]);
+      setSelectedOptions2([]);
+      setSelectedOptions3([]);
+      exportData.current = []
+        extraColumnsState.forEach((itm) => {
+            exportData.current =  [...exportData.current, 'M-'+itm.month+"Y-"+itm.year]
+          });
+          dispatch(
+                GraphActions.postGraphAccrualRevenueTrend(
+              {
+                Monthly: exportData.current.join(",")
+              },
+              () => {}
+            )
+          );
+    };
 
 
     
@@ -149,25 +176,24 @@ const AccrualRevenueTrendChart = () => {
 
     return (
             <div className="bg-[#1c1c1c] h-full p-4">
-              
-                    <div className="flex items-center space-x-4 mb-8">
-                        <div className="flex flex-col flex-1">
-                            {/* <label className = "text-white">Project Group</label>*/}
-                            <NewSingleSelect label='Cost Center' option={costCenterList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} placeholder = "Cost Center" />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <NewSingleSelect label='Year' option={listYear} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} placeholder = "Year" />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <NewMultiSelects label='Month' option={listMonth} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                        {/* <Button classes = "text-white !py-2 mt-6 flex justify-center text-[15px]" name={"Search"}></Button> */}
-                        <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter}  icon={<UilSearch size="18" className={"hello"} />}></Button>
-                        </div>
-                    </div>
+              <div className="flex items-center space-x-4 mb-8 justify-between ">
+                <div className="flex items-center space-x-4 ">
+                  <NewSingleSelect label='Cost Center' option={costCenterList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} placeholder = "Cost Center" />
 
-                <AreaChart data = {pieGraphData}/>
+                  <NewSingleSelect label='Year' option={listYear} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} placeholder = "Year" />
+
+                  <NewMultiSelects label='Month' option={listMonth} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
+                </div>
+                <div className="flex items-center space-x-4 ">
+                  <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter}  icon={<UilSearch size="18" className={"hello"} />}></Button>
+
+                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+                </div>
+                        
+              </div>
+
+              <AreaChart data = {pieGraphData}/>
+
             </div>
 
     );

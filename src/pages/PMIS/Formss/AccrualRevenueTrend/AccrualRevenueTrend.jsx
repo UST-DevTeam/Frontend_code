@@ -334,6 +334,7 @@ const AccrualRevenueTrend = () => {
   }, [extraColumnsState,  modalOpen]);
 
   const handleAddActivity = (res) => {
+    console.log(res,"________res")
     try {
       let months = res?.Monthly?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
       let extraCol = months.map((month) => ({
@@ -342,6 +343,8 @@ const AccrualRevenueTrend = () => {
       }));
       setExtraColumns(extraCol);
       exportData.current = []
+
+      console.log(months,'________res')
 
       months.forEach((itm) => {
       exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]

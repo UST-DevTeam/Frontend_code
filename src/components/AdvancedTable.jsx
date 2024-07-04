@@ -237,6 +237,9 @@ const AdvancedTable = ({
                     if (tableName === "AccrualRevenueTrend") {
                       dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
                       );
+                    } else if (tableName === "AcctualWorkdoneform") {
+                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                      );
                     } else {
                       dispatch(CommonActions.commondownload(exportButton[0],exportButton[1]))
                     }
@@ -434,7 +437,6 @@ const AdvancedTable = ({
                       return (
                         <tr>
                           {table.columns.map((innerItm, index) => {
-                            {/* console.log(innerItm,index,"_________index") */}
                             return hide.indexOf(String(index)) == -1 ? (
                               <td 
                                 className={`text-[12px] h-2 pl-1 border-green-400  border overflow-hidden text-white ${
@@ -457,17 +459,6 @@ const AdvancedTable = ({
                         </tr>
                       );
                     })}
-                    {/* {
-                      tableName === "AccrualRevenueTrend" &&
-                      <tr>
-                        <td className={`text-[12px] h-2 pl-1 border-[#3E454D] border overflow-hidden text-white min-w-[140px] max-w-[200px] text-center`}></td>
-                        <td className={`text-[12px] h-2 pl-1 border-[#3E454D]  border overflow-hidden text-white min-w-[140px] max-w-[200px] text-center`}></td>
-                        {table.columns.map((innerItm, index) => {
-                          <td></td>
-                        })}
-                      </tr>
-                    } */}
-                  
                 </tbody>
               ) : (
                 <tbody>
