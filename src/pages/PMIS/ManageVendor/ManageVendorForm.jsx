@@ -648,7 +648,7 @@ const ManageVendorForm = (props) => {
         </button>
         <div className="">
           {/* <UiTopBar /> */}
-          <div className="w-full mt-2 bg-[#3e454d]">
+          <div className="w-full mt-2 bg-[#3e454d] mb-12">
             <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
@@ -728,7 +728,7 @@ const ManageVendorForm = (props) => {
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
 
-                <div className="flex gap-10 mb-3 justify-center">
+                <div className="flex gap-10 absolute bottom-0 inset-x-0 mx-auto z-10 justify-center items-center bg-[#24292d]">     
                   <button
                     onClick={() => {
                       navigate("/vendor/managePartner");

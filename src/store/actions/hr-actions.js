@@ -1,5 +1,6 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
+import { ALERTS } from "../reducers/component-reducer"
 import { 
     GET_EMPLOYEE_DETAILS,
     GET_HR_ALL_EMPLOYEE,

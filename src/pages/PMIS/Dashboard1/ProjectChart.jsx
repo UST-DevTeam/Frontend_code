@@ -81,10 +81,10 @@ const ProjectChart = ({customeruniqueId}) => {
   };
 
   return (
-    <div className="bg-[#1c1c1c] h-full p-4">
+    <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
 
       <div className="flex items-center space-x-4 mb-8 justify-between ">
-        <div className="flex items-center space-x-4 ">
+        <div className="flex w-3/4 items-center space-x-4">
           <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
 
           <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
@@ -92,10 +92,10 @@ const ProjectChart = ({customeruniqueId}) => {
           <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} />
         </div>
 
-        <div className="flex items-center space-x-4 ">
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
+        <div className="flex items-center space-x-4 w-1/4">
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
 
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
         </div>
 
       </div>

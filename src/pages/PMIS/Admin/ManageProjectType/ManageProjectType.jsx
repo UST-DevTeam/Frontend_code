@@ -30,8 +30,10 @@ import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer
 import { completiton_critieria } from "../../../../utils/queryBuilder";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
+import ProjectChart from "../../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
 
-const ManageProjectType = () => {
+const   ManageProjectType = () => {
   const { cname, customeruniqueId } = useParams();
 
   const {
@@ -1267,12 +1269,13 @@ const ManageProjectType = () => {
                 }))
             } settype={settype} label='Add / Modify Project Type' /> */}
 
+    <div className="absolute w-full top-12 mt-12 h-60 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         approveddata={dbConfigListCard?.map((itm) => {
           return (
             <>
               <div
-                className=" bg-gradient-to-r from-indigo-500/50 to-green-500/50 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-xl hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg"
+                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-[98%] flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
                 onClick={() => {
                   // dispatch(
                   //   ComponentActions.breadcrumb(
@@ -1314,6 +1317,19 @@ const ManageProjectType = () => {
           navigate(`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`);
         }}
       />
+      </div>
+      <div className="grid lg:grid-cols-2 m-2 mt-60 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
 
       {/* <CCDash settype={settype} nextNavigate={"/viewcu"} name={"projectType"} img={""} data={dbConfigList} url="/list/manageCustomer" label='Add / Modify Project Type' /> */}
     </>

@@ -24,6 +24,8 @@ import CCDash from "../../../../components/CCDash";
 import ConditionalButton from "../../../../components/ConditionalButton";
 
 import ComponentActions from "../../../../store/actions/component-actions";
+import ProjectChart from "../../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
 const ManageCustomer = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -324,14 +326,13 @@ const ManageCustomer = () => {
     </>
   ) : (
     <>
-      
-
-      <CCDash
+       <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto">
+       <CCDash
         approveddata={dbConfigList?.map((itm) => {
           return (
             <>
               <div
-                className="bg-gradient-to-r from-indigo-500/50 to-green-500/50 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  "
+                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-[98%] flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(itm["customerName"], `${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
@@ -342,7 +343,7 @@ const ManageCustomer = () => {
                 {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
-                      className="m-auto w-16"
+                      className="m-auto w-[50px] rounded-md hover:border-[#4a525b] hover:border-[1.5px]"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>
@@ -355,6 +356,19 @@ const ManageCustomer = () => {
         settype={settype}
         label="Add/Modify Customer"
       />
+      </div>
+      <div className="grid lg:grid-cols-2 m-2 mt-40 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
     </>
   );
 };

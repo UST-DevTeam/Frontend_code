@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 
 const FormsCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -23,23 +25,24 @@ const FormsCards = () => {
   }, []);
   return (
     <>
+      <div className="absolute w-full top-12 mt-12 h-[60] z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
-          ["EVM-Financial", "bg-gradient-to-r from-rose-300 via-rose-00 to-pink-500", "/forms/earnValueManagementFinancial",],
-          ["EVM-Delivery", "bg-gradient-to-r from-yellow-400 via-yellow-200 to-rose-200", "/forms/EVMDelivery"],
-          ["SOB", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/forms/SOB",],
-          ["Gap Analysis", "bg-gradient-to-r from-violet-400 via-indigo-400 to-indigo-300", "/forms/GapAnalysis"],
-          ["P&L", "bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500", "/forms/P&L"],
-          ["Liquidation Plan", "bg-gradient-to-r from-cyan-200 via-cyan-400 to-cyan-300", "/forms/LiquidationPlan"],
-          ["Accrual Revenue Trend", "bg-gradient-to-r from-cyan-500 via-indigo-400 to-cyan-300", "/forms/AccrualRevenueTrend"],
+          ["EVM-Financial", "bg-[#0e8670]", "/forms/earnValueManagementFinancial",],
+          ["EVM-Delivery", "bg-[#0e8670]", "/forms/EVMDelivery"],
+          ["SOB", "bg-[#0e8670]", "/forms/SOB",],
+          ["Gap Analysis", "bg-[#0e8670]", "/forms/GapAnalysis"],
+          ["P&L", "bg-[#0e8670]", "/forms/P&L"],
+          ["Liquidation Plan", "bg-[#0e8670]", "/forms/LiquidationPlan"],
+          ["Accrual Revenue Trend", "bg-[#0e8670]", "/forms/AccrualRevenueTrend"],
         ].map((itm) => {
           return (
             <>
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
                   onClick={() => {
 
 
@@ -78,7 +81,7 @@ const FormsCards = () => {
                       />
                     </>
                   )}
-                  <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
+                  <div className="m-auto text-white">
                     {itm[0]}
                   </div>
                 </div>
@@ -91,6 +94,19 @@ const FormsCards = () => {
         settype={settype}
         label="Add / Modify Customer"
       />
+      </div>
+      <div className="grid lg:grid-cols-2 m-2 mt-44 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
     </>
   );
 };

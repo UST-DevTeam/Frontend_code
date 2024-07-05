@@ -1149,18 +1149,18 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
 
-                <div className="flex gap-10 absolute bottom-0 w-full mx-auto z-10 justify-center items-center bg-gray-800">
+                <div className="flex gap-10 absolute bottom-0 inset-x-0 mx-auto z-10 justify-center items-center bg-[#24292d]">
                   <button
                     onClick={() => {
                       navigate("/hr/empDetailsTable");
                     }}
-                    className="mt-6 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-6 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>

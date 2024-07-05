@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 
 const FinancialCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -23,20 +25,22 @@ const FinancialCards = () => {
   }, []);
   return (
     <>
-      <CCDash
+    <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
+     <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Management", "bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500", "/financial/poManagement",],
-          ["Revenue Management", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200", "/financial/invoiceMgmt"],
-          ["Workdone", "bg-gradient-to-r from-blue-300 via-indigo-300 to-cyan-400", "/financial/poWorkDone",],
-          ["Unbilled", "bg-gradient-to-r from-teal-400 via-teal-300 to-teal-600", "/financial/unbilled"],
+          ["PO Management", "bg-[#0e8670]", "/financial/poManagement",],
+          ["Revenue Management", "bg-[#0e8670]", "/financial/invoiceMgmt"],
+          ["Workdone", "bg-[#0e8670]", "/financial/poWorkDone",],
+          ["Unbilled", "bg-[#0e8670]", "/financial/unbilled"],
         ].map((itm) => {
           return (
             <>
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                  // className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
                   onClick={() => {
 
 
@@ -75,7 +79,10 @@ const FinancialCards = () => {
                       />
                     </>
                   )}
-                  <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
+                  {/* <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
+                    {itm[0]}
+                  </div> */}
+                   <div className="m-auto text-white">
                     {itm[0]}
                   </div>
                 </div>
@@ -88,6 +95,19 @@ const FinancialCards = () => {
         settype={settype}
         label="Add / Modify Customer"
       />
+     </div>
+     <div className="grid lg:grid-cols-2 m-2 mt-28 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
     </>
   );
 };

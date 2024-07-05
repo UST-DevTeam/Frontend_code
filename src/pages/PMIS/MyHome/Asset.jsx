@@ -131,12 +131,12 @@ const Asset = () => {
             {
                 name: "Employee Name",
                 value: "empName",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-white"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]"
             },
             {
                 name: "Emp ID",
                 value: "empId",
-                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-white"
+                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]"
             },
             {
                 name: "Reporting Manager",
