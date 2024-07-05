@@ -35,7 +35,6 @@ const AccrualRevenueTrendChart = () => {
     months.reverse();
     monthsNumber.reverse();
 
-  console.log(monthsNumber,'__________monthsNumber')
 
   const [extraColumnsState, setExtraColumns] = useState(months);
 

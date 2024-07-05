@@ -44,7 +44,6 @@ const DashboardCard = () => {
     .replace(/\//g, "-");
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.adminData?.getManageCustomer;
     return interdata?.map((itm) => {
       let updateditm = {
@@ -88,9 +87,9 @@ const DashboardCard = () => {
                 className="bg-gradient-to-r from-indigo-500/50 to-green-500/50 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  "
                 onClick={() => {
                   dispatch(
-                    ComponentActions.globalUrlStore(itm["customerName"], `${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
+                    ComponentActions.globalUrlStore(itm["customerName"], `${"/dashboard"}/${itm["customerName"]}/${itm["uniqueId"]}`)
                   );
-                  navigate(`${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`);
+                  navigate(`${"/dashboard"}/${itm["customerName"]}/${itm["uniqueId"]}`);
                 }}
               >
                 {itm["companyimg"] && itm["companyimg"] != "" && (
@@ -106,8 +105,6 @@ const DashboardCard = () => {
             </>
           );
         })}
-        settype={settype}
-        label="Add/Modify Customer"
       />
   );
 };

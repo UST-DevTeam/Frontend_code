@@ -251,36 +251,6 @@ const ActualWorkdone = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       ...newColumns,
-      // {
-      //   name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "plan1",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "prevAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "plan2",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "currAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "plan3",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "nextAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
 
       {
         name: "Edit",
@@ -523,7 +493,6 @@ const ActualWorkdone = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            // value: "totalCountMS2",
             value: "MS2-M-" + (index) + "_y",
             style: "min-w-[200px] max-w-[200px] text-center",
           },

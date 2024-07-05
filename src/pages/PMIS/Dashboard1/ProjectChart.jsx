@@ -11,7 +11,7 @@ import DountChart from "../../../components/DountChart";
 import { UilImport, UilSearch, UilTimes, UilRefresh } from '@iconscout/react-unicons'
 
 
-const ProjectChart = () => {
+const ProjectChart = ({customeruniqueId}) => {
   const [type, settype] = useState(false);
   const [selectedProjectGroup, setSelectedProjectGroup] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
@@ -19,7 +19,9 @@ const ProjectChart = () => {
   let dispatch = useDispatch();
   const [data, setData] = useState([])
 
-  let customeruniqueId = "65dee316811c797c9f26d836"
+  // let customeruniqueId = "65dee316811c797c9f26d836"
+
+  console.log(customeruniqueId,"_____customeruniqueId")
 
   let projectGroupList = useSelector((state) => {
     return state?.filterData?.getProjectProjectGroup.map((itm) => {
@@ -54,10 +56,11 @@ const ProjectChart = () => {
 
 
   useEffect(() => {
-    dispatch(GraphActions.getGraphProjectStatus());
+    
     dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
     dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
     dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
+    dispatch(GraphActions.getGraphProjectStatus());
   }, []);
 
   const handleFilter = () => {

@@ -235,6 +235,12 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/dashboard/:cname/:customeruniqueId",
+      subMenu: [],
+      component: <Dashboard1 />,
+    },
+    {
+      name: "",
       link: "/projectManagement/:cname/:customeruniqueId",
       subMenu: [],
       component: <ManageProjectType />,
