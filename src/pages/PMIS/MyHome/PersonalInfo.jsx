@@ -751,7 +751,7 @@ const PersonalInfo = (props) => {
     },
     {
       label: "Photo",
-      name: "img",
+      name: "img[]",
       value: "",
       type:"sdisabled",
       required: false,
@@ -848,7 +848,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] h-auto border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -858,7 +858,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] h-auto border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmployeeProfile}

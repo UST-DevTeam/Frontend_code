@@ -189,28 +189,22 @@ const FilterView = ({
               </div>
               <div className="w-18 py-3 flex justify-center grid-cols-1">
                 <Button
-                  name={"Clear"}
+                  name={"Filter"}
+                  onClick={handleSubmit(onSubmit)}
+                  classes="w-18 p-10 mx-2"
+                />
+                <Button
+                  name={"Reset"}
                   onClick={() => {
-                    // tablefilter.map((itm)=>{
-                    //   setValue(itm.name,"")
-
-                    //   console.log(itm.name,Object.entries(getValues()),"onResetonResetonReset")
-                    // })
                     Object.entries(getValues()).map((itew) => {
                       setValue(itew[0], "");
                     });
                     console.log(getValues(), "getValues");
                     onReset();
-
-                    // console.log(onReset,"onResetonResetonReset")
                   }}
-                  classes="w-18 p-10 mx-2"
+                  classes="w-18 p-10 mx-2 bg-rose-500"
                 />
-                <Button
-                  name={"Filter"}
-                  onClick={handleSubmit(onSubmit)}
-                  classes="w-18 p-10 mx-2"
-                />
+                
               </div>
             </>
           }

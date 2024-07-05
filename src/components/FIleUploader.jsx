@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import nokiaPrePostActions from '../store/actions/nokiaPrePost-actions';
 import CommonActions from "../store/actions/common-actions";
 
-const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbtn=false, tempbtnlink="", label="Template"}) => {
+const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbtn=false, tempbtnlink="", label="Template",head="Upload File"}) => {
 
     const {
         register,
@@ -21,7 +21,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
 
     const dispatch = useDispatch()
 
-    console.log(tempbtnlink[0],"tempbtnlink")
+    // console.log(tempbtnlink[0],"tempbtnlink")
 
     let Form = [
         {
@@ -37,8 +37,15 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
 
     
     return <>
-        <Modal size={"sm"} modalHead={"Upload Bulk File"} children={
+
+        <Modal size={"sm"} modalHead={head} children={
             <>
+                <div>{tempbtn && <Button classes={"w-auto flex ml-auto mb-1 bg-[#d07407] text-black"} name={label} onClick={() => {
+                                dispatch(CommonActions.commondownload(tempbtnlink[0],tempbtnlink[1]))}} 
+
+                            />
+                    }
+                </div>
                 <CommonForm
                     classes={"grid-cols-1 gap-1 p-4"}
                     Form={Form}
@@ -47,17 +54,11 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
                     setValue={setValue}
                     getValues={getValues}
                 />
-                <div className = 'flex'>
-                {tempbtn && <Button classes={"mt-1 w-auto mx-auto mb-4 bg-[#13b497] text-black py-1"} name={label} onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        tempbtnlink[0],
-                        tempbtnlink[1]
-                      )
-                    );
-                  }} />}
-                {<Button classes={"mt-1 w-auto mx-auto mb-4 py-1"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
-                </div>
+                
+             
+                
+                {<Button classes={"w-auto mx-auto mb-2 py-1 font-extrabold px-50 py-5 text-[16px]"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
+        
 
                 
             </>

@@ -19,6 +19,7 @@ import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
+import AdminActions from "../../../store/actions/admin-actions";
 
 const EmpDetailsTable = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -49,6 +50,15 @@ const EmpDetailsTable = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
+  let roleList = useSelector((state) => {
+    return state?.adminData?.getManageProfile.map((itm) => {
+      return {
+        label: itm?.roleName,
+        value: itm?.roleName,
+      };
+    });
+  });
 
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
@@ -225,10 +235,11 @@ const EmpDetailsTable = () => {
       },
       {
           label: "PMIS Role",
-          type: "text",
+          type: "select",
           name: "pmisRole",
           props: {
-          }
+          },
+          option:roleList
       },
       {
           label: "Status",
@@ -258,6 +269,7 @@ const EmpDetailsTable = () => {
 
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
+    dispatch(AdminActions.getManageProfile());
   }, []);
 
   const onTableViewSubmit = (data) => {
@@ -295,14 +307,14 @@ const EmpDetailsTable = () => {
               name={"Add New"}
             ></Button>
             <Button
-              name={"Upload File"}
-              classes="w-auto mr-1"
+              name={"Upload"}
+              classes="w-auto"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
             ></Button>
             <Button
-              name={"Bulk Upgrade"}
+              name={"Upgrade"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
@@ -339,6 +351,7 @@ const EmpDetailsTable = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true} tempbtnlink = {["/template/ManageEmployee.xlsx","ManageEmployee.xlsx"]}
+        head = {"Upload File"}
       />
       <FileUploader
         isOpen={fileOpen2}
@@ -346,6 +359,7 @@ const EmpDetailsTable = () => {
         onTableViewSubmit={onTableViewSubmit2}
         setIsOpen={setFileOpen2}
         tempbtn={true} tempbtnlink = {["/template/ManageEmployee.xlsx","ManageEmployee.xlsx"]}
+        head = {"Upload Upgrade File"}
       />
     </>
   );

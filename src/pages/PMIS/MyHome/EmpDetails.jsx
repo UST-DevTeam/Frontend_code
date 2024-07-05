@@ -45,7 +45,6 @@ const EmpDetails = (props) => {
   const getManageEmpDetails = useSelector((state) => {
     let data = state.hrReducer.getManageEmpDetails;
 
-    console.log(data, "datadatadatadatadatadatadata");
     if (data.length > 0 && oneLoad != data[0]) {
       setOneLoad(data[0]);
 
@@ -56,7 +55,6 @@ const EmpDetails = (props) => {
     return state.hrReducer.getManageEmpDetails;
   });
 
-  console.log(getManageEmpDetails, "getManageEmpDetails");
 
   const [isSame, setisSame] = useState(false);
   const [presentAddress, setPresentAddress] = useState({
@@ -187,7 +185,7 @@ const EmpDetails = (props) => {
     {
       type: "heading",
       label: "Employee Details",
-      classes: "col-span-4 font-extrabold text-[#13b497] text-start",
+      classes: "col-span-4 font-extrabold text-[#13b497] text-start mb-[-50px]",
     },
     {
       label: "Title",
@@ -1003,7 +1001,7 @@ const EmpDetails = (props) => {
   return (
     <>
       <div className=" w-full h-full">
-        <button
+        {/* <button
           onClick={() => {
             navigate("/hr/empDetailsTable");
             setOneLoad(false);
@@ -1011,13 +1009,13 @@ const EmpDetails = (props) => {
           className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-[#13b497]  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
         >
           Back
-        </button>
-        <div className="">
+        </button> */}
+        <div className="mb-14">
           {/* <UiTopBar /> */}
-          <div className="w-full mt-2 bg-[#3e454d]">
+          <div className="w-full mt-2 bg-[#3e454d] mb-10">
             <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
               <div className="col-span-12">
-                <div className="grid grid-cols-1 md:grid-cols-1">
+                <div className="grid grid-cols-1 md:grid-cols-1 mb-14">
                   <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
@@ -1055,7 +1053,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -1065,7 +1063,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmployeeProfile}
@@ -1151,18 +1149,18 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
 
-                <div className="flex gap-10 mb-3 justify-center">
+                <div className="flex gap-10 absolute bottom-0 w-full mx-auto z-10 justify-center items-center bg-gray-800">
                   <button
                     onClick={() => {
                       navigate("/hr/empDetailsTable");
                     }}
-                    className="mt-6 w-auto justify-center rounded-md px-10 py-1  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-6 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-6 w-auto justify-center rounded-md bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-6 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>
