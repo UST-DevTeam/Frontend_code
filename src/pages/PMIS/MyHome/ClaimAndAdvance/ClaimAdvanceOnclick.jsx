@@ -299,7 +299,7 @@ const ClaimAdvanceOnclick = () => {
                             //   </>
                             // );
                             if (
-                              item.advanceType === "Project Advance" &&
+                              item.advanceType === "Project Advance" ||
                               item.type === "Advance"
                             ) {
                               setmodalBody(
@@ -313,7 +313,7 @@ const ClaimAdvanceOnclick = () => {
                                 </>
                               );
                             } else if (
-                              item.advanceType !== "Project Advance" &&
+                              item.advanceType !== "Project Advance" ||
                               item.type === "Expense"
                             ) {
                               setmodalBody(

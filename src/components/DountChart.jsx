@@ -9,7 +9,7 @@ const DountChart = ({ data }) => {
   const options = {
     chart: {
       type: 'donut',
-      background: '#1c1c1c',
+      background: 'transparent',
       toolbar: {
         show: true,
         offsetX: 0,

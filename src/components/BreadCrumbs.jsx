@@ -158,13 +158,10 @@ const BreadCrumbs = () => {
     }
   }
 
-
-
-  
   return (
     <div>
-      <nav className="bg-violet-50 p-3 text-[12px] font-poppins font-bold text-sm">
-        <ol className="list-reset flex text-gray-600">
+      <nav className="bg-[#3e454d] pl-3 p-[12px] text-[16px] font-poppins font-extrabold text-md">
+        <ol className="list-reset flex text-white">
           {consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).map((item, index) => {
             return (
               <>
@@ -172,7 +169,7 @@ const BreadCrumbs = () => {
                   <>
                     <li>
                       <a
-                        className="text-[#2bc155] hover:text-[#FFAB2D] cursor-pointer"
+                        className="text-[#13b497] hover:text-[#FFAB2D] cursor-pointer"
                         onClick={() => {
 
                           navigate(item in Dtheader ? Dtheader[item]["url"] : checkInGlobalValue(item)!="" ? checkInGlobalValue(item) : "");

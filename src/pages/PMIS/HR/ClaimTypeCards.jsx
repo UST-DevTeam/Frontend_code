@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 
 const ClaimTypeCards = () => {
 
@@ -16,29 +18,31 @@ const ClaimTypeCards = () => {
 
   return (
     <>
+     <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
           [
             "Claim Type Category",
-            "bg-gradient-to-r from-teal-400 to-sky-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/claimType/claimTypeCategories",
           ],
           [
             "ClaimType Designation",
-            "bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-300",
+            "bg-[#0e8670]",
             "/hr/superAdmin/claimType/claimTypeDesignation",
           ],
           [
             "Unit Rate",
-            "bg-gradient-to-r from-rose-400 via-orange-400 to-red-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/claimType/claimTypeUnitRate",
           ],
         ].map((itm) => {
           return (
             <>
               <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                 className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                // className={`${itm[1]} shadow-md hover:shadow-2xl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(
@@ -58,9 +62,19 @@ const ClaimTypeCards = () => {
                     />
                   </>
                 )}
-                <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent text-center">
-                  {itm[0]}
-                </div>
+                 <div className="m-auto text-white">
+                    {itm[0]}
+                  </div>
+                 {/* <div className="flex items-center justify-between w-full p-1">
+                    <div className="flex flex-col items-start">
+                      <div className="text-xl font-bold text-[#dd2d4a]">0</div>
+                      <div className="shining-text bg-black text-[13px] whitespace-nowrap font-extrabold bg-clip-text text-transparent ">
+                        {itm[0]}
+                      </div>
+                    </div>
+                    <div className="rotating-icon">{itm[3]}</div>
+                  </div>
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-800 to-stone-900 opacity-30 pointer-events-none" /> */}
               </div>
             </>
           );
@@ -68,6 +82,19 @@ const ClaimTypeCards = () => {
         settype={settype}
         label=""
       />
+      </div>
+      <div className="grid lg:grid-cols-2 m-2 mt-28 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
     </>
   );
 };

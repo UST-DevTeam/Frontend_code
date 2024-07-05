@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 // import EditButton from '../../../../components/EditButton';
 // import ManageCustomerForm from '../../../PMIS/Admin/ManageCustomer/ManageCustomerForm'
 // import AdvancedTable from '../../../../components/AdvancedTable';
@@ -261,74 +263,98 @@ const SuperAdmin = () => {
 
   return (
     <>
+      <div className="absolute w-full top-12 mt-12 h-60 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
           [
             "Manage Circle",
-            "bg-gradient-to-r from-teal-400 to-sky-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/manageCircle",
+            <Unicons.UilCheckCircle size="36" color="" />,
+            "border-b-[#fdf0d5]",
           ],
           [
             "Manage Zone",
-            "bg-gradient-to-r from-lime-300 to-teal-400",
+            "bg-[#0e8670]",
             "/hr/superAdmin/manageZone",
+            <Unicons.UilMap size="32" color="" />,
+            "border-b-[#fdf0d5]",
           ],
           [
             "Manage Cost Center",
-            "bg-gradient-to-r from-violet-500 to-purple-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/manageCostCenter",
+            <Unicons.UilHunting size="32" color="" />,
+            "border-b-[#e2eafc]",
           ],
           [
             "Manage Project Group",
-            "bg-gradient-to-r from-teal-200 to-sky-800",
+            "bg-[#0e8670]",
             "/hr/superAdmin/projectGroup",
+            <Unicons.UilPlus size="32" color="" />,
+            "border-b-[#e2eafc]",
           ],
           [
             "User Access Management",
-            "bg-gradient-to-r from-teal-100 to-sky-400",
+            "bg-[#0e8670]",
             "/hr/superAdmin/UserAccessManagement",
+            <Unicons.UilUserCheck size="32" color="" />,
+            "border-b-[#d8e2dc]",
           ],
           [
             "User Project Allocation",
-            "bg-gradient-to-r from-teal-400 to-yellow-200",
+            "bg-[#0e8670]",
             "/hr/superAdmin/userProjectAllocation",
+            <Unicons.UilBookmark size="32" color="" />,
+            "border-b-[#d8e2dc]",
           ],
           [
             "Partner Project Allocation",
-            "bg-gradient-to-r from-violet-200 to-blue-600",
+            "bg-[#0e8670]",
             "/hr/superAdmin/partnerProjectAllocation",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
           ],
           [
             "Manage Department",
-            "bg-gradient-to-r from-pink-500 to-rose-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/manageDepartment",
+            <Unicons.UilPanelAdd size="32" color="" />,
+            "border-b-[#b8e0d2]",
           ],
           [
             "Manage Designation",
-            "bg-gradient-to-r from-emerald-400 to-cyan-400",
+            "bg-[#0e8670]",
             "/hr/superAdmin/manageDesignation",
+            <Unicons.UilBookReader size="32" color="" />,           
+            "border-b-[#bfd7ea]",
           ],
           [
             "Manage Profiles",
-            "bg-gradient-to-r from-amber-200 to-yellow-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/manageProfile",
+            <Unicons.UilUserCircle size="32" color="" />,
+            "border-b-[#bfd7ea]",
           ],
           [
             "Completion Criteria",
-            "bg-gradient-to-r from-lime-400 to-rose-400",
+            "bg-[#0e8670]",
             "/hr/superAdmin/completionCriteria",
+            <Unicons.UilAnalytics size="32" color="" />,
           ],
           [
             "Claim Type",
-            "bg-gradient-to-r from-violet-400 to-sky-500",
+            "bg-[#0e8670]",
             "/hr/superAdmin/claimType",
+            <Unicons.UilPuzzlePiece size="32" color="" />,
           ],
         ].map((itm) => {
           return (
             <>
               <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                 className={`${itm[1]} shadow-md hover:shadow-rxl text-center w-[96%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                // className={`${itm[1]} shadow-md hover:shadow-2xl w-[96%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(
@@ -348,16 +374,39 @@ const SuperAdmin = () => {
                     />
                   </>
                 )}
-                <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent text-center">
-                  {itm[0]}
+                  <div className="m-auto text-white">
+                    {itm[0]}
+                  </div>
+                {/* <div className="flex items-center justify-between w-full p-1">
+                    <div className="flex flex-col items-start">
+                      <div className="text-xl font-bold text-[#dd2d4a]">0</div>
+                      <div className="shining-text bg-black text-[12px] whitespace-nowrap font-extrabold bg-clip-text text-transparent ">
+                        {itm[0]}
+                      </div>
+                    </div>
+                    <div className="rotating-icon">{itm[3]}</div>
+                  </div>
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-800 to-stone-900 opacity-30 pointer-events-none" /> */}
                 </div>
-              </div>
             </>
           );
         })}
         settype={settype}
         label="Add / Modify Customer"
       />
+      </div>
+      <div className="grid lg:grid-cols-2 m-2 mt-64 gap-2">
+
+      {/* <ProjectChart />
+      <ClaimAndAdvanceChart /> */}
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart />  */}
+
+
+
+      </div>
     </>
   );
 };

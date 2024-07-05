@@ -18,7 +18,7 @@ const WithSideImage = ({ form, labeling, formclass,sideImage }) => {
                     <img className="w-24 h-14 " src="/logo.png" alt="PIMS" />
                     </div>
                         {/* <div className="mx-auto font-kat text-txt-neavy text-5xl text-center dark:text-darkBg">PMIS</div> */}
-                        <h2 className="mt-2 text-center text-2xl font-body leading-9 tracking-tight text-txt-neavy dark:text-darkBg">{labeling}</h2>
+                        <h2 className="mt-2 text-center font-bold text-2xl font-body leading-9 tracking-tight text-txt-neavy dark:text-darkBg">{labeling}</h2>
                     </div>
 
                     <div className={`overflow-scroll nobar mt-4 bg-gradient-to-r from-blue-300 via-blue-400 to-violet-300 rounded-lg ${formclass}`}>

@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import { GET_EXPENSE_DA_COST_CENTER } from "../../../../store/reducers/expenseAdvance-reducer";
+// import state from "sweetalert/typings/modules/state";
 
 const DAFormFillFORM = ({
   isOpen,
@@ -41,14 +42,16 @@ const DAFormFillFORM = ({
       };
     });
   });
+  
   let EmpNameList = useSelector((state) => {
-    return state?.expenseAdvanceData?.getExpenseEMPName.map((itm) => {
+    return state?.expenseAdvanceData?.getExpenseEMPCode.map((itm) => {
       return {
         label: itm?.empName,
         value: itm?.uniqueId,
       };
     });
   });
+
 
 
   // let EmpName = useSelector((state) => {
@@ -79,7 +82,8 @@ const DAFormFillFORM = ({
     {
         label: "Claim Type",
         value: "",
-        name: Object.entries(formValue).length > 0 ? "name" : "claimType",
+        // name: Object.entries(formValue).length > 0 ? "name" : "claimType",
+        name: "claimType",
         // type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
         type:"select",
         option: claimTypeList,
@@ -248,6 +252,13 @@ const DAFormFillFORM = ({
           setValue(key, formValue[key]);
         }
       });
+      if (formValue.claimType) {
+        setValue("claimType", formValue.claimType);
+      };
+
+      EmpCodeList.map((item)=>{
+        setValue("EmpCode", item.value ||'');
+      })
     }
   }, [formValue, resetting]);
   return (

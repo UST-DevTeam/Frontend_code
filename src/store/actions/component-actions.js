@@ -1,3 +1,4 @@
+import { RESET_STATE } from "../reducers/auth-reducer"
 import { LOADERS, POP_MENU, BREADCRUMB, GLOBAL_VALUE } from "../reducers/component-reducer"
 // import Notify from "./notify-actions"
 

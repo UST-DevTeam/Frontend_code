@@ -810,12 +810,12 @@ const PersonalInfo = (props) => {
         <div className="">
           {/* <UiTopBar /> */}
           <div className="w-full mt-2 bg-[#3e454d]">
-            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
+            <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] border-[#13b497] rounded-lg">
               <div className="col-span-12">
                 <div className="grid grid-cols-1 md:grid-cols-1">
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.5px] border-[#13b497] p-4 rounded-lg"
                     }
                     errors={errors}
                     Form={PersonalInformation}

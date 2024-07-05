@@ -1003,21 +1003,12 @@ const EmpDetails = (props) => {
   return (
     <>
       <div className=" w-full h-full">
-        <button
-          onClick={() => {
-            navigate("/hr/empDetailsTable");
-            setOneLoad(false);
-          }}
-          className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-[#13b497]  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
-        >
-          Back
-        </button>
         <div className="">
           {/* <UiTopBar /> */}
-          <div className="w-full mt-2 bg-[#3e454d]">
+          <div className="w-full mt-2 bg-[#3e454d] ">
             <div class="grid grid-cols-12 gap-2 m-2 bg-gray-800 border-[1.5px] rounded-lg">
               <div className="col-span-12">
-                <div className="grid grid-cols-1 md:grid-cols-1">
+                <div className="grid grid-cols-1 md:grid-cols-1 mb-12">
                   <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
@@ -1055,7 +1046,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -1065,7 +1056,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={EmployeeProfile}
@@ -1151,18 +1142,18 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
 
-                <div className="flex gap-10 mb-3 justify-center">
+                <div className="flex gap-10 absolute bottom-0 inset-x-0 mx-auto z-10 justify-center items-center bg-[#24292d]">
                   <button
                     onClick={() => {
                       navigate("/hr/empDetailsTable");
                     }}
-                    className="mt-6 w-auto justify-center rounded-md px-10 py-1  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-6 w-auto justify-center rounded-md bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>

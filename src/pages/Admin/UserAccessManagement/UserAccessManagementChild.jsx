@@ -52,7 +52,7 @@ const UserAccessManagementChild = ({
   return (
     <>
     <tr>
-      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-white">
+      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-[#3e454d] ">
       <Button
         name={btnName}
         classes="my-2 w-auto z-[10000px]"
@@ -66,7 +66,7 @@ const UserAccessManagementChild = ({
     </tr>
 
     <tr>
-      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 z-[100px] bg-white">
+      <td className="pl-2 p-2 min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 z-[100px] bg-[#3e454d] text-[#ffab2d]">
       {showView ? <p className=" z-[10000px]">{btnName}</p> : <></>}
 
       </td>
@@ -79,7 +79,7 @@ const UserAccessManagementChild = ({
         listValue.map((itew) => {
           return (
             <tr>
-              <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-white">
+              <td className="min-w-[140px] p-2 pl-2 text-sm max-w-[140px] border-black border-[1px] sticky left-0 bg-[#3e454d] text-white">
                 {itew[name]}
                 {showdata}
               </td>
@@ -91,7 +91,7 @@ const UserAccessManagementChild = ({
 
                 // console.log(vale!=-1&&getOldComponentAllocation[vale]["data"],itew[name],"getOldComponentAllocation[vale]")
                 return (
-                  <td className="min-w-[140px] max-w-[140px] border-black border-[1px] text-center">
+                  <td className="min-w-[140px] max-w-[140px] border-black border-[1px] text-center ">
                     {child == "checkbox" && (
                       <input
                         defaultChecked={vale!=-1?getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name] && prev.accessType==true)!=-1:false}
@@ -116,6 +116,7 @@ const UserAccessManagementChild = ({
 
                     {/* {console.log(getOldComponentAllocation[vale]["data"],,getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name]),"getOldComponentAllocation[vale]")} */}
                       <select
+                      className="bg-[#3e454d] text-white"
                         ref={data}
                         defaultValue={vale!=-1 && getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name])!=-1&&getOldComponentAllocation[vale]["data"][getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name])]["accessType"] || ""}
                         onChange={(e) => {

@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 
 const UnbilledCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -23,18 +25,19 @@ const UnbilledCards = () => {
   }, []);
   return (
     <>
-      <CCDash
+     <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
+     <CCDash
         showbtn={false}
         approveddata={[
-          ["Unbilled Waterfall", "bg-gradient-to-r from-indigo-200 via-blue-400 to-violet-500", "/financial/Unbilled/unbilledWaterfall",],
-          ["Unbilled View", "bg-gradient-to-r from-yellow-500 via-yellow-300 to-orange-200", "/financial/PO_Management/unbilledView"],
+          ["Unbilled Waterfall", "bg-[#0e8670]", "/financial/Unbilled/unbilledWaterfall",],
+          ["Unbilled View", "bg-[#0e8670]", "/financial/PO_Management/unbilledView"],
         ].map((itm) => {
           return (
             <>
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
                   onClick={() => {
 
 
@@ -73,7 +76,7 @@ const UnbilledCards = () => {
                       />
                     </>
                   )}
-                  <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
+                  <div className="m-auto text-white">
                     {itm[0]}
                   </div>
                 </div>
@@ -86,6 +89,19 @@ const UnbilledCards = () => {
         settype={settype}
         label="Add / Modify Customer"
       />
+     </div>
+     <div className="grid lg:grid-cols-2 m-2 mt-28 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
     </>
   );
 };

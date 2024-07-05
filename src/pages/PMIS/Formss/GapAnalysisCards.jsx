@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 
 const   GapAnalysisCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -23,18 +25,19 @@ const   GapAnalysisCards = () => {
   }, []);
   return (
     <>
+      <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
-          ["ETP Pending Reason", "bg-gradient-to-r from-lime-500 via-lime-400 to-lime-300", "/forms/gapAnalysis/ETPPendingReason",],
-          ["MS2 VS WCC Pending Reason", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/gapAnalysis/MS2VSWCCPendingReason"],
+          ["ETP Pending Reason", "bg-[#0e8670]", "/forms/gapAnalysis/ETPPendingReason",],
+          ["MS2 VS WCC Pending Reason", "bg-[#0e8670]", "/forms/gapAnalysis/MS2VSWCCPendingReason"],
         ].map((itm) => {
           return (
             <>
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex text-center cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
                   onClick={() => {
 
 
@@ -73,7 +76,7 @@ const   GapAnalysisCards = () => {
                       />
                     </>
                   )}
-                  <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
+                   <div className="m-auto text-white">
                     {itm[0]}
                   </div>
                 </div>
@@ -86,6 +89,19 @@ const   GapAnalysisCards = () => {
         settype={settype}
         label="Add / Modify Customer"
       />
+      </div>
+      <div className="grid lg:grid-cols-2 m-2 mt-28 gap-2">
+
+      <ProjectChart />
+      <ClaimAndAdvanceChart />
+      {/* <MileStoneChart />
+      <PoStatusChart />
+      <PoTrackingWorkdoneChart />
+      <AccrualRevenueTrendChart /> */}
+
+
+
+      </div>
     </>
   );
 };

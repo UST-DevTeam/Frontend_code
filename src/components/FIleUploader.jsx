@@ -39,6 +39,14 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
     return <>
         <Modal size={"sm"} modalHead={"Upload Bulk File"} children={
             <>
+             {tempbtn && <Button classes={"w-auto flex ml-auto bg-[#13b497] text-black"} name={label} onClick={() => {
+                    dispatch(
+                      CommonActions.commondownload(
+                        tempbtnlink[0],
+                        tempbtnlink[1]
+                      )
+                    );
+                  }} />}
                 <CommonForm
                     classes={"grid-cols-1 gap-1 p-4"}
                     Form={Form}
@@ -48,15 +56,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
                     getValues={getValues}
                 />
                 <div className = 'flex'>
-                {tempbtn && <Button classes={"mt-1 w-auto mx-auto mb-4 bg-[#13b497] text-black py-1"} name={label} onClick={() => {
-                    dispatch(
-                      CommonActions.commondownload(
-                        tempbtnlink[0],
-                        tempbtnlink[1]
-                      )
-                    );
-                  }} />}
-                {<Button classes={"mt-1 w-auto mx-auto mb-4 py-1"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
+                {<Button classes={"mt-1 w-auto mx-auto mb-4"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
                 </div>
 
                 

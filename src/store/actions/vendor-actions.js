@@ -1,7 +1,9 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
+import { ALERTS } from "../reducers/component-reducer"
 import { 
-    GET_VENDOR_DETAILS,GET_VENDOR_PROJECT_LIST
+    GET_VENDOR_DETAILS,
+    GET_VENDOR_PROJECT_LIST,
 } from "../reducers/vendor-reducer"
 
 

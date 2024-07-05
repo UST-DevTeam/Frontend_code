@@ -35,7 +35,7 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                     <div className={`pl-2 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md  ${itm.link == pathname && "text-[#e8c670]"}`} >
                         {itm.icon}
                         {
-                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm font-light hover:text-gray-200 hover:bg- transition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#e8c670]"}`}>
+                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm hover:text-gray-200 font-normal hover:bg- transition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#e8c670]"}`}>
                                 {itm.name}
                             </Link>
                         }
