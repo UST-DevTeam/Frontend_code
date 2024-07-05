@@ -240,7 +240,12 @@ const AdvancedTable = ({
                     } else if (tableName === "AcctualWorkdoneform") {
                       dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
                       );
-                    } else {
+                    }
+                    else if (tableName === "EvmFinancialForm") {
+                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                      );
+                    }
+                     else {
                       dispatch(CommonActions.commondownload(exportButton[0],exportButton[1]))
                     }
                   }}

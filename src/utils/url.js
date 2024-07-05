@@ -1,7 +1,6 @@
+export const baseUrl="http://localhost:7990"
+export const backendassetUrl="http://localhost:7990/"
 
-
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
@@ -126,7 +125,6 @@ export const Urls={
     expAdv_download_attachment:"/expenses/DownloadAttachment",
     expAdv_hr_all_expenses:"/expenses/AllExpenses",
     expAdv_hr_all_advance:"/Advance/AllAdvance",
-
 
     // FILTER
 

@@ -539,7 +539,7 @@ const EarnValueMgmtFinancial = () => {
             name: `Achievement (${monthMap[index]} ${year})`,
             // value: "totalInvoice",
             // value: "amount",
-            value:'M-totalInvoice-'+index,
+            value: "M-totalInvoice-" + index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -634,8 +634,14 @@ const EarnValueMgmtFinancial = () => {
           </>
         }
         table={table}
+        // exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx"]}
+        exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx","POST",{viewBy: extraColumns.join(","),
+          year: `${currrentYear}`,
+          yyear: `${currrentYear}`,
+          selectional: "Monthly",
+          typeSelectional: "Monthly",}]}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"EvmFinancialForm"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

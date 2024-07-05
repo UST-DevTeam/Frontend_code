@@ -482,8 +482,6 @@ const ActualWorkdone = () => {
     let cols = [];
     
     extraColumns.forEach((index , i) => {
-
-      console.log("afafafafasfsadfafasfafd", index);
       if (ValGm && ValGm === "Monthly") {
         cols.push([
           {
