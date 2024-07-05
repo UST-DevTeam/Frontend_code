@@ -25,6 +25,7 @@ const ManageVendor = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
+  const [fileOpen2, setFileOpen2] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
 
@@ -43,12 +44,10 @@ const ManageVendor = () => {
   } = useForm();
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.vendorData?.getManageVendorDetails || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-
         edit: (
           <CstmButton
             className={"p-2"}
@@ -244,6 +243,16 @@ const ManageVendor = () => {
       })
     );
   };
+  const onTableViewSubmit2 = (data) => {
+    data["fileType"] = "UpgradeVendor";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(VendorActions.getManageVendorDetails());
+        setFileOpen2(false);
+        resetting("");
+      })
+    );
+  };
   return (
     <>
       <AdvancedTable
@@ -262,6 +271,13 @@ const ManageVendor = () => {
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
+              }}
+            ></Button>
+            <Button
+              name={"Upgrade Partner"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                setFileOpen2((prev) => !prev);
               }}
             ></Button>
           </div>
@@ -293,6 +309,13 @@ const ManageVendor = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
+        tempbtn={true} tempbtnlink = {["/template/ManageVendor.xlsx","ManageVendor.xlsx"]}
+      />
+      <FileUploader
+        isOpen={fileOpen2}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit2}
+        setIsOpen={setFileOpen2}
         tempbtn={true} tempbtnlink = {["/template/ManageVendor.xlsx","ManageVendor.xlsx"]}
       />
     </>

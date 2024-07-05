@@ -80,7 +80,7 @@ const ManageVendorForm = (props) => {
     return state?.adminData?.getManageProfile.map((itm) => {
       return {
         label: itm?.roleName,
-        value: itm?.roleName,
+        value: itm?.uniqueId,
       };
     });
   });
@@ -137,6 +137,16 @@ const ManageVendorForm = (props) => {
       props: "",
       required: true,
       placeholder: "",
+    },
+    {
+      label: "Role",
+      name: "userRole",
+      value: "",
+      type: "select",
+      option: roleList,
+      required: true,
+      props: {},
+      classes: "col-span-1",
     },
     {
       label: "Contact Person ",

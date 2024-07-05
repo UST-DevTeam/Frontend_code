@@ -1,7 +1,7 @@
 
 
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7988"
+export const backendassetUrl="http://localhost:7988/"
 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
