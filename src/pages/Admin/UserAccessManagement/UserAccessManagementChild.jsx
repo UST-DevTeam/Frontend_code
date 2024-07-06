@@ -52,7 +52,7 @@ const UserAccessManagementChild = ({
   return (
     <>
     <tr>
-      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-[#3e454d] ">
+      <td className="min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 bg-[#3e454d] pl-1 ">
       <Button
         name={btnName}
         classes="my-2 w-auto z-[10000px]"
@@ -116,7 +116,7 @@ const UserAccessManagementChild = ({
 
                     {/* {console.log(getOldComponentAllocation[vale]["data"],,getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name]),"getOldComponentAllocation[vale]")} */}
                       <select
-                      className="bg-[#3e454d] text-white"
+                      className="bg-[#3e454d] text-white border-solid border-[#64676d] border-[1.5px] rounded-sm"
                         ref={data}
                         defaultValue={vale!=-1 && getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name])!=-1&&getOldComponentAllocation[vale]["data"][getOldComponentAllocation[vale]["data"].findIndex(prev=>prev.moduleName==itew[name])]["accessType"] || ""}
                         onChange={(e) => {

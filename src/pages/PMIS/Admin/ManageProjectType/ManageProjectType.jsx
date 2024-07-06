@@ -1275,7 +1275,7 @@ const   ManageProjectType = () => {
           return (
             <>
               <div
-                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-[98%] flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
+                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
                 onClick={() => {
                   // dispatch(
                   //   ComponentActions.breadcrumb(
@@ -1307,7 +1307,7 @@ const   ManageProjectType = () => {
             </>
           );
         })}
-        className="flex flex-col"
+        className="flex flex-col "
         settype={settype}
         showbtn={true}
         label="Add/Modify Project Type"
@@ -1318,7 +1318,7 @@ const   ManageProjectType = () => {
         }}
       />
       </div>
-      <div className="grid lg:grid-cols-2 m-2 mt-60 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-60 gap-2">
 
       <ProjectChart />
       <ClaimAndAdvanceChart />

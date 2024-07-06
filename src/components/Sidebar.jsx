@@ -67,8 +67,8 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
 
       <div
         className={`${
-          !sidebarOpen && "w-0 md:w-24"
-        } z-[2000] bg-gray-200 bg-primaryLine dark:bg-primaryLine duration-950 transition-all from-white to-black  fixed top-0 left-0 bottom-0 md:static text-white`}
+          !sidebarOpen && "w-14 md:w-24 "
+        } z-[2000] bg-gray-200 bg-primaryLine dark:bg-primaryLine duration-950 transition-all from-white to-black fixed top-0 left-0 bottom-0 md:static text-white`}
       >
         <button
           onClick={() => {
@@ -76,7 +76,7 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
           }}
           className={`absolute top-4 right-4 md:hidden border-[1.5px] rounded-full`}
         >
-          <Unicons.UilArrowLeft size="28" style={{ color: "white" }} />
+          <Unicons.UilArrowLeft size="28" style={{ color: "white",}} />
         </button>
         <h2 class="text-xl font-semibold"></h2>
         {sidebarOpen ? (
