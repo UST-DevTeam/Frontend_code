@@ -21,6 +21,8 @@ import BigMultiselection from "./FormElements/BigMultiselection";
 import NewMultiSelectsForm from "./FormElements/NewMultiSelectForm";
 import NewMultiSelects, { NewMultiSelects2 } from "./NewMultiSelect";
 import NewMultiselection from "./FormElements/NewMultiselection";
+import Email from "./FormElements/Email";
+
 
 const CommonForm = ({
   classes,
@@ -183,6 +185,19 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
+                    {itm.type == 'email' ?(
+                      <>
+                      <Email
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                      
+                      </>
+                    ):(<></>)}
                     {/* {itm.type == "img" ? (
                       <>
                         <div className="w-14 h-14 rounded-full">
