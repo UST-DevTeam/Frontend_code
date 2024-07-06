@@ -1149,7 +1149,7 @@ const EmpDetails = (props) => {
                   register={register} setValue={setValue} getValues={getValues} />
               } */}
 
-                <div className="flex gap-10 absolute bottom-0 inset-x-0 mx-auto z-10 justify-center items-center bg-[#24292d]">
+                <div className="flex space-x-2 absolute bottom-0 inset-x-0 mx-auto z-10 justify-center items-center bg-[#24292d]">
                   <button
                     onClick={() => {
                       navigate("/hr/empDetailsTable");

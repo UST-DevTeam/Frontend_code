@@ -25,7 +25,7 @@ const FormsCards = () => {
   }, []);
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-[60] z-10 bg-[#3e454d] overflow-auto ">
+      <div className="absolute w-full top-12 mt-12 h-[48] z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
@@ -42,7 +42,7 @@ const FormsCards = () => {
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+               className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
                   onClick={() => {
 
 
@@ -95,10 +95,10 @@ const FormsCards = () => {
         label="Add / Modify Customer"
       />
       </div>
-      <div className="grid lg:grid-cols-2 m-2 mt-44 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-44 gap-2">
 
       <ProjectChart />
-      <ClaimAndAdvanceChart />
+      <ClaimAndAdvanceChart />  
       {/* <MileStoneChart />
       <PoStatusChart />
       <PoTrackingWorkdoneChart />

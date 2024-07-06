@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 
 const ApproverCards = () => {
   const [type, settype] = useState(false);
@@ -20,33 +22,25 @@ const ApproverCards = () => {
   }, []);
   return (
     <>
+      <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
           [
           "L1 Approver",
-          "bg-gradient-to-r from-[#ffffea] via-[#f4e8c1] to-[#f0f4ef]/80", 
-          "/home/approverCards/L1Approver", 
-          <Unicons.Uil16Plus size="36" color="" />, 
-          "border-b-[#f4e8c1]",
-          "/home/approverCards/L1Advance",
+          "bg-[#0e8670]", 
+          "/home/approverCards/L1Approver", "/home/approverCards/L1Advance",
         ],
 
           [
           "L2 Approver", 
-         "bg-gradient-to-r from-[#ffffea] via-[#f4e8c1] to-[#f0f4ef]/80", 
-          "/home/approverCards/L2Approver", 
-          <Unicons.Uil17Plus size="36" color="" />,
-          "border-b-[#f4e8c1]", 
-          "/home/approverCards/L2Advance"],
+         "bg-[#0e8670]",
+          "/home/approverCards/L2Approver", "/home/approverCards/L2Advance"],
 
           [
             "Finance Approver", 
-            "bg-gradient-to-r from-[#ffffea] via-[#f4e8c1] to-[#f0f4ef]/80", 
-            "/home/approverCards/FinanceApprover", 
-            <Unicons.Uil18Plus size="36" color="" />,
-            "border-b-[#f4e8c1]", 
-            "/home/approverCards/L2Advance"],
+            "bg-[#0e8670]",
+            "/home/approverCards/FinanceApprover", "/home/approverCards/L2Advance"],
 
         ].map((itm) => {
           return (
@@ -55,7 +49,7 @@ const ApproverCards = () => {
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
                   // className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
-                  className={`${itm[1]} shadow-md hover:shadow-2xl w-[96%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
                   onClick={() => {
 
                     
@@ -94,10 +88,8 @@ const ApproverCards = () => {
                       />
                     </>
                   )}
-                  {/* <div className="m-auto bg-gradient-to-r from-stone-800 to-stone-900 bg-clip-text text-transparent">
-                    {itm[0]}
-                  </div> */}
-                  <div className="flex items-center justify-between w-full p-1">
+                  <div className="m-auto text-white">{itm[0]}</div>
+                  {/* <div className="flex items-center justify-between w-full p-1">
                     <div className="flex flex-col items-start">
                       <div className="text-xl font-bold text-[#dd2d4a]">0</div>
                       <div className="shining-text bg-black text-[15px] whitespace-nowrap font-extrabold bg-clip-text text-transparent ">
@@ -106,7 +98,7 @@ const ApproverCards = () => {
                     </div>
                     <div className="rotating-icon">{itm[3]}</div>
                   </div>
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-800 to-stone-900 opacity-30 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-800 to-stone-900 opacity-30 pointer-events-none" /> */}
                 </div>
               ) : (
                 <></>
@@ -117,6 +109,11 @@ const ApproverCards = () => {
         settype={settype}
         label="Add / Modify Customer"
       />
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-28 gap-2">
+        <ProjectChart />
+        <ClaimAndAdvanceChart />
+      </div>
     </>
   );
 };

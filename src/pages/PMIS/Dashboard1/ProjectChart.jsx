@@ -83,7 +83,7 @@ const ProjectChart = ({customeruniqueId}) => {
   return (
     <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
 
-      <div className="flex items-center space-x-4 mb-8 justify-between ">
+      <div className="flex space-x-4 mb-8 justify-between ">
         <div className="flex w-3/4 items-center space-x-4">
           <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
 
