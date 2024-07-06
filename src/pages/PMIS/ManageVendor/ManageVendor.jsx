@@ -61,8 +61,6 @@ const ManageVendor = () => {
                   // dispatch(VendorActions.getManageVendorDetails())
                   // setmodalHead("Edit Customer Details")
 
-                  console.log(itm, "itmitmitmitmitmitmitmitm");
-
                   setmodalBody(
                     <>
                       <ManageVendorForm resetting={false} formValue={itm} />
@@ -262,6 +260,7 @@ const ManageVendor = () => {
             <Button
               classes="w-auto"
               onClick={() => {
+                dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: true }));
                 navigate(`${"/vendorForm"}`);
               }}
               name={"Add New"}

@@ -302,6 +302,7 @@ const EmpDetailsTable = () => {
             <Button
               classes="w-auto"
               onClick={() => {
+                dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
                 navigate(`${"/empdetails"}`);
               }}
               name={"Add New"}

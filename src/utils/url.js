@@ -1,5 +1,5 @@
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:8586"
+export const backendassetUrl="http://localhost:8586/"
 
 
 

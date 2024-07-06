@@ -193,7 +193,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       props: {},
-      required: false,
+      required: true,
       placeholder: "",
       option: [
         { label: "Mr.", value: "Mr" },
@@ -207,7 +207,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "text",
       props: "",
-      required: false,
+      required: true,
       placeholder: "",
     },
     {
@@ -218,7 +218,7 @@ const EmpDetails = (props) => {
       props: {
         disabled: empuid ? true : false, 
       },
-      required: false,
+      required: true,
       placeholder: "",
     },    
     {
@@ -264,9 +264,9 @@ const EmpDetails = (props) => {
       label: "Official Email-ID",
       name: "email",
       value: "",
-      type: "text",
+      type: empuid ? "sdisabled" : "text",
       props: "",
-      required: false,
+      required: true,
       placeholder: "",
     },
     {
@@ -705,7 +705,7 @@ const EmpDetails = (props) => {
       value: "",
       type: "select",
       option: roleList,
-      // required: false,
+      required: true,
       props: {},
       classes: "col-span-1",
     },

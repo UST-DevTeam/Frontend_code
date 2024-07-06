@@ -552,7 +552,7 @@ const PersonalInfo = (props) => {
     },
     {
       label: "Role",
-      name: "userRole",
+      name: "role",
       value: "",
       type:"sdisabled",
       option: roleList,
@@ -562,7 +562,7 @@ const PersonalInfo = (props) => {
     },
     {
       label: "PMIS Profile",
-      name: "userRoleName",
+      name: "userRole",
       value: "",
       type:"sdisabled",
       option: roleList,

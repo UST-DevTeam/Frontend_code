@@ -5,7 +5,7 @@ import {
     GET_VENDOR_DETAILS,
     GET_VENDOR_PROJECT_LIST,
 } from "../reducers/vendor-reducer"
-import { ALERTS } from "../reducers/component-reducer"
+
 
 const VendorActions = {
     getManageEmpDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
