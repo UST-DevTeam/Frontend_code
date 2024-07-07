@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CommonActions from "../store/actions/common-actions";
 import ConditionalButton from "./ConditionalButton";
 import ComponentActions from "../store/actions/component-actions";
+import { Urls } from '../utils/url';
+import HrActions from "../store/actions/hr-actions";
 
 const AdvancedTable = ({
   tableName = "",
@@ -40,6 +42,9 @@ const AdvancedTable = ({
   totalCount = 0,
   actions = ["Edit", "Delete"],
   icon,
+  checkboxshow = false,
+  delurl = "",
+  geturl = ""
 }) => {
   const [hide, setHide] = useState([]);
   const [finalData , setFinalData] = useState([])
@@ -49,14 +54,36 @@ const AdvancedTable = ({
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   data = (data[0]?.uniqueId) ? data : [];
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
+    const handleRPPChange = (value) => {
+      setRPP(value);
+      setcurrentPage(1); 
+      const callApiPagination = (page,rrp) => {
+        setcurrentPage(value);
+        const filters = {
+          ...activedFilter,
+          reseter: true,
+          page: page,
+          limit:rrp
+          
+        };
+        sessionStorage.setItem("page",value)
+        filterAfter(filters);
+        setActivedFilter(filters);
+        setActiveFilter(objectToArray(filters));
+      }; 
+      callApiPagination(1,value)
+    };
+
+
   // const pages = Math.ceil(totalCount / RPP);
-
-
 
   let dispatch = useDispatch();
 
@@ -64,29 +91,25 @@ const AdvancedTable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [10,20,30,50],
+    rpp: [50,100,500,1000,2000],
   };
 
-  const callApiPagination = (value, callApi) => {
-
-    let lcllastVisitedPage = lastVisitedPage;
-    setcurrentPage(value);
-    // if (lcllastVisitedPage < totalCount) {
-      setLastVisitedPage(lcllastVisitedPage + 50);
+  const callApiPagination = (value) => {
+      setcurrentPage(value);
       const filters = {
         ...activedFilter,
-        start: lcllastVisitedPage,
-        end: 50,
         reseter: true,
         page: value,
+        limit:RPP
         
       };
       sessionStorage.setItem("page",value)
       filterAfter(filters);
-      
     setActivedFilter(filters);
     setActiveFilter(objectToArray(filters));
   };
+
+ 
 
 
   const onSubmit = (formdata) => {
@@ -119,12 +142,57 @@ const AdvancedTable = ({
     }
   },[data])
 
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(finalData.map((row) => row.uniqueId));
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const handleSelectRow = (uniqueId) => {
+    if (selectedRows.includes(uniqueId)) {
+      setSelectedRows(selectedRows.filter((id) => id !== uniqueId));
+    } else {
+      setSelectedRows([...selectedRows, uniqueId]);
+    }
+  };
+
+  const handleDelete = () => {
+    dispatch(
+      CommonActions.deleteApiCallerBulk(
+         `${delurl}`,
+        {
+          ids: selectedRows
+        },
+        () => {
+          setShowDeleteModal(false);
+          setSelectedRows([]);
+          setSelectAll(false);
+          setRPP(50)
+          setcurrentPage(1); 
+          dispatch(geturl);
+        }
+      )
+    );
+  };
+
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
+            {selectedRows.length > 0 && (
+              <Button
+                name={"Delete"}
+                classes="w-full mr-1 bg-rose-500 text-white"
+                onClick={() => setShowDeleteModal(true)}
+              >
+                Delete
+              </Button>
+            )}
               {/* {activeFilter.length > 0 && (
                 <h1 className="p-1 m-1">Active Filter:</h1>
               )}
@@ -208,7 +276,6 @@ const AdvancedTable = ({
               />
 
               {headerButton}
-
               {/* {headerButton} */}
               {templateButton ? (
                 <Button
@@ -378,13 +445,16 @@ const AdvancedTable = ({
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">
                 <tr>
+                  {checkboxshow && (
+                    <th className="border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[50px] max-w-[50px] text-center">
+                      <input
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={handleSelectAll}
+                      />
+                    </th>
+                  )}
                   {table.columns.map((itts, index) => {
-                    // console.log(
-                    //   hide.indexOf(itts.name),
-                    //   itts.name,
-                    //   hide,
-                    //   "hidehidehide"
-                    // );
                     return hide.indexOf(String(index)) == -1 ? (
                       <>
                         {actions.includes(itts.name) ? (
@@ -436,11 +506,18 @@ const AdvancedTable = ({
 
               {finalData.length > 0 ? (
                 <tbody>
-                  {finalData
-                   
-                    .map((itm) => {
+                  {finalData.map((itm) => {
                       return (
                         <tr>
+                          {checkboxshow && (
+                            <td className="text-[12px] h-2 pl-1 border-green-400 border overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
+                              <input
+                                type="checkbox"
+                                checked={selectedRows.includes(itm.uniqueId)}
+                                onChange={() => handleSelectRow(itm.uniqueId)}
+                              />
+                            </td>
+                          )}
                           {table.columns.map((innerItm, index) => {
                             return hide.indexOf(String(index)) == -1 ? (
                               <td 
@@ -479,25 +556,9 @@ const AdvancedTable = ({
             <>
               <table border={1} className="w-[100%] table-auto">
                 <thead className="sticky -top-1 h-4 z-30">
-                  {/* <tr>
-                                        {
-                                            table.columns.map((itts, index) => {
-                                                console.log(hide.indexOf(itts.name), itts.name, hide, "hidehidehide")
-                                                return hide.indexOf(String(index)) == -1 ? <th className=' border-primaryLine border-2 bg-orange-600 '>
-                                                    <span className='text-white text-[14px]'>{itts.name}</span>
-                                                </th> : <></>
-                                            })
-                                        }
-                                    </tr> */}
 
                   <tr className="flex">
                     {table.columns.map((itts, index) => {
-                      // console.log(
-                      //   hide.indexOf(itts.name),
-                      //   itts.name,
-                      //   hide,
-                      //   "hidehidehide"
-                      // );
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
                           {["Edit", "Delete"].includes(itts.name) ? (
@@ -537,22 +598,28 @@ const AdvancedTable = ({
                   </tr>
                 </tbody>
               </table>
-              {/* <h1 className="flex justify-center">No Records Found</h1> */}
             </>
           )}
         </div>
         <div className="m-2">
           <div className="flex justify-between">
-            <div>
-              {/* <label>Rows Per Page: </label>
-              <select onChange={(e) => setRPP(e.target.value)}>
-                {table.properties.rpp.map((itm) => {
-                  return <option>{itm}</option>;
-                })}
-              </select> */}
-            </div>
+            {tableName === "ManageEmployee" &&( 
+              <div>
+                <label className="mr-2 text-white">Rows Per Page:</label>
+                <select
+                  value={RPP}
+                  onChange={(e) => handleRPPChange(parseInt(e.target.value))}
+                >
+                  {table.properties.rpp.map((itm, idx) => (
+                    <option key={idx} value={itm}>
+                      {itm} 
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
-            <div className="flex ">
+            <div className="flex ml-auto">
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
                   (index + 3 > currentPage && index - 1 < currentPage) ||
@@ -588,11 +655,6 @@ const AdvancedTable = ({
                   </span>
                 );
               })}
-              {/* {
-                            table.properties.rpp.map((itm) => {
-                                return <span className='border border-red-500 px-2 mx-2'>{itm}</span>
-                            })
-                        } */}
             </div>
           </div>
         </div>
@@ -604,6 +666,21 @@ const AdvancedTable = ({
         isOpen={openModal}
         size={"sm"}
       />
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75">
+          <div className="bg-white p-4 rounded-lg shadow-lg">
+            <p>{`Are you sure you want to delete ${
+              selectedRows.length > 1 ? "these rows" : "this row"
+            }?`}</p>
+            <div className="mt-4 flex justify-center space-x-4">
+              <Button name="Delete" classes="w-auto bg-rose-500" onClick={handleDelete} />
+              <Button name="Cancel" classes="w-auto" onClick={() => setShowDeleteModal(false)} />
+              
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

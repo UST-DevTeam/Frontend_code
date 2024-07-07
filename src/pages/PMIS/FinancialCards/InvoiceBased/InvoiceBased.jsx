@@ -25,8 +25,8 @@ const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
-    const [invoiceRow, setInvoiceRow] = useState([]);
     const [selectAll, setSelectAll] = useState([]);
+    const [invoiceRow, setInvoiceRow] = useState([]);
     const [fileOpen, setFileOpen] = useState(false);
     const [strValFil, setstrVal] = useState(false);
     const endDate = moment().format("Y");

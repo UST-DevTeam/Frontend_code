@@ -100,8 +100,11 @@ const EmpDetailsTable = () => {
                         classes="w-15 bg-green-500"
                         onClick={() => {
                           dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.admin_empdetails}/${itm.uniqueId}`,
+                            CommonActions.deleteApiCallerBulk(
+                              `${Urls.admin_empdetails}`,
+                              {
+                                ids:[itm.uniqueId]
+                              },
                               () => {
                                 dispatch(HrActions.getManageEmpDetails());
                                 dispatch(ALERTS({ show: false }));
@@ -327,7 +330,7 @@ const EmpDetailsTable = () => {
         table={table}
         exportButton={["/export/manageEmployee","Export_Employee("+dt+").xlsx"]}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"ManageEmployee"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -335,6 +338,9 @@ const EmpDetailsTable = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        checkboxshow = {true}
+        delurl = {Urls.admin_empdetails}
+        geturl = {HrActions.getManageEmpDetails()}
       />
 
       <Modal

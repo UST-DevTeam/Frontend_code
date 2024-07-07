@@ -76,13 +76,11 @@ const AdvancedTableExpandable = ({
       // activedFilter["reseter"] = false;
       // filterAfter(activedFilter);
       sessionStorage.setItem("page",value)
-      console.info("filters_______", filters);
+      
       // return;
       filterAfter(filters);
       
     setActivedFilter(filters);
-
-    console.log("__paginate_filter",filters)
     setActiveFilter(objectToArray(filters));
     }
 

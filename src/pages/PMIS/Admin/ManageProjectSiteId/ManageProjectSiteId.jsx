@@ -146,7 +146,6 @@ const ManageProjectSiteId = () => {
   let dbConfigList = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
     return interdata?.map((itm) => {
-      console.log(itm, "itmitm");
       let updateditm = {
         ...itm,
         siteIdLink: (
