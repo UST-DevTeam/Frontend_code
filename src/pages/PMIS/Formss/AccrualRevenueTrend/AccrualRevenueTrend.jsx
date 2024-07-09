@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -40,7 +40,7 @@ const AccrualRevenueTrend = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
 
-  const [ValGm, setValGm] = useState("Monthly");
+  const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const exportData = useRef([])
@@ -176,6 +176,19 @@ const AccrualRevenueTrend = () => {
     }
   });
 
+  let showType = getAccessType("Actions(Accrual Revenue Trend)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  } 
+
+
+
+
+
+
   const {
     register,
     handleSubmit,
@@ -205,12 +218,21 @@ const AccrualRevenueTrend = () => {
       },
       
       ...newColumns,
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+          ]
+        : [])
      
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Edit",
+      //   value: "edit",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -234,7 +256,7 @@ const AccrualRevenueTrend = () => {
 
   let listDict = {
     "": [],
-    Monthly: [
+    Month: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
       { id: 3, name: "Mar" },
@@ -275,6 +297,7 @@ const AccrualRevenueTrend = () => {
       label: "Year",
       name: "year",
       value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -289,7 +312,7 @@ const AccrualRevenueTrend = () => {
         },
       },
       required: true,
-      classes: "col-span-1 h-38px",
+      classes: "col-span-1",
     },
     {
       label: ValGm,
@@ -307,7 +330,7 @@ const AccrualRevenueTrend = () => {
       },
       hasSelectAll:true,
       required: true,
-      classes: "col-span-1 h-10",
+      classes: "col-span-1 ",
     },
   ];
 
@@ -334,17 +357,14 @@ const AccrualRevenueTrend = () => {
   }, [extraColumnsState,  modalOpen]);
 
   const handleAddActivity = (res) => {
-    console.log(res,"________res")
     try {
-      let months = res?.Monthly?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
+      let months = res?.Month?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
       let extraCol = months.map((month) => ({
         month: month,
         year: res.year
       }));
       setExtraColumns(extraCol);
       exportData.current = []
-
-      console.log(months,'________res')
 
       months.forEach((itm) => {
       exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
@@ -362,25 +382,28 @@ const AccrualRevenueTrend = () => {
 
   return (
     <>
-      <div className="flex">
-        <CommonForm
-          classes={"w-5/6 grid-cols-3 gap-1 h-[111px]"}
-          Form={formD}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
+    <div className="flex items-center justify-start ">
+    <div className="col-span-1 md:col-span-1">
+      <CommonForm
+        classes="grid grid-cols-2 w-[400px] overflow-y-hidden"
+        Form={formD}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+      />
+    </div>
+    <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
+      <Button
+        classes=" flex h-fit "
+        name=""
+        icon={<UilSearch className="w-5 m-2 h-5" />}
+        onClick={handleSubmit(handleAddActivity)}
+      />
+    </div>
+  </div>
 
-        <div className="pt-12 p-6  flex justify-center">
-          <Button
-            classes=""
-            name=""
-            icon={<UilSearch className="w-4 h-4 mx-2" />}
-            onClick={handleSubmit(handleAddActivity)}
-          />
-        </div>
-      </div>
+
       <AdvancedTable 
         table={table}
         exportButton={["/export/accrualRevenueTrend", "Export_Accrual_Revenue_Trend_Form.xlsx","POST",{ Monthly  :exportData.current}]}
@@ -393,6 +416,7 @@ const AccrualRevenueTrend = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(Accrual Revenue Trend)"}
       />
       <Modal
         size={"sm"}

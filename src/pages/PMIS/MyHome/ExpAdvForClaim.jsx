@@ -421,6 +421,7 @@ const ExpAdvForClaim = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(Expense&Advance)"}
       />
 
       <Modal

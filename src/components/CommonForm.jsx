@@ -82,7 +82,7 @@ const CommonForm = ({
               )}
               {itm.type != "hidden" && itm.type != "heading" ? (
                 <div
-                  className={`mx-0 my-3 p-1 ${
+                  className={`mx-0 my-1 p-1 ${
                     itm.classes ? itm.classes : "col-span-1"
                   }`}
                 >

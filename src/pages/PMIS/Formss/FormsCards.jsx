@@ -39,15 +39,14 @@ const FormsCards = () => {
         ].map((itm) => {
           return (
             <>
-              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
-                getAccessType(itm[0]) == "disabled") ? (
+              {getAccessType(itm[0]) == "visible" || getAccessType(itm[0]) == "disabled" ? (
                 <div
                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
                   onClick={() => {
 
 
                     console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
-                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
+                    if ( getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(
@@ -97,14 +96,12 @@ const FormsCards = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-44 gap-2">
 
-      <ProjectChart />
-      <ClaimAndAdvanceChart />  
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart /> */}
-
-
+        <ProjectChart />
+        <ClaimAndAdvanceChart />  
+        {/* <MileStoneChart />
+        <PoStatusChart />
+        <PoTrackingWorkdoneChart />
+        <AccrualRevenueTrendChart /> */}
 
       </div>
     </>

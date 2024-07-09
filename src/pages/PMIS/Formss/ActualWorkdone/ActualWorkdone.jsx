@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -47,7 +47,7 @@ const ActualWorkdone = () => {
   //     return interdata
   // })
 
-  console.log("extraColumns_____", extraColumns);
+
 
   // let circleList = useSelector((state) => {
   //   return state?.adminData?.getManageCircle.map((itm) => {
@@ -84,9 +84,17 @@ const ActualWorkdone = () => {
   //   });
   // });
 
+
+  let showType = getAccessType("Actions(EVM-Delivery)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  } 
+
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEVMDelivery || [];
-    console.log("asdfasfasfafdadsfafd", interdata);
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -252,16 +260,15 @@ const ActualWorkdone = () => {
       },
       ...newColumns,
 
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      // {
-      //     name: "Delete",
-      //     value: "delete",
-      //     style: "min-w-[100px] max-w-[200px] text-center"
-      // }
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -618,6 +625,7 @@ const ActualWorkdone = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(EVM-Delivery)"}
       />
 
       <Modal

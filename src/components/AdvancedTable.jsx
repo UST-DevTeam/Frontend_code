@@ -17,6 +17,8 @@ import ComponentActions from "../store/actions/component-actions";
 import { Urls } from '../utils/url';
 import HrActions from "../store/actions/hr-actions";
 
+
+
 const AdvancedTable = ({
   tableName = "",
   headerButton,
@@ -44,8 +46,11 @@ const AdvancedTable = ({
   icon,
   checkboxshow = false,
   delurl = "",
-  geturl = ""
+  geturl = "",
+  getaccessAdd = "",
+  getaccessExport = "",
 }) => {
+
   const [hide, setHide] = useState([]);
   const [finalData , setFinalData] = useState([])
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
@@ -297,7 +302,7 @@ const AdvancedTable = ({
               )}
               {exportButton ? (
                 <ConditionalButton
-                  showType={getAccessType("Add Project")}
+                  showType={getAccessType(getaccessExport)}
                   name={"Export"}
                   classes="w-full mr-1"
                   onClick={() => {

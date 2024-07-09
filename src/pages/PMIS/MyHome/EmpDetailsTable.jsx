@@ -341,6 +341,7 @@ const EmpDetailsTable = () => {
         checkboxshow = {true}
         delurl = {Urls.admin_empdetails}
         geturl = {HrActions.getManageEmpDetails()}
+        getaccessExport = {"Export(ManageEmployee)"}
       />
 
       <Modal

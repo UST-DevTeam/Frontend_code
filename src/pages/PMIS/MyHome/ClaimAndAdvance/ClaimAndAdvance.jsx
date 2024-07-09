@@ -332,6 +332,7 @@ const ClaimAndAdvance = () => {
           setValue={setValue}
           getValues={getValues}
           totalCount={dbConfigTotalCount}
+          getaccessExport = {"Export(Claim&Advance)"}
         />
       </div>
       <Modal
@@ -350,6 +351,7 @@ const ClaimAndAdvance = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+           
           />
         }
         isOpen={modalFullOpen}

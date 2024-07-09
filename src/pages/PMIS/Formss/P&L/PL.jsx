@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -46,7 +46,7 @@ const PL = () => {
   //     return interdata
   // })
 
-  console.log("extraColumns_____", extraColumns);
+
 
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
@@ -83,7 +83,16 @@ const PL = () => {
     });
   });
 
-  console.log("afasfasdfasfafasdfasfafd",year);
+  let showType = getAccessType("Actions(P&L)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  }
+
+
+
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getProfitloss || [];
     console.log("asdfasfasfafdadsfafd",interdata);
@@ -301,80 +310,49 @@ const PL = () => {
       },
       
       ...newColumns,
-      // {
-      //   name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "plan1",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "prevAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "plan2",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "currAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "plan3",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "nextAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
 
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      // {
-      //     name: "Delete",
-      //     value: "delete",
-      //     style: "min-w-[100px] max-w-[200px] text-center"
-      // }
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      {
-        label: "Cirlce",
-        type: "autoSuggestion",
-        name: "cirlce",
-        option: circleList,
-        props: {},
-      },
-      {
-        label: "Project Type",
-        type: "autoSuggestion",
-        name: "projectType",
-        option: projectTypeList,
-        props: {},
-      },
-      {
-        label: "Cost Center",
-        type: "autoSuggestion",
-        name: "costCenter",
-        option: ccList,
-        props: {},
-      },
-      {
-        label: "Project ID",
-        type: "autoSuggestion",
-        name: "projectId",
-        option: projectList,
-        props: {},
-      },
+      // {
+      //   label: "Cirlce",
+      //   type: "autoSuggestion",
+      //   name: "cirlce",
+      //   option: circleList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project Type",
+      //   type: "autoSuggestion",
+      //   name: "projectType",
+      //   option: projectTypeList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Cost Center",
+      //   type: "autoSuggestion",
+      //   name: "costCenter",
+      //   option: ccList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project ID",
+      //   type: "autoSuggestion",
+      //   name: "projectId",
+      //   option: projectList,
+      //   props: {},
+      // },
       // {
       //     label: "Project ID",
       //     type: "autoSuggestion",
@@ -695,6 +673,7 @@ const PL = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(P&L)"}
       />
 
       <Modal

@@ -203,11 +203,6 @@ const ManageVendor = () => {
         value: "delete",
         style: "min-w-[100px] max-w-[100px] text-center",
       },
-      // {
-      //     name: "View",
-      //     value: "view",
-      //     style: "min-w-[100px] max-w-[100px] text-center"
-      // }
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -292,6 +287,7 @@ const ManageVendor = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(ManagePartner)"}
       />
 
       <Modal

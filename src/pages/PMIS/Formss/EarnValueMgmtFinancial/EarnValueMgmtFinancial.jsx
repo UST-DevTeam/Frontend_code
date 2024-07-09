@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -77,7 +77,18 @@ const EarnValueMgmtFinancial = () => {
     });
   });
 
-  console.log("afasfasdfasfafasdfasfafd",year);
+  let showType = getAccessType("Actions(EVM-Financial)")
+
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  } 
+
+
+
+
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     console.log("asdfasfasfafdadsfafd",interdata);
@@ -248,47 +259,16 @@ const EarnValueMgmtFinancial = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       ...newColumns,
-      // {
-      //   name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "plan1",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "prevAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "plan2",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "currAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "plan3",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "nextAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      // {
-      //     name: "Delete",
-      //     value: "delete",
-      //     style: "min-w-[100px] max-w-[200px] text-center"
-      // }
+    
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -486,14 +466,14 @@ const EarnValueMgmtFinancial = () => {
 
 
     {
-      label: ValGm, 
+      label: "Month", 
       name: "viewBy",
       value: "Select",
-      type: "muitiSelect",
+      type: "newmuitiSelect2",
       option: listDict[ValGm].map((dasd) => {
         return {
-          id: dasd?.id,
-          name: dasd?.name,
+          value: dasd?.id,
+          label: dasd?.name,
         };
       }),
       props: {
@@ -649,6 +629,7 @@ const EarnValueMgmtFinancial = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport={"Export(EVM-Financial)"}
       />
 
       <Modal

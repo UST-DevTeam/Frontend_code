@@ -34,7 +34,7 @@ const POMgmtCards = () => {
         ].map((itm) => {
           return (
             <>
-              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
+              {(getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
                   // className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg `}
@@ -43,7 +43,7 @@ const POMgmtCards = () => {
 
 
                     console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
-                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
+                    if ( getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(

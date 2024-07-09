@@ -134,7 +134,7 @@ const UserAccessManagementChild = ({
                         }}
                       >
                         <option value={""}></option>
-                        <option value={"R"}>R</option>
+                        {/* <option value={"R"}>R</option> */}
                         <option value={"W"}>W</option>
                         <option value={"H"}>H</option>
                       </select>
