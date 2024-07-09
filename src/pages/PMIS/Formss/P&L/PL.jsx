@@ -83,18 +83,58 @@ const PL = () => {
     });
   });
 
-  console.log("afasfasdfasfafasdfasfafd",year);
   let dbConfigList = useSelector((state) => {
+    const projectedCosts = {
+      1 : 'projectedCost-1',
+      2 : 'projectedCost-2',
+      3 : 'projectedCost-3',
+      4 : 'projectedCost-4',
+      5 : 'projectedCost-5',
+      6 : 'projectedCost-6',
+      7 : 'projectedCost-7',
+      8 : 'projectedCost-8',
+      9 : 'projectedCost-9',
+      10 : 'projectedCost-10',
+      11 : 'projectedCost-11',
+      12 : 'projectedCost-12',
+    }
+    const actualCosts = {
+      1 : 'actualCost-1',
+      2 : 'actualCost-2',
+      3 : 'actualCost-3',
+      4 : 'actualCost-4',
+      5 : 'actualCost-5',
+      6 : 'actualCost-6',
+      7 : 'actualCost-7',
+      8 : 'actualCost-8',
+      9 : 'actualCost-9',
+      10 : 'actualCost-10',
+      11 : 'actualCost-11',
+      12 : 'actualCost-12',
+    }
+    
     let interdata = state?.formssData?.getProfitloss || [];
-    console.log("asdfasfasfafdadsfafd",interdata);
+    
     return interdata?.map((itm) => {
+
       let updateditm = {
         ...itm,
-        plan1: itm.earnvalueArray?.[0]?.["plan"],
-        plan2: itm.earnvalueArray?.[1]?.["plan"],
-        plan3: itm.earnvalueArray?.[2]?.["plan"],
 
-        
+        // projectedGrossProfit : (+itm['totalAmount'] - (itm[`projectedCost-${+itm['month']}`] ?? 0 )) ?? 0,
+        // projectedGrossProfit : (itm['projectedGrossProfit'] ?? 0),
+        // projectedMargin: ((+itm['totalAmount'] - (itm[`projectedCost-${+itm['month']}`] ?? 0 )) / (itm['totalAmount'])).toFixed(2) ?? 0,
+
+        // actualGrossProfit : Math.abs((+itm['actualRevenue'] - (itm[`actualCost-${+itm['month']}`] ?? 0)) ?? 0),
+        // actualMargin:  (itm['actualRevenue'] ) ? (((+itm['actualRevenue'] - (itm[`actualCost-${+itm['month']}`] ?? 0)) / (itm['actualRevenue'])).toFixed(2)) : 0,
+
+
+
+        // projectedCost : itm[projectedCosts[+itm?.month]],
+        // actualCost : itm[actualCosts[+itm?.month]],
+        projectedCost: (itm && itm.hasOwnProperty(projectedCosts[+itm?.month])) ? itm[projectedCosts[+itm?.month]] : 0,
+        actualCost: (itm && itm.hasOwnProperty(actualCosts[+itm?.month])) ? itm[actualCosts[+itm?.month]] : 0,
+
+
 
         edit: (
           <CstmButton
@@ -105,16 +145,16 @@ const PL = () => {
                 onClick={() => {
                   setmodalOpen(true);
                   // dispatch(FormssActions.getEarnValueMgmtFinancial(true));
-                  setmodalHead("Edit Plan");
+                  setmodalHead("Edit P&L");
                   setmodalBody(
                     <>
-                      <EarnValueMgmtForm
+                      <PLform
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={itm}
                         year = {year}
-                        monthss = {extraColumns}
+                        monthss = {[itm?.month]}
                       />
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
@@ -192,6 +232,7 @@ const PL = () => {
     watch,
     setValue,
     setValues,
+    reset,
     getValues,
     formState: { errors },
   } = useForm();
@@ -236,12 +277,12 @@ const PL = () => {
     columns: [
       {
         name: "Year",
-        value: "MSYear",
+        value: "year",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Month",
-        value: "MSMonth",
+        value: "month",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -261,7 +302,12 @@ const PL = () => {
       },
       {
         name: "Projected Revenue",
-        value: "projectedRevenue",
+        value: "achivement",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Projected Revenue",
+        value: "totalAmount",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -271,7 +317,7 @@ const PL = () => {
       },
       {
         name: "Projected Gros Profit",
-        value: "projectGrosProfit",
+        value: "projectedGrossProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -291,7 +337,7 @@ const PL = () => {
       },
       {
         name: "ActalGrosProfit",
-        value: "actualGosProfit",
+        value: "actualGrossProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -301,36 +347,7 @@ const PL = () => {
       },
       
       ...newColumns,
-      // {
-      //   name: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "plan1",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "prevAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "plan2",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${currentMonthData.month} ${currentMonthData.year})`,
-      //   value: "currAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "plan3",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: `Achievement (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "nextAchievementValue",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
+      
 
       {
         name: "Edit",
@@ -431,9 +448,6 @@ const PL = () => {
 
 
 
-
-
-
   for (let ywq = 2021; ywq <= +endDate; ywq++) {
     listYear.push(ywq);
   }
@@ -465,24 +479,44 @@ const PL = () => {
     dispatch(FinanceActions.getProfiltLoss(value, objectToQueryString(data)));
   };
   useEffect(() => {
-    // dispatch(
-    //   FormssActions.postEarnValueMgmtFinancial(
-    //     {
-    //       viewBy: extraColumns.join(","),
-    //       year: `${currrentYear}`,
-    //       yyear: `${currrentYear}`,
-    //       selectional: "Monthly",
-    //       typeSelectional: "Monthly",
-    //     },
-    //     () => {}
-    //   )
-    // );
-    // dispatch(AdminActions.getManageCircle());
-    // dispatch(AdminActions.getCardProjectType());
-    // dispatch(AdminActions.getManageCostCenter());
-    // dispatch(AdminActions.getProject());
-    dispatch(FormssActions.getProfiltLoss());
+    dispatch(
+      FormssActions.postProfiltLossOnSearch(
+        {
+          viewBy: extraColumns.join(","),
+          year: `${currrentYear}`,
+          yyear: `${currrentYear}`,
+          selectional: "Monthly",
+          typeSelectional: "Monthly",
+        },
+        () => {}
+      )
+    );
   }, []);
+
+  const totalAmount = watch("totalAmount");
+  const projectedCost = watch("projectedCost");
+
+  // useEffect(() => {
+  //   if(table.columns){
+  //     reset({
+        
+  //         totalAmount:"",
+  //         projectedCost:"",
+       
+  //     })
+  //   }
+
+  // }, [reset])
+
+  // useEffect(() => {
+  //   console.log(`totalAmount: ${totalAmount}, projectedCost: ${projectedCost}`);
+
+  //   const projectedGrossProfit = totalAmount - projectedCost;
+
+  //   console.log(`projectedGrossProfit: ${projectedGrossProfit}`);
+
+  //   setValue("projectedGrossProfit", projectedGrossProfit>=0 ? projectedGrossProfit: 0);
+  // }, [totalAmount, projectedCost, setValue]);
 
   let formD = [
     {
@@ -505,37 +539,6 @@ const PL = () => {
       },
       required: true,
       classes: "col-span-1 h-38px",
-    },
-
-    
-    {
-      label: "View As",
-      name: "typeSelectional",
-      value: "Select",
-      type: "select",
-      option: [
-        {
-          label: "Monthly View",
-          value: "Monthly",
-        },
-        // {
-        //   label: "Weekly View",
-        //   value: "Weekly",
-        // },
-      ],
-      props: {
-        onChange: (e) => {
-          setValue("selectional", e.target.value);
-          setValGm(e.target.value);
-          setSelectType(e.target.value)
-          console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-          console.log(selectType,'adsfasfasdfasdfadfsa');
-          // handle resert multiselect
-          // alert()
-        },
-      },
-      required: true,
-      classes: "col-span-1",
     },
 
 
@@ -579,39 +582,29 @@ const PL = () => {
     //   if (ValGm && ValGm === "Monthly") {
     //     cols.push([
     //       {
-    //         name: `AOP Target (${monthMap[index]} ${year})`,
-    //         value: "aop_target-"+index+"",
+    //         name: `Projected Cost (${monthMap[index]} ${year})`,
+    //         value: "projectedCost-"+index,
     //         style: "min-w-[200px] max-w-[200px] text-center",
     //       },
     //       {
-    //         name: `PV Target (${monthMap[index]} ${year})`,
-    //         value: "M-"+index+"_y",
-    //         // value: "plan-"+index+"",
-    //         style: "min-w-[200px] max-w-[200px] text-center",
-    //       },
-    //       {
-    //         name: `Achievement (${monthMap[index]} ${year})`,
-    //         value: "M-"+index+"_x",
+    //         name: `Actual Cost (${monthMap[index]} ${year})`,
+    //         value: "actualCost-"+index,
     //         style: "min-w-[200px] max-w-[200px] text-center",
     //       },
     //     ]);
     //   } else {
     //     cols.push([
     //       {
-    //         name: `AOP Target (${index} ${year})`,
+    //         name: `Projected Cost (${index} ${year})`,
     //         value: '',
     //         style: "min-w-[200px] max-w-[200px] text-center",
     //       },
     //       {
-    //         name: `PV Target (${index} ${year})`,
+    //         name: `Actual Cost (${index} ${year})`,
     //         value: '',
     //         style: "min-w-[200px] max-w-[200px] text-center",
     //       },
-    //       {
-    //         name: `Achievement (${index} ${year})`,
-    //         value: index,
-    //         style: "min-w-[200px] max-w-[200px] text-center",
-    //       },
+        
     //     ]);
     //   }
     // });
@@ -686,8 +679,14 @@ const PL = () => {
           </>
         }
         table={table}
+        exportButton={["/export/profit&loss", "Export_Profit&Loss.xlsx","POST",{viewBy: extraColumns.join(","),
+          year: year,
+          yyear: year,
+          selectional: "Monthly",
+          typeSelectional: "Monthly",}]}
+
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"PLform"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

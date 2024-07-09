@@ -245,6 +245,10 @@ const AdvancedTable = ({
                       dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
                       );
                     }
+                    else if (tableName === "PLform") {
+                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                      );
+                    }
                      else {
                       dispatch(CommonActions.commondownload(exportButton[0],exportButton[1]))
                     }
