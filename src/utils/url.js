@@ -98,7 +98,6 @@ export const Urls={
     formss_accrualrevenue_trend: "/forms/accrualRevenueTrend",
     forms_profit_loss: "/forms/profilt&loss",
     admin_claim_type:"/expenses/ClaimType",
-    forms_profit_loss:"/forms/profilt&loss",
 
     admin_claim_type:"/expenses/ClaimType",
     admin_claim_type_unit_rate:"/expenses/unitRate",

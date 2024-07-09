@@ -85,24 +85,26 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
     
     
     let Form = [
-      // {
-      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "",
-      //   name: 'plan1',
-      //   type: "number",
-      //   filter: true,
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
       ...monthss.map((itm)=>(
         {
-          label: `PV Target (${monthsss[itm]} ${year})`,
+          label: `Projected Cost (${monthsss[itm]} ${year})`,
           value: "",
-          name: `M-${itm}_y`,
+          // name: `M-${itm}_y`,
+          name: `projectedCost-${itm}`,
+          type: "number",
+          props: {
+            valueAsNumber:true,
+            min: 0,
+            onChange: (e) => {},
+          },
+          classes: "col-span-1",
+        })
+      ),
+      ...monthss.map((itm)=>(
+        {
+          label: `Actual Cost (${monthsss[itm]} ${year})`,
+          value: "",
+          name: `actualCost-${itm}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -111,57 +113,14 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         })),
-      ...monthss.map((itm)=>(
-        {
-          label: `AOP Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `aop_target-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
-      // {
-      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "",
-      //   name: 'plan3',
-      //   type: "number",
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
+      
     ];
     let Form2 = [
-      // {
-      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "",
-      //   name: 'plan1',
-      //   type: "number",
-      //   filter: true,
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },        
         {
-          label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
+          label: `Projected Cost (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-          name:  `M-${monthss[0]}_y`,
+          // name:  `M-${monthss[0]}_y`,
+          name:  `projectedCost-${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -171,9 +130,9 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           classes: "col-span-1",
         },
         {
-          label: `AOP Target (${currentMonthData.month} ${currentMonthData.year})`,
+          label: `Actual Cost (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-          name: `aop_target-${monthss[0]}`,
+          name: `actualCost-${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -182,26 +141,6 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         },
-      
-      // {
-      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "",
-      //   name: 'plan3',
-      //   type: "number",
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
     ];
 
 
@@ -236,21 +175,20 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
 
 
-    data['projectType'] = formValue?.projectType;
+    data['projectGroup'] = formValue?.projectGroup;
     data['costCenter'] = formValue?.costCenter;
-    data['circle'] = formValue?.circle;
+    data['projectGroupUid'] = formValue?.projectGroupUid;
+    data['customer'] = formValue?.customer;
     data['roleName'] = roleName;
     data['uniqueId'] = formValue?.uniqueId;
     data['year'] = year;
-    data['projectId'] = formValue?.projectId;
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
     if (formValue.uniqueId) {
       dispatch(
-        FormssActions.putEarnValueMgmtFinancial(
+        FormssActions.putprofitandloss(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
             setIsOpen(false);
             dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
           },
