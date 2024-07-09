@@ -1,163 +1,171 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
-import * as Unicons from '@iconscout/react-unicons';
-import MenuItem from './MenuItem';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import CommonActions from '../store/actions/common-actions';
-
-const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
-
-    const dispatch = useDispatch()
-    const { state } = useLocation()
-    const name = state?.name
-    const navigate = useNavigate()
-    // console.log(useLocation(), "userloc")
-
-    const calllogout = () => {
-        // localStorage.setItem("auth",false)
-        // localStorage.removeItem("token")
-        // localStorage.removeItem("user")
-        // navigate("/login")
-
-
-        dispatch(CommonActions.logoutCaller(() => {
-            navigate("/login")
-        }))
-    }
-
-    return <>
-
-        <div class="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine font-oxygen font-bold">
-            {/* <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" onClick={() => {
-                console.log('sdfjhkhkjshd')
-                setsidebarOpenn(prev => !prev)
-            }} aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                <span class="sr-only">Open sidebar</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-                </svg>
-            </button> */}
-            <div className='flex space-x-4 items-center'>
-                <button onClick={() => { setsidebarOpenn(prev => !prev) }} className={`${sidebarOpen && 'rotate-180'}`}>
-                    {/* <Unicons.UilArrowCircleLeft size="36" style={{ color: "white" }} /> */}
-                    {/* <Unicons.UilArrowRight 
-                    className="hover:text-heading transition-all duration-300 text-white"
-                    size="24" 
-                    // style={{ color: isHovered ? "green" :"white",
-                    // transition: 'all 300ms ease-in-out'
-                    // }} 
-                    // onMouseEnter ={()=>{setIsHovered(true)}}
-                    // onMouseLeave ={()=>{setIsHovered(false)}}
-                    /> */}
-                <svg class="w-6 h-6" aria-hidden="true" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-                </svg>
-                </button>
-                <h1 className='font-semibold text-white'>{name || ""}</h1>
-            </div>   
-
-            <div onClick={() => { calllogout() }} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
-                <span className='text-white pr-1 hover:text-heading hover:cursor-pointer'>Logout</span>
-                <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
-            </div>
-        </div>
-
-    </>
-}
-
-export default TopBar
-
-
-// import React, { useState, useEffect, useRef } from 'react';
 // import * as Unicons from '@iconscout/react-unicons';
-// import { useLocation, useNavigate } from 'react-router-dom';
+// import MenuItem from './MenuItem';
+// import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 // import CommonActions from '../store/actions/common-actions';
 
 // const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
-//     const [popupVisible, setPopupVisible] = useState(false);
-//     const modalRef = useRef(null);
 
-//     const dispatch = useDispatch();
-//     const { state } = useLocation();
-//     const name = state?.name;
-//     const email = state?.email;
-//     const navigate = useNavigate();
+//     const dispatch = useDispatch()
+//     const { state } = useLocation()
+//     const name = state?.name
+//     const navigate = useNavigate()
+//     // console.log(useLocation(), "userloc")
 
 //     const calllogout = () => {
+//         // localStorage.setItem("auth",false)
+//         // localStorage.removeItem("token")
+//         // localStorage.removeItem("user")
+//         // navigate("/login")
+
+
 //         dispatch(CommonActions.logoutCaller(() => {
-//             navigate("/login");
-//         }));
-//     };
+//             navigate("/login")
+//         }))
+//     }
 
-//     const handleLogoutClick = () => {
-//         setPopupVisible(prev => !prev); // Toggle the popup visibility
-//     };
+//     return <>
 
-//     const handleCancelClick = () => {
-//         setPopupVisible(false);
-//     };
+//         <div class="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine font-oxygen font-bold">
+//             {/* <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" onClick={() => {
+//                 console.log('sdfjhkhkjshd')
+//                 setsidebarOpenn(prev => !prev)
+//             }} aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+//                 <span class="sr-only">Open sidebar</span>
+//                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+//                     <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+//                 </svg>
+//             </button> */}
+//             <div className='flex space-x-4 items-center'>
+//                 <button onClick={() => { setsidebarOpenn(prev => !prev) }} className={`${sidebarOpen && 'rotate-180'}`}>
+//                     {/* <Unicons.UilArrowCircleLeft size="36" style={{ color: "white" }} /> */}
+//                     {/* <Unicons.UilArrowRight 
+//                     className="hover:text-heading transition-all duration-300 text-white"
+//                     size="24" 
+//                     // style={{ color: isHovered ? "green" :"white",
+//                     // transition: 'all 300ms ease-in-out'
+//                     // }} 
+//                     // onMouseEnter ={()=>{setIsHovered(true)}}
+//                     // onMouseLeave ={()=>{setIsHovered(false)}}
+//                     /> */}
+//                 <svg class="w-6 h-6" aria-hidden="true" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+//                     <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+//                 </svg>
+//                 </button>
+//                 <h1 className='font-semibold text-white'>{name || ""}</h1>
+//             </div>   
 
-//     const handleClickOutside = (event) => {
-//         if (modalRef.current && !modalRef.current.contains(event.target)) {
-//             setPopupVisible(false);
-//         }
-//     };
-
-//     useEffect(() => {
-//         if (popupVisible) {
-//             document.addEventListener("mousedown", handleClickOutside);
-//         } else {
-//             document.removeEventListener("mousedown", handleClickOutside);
-//         }
-//         return () => {
-//             document.removeEventListener("mousedown", handleClickOutside);
-//         };
-//     }, [popupVisible]);
-
-//     return (
-//         <>
-//             <div className="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine font-oxygen font-bold">
-//                 <div className='flex space-x-4 items-center'>
-//                     <button onClick={() => { setsidebarOpenn(prev => !prev) }} className={`${sidebarOpen && 'rotate-180'}`}>
-//                         <svg className="w-6 h-6" aria-hidden="true" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-//                             <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-//                         </svg>
-//                     </button>
-//                     <h1 className='font-semibold text-white'>{name || ""}</h1>
-//                 </div>
-
-//                 <div className='relative'>
-//                     <div onClick={handleLogoutClick} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
-//                         <span className='text-white pr-1 hover:text-heading hover:cursor-pointer'>Logout</span>
-//                         <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
-//                     </div>
-//                 </div>
-//                 {popupVisible && (
-//                         <div ref={modalRef} className="absolute right-4 mt-10 w-1/5  bg-slate-200 shadow-lg rounded-md z-50 border-[1.2px] border-black">
-//                             <div className="p-2">
-//                                 <div className=" text-center">
-//                                     <p className="text-gray-900 font-medium">{email || "admin@admin.com"}</p>
-//                                 </div>
-//                                 <div className="">
-//                                     <button className="w-full text-center text-gray-700 hover:text-blue-600 py-2 font-medium">Change Password</button>
-//                                 </div>
-//                                 <div className="flex justify-center">
-//                                     <button>
-//                                     <div onClick={calllogout} className='dark:text-white flex space-x-1 cursor-pointer hover:border-solid hover:border-[#d5d7df] hover:border-[1.2px] hover:p-1 hover:rounded-md'>
-//                                     <span className='text-black pr-1 hover:cursor-pointer font-medium'>Logout</span>
-//                                     <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
-//                                     </div>
-//                                     </button>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     )}
+//             <div onClick={() => { calllogout() }} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
+//                 <span className='text-white pr-1 hover:text-heading hover:cursor-pointer'>Logout</span>
+//                 <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
 //             </div>
-//         </>
-//     );
-// };
+//         </div>
 
-// export default TopBar;
+//     </>
+// }
+
+// export default TopBar
+
+
+import React, { useState, useEffect, useRef } from 'react';
+import * as Unicons from '@iconscout/react-unicons';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import CommonActions from '../store/actions/common-actions';
+
+const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
+    const [popupVisible, setPopupVisible] = useState(false);
+    const modalRef = useRef(null);
+
+    const dispatch = useDispatch();
+    const { state } = useLocation();
+    const name = state?.name;
+    const email = state?.email;
+    const navigate = useNavigate();
+
+    let user = JSON.parse(localStorage.getItem("user"));
+    let empName = user?.empName;
+    let roleName = user?.roleName
+    let empCode = user?.empCode
+
+
+    console.log(user,'+++++++++++++++user')
+
+    const calllogout = () => {
+        dispatch(CommonActions.logoutCaller(() => {
+            navigate("/login");
+        }));
+    };
+
+    const handleLogoutClick = () => {
+        setPopupVisible(prev => !prev); // Toggle the popup visibility
+    };
+
+    const handleCancelClick = () => {
+        setPopupVisible(false);
+    };
+
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setPopupVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        if (popupVisible) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [popupVisible]);
+
+    return (
+        <>
+            <div className="flex justify-between ml-0 px-3 py-3 bg-oppprimaryLine overflow-y-auto duration-150 bg-topbarLine dark:bg-topbarLine font-oxygen font-bold">
+                <div className='flex space-x-4 items-center'>
+                    <button onClick={() => { setsidebarOpenn(prev => !prev) }} className={`${sidebarOpen && 'rotate-180'}`}>
+                        <svg className="w-6 h-6" aria-hidden="true" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                        </svg>
+                    </button>
+                    <h1 className='font-semibold text-white'>{name || ""}</h1>
+                </div>
+
+                <div className='relative'>
+                    <div onClick={handleLogoutClick} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
+                        <span className='text-white pr-1 hover:text-heading hover:cursor-pointer'>{empName}</span>
+                        <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
+                    </div>
+                </div>
+                {popupVisible && (
+                        <div ref={modalRef} className="absolute right-4 mt-10 w-1/6  bg-slate-200 shadow-lg rounded-md z-50 border-[1.2px] border-black">
+                            <div className="p-2">
+                                <div className=" text-center">
+                                    <p className="text-gray-900 font-medium">{roleName}</p>
+                                </div>
+                                {/* <div className="">
+                                    <button className="w-full text-center text-gray-700 hover:text-blue-600 py-2 font-medium">Change Password</button>
+                                </div> */}
+                                <div className="flex justify-center">
+                                    <button>
+                                    <div onClick={calllogout} className='dark:text-white flex space-x-1 cursor-pointer hover:border-solid hover:border-[#d5d7df] hover:border-[1.2px] hover:p-1 hover:rounded-md'>
+                                    <span className='text-black pr-1 hover:cursor-pointer font-medium'>Logout</span>
+                                    <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
+                                    </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+            </div>
+        </>
+    );
+};
+
+export default TopBar;
 

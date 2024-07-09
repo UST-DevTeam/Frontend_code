@@ -24,7 +24,7 @@ const HomeCards = () => {
   }, []);
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
+      <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto ">
         <CCDash
           showbtn={false}
           approveddata={[
@@ -106,7 +106,7 @@ const HomeCards = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-28 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-44 gap-2">
         <ProjectChart />
         <ClaimAndAdvanceChart />
       </div>

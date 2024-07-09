@@ -25,98 +25,90 @@ const HRHomeView = () => {
   }, []);
   return (
     <>
-       <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
-      <CCDash
-        showbtn={false}
-        approveddata={[
-          [
-            "Manage Employee",
-            "bg-[#0e8670]",
-            "/hr/empDetailsTable",
-            <Unicons.UilUserCircle size="30" color="" />,
-          ],
-          ["Asset Management", "bg-[#0e8670]", "/hr/assetManagement",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
-          ["Manage Policy", "bg-[#0e8670]", "/hr/managePolicy", <Unicons.UilArchive size="30" color="" />,],
-          [
-            "Expense & Advance",
-            "bg-[#0e8670]",
-            "/hr/Claim", "/hr/Advance",
-          ],
-          ["Attendance", "bg-[#0e8670]", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
-          [
-            "Super Admin",
-            "bg-[#0e8670]",
-            "/hr/superAdmin",
-            <Unicons.UilFileAlt size="30" color="" />,
-          ],
-        ].map((itm) => {
-          return (
-            <>
-              {getAccessType(itm[0]) == "visible" ||
-                getAccessType(itm[0]) == "disabled" ? (
-                <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full text-center sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
-                  onClick={() => {
+       <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto">
+        <CCDash
+          showbtn={false}
+          approveddata={[
+            [
+              "Manage Employee",
+              "bg-[#0e8670]",
+              "/hr/empDetailsTable",
+              <Unicons.UilUserCircle size="30" color="" />,
+            ],
+            ["Asset Management", "bg-[#0e8670]", "/hr/assetManagement",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
+            ["Manage Policy", "bg-[#0e8670]", "/hr/managePolicy", <Unicons.UilArchive size="30" color="" />,],
+            [
+              "Expense & Advance",
+              "bg-[#0e8670]",
+              "/hr/Claim", "/hr/Advance",
+            ],
+            ["Attendance", "bg-[#0e8670]", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
+            [
+              "Super Admin",
+              "bg-[#0e8670]",
+              "/hr/superAdmin",
+              <Unicons.UilFileAlt size="30" color="" />,
+            ],
+          ].map((itm) => {
+            return (
+              <>
+                {getAccessType(itm[0]) == "visible" ||
+                  getAccessType(itm[0]) == "disabled" ? (
+                  <div
+                    className={`${itm[1]} shadow-md hover:shadow-rxl w-full text-center sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                    onClick={() => {
 
 
-                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
-                    if (getAccessType(itm[0]) == "visible") {
+                      console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
+                      if (getAccessType(itm[0]) == "visible") {
 
-                      dispatch(
-                        ComponentActions.globalUrlStore(
-                          itm[0],
-                          itm[2]
-                        )
-                      );
-                      navigate(itm[2]);
-                      dispatch(
-                        ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
-                      );
-                    } else {
-                      let msgdata = {
-                        show: true,
-                        icon: "error",
-                        buttons: [],
-                        type: 1,
-                        text: "This option is disabled",
-                      };
-                      dispatch(ALERTS(msgdata));
-                    }
-                  }}
-                >
-                  {itm["companyimg"] && itm["companyimg"] != "" && (
-                    <>
-                      <img
-                        className="m-auto w-24"
-                        src={backendassetUrl + itm["companyimg"]}
-                      />
-                    </>
-                  )}
-                   <div className="m-auto text-white">
-                    {itm[0]}
+                        dispatch(
+                          ComponentActions.globalUrlStore(
+                            itm[0],
+                            itm[2]
+                          )
+                        );
+                        navigate(itm[2]);
+                        dispatch(
+                          ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
+                        );
+                      } else {
+                        let msgdata = {
+                          show: true,
+                          icon: "error",
+                          buttons: [],
+                          type: 1,
+                          text: "This option is disabled",
+                        };
+                        dispatch(ALERTS(msgdata));
+                      }
+                    }}
+                  >
+                    {itm["companyimg"] && itm["companyimg"] != "" && (
+                      <>
+                        <img
+                          className="m-auto w-24"
+                          src={backendassetUrl + itm["companyimg"]}
+                        />
+                      </>
+                    )}
+                    <div className="m-auto text-white">
+                      {itm[0]}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <></>
-              )}
-            </>
-          );
-        })}
-        settype={settype}
-        label="Add / Modify Customer"
-      />
+                ) : (
+                  <></>
+                )}
+              </>
+            );
+          })}
+          settype={settype}
+          label="Add / Modify Customer"
+        />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-24 gap-2">
-
-      <ProjectChart />
-      <ClaimAndAdvanceChart />
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart /> */}
-
-
-
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-44 gap-2">
+        <ProjectChart />
+        <ClaimAndAdvanceChart />
       </div>
     </>
   );

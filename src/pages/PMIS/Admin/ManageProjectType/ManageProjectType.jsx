@@ -1269,7 +1269,7 @@ const   ManageProjectType = () => {
                 }))
             } settype={settype} label='Add / Modify Project Type' /> */}
 
-    <div className="absolute w-full top-12 mt-12 h-60 z-10 bg-[#3e454d] overflow-auto ">
+    <div className="absolute w-full top-12 mt-12 h-70 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         approveddata={dbConfigListCard?.map((itm) => {
           return (
@@ -1318,7 +1318,7 @@ const   ManageProjectType = () => {
         }}
       />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-60 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-80 gap-2">
 
       <ProjectChart />
       <ClaimAndAdvanceChart />

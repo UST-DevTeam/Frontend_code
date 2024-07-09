@@ -30,6 +30,8 @@ const UserAccessManagement = () => {
     let interdata = state?.adminManagement?.roleList;
     return interdata;
   });
+
+  console.log(roleList,"roleListroleListroleList")
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
     let interdata = state?.adminManagement?.usersList;
@@ -315,7 +317,7 @@ const UserAccessManagement = () => {
                 fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
-                btnName={"HR Access"}
+                btnName={"Human Resource"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="HRView")}
               />
             }
@@ -327,7 +329,18 @@ const UserAccessManagement = () => {
                 fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
-                btnName={"Financial Access"}
+                btnName={"Partner Mangment"}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="PartnerView")}
+              />
+            }
+            {
+              <UserAccessManagementChild
+                showData={showData}
+                setshowData={setshowData}
+                fromCall={"pmpermission"}
+                name={"componentType"}
+                child={"select"}
+                btnName={"Finacial"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FinancialView")}
               />
             }
@@ -338,19 +351,8 @@ const UserAccessManagement = () => {
                 fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
-                btnName={"Forms Access"}
+                btnName={"Forms"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FormsView")}
-              />
-            }
-            {
-              <UserAccessManagementChild
-                showData={showData}
-                setshowData={setshowData}
-                fromCall={"pmpermission"}
-                name={"componentType"}
-                child={"select"}
-                btnName={"Partner Management"}
-                listValue={getComponentAllocation.filter(prev=>prev.parent=="PartnerView")}
               />
             }
           </table>

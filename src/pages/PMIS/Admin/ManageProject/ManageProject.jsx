@@ -427,9 +427,9 @@ const ManageProject = () => {
         style: "min-w-[100px] max-w-[200px] text-center",
       }
     ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
+    // properties: {
+    //   rpp: [10, 20, 50, 100],
+    // },
     filter: [
       {
         label: "Project ID",

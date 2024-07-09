@@ -55,7 +55,7 @@ const EmpDetailsTable = () => {
     return state?.adminData?.getManageProfile.map((itm) => {
       return {
         label: itm?.roleName,
-        value: itm?.roleName,
+        value: itm?.uniqueId,
       };
     });
   });
