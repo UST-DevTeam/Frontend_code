@@ -272,7 +272,7 @@ const UserAccessManagement = () => {
       <div className=" w-[68vw] flex mx-1">
         <div className="pt-2 px-2">
           <table className="relative" border={2}>
-            <tr className="sticky top-0 z-[10000]">
+            <tr className="sticky top-0 z-[10]">
               <th className="min-w-[300px] max-w-[300px] border-black border-[1.5px]  bg-primaryLine text-white  sticky left-0">
                 Module Name
                 {/* {showData} */}
