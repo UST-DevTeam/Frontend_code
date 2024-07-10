@@ -636,8 +636,10 @@ const EarnValueMgmtFinancial = () => {
         table={table}
         // exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx"]}
         exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx","POST",{viewBy: extraColumns.join(","),
-          year: `${currrentYear}`,
-          yyear: `${currrentYear}`,
+          // year: `${currrentYear}`,
+          // yyear: `${currrentYear}`,
+          year:year,
+          yyear:year,
           selectional: "Monthly",
           typeSelectional: "Monthly",}]}
         filterAfter={onSubmit}
