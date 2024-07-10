@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
-import { objectToQueryString } from "../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
 import HrActions from "../../../store/actions/hr-actions";
@@ -19,6 +19,7 @@ import { json, useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import { GET_VENDOR_DETAILS } from "../../../store/reducers/vendor-reducer";
 import { Urls } from "../../../utils/url";
+import ConditionalButton from "../../../components/ConditionalButton";
 
 const ManageVendor = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -42,6 +43,14 @@ const ManageVendor = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
+  let showType = getAccessType("Actions(Partner On-Board)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  }
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.vendorData?.getManageVendorDetails || [];
@@ -193,16 +202,20 @@ const ManageVendor = () => {
         value: "status",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[100px] max-w-[100px] text-center",
+            },
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -250,30 +263,33 @@ const ManageVendor = () => {
     <>
       <AdvancedTable
         headerButton={
-          <div className="flex gap-1">
+          <div className="flex">
             {" "}
-            <Button
-              classes="w-auto"
+            <ConditionalButton
+              showType={getAccessType("Add New(Partner On-Board)")}
+              classes="w-auto mr-1"
               onClick={() => {
                 dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: true }));
                 navigate(`${"/vendorForm"}`);
               }}
               name={"Add New"}
-            ></Button>
-            <Button
+            ></ConditionalButton>
+            <ConditionalButton
+              showType={getAccessType("Upload(Partner On-Board)")}
               name={"Upload File"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
-            <Button
+            ></ConditionalButton>
+            <ConditionalButton
+              showType={getAccessType("Upgrade(Partner On-Board)")}
               name={"Upgrade Partner"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
           </div>
         }
         table={table}
@@ -287,7 +303,7 @@ const ManageVendor = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        getaccessExport = {"Export(ManagePartner)"}
+        getaccessExport = {"Export(Partner On-Board)"}
       />
 
       <Modal

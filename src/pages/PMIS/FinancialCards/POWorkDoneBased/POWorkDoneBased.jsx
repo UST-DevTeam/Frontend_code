@@ -226,6 +226,7 @@ const POWorkDoneBased = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            getaccessExport = {"Export(PO Tracking Work done)"}
         />
 
         <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
