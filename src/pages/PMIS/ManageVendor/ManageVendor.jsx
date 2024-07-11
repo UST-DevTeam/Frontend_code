@@ -215,20 +215,38 @@ const ManageVendor = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      {
+          label: "Vendor Name",
+          type: "text",
+          name: "vendorName",
+          props: {
+          }
+      },
+      {
+          label: "Vendor Code",
+          type: "text",
+          name: "vendorCode",
+          props: {
+          }
+      },
+      {
+          label: "Status",
+          type: "select",
+          name: "status",
+          option: [
+            { label: "Active", value: "Active" },
+            { label: "Inactive", value: "Inactive" },
+          ],
+          props: {}
+      },
     ],
   };
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(VendorActions.getManageVendorDetails(value, objectToQueryString(data)));
+    let strVal=objectToQueryString(data)
+    setstrVal(strVal)
+    dispatch(VendorActions.getManageVendorDetails(value, objectToQueryString(data),strVal));
   };
   useEffect(() => {
     dispatch(VendorActions.getManageVendorDetails());

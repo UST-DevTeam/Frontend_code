@@ -99,7 +99,7 @@ const ManageProjectSiteId = () => {
     return state?.filterData?.getSiteSubProject.map((itm) => {
       return {
         label: itm.subproject,
-        value: itm.subproject,
+        value: itm.subprojectId,
       };
     });
   });
@@ -1395,7 +1395,7 @@ const ManageProjectSiteId = () => {
                     onClick={(e) => {
                       dispatch(
                         CommonActions.commondownload(
-                          "/export/siteId/" + `${projectuniqueId}`,
+                          "/export/siteId/" + `${projectuniqueId}`+'?'+ `${strValFil}`,
                           "Export_Sites.xlsx"
                         )
                       );
@@ -1408,7 +1408,7 @@ const ManageProjectSiteId = () => {
                     onClick={(e) => {
                       dispatch(
                         CommonActions.commondownload(
-                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
+                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`+'?'+ `${strValFil}`,
                           "Export_Sites_with_Milestone.xlsx"
                         )
                       );

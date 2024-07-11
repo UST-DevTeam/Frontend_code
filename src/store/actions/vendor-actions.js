@@ -39,6 +39,7 @@ const VendorActions = {
 
     getManageVendorDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
         try {
+            console.log('dhdhdhd',args)
             const res = await Api.get({ url:`${Urls.vendor_details}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
