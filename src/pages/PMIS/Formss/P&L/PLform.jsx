@@ -190,24 +190,31 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           data,
           () => {
             setIsOpen(false);
-            dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
+            dispatch(
+              FormssActions.postProfiltLossOnSearch()
+            );
           },
+          formValue.uniqueId
         )
       );
     } else {
       dispatch(
-        FormssActions.postEarnValueMgmtFinancial(data, () => {
+        FormssActions.postProfiltLossOnSearch(data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
-          dispatch(FormssActions.getEarnValueMgmtFinancial());
+          dispatch(FormssActions.postProfiltLossOnSearch());
         })
       );
     }
   };
   console.log(Form, "Form 11");
+
+  // useEffect(()=> {
+  //   dispatch(FormssActions.postProfiltLossOnSearch());
+  // }, [])
+
+
   useEffect(() => {
-    console.log("formValue in useEffect:", formValue);
-    // dispatch(FormssActions.getEarnValueMgmtFinancial());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

@@ -282,7 +282,7 @@ const PL = () => {
       },
       {
         name: "Month",
-        value: "month",
+        value: "months",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -301,8 +301,8 @@ const PL = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Projected Revenue",
-        value: "achivement",
+        name: "Project Manager",
+        value: "empName",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {

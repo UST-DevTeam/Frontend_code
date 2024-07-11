@@ -95,15 +95,6 @@ const FormssActions = {
              else {
                 let dataAll = res?.data?.data
                 dispatch(forms_profit_loss({ dataAll, reset:true }))
-                let msgdata = {
-                    show: true,
-                    icon: "success",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-                cb()
             }
 
         } catch (error) {

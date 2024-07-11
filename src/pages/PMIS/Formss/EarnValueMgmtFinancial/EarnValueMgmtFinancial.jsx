@@ -166,6 +166,7 @@ const EarnValueMgmtFinancial = () => {
       return updateditm;
     });
   });
+  
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
