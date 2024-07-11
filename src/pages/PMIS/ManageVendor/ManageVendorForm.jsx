@@ -282,7 +282,6 @@ const ManageVendorForm = (props) => {
       name: "vendorRegistered",
       value: "",
       type: "select",
-      props: "",
       required: false,
       placeholder: "",
       option: [

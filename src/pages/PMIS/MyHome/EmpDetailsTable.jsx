@@ -275,11 +275,8 @@ const EmpDetailsTable = () => {
     let shouldReset = data.reseter;
     delete data.reseter;
     let strVal=objectToQueryString(data)
+    console.log('strValstrValstrVal',strVal)
     setstrVal(strVal)
-    // if(strValFil){
-    //   strVal=strValFil
-    // }
-    // console.log("____strVal____",strVal)
     dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };
 
