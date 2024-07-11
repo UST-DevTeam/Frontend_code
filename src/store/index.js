@@ -21,6 +21,7 @@ import expenseAdvanceData from "./reducers/expenseAdvance-reducer"
 import eventlogsReducer from "./reducers/eventlogs-reducer";
 import filterData from "./reducers/filter-reducer";
 import GraphData from "./reducers/graph-reducer";
+import currentuserData from "./reducers/currentuser-reducer";
 
 const store = configureStore({
     reducer: {
@@ -45,6 +46,7 @@ const store = configureStore({
         eventlogsReducer,
         filterData,
         GraphData,
+        currentuserData
     },
     devTools: true
 })

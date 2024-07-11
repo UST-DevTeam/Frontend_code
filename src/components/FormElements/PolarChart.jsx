@@ -15,11 +15,11 @@ const PolarChart = ({ data }) => {
             polarArea: {
                 rings: {
                 strokeWidth: 1,
-                strokeColor: '#1c1c1c',
+                strokeColor: '#fff',
                 },
                 spokes: {
                 strokeWidth: 1,
-                connectorColors: '#1c1c1c',
+                connectorColors: '#fff',
                 }
             }
         },
@@ -29,6 +29,17 @@ const PolarChart = ({ data }) => {
         fill: {
             opacity: 0.8
         },
+        legend: {
+            labels: {
+              colors: '#fff',
+            },
+            position: 'right',
+          },
+          dataLabels: {
+            style: {
+              colors: ['#fff']
+            }
+          },
         responsive: [{
             breakpoint: 480,
             options: {

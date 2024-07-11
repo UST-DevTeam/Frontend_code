@@ -130,6 +130,10 @@ const BreadCrumbs = () => {
       "name":"Partner",
       "url":"/vendor",
     },
+    "dashboard":{
+      "name":"Dashboard",
+      "url":"/",
+    },
   }
   
 

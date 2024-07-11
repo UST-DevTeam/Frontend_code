@@ -84,7 +84,7 @@ const MileStoneChart = () => {
     };
 
     return (
-            <div className="bg-[#1c1c1c] h-full p-4">
+            <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
               <div className=" flex items-center space-x-4 mb-8 justify-between">
                 <div className="flex items-center space-x-4">
                   <NewMultiSelects label='Project Group' option={projectTypeList} value={selectedProjectType} cb={( data ) => setselectedProjectType(data)} />
@@ -92,8 +92,8 @@ const MileStoneChart = () => {
                   <NewMultiSelects label='Project Manager' option={projectIdList} value={selectedProjectId} cb={( data ) => setselectedProjectId(data)} />
                 </div>
                 <div className="flex items-center space-x-4">
-                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
-                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
+                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
                 </div>
               </div>
               <PieChart data={pieGraphData} />

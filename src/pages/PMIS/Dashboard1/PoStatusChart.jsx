@@ -79,13 +79,14 @@ const PoStatusChart = () => {
   };
 
   return (
-    <div className="bg-[#1c1c1c] h-full p-4">
-
-      <div className="flex items-center space-x-4 mb-8 justify-between ">
-        <div className="flex items-center space-x-4">
+    <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
+      <div className="flex items-center space-x-4 mb-8">
+        <div className="flex space-x-4 justify-between w-full">
           <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"}/>}></Button>
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+          <div className="flex space-x-4">
+            <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"}/>}></Button>
+            <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+          </div>
         </div>
       </div>
       <PieChart data={pieGraphData}  colors = {colors} />

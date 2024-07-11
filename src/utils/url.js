@@ -1,14 +1,14 @@
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.29.169:7980"
-// export const backendassetUrl="http://192.168.29.169:7980/"
+export const baseUrl="http://192.168.0.149:7980"
+export const backendassetUrl="http://192.168.0.149:7980/"
 
 
 
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -157,6 +157,13 @@ export const Urls={
     graph_po_status:"/graph/poStatus",
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
+
+
+    // currentuser
+    
+    current_user_PG:"/currentuser/ProjectGroup",
+    current_user_PT:"/currentuser/ProjectType",
+    current_user_PID:"/currentuser/ProjectId"
 
 
 

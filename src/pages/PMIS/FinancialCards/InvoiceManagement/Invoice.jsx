@@ -21,6 +21,7 @@ import InvoiceForm from "../InvoiceManagement/InvoiceForm";
 import moment from "moment";
 import FilterActions from "../../../../store/actions/filter-actions";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
 
 const Invoice = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -86,30 +87,10 @@ const Invoice = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(
-                    AdminActions.getManageProjectGroup(
-                      true,
-                      `customer=${itm?.customer}`
-                    )
-                  );
-                  dispatch(
-                    AdminActions.getPOProjectType(
-                      true,
-                      `customer=${itm?.customer}`
-                    )
-                  );
-                  dispatch(
-                    AdminActions.getPOProjectID(
-                      true,
-                      `projectGroup=${itm?.projectGroup}`
-                    )
-                  );
-                  dispatch(
-                    AdminActions.getInvoiceSiteId(
-                      true,
-                      `projectId=${itm?.projectId}`
-                    )
-                  );
+                  dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
+                  dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
+                  dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
+                  dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${itm?.projectId}`));
                   dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(

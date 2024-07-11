@@ -21,6 +21,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 import FilterActions from '../../../../store/actions/filter-actions';
 import moment from 'moment';
 import ConditionalButton from '../../../../components/ConditionalButton';
+import CurrentuserActions from '../../../../store/actions/currentuser-action';
 
 const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -77,16 +78,17 @@ const InvoiceBased = () => {
                     ),
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
-                    dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
-                    dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
+                    dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
+                    dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
+                    dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
+                    // dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
+                    // dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
+                    // dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
                     dispatch(FinanceActions.getPOInvoicedBased())
-                    setmodalHead("PO Invoice Based")
+                    setmodalHead("Update PO Invoice Based")
                     setmodalBody(<>
                         <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                     </>)
-                    console.log('ahshshhs',itm)
-                    //setmodalOpen(false)
                 }}></EditButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
