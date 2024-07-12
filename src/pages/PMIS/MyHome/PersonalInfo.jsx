@@ -815,7 +815,7 @@ const PersonalInfo = (props) => {
                 <div className="grid grid-cols-1 md:grid-cols-1">
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.5px] border-[#13b497] p-4 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.5px] border-[#13b497] p-4 rounded-lg overflow-y-hidden"
                     }
                     errors={errors}
                     Form={PersonalInformation}
@@ -826,7 +826,7 @@ const PersonalInfo = (props) => {
 
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg overflow-y-hidden"
                     }
                     errors={errors}
                     Form={ContactInformation}
@@ -838,7 +838,7 @@ const PersonalInfo = (props) => {
                   register={register} setValue={setValue} getValues={getValues} /> */}
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg overflow-y-hidden"
                     }
                     errors={errors}
                     Form={ContactInformation2}
@@ -848,7 +848,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] h-auto border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] h-auto border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg overflow-y-hidden"
                     }
                     errors={errors}
                     Form={EmploymentDetails}
@@ -858,7 +858,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] h-auto border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] h-auto border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg overflow-y-hidden"
                     }
                     errors={errors}
                     Form={EmployeeProfile}
@@ -868,7 +868,7 @@ const PersonalInfo = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-[#13b497] p-4 mt-2 rounded-lg overflow-y-hidden"
                     }
                     errors={errors}
                     Form={SupportingDoc}

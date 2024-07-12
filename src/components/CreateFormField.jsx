@@ -256,7 +256,7 @@ const CreateFormField = ({
 
       {itm.type != "hidden" && itm.type != "heading" ? (
         <div
-          className={`mx-0 my-3 p-1 ${itm.classes ? itm.classes : "col-span-1"}`}
+          className={`mx-0 my-2 p-1 ${itm.classes ? itm.classes : "col-span-1"}`}
         >
           {/* {itm?.showlabel == false ? <></> : <div className="items-center justify-between">
               {
@@ -272,7 +272,7 @@ const CreateFormField = ({
           >
             {itm?.amp && (
               itm?.amp?.map((its) => {
-                return <div className={`flex flex-row border-b-2 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${its?.styling} ${its?.styling?.includes("w-") ? "" : " w-24 "}`}>
+                return <div className={`flex flex-row border-b-2  text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${its?.styling} ${its?.styling?.includes("w-24") ? "" : " w-24 "}`}>
                   {
                     its?.type == "select" && <SelectDropDown
                       itm={its}
@@ -332,7 +332,7 @@ const CreateFormField = ({
 
             {itm.type == "muitiSelect" ? (
 
-              <div className="w-full" style={{ position: 'relative' }}>
+              <div className="w-full" style={{ position: 'relative'}}>
 
                 <div style={{ width: "220px", height: "200px" }}>
                   <Multiselect

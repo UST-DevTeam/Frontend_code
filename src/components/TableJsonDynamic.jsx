@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 // const Handle = 
 
-const RowHandler = SortableHandle(() => <div className="handle text-center"><UilBars /></div>);
+const RowHandler = SortableHandle(() => <div className="handle text-center text-white"><UilBars /></div>);
 
 const TableRow = ({ data, columns, editing, tabHead, indexing, className }) => {
 
@@ -121,8 +121,8 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
     const SortableItem = SortableElement(props => <TableRow {...props} />);
     return <>
         <div className='h-[61.6vh]'>   
-            <table border={1} className='h-auto w-full table-auto mt-2 bg-white'>
-                <thead className='bg-primaryLine text-white text-[12px] sticky top-6 z-10  '>
+            <table border={1} className='h-auto w-full table-auto bg-[#2e3339]'>
+                <thead className='bg-primaryLine text-white text-[12px] sticky top-5 z-10  m-2 '>
                     <tr>
 
                         <th className='border-gray-400 border-[1.5px] w-28'> ☰ </th>

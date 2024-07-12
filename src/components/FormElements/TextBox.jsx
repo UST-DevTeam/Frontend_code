@@ -11,7 +11,7 @@ const TextBox = ({
   return (
     <>
 
-      <div className="flex flex-col w-full">  
+      <div className="flex flex-col h-full w-full">  
 
         <input
           type={itm.type}
