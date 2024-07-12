@@ -149,7 +149,7 @@ const projectListActions = {
     },
     globalProjectTypeDataPatch: (urle,projectuniqueId,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
         try {
-            console.log("maiglaosdfaofsddfdfsfcawefwefs",cb);
+            console.log("maiglaosdfaofsddfdfsfcawefwefs",data);
             if (projectuniqueId!=null){data["projectuniqueId"]=projectuniqueId}
             const res = await Api.patch({ url: urle+"/"+projectuniqueId, data:data })
             if (res?.status !== 200 && res?.status !== 201) return

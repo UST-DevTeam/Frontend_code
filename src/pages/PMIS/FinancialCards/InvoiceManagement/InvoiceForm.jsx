@@ -12,6 +12,8 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP, GET_PO_PROJECTTYPE, GET_PO_PROJECTID, GET_INVOICE_SITEID, GET_INVOICE_SSID } from "../../../../store/reducers/admin-reducer";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
+import { GET_CURRENT_USER_PG, GET_CURRENT_USER_PID, GET_CURRENT_USER_PT } from "../../../../store/reducers/currentuser-reducer";
 
 const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   const {
@@ -39,17 +41,18 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       };
     });
   });
+
   let projectGroupList = useSelector((state) => {
-    return state?.adminData?.getManageProjectGroup.map((itm) => {
+    return state?.currentuserData?.getcurrentuserPG.map((itm) => {
       return {
-        label: itm.projectGroupId,
+        label: itm.projectGroup,
         value: itm.uniqueId,
       };
     });
   });
 
   let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getPOProjectType.map((itm) => {
+    return state?.currentuserData?.getcurrentuserPT.map((itm) => {
       return {
         label: itm.projectType,
         value: itm.uniqueId,
@@ -58,7 +61,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   });
 
   let projectIdList = useSelector((state) => {
-    return state?.adminData?.getPOProjectID.map((itm) => {
+    return state?.currentuserData?.getcurrentuserPID.map((itm) => {
       return {
         label: itm?.projectId,
         value: itm?.uniqueId,
@@ -96,8 +99,8 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getManageProjectGroup(true, `customer=${e.target.value}`))
-          dispatch(AdminActions.getPOProjectType(true, `customer=${e.target.value}`))
+          dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${e.target.value}`))
+          dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${e.target.value}`))
         },
       },
     },
@@ -123,7 +126,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectGroupList,
       props: {
         onChange: (e) => {
-          dispatch(AdminActions.getPOProjectID(true, `projectGroup=${e.target.value}`))
+          dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${e.target.value}`))
         },
       },
       required: true,
@@ -234,6 +237,8 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       required: true,
       props: {
+        valueAsNumber: true,
+        min: 1,
         onChange: (e) => { },
       },
       classes: "col-span-1",
@@ -267,6 +272,8 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       type: "number",
       required: true,
       props: {
+        valueAsNumber: true,
+        min: 1,
         onChange: (e) => { },
       },
       classes: "col-span-1",
@@ -328,12 +335,11 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
-    dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll: [], reset: true }))
-    dispatch(GET_PO_PROJECTTYPE({ dataAll: [], reset: true }))
-    dispatch(GET_PO_PROJECTID({ dataAll: [], reset: true }))
+    dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
+    dispatch(GET_CURRENT_USER_PT({ dataAll: [], reset: true }))
+    dispatch(GET_CURRENT_USER_PID({ dataAll: [], reset: true }))
     dispatch(GET_INVOICE_SITEID({ dataAll: [], reset: true }))
     dispatch(GET_INVOICE_SSID({ dataAll: [], reset: true }))
-
     dispatch(AdminActions.getManageCustomer());
 
     if (resetting) {

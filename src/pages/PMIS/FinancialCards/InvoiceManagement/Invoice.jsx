@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -20,6 +20,8 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import InvoiceForm from "../InvoiceManagement/InvoiceForm";
 import moment from "moment";
 import FilterActions from "../../../../store/actions/filter-actions";
+import ConditionalButton from "../../../../components/ConditionalButton";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
 
 const Invoice = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -38,8 +40,15 @@ const Invoice = () => {
     return interdata;
   });
 
+  let showType = getAccessType("Action(Revenue Invoice)")
+
+    let shouldIncludeEditColumn = false
+
+    if (showType === "visible"){
+      shouldIncludeEditColumn = true
+    }
+
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.financeData?.getInvoice || [];
     return interdata?.map((itm) => {
       let updateditm = {
@@ -78,30 +87,10 @@ const Invoice = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(
-                    AdminActions.getManageProjectGroup(
-                      true,
-                      `customer=${itm?.customer}`
-                    )
-                  );
-                  dispatch(
-                    AdminActions.getPOProjectType(
-                      true,
-                      `customer=${itm?.customer}`
-                    )
-                  );
-                  dispatch(
-                    AdminActions.getPOProjectID(
-                      true,
-                      `projectGroup=${itm?.projectGroup}`
-                    )
-                  );
-                  dispatch(
-                    AdminActions.getInvoiceSiteId(
-                      true,
-                      `projectId=${itm?.projectId}`
-                    )
-                  );
+                  dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
+                  dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
+                  dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
+                  dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${itm?.projectId}`));
                   dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(
@@ -370,16 +359,20 @@ const Invoice = () => {
         value: "status",
         style: "min-w-[120px] max-w-[200px] text-center",
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
+      ...(shouldIncludeEditColumn
+        ? [
+          {
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[200px] text-center"
+        },
+        {
+            name: "Delete",
+            value: "delete",
+            style: "min-w-[100px] max-w-[200px] text-center"
+        }
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -527,7 +520,8 @@ const Invoice = () => {
                   name={"Delete"}
                 ></Button>
             )}
-            <Button
+            <ConditionalButton
+            showType={getAccessType("Add New(Revenue Invoice)")}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
@@ -542,14 +536,15 @@ const Invoice = () => {
                 );
               }}
               name={"Add Invoice"}
-            ></Button>
-            <Button
+            ></ConditionalButton>
+            <ConditionalButton
+            showType={getAccessType("Upload(Revenue Invoice)")}
               name={"Upload File"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
           </>
         }
         table={table}
@@ -563,6 +558,7 @@ const Invoice = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(Revenue Invoice)"}
       />
       <FileUploader
         isOpen={fileOpen}

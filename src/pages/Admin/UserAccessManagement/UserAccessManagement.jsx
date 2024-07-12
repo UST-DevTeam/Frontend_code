@@ -340,7 +340,7 @@ const UserAccessManagement = () => {
                 fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
-                btnName={"Finacial"}
+                btnName={"Financial"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FinancialView")}
               />
             }

@@ -231,9 +231,15 @@ const AllocateProjectForm = ({
     // }))
   };
 
+
+  console.log(activeTab,"_________activeTabactiveTab")
+
   console.log(errors, "dsadasdsadasdasdasdasdas");
   const onTableViewSubmit = (data) => {
     console.log(formValue, data, "globalDataglobalDataglobalData");
+
+
+    
 
     let dataForApp = [];
 
@@ -275,6 +281,7 @@ const AllocateProjectForm = ({
         name: from,
         data: {
           assignerId: dataForApp,
+          assigningTo: assigningTo
         },
         from: {
           uid: listsite,

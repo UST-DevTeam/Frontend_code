@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
-import { objectToQueryString } from "../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
@@ -20,6 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 import AdminActions from "../../../store/actions/admin-actions";
+import ConditionalButton from "../../../components/ConditionalButton";
 
 const EmpDetailsTable = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -59,6 +60,14 @@ const EmpDetailsTable = () => {
       };
     });
   });
+
+  let showType = getAccessType("Action(ManageEmployee)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  }
 
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
@@ -201,17 +210,21 @@ const EmpDetailsTable = () => {
         name: "Status",
         value: "status",
         style: "min-w-[100px] max-w-[450px] text-center",
-      },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
+      },     
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[100px] max-w-[100px] text-center",
+            },
+          ]
+        : [])
       // {
       //     name: "View",
       //     value: "view",
@@ -262,11 +275,8 @@ const EmpDetailsTable = () => {
     let shouldReset = data.reseter;
     delete data.reseter;
     let strVal=objectToQueryString(data)
+    console.log('strValstrValstrVal',strVal)
     setstrVal(strVal)
-    // if(strValFil){
-    //   strVal=strValFil
-    // }
-    // console.log("____strVal____",strVal)
     dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };
 
@@ -300,30 +310,34 @@ const EmpDetailsTable = () => {
     <>
       <AdvancedTable
         headerButton={
-          <div className="flex gap-1">
+          <div className="flex">
             {" "}
-            <Button
-              classes="w-auto"
+            <ConditionalButton 
+              showType={getAccessType("Add New(ManageEmployee)")}
+              classes="w-auto mr-1"
               onClick={() => {
                 dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
                 navigate(`${"/empdetails"}`);
               }}
               name={"Add New"}
-            ></Button>
-            <Button
+            ></ConditionalButton>
+
+            <ConditionalButton
+            showType={getAccessType("Upload(ManageEmployee)")}
               name={"Upload"}
-              classes="w-auto"
+              classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
-            <Button
+            ></ConditionalButton>
+            <ConditionalButton
+            showType={getAccessType("Upgrade(ManageEmployee)")}
               name={"Upgrade"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
             
           </div>
         }

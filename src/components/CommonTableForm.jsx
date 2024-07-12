@@ -134,13 +134,13 @@ console.log(newdte, "listinglistinglisting")
   }
   return (
     <>
-      <div className="sticky -top-[5px]">
-        <div className="w-full bg-white static">
-          <div className="w-full flex justify-end gap-1 sticky top-0  bg-white">
+      <div className="sticky -top-[8px]">
+        <div className="w-full bg-[#2e3339] static">
+          <div className="w-full flex justify-end gap-1 sticky top-0 bg-[#2e3339]">
             <Button
               name={"Bulk Upload"}
               icon={""}
-              classes={"w-auto  my-auto"}
+              classes={"w-auto my-auto"}
               onClick={() => {
                 console.log("dasdasdas");
 
@@ -182,7 +182,7 @@ console.log(newdte, "listinglistinglisting")
               <RoundedButton
                 name={"Add"}
                 icon={<UilSave />}
-                classes={"w-auto rounded-full my-auto"}
+                classes={"w-auto rounded-full bg-yellow-600 my-auto"}
                 onClick={() => {
                   // setlisting(prev => {
                   //   console.log(prev, "prevprevprev")
@@ -219,7 +219,7 @@ console.log(newdte, "listinglistinglisting")
               <RoundedButton
                 name={"Add"}
                 icon={<UilPen />}
-                classes={"w-auto rounded-full my-auto"}
+                classes={"w-auto rounded-full bg-yellow-600 my-auto bg-[#13b497]"}
                 onClick={() => {
                   console.log("dasdasdas");
 
@@ -232,7 +232,7 @@ console.log(newdte, "listinglistinglisting")
               <RoundedButton
                 name={"Add"}
                 icon={<UilPlusCircle />}
-                classes={"w-auto rounded-full my-auto"}
+                classes={"w-auto rounded-full bg-rose-600 my-auto"}
                 onClick={() => {
                   console.log("dasdasdas");
                   setedit((prev) => !prev);

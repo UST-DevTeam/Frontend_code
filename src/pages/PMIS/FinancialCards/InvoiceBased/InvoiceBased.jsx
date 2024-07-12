@@ -9,7 +9,7 @@ import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
 import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { getAccessType, objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
@@ -20,6 +20,8 @@ import FinanceActions from '../../../../store/actions/finance-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FilterActions from '../../../../store/actions/filter-actions';
 import moment from 'moment';
+import ConditionalButton from '../../../../components/ConditionalButton';
+import CurrentuserActions from '../../../../store/actions/currentuser-action';
 
 const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -32,14 +34,14 @@ const InvoiceBased = () => {
     const endDate = moment().format("Y");
     let dispatch = useDispatch()
 
+    let showType = getAccessType("Actions(PO Status Invoice)")
 
+    let shouldIncludeEditColumn = false
 
+    if (showType === "visible"){
+      shouldIncludeEditColumn = true
+    }
 
-
-    // let roleList = useSelector((state) => {
-    //     let interdata = state?.operationManagement?.USERS_LIST
-    //     return interdata
-    // })
     let dbConfigL = useSelector((state) => {
         let interdata = state?.financeData?.getPOInvoicedBased;
         return interdata;
@@ -76,16 +78,17 @@ const InvoiceBased = () => {
                     ),
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
-                    dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
-                    dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
+                    dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
+                    dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
+                    dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
+                    // dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
+                    // dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
+                    // dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
                     dispatch(FinanceActions.getPOInvoicedBased())
-                    setmodalHead("PO Invoice Based")
+                    setmodalHead("Update PO Invoice Based")
                     setmodalBody(<>
                         <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                     </>)
-                    console.log('ahshshhs',itm)
-                    //setmodalOpen(false)
                 }}></EditButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
@@ -307,16 +310,20 @@ const InvoiceBased = () => {
                 value: "poStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            ...(shouldIncludeEditColumn
+              ? [
+                {
+                  name: "Edit",
+                  value: "edit",
+                  style: "min-w-[100px] max-w-[200px] text-center"
+              },
+              {
+                  name: "Delete",
+                  value: "delete",
+                  style: "min-w-[100px] max-w-[200px] text-center"
+              }
+                ]
+              : [])
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -477,19 +484,23 @@ const InvoiceBased = () => {
                   name={"Delete"}
                 ></Button>
             )}
-            <Button classes="w-auto mr-1" onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                setmodalHead("New PO Invoice Based")
-                setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            <ConditionalButton
+              showType={getAccessType("Add New(PO Status Invoice)")} 
+              classes="w-auto mr-1" onClick={(e) => {
+              setmodalOpen(prev => !prev)
+              setmodalHead("New PO Invoice Based")
+              setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add"}></Button>
-                <Button
+              name={"Add"}>                
+            </ConditionalButton>
+            <ConditionalButton
+              showType={getAccessType("Upload file(PO Status Invoice)")}
               name={"Upload File"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
                 
                 </>}
             table={table}
@@ -503,6 +514,7 @@ const InvoiceBased = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            getaccessExport = {"Export(PO Status Invoice)"}
         />
         <FileUploader
         isOpen={fileOpen}

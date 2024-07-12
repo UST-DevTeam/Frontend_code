@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -21,6 +21,7 @@ import WorkDoneForm from "../WorkdoneManagement/WorkDoneForm";
 import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
 import moment from "moment";
 import FilterActions from "../../../../store/actions/filter-actions";
+import ConditionalButton from "../../../../components/ConditionalButton";
 
 const WorkDone = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -34,6 +35,14 @@ const WorkDone = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const endDate = moment().format("Y");
   let dispatch = useDispatch();
+
+  let showType = getAccessType("Actions(Workdone)")
+
+    let shouldIncludeEditColumn = false
+
+    if (showType === "visible"){
+      shouldIncludeEditColumn = true
+    }
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.financeData?.getPOWorkDoneBased || [];
@@ -413,11 +422,15 @@ const WorkDone = () => {
         value: "totalAmount",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[40px] max-w-[50px] text-center",
-      },
+      ...(shouldIncludeEditColumn
+        ? [
+          {
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[200px] text-center"
+        },
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -557,13 +570,14 @@ const WorkDone = () => {
                 setmodalBody(<POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button> */}
-            <Button
+            <ConditionalButton
+              showType={getAccessType("Upload(Workdone)")}
               name={"Upload File"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
           </>
         }
         table={table}
@@ -577,6 +591,7 @@ const WorkDone = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        getaccessExport = {"Export(Workdone)"}
       />
 
       <Modal

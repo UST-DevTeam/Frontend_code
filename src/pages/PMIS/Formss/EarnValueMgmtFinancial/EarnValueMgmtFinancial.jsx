@@ -177,6 +177,7 @@ const EarnValueMgmtFinancial = () => {
       return updateditm;
     });
   });
+  
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
@@ -198,6 +199,7 @@ const EarnValueMgmtFinancial = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
 
   const months = [
     "Jan",
@@ -337,8 +339,7 @@ const EarnValueMgmtFinancial = () => {
       day = 31,
       week;
 
-    // Find week that 31 Dec is in. If is first week, reduce date until
-    // get previous week.
+
     do {
       let d = new Date(year, month, day--);
       week = getWeekNumber(d)[1];
@@ -368,7 +369,6 @@ const EarnValueMgmtFinancial = () => {
   let listDict = {
     "": [],
     Weekly: listW,
-    // Monthly: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     Monthly: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
@@ -404,10 +404,6 @@ const EarnValueMgmtFinancial = () => {
         () => {}
       )
     );
-    // dispatch(AdminActions.getManageCircle());
-    // dispatch(AdminActions.getCardProjectType());
-    // dispatch(AdminActions.getManageCostCenter());
-    // dispatch(AdminActions.getProject());
   }, []);
 
   let formD = [
@@ -433,47 +429,15 @@ const EarnValueMgmtFinancial = () => {
       classes: "col-span-1 h-38px",
     },
 
-    
-    // {
-    //   label: "View As",
-    //   name: "typeSelectional",
-    //   value: "Select",
-    //   type: "select",
-    //   option: [
-    //     {
-    //       label: "Monthly View",
-    //       value: "Monthly",
-    //     },
-    //     // {
-    //     //   label: "Weekly View",
-    //     //   value: "Weekly",
-    //     // },
-    //   ],
-    //   props: {
-    //     onChange: (e) => {
-    //       setValue("selectional", e.target.value);
-    //       setValGm(e.target.value);
-    //       setSelectType(e.target.value)
-    //       console.log("afasfadfaamarafasdfasdfasdf",e.target.value);
-    //       console.log(selectType,'adsfasfasdfasdfadfsa');
-    //       // handle resert multiselect
-    //       // alert()
-    //     },
-    //   },
-    //   // required: true,
-    //   classes: "col-span-1",
-    // },
-
-
     {
-      label: "Month", 
+      label: ValGm, 
       name: "viewBy",
       value: "Select",
-      type: "newmuitiSelect2",
+      type: "muitiSelect",
       option: listDict[ValGm].map((dasd) => {
         return {
-          value: dasd?.id,
-          label: dasd?.name,
+          id: dasd?.id,
+          name: dasd?.name,
         };
       }),
       props: {
@@ -512,13 +476,10 @@ const EarnValueMgmtFinancial = () => {
           {
             name: `PV Target (${monthMap[index]} ${year})`,
             value: "M-"+index+"_y",
-            // value: "plan-"+index+"",
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            // value: "totalInvoice",
-            // value: "amount",
             value: "M-totalInvoice-" + index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
@@ -544,16 +505,13 @@ const EarnValueMgmtFinancial = () => {
       }
     });
     cols = cols.flat(Infinity);
-    console.log("cols_cols_____", cols);
 
     setNewColumns(cols);
 
-    // setValue('year',`${year}`)
-    // setValue('typeSelectional',"Monthly")
-    // setValue('viewBy',`${extraColumns.map(i=> `${i}`)}`)
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
+
     try {
       if (res?.typeSelectional === "Monthly") {
         setExtraColumns(
@@ -616,8 +574,10 @@ const EarnValueMgmtFinancial = () => {
         table={table}
         // exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx"]}
         exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx","POST",{viewBy: extraColumns.join(","),
-          year: `${currrentYear}`,
-          yyear: `${currrentYear}`,
+          // year: `${currrentYear}`,
+          // yyear: `${currrentYear}`,
+          year:year,
+          yyear:year,
           selectional: "Monthly",
           typeSelectional: "Monthly",}]}
         filterAfter={onSubmit}

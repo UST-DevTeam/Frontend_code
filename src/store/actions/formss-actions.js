@@ -77,6 +77,40 @@ const FormssActions = {
         }
     },
 
+    putprofitandloss: (data, cb) => async (dispatch, _) => {
+        try {
+            // alert(cb)
+            console.log("cb____",cb)
+            console.log("adfasfasfasasfadfsa",data);
+            const res = await Api.put({ data: data, url: Urls.forms_profit_loss })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+               
+            }
+             else {
+                let dataAll = res?.data?.data
+                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
+        
+            }
+            cb()
+
+        
+
+        } catch (error) {
+
+            // cb()
+
+            // alert(error.message)
+        }
+    },
+
     getEVMDelivery: (projectId,reset = true, args = "") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.formss_EVM_delivery +'/'+projectId}${args != "" ? "?" + args : ""} `, reset })
@@ -233,7 +267,8 @@ const FormssActions = {
                 cb()
             } else {
                 let dataAll = res?.data?.data
-                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }))
+                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
+                cb();
 
             }
 

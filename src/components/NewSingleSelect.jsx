@@ -38,7 +38,7 @@ const NewSingleSelect = ({ label, option = [], value = [], required = false, cb 
             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label + (length > 0 ? " ( " + length + " )" : "")}</label> */}
             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label}</label> */}
             <Select
-                className="outline-none border rounded-md border-main mt-[2px]"
+                className="outline-none border font-extrabold rounded-md border-main mt-[2px]"
                 options={option}
                 value={value}
                 defaultIsOpen={false}

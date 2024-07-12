@@ -73,24 +73,21 @@ const ClaimAndAdvanceChart = () => {
     }, []);
 
     return (
-            <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
-              
-                    <div className="flex items-center space-x-4 mb-8">
-                        <div className="flex flex-col flex-1">
-                            {/* <label className = "text-white">Project Group</label>*/}
-                            <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
-                        </div>
-                        <div className="flex flex-col flex-1">
+      <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
+      <div className="flex items-center space-x-4 mb-8">
+        <div className="flex space-x-4 justify-between w-full">
+            <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} />
+      
+            <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} />
+      
+            <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
+                     
+            <div className="flex space-x-4">
                         {/* <Button classes = "text-white !py-2 mt-6 flex justify-center text-[15px]" name={"Search"}></Button> */}
                         <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2"  icon={<UilSearch size="18" className={"hello"} />}></Button>
                         </div>
                     </div>
+        </div>
 
                 <PolarChart data={pieGraphData} />
 

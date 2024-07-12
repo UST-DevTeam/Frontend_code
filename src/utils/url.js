@@ -95,7 +95,6 @@ export const Urls={
     formss_accrualrevenue_trend: "/forms/accrualRevenueTrend",
     forms_profit_loss: "/forms/profilt&loss",
     admin_claim_type:"/expenses/ClaimType",
-    forms_profit_loss:"/forms/profilt&loss",
 
     admin_claim_type:"/expenses/ClaimType",
     admin_claim_type_unit_rate:"/expenses/unitRate",
@@ -155,6 +154,13 @@ export const Urls={
     graph_po_status:"/graph/poStatus",
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
+
+
+    // currentuser
+    
+    current_user_PG:"/currentuser/ProjectGroup",
+    current_user_PT:"/currentuser/ProjectType",
+    current_user_PID:"/currentuser/ProjectId"
 
 
 

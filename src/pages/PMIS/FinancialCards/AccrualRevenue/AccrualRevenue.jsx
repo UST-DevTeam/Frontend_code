@@ -535,6 +535,7 @@ const AccrualRevenue = () => {
                 setValue={setValue}
                 getValues={getValues}
                 totalCount={dbConfigTotalCount}
+                getaccessExport = {"Export(Accural Revenue)"}
             />
 
             <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

@@ -10,7 +10,7 @@ import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
- 
+
 const PLform = ({
   isOpen,
   setIsOpen,
@@ -25,13 +25,12 @@ const PLform = ({
   // console.log(setIsOpen,"setIsOpen")
   // console.log(resetting,"resetting")
   // console.log(formValue,"formValue")
-  let roleName = useSelector((state)=>{
-    console.log("afafasdfasdfasdfasfasdadfs",state);
-    let role = state?.auth?.user?.roleName
-    return role
-  })
-  console.log("adsfasfasdfasdfadfs",roleName);
-
+  let roleName = useSelector((state) => {
+    console.log("afafasdfasdfasdfasfasdadfs", state);
+    let role = state?.auth?.user?.roleName;
+    return role;
+  });
+  console.log("adsfasfasdfasdfadfs", roleName);
 
   const [modalOpen, setmodalOpen] = useState(false);
 
@@ -46,25 +45,41 @@ const PLform = ({
   //   });
   // });
 
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   const getPreviousCurrentAndNextMonth = () => {
-      const currentDate = new Date();
-      const currentMonthIndex = currentDate.getMonth();
-      const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
-      const nextMonthIndex = (currentMonthIndex + 1) % 12;
-      const currentYear = currentDate.getFullYear();
-      const previousMonthYear = currentMonthIndex === 0 ? currentYear - 1 : currentYear;
-      const nextMonthYear = currentMonthIndex === 11 ? currentYear + 1 : currentYear;
+    const currentDate = new Date();
+    const currentMonthIndex = currentDate.getMonth();
+    const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
+    const nextMonthIndex = (currentMonthIndex + 1) % 12;
+    const currentYear = currentDate.getFullYear();
+    const previousMonthYear =
+      currentMonthIndex === 0 ? currentYear - 1 : currentYear;
+    const nextMonthYear =
+      currentMonthIndex === 11 ? currentYear + 1 : currentYear;
 
-      return [
-          { month: months[previousMonthIndex], year: previousMonthYear },
-          { month: months[currentMonthIndex], year: currentYear },
-          { month: months[nextMonthIndex], year: nextMonthYear }
-      ];
+    return [
+      { month: months[previousMonthIndex], year: previousMonthYear },
+      { month: months[currentMonthIndex], year: currentYear },
+      { month: months[nextMonthIndex], year: nextMonthYear },
+    ];
   };
 
-  const [previousMonthData, currentMonthData, nextMonthData] = getPreviousCurrentAndNextMonth();
+  const [previousMonthData, currentMonthData, nextMonthData] =
+    getPreviousCurrentAndNextMonth();
   const monthsss = [
     "",
     "Jan",
@@ -80,130 +95,63 @@ const PLform = ({
     "Nov",
     "Dec",
   ];
-console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
-    console.log("afdasfasfasfasdfafasdfasafds",...monthss);
-    
-    
-    let Form = [
-      // {
-      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "",
-      //   name: 'plan1',
-      //   type: "number",
-      //   filter: true,
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      ...monthss.map((itm)=>(
-        {
-          label: `PV Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `M-${itm}_y`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
-      ...monthss.map((itm)=>(
-        {
-          label: `AOP Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `aop_target-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
-      // {
-      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "",
-      //   name: 'plan3',
-      //   type: "number",
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
-    ];
-    let Form2 = [
-      // {
-      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "",
-      //   name: 'plan1',
-      //   type: "number",
-      //   filter: true,
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },        
-        {
-          label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
-          value: "",
-          name:  `M-${monthss[0]}_y`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        },
-        {
-          label: `AOP Target (${currentMonthData.month} ${currentMonthData.year})`,
-          value: "",
-          name: `aop_target-${monthss[0]}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        },
-      
-      // {
-      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "",
-      //   name: 'plan3',
-      //   type: "number",
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
-    ];
+  console.log("afasdfasdfasdfasdfadsadf", monthsss[1]);
+  console.log("afdasfasfasfasdfafasdfasafds", ...monthss);
 
+  let Form = [
+    ...monthss.map((itm) => ({
+      label: `Projected Cost (${monthsss[itm]} ${year})`,
+      value: "",
+      // name: `M-${itm}_y`,
+      name: `projectedCost-${itm}`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    })),
+    ...monthss.map((itm) => ({
+      label: `Actual Cost (${monthsss[itm]} ${year})`,
+      value: "",
+      name: `actualCost-${itm}`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    })),
+  ];
+  let Form2 = [
+    {
+      label: `Projected Cost (${currentMonthData.month} ${currentMonthData.year})`,
+      value: "",
+      // name:  `M-${monthss[0]}_y`,
+      name: `projectedCost-${monthss[0]}`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: `Actual Cost (${currentMonthData.month} ${currentMonthData.year})`,
+      value: "",
+      name: `actualCost-${monthss[0]}`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+  ];
 
   const {
     register,
@@ -220,56 +168,81 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
     //     navigate('/authenticate')
     // }))
   };
-  console.log("afasafsasfasasfasfiajsfon",formValue);
+  console.log("afasafsasfasasfasfiajsfon", formValue);
   const onTableViewSubmit = (data) => {
-
-
-    for(let i = 0; i<monthss.length; i++){
+    
+    for (let i = 0; i < monthss.length; i++) {
       data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
     }
 
-
-
-
     // data['totalInvoice'] = formValue?.totalInvoice;
 
-
-
-
-    data['projectType'] = formValue?.projectType;
-    data['costCenter'] = formValue?.costCenter;
-    data['circle'] = formValue?.circle;
-    data['roleName'] = roleName;
-    data['uniqueId'] = formValue?.uniqueId;
-    data['year'] = year;
-    data['projectId'] = formValue?.projectId;
+    data["projectGroup"] = formValue?.projectGroup;
+    data["costCenter"] = formValue?.costCenter;
+    data["projectGroupUid"] = formValue?.projectGroupUid;
+    data["customer"] = formValue?.customer;
+    data["roleName"] = roleName;
+    data["uniqueId"] = formValue?.uniqueId;
+    data["year"] = year;
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
+
     if (formValue.uniqueId) {
+      // alert("data_____")
       dispatch(
-        FormssActions.putEarnValueMgmtFinancial(
+        FormssActions.putprofitandloss(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
-            setIsOpen(false);
-            dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
+          // alert("top")
+          setIsOpen(false)
+            dispatch(
+              FormssActions.postProfiltLossOnSearch(
+                {
+                  viewBy: monthss.join(","),
+                  year: year,
+                  yyear: year,
+                  selectional: "Monthly",
+                  typeSelectional: "Monthly",
+                },
+                () => {
+                  setIsOpen(false)
+                  // alert("bottom")
+                }
+              )
+            );
           },
+          formValue.uniqueId
         )
       );
     } else {
       dispatch(
-        FormssActions.postEarnValueMgmtFinancial(data, () => {
+        FormssActions.postProfiltLossOnSearch(data, () => {
           console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
-          dispatch(FormssActions.getEarnValueMgmtFinancial());
+          dispatch(FormssActions.postProfiltLossOnSearch());
         })
       );
     }
   };
+  //     const cb = () => {
+  //       setIsOpen(false);
+  //       dispatch(FormssActions.postProfiltLossOnSearch());
+  //   };
+
+  //   if (formValue.uniqueId) {
+  //       dispatch(FormssActions.putprofitandloss(data, cb, formValue.uniqueId));
+  //   } else {
+  //       dispatch(FormssActions.postProfiltLossOnSearch(data, cb));
+  //   }
+  // };
+
   console.log(Form, "Form 11");
+
+  // useEffect(()=> {
+  //   dispatch(FormssActions.postProfiltLossOnSearch());
+  // }, [])
+
   useEffect(() => {
-    console.log("formValue in useEffect:", formValue);
-    // dispatch(FormssActions.getEarnValueMgmtFinancial());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -291,8 +264,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
     }
   }, [formValue, resetting]);
 
-
-  console.log("afafasdfasdfjasdf0adfsa",monthss);
+  console.log("afafasdfasdfjasdf0adfsa", monthss);
   return (
     <>
       <Modal
@@ -312,23 +284,26 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
+      {/* <div onClick={() => setIsOpen(false)} className="h-10 w-10 bg-red-500">
+        ___hllo___
+      </div> */}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-       {/* {
+        {/* {
         monthss.map((itm)=>
         )
       } */}
-        
-      <>
-        <CommonForm
-          classes={"grid-cols-2 gap-1"}
-          Form={(roleName==='Admin')?Form:Form2}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
-      </>
+
+        <>
+        {/* <button className="p-3 bg-yellow-500" onClick={() => setIsOpen(p=>!p)}>yrdghoi</button> */}
+          <CommonForm
+            classes={"grid-cols-2 gap-1"}
+            Form={roleName === "Admin" ? Form : Form2}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </>
         {/* <button></button> */}
 
         {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}

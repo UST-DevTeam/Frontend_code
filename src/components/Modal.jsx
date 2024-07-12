@@ -1,7 +1,7 @@
 import React from 'react'
 import { UilTimesCircle } from '@iconscout/react-unicons'
 import Button from './Button'
-const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton = false, onClose }) => {
+const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButton = false, onClose, bgColor = 'black' }) => {
 
     const sizeType = {
         xlss: 'w-[96vw] h-[90vh] md:w-[60vw] md:h-[93vh]',
@@ -13,9 +13,13 @@ const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButto
         full: 'w-[96vw] h-[96vh] md:w-[98vw] md:h-[98vh]',
     }
 
+    const bgClass = {
+        black: 'bg-[#2e3339]',
+      };
+
     return (
         <div className={isOpen ? 'z-[4000] flex justify-around place-items-center bg-white dark:bg-darkBg fixed rm-scroll overflow-hidden top-0 bottom-0 right-0 left-0' : 'hidden'} style={{ background: 'rgba(6, 6, 6, 0.9)' }} onClick={() => { setIsOpen(prev => !prev) }}>
-            <div onClick={(e) => e.stopPropagation()} className={`relative bg-black dark:bg-darkBg  ${sizeType[size]} rounded-md modal-inner`}>
+            <div onClick={(e) => e.stopPropagation()} className={`relative ${bgClass[bgColor] || bgClass.black} dark:bg-darkBg  ${sizeType[size]} rounded-md modal-inner`}>
                 <div className='sticky bg-primaryLine h-10 top-0 right-0'>
 
                     <h1 className='text-white text-lg pt-2 pl-4'>{modalHead}</h1>
