@@ -292,7 +292,7 @@ const PL = () => {
       },
       {
         name: "Month",
-        value: "month",
+        value: "months",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -311,8 +311,8 @@ const PL = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Projected Revenue",
-        value: "achivement",
+        name: "Project Manager",
+        value: "empName",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -654,6 +654,7 @@ const PL = () => {
   return (
     <>
       <div className="flex">
+   
         <CommonForm
           classes={"w-5/6 grid-cols-3 gap-1 h-[111px]"}
           Form={formD}

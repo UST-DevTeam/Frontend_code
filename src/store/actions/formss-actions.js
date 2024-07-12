@@ -79,6 +79,8 @@ const FormssActions = {
 
     putprofitandloss: (data, cb) => async (dispatch, _) => {
         try {
+            // alert(cb)
+            console.log("cb____",cb)
             console.log("adfasfasfasasfadfsa",data);
             const res = await Api.put({ data: data, url: Urls.forms_profit_loss })
             if (res?.status !== 201 && res?.status !== 200) {
@@ -90,24 +92,22 @@ const FormssActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-                cb()
+               
             }
              else {
                 let dataAll = res?.data?.data
-                dispatch(forms_profit_loss({ dataAll, reset:true }))
-                let msgdata = {
-                    show: true,
-                    icon: "success",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-                cb()
+                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
+        
             }
+            cb()
+
+        
 
         } catch (error) {
-            return;
+
+            // cb()
+
+            // alert(error.message)
         }
     },
 
@@ -267,7 +267,8 @@ const FormssActions = {
                 cb()
             } else {
                 let dataAll = res?.data?.data
-                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }))
+                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
+                cb();
 
             }
 
