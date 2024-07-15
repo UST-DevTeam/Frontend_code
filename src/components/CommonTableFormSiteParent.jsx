@@ -65,7 +65,7 @@ const CommonTableFormSiteParent = ({
 
   return (
     <div className="max-w-full mx-auto">
-      <div className="flex border-b border-gray-200">
+      <div className="flex border-b-[1.5px] border-gray-400 p-1">
 
         {
           Object.keys(tabslist).map((itm) => {
@@ -73,7 +73,7 @@ const CommonTableFormSiteParent = ({
             console.log(itm, "itmitmitmitmitm")
             return <CustomizedButton
               onClick={() => handleTabClick(itm)}
-              classes={`${activeTab === itm ? 'border-b-[0.5px] border-blue-500 text-white bg-primaryLine text-center' : 'bg-purple-200 hover:bg-red-400 hover:text-white text-black '} mx-1 w-auto`}
+              classes={`${activeTab === itm ? 'mb-1 border-b-[3px] border-[#13b497] text-white bg-primaryLine text-center' : 'bg-purple-200 hover:bg-rose-400 hover:text-white text-black '} mx-1 w-auto`}
               name={itm}
             >
 
@@ -117,7 +117,7 @@ const CommonTableFormSiteParent = ({
       </div>
 
       <div className="flex">
-      {setmodalFullOpen&&
+      {setmodalFullOpen && activeTab !== "Financials" &&
         <Button name={"Submit"} classes="w-auto" onClick={()=>{
           setmodalFullOpen(prev=>!prev)
         }}/>

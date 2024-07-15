@@ -310,7 +310,6 @@
 }
 
 
-
 /* HTML: <div class="loader"></div> */
 /* .loader {
   width: 60px;
@@ -361,8 +360,8 @@ svg {
 
 ::-webkit-scrollbar {
   background-color: transparent;
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -634,6 +633,15 @@ td p {
 .css-1nmdiq5-menu >*{
   background-color: #252525 !important;
 }
+
+.custom-multiselect .optionContainer {
+  background-color: #f0f8ff !important; /* Example background color */
+}
+
+.custom-multiselect .optionContainer li {
+  background-color: #f0f8ff !important; /* Example background color */
+}
+
 
 
 

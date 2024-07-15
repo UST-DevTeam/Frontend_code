@@ -383,7 +383,7 @@ const   ManageProjectType = () => {
               <Button
                 classes="w-10"
                 name={""}
-                icon={<Unicons.UilAirplay />}
+                icon={<Unicons.UilFileCheck />}
                 onClick={() => {
                   setUniqueness((prev) => itm.uniqueId);
                   setmodalOpen(true);
@@ -658,7 +658,7 @@ const   ManageProjectType = () => {
             child={
               <Button
                 classes="w-10"
-                icon={<Unicons.UilAirplay />}
+                icon={<Unicons.UilBriefcaseAlt />}
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);

@@ -11,6 +11,7 @@ import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
 import {
+  getAccessType,
   labelToValue,
   objectToQueryString,
 } from "../../../../utils/commonFunnction";
@@ -88,6 +89,15 @@ const ManageSite = ({
   const [listing, setlisting] = useState([]);
 
   const dispatch = useDispatch();
+
+
+  let showType = getAccessType("Financial button under Template")
+
+    let assignfinacial = false
+
+    if (showType === "visible"){
+      assignfinacial = true
+    }
 
   // let mappedDataList = useSelector((state) => {
   //   return state?.projectList?.getMappedData 
@@ -345,29 +355,27 @@ const ManageSite = ({
     //     setmodalFullOpen(false)
     //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
     // }))
-
     let final_data = {};
-    dataOfProject["t_sFinancials"].map((itew) => {
-      let fieldNaming = labelToValue(itew["fieldName"]);
+        dataOfProject["t_sFinancials"].map((itew) => {
+        let fieldNaming = labelToValue(itew["fieldName"]);
+        final_data[fieldNaming] = data[fieldNaming];
+       });
 
-      final_data[fieldNaming] = data[fieldNaming];
-    });
+      setGlobalData((prev) => {
+        return {
+          ...prev,
+          t_sFinancials: final_data,
+        };
+      });
 
-    setGlobalData((prev) => {
-      return {
-        ...prev,
-        t_sFinancials: final_data,
-      };
-    });
-
-    let msgdata = {
-      show: true,
-      icon: "success",
-      buttons: [],
-      type: 1,
-      text: "Financial Data Added Click on submit to close menu",
-    };
-    dispatch(ALERTS(msgdata));
+    // let msgdata = {
+    //   show: true,
+    //   icon: "success",
+    //   buttons: [],
+    //   type: 1,
+    //   text: "Financial Data Added Click on submit to close menu",
+    // };
+    // dispatch(ALERTS(msgdata));
     // setmodalFullOpen(false)
   };
   const funcaller = () => {
@@ -591,47 +599,43 @@ const ManageSite = ({
                 />
               </>
             ),
-            Financials: (
-              <>
-                {/* <div className="flex justify-end">
-                  <Button
-                    classes="w-30"
-                    name="Save Financial"
-                    onClick={handleSubmitForm4(handleFinancialsSubmit)}
-                  />
-                </div> */}
-
-                <div className="overflow-auto h-[80vh]">
-                  {dataOfProject &&
-                    Array.isArray(dataOfProject["t_sFinancials"]) &&
-                    dataOfProject["t_sFinancials"] && (
-                      <table>
-                        <thead>
-                          <tr className="bg-black w-full overflow-x-auto flex ">
-                            {dataOfProject["t_sFinancials"].map((its) => {
-                              return (
-                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#143b64] text-white  ">
-                                  {its.fieldName}
-                                </th>
-                              );
-                            })}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Array.isArray(bodyData) &&
-                            bodyData?.map((itm, i) => (
-                              <tr key={i}>
-                                {Object.keys(itm)?.map((key, j) => {
-                                  return <td>{itm[key]}</td>;
-                                })}
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    )}
-                </div>
-              </>
-            ),
+            ...(assignfinacial
+            ? {
+              Financials: (
+                <>
+                  <div className="overflow-auto h-[80vh]">
+                    {dataOfProject &&
+                      Array.isArray(dataOfProject["t_sFinancials"]) &&
+                      dataOfProject["t_sFinancials"] && (
+                        <table>
+                          <thead>
+                            <tr className="bg-black w-full overflow-x-auto flex ">
+                              {dataOfProject["t_sFinancials"].map((its) => {
+                                return (
+                                  <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#143b64] text-white  ">
+                                    {its.fieldName}
+                                  </th>
+                                );
+                              })}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Array.isArray(bodyData) &&
+                              bodyData?.map((itm, i) => (
+                                <tr key={i}>
+                                  {Object.keys(itm)?.map((key, j) => {
+                                    return <td>{itm[key]}</td>;
+                                  })}
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      )}
+                  </div>
+                </>
+              ),
+          }
+          : {}),
           }}
         />
       </div>

@@ -519,7 +519,7 @@ const AdvancedTable = ({
                       return (
                         <tr>
                           {checkboxshow && (
-                            <td className="text-[12px] h-2 pl-1 border-green-400 border overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
+                            <td className="text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
                               <input
                                 type="checkbox"
                                 checked={selectedRows.includes(itm.uniqueId)}
@@ -530,7 +530,7 @@ const AdvancedTable = ({
                           {table.columns.map((innerItm, index) => {
                             return hide.indexOf(String(index)) == -1 ? (
                               <td 
-                                className={`text-[12px] h-2 pl-1 border-green-400  border overflow-hidden text-white ${
+                                className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${
                                   innerItm.style
                                     ? innerItm.style
                                     : " min-w-[300px] max-w-[500px]"
@@ -553,9 +553,9 @@ const AdvancedTable = ({
                 </tbody>
               ) : (
                 <tbody>
-                  <tr className="border-2 border-black text-center">
-                    <td colSpan={table.columns.length} className="">
-                      No Records Found
+                  <tr className="border-[1.5px] border-[#0e8670] text-center text-slate-200">
+                    <td colSpan={table.columns.length} className="text-xl">
+                      <span className="text-[13px] font-bold">No Records Found</span>
                     </td>
                   </tr>
                 </tbody>
@@ -575,7 +575,7 @@ const AdvancedTable = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-primaryLine border-[0.1px] bg-primaryLine "
+                                  " border-[#0e8670] border-[0.1px] bg-primaryLine "
                                 }
                               >
                                 <span className="text-white text-[12px]">
@@ -587,7 +587,7 @@ const AdvancedTable = ({
                             )
                           ) : (
                             <>
-                              <th className=" border-gray-400 border-[0.1px] bg-primaryLine ">
+                              <th className=" border-[#0e8670] border-[0.1px] bg-primaryLine ">
                                 <span className="text-white text-[12px]">
                                   {itts.name}
                                 </span>

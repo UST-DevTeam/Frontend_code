@@ -186,22 +186,22 @@ const ManageCustomer = () => {
       {
         name: "Logo",
         value: "imgshow",
-        style: "min-w-[140px] max-w-[200px] text-center sticky bg-['']",
+        style: "min-w-[120px] max-w-[200px] text-center",
       },
       {
         name: "Customer Name",
         value: "customerName",
-        style: "min-w-[140px] max-w-[450px] text-center sticky  bg-['']",
+        style: "min-w-[130px] max-w-[450px] text-center sticky left-[0px] z-10 bg-[#3e454d]",
       },
       {
         name: "Short Name",
         value: "shortName",
-        style: "min-w-[100px] max-w-[200px] text-center",
+        style: "min-w-[110px] max-w-[200px] text-center",
       },
       {
         name: "Contact Person name",
         value: "personName",
-        style: "min-w-[160px] max-w-[450px] text-center",
+        style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
         name: "Email ID",
@@ -343,7 +343,7 @@ const ManageCustomer = () => {
                 {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
-                      className="m-auto w-[50px] rounded-md hover:border-[#4a525b] hover:border-[1.5px]"
+                      className="m-auto w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>

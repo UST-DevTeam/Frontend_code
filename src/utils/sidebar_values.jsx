@@ -708,7 +708,7 @@ export const Sidebar_content = {
       {
         name: "My Dashboard",
         link: "/",
-        component: <DashboardCard/>,
+        component: <HomeCards />,
         icon: <UilAirplay className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },

@@ -95,7 +95,7 @@ const DashboardCard = () => {
                 {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
-                     className="m-auto w-[50px] rounded-md hover:border-[#4a525b] hover:border-[1.5px]"
+                     className="m-auto w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>

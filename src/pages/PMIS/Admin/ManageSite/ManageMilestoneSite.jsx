@@ -101,6 +101,14 @@ const ManageMilestoneSite = ({
 
   const dispatch = useDispatch();
 
+  let showType = getAccessType("Financial button under Template")
+
+    let assignfinacial = false
+
+    if (showType === "visible"){
+      assignfinacial = true
+    }
+
   let circleWithPGList = useSelector((state) => {
     return state?.projectList?.getCircleWithPGData?.map((itm) => {
       return {
@@ -814,6 +822,8 @@ const ManageMilestoneSite = ({
             //     />
             //   </>
             // ),
+            ...(assignfinacial
+            ? {
             Financials: (
               <>
                 {/* <div className="flex justify-end">
@@ -910,6 +920,8 @@ const ManageMilestoneSite = ({
                 </div>
               </>
             ),
+            }
+            : {}),
           }}
         />
       </div>

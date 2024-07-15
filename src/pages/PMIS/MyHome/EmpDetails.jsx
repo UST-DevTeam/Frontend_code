@@ -1154,13 +1154,13 @@ const EmpDetails = (props) => {
                     onClick={() => {
                       navigate("/hr/empDetailsTable");
                     }}
-                    className="mt-2 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 text-white text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold text-white text-sm font-extrabold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-2 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold hover:border-black hover:border-2 px-10 py-1 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold px-10 py-1 text-sm font-extrabold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>

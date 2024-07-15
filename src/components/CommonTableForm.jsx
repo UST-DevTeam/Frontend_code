@@ -134,9 +134,9 @@ console.log(newdte, "listinglistinglisting")
   }
   return (
     <>
-      <div className="sticky -top-[8px]">
-        <div className="w-full bg-[#2e3339] static">
-          <div className="w-full flex justify-end gap-1 sticky top-0 bg-[#2e3339]">
+      <div className="sticky -top-[8px] z-[1000000]">
+        <div className="w-full bg-[#2e3339] static ">
+          <div className="w-full flex justify-end gap-1 bg-[#2e3339] sticky top-0 z-[1000000]">
             <Button
               name={"Bulk Upload"}
               icon={""}
@@ -219,7 +219,7 @@ console.log(newdte, "listinglistinglisting")
               <RoundedButton
                 name={"Add"}
                 icon={<UilPen />}
-                classes={"w-auto rounded-full bg-yellow-600 my-auto bg-[#13b497]"}
+                classes={"w-auto rounded-full bg-yellow-600 my-auto"}
                 onClick={() => {
                   console.log("dasdasdas");
 
