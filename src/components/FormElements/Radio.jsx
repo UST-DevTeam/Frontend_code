@@ -22,7 +22,7 @@ const Radio = ({ itm, errors, handleSubmit, setValue, getValues, register }) => 
                 })
             }
             {console.log(errors, [itm.name], "esnjnjsnjsjnjnsrrors?.itm?")}
-            <p className='text-xs text-red-700 '>{errors[itm.name]?.message}</p>
+            <p className='text-xs text-rose-400 font-bold '>{errors[itm.name]?.message}</p>
 
         </div>
     </>

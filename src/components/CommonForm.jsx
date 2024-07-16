@@ -94,7 +94,7 @@ const CommonForm = ({
                         <label className="block text-sm font-medium text-white ml-3 dark:text-darkBg break-words	">
                           {itm.label}
                           {itm?.required && (
-                            <span className="text-red-600 ml-1 ">*</span>
+                            <span className="text-rose-500 ml-1 ">*</span>
                           )}
                         </label>
                       }
@@ -102,7 +102,7 @@ const CommonForm = ({
                   )}
                   <div
                     className={
-                      uiList[itm.type]?.height + " mt-2  px-2  flex flex-row"
+                      uiList[itm.type]?.height + " mt-2  px-2 "
                     }
                   >
                     {itm?.amp &&

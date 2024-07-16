@@ -81,7 +81,7 @@ const Login = () => {
                             </>
                         }
                     </div>
-                    <p className='text-xs text-red-700 font-poppins'>{errors?.email?.message}</p>
+                    <p className='text-xs text-rose-400 font-bold font-poppins'>{errors?.email?.message}</p>
                 </div>
             </div>
 

@@ -268,7 +268,7 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-[11px] mx-2">
+                              <span className="text-[11px] text-white mx-2 font-semibold">
                                 {itts.name}
                               </span>
                             </div>

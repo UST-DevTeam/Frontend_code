@@ -633,7 +633,7 @@ const ManageProject = () => {
                       }}
                       >
                       </Button>
-                     <Button
+                     {/* <Button
                       name={"Export Site"}
                       classes="w-auto m-4"
                       onClick={() => {
@@ -645,7 +645,59 @@ const ManageProject = () => {
                         );
                       }}
                       >
-                      </Button>
+                      </Button> */}
+
+
+                      <PopupMenu
+                                    name={"Export Site"}
+                                    icon={"Export Site"}
+                                    classes="w-auto m-4"
+                                    bgColor={"bg-[#A16E83]"}
+                                    child={
+                                      
+                                      <div classes="flex z-40 max-h-96 flex-col p-1">
+                                        
+                                          <Button name={"Upgrade Site"} classes='w-auto m-5' 
+                                          onClick={(e) => {
+                                                setFileOpen(prev=>!prev)
+                                                setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
+                                                setfileType(`updateSite`)
+
+
+                                                
+                                            }}></Button>
+
+                                          <Button
+                                            name={"Upgrade Task"}
+                                            classes="w-auto m-5"
+                                            onClick={() => {
+                                              setFileOpen(prev=>!prev)
+                                              setFileOpenlink([`/template/Task_Update.xlsx`,"Task_Update.xlsx"])
+                                              setfileType(`updateMilestone`)
+                                            }}
+                                            >
+                                            </Button>
+                                          {/* <Button
+                                            name={"Export Site with Task"}
+                                            classes="w-auto m-5"
+                                            onClick={() => {
+                                              dispatch(
+                                                CommonActions.commondownload(
+                                                  "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                                                  "Export_Project_with_Task.xlsx"
+                                                )
+                                              );
+                                            }}
+                                            >
+                                            </Button> */}
+                                      </div>
+                                          
+                                        }
+                                  />
+
+
+
+
                      <Button
                       name={"Export Site with Task"}
                       classes="w-auto m-4"
