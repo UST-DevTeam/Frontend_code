@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import PopupMenu from "./PopupMenu";
 import { current } from "@reduxjs/toolkit";
-import { UilColumns } from "@iconscout/react-unicons";
+import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
 import { UilFilter } from "@iconscout/react-unicons";
 import Modalmoreinfo from "./Modalmoreinfo";
 import Modal from "./Modal";
@@ -614,10 +614,11 @@ const AdvancedTable = ({
           <div className="flex justify-between">
             {tableName === "ManageEmployee" &&( 
               <div>
-                <label className="mr-2 text-white">Rows Per Page:</label>
+                <label className="mr-2 text-white">Rows Per Page :</label>
                 <select
                   value={RPP}
                   onChange={(e) => handleRPPChange(parseInt(e.target.value))}
+                  className="rounded-sm" 
                 >
                   {table.properties.rpp.map((itm, idx) => (
                     <option key={idx} value={itm}>
@@ -640,7 +641,7 @@ const AdvancedTable = ({
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${
                         currentPage == index + 1
-                          ? "bg-primaryLine text-white border-primaryLine"
+                          ? "bg-[#13b497] text-white border-primaryLine"
                           : "bg-white text-black border-primaryLine"
                       } `}
                     >
@@ -656,7 +657,7 @@ const AdvancedTable = ({
                     }}
                     className={`border cursor-pointer border-primaryLine ${
                       currentPage == index + 1
-                        ? "bg-primaryLine text-white"
+                        ? "bg-[#13b497] text-white"
                         : "bg-white"
                     } px-2 mx-2`}
                   >
@@ -677,12 +678,13 @@ const AdvancedTable = ({
       />
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <p>{`Are you sure you want to delete ${
+        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
+          <div className="bg-white p-4 rounded-lg shadow-xl">
+            <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
+            <p className="mt-4">{`Are you sure you want to delete ${
               selectedRows.length > 1 ? "these rows" : "this row"
             }?`}</p>
-            <div className="mt-4 flex justify-center space-x-4">
+            <div className="mt-6 flex justify-center space-x-4">
               <Button name="Delete" classes="w-auto bg-rose-500" onClick={handleDelete} />
               <Button name="Cancel" classes="w-auto" onClick={() => setShowDeleteModal(false)} />
               

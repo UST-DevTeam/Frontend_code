@@ -204,7 +204,7 @@ const AdvancedTableExpandable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-slate-800 text-[11px] mx-2">
+                              <span className="text-white text-[11px] mx-2">
                                 {itts.name}
                               </span>
                             </div>
@@ -404,7 +404,7 @@ const AdvancedTableExpandable = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-primaryLine border-[1.5px] bg-primaryLine "
+                                  " border-[#0e8670] border-[0.1px] bg-primaryLine "
                                 }
                               >
                                 <span className="text-white text-[12px]">
@@ -416,7 +416,7 @@ const AdvancedTableExpandable = ({
                             )
                           ) : (
                             <>
-                              <th className=" border-primaryLine border-[1.5px] bg-primaryLine ">
+                              <th className=" border-[#0e8670] border-[0.1px] bg-primaryLine ">
                                 <span className="text-white text-[12px]">
                                   {itts.name}
                                 </span>
@@ -443,12 +443,12 @@ const AdvancedTableExpandable = ({
         <div className="m-2">
           <div className="flex justify-between">
             <div>
-              {/* <label>Rows Per Page: </label>
-              <select onChange={(e) => setRPP(e.target.value)}>
+              <label className="text-white">Rows Per Page : </label>
+              <select className="rounded-sm" onChange={(e) => setRPP(e.target.value)}>
                 {table.properties.rpp.map((itm) => {
                   return <option>{itm}</option>;
                 })}
-              </select> */}
+              </select>
             </div>
 
             <div className="flex ">
@@ -462,7 +462,7 @@ const AdvancedTableExpandable = ({
                         callApiPagination(index + 1);
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
-                        ? "bg-primaryLine text-white border-primaryLine"
+                        ? "bg-[#0e8670] text-white border-primaryLine"
                         : "bg-white text-black border-primaryLine"
                         } `}
                     >

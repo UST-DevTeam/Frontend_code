@@ -93,11 +93,14 @@ const ManageVendor = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.vendor_details}/${itm.uniqueId}`,
+                            CommonActions.deleteApiCallerBulk(
+                              `${Urls.vendor_details}`,
+                              {
+                                ids:[itm.uniqueId]
+                              },
                               () => {
                                 dispatch(VendorActions.getManageVendorDetails());
                                 dispatch(ALERTS({ show: false }));
@@ -108,7 +111,7 @@ const ManageVendor = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
@@ -254,6 +257,7 @@ const ManageVendor = () => {
     setstrVal(strVal)
     dispatch(VendorActions.getManageVendorDetails(value, objectToQueryString(data),strVal));
   };
+  
   useEffect(() => {
     dispatch(VendorActions.getManageVendorDetails());
   }, []);
@@ -321,6 +325,9 @@ const ManageVendor = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        checkboxshow = {true}
+        delurl = {Urls.vendor_details}
+        geturl = {VendorActions.getManageVendorDetails()}
         getaccessExport = {"Export(Partner On-Board)"}
       />
 

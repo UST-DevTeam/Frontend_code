@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UilMultiply } from "@iconscout/react-unicons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import ComponentActions from "../store/actions/component-actions";
 import { isValidObjectId } from "../utils/commonFunnction";
@@ -16,8 +16,6 @@ function changeCase(str) {
   // Join words with spaces
   return capitalizedWords.join('');
 }
-
-
 
 const BreadCrumbs = () => {
 
@@ -39,6 +37,8 @@ const BreadCrumbs = () => {
   //     "/projectManagement/"+data[2]+"/"+data[4]
   //   ],
   // }
+  const { cname, customeruniqueId, projecttypeuniqueId } = useParams();
+  let itm =""
 
   let Dtheader={
     "manageCustomer":{
@@ -51,12 +51,22 @@ const BreadCrumbs = () => {
     },
     "projectManagement_1":{
       "name":"Project Management",
+      "url":`${"/projectManagement_1"}/${cname}/projectType/${customeruniqueId}/${projecttypeuniqueId}`
+    },
+
+    "projectManagement_1":{
+      "name":"Project Management",
       "url":"/manageCustomer"
     },
+
     "projectManagement_2":{
       "name":"Project Management",
       "url":"/manageCustomer"
     },
+    // "GoToProject":{
+    //   "name":"Go To Project",
+    //   "url":`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`
+    // },
     "home":{
       "name":"My Home",
       "url":"/home"
@@ -133,6 +143,10 @@ const BreadCrumbs = () => {
     "dashboard":{
       "name":"Dashboard",
       "url":"/",
+    },
+    "personalInfo":{
+      "name":"Personal Information",
+      "url":"/home/personalInfo",
     },
   }
   

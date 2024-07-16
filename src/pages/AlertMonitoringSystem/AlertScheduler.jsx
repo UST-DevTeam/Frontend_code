@@ -96,13 +96,13 @@ const AlertScheduler = () => {
                         show: true,
                         icon: 'warning',
                         buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
+                            <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.alertConfiguration_configureAlert}/${itm.uniqueId}`, () => {
                                     dispatch(CustomQueryActions.getDBConfig())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
+                            <Button classes='w-auto' onClick={() => {
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],

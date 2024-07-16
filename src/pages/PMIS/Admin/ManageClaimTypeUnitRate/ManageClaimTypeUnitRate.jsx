@@ -61,13 +61,13 @@ const ManageClaimTypeUnitRate = () => {
                         show: true,
                         icon: 'warning',
                         buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
+                            <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_claim_type_unit_rate}/${itm.uniqueId}`, () => {
                                     dispatch(AdminActions.getManageClaimTypeUnitRate())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
+                            <Button classes='w-auto' onClick={() => {
                                 console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />

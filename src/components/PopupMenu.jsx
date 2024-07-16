@@ -181,7 +181,7 @@ const PopupMenu = ({ dataclasses = "", classes = "", popupname = "", name, child
             <Button classes={"h-full"} onClick={handleClick} icon={icon} name={popupname} />
             {
                 filterVisibility === location.pathname + "_" + name &&
-                <div ref={modalRef} className={`${dataclasses} fixed border-black border-[1.5px] w-96 bg-[#4f5760] pos`}>
+                <div ref={modalRef} className={`${dataclasses} fixed border-black border-[1.5px] w-96 bg-[#3e454d] pos`}>
                     <div className='flex justify-center bg-secLine text-white '><h5 className='text-base text-white font-bold'>{name}</h5></div>
                     {child}
                 </div>

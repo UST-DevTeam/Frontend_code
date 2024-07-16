@@ -82,7 +82,7 @@ const Sidebar = ({ sidebarOpen, setsidebarOpenn }) => {
         {sidebarOpen ? (
           <img className=" ml-3.5 w-[100px] mt-2" src="/logo.png" alt="PIMS" />
         ) : (
-          <img className=" ml-3.5 w-[50px] mt-2" src="/favico.png" alt="PIMS" />
+          <img className=" ml-2.5 w-[40px] mt-2" src="/favico.png" alt="PIMS" />
         )}
 
         <ul className="space-y-2 h-[80vh] w-56 overflow-y-scroll font-poppins font-bold">

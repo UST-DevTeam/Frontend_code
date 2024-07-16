@@ -161,7 +161,7 @@ const AdvancedTableRow = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-slate-800 text-[11px] mx-2">
+                              <span className="text-white text-[11px] mx-2">
                                 {itts.name}
                               </span>
                             </div>
@@ -400,8 +400,8 @@ const AdvancedTableRow = ({
         <div className="m-2">
           <div className="flex justify-between">
             <div>
-              <label>Rows Per Page: </label>
-              <select onChange={(e) => setRPP(e.target.value)}>
+              <label className="text-white">Rows Per Page : </label>
+              <select className="rounded-sm" onChange={(e) => setRPP(e.target.value)}>
                 {table.properties.rpp.map((itm) => {
                   return <option>{itm}</option>;
                 })}
@@ -419,7 +419,7 @@ const AdvancedTableRow = ({
                         callApiPagination(index + 1);
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
-                        ? "bg-primaryLine text-black border-primaryLine"
+                        ? "bg-[#13b497] text-black border-primaryLine"
                         : "bg-white text-black border-primaryLine"
                         } `}
                     >
@@ -434,7 +434,7 @@ const AdvancedTableRow = ({
                       callApiPagination(index + 1);
                     }}
                     className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
-                      ? "bg-primaryLine text-white"
+                      ? "bg-[#13b497] text-white"
                       : "bg-white"
                       } px-2 mx-2`}
                   >

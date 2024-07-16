@@ -132,7 +132,7 @@ const ManageProject = () => {
           <>
             <div className="flex justify-center gap-3">
               <p
-                className="items-center cursor-pointer"
+                className="items-center cursor-pointer text-[#E6BE8A]"
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
@@ -214,7 +214,7 @@ const ManageProject = () => {
                               name={"OK"}
                             />,
                             <Button
-                              classes="w-24"
+                              classes="w-auto"
                               onClick={() => {
                                 console.log("snnsnsnsns");
                                 dispatch(ALERTS({ show: false }));
@@ -295,7 +295,7 @@ const ManageProject = () => {
         //                 name={"OK"}
         //               />,
         //               <Button
-        //                 classes="w-24"
+        //                 classes="w-auto"
         //                 onClick={() => {
         //                   console.log("snnsnsnsns");
         //                   dispatch(ALERTS({ show: false }));
@@ -384,7 +384,7 @@ const ManageProject = () => {
       {
         name: "Project ID",
         value: "projectId",
-        style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-[]",
+        style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Project Group",
@@ -633,7 +633,7 @@ const ManageProject = () => {
                       }}
                       >
                       </Button>
-                     {/* <Button
+                     <Button
                       name={"Export Site"}
                       classes="w-auto m-4"
                       onClick={() => {
@@ -645,59 +645,7 @@ const ManageProject = () => {
                         );
                       }}
                       >
-                      </Button> */}
-
-
-                      <PopupMenu
-                                    name={"Export Site"}
-                                    icon={"Export Site"}
-                                    classes="w-auto m-4"
-                                    bgColor={"bg-[#A16E83]"}
-                                    child={
-                                      
-                                      <div classes="flex z-40 max-h-96 flex-col p-1">
-                                        
-                                          <Button name={"Upgrade Site"} classes='w-auto m-5' 
-                                          onClick={(e) => {
-                                                setFileOpen(prev=>!prev)
-                                                setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
-                                                setfileType(`updateSite`)
-
-
-                                                
-                                            }}></Button>
-
-                                          <Button
-                                            name={"Upgrade Task"}
-                                            classes="w-auto m-5"
-                                            onClick={() => {
-                                              setFileOpen(prev=>!prev)
-                                              setFileOpenlink([`/template/Task_Update.xlsx`,"Task_Update.xlsx"])
-                                              setfileType(`updateMilestone`)
-                                            }}
-                                            >
-                                            </Button>
-                                          {/* <Button
-                                            name={"Export Site with Task"}
-                                            classes="w-auto m-5"
-                                            onClick={() => {
-                                              dispatch(
-                                                CommonActions.commondownload(
-                                                  "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
-                                                  "Export_Project_with_Task.xlsx"
-                                                )
-                                              );
-                                            }}
-                                            >
-                                            </Button> */}
-                                      </div>
-                                          
-                                        }
-                                  />
-
-
-
-
+                      </Button>
                      <Button
                       name={"Export Site with Task"}
                       classes="w-auto m-4"

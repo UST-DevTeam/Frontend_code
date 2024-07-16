@@ -543,7 +543,7 @@ const ManageProjectSiteId = () => {
 
                             buttons: [
                               <Button
-                                classes="w-15 bg-green-500"
+                                classes='w-15 bg-rose-400'
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCaller(
@@ -562,7 +562,7 @@ const ManageProjectSiteId = () => {
                                 name={"OK"}
                               />,
                               <Button
-                                classes="w-24"
+                                classes="w-auto"
                                 onClick={() => {
                                   console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
@@ -788,7 +788,7 @@ const ManageProjectSiteId = () => {
                             icon: "warning",
                             buttons: [
                               <Button
-                                classes="w-15 bg-green-500"
+                                classes='w-15 bg-rose-400'
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCallerBulk(
@@ -807,7 +807,7 @@ const ManageProjectSiteId = () => {
                                 name={"OK"}
                               />,
                               <Button
-                                classes="w-24"
+                                classes="w-auto"
                                 onClick={() => {
                                   console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));

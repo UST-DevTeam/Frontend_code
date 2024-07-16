@@ -212,7 +212,7 @@ const ClaimAdvanceForm = ({
       //       icon: 'warning',
       //       buttons: [
       //         <Button
-      //           classes='w-24'
+      //           classes='w-auto'
       //           onClick={() => {
       //             dispatch(ALERTS({ show: false }));
       //           }}

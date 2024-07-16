@@ -95,13 +95,13 @@ const VendorProjectAllocation = () => {
                 //         show: true,
                 //         icon: 'warning',
                 //         buttons: [
-                //             <Button classes='w-15 bg-green-500' onClick={() => {
+                //             <Button classes='w-15 bg-rose-400' onClick={() => {
                 //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project_allocation}/${itm.uniqueId}`, () => {
                 //                     dispatch(AdminActions.getProjectAllocation())
                 //                     dispatch(ALERTS({ show: false }))
                 //                 }))
                 //             }} name={"OK"} />,
-                //             <Button classes='w-24' onClick={() => {
+                //             <Button classes='w-auto' onClick={() => {
                 //                 console.log('snnsnsnsns')
                 //                 dispatch(ALERTS({ show: false }))
                 //             }} name={"Cancel"} />
@@ -186,9 +186,7 @@ const VendorProjectAllocation = () => {
     }, [])
 
     const onTableViewSubmit = (data) => { 
-        console.log(data, "datadata")
-        data["fileType"]="ManageCircle"
-        data['collection'] = "circle"
+        data["fileType"]="partnerProjectAllocation"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(AdminActions.getVendorProjectAllocation())
             setFileOpen(false)
@@ -204,8 +202,9 @@ const VendorProjectAllocation = () => {
                 setmodalBody(<ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button> */}
-                {/* <Button name={""} classes='w-auto ' onClick={(e) => {
-                }}></Button> */}
+                <Button name={"Upload"} classes='w-auto ' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}></Button>
                 </div>}
             table={table}
             filterAfter={onSubmit}
@@ -222,7 +221,7 @@ const VendorProjectAllocation = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  tempbtn={true} tempbtnlink = {["/template/PartnerProjectAllocation.xlsx","PartnerProjectAllocation.xlsx"]} />
     </>
 
 

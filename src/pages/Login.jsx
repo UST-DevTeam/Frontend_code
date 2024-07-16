@@ -81,8 +81,8 @@ const Login = () => {
                             </>
                         }
                     </div>
-                    <p className='text-xs text-rose-400 font-bold font-poppins'>{errors?.email?.message}</p>
                 </div>
+                <p className='text-xs text-rose-500 font-extrabold mt-1'>{errors?.email?.message}</p>
             </div>
 
             <div>
@@ -96,18 +96,18 @@ const Login = () => {
                             (!showPassword) ? (<><FaEyeSlash /></>) : (<><IoEye /></>)
                         }
                     </div>
-                    <p className='text-xs text-red-700'>{errors.password?.message}</p>
                 </div>
-                <button className="btn text-txt-neavy text-sm float-right pt-2">Forgot Password?</button>
+                <p className='text-xs text-rose-500 font-extrabold mt-1'>{errors.password?.message}</p>
+                {/* <button className="btn text-txt-neavy text-sm float-right pt-2">Forgot Password?</button> */}
             </div>
             <div className='flex w-full pt-6'>
                 {/* <button onClick={() => {
                 navigate('/register')
             }} type="button" className="flex w-full justify-center rounded-full bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:outline-bg-pbutton hover:animate-pulse buttonAnim border-2 hover:border-2 border-gray-700 hover:border-gray-700">Register</button> */}
                 <button type="submit" className="flex w-full justify-center rounded-lg bg-secLine 
-                px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline 
-                    focus-visible:outline-2  focus-visible:outline-offset-2  buttonAnim border-2 border-gray-200 font-poppins transition
-                    duration-1000 ease-in-out hover:bg-gradient-to-r from-blue-200 via-blue-300 to-violet-200 hover:text-black hover:border-black hover:border-2">Sign in</button>
+                 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline 
+                    focus-visible:outline-2  focus-visible:outline-offset-2  buttonAnim border-2 border-gray-300 font-poppins transition
+                    duration-1000 ease-in-out hover:bg-gradient-to-r from-blue-200 via-blue-300 to-violet-200 hover:text-black hover:border-black hover:border-[1.5px]">Sign in</button>
             </div>
         </form>
         <div className="p-0 m-2 flex justify-center items-center">

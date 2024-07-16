@@ -32,10 +32,10 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                 
                 // ((!checkp)||(checkp && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
                 ((!checkp)||(checkp != {} && permission.permission && permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true) !=-1 && permission.permission[permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true)])) && 
-                    <div className={`pl-2 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md  ${itm.link == pathname && "text-[#e8c670]"}`} >
-                        {itm.icon}
+                    <div className={`pl-3 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md ${itm.link == pathname && "text-[#E6BE8A]"}`} >
+                        <span className="text-[#13b497]">{itm.icon}</span>
                         {
-                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm hover:text-gray-200 font-normal hover:bg- transition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#e8c670]"}`}>
+                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} font-normal pl-3 text-sm hover:text-[#E6BE8A] transition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#E6BE8A] font-black"}`}>
                                 {itm.name}
                             </Link>
                         }
