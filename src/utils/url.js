@@ -1,8 +1,8 @@
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
 
-export const baseUrl="http://192.168.29.23:7980"
-export const backendassetUrl="http://192.168.29.23:7980/"
+export const baseUrl="http://192.168.0.131:7980"
+export const backendassetUrl="http://192.168.0.131:7980/"
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
