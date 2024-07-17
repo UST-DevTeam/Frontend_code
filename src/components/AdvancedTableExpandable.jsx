@@ -118,7 +118,8 @@ const AdvancedTableExpandable = ({
   useEffect(()=>{
     console.log("after_paginate", data)
     setFinalData(data)
-  },[data?.length,childsite,parentsite])
+  // },[data?.length,childsite,parentsite])
+  },[data])
 
   // const [filterVisiblity, setfilterVisiblity] = useState(false)
   // console.log("fasodfjanflasdfnaifaewasdf",data.length);

@@ -309,10 +309,27 @@ const ManageProjectSiteId = () => {
                   }}
                 >
                   {iewq.assignerResult ? (
+
+                   
                     <>
                       <div class="">
                         <div class="group flex flex-row relative items-center w-full">
-                          {iewq.assignerResult
+                        {iewq.assignerResult
+                          .slice(0, 2)
+                          .map((itwsw, index) => (
+                              <p
+                                  key={index}
+                                  className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                              >
+                                  {" "}
+                                  {itwsw.assignerName && itwsw.assignerName.trim().split(" ").length > 1
+                                      ? `${itwsw.assignerName.split(" ")[0].substr(0, 1)}${itwsw.assignerName.split(" ")[1].substr(0, 1)}`
+                                      : itwsw.assignerName
+                                          ? itwsw.assignerName.split(" ")[0].substr(0, 1)
+                                          : ''}
+                              </p>
+                          ))}
+                          {/* {iewq.assignerResult
                             .slice(0, 2)
                             .map((itwsw, index) => (
                               <p
@@ -330,7 +347,7 @@ const ManageProjectSiteId = () => {
                                       .split(" ")[0]
                                       .substr(0, 1)}
                               </p>
-                            ))}
+                            ))} */}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";

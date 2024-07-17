@@ -125,6 +125,8 @@ const ManageUserProjectAllocation = () => {
         }
     })
 
+    console.log(dbConfigTotalCount,"__________________hh")
+
 
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
@@ -173,7 +175,7 @@ const ManageUserProjectAllocation = () => {
             },
             {
                 label: "Profile",
-                type: "autoSuggestion",
+                type: "select",
                 name: "profile",
                 option: roleList,
                 props: {
