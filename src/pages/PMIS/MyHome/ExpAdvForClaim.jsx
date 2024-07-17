@@ -26,6 +26,7 @@ const ExpAdvForClaim = () => {
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
+  const [fileOpen2, setFileOpen2] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
 
   let dispatch = useDispatch();
@@ -372,11 +373,11 @@ const ExpAdvForClaim = () => {
     dispatch(ExpenseAdvanceActions.getHRAllExpenses());
   }, []);
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "ManageEmployee";
+    data["fileType"] = "ManageClaims";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(ExpenseAdvanceActions.getHRAllExpenses());
-        setFileOpen(false);
+        setFileOpen2(false);
         resetting("");
       })
     );
@@ -387,6 +388,13 @@ const ExpAdvForClaim = () => {
         headerButton={
           <div className="flex gap-1">
             {" "}
+            <Button
+              name={"Upload File"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                setFileOpen2((prev) => !prev);
+              }}
+            ></Button>
             <Button
               classes="w-auto"
               onClick={(e) => {
@@ -437,6 +445,13 @@ const ExpAdvForClaim = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
+      />
+      <FileUploader
+        isOpen={fileOpen2}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen2}
+        tempbtn={true} tempbtnlink = {["/template/ManageClaims.xlsx","ManageClaims.xlsx"]}
       />
     </>
   );
