@@ -13,8 +13,9 @@ function changeCase(str) {
   // Capitalize the first letter of each word
   const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
 
+  let strdata=capitalizedWords.join('')
   // Join words with spaces
-  return capitalizedWords.join('');
+  return strdata.replace("%20"," ");
 }
 
 const BreadCrumbs = () => {
@@ -168,7 +169,12 @@ const BreadCrumbs = () => {
   const navigate = useNavigate();
   
   const checkInGlobalValue = (data) => {
+
+    data=data.replace("%20"," ")
+
     let dwqata=globalValuelist.filter(item=>item.name==data)
+
+    console.log(dwqata,data,globalValuelist,"globalValuelistglobalValuelist")
     if(dwqata.length > 0){
       return dwqata[0]["value"]
     }else{
