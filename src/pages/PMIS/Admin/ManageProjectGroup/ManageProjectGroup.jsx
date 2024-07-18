@@ -158,9 +158,12 @@ const ManageProjectGroup = () => {
                 setmodalHead("New Project Group")
                 setmodalBody(<ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Project Group"}></Button></>}
+                name={"Add Project Group"}></Button>
+                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/manageProjectGroup","ProjectGroup.xlsx"))
+                }}></Button>
+                </>}
             table={table}
-            exportButton={["/export/manageProjectGroup","ProjectGroup.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

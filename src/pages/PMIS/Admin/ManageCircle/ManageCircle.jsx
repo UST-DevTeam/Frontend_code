@@ -191,10 +191,11 @@ const ManageCircle = () => {
                 <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
+                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/manageCircle","Export_Circle("+dt+").xlsx"))
+                }}></Button>
                 </div>}
             table={table}
-            // templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
-            exportButton={["/export/manageCircle","Export_Circle("+dt+").xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

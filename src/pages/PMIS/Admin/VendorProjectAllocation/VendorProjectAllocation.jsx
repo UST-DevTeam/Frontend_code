@@ -205,6 +205,9 @@ const VendorProjectAllocation = () => {
                 <Button name={"Upload"} classes='w-auto ' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
+                <Button name={"Export"} classes='w-auto ' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/partnerProjectAllocation","Export_Partner_Project_Allocation.xlsx"))
+                }}></Button>
                 </div>}
             table={table}
             filterAfter={onSubmit}

@@ -196,13 +196,14 @@ const ManageZone = () => {
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Zone"}></Button>
-                <Button name={"Upload File"} classes='w-auto mr-1 ' onClick={(e) => {
+                <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
                     setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/manageZone","Export_Zone("+dt+").xlsx"))
                 }}></Button>
                 </div>}
             table={table}
-            // templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
-            exportButton={["/export/manageZone","Export_Zone("+dt+").xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"} 
             handleSubmit={handleSubmit}

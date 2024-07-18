@@ -239,7 +239,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Initial PO Qty",
       value: "",
       name: "initialPoQty",
-      // type:number,
+      // type:'number',
       type: formValue['poStatus'] === "Closed" || formValue['poStatus'] === "Short Closed" ? "sdisabled" : "number",
       required: true,
       props: {

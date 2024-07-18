@@ -125,7 +125,6 @@ const ManageUserProjectAllocation = () => {
         }
     })
 
-    console.log(dbConfigTotalCount,"__________________hh")
 
 
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
@@ -218,8 +217,11 @@ const ManageUserProjectAllocation = () => {
                 setmodalBody(<ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button> */}
-                <Button name={"Upload"} classes='w-auto ' onClick={(e) => {
+                <Button name={"Upload"} classes='w-auto' onClick={(e) => {
                     setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Export"} classes='w-auto mr-1 ' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/userProjectAllocation","Export_User_Project_Allocation.xlsx"))
                 }}></Button>
                 </div>}
             table={table}
