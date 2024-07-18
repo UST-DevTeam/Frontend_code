@@ -36,6 +36,9 @@ const initialState = {
     getManageClaimTypeUnitRate:[],
     getManageClaimTypeDesignation:[],
     getManageExpenseAdvance:[],
+    
+    getSubProjectMultiDynamic:[],
+    getProjectTypeMultiDynamic:[],
 
 }
 
@@ -49,6 +52,20 @@ const adminData = createSlice({
                 state.getManageCustomer = payload.dataAll
             }else{
                 state.getManageCustomer  = [...state.getManageCustomer,...payload.dataAll]
+            }
+        },
+        GET_SUBPROJECT_MULTIDYNAMIC:(state,{payload}) => {
+            if(payload.reset){
+                state.getSubProjectMultiDynamic = payload.dataAll
+            }else{
+                state.getSubProjectMultiDynamic  = [...state.getSubProjectMultiDynamic,...payload.dataAll]
+            }
+        },
+        GET_PROJECTTYPE_MULTIDYNAMIC:(state,{payload}) => {
+            if(payload.reset){
+                state.getProjectTypeMultiDynamic = payload.dataAll
+            }else{
+                state.getProjectTypeMultiDynamic  = [...state.getProjectTypeMultiDynamic,...payload.dataAll]
             }
         },
         GET_COMPONENT_ALLOCATION:(state,{payload}) => {
@@ -367,7 +384,9 @@ export const {
     GET_INVOICE_SITEID,
     GET_INVOICE_SSID,
     GET_COMPONENT_ALLOCATION,
-    GET_OLD_COMPONENT_ALLOCATION
+    GET_OLD_COMPONENT_ALLOCATION,
+    GET_SUBPROJECT_MULTIDYNAMIC,
+    GET_PROJECTTYPE_MULTIDYNAMIC,
 
 } = adminData.actions
     

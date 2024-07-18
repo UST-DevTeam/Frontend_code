@@ -242,6 +242,7 @@ const NewMultiselection = ({
   getValues,
   register,
   classes,
+  value=[]
 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
 

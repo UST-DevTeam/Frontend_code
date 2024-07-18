@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import TrashButton from "../../../../components/TrashButton";
 import ManageProjectForm from "../../../../pages/PMIS/Admin/ManageProject/ManageProjectForm";
+import ManageSubProjectMultiDynamicForm from "../../../../pages/PMIS/Admin/ManageProject/ManageSubProjectMultiDynamicForm";
 import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
@@ -12,6 +13,7 @@ import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
+
 // import { BsFillChatTextFill } from "react-icons/bs";
 import {
   getAccessType,
@@ -34,6 +36,7 @@ import CommonForm from "../../../../components/CommonForm";
 import PopupMenu from "../../../../components/PopupMenu";
 import FilterActions from "../../../../store/actions/filter-actions";
 
+
 const ManageProject = () => {
   const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
 
@@ -46,6 +49,7 @@ const ManageProject = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [bulkfileOpen, setbulkfileOpen] = useState(false);
   const [strValFil, setstrVal] = useState(false);
+  const [modalSize, setModalSize] = useState("lg");
 
   let dispatch = useDispatch();
 
@@ -134,6 +138,7 @@ const ManageProject = () => {
               <p
                 className="items-center cursor-pointer text-[#E6BE8A]"
                 onClick={() => {
+                  setModalSize("lg")
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Event Logs");
@@ -545,15 +550,33 @@ const ManageProject = () => {
     );
   };
 
+  let FormMulti= [
+    {
+      label: "Sub Project",
+      name: "subProject",
+      type: "select",
+      value: "",
+      // option: circleList,
+      required: true,
+      props: {
+        onChange: (e) => {
+          // alert(e.target.value)
+        },
+      },
+      classes: "col-span-1",
+    },
+  ]
+
   return (
     <>
       <AdvancedTable
         headerButton={
-          <div className="flex gap-1">
+          <div className="flex">
             <ConditionalButton
               showType={getAccessType("Add Project")}
-              classes=""
+              classes="mr-1"
               onClick={(e) => {
+                setModalSize("lg")
                 setmodalOpen((prev) => !prev);
                 setmodalHead("Add Project");
                 setmodalBody(
@@ -596,7 +619,7 @@ const ManageProject = () => {
             ></Button> */}
             <Button
               name={"Bulk Upload"}
-              classes="w-auto"
+              classes="w-auto mr-1"
               bgColor={"bg-yellow-600"}
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
@@ -618,7 +641,7 @@ const ManageProject = () => {
               bgColor={"bg-[#147b99]"}
               child={
                 
-                <div classes="z-40 max-h-96 justify-center">
+                <div classes="z-40 max-h-96 justify-ce0nter">
                   
                      <Button
                       name={"Export Project"}
@@ -656,6 +679,33 @@ const ManageProject = () => {
                             "Export_Project_with_Task.xlsx"
                           )
                         );
+                      }}
+                      >
+                      </Button>
+                      
+                      <Button
+                      name={"Export Site with subProject"}
+                      classes="w-auto m-4"
+                      onClick={() => {
+                        setModalSize("sm")
+                        setmodalOpen(true)  
+                        setmodalHead("Sub Project Export")
+                        setmodalBody(<>
+                           <ManageSubProjectMultiDynamicForm
+                            isOpen={modalOpen}
+                            projecttypeuniqueId={projecttypeuniqueId}
+                            customeruniqueId={customeruniqueId}
+                            setIsOpen={setmodalOpen}
+                            resetting={false}
+                            formValue={{}}
+                          />
+                        </>)
+                        // dispatch(
+                        //   CommonActions.commondownload(
+                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                        //     "Export_Project_with_Site.xlsx"
+                        //   )
+                        // );
                       }}
                       >
                       </Button>
@@ -786,7 +836,8 @@ const ManageProject = () => {
       />
 
       <Modal
-        size={"lg"}
+        size={modalSize}
+        Form={FormMulti}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
