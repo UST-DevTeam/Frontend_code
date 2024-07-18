@@ -22,6 +22,7 @@ import NewMultiSelectsForm from "./FormElements/NewMultiSelectForm";
 import NewMultiSelects, { NewMultiSelects2 } from "./NewMultiSelect";
 import NewMultiselection from "./FormElements/NewMultiselection";
 import Email from "./FormElements/Email";
+import NewMultiselection3 from "./NewMultiselection3";
 
 
 const CommonForm = ({
@@ -322,6 +323,18 @@ const CommonForm = ({
                     )}
                     {itm.type == "newmuitiSelect2" ? (
                       <NewMultiselection
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    {itm.type == "newmuitiSelect3" ? (
+                      <NewMultiselection3
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}

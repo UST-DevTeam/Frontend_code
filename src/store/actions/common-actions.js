@@ -150,7 +150,6 @@ const CommonActions = {
         
     // },
     commondownload: (urls, filename, method = "GET", data = {}, cb) => async (dispatch, _) => {
-
         try {
             const res = await Api.blobFile({ url: urls, method: method, data: data })
             if (res?.status !== 201 && res?.status !== 200) {

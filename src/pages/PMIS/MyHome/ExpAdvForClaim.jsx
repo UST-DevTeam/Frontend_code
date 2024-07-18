@@ -389,7 +389,7 @@ const ExpAdvForClaim = () => {
           <div className="flex gap-1">
             {" "}
             <Button
-              name={"Upload File"}
+              name={"Upload Claims"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
