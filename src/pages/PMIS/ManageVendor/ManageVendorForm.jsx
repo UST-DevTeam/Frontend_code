@@ -160,11 +160,11 @@ const ManageVendorForm = (props) => {
     {
       label: "Registered Partner Addresss ",
       name: "registeredAddress",
-      value: "",
+      value: "",  
       type: "textarea",
+      placeholder: "",
       props: "",
       required: false,
-      placeholder: "",
     },
     {
       label: "Partner's Category",

@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-const TextArea = ({ itm, errors, handleSubmit, setValue, getValues, register }) => {
+const TextArea = ({ itm, errors, handleSubmit, setValue, getValues, register, placeholder }) => {
 
     return <>
         <textarea {...register(itm.name, {

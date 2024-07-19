@@ -51,20 +51,6 @@ const FillExpenseForm = ({
     });
   });
 
-  // let categoriesList = useSelector((state) => {
-  //   return state?.adminData?.getManageExpenseAdvance.flatMap((itm) => {
-  //     if (itm?.categories) {
-  //       return itm.categories.split(",").map((category) => {
-  //         return {
-  //           label: category.trim(),
-  //           value: category.trim(),
-  //         };
-  //       });
-  //     }
-  //     return [];
-  //   });
-  // });
-
   let projectSiteIdList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvSiteID.map((itm) => {
       return {
@@ -83,9 +69,6 @@ const FillExpenseForm = ({
     });
   });
 
-  // const handleCategoryChange = (e) => {
-  //   setKm(e.target.value !== "");
-  // };
   const handleCategoryChange = (e) => {
     const selectedCategoryValue = e.target.value;
     setSelectedCategory(selectedCategoryValue);
@@ -110,6 +93,7 @@ const FillExpenseForm = ({
 
     setCategory(selectedOption?.categories || []);
   };
+
 
   let Form = [
     {
@@ -392,9 +376,9 @@ const FillExpenseForm = ({
     //     navigate('/authenticate')
     // }))
   };
+
+
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
-    // dasdsadsadasdas
     if (formValue.expenseuniqueId) {
       dispatch(
         ExpenseAdvanceActions.postFillExpense(
@@ -433,6 +417,7 @@ const FillExpenseForm = ({
       });
     } else {
       reset({});
+      
 
 
       // setCategory(claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"])
@@ -453,7 +438,6 @@ const FillExpenseForm = ({
 
         if (["expenseDate"].indexOf(key) != -1) {
           const momentObj = moment(formValue[key],"DD-MM-yyyy");
-          console.log(momentObj.toDate(),"momentObjmomentObj")
           setValue("ExpenseDate", momentObj.toDate());
         } else {
           setValue(key, formValue[key]);
@@ -462,14 +446,13 @@ const FillExpenseForm = ({
 
 
       console.log(claimTypeList,formValue["ClaimType"],"dsadasdadadadadas")
-      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"]) ||[]
-      handleClaimTypeChange(claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"])
+      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["claimType"])[0]?.["value"]) ||[]
+      handleClaimTypeChange(claimTypeList.filter((itm)=>itm.label==formValue["claimType"])[0]?.["value"])
     }
 
     if(dataItm){
       
       const momentObj = moment(dataItm["expenseDate"],"YYYY-MM-DD");
-      console.log(momentObj.toDate(),"momentObjmomentObj")
       setValue("ExpenseDate", momentObj.toDate());
       setValue("EeDate", momentObj.format("YYYY-MM-DD"));
     }
