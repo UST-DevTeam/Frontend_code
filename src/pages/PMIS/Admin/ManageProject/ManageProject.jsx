@@ -35,6 +35,7 @@ import EventLog from "../../../../components/EventLogs";
 import CommonForm from "../../../../components/CommonForm";
 import PopupMenu from "../../../../components/PopupMenu";
 import FilterActions from "../../../../store/actions/filter-actions";
+import ManageSubProjectMultiDynamicFormTask from "./ManageSubProjectMultiDynamicFormTask";
 
 
 const ManageProject = () => {
@@ -684,7 +685,7 @@ const ManageProject = () => {
                       </Button>
                       
                       <Button
-                      name={"Export Site with subProject"}
+                      name={"Export Site with SubProject"}
                       classes="w-auto m-4"
                       onClick={() => {
                         setModalSize("sm")
@@ -692,6 +693,32 @@ const ManageProject = () => {
                         setmodalHead("Sub Project Export")
                         setmodalBody(<>
                            <ManageSubProjectMultiDynamicForm
+                            isOpen={modalOpen}
+                            projecttypeuniqueId={projecttypeuniqueId}
+                            customeruniqueId={customeruniqueId}
+                            setIsOpen={setmodalOpen}
+                            resetting={false}
+                            formValue={{}}
+                          />
+                        </>)
+                        // dispatch(
+                        //   CommonActions.commondownload(
+                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
+                        //     "Export_Project_with_Site.xlsx"
+                        //   )
+                        // );
+                      }}
+                      >
+                      </Button>
+                      <Button
+                      name={"Export Task with SubProject"}
+                      classes="w-auto m-4"
+                      onClick={() => {
+                        setModalSize("sm")
+                        setmodalOpen(true)  
+                        setmodalHead("Sub-Project Task Export")
+                        setmodalBody(<>
+                           <ManageSubProjectMultiDynamicFormTask
                             isOpen={modalOpen}
                             projecttypeuniqueId={projecttypeuniqueId}
                             customeruniqueId={customeruniqueId}

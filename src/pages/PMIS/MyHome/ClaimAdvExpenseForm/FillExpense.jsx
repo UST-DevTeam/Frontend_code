@@ -70,7 +70,7 @@ const FillExpense = () => {
                   setmodalOpen(true);
                   setmodalFullOpen(false)
                   dispatch(ExpenseAdvanceActions.getFillExpense());
-                  setmodalHead("Edit Expense");
+                  setmodalHead("");
                   setmodalBody(
                     <>
                       <FillExpenseForm
