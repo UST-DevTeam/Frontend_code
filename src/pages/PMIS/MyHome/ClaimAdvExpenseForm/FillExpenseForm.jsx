@@ -93,8 +93,8 @@ const FillExpenseForm = ({
   };
 
 
-  const handleClaimTypeChange = (e) => {
-    const selectedValue = e.target.value;
+  const handleClaimTypeChange = (value) => {
+    const selectedValue = value;
     setSelectedValue(selectedValue);
 
     const selectedOption = claimTypeList.find(
@@ -115,11 +115,13 @@ const FillExpenseForm = ({
     {
       label: "Claim Type",
       value: "",
-      name: "claimType",
+      name: "ClaimType",
       type: "select",
       option: claimTypeList,
       props: {
-        onChange: handleClaimTypeChange,
+        onChange: (e)=>{
+          handleClaimTypeChange(e.target.value)
+        },
         // onChange: (e) => {
         //   console.log('eeeeeeee',e.target.value)
         //   const selectedValue = e.target.value;
@@ -421,8 +423,8 @@ const FillExpenseForm = ({
   console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(AdminActions.getManageExpenseAdvance());
-    dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
+    // dispatch(AdminActions.getManageExpenseAdvance());
+    // dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
   
     console.log(resetting, formValue["categories"], "resettingresetting");
     if (resetting) {
@@ -459,11 +461,11 @@ const FillExpenseForm = ({
         }
       });
 
-      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"]) ||[]
 
-      // claimTypeList.map((itm)=>{
-      //   setValue(itm.claimType,itm.value);
-      // })
+      console.log(claimTypeList,formValue["ClaimType"],"dsadasdadadadadas")
+      setValue("ClaimType",claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"]) ||
+      setValue("ClaimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"]) || []
+      handleClaimTypeChange(claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"])
     }
 
     if(dataItm){

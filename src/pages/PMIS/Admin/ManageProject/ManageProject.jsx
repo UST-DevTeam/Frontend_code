@@ -125,7 +125,7 @@ const ManageProject = () => {
                   `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`
                 );
               }}
-              className="text-[#13b497] font-extrabold hover:underline hover:text-[#CA8A04] focus:outline-none hover:font-semibold"
+              className="text-pcol font-extrabold hover:underline hover:text-[#CA8A04] focus:outline-none hover:font-semibold"
             >
               {itm.projectId}
             </p>

@@ -73,7 +73,7 @@ const CommonTableFormSiteParent = ({
             console.log(itm, "itmitmitmitmitm")
             return <CustomizedButton
               onClick={() => handleTabClick(itm)}
-              classes={`${activeTab === itm ? 'mb-1 border-b-[3px] border-[#13b497] text-white bg-primaryLine text-center' : 'bg-purple-200 hover:bg-rose-400 hover:text-white text-black '} mx-1 w-auto`}
+              classes={`${activeTab === itm ? 'mb-1 border-b-[3px] border-pcol text-white bg-primaryLine text-center' : 'bg-purple-200 hover:bg-rose-400 hover:text-white text-black '} mx-1 w-auto`}
               name={itm}
             >
 

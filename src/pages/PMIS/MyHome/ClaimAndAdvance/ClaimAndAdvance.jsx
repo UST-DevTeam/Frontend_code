@@ -73,7 +73,7 @@ const ClaimAndAdvance = () => {
 
         name: (
           <p
-          className={`cursor-pointer font-extrabold ${itm.type === 'Expense' ? 'text-rose-400' : 'text-[#13b497]'}`}
+          className={`cursor-pointer font-extrabold ${itm.type === 'Expense' ? 'text-rose-400' : 'text-pcol'}`}
             onClick={(e) => {
               expenseRef.current = itm;
               sessionStorage.setItem("claimName", itm?.name);
@@ -260,7 +260,7 @@ const ClaimAndAdvance = () => {
             className={
               Amounts?.finalAmount > 0
                 ? "text-rose-400 font-extrabold"
-                : "text-[#13b497] font-extrabold"
+                : "text-pcol font-extrabold"
             }
           >
             {Amounts?.finalAmount}
@@ -272,7 +272,7 @@ const ClaimAndAdvance = () => {
             className={
               Amounts?.ExpenseAmountTotal > 0
                 ? "text-rose-400 font-extrabold"
-                : "text-[#13b497] font-extrabold"
+                : "text-pcol font-extrabold"
             }
           >
             {Amounts?.ExpenseAmountTotal}
@@ -283,7 +283,7 @@ const ClaimAndAdvance = () => {
           <span
             className={
               Amounts?.AdvanceAmountTotal > 0
-                ? "text-[#13b497] font-extrabold"
+                ? "text-pcol font-extrabold"
                 : "text-rose-500 font-extrabold"
             }
           >

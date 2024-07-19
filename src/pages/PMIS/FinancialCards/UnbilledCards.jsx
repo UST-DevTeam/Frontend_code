@@ -29,15 +29,15 @@ const UnbilledCards = () => {
      <CCDash
         showbtn={false}
         approveddata={[
-          ["Unbilled Waterfall", "bg-[#0e8670]", "/financial/Unbilled/unbilledWaterfall",],
-          ["Unbilled View", "bg-[#0e8670]", "/financial/PO_Management/unbilledView"],
+          ["Unbilled Waterfall", "bg-pcol", "/financial/Unbilled/unbilledWaterfall",],
+          ["Unbilled View", "bg-pcol", "/financial/PO_Management/unbilledView"],
         ].map((itm) => {
           return (
             <>
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-pcolhover `}
                   onClick={() => {
 
 

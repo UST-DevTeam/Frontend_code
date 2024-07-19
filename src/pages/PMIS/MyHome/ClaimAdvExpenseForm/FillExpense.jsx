@@ -140,6 +140,11 @@ const FillExpense = () => {
   });
 
   useEffect(() => {   
+    
+    dispatch(AdminActions.getManageExpenseAdvance());
+    dispatch(
+      ExpenseAdvanceActions.getExpADvPrjectDetails()
+    );
     dispatch(AdminActions.getManageExpenseAdvance());
     if(!modalFullOpen){
       setHide(false)
@@ -166,7 +171,7 @@ const FillExpense = () => {
 
         ExpenseNo: (
           <p
-            className="cursor-pointer text-[#13b497] font-extrabold"
+            className="cursor-pointer text-pcol font-extrabold"
             onClick={(e) => {
               expenseRef.current = itm;
               dispatch(
@@ -466,6 +471,10 @@ const FillExpense = () => {
 
   useEffect(() => {
     
+    dispatch(AdminActions.getManageExpenseAdvance());
+    dispatch(
+      ExpenseAdvanceActions.getExpADvPrjectDetails()
+    );
     dispatch(ExpenseAdvanceActions.getFillExpense());
     // dispatch(ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp());
   }, []);

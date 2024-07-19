@@ -29,15 +29,15 @@ const   GapAnalysisCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["ETP Pending Reason", "bg-[#0e8670]", "/forms/gapAnalysis/ETPPendingReason",],
-          ["MS2 VS WCC Pending Reason", "bg-[#0e8670]", "/forms/gapAnalysis/MS2VSWCCPendingReason"],
+          ["ETP Pending Reason", "bg-pcol", "/forms/gapAnalysis/ETPPendingReason",],
+          ["MS2 VS WCC Pending Reason", "bg-pcol", "/forms/gapAnalysis/MS2VSWCCPendingReason"],
         ].map((itm) => {
           return (
             <>
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                   onClick={() => {
 
 

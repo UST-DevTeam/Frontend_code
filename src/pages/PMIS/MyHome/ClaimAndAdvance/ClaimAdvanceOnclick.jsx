@@ -111,7 +111,8 @@ const ClaimAdvanceOnclick = () => {
       {
         name: "Expense/Advance ID",
         value: "name",
-        style: "min-w-[180px] max-w-[100px] text-center sticky left-0 bg-[#3e454d]",
+        style:
+          "min-w-[180px] max-w-[100px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense Date",
@@ -178,7 +179,7 @@ const ClaimAdvanceOnclick = () => {
         value: "empCode",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
-      
+
       {
         name: "Cost Center",
         value: "costcenter",
@@ -315,7 +316,8 @@ const ClaimAdvanceOnclick = () => {
                             //   </>
                             // );
                             if (
-                              item.advanceType === "Project Advance" || item.type === "Advance"
+                              item.advanceType === "Project Advance" ||
+                              item.type === "Advance"
                             ) {
                               setmodalBody(
                                 <>
@@ -331,6 +333,10 @@ const ClaimAdvanceOnclick = () => {
                               item.advanceType !== "Project Advance" ||
                               item.type === "Expense"
                             ) {
+                              dispatch(AdminActions.getManageExpenseAdvance());
+                              dispatch(
+                                ExpenseAdvanceActions.getExpADvPrjectDetails()
+                              );
                               setmodalBody(
                                 <>
                                   <FillExpenseForm

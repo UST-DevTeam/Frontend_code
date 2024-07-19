@@ -419,7 +419,7 @@ const AdvancedTableRow = ({
                         callApiPagination(index + 1);
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
-                        ? "bg-[#13b497] text-black border-primaryLine"
+                        ? "bg-pcol text-black border-primaryLine"
                         : "bg-white text-black border-primaryLine"
                         } `}
                     >
@@ -434,7 +434,7 @@ const AdvancedTableRow = ({
                       callApiPagination(index + 1);
                     }}
                     className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
-                      ? "bg-[#13b497] text-white"
+                      ? "bg-pcol text-white"
                       : "bg-white"
                       } px-2 mx-2`}
                   >

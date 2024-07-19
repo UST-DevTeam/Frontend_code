@@ -111,7 +111,7 @@ const L3Form = () => {
 
         ExpenseNo: (
           <p
-            className="cursor-pointer text-[#13b497] font-extrabold"
+            className="cursor-pointer text-pcol font-extrabold"
             onClick={(e) => {
               expenseRef.current = itm;
               

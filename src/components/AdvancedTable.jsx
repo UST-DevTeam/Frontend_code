@@ -519,7 +519,7 @@ const AdvancedTable = ({
                       return (
                         <tr>
                           {checkboxshow && (
-                            <td className="text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
+                            <td className="text-[12px] h-2 pl-1 border-pcol border-[0.1px] overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
                               <input
                                 type="checkbox"
                                 checked={selectedRows.includes(itm.uniqueId)}
@@ -530,7 +530,7 @@ const AdvancedTable = ({
                           {table.columns.map((innerItm, index) => {
                             return hide.indexOf(String(index)) == -1 ? (
                               <td 
-                                className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${
+                                className={`text-[12px] h-2 pl-1 border-pcol border-[0.1px] overflow-hidden text-white ${
                                   innerItm.style
                                     ? innerItm.style
                                     : " min-w-[300px] max-w-[500px]"
@@ -553,7 +553,7 @@ const AdvancedTable = ({
                 </tbody>
               ) : (
                 <tbody>
-                  <tr className="border-[1.5px] border-[#0e8670] text-center text-slate-200">
+                  <tr className="border-[1.5px] border-pcol text-center text-slate-200">
                     <td colSpan={table.columns.length} className="text-xl">
                       <span className="text-[13px] font-bold">No Records Found</span>
                     </td>
@@ -575,7 +575,7 @@ const AdvancedTable = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-[#0e8670] border-[0.1px] bg-primaryLine "
+                                  " border-pcol border-[0.1px] bg-primaryLine "
                                 }
                               >
                                 <span className="text-white text-[12px]">
@@ -587,7 +587,7 @@ const AdvancedTable = ({
                             )
                           ) : (
                             <>
-                              <th className=" border-[#0e8670] border-[0.1px] bg-primaryLine ">
+                              <th className=" border-pcol border-[0.1px] bg-primaryLine ">
                                 <span className="text-white text-[12px]">
                                   {itts.name}
                                 </span>
@@ -641,7 +641,7 @@ const AdvancedTable = ({
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${
                         currentPage == index + 1
-                          ? "bg-[#13b497] text-white border-primaryLine"
+                          ? "bg-pcol text-white border-primaryLine"
                           : "bg-white text-black border-primaryLine"
                       } `}
                     >
@@ -657,7 +657,7 @@ const AdvancedTable = ({
                     }}
                     className={`border cursor-pointer border-primaryLine ${
                       currentPage == index + 1
-                        ? "bg-[#13b497] text-white"
+                        ? "bg-pcol text-white"
                         : "bg-white"
                     } px-2 mx-2`}
                   >

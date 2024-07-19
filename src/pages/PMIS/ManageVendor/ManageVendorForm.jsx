@@ -98,7 +98,7 @@ const ManageVendorForm = (props) => {
     {
       type: "heading",
       label: "Partner On-boarding Requisition Form",
-      classes: "col-span-4 font-extrabold text-[#13b497] text-start ",
+      classes: "col-span-4 font-extrabold text-pcol text-start ",
     },
     {
       label: "Partner Code",
@@ -641,7 +641,7 @@ const ManageVendorForm = (props) => {
             navigate("/vendor/managePartner");
             setOneLoad(false);
           }}
-          className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-[#13b497]  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+          className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-pcol  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
         >
           Back
         </button>
@@ -732,13 +732,13 @@ const ManageVendorForm = (props) => {
                     onClick={() => {
                       navigate("/vendor/managePartner");
                     }}
-                   className="mt-2 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-[#13b497] hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold text-white text-sm font-extrabold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                   className="mt-2 w-auto justify-center rounded-md px-10 py-1 mb-2  bg-pcol hover:bg-violet-100 hover:text-pcol hover:font-extrabold text-white text-sm font-extrabold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleSubmit(onTableViewGenerateSubmit)}
-                    className="mt-2 w-auto justify-center rounded-md bg-[#13b497] mb-2 hover:bg-violet-100 hover:text-[#13b497] hover:font-extrabold px-10 py-1 text-sm font-extrabold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+                    className="mt-2 w-auto justify-center rounded-md bg-pcol mb-2 hover:bg-violet-100 hover:text-pcol hover:font-extrabold px-10 py-1 text-sm font-extrabold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
                   >
                     Submit
                   </button>

@@ -29,19 +29,19 @@ const FormsCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["EVM-Financial", "bg-[#0e8670]", "/forms/earnValueManagementFinancial",],
-          ["EVM-Delivery", "bg-[#0e8670]", "/forms/EVMDelivery"],
-          ["SOB", "bg-[#0e8670]", "/forms/SOB",],
-          ["Gap Analysis", "bg-[#0e8670]", "/forms/GapAnalysis"],
-          ["P&L", "bg-[#0e8670]", "/forms/P&L"],
-          ["Liquidation Plan", "bg-[#0e8670]", "/forms/LiquidationPlan"],
-          ["Accrual Revenue Trend", "bg-[#0e8670]", "/forms/AccrualRevenueTrend"],
+          ["EVM-Financial", "bg-pcol", "/forms/earnValueManagementFinancial",],
+          ["EVM-Delivery", "bg-pcol", "/forms/EVMDelivery"],
+          ["SOB", "bg-pcol", "/forms/SOB",],
+          ["Gap Analysis", "bg-pcol", "/forms/GapAnalysis"],
+          ["P&L", "bg-pcol", "/forms/P&L"],
+          ["Liquidation Plan", "bg-pcol", "/forms/LiquidationPlan"],
+          ["Accrual Revenue Trend", "bg-pcol", "/forms/AccrualRevenueTrend"],
         ].map((itm) => {
           return (
             <>
               {getAccessType(itm[0]) == "visible" || getAccessType(itm[0]) == "disabled" ? (
                 <div
-               className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
+               className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
                   onClick={() => {
 
 

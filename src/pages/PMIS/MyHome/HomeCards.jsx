@@ -30,33 +30,33 @@ const HomeCards = () => {
           approveddata={[
             [
               "Personal Info",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/home/personalInfo",
               <Unicons.UilUserCircle size="36" color="" />,
               "border-b-blue-300",
             ],
             [
               "Claim & Advance",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/home/claimAndAdvance",
               <Unicons.UilMoneyWithdrawal size="40" color="#b39800" />,
               "border-b-[#b39800]",
             ],
             [
               "Asset",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/home/assets",
               <Unicons.UilArchive size="40" color="white" />,
             ],
             [
               "Approvals",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/home/approverCards",
               <Unicons.UilCheckCircle size="40" color="" />,
             ],
             [
               "PTW",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/home/ptw",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
@@ -66,7 +66,7 @@ const HomeCards = () => {
               getAccessType(itm[0]) == "visible" ||
               getAccessType(itm[0]) == "disabled" ? (
                 <div
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                   onClick={() => {
                     if (1 == 1 || getAccessType(itm[0]) == "visible") {
                       dispatch(ComponentActions.globalUrlStore(itm[0], itm[2]));

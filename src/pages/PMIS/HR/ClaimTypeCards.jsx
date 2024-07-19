@@ -24,24 +24,24 @@ const ClaimTypeCards = () => {
         approveddata={[
           [
             "Claim Type Category",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/claimType/claimTypeCategories",
           ],
           [
             "ClaimType Designation",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/claimType/claimTypeDesignation",
           ],
           [
             "Unit Rate",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/claimType/claimTypeUnitRate",
           ],
         ].map((itm) => {
           return (
             <>
               <div
-                 className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                 className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-pcolhover `}
                 // className={`${itm[1]} shadow-md hover:shadow-2xl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(

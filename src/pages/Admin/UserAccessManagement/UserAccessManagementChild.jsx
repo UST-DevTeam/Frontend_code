@@ -66,7 +66,7 @@ const UserAccessManagementChild = ({
     </tr>
 
     <tr>
-      <td className="pl-2 p-2 min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 z-[100px] bg-[#3e454d] text-[#ffab2d]">
+      <td className="pl-2 p-2 min-w-[140px] max-w-[140px] border-black border-[1px] sticky left-0 z-[100px] bg-[#3e454d] text-pcolhover">
       {showView ? <p className=" z-[10000px]">{btnName}</p> : <></>}
 
       </td>

@@ -9,7 +9,7 @@ const ProgressBar = ({ text,percent, notifyType }) => {
         "error": ["bg-red-900", "bg-red-500"],
         "alert": ["bg-rose-800", "bg-rose-500"],
         "warning": ["bg-yellow-900", "bg-yellow-500"],
-        "success": ["bg-green-700", "bg-[#13b497]"],
+        "success": ["bg-green-700", "bg-pcol"],
         "info": ["bg-blue-900", "bg-blue-500"]
     }
     // console.log(notifyType, "notifyType colorList", colorList)

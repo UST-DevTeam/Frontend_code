@@ -405,7 +405,7 @@ const AdvancedTableExpandable = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-[#0e8670] border-[0.1px] bg-primaryLine "
+                                  " border-pcol border-[0.1px] bg-primaryLine "
                                 }
                               >
                                 <span className="text-white text-[12px]">
@@ -417,7 +417,7 @@ const AdvancedTableExpandable = ({
                             )
                           ) : (
                             <>
-                              <th className=" border-[#0e8670] border-[0.1px] bg-primaryLine ">
+                              <th className=" border-pcol border-[0.1px] bg-primaryLine ">
                                 <span className="text-white text-[12px]">
                                   {itts.name}
                                 </span>
@@ -463,7 +463,7 @@ const AdvancedTableExpandable = ({
                         callApiPagination(index + 1);
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
-                        ? "bg-[#0e8670] text-white border-primaryLine"
+                        ? "bg-pcol text-white border-primaryLine"
                         : "bg-white text-black border-primaryLine"
                         } `}
                     >

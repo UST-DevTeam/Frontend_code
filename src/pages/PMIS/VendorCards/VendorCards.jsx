@@ -33,16 +33,16 @@ const VendorCards = () => {
           approveddata={[
             [
               "Partner On-Board",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/vendor/managePartner",
             ],
             [
               "Project Tracking",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/vendor/projectTracking",
             ],
             ["Commercial",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/vendor/commercial",
             ],
 
@@ -52,7 +52,7 @@ const VendorCards = () => {
                 {getAccessType(itm[0]) == "visible" ||
                   getAccessType(itm[0]) == "disabled" ? (
                   <div
-                    className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
+                    className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                     onClick={() => {
                       console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                       if (getAccessType(itm[0]) == "visible") {

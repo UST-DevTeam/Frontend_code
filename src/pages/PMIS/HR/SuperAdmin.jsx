@@ -269,83 +269,83 @@ const SuperAdmin = () => {
         approveddata={[
           [
             "Manage Circle",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/manageCircle",
             <Unicons.UilCheckCircle size="36" color="" />,
             "border-b-[#fdf0d5]",
           ],
           [
             "Manage Zone",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/manageZone",
             <Unicons.UilMap size="32" color="" />,
             "border-b-[#fdf0d5]",
           ],
           [
             "Manage Cost Center",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/manageCostCenter",
             <Unicons.UilHunting size="32" color="" />,
             "border-b-[#e2eafc]",
           ],
           [
             "Manage Project Group",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/projectGroup",
             <Unicons.UilPlus size="32" color="" />,
             "border-b-[#e2eafc]",
           ],
           [
             "User Access Management",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/UserAccessManagement",
             <Unicons.UilUserCheck size="32" color="" />,
             "border-b-[#d8e2dc]",
           ],
           [
             "User Project Allocation",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/userProjectAllocation",
             <Unicons.UilBookmark size="32" color="" />,
             "border-b-[#d8e2dc]",
           ],
           [
             "Partner Project Allocation",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/partnerProjectAllocation",
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
           [
             "Manage Department",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/manageDepartment",
             <Unicons.UilPanelAdd size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
           [
             "Manage Designation",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/manageDesignation",
             <Unicons.UilBookReader size="32" color="" />,           
             "border-b-[#bfd7ea]",
           ],
           [
             "Manage Profiles",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/manageProfile",
             <Unicons.UilUserCircle size="32" color="" />,
             "border-b-[#bfd7ea]",
           ],
           [
             "Completion Criteria",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/completionCriteria",
             <Unicons.UilAnalytics size="32" color="" />,
           ],
           [
             "Claim Type",
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/hr/superAdmin/claimType",
             <Unicons.UilPuzzlePiece size="32" color="" />,
           ],
@@ -353,7 +353,7 @@ const SuperAdmin = () => {
           return (
             <>
               <div
-                 className={`${itm[1]} shadow-md hover:shadow-rxl text-center w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
+                 className={`${itm[1]} shadow-md hover:shadow-rxl text-center w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                 // className={`${itm[1]} shadow-md hover:shadow-2xl w-[96%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(
