@@ -1404,8 +1404,7 @@ const ManageProjectSiteId = () => {
               bgColor={"bg-[#147b99]"}
               child={
                 <div classes="z-40 max-h-96 justify-center">
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Site")}
+                  <Button
                     name={"Export"}
                     classes="w-auto m-5"
                     onClick={(e) => {
@@ -1416,9 +1415,8 @@ const ManageProjectSiteId = () => {
                         )
                       );
                     }}
-                  ></ConditionalButton>
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Task")}
+                  ></Button>
+                  <Button
                     name={"Export with Task"}
                     classes="w-auto m-5"
                     onClick={(e) => {
@@ -1429,7 +1427,7 @@ const ManageProjectSiteId = () => {
                         )
                       );
                     }}
-                  ></ConditionalButton>
+                  ></Button>
                 </div>
               }
             />

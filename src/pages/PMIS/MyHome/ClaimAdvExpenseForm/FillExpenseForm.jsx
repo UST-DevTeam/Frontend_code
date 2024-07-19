@@ -115,7 +115,7 @@ const FillExpenseForm = ({
     {
       label: "Claim Type",
       value: "",
-      name: "ClaimType",
+      name: "claimType",
       type: "select",
       option: claimTypeList,
       props: {
@@ -420,7 +420,6 @@ const FillExpenseForm = ({
       );
     }
   };
-  console.log(Form, "Form 11");
 
   useEffect(() => {
     // dispatch(AdminActions.getManageExpenseAdvance());
@@ -463,8 +462,7 @@ const FillExpenseForm = ({
 
 
       console.log(claimTypeList,formValue["ClaimType"],"dsadasdadadadadas")
-      setValue("ClaimType",claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"]) ||
-      setValue("ClaimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"]) || []
+      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"]) ||[]
       handleClaimTypeChange(claimTypeList.filter((itm)=>itm.label==formValue["ClaimType"])[0]?.["value"])
     }
 

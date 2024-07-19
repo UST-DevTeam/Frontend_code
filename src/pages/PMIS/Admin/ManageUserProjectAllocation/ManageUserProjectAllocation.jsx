@@ -24,6 +24,7 @@ const ManageUserProjectAllocation = () => {
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [strValFil, setstrVal] = useState(false);
 
 
     let dispatch = useDispatch()
@@ -158,17 +159,16 @@ const ManageUserProjectAllocation = () => {
         filter: [
             {
                 label: "Employee",
-                type: "autoSuggestion",
+                type:"text",
                 name: "empUniqueId",
-                option: employeeList,
                 props: {
                 }
             },
             {
                 label: "Project",
-                type: "autoSuggestion",
+                type: "text",
                 name: "project",
-                option: projectList,
+                // option: projectList,
                 props: {
                 }
             },
@@ -188,7 +188,12 @@ const ManageUserProjectAllocation = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data)))
+
+        let strVal=objectToQueryString(data)
+
+        setstrVal(strVal)
+
+        dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data),strVal))
 
         
     }
@@ -221,7 +226,7 @@ const ManageUserProjectAllocation = () => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 <Button name={"Export"} classes='w-auto mr-1 ' onClick={(e) => {
-                    dispatch(CommonActions.commondownload("/export/userProjectAllocation","Export_User_Project_Allocation.xlsx"))
+                    dispatch(CommonActions.commondownload("/export/userProjectAllocation"+"?"+strValFil,"Export_User_Project_Allocation.xlsx"))
                 }}></Button>
                 </div>}
             table={table}

@@ -414,7 +414,6 @@ const InvoiceBased = () => {
         ]
     }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
 

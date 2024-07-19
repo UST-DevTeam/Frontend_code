@@ -29,7 +29,7 @@ const EmpDetailsTable = () => {
   const [fileOpen, setFileOpen] = useState(false);
   const [fileOpen2, setFileOpen2] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
-  const [strValFil, setstrVal] = useState(false);
+  const [strVal, setstrVal] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -275,8 +275,7 @@ const EmpDetailsTable = () => {
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    let strVal=objectToQueryString(data)
-    console.log('strValstrValstrVal',strVal)
+    let strVal =objectToQueryString(data)
     setstrVal(strVal)
     dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };
@@ -343,7 +342,7 @@ const EmpDetailsTable = () => {
           </div>
         }
         table={table}
-        exportButton={["/export/manageEmployee","Export_Employee("+dt+").xlsx"]}
+        exportButton={["/export/manageEmployee"+"?"+strVal,"Export_Employee("+dt+").xlsx"]}
         filterAfter={onSubmit}
         tableName={"ManageEmployee"}
         handleSubmit={handleSubmit}

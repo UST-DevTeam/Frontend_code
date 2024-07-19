@@ -79,7 +79,6 @@ const ManageProject = () => {
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getProject;
     return interdata?.map((itm) => {
-      console.log(itm, "itmmmmmm");
       let updateditm = {
         ...itm,
         // "status": <CstmButton child=
@@ -383,6 +382,14 @@ const ManageProject = () => {
     });
   });
 
+  let showTypeforAction = getAccessType("Action(Project)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showTypeforAction === "visible"){
+    shouldIncludeEditColumn = true
+  }
+
 
   let table = {
     columns: [
@@ -426,11 +433,15 @@ const ManageProject = () => {
         value: "status",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      }
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+          ]
+        : [])
     ],
     // properties: {
     //   rpp: [10, 20, 50, 100],
@@ -567,6 +578,19 @@ const ManageProject = () => {
     },
   ]
 
+  let exportpopupShowType = false
+  let upgradepopupShowType = false
+  let showType1 = getAccessType("Export(Project)")
+  if (showType1 === "visible"){
+    exportpopupShowType = true
+  }
+  let showType2 = getAccessType("Upgrade(Project)")
+  if (showType2 === "visible"){
+    upgradepopupShowType = true
+  }
+
+
+
   return (
     <>
       <AdvancedTable
@@ -617,14 +641,15 @@ const ManageProject = () => {
                 setFileOpen((prev) => !prev);
               }}
             ></Button> */}
-            <Button
+            <ConditionalButton
               name={"Bulk Upload"}
+              showType={getAccessType("Bulk Upload(Project)")}
               classes="w-auto mr-1"
               bgColor={"bg-yellow-600"}
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
             {/* <Button
               name={"Update Task"}
               classes="w-auto mr-1 bg-cyan-600"
@@ -632,31 +657,28 @@ const ManageProject = () => {
                 setFileOpen((prev) => !prev);
               }}
             ></Button> */}
-
-
+            { exportpopupShowType && (
             <PopupMenu
               name={"Export"}
               icon={"Export"}
               classes={"w-auto"}
               bgColor={"bg-[#147b99]"}
               child={
-                
                 <div classes="z-40 max-h-96 justify-ce0nter">
-                  
-                     <Button
-                      name={"Export Project"}
-                      classes="w-auto m-4"
-                      onClick={() => {
-                        dispatch(
-                          CommonActions.commondownload(
-                            "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`+"?"+strValFil,
-                            "Export_Project.xlsx"
-                          )
-                        );
-                      }}
-                      >
-                      </Button>
-                     <Button
+                  <Button
+                    name={"Export Project"}
+                    classes="w-auto m-4"
+                    onClick={() => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`+"?"+strValFil,
+                          "Export_Project.xlsx"
+                        )
+                      );
+                    }}
+                    >
+                  </Button>
+                      <Button
                       name={"Export Site"}
                       classes="w-auto m-4"
                       onClick={() => {
@@ -669,7 +691,7 @@ const ManageProject = () => {
                       }}
                       >
                       </Button>
-                     <Button
+                      <Button
                       name={"Export Site with Task"}
                       classes="w-auto m-4"
                       onClick={() => {
@@ -691,7 +713,7 @@ const ManageProject = () => {
                         setmodalOpen(true)  
                         setmodalHead("Sub Project Export")
                         setmodalBody(<>
-                           <ManageSubProjectMultiDynamicForm
+                            <ManageSubProjectMultiDynamicForm
                             isOpen={modalOpen}
                             projecttypeuniqueId={projecttypeuniqueId}
                             customeruniqueId={customeruniqueId}
@@ -700,37 +722,28 @@ const ManageProject = () => {
                             formValue={{}}
                           />
                         </>)
-                        // dispatch(
-                        //   CommonActions.commondownload(
-                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
-                        //     "Export_Project_with_Site.xlsx"
-                        //   )
-                        // );
                       }}
                       >
                       </Button>
                 </div>
-                    
-                  }
-                />
-            <PopupMenu
-              name={"Upgrade"}
-              icon={"Upgrade"}
-              classes="w-auto"
-              bgColor={"bg-[#A16E83]"}
-              child={
-                
-                <div classes="flex z-40 max-h-96 flex-col p-1">
-                  
-                     <Button name={"Upgrade Site"} classes='w-auto m-5' 
-                     onClick={(e) => {
+              }
+            />
+            )}
+            {upgradepopupShowType && (
+              <PopupMenu
+                name={"Upgrade"}
+                icon={"Upgrade"}
+                classes="w-auto"
+                bgColor={"bg-[#A16E83]"}
+                child={
+                  <div classes="flex z-40 max-h-96 flex-col p-1">
+                    <Button name={"Upgrade Site"} classes='w-auto m-5' 
+                      onClick={(e) => {
                           setFileOpen(prev=>!prev)
                           setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
                           setfileType(`updateSite`)
-
-
-                          
-                      }}></Button>
+                      }}>
+                    </Button>
 
                      <Button
                       name={"Upgrade Task"}
@@ -742,88 +755,16 @@ const ManageProject = () => {
                       }}
                       >
                       </Button>
-                     {/* <Button
-                      name={"Export Site with Task"}
-                      classes="w-auto m-5"
-                      onClick={() => {
-                        dispatch(
-                          CommonActions.commondownload(
-                            "/export/siteWithAll/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
-                            "Export_Project_with_Task.xlsx"
-                          )
-                        );
-                      }}
-                      >
-                      </Button> */}
                 </div>
                     
                   }
             />
-            {/* <PopupMenu
-              name={"Bulk Upload"}
-              icon={"Bulk Upload"}
-              classes="w-auto mr-1"
-              child={
-                
-                <div classes="flex z-40 max-h-96 flex-col p-1">
-                     <Button
-                      name={"Bulk Upload Site"}
-                      classes="w-auto m-5"
-                      onClick={() => {
-                        // dispatch(
-                        //   CommonActions.commondownload(
-                        //     "/export/Project/" + `${customeruniqueId}` + "/" + `${projecttypeuniqueId}`,
-                        //     "Export_Project.xlsx"
-                        //   )
-                        // );
-                      }}
-                      >
-                      </Button>
-                     <Button
-                      name={"Bulk Upload Task"}
-                      classes="w-auto m-5"
-                      onClick={() => {
-                        // dispatch(
-                        //   CommonActions.commondownload(
-                        //     "/export/siteWithOutTask/" +`${customeruniqueId}` +"/" +`${projecttypeuniqueId}`,
-                        //     "Export_Project_with_Site.xlsx"
-                        //   )
-                        // );
-                      }}
-                      >
-                      </Button>
-                </div>
-                    
-                  }
-            /> */}
+            )}
 
 
           </div>
         }
         table={table}
-        // exportButton={[
-        //   "/export/Project/" +
-        //     `${customeruniqueId}` +
-        //     "/" +
-        //     `${projecttypeuniqueId}`,
-        //   "Export_Project.xlsx",
-        // ]}
-        // exportSiteButton={[
-        //   "/export/siteWithOutTask/" +
-        //     `${customeruniqueId}` +
-        //     "/" +
-        //     `${projecttypeuniqueId}`,
-        //   "Export_Project.xlsx",
-        // ]}
-        // exportSiteWithTask={[
-        //   "/export/siteWithAll/" +
-        //     `${customeruniqueId}` +
-        //     "/" +
-        //     `${projecttypeuniqueId}`,
-        //   "Export_Project.xlsx",
-        // ]}
-        // UploadSites={[]}
-        // UploadTask={[]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}

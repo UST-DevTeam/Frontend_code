@@ -254,8 +254,12 @@ const ManageVendor = () => {
     let value = data.reseter;
     delete data.reseter;
     let strVal=objectToQueryString(data)
+
+
+
     setstrVal(strVal)
-    dispatch(VendorActions.getManageVendorDetails(value, objectToQueryString(data),strVal));
+    
+    dispatch(VendorActions.getManageVendorDetails(value, "",strVal));
   };
   
   useEffect(() => {
@@ -315,7 +319,7 @@ const ManageVendor = () => {
           </div>
         }
         table={table}
-        exportButton={["/export/vendor","Vendor.xlsx"]}
+        exportButton={["/export/vendor"+"?"+strValFil,"Vendor.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}

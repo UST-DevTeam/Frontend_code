@@ -269,7 +269,7 @@ const   ManageProjectType = () => {
       label: "GBPA",
       name: "GBPA",
       value: "Select",
-      type: "number",
+      type: "text",
       required: false,
       placeholder: "",
     },
@@ -279,7 +279,7 @@ const   ManageProjectType = () => {
       value: "",
       type: "text",
       props: "",
-      required: false,
+      required: true,
       placeholder: "",
     },
     {
@@ -289,10 +289,10 @@ const   ManageProjectType = () => {
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
         onChange: (e) => {},
       },
-      required: false,
+      required: true,
       placeholder: "",
     },
     // {

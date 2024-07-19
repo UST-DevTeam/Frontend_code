@@ -142,6 +142,7 @@ let smartComponent = <>Hello</>;
 let abcd = [];
 if (user) {
   let cpv = getAccessType("Customer Page View");
+  // let cpv = "visible"
   let ptpv = getAccessType("Project Type Page View");
   let ppv = getAccessType("Project Page View");
   let spv = getAccessType("Site Page View");
@@ -718,7 +719,7 @@ export const Sidebar_content = {
         component: <HomeCards />,
         icon: <UilHome className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
-      },
+      }
     ],
     ...abcd,
     ...[
