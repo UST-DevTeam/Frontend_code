@@ -51,20 +51,6 @@ const FillExpenseForm = ({
     });
   });
 
-  // let categoriesList = useSelector((state) => {
-  //   return state?.adminData?.getManageExpenseAdvance.flatMap((itm) => {
-  //     if (itm?.categories) {
-  //       return itm.categories.split(",").map((category) => {
-  //         return {
-  //           label: category.trim(),
-  //           value: category.trim(),
-  //         };
-  //       });
-  //     }
-  //     return [];
-  //   });
-  // });
-
   let projectSiteIdList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvSiteID.map((itm) => {
       return {
@@ -83,9 +69,6 @@ const FillExpenseForm = ({
     });
   });
 
-  // const handleCategoryChange = (e) => {
-  //   setKm(e.target.value !== "");
-  // };
   const handleCategoryChange = (e) => {
     const selectedCategoryValue = e.target.value;
     setSelectedCategory(selectedCategoryValue);
@@ -93,8 +76,8 @@ const FillExpenseForm = ({
   };
 
 
-  const handleClaimTypeChange = (e) => {
-    const selectedValue = e.target.value;
+  const handleClaimTypeChange = (value) => {
+    const selectedValue = value;
     setSelectedValue(selectedValue);
 
     const selectedOption = claimTypeList.find(
@@ -111,6 +94,7 @@ const FillExpenseForm = ({
     setCategory(selectedOption?.categories || []);
   };
 
+
   let Form = [
     {
       label: "Claim Type",
@@ -119,7 +103,9 @@ const FillExpenseForm = ({
       type: "select",
       option: claimTypeList,
       props: {
-        onChange: handleClaimTypeChange,
+        onChange: (e)=>{
+          handleClaimTypeChange(e.target.value)
+        },
         // onChange: (e) => {
         //   console.log('eeeeeeee',e.target.value)
         //   const selectedValue = e.target.value;
@@ -390,9 +376,9 @@ const FillExpenseForm = ({
     //     navigate('/authenticate')
     // }))
   };
+
+
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
-    // dasdsadsadasdas
     if (formValue.expenseuniqueId) {
       dispatch(
         ExpenseAdvanceActions.postFillExpense(
@@ -418,11 +404,10 @@ const FillExpenseForm = ({
       );
     }
   };
-  console.log(Form, "Form 11");
 
   useEffect(() => {
-    dispatch(AdminActions.getManageExpenseAdvance());
-    dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
+    // dispatch(AdminActions.getManageExpenseAdvance());
+    // dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
   
     console.log(resetting, formValue["categories"], "resettingresetting");
     if (resetting) {
@@ -432,6 +417,7 @@ const FillExpenseForm = ({
       });
     } else {
       reset({});
+      
 
 
       // setCategory(claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"])
@@ -452,24 +438,21 @@ const FillExpenseForm = ({
 
         if (["expenseDate"].indexOf(key) != -1) {
           const momentObj = moment(formValue[key],"DD-MM-yyyy");
-          console.log(momentObj.toDate(),"momentObjmomentObj")
           setValue("ExpenseDate", momentObj.toDate());
         } else {
           setValue(key, formValue[key]);
         }
       });
 
-      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["value"]) ||[]
 
-      // claimTypeList.map((itm)=>{
-      //   setValue(itm.claimType,itm.value);
-      // })
+      console.log(claimTypeList,formValue["ClaimType"],"dsadasdadadadadas")
+      setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["claimType"])[0]?.["value"]) ||[]
+      handleClaimTypeChange(claimTypeList.filter((itm)=>itm.label==formValue["claimType"])[0]?.["value"])
     }
 
     if(dataItm){
       
       const momentObj = moment(dataItm["expenseDate"],"YYYY-MM-DD");
-      console.log(momentObj.toDate(),"momentObjmomentObj")
       setValue("ExpenseDate", momentObj.toDate());
       setValue("EeDate", momentObj.format("YYYY-MM-DD"));
     }

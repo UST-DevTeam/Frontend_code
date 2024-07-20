@@ -143,7 +143,7 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
                     </div>
                 </div>
                 {popupVisible && (
-                        <div ref={modalRef} className="absolute right-1 mt-10 w-[150px]  bg-[#4f5760] shadow-lg rounded-md z-[100000] border-[1.5px] border-[#13b497]">
+                        <div ref={modalRef} className="absolute right-1 mt-10 w-[150px]  bg-[#4f5760] shadow-lg rounded-md z-[100000] border-[1.5px] border-pcol">
                             <div className="p-2">
                                 <div className="flex space-x-1 ml-2">
                                     <Unicons.UilUser fill="#13b497" className="hover:text-heading" />

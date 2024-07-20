@@ -78,13 +78,13 @@ const ManageZone = () => {
                         show: true,
                         icon: 'warning',
                         buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
+                            <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_zone}/${itm.uniqueId}`, () => {
                                     dispatch(AdminActions.getManageZone())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
+                            <Button classes='w-auto' onClick={() => {
                                 console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
@@ -196,13 +196,14 @@ const ManageZone = () => {
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Zone"}></Button>
-                <Button name={"Upload File"} classes='w-auto mr-1 ' onClick={(e) => {
+                <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
                     setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/manageZone","Export_Zone("+dt+").xlsx"))
                 }}></Button>
                 </div>}
             table={table}
-            // templateButton={["/template/Zone.xlsx","Zone.xlsx"]}
-            exportButton={["/export/manageZone","Export_Zone("+dt+").xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"} 
             handleSubmit={handleSubmit}

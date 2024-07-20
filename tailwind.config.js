@@ -17,6 +17,8 @@ export default {
         "topbarLine":"var(--topbar)",
         "txt-primary":"#0000ff",
         "bg-primary":"#87CEEB",
+        "pcol":"#13b497",
+        "pcolhover":"#FFAB2D",
         "darkBg":"#363636",
         "lightBg":"#ffffff",
         "bg-brown": "#6C6C6C",
@@ -53,11 +55,15 @@ export default {
 
 
       textColor:{
-        "darkBg":"#ffffff"
+        "darkBg":"#ffffff",
+        "pcol":"#13b497",
+        "pcolhover":"#FFAB2D",
       },
       backgroundColor:{
         'pbutton':"var(--mainsec)",
-        'neavycolor':"#00ac25"
+        'neavycolor':"#00ac25",
+        "pcol":"#13b497",
+        "pcolhover":"#FFAB2D",
         
       },
       borderColor:{

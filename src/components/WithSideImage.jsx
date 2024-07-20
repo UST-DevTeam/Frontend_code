@@ -21,7 +21,7 @@ const WithSideImage = ({ form, labeling, formclass,sideImage }) => {
                         <h2 className="mt-2 text-center font-bold text-2xl font-body leading-9 tracking-tight text-txt-neavy dark:text-darkBg">{labeling}</h2>
                     </div>
 
-                    <div className={`overflow-scroll nobar mt-4 bg-gradient-to-r from-blue-300 via-blue-400 to-violet-300 rounded-lg ${formclass}`}>
+                    <div className={`overflow-y-hidden nobar mt-4 bg-gradient-to-r from-blue-300 via-blue-400 to-violet-300 rounded-lg ${formclass}`}>
 
                         {form}
                     </div>

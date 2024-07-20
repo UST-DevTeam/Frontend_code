@@ -269,7 +269,7 @@ const   ManageProjectType = () => {
       label: "GBPA",
       name: "GBPA",
       value: "Select",
-      type: "number",
+      type: "text",
       required: false,
       placeholder: "",
     },
@@ -279,7 +279,7 @@ const   ManageProjectType = () => {
       value: "",
       type: "text",
       props: "",
-      required: false,
+      required: true,
       placeholder: "",
     },
     {
@@ -289,10 +289,10 @@ const   ManageProjectType = () => {
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
         onChange: (e) => {},
       },
-      required: false,
+      required: true,
       placeholder: "",
     },
     // {
@@ -383,7 +383,7 @@ const   ManageProjectType = () => {
               <Button
                 classes="w-10"
                 name={""}
-                icon={<Unicons.UilAirplay />}
+                icon={<Unicons.UilFileCheck />}
                 onClick={() => {
                   setUniqueness((prev) => itm.uniqueId);
                   setmodalOpen(true);
@@ -658,7 +658,7 @@ const   ManageProjectType = () => {
             child={
               <Button
                 classes="w-10"
-                icon={<Unicons.UilAirplay />}
+                icon={<Unicons.UilBriefcaseAlt />}
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
@@ -712,7 +712,7 @@ const   ManageProjectType = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -731,7 +731,7 @@ const   ManageProjectType = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
@@ -1074,7 +1074,7 @@ const   ManageProjectType = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -1093,7 +1093,7 @@ const   ManageProjectType = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
@@ -1275,7 +1275,7 @@ const   ManageProjectType = () => {
           return (
             <>
               <div
-                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
+                className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
                 onClick={() => {
                   // dispatch(
                   //   ComponentActions.breadcrumb(

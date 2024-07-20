@@ -16,7 +16,7 @@ export const SweetAlerts = () => {
         interdata = {
             ...interdata,
             buttons: interdata?.buttons?.length > 0 ? interdata?.buttons : [
-                <Button classes='w-15 bg-green-500' onClick={() => {
+                <Button classes='w-15 bg-rose-400' onClick={() => {
                     dispatch(ALERTS({ show: false }))
                 }} name={"OK"} />]
         }
@@ -62,15 +62,15 @@ export const SweetAlerts = () => {
 
         {
             swAlerts?.type == 1 ? <>{showAlert()}</> : <>
-                <Modal size={"modal"} isOpen={swAlerts?.show} setIsOpen={() => {
+                <Modal size={"sm"} isOpen={swAlerts?.show} setIsOpen={() => {
                     dispatch(ALERTS({ show: false }))
                 }} children={<div className='flex h-full flex-col px-2 items-center'>
 
 
 
-                    {icons[swAlerts?.icon]}
-                    <h1>{swAlerts?.text}</h1>
-                    <div className='mt-2  flex justify-evenly w-48'>
+                    <div className="text-red-400">{icons[swAlerts?.icon]}</div>
+                    <h1 className="text-white font-semibold mt-3">{swAlerts?.text}</h1>
+                    <div className='mt-6  flex justify-evenly w-48'>
                         {swAlerts?.buttons?.map((itms) => {
                             return itms
                         })}

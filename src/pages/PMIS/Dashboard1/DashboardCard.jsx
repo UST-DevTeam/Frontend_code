@@ -84,7 +84,7 @@ const DashboardCard = () => {
           return (
             <>
               <div
-                className={`bg-[#13b497] ${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
+                className={`bg-pcol ${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(itm["customerName"], `${"/dashboard"}/${itm["customerName"]}/${itm["uniqueId"]}`)
@@ -95,7 +95,7 @@ const DashboardCard = () => {
                 {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
-                     className="m-auto w-[50px] rounded-md hover:border-[#4a525b] hover:border-[1.5px]"
+                     className="m-auto w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>

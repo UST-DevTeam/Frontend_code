@@ -111,7 +111,7 @@ const L2Form = () => {
 
         ExpenseNo: (
           <p
-            className="cursor-pointer text-[#13b497] font-extrabold"
+            className="cursor-pointer text-pcol font-extrabold"
             onClick={(e) => {
               expenseRef.current = itm;
               dispatch(
@@ -169,7 +169,7 @@ const L2Form = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -184,7 +184,7 @@ const L2Form = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}

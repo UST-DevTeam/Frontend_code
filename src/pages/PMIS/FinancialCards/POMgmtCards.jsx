@@ -29,8 +29,8 @@ const POMgmtCards = () => {
      <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Status-Invoice", "bg-[#0e8670]", "/financial/poManagement/poStatusInvoice",],
-          ["PO Tracking-Workdone", "bg-[#0e8670]", "/financial/poManagement/poTrackingWorkdone"],
+          ["PO Status-Invoice", "bg-pcol", "/financial/poManagement/poStatusInvoice",],
+          ["PO Tracking-Workdone", "bg-pcol", "/financial/poManagement/poTrackingWorkdone"],
         ].map((itm) => {
           return (
             <>
@@ -38,7 +38,7 @@ const POMgmtCards = () => {
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
                   // className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg `}
-                  className={`${itm[1]} shadow-md text-center hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] text-center h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-pcolhover `}
                   onClick={() => {
 
 

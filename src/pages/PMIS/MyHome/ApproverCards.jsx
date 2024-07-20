@@ -28,18 +28,18 @@ const ApproverCards = () => {
         approveddata={[
           [
           "L1 Approver",
-          "bg-[#0e8670]", 
+          "bg-pcol", 
           "/home/approverCards/L1Approver", "/home/approverCards/L1Advance",
         ],
 
           [
           "L2 Approver", 
-         "bg-[#0e8670]",
+         "bg-pcol",
           "/home/approverCards/L2Approver", "/home/approverCards/L2Advance"],
 
           [
             "Finance Approver", 
-            "bg-[#0e8670]",
+            "bg-pcol",
             "/home/approverCards/FinanceApprover", "/home/approverCards/L2Advance"],
 
         ].map((itm) => {
@@ -49,7 +49,7 @@ const ApproverCards = () => {
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
                   // className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
-                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-[#FFAB2D]`}
+                  className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                   onClick={() => {
 
                     

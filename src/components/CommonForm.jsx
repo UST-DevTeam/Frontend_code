@@ -22,6 +22,7 @@ import NewMultiSelectsForm from "./FormElements/NewMultiSelectForm";
 import NewMultiSelects, { NewMultiSelects2 } from "./NewMultiSelect";
 import NewMultiselection from "./FormElements/NewMultiselection";
 import Email from "./FormElements/Email";
+import NewMultiselection3 from "./NewMultiselection3";
 
 
 const CommonForm = ({
@@ -94,7 +95,7 @@ const CommonForm = ({
                         <label className="block text-sm font-medium text-white ml-3 dark:text-darkBg break-words	">
                           {itm.label}
                           {itm?.required && (
-                            <span className="text-red-600 ml-1 ">*</span>
+                            <span className="text-rose-500 ml-1 ">*</span>
                           )}
                         </label>
                       }
@@ -102,7 +103,7 @@ const CommonForm = ({
                   )}
                   <div
                     className={
-                      uiList[itm.type]?.height + " mt-2  px-2  flex flex-row"
+                      uiList[itm.type]?.height + " mt-2  px-2 "
                     }
                   >
                     {itm?.amp &&
@@ -322,6 +323,18 @@ const CommonForm = ({
                     )}
                     {itm.type == "newmuitiSelect2" ? (
                       <NewMultiselection
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    {itm.type == "newmuitiSelect3" ? (
+                      <NewMultiselection3
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}

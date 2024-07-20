@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UilMultiply } from "@iconscout/react-unicons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import ComponentActions from "../store/actions/component-actions";
 import { isValidObjectId } from "../utils/commonFunnction";
@@ -13,11 +13,10 @@ function changeCase(str) {
   // Capitalize the first letter of each word
   const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
 
+  let strdata=capitalizedWords.join('')
   // Join words with spaces
-  return capitalizedWords.join('');
+  return strdata.replace("%20"," ");
 }
-
-
 
 const BreadCrumbs = () => {
 
@@ -39,6 +38,8 @@ const BreadCrumbs = () => {
   //     "/projectManagement/"+data[2]+"/"+data[4]
   //   ],
   // }
+  const { cname, customeruniqueId, projecttypeuniqueId } = useParams();
+  let itm =""
 
   let Dtheader={
     "manageCustomer":{
@@ -51,12 +52,22 @@ const BreadCrumbs = () => {
     },
     "projectManagement_1":{
       "name":"Project Management",
+      "url":`${"/projectManagement_1"}/${cname}/projectType/${customeruniqueId}/${projecttypeuniqueId}`
+    },
+
+    "projectManagement_1":{
+      "name":"Project Management",
       "url":"/manageCustomer"
     },
+
     "projectManagement_2":{
       "name":"Project Management",
       "url":"/manageCustomer"
     },
+    // "GoToProject":{
+    //   "name":"Go To Project",
+    //   "url":`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`
+    // },
     "home":{
       "name":"My Home",
       "url":"/home"
@@ -134,6 +145,10 @@ const BreadCrumbs = () => {
       "name":"Dashboard",
       "url":"/",
     },
+    "personalInfo":{
+      "name":"Personal Information",
+      "url":"/home/personalInfo",
+    },
   }
   
 
@@ -154,7 +169,12 @@ const BreadCrumbs = () => {
   const navigate = useNavigate();
   
   const checkInGlobalValue = (data) => {
+
+    data=data.replace("%20"," ")
+
     let dwqata=globalValuelist.filter(item=>item.name==data)
+
+    console.log(dwqata,data,globalValuelist,"globalValuelistglobalValuelist")
     if(dwqata.length > 0){
       return dwqata[0]["value"]
     }else{
@@ -173,7 +193,7 @@ const BreadCrumbs = () => {
                   <>
                     <li>
                       <a
-                        className="text-[#13b497] hover:text-[#FFAB2D] cursor-pointer"
+                        className="text-pcol hover:text-pcolhover cursor-pointer"
                         onClick={() => {
 
                           navigate(item in Dtheader ? Dtheader[item]["url"] : checkInGlobalValue(item)!="" ? checkInGlobalValue(item) : "");

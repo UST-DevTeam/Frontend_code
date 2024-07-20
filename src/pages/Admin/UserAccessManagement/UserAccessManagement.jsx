@@ -31,12 +31,10 @@ const UserAccessManagement = () => {
     return interdata;
   });
 
-  console.log(roleList,"roleListroleListroleList")
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
     let interdata = state?.adminManagement?.usersList;
     return interdata.map((itm) => {
-      console.log(itm, "hhdhhhbvvvvv");
       let updateditm = {
         ...itm,
         status: (
@@ -103,13 +101,13 @@ const UserAccessManagement = () => {
         //         show: true,
         //         icon: 'warning',
         //         buttons: [
-        //             <Button classes='w-15 bg-green-500' onClick={() => {
+        //             <Button classes='w-15 bg-rose-400' onClick={() => {
         //                 dispatch(CommonActions.deleteApiCaller(`${Urls.alertConfiguration_configureAlert}/${itm.uniqueId}`, () => {
         //                     dispatch(CustomQueryActions.getDBConfig())
         //                     dispatch(ALERTS({ show: false }))
         //                 }))
         //             }} name={"OK"} />,
-        //             <Button classes='w-24' onClick={() => {
+        //             <Button  onClick={() => {
         //                 dispatch(ALERTS({ show: false }))
         //             }} name={"Cancel"} />
         //         ],
@@ -128,7 +126,7 @@ const UserAccessManagement = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -143,7 +141,7 @@ const UserAccessManagement = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           console.log("snnsnsnsns");
                           dispatch(ALERTS({ show: false }));
@@ -262,7 +260,7 @@ const UserAccessManagement = () => {
 
   
   useEffect(() => {
-    dispatch(AdminManagementActions.getUsersList());
+    // dispatch(AdminManagementActions.getUsersList());
     dispatch(AdminManagementActions.getRoleList());
     dispatch(AdminActions.getOldComponentAllocationList());
     dispatch(AdminActions.getComponentAllocationList());

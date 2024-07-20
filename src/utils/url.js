@@ -1,8 +1,8 @@
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
-export const baseUrl="http://192.168.0.149:7980"
-export const backendassetUrl="http://192.168.0.149:7980/"
+// export const baseUrl="http://192.168.0.137:7980"
+// export const backendassetUrl="http://192.168.0.137:7980/"
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
@@ -38,6 +38,8 @@ export const Urls={
     admin_uamView:"/uamView",
     admin_completion_criteria:"/admin/complectionCriteria",
     upload_bulk_site:"/uploadBulkSite",
+    get_Subproject_Dyanmic:"/subprojects",
+    get_project_type_Dyanmic:"/projectsType",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
     admin_getMappedData:"/mappedData",

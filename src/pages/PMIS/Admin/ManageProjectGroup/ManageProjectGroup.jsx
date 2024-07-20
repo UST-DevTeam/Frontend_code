@@ -67,13 +67,13 @@ const ManageProjectGroup = () => {
                         show: true,
                         icon: 'warning',
                         buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
+                            <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project_group}/${itm.uniqueId}`, () => {
                                     dispatch(AdminActions.getManageProjectGroup())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
+                            <Button classes='w-auto' onClick={() => {
                                 console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
@@ -158,9 +158,12 @@ const ManageProjectGroup = () => {
                 setmodalHead("New Project Group")
                 setmodalBody(<ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Project Group"}></Button></>}
+                name={"Add Project Group"}></Button>
+                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/manageProjectGroup","ProjectGroup.xlsx"))
+                }}></Button>
+                </>}
             table={table}
-            exportButton={["/export/manageProjectGroup","ProjectGroup.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

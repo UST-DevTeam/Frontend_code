@@ -17,6 +17,7 @@ const PLform = ({
   resetting,
   formValue = {},
   year,
+  month,
   monthss,
 }) => {
   // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
@@ -183,7 +184,8 @@ const PLform = ({
     data["customer"] = formValue?.customer;
     data["roleName"] = roleName;
     data["uniqueId"] = formValue?.uniqueId;
-    data["year"] = year;
+    data["year"] = formValue?.year;
+    data["month"] = formValue?.month;
     console.log(data, "datadagsdfsfsdfsta");
     // dasdsadsadasdas
 
@@ -294,7 +296,6 @@ const PLform = ({
       } */}
 
         <>
-        {/* <button className="p-3 bg-yellow-500" onClick={() => setIsOpen(p=>!p)}>yrdghoi</button> */}
           <CommonForm
             classes={"grid-cols-2 gap-1"}
             Form={roleName === "Admin" ? Form : Form2}

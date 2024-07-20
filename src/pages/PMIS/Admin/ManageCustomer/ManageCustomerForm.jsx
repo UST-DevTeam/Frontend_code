@@ -45,7 +45,6 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         // },
          {
             label: "Logo",
-
             value: "",
             name: "img",
             type: "file",
@@ -56,7 +55,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
                     setValue("companyimg",e.target.files[0])
                 }),
             },
-            classes: "col-span-1 flex justify-center content-center",
+            classes: "col-span-1",
             multiple:false,
         },
          {
@@ -102,7 +101,7 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             label: "Email",
             value: "",
             name: "email",
-            type: "email",
+            type: "text",
             required: true,
             props: {
                 onChange: ((e) => {

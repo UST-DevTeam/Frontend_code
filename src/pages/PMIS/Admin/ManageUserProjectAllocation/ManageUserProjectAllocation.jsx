@@ -24,6 +24,7 @@ const ManageUserProjectAllocation = () => {
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [strValFil, setstrVal] = useState(false);
 
 
     let dispatch = useDispatch()
@@ -95,13 +96,13 @@ const ManageUserProjectAllocation = () => {
                 //         show: true,
                 //         icon: 'warning',
                 //         buttons: [
-                //             <Button classes='w-15 bg-green-500' onClick={() => {
+                //             <Button classes='w-15 bg-rose-400' onClick={() => {
                 //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project_allocation}/${itm.uniqueId}`, () => {
                 //                     dispatch(AdminActions.getProjectAllocation())
                 //                     dispatch(ALERTS({ show: false }))
                 //                 }))
                 //             }} name={"OK"} />,
-                //             <Button classes='w-24' onClick={() => {
+                //             <Button classes='w-auto' onClick={() => {
                 //                 console.log('snnsnsnsns')
                 //                 dispatch(ALERTS({ show: false }))
                 //             }} name={"Cancel"} />
@@ -124,6 +125,7 @@ const ManageUserProjectAllocation = () => {
             return 0
         }
     })
+
 
 
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
@@ -157,23 +159,22 @@ const ManageUserProjectAllocation = () => {
         filter: [
             {
                 label: "Employee",
-                type: "autoSuggestion",
+                type:"text",
                 name: "empUniqueId",
-                option: employeeList,
                 props: {
                 }
             },
             {
                 label: "Project",
-                type: "autoSuggestion",
+                type: "text",
                 name: "project",
-                option: projectList,
+                // option: projectList,
                 props: {
                 }
             },
             {
                 label: "Profile",
-                type: "autoSuggestion",
+                type: "select",
                 name: "profile",
                 option: roleList,
                 props: {
@@ -187,7 +188,12 @@ const ManageUserProjectAllocation = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data)))
+
+        let strVal=objectToQueryString(data)
+
+        setstrVal(strVal)
+
+        dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data),strVal))
 
         
     }
@@ -200,9 +206,7 @@ const ManageUserProjectAllocation = () => {
     }, [])
 
     const onTableViewSubmit = (data) => { 
-        console.log(data, "datadata")
-        data["fileType"]="ManageCircle"
-        data['collection'] = "circle"
+        data["fileType"]="userProjectAllocation"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(AdminActions.getProjectAllocation())
             setFileOpen(false)
@@ -218,8 +222,12 @@ const ManageUserProjectAllocation = () => {
                 setmodalBody(<ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button> */}
-                {/* <Button name={""} classes='w-auto ' onClick={(e) => {
-                }}></Button> */}
+                <Button name={"Upload"} classes='w-auto' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Export"} classes='w-auto mr-1 ' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/userProjectAllocation"+"?"+strValFil,"Export_User_Project_Allocation.xlsx"))
+                }}></Button>
                 </div>}
             table={table}
             filterAfter={onSubmit}
@@ -236,7 +244,7 @@ const ManageUserProjectAllocation = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  tempbtn={true} tempbtnlink = {["/template/UserProjectAllocation.xlsx","UserProjectAllocation.xlsx"]} />
     </>
 
 

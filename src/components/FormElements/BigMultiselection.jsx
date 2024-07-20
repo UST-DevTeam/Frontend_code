@@ -2,8 +2,8 @@ import Multiselect from "multiselect-react-dropdown";
 import React from "react";
 
 const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}) => {
-  console.log("setValue====setValue", getValues());
-  // console.log("asfaasfaswighjhjkdtitmhfasfewwe",itm);
+
+
   let datew=[] 
   if (getValues()[itm.name]) {
     let oldData = getValues()[itm.name].split(",");
@@ -30,18 +30,14 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}
         options={itm.option}
         showCheckbox
         singleSelect={itm.singleSelect ? itm.singleSelect : false}
-        selectedValues={datew} // Preselected value to persist in dropdown
+        selectedValues={datew} 
         onSelect={(e) => {
           let finalselection = e.map((itm) => {
             return itm.id;
           });
           console.log("asfasfasdfasdasdf",finalselection);
           setValue(itm.name, finalselection.join());
-          console.log(e, "onselectiofsdsgsdfsgn");
-          // if(true){
-          //   console.log("asfasfasfasdfasfafasfaasfasdf");
-          //   setValue();
-          // }
+          
           if(itm.onSelecting){
             itm.onSelecting(finalselection)
           }

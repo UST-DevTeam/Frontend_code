@@ -24,6 +24,7 @@ const VendorProjectAllocation = () => {
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [strValFil, setstrVal] = useState(false);
 
 
     let dispatch = useDispatch()
@@ -33,6 +34,15 @@ const VendorProjectAllocation = () => {
             return {
             label: itm?.empName + "(" + itm.empCode + ")",
             value: itm?.uniqueId
+            }
+        })
+    })
+
+    let employeeList2 = useSelector((state) => {
+        return state?.hrReducer?.getManageEmpDetails.map((itm) => {
+            return {
+            label:itm?.empName + "(" + itm.empCode + ")",
+            value: itm?.empCode
             }
         })
     })
@@ -95,13 +105,13 @@ const VendorProjectAllocation = () => {
                 //         show: true,
                 //         icon: 'warning',
                 //         buttons: [
-                //             <Button classes='w-15 bg-green-500' onClick={() => {
+                //             <Button classes='w-15 bg-rose-400' onClick={() => {
                 //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project_allocation}/${itm.uniqueId}`, () => {
                 //                     dispatch(AdminActions.getProjectAllocation())
                 //                     dispatch(ALERTS({ show: false }))
                 //                 }))
                 //             }} name={"OK"} />,
-                //             <Button classes='w-24' onClick={() => {
+                //             <Button classes='w-auto' onClick={() => {
                 //                 console.log('snnsnsnsns')
                 //                 dispatch(ALERTS({ show: false }))
                 //             }} name={"Cancel"} />
@@ -152,17 +162,14 @@ const VendorProjectAllocation = () => {
         filter: [
             {
                 label: "Vendor",
-                type: "autoSuggestion",
-                name: "empUniqueId",
-                option: employeeList,
-                props: {
-                }
+                type: "text",
+                name: "vendor"
             },
             {
                 label: "Project",
-                type: "autoSuggestion",
+                type: "text",
                 name: "project",
-                option: projectList,
+                // option: projectList,
                 props: {
                 }
             },
@@ -173,7 +180,12 @@ const VendorProjectAllocation = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getVendorProjectAllocation(value, objectToQueryString(data)))
+
+        let strVal=objectToQueryString(data)
+
+        setstrVal(strVal)
+
+        dispatch(AdminActions.getVendorProjectAllocation(value, objectToQueryString(data),strVal))
 
         
     }
@@ -186,9 +198,7 @@ const VendorProjectAllocation = () => {
     }, [])
 
     const onTableViewSubmit = (data) => { 
-        console.log(data, "datadata")
-        data["fileType"]="ManageCircle"
-        data['collection'] = "circle"
+        data["fileType"]="partnerProjectAllocation"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(AdminActions.getVendorProjectAllocation())
             setFileOpen(false)
@@ -204,8 +214,12 @@ const VendorProjectAllocation = () => {
                 setmodalBody(<ManageUserProjectAllocForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button> */}
-                {/* <Button name={""} classes='w-auto ' onClick={(e) => {
-                }}></Button> */}
+                <Button name={"Upload"} classes='w-auto ' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Export"} classes='w-auto ' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/partnerProjectAllocation"+"?"+strValFil,"Export_Partner_Project_Allocation.xlsx"))
+                }}></Button>
                 </div>}
             table={table}
             filterAfter={onSubmit}
@@ -222,7 +236,7 @@ const VendorProjectAllocation = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  tempbtn={true} tempbtnlink = {["/template/PartnerProjectAllocation.xlsx","PartnerProjectAllocation.xlsx"]} />
     </>
 
 

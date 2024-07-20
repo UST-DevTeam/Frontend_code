@@ -68,13 +68,13 @@ const ManageCostCenter = () => {
                         show: true,
                         icon: 'warning',
                         buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
+                            <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_cost_center}/${itm.uniqueId}`, () => {
                                     dispatch(AdminActions.getManageCostCenter())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
+                            <Button classes='w-auto' onClick={() => {
                                 console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
@@ -181,13 +181,14 @@ const ManageCostCenter = () => {
                 setmodalBody(<ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add Cost Center"}></Button>
-                <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
+                <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
                     setFileOpen(prev=>!prev)
+                }}></Button>
+                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                    dispatch(CommonActions.commondownload("/export/manageCostCenter","Export_Cost_Center.xlsx"))
                 }}></Button>
                 </div>}
             table={table}
-            // templateButton={["/template/CostCenter.xlsx","CostCenter.xlsx"]}
-            exportButton={["/export/manageCostCenter","Export_Cost_Center.xlsx"]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

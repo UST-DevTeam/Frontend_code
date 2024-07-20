@@ -2,7 +2,7 @@ import React from "react";
 
 const ConditionalButton = ({ onClick, showType, name, classes = "", icon }) => {
   let data = [
-    ["bg-", "bg-[#13B497]"],
+    ["bg-", "bg-pcol"],
     ["w-", "w-full"],
   ];
 

@@ -256,7 +256,7 @@ const CreateFormField = ({
 
       {itm.type != "hidden" && itm.type != "heading" ? (
         <div
-          className={`mx-0 my-2 p-1 ${itm.classes ? itm.classes : "col-span-1"}`}
+          className={`mx-0 my-3 p-1 ${itm.classes ? itm.classes : "col-span-1"}`}
         >
           {/* {itm?.showlabel == false ? <></> : <div className="items-center justify-between">
               {
@@ -272,7 +272,7 @@ const CreateFormField = ({
           >
             {itm?.amp && (
               itm?.amp?.map((its) => {
-                return <div className={`flex flex-row border-b-2  text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${its?.styling} ${its?.styling?.includes("w-24") ? "" : " w-24 "}`}>
+                return <div className={`flex flex-row border-b-2 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${its?.styling} ${its?.styling?.includes("") ? "" : " w-24 "}`}>
                   {
                     its?.type == "select" && <SelectDropDown
                       itm={its}
@@ -311,7 +311,7 @@ const CreateFormField = ({
                   register={register}
                 /> */}
 
-                <input className="p-2 block w-full border-b-2 py-1.5 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30" type={itm.type} min={0} defaultValue={itm.value}  {...itm.props} />
+                <input className="p-2 block w-full text-center border-b-2 py-1.5 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30" type={itm.type} min={0} defaultValue={itm.value}  {...itm.props} />
               </>
             ) : (
               <></>
@@ -430,8 +430,9 @@ const CreateFormField = ({
             )}
             {itm.type == "select" ? (
               <>
-                <div className="flex flex-col">
-                  <select  {...itm.props} value={itm.value}>
+                <div className="flex flex-col bg-white rounded-md">
+                  <select className={`bg-white font-semibold block h-10 w-full rounded-md text-white-900 shadow-lg ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}  
+                  {...itm.props} value={itm.value}>
                     <option selected value={""} >Select</option>
                     {
                       itm?.option?.map((selitm) => {
@@ -441,7 +442,7 @@ const CreateFormField = ({
                   </select>
 
                   {
-                    itm.value == "Dropdown" ? <input className="p-2 block w-full border-b-2 py-1.5 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30" type={itm.innertype} defaultValue={itm.innervalue} {...itm.innerprops} /> : <></>
+                    itm.value == "Dropdown" ? <input className="p-2 block w-full text-center border-b-2 py-1.5 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30" type={itm.innertype} defaultValue={itm.innervalue} {...itm.innerprops} /> : <></>
                   }
 
                   {
@@ -469,7 +470,7 @@ const CreateFormField = ({
                               color: "black !important",
                             },
                           }}
-                          className="pt-1 text-black bg-white border-black border block w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="pt-1 text-black bg-white border-black border block h-10 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                         </div> : <></>
                   }

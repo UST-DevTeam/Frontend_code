@@ -21,6 +21,8 @@ import {
     GET_MANAGE_CLAIM_TYPE_UNIT_RATE,
     GET_MANAGE_CLAIM_TYPE_DESIGNATION,
     GET_MANAGE_EXPENSE_ADVANCE,
+    GET_SUBPROJECT_MULTIDYNAMIC,
+    GET_PROJECTTYPE_MULTIDYNAMIC,
 
 
     // Not in use
@@ -51,6 +53,45 @@ const AdminActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_CUSTOMER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    // getSubProjectMultiDynamic:(reset=true,customeruniqueId,args="") => async (dispatch, _) => {
+    //     try {
+    //         const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}/${args!=""?"?"+args:""}`;
+    //         // const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}/${args!=""?"?"+args:""}`;
+    //         const res = await Api.get({ url, reset });
+    //         if (res?.status !== 200) return
+    //         let dataAll = res?.data?.data
+    //         dispatch(GET_SUBPROJECT_MULTIDYNAMIC({dataAll,reset}))
+    //     } catch (error) {
+    //     }
+    // },
+    getSubProjectMultiDynamic: (reset = true, customeruniqueId, args = "") => async (dispatch, _) => {
+        try {
+          const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
+          const res = await Api.get({ url, reset });
+          if (res?.status !== 200) return;
+          let dataAll = res?.data?.data;
+          dispatch(GET_SUBPROJECT_MULTIDYNAMIC({ dataAll, reset }));
+        } catch (error) {
+          // handle error
+          console.error("Error fetching sub projects:", error);
+        }
+      },
+    getProjectTypeMultiDynamic:(reset=true,customeruniqueId,projecttypeuniqueId=null) => async (dispatch, _) => {
+        try {
+            // const url = `${Urls.get_project_type_Dyanmic}/${customeruniqueId}/${projecttypeuniqueId}`;
+            let url;
+            if (projecttypeuniqueId) {
+                url = `${Urls.get_project_type_Dyanmic}/${customeruniqueId}/${projecttypeuniqueId}`;
+            } else {
+                url = `${Urls.get_project_type_Dyanmic}/${customeruniqueId}`;
+            }
+            const res = await Api.get({ url, reset });
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROJECTTYPE_MULTIDYNAMIC({dataAll,reset}))
         } catch (error) {
         }
     },

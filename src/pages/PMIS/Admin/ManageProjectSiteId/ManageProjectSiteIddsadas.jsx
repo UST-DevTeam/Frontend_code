@@ -62,7 +62,7 @@ const ManageProjectSiteIddassdasdas = () => {
                     <p
                         // onClick={() => handleFullName(item)}
                         onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-                        className="text-[#13b497] font-extrabold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
+                        className="text-pcol font-extrabold hover:underline hover:text-[#00ac25] focus:outline-none hover:font-semibold"
                     >
                         {itm.projectId}
                     </p>
@@ -86,13 +86,13 @@ const ManageProjectSiteIddassdasdas = () => {
                         show: true,
                         icon: 'warning',
                         buttons: [
-                            <Button classes='w-15 bg-green-500' onClick={() => {
+                            <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_project}/${itm.uniqueId}`, () => {
                                     dispatch(AdminActions.getProject())
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
-                            <Button classes='w-24' onClick={() => {
+                            <Button classes='w-auto' onClick={() => {
                                 console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />

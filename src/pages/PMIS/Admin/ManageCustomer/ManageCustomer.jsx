@@ -60,7 +60,7 @@ const ManageCustomer = () => {
             />
           </div>
         ),
-        shortName: <span className="text-[#13b497] font-extrabold">{itm.shortName}</span>,
+        shortName: <span className="text-pcol font-extrabold">{itm.shortName}</span>,
         // "status": <CstmButton child={<ToggleButton onChange={(e) => {
         //     console.log(e.target.checked, "e.target.checked")
         //     let data = {
@@ -116,7 +116,7 @@ const ManageCustomer = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -131,7 +131,7 @@ const ManageCustomer = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
@@ -186,22 +186,22 @@ const ManageCustomer = () => {
       {
         name: "Logo",
         value: "imgshow",
-        style: "min-w-[140px] max-w-[200px] text-center sticky bg-['']",
+        style: "min-w-[120px] max-w-[200px] text-center",
       },
       {
         name: "Customer Name",
         value: "customerName",
-        style: "min-w-[140px] max-w-[450px] text-center sticky  bg-['']",
+        style: "min-w-[130px] max-w-[450px] text-center sticky left-[0px] z-10 bg-[#3e454d]",
       },
       {
         name: "Short Name",
         value: "shortName",
-        style: "min-w-[100px] max-w-[200px] text-center",
+        style: "min-w-[110px] max-w-[200px] text-center",
       },
       {
         name: "Contact Person name",
         value: "personName",
-        style: "min-w-[160px] max-w-[450px] text-center",
+        style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
         name: "Email ID",
@@ -332,7 +332,7 @@ const ManageCustomer = () => {
           return (
             <>
               <div
-                className="bg-[#0e8670] text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
+                className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(itm["customerName"], `${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
@@ -343,7 +343,7 @@ const ManageCustomer = () => {
                 {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
-                      className="m-auto w-[50px] rounded-md hover:border-[#4a525b] hover:border-[1.5px]"
+                      className="m-auto w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>

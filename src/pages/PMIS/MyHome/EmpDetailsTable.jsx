@@ -29,7 +29,7 @@ const EmpDetailsTable = () => {
   const [fileOpen, setFileOpen] = useState(false);
   const [fileOpen2, setFileOpen2] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
-  const [strValFil, setstrVal] = useState(false);
+  const [strVal, setstrVal] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -106,7 +106,7 @@ const EmpDetailsTable = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCallerBulk(
@@ -124,7 +124,7 @@ const EmpDetailsTable = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
@@ -165,6 +165,7 @@ const EmpDetailsTable = () => {
   });
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.hrReducer?.getManageEmpDetails;
+    console.log(interdata,1234567)
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -274,8 +275,7 @@ const EmpDetailsTable = () => {
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    let strVal=objectToQueryString(data)
-    console.log('strValstrValstrVal',strVal)
+    let strVal =objectToQueryString(data)
     setstrVal(strVal)
     dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };
@@ -342,7 +342,7 @@ const EmpDetailsTable = () => {
           </div>
         }
         table={table}
-        exportButton={["/export/manageEmployee","Export_Employee("+dt+").xlsx"]}
+        exportButton={["/export/manageEmployee"+"?"+strVal,"Export_Employee("+dt+").xlsx"]}
         filterAfter={onSubmit}
         tableName={"ManageEmployee"}
         handleSubmit={handleSubmit}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import PopupMenu from "./PopupMenu";
 import { current } from "@reduxjs/toolkit";
-import { UilColumns } from "@iconscout/react-unicons";
+import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
 import { UilFilter } from "@iconscout/react-unicons";
 import Modalmoreinfo from "./Modalmoreinfo";
 import Modal from "./Modal";
@@ -268,7 +268,7 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-[11px] mx-2">
+                              <span className="text-[11px] text-white mx-2 font-semibold">
                                 {itts.name}
                               </span>
                             </div>
@@ -519,7 +519,7 @@ const AdvancedTable = ({
                       return (
                         <tr>
                           {checkboxshow && (
-                            <td className="text-[12px] h-2 pl-1 border-green-400 border overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
+                            <td className="text-[12px] h-2 pl-1 border-pcol border-[0.1px] overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
                               <input
                                 type="checkbox"
                                 checked={selectedRows.includes(itm.uniqueId)}
@@ -530,7 +530,7 @@ const AdvancedTable = ({
                           {table.columns.map((innerItm, index) => {
                             return hide.indexOf(String(index)) == -1 ? (
                               <td 
-                                className={`text-[12px] h-2 pl-1 border-green-400  border overflow-hidden text-white ${
+                                className={`text-[12px] h-2 pl-1 border-pcol border-[0.1px] overflow-hidden text-white ${
                                   innerItm.style
                                     ? innerItm.style
                                     : " min-w-[300px] max-w-[500px]"
@@ -553,9 +553,9 @@ const AdvancedTable = ({
                 </tbody>
               ) : (
                 <tbody>
-                  <tr className="border-2 border-black text-center">
-                    <td colSpan={table.columns.length} className="">
-                      No Records Found
+                  <tr className="border-[1.5px] border-pcol text-center text-slate-200">
+                    <td colSpan={table.columns.length} className="text-xl">
+                      <span className="text-[13px] font-bold">No Records Found</span>
                     </td>
                   </tr>
                 </tbody>
@@ -575,7 +575,7 @@ const AdvancedTable = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-primaryLine border-[0.1px] bg-primaryLine "
+                                  " border-pcol border-[0.1px] bg-primaryLine "
                                 }
                               >
                                 <span className="text-white text-[12px]">
@@ -587,7 +587,7 @@ const AdvancedTable = ({
                             )
                           ) : (
                             <>
-                              <th className=" border-gray-400 border-[0.1px] bg-primaryLine ">
+                              <th className=" border-pcol border-[0.1px] bg-primaryLine ">
                                 <span className="text-white text-[12px]">
                                   {itts.name}
                                 </span>
@@ -612,12 +612,13 @@ const AdvancedTable = ({
         </div>
         <div className="m-2">
           <div className="flex justify-between">
-            {tableName === "ManageEmployee" &&( 
+            {tableName === "ManageEmployee"  &&( 
               <div>
-                <label className="mr-2 text-white">Rows Per Page:</label>
+                <label className="mr-2 text-white">Rows Per Page :</label>
                 <select
                   value={RPP}
                   onChange={(e) => handleRPPChange(parseInt(e.target.value))}
+                  className="rounded-sm" 
                 >
                   {table.properties.rpp.map((itm, idx) => (
                     <option key={idx} value={itm}>
@@ -640,7 +641,7 @@ const AdvancedTable = ({
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${
                         currentPage == index + 1
-                          ? "bg-primaryLine text-white border-primaryLine"
+                          ? "bg-pcol text-white border-primaryLine"
                           : "bg-white text-black border-primaryLine"
                       } `}
                     >
@@ -656,7 +657,7 @@ const AdvancedTable = ({
                     }}
                     className={`border cursor-pointer border-primaryLine ${
                       currentPage == index + 1
-                        ? "bg-primaryLine text-white"
+                        ? "bg-pcol text-white"
                         : "bg-white"
                     } px-2 mx-2`}
                   >
@@ -677,12 +678,13 @@ const AdvancedTable = ({
       />
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <p>{`Are you sure you want to delete ${
+        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
+          <div className="bg-white p-4 rounded-lg shadow-xl">
+            <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
+            <p className="mt-4">{`Are you sure you want to delete ${
               selectedRows.length > 1 ? "these rows" : "this row"
             }?`}</p>
-            <div className="mt-4 flex justify-center space-x-4">
+            <div className="mt-6 flex justify-center space-x-4">
               <Button name="Delete" classes="w-auto bg-rose-500" onClick={handleDelete} />
               <Button name="Cancel" classes="w-auto" onClick={() => setShowDeleteModal(false)} />
               

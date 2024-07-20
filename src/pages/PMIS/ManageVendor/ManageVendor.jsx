@@ -93,11 +93,14 @@ const ManageVendor = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.vendor_details}/${itm.uniqueId}`,
+                            CommonActions.deleteApiCallerBulk(
+                              `${Urls.vendor_details}`,
+                              {
+                                ids:[itm.uniqueId]
+                              },
                               () => {
                                 dispatch(VendorActions.getManageVendorDetails());
                                 dispatch(ALERTS({ show: false }));
@@ -108,7 +111,7 @@ const ManageVendor = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
@@ -251,9 +254,14 @@ const ManageVendor = () => {
     let value = data.reseter;
     delete data.reseter;
     let strVal=objectToQueryString(data)
+
+
+
     setstrVal(strVal)
-    dispatch(VendorActions.getManageVendorDetails(value, objectToQueryString(data),strVal));
+    
+    dispatch(VendorActions.getManageVendorDetails(value, "",strVal));
   };
+  
   useEffect(() => {
     dispatch(VendorActions.getManageVendorDetails());
   }, []);
@@ -311,9 +319,9 @@ const ManageVendor = () => {
           </div>
         }
         table={table}
-        exportButton={["/export/vendor","Vendor.xlsx"]}
+        exportButton={["/export/vendor"+"?"+strValFil,"Vendor.xlsx"]}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"ManagePartner"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -321,6 +329,9 @@ const ManageVendor = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        checkboxshow = {true}
+        delurl = {Urls.vendor_details}
+        geturl = {VendorActions.getManageVendorDetails()}
         getaccessExport = {"Export(Partner On-Board)"}
       />
 

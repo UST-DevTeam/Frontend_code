@@ -115,8 +115,8 @@ const ManageUserProjectAllocForm = ({
       props: {
         onChange: (e) => { },
       },
-      classes: "col-span-2 w-screen",
-      width:"350px"
+      classes: "col-span-2",
+      width:"450px"
     },
   ];
 

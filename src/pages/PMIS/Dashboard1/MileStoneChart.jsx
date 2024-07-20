@@ -84,7 +84,7 @@ const MileStoneChart = () => {
     };
 
     return (
-            <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
+            <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
               <div className=" flex items-center space-x-4 mb-8 justify-between">
                 <div className="flex items-center space-x-4">
                   <NewMultiSelects label='Project Group' option={projectTypeList} value={selectedProjectType} cb={( data ) => setselectedProjectType(data)} />

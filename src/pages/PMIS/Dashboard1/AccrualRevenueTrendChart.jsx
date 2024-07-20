@@ -174,7 +174,7 @@ const AccrualRevenueTrendChart = () => {
 
 
     return (
-      <div className="bg-transparent border-[1.5px] border-[#13b497] rounded-md h-full p-4">
+      <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
                   <NewSingleSelect label='Cost Center' option={costCenterList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} placeholder = "Cost Center" />

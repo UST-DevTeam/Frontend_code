@@ -123,7 +123,7 @@ const Invoice = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes="w-15 bg-green-500"
+                        classes='w-15 bg-rose-400'
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCallerBulk(
@@ -139,7 +139,7 @@ const Invoice = () => {
                         name={"OK"}
                       />,
                       <Button
-                        classes="w-24"
+                        classes="w-auto"
                         onClick={() => {
                           console.log("snnsnsnsns");
                           dispatch(ALERTS({ show: false }));

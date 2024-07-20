@@ -31,21 +31,21 @@ const HRHomeView = () => {
           approveddata={[
             [
               "Manage Employee",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/hr/empDetailsTable",
               <Unicons.UilUserCircle size="30" color="" />,
             ],
-            ["Asset Management", "bg-[#0e8670]", "/hr/assetManagement",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
-            ["Manage Policy", "bg-[#0e8670]", "/hr/managePolicy", <Unicons.UilArchive size="30" color="" />,],
+            ["Asset Management", "bg-pcol", "/hr/assetManagement",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
+            ["Manage Policy", "bg-pcol", "/hr/managePolicy", <Unicons.UilArchive size="30" color="" />,],
             [
               "Expense & Advance",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/hr/Claim", "/hr/Advance",
             ],
-            ["Attendance", "bg-[#0e8670]", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
+            ["Attendance", "bg-pcol", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
             [
               "Super Admin",
-              "bg-[#0e8670]",
+              "bg-pcol",
               "/hr/superAdmin",
               <Unicons.UilFileAlt size="30" color="" />,
             ],
@@ -55,7 +55,7 @@ const HRHomeView = () => {
                 {getAccessType(itm[0]) == "visible" ||
                   getAccessType(itm[0]) == "disabled" ? (
                   <div
-                    className={`${itm[1]} shadow-md hover:shadow-rxl w-full text-center sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-[#FFAB2D] `}
+                    className={`${itm[1]} shadow-md hover:shadow-rxl w-full text-center sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-pcolhover `}
                     onClick={() => {
 
 

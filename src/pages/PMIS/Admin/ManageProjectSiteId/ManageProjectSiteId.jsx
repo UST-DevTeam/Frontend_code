@@ -95,6 +95,17 @@ const ManageProjectSiteId = () => {
     return state.projectList.getProjectTypeSub;
   });
 
+  let showTypeforAction = getAccessType("Actions(Site)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showTypeforAction === "visible"){
+    shouldIncludeEditColumn = true
+  }
+
+
+  
+
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getSiteSubProject.map((itm) => {
       return {
@@ -103,6 +114,8 @@ const ManageProjectSiteId = () => {
       };
     });
   });
+
+
 
   
 
@@ -309,10 +322,27 @@ const ManageProjectSiteId = () => {
                   }}
                 >
                   {iewq.assignerResult ? (
+
+                   
                     <>
                       <div class="">
                         <div class="group flex flex-row relative items-center w-full">
-                          {iewq.assignerResult
+                        {iewq.assignerResult
+                          .slice(0, 2)
+                          .map((itwsw, index) => (
+                              <p
+                                  key={index}
+                                  className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                              >
+                                  {" "}
+                                  {itwsw.assignerName && itwsw.assignerName.trim().split(" ").length > 1
+                                      ? `${itwsw.assignerName.split(" ")[0].substr(0, 1)}${itwsw.assignerName.split(" ")[1].substr(0, 1)}`
+                                      : itwsw.assignerName
+                                          ? itwsw.assignerName.split(" ")[0].substr(0, 1)
+                                          : ''}
+                              </p>
+                          ))}
+                          {/* {iewq.assignerResult
                             .slice(0, 2)
                             .map((itwsw, index) => (
                               <p
@@ -330,7 +360,7 @@ const ManageProjectSiteId = () => {
                                       .split(" ")[0]
                                       .substr(0, 1)}
                               </p>
-                            ))}
+                            ))} */}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
@@ -543,7 +573,7 @@ const ManageProjectSiteId = () => {
 
                             buttons: [
                               <Button
-                                classes="w-15 bg-green-500"
+                                classes='w-15 bg-rose-400'
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCaller(
@@ -562,7 +592,7 @@ const ManageProjectSiteId = () => {
                                 name={"OK"}
                               />,
                               <Button
-                                classes="w-24"
+                                classes="w-auto"
                                 onClick={() => {
                                   console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
@@ -666,7 +696,7 @@ const ManageProjectSiteId = () => {
           <p
             // onClick={() => handleFullName(item)}
             onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-            className="text-[#13b497] font-extrabold hover:underline focus:outline-none hover:font-semibold"
+            className="text-pcol font-extrabold hover:underline focus:outline-none hover:font-semibold"
           >
             {itm.projectId}
           </p>
@@ -788,7 +818,7 @@ const ManageProjectSiteId = () => {
                             icon: "warning",
                             buttons: [
                               <Button
-                                classes="w-15 bg-green-500"
+                                classes='w-15 bg-rose-400'
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCallerBulk(
@@ -807,7 +837,7 @@ const ManageProjectSiteId = () => {
                                 name={"OK"}
                               />,
                               <Button
-                                classes="w-24"
+                                classes="w-auto"
                                 onClick={() => {
                                   console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
@@ -989,11 +1019,20 @@ const ManageProjectSiteId = () => {
       //   value: "edit",
       //   style: "min-w-[100px] max-w-[200px] text-center",
       // },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[50px] max-w-[100px] text-center",
-      },
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[50px] max-w-[100px] text-center",
+            },
+          ]
+        : [])
+      // {
+      //   name: "Delete",
+      //   value: "delete",
+      //   style: "min-w-[50px] max-w-[100px] text-center",
+      // },
     ],
     childList: [""],
     childs: {
@@ -1071,11 +1110,20 @@ const ManageProjectSiteId = () => {
         //   value: "editing",
         //   style: "min-w-[100px] max-w-[200px] text-center",
         // },
-        {
-          name: "Delete",
-          value: "deleteing",
-          style: "min-w-[50px] max-w-[100px] text-center",
-        },
+        ...(shouldIncludeEditColumn
+          ? [
+              {
+                name: "Delete",
+                value: "deleteing",
+                style: "min-w-[50px] max-w-[100px] text-center",
+              },
+            ]
+          : []),
+        // {
+        //   name: "Delete",
+        //   value: "deleteing",
+        //   style: "min-w-[50px] max-w-[100px] text-center",
+        // },
       ],
     },
     properties: {
@@ -1150,6 +1198,12 @@ const ManageProjectSiteId = () => {
       )
     );   
   };
+  let siteexportpopup = false
+  let exportpopupshowType = getAccessType("Export(Site)")
+  if(exportpopupshowType === "visible"){
+    siteexportpopup = true
+  }
+
   return (
     <>
       <AdvancedTableExpandable
@@ -1380,6 +1434,7 @@ const ManageProjectSiteId = () => {
               }}
               name={"Site Allocate"}
             ></ConditionalButton>
+            {siteexportpopup && (
             <PopupMenu
               name={"Export"}
               icon={"Export"}
@@ -1387,8 +1442,7 @@ const ManageProjectSiteId = () => {
               bgColor={"bg-[#147b99]"}
               child={
                 <div classes="z-40 max-h-96 justify-center">
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Site")}
+                  <Button
                     name={"Export"}
                     classes="w-auto m-5"
                     onClick={(e) => {
@@ -1399,9 +1453,8 @@ const ManageProjectSiteId = () => {
                         )
                       );
                     }}
-                  ></ConditionalButton>
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Task")}
+                  ></Button>
+                  <Button
                     name={"Export with Task"}
                     classes="w-auto m-5"
                     onClick={(e) => {
@@ -1412,10 +1465,11 @@ const ManageProjectSiteId = () => {
                         )
                       );
                     }}
-                  ></ConditionalButton>
+                  ></Button>
                 </div>
               }
             />
+          )}
           </div>
         }
         table={table}

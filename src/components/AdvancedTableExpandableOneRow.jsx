@@ -23,7 +23,7 @@ const AdvancedTableExpandableOneRow = ({
   return (
     <>
       <tr>
-        <td className="text-[12px] pl-1 border-primaryLine border-[1.5px] text-primaryLine">
+        <td className="text-[12px] pl-1 border-pcol border-[0.1px] text-primaryLine">
           <span
             onClick={() => {
               setExpand((prev) => !prev);
@@ -46,7 +46,7 @@ const AdvancedTableExpandableOneRow = ({
         {table.columns.map((innerItm, index) => {
           return hide.indexOf(String(index)) == -1 ? (
             <td
-              className={`text-[12px] pl-1 border-primaryLine border-[1.5px] text-white ${
+              className={`text-[12px] pl-1 border-pcol border-[0.1px] text-white ${
                 innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"
               }`}
             >
@@ -70,7 +70,7 @@ const AdvancedTableExpandableOneRow = ({
             {/* console.log(onewqq.uniqueId, "onewqq.uniqueId"); */}
             return (
               <tr>
-                <td className="text-[12px] pl-1 border-primaryLine border-[1.5px] bg-[#3e454d] text-primaryLine ">
+                <td className="text-[12px] pl-1 border-pcol border-[0.1px] bg-[#3e454d] text-primaryLine ">
                   {multiSelect ? (
                     <div className="flex justify-center">
                       <input
@@ -88,7 +88,7 @@ const AdvancedTableExpandableOneRow = ({
                   {/* console.log(itts, onewqq, "ittsittsittsittsitts"); */}
                   return (
                     <td
-                      className={`text-[12px] pl-1 border-primaryLine cursor-pointer border-[1.5px] bg- text-white ${
+                      className={`text-[12px] pl-1 cursor-pointer border-pcol border-[0.1px] bg- text-white ${
                         itts.style ? itts.style : " min-w-[300px] max-w-[500px]"
                       }`}
                     >

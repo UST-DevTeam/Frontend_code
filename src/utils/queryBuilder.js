@@ -377,11 +377,8 @@ export let uiList = {
     "hdisabled": {
         "height": "h-[40px] w-full"
     },
-
-
-
     "textarea": {
-        "height": "h-[90px] w-full"
+        "height": "h-[70px] w-full"
     }
 }
 

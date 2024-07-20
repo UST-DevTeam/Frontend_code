@@ -29,19 +29,20 @@ const WorkdoneForecastCards = () => {
      <CCDash
         showbtn={false}
         approveddata={[
-          ["Actual Work Done", "bg-[#0e8670]", "/forms/EVMDelivery/ActualWorkDone",],
+          ["Actual Work Done", "bg-pcol", "/forms/EVMDelivery/ActualWorkDone",],
           // ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
         ].map((itm) => {
           return (
             <>
-              {getAccessType(itm[0]) == "visible" || getAccessType(itm[0]) == "disabled" ? (
+              {1 == 1 || (getAccessType(itm[0]) == "visible" ||
+                getAccessType(itm[0]) == "disabled") ? (
                 <div
-               className="bg-[#0e8670] text-center text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-[#FFAB2D] hover:text-[#4a525b]"
+                className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                   onClick={() => {
 
 
                     console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
-                    if ( getAccessType(itm[0]) == "visible") {
+                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
                       dispatch(
                         ComponentActions.globalUrlStore(

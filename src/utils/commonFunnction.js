@@ -66,8 +66,6 @@ export function isValidObjectId(str) {
 
 export function parseTwoDigit(text){
     const myNumber = parseFloat(text);
-
-    console.log(myNumber,"myNumbermyNumbermyNumbermyNumber")
     const roundedNumber = myNumber.toFixed(2);
     return roundedNumber;
 
