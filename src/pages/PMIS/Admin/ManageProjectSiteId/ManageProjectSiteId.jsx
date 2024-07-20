@@ -95,6 +95,17 @@ const ManageProjectSiteId = () => {
     return state.projectList.getProjectTypeSub;
   });
 
+  let showTypeforAction = getAccessType("Actions(Site)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showTypeforAction === "visible"){
+    shouldIncludeEditColumn = true
+  }
+
+
+  
+
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getSiteSubProject.map((itm) => {
       return {
@@ -103,6 +114,8 @@ const ManageProjectSiteId = () => {
       };
     });
   });
+
+
 
   
 
@@ -1006,11 +1019,20 @@ const ManageProjectSiteId = () => {
       //   value: "edit",
       //   style: "min-w-[100px] max-w-[200px] text-center",
       // },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[50px] max-w-[100px] text-center",
-      },
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[50px] max-w-[100px] text-center",
+            },
+          ]
+        : [])
+      // {
+      //   name: "Delete",
+      //   value: "delete",
+      //   style: "min-w-[50px] max-w-[100px] text-center",
+      // },
     ],
     childList: [""],
     childs: {
@@ -1088,11 +1110,20 @@ const ManageProjectSiteId = () => {
         //   value: "editing",
         //   style: "min-w-[100px] max-w-[200px] text-center",
         // },
-        {
-          name: "Delete",
-          value: "deleteing",
-          style: "min-w-[50px] max-w-[100px] text-center",
-        },
+        ...(shouldIncludeEditColumn
+          ? [
+              {
+                name: "Delete",
+                value: "deleteing",
+                style: "min-w-[50px] max-w-[100px] text-center",
+              },
+            ]
+          : []),
+        // {
+        //   name: "Delete",
+        //   value: "deleteing",
+        //   style: "min-w-[50px] max-w-[100px] text-center",
+        // },
       ],
     },
     properties: {
@@ -1167,6 +1198,12 @@ const ManageProjectSiteId = () => {
       )
     );   
   };
+  let siteexportpopup = false
+  let exportpopupshowType = getAccessType("Export(Site)")
+  if(exportpopupshowType === "visible"){
+    siteexportpopup = true
+  }
+
   return (
     <>
       <AdvancedTableExpandable
@@ -1397,6 +1434,7 @@ const ManageProjectSiteId = () => {
               }}
               name={"Site Allocate"}
             ></ConditionalButton>
+            {siteexportpopup && (
             <PopupMenu
               name={"Export"}
               icon={"Export"}
@@ -1431,6 +1469,7 @@ const ManageProjectSiteId = () => {
                 </div>
               }
             />
+          )}
           </div>
         }
         table={table}

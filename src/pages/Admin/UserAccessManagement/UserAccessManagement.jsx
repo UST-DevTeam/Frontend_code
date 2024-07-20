@@ -31,12 +31,10 @@ const UserAccessManagement = () => {
     return interdata;
   });
 
-  console.log(roleList,"roleListroleListroleList")
   let dbConfigList = useSelector((state) => {
     console.log(state, "state statejjjj");
     let interdata = state?.adminManagement?.usersList;
     return interdata.map((itm) => {
-      console.log(itm, "hhdhhhbvvvvv");
       let updateditm = {
         ...itm,
         status: (
@@ -262,7 +260,7 @@ const UserAccessManagement = () => {
 
   
   useEffect(() => {
-    dispatch(AdminManagementActions.getUsersList());
+    // dispatch(AdminManagementActions.getUsersList());
     dispatch(AdminManagementActions.getRoleList());
     dispatch(AdminActions.getOldComponentAllocationList());
     dispatch(AdminActions.getComponentAllocationList());

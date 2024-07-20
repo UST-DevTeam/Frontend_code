@@ -612,7 +612,7 @@ const AdvancedTable = ({
         </div>
         <div className="m-2">
           <div className="flex justify-between">
-            {tableName === "ManageEmployee" &&( 
+            {tableName === "ManageEmployee"  &&( 
               <div>
                 <label className="mr-2 text-white">Rows Per Page :</label>
                 <select

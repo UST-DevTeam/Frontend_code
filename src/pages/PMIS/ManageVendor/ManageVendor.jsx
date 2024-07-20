@@ -321,7 +321,7 @@ const ManageVendor = () => {
         table={table}
         exportButton={["/export/vendor"+"?"+strValFil,"Vendor.xlsx"]}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"ManagePartner"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

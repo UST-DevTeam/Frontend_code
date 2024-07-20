@@ -141,13 +141,17 @@ let smartComponent = <>Hello</>;
 
 let abcd = [];
 if (user) {
-  let cpv = getAccessType("Customer Page View");
-  // let cpv = "visible"
-  let ptpv = getAccessType("Project Type Page View");
-  let ppv = getAccessType("Project Page View");
-  let spv = getAccessType("Site Page View");
+  // let cpv = getAccessType("Customer Page View");
+  // let ptpv = getAccessType("Project Type Page View");
+  // let ppv = getAccessType("Project Page View");
+  // let spv = getAccessType("Site Page View");
 
-  console.log(cpv, "cpv", ptpv, "ptpv", ppv, "ppv", spv, "spv", "mergedAll");
+  let cpv = "visible"
+  let ptpv = "visible"
+  let ppv = "visible"
+  let spv = "visible"
+
+  // console.log(cpv, "cpv", ptpv, "ptpv", ppv, "ppv", spv, "spv", "mergedAll");
   if (cpv != "invisible") {
     smartComponent = <ManageCustomer />;
 
