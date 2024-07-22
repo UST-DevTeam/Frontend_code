@@ -79,7 +79,6 @@ const InvoiceBased = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
-                    dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
                     dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
                     // dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
                     // dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
@@ -225,16 +224,16 @@ const InvoiceBased = () => {
                 value: "projectGroupId",
                 style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-[#3e454d]  -top-1 z-20"
             },            
-            {
-                name: "Project Type",
-                value: "projectTypeName",
-                style: "min-w-[140px] max-w-[200px] text-center "
-            },            
-            {
-                name: "Project Sub Type",
-                value: "subProjectName",
-                style: "min-w-[140px] max-w-[200px] text-center "
-            },            
+            // {
+            //     name: "Project Type",
+            //     value: "projectTypeName",
+            //     style: "min-w-[140px] max-w-[200px] text-center "
+            // },            
+            // {
+            //     name: "Project Sub Type",
+            //     value: "subProjectName",
+            //     style: "min-w-[140px] max-w-[200px] text-center "
+            // },            
             {
                 name: "Project ID",
                 value: "projectIdName",
@@ -427,9 +426,9 @@ const InvoiceBased = () => {
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOInvoicedBased())
-        dispatch(FilterActions.getfinancialPoManagementCustomer())
-        dispatch(FilterActions.getfinancialPoManagementProjectGroup())
-        dispatch(FilterActions.getfinancialPoManagementProjectId())
+        // dispatch(FilterActions.getfinancialPoManagementCustomer())
+        // dispatch(FilterActions.getfinancialPoManagementProjectGroup())
+        // dispatch(FilterActions.getfinancialPoManagementProjectId())
     }, [])
 
     const onTableViewSubmit = (data) => {

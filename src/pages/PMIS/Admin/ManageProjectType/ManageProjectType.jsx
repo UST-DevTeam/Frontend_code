@@ -216,7 +216,7 @@ const   ManageProjectType = () => {
     {
       label: "Estimated Time (Days)",
       name: "Estimated Time (Days)",
-      type: "text",
+      type: "number",
       props: "",
       required: false,
       value: "",

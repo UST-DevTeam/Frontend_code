@@ -1,6 +1,9 @@
+import store from ".."
 import Api from "../../utils/api"
 import { SET_AUTHENTICATED, SET_TOKEN, SET_USER } from "../reducers/auth-reducer"
 import { ALERTS, SET_FILE_BLOB } from "../reducers/component-reducer"
+import ComponentActions from "./component-actions"
+
 
 const CommonActions = {
     postApiCaller: (urls, data, cb) => async (dispatch, _) => {
@@ -149,9 +152,44 @@ const CommonActions = {
     //     link.click();
         
     // },
+    // commondownload: (urls, filename, method = "GET", data = {}, cb) => async (dispatch, _) => {
+    //     try {
+    //         const res = await Api.blobFile({ url: urls, method: method, data: data })
+    //         if (res?.status !== 201 && res?.status !== 200) {
+    //             let msgdata = {
+    //                 show: true,
+    //                 icon: "error",
+    //                 buttons: [],
+    //                 type: 1,
+    //                 text: res?.data?.msg,
+    //             };
+    //             dispatch(ALERTS(msgdata));
+    //             cb()
+    //         } else {
+    //             console.log(res, "resresresrescommondownload")
+    //             dispatch(SET_FILE_BLOB(new Blob([res?.data])))
+    //             const url = window.URL.createObjectURL(new Blob([res.data]));
+    //             const link = document.createElement('a');
+    //             link.href = url;
+    //             link.setAttribute('download', `${filename}`);
+    //             document.body.appendChild(link);
+    //             link.click();
+
+    //         }
+        
+
+    //     }
+    //     catch (error) {
+    //         console.log(error, "amit errorerror 37")
+    //     }
+
+        
+
+    // },
     commondownload: (urls, filename, method = "GET", data = {}, cb) => async (dispatch, _) => {
         try {
-            const res = await Api.blobFile({ url: urls, method: method, data: data })
+            store.dispatch(ComponentActions.loaders(true))
+            const res = await Api.blobFile({ url: urls, method: method, data: data });
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -161,23 +199,20 @@ const CommonActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-                cb()
+                cb();
             } else {
-                console.log(res, "resresresrescommondownload")
-                dispatch(SET_FILE_BLOB(new Blob([res?.data])))
+                dispatch(SET_FILE_BLOB(new Blob([res?.data])));
                 const url = window.URL.createObjectURL(new Blob([res.data]));
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', `${filename}`);
                 document.body.appendChild(link);
                 link.click();
-
             }
-        
-
-        }
-        catch (error) {
-            console.log(error, "amit errorerror 37")
+        } catch (error) {
+            console.log(error, "amit errorerror 37");
+        } finally {
+            store.dispatch(ComponentActions.loaders(false))
         }
 
         

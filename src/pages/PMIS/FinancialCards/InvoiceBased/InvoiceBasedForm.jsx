@@ -55,14 +55,14 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
-  let projectTypeList = useSelector((state) => {
-    return state?.currentuserData?.getcurrentuserPT.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  // let projectTypeList = useSelector((state) => {
+  //   return state?.currentuserData?.getcurrentuserPT.map((itm) => {
+  //     return {
+  //       label: itm.projectType,
+  //       value: itm.uniqueId,
+  //     };
+  //   });
+  // });
 
   // let subProjectList = useSelector((state) => {
   //   return state?.adminData?.getPOSubProjectType
@@ -112,24 +112,24 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       props: {
         onChange: (e) => {
           dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${e.target.value}`))
-          dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${e.target.value}`))
+          // dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${e.target.value}`))
         },
       },
     },
-    {
-      label: "Project Type (Sub Project Type)",
-      value: "",
-      name: "projectType",
-      type: "select",
-      // required: true,
-      option: projectTypeList,
-      props: {
-        onChange: (e) => {
-          // dispatch(AdminActions.getPOProjectID(true,`projectId=${e.target.value}`))
-        },
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Project Type (Sub Project Type)",
+    //   value: "",
+    //   name: "projectType",
+    //   type: "select",
+    //   // required: true,
+    //   option: projectTypeList,
+    //   props: {
+    //     onChange: (e) => {
+    //       
+    //     },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Project Group",
       name: Object.entries(formValue).length > 0 ? "projectGroupId" : "projectGroup",
@@ -151,6 +151,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       name: "projectId",
       option: projectIdList,
       type: "select",
+      required: true,
       props: {
         onChange: (e) => { },
       },
@@ -224,7 +225,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       value: "",
       name: "unitRate(INR)",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "number",
-      // type: "number",
       required: true,
       props: {
         valueAsNumber: true,
@@ -239,7 +239,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       label: "Initial PO Qty",
       value: "",
       name: "initialPoQty",
-      // type:'number',
       type: formValue['poStatus'] === "Closed" || formValue['poStatus'] === "Short Closed" ? "sdisabled" : "number",
       required: true,
       props: {
@@ -278,7 +277,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           data,
           () => {
             // console.log("CustomQueryActions.postDBConfig");
-            dispatch(FinanceActions.getPOInvoicedBased());
+            // dispatch(FinanceActions.getPOInvoicedBased());
             setIsOpen(false);
             dispatch(FinanceActions.getPOInvoicedBased());
           },
@@ -299,7 +298,7 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
   useEffect(() => {
     dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
-    dispatch(GET_CURRENT_USER_PT({ dataAll: [], reset: true }))
+    // dispatch(GET_CURRENT_USER_PT({ dataAll: [], reset: true }))
     dispatch(GET_CURRENT_USER_PID({ dataAll: [], reset: true }))
     dispatch(AdminActions.getManageCustomer());
 
