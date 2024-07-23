@@ -41,11 +41,14 @@ const ManageMilestoneSite = ({
   projectuniqueId,
   setmodalFullOpen,
   setSiteId,
-}) => {
-  const { customeruniqueId } = useParams();
-  const today = moment().format("YYYY-MM-DD");
+  myTaskPage
 
+}) => {
+  const {customeruniqueId} = useParams;
+  const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
+
+
 
   const {
     register,
@@ -559,9 +562,6 @@ const ManageMilestoneSite = ({
 
     dispatch(
       AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {
-        // alert("done")
-
-        dispatch(AdminActions.getManageProjectType(customeruniqueId));
       })
     );
   };
@@ -569,7 +569,6 @@ const ManageMilestoneSite = ({
   useEffect(() => {
     reset({});
     settype(true);
-    // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
   }, [uid]);
 
   let dtype = {
@@ -635,6 +634,7 @@ const ManageMilestoneSite = ({
                         setmodalFullOpen={setmodalFullOpen}
                         setmodalOpen={setmodalOpen}
                         mileStone={mileStone}
+                        myTaskPage = {myTaskPage}
                       />
                     );
                     setmodalOpen(true);

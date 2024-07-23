@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     getMyHome: [],
     getPersonalInfo:[],
+    getmyTask:[],
 }
 
 const myHome = createSlice({
@@ -25,8 +26,16 @@ const myHome = createSlice({
                 state.getPersonalInfo  = [...state.getPersonalInfo,...payload.dataAll]
             }
         },
+
+        GET_MY_TASK:(state,{payload}) => {
+            if(payload.reset){
+                state.getmyTask = payload.dataAll
+            }else{
+                state.getmyTask  = [...state.getmyTask,...payload.dataAll]
+            }
+        },
     }
 })
 
-export const { GET_MY_HOME, GET_PERSONAL_INFO, } = myHome.actions
+export const { GET_MY_HOME, GET_PERSONAL_INFO, GET_MY_TASK } = myHome.actions
 export default myHome.reducer

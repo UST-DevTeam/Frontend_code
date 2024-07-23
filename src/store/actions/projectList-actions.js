@@ -27,6 +27,7 @@ const projectListActions = {
                     text: dtaa.msg
                 }
                 dispatch(ALERTS(msgdata))
+                cb()
             }else{
                 cb()
             }

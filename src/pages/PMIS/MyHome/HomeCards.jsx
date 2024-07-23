@@ -36,6 +36,12 @@ const HomeCards = () => {
               "border-b-blue-300",
             ],
             [
+              "My Task",
+              "bg-pcol",
+              "/home/myTask",
+              <Unicons.UilFileAlt size="40" color="" />,
+            ],
+            [
               "Claim & Advance",
               "bg-pcol",
               "/home/claimAndAdvance",
@@ -60,15 +66,16 @@ const HomeCards = () => {
               "/home/ptw",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
+            
           ].map((itm) => (
             <>
-              {1 == 1 ||
+              {
               getAccessType(itm[0]) == "visible" ||
               getAccessType(itm[0]) == "disabled" ? (
                 <div
                   className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                   onClick={() => {
-                    if (1 == 1 || getAccessType(itm[0]) == "visible") {
+                    if (getAccessType(itm[0]) == "visible") {
                       dispatch(ComponentActions.globalUrlStore(itm[0], itm[2]));
                       navigate(itm[2]);
                       dispatch(

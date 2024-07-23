@@ -2,47 +2,43 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
-import ManageProjectGroupForm from "../ManageProjectGroup/ManageProjectGroupForm";
-import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal";
-import Button from "../../../../components/Button";
-import DeleteButton from "../../../../components/DeleteButton";
-import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
+import Modal from "../../../components/Modal";
+import Button from "../../../components/Button";
+import DeleteButton from "../../../components/DeleteButton";
+import CstmButton from "../../../components/CstmButton";
+import ToggleButton from "../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
-import PopupMenu from "../../../../components/PopupMenu";
+import PopupMenu from "../../../components/PopupMenu";
 import {
   getAccessType,
   objectToQueryString,
   parseTwoDigit,
-} from "../../../../utils/commonFunnction";
-import { ALERTS } from "../../../../store/reducers/component-reducer";
-import CommonActions from "../../../../store/actions/common-actions";
-import { Urls } from "../../../../utils/url";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
-import AdminActions from "../../../../store/actions/admin-actions";
+} from "../../../utils/commonFunnction";
+import { ALERTS } from "../../../store/reducers/component-reducer";
+import CommonActions from "../../../store/actions/common-actions";
+import { Urls } from "../../../utils/url";
+import OperationManagementActions from "../../../store/actions/admin-actions";
+import AdminActions from "../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
-import ManageProjectSiteIdForm from "./ManageProjectSiteIdForm";
-import projectListActions from "../../../../store/actions/projectList-actions";
-import AdvancedTableExpandable from "../../../../components/AdvancedTableExpandable";
-import AllocateProjectForm from "./AllocateProjectForm";
-import AllocateProjectDateForm from "./AllocateProjectDateForm";
-import SearchBarView from "../../../../components/SearchBarView";
-import ManageSite from "../ManageSite/ManageSite";
-import EditingManageSite from "../ManageSite/EditingManageSite";
-import ManageMilestoneSite from "../ManageSite/ManageMilestoneSite";
-import ProgressBar from "../../../../components/ProgressBar";
-import { onehundcolor } from "../../../../utils/queryBuilder";
-import Tooltip from "../../../../components/Tooltip";
-import ConditionalButton from "../../../../components/ConditionalButton";
-import NewLookBadge from "../../../../components/Badge";
-import eventManagementActions from "../../../../store/actions/eventLogs-actions";
-import EventLog from "../../../../components/EventLogs";
-import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
-import FilterActions from "../../../../store/actions/filter-actions";
+import projectListActions from "../../../store/actions/projectList-actions";
+import AdvancedTableExpandable from "../../../components/AdvancedTableExpandable";
+import SearchBarView from "../../../components/SearchBarView";
 
-const ManageProjectSiteId = () => {
+import ProgressBar from "../../../components/ProgressBar";
+import { onehundcolor } from "../../../utils/queryBuilder";
+import ConditionalButton from "../../../components/ConditionalButton";
+import eventManagementActions from "../../../store/actions/eventLogs-actions";
+import EventLog from "../../../components/EventLogs";
+import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../store/reducers/admin-reducer";
+import FilterActions from "../../../store/actions/filter-actions";
+import ManageProjectSiteIdForm from "../Admin/ManageProjectSiteId/ManageProjectSiteIdForm";
+import AllocateProjectForm from "../Admin/ManageProjectSiteId/AllocateProjectForm";
+import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
+import { GET_CIRCLE_WITH_PG_DATA, GET_MAPPED_DATA } from "../../../store/reducers/projectList-reducer";
+import MyHomeActions from "../../../store/actions/myHome-actions";
+
+
+const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
@@ -142,7 +138,7 @@ const ManageProjectSiteId = () => {
   // }
 
   let dbConfigL = useSelector((state) => {
-    let interdata = state?.projectList?.getprojectalllist || [];
+    let interdata = state?.myHomeData?.getmyTask || [];
     return interdata;
   });
 
@@ -157,7 +153,7 @@ const ManageProjectSiteId = () => {
   });
 
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.projectList?.getprojectalllist || [];
+    let interdata = state?.myHomeData?.getmyTask || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -167,14 +163,12 @@ const ManageProjectSiteId = () => {
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
-
-              dispatch(
-                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                  dataAll: [],
-                  reset: true,
-                })
-              );
+              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
+              dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
+              dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
+              dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
+              dispatch(projectListActions.getMappedData(itm.projectuniqueId));
               setmodalBody(
                 <ManageMilestoneSite
                   siteCompleteData={itm}
@@ -183,7 +177,8 @@ const ManageProjectSiteId = () => {
                   setGlobalData={setGlobalData}
                   setSiteId={setSiteId}
                   setmodalFullOpen={setmodalFullOpen}
-                  projectuniqueId={projectuniqueId}
+                  projectuniqueId={itm['projectuniqueId']}
+                  myTaskPage = "Yes"
                 />
               );
 
@@ -439,13 +434,12 @@ const ManageProjectSiteId = () => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
-                  dispatch(
-                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                      dataAll: [],
-                      reset: true,
-                    })
-                  );
+                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
+                  dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
+                  dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
+                  dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
+                  dispatch(projectListActions.getMappedData(itm.projectuniqueId));
                   setmodalBody(
                     <ManageMilestoneSite
                       siteCompleteData={itm}
@@ -454,7 +448,8 @@ const ManageProjectSiteId = () => {
                       setGlobalData={setGlobalData}
                       setSiteId={setSiteId}
                       setmodalFullOpen={setmodalFullOpen}
-                      projectuniqueId={projectuniqueId}
+                      projectuniqueId={itm.projectuniqueId}
+                      myTaskPage = "Yes"
                     />
                   );
 
@@ -692,15 +687,15 @@ const ManageProjectSiteId = () => {
         //     console.log(itm.enabled, "itm.enabled")
         // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
-        projectId: (
-          <p
-            // onClick={() => handleFullName(item)}
-            onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-            className="text-pcol font-extrabold hover:underline focus:outline-none hover:font-semibold"
-          >
-            {itm.projectId}
-          </p>
-        ),
+        // projectId: (
+        //   <p
+        //     // onClick={() => handleFullName(item)}
+        //     onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
+        //     className="text-pcol font-extrabold hover:underline focus:outline-none hover:font-semibold"
+        //   >
+        //     {itm.projectId}
+        //   </p>
+        // ),
 
         // "siteStatus": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
         //     setmodalOpen(true)
@@ -866,7 +861,7 @@ const ManageProjectSiteId = () => {
   // console.log("safasfasfasfasfasdfasdfasdfabc", dbConfigList[0]?.uniqueId);
   let dbConfigTotalCount =
     useSelector((state) => {
-      let interdata = state?.projectList?.getprojectalllist;
+        let interdata = state?.myHomeData?.getmyTask || 0;
       // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
         console.log(
@@ -921,42 +916,48 @@ const ManageProjectSiteId = () => {
   };
   let table = {
     columns: [
-      {
-        name: (
-          <input
-            type={"checkbox"}
-            checked={
-              dbConfigL.length != 0 && parentsite.length == dbConfigL.length
-                ? true
-                : false
-            }
-            onClick={(e) => {
-              if (e.target.checked) {
-                dbConfigL.map((itm) => {
-                  if (childsite.indexOf(itm.uniqueId) == -1) {
-                    setparentsite((prev) => [...prev, itm.uniqueId]);
-                  }
-                  itm.milestoneArray.map((iewq) => {
-                    if (childsite.indexOf(iewq.uniqueId) == -1) {
-                      setchildsite((prev) => [...prev, iewq.uniqueId]);
-                    }
-                  });
-                });
-              } else {
-                setchildsite((prev) => []);
-                setparentsite((prev) => []);
-              }
-            }}
-          />
-        ),
-        value: "checkboxProject",
-        style: "min-w-[40px] max-w-[40px] text-center",
-      },
+    //   {
+    //     name: (
+    //       <input
+    //         type={"checkbox"}
+    //         checked={
+    //           dbConfigL.length != 0 && parentsite.length == dbConfigL.length
+    //             ? true
+    //             : false
+    //         }
+    //         onClick={(e) => {
+    //           if (e.target.checked) {
+    //             dbConfigL.map((itm) => {
+    //               if (childsite.indexOf(itm.uniqueId) == -1) {
+    //                 setparentsite((prev) => [...prev, itm.uniqueId]);
+    //               }
+    //               itm.milestoneArray.map((iewq) => {
+    //                 if (childsite.indexOf(iewq.uniqueId) == -1) {
+    //                   setchildsite((prev) => [...prev, iewq.uniqueId]);
+    //                 }
+    //               });
+    //             });
+    //           } else {
+    //             setchildsite((prev) => []);
+    //             setparentsite((prev) => []);
+    //           }
+    //         }}
+    //       />
+    //     ),
+    //     value: "checkboxProject",
+    //     style: "min-w-[40px] max-w-[40px] text-center",
+    //   },
       {
         name: "Site ID",
         value: "siteIdLink",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+          "min-w-[140px] max-w-[200px] text-center text-[#13b497] font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+      },
+      {
+        name: "Project ID",
+        value: "projectId",
+        style:
+          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20",
       },
       {
         name: "Sub Project",
@@ -1019,15 +1020,15 @@ const ManageProjectSiteId = () => {
       //   value: "edit",
       //   style: "min-w-[100px] max-w-[200px] text-center",
       // },
-      ...(shouldIncludeEditColumn
-        ? [
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[50px] max-w-[100px] text-center",
-            },
-          ]
-        : [])
+    //   ...(shouldIncludeEditColumn
+    //     ? [
+    //         {
+    //           name: "Delete",
+    //           value: "delete",
+    //           style: "min-w-[50px] max-w-[100px] text-center",
+    //         },
+    //       ]
+    //     : [])
       // {
       //   name: "Delete",
       //   value: "delete",
@@ -1037,14 +1038,20 @@ const ManageProjectSiteId = () => {
     childList: [""],
     childs: {
       milestoneArray: [
-        {
-          name: "",
-          value: "checkboxProject",
-          style: "min-w-[40px] max-w-[40px] text-center",
-        },
+        // {
+        //   name: "",
+        //   value: "checkboxProject",
+        //   style: "min-w-[40px] max-w-[40px] text-center",
+        // },
         {
           name: "Site ID",
           value: "SiteNaming",
+          style:
+            "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
+        },
+        {
+          name: "Project ID",
+          value: "projectId",
           style:
             "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
         },
@@ -1110,15 +1117,15 @@ const ManageProjectSiteId = () => {
         //   value: "editing",
         //   style: "min-w-[100px] max-w-[200px] text-center",
         // },
-        ...(shouldIncludeEditColumn
-          ? [
-              {
-                name: "Delete",
-                value: "deleteing",
-                style: "min-w-[50px] max-w-[100px] text-center",
-              },
-            ]
-          : []),
+        // ...(shouldIncludeEditColumn
+        //   ? [
+        //       {
+        //         name: "Delete",
+        //         value: "deleteing",
+        //         style: "min-w-[50px] max-w-[100px] text-center",
+        //       },
+        //     ]
+        //   : []),
         // {
         //   name: "Delete",
         //   value: "deleteing",
@@ -1149,7 +1156,7 @@ const ManageProjectSiteId = () => {
           name: "siteStatus",
           option: [
             { label: "Open", value: "Open" },
-            { label: "Close", value: "Close" },
+            { label: "Closed", value: "Closed" },
             { label: "Drop", value: "Drop" },
           ],
           props: {}
@@ -1175,11 +1182,10 @@ const ManageProjectSiteId = () => {
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
   };
   useEffect(() => {
-    dispatch(projectListActions.getProjectType(projectuniqueId));
-    dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
-    dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    dispatch(projectListActions.getMappedData(projectuniqueId));
-    dispatch(FilterActions.getSiteSubProject(projectuniqueId));
+    dispatch(MyHomeActions.getMyTask())
+    
+    
+    // dispatch(FilterActions.getSiteSubProject(projectuniqueId));
   }, []);
   const handleBulkDelte = () => {
    
@@ -1214,24 +1220,10 @@ const ManageProjectSiteId = () => {
             <SearchBarView
               onblur={(e) => {
                 console.log("SearchBarView onblur", e.target.value);
-                dispatch(
-                  projectListActions.getProjectTypeAll(
-                    projectuniqueId,
-                    e.target.value != ""
-                      ? "mileStoneName=" + e.target.value
-                      : ""
-                  )
-                );
+                // dispatch(MyHomeActions.getMyTask(projectuniqueId,e.target.value != "" ? "mileStoneName=" + e.target.value: ""));
               }}
               onchange={(e) => {
-                dispatch(
-                  projectListActions.getProjectTypeAll(
-                    projectuniqueId,
-                    e.target.value != ""
-                      ? "mileStoneName=" + e.target.value
-                      : ""
-                  )
-                );
+                dispatch(MyHomeActions.getMyTask(true,e.target.value != "" ? "mileStoneName=" + e.target.value: ""));
                 console.log("SearchBarView onchange", e.target.value);
               }}
               placeHolder={"S Milestone Name"}
@@ -1337,7 +1329,7 @@ const ManageProjectSiteId = () => {
                   name={"Delete"}
                 ></Button>
             )}
-            <ConditionalButton
+            {/* <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="w-auto "
               onClick={(e) => {
@@ -1355,8 +1347,8 @@ const ManageProjectSiteId = () => {
                 );
               }}
               name={"Add Site"}
-            ></ConditionalButton>
-            <ConditionalButton
+            ></ConditionalButton> */}
+            {/* <ConditionalButton
               showType={getAccessType("Task Allocation")}
               classes="w-auto "
               onClick={(e) => {
@@ -1394,9 +1386,9 @@ const ManageProjectSiteId = () => {
                 }
               }}
               name={"Task Allocate"}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
 
-            <ConditionalButton
+            {/* <ConditionalButton
               showType={getAccessType("Site Allocation")}
               classes="w-auto "
               onClick={(e) => {
@@ -1433,7 +1425,7 @@ const ManageProjectSiteId = () => {
                 }
               }}
               name={"Site Allocate"}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
             {siteexportpopup && (
             <PopupMenu
               name={"Export"}
@@ -1507,4 +1499,4 @@ const ManageProjectSiteId = () => {
   );
 };
 
-export default ManageProjectSiteId;
+export default MyTask;

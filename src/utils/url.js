@@ -1,11 +1,11 @@
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/"
 
-// export const baseUrl="http://192.168.0.132:7980"
-// export const backendassetUrl="http://192.168.0.132:7980/"
+// export const baseUrl="http://192.168.29.23:7980"
+// export const backendassetUrl="http://192.168.29.23:7980/"
 
-export const baseUrl="https://pmisfbapi.fourbrick.in"
-export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
+// export const baseUrl="https://pmisfbapi.fourbrick.in"
+// export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 export const Urls={
 
@@ -64,6 +64,7 @@ export const Urls={
     Hr_Expense_Advance:"/hr/expenseAdavance",
     
     MyHome:"/myHome/Cards",
+    user_myTask:"/myHome/myTask",
     admin_assetRegistration:"/myHome/assetRegistration",
     common_file_uploadr:"/commonUploadFile",
     common_file_uploadr1:"/UploadFile",

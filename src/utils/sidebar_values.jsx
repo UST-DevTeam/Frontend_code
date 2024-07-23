@@ -132,6 +132,7 @@ import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
 import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/AccrualRevenueTrend";
 import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
+import MyTask from "../pages/PMIS/MyTask/MyTask";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -317,6 +318,12 @@ export const Sidebar_content = {
       link: "/home/personalInfo",
       subMenu: [],
       component: <PersonalInfo />,
+    },
+    {
+      name: "",
+      link: "/home/myTask",
+      subMenu: [],
+      component: <MyTask />,
     },
     {
       name: "",

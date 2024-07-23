@@ -36,6 +36,7 @@ import CommonForm from "../../../../components/CommonForm";
 import PopupMenu from "../../../../components/PopupMenu";
 import FilterActions from "../../../../store/actions/filter-actions";
 import ManageSubProjectMultiDynamicFormTask from "./ManageSubProjectMultiDynamicFormTask";
+import { GET_PROJECT_ALL_LIST } from "../../../../store/reducers/projectList-reducer";
 
 
 const ManageProject = () => {
@@ -105,8 +106,8 @@ const ManageProject = () => {
         projectId: (
           <button>
             <p
-              // onClick={() => handleFullName(item)}
               onClick={() => {
+                dispatch(GET_PROJECT_ALL_LIST({dataAll:[],reset:true}))
                 dispatch(
                   ComponentActions.globalUrlStore(
                     itm.projectId,

@@ -303,7 +303,19 @@ const UserAccessManagement = () => {
                 fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
-                btnName={"Project Management Access"}
+                btnName={"My Home"}
+                listValue={getComponentAllocation.filter(prev=>prev.parent=="MyHome")}
+              />
+            }
+
+            {
+              <UserAccessManagementChild
+                showData={showData}
+                setshowData={setshowData}
+                fromCall={"pmpermission"}
+                name={"componentType"}
+                child={"select"}
+                btnName={"Project Management"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="ProjectManagement")}
               />
             }

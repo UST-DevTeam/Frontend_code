@@ -6,11 +6,13 @@ import projectListActions from '../../../../store/actions/projectList-actions';
 import { useDispatch, useSelector, } from 'react-redux';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
+import MyHomeActions from '../../../../store/actions/myHome-actions';
 
 
-const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,setmodalFullOpen,setmodalOpen,customeruniqueId }) => {
+const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,setmodalFullOpen,setmodalOpen,customeruniqueId,myTaskPage}) => {
 
-    console.log(siteCompleteData["siteStartDate"],"projectuniqueIdprojectuniqueIdprojectuniqueId")
+
+
 
     const dispatch = useDispatch()
     // let mileStoneCompletion = {
@@ -47,7 +49,10 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         },
         "Reference No": {
             
-        }
+        },
+        "WCC Pending Reason": {
+            
+        } 
     }
 
     let dataecoder={
@@ -60,11 +65,9 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     let mileStoneCompletion = useSelector((state) => {
         let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || []
 
-        // mtoneCompletion.map(())
-
         return mileStone["Completion Criteria"].split(",").map(dta=>{
             let geeter=mtoneCompletion.filter(itm=>itm.completion==dta)
-            console.log(geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "dsadasjdksa",' dsadasjdksa   ')
+            // console.log(geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "dsadasjdksa",' dsadasjdksa   ')
             return {
                 label: dta,
                 value: "",
@@ -90,20 +93,28 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
     })
 
 
-    const onsubmiting = (data) => {
-        // console.log(data, "onsubmitingonsubmitingonsubmitingssS")
-        // dispatch(AuthActions.signIn(data, () => {
-        //     navigate('/authenticate')
-        // }))
-        dispatch(projectListActions.postSubmit(Urls.projectList_closeMilestone+mileStone["uniqueId"], data, () => {
-            // alert("done")
-            // dispatch(AdminActions.getManageProjectType(customeruniqueId))
-            
-            dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-            // dispatch(AdminActions.getManageProjectType(customeruniqueId))
 
+    let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId)
+    if (myTaskPage === "Yes"){
+        backgeturl = MyHomeActions.getMyTask()
+    }
+
+    console.log(backgeturl,"backgeturlbackgeturl")
+
+
+
+
+
+
+
+    const onsubmiting = (data) => {
+        
+        dispatch(projectListActions.postSubmit(Urls.projectList_closeMilestone+mileStone["uniqueId"], data, () => {
+        
+            
             setmodalOpen(false)
             setmodalFullOpen(false)
+            dispatch(backgeturl)
         }))
 
     }
@@ -122,7 +133,6 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         formState: { errors },
     } = useForm();
 
-    // console.log(mileStone["Completion Criteria"], "mileStonemileStonemileStonex")
 
     return <>
         <CommonForm
