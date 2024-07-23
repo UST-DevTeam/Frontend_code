@@ -31,7 +31,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
             type: "file",
             required: false,
             props: {},
-            classes: "col-span-1 sm:col-span-1 flex justify-between items-center"
+            classes: "col-span-1 sm:col-span-1 flex justify-between font-bold items-center"
         },
     ]
 

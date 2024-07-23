@@ -185,18 +185,13 @@ console.log(newdte, "listinglistinglisting")
                 classes={"w-auto rounded-full bg-yellow-600 my-auto"}
                 onClick={() => {
                   // setlisting(prev => {
-                  //   console.log(prev, "prevprevprev")
                   //   prev.push("")
                   //   return prev
                   // })
 
-                  console.log(listing, "dasdasdas");
-
                   let newdte = listing.map((item, index) => {
-                    console.log(item, index, "dasdasdas"); 
                     return { ...item, index: index + 1 };
                   });
-                  console.log("dasdasdas", newdte);
 
                   if (listing.length > 0) {
                     functioning(newdte, setediting);
@@ -275,8 +270,6 @@ console.log(newdte, "listinglistinglisting")
               return its.label;
             })}
             columns={listing.map((itm, indexes) => {
-              // alert("dasdasdsadas")
-              console.log("indexes", itm, "itsitsitsitsitsitsitsits");
               return Form.map((its, innerIndex) => {
                 console.log(
                   itm[its.name],
@@ -304,8 +297,6 @@ console.log(newdte, "listinglistinglisting")
                       if (e.target.value == "Dropdown") {
                         newars["childView"] = true;
                       }
-
-                      console.log(newars, "newarsnewarsnewarsnewarsnewars");
                       const indexToUpdate = listing.findIndex(
                         (ite) => ite.index === itm.index
                       );
@@ -373,13 +364,7 @@ console.log(newdte, "listinglistinglisting")
                       // setedit(prev => !prev)
                       // setlisting((prev) => {
                       //   const indexToUpdate = prev.findIndex((ite) => ite.index === itm.index);
-                      //   console.log(indexToUpdate, "indexToUpdate")
                       //   const oldDataon = prev[indexToUpdate];
-
-                      //   console.log(oldDataon, "oldDataonoldDataon")
-
-                      //   console.log(oldDataon[its.name], "oldDataonoldDataononew")
-
                       //   const updatedData = {
                       //     ...oldDataon,
                       //     [its.name]: e.target.value // Assuming e.target.value is the new field value

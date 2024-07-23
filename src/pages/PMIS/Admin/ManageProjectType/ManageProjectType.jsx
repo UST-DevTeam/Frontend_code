@@ -1194,6 +1194,10 @@ const   ManageProjectType = () => {
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     dispatch(AdminActions.getManageCompletionCriteria())
   }, []);
+
+  const hasCards = dbConfigListCard && dbConfigListCard.length > 0;
+
+
   return type ? (
     <>
       <div className="flex p-2">
@@ -1254,38 +1258,14 @@ const   ManageProjectType = () => {
     </>
   ) : (
     <>
-      {/* <CCDash approveddata={
-                dbConfigListCard?.map((itm => {
-                    return <>
-                        <div
-                            className='bg-pink-100 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  '
-                            onClick={() => {
-                                navigate(`${"/projectGroup"}/${itm["uniqueId"]}`)
-                            }}>
-                            {itm["companyimg"] && itm["companyimg"] != "" && <><img className='m-auto w-24' src={backendassetUrl + itm["companyimg"]} /></>}
-                            <div className='m-auto '>{itm["projectType"]}</div>
-                        </div>
-                    </>
-                }))
-            } settype={settype} label='Add / Modify Project Type' /> */}
-
-    <div className="absolute w-full top-12 mt-12 h-70 z-10 bg-[#3e454d] overflow-auto ">
+    <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : ""} h-70 z-10 bg-[#3e454d] overflow-auto`}>
       <CCDash
         approveddata={dbConfigListCard?.map((itm) => {
           return (
             <>
               <div
-                className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
+                className="bg-pcol text-white text-sm shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-10 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
                 onClick={() => {
-                  // dispatch(
-                  //   ComponentActions.breadcrumb(
-                  //     itm["projectType"],
-                  //     `${"/projectManagement_1"}/${cname}/${itm["projectType"]}/${customeruniqueId}/${itm["uniqueId"]}`,
-                  //     1,
-                  //     false
-                  //   )
-                  // );
-
                   dispatch(
                     ComponentActions.globalUrlStore(itm["projectType"], `${"/projectManagement_1"}/${cname}/${itm["projectType"]}/${customeruniqueId}/${itm["uniqueId"]}`)
                   );
@@ -1307,7 +1287,7 @@ const   ManageProjectType = () => {
             </>
           );
         })}
-        className="flex flex-col "
+        className="flex flex-col"
         settype={settype}
         showbtn={true}
         label="Add/Modify Project Type"
@@ -1318,7 +1298,8 @@ const   ManageProjectType = () => {
         }}
       />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-80 gap-2">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-80 gap-2"> */}
+      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-60" : "mt-20"} gap-2`}>
 
       <ProjectChart />
       <ClaimAndAdvanceChart />

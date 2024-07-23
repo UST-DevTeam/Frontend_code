@@ -265,6 +265,8 @@ const ManageCustomer = () => {
     dispatch(ComponentActions.breadcrumb("Project Management", "/manageCustomer", 0, true));
   }, []);
 
+  const hasCards = dbConfigList && dbConfigList.length > 0;
+
   return type ? (
     <>
       <div className="flex p-2">
@@ -326,7 +328,8 @@ const ManageCustomer = () => {
     </>
   ) : (
     <>
-       <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto">
+       {/* <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto"> */}
+       <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-1/4 z-10 bg-[#3e454d] overflow-auto`}>
        <CCDash
         approveddata={dbConfigList?.map((itm) => {
           return (
@@ -357,7 +360,8 @@ const ManageCustomer = () => {
         label="Add/Modify Customer"
       />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-40 gap-2">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-40 gap-2"> */}
+      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-40" : "mt-12"} gap-2`}>
 
       <ProjectChart />
       <ClaimAndAdvanceChart />

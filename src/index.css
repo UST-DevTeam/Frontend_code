@@ -411,6 +411,10 @@ form::-webkit-scrollbar-corner{
   background: #3e454d;
 }
 
+.custom-scrollbar {
+  scrollbar-corner-color: white;
+}
+
 .amountWithRemark::placeholder {
   color: white !important;
   /* padding-left: 10px !important; */

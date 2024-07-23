@@ -90,9 +90,6 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
     let roleName = user?.roleName
     let empCode = user?.empCode
 
-
-    console.log(user,'+++++++++++++++user')
-
     const calllogout = () => {
         dispatch(CommonActions.logoutCaller(() => {
             navigate("/login");
@@ -103,10 +100,6 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
         setPopupVisible(prev => !prev);
     };
 
-    const handleCancelClick = () => {
-        setPopupVisible(false);
-    };
-
     const handleClickOutside = (event) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             setPopupVisible(false);
@@ -114,15 +107,11 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
     };
 
     useEffect(() => {
-        if (popupVisible) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
+        document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [popupVisible]);
+    }, []);
 
     return (
         <>
@@ -138,7 +127,7 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
 
                 <div className='relative'>
                     <div onClick={handleLogoutClick} className='dark:text-white flex space-x-1 cursor-pointer items-center'>
-                        <span className='text-white pr-1 hover:text-heading hover:cursor-pointer'>{empName}</span>
+                        <span className='text-sky-100 hover:text-heading hover:cursor-pointer'>{empName}</span>
                         <Unicons.UilSignout fill="#13b497" className="hover:text-heading hover:cursor-pointer" />
                     </div>
                 </div>

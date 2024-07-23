@@ -612,7 +612,7 @@ const ManageSite = ({
                             <tr className="bg-black w-full overflow-x-auto flex ">
                               {dataOfProject["t_sFinancials"].map((its) => {
                                 return (
-                                  <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#143b64] text-white  ">
+                                  <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
                                     {its.fieldName}
                                   </th>
                                 );
