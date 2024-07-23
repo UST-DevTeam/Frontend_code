@@ -44,43 +44,6 @@ const ClaimAdvanceOnclick = () => {
     })
     .replace(/\//g, "-");
 
-  //   let dbConfigList = useSelector((state) => {
-  //     let interdata = []
-  //     return interdata?.map((itm) => {
-  //       let updateditm = {
-  //         ...itm,
-  //         edit: (
-  //           <CstmButton
-  //             className={"p-2"}
-  //             child={
-  //               <EditButton
-  //                 name={""}
-  //                 onClick={() => {
-  //                   setmodalOpen(true);
-  //                   dispatch(ExpenseAdvanceActions.getFillAdvance());
-  //                   setmodalHead("Edit Claim Type");
-  //                   setmodalBody(
-  //                     <>
-  //                       <FillAdvanceForm
-  //                         isOpen={modalOpen}
-  //                         setIsOpen={setmodalOpen}
-  //                         resetting={false}
-  //                         formValue={itm}
-  //                       />
-  //                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-  //                     </>
-  //                   );
-  //                   //setmodalOpen(false)
-  //                 }}
-  //               ></EditButton>
-  //             }
-  //           />
-  //         ),
-  //       };
-  //       return updateditm;
-  //     });
-  //   });
-
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getClaimAndAdvancebyNumber || [];
     if (interdata.length > 0) {
@@ -304,17 +267,6 @@ const ClaimAdvanceOnclick = () => {
                                 " : " +
                                 `Approved Amount : ${item.Amount}`
                             );
-                            // setmodalBody(
-                            //   <>
-                            //     <ClaimAdvanceForm
-                            //       isOpen={modalOpen}
-                            //       setIsOpen={setmodalOpen}
-                            //       resetting={false}
-                            //       formValue={item}
-                            //     />
-                            //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                            //   </>
-                            // );
                             if (
                               item.advanceType === "Project Advance" ||
                               item.type === "Advance"

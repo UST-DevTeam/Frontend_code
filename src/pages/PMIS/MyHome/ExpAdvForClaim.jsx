@@ -390,7 +390,7 @@ const ExpAdvForClaim = () => {
             {" "}
             <Button
               name={"Upload Claims"}
-              classes="w-auto mr-1"
+              classes="w-auto"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
               }}
@@ -399,7 +399,7 @@ const ExpAdvForClaim = () => {
               classes="w-auto"
               onClick={(e) => {
                 navigate("/hr/Claim");
-              }}
+              }}    
               name={"Expense"}
             ></Button>
             <Button

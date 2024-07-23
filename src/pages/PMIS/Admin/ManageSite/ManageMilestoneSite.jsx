@@ -834,7 +834,7 @@ const ManageMilestoneSite = ({
                   />
                 </div> */}
 
-                <div className="overflow-auto h-[80vh]">
+                <div className="overflow-auto h-[80vh] m-12 mt-1">
                   {dataOfProject &&
                     Array.isArray(dataOfProject["t_sFinancials"]) &&
                     dataOfProject["t_sFinancials"] && (
@@ -842,7 +842,7 @@ const ManageMilestoneSite = ({
                         <tr className="border border-black">
                           {dataOfProject["t_sFinancials"].map((its) => {
                             return (
-                              <th className="px-2 w-auto whitespace-nowrap border-[1.5px] border-black p-1 bg-[#143b64] text-white ">
+                              <th className="px-2 w-auto mxax-w-full whitespace-nowrap border-[1.5px] border-black p-1 bg-[#24292d] text-white ">
                                 {its.fieldName}
                               </th>
                             );
@@ -906,7 +906,7 @@ const ManageMilestoneSite = ({
                                       dataOfProject["t_sFinancials"].length
                                     }
                                   >
-                                    <p className="float-right p-2 rounded-sm bg-yellow-300">Total Amount = {tamount}</p>
+                                    <p className="float-right p-2 rounded-sm bg-yellow-300 font-extrabold">Total Amount = {tamount}</p>
                                   </td>
                                 </tr>
                               </>

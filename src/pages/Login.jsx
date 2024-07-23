@@ -67,17 +67,17 @@ const Login = () => {
     //     </div>
     // </>
     return checkauth ? <></> : <><WithSideImage sideImage={"bg-sideimage"} formclass={" h-[60vh]"} labeling={"Login to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg ">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" action="" method="POST">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 m-8" action="" method="POST">
             <div>
                 <div className="flex items-center justify-between">
-                    <label htmlFor="email" className="block text-sm text-txt-neavy  pl-4 font-medium leading-6 font-poppins  dark:text-darkBg">Email</label>
+                    <label htmlFor="email" className="block text-sm text-[#13b497]  pl-4 font-extrabold leading-6 font-poppins  dark:text-darkBg">Email</label>
                 </div>
                 <div className="mt-2 flex">
-                    <input id="username" name="username" type="email" autoComplete="username" {...register("email", { required: "This Field is required" })} className="p-2 block w-full border-b-2 py-1.5 text-black-900 sm:text-sm sm:leading-6 bg-opacity-50 rounded-md  text-black font-poppins outline-none border-gray-400 focus:border-blue-500 shadow-lg focus:shadow-indigo-500/30  rounded-4" />
-                    <div className='relative right-5 top-3' >
+                    <input id="username" name="username" type="email" autoComplete="username" {...register("email", { required: "This Field is required" })} className="p-2 block w-full border-b-2 py-1.5 text-black-900 sm:text-sm sm:leading-6 bg-[#b5efe6] rounded-md  text-black font-poppins outline-none border-gray-400 focus:border-blue-500 shadow-lg focus:shadow-indigo-500/30  rounded-4" placeholder='example@domain.com' />
+                    <div className='relative right-7 top-[10px] text-[#0a2b25]' >
                         {
                             <>
-                                <MdEmail />
+                                <MdEmail className='w-5 h-5' />
                             </>
                         }
                     </div>
@@ -87,27 +87,26 @@ const Login = () => {
 
             <div>
                 <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm pl-4 font-medium leading-6 text-txt-neavy font-poppins dark:text-darkBg">Password</label>
+                    <label htmlFor="password" className="block text-sm pl-4 font-extrabold leading-6 text-[#13b497] font-poppins dark:text-darkBg">Password</label>
                 </div>
                 <div className="mt-2 flex">
-                    <input id="password" onChange={(e) => setPassword(e.target.value)} name={password} type={showPassword ? 'text' : 'password'} autoComplete="current-password" {...register("password", { required: "This Field is required" })} className="p-2 block w-full border-b-2 py-1.5 text-black-900 sm:text-sm sm:leading-6 rounded-md   bg-opacity-50 text-black font-poppins outline-none border-gray-400 focus:border-blue-500 shadow-lg focus:shadow-indigo-500/30" />
-                    <div className='relative right-5 top-3 cursor-pointer' onClick={toggleEye}>
+                    <input id="password" onChange={(e) => setPassword(e.target.value)} name={password} type={showPassword ? 'text' : 'password'} autoComplete="current-password" {...register("password", { required: "This Field is required" })} className="p-2 block w-full border-b-2  py-1.5 text-black-900 sm:text-sm sm:leading-6 rounded-md bg-[#b5efe6] text-black font-poppins outline-none border-gray-400 focus:border-blue-500 shadow-lg focus:shadow-indigo-500/30" placeholder="•••••••••••" />
+                    <div className='relative right-7 top-[10px] cursor-pointer text-[#0a2b25]' onClick={toggleEye}>
                         {
-                            (!showPassword) ? (<><FaEyeSlash /></>) : (<><IoEye /></>)
+                            (!showPassword) ? (<><FaEyeSlash className='w-5 h-5' /></>) : (<><IoEye className='w-5 h-5' /></>)
                         }
                     </div>
                 </div>
                 <p className='text-xs text-rose-500 font-extrabold mt-1'>{errors.password?.message}</p>
                 {/* <button className="btn text-txt-neavy text-sm float-right pt-2">Forgot Password?</button> */}
             </div>
-            <div className='flex w-full pt-6'>
+            <div className='flex w-full pt-8'>
                 {/* <button onClick={() => {
                 navigate('/register')
             }} type="button" className="flex w-full justify-center rounded-full bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:outline-bg-pbutton hover:animate-pulse buttonAnim border-2 hover:border-2 border-gray-700 hover:border-gray-700">Register</button> */}
-                <button type="submit" className="flex w-full justify-center rounded-lg bg-secLine 
-                 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline 
-                    focus-visible:outline-2  focus-visible:outline-offset-2  buttonAnim border-2 border-gray-300 font-poppins transition
-                    duration-1000 ease-in-out hover:bg-gradient-to-r from-blue-200 via-blue-300 to-violet-200 hover:text-black hover:border-black hover:border-[1.5px]">Sign in</button>
+                <button type="submit" className="flex w-full justify-center rounded-lg py-1.5 text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+                    focus-visible:outline-2 mr-3  focus-visible:outline-offset-2  buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+                    duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]">Sign in</button>
             </div>
         </form>
         <div className="p-0 m-2 flex justify-center items-center">

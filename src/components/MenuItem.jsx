@@ -24,7 +24,7 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                 ((!checkp)||(checkp != {} && permission.permission && permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true) !=-1 && permission.permission[permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true)])) && 
                     <button onClick={((prev) => { SetOpen(!open), console.log(!open) })} type="button" class={"pl-2 flex items-center w-full p-2 text-sm font-light transition duration-75 hover:bg-pcol rounded-lg group text-white "} aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         {itm.icon}
-                        {sidebarOpen && <span class={"text-" + sizeArr[size] + " flex-1 ml-3 text-left whitespace-nowrap hover:text-gray-200 hover:bg-pcol "} sidebar-toggle-item>{itm.name}</span>}
+                        {sidebarOpen && <span class={"text-" + sizeArr[size] + " flex-1 ml-3 text-left whitespace-nowrap hover:text-gray-200 hover:bg-pcol"} sidebar-toggle-item>{itm.name}</span>}
                         {open ? <Unicons.UilAngleUp /> : <Unicons.UilAngleDown />}
                     </button> 
                 
@@ -35,7 +35,7 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                     <div className={`pl-3 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md ${itm.link == pathname && "text-[#E6BE8A]"}`} >
                         <span className="text-pcol">{itm.icon}</span>
                         {
-                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm hover:text-[#E6BE8A] font-medium transition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#E6BE8A]"}`}>
+                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm hover:text-[#13b497] font-semibold ransition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#E6BE8A]  font-extrabold !important"}`}>
                                 {itm.name}
                             </Link>
                         }

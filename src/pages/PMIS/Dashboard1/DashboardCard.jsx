@@ -57,7 +57,7 @@ const DashboardCard = () => {
   });
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getManageCustomer;
-    if (interdata.length > 0) {
+    if (interdata?.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
       return 0;

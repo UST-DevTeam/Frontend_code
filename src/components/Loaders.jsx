@@ -59,7 +59,7 @@ export const Loaders = () => {
 
         {
             swAlerts ?
-                <div className='h-full z-[100000] absolute w-full flex justify-center items-center bg-gray-700 bg-opacity-50'>
+                <div className='h-full z-[100000] absolute w-full flex justify-center items-center bg-gray-600 bg-opacity-50'>
                     <div class="loader">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" preserveAspectRatio="xMidYMid" class="lds-infinity stroke-black">
 
