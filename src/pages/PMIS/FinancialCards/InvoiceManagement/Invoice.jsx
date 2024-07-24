@@ -284,16 +284,16 @@ const Invoice = () => {
         style:
           "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-[#3e454d]",
       },
-      {
-        name: "Project Type",
-        value: "projectTypeName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Sub-Project",
-        value: "subProjectName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Project Type",
+      //   value: "projectTypeName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Sub-Project",
+      //   value: "subProjectName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Project ID",
         value: "projectIdName",
