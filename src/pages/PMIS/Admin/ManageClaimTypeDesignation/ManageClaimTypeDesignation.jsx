@@ -42,7 +42,7 @@ const ManageClaimTypeDesignation = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageClaimTypeDesignation(true, `claimTypeId=${itm?.uniqueId}`))
-                    setmodalHead("Edit ClaimType Designation")
+                    setmodalHead("Edit ClaimType Grade")
                     setmodalBody(<>
                         <ManageClaimTypeDesignationForm isEditable={true} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -103,7 +103,7 @@ const ManageClaimTypeDesignation = () => {
     let table = {
         columns: [
             {
-                name: "Designation",
+                name: "Grade",
                 value: "designation",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },          
@@ -176,7 +176,7 @@ const ManageClaimTypeDesignation = () => {
             headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 // dispatch(AdminActions.getManageClaimTypeDesignation())
-                setmodalHead("New Claim Type Designation")
+                setmodalHead("New Claim Type Grade")
                 setmodalBody(<ManageClaimTypeDesignationForm claimTypeHeaders={claimTypeHeaders} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
                 name={"Add New"}></Button>

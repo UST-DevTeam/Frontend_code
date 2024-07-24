@@ -680,7 +680,7 @@ const EmpDetails = (props) => {
       classes: "col-span-1",
     },
     {
-      label: "Designation",
+      label: "Grade",
       name: "designation",
       value: "",
       type: "select",
@@ -710,7 +710,7 @@ const EmpDetails = (props) => {
       classes: "col-span-1",
     },
     {
-      label: "Band",
+      label: "Designation",
       name: "band",
       value: "",
       type: "text",

@@ -324,9 +324,9 @@ const SuperAdmin = () => {
             "border-b-[#b8e0d2]",
           ],
           [
-            "Manage Designation",
+            "Manage Grade",
             "bg-[#0e8670]",
-            "/hr/superAdmin/manageDesignation",
+            "/hr/superAdmin/Grade",
             <Unicons.UilBookReader size="32" color="" />,           
             "border-b-[#bfd7ea]",
           ],

@@ -53,7 +53,7 @@ const ManageDesignation = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageDesignation())
-                    setmodalHead("Edit Designation")
+                    setmodalHead("Edit Grade")
                     setmodalBody(<>
                         <ManageDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
@@ -102,7 +102,7 @@ const ManageDesignation = () => {
     let table = {
         columns: [
             {
-                name: "Designation",
+                name: "Grade",
                 value: "designation",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
@@ -163,12 +163,12 @@ const ManageDesignation = () => {
                     <Button classes='w-auto' 
                         onClick={(e) => {
                             setmodalOpen(prev => !prev)
-                            setmodalHead("New Designation")
+                            setmodalHead("New Grade")
                             setmodalBody(
                                 <ManageDesignationForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />
                             )
                         }}
-                        name={"Add Designation"}>
+                        name={"Add Grade"}>
                     </Button>
 
                     {/* <Button name={"Upload File"} classes='w-auto ' 
