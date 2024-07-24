@@ -42,7 +42,7 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
     // ]
     let Form = [
         {
-            label: "Designation",
+            label: "Grade",
             value: "",
             name: "designation",
             type: "text",

@@ -108,7 +108,7 @@ import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
 import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
 import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
 import ClaimTypeCards from "../pages/PMIS/HR/ClaimTypeCards";
-import ManageClaimTypeDesignation from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
+import Manage from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
 import ManageClaimTypeUnitRate from "../pages/PMIS/Admin/ManageClaimTypeUnitRate/ManageClaimTypeUnitRate";
 import ClaimAndAdvance from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAndAdvance";
 import ClaimAndAdvanceOnclick from "../pages/PMIS/MyHome/ClaimAndAdvance/ClaimAdvanceOnclick";
@@ -495,7 +495,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/hr/superAdmin/manageDesignation",
+      link: "/hr/superAdmin/Grade",
       subMenu: [],
       component: <ManageDesignation />,
     },
@@ -551,8 +551,8 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/hr/superAdmin/claimType/claimTypeDesignation",
-      component: <ManageClaimTypeDesignation />,
+      link: "/hr/superAdmin/claimType/claimTypeGrade",
+      component: <Manage />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

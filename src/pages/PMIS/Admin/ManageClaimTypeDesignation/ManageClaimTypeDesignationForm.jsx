@@ -45,7 +45,7 @@ const ManageClaimTypeDesignationForm = ({
 
   let Form = [
     {
-      label: "Desination",
+      label: "Grade",
       value: "",
       name:Object.entries(formValue).length > 0 ? "designation" : "Designation",
       type:Object.entries(formValue).length > 0 ? "sdisabled" : "select",

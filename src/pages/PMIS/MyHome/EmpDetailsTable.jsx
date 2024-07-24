@@ -198,7 +198,7 @@ const EmpDetailsTable = () => {
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Designation",
+        name: "Grade",
         value: "designationName",
         style: "min-w-[250px] max-w-[450px] text-center",
       },

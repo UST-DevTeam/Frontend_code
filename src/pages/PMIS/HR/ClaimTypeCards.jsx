@@ -28,9 +28,9 @@ const ClaimTypeCards = () => {
             "/hr/superAdmin/claimType/claimTypeCategories",
           ],
           [
-            "ClaimType Designation",
-            "bg-pcol",
-            "/hr/superAdmin/claimType/claimTypeDesignation",
+            "ClaimType Grade",
+            "bg-[#0e8670]",
+            "/hr/superAdmin/claimType/claimTypeGrade",
           ],
           [
             "Unit Rate",
