@@ -99,7 +99,7 @@ const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,s
         backgeturl = MyHomeActions.getMyTask()
     }
 
-    console.log(backgeturl,"backgeturlbackgeturl")
+
 
 
 
