@@ -143,22 +143,22 @@ const AccrualRevenue = () => {
             {
                 name: "Customer",
                 value: "customer",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[120px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-10 p-2"
             },
             {
                 name: "Project Group",
                 value: "projectGroup",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[120px] bg-[#3e454d] z-10"
             },
-            {
-                name: "Project Type",
-                value: "projectType",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
+            // {
+            //     name: "Project Type",
+            //     value: "projectType",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
             {
                 name: "Project ID",
                 value: "projectId",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[260px] bg-[#3e454d] z-10"
             },
             {
                 name: "Item Code",

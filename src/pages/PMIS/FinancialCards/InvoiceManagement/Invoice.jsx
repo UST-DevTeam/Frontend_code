@@ -266,23 +266,23 @@ const Invoice = () => {
       {
         name: "Year",
         value: "year",
-        style: "min-w-[70px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[60px] max-w-[160px] text-center sticky left-0 bg-[#3e454d] z-10",
       },
       {
         name: "Month",
         value: "month",
-        style: "min-w-[100px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[80px] max-w-[160px] text-center sticky left-[60px] bg-[#3e454d] z-10",
       },
       {
         name: "Customer",
         value: "customerName",
-        style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[120px] max-w-[160px] text-center sticky left-[140px] bg-[#3e454d]",
       },
       {
         name: "Project Group",
         value: "projectGroupId",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-[#3e454d]",
+          "min-w-[140px] max-w-[200px] text-center sticky left-[260px] bg-[#3e454d] z-10",
       },
       // {
       //   name: "Project Type",
@@ -297,7 +297,7 @@ const Invoice = () => {
       {
         name: "Project ID",
         value: "projectIdName",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-[400px] bg-[#3e454d] z-10",
       },
       {
         name: "SSID",
