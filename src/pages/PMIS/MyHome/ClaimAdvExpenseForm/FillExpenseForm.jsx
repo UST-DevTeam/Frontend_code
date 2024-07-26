@@ -256,7 +256,6 @@ const FillExpenseForm = ({
 
     {
       label: "Attachment",
-
       value: "",
       name: "Attachment",
       type: "file",
@@ -273,7 +272,7 @@ const FillExpenseForm = ({
       multiple: false,
     },
   ];
-  if (selectedLabel === "Hotel") {
+  if (selectedLabel.toLocaleLowerCase() === "hotel") {
     Form.splice(1, 0,
       { 
         label: "Check In Date", 
@@ -324,7 +323,6 @@ const FillExpenseForm = ({
   const endKm = watch("endKm");
   const checkInDate = watch("checkInDate");
   const checkOutDate = watch("checkOutDate");
-
   useEffect(() => {
     if (!Km) {
       reset({

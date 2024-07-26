@@ -59,7 +59,7 @@ const ManageSubProjectMultiDynamicFormTask = ({ isOpen, setIsOpen, resetting, fo
         selectType: selectType,
       },
       hasSelectAll: true,
-      required: true,
+      
     },
     {
       label: "Sub Project", 
@@ -79,7 +79,7 @@ const ManageSubProjectMultiDynamicFormTask = ({ isOpen, setIsOpen, resetting, fo
         selectedSubproject: selectedSubproject,
       },
       hasSelectAll:true,
-      required:true,
+      
     
     },
   ];
