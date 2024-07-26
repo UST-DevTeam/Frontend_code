@@ -58,7 +58,7 @@ const EventLog = ({type,unqeId}) => {
           {
             name: "Site Id",
             value: "SiteId",
-            style: "min-w-[50px] max-w-[200px] text-center",
+            style: "min-w-[50px] max-w-[200px] text-center p-1",
           },
           {
             name: "User Email",

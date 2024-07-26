@@ -105,17 +105,17 @@ const ManageClaimTypeDesignation = () => {
             {
                 name: "Grade",
                 value: "designation",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 z-10 bg-[#3e454d]"
             },          
             {
                 name: "Site ID",
                 value: "siteId",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[140px] z-10 bg-[#3e454d]"
             },          
             {
                 name: "Task Name",
                 value: "taskName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[279px] z-10 bg-[#3e454d]"
             },          
         ],
 

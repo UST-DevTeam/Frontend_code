@@ -84,7 +84,7 @@ const DashboardCard = () => {
           return (
             <>
               <div
-                className={`bg-pcol ${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
+                className={`border-[1px] border-[#186757] bg-pcol ${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(itm["customerName"], `${"/dashboard"}/${itm["customerName"]}/${itm["uniqueId"]}`)

@@ -18,7 +18,7 @@ import {
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-import AdminActions from '../../../../store/actions/admin-actions';
+import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
 import CommonForm from "../../../../components/CommonForm";
@@ -32,7 +32,6 @@ import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import moment from "moment";
 
-
 const ManageMilestoneSite = ({
   siteCompleteData,
   uid,
@@ -41,14 +40,11 @@ const ManageMilestoneSite = ({
   projectuniqueId,
   setmodalFullOpen,
   setSiteId,
-  myTaskPage
-
+  myTaskPage,
 }) => {
-  const {customeruniqueId} = useParams;
+  const { customeruniqueId } = useParams;
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
-
-
 
   const {
     register,
@@ -104,13 +100,13 @@ const ManageMilestoneSite = ({
 
   const dispatch = useDispatch();
 
-  let showType = getAccessType("Financial button under Template")
+  let showType = getAccessType("Financial button under Template");
 
-    let assignfinacial = false
+  let assignfinacial = false;
 
-    if (showType === "visible"){
-      assignfinacial = true
-    }
+  if (showType === "visible") {
+    assignfinacial = true;
+  }
 
   let circleWithPGList = useSelector((state) => {
     return state?.projectList?.getCircleWithPGData?.map((itm) => {
@@ -122,20 +118,23 @@ const ManageMilestoneSite = ({
   });
 
   let bandList = useSelector((state) => {
-    return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
-      
-      return Object.keys(itm).includes('BAND') ? itm?.BAND?.split(",").map((its) => {
-        return {
-          "label": its,
-          "value": its
-        }
-      }) : []
-    }) || []
+    return (
+      state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
+        return Object.keys(itm).includes("BAND")
+          ? itm?.BAND?.split(",").map((its) => {
+              return {
+                label: its,
+                value: its,
+              };
+            })
+          : [];
+      }) || []
+    );
   });
 
   let dataOfOldProject = useSelector((state) => {
     let datew = state.adminData.getOneProjectTypeDyform;
-    
+
     if (type && datew && datew.length > 0) {
       settype(false);
 
@@ -232,7 +231,7 @@ const ManageMilestoneSite = ({
 
   const handleSiteEnggSubmit = (data) => {
     let final_data = {};
-    console.log("afasdflasdfghfjioasdfoa",data);
+    console.log("afasdflasdfghfjioasdfoa", data);
     dataOfProject["t_sengg"].map((itew) => {
       let fieldNaming = labelToValue(itew.fieldName);
 
@@ -561,14 +560,15 @@ const ManageMilestoneSite = ({
     };
 
     dispatch(
-      AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {
-      })
+      AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {})
     );
   };
 
   useEffect(() => {
     reset({});
     settype(true);
+    
+    dispatch(AdminActions.getManageCompletionCriteria());
   }, [uid]);
 
   let dtype = {
@@ -606,11 +606,11 @@ const ManageMilestoneSite = ({
         {mileStone.assignerResult ? (
           <div className="flex flex-row">
             <div className="w-full">
-              <div className="w-auto">
-                <h1>Milestone Status</h1>
+              <div className="w-auto flex text-[#13b497] font-extrabold pl-2 gap-2">
+                <h1>Milestone Status : </h1>
                 {
                   <p
-                    className={`w-20 rounded-xl text-center ${
+                    className={`w-20 rounded-xl text-center text-yellow-500 bg-slate-500 ${
                       uiStatusColor[mileStone?.mileStoneStatus]
                     }`}
                   >
@@ -634,7 +634,7 @@ const ManageMilestoneSite = ({
                         setmodalFullOpen={setmodalFullOpen}
                         setmodalOpen={setmodalOpen}
                         mileStone={mileStone}
-                        myTaskPage = {myTaskPage}
+                        myTaskPage={myTaskPage}
                       />
                     );
                     setmodalOpen(true);
@@ -670,28 +670,28 @@ const ManageMilestoneSite = ({
                   />
                 </div>
                 <CommonForm
-                  classes={"grid-cols-4 gap-1"}
+                  classes={"grid-cols-4 gap-1 mt-1"}
                   Form={
                     dataOfProject
                       ? dataOfProject["t_sengg"]
                         ? dataOfProject["t_sengg"].map((its) => {
-                          let type = dtype[its.dataType]
+                            let type = dtype[its.dataType];
                             let option = its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
+                              ? its.dropdownValue.split(",").map((itm) => {
                                   return {
                                     value: itm,
                                     label: itm,
                                   };
                                 })
-                                : []
-                            
-                            if (its['fieldName'] === "CIRCLE"){
-                               option = circleWithPGList;
-                               type = "select"
+                              : [];
+
+                            if (its["fieldName"] === "CIRCLE") {
+                              option = circleWithPGList;
+                              type = "select";
                             }
-                            if (its['fieldName'] === "BAND"){
+                            if (its["fieldName"] === "BAND") {
                               option = bandList;
-                              type = "select"
+                              type = "select";
                             }
 
                             return {
@@ -702,8 +702,8 @@ const ManageMilestoneSite = ({
                               name: its.fieldName,
                               type: type,
                               props: {
-                              maxSelectableDate: today,
-                            },
+                                maxSelectableDate: today,
+                              },
                             };
                           })
                         : []
@@ -738,8 +738,8 @@ const ManageMilestoneSite = ({
                               name: its.fieldName,
                               type: dtype[its.dataType],
                               props: {
-                              maxSelectableDate: today,
-                            },
+                                maxSelectableDate: today,
+                              },
                             };
                           })
                         : []
@@ -774,8 +774,8 @@ const ManageMilestoneSite = ({
                               name: its.fieldName,
                               type: dtype[its.dataType],
                               props: {
-                              maxSelectableDate: today,
-                            },
+                                maxSelectableDate: today,
+                              },
                             };
                           })
                         : []
@@ -823,10 +823,10 @@ const ManageMilestoneSite = ({
             //   </>
             // ),
             ...(assignfinacial
-            ? {
-            Financials: (
-              <>
-                {/* <div className="flex justify-end">
+              ? {
+                  Financials: (
+                    <>
+                      {/* <div className="flex justify-end">
                   <Button
                     classes="w-30"
                     name="Save Financial"
@@ -834,94 +834,101 @@ const ManageMilestoneSite = ({
                   />
                 </div> */}
 
-                <div className="overflow-auto h-[80vh] m-12 mt-1">
-                  {dataOfProject &&
-                    Array.isArray(dataOfProject["t_sFinancials"]) &&
-                    dataOfProject["t_sFinancials"] && (
-                      <table className="border-collapse border" border="2">
-                        <tr className="border border-black">
-                          {dataOfProject["t_sFinancials"].map((its) => {
-                            return (
-                              <th className="px-2 w-auto mxax-w-full whitespace-nowrap border-[1.5px] border-black p-1 bg-[#24292d] text-white ">
-                                {its.fieldName}
-                              </th>
-                            );
-                          })}
-                        </tr>
+                      <div className="overflow-auto h-[80vh] m-12 mt-1">
+                        {dataOfProject &&
+                          Array.isArray(dataOfProject["t_sFinancials"]) &&
+                          dataOfProject["t_sFinancials"] && (
+                            <table
+                              className="border-collapse border"
+                              border="2"
+                            >
+                              <tr className="border border-black">
+                                {dataOfProject["t_sFinancials"].map((its) => {
+                                  return (
+                                    <th className="px-2 w-auto mxax-w-full whitespace-nowrap border-[1.5px] border-black p-1 bg-[#24292d] text-white ">
+                                      {its.fieldName}
+                                    </th>
+                                  );
+                                })}
+                              </tr>
 
-                        {(() => {
-                          let tamount = 0;
+                              {(() => {
+                                let tamount = 0;
 
-                          // Your map function
-                          return (
-                            <>
-                              {invoiceData.map((itm, index) => {
+                                // Your map function
                                 return (
-                                  <tr
-                                    key={index}
-                                    className="text-[11px] h-2 pl-1 border-['#4ADE80'] text-center border-[1.5px] overflow-hidden text-white"
-                                  >
-                                    {dataOfProject["t_sFinancials"].map(
-                                      (its, columnIndex) => {
-                                        const value = itm[its.fieldName];
-                                        if (typeof value !== "undefined") {
-                                          if (its.fieldName == "Amount") {
-                                            tamount = tamount + value;
-                                            return (
-                                              <td
-                                                key={columnIndex}
-                                                className=" border-black border-[1.5px]"
-                                              >
-                                                {value}
-                                              </td>
-                                            );
-                                          } else {
-                                            return (
-                                              <td
-                                                key={columnIndex}
-                                                className=" border-[1px] border-black "
-                                              >
-                                                {value}
-                                              </td>
-                                            );
+                                  <>
+                                    {invoiceData.map((itm, index) => {
+                                      return (
+                                        <tr
+                                          key={index}
+                                          className="text-[11px] h-2 pl-1 border-['#4ADE80'] text-center border-[1.5px] overflow-hidden text-white"
+                                        >
+                                          {dataOfProject["t_sFinancials"].map(
+                                            (its, columnIndex) => {
+                                              const value = itm[its.fieldName];
+                                              if (
+                                                typeof value !== "undefined"
+                                              ) {
+                                                if (its.fieldName == "Amount") {
+                                                  tamount = tamount + value;
+                                                  return (
+                                                    <td
+                                                      key={columnIndex}
+                                                      className=" border-black border-[1.5px]"
+                                                    >
+                                                      {value}
+                                                    </td>
+                                                  );
+                                                } else {
+                                                  return (
+                                                    <td
+                                                      key={columnIndex}
+                                                      className=" border-[1px] border-black "
+                                                    >
+                                                      {value}
+                                                    </td>
+                                                  );
+                                                }
+                                              } else {
+                                                console.error(
+                                                  `Missing data for field "${its.fieldName}"`
+                                                );
+                                                return (
+                                                  <td key={columnIndex}>N/A</td>
+                                                );
+                                              }
+                                            }
+                                          )}
+                                        </tr>
+                                      );
+                                    })}
+                                    <>
+                                      <tr className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-800">
+                                        <td
+                                          colSpan={
+                                            dataOfProject["t_sFinancials"]
+                                              .length
                                           }
-                                        } else {
-                                          console.error(
-                                            `Missing data for field "${its.fieldName}"`
-                                          );
-                                          return <td key={columnIndex}>N/A</td>;
-                                        }
-                                      }
-                                    )}
-                                  </tr>
+                                        >
+                                          <p className="float-right p-2 rounded-sm bg-yellow-300 font-extrabold">
+                                            Total Amount = {tamount}
+                                          </p>
+                                        </td>
+                                      </tr>
+                                    </>
+                                  </>
                                 );
-                              })}
-                              <>
-                                <tr
-                                  className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-800"
-                                  
-                                >
-                                  <td
-                                    colSpan={
-                                      dataOfProject["t_sFinancials"].length
-                                    }
-                                  >
-                                    <p className="float-right p-2 rounded-sm bg-yellow-300 font-extrabold">Total Amount = {tamount}</p>
-                                  </td>
-                                </tr>
-                              </>
-                            </>
-                          );
-                        })()}
+                              })()}
 
-                        {}
-                      </table>
-                    )}
-                </div>
-              </>
-            ),
-            }
-            : {}),
+                              {}
+                            </table>
+                          )}
+                      </div>
+                    </>
+                  ),
+                }
+              : {}),
           }}
         />
       </div>

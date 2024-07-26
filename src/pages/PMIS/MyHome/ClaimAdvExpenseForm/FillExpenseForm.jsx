@@ -242,7 +242,7 @@ const FillExpenseForm = ({
       props: {
         maxSelectableDate: today,
       },
-      // required: true,
+      required: true,
       classes: "col-span-1",
     },
     {
@@ -290,7 +290,7 @@ const FillExpenseForm = ({
       multiple: false,
     },
   ];
-  if (selectedLabel === "Hotel") {
+  if (selectedLabel.toLocaleLowerCase() === "hotel") {
     Form.splice(1, 0,
       { 
         label: "Check In Date", 
@@ -412,6 +412,10 @@ const FillExpenseForm = ({
     console.log(resetting, formValue["categories"], "resettingresetting");
     if (resetting) {
       reset({});
+
+      setKm(false)
+      setSelectedLabel('')
+      
       Form.map((fieldName) => {
         setValue(fieldName["name"], fieldName["value"]);
       });
@@ -445,7 +449,7 @@ const FillExpenseForm = ({
       });
 
 
-      console.log(claimTypeList,formValue["ClaimType"],"dsadasdadadadadas")
+      
       setValue("claimType",claimTypeList.filter((itm)=>itm.label==formValue["claimType"])[0]?.["value"]) ||[]
       handleClaimTypeChange(claimTypeList.filter((itm)=>itm.label==formValue["claimType"])[0]?.["value"])
     }

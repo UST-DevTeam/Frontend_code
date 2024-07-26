@@ -828,7 +828,7 @@ const   ManageProjectType = () => {
                       </div>
                       {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
                       <CommonTableFormSiteParent
-                        funcaller={() => { }}
+                        funcaller={() => {}}
                         defaultValue={"Site Engg"}
                         tabslist={{
                           "Site Engg": (
@@ -1264,7 +1264,7 @@ const   ManageProjectType = () => {
           return (
             <>
               <div
-                className="bg-pcol text-white text-sm shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-10 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
+                className="bg-pcol text-white text-[12px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-8 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:bg-pcolhover hover:text-[#4a525b]"
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(itm["projectType"], `${"/projectManagement_1"}/${cname}/${itm["projectType"]}/${customeruniqueId}/${itm["uniqueId"]}`)
@@ -1282,7 +1282,7 @@ const   ManageProjectType = () => {
                     />
                   </>
                 )}
-                <div className="m-auto ">{itm["projectType"]}</div>
+                <div className="m-auto">{itm["projectType"]}</div>
               </div>
             </>
           );
@@ -1299,7 +1299,7 @@ const   ManageProjectType = () => {
       />
       </div>
       {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-80 gap-2"> */}
-      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-60" : "mt-20"} gap-2`}>
+      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-48" : "mt-20"} gap-2`}>
 
       <ProjectChart />
       <ClaimAndAdvanceChart />

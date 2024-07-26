@@ -10,8 +10,6 @@ import { SET_DYNAMIC_FORM_MOVE, SET_DYNAMIC_RM_INDEX } from '../store/reducers/p
 import { useDispatch } from 'react-redux';
 // import styled from "styled-components";
 
-// const Handle = 
-
 const RowHandler = SortableHandle(() => <div className="handle text-center text-white"><UilBars /></div>);
 
 const TableRow = ({ data, columns, editing, tabHead, indexing, className }) => {
@@ -120,11 +118,10 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
     const SortableItem = SortableElement(props => <TableRow {...props} />);
     return <>
-        <div className='h-[61.6vh]'>   
-            <table border={1} className='h-auto w-full table-auto bg-[#2e3339]'>
+        <div className='h-[66vh]'>   
+            <table border={1} className='h-auto w-full table-auto bg-[#3e454d]'>
                 <thead className='bg-primaryLine text-white text-[12px] sticky top-5 z-10  m-2 '>
                     <tr>
-
                         <th className='border-gray-400 border-[1.5px] w-28'> ☰ </th>
                         {
                             headers.map((itm) => {

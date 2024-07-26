@@ -18,7 +18,7 @@ const ClaimTypeCards = () => {
 
   return (
     <>
-     <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
+     <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
       <CCDash
         showbtn={false}
         approveddata={[
@@ -41,7 +41,7 @@ const ClaimTypeCards = () => {
           return (
             <>
               <div
-                 className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-extrabold  hover:text-lg hover:bg-pcolhover `}
+                 className={`${itm[1]} bg-pcol text-white text-[13px] text-center shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[14px] hover:text-[#444c54] hover:bg-pcolhover`}
                 // className={`${itm[1]} shadow-md hover:shadow-2xl w-[98%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(
@@ -62,7 +62,7 @@ const ClaimTypeCards = () => {
                     />
                   </>
                 )}
-                 <div className="m-auto text-white">
+                 <div className="m-auto">
                     {itm[0]}
                   </div>
                  {/* <div className="flex items-center justify-between w-full p-1">
@@ -83,7 +83,7 @@ const ClaimTypeCards = () => {
         label=""
       />
       </div>
-      <div className="grid lg:grid-cols-2 m-2 mt-28 gap-2">
+      <div className="grid lg:grid-cols-2 m-2 mt-20 gap-2">
 
       <ProjectChart />
       <ClaimAndAdvanceChart />
