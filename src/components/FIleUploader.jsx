@@ -4,7 +4,6 @@ import CommonForm from './CommonForm';
 import { useForm } from 'react-hook-form';
 import Button from './Button';
 import { useDispatch } from 'react-redux';
-import nokiaPrePostActions from '../store/actions/nokiaPrePost-actions';
 import CommonActions from "../store/actions/common-actions";
 
 const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbtn=false, tempbtnlink="", label="Template",head="Upload File"}) => {
@@ -20,8 +19,6 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
     } = useForm()
 
     const dispatch = useDispatch()
-
-    // console.log(tempbtnlink[0],"tempbtnlink")
 
     let Form = [
         {

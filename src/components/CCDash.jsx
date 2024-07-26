@@ -36,20 +36,20 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
         <div className='flex'>
         {
             showbtn && 
-            <div className='flex p-4'>
-                <ConditionalButton showType={getAccessType(label)} classes='w-auto h-8 bg-orange-400 text-[12px]' onClick={() => {
+            <div className='flex p-2'>
+                <ConditionalButton showType={getAccessType(label)} classes='w-auto h-8 bg-orange-400 border-[0.5px] border-orange-500 text-[#3e454d]' onClick={() => {
                     settype(true)
                 }} name={label} />
             </div>
         }
         {
-            oppshowbtn && <div className='flex p-2 ml-auto'>
+            oppshowbtn && <div className='flex mr-2 ml-auto'>
 
-                <ConditionalButton showType={getAccessType(opplabel)} classes='w-auto text-[18px] font-black' onClick={onpassclick} name={opplabel} />
+                <ConditionalButton showType={getAccessType(opplabel)} classes='w-auto bg-orange-400 text-[18px] border-[0.5px] border-orange-500 custom-classs' onClick={onpassclick} name={opplabel} />
             </div>
         }
         </div>
-        <div className='p-2  grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-4 grid col-span-12 rounded-md gap-3' >
+        <div className='p-2 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-4 grid col-span-12 rounded-md gap-3' >
             {approveddata}
         </div>
         {/* <div className={`p-2 w-1/6 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 col-span-12 rounded-md gap-2 flex flex-wrap justify-center items-start ${className}`}>

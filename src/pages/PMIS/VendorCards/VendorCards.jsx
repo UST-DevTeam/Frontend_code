@@ -27,7 +27,7 @@ const VendorCards = () => {
 
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-1/6 z-10 bg-[#3e454d] overflow-auto ">
+      <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
         <CCDash
           showbtn={false}
           approveddata={[
@@ -52,7 +52,7 @@ const VendorCards = () => {
                 {getAccessType(itm[0]) == "visible" ||
                   getAccessType(itm[0]) == "disabled" ? (
                   <div
-                    className={`${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
+                  className={`${itm[1]} bg-pcol text-white text-[13px] text-center shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
                     onClick={() => {
                       console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                       if (getAccessType(itm[0]) == "visible") {
@@ -84,7 +84,7 @@ const VendorCards = () => {
                         />
                       </>
                     )}
-                    <div className="m-auto text-white">
+                    <div className="m-auto">
                       {itm[0]}
                     </div>
                   </div>
@@ -98,7 +98,7 @@ const VendorCards = () => {
           label="Add / Modify "
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-28 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
         <ProjectChart />
         <ClaimAndAdvanceChart />
       </div>

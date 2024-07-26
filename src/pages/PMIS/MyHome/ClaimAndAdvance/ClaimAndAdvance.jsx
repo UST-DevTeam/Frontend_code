@@ -183,14 +183,18 @@ const ClaimAndAdvance = () => {
       {
         name: "Month-Year",
         value: "addedMonth",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
-
+      {
+        name: "Claim Date",
+        value: "AddedAt",
+        style: "min-w-[110px] max-w-[450px] text-center sticky left-[110px] bg-[#3e454d]",
+      },
       {
         name: "Expense/Advance No",
         value: "name",
         style:
-          "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+          "min-w-[250px] max-w-[450px] text-center sticky left-[220px] bg-[#3e454d]",
       },
       {
         name: "Cost Center",
@@ -200,11 +204,6 @@ const ClaimAndAdvance = () => {
       {
         name: "Submission Date",
         value: "submissionDate",
-        style: "min-w-[250px] max-w-[450px] text-center",
-      },
-      {
-        name: "Claim Date",
-        value: "AddedAt",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {

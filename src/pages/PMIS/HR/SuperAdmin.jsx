@@ -263,7 +263,7 @@ const SuperAdmin = () => {
 
   return (
     <>
-    <div className="absolute w-full top-12 mt-12 h-1/6 sm:h-44 md:h-60 z-10 bg-[#3e454d] overflow-auto">
+    <div className="absolute w-full top-12 mt-12 h-16 sm:h-16 md:h-32 z-10 bg-[#3e454d] overflow-auto">
       <CCDash
         showbtn={false}
         approveddata={[
@@ -353,7 +353,7 @@ const SuperAdmin = () => {
           return (
             <>
               <div
-                 className={`${itm[1]} shadow-md hover:shadow-rxl text-center w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
+                  className={`${itm[1]} bg-pcol text-white text-[13px] text-center shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[14px] hover:text-[#444c54] hover:bg-pcolhover`}
                 // className={`${itm[1]} shadow-md hover:shadow-2xl w-[96%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(
@@ -374,7 +374,7 @@ const SuperAdmin = () => {
                     />
                   </>
                 )}
-                  <div className="m-auto text-white">
+                  <div className="m-auto">
                     {itm[0]}
                   </div>
                 {/* <div className="flex items-center justify-between w-full p-1">
@@ -395,7 +395,7 @@ const SuperAdmin = () => {
         label="Add / Modify Customer"
       />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-40 sm:mt-52 md:mt-64 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 sm:mt-20 md:mt-36 gap-2">
 
       <ProjectChart />
       <ClaimAndAdvanceChart />

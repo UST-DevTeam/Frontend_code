@@ -50,6 +50,10 @@ const BreadCrumbs = () => {
       "name":"Project Management",
       "url":"/manageCustomer"
     },
+    "GoToProject":{
+      "name":"Go To Project",
+      "url":`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`
+    },
     "projectManagement_1":{
       "name":"Project Management",
       "url":`${"/projectManagement_1"}/${cname}/projectType/${customeruniqueId}/${projecttypeuniqueId}`
@@ -64,10 +68,6 @@ const BreadCrumbs = () => {
       "name":"Project Management",
       "url":"/manageCustomer"
     },
-    // "GoToProject":{
-    //   "name":"Go To Project",
-    //   "url":`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`
-    // },
     "home":{
       "name":"My Home",
       "url":"/home"
@@ -187,7 +187,7 @@ const BreadCrumbs = () => {
       <nav className="bg-[#3e454d] pl-3 p-[12px] text-[16px] font-poppins font-extrabold text-md">
         <ol className="list-reset flex text-white">
           {consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).map((item, index) => {
-            return (
+            return ( 
               <>
                 {index != consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).length - 1  ? (
                   <>

@@ -1,158 +1,141 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import CommonForm from '../../../../components/CommonForm';
-import Button from '../../../../components/Button';
-import projectListActions from '../../../../store/actions/projectList-actions';
-import { useDispatch, useSelector, } from 'react-redux';
-import { Urls } from '../../../../utils/url';
-import AdminActions from '../../../../store/actions/admin-actions';
-import MyHomeActions from '../../../../store/actions/myHome-actions';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import CommonForm from "../../../../components/CommonForm";
+import Button from "../../../../components/Button";
+import projectListActions from "../../../../store/actions/projectList-actions";
+import { useDispatch, useSelector } from "react-redux";
+import { Urls } from "../../../../utils/url";
+import AdminActions from "../../../../store/actions/admin-actions";
+import MyHomeActions from "../../../../store/actions/myHome-actions";
 
+const CompletitonCreiteriaForm = ({
+  siteCompleteData,
+  mileStone,
+  projectuniqueId,
+  setmodalFullOpen,
+  setmodalOpen,
+  customeruniqueId,
+  myTaskPage,
+}) => {
+  const dispatch = useDispatch();
+  // let mileStoneCompletion = {
+  //     "Completion Date": "datetime",
+  //     "Checklist": "",
+  //     "MO No": "number",
+  //     "Challan copy": "file",
+  //     "Attachment": "file",
+  //     "Reference No": "number",
+  // };
 
-const CompletitonCreiteriaForm = ({ siteCompleteData,mileStone,projectuniqueId,setmodalFullOpen,setmodalOpen,customeruniqueId,myTaskPage}) => {
+  const dateString = siteCompleteData["siteStartDate"];
+  const [day, month, year] = dateString.split("-").map(Number);
 
+  const datestr = new Date(year, month - 1, day);
 
+  let mileStoneprops = {
+    "Completion Date": {
+      maxSelectableDate: new Date(),
+      minSelectableDate: datestr,
+    },
+  };
 
+  let dataecoder = {
+    Date: "datetime",
+    Number: "number",
+    File: "file",
+    Text: "text",
+    Dropdown: "select"
+  };
 
-    const dispatch = useDispatch()
-    // let mileStoneCompletion = {
-    //     "Completion Date": "datetime",
-    //     "Checklist": "",
-    //     "MO No": "number",
-    //     "Challan copy": "file",
-    //     "Attachment": "file",
-    //     "Reference No": "number",
-    // };
-  
+  let mileStoneCompletion = useSelector((state) => {
+    console.log("opppppp", state?.adminData?.getManageCompletionCriteria);
 
-    const dateString = siteCompleteData["siteStartDate"];
-    const [day, month, year] = dateString.split('-').map(Number);
-    
-    const datestr = new Date(year, month - 1, day);
+    let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
+    return mileStone["Completion Criteria"].split(",").map((dta) => {
+      console.log("opppppp2", mtoneCompletion, dta);
+      let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
+      console.log("geetergeeter", geeter);
+      return {
+        label: dta,
+        value: "",
+        name: "CC_" + dta,
+        required: true,
+        type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
+        option: geeter[0]["type"]=="Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
+          return {
+            label: itm,
+            value: itm,
+          };
+        }):[],
+        props: mileStoneprops[dta] || {},
+      };
+    });
 
-    let mileStoneprops = {
-        "Completion Date": {
-            maxSelectableDate:new Date(),
-            minSelectableDate:datestr,
-        },
-        "Checklist": {
-            
-        },
-        "MO No": {
-            
-        },
-        "Challan copy": {
-            
-        },
-        "Attachment": {
-            
-        },
-        "Reference No": {
-            
-        },
-        "WCC Pending Reason": {
-            
-        } 
-    }
+    return [];
+    return geeter.length > 0 ? geeter[0]["type"] : "";
+    return state?.adminData?.getManageCompletionCriteria || [];
+    return state?.adminData?.getManageCompletionCriteria.map((itm) => {
+      return {
+        label: itm?.type,
+        value: itm?.uniqueId,
+      };
+    });
+  });
 
-    let dataecoder={
-        "Date":"datetime",
-        "Number":"number",
-        "File":"file",
-        "Text":"text",
-    }
+  let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId);
+  if (myTaskPage === "Yes") {
+    backgeturl = MyHomeActions.getMyTask();
+  }
 
-    let mileStoneCompletion = useSelector((state) => {
-        let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || []
+  console.log(backgeturl, "backgeturlbackgeturl");
 
-        return mileStone["Completion Criteria"].split(",").map(dta=>{
-            let geeter=mtoneCompletion.filter(itm=>itm.completion==dta)
-            // console.log(geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "dsadasjdksa",' dsadasjdksa   ')
-            return {
-                label: dta,
-                value: "",
-                name: "CC_" + dta,
-                required: true,
-                type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
-                props:mileStoneprops[dta]
-            }
-        })
-        
+  const onsubmiting = (data) => {
+    dispatch(
+      projectListActions.postSubmit(
+        Urls.projectList_closeMilestone + mileStone["uniqueId"],
+        data,
+        () => {
+          setmodalOpen(false);
+          setmodalFullOpen(false);
+          dispatch(backgeturl);
+        }
+      )
+    );
+  };
 
-        
+  useEffect(() => {
+  }, []);
 
-        return []
-        return geeter.length > 0 ? geeter[0]["type"] : ""
-        return state?.adminData?.getManageCompletionCriteria || []
-        return state?.adminData?.getManageCompletionCriteria.map((itm) => {
-            return {
-                label: itm?.type,
-                value: itm?.uniqueId
-            }
-        })
-    })
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
+  return (
+    <>
+      <CommonForm
+        classes={"grid-cols-1 gap-1"}
+        Form={mileStoneCompletion}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+      />
 
-
-    let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId)
-    if (myTaskPage === "Yes"){
-        backgeturl = MyHomeActions.getMyTask()
-    }
-
-    console.log(backgeturl,"backgeturlbackgeturl")
-
-
-
-
-
-
-
-    const onsubmiting = (data) => {
-        
-        dispatch(projectListActions.postSubmit(Urls.projectList_closeMilestone+mileStone["uniqueId"], data, () => {
-        
-            
-            setmodalOpen(false)
-            setmodalFullOpen(false)
-            dispatch(backgeturl)
-        }))
-
-    }
-
-    useEffect(() => {
-        dispatch(AdminActions.getManageCompletionCriteria())
-    }, [])
-
-    const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        setValue,
-        getValues,
-        formState: { errors },
-    } = useForm();
-
-
-    return <>
-        <CommonForm
-            classes={"grid-cols-1 gap-1"}
-            Form={mileStoneCompletion}
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            getValues={getValues}
+      <div className="flex justify-center">
+        <Button
+          onClick={handleSubmit(onsubmiting)}
+          name={"Submit"}
+          classes="w-auto"
         />
-
-        <div className='flex justify-center'>
-
-            <Button onClick={handleSubmit(onsubmiting)} name={"Submit"} classes='w-auto' />
-        </div>
+      </div>
     </>
-
-}
-
-
-
+  );
+};
 
 export default CompletitonCreiteriaForm;

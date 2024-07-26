@@ -478,7 +478,7 @@ const AdvancedTableExpandable = ({
                       callApiPagination(index + 1);
                     }}
                     className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
-                      ? "bg-primaryLine text-white"
+                      ? "bg-pcol text-white"
                       : "bg-white"
                       } px-2 mx-2`}
                   >

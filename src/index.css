@@ -411,10 +411,6 @@ form::-webkit-scrollbar-corner{
   background: #3e454d;
 }
 
-.custom-scrollbar {
-  scrollbar-corner-color: white;
-}
-
 .amountWithRemark::placeholder {
   color: white !important;
   /* padding-left: 10px !important; */
@@ -645,13 +641,17 @@ td p {
 }
 
 .custom-multiselect .optionContainer {
-  background-color: #f0f8ff !important; /* Example background color */
+  background-color: #f0f8ff !important; 
 }
 
 .custom-multiselect .optionContainer li {
-  background-color: #f0f8ff !important; /* Example background color */
+  background-color: #f0f8ff !important;
 }
 
+.custom-classs{
+  font-size: 18px;
+  font-weight: 800;
+}
 
 
 

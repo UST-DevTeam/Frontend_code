@@ -1,33 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import EditButton from '../../../../components/EditButton';
-import ManageProjectTypeForm from '../ManageProjectType/ManageProjectTypeForm';
-import AdvancedTable from '../../../../components/AdvancedTable';
-import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
-import DeleteButton from '../../../../components/DeleteButton';
-import CstmButton from '../../../../components/CstmButton';
-import ToggleButton from '../../../../components/ToggleButton';
-import { objectToQueryString } from '../../../../utils/commonFunnction';
-import { ALERTS } from '../../../../store/reducers/component-reducer';
-import CommonActions from '../../../../store/actions/common-actions';
-import { Urls, backendassetUrl, baseUrl } from '../../../../utils/url';
-// import AdminActions from '../../../../store/actions/admin-actions';
-import AdminActions from '../../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
-import CCDash from '../../../../components/CCDash';
-import CommonForm from '../../../../components/CommonForm';
-import CommonTableForm from '../../../../components/CommonTableForm';
-import CommonTableFormParent from '../../../../components/CommonTableFormSiteParent';
-import CommonTableFormSiteParent from '../../../../components/CommonTableFormSiteParent';
-import { SET_DYNAMIC_FORM } from '../../../../store/reducers/projectList-reducer';
-import projectListActions from '../../../../store/actions/projectList-actions';
 import TableJson from '../../../../components/TableJson';
-
-
-
 
 const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setSiteId }) => {
 
@@ -81,13 +57,7 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
     })
 
 
-    console.log(check, "dataOfProjectdataOfProjectdataOfProject")
-
-
     const handleMileStoneSubmit = (data) => {
-
-        // alert(projectuniqueId)
-        console.log(check, "checkcheckcheckcheck")
 
         let lstindex = 0
 
@@ -136,20 +106,6 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
             }
         })
         setmodalFullOpen(false)
-
-
-        // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_milestone, final_data, () => {
-        //     setmodalFullOpen(false)
-
-        //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-        // }))
-
-
-
-
-
-        console.log(data, dataOfProject["uniqueId"], "dasugdjsahj")
-
     }
 
     const funcaller = () => {
@@ -158,26 +114,12 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
 
     }
 
-
-
-
-
-
-
-
-
     const [modalBody, setmodalBody] = useState((<>
 
 
 
         {/* <Button name={"sasaass"} onClick={(handleSubmit(handleAddActivity))}></Button> */}
     </>))
-
-
-
-
-
-
 
     useEffect(() => {
 

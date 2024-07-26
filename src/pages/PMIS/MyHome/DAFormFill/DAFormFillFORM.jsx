@@ -105,6 +105,7 @@ const DAFormFillFORM = ({
       value: "",
       name: "Claim_Date",
       type: "datetime",
+      required: true,
       props: {
         maxSelectableDate: today,
       },

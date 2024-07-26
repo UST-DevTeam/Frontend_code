@@ -329,13 +329,13 @@ const ManageCustomer = () => {
   ) : (
     <>
        {/* <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto"> */}
-       <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-1/4 z-10 bg-[#3e454d] overflow-auto`}>
+       <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-1/5 z-10 bg-[#3e454d] overflow-auto`}>
        <CCDash
         approveddata={dbConfigList?.map((itm) => {
           return (
             <>
               <div
-                className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-16 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
+                className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-14 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
                 onClick={() => {
                   dispatch(
                     ComponentActions.globalUrlStore(itm["customerName"], `${"/projectManagement"}/${itm["customerName"]}/${itm["uniqueId"]}`)
@@ -346,7 +346,7 @@ const ManageCustomer = () => {
                 {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
-                      className="m-auto w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
+                      className="m-auto w-[40px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>
@@ -361,7 +361,7 @@ const ManageCustomer = () => {
       />
       </div>
       {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-40 gap-2"> */}
-      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-40" : "mt-12"} gap-2`}>
+      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-32" : "mt-12"} gap-2`}>
 
       <ProjectChart />
       <ClaimAndAdvanceChart />
