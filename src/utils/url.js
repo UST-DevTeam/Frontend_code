@@ -10,8 +10,8 @@
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
-// export const baseUrl="https://pmisapi.mcpsinc.com"
-// export const backendassetUrl="https://pmisapi.mcpsinc.com/"   
+export const baseUrl="https://pmisapi.mcpsinc.com"
+export const backendassetUrl="https://pmisapi.mcpsinc.com/"   
 
 export const Urls={
 
