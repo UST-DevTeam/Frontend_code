@@ -159,7 +159,7 @@ const MyTask = () => {
         ...itm,
         siteIdLink: (
           <p
-            className=""
+            className="text-[#13b497]"
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
@@ -245,9 +245,9 @@ const MyTask = () => {
 
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
-            <p className="text-green-600">{itm.siteageing + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">{itm.siteageing + " Days"}</p>
           ) : (
-            <p className="text-red-600">{itm.siteageing + " Days"}</p>
+            <p className="text-rose-400 font-extrabold">{itm.siteageing + " Days"}</p>
           )
         ) : (
           ""
@@ -461,9 +461,9 @@ const MyTask = () => {
             eventLogsmilestone: <></>,
             taskmageing:
               iewq.taskageing >= 0 ? (
-                <p className="text-green-600">{iewq.taskageing + " Days"}</p>
+                <p className="text-[#13b497] font-extrabold">{iewq.taskageing + " Days"}</p>
               ) : (
-                <p className="text-red-600">{iewq.taskageing + " Days"}</p>
+                <p className="text-rose-400 font-extrabold">{iewq.taskageing + " Days"}</p>
               ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (
@@ -915,48 +915,16 @@ const MyTask = () => {
   };
   let table = {
     columns: [
-    //   {
-    //     name: (
-    //       <input
-    //         type={"checkbox"}
-    //         checked={
-    //           dbConfigL.length != 0 && parentsite.length == dbConfigL.length
-    //             ? true
-    //             : false
-    //         }
-    //         onClick={(e) => {
-    //           if (e.target.checked) {
-    //             dbConfigL.map((itm) => {
-    //               if (childsite.indexOf(itm.uniqueId) == -1) {
-    //                 setparentsite((prev) => [...prev, itm.uniqueId]);
-    //               }
-    //               itm.milestoneArray.map((iewq) => {
-    //                 if (childsite.indexOf(iewq.uniqueId) == -1) {
-    //                   setchildsite((prev) => [...prev, iewq.uniqueId]);
-    //                 }
-    //               });
-    //             });
-    //           } else {
-    //             setchildsite((prev) => []);
-    //             setparentsite((prev) => []);
-    //           }
-    //         }}
-    //       />
-    //     ),
-    //     value: "checkboxProject",
-    //     style: "min-w-[40px] max-w-[40px] text-center",
-    //   },
       {
         name: "Site ID",
         value: "siteIdLink",
-        style:
-          "min-w-[140px] max-w-[200px] text-center text-[#13b497] font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style:"min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "Project ID",
         value: "projectId",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20",
+          "min-w-[140px] max-w-[200px] text-center sticky left-[140px] bg-[#3e454d] z-20",
       },
       {
         name: "Sub Project",
@@ -1046,13 +1014,13 @@ const MyTask = () => {
           name: "Site ID",
           value: "SiteNaming",
           style:
-            "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
+            "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center  z-20",
         },
         {
           name: "Project ID",
           value: "projectId",
           style:
-            "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
+            "min-w-[140px] max-w-[200px] sticky left-[140px] bg-[#3e454d] text-center z-20",
         },
         {
           name: "Sub Project",

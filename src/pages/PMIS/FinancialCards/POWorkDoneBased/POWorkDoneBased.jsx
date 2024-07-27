@@ -101,22 +101,22 @@ const POWorkDoneBased = () => {
             {
                 name: "Customer",
                 value: "customer",
-                style: "min-w-[160px] max-w-[200px] text-center"
+                style: "min-w-[120px] max-w-[200px] text-center sticky left-0 z-10 bg-[#3e454d] p-2"
             },          
             {
                 name: "Project Group",
                 value: "projectGroup",
-                style: "min-w-[160px] max-w-[200px] text-center"
+                style: "min-w-[150px] max-w-[200px] text-center sticky left-[120px] z-10 bg-[#3e454d]"
             },            
-            {
-                name: "Project Type",
-                value: "projectType",
-                style: "min-w-[160px] max-w-[200px] text-center"
-            }, 
+            // {
+            //     name: "Project Type",
+            //     value: "projectType",
+            //     style: "min-w-[160px] max-w-[200px] text-center"
+            // }, 
             {
                 name: "Project ID",
                 value: "projectId",
-                style: "min-w-[160px] max-w-[200px] text-center"
+                style: "min-w-[160px] max-w-[200px] text-center sticky left-[270px] z-10 bg-[#3e454d]"
             },           
             // {
             //     name: "Sub Project",

@@ -200,7 +200,7 @@ const EmpDetailsTable = () => {
       {
         name: "Grade",
         value: "designationName",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[100px] max-w-[450px] text-center",
       },
       {
         name: "PMIS Role",

@@ -245,9 +245,9 @@ const ManageProjectSiteId = () => {
 
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
-            <p className="text-yellow-600 font-bold">{itm.siteageing + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">{itm.siteageing + " Days"}</p>
           ) : (
-            <p className="text-rose-400">{itm.siteageing + " Days"}</p>
+            <p className="text-rose-400 font-extrabold">{itm.siteageing + " Days"}</p>
           )
         ) : (
           ""
@@ -456,9 +456,9 @@ const ManageProjectSiteId = () => {
             eventLogsmilestone: <></>,
             taskmageing:
               iewq.taskageing >= 0 ? (
-                <p className="text-yellow-600 font-bold">{iewq.taskageing + " Days"}</p>
+                <p className="text-[#13b497] font-extrabold">{iewq.taskageing + " Days"}</p>
               ) : (
-                <p className="text-rose-400 font-bold">{iewq.taskageing + " Days"}</p>
+                <p className="text-rose-400 font-extrabold">{iewq.taskageing + " Days"}</p>
               ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (

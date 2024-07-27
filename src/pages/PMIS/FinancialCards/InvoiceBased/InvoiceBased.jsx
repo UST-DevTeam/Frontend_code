@@ -222,7 +222,7 @@ const InvoiceBased = () => {
             {
                 name: "Project Group",
                 value: "projectGroupId",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-[159px] bg-[#3e454d]  -top-1 z-20"
+                style: "min-w-[140px] max-w-[200px] text-center sticky left-[160px] bg-[#3e454d]  -top-1 z-20"
             },            
             // {
             //     name: "Project Type",
@@ -237,7 +237,7 @@ const InvoiceBased = () => {
             {
                 name: "Project ID",
                 value: "projectIdName",
-                style: "min-w-[170px] max-w-[200px] text-center"
+                style: "min-w-[170px] max-w-[200px] text-center sticky left-[300px] bg-[#3e454d]  -top-1 z-20"
             },                        
             {
                 name: "GBPA",

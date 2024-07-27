@@ -235,37 +235,37 @@ const WorkDone = () => {
       {
         name: "Customer",
         value: "customer",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[120px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-10",
       },
       {
         name: "Project Group",
         value: "projectGroup",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-[120px] bg-[#3e454d] z-10",
       },
       {
         name: "Project ID",
         value: "projectId",
-        style: "min-w-[160px] max-w-[200px] text-center",
+        style: "min-w-[160px] max-w-[200px] text-center sticky left-[260px] bg-[#3e454d] z-10",
       },
-      {
-        name: "Project Type",
-        value: "projectType",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      {
-        name: "Sub Project",
-        value: "subProject",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Project Type",
+      //   value: "projectType",
+      //   style: "min-w-[100px] max-w-[200px] text-center ",
+      // },
+      // {
+      //   name: "Sub Project",
+      //   value: "subProject",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "SSID",
         value: "systemId",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[120px] max-w-[200px] text-center sticky left-[420px] bg-[#3e454d] z-10",
       },
       {
         name: "Site ID",
         value: "Site Id",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-[540px] bg-[#3e454d] z-10",
       },
       {
         name: "Configuration",

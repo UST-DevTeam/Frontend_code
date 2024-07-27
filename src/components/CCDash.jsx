@@ -37,7 +37,7 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
         {
             showbtn && 
             <div className='flex p-2'>
-                <ConditionalButton showType={getAccessType(label)} classes='w-auto h-8 bg-orange-400 border-[0.5px] border-orange-500 text-[#3e454d]' onClick={() => {
+                <ConditionalButton showType={getAccessType(label)} classes='w-auto h-10 bg-yellow-600 border-[0.5px] border-yellow-800 text-[#3e454d]' onClick={() => {
                     settype(true)
                 }} name={label} />
             </div>
@@ -45,7 +45,7 @@ const CCDash = ({oppshowbtn=false, opplabel="", showbtn = true, onpassclick=()=>
         {
             oppshowbtn && <div className='flex mr-2 ml-auto'>
 
-                <ConditionalButton showType={getAccessType(opplabel)} classes='w-auto bg-orange-400 text-[18px] border-[0.5px] border-orange-500 custom-classs' onClick={onpassclick} name={opplabel} />
+                <ConditionalButton showType={getAccessType(opplabel)} classes='w-auto h-12 bg-orange-400 text-[18px] border-[0.5px] border-orange-500 custom-classs' onClick={onpassclick} name={opplabel} />
             </div>
         }
         </div>
