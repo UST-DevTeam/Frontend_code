@@ -168,12 +168,7 @@ const ManageProjectSiteId = () => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
 
-              dispatch(
-                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                  dataAll: [],
-                  reset: true,
-                })
-              );
+              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true,}));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               setmodalBody(
                 <ManageMilestoneSite
@@ -437,14 +432,8 @@ const ManageProjectSiteId = () => {
                 className=""
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
-                  dispatch(
-                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                      dataAll: [],
-                      reset: true,
-                    })
-                  );
+                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
                   setmodalBody(
                     <ManageMilestoneSite

@@ -90,22 +90,21 @@ const ManageSite = ({
 
   const dispatch = useDispatch();
 
+  let showType = getAccessType("Financial button under Template");
 
-  let showType = getAccessType("Financial button under Template")
+  let assignfinacial = false;
 
-    let assignfinacial = false
-
-    if (showType === "visible"){
-      assignfinacial = true
-    }
+  if (showType === "visible") {
+    assignfinacial = true;
+  }
 
   // let mappedDataList = useSelector((state) => {
-  //   return state?.projectList?.getMappedData 
+  //   return state?.projectList?.getMappedData
   // })
 
   let mappedDataList = useSelector((state) => {
     const data = state?.projectList?.getMappedData;
-    return data && data.length > 0 ? data : [{ 'headerName': "" }];
+    return data && data.length > 0 ? data : [{ headerName: "" }];
   });
 
   let circleWithPGList = useSelector((state) => {
@@ -117,10 +116,9 @@ const ManageSite = ({
     });
   });
 
-
   // let bandList = useSelector((state) => {
   //   return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
-      
+
   //     return Object.keys(itm).includes('BAND') ? itm?.BAND?.split(",").map((its) => {
   //       return {
   //         "label": its,
@@ -131,23 +129,23 @@ const ManageSite = ({
   // });
 
   let bandList = useSelector((state) => {
-    return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
-      
-      return Object.keys(itm).includes('BAND') ? itm?.BAND?.split(",").map((its) => {
-        return {
-          "label": its,
-          "value": its
-        }
-      }) : []
-    }) || []
+    return (
+      state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
+        return Object.keys(itm).includes("BAND")
+          ? itm?.BAND?.split(",").map((its) => {
+              return {
+                id: its,
+                name: its,
+              };
+            })
+          : [];
+      }) || []
+    );
   });
-
-
 
   let dataOfProject = useSelector((state) => {
     let dataOlder = state.adminData.getProjectTypeDyform[0];
-
-
+    console.log(dataOlder,"dataOlderdataOlder")
     return dataOlder;
     if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
       let data = dataOlder[0]["t_sengg"].map((its) => {
@@ -171,23 +169,25 @@ const ManageSite = ({
     }
   });
 
-
   const handleSiteEnggSubmit = (data) => {
     // alert(projectuniqueId)
 
-
-    let filData = []
-    filData = dataOfProject["t_sengg"].filter(itew => itew["required"] == "Yes")
-    let filDataCount = 0
-    let datamsg = ""
+    let filData = [];
+    filData = dataOfProject["t_sengg"].filter(
+      (itew) => itew["required"] == "Yes"
+    );
+    let filDataCount = 0;
+    let datamsg = "";
     filData.map((itew) => {
-      if (data[itew["fieldName"]] == undefined || data[itew["fieldName"]] == "") {
-        filDataCount += 1
-        datamsg += itew["fieldName"] + ", "
+      if (
+        data[itew["fieldName"]] == undefined ||
+        data[itew["fieldName"]] == ""
+      ) {
+        filDataCount += 1;
+        datamsg += itew["fieldName"] + ", ";
       }
-      console.log(itew["fieldName"], "nathnathamarnath")
-    })
-
+      console.log(itew["fieldName"], "nathnathamarnath");
+    });
 
     if (filDataCount != 0) {
       let msgdata = {
@@ -199,7 +199,7 @@ const ManageSite = ({
       };
       dispatch(ALERTS(msgdata));
 
-      return
+      return;
     }
     setSiteId(data["Site Id"] ? data["Site Id"] : "Add");
     let final_data = {
@@ -208,15 +208,13 @@ const ManageSite = ({
       projectuniqueId: projectuniqueId,
     };
 
-
-    let dat = dataOfProject["t_sengg"]
+    let dat = dataOfProject["t_sengg"];
     dat.map((itew) => {
       let fieldNaming = labelToValue(itew["fieldName"]);
       final_data[fieldNaming] = data[fieldNaming];
     });
 
-
-    console.log(final_data, "final_datafinal_data")
+    console.log(final_data, "final_datafinal_data");
     setGlobalData((prev) => {
       return {
         ...prev,
@@ -356,17 +354,17 @@ const ManageSite = ({
     //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
     // }))
     let final_data = {};
-        dataOfProject["t_sFinancials"].map((itew) => {
-        let fieldNaming = labelToValue(itew["fieldName"]);
-        final_data[fieldNaming] = data[fieldNaming];
-       });
+    dataOfProject["t_sFinancials"].map((itew) => {
+      let fieldNaming = labelToValue(itew["fieldName"]);
+      final_data[fieldNaming] = data[fieldNaming];
+    });
 
-      setGlobalData((prev) => {
-        return {
-          ...prev,
-          t_sFinancials: final_data,
-        };
-      });
+    setGlobalData((prev) => {
+      return {
+        ...prev,
+        t_sFinancials: final_data,
+      };
+    });
 
     // let msgdata = {
     //   show: true,
@@ -414,7 +412,6 @@ const ManageSite = ({
     if (dataOfProject) {
       setValueForm1("project", dataOfProject.projectType);
       setValueForm1("subProject", dataOfProject.subProject);
-
     }
     reset({});
 
@@ -466,52 +463,52 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_sengg"]
                         ? [
-                          {
-                            label: "Project Type",
-                            value: "",
-                            name: "project",
-                            type: "sdisabled",
-                            classes: "col-span-1",
-                          },
-                          {
-                            label: "Sub Project",
-                            value: "",
-                            name: "subProject",
-                            type: "sdisabled",
-                            classes: "col-span-1",
-                          },
-                          ...dataOfProject["t_sengg"].map((its) => {
-                            let type = dtype[its.dataType]
-                            let option = its.dropdownValue
+                            {
+                              label: "Project Type",
+                              value: "",
+                              name: "project",
+                              type: "sdisabled",
+                              classes: "col-span-1",
+                            },
+                            {
+                              label: "Sub Project",
+                              value: "",
+                              name: "subProject",
+                              type: "sdisabled",
+                              classes: "col-span-1",
+                            },
+                            ...dataOfProject["t_sengg"].map((its) => {
+                              let type = dtype[its.dataType];
+                              let option = its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
-                                : []
-                            
-                            if (its['fieldName'] === "CIRCLE"){
-                               option = circleWithPGList;
-                               type = "select"
-                            }
-                            if (its['fieldName'] === "BAND"){
-                              option = bandList;
-                              type = "select"
-                            }
-                            return {
-                              label: its.fieldName,
-                              value: "Select",
-                              required: its.required == "Yes" ? true : false,
-                              option: option,
-                              name: its.fieldName,
-                              type: type,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          }),
-                        ]
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [];
+
+                              if (its["fieldName"] === "CIRCLE") {
+                                option = circleWithPGList;
+                                type = "select";
+                              }
+                              if (its["fieldName"] === "BAND") {
+                                option = bandList;
+                                type = "muitiSelect";
+                              }
+                              return {
+                                label: its.fieldName,
+                                value: "Select",
+                                required: its.required == "Yes" ? true : false,
+                                option: option,
+                                name: its.fieldName,
+                                type: type,
+                                props: {
+                                  maxSelectableDate: today,
+                                },
+                              };
+                            }),
+                          ]
                         : []
                       : []
                   }
@@ -538,20 +535,20 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_tracking"]
                         ? dataOfProject["t_tracking"].map((its) => {
-                          let type = dtype[its.dataType];
-                          // if (mappedDataList.some(field => field.headerName === its['fieldName'])) {
-                          //       type = "sdisabled";
-                          // }                     
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            let type = dtype[its.dataType];
+                            // if (mappedDataList.some(field => field.headerName === its['fieldName'])) {
+                            //       type = "sdisabled";
+                            // }
+                            return {
+                              label: its.fieldName,
+                              value: "abc",
+                              name: its.fieldName,
+                              type: type,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
@@ -578,16 +575,16 @@ const ManageSite = ({
                     dataOfProject
                       ? dataOfProject["t_issues"]
                         ? dataOfProject["t_issues"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: dtype[its.dataType],
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            return {
+                              label: its.fieldName,
+                              value: "abc",
+                              name: its.fieldName,
+                              type: dtype[its.dataType],
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
@@ -600,42 +597,42 @@ const ManageSite = ({
               </>
             ),
             ...(assignfinacial
-            ? {
-              Financials: (
-                <>
-                  <div className="overflow-auto h-[80vh]">
-                    {dataOfProject &&
-                      Array.isArray(dataOfProject["t_sFinancials"]) &&
-                      dataOfProject["t_sFinancials"] && (
-                        <table>
-                          <thead>
-                            <tr className="bg-black w-full overflow-x-auto flex ">
-                              {dataOfProject["t_sFinancials"].map((its) => {
-                                return (
-                                  <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
-                                    {its.fieldName}
-                                  </th>
-                                );
-                              })}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {Array.isArray(bodyData) &&
-                              bodyData?.map((itm, i) => (
-                                <tr key={i}>
-                                  {Object.keys(itm)?.map((key, j) => {
-                                    return <td>{itm[key]}</td>;
+              ? {
+                  Financials: (
+                    <>
+                      <div className="overflow-auto h-[80vh]">
+                        {dataOfProject &&
+                          Array.isArray(dataOfProject["t_sFinancials"]) &&
+                          dataOfProject["t_sFinancials"] && (
+                            <table>
+                              <thead>
+                                <tr className="bg-black w-full overflow-x-auto flex ">
+                                  {dataOfProject["t_sFinancials"].map((its) => {
+                                    return (
+                                      <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+                                        {its.fieldName}
+                                      </th>
+                                    );
                                   })}
                                 </tr>
-                              ))}
-                          </tbody>
-                        </table>
-                      )}
-                  </div>
-                </>
-              ),
-          }
-          : {}),
+                              </thead>
+                              <tbody>
+                                {Array.isArray(bodyData) &&
+                                  bodyData?.map((itm, i) => (
+                                    <tr key={i}>
+                                      {Object.keys(itm)?.map((key, j) => {
+                                        return <td>{itm[key]}</td>;
+                                      })}
+                                    </tr>
+                                  ))}
+                              </tbody>
+                            </table>
+                          )}
+                      </div>
+                    </>
+                  ),
+                }
+              : {}),
           }}
         />
       </div>

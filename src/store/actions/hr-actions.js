@@ -24,7 +24,6 @@ const HrActions = {
         }
     },
     getManageEmpDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
-        console.log('jddjjdjdjjd',args)
         try {
             const res = await Api.get({ url:`${Urls.admin_empdetails}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return

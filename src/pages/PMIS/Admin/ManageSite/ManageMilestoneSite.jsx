@@ -45,6 +45,13 @@ const ManageMilestoneSite = ({
   const { customeruniqueId } = useParams;
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
+  let milestoneStatus = mileStone?.mileStoneStatus
+  let user = JSON.parse(localStorage.getItem("user"));
+  let rolename = user?.roleName;
+
+
+  console.log("rolenamerolename",rolename)
+
 
   const {
     register,
@@ -123,8 +130,8 @@ const ManageMilestoneSite = ({
         return Object.keys(itm).includes("BAND")
           ? itm?.BAND?.split(",").map((its) => {
               return {
-                label: its,
-                value: its,
+                id: its,
+                name: its,
               };
             })
           : [];
@@ -147,12 +154,21 @@ const ManageMilestoneSite = ({
 
       dtresult["t_sengg"] &&
         dtresult["t_sengg"].map((iytm) => {
-          setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+
+          if(iytm["fieldName"]=="BAND"){
+            console.log(datew[0]["BAND"],"datew[0]")
+            let bandlistt=datew[0]["BAND"]
+
+            setValueForm1("BAND", bandlistt.split("-").join(","));
+          }else{
+            setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+          }
+
 
           console.log(
             iytm["fieldName"],
             datew[0][iytm["fieldName"]],
-            "iytmiytmiytmiytm"
+            "iytmiytmiytmiytmsetValueForm1"
           );
         });
       // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
@@ -212,6 +228,10 @@ const ManageMilestoneSite = ({
         : state.adminData.getOneProjectTypeDyform
       : state.adminData.getOneProjectTypeDyform;
 
+
+      
+    console.log(dataOlder["t_sengg"],"dataOlderdataOlder")
+
     return dataOlder;
     if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
       let data = dataOlder[0]["t_sengg"].map((its) => {
@@ -233,9 +253,19 @@ const ManageMilestoneSite = ({
     let final_data = {};
     console.log("afasdflasdfghfjioasdfoa", data);
     dataOfProject["t_sengg"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
 
-      final_data[fieldNaming] = data[fieldNaming];
+
+      let fieldNaming = labelToValue(itew.fieldName);
+      if(fieldNaming=="BAND"){
+
+        console.log(data["BAND"],"1,5,4,3".replace(",","-"),"data[band]")
+        final_data["BAND"] = data["BAND"].split(",").join("-");
+
+
+
+      }else{
+        final_data[fieldNaming] = data[fieldNaming];
+      }
     });
 
     // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
@@ -565,6 +595,10 @@ const ManageMilestoneSite = ({
   };
 
   useEffect(() => {
+
+    dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
+    // dispatch(projectListActions.getMappedData(projectuniqueId))
+    
     reset({});
     settype(true);
     
@@ -620,7 +654,7 @@ const ManageMilestoneSite = ({
               </div>
             </div>
             <div className="w-full">
-              <ConditionalButton
+              { milestoneStatus =="Open" || (rolename=="Admin" || rolename=="PMO") ? <ConditionalButton
                 showType={getAccessType("Task Completion Criteria")}
                 classes="w-auto "
                 name={"Completion Criteria"}
@@ -649,7 +683,18 @@ const ManageMilestoneSite = ({
                     dispatch(ALERTS(msgdata));
                   }
                 }}
-              ></ConditionalButton>
+              ></ConditionalButton>:<Button name={"Completion Criteria"} onClick={()=>{
+                
+                let msgdata = {
+                  show: true,
+                  icon: "error",
+                  buttons: [],
+                  type: 1,
+                  text: "Task is already Closed",
+                };
+                dispatch(ALERTS(msgdata));
+              }} classes="w-18"></Button>
+}
             </div>
           </div>
         ) : (
@@ -691,7 +736,7 @@ const ManageMilestoneSite = ({
                             }
                             if (its["fieldName"] === "BAND") {
                               option = bandList;
-                              type = "select";
+                              type = "muitiSelect";
                             }
 
                             return {

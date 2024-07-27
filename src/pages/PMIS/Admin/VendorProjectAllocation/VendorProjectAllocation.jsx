@@ -194,7 +194,6 @@ const VendorProjectAllocation = () => {
         dispatch(AdminActions.getVendorProjectAllocation())
         dispatch(AdminActions.getManageProfile())
         dispatch(AdminActions.getVishal())
-        dispatch(HrActions.getManageEmpDetails())
     }, [])
 
     const onTableViewSubmit = (data) => { 

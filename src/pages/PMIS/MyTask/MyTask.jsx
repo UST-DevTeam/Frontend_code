@@ -164,7 +164,7 @@ const MyTask = () => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
               dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
-              dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
+              // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
               dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
@@ -435,11 +435,10 @@ const MyTask = () => {
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
                   dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
-                  dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
-                  dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
+                  // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
+                  // dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-                  dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
-                  dispatch(projectListActions.getMappedData(itm.projectuniqueId));
+                  
                   setmodalBody(
                     <ManageMilestoneSite
                       siteCompleteData={itm}
