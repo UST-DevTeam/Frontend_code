@@ -273,7 +273,6 @@ const FillExpenseForm = ({
 
     {
       label: "Attachment",
-
       value: "",
       name: "Attachment",
       type: "file",
@@ -341,7 +340,6 @@ const FillExpenseForm = ({
   const endKm = watch("endKm");
   const checkInDate = watch("checkInDate");
   const checkOutDate = watch("checkOutDate");
-
   useEffect(() => {
     if (!Km) {
       reset({

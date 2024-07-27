@@ -76,7 +76,7 @@ const ManageClaimTypeForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
                 {"name": "Yes", "label": "Yes"},
                 {"name": "No", "label": "No"}
             ],
-            // required: true,
+            required: true,
             classes: "col-span-1"
         },
         
