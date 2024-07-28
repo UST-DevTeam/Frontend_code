@@ -852,11 +852,9 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-  // console.log("safasfasfasfasfasdfasdfasdfabc", dbConfigList[0]?.uniqueId);
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
-      // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
         console.log(
           "asdfas0fjasofnafsdna",

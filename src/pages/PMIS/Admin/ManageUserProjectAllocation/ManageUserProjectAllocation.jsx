@@ -201,8 +201,7 @@ const ManageUserProjectAllocation = () => {
     useEffect(() => {
         dispatch(AdminActions.getProjectAllocation())
         dispatch(AdminActions.getManageProfile())
-        dispatch(AdminActions.getVishal())
-        dispatch(HrActions.getManageEmpDetails())
+        // dispatch(AdminActions.getVishal())
     }, [])
 
     const onTableViewSubmit = (data) => { 

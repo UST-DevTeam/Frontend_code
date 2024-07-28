@@ -49,62 +49,63 @@ const AdvancedTableExpandable = ({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
+  const handleRPPChange = (value) => {
+    setRPP(value);
+    setcurrentPage(1); 
+    const callApiPagination = (page,rrp) => {
+      setcurrentPage(value);
+      const filters = {
+        ...activedFilter,
+        reseter: true,
+        page: page,
+        limit:rrp
+        
+      };
+      sessionStorage.setItem("page",value)
+      filterAfter(filters);
+      setActivedFilter(filters);
+      setActiveFilter(objectToArray(filters));
+    }; 
+    callApiPagination(1,value)
+  };
+
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [10, 20, 30,50],
+    rpp: [50,100,500,1000,2000,5000],
   };
 
   const callApiPagination = (value) => {
-    let lcllastVisitedPage = lastVisitedPage;
     setcurrentPage(value);
-    // if (lcllastVisitedPage < totalCount) {
-      setLastVisitedPage(lcllastVisitedPage + 50);
-      const filters = {
-        ...activedFilter,
-        start: lcllastVisitedPage,
-        end: 50,
-        reseter: true,
-        page: value,
-        
-      };
-      // activedFilter["start"] = lcllastVisitedPage;
-      // activedFilter["end"] = 50;
-      // activedFilter["reseter"] = false;
-      // filterAfter(activedFilter);
-      sessionStorage.setItem("page",value)
+    const filters = {
+      ...activedFilter,
+      reseter: true,
+      page: value,
+      limit:RPP
       
-      // return;
-      filterAfter(filters);
-      
-    setActivedFilter(filters);
-    setActiveFilter(objectToArray(filters));
-    }
+    };
+    sessionStorage.setItem("page",value)
+    filterAfter(filters);
+  setActivedFilter(filters);
+  setActiveFilter(objectToArray(filters));
+};
 
   const onSubmit = (formdata) => {
-    // alert(value)
-    // const data = {...formdata, reseter : true}
-    // console.log("vishal_____data", data);
-    // console.log("__________formdata______", formdata);
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,
       ...formdata
     }
-    // console.log("_filter_data",data)
     filterAfter(data);
     setActivedFilter(data);
     setActiveFilter(objectToArray(data));
     dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
   };
 
-  // console.log('setActivedFilter____',activedFilter)
-
   const onReset = () => {
-    // alert(value)
     filterAfter({ reseter: true });
     setActiveFilter([]);
     setActivedFilter({});
@@ -116,18 +117,10 @@ const AdvancedTableExpandable = ({
   }, [tableName]);
 
   useEffect(()=>{
-    console.log("after_paginate", data)
     setFinalData(data)
-  // },[data?.length,childsite,parentsite])
   },[data])
 
-  // const [filterVisiblity, setfilterVisiblity] = useState(false)
-  // console.log("fasodfjanflasdfnaifaewasdf",data.length);
-  // console.log("asdfamarnathadfasfasdfadfs",activeFilter);
 
-  // console.log((currentPage - 1) * RPP,"(currentPage - 1) * RPP", currentPage,"currentPage" , RPP,"RPP","currentPageRPP")
-
-  // console.log(data.slice((currentPage - 1) * RPP, currentPage * RPP),"currentPageRPPcurrentPageRPP")
 
   return (
     <>
@@ -445,14 +438,20 @@ const AdvancedTableExpandable = ({
           <div className="flex justify-between">
             <div>
               <label className="text-white">Rows Per Page : </label>
-              <select className="rounded-sm" onChange={(e) => setRPP(e.target.value)}>
-                {table.properties.rpp.map((itm) => {
-                  return <option>{itm}</option>;
-                })}
-              </select>
+              <select
+                  value={RPP}
+                  onChange={(e) => handleRPPChange(parseInt(e.target.value))}
+                  className="rounded-sm" 
+                >
+                  {table.properties.rpp.map((itm, idx) => (
+                    <option key={idx} value={itm}>
+                      {itm} 
+                    </option>
+                  ))}
+                </select>
             </div>
 
-            <div className="flex ">
+            <div className="flex ml-auto">
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
                   (index + 3 > currentPage && index - 1 < currentPage) ||
@@ -486,11 +485,6 @@ const AdvancedTableExpandable = ({
                   </span>
                 );
               })}
-              {/* {
-                            table.properties.rpp.map((itm) => {
-                                return <span className='border border-red-500 px-2 mx-2'>{itm}</span>
-                            })
-                        } */}
             </div>
           </div>
         </div>

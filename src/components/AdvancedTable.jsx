@@ -96,7 +96,7 @@ const AdvancedTable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50,100,500,1000,2000],
+    rpp: [50,100,500,1000,2000,5000],
   };
 
   const callApiPagination = (value) => {
@@ -612,7 +612,6 @@ const AdvancedTable = ({
         </div>
         <div className="m-2">
           <div className="flex justify-between">
-            {tableName === "ManageEmployee"  &&( 
               <div>
                 <label className="mr-2 text-white">Rows Per Page :</label>
                 <select
@@ -627,7 +626,7 @@ const AdvancedTable = ({
                   ))}
                 </select>
               </div>
-            )}
+           
 
             <div className="flex ml-auto">
               {pages.map((itm, index) => {
