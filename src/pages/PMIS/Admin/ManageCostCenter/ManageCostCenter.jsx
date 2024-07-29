@@ -34,33 +34,22 @@ const ManageCostCenter = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
-                    let data = {
-                        "enabled": e.target.checked ? 1 : 0
-                    }
-                    dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
-                        e.target.checked = e.target.checked
-                    }, itm.id))
-                    // if(itm.enabled==0){ 
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
-                }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
+                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
+                //     console.log(e.target.checked, "e.target.checked")
+                //     let data = {
+                //         "enabled": e.target.checked ? 1 : 0
+                //     }
+                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
+                //         e.target.checked = e.target.checked
+                //     }, itm.id))
+                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageCostCenter())
-                    setmodalHead("Edit User")
-                    setmodalBody(<>
+                    setmodalHead("Edit")
+                    setmodalBody(
                         <ManageCostCenterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                    console.log('ahshshhs',itm)
-                    //setmodalOpen(false)
+                    )
                 }}></EditButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
@@ -95,10 +84,7 @@ const ManageCostCenter = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
     const {
         register,
         handleSubmit,
@@ -127,6 +113,11 @@ const ManageCostCenter = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
+                name: "Description",
+                value: "description",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },           
+            {
                 name: "Edit",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
@@ -152,21 +143,19 @@ const ManageCostCenter = () => {
         ]
     }
     const onSubmit = (data) => {
-        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
         dispatch(AdminActions.getManageCostCenter(value, objectToQueryString(data)))
     }
     useEffect(() => {
         dispatch(AdminActions.getManageCostCenter())
-        // dispatch(OperationManagementActions.getRoleList())
     }, [])
 
     const onTableViewSubmit = (data) => {
         data["fileType"]="ManageCostCenter"
         data['collection'] = "costCenter"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageZone())
+            dispatch(AdminActions.getManageCostCenter())
             setFileOpen(false)
         }))
     }
@@ -201,8 +190,6 @@ const ManageCostCenter = () => {
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-
-        {/* <CommonForm/> */}
         <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/CostCenter.xlsx","CostCenter.xlsx"]}  />
     </>
 

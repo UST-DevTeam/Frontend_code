@@ -46,10 +46,6 @@ const EventLog = ({type,unqeId}) => {
         }else if(type=="project"){
             interdata = state?.eventlogsReducer?.projecteventList || [];
         }
-        
-         
-        
-        console.log(interdata,'interdatainterdata')
         return interdata
     })
 
@@ -57,41 +53,52 @@ const EventLog = ({type,unqeId}) => {
         columns: [
           {
             name: "Site Id",
-            value: "SiteId",
-            style: "min-w-[50px] max-w-[200px] text-center p-1",
+            value: "siteName",
+            style: "min-w-[70px] max-w-[100px] text-center p-1",
+          },
+          {
+            name: "Milestone",
+            value: "milestoneName",
+            style: "min-w-[70px] max-w-[100px] text-center",
           },
           {
             name: "User Email",
-            value: "email",
-            style: "min-w-[50px] max-w-[200px] text-center",
+            value: "empemail",
+            style: "min-w-[100px] max-w-[200px] text-center",
           },
           {
             name: "Date & Time",
             value: "UpdatedAt",
-            style: "min-w-[50px] max-w-[200px] text-center",
+            style: "min-w-[70px] max-w-[70px] text-center",
           },
           
           {
             name: "Event",
             value: "updatedData",
-            style: "min-w-[50px] max-w-[200px] text-center",
+            style: "min-w-[300px] max-w-[500px] text-center",
           },
         ],
-        properties: {
-          rpp: [10, 20, 50, 100],
-        },
         filter: [
           
         ],
       };
     
-if (type=="milestone"){
-    siteIdLogsTable?.columns.push({
-    name: "Milestone",
-    value: "mileStoneName",
-    style: "min-w-[50px] max-w-[200px] text-center",
-  })
-}
+  // if (type=="milestone"){
+  //     siteIdLogsTable?.columns.push({
+  //     name: "Milestone",
+  //     value: "mileStoneName",
+  //     style: "min-w-[50px] max-w-[200px] text-center",
+  //   })
+  // }
+  
+  if (type === "project") {
+    siteIdLogsTable?.columns.unshift({
+      name: "Project Id",
+      value: "projectName",
+      style: "min-w-[50px] max-w-[200px] text-center p-1",
+    });
+  }
+
 
   return (
     <AdvancedTable

@@ -9,6 +9,7 @@ import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
+import { GET_MANAGE_ZONE } from '../../../../store/reducers/admin-reducer';
 
 const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
@@ -44,8 +45,8 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         {
             label: "Customer Name",
             value: "",
-            name: "customer",
-            type: "select",
+            name: Object.entries(formValue).length > 0 ? "customerName" : "customer",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
             option: customerList,
             props: {
@@ -58,8 +59,8 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         {
             label: "Zone",
             value: "",
-            name: "zone",
-            type: "select",
+            name: Object.entries(formValue).length > 0 ? "zoneName" : "zone",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
             filter: true,
             option: zoneList,
@@ -69,6 +70,14 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             label: "Cost Center",
             value: "",
             name: "costCenter",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
+            required: true,
+            classes: "col-span-1"
+        },
+        {
+            label: "Description",
+            value: "",
+            name: "description",
             type: "text",
             required: true,
             classes: "col-span-1"
@@ -83,6 +92,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         getValues,
         formState: { errors },
     } = useForm()
+
     const onSubmit = (data) => {
         console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
@@ -90,68 +100,36 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         // }))
     }
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageCostCenter(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCostCenter())
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postManageCostCenter(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageCostCenter())
             }))
         }
     }
-    console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCostCenter())
         dispatch(AdminActions.getManageCustomer())
-        // dispatch(AdminActions.getManageZone())
-        if (resetting) {
-            reset({})
-            Form.map((fieldName) => {
-                setValue(fieldName["name"], fieldName["value"]);
-            });
-        } else {
-            reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
-            Form.forEach((key) => {
-                if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
-                    const momentObj = moment(formValue[key.name]);
-                    setValue(key.name, momentObj.toDate());
-
-
-                } else {
-                    // console.log("formValuekey",key,key)
-                    setValue(key.name, formValue[key.name]);
-                }
-            })
-        }
-    }, [formValue, resetting])
+        dispatch(GET_MANAGE_ZONE({dataAll:[],reset:true}))
+        if (!isOpen) {
+            reset({});
+            Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
+          } else {
+            reset({});
+          }
+    }, [isOpen, formValue,resetting]);
     return <>
-
-
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            {/* <button></button> */}
-
-
-            {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-            {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-            {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>
-
-
 };
 
 export default ManageCostCenterForm;

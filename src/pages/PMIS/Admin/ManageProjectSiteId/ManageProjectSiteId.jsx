@@ -785,10 +785,7 @@ const ManageProjectSiteId = () => {
                       setmodalFullOpen((prev) => !prev);
                       setmodalHead("Event Log");
                       dispatch(
-                        eventManagementActions.getsiteeventList(
-                          true,
-                          itm?.uniqueId
-                        )
+                        eventManagementActions.getsiteeventList(true,itm?.uniqueId)
                       );
                       setmodalBody(
                         <EventLog type={"site"} unqeId={itm?.uniqueId} />

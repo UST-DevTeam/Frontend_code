@@ -141,8 +141,7 @@ const ManageProject = () => {
                 onClick={() => {
                   setModalSize("lg")
                   setmodalFullOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
-                  setmodalHead("Event Logs");
+                  setmodalHead("Project Event Logs");
 
                   dispatch(
                     eventManagementActions.getprojecteventList(
