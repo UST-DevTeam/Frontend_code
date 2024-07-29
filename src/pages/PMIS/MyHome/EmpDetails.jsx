@@ -152,6 +152,16 @@ const EmpDetails = (props) => {
     });
   });
 
+  let costCenterList = useSelector((state) => {
+    return state?.adminData?.getManageCostCenter.map((itm) => {
+      return {
+        label: itm?.costCenter,
+        value: itm._id,
+      };
+    });
+  });
+
+
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
       return {
@@ -596,6 +606,15 @@ const EmpDetails = (props) => {
       placeholder: "",
     },
     {
+      label: "Resign Date",
+      name: "resignDate",
+      value: "",
+      type: "datetime",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
       label: "Passport",
       name: "passport",
       value: "",
@@ -706,6 +725,15 @@ const EmpDetails = (props) => {
       type: "select",
       option: roleList,
       required: true,
+      props: {},
+      classes: "col-span-1",
+    },
+    {
+      label: "Cost Center",
+      name: "costCenter",
+      value: "",
+      type: "select",
+      option: costCenterList,
       props: {},
       classes: "col-span-1",
     },
@@ -978,6 +1006,7 @@ const EmpDetails = (props) => {
     dispatch(AdminActions.getCities());
     dispatch(HrActions.getHRAllEmployee());
     dispatch(HrActions.getHRManagerInEmployee());
+    dispatch(AdminActions.getManageCostCenter())
     if (empuid) {
       dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
       dispatch(HrActions.getManageEmpDetails(false, empuid));

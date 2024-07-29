@@ -61,6 +61,16 @@ const EmpDetailsTable = () => {
     });
   });
 
+
+  let costCenterList = useSelector((state) => {
+    return state?.adminData?.getManageCostCenter.map((itm) => {
+      return {
+        label: itm?.costCenter,
+        value: itm._id,
+      };
+    });
+  });
+  
   let showType = getAccessType("Action(ManageEmployee)")
 
   let shouldIncludeEditColumn = false
@@ -283,7 +293,10 @@ const EmpDetailsTable = () => {
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
     dispatch(AdminActions.getManageProfile());
+    dispatch(AdminActions.getManageCostCenter())
+
   }, []);
+  
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageEmployee";

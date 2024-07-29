@@ -1,5 +1,5 @@
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/"
+export const baseUrl="http://localhost:7990"
+export const backendassetUrl="http://localhost:7990/"
 
 // export const baseUrl="http://192.168.0.118:7990"
 // export const backendassetUrl="http://192.168.0.118:7990/"
@@ -10,8 +10,8 @@
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
-export const baseUrl="https://pmisapi.mcpsinc.com"
-export const backendassetUrl="https://pmisapi.mcpsinc.com/"   
+// export const baseUrl="https://pmisapi.mcpsinc.com"
+// export const backendassetUrl="https://pmisapi.mcpsinc.com/"   
 
 export const Urls={
 
@@ -134,6 +134,7 @@ export const Urls={
     expAdv_download_attachment:"/expenses/DownloadAttachment",
     expAdv_hr_all_expenses:"/expenses/AllExpenses",
     expAdv_hr_all_advance:"/Advance/AllAdvance",
+    expAdv_user_limit:"/expenses/userLimit",
 
     // FILTER
 

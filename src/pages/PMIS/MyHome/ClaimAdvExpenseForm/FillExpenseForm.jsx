@@ -24,6 +24,7 @@ const FillExpenseForm = ({
   const [selectedLabel, setSelectedLabel] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
   const [category, setCategory] = useState([]);
+  const [selectedValue2, setSelectedValue2] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const today = moment().format("YYYY-MM-DD");
   let dispatch = useDispatch();
@@ -68,6 +69,7 @@ const FillExpenseForm = ({
       };
     });
   });
+  
 
   const handleCategoryChange = (e) => {
     const selectedCategoryValue = e.target.value;
@@ -94,6 +96,12 @@ const FillExpenseForm = ({
     setCategory(selectedOption?.categories || []);
   };
 
+  
+  const handleClaimTypeChange2 = (value) => {
+    const selectedValue2 = value;
+    setSelectedValue2(selectedValue2);
+    dispatch(ExpenseAdvanceActions.getUserLimit(selectedValue2))
+  };
 
   let Form = [
     {
@@ -105,24 +113,9 @@ const FillExpenseForm = ({
       props: {
         onChange: (e)=>{
           handleClaimTypeChange(e.target.value)
+          handleClaimTypeChange2(e.target.value)
         },
-        // onChange: (e) => {
-        //   console.log('eeeeeeee',e.target.value)
-        //   const selectedValue = e.target.value;
-        //   setSelectedValue(selectedValue);
-        //   const selectedOption = claimTypeList.find(option => option.value === selectedValue);
-        //   setSelectedLabel(selectedOption ? selectedOption.label : '');  
-          
-        //   if (e.target.categories) {
-        //     setKm(true);
-        //   } else {
-        //     setKm(false);
-        //   }
-        //   setCategory(
-        //     claimTypeList.find((item) => item.value === e.target.value)
-        //       ?.categories || []
-        //   );
-        // },
+        
       },
       required: true,
       classes: "col-span-1",

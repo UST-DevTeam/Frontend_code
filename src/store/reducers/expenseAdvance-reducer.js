@@ -24,6 +24,7 @@ const initialState = {
     DownloadExpenseAttachment:[],
     getHRAllExpenses:[],
     getHRAllAdvance:[],
+    getUserLimit:[],
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -224,6 +225,13 @@ const ExpenseAdvanceReducer = createSlice({
                 state.getHRAllAdvance  = [...state.getHRAllAdvance,...payload.dataAll]
             }
         },
+        GET_USER_LIMIT:(state,{payload}) => {
+            if(payload.reset){
+                state.getUserLimit = payload.dataAll
+            }else{
+                state.getUserLimit  = [...state.getUserLimit,...payload.dataAll]
+            }
+        },
 
         
     }
@@ -254,6 +262,7 @@ export const {
     GET_DOWNLOAD_ATTACHMENT,
     GET_HR_ALL_EXPENSES,
     GET_HR_ALL_ADVANCE,
-    CLEAR_GET_CLAIM_AND_ADVANCE
+    CLEAR_GET_CLAIM_AND_ADVANCE,
+    GET_USER_LIMIT
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

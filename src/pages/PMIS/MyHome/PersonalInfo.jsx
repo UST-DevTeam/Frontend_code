@@ -73,6 +73,15 @@ const PersonalInfo = (props) => {
     });
   });
 
+  let costCenterList = useSelector((state) => {
+    return state?.adminData?.getManageCostCenter.map((itm) => {
+      return {
+        label: itm?.costCenter,
+        value: itm._id,
+      };
+    });
+  });
+
   // let employeeList = [reportingManager,L2expManager,financeApproverList,reportingHrManager],
 
   let employeeList = useSelector((state) => {
@@ -457,6 +466,15 @@ const PersonalInfo = (props) => {
       placeholder: "",
     },
     {
+      label: "Resign Date",
+      name: "resignDate",
+      value: "",
+      type:"sdisabled",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
       label: "Passport",
       name: "passport",
       value: "",
@@ -566,6 +584,16 @@ const PersonalInfo = (props) => {
       value: "",
       type:"sdisabled",
       option: roleList,
+      required: false,
+      props: {},
+      classes: "col-span-1",
+    },
+    {
+      label: "Cost Center",
+      name: "costCenter",
+      value: "",
+      type:"sdisabled",
+      option: costCenterList,
       required: false,
       props: {},
       classes: "col-span-1",

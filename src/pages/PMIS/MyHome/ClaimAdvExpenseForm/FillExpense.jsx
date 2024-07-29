@@ -40,6 +40,12 @@ const FillExpense = () => {
     })
     .replace(/\//g, "-");
 
+
+    let userLimitValue = useSelector((state) => {
+      const userLimitArray = state?.expenseAdvanceData?.getUserLimit;
+      return userLimitArray && userLimitArray?.length > 0 ? userLimitArray[0].value : null;
+    });
+
   let dbConfigListL = useSelector((state) => {
     let interdata = state?.expenseAdvanceData
       ?.getExpensesByExpenseNoInPopUp || [""];
