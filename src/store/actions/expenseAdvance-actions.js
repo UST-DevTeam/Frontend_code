@@ -26,6 +26,7 @@ import {
     GET_DOWNLOAD_ATTACHMENT,
     GET_HR_ALL_EXPENSES,
     GET_HR_ALL_ADVANCE,
+    GET_USER_LIMIT
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -400,6 +401,19 @@ const ExpenseAdvanceActions = {
             let dataAll = res?.data?.data
             dispatch(GET_HR_ALL_ADVANCE({dataAll,reset}))
             cb()
+        } catch (error) {
+        }
+    },
+    getUserLimit:(id,reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
+        try {
+            if (id!=null){
+                const res = await Api.get({ url:`${Urls.expAdv_user_limit}/${id}${args!=""?"?"+args:""}`, reset })
+                if (res?.status !== 200) return
+                let dataAll = res?.data?.data
+                dispatch(GET_USER_LIMIT({dataAll,reset}))
+                cb()
+            }
+            
         } catch (error) {
         }
     },

@@ -286,9 +286,7 @@ const AdminActions = {
                 dispatch(ALERTS(msgdata));
             }else{
                 cb()
-
-            }
-            
+            }   
         } catch (error) {
             return;
         }

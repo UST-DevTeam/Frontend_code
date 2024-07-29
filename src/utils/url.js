@@ -134,6 +134,7 @@ export const Urls={
     expAdv_download_attachment:"/expenses/DownloadAttachment",
     expAdv_hr_all_expenses:"/expenses/AllExpenses",
     expAdv_hr_all_advance:"/Advance/AllAdvance",
+    expAdv_user_limit:"/expenses/userLimit",
 
     // FILTER
 
