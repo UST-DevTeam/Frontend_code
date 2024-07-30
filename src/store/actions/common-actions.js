@@ -31,11 +31,7 @@ const CommonActions = {
     fileSubmit: (url, data, cb) => async (dispatch, _) => {
         try {
             const res = await Api.post({ url: url, data: data , contentType:"multipart/form-data"})
-            console.log(res, "res?.statusres?.status")
-
             const dtaa = res.data
-
-            console.log(res.data,"res.datares.data")
             let msgdata = {
                 show: true,
                 icon: dtaa.icon,

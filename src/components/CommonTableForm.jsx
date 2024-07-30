@@ -107,16 +107,15 @@ const CommonTableForm = ({
   };
 
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
     data["fileType"] = tabHead;
     dispatch(CommonActions.fileSubmit(Urls.templateUploadFile + "/" + `${rowId}`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
-          // alert("dasdsadsa")
+          dispatch(AdminActions.getManageProjectType(customeruniqueId));
         }
       )
     );
-    dispatch(AdminActions.getManageProjectType(customeruniqueId));
+    
   };
 
   {
