@@ -55,10 +55,18 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_ActiveEmp_With_CC:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphActiveEmpWithCC = payload.dataAll
+            }else{
+                state.getGraphActiveEmpWithCC  = [...state.getGraphActiveEmpWithCC,...payload.dataAll]
+            }
+        },
+
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone,GET_GRAPH_ACCRUAL_REVENUE_TREND
+export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone,GET_GRAPH_ACCRUAL_REVENUE_TREND,GET_GRAPH_ActiveEmp_With_CC
             } = GraphData.actions
     
 export default GraphData.reducer

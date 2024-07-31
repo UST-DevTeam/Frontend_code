@@ -1,5 +1,5 @@
-export const baseUrl="http://localhost:7980"
-export const backendassetUrl="http://localhost:7980/"
+// export const baseUrl="http://localhost:7980"
+// export const backendassetUrl="http://localhost:7980/"
 
 // export const baseUrl="http://192.168.0.118:7990"
 // export const backendassetUrl="http://192.168.0.118:7990/"
@@ -10,8 +10,8 @@ export const backendassetUrl="http://localhost:7980/"
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
-// export const baseUrl="https://pmisapi.mcpsinc.com"
-// export const backendassetUrl="https://pmisapi.mcpsinc.com/"   
+export const baseUrl="https://pmisapi.mcpsinc.com"
+export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
 
 export const Urls={
 
@@ -164,10 +164,10 @@ export const Urls={
     graph_po_status:"/graph/poStatus",
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
+    graph_active_emp_with_CC:"/graph/activeEmpwithCC",
 
 
     // currentuser
-    
     current_user_PG:"/currentuser/ProjectGroup",
     current_user_PT:"/currentuser/ProjectType",
     current_user_PID:"/currentuser/ProjectId"

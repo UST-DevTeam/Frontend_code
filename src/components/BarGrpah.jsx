@@ -1,85 +1,63 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = () => {
+const BarGraph = (data) => {
+
+    let SeriesData = data['data'].map(item => item.count);
+    let category = data['data'].map(item => item.description);
+
+
+
 
     const series = [
         {
-            name: "series-1",
-            data: [55,45]
+            name: "Active Employee",
+            data: SeriesData
         }
     ];
 
     const options = {
         chart: {
-            height: 400,
+            height: 350,
             type: 'bar',
 
-        },
-        stroke: {
-            width: [0, 1],
-        },
-        title: {
-            text: "Project Status",
-            style: {
-                fontSize: '14px',
-                fontWeight: 'normal',
-                fontFamily: 'poppins, sans-serif',
-                color: '#fff'
-            },
         },
         dataLabels: {
             enabled: true,
             enabledOnSeries: [1],
         },
-
         xaxis: {
-            categories: ["Active","Archive"],
+            // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
+            categories: category,
+            labels:{
+                style:{
+                    colors:'#ffffff'
+                }
+            }
         },
-        yaxis: [
-            {
-                title: {
-                    text: 'Sales of all Category',
-                    style: {
-                        fontSize: '14px',
-                        fontWeight: 'normal',
-                        fontFamily: 'poppins, sans-serif',
-                        color: '#fff',
-                    },
-                },
-                dataLabels: {
-                    style: {
-                        colors: ['#fff'], // Set the color of the numbers to your desired color code
-                    },
-                },
-            },
-            {
-                opposite: true,
-                title: {
-                    text: '',
-                },
-            },
-        ],
-
-
+        yaxis:{
+            labels:{
+                style:{
+                    colors:'#ffffff'
+                }
+            }
+        },
         plotOptions: {
             bar: {
-                columnWidth: '35%',
+                columnWidth: '100%',
+                horizontal: true,
                 dataLabels: {
                     style: {
                         colors: '#fff', // Set the color of the numbers to your desired color code
                     },
                 },
                 colors: {
-                    ranges: [{ from: 0, to: 200000, color: '#154E67' }],
+                    ranges: [{ from: 0, to: 200000, color: '#008FFB' }],
                 },
             },
         },
 
     };
-
-
-
-    return (<ReactApexChart options={options} series={series} type="bar" height={400} />)
+    return (<ReactApexChart options={options} series={series} type="bar" height={350} />)
 }
 export default BarGraph;

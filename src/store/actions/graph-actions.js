@@ -5,7 +5,8 @@ import {
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_PO_Tracking_WorkDone,
-    GET_GRAPH_ACCRUAL_REVENUE_TREND
+    GET_GRAPH_ACCRUAL_REVENUE_TREND,
+    GET_GRAPH_ActiveEmp_With_CC
     
  } from "../reducers/graph-reducer"
 
@@ -167,6 +168,15 @@ const GraphActions = {
             }
         } catch (error) {
             return;
+        }
+    },
+    getGraphActiveEmpwithCostCenter:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_active_emp_with_CC}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_ActiveEmp_With_CC({dataAll,reset}))
+        } catch (error) {
         }
     },
 }

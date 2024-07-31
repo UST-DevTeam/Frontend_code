@@ -901,7 +901,7 @@ const EmpDetails = (props) => {
       name: "status",
       value: "",
       type: "select",
-      required: false,
+      required: true,
       props: {},
       option: [
         { label: "Active", value: "Active" },

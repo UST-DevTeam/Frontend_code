@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
+import { GET_PROJECT_CIRCLE } from "../../../../store/reducers/projectList-reducer";
 
 const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) => {
 
@@ -307,15 +308,14 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
   };
   useEffect(() => {
     dispatch(AdminActions.getManageProjectGroup(true, "", customeruniqueId));
-    // dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(FilterActions.getautosuggestionProjectManager());
-    // dispatch(HrActions.getManageEmpDetails(true, "", `userRole=${"Project Manager"}`));
     if (customeruniqueId && projecttypeuniqueId) {
       dispatch(AdminActions.getCardProjectType(customeruniqueId, projecttypeuniqueId));
     } else if (customeruniqueId) {
       dispatch(AdminActions.getCardProjectType(customeruniqueId));
     }
+    dispatch(GET_PROJECT_CIRCLE({dataAll:[],reset:true}))
     // dispatch(AdminActions.getCardProjectType(customeruniqueId));
 
 
