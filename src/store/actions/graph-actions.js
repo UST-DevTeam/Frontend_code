@@ -5,7 +5,9 @@ import {
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_PO_Tracking_WorkDone,
-    GET_GRAPH_ACCRUAL_REVENUE_TREND
+    GET_GRAPH_ACCRUAL_REVENUE_TREND,
+    GET_MONTHLY_JOINING,
+    GET_MONTHLY_JOINING_AND_RESIGN_DATE
     
  } from "../reducers/graph-reducer"
 
@@ -53,6 +55,25 @@ const GraphActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_MILESTONE_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getmonthlyJoinning:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_monthly_joining}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MONTHLY_JOINING({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getmonthJoiningandresign:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_monthly_joining_and_resignDate}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MONTHLY_JOINING_AND_RESIGN_DATE({dataAll,reset}))
         } catch (error) {
         }
     },

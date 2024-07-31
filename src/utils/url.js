@@ -1,5 +1,5 @@
-export const baseUrl="http://localhost:7990"
-export const backendassetUrl="http://localhost:7990/"
+export const baseUrl="http://127.0.0.1:7992"
+export const backendassetUrl="http://127.0.0.1:7992/"
 
 // export const baseUrl="http://192.168.0.118:7990"
 // export const backendassetUrl="http://192.168.0.118:7990/"
@@ -164,6 +164,9 @@ export const Urls={
     graph_po_status:"/graph/poStatus",
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
+    graph_monthly_joining:"/graph/newjoining",
+    graph_monthly_joining_and_resignDate:"/graph/newjoiningandresign",
+
 
 
     // currentuser

@@ -37,7 +37,7 @@ const DAFormFillFORM = ({
   let EmpCodeList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpenseEMPCode.map((itm) => {
       return {
-        label: itm?.empCode,
+        label: itm?.empCode + '(' +itm.empName+')',
         value: itm?.uniqueId,
       };
     });
@@ -112,7 +112,7 @@ const DAFormFillFORM = ({
       classes: "col-span-1",
     },
     {
-        label: "Employee Code ",
+        label: "Employee",
         value: "",
         name: "EmpCode",
         type: "select",
@@ -127,19 +127,19 @@ const DAFormFillFORM = ({
         // required: true,
         classes: "col-span-1",
     },
-    {
-        label: "Employee Name",
-        value: "",
-        name: "empName",
-        option: EmpNameList,
-        type: "select",
-        props: {
-            onchange: (e) => {
-            },
-        },
-        // required: true,
-        classes: "col-span-1",
-    },
+    // {
+    //     label: "Employee Name",
+    //     value: "",
+    //     name: "empName",
+    //     option: EmpNameList,
+    //     type: "select",
+    //     props: {
+    //         onchange: (e) => {
+    //         },
+    //     },
+    //     // required: true,
+    //     classes: "col-span-1",
+    // },
     
     {
         label: "Project ID",
