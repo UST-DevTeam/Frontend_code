@@ -165,6 +165,9 @@ export const Urls={
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
     graph_active_emp_with_CC:"/graph/activeEmpwithCC",
+    graph_monthly_joining:"/graph/newjoining",
+    graph_monthly_joining_and_resignDate:"/graph/newjoiningandresign",
+
 
 
     // currentuser

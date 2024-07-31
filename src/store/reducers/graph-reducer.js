@@ -7,6 +7,8 @@ const initialState = {
     getGraphPoStatus: [],
     getGraphPoTrackingWorkdone: [],
     getGraphAccrualRevenueTrend:[],
+    getmonthjoining:[],
+    getmonthJoiningandresign:[]
 }
 
 const GraphData = createSlice({
@@ -54,6 +56,20 @@ const GraphData = createSlice({
                 state.getGraphAccrualRevenueTrend  = [...state.getGraphAccrualRevenueTrend,...payload.dataAll]
             }
         },
+        GET_MONTHLY_JOINING:(state,{payload}) => {
+            if(payload.reset){
+                state.getmonthjoining = payload.dataAll
+            }else{
+                state.getmonthjoining  = [...state.getmonthjoining,...payload.dataAll]
+            }
+        },
+        GET_MONTHLY_JOINING_AND_RESIGN_DATE:(state,{payload}) => {
+            if(payload.reset){
+                state.getmonthJoiningandresign = payload.dataAll
+            }else{
+                state.getmonthJoiningandresign  = [...state.getmonthJoiningandresign,...payload.dataAll]
+            }
+        },
 
         GET_GRAPH_ActiveEmp_With_CC:(state,{payload}) => {
             if(payload.reset){
@@ -66,7 +82,7 @@ const GraphData = createSlice({
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone,GET_GRAPH_ACCRUAL_REVENUE_TREND,GET_GRAPH_ActiveEmp_With_CC
-            } = GraphData.actions
+export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone,GET_GRAPH_ACCRUAL_REVENUE_TREND,GET_GRAPH_ActiveEmp_With_CC,
+    GET_MONTHLY_JOINING,GET_MONTHLY_JOINING_AND_RESIGN_DATE} = GraphData.actions
     
 export default GraphData.reducer

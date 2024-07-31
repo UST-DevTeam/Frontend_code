@@ -230,8 +230,8 @@ const FillExpenseForm = ({
     {
       label: "Expense Date",
       value: "",
-      name: dataItm ? "EeDate": "ExpenseDate",
-      type: dataItm ? "sdisabled": "datetime" ,
+      name: dataItm ? "ExpenseDate": "ExpenseDate",
+      type: dataItm ? "datetime": "datetime" ,
       props: {
         maxSelectableDate: today,
       },
@@ -449,7 +449,7 @@ const FillExpenseForm = ({
       
       const momentObj = moment(dataItm["expenseDate"],"YYYY-MM-DD");
       setValue("ExpenseDate", momentObj.toDate());
-      setValue("EeDate", momentObj.format("YYYY-MM-DD"));
+      setValue("ExpenseDate", momentObj.format("YYYY-MM-DD"));
     }
     
   }, [formValue, resetting]);
