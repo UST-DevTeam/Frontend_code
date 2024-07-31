@@ -15,6 +15,7 @@ const initialState = {
     getfinancialRevenueManagementProjectGroup: [],
     getfinancialPoWOrkDoneCustomer:[],
     getautosuggestionProjectManager:[],
+    getMyTaskSubProject:[]
 }
 
 const filterData = createSlice({
@@ -68,6 +69,14 @@ const filterData = createSlice({
                 state.getSiteSubProject = payload.dataAll
             }else{
                 state.getSiteSubProject  = [...state.getSiteSubProject,...payload.dataAll]
+            }
+        },
+
+        GET_FILTER_MYTASK_SUBPROJECT:(state,{payload}) => {
+            if(payload.reset){
+                state.getMyTaskSubProject = payload.dataAll
+            }else{
+                state.getMyTaskSubProject  = [...state.getMyTaskSubProject,...payload.dataAll]
             }
         },
 
@@ -143,7 +152,8 @@ export const {  GET_FILTER_PROJECT_CIRCLE,
                 GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_CUSTOMER,
                 GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP,
                 GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER,
-                GET_AUTO_SUGGESTION_PROJECT_MANAGER
+                GET_AUTO_SUGGESTION_PROJECT_MANAGER,
+                GET_FILTER_MYTASK_SUBPROJECT
             } = filterData.actions
     
 export default filterData.reducer

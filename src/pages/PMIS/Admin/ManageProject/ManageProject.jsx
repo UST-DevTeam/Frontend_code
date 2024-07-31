@@ -142,20 +142,8 @@ const ManageProject = () => {
                   setModalSize("lg")
                   setmodalFullOpen((prev) => !prev);
                   setmodalHead("Project Event Logs");
-
-                  dispatch(
-                    eventManagementActions.getprojecteventList(
-                      true,
-                      itm?.uniqueId
-                    )
-                  );
-
-                  // dispatch(AdminActions.getOneProjectTypeDyform(iewq.uniqueId));
-                  // dispatch()
-                  setmodalBody(
-                    <EventLog type={"project"} unqeId={itm?.uniqueId} />
-                  );
-                  // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                  dispatch(eventManagementActions.getprojecteventList(true,itm?.uniqueId));
+                  setmodalBody(<EventLog type={"project"} unqeId={itm?.uniqueId} /> );
                 }}
               >
                 <MdMessage size={30} />
@@ -532,7 +520,7 @@ const ManageProject = () => {
     dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
     dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
     dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    dispatch(eventManagementActions.getprojecteventList());
+    // dispatch(eventManagementActions.getprojecteventList());
   }, []);
 
   const onTableViewSubmit = (data) => {

@@ -1104,12 +1104,12 @@ const MyTask = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      {
-          label: "Site ID",
-          type: "text",
-          name: "siteId",
-          props: {}
-      },
+      // {
+      //     label: "Site ID",
+      //     type: "text",
+      //     name: "siteId",
+      //     props: {}
+      // },
       {
         label: "Sub Project",
         type: "select",
@@ -1145,31 +1145,28 @@ const MyTask = () => {
     delete data.reseter;
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    // console.log("called______")
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
   };
   useEffect(() => {
     dispatch(MyHomeActions.getMyTask())
-    
-    
-    // dispatch(FilterActions.getSiteSubProject(projectuniqueId));
+    dispatch(FilterActions.getMyTaskSubProject())
   }, []);
   const handleBulkDelte = () => {
    
-    dispatch(
-      CommonActions.deleteApiCallerBulk(
-        `${Urls.projectList_siteEngineer}`,
-        {
-          ids: parentsite
-        },
-        () => {
-          dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-          setmodalOpen(false)
-          setparentsite([])
-          setmultiSelect([])
-        }
-      )
-    );   
+    // dispatch(
+    //   CommonActions.deleteApiCallerBulk(
+    //     `${Urls.projectList_siteEngineer}`,
+    //     {
+    //       ids: parentsite
+    //     },
+    //     () => {
+    //       dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+    //       setmodalOpen(false)
+    //       setparentsite([])
+    //       setmultiSelect([])
+    //     }
+    //   )
+    // );   
   };
   let siteexportpopup = false
   let exportpopupshowType = getAccessType("Export(Site)")
