@@ -8,7 +8,6 @@ import ComponentActions from "./component-actions"
 const CommonActions = {
     postApiCaller: (urls, data, cb) => async (dispatch, _) => {
         try {
-            console.log("CommonPostActions.postApiCaller")
             const res = await Api.post({ url: urls, data })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
@@ -23,36 +22,38 @@ const CommonActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
+
+
+    
+
+
     fileSubmit: (url, data, cb) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ url: url, data: data , contentType:"multipart/form-data"})
-            console.log(res, "res?.statusres?.status")
-
-            const dtaa = res.data
-
-            console.log(res.data,"res.datares.data")
+            store.dispatch(ComponentActions.loaders(true));
+            const res = await Api.post({ url: url, data: data, contentType: "multipart/form-data" });
+            const dtaa = res.data;
             let msgdata = {
                 show: true,
                 icon: dtaa.icon,
-                buttons: [
-                ],
-                type:1,
+                buttons: [],
+                type: 1,
                 text: dtaa.msg
+            };
+            dispatch(ALERTS(msgdata));
+            if (res?.status !== 201 && res?.status !== 200) {
+                return;
             }
-            dispatch(ALERTS(msgdata))
-            if (res?.status !== 201 && res?.status !== 200){
-                return 
-            }
-            cb()
+            cb();
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "amit errorerror 37");
+        } finally {
+            store.dispatch(ComponentActions.loaders(false)); 
         }
     },
+
+    
     logoutCaller: (cb=()=>{}) => async (dispatch, _) => {
         try {
             // console.log("CommonPostActions.postApiCaller")
@@ -75,8 +76,6 @@ const CommonActions = {
             // dispatch(ALERTS(msgdata))
         } catch (error) {
             console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     getApiCaller: (urls, cb) => async (dispatch, _) => {

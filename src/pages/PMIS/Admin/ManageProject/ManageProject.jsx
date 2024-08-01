@@ -549,7 +549,6 @@ const ManageProject = () => {
 
 
   const onBulkUploadSite = (data, cuid, puid) => {
-    console.log(data, cuid, puid, "datadata");
     data["fileType"]="ManageSiteBulkUpload"
     let makeUrl = `${Urls.upload_bulk_site}${cuid ? "/" + cuid : ""}${
       puid ? "/" + puid : ""
