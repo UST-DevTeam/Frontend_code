@@ -369,6 +369,7 @@ const EmpDetailsTable = () => {
         delurl = {Urls.admin_empdetails}
         geturl = {HrActions.getManageEmpDetails()}
         getaccessExport = {"Export(ManageEmployee)"}
+        heading = {"Total Employee:-"}
       />
 
       <Modal

@@ -360,8 +360,9 @@ svg {
 
 ::-webkit-scrollbar {
   background-color: transparent;
-  width: 8px;
-  height: 8px;
+  width: 11px;
+  height: 11px;
+
 }
 
 ::-webkit-scrollbar-track {

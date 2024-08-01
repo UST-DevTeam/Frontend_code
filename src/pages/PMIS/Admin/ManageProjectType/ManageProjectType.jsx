@@ -1113,7 +1113,7 @@ const   ManageProjectType = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.adminData?.getManageProject;
+    let interdata = state?.adminData?.getManageProjectType;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -1243,6 +1243,7 @@ const   ManageProjectType = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        heading = {'Total Sub Project :- '}
         actions={["Delete"]}
       />
 

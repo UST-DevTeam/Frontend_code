@@ -788,7 +788,7 @@ const ManageProject = () => {
         register={register}
         setValue={setValue}
         getValues={getValues}
-        heading = {"Total Active Projects:-"}
+        heading = {"Total Projects:-"}
         totalCount={dbConfigTotalCount}
       />
 

@@ -314,6 +314,7 @@ const ManageCustomer = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        heading = {"Total Customer :- "}
       />
 
       <Modal

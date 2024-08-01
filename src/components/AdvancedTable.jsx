@@ -191,15 +191,7 @@ const AdvancedTable = ({
           <div className="flex justify-between">
             <div className="flex flex-row">
             <div className="flex flex-row mt-[6px] text-white">{heading}{totalCount}</div>
-            {selectedRows.length > 0 && (
-              <Button
-                name={"Delete"}
-                classes="w-full mr-1 bg-rose-500 text-white"
-                onClick={() => setShowDeleteModal(true)}
-              >
-                Delete
-              </Button>
-            )}
+            
               {/* {activeFilter.length > 0 && (
                 <h1 className="p-1 m-1">Active Filter:</h1>
               )}
@@ -217,6 +209,15 @@ const AdvancedTable = ({
               {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
 
               {/* <PopupMenu visiblity={filterVisiblity}/> */}
+              {selectedRows.length > 0 && (
+              <Button
+                name={"Delete"}
+                classes="w-full mr-1 bg-rose-500 text-white"
+                onClick={() => setShowDeleteModal(true)}
+              >
+                Delete
+              </Button>
+            )}
 
               <FilterView
                 onReset={onReset}
