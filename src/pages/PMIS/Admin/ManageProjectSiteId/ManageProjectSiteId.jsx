@@ -167,7 +167,6 @@ const ManageProjectSiteId = () => {
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site");
-
               dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true,}));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               setmodalBody(

@@ -49,6 +49,7 @@ const AdvancedTable = ({
   geturl = "",
   getaccessAdd = "",
   getaccessExport = "",
+  heading = ""
 }) => {
 
   const [hide, setHide] = useState([]);
@@ -189,6 +190,7 @@ const AdvancedTable = ({
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
+            <div className="flex flex-row mt-[6px] text-white">{heading}{totalCount}</div>
             {selectedRows.length > 0 && (
               <Button
                 name={"Delete"}
@@ -211,6 +213,7 @@ const AdvancedTable = ({
               {/* <label className='h-8 align-middle'>Search: </label><input className="ml-4 pl-2  bg-white border-black border block h-8 w-full rounded-md py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type='text' /> */}
             </div>
             <div className="flex flex-row">
+            
               {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
 
               {/* <PopupMenu visiblity={filterVisiblity}/> */}

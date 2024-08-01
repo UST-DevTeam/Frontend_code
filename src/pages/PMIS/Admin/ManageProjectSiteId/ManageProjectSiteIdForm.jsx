@@ -27,12 +27,6 @@ const ManageProjectSiteIdForm = ({
 
 
 
-  // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
-  // console.log(isOpen,"isOpen")
-  // console.log(setIsOpen,"setIsOpen")
-  // console.log(resetting,"resetting")
-  // console.log(formValue,"formValue")
 
   const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors } } = useForm()
   let dispatch = useDispatch();
@@ -61,31 +55,12 @@ const ManageProjectSiteIdForm = ({
       setValue("ptype", oldata["projectType"])
 
     }
-    console.log(oldata, "")
-    // return state.projectList.getProjectTypeSuolddataolddataolddatab
     return state.projectList.getProjectTypeSub
   })
 
-  //   let employeeList = useSelector((state) => {
-  //     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-  //         return {
-  //           label: itm?.empName + "(" + itm.empCode + ")",
-  //           value: itm?.empName + " " + itm.empCode
-  //         }
-  //     })
-  // })
 
-  //   let roleList = useSelector((state) => {
-  //     return state?.adminData?.getManageProfile.map((itm) => {
-  //         return {
-  //             label: itm?.roleName,
-  //             value: itm?.roleName
-  //         }
-  //     })
-  // })
 
-  // let projectTypeList = useSelector((state) => {
-  //   return state?.adminData?.getCardProjectType.map((itm) => {
+
 
   //   //   if (projectTypeList === "project[uniqueId]") {
   //   //     const ProjectTypeValue = "projectType";
@@ -99,25 +74,6 @@ const ManageProjectSiteIdForm = ({
   //   });
   // });
 
-  // let SubProjectList = useSelector((state) => {
-  //     return state?.adminData?.getManageSubProject.map((itm) => {
-  //         return {
-  //             label: itm.subProject,
-  //             value: itm.subProject
-  //         }
-  //     })
-  // })
-
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm.circleName,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
-
-  console.log(dataGetterOld, "dataGetterOlddataGetterOlddataGetterOld")
   let Form = [
 
     {

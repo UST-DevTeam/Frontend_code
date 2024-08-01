@@ -50,8 +50,6 @@ const ManageMilestoneSite = ({
   let rolename = user?.roleName;
 
 
-  console.log("rolenamerolename",rolename)
-
 
   const {
     register,
@@ -156,50 +154,33 @@ const ManageMilestoneSite = ({
         dtresult["t_sengg"].map((iytm) => {
 
           if(iytm["fieldName"]=="BAND"){
-            console.log(datew[0]["BAND"],"datew[0]")
             let bandlistt=datew[0]["BAND"]
 
             setValueForm1("BAND", bandlistt.split("-").join(","));
+          }
+          else if(iytm["fieldName"]=="CELL ID"){
+            let cellidlistt=datew[0]["CELL ID"]
+
+            setValueForm1("CELL ID", cellidlistt.split("-").join(","));
           }else{
             setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
           }
-
-
           console.log(
             iytm["fieldName"],
             datew[0][iytm["fieldName"]],
-            "iytmiytmiytmiytmsetValueForm1"
+            "iytmiytmiytmiytm"
           );
+
         });
-      // let dtresult1 = [{ "fieldName": "Circle" },{ "fieldName": "BAND" }, ...dtresult["t_sengg"]]
 
-      //   dtresult1.map((iytm) => {
-      //     setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
-
-      //     console.log(
-      //       iytm["fieldName"],
-      //       datew[0][iytm["fieldName"]],
-      //       "iytmiytmiytmiytm"
-      //     );
-      //   });
       dtresult["t_tracking"] &&
         dtresult["t_tracking"].map((iytm) => {
           setValueForm2(iytm["fieldName"], datew[0][iytm["fieldName"]]);
 
-          console.log(
-            iytm["fieldName"],
-            datew[0][iytm["fieldName"]],
-            "iytmiytmiytmiytm"
-          );
         });
       dtresult["t_issues"] &&
         dtresult["t_issues"].map((iytm) => {
           setValueForm3(iytm["fieldName"], datew[0][iytm["fieldName"]]);
-          console.log(
-            iytm["fieldName"],
-            datew[0][iytm["fieldName"]],
-            "iytmiytmiytmiytm"
-          );
         });
       // dtresult["t_sFinancials"] &&
       //   dtresult["t_sFinancials"].map((iytm) => {
@@ -211,12 +192,7 @@ const ManageMilestoneSite = ({
       //       "====================157"
       //     );
       //   });
-      console.log(
-        type,
-        state.adminData.getOneProjectTypeDyform,
-        state.adminData.getOneProjectTypeDyform,
-        "dataOfOldProjectdataOfOldProjectdataOfOldProject"
-      );
+    
 
       return datew[0];
     }
@@ -256,14 +232,15 @@ const ManageMilestoneSite = ({
 
 
       let fieldNaming = labelToValue(itew.fieldName);
+      
       if(fieldNaming=="BAND"){
+          final_data["BAND"] = data["BAND"].split(",").join("-");
 
-        console.log(data["BAND"],"1,5,4,3".replace(",","-"),"data[band]")
-        final_data["BAND"] = data["BAND"].split(",").join("-");
-
-
-
-      }else{
+      }
+      else if(fieldNaming=="CELL ID"){
+        final_data["CELL ID"] = data["CELL ID"].split(",").join("-");
+      }
+      else{
         final_data[fieldNaming] = data[fieldNaming];
       }
     });
@@ -302,7 +279,7 @@ const ManageMilestoneSite = ({
     //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
     // }))
 
-    console.log(data, dataOfProject["uniqueId"], "dasugdjsahj");
+
   };
 
   // const handleTrackingSubmit = (data) => {
@@ -737,6 +714,18 @@ const ManageMilestoneSite = ({
                             if (its["fieldName"] === "BAND") {
                               option = bandList;
                               type = "muitiSelect";
+                            }
+
+                            if (its["fieldName"] === "CELL ID") {
+                              type = "muitiSelect";
+                              option = its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                  return {
+                                    id: itm,
+                                    name: itm,
+                                  };
+                                })
+                              : [];
                             }
 
                             return {

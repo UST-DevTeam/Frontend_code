@@ -103,10 +103,10 @@ const MyTask = () => {
   
 
   let subProjectList = useSelector((state) => {
-    return state?.filterData?.getSiteSubProject.map((itm) => {
+    return state?.filterData?.getMyTaskSubProject.map((itm) => {
       return {
-        label: itm.subproject,
-        value: itm.subprojectId,
+        label: itm.subprojectName,
+        value: itm.subProjectId,
       };
     });
   });
@@ -1104,12 +1104,6 @@ const MyTask = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Site ID",
-      //     type: "text",
-      //     name: "siteId",
-      //     props: {}
-      // },
       {
         label: "Sub Project",
         type: "select",
@@ -1145,7 +1139,7 @@ const MyTask = () => {
     delete data.reseter;
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
+    dispatch(MyHomeActions.getMyTask(true,objectToQueryString(data)))
   };
   useEffect(() => {
     dispatch(MyHomeActions.getMyTask())
@@ -1184,90 +1178,24 @@ const MyTask = () => {
             <SearchBarView
               onblur={(e) => {
                 console.log("SearchBarView onblur", e.target.value);
+              }}
+              onchange={(e) => {
+                dispatch(MyHomeActions.getMyTask(true,e.target.value != "" ? "siteName=" + e.target.value: ""));
+              }}
+              placeHolder={"Site Name"}
+            />
+
+            <SearchBarView
+              onblur={(e) => {
+                console.log("SearchBarView onblur", e.target.value);
                 // dispatch(MyHomeActions.getMyTask(projectuniqueId,e.target.value != "" ? "mileStoneName=" + e.target.value: ""));
               }}
               onchange={(e) => {
                 dispatch(MyHomeActions.getMyTask(true,e.target.value != "" ? "mileStoneName=" + e.target.value: ""));
                 console.log("SearchBarView onchange", e.target.value);
               }}
-              placeHolder={"S Milestone Name"}
+              placeHolder={"Milestone Name"}
             />
-
-            {/* <ConditionalButton
-              showType={getAccessType("Site Allocation")}
-              classes="w-auto "
-              onClick={(e) => {
-                if (parentsite.length > 0) {
-                  setmodalOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
-                  dispatch(
-                    projectListActions.getUserAllocatedProject(
-                      true,
-                      projectuniqueId
-                    )
-                  );
-                  setmodalHead("Allocate Site");
-                  setmodalBody(
-                    <AllocateProjectForm
-                      from={"bulksite"}
-                      listsite={parentsite}
-                      projectuniqueId={projectuniqueId}
-                      isOpen={modalOpen}
-                      setIsOpen={setmodalOpen}
-                      resetting={false}
-                      formValue={{}}
-                    />
-                  );
-                } else {
-                  let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: "Please Select at least one site for bulk allocate",
-                  };
-                  dispatch(ALERTS(msgdata));
-                }
-              }}
-              name={"Site Allocate"}
-            ></ConditionalButton> */}
-
-            {/* <PopupMenu
-              name={"Export"}
-              icon={"Export"}
-              classes={"w-auto"}
-              bgColor={"bg-[#147b99]"}
-              child={
-                <div classes="z-40 max-h-96 justify-center">
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Site")}
-                    name={"Export"}
-                    classes="w-auto m-5"
-                    onClick={(e) => {
-                      dispatch(
-                        CommonActions.commondownload(
-                          "/export/siteId/" + `${projectuniqueId}`,
-                          "Export_Sites.xlsx"
-                        )
-                      );
-                    }}
-                  ></ConditionalButton>
-                  <ConditionalButton
-                    showType={getAccessType("Bulk upload-Task")}
-                    name={"Export with Task"}
-                    classes="w-auto m-5"
-                    onClick={(e) => {
-                      dispatch(
-                        CommonActions.commondownload(
-                          "/export/siteIdwithMilestone/" + `${projectuniqueId}`,
-                          "Export_Sites_with_Milestone.xlsx"
-                        )
-                      );
-                    }}
-                  ></ConditionalButton>
-                </div>
-              }
-            /> */}
           </>
         }
         

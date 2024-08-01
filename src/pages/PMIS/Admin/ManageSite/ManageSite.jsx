@@ -211,7 +211,17 @@ const ManageSite = ({
     let dat = dataOfProject["t_sengg"];
     dat.map((itew) => {
       let fieldNaming = labelToValue(itew["fieldName"]);
-      final_data[fieldNaming] = data[fieldNaming];
+
+      if(fieldNaming=="BAND"){
+        final_data["BAND"] = data["BAND"].split(",").join("-");
+
+      }
+      else if(fieldNaming=="CELL ID"){
+        final_data["CELL ID"] = data["CELL ID"].split(",").join("-");
+      }
+      else{
+        final_data[fieldNaming] = data[fieldNaming];
+      }
     });
 
     console.log(final_data, "final_datafinal_data");
@@ -495,6 +505,17 @@ const ManageSite = ({
                               if (its["fieldName"] === "BAND") {
                                 option = bandList;
                                 type = "muitiSelect";
+                              }
+                              if (its["fieldName"] === "CELL ID") {
+                                type = "muitiSelect";
+                                option = its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      id: itm,
+                                      name: itm,
+                                    };
+                                  })
+                                : [];
                               }
                               return {
                                 label: its.fieldName,

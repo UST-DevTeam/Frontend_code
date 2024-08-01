@@ -145,7 +145,7 @@ const AdvancedTableExpandable = ({
             <div className="flex flex-row">
              
             <div className="flex flex-row mt-[6px] text-white">{heading}{totalCount}</div>
-            <div className="flex flex-row mx-4">{searchView}</div>
+            <div className="flex flex-row mx-8 gap-1">{searchView}</div>
             </div>
             <div className="flex flex-row">
               {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
