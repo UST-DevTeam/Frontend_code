@@ -400,7 +400,7 @@ const FillExpenseForm = ({
     // dispatch(AdminActions.getManageExpenseAdvance());
     // dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
   
-    console.log(resetting, formValue["categories"], "resettingresetting");
+    
     if (resetting) {
       reset({});
 
