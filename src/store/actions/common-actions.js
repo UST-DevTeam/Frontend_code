@@ -31,7 +31,7 @@ const CommonActions = {
 
     fileSubmit: (url, data, cb) => async (dispatch, _) => {
         try {
-            store.dispatch(ComponentActions.loaders(true));
+            // store.dispatch(ComponentActions.loaders(true));
             const res = await Api.post({ url: url, data: data, contentType: "multipart/form-data" });
             const dtaa = res.data;
             let msgdata = {
@@ -48,9 +48,10 @@ const CommonActions = {
             cb();
         } catch (error) {
             console.log(error, "amit errorerror 37");
-        } finally {
-            store.dispatch(ComponentActions.loaders(false)); 
-        }
+        } 
+        // finally {
+        //     store.dispatch(ComponentActions.loaders(false)); 
+        // }
     },
 
     

@@ -49,6 +49,14 @@ const WebSocketClient = () => {
             dispatch(WebsocketActions.data_from_socket(data))
 
         });
+
+
+        socket.on("notification", (data) => {
+            console.log("data aa gya hai",data)
+
+            dispatch(WebsocketActions.data_from_socket_msg("notification",data))
+
+        });
         
 
         dispatch(WebsocketActions.setup_socket(socket))
