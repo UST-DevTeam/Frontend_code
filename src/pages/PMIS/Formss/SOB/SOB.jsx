@@ -8,115 +8,74 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import CommonActions from "../../../../store/actions/common-actions";
-import { Urls } from "../../../../utils/url";
-import EarnValueMgmtForm from "../../../../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtForm";
-import FinanceActions from "../../../../store/actions/finance-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
-import AdminActions from "../../../../store/actions/admin-actions";
-import Multiselection from "../../../../components/FormElements/Multiselection";
-import SelectDropDown from "../../../../components/FormElements/SelectDropDown";
-import { data } from "autoprefixer";
 import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 
 
-import { UilSearch } from "@iconscout/react-unicons";
-import AccrualRevenueTrendForm from "./AccrualRevenueTrendForm";
-import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-reducer";
+import { UilSearch } from "@iconscout/react-unicons"; 
+import SOBForms from "./SOBForms";
 
-const AccrualRevenueTrend = () => {
+const SOB = () => {
 
-  const currentMonth = new Date().getMonth() + 1;
-  // const currentMonth =  1;
-  const currrentYear = new Date().getFullYear();
-
-  const [refresh, setRefresh] = useState(false);
+  const [currentMonth , setCurrentMonth ] = useState(new Date().getMonth() + 1);
+  const [currrentYear , setCurrentYear] = useState(new Date().getFullYear())
   const [modalOpen, setmodalOpen] = useState(false);
-  const [change, setChange] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [extraColumns, setExtraColumnss] = useState("");
 
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const exportData = useRef([])
- 
-
-  let extraColumns;
-
-  if (currentMonth === 1) {
-    extraColumns = [
-      {'month':11,"year":currrentYear-1},
-      {'month':12,"year":currrentYear-1},
-      {'month':1,"year":currrentYear}
-    ];
-  } else if (currentMonth === 2) {
-    extraColumns = [
-      {'month':12,"year":currrentYear-1},
-      {'month':1,"year":currrentYear},
-      {'month':2,"year":currrentYear}
-    ];
-  } else {
-    extraColumns = [
-      {'month':currentMonth-2,"year":currrentYear},
-      {'month':currentMonth-1,"year":currrentYear},
-      {'month':currentMonth,"year":currrentYear}
-    ];
-  }
-  const [extraColumnsState, setExtraColumns] = useState(extraColumns);
+  const [showEditButton, setShowEditButton] = useState(false);
+  const [extraColumnsState, setExtraColumns] = useState([extraColumns]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
+  const [circle, setCircle] = useState("");
+  const [selectedCircle, setSelectedCircle] = useState(""); 
 
-  let dispatch = useDispatch();
 
-
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm?.circleName,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
-
+  let dispatch = useDispatch();  
 
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getAccrualRevenueTrend || [];
+    let interdata = state?.formssData?.getSobdata || [];
+    console.log(interdata , 'asdfsdfsafdasdf' )
     return interdata?.map((itm) => {
+      
       let updateditm = {
         ...itm,
-        'edit': (
-          <CstmButton
-            
-            className={"p-2"}
-            child={
-              <EditButton
-                key={`edit-button-${itm.uniqueId}`}
-                name={""}
-                onClick={() => {
-                  setmodalOpen(true);
-                  setmodalHead("Edit Amount");
-                  setmodalBody(
-                    <>
-                      <AccrualRevenueTrendForm
-                        isOpen={modalOpen}
-                        setIsOpen={setmodalOpen}
-                        resetting={false}
-                        formValue={itm}
-                        year = {year}
-                        monthss = {extraColumnsState}
-                      />
-                    </>
-                  );
-                }}
-              ></EditButton>
-            }
-          />
-        ),
+        edit: showEditButton ? ( 
+            <CstmButton
+              className={"p-2"}
+              child={
+                <EditButton
+                  name={""}
+                  onClick={() => {
+                    setmodalOpen(true);
+                    setmodalHead("Edit SOB");
+                    setmodalBody(
+                      <> 
+                        <SOBForms
+                          isOpen={modalOpen}
+                          setIsOpen={setmodalOpen}
+                          SOBHeaders={SOBHeaders}
+                          SoBCircleList={SoBCircleList}
+                          resetting={false}
+                          formValue={{...itm , circle: `${selectedCircle}`, }}
+                          year={year}
+                          monthss={[currentMonth]}
+                          />
+                      </>
+                    );
+                  }}
+                ></EditButton>
+              }
+            />
+          ) : null,
 
         delete: (
           <CstmButton
@@ -162,19 +121,45 @@ const AccrualRevenueTrend = () => {
           />
         ),
       };
+      console.log(updateditm , 'asdfsdfsafdasdf')
       return updateditm;
     });
   });
 
+  console.log(dbConfigList , 'asdfsdfsafdasdf')
+
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getSobdata || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
       return 0;
     }
   });
+
+  let SOBHeaders = useSelector((state) => {
+    let interdata = state?.formssData?.getSobdataDynamic?.[0]?.projectType || [""]
+    return interdata
+})
+
+let SoBCircleList = useSelector((state) => {
+    return state?.formssData?.getSobdataDynamic?.[0]?.circle?.map((itm) => {
+      return {
+        label: itm?._id,
+        value: itm?.circleuid,
+      };
+    });
+  });
+
+
+let hh = SOBHeaders?.map((item) => { 
+    return {
+        name: item._id,
+        value: item._id,
+        style:'min-w-[100px] max-w-[200px] text-center'
+    };
+});
 
   let showType = getAccessType("Actions(Accrual Revenue Trend)")
 
@@ -183,11 +168,6 @@ const AccrualRevenueTrend = () => {
   if (showType === "visible"){
     shouldIncludeEditColumn = true
   } 
-
-
-
-
-
 
   const {
     register,
@@ -202,31 +182,13 @@ const AccrualRevenueTrend = () => {
   let table = {
     columns: [
       {
-        name: "Customer",
-        value: "customer",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Cost center",
-        value: "costCenter",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "UST Project ID",
-        value: "ustProjectid",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: "Partner",
+        value: "competitor",
+        style: "min-w-[140px] max-w-[200px] text-center p-2",
       },
       
-      ...newColumns,
-      ...(shouldIncludeEditColumn
-        ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-          ]
-        : [])
+    //   ...newColumns,
+
      
       // {
       //   name: "Edit",
@@ -234,6 +196,7 @@ const AccrualRevenueTrend = () => {
       //   style: "min-w-[100px] max-w-[200px] text-center",
       // },
     ],
+    
     properties: {
       rpp: [10, 20, 50, 100],
     },
@@ -248,6 +211,25 @@ const AccrualRevenueTrend = () => {
       
     ],
   };
+
+  const pp=[
+        ...(shouldIncludeEditColumn
+            ? [
+                {
+                  name: "Edit",
+                  value: "edit",
+                  style: "min-w-[100px] max-w-[200px] text-center",
+                },
+              ]
+            : [])
+    ]
+
+if (table?.columns) {
+    table.columns.push(...hh);
+}
+if (table?.columns) {
+    table.columns.push(...pp);
+}
 
   let listYear = [];
   for (let ywq = 2021; ywq <= +endDate; ywq++) {
@@ -277,22 +259,68 @@ const AccrualRevenueTrend = () => {
     delete data.reseter;
   };
 
-  useEffect(() => {
-    exportData.current = []
-    extraColumnsState.forEach((itm) => {
-      exportData.current =  [...exportData.current, 'M-'+itm.month+"Y-"+itm.year]
-    });
-    dispatch(
-      FormssActions.postAccrualRevenueTrend(
-        {
-          Monthly: exportData.current.join(",")
-        },
-        () => {}
-      )
-    );
-  }, []);
+// useEffect(() => {
+//     const exportData = extraColumnsState?.map(itm => itm.month + "-" + itm.year).join(",");
+//     dispatch(
+//       FormssActions.postFormsSob(
+//         {
+//           Monthly: exportData
+//         },
+//         () => {}
+//       )
+//     );
+//   }, [extraColumnsState, dispatch]);
+useEffect(() => {
+    if (selectedCircle) {
+        dispatch(
+          FormssActions.postFormsSob(
+            {
+              viewBy: `${currentMonth}`,
+              year: `${currrentYear}`,
+              yyear: `${currrentYear}`,
+              selectional: "Monthly",
+              typeSelectional: "Monthly",
+              circle: `${selectedCircle}`,
+            },
+            () => {}
+          )
+        );
+      }
+
+      else{
+        dispatch(
+            FormssActions.postFormsSob(
+              {
+                viewBy: `${currentMonth}`,
+                year: `${currrentYear}`,
+                yyear: `${currrentYear}`,
+                selectional: "Monthly",
+                typeSelectional: "Monthly",
+                circle: `${selectedCircle}`,
+              },
+              () => {}
+            )
+          );
+      }
+  }, [currentMonth,selectedCircle]);
+  
 
   let formD = [
+    {
+        label: "Circle",
+        name: "circle",
+        value: "Select",
+        bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        type: "select",
+        option: SoBCircleList,
+        props: {
+        onChange: (e) => {
+          setCircle(e.target.value);
+        },
+      },
+        required: true,
+        classes: "col-span-1",
+      },
     {
       label: "Year",
       name: "year",
@@ -318,7 +346,8 @@ const AccrualRevenueTrend = () => {
       label: ValGm,
       name: "viewBy",
       value: "Select",
-      type: "newmuitiSelect2",
+      type: "select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       option: listDict[ValGm].map((dasd) => {
         return {
           value: dasd?.id,
@@ -335,10 +364,16 @@ const AccrualRevenueTrend = () => {
   ];
 
   useEffect(() => {
+    dispatch(FormssActions.getSobdataDynamic())
+}, [])
+
+console.log(table , dbConfigList , 'asdfasdfasdf')
+
+useEffect(() => {
 
     const monthMap = {1:"Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"};
     let cols = [];
-    extraColumnsState.forEach((itm) => {
+    extraColumnsState?.forEach((itm) => {
       let monthName = monthMap[itm.month];
       let year = itm.year;
       cols.push([
@@ -356,44 +391,65 @@ const AccrualRevenueTrend = () => {
 
   }, [extraColumnsState,  modalOpen]);
 
-  const handleAddActivity = (res) => {
+//   const handleAddActivity = (res) => {
+//     try {
+//       let months = res?.Month?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
+//       let extraCol = months.map((month) => ({
+//         month: month,
+//         year: res.year
+//       }));
+//       setExtraColumns(extraCol);
+//       exportData.current = []
+
+//       months.forEach((itm) => {
+//       exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
+//       }
+
+//       )
+//       dispatch(FormssActions.postFormsSob(
+//         {
+//           Monthly: exportData.current.join(",")
+//         }, () => {}));
+//         setShowEditButton(true)
+//     } catch (error) {
+//       console.error("[ERROR] :: " + error.message);
+//     }
+//   };
+
+const handleAddActivity = (res) => {
     try {
-      let months = res?.Month?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
-      let extraCol = months.map((month) => ({
-        month: month,
-        year: res.year
-      }));
-      setExtraColumns(extraCol);
-      exportData.current = []
-
-      months.forEach((itm) => {
-      exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
-      }
-
-      )
-      dispatch(FormssActions.postAccrualRevenueTrend(
-        {
-          Monthly: exportData.current.join(",")
-        }, () => {}));
-    } catch (error) {
+      setCurrentYear(res?.year)
+      setCurrentMonth(res?.viewBy)
+      setSelectedCircle(res?.circle);
+      setShowEditButton(true)
+      resetForm();
+    } 
+    catch (error) {
       console.error("[ERROR] :: " + error.message);
     }
   };
 
+  // const resetForm = () => {
+  //   setValue("circle", ""); 
+  //   setValue("year", "");
+  //   setValue("viewBy", ""); 
+  //   setCircle(""); 
+  // };
+
   return (
     <>
-    <div className="flex items-center justify-start ">
+    <div className="flex items-center justify-start gap-5">
     <div className="col-span-1 md:col-span-1">
       <CommonForm
-        classes="grid grid-cols-2 w-[400px] overflow-y-hidden"
+        classes="grid grid-cols-4 w-[550px] sm:grid-cols-6 xl:grid-cols-3 xl:w-[550px] sm:w-full overflow-y-hidden "
         Form={formD}
         errors={errors}
         register={register}
         setValue={setValue}
         getValues={getValues}
-      />
+      /> 
     </div>
-    <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
+    <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
       <Button
         classes=" flex h-fit "
         name=""
@@ -402,13 +458,20 @@ const AccrualRevenueTrend = () => {
       />
     </div>
   </div>
-
-
       <AdvancedTable 
         table={table}
-        exportButton={["/export/accrualRevenueTrend", "Export_Accrual_Revenue_Trend_Form.xlsx","POST",{ Monthly  :exportData.current}]}
+        // exportButton={["/export/sobForms", "Export_Sob_Form.xlsx","POST",{ Monthly  :exportData.current}]}
+        exportButton={["/export/sobForms", "Export_Sob_Form.xlsx", "POST", {
+          viewBy: currentMonth,
+          year: year,
+          yyear: year,
+          selectional: "Monthly",
+          typeSelectional: "Monthly",
+          circle: selectedCircle
+        }]}
+
         filterAfter={onSubmit}
-        tableName={"AccrualRevenueTrend"}
+        tableName={"SobTable"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -429,5 +492,6 @@ const AccrualRevenueTrend = () => {
   );
 };
 
-export default AccrualRevenueTrend;
+export default SOB;
+
 

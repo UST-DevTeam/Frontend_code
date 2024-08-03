@@ -133,6 +133,7 @@ import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
 import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/AccrualRevenueTrend";
 import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
 import MyTask from "../pages/PMIS/MyTask/MyTask";
+import SOB from "../pages/PMIS/Formss/SOB/SOB";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -686,6 +687,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/AccrualRevenueTrend",
       component: <AccrualRevenueTrend />,
+      icon: <UilStore className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/SOB",
+      component: <SOB />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

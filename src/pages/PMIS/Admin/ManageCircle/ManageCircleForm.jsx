@@ -12,14 +12,6 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
-    // console.log(isOpen,"isOpen")
-    // console.log(setIsOpen,"setIsOpen")
-    // console.log(resetting,"resetting")
-    // console.log(formValue,"formValue")
-
-
     const [modalOpen, setmodalOpen] = useState(false)
 
 

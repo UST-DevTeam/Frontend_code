@@ -5,6 +5,8 @@ const initialState = {
     getEVMDelivery:[],
     getProfitloss:[],
     getAccrualRevenueTrend:[],
+    getSobdata:[],
+    getSobdataDynamic:[],
 }
 
 const FormssReducer = createSlice({
@@ -43,6 +45,22 @@ const FormssReducer = createSlice({
                 state.getAccrualRevenueTrend  = [...state.getAccrualRevenueTrend,...payload.dataAll]
             }
         },
+        
+        GET_SOB_DYNAMIIC:(state,{payload}) => {
+            if(payload.reset){
+                state.getSobdataDynamic = payload.dataAll
+            }else{
+                state.getSobdataDynamic  = [...state.getSobdataDynamic,...payload.dataAll]
+            }
+        },
+
+        GET_SOB:(state,{payload}) => {
+            if(payload.reset){
+                state.getSobdata = payload.dataAll
+            }else{
+                state.getSobdata  = [...state.getSobdata,...payload.dataAll]
+            }
+        },
 
         
     }
@@ -53,5 +71,7 @@ export const {
     GET_EVM_DELIVERY,
     GET_PROFIT_LOSS,
     GET_ACCRUAL_REVENUE_TREND,
+    GET_SOB,
+    GET_SOB_DYNAMIIC,
 } = FormssReducer.actions
 export default FormssReducer.reducer

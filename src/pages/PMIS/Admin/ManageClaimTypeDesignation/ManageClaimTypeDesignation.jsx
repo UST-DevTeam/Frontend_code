@@ -46,7 +46,7 @@ const ManageClaimTypeDesignation = () => {
                     setmodalBody(<>
                         <ManageClaimTypeDesignationForm isEditable={true} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
+                    </>) 
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 

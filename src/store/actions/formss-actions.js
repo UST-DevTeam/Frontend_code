@@ -6,6 +6,8 @@ import {
     GET_EVM_DELIVERY,
     GET_PROFIT_LOSS,
     GET_ACCRUAL_REVENUE_TREND,
+    GET_SOB,
+    GET_SOB_DYNAMIIC,
     } 
     from "../reducers/formss-reducer"
 
@@ -270,6 +272,81 @@ const FormssActions = {
                 dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
                 cb();
 
+            }
+
+        } catch (error) {
+            return;
+        }
+    },   
+
+    getSobdataDynamic:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.forms_sob_dynamic}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_SOB_DYNAMIIC({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    },
+    getSobdata:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.forms_sob}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_SOB({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    },
+    postFormsSob: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.forms_sob })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_SOB({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+    putFormsSob: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.put({ data: data, url: Urls.forms_sob})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_SOB({ dataAll, reset:true }))
+                let msgdata = {
+                    show: true,
+                    icon: "success",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
             }
 
         } catch (error) {
