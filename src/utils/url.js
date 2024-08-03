@@ -1,5 +1,5 @@
-export const baseUrl="http://127.0.0.1:7992"
-export const backendassetUrl="http://127.0.0.1:7992/"
+export const baseUrl="http://127.0.0.1:7980"
+export const backendassetUrl="http://127.0.0.1:7980/"
 // export const baseUrl="http://192.168.29.23:7980"
 // export const backendassetUrl="http://192.168.29.23:7980/"
 
@@ -99,6 +99,8 @@ export const Urls={
     formss_EVM_delivery:"/forms/EVMActual",
     formss_accrualrevenue_trend: "/forms/accrualRevenueTrend",
     forms_profit_loss: "/forms/profilt&loss",
+    forms_sob: "/forms/SOB",
+    forms_sob_dynamic:"/forms/dynamicHeaderSOB",
     admin_claim_type:"/expenses/ClaimType",
 
     admin_claim_type:"/expenses/ClaimType",
