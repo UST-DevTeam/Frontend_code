@@ -191,6 +191,7 @@ const CommonActions = {
             store.dispatch(ComponentActions.loaders(true))
             const res = await Api.blobFile({ url: urls, method: method, data: data });
             if (res?.status !== 201 && res?.status !== 200) {
+                
                 let msgdata = {
                     show: true,
                     icon: "error",
