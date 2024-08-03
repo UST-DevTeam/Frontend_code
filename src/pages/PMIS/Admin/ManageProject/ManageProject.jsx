@@ -666,7 +666,7 @@ const ManageProject = () => {
                     }}
                     >
                   </Button>
-                      <Button
+                      {/* <Button
                       name={"Export Site"}
                       classes="w-auto m-4"
                       onClick={() => {
@@ -678,8 +678,8 @@ const ManageProject = () => {
                         );
                       }}
                       >
-                      </Button>
-                      <Button
+                      </Button> */}
+                      {/* <Button
                       name={"Export Site with Task"}
                       classes="w-auto m-4"
                       onClick={() => {
@@ -691,10 +691,10 @@ const ManageProject = () => {
                         );
                       }}
                       >
-                      </Button>
+                      </Button> */}
                       
                       <Button
-                      name={"Export Site with SubProject"}
+                      name={"Export Site with Sub Project"}
                       classes="w-auto m-4"
                       onClick={() => {
                         setModalSize("sm")
@@ -714,7 +714,7 @@ const ManageProject = () => {
                       >
                       </Button>
                       <Button
-                      name={"Export Task with SubProject"}
+                      name={"Export Task with Sub Project"}
                       classes="w-auto m-4"
                       onClick={() => {
                         setModalSize("sm")

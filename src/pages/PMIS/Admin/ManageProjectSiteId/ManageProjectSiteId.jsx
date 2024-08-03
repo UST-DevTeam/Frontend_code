@@ -166,7 +166,7 @@ const ManageProjectSiteId = () => {
             className=""
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site");
+              setmodalHead("Update Site:-"+itm['Site Id']);
               dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true,}));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               setmodalBody(
@@ -1326,7 +1326,7 @@ const ManageProjectSiteId = () => {
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 // dispatch(AdminActions.getProject())
-                setmodalHead("Add Site ID");
+                setmodalHead("Add Site");
                 setmodalBody(
                   <ManageProjectSiteIdForm
                     projectuniqueId={projectuniqueId}

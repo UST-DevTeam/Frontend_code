@@ -771,6 +771,15 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
+                              option:its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [],
+                              required: its.required == "Yes" ? true : false,
                               props: {
                                 maxSelectableDate: today,
                               },
@@ -807,6 +816,15 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
+                              option:its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [],
+                              required: its.required == "Yes" ? true : false,
                               props: {
                                 maxSelectableDate: today,
                               },

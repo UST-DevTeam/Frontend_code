@@ -173,8 +173,6 @@ export const Urls={
     current_user_PT:"/currentuser/ProjectType",
     current_user_PID:"/currentuser/ProjectId"
 
-
-
 }
 
 

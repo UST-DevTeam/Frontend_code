@@ -265,7 +265,7 @@ const ManageVendorForm = (props) => {
         {"label": "Inactive", "value": "Inactive"},
       ],
       props: "",
-      required: false,
+      required: true,
       placeholder: "",
     },
     {

@@ -116,18 +116,6 @@ const ManageSite = ({
     });
   });
 
-  // let bandList = useSelector((state) => {
-  //   return state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
-
-  //     return Object.keys(itm).includes('BAND') ? itm?.BAND?.split(",").map((its) => {
-  //       return {
-  //         "label": its,
-  //         "value": its
-  //       }
-  //     }) : []
-  //   }) || []
-  // });
-
   let bandList = useSelector((state) => {
     return (
       state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
@@ -144,45 +132,43 @@ const ManageSite = ({
   });
 
   let dataOfProject = useSelector((state) => {
+
     let dataOlder = state.adminData.getProjectTypeDyform[0];
     console.log(dataOlder,"dataOlderdataOlder")
     return dataOlder;
-    if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
-      let data = dataOlder[0]["t_sengg"].map((its) => {
-        console.log(its, "itsitsitsitsitsits");
-        return {
-          label: its.fieldName,
-          required: its.dataType != "Auto Created" ? its.required : false,
-          value: "",
-          name: its.fieldName,
-          type: its.dataType,
-        };
-      });
-      dataOlder[0]["t_sengg"].map((its) => {
-        if (its.dataType == "Auto Created") {
-          setValue(its.fieldName, "");
-        }
-      });
-      return data;
-    } else {
-      return [];
-    }
+    
+    // if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
+    //   let data = dataOlder[0]["t_sengg"].map((its) => {
+    //     console.log(its, "itsitsitsitsitsits");
+    //     return {
+    //       label: its.fieldName,
+    //       required: its.dataType != "Auto Created" ? its.required : false,
+    //       value: "",
+    //       name: its.fieldName,
+    //       type: its.dataType,
+    //     };
+    //   });
+    //   dataOlder[0]["t_sengg"].map((its) => {
+    //     if (its.dataType == "Auto Created") {
+    //       setValue(its.fieldName, "");
+    //     }
+    //   });
+    //   return data;
+    // } else {
+    //   return [];
+    // }
+
+
   });
 
   const handleSiteEnggSubmit = (data) => {
-    // alert(projectuniqueId)
 
     let filData = [];
-    filData = dataOfProject["t_sengg"].filter(
-      (itew) => itew["required"] == "Yes"
-    );
+    filData = dataOfProject["t_sengg"].filter((itew) => itew["required"] == "Yes");
     let filDataCount = 0;
     let datamsg = "";
     filData.map((itew) => {
-      if (
-        data[itew["fieldName"]] == undefined ||
-        data[itew["fieldName"]] == ""
-      ) {
+      if ( data[itew["fieldName"]] == undefined || data[itew["fieldName"]] == "") {
         filDataCount += 1;
         datamsg += itew["fieldName"] + ", ";
       }
@@ -201,6 +187,7 @@ const ManageSite = ({
 
       return;
     }
+
     setSiteId(data["Site Id"] ? data["Site Id"] : "Add");
     let final_data = {
       SubProjectId: dataOfProject["uniqueId"],
@@ -218,6 +205,10 @@ const ManageSite = ({
       }
       else if(fieldNaming=="CELL ID"){
         final_data["CELL ID"] = data["CELL ID"].split(",").join("-");
+      }
+
+      else if(fieldNaming=="SECTOR"){
+        final_data["SECTOR"] = data["SECTOR"].split(",").join("-");
       }
       else{
         final_data[fieldNaming] = data[fieldNaming];
@@ -437,14 +428,6 @@ const ManageSite = ({
     "Auto Created": "sdisabled",
   };
 
-  // console.log(dataOfProject ? dataOfProject["t_sengg"] ? dataOfProject["t_sengg"].map((its) => {
-  //     return {
-  //         label: "abc",
-  //         value: "",
-  //         name: "",
-  //         type: "text"
-  //     }
-  // }) : [] : [], "dsadasssssssssssssssssssssssssss")
 
   const filesUploadForm = [
     { label: "file", value: "", name: "file", required: true, type: "file" },
@@ -517,6 +500,17 @@ const ManageSite = ({
                                   })
                                 : [];
                               }
+                              if (its["fieldName"] === "SECTOR") {
+                                type = "muitiSelect";
+                                option = its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      id: itm,
+                                      name: itm,
+                                    };
+                                  })
+                                : [];
+                              }
                               return {
                                 label: its.fieldName,
                                 value: "Select",
@@ -560,9 +554,19 @@ const ManageSite = ({
                             // if (mappedDataList.some(field => field.headerName === its['fieldName'])) {
                             //       type = "sdisabled";
                             // }
+                            let option = its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [];
                             return {
                               label: its.fieldName,
                               value: "abc",
+                              required: its.required == "Yes" ? true : false,
+                              option: option,
                               name: its.fieldName,
                               type: type,
                               props: {
@@ -600,7 +604,16 @@ const ManageSite = ({
                               label: its.fieldName,
                               value: "abc",
                               name: its.fieldName,
+                              required: its.required == "Yes" ? true : false,
                               type: dtype[its.dataType],
+                              option:its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [],
                               props: {
                                 maxSelectableDate: today,
                               },
