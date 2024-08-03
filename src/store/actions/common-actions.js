@@ -193,6 +193,7 @@ const CommonActions = {
             const res = await Api.blobFile({ url: urls, method: method, data: data });
             console.log(res,"__________________res")
             if (res?.status !== 201 && res?.status !== 200) {
+                
                 let msgdata = {
                     show: true,
                     icon: "error",
