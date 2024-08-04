@@ -1,23 +1,30 @@
 import * as Unicons from "@iconscout/react-unicons";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import projectListActions from "../store/actions/projectList-actions";
 const NotificationBar = ({ modalRef, roleName, calllogout }) => {
+
+  let dispatch = useDispatch();
 
   const msgdata=useSelector((state) => {
 
-    console.log(state.websocket.data_from_socket,"statestatestatestatestate")
+    return []
+
     return state.websocket.data_from_socket.notification ? state.websocket.data_from_socket.notification : []
   })
 
   const msgapidata=useSelector((state) => {
 
-    // return [
-    //   {
-    //     "msg": "BulkSite (1).xlsx completed",
-    //     "typem": "old",
-    //     "time": "1722534094313657"
-    //   }
-    // ]
+    return state.projectList.getusernotification || []
+
+
+    return [
+      {
+        "msg": "BulkSite (3).xlsx completed",
+        "typem": "old",
+        "time": "1722534094313657"
+      }
+    ]
 
     console.log(state.websocket.data_from_socket,"statestatestatestatestate")
     return state.websocket.data_from_socket.notification ? state.websocket.data_from_socket.notification : []
@@ -26,6 +33,7 @@ const NotificationBar = ({ modalRef, roleName, calllogout }) => {
 
 
   useEffect(()=>{
+    dispatch(projectListActions.getnotification());
 
   },[""])
   return (

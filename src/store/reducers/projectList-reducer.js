@@ -9,6 +9,7 @@ const initialState = {
     getprojectcircle:[],
     getMappedData:[],
     getCircleWithPGData:[],
+    getusernotification:[],
 }
 
 const projectList = createSlice({
@@ -80,6 +81,14 @@ const projectList = createSlice({
                 state.getprojectcircle = payload.dataAll
             } else {
                 state.getprojectcircle = [...state.getprojectcircle, ...payload.dataAll]
+            }
+        },
+
+        GET_USR_NOTIFICATION: (state, { payload }) => {
+            if (payload.reset) {
+                state.getusernotification = payload.dataAll
+            } else {
+                state.getusernotification = [...state.getusernotification, ...payload.dataAll]
             }
         },
 
@@ -168,5 +177,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE,GET_MAPPED_DATA,GET_CIRCLE_WITH_PG_DATA } = projectList.actions
+export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE,GET_MAPPED_DATA,GET_CIRCLE_WITH_PG_DATA,GET_USR_NOTIFICATION } = projectList.actions
 export default projectList.reducer

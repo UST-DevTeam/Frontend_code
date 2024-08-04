@@ -3,7 +3,7 @@ import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE,SET_DYNAMIC_FORM,GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA } from "../reducers/projectList-reducer"
+import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE,SET_DYNAMIC_FORM,GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION } from "../reducers/projectList-reducer"
 import CommonActions from "./common-actions"
 // import Notify from "./notify-actions"
 
@@ -190,6 +190,16 @@ const projectListActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_PROJECT_CIRCLE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getnotification:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.user_notification}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_USR_NOTIFICATION({dataAll,reset}))
         } catch (error) {
         }
     },
