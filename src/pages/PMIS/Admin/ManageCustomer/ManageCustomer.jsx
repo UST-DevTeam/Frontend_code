@@ -325,7 +325,7 @@ const ManageCustomer = () => {
         setIsOpen={setmodalOpen}
       />
 
-      {/* <CommonForm/> */}
+      {/* <CommonForm/> */} 
     </>
   ) : (
     <>
