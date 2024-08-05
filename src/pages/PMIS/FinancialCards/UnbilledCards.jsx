@@ -37,7 +37,7 @@ const UnbilledCards = () => {
               {1 == 1 || (getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                className={`${itm[1]} bg-pcol text-white text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
+                className={`${itm[1]} bg-pcol text-white text-center text-[14px] md:text-[11px] xl:text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
                   onClick={() => {
 
 
