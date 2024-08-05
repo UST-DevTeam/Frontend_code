@@ -141,8 +141,8 @@ const ManageProject = () => {
                 onClick={() => {
                   setModalSize("lg")
                   setmodalFullOpen((prev) => !prev);
-                  setmodalHead("Project Event Logs");
-                  dispatch(eventManagementActions.getprojecteventList(true,itm?.uniqueId));
+                  setmodalHead("Project Event Logs");sss
+                  dispatch(eventManagementActions?.getprojecteventList(true,itm?.uniqueId));
                   setmodalBody(<EventLog type={"project"} unqeId={itm?.uniqueId} /> );
                 }}
               >
