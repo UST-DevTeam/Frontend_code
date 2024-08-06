@@ -41,6 +41,7 @@ import eventManagementActions from "../../../../store/actions/eventLogs-actions"
 import EventLog from "../../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
+import FileUploader from "../../../../components/FIleUploader";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -50,10 +51,12 @@ const ManageProjectSiteId = () => {
   // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
 
   // console.log(getAccessType("Add Site"), "getAccessType");
-  const { projectuniqueId } = useParams();
+  const { proId,projectuniqueId } = useParams();
+
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [fileOpen, setFileOpen] = useState(false)
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
 
@@ -140,6 +143,7 @@ const ManageProjectSiteId = () => {
   //         }))
   //     }
   // }
+
 
   let dbConfigL = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
@@ -1187,6 +1191,25 @@ const ManageProjectSiteId = () => {
     siteexportpopup = true
   }
 
+  const onTableViewSubmit = (data) => { 
+
+      data["fileType"]="UploadSiteOneProject"
+      dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+          dispatch(AdminActions.getManageCircle())
+          setFileOpen(false)
+      }))
+  }
+  const onBulkUploadSite = (data, cuid) => {
+    let makeUrl = `${Urls.upload_bulk_site_one_project}${"/" + cuid }`;
+    dispatch(
+      CommonActions.fileSubmit(makeUrl, data, () => {
+        // dispatch(AdminActions.getProject());
+        setFileOpen(false);
+        reset("");
+      })
+    );
+  };
+
   return (
     <>
       <AdvancedTableExpandable
@@ -1320,6 +1343,7 @@ const ManageProjectSiteId = () => {
                   name={"Delete"}
                 ></Button>
             )}
+            
             <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="w-auto "
@@ -1338,6 +1362,14 @@ const ManageProjectSiteId = () => {
                 );
               }}
               name={"Add Site"}
+            ></ConditionalButton>
+            <ConditionalButton
+              showType={getAccessType("Add Site")}
+              classes="w-auto "
+              onClick={(e) => {
+                setFileOpen(prev=>!prev)
+              }}
+              name={"Upload"}
             ></ConditionalButton>
             <ConditionalButton
               showType={getAccessType("Task Allocation")}
@@ -1485,6 +1517,11 @@ const ManageProjectSiteId = () => {
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={(data) => {
+          onBulkUploadSite(data, projectuniqueId );
+          setFileOpen(false)
+          resetting("")
+        }} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {[`/template/OneProject/${projectuniqueId}`,`Template (${proId}).xlsx`]} />
       {/* <CommonForm/> */}
     </>
   );

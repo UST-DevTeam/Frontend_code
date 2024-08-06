@@ -1,5 +1,5 @@
-export const baseUrl="http://127.0.0.1:7992"
-export const backendassetUrl="http://127.0.0.1:7992/"
+// export const baseUrl="http://192.168.0.144:7992"
+// export const backendassetUrl="http://192.168.0.144:7992/"
 
 // export const baseUrl="http://192.168.29.23:7980"
 // export const backendassetUrl="http://192.168.29.23:7980/"
@@ -7,8 +7,8 @@ export const backendassetUrl="http://127.0.0.1:7992/"
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
-// export const baseUrl="https://pmisapi.mcpsinc.com"
-// export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
+export const baseUrl="https://pmisapi.mcpsinc.com"
+export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
 
 
 // qwertyuio
@@ -47,6 +47,7 @@ export const Urls={
     admin_uamView:"/uamView",
     admin_completion_criteria:"/admin/complectionCriteria",
     upload_bulk_site:"/uploadBulkSite",
+    upload_bulk_site_one_project:"/uploadSiteOneProject",
     get_Subproject_Dyanmic:"/subprojects",
     get_project_type_Dyanmic:"/projectsType",
     
