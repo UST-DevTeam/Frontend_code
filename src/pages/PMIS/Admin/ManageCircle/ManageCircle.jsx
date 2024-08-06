@@ -101,7 +101,6 @@ const ManageCircle = () => {
 
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageCircle
-        console.log(interdata,"1234567890")
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -205,6 +204,7 @@ const ManageCircle = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            heading = {"Total Circle :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

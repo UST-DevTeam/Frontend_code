@@ -188,6 +188,7 @@ const ManageDesignation = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            heading = {'Total Grade :- '}
         />
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
         {/* <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  /> */}

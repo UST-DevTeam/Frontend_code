@@ -238,6 +238,7 @@ const ManageUserProjectAllocation = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            heading={'Total Employee :- '}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

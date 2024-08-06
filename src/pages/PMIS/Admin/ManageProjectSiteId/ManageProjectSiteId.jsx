@@ -41,6 +41,7 @@ import eventManagementActions from "../../../../store/actions/eventLogs-actions"
 import EventLog from "../../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
+import FileUploader from "../../../../components/FIleUploader";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -50,12 +51,18 @@ const ManageProjectSiteId = () => {
   // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
 
   // console.log(getAccessType("Add Site"), "getAccessType");
-  const { projectuniqueId } = useParams();
+  const { proId,projectuniqueId } = useParams();
+
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [fileOpen, setFileOpen] = useState(false)
+  const [fileOpenlink, setFileOpenlink] = useState([]);
+  const [fileType, setfileType] = useState("");
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
+
+  const [bulkfileOpen, setbulkfileOpen] = useState(false);
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -140,6 +147,7 @@ const ManageProjectSiteId = () => {
   //         }))
   //     }
   // }
+
 
   let dbConfigL = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
@@ -1187,6 +1195,26 @@ const ManageProjectSiteId = () => {
     siteexportpopup = true
   }
 
+  const onTableViewSubmit = (data) => { 
+
+      data["fileType"]=fileType
+      let makeurl  = `${Urls.common_update_site_milestone}${"/"+ projectuniqueId}`
+      dispatch(CommonActions.fileSubmit(makeurl, data, () => {
+          dispatch(AdminActions.getManageCircle())
+          setFileOpen(false)
+      }))
+  }
+  const onBulkUploadSite = (data, cuid) => {
+    let makeUrl = `${Urls.upload_bulk_site_one_project}${"/" + cuid }`;
+    dispatch(
+      CommonActions.fileSubmit(makeUrl, data, () => {
+        // dispatch(AdminActions.getProject());
+        setFileOpen(false);
+        reset("");
+      })
+    );
+  };
+
   return (
     <>
       <AdvancedTableExpandable
@@ -1320,6 +1348,7 @@ const ManageProjectSiteId = () => {
                   name={"Delete"}
                 ></Button>
             )}
+            
             <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="w-auto "
@@ -1381,7 +1410,7 @@ const ManageProjectSiteId = () => {
 
             <ConditionalButton
               showType={getAccessType("Site Allocation")}
-              classes="w-auto "
+              classes="w-auto"
               onClick={(e) => {
                 if (parentsite.length > 0) {
                   setmodalOpen((prev) => !prev);
@@ -1417,7 +1446,46 @@ const ManageProjectSiteId = () => {
               }}
               name={"Site Allocate"}
             ></ConditionalButton>
-            {siteexportpopup && (
+          
+          <ConditionalButton
+              name={"Upload"}
+              showType={getAccessType("Add Site")}
+              classes="w-auto"
+              onClick={(e) => {
+                setbulkfileOpen(prev=>!prev)
+              }}
+              
+            ></ConditionalButton>
+          <PopupMenu
+                name={"Upgrade"}
+                icon={"Upgrade"}
+                classes="w-auto"
+                bgColor={"bg-[#A16E83]"}
+                child={
+                  <div classes="flex z-40 max-h-96 flex-col p-1">
+                    <Button name={"Upgrade Site"} classes='w-auto m-5' 
+                      onClick={(e) => {
+                          setFileOpen(prev=>!prev)
+                          setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
+                          setfileType(`updateSiteOneProject`)
+                      }}>
+                    </Button>
+
+                     <Button
+                      name={"Upgrade Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        setFileOpen(prev=>!prev)
+                        setFileOpenlink([`/template/Task_Update.xlsx`,"Task_Update.xlsx"])
+                        setfileType(`updateMilestoneOneProject`)
+                      }}
+                      >
+                      </Button>
+                </div>
+                    
+                  }
+              />
+          {siteexportpopup && (
             <PopupMenu
               name={"Export"}
               icon={"Export"}
@@ -1485,6 +1553,21 @@ const ManageProjectSiteId = () => {
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}  
+        onTableViewSubmit={onTableViewSubmit}
+
+        tempbtn={fileOpenlink.length!=0}
+        tempbtnlink={fileOpenlink}
+        
+        setIsOpen={setFileOpen}
+      />
+      <FileUploader isOpen={bulkfileOpen} fileUploadUrl={""} onTableViewSubmit={(data) => {
+          onBulkUploadSite(data, projectuniqueId );
+          setbulkfileOpen(false)
+          resetting("")
+        }} setIsOpen={setbulkfileOpen} tempbtn={true} tempbtnlink = {[`/template/OneProject/${projectuniqueId}`,`Template (${proId}).xlsx`]} />
       {/* <CommonForm/> */}
     </>
   );

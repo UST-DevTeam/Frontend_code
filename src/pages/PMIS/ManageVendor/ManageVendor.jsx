@@ -333,6 +333,7 @@ const ManageVendor = () => {
         delurl = {Urls.vendor_details}
         geturl = {VendorActions.getManageVendorDetails()}
         getaccessExport = {"Export(Partner On-Board)"}
+        heading = {"Total Partner :- "}
       />
 
       <Modal

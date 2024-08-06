@@ -47,6 +47,7 @@ export const Urls={
     admin_uamView:"/uamView",
     admin_completion_criteria:"/admin/complectionCriteria",
     upload_bulk_site:"/uploadBulkSite",
+    upload_bulk_site_one_project:"/uploadSiteOneProject",
     get_Subproject_Dyanmic:"/subprojects",
     get_project_type_Dyanmic:"/projectsType",
     
