@@ -100,7 +100,6 @@ const ManageZone = () => {
 
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageZone
-        console.log(interdata,"1234567890")
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {

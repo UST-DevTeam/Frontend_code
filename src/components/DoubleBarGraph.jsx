@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, horizontal = false, title="" }) => {
+const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
     // const horizontal = data?.horizontal || false;
-    let SeriesData = data?.map(item => item.count) ||[];  
+    let SeriesData1 = data?.map(item => item.joined) ||[];  
+    let SeriesData2 = data?.map(item => item.exit) ||[];  
     let category = data?.map(item => item.description) ||[];
     // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
     // let category = data?.map(item => item.description) ||[];
 
     const series = [
         {
-            name: "Active Employee",
-            data: SeriesData
+            name: "Joined",
+            data: SeriesData1,
+            colors: "#f9a3a4",
+        },
+        {
+            name: "exit",
+            data: SeriesData2,
+            colors: "#90ee7e",
         },
     ];
 
@@ -32,7 +39,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: [1],
+            enabledOnSeries: [0,1],
         },
         xaxis: {
             // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
@@ -54,7 +61,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
         },
         plotOptions: {
             bar: {
-                columnWidth: '60%',
+                columnWidth: '90%',
                 horizontal: horizontal,
                 dataLabels: {
                     style: {
@@ -67,12 +74,15 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
                 distributed: true,
             },
         },
+        stroke: {
+            colors: ["transparent"],
+            width: 1
+          },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
-        // colors: ["#33b2df","#546E7A","#d4526e","#13d8aa","#A5978B","#2b908f","#f9a3a4","#90ee7e","#f48024","#69d2e7"],
-        colors: ["#66c8e2","#7f8c8d","#f77a82","#2ee1c0","#c0b7a5","#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"],
+        colors: ["#B7A0E0", "#EC99C2", "#FEBF89", "#FFE083","#C4F9CA", "#A3C4F3", "#98F5E1", "#FDE4CF", "#f9a3a4","#d4526e", "#69d2e7"],
         legend: {
             show: false 
         }
@@ -80,4 +90,4 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
     };
     return (<ReactApexChart options={options} series={series} type="bar" height={360} />)
 }
-export default BarGraph;
+export default DoubleBarGraph;

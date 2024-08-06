@@ -41,6 +41,7 @@ import eventManagementActions from "../../../../store/actions/eventLogs-actions"
 import EventLog from "../../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
+import FileUploader from "../../../../components/FIleUploader";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};

@@ -75,7 +75,7 @@ const ManageClaimTypeDesignation = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimTypeDesignation
+        let interdata = state?.adminData?.getManageClaimTypeDesignation || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {

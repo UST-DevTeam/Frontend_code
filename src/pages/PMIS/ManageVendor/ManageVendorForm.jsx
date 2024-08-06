@@ -641,7 +641,7 @@ const ManageVendorForm = (props) => {
             navigate("/vendor/managePartner");
             setOneLoad(false);
           }}
-          className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 bg-pcol  hover:text-white hover:border-white hover:border-[1.5px] text-txt-neavy text-sm font-semibold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
+           className="mt-2 w-auto flex ml-auto mr-2 rounded-md px-10 py-1 mb-2  bg-pcol hover:bg-violet-100 hover:text-pcol hover:font-extrabold text-white text-sm font-extrabold leading-6  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton"
         >
           Back
         </button>

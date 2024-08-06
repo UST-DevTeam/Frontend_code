@@ -13,11 +13,8 @@ import PolarChart from "../../../components/FormElements/PolarChart";
 import BarGraph from "../../../components/BarGrpah";
 
 
-const ActiveEmpwithCostCenter = () => {
+const NewJoiningMonthly = () => {
     const [type, setType] = useState(false);
-    const [selectedOptions1, setSelectedOptions1] = useState([]);
-    const [selectedOptions2, setSelectedOptions2] = useState([]);
-    const [selectedOptions3, setSelectedOptions3] = useState([]);
     let dispatch = useDispatch();
     const [ data ,setData] = useState([])
 
@@ -51,21 +48,22 @@ const ActiveEmpwithCostCenter = () => {
       });
 
     let GraphData = useSelector((state) => {
-        return state?.GraphData?.getGraphActiveEmpWithCC || []
+        return state?.GraphData?.getGraphNewJoiningMonthly || []
     });
+    console.log(GraphData,"GraphDataGraphDataGraphData")
 
     useEffect(() => {
-        dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
+        dispatch(GraphActions.getGraphNewJoiningMonthly());
     }, []);
 
     return (
         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
             
-            <BarGraph data={GraphData} horizontal={true} title="Airtel Active Employee" />
+            <BarGraph data={GraphData} horizontal={false} title="Monthly New Joining"/>
             {/* <BarGraph data={GraphData} horizontal={type} /> */}
             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
         </div>
     );
 };
-export default ActiveEmpwithCostCenter; 
+export default NewJoiningMonthly;

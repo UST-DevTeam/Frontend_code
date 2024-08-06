@@ -512,6 +512,7 @@ const InvoiceBased = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            heading = {'Total Count:- '}
             getaccessExport = {"Export(PO Status Invoice)"}
         />
         <FileUploader

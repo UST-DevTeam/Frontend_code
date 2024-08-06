@@ -1,17 +1,17 @@
-export const baseUrl="http://127.0.0.1:7980"
-export const backendassetUrl="http://127.0.0.1:7980/"
+// export const baseUrl="http://127.0.0.1:7980"
+// export const backendassetUrl="http://127.0.0.1:7980/"
+
+export const baseUrl="http://192.168.29.247:7979"
+export const backendassetUrl="http://192.168.29.247:7979/" 
 
 // export const baseUrl="http://192.168.29.23:7980"
-// export const backendassetUrl="http://192.168.29.23:7980/"
+// export const backendassetUrl="http://192.168.29.23:7980/" 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
 // export const baseUrl="https://pmisapi.mcpsinc.com"
 // export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
-
-
-// qwertyuio
 
 
 export const Urls={
@@ -170,10 +170,10 @@ export const Urls={
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
     graph_active_emp_with_CC:"/graph/activeEmpwithCC",
-    graph_monthly_joining:"/graph/newjoining",
+    graph_new_joining_monthly:"/graph/newjoiningMonthly",
+    graph_monthly_joining_vs_exit:"/graph/monthlyjoiningVsExit",
     graph_monthly_joining_and_resignDate:"/graph/newjoiningandresign",
-
-
+    graph_monthly_active_trend:"/graph/monthlyActiveTrend",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

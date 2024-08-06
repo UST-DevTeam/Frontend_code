@@ -14,21 +14,15 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 
 const ManageCircle = () => {
 
-
-
-
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
-
-
 
     let dispatch = useDispatch()
 
@@ -45,7 +39,6 @@ const ManageCircle = () => {
             let updateditm = {
                 ...itm,
                 "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
                     let data = {
                         "enabled": e.target.checked ? 1 : 0
                     }
@@ -59,7 +52,6 @@ const ManageCircle = () => {
                     //     itm.enabled=0
                     // }
                     // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
@@ -101,7 +93,6 @@ const ManageCircle = () => {
 
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageCircle
-        console.log(interdata,"1234567890")
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
