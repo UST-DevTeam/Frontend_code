@@ -1369,6 +1369,14 @@ const ManageProjectSiteId = () => {
               name={"Add Site"}
             ></ConditionalButton>
             <ConditionalButton
+              showType={getAccessType("Add Site")}
+              classes="w-auto "
+              onClick={(e) => {
+                setFileOpen(prev=>!prev)
+              }}
+              name={"Upload"}
+            ></ConditionalButton>
+            <ConditionalButton
               showType={getAccessType("Task Allocation")}
               classes="w-auto "
               onClick={(e) => {

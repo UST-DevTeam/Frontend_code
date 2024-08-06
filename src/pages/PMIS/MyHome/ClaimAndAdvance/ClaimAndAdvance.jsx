@@ -202,7 +202,7 @@ const ClaimAndAdvance = () => {
         style: "min-w-[130px] max-w-[450px] text-center ",
       },
       {
-        name: "Submission Date",
+        name: "Claim Date",
         value: "submissionDate",
         style: "min-w-[250px] max-w-[450px] text-center",
       },

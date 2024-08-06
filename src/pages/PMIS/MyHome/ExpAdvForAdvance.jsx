@@ -207,7 +207,7 @@ const ExpAdvForAdvance = () => {
             style: "min-w-[100px] max-w-[200px] text-center",
         },
         {
-            name: "Submission Date",
+            name: "Claim Date",
             value: "Submission Date",
             style: "min-w-[120px] max-w-[450px] text-center",
         },
