@@ -535,6 +535,7 @@ const AccrualRevenue = () => {
                 setValue={setValue}
                 getValues={getValues}
                 totalCount={dbConfigTotalCount}
+                heading = {'Total Count:- '}
                 getaccessExport = {"Export(Accural Revenue)"}
             />
 

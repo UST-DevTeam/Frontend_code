@@ -706,7 +706,7 @@ const ManageProject = () => {
                             projecttypeuniqueId={projecttypeuniqueId}
                             customeruniqueId={customeruniqueId}
                             setIsOpen={setmodalOpen}
-                            resetting={false}
+                            resetting={true}
                             formValue={{}}
                           />
                         </>)
@@ -726,7 +726,7 @@ const ManageProject = () => {
                             projecttypeuniqueId={projecttypeuniqueId}
                             customeruniqueId={customeruniqueId}
                             setIsOpen={setmodalOpen}
-                            resetting={false}
+                            resetting={true}
                             formValue={{}}
                           />
                         </>)

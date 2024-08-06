@@ -11,6 +11,10 @@ import { ALERTS } from "../../../store/reducers/component-reducer";
 import ProjectChart from "../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 import ActiveEmpwithCostCenter from "../HRGraph/ActiveEmpwithCostCenter";
+import NewJoiningMonthly from "../HRGraph/NewJoiningMonthly";
+import LineChartsss from "../../../components/LineChartsss";
+import MonthlyActiveTrend from "../HRGraph/MonthlyActiveTrend";
+import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
 
 const HRHomeView = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -107,6 +111,9 @@ const HRHomeView = () => {
         {/* <ProjectChart /> */}
         {/* <ClaimAndAdvanceChart /> */}
         <ActiveEmpwithCostCenter />
+        <NewJoiningMonthly />
+        <MonthlyActiveTrend />
+        <MonthlyJoiningVsExit />
       </div>
     </>
   );

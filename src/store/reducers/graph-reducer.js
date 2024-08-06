@@ -8,7 +8,10 @@ const initialState = {
     getGraphPoTrackingWorkdone: [],
     getGraphAccrualRevenueTrend:[],
     getmonthjoining:[],
-    getmonthJoiningandresign:[]
+    getmonthJoiningandresign:[],
+    getGraphNewJoiningMonthly:[],
+    getGraphMonthlyJoiningVsExit:[],
+    getGraphMonthlyActiveTrend:[],
 }
 
 const GraphData = createSlice({
@@ -79,10 +82,44 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_NEW_JOINING_MONTHLY:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphNewJoiningMonthly = payload.dataAll
+            }else{
+                state.getGraphNewJoiningMonthly  = [...state.getGraphNewJoiningMonthly,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_MONTHLY_JOINING_VS_EXIT:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphMonthlyJoiningVsExit = payload.dataAll
+            }else{
+                state.getGraphMonthlyJoiningVsExit  = [...state.getGraphMonthlyJoiningVsExit,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_MONTHLY_ACTIVE_TREND:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphMonthlyActiveTrend = payload.dataAll
+            }else{
+                state.getGraphMonthlyActiveTrend  = [...state.getGraphMonthlyActiveTrend,...payload.dataAll]
+            }
+        },
+
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS, GET_GRAPH_MILESTONE_STATUS, GET_GRAPH_PO_STATUS, GET_GRAPH_PO_Tracking_WorkDone,GET_GRAPH_ACCRUAL_REVENUE_TREND,GET_GRAPH_ActiveEmp_With_CC,
-    GET_MONTHLY_JOINING,GET_MONTHLY_JOINING_AND_RESIGN_DATE} = GraphData.actions
+export const {  GET_GRAPH_PROJECT_STATUS,
+    GET_GRAPH_MILESTONE_STATUS,
+    GET_GRAPH_PO_STATUS,
+    GET_GRAPH_PO_Tracking_WorkDone,
+    GET_GRAPH_ACCRUAL_REVENUE_TREND,
+    GET_MONTHLY_JOINING,
+    GET_MONTHLY_JOINING_AND_RESIGN_DATE,
+    GET_GRAPH_ActiveEmp_With_CC,
+    GET_GRAPH_NEW_JOINING_MONTHLY,
+    GET_GRAPH_MONTHLY_JOINING_VS_EXIT,
+    GET_GRAPH_MONTHLY_ACTIVE_TREND,
+} = GraphData.actions
     
-export default GraphData.reducer
+export default GraphData.reducer    

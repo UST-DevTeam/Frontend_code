@@ -8,7 +8,10 @@ import {
     GET_GRAPH_ACCRUAL_REVENUE_TREND,
     GET_GRAPH_ActiveEmp_With_CC,
     GET_MONTHLY_JOINING,
-    GET_MONTHLY_JOINING_AND_RESIGN_DATE
+    GET_MONTHLY_JOINING_AND_RESIGN_DATE,
+    GET_GRAPH_NEW_JOINING_MONTHLY,
+    GET_GRAPH_MONTHLY_JOINING_VS_EXIT,
+    GET_GRAPH_MONTHLY_ACTIVE_TREND,
     
  } from "../reducers/graph-reducer"
 
@@ -197,6 +200,33 @@ const GraphActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_ActiveEmp_With_CC({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getGraphNewJoiningMonthly:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_new_joining_monthly}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_NEW_JOINING_MONTHLY({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getGraphMonthlyJoiningVsExit:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_monthly_joining_vs_exit}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_MONTHLY_JOINING_VS_EXIT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getGraphMonthlyActiveTrend:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_monthly_active_trend}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_MONTHLY_ACTIVE_TREND({dataAll,reset}))
         } catch (error) {
         }
     },

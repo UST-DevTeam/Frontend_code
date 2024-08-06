@@ -558,6 +558,7 @@ const Invoice = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        heading = {'Total Count:- '}
         getaccessExport = {"Export(Revenue Invoice)"}
       />
       <FileUploader

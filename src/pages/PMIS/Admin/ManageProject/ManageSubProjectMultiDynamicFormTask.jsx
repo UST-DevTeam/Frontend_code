@@ -112,12 +112,15 @@ const ManageSubProjectMultiDynamicFormTask = ({ isOpen, setIsOpen, resetting, fo
       }
 
     if (resetting) {
-      reset({});
+      reset();
+      setSelectType("");
+      setSelectedSubproject("");
+      setSelectedSubproject2("");
       Form.map((fieldName) => {
         setValue(fieldName["name"], fieldName["value"]);
       });
     } else {
-      reset({});
+      reset();
     }
   }, [formValue, resetting,]);
   return (
