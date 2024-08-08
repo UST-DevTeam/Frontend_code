@@ -1,8 +1,8 @@
 export const baseUrl="http://127.0.0.1:7980"
 export const backendassetUrl="http://127.0.0.1:7980/"
 
-// export const baseUrl="http://192.168.29.247:7979"
-// export const backendassetUrl="http://192.168.29.247:7979/" 
+export const baseUrl="http://192.168.29.247:7979"
+export const backendassetUrl="http://192.168.29.247:7979/" 
 
 // export const baseUrl="http://192.168.29.23:7980"
 // export const backendassetUrl="http://192.168.29.23:7980/" 
@@ -175,6 +175,8 @@ export const Urls={
     graph_monthly_joining_vs_exit:"/graph/monthlyjoiningVsExit",
     graph_monthly_joining_and_resignDate:"/graph/newjoiningandresign",
     graph_monthly_active_trend:"/graph/monthlyActiveTrend",
+    graph_weekly_active_emp:"/graph/weeklyActiveEmployee",
+    graph_vendor_active_inactive:"/graph/partnerStatus",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

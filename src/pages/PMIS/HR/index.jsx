@@ -15,6 +15,7 @@ import NewJoiningMonthly from "../HRGraph/NewJoiningMonthly";
 import LineChartsss from "../../../components/LineChartsss";
 import MonthlyActiveTrend from "../HRGraph/MonthlyActiveTrend";
 import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
+import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
 
 const HRHomeView = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -114,6 +115,7 @@ const HRHomeView = () => {
         <NewJoiningMonthly />
         <MonthlyActiveTrend />
         <MonthlyJoiningVsExit />
+        <WeeklyActiveEmpList />
       </div>
     </>
   );

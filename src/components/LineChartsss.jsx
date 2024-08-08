@@ -15,6 +15,7 @@ const LineChartsss = ({ data, horizontal = false, title="" }) => {
         chart: {
             height: 360,
             type: 'line',
+            background: '#3e454d',
             toolbar: {
                 show: true,
                 tools: {
@@ -23,8 +24,9 @@ const LineChartsss = ({ data, horizontal = false, title="" }) => {
                     zoomout: false, 
                     reset: false,
                     pan: false,
-                    zoom: false, 
-                },}
+                    zoom: false,                
+                },
+            }
         },
         title: {
             text: title,

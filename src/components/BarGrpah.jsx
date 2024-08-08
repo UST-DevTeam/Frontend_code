@@ -19,6 +19,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
         chart: {
             height: 360,
             type: 'bar',
+            background: '#3e454d',
 
         },
         title: {
@@ -32,7 +33,11 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: [1],
+            style: {
+                colors: ["white"],
+                fontSize: "10px",
+                fontWeight: 'bold',
+              },
         },
         xaxis: {
             // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
@@ -40,7 +45,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '10px',
+                    fontSize: '8px',
                 }
             }
         },
@@ -48,7 +53,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '9px',
+                    fontSize: '6.45px',
                 }
             }
         },

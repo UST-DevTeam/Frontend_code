@@ -13,12 +13,10 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
         {
             name: "Joined",
             data: SeriesData1,
-            colors: "#f9a3a4",
         },
         {
             name: "exit",
             data: SeriesData2,
-            colors: "#90ee7e",
         },
     ];
 
@@ -26,6 +24,7 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
         chart: {
             height: 360,
             type: 'bar',
+            background: '#3e454d',
 
         },
         title: {
@@ -40,6 +39,11 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
         dataLabels: {
             enabled: true,
             enabledOnSeries: [0,1],
+            style: {
+                colors: ["white"],
+                fontSize: "10px",
+                fontWeight: 'bold',
+              },
         },
         xaxis: {
             // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
@@ -66,12 +70,12 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
                 dataLabels: {
                     style: {
                         colors: '#fff',
+                        position: 'top',
                     },
                 },
                 // colors: {
                 //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],
                 // },
-                distributed: true,
             },
         },
         stroke: {
@@ -82,7 +86,9 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
-        colors: ["#B7A0E0", "#EC99C2", "#FEBF89", "#FFE083","#C4F9CA", "#A3C4F3", "#98F5E1", "#FDE4CF", "#f9a3a4","#d4526e", "#69d2e7"],
+        fill: {
+            colors: ["#B2B0EA", "#7CC674"]
+        },
         legend: {
             show: false 
         }

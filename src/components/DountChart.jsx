@@ -6,6 +6,8 @@ const DountChart = ({ data }) => {
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || []
 
+  const fillColors = ['#7eb0d5', '#4421af', '#7eb0d5', '#7eb0d5'];
+
   const options = {
     chart: {
       type: 'donut',
@@ -19,7 +21,7 @@ const DountChart = ({ data }) => {
         },
         export: {
           csv: {
-            filename: "Project_Status_Dount_Chart",
+            filename: "Partner_Status_Dount_Chart",
             columnDelimiter: ',',
             headerCategory: 'Project Status',
             headerValue: 'value',
@@ -28,24 +30,33 @@ const DountChart = ({ data }) => {
             }
           },
           svg: {
-            filename: 'Project_Status_Dount_Chart',
+            filename: 'Partner_Status_Dount_Chart',
           },
           png: {
-            filename: 'Project_Status_Dount_Chart',
+            filename: 'Partner_Status_Dount_Chart',
           }
         },
       }
     },
+    title: {
+      text: "Active Inactive Partner",
+      align: 'center',
+      style: {
+          fontSize: '15px',
+          fontWeight: 'bold',
+          color: '#ffffff',
+      },
+  },
     plotOptions: {
       pie: {
         donut: {
-          size:'65%',
+          size:'75%',
           labels: {
             show: true,
             total: {
               show: true,
               showAlways: true,
-              label: "Total Projects",
+              label: "Total Partners",
               fontSize: '18px',
               fontFamily: 'Helvetica, Arial, sans-serif',
               fontWeight: 600,
@@ -70,7 +81,7 @@ const DountChart = ({ data }) => {
       },
     },
     fill:{
-      colors: ['#2B98D6','#2bc155', '#D07407']
+      colors: ['#7eb0d5','#4421af', "#7eb0d5", "#7eb0d5"]
     },
     series: dataSeries,
     labels: name,
@@ -91,6 +102,13 @@ const DountChart = ({ data }) => {
       labels:{
         colors:'#ffffff'
       },
+      markers: {
+        width: 12,
+        height: 12,
+        strokeWidth: 0,
+        fillColors: fillColors,
+        radius: 12,
+      },
     },
   }
 
@@ -101,7 +119,7 @@ const DountChart = ({ data }) => {
         options={options}
         type="donut"
         series={options.series}
-        height="350"
+        height="300"
       />
   );
 };

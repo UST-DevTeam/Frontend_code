@@ -12,6 +12,8 @@ import {
     GET_GRAPH_NEW_JOINING_MONTHLY,
     GET_GRAPH_MONTHLY_JOINING_VS_EXIT,
     GET_GRAPH_MONTHLY_ACTIVE_TREND,
+    GET_GRAPH_WEEKLY_ACTIVE_EMP,
+    GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
     
  } from "../reducers/graph-reducer"
 
@@ -172,7 +174,7 @@ const GraphActions = {
         }
     },
 
-    postGraphAccrualRevenueTrend: (data, cb) => async (dispatch, _) => {
+    postGraphAccrualRevenueTrend: (data, cb) => async (dispatch, _) => {    
         try {
             const res = await Api.post({ data: data, url: Urls.graph_accrual_revenue_trend })
             if (res?.status !== 201 && res?.status !== 200) {
@@ -227,6 +229,25 @@ const GraphActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_MONTHLY_ACTIVE_TREND({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getGraphWeeklyActiveEmp:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_weekly_active_emp}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_WEEKLY_ACTIVE_EMP({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphVendorActiveInactive:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_vendor_active_inactive}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_VENDOR_ACTIVE_INACTIVE({dataAll,reset}))
         } catch (error) {
         }
     },
