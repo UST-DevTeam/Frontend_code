@@ -10,11 +10,11 @@ import DountChart from "../../../components/DountChart";
 import PieChart from "../../../components/PieChart";
 import { UilImport,UilSearch } from '@iconscout/react-unicons' 
 import PolarChart from "../../../components/FormElements/PolarChart";
+
 import BarGraph from "../../../components/BarGrpah";
-import NewSingleSelect from "../../../components/NewSingleSelect";
 
 
-const ActiveEmpwithCostCenter = () => {
+const WeeklyActiveEmpList = () => {
     const [type, setType] = useState(false);
     const [selectedOptions1, setSelectedOptions1] = useState([]);
     const [selectedOptions2, setSelectedOptions2] = useState([]);
@@ -52,24 +52,21 @@ const ActiveEmpwithCostCenter = () => {
       });
 
     let GraphData = useSelector((state) => {
-        return state?.GraphData?.getGraphActiveEmpWithCC || []
+        return state?.GraphData?.getGraphWeeklyActiveEmp || []
     });
 
     useEffect(() => {
-        dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
+        dispatch(GraphActions.getGraphWeeklyActiveEmp());
     }, []);
 
     return (
         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-          <div className="grid grid-cols-4 space-x-2">
-          {/* <NewSingleSelect label='Cost Center'  placeholder = "Cost Center" /> */}
-          </div>
             
-            <BarGraph data={GraphData} horizontal={true} title="Airtel Active Employee" />
+            <BarGraph data={GraphData} horizontal={false} title="Weekly Active Employee" />
             {/* <BarGraph data={GraphData} horizontal={type} /> */}
             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
         </div>
     );
 };
-export default ActiveEmpwithCostCenter; 
+export default WeeklyActiveEmpList; 

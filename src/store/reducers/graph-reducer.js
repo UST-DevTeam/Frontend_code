@@ -12,7 +12,9 @@ const initialState = {
     getGraphNewJoiningMonthly:[],
     getGraphMonthlyJoiningVsExit:[],
     getGraphMonthlyActiveTrend:[],
-}
+    getGraphWeeklyActiveEmp:[],
+    getGraphVendorActiveInactive:[],
+} 
 
 const GraphData = createSlice({
     name:'GraphData',
@@ -106,6 +108,22 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_WEEKLY_ACTIVE_EMP:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphWeeklyActiveEmp = payload.dataAll
+            }else{
+                state.getGraphWeeklyActiveEmp  = [...state.getGraphWeeklyActiveEmp,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_VENDOR_ACTIVE_INACTIVE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphVendorActiveInactive = payload.dataAll
+            }else{
+                state.getGraphVendorActiveInactive  = [...state.getGraphVendorActiveInactive,...payload.dataAll]
+            }
+        },
+
     }
 })
 
@@ -120,6 +138,8 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_NEW_JOINING_MONTHLY,
     GET_GRAPH_MONTHLY_JOINING_VS_EXIT,
     GET_GRAPH_MONTHLY_ACTIVE_TREND,
+    GET_GRAPH_WEEKLY_ACTIVE_EMP,
+    GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
 } = GraphData.actions
     
 export default GraphData.reducer    
