@@ -7,12 +7,14 @@ import {
     GET_GRAPH_PO_Tracking_WorkDone,
     GET_GRAPH_ACCRUAL_REVENUE_TREND,
     GET_GRAPH_ActiveEmp_With_CC,
+    GET_AIRTEL_ACTIVE_EMP_VERTICAL_NAME,
     GET_MONTHLY_JOINING,
     GET_MONTHLY_JOINING_AND_RESIGN_DATE,
     GET_GRAPH_NEW_JOINING_MONTHLY,
     GET_GRAPH_MONTHLY_JOINING_VS_EXIT,
     GET_GRAPH_MONTHLY_ACTIVE_TREND,
     GET_GRAPH_WEEKLY_ACTIVE_EMP,
+    GET_WEEKLY_HORIZONTAL_NAME,
     GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
     
  } from "../reducers/graph-reducer"
@@ -205,6 +207,38 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    getAirtelActiveEmpVerticalName:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.airtel_active__Emp_vertical_name}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_AIRTEL_ACTIVE_EMP_VERTICAL_NAME({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphActiveEmpwithCostCenter: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_active_emp_with_CC })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_ActiveEmp_With_CC({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
     getGraphNewJoiningMonthly:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.graph_new_joining_monthly}${args!=""?"?"+args:""}`})
@@ -212,6 +246,29 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_NEW_JOINING_MONTHLY({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    postGraphNewJoiningMonthly: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_new_joining_monthly })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_NEW_JOINING_MONTHLY({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
     getGraphMonthlyJoiningVsExit:(reset=true,args="") => async (dispatch, _) => {
@@ -223,6 +280,29 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    postGraphMonthlyJoiningVsExit: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_monthly_joining_vs_exit })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_MONTHLY_JOINING_VS_EXIT({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
     getGraphMonthlyActiveTrend:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.graph_monthly_active_trend}${args!=""?"?"+args:""}`})
@@ -232,6 +312,29 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    postGraphMonthlyActiveTrend: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_monthly_active_trend })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_MONTHLY_ACTIVE_TREND({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
     getGraphWeeklyActiveEmp:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.graph_weekly_active_emp}${args!=""?"?"+args:""}`})
@@ -239,6 +342,38 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_WEEKLY_ACTIVE_EMP({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    getWeeklyHorizontalName:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.weekly_horizontal_name}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WEEKLY_HORIZONTAL_NAME({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphWeeklyActiveEmp: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_weekly_active_emp })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_WEEKLY_ACTIVE_EMP({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
 

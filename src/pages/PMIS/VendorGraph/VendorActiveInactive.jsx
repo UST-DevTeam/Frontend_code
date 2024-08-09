@@ -100,7 +100,7 @@ const VendorActiveInactive = ({customeruniqueId}) => {
       </div>
       </div>
 
-      <DountChart data={pieGraphData} />
+      <DountChart data={pieGraphData} label="Total Partners" />
 
     </div>
 

@@ -417,7 +417,7 @@ const FillExpenseForm = ({
 
       // setCategory(claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]["categories"])
       setCategory(
-        claimTypeList.filter((itm) => itm.label == formValue["types"])[0]?.categories || []
+        claimTypeList.filter((itm) => itm.label == formValue["types"])[0]?.categories || ['']
       );
 
       if (claimTypeList.filter((itm)=>itm.label==formValue["types"])[0]?.["categories"][0]['label']!="") {

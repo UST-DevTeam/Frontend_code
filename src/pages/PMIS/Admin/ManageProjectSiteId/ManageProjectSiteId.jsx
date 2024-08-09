@@ -171,7 +171,7 @@ const ManageProjectSiteId = () => {
         ...itm,
         siteIdLink: (
           <p
-            className=""
+            className="text-[#13b497] font-extrabold"
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-"+itm['Site Id']);
@@ -436,7 +436,7 @@ const ManageProjectSiteId = () => {
 
             SiteNaming: (
               <p
-                className=""
+                className="text-[#13b497] font-extrabold"
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
                   setmodalHead("Update Milestone");

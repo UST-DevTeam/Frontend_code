@@ -8,11 +8,13 @@ const initialState = {
     getGraphPoTrackingWorkdone: [],
     getGraphAccrualRevenueTrend:[],
     getmonthjoining:[],
+    getAirtelActiveEmpVerticalName:[],
     getmonthJoiningandresign:[],
     getGraphNewJoiningMonthly:[],
     getGraphMonthlyJoiningVsExit:[],
     getGraphMonthlyActiveTrend:[],
     getGraphWeeklyActiveEmp:[],
+    getWeeklyHorizontalName:[],
     getGraphVendorActiveInactive:[],
 } 
 
@@ -84,6 +86,14 @@ const GraphData = createSlice({
             }
         },
 
+        GET_AIRTEL_ACTIVE_EMP_VERTICAL_NAME:(state,{payload}) => {
+            if(payload.reset){
+                state.getAirtelActiveEmpVerticalName = payload.dataAll
+            }else{
+                state.getAirtelActiveEmpVerticalName  = [...state.getAirtelActiveEmpVerticalName,...payload.dataAll]
+            }
+        },
+
         GET_GRAPH_NEW_JOINING_MONTHLY:(state,{payload}) => {
             if(payload.reset){
                 state.getGraphNewJoiningMonthly = payload.dataAll
@@ -116,6 +126,14 @@ const GraphData = createSlice({
             }
         },
 
+        GET_WEEKLY_HORIZONTAL_NAME:(state,{payload}) => {
+            if(payload.reset){
+                state.getWeeklyHorizontalName = payload.dataAll
+            }else{
+                state.getWeeklyHorizontalName  = [...state.getWeeklyHorizontalName,...payload.dataAll]
+            }
+        },
+
         GET_GRAPH_VENDOR_ACTIVE_INACTIVE:(state,{payload}) => {
             if(payload.reset){
                 state.getGraphVendorActiveInactive = payload.dataAll
@@ -135,10 +153,12 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_MONTHLY_JOINING,
     GET_MONTHLY_JOINING_AND_RESIGN_DATE,
     GET_GRAPH_ActiveEmp_With_CC,
+    GET_AIRTEL_ACTIVE_EMP_VERTICAL_NAME,
     GET_GRAPH_NEW_JOINING_MONTHLY,
     GET_GRAPH_MONTHLY_JOINING_VS_EXIT,
     GET_GRAPH_MONTHLY_ACTIVE_TREND,
     GET_GRAPH_WEEKLY_ACTIVE_EMP,
+    GET_WEEKLY_HORIZONTAL_NAME,
     GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
 } = GraphData.actions
     

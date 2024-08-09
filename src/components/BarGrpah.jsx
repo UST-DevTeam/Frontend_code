@@ -11,10 +11,10 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
     const series = [
         {
             name: "Active Employee",
-            data: SeriesData
+            data: SeriesData,
         },
     ];
-
+    
     const options = {
         chart: {
             height: 360,
@@ -61,6 +61,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
             bar: {
                 columnWidth: '60%',
                 horizontal: horizontal,
+                borderRadius: 2,
                 dataLabels: {
                     style: {
                         colors: '#fff',
@@ -80,7 +81,7 @@ const BarGraph = ({ data, horizontal = false, title="" }) => {
         colors: ["#66c8e2","#7f8c8d","#f77a82","#2ee1c0","#c0b7a5","#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"],
         legend: {
             show: false 
-        }
+        },
 
     };
     return (<ReactApexChart options={options} series={series} type="bar" height={360} />)
