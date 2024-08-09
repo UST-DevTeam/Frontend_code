@@ -329,7 +329,7 @@ const ManageVendor = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        checkboxshow = {true}
+        checkboxshow = {shouldIncludeEditColumn}
         delurl = {Urls.vendor_details}
         geturl = {VendorActions.getManageVendorDetails()}
         getaccessExport = {"Export(Partner On-Board)"}

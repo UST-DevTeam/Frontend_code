@@ -110,6 +110,13 @@ const ManageProjectSiteId = () => {
     shouldIncludeEditColumn = true
   }
 
+  let upgradepopupShowType = false
+
+  let showType1 = getAccessType("Upgrade(Site Page)")
+  if (showType1 === "visible"){
+    upgradepopupShowType = true
+  }
+
 
   
 
@@ -171,7 +178,7 @@ const ManageProjectSiteId = () => {
         ...itm,
         siteIdLink: (
           <p
-            className=""
+            className="text-[#13b497] font-extrabold"
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-"+itm['Site Id']);
@@ -436,7 +443,7 @@ const ManageProjectSiteId = () => {
 
             SiteNaming: (
               <p
-                className=""
+                className="text-yellow-500 font-extrabold"
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
                   setmodalHead("Update Milestone");
@@ -1457,13 +1464,14 @@ const ManageProjectSiteId = () => {
           
           <ConditionalButton
               name={"Upload"}
-              showType={getAccessType("Add Site")}
+              showType={getAccessType("Upload(Site Page)")}
               classes="w-auto"
               onClick={(e) => {
                 setbulkfileOpen(prev=>!prev)
               }}
               
             ></ConditionalButton>
+          {upgradepopupShowType && (
           <PopupMenu
                 name={"Upgrade"}
                 icon={"Upgrade"}
@@ -1493,6 +1501,7 @@ const ManageProjectSiteId = () => {
                     
                   }
               />
+          )}
           {siteexportpopup && (
             <PopupMenu
               name={"Export"}

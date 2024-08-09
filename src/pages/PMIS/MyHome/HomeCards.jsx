@@ -69,7 +69,7 @@ const HomeCards = () => {
             
           ].map((itm) => (
             <>
-              {1 == 1 || (
+              {(
               getAccessType(itm[0]) == "visible" ||
               getAccessType(itm[0]) == "disabled") ? (
                 <div

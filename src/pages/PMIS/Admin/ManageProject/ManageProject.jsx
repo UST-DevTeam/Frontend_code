@@ -568,6 +568,7 @@ const ManageProject = () => {
 
   let exportpopupShowType = false
   let upgradepopupShowType = false
+  
   let showType1 = getAccessType("Export(Project)")
   if (showType1 === "visible"){
     exportpopupShowType = true

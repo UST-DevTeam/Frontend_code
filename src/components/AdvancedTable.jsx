@@ -97,7 +97,7 @@ const AdvancedTable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50,100,500,1000,2000,5000],
+    rpp: [50,100,500,1000],
   };
 
   const callApiPagination = (value) => {

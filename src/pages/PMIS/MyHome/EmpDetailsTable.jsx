@@ -365,7 +365,7 @@ const EmpDetailsTable = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        checkboxshow = {true}
+        checkboxshow = {shouldIncludeEditColumn}
         delurl = {Urls.admin_empdetails}
         geturl = {HrActions.getManageEmpDetails()}
         getaccessExport = {"Export(ManageEmployee)"}
