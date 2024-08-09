@@ -170,11 +170,13 @@ export const Urls={
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
     graph_active_emp_with_CC:"/graph/activeEmpwithCC",
+    airtel_active__Emp_vertical_name:"/graph/getAirtelDescription",
     graph_new_joining_monthly:"/graph/newjoiningMonthly",
     graph_monthly_joining_vs_exit:"/graph/monthlyjoiningVsExit",
     graph_monthly_joining_and_resignDate:"/graph/newjoiningandresign",
     graph_monthly_active_trend:"/graph/monthlyActiveTrend",
     graph_weekly_active_emp:"/graph/weeklyActiveEmployee",
+    weekly_horizontal_name:"/graph/getorgLevel",
     graph_vendor_active_inactive:"/graph/partnerStatus",
 
     // currentuser

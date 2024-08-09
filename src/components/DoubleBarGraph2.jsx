@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
-    // const horizontal = data?.horizontal || false;
-    let SeriesData1 = data?.map(item => item.joined) ||[];  
-    let SeriesData2 = data?.map(item => item.exit) ||[];  
-    let category = data?.map(item => item.description) ||[];
-    // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
-    // let category = data?.map(item => item.description) ||[];
+const DoubleBarGraph2 = ({ horizontal = false, title="" }) => {
+    // Static data
+    const SeriesData1 = [1803, 1889, 1424, 1201, 1114, 987, 650, 550, 1120, 1000, 200, 1500];  // Example data for "Joined"
+    const SeriesData2 = [1608, 1500, 987, 1100, 1000, 1100, 980, 370, 455, 1500, 970, 2000];  // Example data for "Exit"
+    const category = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];  // Example categories
 
     const series = [
         {
-            name: "Joined",
+            name: "Planned",
             data: SeriesData1,
         },
         {
-            name: "exit",
+            name: "Achieved",
             data: SeriesData2,
         },
     ];
@@ -25,7 +26,6 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
             height: 360,
             type: 'bar',
             background: '#3e454d',
-
         },
         title: {
             text: title, 
@@ -38,15 +38,15 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: [0,1],
+            rotation: 270,
+            enabledOnSeries: [0, 1],
             style: {
                 colors: ["white"],
-                fontSize: "10px",
+                fontSize: "7px",
                 fontWeight: 'bold',
-              },
+            },
         },
         xaxis: {
-            // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
             categories: category,
             labels:{
                 style:{
@@ -65,7 +65,7 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
         },
         plotOptions: {
             bar: {
-                columnWidth: '80%',
+                columnWidth: '70%',
                 horizontal: horizontal,
                 borderRadius: 2,
                 dataLabels: {
@@ -74,28 +74,34 @@ const DoubleBarGraph = ({ data, horizontal = false, title="" }) => {
                         position: 'top',
                     },
                 },
-                // colors: {
-                //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],
-                // },
             },
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    padding: 10,
+                    rotation: 270
+                }
+            }
         },
         stroke: {
             colors: ["transparent"],
-            width: 1
-          },
+            width: 2
+        },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
         fill: {
-            colors: ["#FFA0A0", "#B9D9EB"]   
-            // colors: ["#FFA0A0", "rgb(116,142,99)"]   
+            colors: ["#FFA0A0", "#86af6b"]
         },
         legend: {
             show: false 
         }
-
     };
-    return (<ReactApexChart options={options} series={series} type="bar" height={360} />)
+
+    return (
+        <ReactApexChart options={options} series={series} type="bar" height={360} />
+    );
 }
-export default DoubleBarGraph;
+
+export default DoubleBarGraph2;

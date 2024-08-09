@@ -252,7 +252,7 @@ const ClaimAndAdvance = () => {
 
   return (
     <>
-      <div className="flex md:flex-col md:absolute text-sm space-x-2">
+      {/* <div className="flex md:flex-col md:absolute text-sm space-x-2">
         <p className="mb-[-30px] md:mb-0 p-2 md:pl-4 text-white">
           Current Balance :{" "}
           <span
@@ -289,8 +289,29 @@ const ClaimAndAdvance = () => {
             {Amounts?.AdvanceAmountTotal}
           </span>
         </p>
-      </div>
-      <div className="md:mt-14">
+      </div> */}
+       <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
+  <p className="p-2 text-white font-extrabold">
+    Current Balance :{" "}
+    <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
+      {Amounts?.finalAmount}
+    </span>
+  </p>
+  <p className="p-2 text-white font-extrabold">
+    Expenses Approved :{" "}
+    <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal > 0 ? "text-rose-400" : "text-pcol"}`}>
+      {Amounts?.ExpenseAmountTotal}
+    </span>
+  </p>
+  <p className="p-2 text-white font-extrabold">
+    Advance Approved :{" "}
+    <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-500"}`}>
+      {Amounts?.AdvanceAmountTotal}
+    </span>
+  </p>
+</div>
+
+      <div className="">
         <AdvancedTable
           headerButton={
             <>
@@ -331,6 +352,7 @@ const ClaimAndAdvance = () => {
           setValue={setValue}
           getValues={getValues}
           totalCount={dbConfigTotalCount}
+          heading="Total Count - "
           getaccessExport = {"Export(Claim&Advance)"}
         />
       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DountChart = ({ data }) => {
+const DountChart = ({ data , label=""}) => {
 
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || []
@@ -38,15 +38,6 @@ const DountChart = ({ data }) => {
         },
       }
     },
-    title: {
-      text: "Active Inactive Partner",
-      align: 'center',
-      style: {
-          fontSize: '15px',
-          fontWeight: 'bold',
-          color: '#ffffff',
-      },
-  },
     plotOptions: {
       pie: {
         donut: {
@@ -56,7 +47,7 @@ const DountChart = ({ data }) => {
             total: {
               show: true,
               showAlways: true,
-              label: "Total Partners",
+              label: label,
               fontSize: '18px',
               fontFamily: 'Helvetica, Arial, sans-serif',
               fontWeight: 600,

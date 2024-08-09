@@ -8,30 +8,25 @@
 // import Button from "../../../components/Button";
 // import DountChart from "../../../components/DountChart";
 // import PieChart from "../../../components/PieChart";
-// import { UilImport, UilSearch, UilTimes, UilRefresh } from '@iconscout/react-unicons'
+// import { UilImport,UilSearch } from '@iconscout/react-unicons' 
+// import PolarChart from "../../../components/FormElements/PolarChart";
 // import BarGraph from "../../../components/BarGrpah";
-// import NewMultiSelects from "../../../components/NewMultiSelect";
-// import AdminActions from "../../../store/actions/admin-actions";
-// import NewSingleSelect from "../../../components/NewSingleSelect";
+// import LineChartsss from "../../../components/LineChartsss";
+// import DoubleBarGraph from "../../../components/DoubleBarGraph";
 
 
-// const NewJoiningMonthly = () => {
+// const MonthlyJoiningVsExit = () => {
 //     const [type, setType] = useState(false);
-//     const [selectedDepartment, setSelectedDepartment] = useState([]);
-//     const [selectedYears, setSelectedYears] = useState([]);
 //     let dispatch = useDispatch();
 //     const [ data ,setData] = useState([])
 
 //     let customeruniqueId = "65dee316811c797c9f26d836"
 
-//     const currentYear = new Date().getFullYear();
-//     const years = Array.from(new Array(currentYear - 2020), (val, index) => 2021 + index);
-
-//     let departmentList = useSelector((state) => {
-//         return state?.adminData?.getManageDepartment.map((itm) => {
+//     let projectGroupList = useSelector((state) => {
+//         return state?.filterData?.getProjectProjectGroup.map((itm) => {
 //           return {
-//             label: itm?.department,
-//             value: itm?.uniqueId,
+//             label: itm.ProjectGroup,
+//             value: itm.ProjectGroup,
 //           };
 //         });
 //       });
@@ -55,78 +50,39 @@
 //       });
 
 //     let GraphData = useSelector((state) => {
-//         return state?.GraphData?.getGraphNewJoiningMonthly || []
+//         return state?.GraphData?.getGraphMonthlyJoiningVsExit || []
 //     });
 //     console.log(GraphData,"GraphDataGraphDataGraphData")
 
 //     useEffect(() => {
-//         dispatch(AdminActions.getManageDepartment());
-//         dispatch(GraphActions.getGraphNewJoiningMonthly());
+//         dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
 //     }, []);
-
-//     // const handleFilter = () => {
-
-        
-//     //     const filterData = {
-//     //       ...(setSelectedDepartment.length && { selectedDepartment: selectedDepartment?.map(item => item.department) }),
-//     //     }
-//     //     const departmentValue = selectedDepartment.length > 0 ? selectedDepartment[0].value : '';
-    
-//     //     dispatch(GraphActions.postGraphPOStatus(filterData,() => {}))
-    
-//     //   }
-//       const handleClear = () => {
-//         setSelectedDepartment([]);
-//         setSelectedYears([]);
-//         dispatch(GraphActions.getGraphNewJoiningMonthly());
-//       };
-
-//       const handleFilter = () => {
-//         const filterData = {
-//           ...(selectedDepartment.length && { department: selectedDepartment.map(item => item.value) }),
-//           ...(selectedYears.length && { year: selectedYears.map(year => year) })
-//         }
-    
-//         dispatch(GraphActions.postGraphNewJoiningMonthly(filterData,() => {}))
-    
-//       }
 
 //     return (
 //         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-//              <div className="flex items-center space-x-4 mb-8">
-//             <div className="flex space-x-4 justify-between w-full">
-//               <NewMultiSelects label='Partner' option={departmentList} value={selectedDepartment} cb={(data) => setSelectedDepartment(data)} />
-//               <NewMultiSelects label='Year' option={years.map(year => ({ label: year, value: year }))} value={selectedYears} cb={(data) => setSelectedYears(data)} />
-//             <div className="flex space-x-4">
-//               <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
-
-//               <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
-//             </div>
-
-//           </div>
-//         </div>
             
-//             <BarGraph data={GraphData} horizontal={false} title="Monthly New Joining"/>
+//             <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
 //             {/* <BarGraph data={GraphData} horizontal={type} /> */}
 //             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
 //             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
 //         </div>
 //     );
 // };
-// export default NewJoiningMonthly;
-
+// export default MonthlyJoiningVsExit;
 
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import NewMultiSelects from "../../../components/NewMultiSelect";
-import GraphActions from "../../../store/actions/graph-actions";
-import Button from "../../../components/Button";
+import NewMultiSelects from "../../../../components/NewMultiSelect";
+import GraphActions from "../../../../store/actions/graph-actions";
+import Button from "../../../../components/Button";
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import BarGraph from "../../../components/BarGrpah";
-import AdminActions from "../../../store/actions/admin-actions";
-import NewSingleSelect from "../../../components/NewSingleSelect";
+import BarGraph from "../../../../components/BarGrpah";
+import AdminActions from "../../../../store/actions/admin-actions";
+import NewSingleSelect from "../../../../components/NewSingleSelect";
+import DoubleBarGraph from "../../../../components/DoubleBarGraph";
+import DoubleBarGraph2 from "../../../../components/DoubleBarGraph2";
 
-const NewJoiningMonthly = () => {
+const MonthRevenueTrend = () => {
   const exportData = useRef([]);
   const months = [];
   const now = new Date();
@@ -159,15 +115,12 @@ const NewJoiningMonthly = () => {
   });
 
   let GraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphNewJoiningMonthly || [];
+    return state?.GraphData?.getGraphMonthlyJoiningVsExit || [];
   });
-
-  console.log('GraphData:', GraphData);
-
 
   useEffect(() => {
     dispatch(AdminActions.getManageDepartment());
-    dispatch(GraphActions.getGraphNewJoiningMonthly());
+    dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
     fetchGraphData();
   }, []);
 
@@ -176,7 +129,7 @@ const NewJoiningMonthly = () => {
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
     dispatch(
-      GraphActions.getGraphNewJoiningMonthly(
+      GraphActions.getGraphMonthlyJoiningVsExit(
         { month: exportData.current.join(",") },
         () => {}
       )
@@ -185,14 +138,14 @@ const NewJoiningMonthly = () => {
 
   const handleFilter = () => {
     const filterData = {
-      department: selectedDepartment?.map((item) => item.value) || [],
+      department: selectedDepartment.map((item) => item.value) || [],
       year: selectedYears ? selectedYears.value : currentYear,
       month: selectedMonths?.map((item) => item.value) || monthsNumber,
     };
     console.log('FilterData:', filterData);
 
     dispatch(
-      GraphActions.postGraphNewJoiningMonthly(
+      GraphActions.postGraphMonthlyJoiningVsExit(
         { department: filterData.department, year: filterData.year, month: filterData.month },
         () => {}
       )
@@ -235,8 +188,8 @@ const NewJoiningMonthly = () => {
             label="Department"
             option={departmentList}
             value={selectedDepartment}
-            placeholder="Department" 
             cb={(data) => setSelectedDepartment(data)}
+            placeholder="Department"
           />
           <NewSingleSelect
             label="Year"
@@ -249,10 +202,10 @@ const NewJoiningMonthly = () => {
             label="Month"
             option={monthsList}
             value={selectedMonths}
-            placeholder="Month"
             cb={(data) => setSelectedMonths(data)}
+            placeholder="Month"
           />
-          <div className="flex space-x-1">
+          <div className="flex space-x-1 ">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -266,11 +219,9 @@ const NewJoiningMonthly = () => {
           </div>
         </div>
       </div>
-      <BarGraph data={GraphData} horizontal={false} title="Monthly New Joining" />
+      <DoubleBarGraph2 data={GraphData} horizontal={false} title="Revenue VS Actual"/>
     </div>
   );
 };
 
-export default NewJoiningMonthly;
-
-
+export default MonthRevenueTrend;

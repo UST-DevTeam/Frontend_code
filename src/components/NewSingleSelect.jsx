@@ -1,52 +1,59 @@
-// import React, { useState } from 'react';
-// import Select from 'react-select';
-
-// const NewSingleSelect = ({ label, options = [], value = null, required = false, cb = (data) => {}, ...props }) => {
-//     const [selectedOption, setSelectedOption] = useState(value);
-
-//     const handleChange = (selected) => {
-//         setSelectedOption(selected);
-//         cb(selected);
-//     };
-
-//     return (
-//         <div className={`max-w-[150px] min-w-[150px] relative p-0 z-50 ${props?.height || ''} ${props?.className || ''} w-full`}>
-//             {/* <label htmlFor={label} className='text-white ml-2'>
-//                 {required ? <span className='text-red-600 mr-1 '>*</span> : null}
-//                 {label}
-//             </label> */}
-//             <Select
-//                 className="outline-none border rounded-md border-main mt-[2px]"
-//                 options={options}
-//                 value={selectedOption}
-//                 onChange={handleChange}
-//                 placeholder="Year.."
-//                 isClearable={true}
-//                 {...props}
-//             />
-//         </div>
-//     );
-// };
 import React, { useState } from 'react'
 import { MultiSelect } from "react-multi-select-component";
 import Select from 'react-select';
 
-const NewSingleSelect = ({ label, option = [], value = [], required = false, cb = (data) => { },placeholder = "", ...props }) => {
+const NewSingleSelect = ({ label, option = [], value = null, required = false, cb = (data) => {}, placeholder = "", ...props }) => {
     const [length, setLength] = useState(0)
+    const [selectedOption, setSelectedOption] = useState(value);
+
+    const handleChange = (selected) => {
+        setSelectedOption(selected);
+        cb(selected);
+    };
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            backgroundColor: '#3e454d',
+            borderColor: '#64676d',  
+                
+        }),
+        menu: (provided) => ({
+            ...provided,
+            backgroundColor: '#f0f0f0',
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected ? '#d4d4d4' : '#3e454d',
+            color: state.isSelected ? '#000' : 'white',            
+            '&:hover': {
+                backgroundColor: '#24292d',                       
+            },
+        }),
+        placeholder : (porvided, state) =>({
+            ...porvided,
+            color: state.isSelected ? '#000' : '#AAAAAA', 
+        }),
+        indicatorSeparator: () => ({
+            display: 'none', 
+        })
+    };
     return (
-        <div className={`max-w-[150px] min-w-[150px]  relative p-0 z-50 ${props?.height || ''} ${props?.className || ''} w-full`}>
+        <div className={`max-w-[170px] min-w-[100px]  relative ${props?.height || ''} ${props?.className || ''} w-full`}>
             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label + (length > 0 ? " ( " + length + " )" : "")}</label> */}
             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label}</label> */}
             <Select
-                className="outline-none border font-extrabold rounded-md border-main mt-[2px]"
+                className="outline-none font-semibold rounded-md border-main mt-[5px] border-solid border-[#64676d] border-[1.3px]"
                 options={option}
-                value={value}
+                value={selectedOption}
                 defaultIsOpen={false}
-                onChange={(data) => {
-                    cb(data)
-                    setLength(data.length)
-                }}
+                // onChange={(data) => {    
+                //     cb(data)
+                //     setLength(data.length)
+                // }}
+                onChange={handleChange}
                 placeholder={placeholder}
+                isClearable={true}
+                styles={customStyles}
             />
         </div>
 
@@ -54,3 +61,51 @@ const NewSingleSelect = ({ label, option = [], value = [], required = false, cb 
 }
 
 export default NewSingleSelect;
+
+// import React, { useState } from 'react'
+// import { MultiSelect } from "react-multi-select-component";
+// import Select from 'react-select';
+
+// const NewSingleSelect = ({ label, option = [], value = [], required = false, cb = (data) => { },placeholder = "", ...props }) => {
+//     const [length, setLength] = useState(0)
+//     const customStyles = {
+//         control: (provided) => ({
+//             ...provided,
+//             backgroundColor: '#3e454d',
+//             borderColor: '#64676d',      
+//         }),
+//         menu: (provided) => ({
+//             ...provided,
+//             backgroundColor: '#f0f0f0',
+//         }),
+//         option: (provided, state) => ({
+//             ...provided,
+//             backgroundColor: state.isSelected ? '#d4d4d4' : '#3e454d',
+//             color: state.isSelected ? '#000' : 'white',            
+//             '&:hover': {
+//                 backgroundColor: '#24292d',                       
+//             },
+//         }),
+//     };
+//     return (
+//         <div className={`max-w-[150px] min-w-[150px] relative p-0 ${props?.height || ''} ${props?.className || ''} w-full`}>
+//             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label + (length > 0 ? " ( " + length + " )" : "")}</label> */}
+//             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label}</label> */}
+//             <Select
+//                 className="outline-none border font-extrabold rounded-md border-main mt-[2px]"
+//                 options={option}
+//                 value={value}
+//                 defaultIsOpen={false}
+//                 onChange={(data) => {
+//                     cb(data)
+//                     setLength(data.length)
+//                 }}
+//                 placeholder={placeholder}
+//                 styles={customStyles}
+//             />
+//         </div>
+
+//     )
+// }
+
+// export default NewSingleSelect;
