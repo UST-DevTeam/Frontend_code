@@ -21,12 +21,20 @@ const NewSingleSelect = ({ label, option = [], value = null, required = false, c
             ...provided,
             backgroundColor: '#f0f0f0',
         }),
+        menuList: (provided) => ({
+            ...provided,
+            paddingTop: 0, 
+            paddingBottom: 0, 
+        }),
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isSelected ? '#d4d4d4' : '#3e454d',
-            color: state.isSelected ? '#000' : 'white',            
+            color: state.isSelected ? '#000' : 'white',     
+            fontSize :"12px", 
+            fontWeight: "bold",  
             '&:hover': {
-                backgroundColor: '#24292d',                       
+                backgroundColor: '#24292d',
+                color:"white"                        
             },
         }),
         placeholder : (porvided, state) =>({
@@ -35,7 +43,7 @@ const NewSingleSelect = ({ label, option = [], value = null, required = false, c
         }),
         indicatorSeparator: () => ({
             display: 'none', 
-        })
+        }),
     };
     return (
         <div className={`max-w-[170px] min-w-[100px]  relative ${props?.height || ''} ${props?.className || ''} w-full`}>

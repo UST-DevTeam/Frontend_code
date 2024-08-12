@@ -655,3 +655,48 @@ td p {
 }
 
 
+
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background-color: white !important;
+  border-radius:10px;
+}
+
+
+/* From Uiverse.io by aryamitra06 */ 
+/* .loader1 {
+  display: flex;
+  align-items: center;
+}
+
+.bar {
+  display: inline-block;
+  width: 6px;
+  height: 30px;
+  background-color: #FF7518;
+  border-radius: 10px;
+  animation: scale-up4 1s linear infinite;
+}
+
+.bar:nth-child(2) {
+  height: 35px;
+  margin: 0 5px;
+  animation-delay: .25s;
+}
+
+.bar:nth-child(3) {
+  animation-delay: .5s;
+}
+
+@keyframes scale-up4 {
+  20% {
+    background-color: #ffff;
+    transform: scaleY(1.5);
+  }
+
+  40% {
+    transform: scaleY(1);
+  }
+} */
+
+
+
