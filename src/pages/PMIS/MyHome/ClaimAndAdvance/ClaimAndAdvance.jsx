@@ -59,9 +59,7 @@ const ClaimAndAdvance = () => {
       interdata2 = interdata[0]?.data || [];
     }
     return interdata2?.map((item) => {
-      console.log('itemitemitem',item)
       const itm = { ...item };
-      
       itm["debitExpense"] = 0;
       itm.advanceExpense = 0;
       if (itm?.type === "Expense" || itm?.type === "Daily Allowance") {
