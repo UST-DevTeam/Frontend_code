@@ -62,7 +62,7 @@ const ClaimAndAdvance = () => {
       const itm = { ...item };
       itm["debitExpense"] = 0;
       itm.advanceExpense = 0;
-      if (itm?.type === "Expense") {
+      if (itm?.type === "Expense" || itm?.type === "Daily Allowance") {
         itm.debitExpense = itm?.totalApprovedAmountRow;
       } else if (itm?.type === "Advance") {
         itm.advanceExpense = itm?.totalApprovedAmountRow;
@@ -70,7 +70,7 @@ const ClaimAndAdvance = () => {
 
       let updateditm = {
         ...itm,
-
+        
         name: (
           <p
           className={`cursor-pointer font-extrabold ${itm.type === 'Expense' ? 'text-rose-400' : 'text-pcol'}`}
@@ -83,6 +83,13 @@ const ClaimAndAdvance = () => {
             }}
           >
             {itm.name}
+          </p>
+        ),
+        customStatus: (
+          <p
+          className={`cursor-pointer font-extrabold ${[3, 5, 7].includes(itm?.customisedStatus) ? 'text-rose-400' : 'text-pcol'}`}
+          >
+            {itm.customStatus}
           </p>
         ),
 
@@ -186,9 +193,9 @@ const ClaimAndAdvance = () => {
         style: "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
-        name: "Claim Date",
+        name: "Submission Date",
         value: "AddedAt",
-        style: "min-w-[110px] max-w-[450px] text-center sticky left-[110px] bg-[#3e454d]",
+        style: "min-w-[170px] max-w-[450px] text-center sticky left-[110px] bg-[#3e454d]",
       },
       {
         name: "Expense/Advance No",
