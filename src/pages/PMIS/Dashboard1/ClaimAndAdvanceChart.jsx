@@ -13,7 +13,7 @@ import { UilImport,UilSearch } from '@iconscout/react-unicons'
 import PolarChart from "../../../components/FormElements/PolarChart";
 
 
-const ClaimAndAdvanceChart = () => {
+const ClaimAndAdvanceChart = (id) => {
     const [type, settype] = useState(false);
     const [selectedOptions1, setSelectedOptions1] = useState([]);
     const [selectedOptions2, setSelectedOptions2] = useState([]);
@@ -21,7 +21,7 @@ const ClaimAndAdvanceChart = () => {
     let dispatch = useDispatch();
     const [ data ,setData] = useState([])
 
-    let customeruniqueId = "65dee316811c797c9f26d836"
+    let customeruniqueId = id['customeruniqueId']
 
     let projectGroupList = useSelector((state) => {
         return state?.filterData?.getProjectProjectGroup.map((itm) => {

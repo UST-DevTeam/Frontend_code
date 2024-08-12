@@ -11,7 +11,7 @@ import PieChart from "../../../components/PieChart";
 import { UilImport,UilSearch,UilRefresh} from '@iconscout/react-unicons'
 
 
-const MileStoneChart = () => {
+const MileStoneChart = (id) => {
     
     const [type, settype] = useState(false);
     const [selectedProjectType, setselectedProjectType] = useState([]);
@@ -22,7 +22,7 @@ const MileStoneChart = () => {
     let dispatch = useDispatch();
     const [ data ,setData] = useState([])
 
-    let customeruniqueId = "65dee316811c797c9f26d836"
+    let customeruniqueId = id['customeruniqueId']
 
     let projectTypeList = useSelector((state) => {
       return state?.filterData?.getProjectProjectType.map((itm) => {

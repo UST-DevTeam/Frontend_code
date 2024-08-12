@@ -41,12 +41,10 @@ const component = createSlice({
       state.globalValue = data
     },
     BREADCRUMB: (state, { payload }) => {
-      console.log(0,payload,"dasdassssssssssssssssss")
       if (payload.tkn) {
         let lendata=[...state.breadcrumb].length
         state.breadcrumb = [{name:payload.data,index:lendata,link:payload.link}];
       } else {
-        console.log(0,payload.index,"dasdassssssssssssssssss")
         if(payload.data!=""){
           let lendata=[...state.breadcrumb].length
           state.breadcrumb = [...state.breadcrumb,{name:payload.data,index:lendata,link:payload.link}];

@@ -18,16 +18,16 @@ const NotificationBar = ({ modalRef, roleName, calllogout }) => {
     return state.projectList.getusernotification || []
 
 
-    return [
-      {
-        "msg": "BulkSite (3).xlsx completed",
-        "typem": "old",
-        "time": "1722534094313657"
-      }
-    ]
+    // return [
+    //   {
+    //     "msg": "BulkSite (3).xlsx completed",
+    //     "typem": "old",
+    //     "time": "1722534094313657"
+    //   }
+    // ]
 
-    console.log(state.websocket.data_from_socket,"statestatestatestatestate")
-    return state.websocket.data_from_socket.notification ? state.websocket.data_from_socket.notification : []
+    // console.log(state.websocket.data_from_socket,"statestatestatestatestate")
+    // return state.websocket.data_from_socket.notification ? state.websocket.data_from_socket.notification : []
   })
 
 

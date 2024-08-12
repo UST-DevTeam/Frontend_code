@@ -156,12 +156,12 @@ const ManageMilestoneSite = ({
           if(iytm["fieldName"]=="BAND"){
             let bandlistt=datew[0]["BAND"]
 
-            setValueForm1("BAND", bandlistt.split("-").join(","));
+            setValueForm1("BAND", bandlistt?.split("-")?.join(","));
           }
           else if(iytm["fieldName"]=="CELL ID"){
             let cellidlistt=datew[0]["CELL ID"]
 
-            setValueForm1("CELL ID", cellidlistt.split("-").join(","));
+            setValueForm1("CELL ID", cellidlistt?.split("-")?.join(","));
           }else{
             setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
           }
@@ -234,11 +234,11 @@ const ManageMilestoneSite = ({
       let fieldNaming = labelToValue(itew.fieldName);
       
       if(fieldNaming=="BAND"){
-          final_data["BAND"] = data["BAND"].split(",").join("-");
+          final_data["BAND"] = data["BAND"]?.split(",")?.join("-");
 
       }
       else if(fieldNaming=="CELL ID"){
-        final_data["CELL ID"] = data["CELL ID"].split(",").join("-");
+        final_data["CELL ID"] = data["CELL ID"]?.split(",")?.join("-");
       }
       else{
         final_data[fieldNaming] = data[fieldNaming];

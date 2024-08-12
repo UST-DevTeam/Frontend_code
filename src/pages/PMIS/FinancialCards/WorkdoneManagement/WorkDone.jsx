@@ -84,8 +84,8 @@ const WorkDone = () => {
               <EditButton
                 name={""}
                 onClick={() => {
+                  dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }));
                   dispatch(FinanceActions.getPOWorkDoneItemCode(true,`subProjectId=${itm?.SubProjectId}`,setmodalOpen(true)));
-                  // dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }));
                   setmodalHead("Edit Workdone");
                   setcallSt(true)
                   setmodalBody(

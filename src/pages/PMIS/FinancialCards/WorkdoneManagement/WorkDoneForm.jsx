@@ -332,11 +332,12 @@ const WorkDoneForm = ({
   };
 
   const onTableViewSubmit = (data) => {
+
+    data['projectGroup'] = formValue['projectGroupUid']
+    data['MS1'] = formValue['MS1']
+    data['MS2'] = formValue['MS2']
     
-    const page = sessionStorage.getItem("page") || 1
-    // setupDatq(prev=>!prev)
-    // setcurrentPage(1)
-    
+    // const page = sessionStorage.getItem("page") || 1
     if (formValue.uniqueId) {
       dispatch(
         FinanceActions.postPOWorkDoneBased(
@@ -344,7 +345,7 @@ const WorkDoneForm = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(FinanceActions.getPOWorkDoneBased(true , {} , objectToQueryString({page})));
+            dispatch(FinanceActions.getPOWorkDoneBased(true , {}));
           },
           formValue.uniqueId
         )
@@ -358,24 +359,23 @@ const WorkDoneForm = ({
       );
     }
   };
-  useEffect(() => {
-    // dispatch(GET_POWORKDONE_ITEMCODE({ dataAll: [], reset: true }));
 
-    if (resetting) {
+  useEffect(() => {
+    if (!isOpen) {
       reset({});
-      Form.map((fieldName) => {
-        setValue(fieldName["name"], fieldName["value"]);
+      sForm.map((fieldName) => {
+        setValue(fieldName["name"], formValue[fieldName["name"]] || "");
       });
     } else {
       // setcallSt(false)
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
-        console.log(key, "keykeykeykeykey");
+        // console.log(key, "keykeykeykeykey");
         if (key == "itemCodeArray") {
           console.log(formValue["itemCodeArray"], "formValue");
         } else if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
@@ -383,7 +383,7 @@ const WorkDoneForm = ({
         }
       });
     }
-  }, [callSt]);
+  }, [isOpen,formValue,resetting]);
   return (
     <>
       <Modal
@@ -442,3 +442,18 @@ const WorkDoneForm = ({
 };
 
 export default WorkDoneForm;
+
+
+
+// useEffect(() => {
+//   if (isOpen) {
+//     reset({});
+//     Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
+    
+//   } else {
+//     reset({});
+//     Object.keys(formValue).forEach((key) => {
+//       setValue(key, formValue[key]);
+//     });
+//   }
+// }, [isOpen, formValue,resetting]);

@@ -22,6 +22,7 @@ const Dashboard1 = () => {
     const { cname, customeruniqueId } = useParams();
 
 
+
     return (
 
         <div className="grid lg:grid-cols-2 m-2 gap-2">

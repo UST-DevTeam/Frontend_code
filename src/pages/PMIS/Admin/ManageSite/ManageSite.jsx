@@ -200,15 +200,15 @@ const ManageSite = ({
       let fieldNaming = labelToValue(itew["fieldName"]);
 
       if(fieldNaming=="BAND"){
-        final_data["BAND"] = data["BAND"].split(",").join("-");
+        final_data["BAND"] = data["BAND"]?.split(",")?.join("-");
 
       }
       else if(fieldNaming=="CELL ID"){
-        final_data["CELL ID"] = data["CELL ID"].split(",").join("-");
+        final_data["CELL ID"] = data["CELL ID"]?.split(",")?.join("-");
       }
 
       else if(fieldNaming=="SECTOR"){
-        final_data["SECTOR"] = data["SECTOR"].split(",").join("-");
+        final_data["SECTOR"] = data["SECTOR"]?.split(",")?.join("-");
       }
       else{
         final_data[fieldNaming] = data[fieldNaming];
