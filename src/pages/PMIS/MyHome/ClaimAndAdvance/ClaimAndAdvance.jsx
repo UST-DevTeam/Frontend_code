@@ -70,10 +70,12 @@ const ClaimAndAdvance = () => {
 
       let updateditm = {
         ...itm,
-        
+
         name: (
           <p
-          className={`cursor-pointer font-extrabold ${itm.type === 'Expense' ? 'text-rose-400' : 'text-pcol'}`}
+            className={`cursor-pointer font-extrabold ${
+              itm.type === "Expense" ? "text-rose-400" : "text-pcol"
+            }`}
             onClick={(e) => {
               expenseRef.current = itm;
               sessionStorage.setItem("claimName", itm?.name);
@@ -87,7 +89,11 @@ const ClaimAndAdvance = () => {
         ),
         customStatus: (
           <p
-          className={`cursor-pointer font-extrabold ${[3, 5, 7].includes(itm?.customisedStatus) ? 'text-rose-400' : 'text-pcol'}`}
+            className={`cursor-pointer font-extrabold ${
+              [3, 5, 7].includes(itm?.customisedStatus)
+                ? "text-rose-400"
+                : "text-pcol"
+            }`}
           >
             {itm.customStatus}
           </p>
@@ -104,7 +110,7 @@ const ClaimAndAdvance = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes='w-15 bg-rose-400'
+                        classes="w-15 bg-rose-400"
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -190,12 +196,14 @@ const ClaimAndAdvance = () => {
       {
         name: "Month-Year",
         value: "addedMonth",
-        style: "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
+        style:
+          "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Submission Date",
         value: "AddedAt",
-        style: "min-w-[170px] max-w-[450px] text-center sticky left-[110px] bg-[#3e454d]",
+        style:
+          "min-w-[170px] max-w-[450px] text-center sticky left-[110px] bg-[#3e454d]",
       },
       {
         name: "Expense/Advance No",
@@ -259,45 +267,49 @@ const ClaimAndAdvance = () => {
 
   return (
     <>
-      <div className="flex md:flex-col md:absolute text-sm space-x-2">
-        <p className="mb-[-30px] md:mb-0 p-2 md:pl-4 text-white">
+      <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
+        <p className="p-2 text-white font-extrabold">
           Current Balance :{" "}
           <span
-            className={
-              Amounts?.finalAmount > 0
-                ? "text-rose-400 font-extrabold"
-                : "text-pcol font-extrabold"
-            }
+            className={`font-extrabold ${
+              Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"
+            }`}
           >
             {Amounts?.finalAmount}
           </span>
         </p>
-        <p className="mb-[-30px] md:mb-0 p-2 text-white">
+        <p className="p-2 text-white font-extrabold">
           Expenses Approved :{" "}
           <span
-            className={
-              Amounts?.ExpenseAmountTotal > 0
-                ? "text-rose-400 font-extrabold"
-                : "text-pcol font-extrabold"
-            }
+            className={`font-extrabold ${
+              Amounts?.ExpenseAmountTotal > 0 ? "text-rose-400" : "text-pcol"
+            }`}
           >
             {Amounts?.ExpenseAmountTotal}
           </span>
         </p>
-        <p className="mb-[-30px] md:mb-0 p-2 text-white">
+        <p className="p-2 text-white font-extrabold">
           Advance Approved :{" "}
           <span
-            className={
-              Amounts?.AdvanceAmountTotal > 0
-                ? "text-pcol font-extrabold"
-                : "text-rose-500 font-extrabold"
-            }
+            className={`font-extrabold ${
+              Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-500"
+            }`}
           >
             {Amounts?.AdvanceAmountTotal}
           </span>
         </p>
+        <p className="p-2 text-white font-extrabold">
+          Opening balance :{" "}
+          <span
+            className={`font-extrabold ${
+              Amounts?.Openingbalance > 0 ? "text-rose-400" : "text-pcol"
+            }`}
+          >
+            {Amounts?.Openingbalance}
+          </span>
+        </p>
       </div>
-      <div className="md:mt-14">
+      <div className="">
         <AdvancedTable
           headerButton={
             <>
@@ -338,7 +350,7 @@ const ClaimAndAdvance = () => {
           setValue={setValue}
           getValues={getValues}
           totalCount={dbConfigTotalCount}
-          getaccessExport = {"Export(Claim&Advance)"}
+          getaccessExport={"Export(Claim&Advance)"}
         />
       </div>
       <Modal
@@ -357,7 +369,6 @@ const ClaimAndAdvance = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-           
           />
         }
         isOpen={modalFullOpen}
