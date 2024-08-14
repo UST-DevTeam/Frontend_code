@@ -174,6 +174,11 @@ const ExpAdvForClaim = () => {
             style: "min-w-[80px] max-w-[200px] text-center",
         },
         {
+          name: "Submission Date",
+          value: "Submission Date",
+          style: "min-w-[120px] max-w-[450px] text-center",
+      },
+        {
             name: "Employee Name",
             value: "Employee Name",
             style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
@@ -198,6 +203,7 @@ const ExpAdvForClaim = () => {
             value: "Claim Date",
             style: "min-w-[150px] max-w-[450px] text-center",
         },
+        
         {
             name: "Claim Type",
             value: "Claim Type",
@@ -238,11 +244,7 @@ const ExpAdvForClaim = () => {
             value: "Amount",
             style: "min-w-[100px] max-w-[200px] text-center",
         },
-        {
-            name: "Submission Date",
-            value: "Submission Date",
-            style: "min-w-[120px] max-w-[450px] text-center",
-        },
+        
         {
             name: "Approval Amount",
             value: "Approved Amount",
@@ -448,6 +450,7 @@ const ExpAdvForClaim = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         getaccessExport = {"Export(Expense&Advance)"}
+        heading="Total Count:-"
       />
 
       <Modal
