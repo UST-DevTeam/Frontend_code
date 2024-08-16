@@ -126,7 +126,6 @@ const SOB = () => {
     });
   });
 
-  console.log(dbConfigList , 'asdfsdfsafdasdf')
 
 
   let dbConfigTotalCount = useSelector((state) => {

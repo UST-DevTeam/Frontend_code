@@ -430,6 +430,7 @@ const ExpAdvForClaim = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         getaccessExport = {"Export(Expense&Advance)"}
+        heading = {"Total Count:-"}
       />
 
       <Modal

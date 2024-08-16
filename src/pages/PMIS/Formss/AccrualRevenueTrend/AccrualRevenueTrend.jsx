@@ -31,7 +31,6 @@ import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-red
 const AccrualRevenueTrend = () => {
 
   const currentMonth = new Date().getMonth() + 1;
-  // const currentMonth =  1;
   const currrentYear = new Date().getFullYear();
 
   const [refresh, setRefresh] = useState(false);
@@ -39,7 +38,6 @@ const AccrualRevenueTrend = () => {
   const [change, setChange] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
-
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
@@ -383,25 +381,25 @@ const AccrualRevenueTrend = () => {
   return (
     <>
     <div className="flex items-center justify-start ">
-    <div className="col-span-1 md:col-span-1">
-      <CommonForm
-        classes="grid grid-cols-2 w-[400px] overflow-y-hidden"
-        Form={formD}
-        errors={errors}
-        register={register}
-        setValue={setValue}
-        getValues={getValues}
-      />
+      <div className="col-span-1 md:col-span-1">
+        <CommonForm
+          classes="grid grid-cols-2 w-[400px] overflow-y-hidden"
+          Form={formD}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+        />
+      </div>
+      <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
+        <Button
+          classes=" flex h-fit "
+          name=""
+          icon={<UilSearch className="w-5 m-2 h-5" />}
+          onClick={handleSubmit(handleAddActivity)}
+        />
+      </div>
     </div>
-    <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
-      <Button
-        classes=" flex h-fit "
-        name=""
-        icon={<UilSearch className="w-5 m-2 h-5" />}
-        onClick={handleSubmit(handleAddActivity)}
-      />
-    </div>
-  </div>
 
 
       <AdvancedTable 

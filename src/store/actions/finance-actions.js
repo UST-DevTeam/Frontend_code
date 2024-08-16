@@ -77,6 +77,29 @@ const FinanceActions = {
         }
     },
 
+    putPOWorkDoneBased: (reset, data, cb,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.put({ data: data, url:`${Urls.finance_poworkdone_based}${args!=""?"?"+args:""}` })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            }else{
+                let dataAll = res?.data?.data
+                dispatch(GET_POWORKDONE_BASED({ dataAll, reset}))
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
     getInvoice:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.finance_Invoice}${args!=""?"?"+args:""}`, reset })

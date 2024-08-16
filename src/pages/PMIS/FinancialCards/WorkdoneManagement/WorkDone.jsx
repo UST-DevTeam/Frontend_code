@@ -14,26 +14,44 @@ import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
 import FileUploader from "../../../../components/FIleUploader";
-import OperationManagementActions from "../../../../store/actions/OperationManagement-actions";
 import FinanceActions from "../../../../store/actions/finance-actions";
-// import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
 import WorkDoneForm from "../WorkdoneManagement/WorkDoneForm";
 import { GET_POWORKDONE_ITEMCODE } from "../../../../store/reducers/finance-reducer";
-import moment from "moment";
 import FilterActions from "../../../../store/actions/filter-actions";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import CommonForm from "../../../../components/CommonForm";
+import { UilSearch } from "@iconscout/react-unicons";
+import moment from "moment";
+
+
+
 
 const WorkDone = () => {
+
+  const now = new Date();
+  const istOffset = 5.5 * 60 * 60 * 1000; 
+  const istTime = new Date(now.getTime() + istOffset + now.getTimezoneOffset() * 60 * 1000);
+  const currentMonth = istTime.getUTCMonth() + 1; 
+  const currentYear = istTime.getUTCFullYear();
+
+
   const [modalOpen, setmodalOpen] = useState(false);
   const [callSt, setcallSt] = useState(false);
   
   const [modalBody, setmodalBody] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
   const [strValFil, setstrVal] = useState(false);
-  // const [upDatq, setupDatq] = useState(false);
-  // const [currentPage, setcurrentPage] = useState(1);
+  const[month,setmonth] = useState(currentMonth);
+  const[year,setyear] = useState(currentYear);
+  const [selectType, setSelectType] = useState("");
   const [modalHead, setmodalHead] = useState(<></>);
+  const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
+
+
+
+
+
   let dispatch = useDispatch();
 
   let showType = getAccessType("Actions(Workdone)")
@@ -192,23 +210,45 @@ const WorkDone = () => {
   });
   let listYear = [];
 
-  for (let ywq = 2019; ywq <= +endDate; ywq++) {
-    listYear.push({'label':ywq,'value':ywq});
+  // for (let ywq = 2019; ywq <= +endDate; ywq++) {
+  //   listYear.push({'label':ywq,'value':ywq});
+  // }
+  for (let ywq = 2021; ywq <= +endDate; ywq++) {
+    listYear.push(ywq);
   }
+
   let monthList = [
-    {'label':'Jan', 'value':'1'},
-    {'label':'Feb', 'value':'2'},
-    {'label':'Mar', 'value':'3'},
-    {'label':'Apr', 'value':'4'},
-    {'label':'May', 'value':'5'},
-    {'label':'Jun', 'value':'6'},
-    {'label':'Jul', 'value':'7'},
-    {'label':'Aug', 'value':'8'},
-    {'label':'Sep', 'value':'9'},
-    {'label':'Oct', 'value':'10'},
-    {'label':'Nov', 'value':'11'},
-    {'label':'Dec', 'value':'12'},
+    {'label':'Jan', 'value':1},
+    {'label':'Feb', 'value':2},
+    {'label':'Mar', 'value':3},
+    {'label':'Apr', 'value':4},
+    {'label':'May', 'value':5},
+    {'label':'Jun', 'value':6},
+    {'label':'Jul', 'value':7},
+    {'label':'Aug', 'value':8},
+    {'label':'Sep', 'value':9},
+    {'label':'Oct', 'value':10},
+    {'label':'Nov', 'value':11},
+    {'label':'Dec', 'value':12},
   ]
+
+  let listDict = {
+    "": [],
+    Month: [
+      { id: 1, name: "Jan" },
+      { id: 2, name: "Feb" },
+      { id: 3, name: "Mar" },
+      { id: 4, name: "Apr" },
+      { id: 5, name: "May" },
+      { id: 6, name: "Jun" },
+      { id: 7, name: "Jul" },
+      { id: 8, name: "Aug" },
+      { id: 9, name: "Sep" },
+      { id: 10, name: "Oct" },
+      { id: 11, name: "Nov" },
+      { id: 12, name: "Dec" }
+    ],
+  };
 
   let customerList = useSelector((state) => {
     return state?.filterData?.getfinancialPoWOrkDoneCustomer.map((itm) => {
@@ -229,6 +269,7 @@ const WorkDone = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
 
   let table = {
     columns: [
@@ -436,40 +477,40 @@ const WorkDone = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      {
-        label: "Select Milestone",
-        type: "select",
-        name: "milestone",
-        required: true,
-        option:[
-          {label:'MS1',value:'MS1'},
-          {label:'MS2',value:'MS2'},
-          {label:'MS1 & MS2 Both',value:'both'},
+      // {
+      //   label: "Select Milestone",
+      //   type: "select",
+      //   name: "milestone",
+      //   required: true,
+      //   option:[
+      //     {label:'MS1',value:'MS1'},
+      //     {label:'MS2',value:'MS2'},
+      //     {label:'MS1 & MS2 Both',value:'both'},
 
-        ],
-        props: {},
-      },
-      {
-        label: "Customer",
-        type: "select",
-        name: "customer",
-        option:customerList,
-        props: {},
-      },
-      {
-        label: "Year",
-        type: "select",
-        name: "year",
-        option:listYear,
-        props: {},
-      },
-      {
-        label: "Month",
-        type: "select",
-        name: "month",
-        option:monthList,
-        props: {},
-      },
+      //   ],
+      //   props: {},
+      // },
+      // {
+      //   label: "Customer",
+      //   type: "select",
+      //   name: "customer",
+      //   option:customerList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Year",
+      //   type: "select",
+      //   name: "year",
+      //   option:listYear,
+      //   props: {},
+      // },
+      // {
+      //   label: "Month",
+      //   type: "select",
+      //   name: "month",
+      //   option:monthList,
+      //   props: {},
+      // },
       {
         label: "Project Group",
         type: "text",
@@ -477,9 +518,9 @@ const WorkDone = () => {
         props: {},
       },
       {
-        label: "Project Type",
+        label: "Project ID",
         type: "text",
-        name: "projectType",
+        name: "projectId",
         props: {},
       },
       {
@@ -530,17 +571,19 @@ const WorkDone = () => {
       // }
     ],
   };
+
   const onSubmit = (data) => {
-    console.log("data________", data)
     let shouldReset = data.reseter;
     delete data.reseter;
-    console.info("page_data",data)
+    // console.info("page_data",data)
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    dispatch(FinanceActions.getPOWorkDoneBased(shouldReset,{},strVal));
+    dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':year,'viewBy':month},() => {},strVal));
   };
+
+
   useEffect(() => {
-    dispatch(FinanceActions.getPOWorkDoneBased());
+    dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':year,'viewBy':month},() => {}));
     dispatch(FilterActions.getfinancialPoWorkDoneCustomer());
   }, []);
 
@@ -548,28 +591,120 @@ const WorkDone = () => {
     data["fileType"] = "ItemCodeforWork";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(FinanceActions.getPOWorkDoneBased());
+        dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':currentYear,'viewBy':currentMonth},() => {}));
         setFileOpen(false);
         resetting("");
       })
     );
   };
 
+  // let milestoneList = [
+  //     {label:'MS1',value:'MS1'},
+  //     {label:'MS2',value:'MS2'},
+  //     {label:'MS1 & MS2 Both',value:'both'},
+  //   ]
+  
+
+  let formD = [
+    {
+        label: "Milestone",
+        name: "milestone",
+        value: "Select",
+        bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        type: "select",
+        option: [
+          {label:'MS1',value:'MS1'},
+          {label:'MS2',value:'MS2'},
+          {label:'MS1 & MS2 Both',value:'both'},
+        ],
+        props: {
+          onChange: (e) => {
+            setValue(e.target.value);
+          },
+        },
+        required: true,
+        classes: "col-span-1",
+      },
+      {
+        label: "Year",
+        name: "year",
+        value: "Select",
+        bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        type: "select",
+        required: true,
+        option: listYear.map((itmYr) => {
+          return {
+            label: itmYr,
+            value: itmYr,
+          };
+        }),
+        
+        props: {
+          onChange: (e) => {
+            setValue("year", e.target.value);
+          },
+        },
+        classes: "col-span-1",
+      },
+    {
+      label: ValGm,
+      name: "viewBy",
+      value: "Select",
+      type: "select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      option: listDict[ValGm].map((dasd) => {
+        return {
+          value: dasd?.id,
+          label: dasd?.name,
+        };
+      }),
+      props: {
+        selectType:selectType
+      },
+      hasSelectAll:true,
+      required: true,
+      classes: "col-span-1 ",
+    },
+  ];
+
+
+
+  const handleAddActivity = (res) => {
+    setmonth(res?.viewBy)
+    setyear(res?.year)
+    try {
+      dispatch(FinanceActions.putPOWorkDoneBased(true,res, () => {}));
+    } catch (error) {
+      console.error("[ERROR] :: " + error.message);
+    }
+  };
+
+
   return (
     <>
+        <div className="flex items-center justify-start gap-5">
+          <div className="col-span-1 md:col-span-1">
+            <CommonForm
+              classes="grid grid-cols-4 w-[550px] sm:grid-cols-6 xl:grid-cols-3 xl:w-[550px] sm:w-full overflow-y-hidden p-2 "
+              Form={formD}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            /> 
+          </div>
+          <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+            <Button
+              classes=" flex h-fit "
+              name=""
+              icon={<UilSearch className="w-5 m-2 h-5" />}
+              onClick={handleSubmit(handleAddActivity)}
+            />
+          </div>
+        </div>
       <AdvancedTable
-        // upDatq={upDatq}
-        // currentPage={currentPage}
-        // setcurrentPage={setcurrentPage}
-        // setupDatq={setupDatq}
         headerButton={
           <>
-            {/* <Button onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                setmodalHead("New PO Life Cycle ")
-                setmodalBody(<POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
-                name={"Add New"}></Button> */}
             <ConditionalButton
               showType={getAccessType("Upload(Workdone)")}
               name={"Upload File"}
