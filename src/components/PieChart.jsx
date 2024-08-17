@@ -8,8 +8,6 @@ const PieChart = ({ data,colors }) => {
 
   let colorSeries = colors
 
-
-
   const options = {
     chart: {
       type: 'pie',

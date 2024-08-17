@@ -352,6 +352,7 @@ const L1AdvanceForm = () => {
     
       data.data = amountRemark;
       data.AdvanceId = expenseRef.current?.AdvanceNo;
+      data.addedFor = expenseRef.current?.addedFor;
     
       dispatch(
         ExpenseAdvanceActions.postApprovalStatus(true, data, () => {

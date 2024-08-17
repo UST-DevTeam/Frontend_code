@@ -45,7 +45,7 @@ const NotificationBar = ({ modalRef, roleName, calllogout }) => {
         <div className="p-2">
           {[...msgapidata,...msgdata].map((it,index) => {
             return it.typem!="new"?<div className="border-2 border-white p-2 m-2 flex text-center items-center bg-gray-300">
-                <img src="/logo.png" width={60} height={60} className="bg-gray-400 rounded-xl p-2"/>
+                <img src="/logo.png" width={60} height={60} className="bg-gray-400 rounded-lg p-2"/>
                 <p className="pl-2 text-black text-left">{it.msg}<br/>{it.time}</p>
               </div>:<div className="border-2 border-white p-2 m-2 flex text-center items-center bg-gray-600">
                 <img src="/logo.png" width={60} height={60} className="bg-gray-400 rounded-xl p-2"/>

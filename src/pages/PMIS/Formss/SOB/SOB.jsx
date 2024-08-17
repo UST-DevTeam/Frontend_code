@@ -441,7 +441,7 @@ const handleAddActivity = (res) => {
     <div className="flex items-center justify-start gap-5">
     <div className="col-span-1 md:col-span-1">
       <CommonForm
-        classes="grid grid-cols-4 w-[550px] sm:grid-cols-6 xl:grid-cols-3 xl:w-[550px] sm:w-full overflow-y-hidden "
+        classes="grid grid-cols-4 w-[550px] sm:grid-cols-6 xl:grid-cols-3 xl:w-[550px] sm:w-full overflow-y-hidden p-2"
         Form={formD}
         errors={errors}
         register={register}

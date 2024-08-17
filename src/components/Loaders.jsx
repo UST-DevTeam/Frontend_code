@@ -81,6 +81,7 @@ export const Loaders = () => {
                         color='#FF7518'
                         ariaLabel="bars-loading"
                         visible={true}
+                        className="duratio"
                     />
                 </div> : <></>
         }

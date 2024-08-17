@@ -34,6 +34,9 @@ class Linechart extends React.Component {
             },
           },
         },
+        legend: {
+          show: false
+        },
         labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
       },
     };

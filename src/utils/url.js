@@ -1,17 +1,17 @@
 // export const baseUrl="http://127.0.0.1:7980"
 // export const backendassetUrl="http://127.0.0.1:7980/"
 
-// export const baseUrl="http://192.168.29.247:7979"
-// export const backendassetUrl="http://192.168.29.247:7979/" 
+export const baseUrl="http://192.168.29.247:7979"
+export const backendassetUrl="http://192.168.29.247:7979/" 
 
-// export const baseUrl="http://192.168.0.127:7979"
-// export const backendassetUrl="http://192.168.0.127:7979/" 
+// export const baseUrl="http://192.168.0.123:7979"
+// export const backendassetUrl="http://192.168.0.123:7979/" 
 
 // export const baseUrl="https://pmisfbapi.fourbrick.in"
 // export const backendassetUrl="https://pmisfbapi.fourbrick.in/"   
 
-export const baseUrl="https://pmisapi.mcpsinc.com"
-export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
+// export const baseUrl="https://pmisapi.mcpsinc.com"
+// export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
 
 
 export const Urls={
@@ -168,6 +168,8 @@ export const Urls={
     graph_project_status:"/graph/projectStatus",
     graph_milestone_status:"/graph/milestoneStatus",
     graph_po_status:"/graph/poStatus",
+    graph_organzation_level:"/graph/getorganationLevel",
+    graph_all_project_type:"/graph/getAllprojectType",
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
     graph_accrual_revenue_trend:"/graph/accrualRevenueTrend",
     graph_active_emp_with_CC:"/graph/activeEmpwithCC",
@@ -179,6 +181,8 @@ export const Urls={
     graph_weekly_active_emp:"/graph/weeklyActiveEmployee",
     weekly_horizontal_name:"/graph/getorgLevel",
     graph_vendor_active_inactive:"/graph/partnerStatus",
+    graph_revenuePlan_vc_actual:"/graph/revenuePlanVsActual",
+    graph_revenuePlan_vc_actual_circle:"/graph/revenuePlanVsActualCircle",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

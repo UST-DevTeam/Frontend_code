@@ -663,7 +663,7 @@ td p {
 
 
 /* From Uiverse.io by aryamitra06 */ 
-/* .loader1 {
+.loader1 {
   display: flex;
   align-items: center;
 }
@@ -674,7 +674,7 @@ td p {
   height: 30px;
   background-color: #FF7518;
   border-radius: 10px;
-  animation: scale-up4 1s linear infinite;
+  animation: scale-up4 0.5s linear infinite;
 }
 
 .bar:nth-child(2) {
@@ -689,14 +689,37 @@ td p {
 
 @keyframes scale-up4 {
   20% {
-    background-color: #ffff;
     transform: scaleY(1.5);
   }
 
   40% {
     transform: scaleY(1);
   }
-} */
+}
+
+.custom-multiselect .dropdown-container {
+  height: 30px; /* Set the desired height */
+}
+
+.custom-multiselect .dropdown-heading {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.custom-multiselect .dropdown-heading-value {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.custom-multiselect .dropdown {
+  min-height: 30px; /* Set the minimum height for the dropdown */
+}
+
+.custom-multiselect .dropdown-content {
+  max-height: 150px; /* Optional: control the dropdown height */
+}
+
+
 
 
 

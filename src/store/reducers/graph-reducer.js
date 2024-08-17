@@ -5,6 +5,8 @@ const initialState = {
     getGraphProjectStatus: [],
     getGraphMilestoneStatus: [],
     getGraphPoStatus: [],
+    getGraphOrganizationLevel: [],
+    getGraphAllProjectType: [],
     getGraphPoTrackingWorkdone: [],
     getGraphAccrualRevenueTrend:[],
     getmonthjoining:[],
@@ -16,8 +18,10 @@ const initialState = {
     getGraphWeeklyActiveEmp:[],
     getWeeklyHorizontalName:[],
     getGraphVendorActiveInactive:[],
+    getGraphRevenuePlanVSActual_Trend:[],
+    getGraphRevenuePlanVSActual_Circle:[],
 } 
-
+ 
 const GraphData = createSlice({
     name:'GraphData',
     initialState,
@@ -45,6 +49,22 @@ const GraphData = createSlice({
                 state.getGraphPoStatus = payload.dataAll
             }else{
                 state.getGraphPoStatus  = [...state.getGraphPoStatus,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_ORG_LEVEL:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphOrganizationLevel = payload.dataAll
+            }else{
+                state.getGraphOrganizationLevel  = [...state.getGraphOrganizationLevel,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_ALL_PROJECT_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphAllProjectType = payload.dataAll
+            }else{
+                state.getGraphAllProjectType  = [...state.getGraphAllProjectType,...payload.dataAll]
             }
         },
 
@@ -142,12 +162,30 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_REVENUE_PLAN_VS_ACTUAL:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphRevenuePlanVSActual_Trend = payload.dataAll
+            }else{
+                state.getGraphRevenuePlanVSActual_Trend  = [...state.getGraphRevenuePlanVSActual_Trend,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphRevenuePlanVSActual_Circle = payload.dataAll
+            }else{
+                state.getGraphRevenuePlanVSActual_Circle  = [...state.getGraphRevenuePlanVSActual_Circle,...payload.dataAll]
+            }
+        },
+
     }
 })
 
 export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
+    GET_GRAPH_ORG_LEVEL,
+    GET_GRAPH_ALL_PROJECT_TYPE,
     GET_GRAPH_PO_Tracking_WorkDone,
     GET_GRAPH_ACCRUAL_REVENUE_TREND,
     GET_MONTHLY_JOINING,
@@ -160,6 +198,8 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_WEEKLY_ACTIVE_EMP,
     GET_WEEKLY_HORIZONTAL_NAME,
     GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
+    GET_GRAPH_REVENUE_PLAN_VS_ACTUAL,
+    GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle,
 } = GraphData.actions
     
 export default GraphData.reducer    

@@ -12,9 +12,10 @@
 // import PolarChart from "../../../components/FormElements/PolarChart";
 // import BarGraph from "../../../components/BarGrpah";
 // import LineChartsss from "../../../components/LineChartsss";
+// import DoubleBarGraph from "../../../components/DoubleBarGraph";
 
 
-// const MonthlyActiveTrend = () => {
+// const MonthlyJoiningVsExit = () => {
 //     const [type, setType] = useState(false);
 //     let dispatch = useDispatch();
 //     const [ data ,setData] = useState([])
@@ -49,44 +50,45 @@
 //       });
 
 //     let GraphData = useSelector((state) => {
-//         return state?.GraphData?.getGraphMonthlyActiveTrend || []
+//         return state?.GraphData?.getGraphMonthlyJoiningVsExit || []
 //     });
 //     console.log(GraphData,"GraphDataGraphDataGraphData")
 
 //     useEffect(() => {
-//         dispatch(GraphActions.getGraphMonthlyActiveTrend());
+//         dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
 //     }, []);
 
 //     return (
 //         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
             
-//             <LineChartsss data={GraphData} title="Monthly Active Trend"/>
+//             <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
 //             {/* <BarGraph data={GraphData} horizontal={type} /> */}
 //             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
 //             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
 //         </div>
 //     );
 // };
-// export default MonthlyActiveTrend;
-
+// export default MonthlyJoiningVsExit;
 
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import NewMultiSelects from "../../../components/NewMultiSelect";
-import GraphActions from "../../../store/actions/graph-actions";
-import Button from "../../../components/Button";
+import NewMultiSelects from "../../../../components/NewMultiSelect";
+import GraphActions from "../../../../store/actions/graph-actions";
+import Button from "../../../../components/Button";
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import BarGraph from "../../../components/BarGrpah";
-import AdminActions from "../../../store/actions/admin-actions";
-import NewSingleSelect from "../../../components/NewSingleSelect";
-import DoubleBarGraph from "../../../components/DoubleBarGraph";
-import LineChartsss from "../../../components/LineChartsss";
+import BarGraph from "../../../../components/BarGrpah";
+import AdminActions from "../../../../store/actions/admin-actions";
+import NewSingleSelect from "../../../../components/NewSingleSelect";
+import DoubleBarGraph from "../../../../components/DoubleBarGraph";
+import DoubleBarGraph2 from "../../../../components/DoubleBarGraph2";
+import TripleBarGraph from "../../../../components/TripleBarGraph";
 
-const MonthlyActiveTrend = () => {
+const MonthlyRevenueCircle = () => {
   const exportData = useRef([]);
   const months = [];
   const now = new Date();
   const monthsNumber = [];
+  const month=8
 
   for (let i = 0; i < 6; i++) {
     const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
@@ -102,17 +104,57 @@ const MonthlyActiveTrend = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
+//   const [selectedDepartment, setSelectedDepartment] = useState([]);
+const [selectedCircle, setSelectedCircle] = useState([]);
+  const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
+  const monthStr = `${month}`;
+
+//   let departmentList = useSelector((state) => {
+//     return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+//       label: itm?.orgLevel,
+//       value: itm?.orgLevel,
+//     }));
+//   });
+let CircleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle?.map((itm) => ({
+      label: itm?.circleName,
+      value: itm?.circleName,
+    }));
+  });
+
+  let AllProjectTypeList = useSelector((state) => {
+    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
+      label: itm?.projectType,
+      value: itm?.projectType,
+    }));
+  });
+
   let GraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphMonthlyActiveTrend || [];
+    return state?.GraphData?.getGraphRevenuePlanVSActual_Circle || [];
   });
 
 
+  const SeriesData = [
+    {
+      name: "PV-Target",
+      data: GraphData?.map(item => item[`M-${monthStr}_y`]) || [],
+    },
+    {
+      name: "Invoice",
+      data: GraphData?.map(item => item[`totalInvoice-${monthStr}`]) || [],
+    },
+  ];
+  console.log(SeriesData, "SeriesData");
+
   useEffect(() => {
-    dispatch(GraphActions.getGraphMonthlyActiveTrend());
+    // dispatch(AdminActions.getManageDepartment());
+    dispatch(AdminActions.getManageCircle());
+    dispatch(GraphActions.getGraphAllProjectType());
+    dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
     fetchGraphData();
   }, []);
 
@@ -121,39 +163,49 @@ const MonthlyActiveTrend = () => {
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
     dispatch(
-      GraphActions.getGraphMonthlyActiveTrend(
+      GraphActions.getGraphRevenuePlanVSActual_Circle(
         { month: exportData.current.join(",") },
         () => {}
       )
     );
   };
 
-  // const handleFilter = () => {
-  //   const filterData = {
-  //     year: selectedYears ? selectedYears.value : currentYear,
-  //     month: selectedMonths?.map((item) => item.value) || monthsNumber,
-  //   };
+//   const handleFilter = () => {
+//     const filterData = {
+//       orgLevel: selectedDepartment.map((item) => item.value) || [],
+//       year: selectedYears ? selectedYears.value : currentYear,
+//       month: selectedMonths?.map((item) => item.value) || monthsNumber,
+//     };
 
-  //   dispatch(
-  //     GraphActions.postGraphMonthlyActiveTrend(
-  //       { year: filterData.year, month: filterData.month },
-  //       () => {}
-  //     )
-  //   );
-  // };
-  const handleFilter = () => {
+//     dispatch(
+//       GraphActions.postGraphMonthlyJoiningVsExit(
+//         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
+//         () => {}
+//       )
+//     );
+//   };
+const handleFilter = () => {
     const filterData = {};
+    if (selectedCircle.length > 0) {
+      filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
+    }
+    if (selectedProjectType.length > 0) {
+      filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
+    }
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
     if (selectedMonths.length > 0) {
       filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
     }
-    dispatch(GraphActions.postGraphMonthlyActiveTrend(filterData, () => {}));
+    dispatch(GraphActions.postGraphRevenuePlanVSActual_Circle(filterData, () => {}));
   };
 
 
   const handleClear = () => {
+    // setSelectedDepartment([]);
+    setSelectedCircle([]);
+    setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
     fetchGraphData();
@@ -183,6 +235,20 @@ const MonthlyActiveTrend = () => {
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
+        <NewMultiSelects
+            label="Circle"
+            option={CircleList}
+            value={selectedCircle}
+            cb={(data) => setSelectedCircle(data)}
+            placeholder="Circle"
+          />
+          <NewMultiSelects
+            label="Project Type"
+            option={AllProjectTypeList}
+            value={selectedProjectType}
+            cb={(data) => setSelectedProjectType(data)}
+            placeholder="Project Type"
+          />
           <NewSingleSelect
             label="Year"
             option={years}
@@ -211,9 +277,9 @@ const MonthlyActiveTrend = () => {
           </div>
         </div>
       </div>
-      <LineChartsss data={GraphData} title="Monthly Active Trend"/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} enabledOnSeries={[true, true, false]} horizontal={false} title="Revenue Plan VS Actual-Circle"/>
     </div>
   );
 };
 
-export default MonthlyActiveTrend;
+export default MonthlyRevenueCircle;
