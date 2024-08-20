@@ -322,7 +322,7 @@ const L1AdvanceForm = () => {
     }
 
     function handleAmountAndRemark(type) {
-      const data = { approver: "L1-" + type, type: "Advance", status: type };
+      const data = { approver: "L1-" + type, type: "Advance", status: type};
       const amountRemark = [];
     
       if (typeof amount === "undefined" || typeof expenseRef === "undefined") {
@@ -351,7 +351,7 @@ const L1AdvanceForm = () => {
       });
     
       data.data = amountRemark;
-      data.AdvanceId = expenseRef.current?.AdvanceNo;
+    
     
       dispatch(
         ExpenseAdvanceActions.postApprovalStatus(true, data, () => {

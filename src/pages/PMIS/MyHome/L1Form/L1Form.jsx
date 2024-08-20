@@ -489,6 +489,8 @@ const L1Form = () => {
       setHide(false)
     }
   } , [modalFullOpen])
+
+
   
 
   function handleAmountAndRemark(type) {
@@ -502,6 +504,8 @@ const L1Form = () => {
 
     // const keys = [...new Set([...Object.keys(amount.amount), ...Object.keys(amount.remark)])];
     const keys = dbConfigList.map((item) => item.uniqueId);
+
+   
 
     keys.forEach((key) => {
       const item = dbConfigList.find(item => item.uniqueId === key);
