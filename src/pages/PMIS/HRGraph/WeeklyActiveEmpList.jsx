@@ -106,6 +106,7 @@ import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import BarGraph from "../../../components/BarGrpah";
 import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
+import DoubleBarGraph from "../../../components/DoubleBarGraph";
 
 const WeeklyActiveEmpList = () => {
 
@@ -120,10 +121,16 @@ const WeeklyActiveEmpList = () => {
       value: itm?.description,
     }));
   });
+  // let departmentList = useSelector((state) => {
+  //   return state?.adminData?.getManageDepartment?.map((itm) => ({
+  //     label: itm?.department,
+  //     value: itm?.uniqueId,
+  //   }));
+  // });
   let departmentList = useSelector((state) => {
-    return state?.adminData?.getManageDepartment?.map((itm) => ({
-      label: itm?.department,
-      value: itm?.uniqueId,
+    return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+      label: itm?.orgLevel,
+      value: itm?.orgLevel,
     }));
   });
 
@@ -131,9 +138,21 @@ const WeeklyActiveEmpList = () => {
     return state?.GraphData?.getGraphWeeklyActiveEmp || [];
   });
 
+  const SeriesData = [
+    {
+      name: "Current-Week",
+      data: GraphData?.map(item => item.joined) || [],
+    },
+    {
+      name: "Last-Week",
+      data: GraphData?.map(item => item.exit) || [],
+    },
+  ];
+
   useEffect(() => {
     dispatch(GraphActions.getWeeklyHorizontalName());
-    dispatch(AdminActions.getManageDepartment());
+    // dispatch(GraphActions.getGraphOrganizationLevel());
+    // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphWeeklyActiveEmp());
     fetchGraphData();
   }, []);
@@ -145,18 +164,29 @@ const WeeklyActiveEmpList = () => {
     dispatch(
       GraphActions.getGraphWeeklyActiveEmp());};
 
-  const handleFilter = () => {
-    const filterData = {
-        description: selectedOrgleve?.map((item) => item.value) || [],
-      department: selectedDepartment?.map((item) => item.value) || [],
-    };
+  // const handleFilter = () => {
+  //   const filterData = {
+  //       description: selectedOrglevel?.map((item) => item.value) || [],
+  //       orgLevel: selectedDepartment?.map((item) => item.value) || [],
+  //   };
 
-    dispatch(
-      GraphActions.postGraphWeeklyActiveEmp(
-        { description: filterData.description, department: filterData.department},
-        () => {}
-      )
-    );
+  //   dispatch(
+  //     GraphActions.postGraphWeeklyActiveEmp(
+  //       { description: filterData.description, orgLevel: filterData.orgLevel},
+  //       () => {}
+  //     )
+  //   );
+  // };
+
+  const handleFilter = () => {
+    const filterData = {};
+    if (selectedOrglevel.length > 0) {
+      filterData.description = selectedOrglevel?.map((Sweety) => Sweety.value);
+    }
+    if (selectedDepartment.length > 0) {
+      filterData.orgLevel = selectedDepartment?.map((Sweety) => Sweety.value);
+    }
+    dispatch(GraphActions.postGraphWeeklyActiveEmp(filterData, () => {}));
   };
 
 
@@ -169,8 +199,8 @@ const WeeklyActiveEmpList = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-      <div className="flex items-center space-x-4 mb-8">
-        <div className="flex space-x-1 justify-between w-full">
+      <div className="flex items-center space-x-4">
+        <div className="flex space-x-1 h-14 justify-between w-full">
           <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
@@ -182,7 +212,7 @@ const WeeklyActiveEmpList = () => {
             label="Department"
             option={departmentList}
             value={selectedDepartment}
-            placeholder="Department"
+            placeholder="Org Level"
             cb={(data) => setSelectedDepartment(data)}
           />
           <div className="flex space-x-1">
@@ -199,7 +229,7 @@ const WeeklyActiveEmpList = () => {
           </div>
         </div>
       </div>
-      <BarGraph data={GraphData} horizontal={false} title="Weekly Active Employee" />
+      <DoubleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} title="Weekly Active Employee" />
     </div>
   );
 };

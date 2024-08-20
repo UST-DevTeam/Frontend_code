@@ -4,6 +4,8 @@ import {
     GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
+    GET_GRAPH_ORG_LEVEL,
+    GET_GRAPH_ALL_PROJECT_TYPE,
     GET_GRAPH_PO_Tracking_WorkDone,
     GET_GRAPH_ACCRUAL_REVENUE_TREND,
     GET_GRAPH_ActiveEmp_With_CC,
@@ -16,6 +18,8 @@ import {
     GET_GRAPH_WEEKLY_ACTIVE_EMP,
     GET_WEEKLY_HORIZONTAL_NAME,
     GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
+    GET_GRAPH_REVENUE_PLAN_VS_ACTUAL,
+    GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle,
     
  } from "../reducers/graph-reducer"
 
@@ -63,6 +67,26 @@ const GraphActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_MILESTONE_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphOrganizationLevel:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_organzation_level}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_ORG_LEVEL({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphAllProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_all_project_type}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_ALL_PROJECT_TYPE({dataAll,reset}))
         } catch (error) {
         }
     },
@@ -384,6 +408,72 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_VENDOR_ACTIVE_INACTIVE({dataAll,reset}))
         } catch (error) {
+        }
+    },
+
+    getGraphRevenuePlanVSActual_Trend:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_revenuePlan_vc_actual}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_REVENUE_PLAN_VS_ACTUAL({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphRevenuePlanVSActual_Trend: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_revenuePlan_vc_actual  })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_REVENUE_PLAN_VS_ACTUAL({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    getGraphRevenuePlanVSActual_Circle:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_revenuePlan_vc_actual_circle}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphRevenuePlanVSActual_Circle: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_revenuePlan_vc_actual_circle })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
 }

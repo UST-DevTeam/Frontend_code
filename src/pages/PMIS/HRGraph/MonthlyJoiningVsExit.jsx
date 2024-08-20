@@ -106,10 +106,16 @@ const MonthlyJoiningVsExit = () => {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
-  let departmentList = useSelector((state) => {
-    return state?.adminData?.getManageDepartment?.map((itm) => ({
-      label: itm?.department,
-      value: itm?.uniqueId,
+//   let departmentList = useSelector((state) => {
+//     return state?.adminData?.getManageDepartment?.map((itm) => ({
+//       label: itm?.department,
+//       value: itm?.uniqueId,
+//     }));
+//   });
+let ORGLevelList = useSelector((state) => {
+    return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+      label: itm?.orgLevel,
+      value: itm?.orgLevel,
     }));
   });
 
@@ -118,7 +124,8 @@ const MonthlyJoiningVsExit = () => {
   });
 
   useEffect(() => {
-    dispatch(AdminActions.getManageDepartment());
+    // dispatch(AdminActions.getManageDepartment());
+    // dispatch(GraphActions.getGraphOrganizationLevel());
     dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
     fetchGraphData();
   }, []);
@@ -135,20 +142,32 @@ const MonthlyJoiningVsExit = () => {
     );
   };
 
-  const handleFilter = () => {
-    const filterData = {
-      department: selectedDepartment.map((item) => item.value) || [],
-      year: selectedYears ? selectedYears.value : currentYear,
-      month: selectedMonths?.map((item) => item.value) || monthsNumber,
-    };
-    console.log('FilterData:', filterData);
+//   const handleFilter = () => {
+//     const filterData = {
+//         orgLevel: selectedDepartment.map((item) => item.value) || [],
+//         year: selectedYears ? selectedYears.value : currentYear,
+//         month: selectedMonths?.map((item) => item.value) || monthsNumber,
+//     };
 
-    dispatch(
-      GraphActions.postGraphMonthlyJoiningVsExit(
-        { department: filterData.department, year: filterData.year, month: filterData.month },
-        () => {}
-      )
-    );
+//     dispatch(
+//       GraphActions.postGraphMonthlyJoiningVsExit(
+//         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
+//         () => {}
+//       )
+//     );
+//   };
+  const handleFilter = () => {
+    const filterData = {};
+    if (selectedDepartment.length > 0) {
+      filterData.orgLevel = selectedDepartment?.map((Sweety) => Sweety.value);
+    }
+    if (selectedYears) {
+      filterData.year = selectedYears.value;
+    }
+    if (selectedMonths.length > 0) {
+      filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+    }
+    dispatch(GraphActions.postGraphMonthlyJoiningVsExit(filterData, () => {}));
   };
 
 
@@ -181,14 +200,14 @@ const MonthlyJoiningVsExit = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-      <div className="flex items-center space-x-4 mb-8">
-        <div className="flex space-x-1 justify-between w-full">
+      <div className="flex items-center space-x-4">
+        <div className="flex space-x-1 h-14 justify-between w-full">
           <NewMultiSelects
             label="Department"
-            option={departmentList}
+            option={ORGLevelList}
             value={selectedDepartment}
             cb={(data) => setSelectedDepartment(data)}
-            placeholder="Department"
+            placeholder="Org Level"
           />
           <NewSingleSelect
             label="Year"

@@ -156,8 +156,8 @@ const ActiveEmpwithCostCenter = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-      <div className="flex items-center space-x-4 mb-8">
-        <div className="flex space-x-1 justify-between w-full">
+      <div className="flex items-center space-x-4">
+        <div className="flex space-x-1 h-14 justify-between w-full">
           <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
@@ -179,7 +179,7 @@ const ActiveEmpwithCostCenter = () => {
           </div>
         </div>
       </div>
-      <BarGraph data={GraphData} horizontal={true} title="Airtel Active Employee" />
+      <BarGraph data={GraphData} horizontal={true} title="Airtel Active Employee" columnWidth='80%' />
     </div>
   );
 };

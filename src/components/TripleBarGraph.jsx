@@ -1,36 +1,52 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" }) => {
-    // const horizontal = data?.horizontal || false;
-    // let SeriesData1 = data?.map(item => item.joined) ||[];  
-    // let SeriesData2 = data?.map(item => item.exit) ||[];  
-    let category = data?.map(item => item.description) ||[];
-    // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
-    // let category = data?.map(item => item.description) ||[];
+const TripleBarGraph = ({ data,  seriesData = [], horizontal = false, title="", month=8, enabledOnSeries = [false, false, false] }) => {
+    const monthStr = `${month}`;
+    // const SeriesData1 = data?.map(item => item[`aop_target-${monthStr}`]) || [];  
+    // const SeriesData2 = data?.map(item => item[`M-${monthStr}_y`]) || [];  
+    // const SeriesData3 = data?.map(item => item[`totalInvoice-${monthStr}`]) || [];  
+    const category = data?.map(item => item.description) || [];
 
+    // const series = [
+    //     {
+    //         name: "AOP-Target",
+    //         data: SeriesData1,
+    //     },
+    //     {
+    //         name: "PV-Target",
+    //         data: SeriesData2,
+    //     },
+    //     {
+    //         name: "Invoice",
+    //         data: SeriesData3,
+    //     },
+    // ];
     const defaultSeries = [
         {
-            name: "Joined",
-            data: data?.map(item => item.joined) || [],
+            name: "AOP-Target",
+            data: data?.map(item => item[`aop_target-${monthStr}`]) || [],
         },
         {
-            name: "exit",
-            data: data?.map(item => item.exit) || [],
+            name: "PV-Target",
+            data: data?.map(item => item[`M-${monthStr}_y`]) || [],
+        },
+        {
+            name: "Invoice",
+            data: data?.map(item => item[`totalInvoice-${monthStr}`]) || [],
         },
     ];
 
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-    // const colors = ["#FFA0A0", "#B9D9EB"];
-    const colors = ["#5cccb7", "#FF9999"];
+    // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
+    const colors = ["#5cccb7", "#FF9999", "#f9a8d4"];
 
     const options = {
         chart: {
             height: 440,
             type: 'bar',
             background: '#3e454d',
-
         },
         title: {
             text: title, 
@@ -43,20 +59,19 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: [0,1],
+            enabledOnSeries: enabledOnSeries?.map((enabled, index) => enabled ? index : -1).filter(index => index !== -1),
             style: {
                 colors: ["white"],
                 fontSize: "10px",
                 fontWeight: 'bold',
-              },
+            },
         },
         xaxis: {
-            // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
             categories: category,
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '9px',
+                    fontSize: '10px',
                 }
             }
         },
@@ -73,15 +88,12 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
                 columnWidth: '40%',
                 horizontal: horizontal,
                 borderRadius: 2,
-                dataLabels: {
+                dataLabels: { 
                     style: {
                         colors: '#fff',
                         position: 'top',
                     },
                 },
-                // colors: {
-                //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],
-                // },
             },
         },
         stroke: {
@@ -92,28 +104,25 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
-        // fill: {
-        //     colors: ["#FFA0A0", "#B9D9EB"]   
-        //     // colors: ["#FFA0A0", "rgb(116,142,99)"]   
-        // },
-        fill:{
+        fill: {
             colors: colors,
         },
         legend: {
             show: true,
+            colors: colors,
             position: "bottom",
             labels: {
                 colors: '#ffffff'
             },
-            markers: {
+             markers: {
                 fillColors: colors,
             },
             fontSize: '10px', 
             fontWeight: 'bold',
         },
-
-
     };
+
     return (<ReactApexChart options={options} series={series} type="bar" height={440} />)
 }
-export default DoubleBarGraph;
+
+export default TripleBarGraph;

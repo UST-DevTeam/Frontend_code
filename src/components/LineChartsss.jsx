@@ -13,7 +13,7 @@ const LineChartsss = ({ data, horizontal = false, title="" }) => {
 
     const options = {
         chart: {
-            height: 360,
+            height: 400,
             type: 'line',
             background: '#3e454d',
             toolbar: {
@@ -73,16 +73,18 @@ const LineChartsss = ({ data, horizontal = false, title="" }) => {
         stroke: {
             curve: 'smooth',
             width: 3,
-            colors: '#f9a3a4'
+            // colors: '#f9a3a4'
+            colors: '#5cccb7'
         },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
+        
     };
 
     return (
-        <ReactApexChart options={options} series={series} type="line" height={360} />
+        <ReactApexChart options={options} series={series} type="line" height={400} />
     );
 }
 

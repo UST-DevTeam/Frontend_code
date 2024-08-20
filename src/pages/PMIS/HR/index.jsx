@@ -17,6 +17,7 @@ import MonthlyActiveTrend from "../HRGraph/MonthlyActiveTrend";
 import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
 import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
 import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
+import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
 
 const HRHomeView = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -109,7 +110,7 @@ const HRHomeView = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
         {/* <ProjectChart /> */}
         {/* <ClaimAndAdvanceChart /> */}
         <ActiveEmpwithCostCenter />
@@ -118,6 +119,7 @@ const HRHomeView = () => {
         <MonthlyJoiningVsExit />
         <WeeklyActiveEmpList />
         <MonthRevenueTrend />
+        <MonthlyRevenueCircle />
       </div>
     </>
   );
