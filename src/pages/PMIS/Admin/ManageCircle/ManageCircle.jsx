@@ -162,7 +162,6 @@ const ManageCircle = () => {
     }, [])
 
     const onTableViewSubmit = (data) => { 
-        console.log(data, "datadata")
         data["fileType"]="ManageCircle"
         data['collection'] = "circle"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {

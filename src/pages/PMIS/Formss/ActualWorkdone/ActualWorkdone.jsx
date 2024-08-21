@@ -25,6 +25,7 @@ import CommonForm from "../../../../components/CommonForm";
 
 import { UilSearch } from "@iconscout/react-unicons";
 import ActualWorkdoneForm from "./ActualWorkdoneForm";
+import FileUploader from "../../../../components/FIleUploader";
 
 const ActualWorkdone = () => {
   
@@ -42,6 +43,7 @@ const ActualWorkdone = () => {
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
+  const [fileOpen, setFileOpen] = useState(false)
   // let roleList = useSelector((state) => {
   //     let interdata = state?.operationManagement?.USERS_LIST
   //     return interdata
@@ -539,7 +541,6 @@ const ActualWorkdone = () => {
       }
     });
     cols = cols.flat(Infinity);
-    console.log("cols_cols_____", cols);
 
     setNewColumns(cols);
 
@@ -573,8 +574,16 @@ const ActualWorkdone = () => {
       console.error("[ERROR] :: " + error.message);
     }
   };
-  console.log("afadfasfasfadfadsfafaf", extraColumns);
-  console.log("afasfdasfasfasfafds_amar");
+
+  const onTableViewSubmit = (data) => { 
+    data["fileType"]="EVMDelivery"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false)
+    }))
+  }
+
+
+
   return (
     <>
       <div className="flex">
@@ -600,14 +609,10 @@ const ActualWorkdone = () => {
       <AdvancedTable
         headerButton={
           <>
-            {/* <Button
-              onClick={(e) => {
-                setmodalOpen((prev) => !prev);
-                setmodalHead("New Plan");
-                // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-              }}
-              name={"Add New"}
-            ></Button> */}
+          <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}>
+          </Button>
           </>
         }
         table={table}
@@ -638,7 +643,7 @@ const ActualWorkdone = () => {
         setIsOpen={setmodalOpen}
       />
 
-      {/* <CommonForm/> */}
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/EVMDelivery.xlsx","EVMDelivery.xlsx"]} />
     </>
   );
 };

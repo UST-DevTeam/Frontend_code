@@ -24,8 +24,10 @@ import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 
 import { UilSearch } from "@iconscout/react-unicons";
+import FileUploader from "../../../../components/FIleUploader";
 
 const EarnValueMgmtFinancial = () => {
+
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [refresh, setRefresh] = useState(false);
@@ -40,6 +42,7 @@ const EarnValueMgmtFinancial = () => {
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
+  const [fileOpen, setFileOpen] = useState(false)
 
 
   let circleList = useSelector((state) => {
@@ -119,11 +122,8 @@ const EarnValueMgmtFinancial = () => {
                         year = {year}
                         monthss = {extraColumns}
                       />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  console.log("ahshshhs", itm);
-                  //setmodalOpen(false)
                 }}
               ></EditButton>
             }
@@ -186,10 +186,6 @@ const EarnValueMgmtFinancial = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
   const {
     register,
     handleSubmit,
@@ -239,27 +235,27 @@ const EarnValueMgmtFinancial = () => {
 
   let table = {
     columns: [
-      {
-        name: "Circle",
-        value: "circle",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Project Type",
-        value: "projectType",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Circle",
+      //   value: "circle",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Project Type",
+      //   value: "projectType",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
 
       {
         name: "Cost Center",
         value: "costCenter",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Project ID",
-        value: "projectId",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Project ID",
+      //   value: "projectId",
+      //   style: "min-w-[200px] max-w-[200px] text-center",
+      // },
       ...newColumns,
     
       ...(shouldIncludeEditColumn
@@ -276,20 +272,20 @@ const EarnValueMgmtFinancial = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      {
-        label: "Cirlce",
-        type: "autoSuggestion",
-        name: "cirlce",
-        option: circleList,
-        props: {},
-      },
-      {
-        label: "Project Type",
-        type: "autoSuggestion",
-        name: "projectType",
-        option: projectTypeList,
-        props: {},
-      },
+      // {
+      //   label: "Cirlce",
+      //   type: "autoSuggestion",
+      //   name: "cirlce",
+      //   option: circleList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project Type",
+      //   type: "autoSuggestion",
+      //   name: "projectType",
+      //   option: projectTypeList,
+      //   props: {},
+      // },
       {
         label: "Cost Center",
         type: "autoSuggestion",
@@ -297,13 +293,13 @@ const EarnValueMgmtFinancial = () => {
         option: ccList,
         props: {},
       },
-      {
-        label: "Project ID",
-        type: "autoSuggestion",
-        name: "projectId",
-        option: projectList,
-        props: {},
-      },
+      // {
+      //   label: "Project ID",
+      //   type: "autoSuggestion",
+      //   name: "projectId",
+      //   option: projectList,
+      //   props: {},
+      // },
       // {
       //     label: "Project ID",
       //     type: "autoSuggestion",
@@ -320,17 +316,11 @@ const EarnValueMgmtFinancial = () => {
   // let listYear=[]
 
   function getWeekNumber(d) {
-    // Copy date so don't modify original
     d = new Date(+d);
     d.setHours(0, 0, 0, 0);
-    // Set to nearest Thursday: current date + 4 - current day number
-    // Make Sunday's day number 7
     d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-    // Get first day of year
     var yearStart = new Date(d.getFullYear(), 0, 1);
-    // Calculate full weeks to nearest Thursday
     var weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-    // Return array of year and week number
     return [d.getFullYear(), weekNo];
   }
 
@@ -353,13 +343,6 @@ const EarnValueMgmtFinancial = () => {
     const weekString = "W-" + wwq;
     listW.push({ id: weekString, name: weekString });
   }
-
-
-
-
-
-
-
 
 
   for (let ywq = 2021; ywq <= +endDate; ywq++) {
@@ -386,7 +369,6 @@ const EarnValueMgmtFinancial = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
     dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
@@ -470,12 +452,12 @@ const EarnValueMgmtFinancial = () => {
         cols.push([
           {
             name: `AOP Target (${monthMap[index]} ${year})`,
-            value: "aop_target-"+index+"",
+            value: "aop-"+index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `PV Target (${monthMap[index]} ${year})`,
-            value: "M-"+index+"_y",
+            value: "pv-"+index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
@@ -534,7 +516,12 @@ const EarnValueMgmtFinancial = () => {
       console.error("[ERROR] :: " + error.message);
     }
   };
-  console.log("afadfasfasfadfadsfafaf",extraColumns);
+  const onTableViewSubmit = (data) => { 
+    data["fileType"]="EVMFinancial"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false)
+    }))
+}
 
   return (
     <>
@@ -561,21 +548,13 @@ const EarnValueMgmtFinancial = () => {
       <AdvancedTable 
         headerButton={
           <>
-            {/* <Button
-              onClick={(e) => {
-                setmodalOpen((prev) => !prev);
-                setmodalHead("New Plan");
-                // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-              }}
-              name={"Add New"}
-            ></Button> */}
+            <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}></Button>
           </>
         }
         table={table}
-        // exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx"]}
         exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx","POST",{viewBy: extraColumns.join(","),
-          // year: `${currrentYear}`,
-          // yyear: `${currrentYear}`,
           year:year,
           yyear:year,
           selectional: "Monthly",
@@ -600,7 +579,7 @@ const EarnValueMgmtFinancial = () => {
         setIsOpen={setmodalOpen}
       />
 
-      {/* <CommonForm/> */}
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/EvmFinancial.xlsx","EvmFinancial.xlsx"]} />
     </>
   );
 };
