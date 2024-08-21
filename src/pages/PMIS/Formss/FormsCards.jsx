@@ -96,8 +96,8 @@ const FormsCards = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-36 gap-2">
 
-        <ProjectChart />
-        <ClaimAndAdvanceChart />  
+        {/* <ProjectChart />
+        <ClaimAndAdvanceChart />   */}
         {/* <MileStoneChart />
         <PoStatusChart />
         <PoTrackingWorkdoneChart />

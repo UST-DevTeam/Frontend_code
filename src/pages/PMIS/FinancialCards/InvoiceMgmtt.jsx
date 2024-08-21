@@ -96,8 +96,8 @@ const InvoiceMgmt = () => {
       </div>
       <div className="grid lg:grid-cols-2 m-2 mt-20 gap-2">
 
-      <ProjectChart />
-      <ClaimAndAdvanceChart />
+      {/* <ProjectChart />
+      <ClaimAndAdvanceChart /> */}
       {/* <MileStoneChart />
       <PoStatusChart />
       <PoTrackingWorkdoneChart />

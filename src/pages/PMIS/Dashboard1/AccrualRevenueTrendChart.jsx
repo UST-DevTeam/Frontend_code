@@ -179,9 +179,9 @@ const AccrualRevenueTrendChart = () => {
                   <NewMultiSelects label='Month' option={listMonth} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
                 
                   <div className="flex space-x-4">
-                  <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleFilter}  icon={<UilSearch size="18" className={"hello"} />}></Button>
+                  <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2" onClick={handleFilter}  icon={<UilSearch size="18" className={"hello"} />}></Button>
 
-                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#252525]" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
                 </div>
                         
               </div>

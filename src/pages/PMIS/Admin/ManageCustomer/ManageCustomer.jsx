@@ -363,8 +363,8 @@ const ManageCustomer = () => {
       {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-40 gap-2"> */}
       <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-32" : "mt-12"} gap-2`}>
 
-      <ProjectChart />
-      <ClaimAndAdvanceChart />
+      {/* <ProjectChart />
+      <ClaimAndAdvanceChart /> */}
       {/* <MileStoneChart />
       <PoStatusChart />
       <PoTrackingWorkdoneChart />

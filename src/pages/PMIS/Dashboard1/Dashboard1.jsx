@@ -12,6 +12,13 @@ import RadialBarChart from "../../../components/FormElements/RadialBarChart";
 import ColumnChart from "../../../components/Columnchart";
 import PoTrackingWorkdoneChart from "./PoTrackingWorkdoneChart";
 import AccrualRevenueTrendChart from "./AccrualRevenueTrendChart";
+import ActiveEmpwithCostCenter from "../HRGraph/ActiveEmpwithCostCenter";
+import NewJoiningMonthly from "../HRGraph/NewJoiningMonthly";
+import MonthlyActiveTrend from "../HRGraph/MonthlyActiveTrend";
+import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
+import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
+import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
+import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
 
 
 
@@ -25,8 +32,14 @@ const Dashboard1 = () => {
 
     return (
 
-        <div className="grid lg:grid-cols-2 m-2 gap-2">
-
+        <div className="grid lg:grid-cols-1 m-2 gap-2">
+             <ActiveEmpwithCostCenter />
+            <NewJoiningMonthly />
+            <MonthlyActiveTrend />
+            <MonthlyJoiningVsExit />
+            <WeeklyActiveEmpList />
+            <MonthRevenueTrend />
+            <MonthlyRevenueCircle />
             <ProjectChart customeruniqueId = {customeruniqueId} />
             <ClaimAndAdvanceChart customeruniqueId = {customeruniqueId} />
             <MileStoneChart customeruniqueId = {customeruniqueId} />
