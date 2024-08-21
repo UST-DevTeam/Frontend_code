@@ -27,6 +27,7 @@ const ExpAdvForClaim = () => {
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [fileOpen2, setFileOpen2] = useState(false);
+  const [fileOpen3, setFileOpen3] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
 
   let dispatch = useDispatch();
@@ -173,6 +174,11 @@ const ExpAdvForClaim = () => {
             style: "min-w-[80px] max-w-[200px] text-center",
         },
         {
+          name: "Submission Date",
+          value: "Submission Date",
+          style: "min-w-[120px] max-w-[450px] text-center",
+      },
+        {
             name: "Employee Name",
             value: "Employee Name",
             style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
@@ -197,6 +203,7 @@ const ExpAdvForClaim = () => {
             value: "Claim Date",
             style: "min-w-[150px] max-w-[450px] text-center",
         },
+        
         {
             name: "Claim Type",
             value: "Claim Type",
@@ -237,11 +244,7 @@ const ExpAdvForClaim = () => {
             value: "Amount",
             style: "min-w-[100px] max-w-[200px] text-center",
         },
-        {
-            name: "Submission Date",
-            value: "Submission Date",
-            style: "min-w-[120px] max-w-[450px] text-center",
-        },
+        
         {
             name: "Approval Amount",
             value: "Approved Amount",
@@ -382,6 +385,16 @@ const ExpAdvForClaim = () => {
       })
     );
   };
+  const onTableViewSubmit2 = (data) => {
+    data["fileType"] = "UploadCurrentBalance";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(ExpenseAdvanceActions.getHRAllExpenses());
+        setFileOpen3(false);
+        resetting("");
+      })
+    );
+  };
   return (
     <>
       <AdvancedTable
@@ -393,6 +406,13 @@ const ExpAdvForClaim = () => {
               classes="w-auto"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
+              }}
+            ></Button>
+            <Button
+              name={"Current Balance"}
+              classes="w-auto"
+              onClick={(e) => {
+                setFileOpen3((prev) => !prev);
               }}
             ></Button>
             <Button
@@ -430,7 +450,7 @@ const ExpAdvForClaim = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         getaccessExport = {"Export(Expense&Advance)"}
-        heading = {"Total Count:-"}
+        heading="Total Count:-"
       />
 
       <Modal
@@ -454,6 +474,13 @@ const ExpAdvForClaim = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen2}
         tempbtn={true} tempbtnlink = {["/template/ManageClaims.xlsx","ManageClaims.xlsx"]}
+      />
+      <FileUploader
+        isOpen={fileOpen3}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit2}
+        setIsOpen={setFileOpen3}
+        tempbtn={true} tempbtnlink = {["/template/ManageCurrentBalance.xlsx","ManageCurrentBalance.xlsx"]}
       />
     </>
   );
