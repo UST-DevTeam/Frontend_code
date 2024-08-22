@@ -409,7 +409,7 @@ const ExpAdvForClaim = () => {
               }}
             ></Button>
             <Button
-              name={"Current Balance"}
+              name={"Opening Balance"}
               classes="w-auto"
               onClick={(e) => {
                 setFileOpen3((prev) => !prev);
