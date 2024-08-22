@@ -14,7 +14,7 @@ const AreaChart = (data) => {
     options: {
       chart: {
         height: 350,
-        width: 400,
+        width: 600,
         type: "line",
       },
       plotOptions: {
@@ -29,6 +29,9 @@ const AreaChart = (data) => {
         labels: {
           style: {
             colors: "White",
+            fontSize: "13px",
+            fontWeight: "14px"
+
           },
         },
       },

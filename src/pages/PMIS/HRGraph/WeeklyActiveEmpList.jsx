@@ -138,13 +138,26 @@ const WeeklyActiveEmpList = () => {
     return state?.GraphData?.getGraphWeeklyActiveEmp || [];
   });
 
+  // Utility function to get the week number
+  const getWeekNumber = (date) => {
+    const startDate = new Date(date.getFullYear(), 0, 1);
+    const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
+    const weekNumber = Math.ceil((days + 1) / 7);
+    return weekNumber;
+  };
+
+  const today = new Date();
+  const currentWeekNumber = getWeekNumber(today);
+  const lastWeekNumber = currentWeekNumber - 1;
+
+
   const SeriesData = [
     {
-      name: "Current-Week",
+      name: `Week - #${currentWeekNumber}`,
       data: GraphData?.map(item => item.joined) || [],
     },
     {
-      name: "Last-Week",
+      name: `Week - #${lastWeekNumber}`,
       data: GraphData?.map(item => item.exit) || [],
     },
   ];
@@ -199,6 +212,9 @@ const WeeklyActiveEmpList = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
+        <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">Weekly Active Employee</h1>
+        </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
           <NewMultiSelects
@@ -229,7 +245,7 @@ const WeeklyActiveEmpList = () => {
           </div>
         </div>
       </div>
-      <DoubleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} title="Weekly Active Employee" />
+      <DoubleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false}/>
     </div>
   );
 };

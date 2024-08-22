@@ -181,6 +181,9 @@ export const Urls={
     graph_vendor_active_inactive:"/graph/partnerStatus",
     graph_revenuePlan_vc_actual:"/graph/revenuePlanVsActual",
     graph_revenuePlan_vc_actual_circle:"/graph/revenuePlanVsActualCircle",
+    graph_trend_expense_advance:"/graph/trendExpenseAdvance",
+    graph_expense_approval_status:"/graph/ExpenseApprovalStatus",
+    graph_advance_approval_status:"/graph/advanceApprovalStatus",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

@@ -1,32 +1,42 @@
+import { colors } from "@material-ui/core";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", dataLabelSuffix="",}) => {
+const PentaBarGraph = ({ data, horizontal = false, title="", columnWidth="30%" }) => {
     // const horizontal = data?.horizontal || false;
-    // let SeriesData1 = data?.map(item => item.joined) ||[];  
-    // let SeriesData2 = data?.map(item => item.exit) ||[];  
+    let SeriesData1 = data?.map(item => item.claimSubmitted) ||[];  
+    let SeriesData2 = data?.map(item => item.claimApproved) ||[];  
+    let SeriesData3 = data?.map(item => item['L2-Approved']) ||[];  
+    let SeriesData4 = data?.map(item => item['L1-Approved']) ||[];  
+    let SeriesData5 = data?.map(item => item['Rejected']) ||[];  
     let category = data?.map(item => item.description) ||[];
     // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
     // let category = data?.map(item => item.description) ||[];
 
-    const defaultSeries = [
+    const series = [
         {
-            name: "Joined",
-            data: data?.map(item => item.joined) || [],
+            name: "Active Employee",
+            data: SeriesData1,
         },
         {
-            name: "Exit",
-            data: data?.map(item => item.exit) || [],
+            name: "Active Employee",
+            data: SeriesData2,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData3,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData4,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData5,
         },
     ];
-
-    const series = seriesData.length > 0 ? seriesData : defaultSeries;
-
-    // const colors = ["#FFA0A0", "#B9D9EB"];
-    const colors = ["#5cccb7", "#FF9999"];
-    console.log('Series Data:', series);
-    console.log('Data Label Suffix:', dataLabelSuffix);
-
+    
+    
     const options = {
         chart: {
             height: 440,
@@ -36,17 +46,16 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
         },
         title: {
             text: title, 
-            align: 'center', 
+            align: 'center',
+            // offsetY: 15, 
             style: {
                 fontSize: '15px',
                 fontWeight: 'bold',
                 color: '#ffffff'
-            }
+            },
         },
         dataLabels: {
             enabled: true,
-            formatter: (val) => `${val} ${dataLabelSuffix}`,
-            enabledOnSeries: [0,1],
             style: {
                 colors: ["white"],
                 fontSize: "10px",
@@ -59,7 +68,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '9px',
+                    fontSize: '8px',
                 }
             }
         },
@@ -67,56 +76,45 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '9px',
+                    fontSize: '8.45px',
+                    fontWeight: 'bold',
                 }
             }
         },
         plotOptions: {
             bar: {
-                columnWidth: '70%',
+                columnWidth: columnWidth,
                 horizontal: horizontal,
                 borderRadius: 2,
                 dataLabels: {
                     style: {
                         colors: '#fff',
-                        position: 'top',
                     },
                 },
                 // colors: {
                 //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],
                 // },
+                distributed: true,
             },
         },
-        stroke: {
-            colors: ["transparent"],
-            width: 1
-          },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
-        // fill: {
-        //     colors: ["#FFA0A0", "#B9D9EB"]   
-        //     // colors: ["#FFA0A0", "rgb(116,142,99)"]   
-        // },
-        fill:{
-            colors: colors,
-        },
-        legend: {
+        // colors: ["#33b2df","#546E7A","#d4526e","#13d8aa","#A5978B","#2b908f","#f9a3a4","#90ee7e","#f48024","#69d2e7"],
+        // colors: ["#66c8e2","#7f8c8d","#f77a82","#2ee1c0","#c0b7a5","#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"], recent use
+        colors: ["#5cccb7"], 
+        legend:{
             show: true,
-            position: "bottom",
-            labels: {
-                colors: '#ffffff'
+            position:"bottom",
+            labels:{
+              colors:'#ffffff'
             },
-            markers: {
-                fillColors: colors,
-            },
-            fontSize: '10px', 
-            fontWeight: 'bold',
-        },
-
+            fontSize: '8px', 
+            fontWeight: 'bold',           
+          },
 
     };
     return (<ReactApexChart options={options} series={series} type="bar" height={440} />)
 }
-export default DoubleBarGraph;
+export default PentaBarGraph;

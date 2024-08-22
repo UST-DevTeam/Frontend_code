@@ -19,6 +19,9 @@ import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
 import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
 import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
+import TrendExpenseAdvance from "../ExpenseAdvanceGraph/TrendExpenseAdvance";
+import ExpenseApprovalStatus from "../ExpenseAdvanceGraph/ExpenseApprovalStatus";
+import AdvanceApprovalStatus from "../ExpenseAdvanceGraph/AdvanceApprovalStatus";
 
 
 
@@ -40,6 +43,9 @@ const Dashboard1 = () => {
             <WeeklyActiveEmpList />
             <MonthRevenueTrend />
             <MonthlyRevenueCircle />
+            <TrendExpenseAdvance />
+            <ExpenseApprovalStatus />
+            <AdvanceApprovalStatus />
             <ProjectChart customeruniqueId = {customeruniqueId} />
             <ClaimAndAdvanceChart customeruniqueId = {customeruniqueId} />
             <MileStoneChart customeruniqueId = {customeruniqueId} />

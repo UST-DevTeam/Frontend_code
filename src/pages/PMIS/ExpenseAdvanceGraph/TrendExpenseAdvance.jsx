@@ -1,75 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { useForm } from "react-hook-form";
-// import * as Unicons from "@iconscout/react-unicons";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import GraphActions from "../../../store/actions/graph-actions";
-// import FilterActions from "../../../store/actions/filter-actions";
-// import Button from "../../../components/Button";
-// import DountChart from "../../../components/DountChart";
-// import PieChart from "../../../components/PieChart";
-// import { UilImport,UilSearch } from '@iconscout/react-unicons' 
-// import PolarChart from "../../../components/FormElements/PolarChart";
-// import BarGraph from "../../../components/BarGrpah";
-// import LineChartsss from "../../../components/LineChartsss";
-
-
-// const MonthlyActiveTrend = () => {
-//     const [type, setType] = useState(false);
-//     let dispatch = useDispatch();
-//     const [ data ,setData] = useState([])
-
-//     let customeruniqueId = "65dee316811c797c9f26d836"
-
-//     let projectGroupList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectGroup.map((itm) => {
-//           return {
-//             label: itm.ProjectGroup,
-//             value: itm.ProjectGroup,
-//           };
-//         });
-//       });
-
-//       let projectTypeList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectType.map((itm) => {
-//           return {
-//             label: itm.projectType,
-//             value: itm.projectType,
-//           };
-//         });
-//       });
-
-//       let projectManagerList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectManager.map((itm) => {
-//           return {
-//             label: itm.projectManager,
-//             value: itm.projectManager,
-//           };
-//         });
-//       });
-
-//     let GraphData = useSelector((state) => {
-//         return state?.GraphData?.getGraphMonthlyActiveTrend || []
-//     });
-//     console.log(GraphData,"GraphDataGraphDataGraphData")
-
-//     useEffect(() => {
-//         dispatch(GraphActions.getGraphMonthlyActiveTrend());
-//     }, []);
-
-//     return (
-//         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-            
-//             <LineChartsss data={GraphData} title="Monthly Active Trend"/>
-//             {/* <BarGraph data={GraphData} horizontal={type} /> */}
-//             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
-//             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
-//         </div>
-//     );
-// };
-// export default MonthlyActiveTrend;
-
-
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewMultiSelects from "../../../components/NewMultiSelect";
@@ -80,9 +8,9 @@ import BarGraph from "../../../components/BarGrpah";
 import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../components/DoubleBarGraph";
-import LineChartsss from "../../../components/LineChartsss";
 
-const MonthlyActiveTrend = () => {
+const TrendExpenseAdvance = () => {
+
   const exportData = useRef([]);
   const months = [];
   const now = new Date();
@@ -104,15 +32,50 @@ const MonthlyActiveTrend = () => {
   const currentYear = new Date().getFullYear();
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState([]);
+  const [selectedOrglevel, setSelectedOrgLevel] = useState([]);
   const dispatch = useDispatch();
 
+  // let OrgLevelList = useSelector((state) => {
+  //   return state?.GraphData?.getWeeklyHorizontalName?.map((itm) => ({
+  //     label: itm?.description,
+  //     value: itm?.description,
+  //   }));
+  // });
+  // let departmentList = useSelector((state) => {
+  //   return state?.adminData?.getManageDepartment?.map((itm) => ({
+  //     label: itm?.department,
+  //     value: itm?.uniqueId,
+  //   }));
+  // });
+  // let departmentList = useSelector((state) => {
+  //   return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+  //     label: itm?.orgLevel,
+  //     value: itm?.orgLevel,
+  //   }));
+  // });
+
   let GraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphMonthlyActiveTrend || [];
+    return state?.GraphData?.getGraphTrendExpenseAdvance || [];
   });
+
+  const SeriesData = [
+    {
+      name: "Expense",
+      data: GraphData?.map(item => item.ExpApprovedAmount) || [],
+    },
+    {
+      name: "Advance",
+      data: GraphData?.map(item => item.AdvApprovedAmount) || [],
+    },
+  ];
 
 
   useEffect(() => {
-    dispatch(GraphActions.getGraphMonthlyActiveTrend());
+    dispatch(GraphActions.getWeeklyHorizontalName());
+    // dispatch(GraphActions.getGraphOrganizationLevel());
+    // dispatch(AdminActions.getManageDepartment());
+    dispatch(GraphActions.getGraphTrendExpenseAdvance());
     fetchGraphData();
   }, []);
 
@@ -120,27 +83,28 @@ const MonthlyActiveTrend = () => {
     // exportData.current = extraColumnsState.map(
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
-    dispatch(
-      GraphActions.getGraphMonthlyActiveTrend(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
-    );
-  };
+      dispatch(
+        GraphActions.getGraphTrendExpenseAdvance(
+          { month: exportData.current.join(",") },
+          () => {}
+        )
+      );
+    };;
 
   // const handleFilter = () => {
   //   const filterData = {
-  //     year: selectedYears ? selectedYears.value : currentYear,
-  //     month: selectedMonths?.map((item) => item.value) || monthsNumber,
+  //       description: selectedOrglevel?.map((item) => item.value) || [],
+  //       orgLevel: selectedDepartment?.map((item) => item.value) || [],
   //   };
 
   //   dispatch(
-  //     GraphActions.postGraphMonthlyActiveTrend(
-  //       { year: filterData.year, month: filterData.month },
+  //     GraphActions.postGraphWeeklyActiveEmp(
+  //       { description: filterData.description, orgLevel: filterData.orgLevel},
   //       () => {}
   //     )
   //   );
   // };
+
   const handleFilter = () => {
     const filterData = {};
     if (selectedYears) {
@@ -149,7 +113,7 @@ const MonthlyActiveTrend = () => {
     if (selectedMonths.length > 0) {
       filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
     }
-    dispatch(GraphActions.postGraphMonthlyActiveTrend(filterData, () => {}));
+    dispatch(GraphActions.postGraphTrendExpenseAdvance(filterData, () => {}));
   };
 
 
@@ -179,14 +143,29 @@ const MonthlyActiveTrend = () => {
     { value: 12, label: "Dec" },
   ];
 
+
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-      <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">Monthly Active Trend</h1>
+       <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">Trend Expense Advance</h1>
         </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
-          <NewSingleSelect
+          {/* <NewMultiSelects
+            label="Org Level"
+            option={OrgLevelList}
+            value={selectedOrglevel}
+            placeholder="Description"
+            cb={(data) => setSelectedOrgLevel(data)}
+          /> */}
+          {/* <NewMultiSelects
+            label="Department"
+            option={departmentList}
+            value={selectedDepartment}
+            placeholder="Org Level"
+            cb={(data) => setSelectedDepartment(data)}
+          /> */}
+           <NewSingleSelect
             label="Year"
             option={years}
             value={selectedYears}
@@ -200,7 +179,7 @@ const MonthlyActiveTrend = () => {
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-          <div className="flex space-x-1 ">
+          <div className="flex space-x-1">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -214,9 +193,9 @@ const MonthlyActiveTrend = () => {
           </div>
         </div>
       </div>
-      <LineChartsss data={GraphData}/>
+      <DoubleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix='L'  />
     </div>
   );
 };
 
-export default MonthlyActiveTrend;
+export default TrendExpenseAdvance;

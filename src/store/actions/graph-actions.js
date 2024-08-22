@@ -20,6 +20,9 @@ import {
     GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
     GET_GRAPH_REVENUE_PLAN_VS_ACTUAL,
     GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle,
+    GET_GRAPH_TREND_EXPENSE_ADVANCE,
+    GET_GRAPH_EXPENSE_APPROVAL_STATUS,
+    GET_GRAPH_ADVANCE_APPROVAL_STATUS,
     
  } from "../reducers/graph-reducer"
 
@@ -474,6 +477,59 @@ const GraphActions = {
 
         } catch (error) {
             return;
+        }
+    },
+
+    getGraphTrendExpenseAdvance:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_trend_expense_advance}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_TREND_EXPENSE_ADVANCE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphTrendExpenseAdvance: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_trend_expense_advance })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_TREND_EXPENSE_ADVANCE({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    getGraphExpenseApprovalStatus:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_expense_approval_status}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_EXPENSE_APPROVAL_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphAdvanceApprovalStatus:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_advance_approval_status}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_ADVANCE_APPROVAL_STATUS({dataAll,reset}))
+        } catch (error) {
         }
     },
 }

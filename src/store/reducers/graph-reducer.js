@@ -20,6 +20,9 @@ const initialState = {
     getGraphVendorActiveInactive:[],
     getGraphRevenuePlanVSActual_Trend:[],
     getGraphRevenuePlanVSActual_Circle:[],
+    getGraphTrendExpenseAdvance:[],
+    getGraphExpenseApprovalStatus:[],
+    getGraphAdvanceApprovalStatus:[],
 } 
  
 const GraphData = createSlice({
@@ -178,6 +181,30 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_TREND_EXPENSE_ADVANCE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphTrendExpenseAdvance = payload.dataAll
+            }else{
+                state.getGraphTrendExpenseAdvance  = [...state.getGraphTrendExpenseAdvance,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_EXPENSE_APPROVAL_STATUS:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphExpenseApprovalStatus = payload.dataAll
+            }else{
+                state.getGraphExpenseApprovalStatus  = [...state.getGraphExpenseApprovalStatus,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_ADVANCE_APPROVAL_STATUS:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphAdvanceApprovalStatus = payload.dataAll
+            }else{
+                state.getGraphAdvanceApprovalStatus  = [...state.getGraphAdvanceApprovalStatus,...payload.dataAll]
+            }
+        },
+
     }
 })
 
@@ -200,6 +227,9 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_VENDOR_ACTIVE_INACTIVE,
     GET_GRAPH_REVENUE_PLAN_VS_ACTUAL,
     GET_GRAPH_REVENUE_PLAN_VS_ACTUAL_Circle,
+    GET_GRAPH_TREND_EXPENSE_ADVANCE,
+    GET_GRAPH_EXPENSE_APPROVAL_STATUS,
+    GET_GRAPH_ADVANCE_APPROVAL_STATUS,
 } = GraphData.actions
     
 export default GraphData.reducer    
