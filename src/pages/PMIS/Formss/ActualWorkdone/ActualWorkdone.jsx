@@ -240,21 +240,21 @@ const ActualWorkdone = () => {
 
   let table = {
     columns: [
-      {
-        name: "Circle",
-        value: "circleName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Circle",
+      //   value: "circleName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Project Type",
         value: "projectType",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Cost Center",
-        value: "costCenter",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Cost Center",
+      //   value: "costCenter",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Project ID",
         value: "projectId",
@@ -380,7 +380,6 @@ const ActualWorkdone = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
     dispatch(FormssActions.getEVMDelivery(value, objectToQueryString(data)));
@@ -443,8 +442,6 @@ const ActualWorkdone = () => {
           setValue("selectional", e.target.value);
           setValGm(e.target.value);
           setSelectType(e.target.value);
-          console.log("afasfadfaamarafasdfasdfasdf", e.target.value);
-          console.log(selectType, "adsfasfasdfasdfadfsa");
           // handle resert multiselect
           // alert()
         },
@@ -527,13 +524,11 @@ const ActualWorkdone = () => {
 
           {
             name: `PV Target (${index} ${year})`,
-            // value: `${index}`,
             value:index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
             name: `Achievement (${index} ${year})`,
-            // value: "totalCountMS2",
             value:"MS2-" + index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
@@ -623,16 +618,16 @@ const ActualWorkdone = () => {
           yyear:year,
           selectional: "Monthly",
           typeSelectional: "Monthly",}]}
-        filterAfter={onSubmit}
-        tableName={"AcctualWorkdoneform"}
-        handleSubmit={handleSubmit}
-        data={dbConfigList}
-        errors={errors}
-        register={register}
-        setValue={setValue}
-        getValues={getValues}
-        totalCount={dbConfigTotalCount}
-        getaccessExport = {"Export(EVM-Delivery)"}
+          filterAfter={onSubmit}
+          tableName={"AcctualWorkdoneform"}
+          handleSubmit={handleSubmit}
+          data={dbConfigList}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+          totalCount={dbConfigTotalCount}
+          getaccessExport = {"Export(EVM-Delivery)"}
       />
 
       <Modal

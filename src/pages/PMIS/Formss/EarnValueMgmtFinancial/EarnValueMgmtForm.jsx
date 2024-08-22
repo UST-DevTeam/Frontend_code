@@ -144,9 +144,9 @@ const EarnValueMgmtForm = ({
   const onTableViewSubmit = (data) => {
 
 
-    for(let i = 0; i<monthss.length; i++){
-      data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
-    }
+    // for(let i = 0; i<monthss.length; i++){
+    //   data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
+    // }
 
     data['projectgroupuid'] = formValue?.projectgroupuid
     data['roleName'] = roleName;
@@ -160,8 +160,16 @@ const EarnValueMgmtForm = ({
           data,
           () => {
             setIsOpen(false);
-            // dispatch(FormssActions.getEarnValueMgmtFinancial(data['projectId']));
-            dispatch(FormssActions.getEarnValueMgmtFinancial());
+            dispatch(
+              FormssActions.postEarnValueMgmtFinancial(
+                {
+                  viewBy: monthss.join(","),
+                  year: `${year}`,
+                  yyear: `${year}`
+                },
+                () => {}
+              )
+            );
           },
         )
       );
@@ -175,7 +183,6 @@ const EarnValueMgmtForm = ({
     }
   };
   useEffect(() => {
-    // dispatch(FormssActions.getEarnValueMgmtFinancial());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

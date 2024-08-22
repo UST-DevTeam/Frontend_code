@@ -177,9 +177,10 @@ const EarnValueMgmtFinancial = () => {
       return updateditm;
     });
   });
+
   
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.postEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -198,6 +199,7 @@ const EarnValueMgmtFinancial = () => {
 
 
   const months = [
+
     "Jan",
     "Feb",
     "Mar",
@@ -379,9 +381,7 @@ const EarnValueMgmtFinancial = () => {
         {
           viewBy: extraColumns.join(","),
           year: `${currrentYear}`,
-          yyear: `${currrentYear}`,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",
+          yyear: `${currrentYear}`
         },
         () => {}
       )
@@ -462,7 +462,7 @@ const EarnValueMgmtFinancial = () => {
           },
           {
             name: `Achievement (${monthMap[index]} ${year})`,
-            value: "M-totalInvoice-" + index,
+            value: "amount-" + index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -569,6 +569,7 @@ const EarnValueMgmtFinancial = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         getaccessExport={"Export(EVM-Financial)"}
+        heading = {'Total Count :- '}
       />
 
       <Modal

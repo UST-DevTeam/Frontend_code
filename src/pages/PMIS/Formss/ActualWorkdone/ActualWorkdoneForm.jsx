@@ -23,32 +23,17 @@ const ActualWorkdoneForm = ({
   weeks
 
 }) => {
-  // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
-  // console.log(isOpen,"isOpen")
-  // console.log(setIsOpen,"setIsOpen")
-  // console.log(resetting,"resetting")
-  // console.log(formValue,"formValue")
   let roleName = useSelector((state)=>{
-    console.log("afafasdfasdfasdfasfasdadfs",state);
     let role = state?.auth?.user?.roleName
     return role
   })
-  console.log("adsfasfasdfasdfadfs",roleName);
 
 
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
 
-  // const projectList = useSelector((state) => {
-  //   return state?.adminData?.getProject.map((itm) => {
-  //     return {
-  //       label: itm?.projectId,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -84,36 +69,14 @@ const ActualWorkdoneForm = ({
     "Nov",
     "Dec",
   ];
-console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
-    console.log("afdasfasfasfasdfafasdfasafds",...monthss);
     
     
     let Form = [
-      // {
-      //   label: `Plan (${previousMonthData.month} ${previousMonthData.year})`,
-      //   value: "",
-      //   name: 'plan1',
-      //   type: "number",
-      //   filter: true,
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-
-
-
-
-
-
       ...monthss.map((itm )=>(
         {
           label: `PV Target (${monthsss[itm]} ${year})`,
           value: "",
-          // name: `plan-${itm}`,
-          name: `M-${itm}_y`,
+          name: `M-${itm}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -122,67 +85,13 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         })),
-
-
-        // ...weeks.map((itm)=>(
-        //   {
-        //     label: `PV Target (${itm} ${year})`,
-        //     value: "",
-        //     // name: `plan-${itm}`,
-        //     name: {itm},
-        //     type: "number",
-        //     props: {
-        //       valueAsNumber:true,
-        //       min: 0,
-        //       onChange: (e) => {},
-        //     },
-        //     classes: "col-span-1",
-        //   })),
-
-
-
-
-
-
-    //   ...monthss.map((itm)=>(
-    //     {
-    //       label: `AOP Target (${monthsss[itm]} ${year})`,
-    //       value: "",
-    //       name: `aop_target-${itm}`,
-    //       type: "number",
-    //       props: {
-    //         valueAsNumber:true,
-    //         min: 0,
-    //         onChange: (e) => {},
-    //       },
-    //       classes: "col-span-1",
-    //     })),
-      // {
-      //   label:  `Plan (${nextMonthData.month} ${nextMonthData.year})`,
-      //   value: "",
-      //   name: 'plan3',
-      //   type: "number",
-      //   props: {
-      //     valueAsNumber:true,
-      //     min: 0,
-      //     onChange: (e) => {},
-      //   },
-      //   classes: "col-span-1",
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
     ];
+
     let Form2 = [
       
         {
           label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-        //   name: `${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -194,7 +103,6 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
         {
           label: `PV Target (${currentMonthData.month} ${currentMonthData.year})`,
           value: "",
-        //   name: `${monthss[0]}`,
           type: "number",
           props: {
             valueAsNumber:true,
@@ -203,8 +111,6 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           },
           classes: "col-span-1",
         },
-      
-      
     ];
 
 
@@ -219,11 +125,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
   };
-  console.log("afasafsasfasasfasfiajsfon",formValue);
   const onTableViewSubmit = (data) => {
 
 
@@ -234,27 +136,16 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
 
 
 
-    // data['totalInvoice'] = formValue?.totalInvoice;
-
-
-
-
     data['projectType'] = formValue?.projectType;
-    data['costCenter'] = formValue?.costCenter;
-    data['circleName'] = formValue?.circleName;
     data['roleName'] = roleName;
     data['project_uId'] = formValue?.project_uId;
     data['year'] = year;
     data['projectId'] = formValue?.projectId;
     data['totalCountMS2'] = formValue?.totalCountMS2;
-    console.log(data, "datadagsdfsfsdfsta");
-    // dasdsadsadasdas
-    // if (formValue.uniqueId) {
       dispatch(
         FormssActions.putEVMDelivery(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig_amarafafasdfasfadsfadsf");
             setIsOpen(false);
             dispatch(FormssActions.getEVMDelivery( formValue?.projectId));
           },
@@ -271,10 +162,7 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
     //   );
     // }
   };
-  console.log(Form, "Form 11");
   useEffect(() => {
-    console.log("formValue in useEffect:", formValue);
-    // dispatch(FormssActions.getEarnValueMgmtFinancial());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -289,15 +177,12 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
-          // console.log("formValuekey",key,key)
           setValue(key.name, formValue[key.name]);
         }
       });
     }
   }, [formValue, resetting]);
 
-
-  console.log("afafasdfasdfjasdf0adfsa",monthss);
   return (
     <>
       <Modal
@@ -319,10 +204,6 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
       />
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-       {/* {
-        monthss.map((itm)=>
-        )
-      } */}
         
       <>
         <CommonForm
@@ -334,11 +215,6 @@ console.log("afasdfasdfasdfasdfadsadf",monthsss[1]);
           getValues={getValues}
         />
       </>
-        {/* <button></button> */}
-
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}
