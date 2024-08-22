@@ -29,6 +29,9 @@ const AreaChart = (data) => {
         labels: {
           style: {
             colors: "White",
+            fontSize: "13px",
+            fontWeight: "14px"
+
           },
         },
       },

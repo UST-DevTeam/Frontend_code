@@ -181,6 +181,9 @@ const MonthlyActiveTrend = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
+      <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">Monthly Active Trend</h1>
+        </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
           <NewSingleSelect
@@ -211,7 +214,7 @@ const MonthlyActiveTrend = () => {
           </div>
         </div>
       </div>
-      <LineChartsss data={GraphData} title="Monthly Active Trend"/>
+      <LineChartsss data={GraphData}/>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { colors } from "@material-ui/core";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledOnSeries = [false, false, false, false, false], columnWidth="30%" }) => {
+const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="30%", dataLabelSuffix="", }) => {
     // const horizontal = data?.horizontal || false;
     // let SeriesData = data?.map(item => item.count) ||[];  
     let category = data?.map(item => item.description) ||[];
@@ -19,7 +19,7 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledO
     const series = seriesData?.length ? seriesData : defaultSeries;
 
     console.log(series , 'dfdfadsfagsfdgss')
-    
+
     const options = {
         chart: {
             height: 440,
@@ -27,19 +27,20 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledO
             background: '#3e454d',
 
         },
-        title: {
-            text: title, 
-            align: 'center',
-            // offsetY: 15, 
-            style: {
-                fontSize: '15px',
-                fontWeight: 'bold',
-                color: '#ffffff'
-            },
-        },
+        // title: {
+        //     text: title, 
+        //     align: 'center',
+        //     // offsetY: 15, 
+        //     style: {
+        //         fontSize: '15px',
+        //         fontWeight: 'bold',
+        //         color: '#ffffff'
+        //     },
+        // },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: enabledOnSeries?.map((enabled, index) => enabled ? index : -1).filter(index => index !== -1),
+            formatter: (val) => `${val} ${dataLabelSuffix}`,
+            enabledOnSeries: [0],
             style: {
                 colors: ["white"],
                 fontSize: "10px",
@@ -89,7 +90,7 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledO
         // colors: ["#66c8e2","#7f8c8d","#f77a82","#2ee1c0","#c0b7a5","#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"], recent use
         colors: ["#5cccb7"], 
         legend:{
-            show: true,
+            show: false,
             position:"bottom",
             labels:{
               colors:'#ffffff'

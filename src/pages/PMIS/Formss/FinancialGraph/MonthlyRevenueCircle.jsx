@@ -144,7 +144,7 @@ let CircleList = useSelector((state) => {
       data: GraphData?.map(item => item[`M-${monthStr}_y`]) || [],
     },
     {
-      name: "Invoice",
+      name: "Actual Revenue",
       data: GraphData?.map(item => item[`totalInvoice-${monthStr}`]) || [],
     },
   ];
@@ -233,6 +233,9 @@ const handleFilter = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
+         <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">Circle - Revenue Plan VS Actual</h1>
+        </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
         <NewMultiSelects
@@ -277,7 +280,7 @@ const handleFilter = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} enabledOnSeries={[true, true, false]} horizontal={false} title="Revenue Plan VS Actual-Circle"/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} enabledOnSeries={[true, true, false]} horizontal={false}/>
     </div>
   );
 };

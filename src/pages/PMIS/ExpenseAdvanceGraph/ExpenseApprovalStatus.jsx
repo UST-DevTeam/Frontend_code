@@ -39,35 +39,12 @@ const ExpenseApprovalStatus = () => {
     return state?.GraphData?.getGraphExpenseApprovalStatus || [];
   });
 
-  console.log(GraphData, "GraphData......")
-
   const SeriesData = [
     {
-      name: "L1-Approved",
-      data: [GraphData?.data?.[0]?.count?.['L1-Approved']] || [],
-    },
-    {
-      name: "L2-Approved",
-      data: [GraphData?.data?.[0]?.['L2-Approved']] || [],
-    },
-    {
-      name: "Rejected",
-      data: [GraphData?.data?.[0]?.['Rejected']] || [],
-    },
-    {
-      name: "Claim Approved",
-      data: [GraphData?.data?.[0]?.['claimApproved']] || [],
-    },
-    {
-      name: "Claim Submitted",
-      data: [GraphData?.data?.[0]?.['claimSubmitted']] || [],
+        name: "Value",
+      data: GraphData?.map(item => item.count) || [],
     },
   ];
-
-  
-  
-  console.log(SeriesData, "SeriesData");
-  
 
   useEffect(() => {
     dispatch(GraphActions.getWeeklyHorizontalName());
@@ -119,6 +96,9 @@ const ExpenseApprovalStatus = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
+         <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">Expense Approval Status</h1>
+        </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
           <NewMultiSelects
@@ -149,7 +129,7 @@ const ExpenseApprovalStatus = () => {
           </div>
         </div>
       </div>
-      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} title="Expense Approval Status" />
+      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" }) => {
+const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", dataLabelSuffix="",}) => {
     // const horizontal = data?.horizontal || false;
     // let SeriesData1 = data?.map(item => item.joined) ||[];  
     // let SeriesData2 = data?.map(item => item.exit) ||[];  
@@ -15,7 +15,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
             data: data?.map(item => item.joined) || [],
         },
         {
-            name: "exit",
+            name: "Exit",
             data: data?.map(item => item.exit) || [],
         },
     ];
@@ -24,6 +24,8 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
 
     // const colors = ["#FFA0A0", "#B9D9EB"];
     const colors = ["#5cccb7", "#FF9999"];
+    console.log('Series Data:', series);
+    console.log('Data Label Suffix:', dataLabelSuffix);
 
     const options = {
         chart: {
@@ -43,6 +45,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
         },
         dataLabels: {
             enabled: true,
+            formatter: (val) => `${val} ${dataLabelSuffix}`,
             enabledOnSeries: [0,1],
             style: {
                 colors: ["white"],
@@ -70,7 +73,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="" })
         },
         plotOptions: {
             bar: {
-                columnWidth: '40%',
+                columnWidth: '70%',
                 horizontal: horizontal,
                 borderRadius: 2,
                 dataLabels: {

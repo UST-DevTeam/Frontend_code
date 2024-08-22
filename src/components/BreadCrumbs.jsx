@@ -7,23 +7,14 @@ import { isValidObjectId } from "../utils/commonFunnction";
 
 
 function changeCase(str) {
-  // Split the string into words
   const words = str.split(/(?=[A-Z]+)|(?=[a-z])(?=[A-Z])/);
-
-  // Capitalize the first letter of each word
   const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
-
   let strdata=capitalizedWords.join('')
-  // Join words with spaces
   return strdata.replace("%20"," ");
 }
 
 const BreadCrumbs = () => {
-
-
   const consoleUrl = window.location.pathname;
-
-
   let data = consoleUrl.split("/")
 
   
@@ -182,6 +173,10 @@ const BreadCrumbs = () => {
     }
   }
 
+  const addSpacesToWords = (text) => {
+    return text.replace(/([a-z])([A-Z])/g, '$1 $2');
+  };
+
   return (
     <div>
       <nav className="bg-[#3e454d] pl-3 p-[12px] text-[16px] font-poppins font-extrabold text-md">
@@ -206,7 +201,7 @@ const BreadCrumbs = () => {
                   </>
                 ) : (
                   <>
-                        {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item)?"":changeCase(item)}
+                        {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item)?" ": addSpacesToWords(changeCase(item))}
                   </>
                 )}
               </>

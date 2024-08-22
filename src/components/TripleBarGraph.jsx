@@ -32,7 +32,7 @@ const TripleBarGraph = ({ data,  seriesData = [], horizontal = false, title="", 
             data: data?.map(item => item[`M-${monthStr}_y`]) || [],
         },
         {
-            name: "Invoice",
+            name: "Actual Revenue",
             data: data?.map(item => item[`totalInvoice-${monthStr}`]) || [],
         },
     ];

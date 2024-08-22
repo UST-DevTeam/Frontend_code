@@ -200,6 +200,9 @@ let ORGLevelList = useSelector((state) => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
+         <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">Monthly Joining VS Exit</h1>
+        </div>        
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
           <NewMultiSelects
@@ -237,7 +240,7 @@ let ORGLevelList = useSelector((state) => {
           </div>
         </div>
       </div>
-      <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
+      <DoubleBarGraph data={GraphData} horizontal={false}/>
     </div>
   );
 };
