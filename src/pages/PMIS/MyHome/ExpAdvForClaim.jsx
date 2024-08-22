@@ -169,9 +169,9 @@ const ExpAdvForClaim = () => {
   let table = {
     columns: [
         {
-            name: "Month",
+            name: "Claim Month",
             value: "Month",
-            style: "min-w-[80px] max-w-[200px] text-center",
+            style: "min-w-[120px] max-w-[200px] text-center",
         },
         {
           name: "Submission Date",
@@ -286,21 +286,21 @@ const ExpAdvForClaim = () => {
             style: "min-w-[150px] max-w-[450px] text-center",
         },
         
-      {
-        name: "Check-IN Date",
-        value: "Check-IN Date",
-        style: "min-w-[150px] max-w-[450px] text-center",
-    },
-    {
-      name: "Check-OUT Date",
-      value: "Check-OUT Date",
-      style: "min-w-[150px] max-w-[450px] text-center",
-  },
-    {
-      name: "Total Days",
-      value: "Total Days",
-      style: "min-w-[150px] max-w-[450px] text-center",
-  },
+            {
+              name: "Check-IN Date",
+              value: "Check-IN Date",
+              style: "min-w-[150px] max-w-[450px] text-center",
+          },
+          {
+            name: "Check-OUT Date",
+            value: "Check-OUT Date",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+          {
+            name: "Total Days",
+            value: "Total Days",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
         {
             name: "Last Action Date",
             value: "Last Action Date",
@@ -317,7 +317,7 @@ const ExpAdvForClaim = () => {
             style: "min-w-[100px] max-w-[200px] text-center",
         },
         {
-            name: "Finance Approve Status",
+            name: "L3 Status",
             value: "L3 Status",
             style: "min-w-[150px] max-w-[450px] text-center",
         },

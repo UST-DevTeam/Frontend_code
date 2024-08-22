@@ -47,6 +47,7 @@ const ExpAdvForAdvance = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
+        
 
         Month: monthMap[itm.Month] || itm.Month,
       
@@ -152,9 +153,9 @@ const ExpAdvForAdvance = () => {
   let table = {
     columns: [
         {
-            name: "Month",
+            name: "Advance Month",
             value: "Month",
-            style: "min-w-[80px] max-w-[200px] text-center",
+            style: "min-w-[120px] max-w-[200px] text-center",
         },
         {
             name: "Employee Name",
@@ -336,6 +337,7 @@ const ExpAdvForAdvance = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         getaccessExport = {"Export(Expense&Advance)"}
+        heading="Total Count:-"
       />
 
       <Modal
