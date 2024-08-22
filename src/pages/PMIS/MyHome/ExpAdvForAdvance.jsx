@@ -47,6 +47,7 @@ const ExpAdvForAdvance = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
+        
 
         Month: monthMap[itm.Month] || itm.Month,
       
