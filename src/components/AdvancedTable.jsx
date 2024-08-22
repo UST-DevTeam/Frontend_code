@@ -618,7 +618,7 @@ const AdvancedTable = ({
             </>
           )}
         </div>
-        <div className="m-2">
+        <div className="m-2 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d] p-2">
           <div className="flex justify-between">
               <div>
                 <label className="mr-2 text-white">Rows Per Page :</label>

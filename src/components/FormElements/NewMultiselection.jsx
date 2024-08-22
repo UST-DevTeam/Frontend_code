@@ -268,21 +268,17 @@ const NewMultiselection = ({
   const handleSelect = (e) => {
     let finalselection = e.map((itm) => itm.value);
     setSelectedValues(e);
-    console.log("asasfasfasfafasfadsaf__onSelect",e);
     setValue(itm.label, finalselection.join());
   };
 
   const handleRemove = (e) => {
     let finalselection = e.map((itm) => itm.value);
     setSelectedValues(e);
-    console.log("afafafafasdfadsasfasdf__onRemove",e);
     setValue(itm.label, finalselection.join());
   };
-  console.log("asdfasadfsasafasfadsfadf__selectedValues",selectedValues);
   return (
     <>
       <MultiSelect
-        // isOpen={true}
         keepSearchTerm={true}
         groupBy="category"
         options={itm.option}

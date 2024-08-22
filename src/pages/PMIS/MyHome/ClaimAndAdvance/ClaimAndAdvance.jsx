@@ -8,7 +8,7 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
@@ -18,8 +18,10 @@ import { useNavigate, useNavigation, useParams } from "react-router-dom";
 import ClaimAdvanceForm from "./ClaimAdvanceForm";
 import DownloadButton from "../../../../components/DownloadButton";
 import jsPDF from "jspdf";
+import ConditionalButton from "../../../../components/ConditionalButton";
 
 const ClaimAndAdvance = () => {
+
   const expenseRef = useRef("");
   const [modalOpen, setmodalOpen] = useState(false);
   const [claimByNumber, setClaimByNumber] = useState([]);
@@ -334,20 +336,28 @@ const ClaimAndAdvance = () => {
                 }}
                 name={"Fill Advance"}
               ></Button>
-              <Button
-                classes="ml-1 mr-1"
+              <ConditionalButton
+                showType={getAccessType("Fill DA")}
+                classes="ml-1"
                 onClick={() => {
                   navigate(`${"/home/claimAndAdvance/DAFormFill"}`);
                 }}
                 name={"Fill DA"}
-              ></Button>
+              ></ConditionalButton>
+
+              <ConditionalButton
+                showType={getAccessType("Export(CA & ADV)")}
+                classes="ml-1"
+                onClick={() => {
+                  dispatch(CommonActions.commondownload("/export/ExpensesAndAdvance","Export_ExpensesAndAdvance.xlsx"))
+                }}
+                name={"Export"}
+              ></ConditionalButton>
+
+
             </>
           }
           table={table}
-          exportButton={[
-            "/export/ExpensesAndAdvance",
-            "Export_ExpensesAndAdvance.xlsx",
-          ]}
           filterAfter={onSubmit}
           tableName={"UserListTable"}
           handleSubmit={handleSubmit}

@@ -237,27 +237,11 @@ const EarnValueMgmtFinancial = () => {
 
   let table = {
     columns: [
-      // {
-      //   name: "Circle",
-      //   value: "circle",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Project Type",
-      //   value: "projectType",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-
       {
         name: "Cost Center",
         value: "costCenter",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Project ID",
-      //   value: "projectId",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
       ...newColumns,
     
       ...(shouldIncludeEditColumn
@@ -288,13 +272,13 @@ const EarnValueMgmtFinancial = () => {
       //   option: projectTypeList,
       //   props: {},
       // },
-      {
-        label: "Cost Center",
-        type: "autoSuggestion",
-        name: "costCenter",
-        option: ccList,
-        props: {},
-      },
+      // {
+      //   label: "Cost Center",
+      //   type: "autoSuggestion",
+      //   name: "costCenter",
+      //   option: ccList,
+      //   props: {},
+      // },
       // {
       //   label: "Project ID",
       //   type: "autoSuggestion",
@@ -393,6 +377,7 @@ const EarnValueMgmtFinancial = () => {
       label: "Year",
       name: "year",
       value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -404,7 +389,6 @@ const EarnValueMgmtFinancial = () => {
         onChange: (e) => {
           setValue("yyear", e.target.value);
           setyear(e.target.value);
-          // alert()
         },
       },
       required: true,
@@ -415,18 +399,18 @@ const EarnValueMgmtFinancial = () => {
       label: ValGm, 
       name: "viewBy",
       value: "Select",
-      type: "muitiSelect",
+      type: "newmuitiSelect2",
       option: listDict[ValGm].map((dasd) => {
         return {
-          id: dasd?.id,
-          name: dasd?.name,
+          value: dasd?.id,
+          label: dasd?.name,
         };
       }),
+      required: true,
       props: {
         selectType:selectType
       },
       hasSelectAll:true,
-      required: true,
       classes: "col-span-1 h-10",
     },
   ];
@@ -493,7 +477,7 @@ const EarnValueMgmtFinancial = () => {
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
-
+    res['viewBy'] = res['Monthly']
     try {
       if (res?.typeSelectional === "Monthly") {
         setExtraColumns(
@@ -516,18 +500,19 @@ const EarnValueMgmtFinancial = () => {
       console.error("[ERROR] :: " + error.message);
     }
   };
+
   const onTableViewSubmit = (data) => { 
     data["fileType"]="EVMFinancial"
     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false)
     }))
-}
+  }
 
   return (
     <>
       <div className="flex">
         <CommonForm
-          classes={"w-5/6 grid-cols-3 gap-1 h-[111px]"}
+          classes={"w-5/6 grid-cols-3 gap-1 h-[111px] p-2"}
           Form={formD}
           errors={errors}
           register={register}
@@ -538,7 +523,7 @@ const EarnValueMgmtFinancial = () => {
         <div className="pt-12 p-6  flex justify-center">
           <Button
             classes=""
-            name="Search "
+            name="Search"
             icon={<UilSearch className="w-4 h-4 mx-2" />}
             onClick={handleSubmit(handleAddActivity)}
           />
