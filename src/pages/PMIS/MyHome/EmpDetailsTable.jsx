@@ -28,6 +28,7 @@ const EmpDetailsTable = () => {
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [fileOpen2, setFileOpen2] = useState(false);
+  const [fileOpen3, setFileOpen3] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
   const [strVal, setstrVal] = useState(false);
 
@@ -319,6 +320,17 @@ const EmpDetailsTable = () => {
       })
     );
   };
+  const onTableViewSubmit3 = (data) => {
+    data["fileType"] = "UpgradeEmployeeWithEmpCode";
+    
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(HrActions.getManageEmpDetails());
+        setFileOpen3(false);
+        resetting("");
+      })
+    );
+  };
   return (
     <>
       <AdvancedTable
@@ -349,6 +361,14 @@ const EmpDetailsTable = () => {
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
+              }}
+            ></ConditionalButton>
+            <ConditionalButton
+            showType={getAccessType("Upgrade(ManageEmployee)")}
+              name={"Upgrade Email"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                setFileOpen3((prev) => !prev);
               }}
             ></ConditionalButton>
             
@@ -395,6 +415,14 @@ const EmpDetailsTable = () => {
         onTableViewSubmit={onTableViewSubmit2}
         setIsOpen={setFileOpen2}
         tempbtn={true} tempbtnlink = {["/template/ManageEmployee.xlsx","ManageEmployee.xlsx"]}
+        head = {"Upload Upgrade File"}
+      />
+      <FileUploader
+        isOpen={fileOpen3}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit3}
+        setIsOpen={setFileOpen3}
+        tempbtn={true} tempbtnlink = {["/template/UpgradeEmployee2.xlsx","UpgradeEmployee2.xlsx"]}
         head = {"Upload Upgrade File"}
       />
     </>
