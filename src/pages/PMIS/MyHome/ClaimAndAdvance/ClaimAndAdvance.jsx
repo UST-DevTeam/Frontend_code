@@ -193,47 +193,55 @@ const ClaimAndAdvance = () => {
 
   let table = {
     columns: [
+      // {
+      //   name: "Month-Year",
+      //   value: "addedMonth",
+      //   style:
+      //     "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
+      // },
       {
-        name: "Month-Year",
-        value: "addedMonth",
+        name: "Cost Center",
+        value: "costcenter",
+        style: "min-w-[130px] max-w-[450px] text-center",
+      },
+      
+      {
+        name: "Expense/Advance ID",
+        value: "name",
         style:
-          "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
+          "min-w-[250px] max-w-[450px] text-center left-[220px] bg-[#3e454d]",
       },
       {
         name: "Submission Date",
         value: "AddedAt",
         style:
-          "min-w-[170px] max-w-[450px] text-center sticky left-[110px] bg-[#3e454d]",
-      },
-      {
-        name: "Expense/Advance No",
-        value: "name",
-        style:
-          "min-w-[250px] max-w-[450px] text-center sticky left-[220px] bg-[#3e454d]",
-      },
-      {
-        name: "Cost Center",
-        value: "costcenter",
-        style: "min-w-[130px] max-w-[450px] text-center ",
+          "min-w-[170px] max-w-[450px] text-center left-[110px] bg-[#3e454d]",
       },
       {
         name: "Claim Date",
         value: "submissionDate",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
+      
+      
       {
         name: "Debit(Expense)",
         value: "debitExpense",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "Advance(Credit)",
+        name: "Credit(Advance)",
         value: "advanceExpense",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Status",
         value: "customStatus",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "Last Action Date",
+        value: "actionAt",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
@@ -270,29 +278,40 @@ const ClaimAndAdvance = () => {
       <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
         <p className="p-2 text-white font-extrabold">
           Current Balance :{" "}
-          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
+          {/* <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
             {Amounts?.finalAmount}
+          </span> */}
+          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
+            {Amounts?.finalAmount < 0 
+              ? `${Math.abs(Amounts.finalAmount)} Dr` 
+              : `${Amounts?.finalAmount} Cr`
+            }
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
           Expenses Approved :{" "}
           <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal > 0 ? "text-rose-400" : "text-pcol"}`}>
-            {Amounts?.ExpenseAmountTotal}
+           
+            {`${Amounts?.ExpenseAmountTotal} Dr`}
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
           Advance Approved :{" "}
           <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-500"}`}>
-            {Amounts?.AdvanceAmountTotal}
+            
+            {`${Amounts?.AdvanceAmountTotal} Cr`}
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
             Opening balance :{" "}
-          <span className={`font-extrabold ${
-              Amounts?.Openingbalance > 0 ? "text-rose-400" : "text-pcol"
-            }`}>
-            {Amounts?.Openingbalance}
-          </span>
+            <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-rose-400" : "text-pcol"}`}>
+            {Amounts?.Openingbalance > 0 
+              ? `${Amounts?.Openingbalance} Cr` 
+              : Amounts?.Openingbalance < 0 
+              
+              ? `${Math.abs(Amounts?.Openingbalance)} Dr`
+              : Amounts?.Openingbalance}
+            </span>
         </p>
         
       </div>
