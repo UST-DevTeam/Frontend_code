@@ -14,7 +14,7 @@ const AreaChart = (data) => {
     options: {
       chart: {
         height: 350,
-        width: 400,
+        width: 600,
         type: "line",
       },
       plotOptions: {

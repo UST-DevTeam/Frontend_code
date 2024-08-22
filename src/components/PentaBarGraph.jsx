@@ -2,23 +2,40 @@ import { colors } from "@material-ui/core";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledOnSeries = [false, false, false, false, false], columnWidth="30%" }) => {
+const PentaBarGraph = ({ data, horizontal = false, title="", columnWidth="30%" }) => {
     // const horizontal = data?.horizontal || false;
-    // let SeriesData = data?.map(item => item.count) ||[];  
+    let SeriesData1 = data?.map(item => item.claimSubmitted) ||[];  
+    let SeriesData2 = data?.map(item => item.claimApproved) ||[];  
+    let SeriesData3 = data?.map(item => item['L2-Approved']) ||[];  
+    let SeriesData4 = data?.map(item => item['L1-Approved']) ||[];  
+    let SeriesData5 = data?.map(item => item['Rejected']) ||[];  
     let category = data?.map(item => item.description) ||[];
     // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
     // let category = data?.map(item => item.description) ||[];
 
-    const defaultSeries = [
+    const series = [
         {
             name: "Active Employee",
-            data: data?.map(item => item.count) ||[],
+            data: SeriesData1,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData2,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData3,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData4,
+        },
+        {
+            name: "Active Employee",
+            data: SeriesData5,
         },
     ];
-
-    const series = seriesData?.length ? seriesData : defaultSeries;
-
-    console.log(series , 'dfdfadsfagsfdgss')
+    
     
     const options = {
         chart: {
@@ -39,7 +56,6 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledO
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: enabledOnSeries?.map((enabled, index) => enabled ? index : -1).filter(index => index !== -1),
             style: {
                 colors: ["white"],
                 fontSize: "10px",
@@ -101,4 +117,4 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="",enabledO
     };
     return (<ReactApexChart options={options} series={series} type="bar" height={440} />)
 }
-export default BarGraph;
+export default PentaBarGraph;
