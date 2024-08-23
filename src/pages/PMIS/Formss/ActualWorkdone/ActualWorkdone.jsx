@@ -44,47 +44,8 @@ const ActualWorkdone = () => {
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
-  // let roleList = useSelector((state) => {
-  //     let interdata = state?.operationManagement?.USERS_LIST
-  //     return interdata
-  // })
 
 
-
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm?.circleName,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
-
-  // let projectTypeList = useSelector((state) => {
-  //   return state?.adminData?.getCardProjectType.map((itm) => {
-  //     return {
-  //       label: itm?.projectType,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
-
-  // let ccList = useSelector((state) => {
-  //   return state?.adminData?.getManageCostCenter.map((itm) => {
-  //     return {
-  //       label: itm?.costCenter,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
-  // let projectList = useSelector((state) => {
-  //   return state?.adminData?.getProject.map((itm) => {
-  //     return {
-  //       label: itm?.projectId,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
 
 
   let showType = getAccessType("Actions(EVM-Delivery)")
@@ -129,7 +90,7 @@ const ActualWorkdone = () => {
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  console.log("ahshshhs", itm);
+
                   //setmodalOpen(false)
                 }}
               ></EditButton>
@@ -270,20 +231,12 @@ const ActualWorkdone = () => {
 
   let listYear = [];
 
-  // let listYear=[]
-
   function getWeekNumber(d) {
-    // Copy date so don't modify original
     d = new Date(+d);
     d.setHours(0, 0, 0, 0);
-    // Set to nearest Thursday: current date + 4 - current day number
-    // Make Sunday's day number 7
     d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-    // Get first day of year
     var yearStart = new Date(d.getFullYear(), 0, 1);
-    // Calculate full weeks to nearest Thursday
     var weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-    // Return array of year and week number
     return [d.getFullYear(), weekNo];
   }
 
@@ -291,22 +244,14 @@ const ActualWorkdone = () => {
     var month = 11,
       day = 31,
       week;
-
-    // Find week that 31 Dec is in. If is first week, reduce date until
-    // get previous week.
     do {
       let d = new Date(year, month, day--);
       week = getWeekNumber(d)[1];
-    } while (week == 1);
-
+    } 
+    while (week == 1);
     return week;
   }
 
-  // let listW = [];
-  // for (let wwq = 1; wwq <= +weeksInYear(year); wwq++) {
-  //   const weekString = "WK#0" + wwq;
-  //   listW.push({ id: weekString, name: weekString });
-  // }
   let listW = [];
   for (let wwq = 1; wwq <= +weeksInYear(year); wwq++) {
     let weekString;
@@ -325,7 +270,6 @@ const ActualWorkdone = () => {
   let listDict = {
     "": [],
     Weekly: listW,
-    // Monthly: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     Monthly: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
@@ -347,6 +291,7 @@ const ActualWorkdone = () => {
     delete data.reseter;
     dispatch(FormssActions.getEVMDelivery(value, objectToQueryString(data)));
   };
+
   useEffect(() => {
     dispatch(
       FormssActions.postEVMDelivery(
@@ -378,7 +323,6 @@ const ActualWorkdone = () => {
         onChange: (e) => {
           setValue("yyear", e.target.value);
           setyear(e.target.value);
-          // alert()
         },
       },
       required: true,
@@ -405,8 +349,6 @@ const ActualWorkdone = () => {
           setValue("selectional", e.target.value);
           setValGm(e.target.value);
           setSelectType(e.target.value);
-          // handle resert multiselect
-          // alert()
         },
       },
       required: true,
@@ -466,23 +408,6 @@ const ActualWorkdone = () => {
           },
         ]);
       }
-      // else  if (ValGm && ValGm === "Weekly") {
-      //   cols.push([
-      //       {
-      //         // name: `PV Target (${listW[index]} ${year})`,
-      //         name: `PV Target (${index} ${year})`,
-      //         value: `${index}`,
-      //         style: "min-w-[200px] max-w-[200px] text-center",
-      //       },
-      //       {
-      //         // name: `Achievement (${listW[index]} ${year})`,
-      //         name: `Achievement (${index} ${year})`,
-      //         // value:"totalCountMS2",
-      //         value:"MS2-W-" + index,
-      //         style: "min-w-[200px] max-w-[200px] text-center",
-      //       },
-      //     ]);
-      // }
       else {
         cols.push([
 
@@ -500,11 +425,11 @@ const ActualWorkdone = () => {
       }
     });
     cols = cols.flat(Infinity);
-    console.log(cols,"________________cols")
+    // console.log(cols,"________________cols")
     setNewColumns(cols);
   }, [extraColumns]);
 
-  // console.log(cols,"________________cols")
+
 
   const handleAddActivity = (res) => {
     try {
@@ -574,12 +499,10 @@ const ActualWorkdone = () => {
         }
         table={table}
         exportButton={["/export/EvmDelivery", "Export_EvmDelivery.xlsx","POST",{viewBy: extraColumns.join(","),
-          // year: `${currrentYear}`,
-          // yyear: `${currrentYear}`,
           year:year,
           yyear:year,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",}]}
+          selectional: ValGm,
+          typeSelectional:ValGm,}]}
           filterAfter={onSubmit}
           tableName={"AcctualWorkdoneform"}
           handleSubmit={handleSubmit}
