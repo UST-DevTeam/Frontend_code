@@ -349,6 +349,13 @@ const SuperAdmin = () => {
             "/hr/superAdmin/claimType",
             <Unicons.UilPuzzlePiece size="32" color="" />,
           ],
+          [
+            "Master Unit Rate",
+            "bg-pcol",
+            "/hr/superAdmin/MasterUnitRate",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
         ].map((itm) => {
           return (
             <>

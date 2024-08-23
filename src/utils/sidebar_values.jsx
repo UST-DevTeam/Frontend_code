@@ -134,6 +134,7 @@ import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/Accrua
 import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
 import MyTask from "../pages/PMIS/MyTask/MyTask";
 import SOB from "../pages/PMIS/Formss/SOB/SOB";
+import AccuralRevenueMaster from "../pages/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -789,6 +790,13 @@ export const Sidebar_content = {
         name: "Forms",
         link: "/forms",
         component: <FormsCards />,
+        icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+        subMenu: [],
+      },
+      {
+        name: "",
+        link: "/hr/superAdmin/MasterUnitRate",
+        component: <AccuralRevenueMaster />,
         icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },

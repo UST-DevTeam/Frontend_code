@@ -38,7 +38,8 @@ import {
     GET_INVOICE_SSID,
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_COMPONENT_ALLOCATION,
-    GET_OLD_COMPONENT_ALLOCATION
+    GET_OLD_COMPONENT_ALLOCATION,
+    GET_ACCURAL_REVENUE_MASTER_PROJECT
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -386,10 +387,9 @@ const AdminActions = {
             return;
         }
     },
-
+    
 
     getProject:(customeruniqueId,rowId,reset=true,args="") => async (dispatch, _) => {
-
         try {
             const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`},reset)
             if (res?.status !== 200) return
@@ -398,6 +398,7 @@ const AdminActions = {
         } catch (error) {
         }
     },
+    
     postProject: (reset,customeruniqueId, data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project+"/"+customeruniqueId : Urls.admin_project +"/"+customeruniqueId + "/" + uniqueId , reset })
@@ -490,6 +491,36 @@ const AdminActions = {
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_PROFILE({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    getAccuralRevenueMasterProject:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postAccuralRevenueMasterProject: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.get_accural_revenue_master_project : Urls.get_accural_revenue_master_project + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
         }
     },
     

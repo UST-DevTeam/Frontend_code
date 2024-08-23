@@ -414,7 +414,6 @@ const EmpDetailsTable = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit2}
         setIsOpen={setFileOpen2}
-        
         tempbtn={true} tempbtnlink = {["/template/ManageEmployee.xlsx","ManageEmployee.xlsx"]}
         head = {"Upload Upgrade File"}
       />
