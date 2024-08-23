@@ -39,6 +39,7 @@ const initialState = {
     
     getSubProjectMultiDynamic:[],
     getProjectTypeMultiDynamic:[],
+    getAccuralRevenueMasterProject:[],
 
 }
 
@@ -196,6 +197,13 @@ const adminData = createSlice({
                 state.getManageProfile = payload.dataAll
             }else{
                 state.getManageProfile  = [...state.getManageProfile,...payload.dataAll]
+            }
+        },
+        GET_ACCURAL_REVENUE_MASTER_PROJECT:(state,{payload}) => {
+            if(payload.reset){
+                state.getAccuralRevenueMasterProject = payload.dataAll
+            }else{
+                state.getAccuralRevenueMasterProject  = [...state.getAccuralRevenueMasterProject,...payload.dataAll]
             }
         },
 
@@ -361,6 +369,7 @@ export const {
     GET_MANAGE_DEPARTMENT,
     GET_MANAGE_DESIGNATION,
     GET_MANAGE_PROFILE,
+    
     GET_STATE,
     GET_CITIES,
     GET_PROJECT_ALLLOCATION,
@@ -387,6 +396,7 @@ export const {
     GET_OLD_COMPONENT_ALLOCATION,
     GET_SUBPROJECT_MULTIDYNAMIC,
     GET_PROJECTTYPE_MULTIDYNAMIC,
+    GET_ACCURAL_REVENUE_MASTER_PROJECT
 
 } = adminData.actions
     

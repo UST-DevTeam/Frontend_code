@@ -48,6 +48,7 @@ export const Urls={
     upload_bulk_site_one_project:"/uploadSiteOneProject",
     get_Subproject_Dyanmic:"/subprojects",
     get_project_type_Dyanmic:"/projectsType",
+    get_accural_revenue_master_project:"/project/accuralRevenueMaster",
     
     admin_getProjectSubType:"/admin/getProjectSubType",
     admin_getMappedData:"/mappedData",
