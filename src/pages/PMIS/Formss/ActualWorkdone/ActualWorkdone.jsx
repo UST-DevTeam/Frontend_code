@@ -240,21 +240,11 @@ const ActualWorkdone = () => {
 
   let table = {
     columns: [
-      // {
-      //   name: "Circle",
-      //   value: "circleName",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
       {
         name: "Project Type",
         value: "projectType",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Cost Center",
-      //   value: "costCenter",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
       {
         name: "Project ID",
         value: "projectId",
@@ -275,44 +265,7 @@ const ActualWorkdone = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //   label: "Cirlce",
-      //   type: "autoSuggestion",
-      //   name: "circleName",
-      //   option: circleList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Project Type",
-      //   type: "autoSuggestion",
-      //   name: "projectType",
-      //   option: projectTypeList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Cost Center",
-      //   type: "autoSuggestion",
-      //   name: "costCenter",
-      //   option: ccList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",  
-      //   option: projectList,
-      //   props: {},
-      // },
-      // {
-      //     label: "Project ID",
-      //     type: "autoSuggestion",
-      //     name: "projectId",
-      //     option: `${}`,
-      //     props: {
-      //     }
-      // },
-    ],
+    filter: [],
   };
 
   let listYear = [];
@@ -349,9 +302,19 @@ const ActualWorkdone = () => {
     return week;
   }
 
+  // let listW = [];
+  // for (let wwq = 1; wwq <= +weeksInYear(year); wwq++) {
+  //   const weekString = "WK#0" + wwq;
+  //   listW.push({ id: weekString, name: weekString });
+  // }
   let listW = [];
   for (let wwq = 1; wwq <= +weeksInYear(year); wwq++) {
-    const weekString = "W-" + wwq;
+    let weekString;
+    if (wwq < 10) {
+      weekString = "WK#0" + wwq;
+    } else {
+      weekString = "WK#" + wwq;
+    }
     listW.push({ id: weekString, name: weekString });
   }
 
@@ -471,6 +434,7 @@ const ActualWorkdone = () => {
   ];
 
   useEffect(() => {
+
     const monthMap = {
       1: "Jan",
       2: "Feb",
@@ -491,13 +455,13 @@ const ActualWorkdone = () => {
       if (ValGm && ValGm === "Monthly") {
         cols.push([
           {
-            name: `PV Target (${monthMap[index]} ${year})`,
-            value: "M-" + (index) + "_y",
+            name: `Plan-${monthMap[index]}'${year}`,
+            value: "M-" + (index),
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
-            name: `Achievement (${monthMap[index]} ${year})`,
-            value: "MS2-M-" + (index) + "_y",
+            name: `Actual-${monthMap[index]}'${year}`,
+            value: "count-" + (index),
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
@@ -523,26 +487,24 @@ const ActualWorkdone = () => {
         cols.push([
 
           {
-            name: `PV Target (${index} ${year})`,
+            name: `Plan-${index}`,
             value:index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
           {
-            name: `Achievement (${index} ${year})`,
-            value:"MS2-" + index,
+            name: `Actual-${index}`,
+            value:"count-" + index,
             style: "min-w-[200px] max-w-[200px] text-center",
           },
         ]);
       }
     });
     cols = cols.flat(Infinity);
-
+    console.log(cols,"________________cols")
     setNewColumns(cols);
-
-    // setValue('year',`${year}`)
-    // setValue('typeSelectional',"Monthly")
-    // setValue('viewBy',`${extraColumns.map(i=> `${i}`)}`)
   }, [extraColumns]);
+
+  // console.log(cols,"________________cols")
 
   const handleAddActivity = (res) => {
     try {

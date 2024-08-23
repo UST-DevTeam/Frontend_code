@@ -128,20 +128,14 @@ const ActualWorkdoneForm = ({
   };
   const onTableViewSubmit = (data) => {
 
-
-    for(let i = 0; i<monthss.length; i++){
-      data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
-    }
-
-
-
-
-    data['projectType'] = formValue?.projectType;
+    // for(let i = 0; i<monthss.length; i++){
+    //   data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
+    // }
+    data['projecttypeuid'] = formValue?.projecttypeuid;
     data['roleName'] = roleName;
-    data['project_uId'] = formValue?.project_uId;
+    data['projectuid'] = formValue?.projectuid;
     data['year'] = year;
-    data['projectId'] = formValue?.projectId;
-    data['totalCountMS2'] = formValue?.totalCountMS2;
+    
       dispatch(
         FormssActions.putEVMDelivery(
           data,
