@@ -18,10 +18,8 @@ const ActualWorkdoneForm = ({
   formValue = {},
   year,
   monthss,
-
-
-  weeks
-
+  weeks,
+  view
 }) => {
 
   let roleName = useSelector((state)=>{
@@ -71,21 +69,66 @@ const ActualWorkdoneForm = ({
   ];
     
     
-    let Form = [
-      ...monthss.map((itm )=>(
-        {
-          label: `PV Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `M-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
-    ];
+    // let Form = [
+    //   ...monthss.map((itm )=>(
+    //     if (ValGm && ValGm === "Monthly") {
+    //     {
+    //       label: `PV Target (${monthsss[itm]} ${year})`,
+    //       value: "",
+    //       name: `M-${itm}`,
+    //       type: "number",
+    //       props: {
+    //         valueAsNumber:true,
+    //         min: 0,
+    //         onChange: (e) => {},
+    //       },
+    //       classes: "col-span-1",
+    //     }
+    //   } else{
+    //     {
+    //       label: `PV Target (${itm} ${year})`,
+    //       value: "",
+    //       name: `${itm}`,
+    //       type: "number",
+    //       props: {
+    //         valueAsNumber:true,
+    //         min: 0,
+    //         onChange: (e) => {},
+    //       },
+    //       classes: "col-span-1",
+    //     }
+    //   }
+      
+    //   )),
+    // ];
+
+    let Form = monthss.map((itm) => {
+      return view && view === "Monthly"
+        ? {
+            label: `PV Target (${monthsss[itm]} ${year})`,
+            value: "",
+            name: `M-${itm}`,
+            type: "number",
+            props: {
+              valueAsNumber: true,
+              onChange: (e) => {},
+            },
+            classes: "col-span-1",
+          }
+        : {
+            label: `PV Target (${itm} ${year})`,
+            value: "",
+            name: `${itm}`,
+            type: "number",
+            props: {
+              valueAsNumber: true,
+              onChange: (e) => {},
+            },
+            classes: "col-span-1",
+          };
+    });
+
+    
 
     let Form2 = [
       
@@ -123,14 +166,12 @@ const ActualWorkdoneForm = ({
     getValues,
     formState: { errors },
   } = useForm();
+
+
   const onSubmit = (data) => {
     console.log(data);
   };
   const onTableViewSubmit = (data) => {
-
-    // for(let i = 0; i<monthss.length; i++){
-    //   data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
-    // }
     data['projecttypeuid'] = formValue?.projecttypeuid;
     data['roleName'] = roleName;
     data['projectuid'] = formValue?.projectuid;
@@ -141,41 +182,52 @@ const ActualWorkdoneForm = ({
           data,
           () => {
             setIsOpen(false);
-            dispatch(FormssActions.getEVMDelivery( formValue?.projectId));
+            dispatch(
+              FormssActions.postEVMDelivery(
+                {
+                  viewBy: monthss.join(","),
+                  year: `${year}`,
+                  yyear: `${year}`,
+                  selectional: view,
+                  typeSelectional: view,
+                },
+                () => {}
+              )
+            );
           },
         )
       );
-    // } 
-    // else {
-    //   dispatch(
-    //     FormssActions.postEVMDelivery(data, () => {
-    //       console.log("CustomQueryActions.postDBConfig");
-    //       setIsOpen(false);
-    //       dispatch(FormssActions.getEVMDelivery());
-    //     })
-    //   );
-    // }
   };
+
+  // useEffect(() => {
+  //   if (resetting) {
+  //     reset({});
+  //     Form.map((fieldName) => {
+  //       setValue(fieldName["name"], fieldName["value"]);
+  //     });
+  //   } else {
+  //     reset({});
+  //     console.log(Object.keys(formValue), "Object.keys(formValue)");
+  //     Form.forEach((key) => {
+  //       if (["endAt", "startAt"].indexOf(key.name) != -1) {
+  //         console.log("date formValuekey", key.name, formValue[key.name]);
+  //         const momentObj = moment(formValue[key.name]);
+  //         setValue(key.name, momentObj.toDate());
+  //       } else {
+  //         setValue(key.name, formValue[key.name]);
+  //       }
+  //     });
+  //   }
+  // }, [formValue, resetting]);
+
   useEffect(() => {
-    if (resetting) {
+    if (!isOpen) {
       reset({});
-      Form.map((fieldName) => {
-        setValue(fieldName["name"], fieldName["value"]);
-      });
+      Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
-      Form.forEach((key) => {
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
-          const momentObj = moment(formValue[key.name]);
-          setValue(key.name, momentObj.toDate());
-        } else {
-          setValue(key.name, formValue[key.name]);
-        }
-      });
     }
-  }, [formValue, resetting]);
+  }, [isOpen,formValue,resetting]);
 
   return (
     <>

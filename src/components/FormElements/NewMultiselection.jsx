@@ -301,6 +301,15 @@ const NewMultiselection = ({
         }}
         className="max-w-[150px] min-w-[150px] absolute  bg-white rounded-md  text-white-900 shadow-sm  ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
+      <input
+        type="hidden"
+        {...register(itm.label, {
+          required: itm.required ? "This Field is required" : false,
+        })}
+      />
+      {errors[itm.label] && (
+        <p className="text-xs text-start text-rose-400 font-bold p-10 whitespace-nowrap">{errors[itm.label]?.message}</p>
+      )}
     </>
   );
 };

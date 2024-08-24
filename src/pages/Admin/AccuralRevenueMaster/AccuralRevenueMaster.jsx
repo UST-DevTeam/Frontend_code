@@ -228,33 +228,20 @@ const AccuralRevenueMaster = () => {
         <AdvancedTable
             headerButton={
                 <div className='flex gap-1'>
-                    <ConditionalButton
-                    showType={getAccessType("Upgrade(ManageEmployee)")}
-                    name={"Upload File"}
-                lasses="w-auto mr-1"
-                onClick={(e) => {
-                setFileOpen((prev) => !prev);
-              }}
-            ></ConditionalButton>
-                    {/* <Button classes='w-auto' 
-                        onClick={(e) => {
-                            setmodalOpen(prev => !prev)
-                            setmodalHead("New Profile")
-                            setmodalBody(
-                                // <AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />
-                            )
-                        }}
-                        name={"Add Profile"}>
-                    </Button> */}
-
-                    {/* <Button name={"Upload File"} classes='w-auto ' 
-                        onClick={(e) => {
-                            setFileOpen(prev=>!prev)
-                        }}>
-                    </Button> */}
+                    <Button
+                        name={"Upload"}
+                        classes="w-auto"
+                        onClick={(e) => {setFileOpen((prev) => !prev);}}>
+                    </Button>
+                    <Button
+                        name={"Export"}
+                        classes="w-auto"
+                        onClick={() => {
+                            dispatch(CommonActions.commondownload("/export/MasterUnitRate","Export_MasterUnitRate.xlsx"))
+                          }}>
+                    </Button>
                 </div>
             }
-            // exportButton={["/export/manageEmployee","Export_Employee.xlsx"]}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
@@ -265,8 +252,7 @@ const AccuralRevenueMaster = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {'Total:- '}
-            // getaccessExport = {"Export(ManageEmployee)"}
+            heading = {'Total Count :- '}
         />
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
         <FileUploader

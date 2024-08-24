@@ -14,7 +14,9 @@ import {
         GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP,
         GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER,
         GET_AUTO_SUGGESTION_PROJECT_MANAGER,
-        GET_FILTER_MYTASK_SUBPROJECT
+        GET_FILTER_MYTASK_SUBPROJECT,
+        GET_FORM_EVMDelivery_PROJECT_TYPE,
+        GET_FORM_EVMDelivery_PROJECT_ID
  } from "../reducers/filter-reducer"
 
 
@@ -165,6 +167,27 @@ const FilterActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_AUTO_SUGGESTION_PROJECT_MANAGER({dataAll,reset}))
+        } catch (error){
+
+        }
+    },
+
+    getformEvmDeliveryProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.filter_form_evmDelivery_projectType}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_FORM_EVMDelivery_PROJECT_TYPE({dataAll,reset}))
+        } catch (error){
+
+        }
+    },
+    getformEvmDeliveryProjectId:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.filter_form_evmDelivery_projectId}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_FORM_EVMDelivery_PROJECT_ID({dataAll,reset}))
         } catch (error){
 
         }

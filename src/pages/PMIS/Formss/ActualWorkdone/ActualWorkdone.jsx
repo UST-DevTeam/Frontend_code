@@ -26,6 +26,7 @@ import CommonForm from "../../../../components/CommonForm";
 import { UilSearch } from "@iconscout/react-unicons";
 import ActualWorkdoneForm from "./ActualWorkdoneForm";
 import FileUploader from "../../../../components/FIleUploader";
+import FilterActions from "../../../../store/actions/filter-actions";
 
 const ActualWorkdone = () => {
   
@@ -56,15 +57,17 @@ const ActualWorkdone = () => {
     shouldIncludeEditColumn = true
   } 
 
+
+
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEVMDelivery || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
         "uniqueId":"1",
-        plan1: itm.earnvalueArray?.[0]?.["plan"],
-        plan2: itm.earnvalueArray?.[1]?.["plan"],
-        plan3: itm.earnvalueArray?.[2]?.["plan"],
+        // plan1: itm.earnvalueArray?.[0]?.["plan"],
+        // plan2: itm.earnvalueArray?.[1]?.["plan"],
+        // plan3: itm.earnvalueArray?.[2]?.["plan"],
 
         edit: (
           <CstmButton
@@ -74,7 +77,6 @@ const ActualWorkdone = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  dispatch(FormssActions.getEVMDelivery(true));
                   setmodalHead("Edit Actual");
                   setmodalBody(
                     <>
@@ -86,8 +88,8 @@ const ActualWorkdone = () => {
                         year={year}
                         monthss={extraColumns}
                         weeks={extraColumns}
+                        view = {ValGm}
                       />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
 
@@ -151,6 +153,25 @@ const ActualWorkdone = () => {
       return 0;
     }
   });
+
+  let projectIdList = useSelector((state) => {
+    return state?.filterData?.getformevmdeliveryprojectid.map((itm) => {
+      return {
+        label: itm.projectId,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
+  let projectTypeList = useSelector((state) => {
+    return state?.filterData?.getformevmdeliveryprojecttype.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
 
 
   const {
@@ -305,13 +326,46 @@ const ActualWorkdone = () => {
         () => {}
       )
     );
+    dispatch(FilterActions.getformEvmDeliveryProjectType())
+    dispatch(FilterActions.getformEvmDeliveryProjectId())
   }, []);
 
   let formD = [
     {
+      label: "Project Type",
+      name: "projectType",
+      value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      type: "select",
+      option: projectTypeList,
+      props: {
+        onChange: (e) => {
+          setValue("projectType", e.target.value);
+        },
+      },
+      required: false,
+      classes: "col-span-1 h-38px",
+    },
+    {
+      label: "Project Id",
+      name: "projectId",
+      value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      type: "select",
+      option: projectIdList,
+      props: {
+        onChange: (e) => {
+          setValue("projectId", e.target.value);
+        },
+      },
+      required: false,
+      classes: "col-span-1 h-38px",
+    },
+    {
       label: "Year",
       name: "year",
       value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -333,6 +387,7 @@ const ActualWorkdone = () => {
       label: "View As",
       name: "typeSelectional",
       value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
       option: [
         {
@@ -359,11 +414,11 @@ const ActualWorkdone = () => {
       label: ValGm,
       name: "viewBy",
       value: "Select",
-      type: "muitiSelect",
+      type: "newmuitiSelect2",
       option: listDict[ValGm].map((dasd) => {
         return {
-          id: dasd?.id,
-          name: dasd?.name,
+          value: dasd?.id,
+          label: dasd?.name,
         };
       }),
       props: {
@@ -425,7 +480,6 @@ const ActualWorkdone = () => {
       }
     });
     cols = cols.flat(Infinity);
-    // console.log(cols,"________________cols")
     setNewColumns(cols);
   }, [extraColumns]);
 
@@ -434,6 +488,7 @@ const ActualWorkdone = () => {
   const handleAddActivity = (res) => {
     try {
       if (res?.typeSelectional === "Monthly") {
+        res['viewBy'] = res['Monthly']
         setExtraColumns(
           res?.viewBy
             ?.split(",")
@@ -441,6 +496,7 @@ const ActualWorkdone = () => {
             ?.sort((a, b) => a - b)
         );
       } else {
+        res['viewBy'] = res['Weekly']
         setExtraColumns(
           res?.viewBy?.split(",")?.sort((a, b) => {
             const numA = parseInt(a.split("-")[1]);
@@ -468,21 +524,23 @@ const ActualWorkdone = () => {
 
   return (
     <>
-      <div className="flex">
-        <CommonForm
-          classes={"w-5/6 grid-cols-3 gap-1 h-[111px]"}
-          Form={formD}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
+      <div className="flex items-center justify-start">
+        <div className="col-span-1 md:col-span-1">
+          <CommonForm
+            classes="grid grid-cols-5 w-[1000px] overflow-y-hidden p-2"
+            Form={formD}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </div>
 
-        <div className="pt-12 p-6  flex justify-center">
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
           <Button
-            classes=""
-            name="Search "
-            icon={<UilSearch className="w-4 h-4 mx-2" />}
+            classes=" flex h-fit "
+            name=""
+            icon={<UilSearch className="w-5 m-2 h-5" />}
             onClick={handleSubmit(handleAddActivity)}
           />
         </div>
@@ -513,6 +571,7 @@ const ActualWorkdone = () => {
           getValues={getValues}
           totalCount={dbConfigTotalCount}
           getaccessExport = {"Export(EVM-Delivery)"}
+          heading = "Total Count :- "
       />
 
       <Modal

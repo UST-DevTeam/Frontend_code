@@ -94,13 +94,12 @@ const EarnValueMgmtFinancial = () => {
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
-    console.log("asdfasfasfafdadsfafd",interdata);
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        plan1: itm.earnvalueArray?.[0]?.["plan"],
-        plan2: itm.earnvalueArray?.[1]?.["plan"],
-        plan3: itm.earnvalueArray?.[2]?.["plan"],
+        // plan1: itm.earnvalueArray?.[0]?.["plan"],
+        // plan2: itm.earnvalueArray?.[1]?.["plan"],
+        // plan3: itm.earnvalueArray?.[2]?.["plan"],
 
         edit: (
           <CstmButton
@@ -180,13 +179,15 @@ const EarnValueMgmtFinancial = () => {
 
   
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.postEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
       return 0;
     }
   });
+
+  console.log(dbConfigTotalCount,"_______dbConfigTotalCount")
   const {
     register,
     handleSubmit,
@@ -257,49 +258,10 @@ const EarnValueMgmtFinancial = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //   label: "Cirlce",
-      //   type: "autoSuggestion",
-      //   name: "cirlce",
-      //   option: circleList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Project Type",
-      //   type: "autoSuggestion",
-      //   name: "projectType",
-      //   option: projectTypeList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Cost Center",
-      //   type: "autoSuggestion",
-      //   name: "costCenter",
-      //   option: ccList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
-      // {
-      //     label: "Project ID",
-      //     type: "autoSuggestion",
-      //     name: "projectId",
-      //     option: `${}`,
-      //     props: {
-      //     }
-      // },
-    ],
+    filter: [],
   };
 
   let listYear = [];
-
-  // let listYear=[]
 
   function getWeekNumber(d) {
     d = new Date(+d);
@@ -319,7 +281,8 @@ const EarnValueMgmtFinancial = () => {
     do {
       let d = new Date(year, month, day--);
       week = getWeekNumber(d)[1];
-    } while (week == 1);
+    } 
+    while (week == 1);
 
     return week;
   }
@@ -392,7 +355,7 @@ const EarnValueMgmtFinancial = () => {
         },
       },
       required: true,
-      classes: "col-span-1 h-38px",
+      classes: "col-span-1",
     },
 
     {
@@ -411,7 +374,8 @@ const EarnValueMgmtFinancial = () => {
         selectType:selectType
       },
       hasSelectAll:true,
-      classes: "col-span-1 h-10",
+      required: true,
+      classes: "col-span-1",
     },
   ];
 
@@ -510,21 +474,22 @@ const EarnValueMgmtFinancial = () => {
 
   return (
     <>
-      <div className="flex">
-        <CommonForm
-          classes={"w-5/6 grid-cols-3 gap-1 h-[111px] p-2"}
-          Form={formD}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
-
-        <div className="pt-12 p-6  flex justify-center">
+      <div className="flex items-center justify-start">
+        <div className="col-span-1 md:col-span-1">
+          <CommonForm
+            classes="grid grid-cols-2 w-[400px] overflow-y-hidden p-2"
+            Form={formD}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </div>
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
           <Button
-            classes=""
-            name="Search"
-            icon={<UilSearch className="w-4 h-4 mx-2" />}
+            classes=" flex h-fit "
+            name=""
+            icon={<UilSearch className="w-5 m-2 h-5" />}
             onClick={handleSubmit(handleAddActivity)}
           />
         </div>

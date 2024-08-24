@@ -288,16 +288,16 @@ const WorkDone = () => {
         value: "projectId",
         style: "min-w-[160px] max-w-[200px] text-center sticky left-[260px] bg-[#3e454d] z-10",
       },
-      // {
-      //   name: "Project Type",
-      //   value: "projectType",
-      //   style: "min-w-[100px] max-w-[200px] text-center ",
-      // },
-      // {
-      //   name: "Sub Project",
-      //   value: "subProject",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
+      {
+        name: "Project Type",
+        value: "projectType",
+        style: "min-w-[100px] max-w-[200px] text-center ",
+      },
+      {
+        name: "Sub Project",
+        value: "subProject",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
       {
         name: "SSID",
         value: "systemId",
@@ -309,8 +309,8 @@ const WorkDone = () => {
         style: "min-w-[140px] max-w-[200px] text-center sticky left-[540px] bg-[#3e454d] z-10",
       },
       {
-        name: "Configuration",
-        value: "Configuration",
+        name: "BAND",
+        value: "BAND",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -334,121 +334,6 @@ const WorkDone = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Work Done Bucket",
-        value: "workdonebucket",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Invoice Bucket",
-        value: "invoicebucket",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 1",
-        value: "itemCode1",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 1",
-        value: "quantity1",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 1",
-        value: "amount1",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 2",
-        value: "itemCode2",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 2",
-        value: "quantity2",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 2",
-        value: "amount2",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 3",
-        value: "itemCode3",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 3",
-        value: "quantity3",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 3",
-        value: "amount3",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 4",
-        value: "itemCode4",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 4",
-        value: "quantity4",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 4",
-        value: "amount4",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 5",
-        value: "itemCode5",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 5",
-        value: "quantity5",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 5",
-        value: "amount5",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 6",
-        value: "itemCode6",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 6",
-        value: "quantity6",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 6",
-        value: "amount6",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 7",
-        value: "itemCode7",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Quantity 7",
-        value: "quantity7",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Amount 7",
-        value: "amount7",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
         name: "Unbilled MS1 Done",
         value: "ms1Amount",
         style: "min-w-[140px] max-w-[200px] text-center",
@@ -463,15 +348,131 @@ const WorkDone = () => {
         value: "totalAmount",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      ...(shouldIncludeEditColumn
-        ? [
-          {
-            name: "Edit",
-            value: "edit",
-            style: "min-w-[100px] max-w-[200px] text-center"
-        },
-          ]
-        : [])
+      {
+        name: "Work Done Bucket",
+        value: "workdonebucket",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Invoice Bucket",
+        value: "invoicebucket",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Item Code 1",
+        value: "itemCode1",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 1",
+      //   value: "quantity1",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 1",
+      //   value: "amount1",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      {
+        name: "Item Code 2",
+        value: "itemCode2",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 2",
+      //   value: "quantity2",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 2",
+      //   value: "amount2",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      {
+        name: "Item Code 3",
+        value: "itemCode3",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 3",
+      //   value: "quantity3",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 3",
+      //   value: "amount3",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      {
+        name: "Item Code 4",
+        value: "itemCode4",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 4",
+      //   value: "quantity4",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 4",
+      //   value: "amount4",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      {
+        name: "Item Code 5",
+        value: "itemCode5",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 5",
+      //   value: "quantity5",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 5",
+      //   value: "amount5",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      {
+        name: "Item Code 6",
+        value: "itemCode6",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 6",
+      //   value: "quantity6",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 6",
+      //   value: "amount6",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      {
+        name: "Item Code 7",
+        value: "itemCode7",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Quantity 7",
+      //   value: "quantity7",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Amount 7",
+      //   value: "amount7",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      
+      // ...(shouldIncludeEditColumn
+      //   ? [
+      //     {
+      //       name: "Edit",
+      //       value: "edit",
+      //       style: "min-w-[100px] max-w-[200px] text-center"
+      //   },
+      //     ]
+      //   : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -685,7 +686,7 @@ const WorkDone = () => {
         <div className="flex items-center justify-start gap-5">
           <div className="col-span-1 md:col-span-1">
             <CommonForm
-              classes="grid grid-cols-4 w-[550px] sm:grid-cols-6 xl:grid-cols-3 xl:w-[550px] sm:w-full overflow-y-hidden p-2 "
+              classes="grid grid-cols-4 w-[550px] sm:grid-cols-6 xl:grid-cols-3 xl:w-[550px] sm:w-full overflow-y-hidden p-2"
               Form={formD}
               errors={errors}
               register={register}

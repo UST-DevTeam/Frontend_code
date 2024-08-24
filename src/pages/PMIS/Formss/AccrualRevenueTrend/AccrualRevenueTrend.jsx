@@ -225,26 +225,11 @@ const AccrualRevenueTrend = () => {
             },
           ]
         : [])
-     
-      // {
-      //   name: "Edit",
-      //   value: "edit",
-      //   style: "min-w-[100px] max-w-[200px] text-center",
-      // },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-    //   {
-    //     label: "Cirlce",
-    //     type: "autoSuggestion",
-    //     name: "cirlce",
-    //     option: circleList,
-    //     props: {},
-    //   },
-      
-    ],
+    filter: [],
   };
 
   let listYear = [];

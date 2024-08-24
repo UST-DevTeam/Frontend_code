@@ -162,6 +162,9 @@ export const Urls={
     filter_financial_poWorkDone_customer:'/filter/financial/poWorkDone/customer',
     autosuggestion_projectManager:'/autosuggestion/projectManger',
 
+    filter_form_evmDelivery_projectType:"/filter/EVM-Delivery/projectType",
+    filter_form_evmDelivery_projectId:"/filter/EVM-Delivery/projectId",
+
     //  GRAPH
 
     graph_project_status:"/graph/projectStatus",

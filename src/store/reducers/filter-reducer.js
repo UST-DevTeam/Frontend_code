@@ -15,7 +15,9 @@ const initialState = {
     getfinancialRevenueManagementProjectGroup: [],
     getfinancialPoWOrkDoneCustomer:[],
     getautosuggestionProjectManager:[],
-    getMyTaskSubProject:[]
+    getMyTaskSubProject:[],
+    getformevmdeliveryprojecttype:[],
+    getformevmdeliveryprojectid:[],
 }
 
 const filterData = createSlice({
@@ -135,6 +137,20 @@ const filterData = createSlice({
                 state.getautosuggestionProjectManager  = [...state.getautosuggestionProjectManager,...payload.dataAll]
             }
         },
+        GET_FORM_EVMDelivery_PROJECT_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getformevmdeliveryprojecttype = payload.dataAll
+            }else{
+                state.getformevmdeliveryprojecttype  = [...state.getformevmdeliveryprojecttype,...payload.dataAll]
+            }
+        },
+        GET_FORM_EVMDelivery_PROJECT_ID:(state,{payload}) => {
+            if(payload.reset){
+                state.getformevmdeliveryprojectid = payload.dataAll
+            }else{
+                state.getformevmdeliveryprojectid  = [...state.getformevmdeliveryprojectid,...payload.dataAll]
+            }
+        },
 
 
     }
@@ -153,7 +169,9 @@ export const {  GET_FILTER_PROJECT_CIRCLE,
                 GET_FILTER_FINANCIAL_REVENUEMANAGEMENT_PROJECTGROUP,
                 GET_FILTER_FINANCIAL_POWORKDONE_CUSTOMER,
                 GET_AUTO_SUGGESTION_PROJECT_MANAGER,
-                GET_FILTER_MYTASK_SUBPROJECT
+                GET_FILTER_MYTASK_SUBPROJECT,
+                GET_FORM_EVMDelivery_PROJECT_TYPE,
+                GET_FORM_EVMDelivery_PROJECT_ID
             } = filterData.actions
     
 export default filterData.reducer

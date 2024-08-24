@@ -137,71 +137,63 @@ const EarnValueMgmtForm = ({
   } = useForm();
 
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
   const onTableViewSubmit = (data) => {
-
-
-    // for(let i = 0; i<monthss.length; i++){
-    //   data[`M-${monthss[i]}_x`] = formValue?.totalInvoice;
-    // }
 
     data['projectgroupuid'] = formValue?.projectgroupuid
     data['roleName'] = roleName;
     data['uniqueId'] = formValue?.uniqueId;
     data['year'] = year;
-    
-
-    if (formValue.uniqueId) {
-      dispatch(
-        FormssActions.putEarnValueMgmtFinancial(
-          data,
-          () => {
-            setIsOpen(false);
-            dispatch(
-              FormssActions.postEarnValueMgmtFinancial(
-                {
-                  viewBy: monthss.join(","),
-                  year: `${year}`,
-                  yyear: `${year}`
-                },
-                () => {}
-              )
-            );
-          },
-        )
-      );
-    } else {
-      dispatch(
-        FormssActions.postEarnValueMgmtFinancial(data, () => {
+    dispatch(
+      FormssActions.putEarnValueMgmtFinancial(
+        data,
+        () => {
           setIsOpen(false);
-          dispatch(FormssActions.getEarnValueMgmtFinancial());
-        })
-      );
-    }
+          dispatch(
+            FormssActions.postEarnValueMgmtFinancial(
+              {
+                viewBy: monthss.join(","),
+                year: `${year}`,
+                yyear: `${year}`
+              },
+              () => {}
+            )
+          );
+        },
+      )
+    );
   };
+
   useEffect(() => {
-    if (resetting) {
+    if (!isOpen) {
       reset({});
-      Form.map((fieldName) => {
-        setValue(fieldName["name"], fieldName["value"]);
-      });
+      Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
-      Form.forEach((key) => {
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
-          const momentObj = moment(formValue[key.name]);
-          setValue(key.name, momentObj.toDate());
-        } else {
-          setValue(key.name, formValue[key.name]);
-        }
-      });
     }
-  }, [formValue, resetting]);
+  }, [isOpen,formValue,resetting]);
+
+
+
+  // useEffect(() => {
+  //   if (resetting) {
+  //     reset({});
+  //     Form.map((fieldName) => {
+  //       setValue(fieldName["name"], fieldName["value"]);
+  //     });
+  //   } else {
+  //     reset({});
+  //     console.log(Object.keys(formValue), "Object.keys(formValue)");
+  //     Form.forEach((key) => {
+  //       if (["endAt", "startAt"].indexOf(key.name) != -1) {
+  //         console.log("date formValuekey", key.name, formValue[key.name]);
+  //         const momentObj = moment(formValue[key.name]);
+  //         setValue(key.name, momentObj.toDate());
+  //       } else {
+  //         setValue(key.name, formValue[key.name]);
+  //       }
+  //     });
+  //   }
+  // }, [formValue, resetting]);
 
   return (
     <>
