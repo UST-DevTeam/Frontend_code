@@ -532,5 +532,15 @@ const GraphActions = {
         } catch (error) {
         }
     },
+
+    getGraph:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_advance_approval_status}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_ADVANCE_APPROVAL_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 }
 export default GraphActions;
