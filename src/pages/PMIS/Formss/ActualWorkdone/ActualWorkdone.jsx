@@ -317,8 +317,8 @@ const ActualWorkdone = () => {
           viewBy: extraColumns.join(","),
           year: `${currrentYear}`,
           yyear: `${currrentYear}`,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",
+          selectional: ValGm,
+          typeSelectional: ValGm,
         },
         () => {}, objectToQueryString(data)
       )
