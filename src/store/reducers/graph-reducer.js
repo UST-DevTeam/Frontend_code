@@ -23,6 +23,7 @@ const initialState = {
     getGraphTrendExpenseAdvance:[],
     getGraphExpenseApprovalStatus:[],
     getGraphAdvanceApprovalStatus:[],
+    getGraphTrendPlanVSActualWorkdone:[],
 } 
  
 const GraphData = createSlice({
@@ -204,6 +205,14 @@ const GraphData = createSlice({
                 state.getGraphAdvanceApprovalStatus  = [...state.getGraphAdvanceApprovalStatus,...payload.dataAll]
             }
         },
+        
+        GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphTrendPlanVSActualWorkdone = payload.dataAll
+            }else{
+                state.getGraphTrendPlanVSActualWorkdone  = [...state.getGraphTrendPlanVSActualWorkdone,...payload.dataAll]
+            }
+        },
 
     }
 })
@@ -230,6 +239,7 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_TREND_EXPENSE_ADVANCE,
     GET_GRAPH_EXPENSE_APPROVAL_STATUS,
     GET_GRAPH_ADVANCE_APPROVAL_STATUS,
+    GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE,
 } = GraphData.actions
     
 export default GraphData.reducer    

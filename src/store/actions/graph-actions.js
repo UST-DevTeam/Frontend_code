@@ -23,6 +23,7 @@ import {
     GET_GRAPH_TREND_EXPENSE_ADVANCE,
     GET_GRAPH_EXPENSE_APPROVAL_STATUS,
     GET_GRAPH_ADVANCE_APPROVAL_STATUS,
+    GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE,
     
  } from "../reducers/graph-reducer"
 
@@ -533,12 +534,22 @@ const GraphActions = {
         }
     },
 
-    getGraph:(reset=true,args="") => async (dispatch, _) => {
+    getGraphAdvanceApprovalStatus:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.graph_advance_approval_status}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_ADVANCE_APPROVAL_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphTrendPlanVSActualWorkdone:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_trend_plan_vs_actual_workdone}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE({dataAll,reset}))
         } catch (error) {
         }
     },
