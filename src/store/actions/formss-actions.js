@@ -81,8 +81,6 @@ const FormssActions = {
 
     putprofitandloss: (data, cb) => async (dispatch, _) => {
         try {
-            // alert(cb)
-            console.log("cb____",cb)
             console.log("adfasfasfasasfadfsa",data);
             const res = await Api.put({ data: data, url: Urls.forms_profit_loss })
             if (res?.status !== 201 && res?.status !== 200) {
@@ -122,9 +120,9 @@ const FormssActions = {
         } catch (error) {
         }
     },
-    postEVMDelivery: (data, cb) => async (dispatch, _) => {
+    postEVMDelivery: (data, cb,args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: Urls.formss_EVM_delivery })
+            const res = await Api.post({ data: data, url: `${Urls.formss_EVM_delivery}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,

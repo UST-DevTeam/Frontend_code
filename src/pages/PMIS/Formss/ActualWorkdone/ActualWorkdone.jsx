@@ -40,12 +40,16 @@ const ActualWorkdone = () => {
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
-  let dispatch = useDispatch();
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
+  const [projectType, setprojectType] = useState("")
+  const [projectId, setprojectId] = useState("")
 
+
+
+  let dispatch = useDispatch();
 
 
 
@@ -65,9 +69,6 @@ const ActualWorkdone = () => {
       let updateditm = {
         ...itm,
         "uniqueId":"1",
-        // plan1: itm.earnvalueArray?.[0]?.["plan"],
-        // plan2: itm.earnvalueArray?.[1]?.["plan"],
-        // plan3: itm.earnvalueArray?.[2]?.["plan"],
 
         edit: (
           <CstmButton
@@ -310,10 +311,23 @@ const ActualWorkdone = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FormssActions.getEVMDelivery(value, objectToQueryString(data)));
+    dispatch(
+      FormssActions.postEVMDelivery(
+        {
+          viewBy: extraColumns.join(","),
+          year: `${currrentYear}`,
+          yyear: `${currrentYear}`,
+          selectional: "Monthly",
+          typeSelectional: "Monthly",
+        },
+        () => {}, objectToQueryString(data)
+      )
+    );
   };
 
   useEffect(() => {
+    dispatch(FilterActions.getformEvmDeliveryProjectType())
+    dispatch(FilterActions.getformEvmDeliveryProjectId())
     dispatch(
       FormssActions.postEVMDelivery(
         {
@@ -326,8 +340,6 @@ const ActualWorkdone = () => {
         () => {}
       )
     );
-    dispatch(FilterActions.getformEvmDeliveryProjectType())
-    dispatch(FilterActions.getformEvmDeliveryProjectId())
   }, []);
 
   let formD = [
@@ -341,6 +353,7 @@ const ActualWorkdone = () => {
       props: {
         onChange: (e) => {
           setValue("projectType", e.target.value);
+          setprojectType(e.target.value);
         },
       },
       required: false,
@@ -356,6 +369,7 @@ const ActualWorkdone = () => {
       props: {
         onChange: (e) => {
           setValue("projectId", e.target.value);
+          setprojectId(e.target.value);
         },
       },
       required: false,
@@ -560,7 +574,9 @@ const ActualWorkdone = () => {
           year:year,
           yyear:year,
           selectional: ValGm,
-          typeSelectional:ValGm,}]}
+          typeSelectional:ValGm,
+          projectType:projectType,
+          projectId:projectId,}]}
           filterAfter={onSubmit}
           tableName={"AcctualWorkdoneform"}
           handleSubmit={handleSubmit}
