@@ -80,7 +80,6 @@ import BarGraph from "../../../../components/BarGrpah";
 import AdminActions from "../../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../../components/DoubleBarGraph";
-import DoubleBarGraph2 from "../../../../components/DoubleBarGraph2";
 import TripleBarGraph from "../../../../components/TripleBarGraph";
 
 const MonthRevenueTrend = () => {
@@ -134,6 +133,8 @@ const MonthRevenueTrend = () => {
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Trend || [];
   });
+
+  console.log(GraphData,"GraphDataGraphDataGraphDataGraphDataGraphData")
 
   useEffect(() => {
     dispatch(AdminActions.getManageCircle());
@@ -265,7 +266,7 @@ const MonthRevenueTrend = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} horizontal={false} enabledOnSeries={[true, true, true]} />
+      <TripleBarGraph data={GraphData} horizontal={false} enabledOnSeries={[true, true, true]} dataLabelSuffix="L" />
     </div>
   );
 };

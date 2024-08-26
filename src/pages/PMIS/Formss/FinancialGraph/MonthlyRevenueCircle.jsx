@@ -80,7 +80,6 @@ import BarGraph from "../../../../components/BarGrpah";
 import AdminActions from "../../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../../components/DoubleBarGraph";
-import DoubleBarGraph2 from "../../../../components/DoubleBarGraph2";
 import TripleBarGraph from "../../../../components/TripleBarGraph";
 
 const MonthlyRevenueCircle = () => {

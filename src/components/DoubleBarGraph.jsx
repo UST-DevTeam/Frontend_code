@@ -24,8 +24,6 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
 
     // const colors = ["#FFA0A0", "#B9D9EB"];
     const colors = ["#5cccb7", "#FF9999"];
-    console.log('Series Data:', series);
-    console.log('Data Label Suffix:', dataLabelSuffix);
 
     const options = {
         chart: {

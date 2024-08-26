@@ -105,7 +105,7 @@ const Login = () => {
                 navigate('/register')
             }} type="button" className="flex w-full justify-center rounded-full bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:outline-bg-pbutton hover:animate-pulse buttonAnim border-2 hover:border-2 border-gray-700 hover:border-gray-700">Register</button> */}
                 <button type="submit" className="flex w-full justify-center rounded-lg py-1.5 text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
-                    focus-visible:outline-2 mr-3  focus-visible:outline-offset-2  buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+                    focus-visible:outline-2 mr-4  focus-visible:outline-offset-2  buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
                     duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]">Sign in</button>
             </div>
         </form>

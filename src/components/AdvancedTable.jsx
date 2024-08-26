@@ -190,7 +190,10 @@ const AdvancedTable = ({
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
-            <div className="flex flex-row mt-[6px] text-white">{heading}{totalCount}</div>
+            <div className="flex flex-row mt-[6px] text-white">
+            <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
+            <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
+              </div>
             
               {/* {activeFilter.length > 0 && (
                 <h1 className="p-1 m-1">Active Filter:</h1>
