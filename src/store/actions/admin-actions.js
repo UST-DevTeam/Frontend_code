@@ -39,8 +39,10 @@ import {
     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
     GET_COMPONENT_ALLOCATION,
     GET_OLD_COMPONENT_ALLOCATION,
-    GET_ACCURAL_REVENUE_MASTER_PROJECT
-
+    GET_ACCURAL_REVENUE_MASTER_PROJECT,
+    GET_ACCURAL_REVENUE_MASTER_PROJECTID,
+    GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE,
+    GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
 
@@ -499,6 +501,33 @@ const AdminActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getAccuralRevenueMasterProjectID:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project_projectId}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getAccuralRevenueMasterProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project_projectType}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getAccuralRevenueMasterSubProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project_subProjectType}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({dataAll,reset}))
         } catch (error) {
         }
     },

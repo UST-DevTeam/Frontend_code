@@ -17,7 +17,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
 
     let subProjectTypelist = useSelector((state) => {
-        return state?.adminData?.getAccuralRevenueMasterProject?.map((itm) => {
+        return state?.adminData?.getAccuralRevenueMasterSubProject?.map((itm) => {
           return {
             label: itm?.subProjectName,
             value: itm?.subProject,
@@ -25,8 +25,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
           };
         });
     });
+    
     let ProjectTypelist = useSelector((state) => {
-        return state?.adminData?.getAccuralRevenueMasterProject?.map((itm) => {
+        return state?.adminData?.getAccuralRevenueMasterProjectType?.map((itm) => {
           return {
             label: itm?.projectTypeName,
             value: itm?.projectType,
@@ -35,7 +36,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         });
       });
       let Projectlist = useSelector((state) => {
-        return state?.adminData?.getAccuralRevenueMasterProject?.map((itm) => {
+        return state?.adminData?.getAccuralRevenueMasterProjectId?.map((itm) => {
           return {
             label: itm?.projectId,
             value: itm?.project,
@@ -61,7 +62,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             option: ProjectTypelist,
             props: {
               onChange: (e)=>{
+                console.log(e.target.value,'jjjjjjuuuu')
                 // handleClaimTypeChange(e.target.value)
+                dispatch(AdminActions.getManageZone(true, `customer=${e.target.value}`))
+                dispatch(AdminActions.getAccuralRevenueMasterProjectID(true, `projectType=${e.target.value}`));
+                dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true, `projectType=${e.target.value}`))
                 // handleClaimTypeChange2(e.target.value)
               },
               
@@ -79,6 +84,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             option: Projectlist,
             props: {
               onChange: (e)=>{
+                
                 // handleClaimTypeChange(e.target.value)
                 // handleClaimTypeChange2(e.target.value)
               },
@@ -110,7 +116,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "band",
             type: "text",
-            // required: true,
+            required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
@@ -125,7 +131,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "activity",
             type: "text",
-            // required: true,
+            required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
@@ -139,8 +145,8 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             label: "Rate",
             value: "",
             name: "rate",
-            type: "text",
-            // required: true,
+            type: "number",
+            required: true,
             filter: true,
             props: {
                 onChange: ((e) => {

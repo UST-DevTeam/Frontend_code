@@ -40,6 +40,9 @@ const initialState = {
     getSubProjectMultiDynamic:[],
     getProjectTypeMultiDynamic:[],
     getAccuralRevenueMasterProject:[],
+    getAccuralRevenueMasterProjectId:[],
+    getAccuralRevenueMasterSubProject:[],
+    getAccuralRevenueMasterProjectType:[],
 
 }
 
@@ -204,6 +207,27 @@ const adminData = createSlice({
                 state.getAccuralRevenueMasterProject = payload.dataAll
             }else{
                 state.getAccuralRevenueMasterProject  = [...state.getAccuralRevenueMasterProject,...payload.dataAll]
+            }
+        },
+        GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getAccuralRevenueMasterProjectType = payload.dataAll
+            }else{
+                state.getAccuralRevenueMasterProjectType  = [...state.getAccuralRevenueMasterProjectType,...payload.dataAll]
+            }
+        },
+        GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getAccuralRevenueMasterSubProject = payload.dataAll
+            }else{
+                state.getAccuralRevenueMasterSubProject  = [...state.getAccuralRevenueMasterSubProject,...payload.dataAll]
+            }
+        },
+        GET_ACCURAL_REVENUE_MASTER_PROJECTID:(state,{payload}) => {
+            if(payload.reset){
+                state.getAccuralRevenueMasterProjectId = payload.dataAll
+            }else{
+                state.getAccuralRevenueMasterProjectId  = [...state.getAccuralRevenueMasterProjectId,...payload.dataAll]
             }
         },
 
@@ -396,7 +420,11 @@ export const {
     GET_OLD_COMPONENT_ALLOCATION,
     GET_SUBPROJECT_MULTIDYNAMIC,
     GET_PROJECTTYPE_MULTIDYNAMIC,
-    GET_ACCURAL_REVENUE_MASTER_PROJECT
+    GET_ACCURAL_REVENUE_MASTER_PROJECT,
+    GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE,
+    GET_ACCURAL_REVENUE_MASTER_PROJECTID,
+    GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE,
+
 
 } = adminData.actions
     

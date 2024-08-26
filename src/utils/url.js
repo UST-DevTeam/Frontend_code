@@ -1,5 +1,5 @@
-export const baseUrl="http://127.0.0.1:7980"
-export const backendassetUrl="http://127.0.0.1:7980/"
+export const baseUrl="http://127.0.0.1:7989"
+export const backendassetUrl="http://127.0.0.1:7989/"
 
 // export const baseUrl="http://192.168.0.133:7980"
 // export const backendassetUrl="http://192.168.0.133:7980/" 
@@ -49,7 +49,9 @@ export const Urls={
     get_Subproject_Dyanmic:"/subprojects",
     get_project_type_Dyanmic:"/projectsType",
     get_accural_revenue_master_project:"/project/accuralRevenueMaster",
-    
+    get_accural_revenue_master_project_projectId:"/project/accuralRevenueMaster/projects",
+    get_accural_revenue_master_project_subProjectType:"/project/accuralRevenueMaster/subProjectType",
+    get_accural_revenue_master_project_projectType:"/project/accuralRevenueMaster/projectType",
     admin_getProjectSubType:"/admin/getProjectSubType",
     admin_getMappedData:"/mappedData",
     admin_getCircleWithPG:"/circlewithPG",

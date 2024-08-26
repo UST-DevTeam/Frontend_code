@@ -28,6 +28,7 @@ const AccuralRevenueMaster = () => {
     const [modalHead, setmodalHead] = useState(<></>)
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
+        console.log('ststetsate',state)
         let interdata = state?.adminData?.getAccuralRevenueMasterProject
         return interdata?.map((itm) => {
             
@@ -203,6 +204,9 @@ const AccuralRevenueMaster = () => {
     
     useEffect(() => {
         dispatch(AdminActions.getAccuralRevenueMasterProject());
+        dispatch(AdminActions.getAccuralRevenueMasterProjectType());
+        dispatch(AdminActions.getAccuralRevenueMasterProjectID());
+        dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
     }, []);
 
     // const onTableViewSubmit = (data) => { 
@@ -236,16 +240,16 @@ const AccuralRevenueMaster = () => {
                 setFileOpen((prev) => !prev);
               }}
             ></ConditionalButton>
-                    {/* <Button classes='w-auto' 
+                    <Button classes='w-auto' 
                         onClick={(e) => {
                             setmodalOpen(prev => !prev)
                             setmodalHead("New Profile")
                             setmodalBody(
-                                // <AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />
+                                <AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />
                             )
                         }}
-                        name={"Add Profile"}>
-                    </Button> */}
+                        name={"Add Rate"}>
+                    </Button> 
 
                     {/* <Button name={"Upload File"} classes='w-auto ' 
                         onClick={(e) => {
