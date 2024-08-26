@@ -20,6 +20,7 @@ const TripleBarGraph = ({
           const searchedData = data.find((item) => {
             return Object.keys(item)[1].split("-")[1] == i 
           }) 
+          console.log(searchedData,"searchedDatasearchedDatasearchedDatasearchedData")
           return searchedData ? searchedData[`${key}-${i}`] : 0
       })
   }

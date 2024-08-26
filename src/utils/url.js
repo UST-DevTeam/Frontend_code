@@ -1,8 +1,8 @@
-export const baseUrl="http://127.0.0.1:7980"
-export const backendassetUrl="http://127.0.0.1:7980/"
+// export const baseUrl="http://127.0.0.1:7980"
+// export const backendassetUrl="http://127.0.0.1:7980/"
 
-// export const baseUrl="http://192.168.29.23:7980"
-// export const backendassetUrl="http://192.168.29.23:7980/" 
+export const baseUrl="http://192.168.29.247:7979"
+export const backendassetUrl="http://192.168.29.247:7979/" 
 
 // export const baseUrl="http://192.168.29.236:7980"
 // export const backendassetUrl="http://192.168.29.236:7980/" 
@@ -188,6 +188,7 @@ export const Urls={
     graph_trend_expense_advance:"/graph/trendExpenseAdvance",
     graph_expense_approval_status:"/graph/ExpenseApprovalStatus",
     graph_advance_approval_status:"/graph/advanceApprovalStatus",
+    graph_trend_plan_vs_actual_workdone:"/graph/workdoneRevenueTrend",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

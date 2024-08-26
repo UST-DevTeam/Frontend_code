@@ -22,6 +22,7 @@ import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle"
 import TrendExpenseAdvance from "../ExpenseAdvanceGraph/TrendExpenseAdvance";
 import ExpenseApprovalStatus from "../ExpenseAdvanceGraph/ExpenseApprovalStatus";
 import AdvanceApprovalStatus from "../ExpenseAdvanceGraph/AdvanceApprovalStatus";
+import TrendPlanVSActualWorkdone from "../Formss/FinancialGraph/TrendPlanVSActualWorkdone";
 
 
 
@@ -46,6 +47,7 @@ const Dashboard1 = () => {
             <TrendExpenseAdvance />
             <ExpenseApprovalStatus />
             <AdvanceApprovalStatus />
+            <TrendPlanVSActualWorkdone />
             <ProjectChart customeruniqueId = {customeruniqueId} />
             <ClaimAndAdvanceChart customeruniqueId = {customeruniqueId} />
             <MileStoneChart customeruniqueId = {customeruniqueId} />
