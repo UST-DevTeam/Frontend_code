@@ -191,7 +191,7 @@ const AdvancedTable = ({
           <div className="flex justify-between">
             <div className="flex flex-row">
             <div className="flex flex-row mt-[6px] text-white">
-            <p className="text-[#f4d3a8] font-semibold">{heading}</p>
+            <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
             <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
               </div>
             
