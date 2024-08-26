@@ -28,6 +28,7 @@ const AccuralRevenueMaster = () => {
     const [modalHead, setmodalHead] = useState(<></>)
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
+        console.log('ststetsate',state)
         let interdata = state?.adminData?.getAccuralRevenueMasterProject
         return interdata?.map((itm) => {
             
@@ -203,6 +204,9 @@ const AccuralRevenueMaster = () => {
     
     useEffect(() => {
         dispatch(AdminActions.getAccuralRevenueMasterProject());
+        dispatch(AdminActions.getAccuralRevenueMasterProjectType());
+        dispatch(AdminActions.getAccuralRevenueMasterProjectID());
+        dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
     }, []);
 
     // const onTableViewSubmit = (data) => { 
