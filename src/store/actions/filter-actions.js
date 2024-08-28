@@ -74,9 +74,9 @@ const FilterActions = {
         }
     },
 
-    getSiteSubProject:(projectuniqueId,reset=true,args="") => async (dispatch, _) => {
+    getSiteSubProject:(projectuniqueId,reset=true,args="",show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_site_subProject}/${projectuniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.filter_site_subProject}/${projectuniqueId}${args!=""?"?"+args:""}`, reset ,show:show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FILTER_SITE_SUBPROJECT({dataAll,reset}))
@@ -173,9 +173,9 @@ const FilterActions = {
         }
     },
 
-    getformEvmDeliveryProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getformEvmDeliveryProjectType:(reset=true,args="",show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_form_evmDelivery_projectType}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.filter_form_evmDelivery_projectType}${args!=""?"?"+args:""}`, reset ,show:show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FORM_EVMDelivery_PROJECT_TYPE({dataAll,reset}))
@@ -183,9 +183,9 @@ const FilterActions = {
 
         }
     },
-    getformEvmDeliveryProjectId:(reset=true,args="") => async (dispatch, _) => {
+    getformEvmDeliveryProjectId:(reset=true,args="",show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_form_evmDelivery_projectId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.filter_form_evmDelivery_projectId}${args!=""?"?"+args:""}`, reset,show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FORM_EVMDelivery_PROJECT_ID({dataAll,reset}))
@@ -194,9 +194,9 @@ const FilterActions = {
         }
     },
 
-    getfinancialWorkDoneProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getfinancialWorkDoneProjectType:(reset=true,args="",show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_financial_workdone_projecttype}${args!=""?"?"+args:""}`, reset, show : 0 })
+            const res = await Api.get({ url:`${Urls.filter_financial_workdone_projecttype}${args!=""?"?"+args:""}`, reset, show : show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll,reset}))

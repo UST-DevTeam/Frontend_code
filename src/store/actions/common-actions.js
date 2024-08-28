@@ -191,7 +191,6 @@ const CommonActions = {
         try {
             store.dispatch(ComponentActions.loaders(true))
             const res = await Api.blobFile({ url: urls, method: method, data: data });
-            console.log(res,"__________________res")
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -223,6 +222,7 @@ const CommonActions = {
     commondownloadpost: (urls, filename, method = "POST", data = {}, cb=()=>{}) => async (dispatch, _) => {
 
         try {
+            store.dispatch(ComponentActions.loaders(true))
             const res = await Api.blobFile({ url: urls, method: method, data: data })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
@@ -250,6 +250,8 @@ const CommonActions = {
         }
         catch (error) {
             console.log(error, "amit errorerror 37")
+        } finally {
+            store.dispatch(ComponentActions.loaders(false))
         }
 
         

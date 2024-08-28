@@ -326,8 +326,8 @@ const ActualWorkdone = () => {
   };
 
   useEffect(() => {
-    dispatch(FilterActions.getformEvmDeliveryProjectType())
-    dispatch(FilterActions.getformEvmDeliveryProjectId())
+    dispatch(FilterActions.getformEvmDeliveryProjectType(true,"",0))
+    dispatch(FilterActions.getformEvmDeliveryProjectId(true,"",0))
     dispatch(
       FormssActions.postEVMDelivery(
         {

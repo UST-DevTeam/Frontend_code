@@ -35,8 +35,11 @@ instance.interceptors.request.use((request) => {
 })
 
 instance.interceptors.response.use((response) => {
-    store.dispatch(ComponentActions.loaders(false))
-    return response
+    if (response.config.show === 1) {
+        store.dispatch(ComponentActions.loaders(false));
+    }
+    // store.dispatch(ComponentActions.loaders(false))
+    return response;
 }, (error) => {
     store.dispatch(ComponentActions.loaders(false))
     // console.error(error?.response, 'hgfhjdhgf')
@@ -84,14 +87,17 @@ axiosInstanceblobFile.interceptors.response.use((response) => {
 
 const Api = {
     get: ({ url, contentType = "application/json", show = 1 }) => {
+
         return instance({
             method: "GET",
             url,
             headers: {
                 'Content-Type': contentType
-            }
+            },
+            show
         })
     },
+
     post: ({ data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }) => {
         console.log(data, url)
         return instance({
@@ -100,7 +106,8 @@ const Api = {
             url,
             headers: {
                 'Content-Type': contentType
-            }
+            },
+            show
         }).then(res => {
             console.log(res)
             // store.dispatch(Notify.progress(null));
@@ -119,7 +126,8 @@ const Api = {
             url,
             headers: {
                 'Content-Type': contentType
-            }
+            },
+            show
         })
     },
     patch: ({ data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }) => {
@@ -130,6 +138,7 @@ const Api = {
             headers: {
                 'Content-Type': contentType
             },
+            show,
             ...(upload && {
                 onUploadProgress: e => {
                     store.dispatch(Notify.progress((parseInt((e.loaded * 100) / e.total))));

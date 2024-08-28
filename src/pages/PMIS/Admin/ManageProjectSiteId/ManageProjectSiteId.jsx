@@ -1173,11 +1173,11 @@ const ManageProjectSiteId = () => {
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
   };
   useEffect(() => {
-    dispatch(projectListActions.getProjectType(projectuniqueId));
-    dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
+    dispatch(projectListActions.getProjectType(projectuniqueId,true,0));
+    dispatch(projectListActions.getCircleWithPGData(projectuniqueId,true,0));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    dispatch(projectListActions.getMappedData(projectuniqueId));
-    dispatch(FilterActions.getSiteSubProject(projectuniqueId));
+    dispatch(projectListActions.getMappedData(projectuniqueId,true,0));
+    dispatch(FilterActions.getSiteSubProject(projectuniqueId,true,"",0));
   }, []);
   const handleBulkDelte = () => {
    

@@ -48,9 +48,9 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
-    getProjectType: (uniqueId,reset=true) => async (dispatch, _) => {
+    getProjectType: (uniqueId,reset=true,show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.admin_getProjectSubType}/${uniqueId}` })
+            const res = await Api.get({ url: `${Urls.admin_getProjectSubType}/${uniqueId}`, show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data[0]
             dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
@@ -60,9 +60,9 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
-    getMappedData: (uniqueId,reset=true) => async (dispatch, _) => {
+    getMappedData: (uniqueId,reset=true,show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.admin_getMappedData}/${uniqueId}` })
+            const res = await Api.get({ url: `${Urls.admin_getMappedData}/${uniqueId}`,show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MAPPED_DATA({dataAll,reset}))
@@ -73,9 +73,9 @@ const projectListActions = {
         }
     },
 
-    getCircleWithPGData: (uniqueId,reset=true) => async (dispatch, _) => {
+    getCircleWithPGData: (uniqueId,reset=true,show=show) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.admin_getCircleWithPG}/${uniqueId}` })
+            const res = await Api.get({ url: `${Urls.admin_getCircleWithPG}/${uniqueId}`,show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll,reset}))

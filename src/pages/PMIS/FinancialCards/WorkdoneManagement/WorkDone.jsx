@@ -363,16 +363,16 @@ const WorkDone = () => {
         value: "final_amount",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Work Done Bucket",
-        value: "workdonebucket",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Invoice Bucket",
-        value: "invoicebucket",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Work Done Bucket",
+      //   value: "workdonebucket",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Invoice Bucket",
+      //   value: "invoicebucket",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Item Code 1",
         value: "itemCode01",
@@ -552,7 +552,7 @@ const WorkDone = () => {
         name: "siteBillingStatus",
         option: [
           { label: "Billed", value: "Billed" },
-          { label: "UnBilled", value: "Unbilled" },
+          { label: "Unbilled", value: "Unbilled" },
         ],
         props: {},
       },
@@ -603,7 +603,8 @@ const WorkDone = () => {
     // dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':year,'viewBy':month},() => {}));
 
     dispatch(FinanceActions.getPOWorkDoneBased());
-    dispatch(FilterActions.getfinancialWorkDoneProjectType());
+    dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+    
 
 
     
@@ -725,20 +726,16 @@ const WorkDone = () => {
         headerButton={
           <>
             <ConditionalButton
-              showType={getAccessType("Upload(Workdone)")}
-              name={"Upload File"}
+              showType={getAccessType("Export(Workdone)")}
+              name={"Export"}
               classes="w-auto mr-1"
-              onClick={(e) => {
-                setFileOpen((prev) => !prev);
+              onClick={() => {
+                dispatch(CommonActions.commondownload("/export/poWorkDone" + "?" + strValFil,"Export_PO_WorkDone.xlsx"))
               }}
             ></ConditionalButton>
           </>
         }
         table={table}
-        exportButton={[
-          "/export/poWorkDone" + "?" + strValFil,
-          "Export_PO_WorkDone.xlsx",
-        ]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -749,7 +746,6 @@ const WorkDone = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         heading={"Total Count:- "}
-        getaccessExport={"Export(Workdone)"}
       />
 
       <Modal
