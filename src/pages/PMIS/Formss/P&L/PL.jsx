@@ -346,12 +346,22 @@ const PL = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "ActalGrosProfit",
+        name: "Actual Gross Profit",
         value: "actualGrossProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Actual Margin(%)",
+        name: "SGNA",
+        value: "SGNA",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Actual Net Profit",
+        value: "actualNetProfit",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Net Margin(%)",
         value: "actualMargin",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
