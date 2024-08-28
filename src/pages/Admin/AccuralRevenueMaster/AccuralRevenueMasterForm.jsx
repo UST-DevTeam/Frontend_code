@@ -116,7 +116,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "band",
             type: "text",
-            required: true,
+            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
@@ -131,7 +131,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "activity",
             type: "text",
-            required: true,
+            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
