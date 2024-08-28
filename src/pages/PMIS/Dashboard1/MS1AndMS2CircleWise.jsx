@@ -72,21 +72,23 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import NewMultiSelects from "../../../../components/NewMultiSelect";
-import GraphActions from "../../../../store/actions/graph-actions";
-import Button from "../../../../components/Button";
+import NewMultiSelects from "../../../components/NewMultiSelect";
+import GraphActions from "../../../store/actions/graph-actions";
+import Button from "../../../components/Button";
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import BarGraph from "../../../../components/BarGrpah";
-import AdminActions from "../../../../store/actions/admin-actions";
-import NewSingleSelect from "../../../../components/NewSingleSelect";
-import DoubleBarGraph from "../../../../components/DoubleBarGraph";
-import TripleBarGraph from "../../../../components/TripleBarGraph";
+import BarGraph from "../../../components/BarGrpah";
+import AdminActions from "../../../store/actions/admin-actions";
+import NewSingleSelect from "../../../components/NewSingleSelect";
+import DoubleBarGraph from "../../../components/DoubleBarGraph";
+import TripleBarGraph from "../../../components/TripleBarGraph";
+import BarLineGraph from "../../../components/BarLineGraph";
 
-const MonthRevenueTrend = () => {
+const MS1AndMS2CircleWise = () => {
   const exportData = useRef([]);
   const months = [];
   const now = new Date();
   const monthsNumber = [];
+  const month=8
 
   for (let i = 0; i < 6; i++) {
     const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
@@ -102,24 +104,25 @@ const MonthRevenueTrend = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
-  // const [selectedDepartment, setSelectedDepartment] = useState([]);
-  const [selectedCircle, setSelectedCircle] = useState([]);
+//   const [selectedDepartment, setSelectedDepartment] = useState([]);
+const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
-  // let departmentList = useSelector((state) => {
-  //   return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-  //     label: itm?.orgLevel,
-  //     value: itm?.orgLevel,
-  //   }));
-  // });
+  const monthStr = `${month}`;
 
-  let CircleList = useSelector((state) => {
+//   let departmentList = useSelector((state) => {
+//     return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+//       label: itm?.orgLevel,
+//       value: itm?.orgLevel,
+//     }));
+//   });
+let CircleList = useSelector((state) => {
     return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleName,
-      value: itm?.circleName,
+      label: itm?.circleCode,
+      value: itm?.circleCode,
     }));
   });
 
@@ -131,49 +134,65 @@ const MonthRevenueTrend = () => {
   });
 
   let GraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphRevenuePlanVSActual_Trend || [];
+    return state?.GraphData?.getGraphMS1AndMS2CircleWise || [];
   });
 
-  console.log(GraphData,"GraphDataGraphDataGraphDataGraphDataGraphData")
+//   const percentageData = GraphData?.map(item => {
+//     const plan = item.plan || 1;
+//     const achieved = item.achievement || 0;
+//     return ((achieved / plan) * 100).toFixed(2);
+//   });
+
+
+  const SeriesData = [
+    {
+        name: "MS1",
+        data: GraphData?.map(item => item.TotalMS1Done) || [],
+      },
+      {
+        name: "MS2",
+        data: GraphData?.map(item => item.TotalMS2Done) || [],
+      },
+      {
+        name: "Total Sites",
+        data: GraphData?.map(item => item.SiteIdCount) || [],
+      },
+  ];
 
   useEffect(() => {
+    // dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageCircle());
     dispatch(GraphActions.getGraphAllProjectType());
-    dispatch(GraphActions.getGraphRevenuePlanVSActual_Trend());
-    fetchGraphData(); 
+    dispatch(GraphActions.getGraphMS1AndMS2CircleWise());
+    fetchGraphData();
   }, []);
 
   const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphRevenuePlanVSActual_Trend(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
+    exportData.current = extraColumnsState.map(
+      (itm) => `M-${itm.month}Y-${itm.year}`
     );
-  };
+    dispatch(
+      GraphActions.getGraphMS1AndMS2CircleWise());
+    };
 
-  // const handleFilter = () => {
-  //   const filterData = {
-  //     orgLevel: selectedDepartment.map((item) => item.value) || [],
-  //     year: selectedYears ? selectedYears.value : currentYear,
-  //     month: selectedMonths?.map((item) => item.value) || monthsNumber,
-  //   };
-  //   console.log('FilterData:', filterData);
+//   const handleFilter = () => {
+//     const filterData = {
+//       orgLevel: selectedDepartment.map((item) => item.value) || [],
+//       year: selectedYears ? selectedYears.value : currentYear,
+//       month: selectedMonths?.map((item) => item.value) || monthsNumber,
+//     };
 
-  //   dispatch(
-  //     GraphActions.postGraphMonthlyJoiningVsExit(
-  //       { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
-  //       () => {}
-  //     )
-  //   );
-  // };
-  const handleFilter = () => {
+//     dispatch(
+//       GraphActions.postGraphMonthlyJoiningVsExit(
+//         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
+//         () => {}
+//       )
+//     );
+//   };
+const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
-      filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
+      filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
     }
     if (selectedProjectType.length > 0) {
       filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
@@ -181,21 +200,21 @@ const MonthRevenueTrend = () => {
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
-    if (selectedMonths.length > 0) {
-      filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
-    }
-    dispatch(GraphActions.postGraphRevenuePlanVSActual_Trend(filterData, () => {}));
+    // if (selectedMonths.length > 0) {
+    //   filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+    // }
+    dispatch(GraphActions.postGraphMS1AndMS2CircleWise(filterData, () => {}));
   };
 
 
   const handleClear = () => {
+    // setSelectedDepartment([]);
     setSelectedCircle([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
-    setSelectedMonths([]);
+    // setSelectedMonths([]);
     fetchGraphData();
-    // dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
-  };  
+  };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
     label: 2021 + index,
@@ -219,12 +238,12 @@ const MonthRevenueTrend = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-       <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">Trend - Revenue Plan VS Actual</h1>
+         <div className="text-center mb-4">
+            <h1 className="text-white text-base font-bold">MS1 / MS2 Report</h1>
         </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
-          <NewMultiSelects
+        <NewMultiSelects
             label="Circle"
             option={CircleList}
             value={selectedCircle}
@@ -245,13 +264,13 @@ const MonthRevenueTrend = () => {
             placeholder="Year"
             cb={(data) => setSelectedYears(data)}
           />
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Month"
-            option={monthsList} 
+            option={monthsList}
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
-          />
+          /> */}
           <div className="flex space-x-1 ">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
@@ -266,9 +285,9 @@ const MonthRevenueTrend = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} horizontal={false} enabledOnSeries={[true, true, true]} dataLabelSuffix="Cr" />
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} columnWidth={"40%"} />
     </div>
   );
 };
 
-export default MonthRevenueTrend;
+export default MS1AndMS2CircleWise;

@@ -25,6 +25,8 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
     // const colors = ["#FFA0A0", "#B9D9EB"];
     const colors = ["#5cccb7", "#FF9999"];
 
+    const offsetY = horizontal ? 0 : -14;
+
     const options = {
         chart: {
             height: 440,
@@ -45,9 +47,10 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
             enabled: true,
             formatter: (val) => `${val} ${dataLabelSuffix}`,
             enabledOnSeries: [0,1],
+            offsetY: offsetY,
             style: {
                 colors: ["white"],
-                fontSize: "10px",
+                fontSize: "9px",
                 fontWeight: 'bold',
               },
         },
@@ -66,6 +69,9 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
                 style:{
                     colors:'#ffffff',
                     fontSize: '9px',
+                },
+                formatter: (value) => {
+                    return Math.round(value);
                 }
             }
         },
@@ -77,8 +83,8 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
                 dataLabels: {
                     style: {
                         colors: '#fff',
-                        position: 'top',
                     },
+                    position: 'top',
                 },
                 // colors: {
                 //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],

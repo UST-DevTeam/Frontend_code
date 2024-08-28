@@ -5,6 +5,7 @@ const initialState = {
     getGraphProjectStatus: [],
     getGraphMilestoneStatus: [],
     getGraphPoStatus: [],
+    getGraphMS1AndMS2CircleWise: [],
     getGraphOrganizationLevel: [],
     getGraphAllProjectType: [],
     getGraphPoTrackingWorkdone: [],
@@ -24,6 +25,7 @@ const initialState = {
     getGraphExpenseApprovalStatus:[],
     getGraphAdvanceApprovalStatus:[],
     getGraphTrendPlanVSActualWorkdone:[],
+    getGraphCirclePlanVSActualWorkdone:[],
 } 
  
 const GraphData = createSlice({
@@ -53,6 +55,14 @@ const GraphData = createSlice({
                 state.getGraphPoStatus = payload.dataAll
             }else{
                 state.getGraphPoStatus  = [...state.getGraphPoStatus,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_MS1_AND_MS2_CIRCLEWISE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphMS1AndMS2CircleWise = payload.dataAll
+            }else{
+                state.getGraphMS1AndMS2CircleWise  = [...state.getGraphMS1AndMS2CircleWise,...payload.dataAll]
             }
         },
 
@@ -213,6 +223,14 @@ const GraphData = createSlice({
                 state.getGraphTrendPlanVSActualWorkdone  = [...state.getGraphTrendPlanVSActualWorkdone,...payload.dataAll]
             }
         },
+        
+        GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphCirclePlanVSActualWorkdone = payload.dataAll
+            }else{
+                state.getGraphCirclePlanVSActualWorkdone  = [...state.getGraphCirclePlanVSActualWorkdone,...payload.dataAll]
+            }
+        },
 
     }
 })
@@ -220,6 +238,7 @@ const GraphData = createSlice({
 export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
+    GET_GRAPH_MS1_AND_MS2_CIRCLEWISE,
     GET_GRAPH_ORG_LEVEL,
     GET_GRAPH_ALL_PROJECT_TYPE,
     GET_GRAPH_PO_Tracking_WorkDone,
@@ -240,6 +259,7 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_EXPENSE_APPROVAL_STATUS,
     GET_GRAPH_ADVANCE_APPROVAL_STATUS,
     GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE,
+    GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE,
 } = GraphData.actions
     
 export default GraphData.reducer    

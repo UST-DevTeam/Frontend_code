@@ -130,7 +130,7 @@ const AdvanceApprovalStatus = () => {
           </div>
         </div>
       </div>
-      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" />
+      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" colors={["#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"]} />
     </div>
   );
 };

@@ -155,12 +155,12 @@ const ActiveEmpwithCostCenter = () => {
 
 
   return (
-    <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
+    <div className="bg-transparent border-[1.5px] border-pcol rounded-md w-auto p-4">
       <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Airtel Active Employee</h1>
         </div>
       <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex space-x-1  justify-between w-full">
           <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}

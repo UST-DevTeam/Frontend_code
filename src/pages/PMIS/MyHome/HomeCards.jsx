@@ -12,6 +12,7 @@ import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 import ProjectChart from "../Dashboard1/ProjectChart";
+import MS1AndMS2CircleWise from "../Dashboard1/MS1AndMS2CircleWise";
 
 const HomeCards = () => {
   const [type, settype] = useState(false);
@@ -113,7 +114,8 @@ const HomeCards = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
+      {/* <MS1AndMS2CircleWise /> */}
         {/* <ProjectChart />
         <ClaimAndAdvanceChart /> */}
       </div>

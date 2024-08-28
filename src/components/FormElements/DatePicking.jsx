@@ -8,10 +8,14 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
     const [value, onChange] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(true);
 
-
-    console.log(getValues(), "dfghjks")
+    const handleClearDate = () => {
+        setSelectedDate(null);
+        setValue(itm.name, null);
+    };
 
     return <>
+
+    <div className="relative">
 
         <DatePicker
 
@@ -36,6 +40,19 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
             timeFormat={"HH:mm"}
             className='bg-white border-black border block h-9 w-full rounded-md py-0.5 p-2 text-white-900 shadow-lg focus:shadow-indigo-500/30 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
         />
+
+                {selectedDate && (
+                    <button
+                        type="button"
+                        onClick={handleClearDate}
+                        // className="absolute right-2 pt-1.5 text-black font-extrabold hover:text-red-500"
+                        className="absolute right-2 top-1.5 text-black font-extrabold hover:font-extrabold hover:text-red-500 sm:right-1 sm:top-1.5 sm:text-sm md:right-2 md:top-1.5 xl:top-1.5 md:text-base"
+                    >
+                        ✕
+                    </button>
+                )}
+
+    </div>  
         {
             (itm.required && !getValues(itm.name)) &&
             <>

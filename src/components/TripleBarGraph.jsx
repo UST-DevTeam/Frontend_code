@@ -6,6 +6,7 @@ const TripleBarGraph = ({
   seriesData = [],
   horizontal = false,
   title = "",
+  columnWidth = "80%",
   month = [],
   enabledOnSeries = [false, false, false],
   dataLabelSuffix="",
@@ -20,7 +21,6 @@ const TripleBarGraph = ({
           const searchedData = data.find((item) => {
             return Object.keys(item)[1].split("-")[1] == i 
           }) 
-          console.log(searchedData,"searchedDatasearchedDatasearchedDatasearchedData")
           return searchedData ? searchedData[`${key}-${i}`] : 0
       })
   }
@@ -47,6 +47,8 @@ const TripleBarGraph = ({
   // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
   const colors = ["#5cccb7", "#FF9999", "#f9a8d4"];
 
+  const offsetY = horizontal ? 0 : -15;
+
   const options = {
     chart: {
       height: 440,
@@ -69,14 +71,12 @@ const TripleBarGraph = ({
       enabledOnSeries: enabledOnSeries
         ?.map((enabled, index) => (enabled ? index : -1))
         .filter((index) => index !== -1),
+      offsetY: offsetY,
       style: {
         colors: ["white"],
         fontSize: "8px",
         fontWeight: "bold",
-        rotate: 90,
       },
-      offsetX: 0, 
-      offsetY: 0,
     },
     xaxis: {
       categories: category,
@@ -93,18 +93,21 @@ const TripleBarGraph = ({
           colors: "#ffffff",
           fontSize: "9px",
         },
+        formatter: (value) => {
+          return Math.round(value);
+      }
       },
     },
     plotOptions: {
       bar: {
-        columnWidth: "70%",
+        columnWidth: columnWidth,
         horizontal: horizontal,
         borderRadius: 2,
         dataLabels: {
           style: {
             colors: "#fff",
-            position: "top",
           },
+          position: "top",
         },
       },
     },

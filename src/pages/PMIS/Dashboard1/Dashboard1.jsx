@@ -23,6 +23,9 @@ import TrendExpenseAdvance from "../ExpenseAdvanceGraph/TrendExpenseAdvance";
 import ExpenseApprovalStatus from "../ExpenseAdvanceGraph/ExpenseApprovalStatus";
 import AdvanceApprovalStatus from "../ExpenseAdvanceGraph/AdvanceApprovalStatus";
 import TrendPlanVSActualWorkdone from "../Formss/FinancialGraph/TrendPlanVSActualWorkdone";
+import CirclePlanVSActualWorkdone from "../Formss/FinancialGraph/CirclePlanVSActualWorddone";
+import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
+import MS1AndMS2CircleWise from "./MS1AndMS2CircleWise";
 
 
 
@@ -48,6 +51,9 @@ const Dashboard1 = () => {
             <ExpenseApprovalStatus />
             <AdvanceApprovalStatus />
             <TrendPlanVSActualWorkdone />
+            <CirclePlanVSActualWorkdone />
+            <MS1AndMS2CircleWise />
+            <VendorActiveInactive />
             <ProjectChart customeruniqueId = {customeruniqueId} />
             <ClaimAndAdvanceChart customeruniqueId = {customeruniqueId} />
             <MileStoneChart customeruniqueId = {customeruniqueId} />
