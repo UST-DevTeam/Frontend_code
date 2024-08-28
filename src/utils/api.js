@@ -30,7 +30,7 @@ instance.interceptors.request.use((request) => {
     store.dispatch(ComponentActions.loaders(true))
     return request
 }, (error) => {
-    // store.dispatch(ComponentActions.loaders(false))
+    store.dispatch(ComponentActions.loaders(false))
     // console.error(error.message, 'hgfhjdhgf')
 })
 
@@ -40,8 +40,8 @@ instance.interceptors.response.use((response) => {
 }, (error) => {
     store.dispatch(ComponentActions.loaders(false))
     // console.error(error?.response, 'hgfhjdhgf')
-    if (error?.response?.status==401) {
-        store.dispatch(CommonActions.logoutCaller(()=>{
+    if (error?.response?.status == 401) {
+        store.dispatch(CommonActions.logoutCaller(() => {
             window.location.href = '/login';
         }))
     }
@@ -69,14 +69,14 @@ axiosInstanceblobFile.interceptors.response.use((response) => {
 }, (error) => {
 
     store.dispatch(ComponentActions.loaders(false))
-    if (error?.response?.status==401) {
-        store.dispatch(CommonActions.logoutCaller(()=>{
+    if (error?.response?.status == 401) {
+        store.dispatch(CommonActions.logoutCaller(() => {
             window.location.href = '/login';
         }))
     }
     // store.dispatch(ComponentActions.loaders(false))
-    
-    return error?.response 
+
+    return error?.response
 })
 
 

@@ -53,7 +53,6 @@ const AccuralRevenueMaster = () => {
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                    console.log(itm,'ghjkjhghjkl2')
                     setmodalOpen(true)
                     dispatch(AdminActions.getAccuralRevenueMasterProject())
                     setmodalHead("Edit Accural Revenue")

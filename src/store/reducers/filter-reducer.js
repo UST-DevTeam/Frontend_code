@@ -18,6 +18,7 @@ const initialState = {
     getMyTaskSubProject:[],
     getformevmdeliveryprojecttype:[],
     getformevmdeliveryprojectid:[],
+    getfinancialworkdoneprojecttype:[],
 }
 
 const filterData = createSlice({
@@ -152,6 +153,14 @@ const filterData = createSlice({
             }
         },
 
+        GET_FINANCIAL_WORKDONE_PROJECT_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getfinancialworkdoneprojecttype = payload.dataAll
+            }else{
+                state.getfinancialworkdoneprojecttype  = [...state.getfinancialworkdoneprojecttype,...payload.dataAll]
+            }
+        },
+
 
     }
 })
@@ -171,7 +180,8 @@ export const {  GET_FILTER_PROJECT_CIRCLE,
                 GET_AUTO_SUGGESTION_PROJECT_MANAGER,
                 GET_FILTER_MYTASK_SUBPROJECT,
                 GET_FORM_EVMDelivery_PROJECT_TYPE,
-                GET_FORM_EVMDelivery_PROJECT_ID
+                GET_FORM_EVMDelivery_PROJECT_ID,
+                GET_FINANCIAL_WORKDONE_PROJECT_TYPE
             } = filterData.actions
     
 export default filterData.reducer

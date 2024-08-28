@@ -16,7 +16,8 @@ import {
         GET_AUTO_SUGGESTION_PROJECT_MANAGER,
         GET_FILTER_MYTASK_SUBPROJECT,
         GET_FORM_EVMDelivery_PROJECT_TYPE,
-        GET_FORM_EVMDelivery_PROJECT_ID
+        GET_FORM_EVMDelivery_PROJECT_ID,
+        GET_FINANCIAL_WORKDONE_PROJECT_TYPE
  } from "../reducers/filter-reducer"
 
 
@@ -188,6 +189,17 @@ const FilterActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FORM_EVMDelivery_PROJECT_ID({dataAll,reset}))
+        } catch (error){
+
+        }
+    },
+
+    getfinancialWorkDoneProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.filter_financial_workdone_projecttype}${args!=""?"?"+args:""}`, reset, show : 0 })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll,reset}))
         } catch (error){
 
         }
