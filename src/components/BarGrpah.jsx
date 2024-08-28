@@ -1,13 +1,10 @@
 import { colors } from "@material-ui/core";
+import { offset } from "highcharts";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="30%", dataLabelSuffix="", }) => {
-    // const horizontal = data?.horizontal || false;
-    // let SeriesData = data?.map(item => item.count) ||[];  
+const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="30%", dataLabelSuffix="", colors = ["#5cccb7"], }) => { 
     let category = data?.map(item => item.description) ||[];
-    // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
-    // let category = data?.map(item => item.description) ||[];
 
     const defaultSeries = [
         {
@@ -18,7 +15,9 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
 
     const series = seriesData?.length ? seriesData : defaultSeries;
 
-    console.log(series , 'dfdfadsfagsfdgss')
+    const offsetX = horizontal ? 13 : 0;
+    const offsetY = horizontal ? 0 : -15;
+
 
     const options = {
         chart: {
@@ -41,9 +40,11 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             enabled: true,
             formatter: (val) => `${val} ${dataLabelSuffix}`,
             enabledOnSeries: [0],
+            offsetY: offsetY,
+            offsetX: offsetX,
             style: {
                 colors: ["white"],
-                fontSize: "10px",
+                fontSize: "9px",
                 fontWeight: 'bold',
               },
         },
@@ -75,6 +76,7 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
                     style: {
                         colors: '#fff',
                     },
+                    position: 'top',
                 },
                 // colors: {
                 //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],
@@ -88,7 +90,7 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
         },
         // colors: ["#33b2df","#546E7A","#d4526e","#13d8aa","#A5978B","#2b908f","#f9a3a4","#90ee7e","#f48024","#69d2e7"],
         // colors: ["#66c8e2","#7f8c8d","#f77a82","#2ee1c0","#c0b7a5","#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"], recent use
-        colors: ["#5cccb7"], 
+        colors: colors,
         legend:{
             show: false,
             position:"bottom",

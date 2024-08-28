@@ -1,42 +1,38 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = "", month = 8, enabledOnSeries = [false, false, false] }) => {
+const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = "",}) => {
 
-    const monthStr = `${month}`;
+    const category = data?.map(item => item.description);
 
-    // const staticData = [
-    //     { description: "Category 1", [`aop_target-${monthStr}`]: 50, [`M-${monthStr}_y`]: 70, [`totalInvoice-${monthStr}`]: 60 },
-    //     { description: "Category 2", [`aop_target-${monthStr}`]: 40, [`M-${monthStr}_y`]: 65, [`totalInvoice-${monthStr}`]: 55 },
-    //     { description: "Category 3", [`aop_target-${monthStr}`]: 80, [`M-${monthStr}_y`]: 90, [`totalInvoice-${monthStr}`]: 85 },
-    // ];
-
-    // // Fallback to static data if no dynamic data is provided
-    // const finalData = data.length > 0 ? data : staticData;
-
-    const category = finalData.map(item => item.description);
-
+    const percentageData = data?.map(item => {
+        const plan = item.plan || 0;
+        const achieved = item.achievement || 0; 
+        const percentage = plan === 0 ? 0 : ((achieved / plan) * 100).toFixed(1);
+        return `${percentage}%`; 
+    });
+        
     const defaultSeries = [
         {
-            name: "AOP-Target",
-            data: finalData.map(item => item[`aop_target-${monthStr}`]),
+            name: "Planned",
             type: "bar",
-        },
-        {
-            name: "PV-Target",
-            data: finalData.map(item => item[`M-${monthStr}_y`]),
+            data: data?.map(item => item.plan) || [],
+          },
+          {
+            name: "Achieved",
             type: "bar",
-        },
-        {
-            name: "Actual Revenue",
-            data: finalData.map(item => item[`totalInvoice-${monthStr}`]),
-            type: "line",
-        },
+            data: data?.map(item => item.achievement) || [],
+          },
+        //   {
+        //     name: "Achievement",
+        //     type: "line",
+        //     data: percentageData || [],
+        //   },
     ];
 
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-    const colors = ["#5cccb7", "#FF9999", "#f9a8d4"];
+    const colors = ["#5cccb7", "#FF9999", "#b8ee30"];
 
     const options = {
         chart: {
@@ -44,6 +40,17 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             type: 'line', 
             background: '#3e454d',
             stacked: false,
+            toolbar: {
+                show: true,
+                tools: {
+                    download: true, 
+                    zoomin: false, 
+                    zoomout: false, 
+                    reset: false,
+                    pan: false,
+                    zoom: false,                
+                },
+            }
         },
         title: {
             text: title,
@@ -56,16 +63,25 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: enabledOnSeries?.map((enabled, index) => enabled ? index : -1).filter(index => index !== -1),
+            enabledOnSeries: [0,1,2,3],
+            formatter: (val, { seriesIndex }) => {
+                if (seriesIndex === 2) {
+                  return `${val}%`;
+                }
+                return val;
+              },
+            offsetY: -7,
             style: {
                 colors: ["transparent"],
-                fontSize: "10px",
+                fontSize: "9px",
                 fontWeight: 'bold',
-            },
+            }, 
             background: {
-                enabled: true,
+                enabled: true, 
                 borderRadius: 0,
-            }
+                borderWidth: 0, 
+                borderColor: "transparent", 
+              },
         },
         xaxis: {
             categories: category,
@@ -81,27 +97,40 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
                 style: {
                     colors: '#ffffff',
                     fontSize: '9px',
+                },
+                formatter: (value) => {
+                    return Math.round(value);
                 }
             }
         },
         plotOptions: {
             bar: {
-                columnWidth: '40%',
+                columnWidth: '60%',
                 horizontal: horizontal,
                 borderRadius: 2,
             },
         },
         stroke: {
-            width: [0, 0, 2], // Define widths: 0 for bars and 2 for the line
-            curve: 'smooth' // Make the line smooth
+            width: [0, 0, 2], 
+            curve: 'smooth',
+            colors: ["", "", "#b8ee30"],
         },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
+        markers: {
+            size: 6, 
+            colors: ['#b8ee30'], 
+            strokeColor: 'black', 
+            strokeWidth: 0.5, 
+            hover: {
+                size: 6, 
+            }
+        },
         fill: {
             colors: colors,
-            opacity: [1, 1, 0.5], // Different opacity for bars and line
+            opacity: [1, 1, 1],
         },
         legend: {
             show: true,

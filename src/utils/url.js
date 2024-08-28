@@ -4,8 +4,11 @@
 export const baseUrl="http://192.168.29.247:7979"
 export const backendassetUrl="http://192.168.29.247:7979/" 
 
-// export const baseUrl="http://192.168.29.236:7980"
-// export const backendassetUrl="http://192.168.29.236:7980/" 
+// export const baseUrl="http://192.168.29.24:7980"
+// export const backendassetUrl="http://192.168.29.24:7980" 
+
+// export const baseUrl="http://192.168.29.236:7989"
+// export const backendassetUrl="http://192.168.29.236:7989" 
 
 
 // export const baseUrl="https://pmisapi.mcpsinc.com"
@@ -170,6 +173,7 @@ export const Urls={
     graph_project_status:"/graph/projectStatus",
     graph_milestone_status:"/graph/milestoneStatus",
     graph_po_status:"/graph/poStatus",
+    graph_ms1_ms2_circleWise:"/graph/circlewiseMS1AndMs2",
     graph_organzation_level:"/graph/getorganationLevel",
     graph_all_project_type:"/graph/getAllprojectType",
     graph_po_tracing_workdone:"/graph/poTrackingWorkdone",
@@ -189,6 +193,7 @@ export const Urls={
     graph_expense_approval_status:"/graph/ExpenseApprovalStatus",
     graph_advance_approval_status:"/graph/advanceApprovalStatus",
     graph_trend_plan_vs_actual_workdone:"/graph/workdoneRevenueTrend",
+    graph_Circle_plan_vs_actual_workdone:"/graph/workdoneRevenueCircle",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

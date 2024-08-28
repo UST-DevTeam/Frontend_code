@@ -4,6 +4,7 @@ import {
     GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
+    GET_GRAPH_MS1_AND_MS2_CIRCLEWISE,
     GET_GRAPH_ORG_LEVEL,
     GET_GRAPH_ALL_PROJECT_TYPE,
     GET_GRAPH_PO_Tracking_WorkDone,
@@ -24,6 +25,7 @@ import {
     GET_GRAPH_EXPENSE_APPROVAL_STATUS,
     GET_GRAPH_ADVANCE_APPROVAL_STATUS,
     GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE,
+    GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE,
     
  } from "../reducers/graph-reducer"
 
@@ -72,6 +74,39 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_MILESTONE_STATUS({dataAll,reset}))
         } catch (error) {
+        }
+    },
+
+    getGraphMS1AndMS2CircleWise:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_ms1_ms2_circleWise}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_MS1_AND_MS2_CIRCLEWISE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphMS1AndMS2CircleWise: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_ms1_ms2_circleWise })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_MS1_AND_MS2_CIRCLEWISE({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
 
@@ -553,5 +588,15 @@ const GraphActions = {
         } catch (error) {
         }
     },
+
+    getGraphCirclePlanVSActualWorkdone:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_Circle_plan_vs_actual_workdone}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE({dataAll,reset}))
+        } catch (error) {
+        }
+    }, 
 }
 export default GraphActions;

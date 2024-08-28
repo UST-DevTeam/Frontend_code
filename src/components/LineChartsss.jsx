@@ -80,6 +80,15 @@ const LineChartsss = ({ data, horizontal = false, title="" }) => {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
+        markers: {
+            size: 4, 
+            colors: ['#f9a3a4'], 
+            strokeColor: 'black', 
+            strokeWidth: 0.5, 
+            hover: {
+                size: 6, 
+            }
+        },
         
     };
 

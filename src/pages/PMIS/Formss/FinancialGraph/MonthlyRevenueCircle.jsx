@@ -120,8 +120,8 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 //   });
 let CircleList = useSelector((state) => {
     return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleName,
-      value: itm?.circleName,
+      label: itm?.circleCode,
+      value: itm?.circleCode,
     }));
   });
 
@@ -136,23 +136,26 @@ let CircleList = useSelector((state) => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Circle || [];
   });
 
-
   const SeriesData = [
     {
-      name: "PV-Target",
-      data: GraphData?.map(item => item[`M-${monthStr}_y`]) || [],
+        name: "AOP-Target",
+        data: GraphData?.map(item => item.aop) || [],
     },
     {
-      name: "Actual Revenue",
-      data: GraphData?.map(item => item[`totalInvoice-${monthStr}`]) || [],
+        name: "PV-Target",
+        data: GraphData?.map(item => item.pv) || [],
     },
-  ];
-  console.log(SeriesData, "SeriesData");
+    {
+        name: "Actual Revenue",
+        data: GraphData?.map(item => item.amount) || [],
+    },
+];
+
 
   useEffect(() => {
     // dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
+    // dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
     fetchGraphData();
   }, []);
@@ -186,11 +189,11 @@ let CircleList = useSelector((state) => {
 const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
-      filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
+      filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
     }
-    if (selectedProjectType.length > 0) {
-      filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
-    }
+    // if (selectedProjectType.length > 0) {
+    //   filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
+    // }
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
@@ -204,7 +207,7 @@ const handleFilter = () => {
   const handleClear = () => {
     // setSelectedDepartment([]);
     setSelectedCircle([]);
-    setSelectedProjectType([]);
+    // setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
     fetchGraphData();
@@ -244,13 +247,13 @@ const handleFilter = () => {
             cb={(data) => setSelectedCircle(data)}
             placeholder="Circle"
           />
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Project Type"
             option={AllProjectTypeList}
             value={selectedProjectType}
             cb={(data) => setSelectedProjectType(data)}
             placeholder="Project Type"
-          />
+          /> */}
           <NewSingleSelect
             label="Year"
             option={years}
@@ -279,7 +282,7 @@ const handleFilter = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} enabledOnSeries={[true, true, false]} horizontal={false}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} enabledOnSeries={[true, true, true]} horizontal={false} dataLabelSuffix="L" />
     </div>
   );
 };
