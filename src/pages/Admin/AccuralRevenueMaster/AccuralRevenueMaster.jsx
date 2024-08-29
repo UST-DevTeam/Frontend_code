@@ -20,48 +20,27 @@ import AdminActions from '../../../store/actions/admin-actions';
 import ManageProfileForm from '../../PMIS/Admin/ManageProfile(userrole)/ManageProfileForm';
 import AccuralRevenueMasterForm from './AccuralRevenueMasterForm';
 import ConditionalButton from '../../../components/ConditionalButton';
+import FilterActions from '../../../store/actions/filter-actions';
 const AccuralRevenueMaster = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [strValFil, setstrVal] = useState(false);
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
-        console.log('ststetsate',state)
         let interdata = state?.adminData?.getAccuralRevenueMasterProject
         return interdata?.map((itm) => {
             
             let updateditm = {
                 ...itm,
-                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                //     console.log(e.target.checked, "e.target.checked")
-                //     let data = {
-                //         "enabled": e.target.checked ? 1 : 0
-                //     }
-                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                //         // alert(e.target.checked)
-                //         e.target.checked = e.target.checked
-                //     }, itm.id))
-                //     // if(itm.enabled==0){ 
-                //     //     itm.enabled=1
-                //     // }else{
-                //     //     itm.enabled=0
-                //     // }
-                //     // itm.enabled=itm.enabled==0?1:0
-                //     console.log(itm.enabled, "itm.enabled")
-                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getAccuralRevenueMasterProject())
-                    setmodalHead("Edit Accural Revenue")
+                    setmodalHead("Edit Master Rate")
                     setmodalBody(<>
-                    
-                        <AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                        <AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} filtervalue = {strValFil} />
                     </>)
-                    console.log('ahshshhs',itm)
                 }}></EditButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
@@ -96,6 +75,15 @@ const AccuralRevenueMaster = () => {
             return 0
         }
     })
+
+    let projectTypeList = useSelector((state) => {
+        return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+          return {
+            label: itm.projectType,
+            value: itm.uid,
+          };
+        });
+      });
 
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
@@ -183,21 +171,31 @@ const AccuralRevenueMaster = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
+            {
+                label: "Project Type",
+                type: "select",
+                name: "projectType",
+                option:projectTypeList,
+                props: {
+                }
+            },
+            {
+                label: "Project ID",
+                type: "text",
+                name: "projectId",
+                props: {}
+            },
         ]
     }
 
     const onSubmit = (data) => {
-        let value = data.reseter
+        delete data.rolename
+        delete data.sub
+        let shouldReset = data.reseter;
         delete data.reseter
-        dispatch(AdminActions.getAccuralRevenueMasterProject(value, objectToQueryString(data)))
+        let strVal = objectToQueryString(data);
+        setstrVal(strVal);
+        dispatch(AdminActions.getAccuralRevenueMasterProject(true, objectToQueryString(data)))
     }
 
     
@@ -206,17 +204,9 @@ const AccuralRevenueMaster = () => {
         dispatch(AdminActions.getAccuralRevenueMasterProjectType());
         dispatch(AdminActions.getAccuralRevenueMasterProjectID());
         dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
+        dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
     }, []);
 
-    // const onTableViewSubmit = (data) => { 
-    //     console.log(data, "datadata")
-    //     data["fileType"]="ManageCircle"
-    //     data['collection'] = "circle"
-    //     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-    //         dispatch(AdminActions.getManageCircle())
-    //         setFileOpen(false)
-    //     }))
-    // }
     const onTableViewSubmit3 = (data) => {
         data["fileType"] = "UploadAccuralRevenueMaster";
         dispatch(
@@ -231,6 +221,14 @@ const AccuralRevenueMaster = () => {
         <AdvancedTable
             headerButton={
                 <div className='flex gap-1'>
+                    <Button
+                        name={"Add New"}
+                        classes="w-auto"
+                        onClick={(e) => {setmodalOpen((prev) => !prev)
+                        setmodalHead("Add Master Rate") 
+                        setmodalBody(<AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
+                        }}>
+                    </Button>
                     <Button
                         name={"Upload"}
                         classes="w-auto"
@@ -255,7 +253,7 @@ const AccuralRevenueMaster = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {'Total Count :- '}
+            heading = {'Total Count :-  '}
         />
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
         <FileUploader
@@ -266,7 +264,7 @@ const AccuralRevenueMaster = () => {
         tempbtn={true} tempbtnlink = {["/template/AccuralRevenueMaster.xlsx","AccuralRevenueMaster.xlsx"]}
         head = {"Upload File"}
       />
-        {/* <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  /> */}
+
     </>
 
 };

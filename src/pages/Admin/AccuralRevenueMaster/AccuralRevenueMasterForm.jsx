@@ -11,7 +11,7 @@ import Button from '../../../components/Button';
 import AdminActions from '../../../store/actions/admin-actions';
 
 
-const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
 
 
 
@@ -35,6 +35,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
           };
         });
       });
+
       let Projectlist = useSelector((state) => {
         return state?.adminData?.getAccuralRevenueMasterProjectId?.map((itm) => {
           return {
@@ -55,19 +56,13 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         {
             label: "Project Type",
             value: "",
-            // name: "projectType",
-            // type: "select",
             name:Object.entries(formValue).length > 0 ? "projectTypeName" : "projectType",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: ProjectTypelist,
             props: {
               onChange: (e)=>{
-                console.log(e.target.value,'jjjjjjuuuu')
-                // handleClaimTypeChange(e.target.value)
-                dispatch(AdminActions.getManageZone(true, `customer=${e.target.value}`))
                 dispatch(AdminActions.getAccuralRevenueMasterProjectID(true, `projectType=${e.target.value}`));
                 dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true, `projectType=${e.target.value}`))
-                // handleClaimTypeChange2(e.target.value)
               },
               
             },
@@ -77,16 +72,12 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
           {
             label: "Project",
             value: "",
-            // name: "project",
-            // type: "select",
             name:Object.entries(formValue).length > 0 ? "projectId" : "project",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: Projectlist,
             props: {
               onChange: (e)=>{
                 
-                // handleClaimTypeChange(e.target.value)
-                // handleClaimTypeChange2(e.target.value)
               },
               
             },
@@ -271,6 +262,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         getValues,
         formState: { errors },
     } = useForm()
+
     const onSubmit = (data) => {
         console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
@@ -278,12 +270,10 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         // }))
     }
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getAccuralRevenueMasterProject())
+                dispatch(AdminActions.getAccuralRevenueMasterProject(true,filtervalue))
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
@@ -292,57 +282,42 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             }))
         }
     }
-    console.log(Form, "Form 11")
-    // useEffect(() => {
-    //     dispatch(AdminActions.getAccuralRevenueMasterProject())
-    //     if (resetting) {
-    //         reset({})
-    //         Form.map((fieldName) => {
-    //             setValue(fieldName["name"], fieldName["value"]);
-    //         });
-    //     } else {
-    //         reset({})
-    //         console.log(Object.keys(formValue), "Object.keys(formValue)")
-    //         Form.forEach((key) => {
-    //             if (["endAt", "startAt"].indexOf(key.name) != -1) {
-    //                 console.log("date formValuekey", key.name, formValue[key.name])
-    //                 const momentObj = moment(formValue[key.name]);
-    //                 setValue(key.name, momentObj.toDate());
 
-
-    //             } else {
-    //                 // console.log("formValuekey",key,key)
-    //                 setValue(key.name, formValue[key.name]);
-    //             }
-    //         })
-    //     }
-    // }, [formValue, resetting])
     useEffect(() => {
-        dispatch(AdminActions.getAccuralRevenueMasterProject())
-        // dispatch(ExpenseAdvanceActions.getClaimTypeAdvance());
-        if (resetting) {
-          reset({});
-          Form.map((fieldName) => {
-            setValue(fieldName["name"], fieldName["value"]);
-          });
-        } else {
-          reset({});
-          console.log(Object.keys(formValue), "Object.keys(formValue)");
-          Object.keys(formValue).forEach((key) => {
-            if (["endAt", "startAt"].indexOf(key.name) != -1) {
-              console.log("date formValuekey", key.name, formValue[key.name]);
-              const momentObj = moment(formValue[key.name]);
-              setValue(key.name, momentObj.toDate());
-            } else {
-              // console.log("formValuekey",key,key)
-              setValue(key, formValue[key]);
-            }
-          });
-        }
-      }, [formValue, resetting ]);
+      if (!isOpen) {
+        reset({});
+        Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
+      } else {
+        reset({});
+      }
+    }, [isOpen,formValue,resetting]);
+
+
+    // useEffect(() => {
+    //     if (resetting) {
+    //       reset({});
+    //       Form.map((fieldName) => {
+    //         setValue(fieldName["name"], fieldName["value"]);
+    //       });
+    //     } else {
+    //       reset({});
+    //       console.log(Object.keys(formValue), "Object.keys(formValue)");
+    //       Object.keys(formValue).forEach((key) => {
+    //         if (["endAt", "startAt"].indexOf(key.name) != -1) {
+    //           console.log("date formValuekey", key.name, formValue[key.name]);
+    //           const momentObj = moment(formValue[key.name]);
+    //           setValue(key.name, momentObj.toDate());
+    //         } else {
+    //           // console.log("formValuekey",key,key)
+    //           setValue(key, formValue[key]);
+    //         }
+    //       });
+    //     }
+    //   }, [formValue, resetting ]);
+
+
+
     return <>
-
-
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
