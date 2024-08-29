@@ -739,9 +739,16 @@ export const Sidebar_content = {
         component: <HomeCards />,
         icon: <UilHome className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
-      }
+      },
+      {
+        name: "Project Management",
+        link: "/manageCustomer",
+        // component: ["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename)==-1?<ManageCustomer />:<ManageUserProjectSiteId />,
+        component: <ManageCustomer />,
+        subMenu: [],
+        icon: <UilFileShieldAlt className="hover:text-heading cursor-pointer" />,
+      },
     ],
-    ...abcd,
     ...[
       {
         name: "Human Resource",
@@ -793,13 +800,13 @@ export const Sidebar_content = {
         icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },
-      {
-        name: "",
-        link: "/hr/superAdmin/MasterUnitRate",
-        component: <AccuralRevenueMaster />,
-        icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
-        subMenu: [],
-      },
+      // {
+      //   name: "",
+      //   link: "/hr/superAdmin/MasterUnitRate",
+      //   component: <AccuralRevenueMaster />,
+      //   icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      //   subMenu: [],
+      // },
       // {
       //   name: "Super Admin",
       //   link: "/admin",

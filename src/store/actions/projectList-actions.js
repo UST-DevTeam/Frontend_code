@@ -73,7 +73,7 @@ const projectListActions = {
         }
     },
 
-    getCircleWithPGData: (uniqueId,reset=true,show=show) => async (dispatch, _) => {
+    getCircleWithPGData: (uniqueId,reset=true,show=1) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.admin_getCircleWithPG}/${uniqueId}`,show:show })
             if (res?.status !== 200) return
