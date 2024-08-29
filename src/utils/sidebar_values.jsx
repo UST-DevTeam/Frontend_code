@@ -698,6 +698,13 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
+    {
+      name: "",
+      link: "/hr/superAdmin/MasterUnitRate",
+      component: <AccuralRevenueMaster />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
     
   ],
 
@@ -800,13 +807,7 @@ export const Sidebar_content = {
         icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },
-      // {
-      //   name: "",
-      //   link: "/hr/superAdmin/MasterUnitRate",
-      //   component: <AccuralRevenueMaster />,
-      //   icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
-      //   subMenu: [],
-      // },
+      
       // {
       //   name: "Super Admin",
       //   link: "/admin",
