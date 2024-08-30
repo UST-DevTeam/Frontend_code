@@ -231,22 +231,13 @@ const handleFilter = () => {
             }}
             placeholder="View As"
           />
-          {/* <NewMultiSelects
-            label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            option={extraColumnsState}
-            value={selectedMonths}
-            cb={(data) => setSelectedMonths(data)}
-            placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-          /> */}
           <NewMultiSelects
             label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
             option={extraColumnsState}
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            // Disable the component when 'selectedView' is not 'Monthly' or 'Weekly'
-            disabled={!["Monthly", "Weekly"].includes(selectedView?.value)}
-          /> 
+          />
           <div className="flex space-x-1 ">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
@@ -261,7 +252,7 @@ const handleFilter = () => {
           </div>
         </div>
       </div>
-      <BarLineGraph data={GraphData}  horizontal={false}/>
+      <BarLineGraph data={GraphData}  horizontal={false} />
     </div>
   );
 };

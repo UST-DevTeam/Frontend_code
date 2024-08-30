@@ -43,8 +43,14 @@ const BreadCrumbs = () => {
     },
     // "GoToProject":{
     //   "name":"Go To Project",
-    //   "url":`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`
+    //   "url":`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}` || ""
     // },
+  //  "GoToProject": {
+  //   "name": "Go To Project",
+  //   "url": cname && customeruniqueId
+  //           ? `/projectManagement_1/${cname}/GoToProject/${customeruniqueId}`
+  //           : `/projectManagement_1/${cname}/GoToProject/${customeruniqueId}`
+  // },
     "projectManagement_1":{
       "name":"Project Management",
       "url":`${"/projectManagement_1"}/${cname}/projectType/${customeruniqueId}/${projecttypeuniqueId}`

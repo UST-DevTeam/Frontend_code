@@ -82,6 +82,7 @@ import NewSingleSelect from "../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../components/DoubleBarGraph";
 import TripleBarGraph from "../../../components/TripleBarGraph";
 import BarLineGraph from "../../../components/BarLineGraph";
+import TripleLineBarGraph from "../../../components/TripleLineBarGraph";
 
 const MS1AndMS2CircleWise = () => {
   const exportData = useRef([]);
@@ -104,7 +105,7 @@ const MS1AndMS2CircleWise = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
-//   const [selectedDepartment, setSelectedDepartment] = useState([]);
+//   const [selectedDepartment, setSelectedDepartment ] = useState([]);
 const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
@@ -137,25 +138,34 @@ let CircleList = useSelector((state) => {
     return state?.GraphData?.getGraphMS1AndMS2CircleWise || [];
   });
 
-//   const percentageData = GraphData?.map(item => {
-//     const plan = item.plan || 1;
-//     const achieved = item.achievement || 0;
-//     return ((achieved / plan) * 100).toFixed(2);
-//   });
+  const MS2MS1 = GraphData?.map(item => {
+    const TotalMS1Done = item.TotalMS1Done || 0;
+    const TotalMS2Done = item.TotalMS2Done || 0;
+    const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(1);
+    return `${percentage}%`;
+  }) || [];
 
 
   const SeriesData = [
     {
+        name: "Total Sites",
+        data: GraphData?.map(item => item.SiteIdCount) || [],
+        type: "bar",
+      },
+    {
         name: "MS1",
         data: GraphData?.map(item => item.TotalMS1Done) || [],
+        type: "bar",
       },
       {
         name: "MS2",
         data: GraphData?.map(item => item.TotalMS2Done) || [],
+        type: "bar",
       },
       {
-        name: "Total Sites",
-        data: GraphData?.map(item => item.SiteIdCount) || [],
+        name: "MS2/MS1(%)", 
+        data: MS2MS1,
+        type: "line", 
       },
   ];
 
@@ -285,7 +295,7 @@ const handleFilter = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} columnWidth={"40%"} />
+      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"70%"} />
     </div>
   );
 };

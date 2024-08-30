@@ -3,7 +3,7 @@ import { offset } from "highcharts";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="30%", dataLabelSuffix="", colors = ["#5cccb7"], }) => { 
+const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="30%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#5cccb7"], }) => { 
     let category = data?.map(item => item.description) ||[];
 
     const defaultSeries = [
@@ -51,6 +51,14 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
         xaxis: {
             // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
             categories: category,
+            title: {
+                text: XAxisTitle,
+                style: {
+                  color: '#ffffff',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                },
+              },
             labels:{
                 style:{
                     colors:'#ffffff',
@@ -59,13 +67,22 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             }
         },
         yaxis:{
+            title: {
+                text: YAxisTitle,
+                style: {
+                  color: '#ffffff',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                },
+                left: "500px"
+              },
             labels:{
                 style:{
                     colors:'#ffffff',
                     fontSize: '8.45px',
                     fontWeight: 'bold',
                 }
-            }
+            },
         },
         plotOptions: {
             bar: {

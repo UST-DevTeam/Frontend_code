@@ -23,14 +23,14 @@ const ProjectChart = (id) => {
 
   let customeruniqueId = id['customeruniqueId']
 
-  let projectGroupList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectGroup.map((itm) => {
-      return {
-        label: itm.ProjectGroup,
-        value: itm.ProjectGroup,
-      };
-    });
-  });
+  // let projectGroupList = useSelector((state) => {
+  //   return state?.filterData?.getProjectProjectGroup.map((itm) => {
+  //     return {
+  //       label: itm.ProjectGroup,
+  //       value: itm.ProjectGroup,
+  //     };
+  //   });
+  // });
 
   let projectTypeList = useSelector((state) => {
     return state?.filterData?.getProjectProjectType.map((itm) => {
@@ -41,14 +41,14 @@ const ProjectChart = (id) => {
     });
   });
 
-  let projectManagerList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectManager.map((itm) => {
-      return {
-        label: itm.projectManager,
-        value: itm.projectManager,
-      };
-    });
-  });
+  // let projectManagerList = useSelector((state) => {
+  //   return state?.filterData?.getProjectProjectManager.map((itm) => {
+  //     return {
+  //       label: itm.projectManager,
+  //       value: itm.projectManager,
+  //     };
+  //   });
+  // });
 
   let pieGraphData = useSelector((state) => {
     return state?.GraphData?.getGraphProjectStatus || [""]
@@ -57,28 +57,28 @@ const ProjectChart = (id) => {
 
   useEffect(() => {
     
-    dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
+    // dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
     dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
-    dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
+    // dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
     dispatch(GraphActions.getGraphProjectStatus());
   }, []);
 
   const handleFilter = () => {
     const filterData = {
-      ...(selectedProjectGroup.length && { selectedProjectGroup: selectedProjectGroup.map(item => item.value) }),
+      // ...(selectedProjectGroup.length && { selectedProjectGroup: selectedProjectGroup.map(item => item.value) }),
       ...(selectedProjectType.length && { selectedProjectType: selectedProjectType.map(item => item.value) }),
-      ...(selectedProjectManager.length && { selectedProjectManager: selectedProjectManager.map(item => item.value) }),
+      // ...(selectedProjectManager.length && { selectedProjectManager: selectedProjectManager.map(item => item.value) }),
     }
 
     dispatch(GraphActions.postGraphProjectStatus(filterData, () => { }))
 
   }
   const handleClear = () => {
-    setSelectedProjectGroup([]);
+    // setSelectedProjectGroup([]);
     setSelectedProjectType([]);
-    setSelectedProjectManager([]);
+    // setSelectedProjectManager([]);
     dispatch(GraphActions.getGraphProjectStatus());
-  };
+  }; 
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
@@ -87,11 +87,11 @@ const ProjectChart = (id) => {
         </div>
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
-          <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
+          {/* <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} /> */}
 
-          <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
+          <NewMultiSelects label='Project Type' placeholder="Project Type" option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
 
-          <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} />
+          {/* <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} /> */}
 
         <div className="flex space-x-4">
           <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>

@@ -3,13 +3,17 @@ import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import ProjectChart from "../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
+import MonthRevenueTrend from "./FinancialGraph/MonthRevenueTrend";
+import MonthlyRevenueCircle from "./FinancialGraph/MonthlyRevenueCircle";
+import CumulativeTrendPlanVsActual from "./FinancialGraph/CumulativeTrendPlanVsActual";
+import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
 
 const FormsCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -17,7 +21,7 @@ const FormsCards = () => {
   const [type, settype] = useState(false);
   // const [modalHead, setmodalHead] = useState(<></>)
   let dispatch = useDispatch();
-
+  const { customeruniqueId } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -94,14 +98,11 @@ const FormsCards = () => {
         label="Add / Modify Customer"
       />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-36 gap-2">
-
-        {/* <ProjectChart />
-        <ClaimAndAdvanceChart />   */}
-        {/* <MileStoneChart />
-        <PoStatusChart />
-        <PoTrackingWorkdoneChart />
-        <AccrualRevenueTrendChart /> */}
+      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-36 gap-2">
+        <MonthRevenueTrend />
+        <MonthlyRevenueCircle />
+        <CumulativeTrendPlanVsActual />
+        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
 
       </div>
     </>

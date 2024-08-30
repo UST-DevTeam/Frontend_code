@@ -10,6 +10,9 @@ const TripleBarGraph = ({
   month = [],
   enabledOnSeries = [false, false, false],
   dataLabelSuffix="",
+  XAxisTitle = "",  
+  YAxisTitle = "", 
+  
 }) => {
   const months = Array(12).fill(0);
 
@@ -47,7 +50,7 @@ const TripleBarGraph = ({
   // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
   const colors = ["#5cccb7", "#FF9999", "#f9a8d4"];
 
-  const offsetY = horizontal ? 0 : -15;
+  const offsetY = horizontal ? 0 : -16;
 
   const options = {
     chart: {
@@ -73,13 +76,27 @@ const TripleBarGraph = ({
         .filter((index) => index !== -1),
       offsetY: offsetY,
       style: {
-        colors: ["white"],
+        colors: ["transparent"],
         fontSize: "8px",
-        fontWeight: "bold",
+        fontWeight: 'bold',
+    }, 
+    background: {
+        enabled: true, 
+        borderRadius: 0,
+        borderWidth: 0, 
+        borderColor: "transparent", 
       },
     },
     xaxis: {
       categories: category,
+      title: {
+        text: XAxisTitle,
+        style: {
+          color: '#ffffff',
+          fontSize: '16px',
+          fontWeight: 'bold',
+        },
+      },
       labels: {
         style: {
           colors: "#ffffff",
@@ -88,6 +105,14 @@ const TripleBarGraph = ({
       },
     },
     yaxis: {
+      title: {
+            text: YAxisTitle,
+            style: {
+              color: '#ffffff',
+              fontSize: '17px',
+              fontWeight: 'bold',
+            },
+          },
       labels: {
         style: {
           colors: "#ffffff",

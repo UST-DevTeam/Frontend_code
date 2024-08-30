@@ -1,8 +1,9 @@
+import { offset } from "highcharts";
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const AreaChart = (data) => {
-  let graphData = data?.data;
+const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", }) => {
+  let graphData = data;
 
   let Graph = {
     series: [
@@ -26,6 +27,14 @@ const AreaChart = (data) => {
         borderColor: "#1c1c1c",
       },
       xaxis: {
+        title: {
+          text: XAxisTitle,
+          style: {
+            color: '#ffffff',
+            fontSize: '16px',
+            fontWeight: 'bold',
+          },
+        },
         labels: {
           style: {
             colors: "White",
@@ -36,7 +45,14 @@ const AreaChart = (data) => {
         },
       },
       yaxis: {
-        labels: {
+        title: {
+          text: YAxisTitle,
+          style: {
+            color: '#ffffff',
+            fontSize: '17px',
+            fontWeight: 'bold',
+          },
+        },        labels: {
           style: {
             colors: "White",
           },
@@ -53,6 +69,22 @@ const AreaChart = (data) => {
         colors: ["#FF9999"], 
       },
       colors: ["#FF9999"],
+      dataLabels: {
+        enabled: true,
+        formatter: (val) => {
+          // Ensure 'val' is a number and format with 'L' suffix
+          if (typeof val === 'number') {
+            return `${val} ${dataLabelSuffix}`; // E.g., "500 Lacs"
+          }
+          return val;
+        },
+        offsetY:  -4,
+        offsetX: 23,
+        style: {
+          colors: ["white"],  
+          fontSize: '10px',    
+        },
+      },
     },
   };
 

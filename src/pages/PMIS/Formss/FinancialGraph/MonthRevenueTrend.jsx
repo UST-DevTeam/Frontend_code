@@ -134,8 +134,6 @@ const MonthRevenueTrend = () => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Trend || [];
   });
 
-  console.log(GraphData,"GraphDataGraphDataGraphDataGraphDataGraphData")
-
   useEffect(() => {
     dispatch(AdminActions.getManageCircle());
     dispatch(GraphActions.getGraphAllProjectType());
@@ -149,8 +147,6 @@ const MonthRevenueTrend = () => {
     // );
     dispatch(
       GraphActions.getGraphRevenuePlanVSActual_Trend(
-        { month: exportData.current.join(",") },
-        () => {}
       )
     );
   };
@@ -266,7 +262,7 @@ const MonthRevenueTrend = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} horizontal={false} enabledOnSeries={[true, true, true]} dataLabelSuffix="Cr" />
+      <TripleBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="Cr" />
     </div>
   );
 };

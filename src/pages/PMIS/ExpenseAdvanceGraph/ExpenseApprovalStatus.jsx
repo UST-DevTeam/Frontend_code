@@ -11,7 +11,25 @@ import DoubleBarGraph from "../../../components/DoubleBarGraph";
 
 const ExpenseApprovalStatus = () => {
 
-//   const [extraColumnsState, setExtraColumns] = useState(months);
+  const months = [];
+  const now = new Date();
+  const monthsNumber = [];
+
+  for (let i = 0; i < 6; i++) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const month = date.getMonth() + 1;
+    monthsNumber.push(month);
+    const year = date.getFullYear();
+    months.push({ month, year });
+  }
+
+  months.reverse();
+  monthsNumber.reverse();
+
+  const [extraColumnsState, setExtraColumns] = useState(months);
+const currentYear = new Date().getFullYear();   
+const [selectedYears, setSelectedYears] = useState(null);
+const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [selectedOrglevel, setSelectedOrgLevel] = useState([]);
   const dispatch = useDispatch();
@@ -83,6 +101,12 @@ const ExpenseApprovalStatus = () => {
     if (selectedDepartment.length > 0) {
       filterData.orgLevel = selectedDepartment?.map((Sweety) => Sweety.value);
     }
+    if (selectedYears) {
+      filterData.year = selectedYears.value;
+    }
+    if (selectedMonths.length > 0) {
+      filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+    }
     dispatch(GraphActions.postGraphWeeklyActiveEmp(filterData, () => {}));
   };
 
@@ -90,8 +114,30 @@ const ExpenseApprovalStatus = () => {
   const handleClear = () => {
     setSelectedOrgLevel([]);
     setSelectedDepartment([]);
+    setSelectedYears(null);
+    setSelectedMonths([]);
     fetchGraphData();
   };
+
+  const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
+    label: 2021 + index,
+    value: 2021 + index,
+  }));
+
+  const monthsList = [
+    { value: 1, label: "Jan" },
+    { value: 2, label: "Feb" },
+    { value: 3, label: "Mar" },
+    { value: 4, label: "Apr" },
+    { value: 5, label: "May" },
+    { value: 6, label: "Jun" },
+    { value: 7, label: "Jul" },
+    { value: 8, label: "Aug" },
+    { value: 9, label: "Sep" },
+    { value: 10, label: "Oct" },
+    { value: 11, label: "Nov" },
+    { value: 12, label: "Dec" },
+  ];
 
 
   return (
@@ -108,12 +154,26 @@ const ExpenseApprovalStatus = () => {
             placeholder="Description"
             cb={(data) => setSelectedOrgLevel(data)}
           />
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Department"
             option={departmentList}
             value={selectedDepartment}
             placeholder="Org Level"
             cb={(data) => setSelectedDepartment(data)}
+          /> */}
+          <NewSingleSelect
+            label="Year"
+            option={years}
+            value={selectedYears}
+            placeholder="Year"
+            cb={(data) => setSelectedYears(data)}
+          />
+          <NewMultiSelects
+            label="Month"
+            option={monthsList}
+            value={selectedMonths}
+            cb={(data) => setSelectedMonths(data)}
+            placeholder="Month"
           />
           <div className="flex space-x-1">
             <Button
