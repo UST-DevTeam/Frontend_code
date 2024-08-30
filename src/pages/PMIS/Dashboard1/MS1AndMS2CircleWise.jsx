@@ -148,10 +148,9 @@ let CircleList = useSelector((state) => {
 
   const SeriesData = [
     {
-        name: "Total Sites",
-        data: GraphData?.map(item => item.SiteIdCount) || [],
-        type: "bar",
-      },
+      name: "Total Sites",
+      data: GraphData?.map(item => item.SiteIdCount) || [],
+    },
     {
         name: "MS1",
         data: GraphData?.map(item => item.TotalMS1Done) || [],
