@@ -96,8 +96,8 @@ const PLform = ({
     "Nov",
     "Dec",
   ];
-  console.log("afasdfasdfasdfasdfadsadf", monthsss[1]);
-  console.log("afdasfasfasfasdfafasdfasafds", ...monthss);
+  // console.log("afasdfasdfasdfasdfadsadf", monthsss[1]);
+  // console.log("afdasfasfasfasdfafasdfasafds", ...monthss);
 
   let Form = [
     ...monthss.map((itm) => ({
@@ -125,6 +125,18 @@ const PLform = ({
       },
       classes: "col-span-1",
     })),
+    {
+      label: "SGNA",
+      value: "",
+      name: "SGNA",
+      type: "number",
+      // option: [
+      //   { name: "Yes", label: "Yes" },
+      //   { name: "No", label: "No" },
+      // ],
+      // required: true,
+      classes: "col-span-1",
+    },
   ];
   let Form2 = [
     {
@@ -150,6 +162,18 @@ const PLform = ({
         min: 0,
         onChange: (e) => {},
       },
+      classes: "col-span-1",
+    },
+    {
+      label: "SGNA",
+      value: "",
+      name: "SGNA",
+      type: "text",
+      // option: [
+      //   { name: "Yes", label: "Yes" },
+      //   { name: "No", label: "No" },
+      // ],
+      required: true,
       classes: "col-span-1",
     },
   ];
