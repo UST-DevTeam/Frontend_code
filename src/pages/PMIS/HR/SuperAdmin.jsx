@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import ProjectChart from "../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
+import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
 // import EditButton from '../../../../components/EditButton';
 // import ManageCustomerForm from '../../../PMIS/Admin/ManageCustomer/ManageCustomerForm'
 // import AdvancedTable from '../../../../components/AdvancedTable';
@@ -263,7 +264,7 @@ const SuperAdmin = () => {
 
   return (
     <>
-    <div className="absolute w-full top-12 mt-12 h-16 sm:h-16 md:h-32 z-10 bg-[#3e454d] overflow-auto">
+    <div className="absolute w-full top-12 mt-12 h-16 sm:h-16 md:h-32 xl:h-48 z-10 bg-[#3e454d] overflow-auto">
       <CCDash
         showbtn={false}
         approveddata={[
@@ -402,10 +403,10 @@ const SuperAdmin = () => {
         label="Add / Modify Customer"
       />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 sm:mt-20 md:mt-36 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 sm:mt-20 md:mt-36 xl:mt-48 gap-2">
 
       <ProjectChart />
-      <ClaimAndAdvanceChart />
+      <VendorActiveInactive />
       {/* <MileStoneChart />
       <PoStatusChart />
       <PoTrackingWorkdoneChart />

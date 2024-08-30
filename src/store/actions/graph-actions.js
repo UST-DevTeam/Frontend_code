@@ -26,6 +26,7 @@ import {
     GET_GRAPH_ADVANCE_APPROVAL_STATUS,
     GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE,
     GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE,
+    GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL,
     
  } from "../reducers/graph-reducer"
 
@@ -598,5 +599,15 @@ const GraphActions = {
         } catch (error) {
         }
     }, 
+
+    getGraphCumulativeTrendPlanVsActual:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_cumulative_trend_plan_vs_actual}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 }
 export default GraphActions;

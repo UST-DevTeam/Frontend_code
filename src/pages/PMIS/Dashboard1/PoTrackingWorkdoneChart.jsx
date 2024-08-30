@@ -77,7 +77,7 @@ const PoTrackingWorkdoneChart = () => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
       <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">PO Tracking Workdone</h1>
+            <h1 className="text-white text-base font-bold">PO ItemCode Workdone</h1>
         </div>
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">

@@ -26,6 +26,7 @@ import TrendPlanVSActualWorkdone from "../Formss/FinancialGraph/TrendPlanVSActua
 import CirclePlanVSActualWorkdone from "../Formss/FinancialGraph/CirclePlanVSActualWorddone";
 import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
 import MS1AndMS2CircleWise from "./MS1AndMS2CircleWise";
+import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 
 
 
@@ -47,15 +48,16 @@ const Dashboard1 = () => {
             <WeeklyActiveEmpList />
             <MonthRevenueTrend />
             <MonthlyRevenueCircle />
+            <CumulativeTrendPlanVsActual />
             <TrendExpenseAdvance />
             <ExpenseApprovalStatus />
             <AdvanceApprovalStatus />
-            <TrendPlanVSActualWorkdone />
+            <TrendPlanVSActualWorkdone /> 
             <CirclePlanVSActualWorkdone />
             <MS1AndMS2CircleWise />
             <VendorActiveInactive />
             <ProjectChart customeruniqueId = {customeruniqueId} />
-            <ClaimAndAdvanceChart customeruniqueId = {customeruniqueId} />
+            {/* <ClaimAndAdvanceChart customeruniqueId = {customeruniqueId} /> */}
             <MileStoneChart customeruniqueId = {customeruniqueId} />
             <PoStatusChart customeruniqueId = {customeruniqueId} />
             <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />

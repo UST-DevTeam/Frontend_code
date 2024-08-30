@@ -189,7 +189,7 @@ const AccrualRevenueTrendChart = () => {
                         
               </div>
               </div>
-              <AreaChart data = {pieGraphData}/>
+              <AreaChart data = {pieGraphData} dataLabelSuffix="L"/>
 
             </div>
 

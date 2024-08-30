@@ -282,7 +282,7 @@ const handleFilter = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} enabledOnSeries={[true, true, true]} horizontal={false} dataLabelSuffix="L" />
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} enabledOnSeries={[true, true, true]} horizontal={false} dataLabelSuffix="L" />
     </div>
   );
 };

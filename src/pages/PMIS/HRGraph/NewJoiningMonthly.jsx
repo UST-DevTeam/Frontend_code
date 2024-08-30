@@ -289,7 +289,7 @@ const NewJoiningMonthly = () => {
           </div>
         </div>
       </div>
-      <BarGraph data={GraphData} horizontal={false} title="Monthly New Joining" />
+      <BarGraph data={GraphData} horizontal={false} YAxisTitle={"Employee"} title="Monthly New Joining" />
     </div>
   );
 };

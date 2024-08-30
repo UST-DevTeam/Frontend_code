@@ -292,22 +292,13 @@ const handleFilter = () => {
             }}
             placeholder="View As"
           />
-          {/* <NewMultiSelects
-            label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            option={extraColumnsState}
-            value={selectedMonths}
-            cb={(data) => setSelectedMonths(data)}
-            placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-          /> */}
           <NewMultiSelects
             label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
             option={extraColumnsState}
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            // Disable the component when 'selectedView' is not 'Monthly' or 'Weekly'
-            disabled={!["Monthly", "Weekly"].includes(selectedView?.value)}
-          />    
+          />
         </div>
           <div className="flex space-x-1 ">
             <Button

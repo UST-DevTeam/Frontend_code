@@ -13,42 +13,17 @@ import AdminActions from "../../../store/actions/admin-actions";
 
 
 const VendorActiveInactive = ({customeruniqueId}) => {
-  const [type, settype] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] = useState([]);
-  const [selectedProjectType, setSelectedProjectType] = useState([]);
-  const [selectedProjectManager, setSelectedProjectManager] = useState([]);
+  const [selectedCircle, setSelectedCircle] = useState([]);
   let dispatch = useDispatch();
   const [data, setData] = useState([])
 
   // let customeruniqueId = "65dee316811c797c9f26d836"
 
-  console.log(customeruniqueId,"_____customeruniqueId")
-
-  let departmentList = useSelector((state) => {
-    return state?.adminData?.getManageDepartment.map((itm) => {
-      return {
-        label: itm?.department,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let projectTypeList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectType.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.projectType,
-      };
-    });
-  });
-
-  let projectManagerList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectManager.map((itm) => {
-      return {
-        label: itm.projectManager,
-        value: itm.projectManager,
-      };
-    });
+  let CircleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle?.map((itm) => ({
+      label: itm?.circleCode,
+      value: itm?.circleCode,
+    }));
   });
 
   let pieGraphData = useSelector((state) => {
@@ -57,27 +32,20 @@ const VendorActiveInactive = ({customeruniqueId}) => {
 
 
   useEffect(() => {
-    
-    dispatch(AdminActions.getManageDepartment());
-    dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
-    dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
+    dispatch(AdminActions.getManageCircle());
     dispatch(GraphActions.getGraphVendorActiveInactive());
   }, []);
 
   const handleFilter = () => {
     const filterData = {
-      ...(setSelectedDepartment.length && { selectedDepartment: selectedDepartment.map(item => item.value) }),
-      ...(selectedProjectType.length && { selectedProjectType: selectedProjectType.map(item => item.value) }),
-      ...(selectedProjectManager.length && { selectedProjectManager: selectedProjectManager.map(item => item.value) }),
+      ...(setSelectedCircle.length && { selectedCircle: selectedCircle?.map(item => item.value) }),
     }
 
     dispatch(GraphActions.getGraphVendorActiveInactive(filterData, () => { }))
 
   }
   const handleClear = () => {
-    setSelectedDepartment([]);
-    setSelectedProjectType([]);
-    setSelectedProjectManager([]);
+    setSelectedCircle
     dispatch(GraphActions.getGraphVendorActiveInactive());
   };
 
@@ -88,11 +56,7 @@ const VendorActiveInactive = ({customeruniqueId}) => {
         </div>
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
-          <NewMultiSelects label='Partner' option={departmentList} value={selectedDepartment} cb={(data) => setSelectedDepartment(data)} />
-
-          <NewMultiSelects label='Project Type' option={projectTypeList} value={selectedProjectType} cb={(data) => setSelectedProjectType(data)} />
-
-          <NewMultiSelects label='Project Manager' option={projectManagerList} value={selectedProjectManager} cb={(data) => setSelectedProjectManager(data)} />
+          <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} />
 
         <div className="flex space-x-4">
           <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>

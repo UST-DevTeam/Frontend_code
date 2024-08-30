@@ -23,11 +23,11 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             type: "bar",
             data: data?.map(item => item.achievement) || [],
           },
-        //   {
-        //     name: "Achievement",
-        //     type: "line",
-        //     data: percentageData || [],
-        //   },
+          {
+            name: "Achievement",
+            type: "line",
+            data: percentageData || [],
+          },
     ];
 
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
@@ -111,7 +111,7 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             },
         },
         stroke: {
-            width: [0, 0, 2], 
+            width: [1, 1, 2], 
             curve: 'smooth',
             colors: ["", "", "#b8ee30"],
         },

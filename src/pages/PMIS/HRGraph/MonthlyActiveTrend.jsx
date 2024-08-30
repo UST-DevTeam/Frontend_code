@@ -102,9 +102,17 @@ const MonthlyActiveTrend = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
+  const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
+
+  let ORGLevelList = useSelector((state) => {
+    return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+      label: itm?.orgLevel,
+      value: itm?.orgLevel,
+    }));
+  });
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphMonthlyActiveTrend || [];
@@ -112,6 +120,7 @@ const MonthlyActiveTrend = () => {
 
 
   useEffect(() => {
+    dispatch(GraphActions.getGraphOrganizationLevel());
     dispatch(GraphActions.getGraphMonthlyActiveTrend());
     fetchGraphData();
   }, []);
@@ -143,6 +152,9 @@ const MonthlyActiveTrend = () => {
   // };
   const handleFilter = () => {
     const filterData = {};
+    if (selectedDepartment.length > 0) {
+      filterData.orgLevel = selectedDepartment?.map((Sweety) => Sweety.value);
+    }
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
@@ -154,6 +166,7 @@ const MonthlyActiveTrend = () => {
 
 
   const handleClear = () => {
+    setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
     fetchGraphData();
@@ -186,6 +199,13 @@ const MonthlyActiveTrend = () => {
         </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
+        <NewMultiSelects
+            label="Department"
+            option={ORGLevelList}
+            value={selectedDepartment}
+            placeholder="Org Level" 
+            cb={(data) => setSelectedDepartment(data)}
+          />
           <NewSingleSelect
             label="Year"
             option={years}
@@ -214,7 +234,7 @@ const MonthlyActiveTrend = () => {
           </div>
         </div>
       </div>
-      <LineChartsss data={GraphData}/>
+      <LineChartsss data={GraphData} YAxisTitle={"Employee"}/>
     </div>
   );
 };

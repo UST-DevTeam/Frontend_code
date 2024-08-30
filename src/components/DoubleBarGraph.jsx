@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", dataLabelSuffix="",}) => {
+const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", XAxisTitle = "", YAxisTitle = "",  dataLabelSuffix="",}) => {
     // const horizontal = data?.horizontal || false;
     // let SeriesData1 = data?.map(item => item.joined) ||[];  
     // let SeriesData2 = data?.map(item => item.exit) ||[];  
@@ -57,6 +57,14 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
         xaxis: {
             // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
             categories: category,
+            title: {
+                text: XAxisTitle,
+                style: {
+                  color: '#ffffff',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                },
+              },
             labels:{
                 style:{
                     colors:'#ffffff',
@@ -65,6 +73,14 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", d
             }
         },
         yaxis:{
+            title: {
+                text: YAxisTitle,
+                style: {
+                  color: '#ffffff',
+                  fontSize: '17px',
+                  fontWeight: 'bold',
+                },
+              },
             labels:{
                 style:{
                     colors:'#ffffff',

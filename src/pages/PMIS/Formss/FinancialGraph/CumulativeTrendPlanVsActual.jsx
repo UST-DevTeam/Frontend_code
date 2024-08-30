@@ -81,8 +81,9 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../../components/DoubleBarGraph";
 import TripleBarGraph from "../../../../components/TripleBarGraph";
+import TripleLineBarGraph from "../../../../components/TripleLineBarGraph";
 
-const MonthRevenueTrend = () => {
+const CumulativeTrendPlanVsActual = () => {
   const exportData = useRef([]);
   const months = [];
   const now = new Date();
@@ -131,13 +132,15 @@ const MonthRevenueTrend = () => {
   });
 
   let GraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphRevenuePlanVSActual_Trend || [];
+    return state?.GraphData?.getGraphCumulativeTrendPlanVsActual || [];
   });
+
+  console.log(GraphData,"getGraphCumulativeTrendPlanVsActual")
 
   useEffect(() => {
     dispatch(AdminActions.getManageCircle());
     dispatch(GraphActions.getGraphAllProjectType());
-    dispatch(GraphActions.getGraphRevenuePlanVSActual_Trend());
+    dispatch(GraphActions.getGraphCumulativeTrendPlanVsActual());
     fetchGraphData(); 
   }, []);
 
@@ -146,7 +149,7 @@ const MonthRevenueTrend = () => {
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
     dispatch(
-      GraphActions.getGraphRevenuePlanVSActual_Trend(
+      GraphActions.getGraphCumulativeTrendPlanVsActual(
       )
     );
   };
@@ -216,11 +219,11 @@ const MonthRevenueTrend = () => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
        <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">Trend - Revenue Plan VS Actual</h1>
+            <h1 className="text-white text-base font-bold">Plan VS Actual Trend Cumulative</h1>
         </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Circle"
             option={CircleList}
             value={selectedCircle}
@@ -233,7 +236,7 @@ const MonthRevenueTrend = () => {
             value={selectedProjectType}
             cb={(data) => setSelectedProjectType(data)}
             placeholder="Project Type"
-          />
+          /> */}
           <NewSingleSelect
             label="Year"
             option={years}
@@ -262,9 +265,9 @@ const MonthRevenueTrend = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="Cr" />
+      <TripleLineBarGraph data={GraphData} horizontal={false} dataLabelSuffix="L" lineDataKey="Acheivement"  />
     </div>
   );
 };
 
-export default MonthRevenueTrend;
+export default CumulativeTrendPlanVsActual;

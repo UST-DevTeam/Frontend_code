@@ -99,9 +99,8 @@ const VendorCards = () => {
           label="Add / Modify "
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
-        {/* <VendorActiveInactive />
-        <ClaimAndAdvanceChart />  */}
+      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
+        <VendorActiveInactive />
       </div>
     </>
   );

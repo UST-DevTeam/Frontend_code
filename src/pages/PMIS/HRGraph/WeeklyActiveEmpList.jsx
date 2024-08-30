@@ -112,15 +112,15 @@ const WeeklyActiveEmpList = () => {
 
 //   const [extraColumnsState, setExtraColumns] = useState(months);
   const [selectedDepartment, setSelectedDepartment] = useState([]);
-  const [selectedOrglevel, setSelectedOrgLevel] = useState([]);
+  // const [selectedOrglevel, setSelectedOrgLevel] = useState([]);
   const dispatch = useDispatch();
 
-  let OrgLevelList = useSelector((state) => {
-    return state?.GraphData?.getWeeklyHorizontalName?.map((itm) => ({
-      label: itm?.description,
-      value: itm?.description,
-    }));
-  });
+  // let OrgLevelList = useSelector((state) => {
+  //   return state?.GraphData?.getWeeklyHorizontalName?.map((itm) => ({
+  //     label: itm?.description,
+  //     value: itm?.description,
+  //   }));
+  // });
   // let departmentList = useSelector((state) => {
   //   return state?.adminData?.getManageDepartment?.map((itm) => ({
   //     label: itm?.department,
@@ -163,7 +163,7 @@ const WeeklyActiveEmpList = () => {
   ];
 
   useEffect(() => {
-    dispatch(GraphActions.getWeeklyHorizontalName());
+    // dispatch(GraphActions.getWeeklyHorizontalName());
     // dispatch(GraphActions.getGraphOrganizationLevel());
     // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphWeeklyActiveEmp());
@@ -193,9 +193,9 @@ const WeeklyActiveEmpList = () => {
 
   const handleFilter = () => {
     const filterData = {};
-    if (selectedOrglevel.length > 0) {
-      filterData.description = selectedOrglevel?.map((Sweety) => Sweety.value);
-    }
+    // if (selectedOrglevel.length > 0) {
+    //   filterData.description = selectedOrglevel?.map((Sweety) => Sweety.value);
+    // }
     if (selectedDepartment.length > 0) {
       filterData.orgLevel = selectedDepartment?.map((Sweety) => Sweety.value);
     }
@@ -204,7 +204,7 @@ const WeeklyActiveEmpList = () => {
 
 
   const handleClear = () => {
-    setSelectedOrgLevel([]);
+    // setSelectedOrgLevel([]);
     setSelectedDepartment([]);
     fetchGraphData();
   };
@@ -217,13 +217,13 @@ const WeeklyActiveEmpList = () => {
         </div>
       <div className="flex items-center space-x-4">
         <div className="flex space-x-1 h-14 justify-between w-full">
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
             value={selectedOrglevel}
             placeholder="Description"
             cb={(data) => setSelectedOrgLevel(data)}
-          />
+          /> */}
           <NewMultiSelects
             label="Department"
             option={departmentList}
