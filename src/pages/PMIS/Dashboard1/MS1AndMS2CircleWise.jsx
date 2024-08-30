@@ -150,6 +150,7 @@ let CircleList = useSelector((state) => {
     {
       name: "Total Sites",
       data: GraphData?.map(item => item.SiteIdCount) || [],
+      type: "bar",
     },
     {
         name: "MS1",
@@ -294,7 +295,7 @@ const handleFilter = () => {
           </div>
         </div>
       </div>
-      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"70%"} />
+      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} />
     </div>
   );
 };
