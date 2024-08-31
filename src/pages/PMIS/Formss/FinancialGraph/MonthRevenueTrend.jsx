@@ -227,13 +227,13 @@ const MonthRevenueTrend = () => {
             cb={(data) => setSelectedCircle(data)}
             placeholder="Circle"
           />
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Project Type"
             option={AllProjectTypeList}
             value={selectedProjectType}
             cb={(data) => setSelectedProjectType(data)}
             placeholder="Project Type"
-          />
+          /> */}
           <NewSingleSelect
             label="Year"
             option={years}
