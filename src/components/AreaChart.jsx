@@ -60,6 +60,19 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
           },
         },
       },
+      stroke: {
+        curve: "straight",
+        width: 2,
+      },
+      markers: {
+        size: 4.5, 
+        colors: ['#f9a3a4'], 
+        strokeColor: 'black', 
+        strokeWidth: 0.5, 
+        hover: {
+            size: 6, 
+        }
+    },
       fill: {
         type: "gradient",
         gradient: {
@@ -79,11 +92,11 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
           }
           return val;
         },
-        offsetY:  -4,
+        offsetY:  -6,
         offsetX: 23,
         style: {
           colors: ["white"],  
-          fontSize: '10px',    
+          fontSize: '11px',    
         },
       },
     },
