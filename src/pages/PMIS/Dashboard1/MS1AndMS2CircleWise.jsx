@@ -138,11 +138,11 @@ let CircleList = useSelector((state) => {
     return state?.GraphData?.getGraphMS1AndMS2CircleWise || [];
   });
 
-  const MS2MS1 = GraphData?.map(item => {
+  const MS2MS1 = GraphData?.map((item) => {
     const TotalMS1Done = item.TotalMS1Done || 0;
     const TotalMS2Done = item.TotalMS2Done || 0;
     const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(1);
-    return `${percentage}%`;
+    return Number(percentage); // Return as number for proper graphing
   }) || [];
 
 
@@ -166,6 +166,7 @@ let CircleList = useSelector((state) => {
         name: "MS2/MS1(%)", 
         data: MS2MS1,
         type: "line", 
+        yAxisIndex: 1,
       },
   ];
 

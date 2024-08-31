@@ -174,11 +174,7 @@ let CircleList = useSelector((state) => {
 
   const fetchGraphData = () => {
     dispatch(
-      GraphActions.getGraphTrendPlanVSActualWorkdone(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
-    );
+      GraphActions.getGraphTrendPlanVSActualWorkdone());
   };
 
 const handleFilter = () => {

@@ -6,7 +6,7 @@ const DountChart = ({ data , label=""}) => {
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || [] 
 
-  const fillColors = ['#7eb0d5', '#4421af', '#7eb0d5', '#7eb0d5'];
+  const fillColors = ['#13b497', '#ffab2d', '#13b497', '#13b497'];
 
   const options = {
     chart: {
@@ -72,7 +72,7 @@ const DountChart = ({ data , label=""}) => {
       },
     },
     fill:{
-      colors: ['#7eb0d5','#4421af', "#7eb0d5", "#7eb0d5"]
+      colors: ['#13b497','#ffab2d', "#13b497", "#13b497"]
     },
     series: dataSeries,
     labels: name,

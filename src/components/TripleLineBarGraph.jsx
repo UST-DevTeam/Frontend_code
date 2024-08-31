@@ -55,9 +55,10 @@ const computeLineData = (key) => {
         type: "bar",
       },
       {
-        name: "Achievement Line",
+        name: "Achievement(%)",
         type: "line",
         data: lineData,
+        
       },
   ];
 
@@ -73,7 +74,7 @@ const computeLineData = (key) => {
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
   // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
-  const colors = ["#5cccb7", "#FF9999", "#f9a8d4", "#b8ee30"];
+  const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
 
   const offsetY = horizontal ? 0 : -7;
 

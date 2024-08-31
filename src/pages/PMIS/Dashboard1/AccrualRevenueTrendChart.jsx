@@ -179,7 +179,7 @@ const AccrualRevenueTrendChart = () => {
 
                   <NewSingleSelect label='Year' option={listYear} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} placeholder = "Year" />
 
-                  <NewMultiSelects label='Month' option={listMonth} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} />
+                  <NewMultiSelects label='Month' option={listMonth} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} placeholder = "Month" />
                 
                   <div className="flex space-x-4">
                   <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2" onClick={handleFilter}  icon={<UilSearch size="18" className={"hello"} />}></Button>

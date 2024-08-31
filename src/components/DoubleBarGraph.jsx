@@ -23,7 +23,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
     // const colors = ["#FFA0A0", "#B9D9EB"];
-    const colors = ["#5cccb7", "#FF9999"];
+    const colors = ["#5cccb7", "#ffab2d"];
 
     const offsetY = horizontal ? 0 : -14;
 

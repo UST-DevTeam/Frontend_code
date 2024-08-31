@@ -25,9 +25,9 @@ const ColumnChart = ({data,colors}) => {
       },
       xaxis: {
         categories: [
-          ['Invoiced Quantity'],
+          ['Open Qunatity'],
           ['Workdone Quantity'],
-          ['Open Qunatity']
+          ['Invoiced Quantity'],     
         ],
         labels: {
           style: {
@@ -43,6 +43,7 @@ const ColumnChart = ({data,colors}) => {
         }
       },
       grid: {
+        show: false,
         borderColor: '#1c1c1c'
       },
       // tooltip: {
