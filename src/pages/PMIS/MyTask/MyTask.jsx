@@ -159,10 +159,10 @@ const MyTask = () => {
         ...itm,
         siteIdLink: (
           <p
-            className="text-[#13b497]"
+            className="text-[#13b497] font-extrabold"
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site");
+              setmodalHead("Update Site:-"+itm['Site Id']);
               dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
               // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
               dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
@@ -276,45 +276,45 @@ const MyTask = () => {
             MileDevName: (
               <div className="flex">
                 <p
-                  className="cursor"
-                  onClick={() => {
-                    if (iewq.mileStoneStatus != "Closed") {
-                      setmodalOpen(true);
+                  // className="cursor"
+                  // onClick={() => {
+                  //   if (iewq.mileStoneStatus != "Closed") {
+                  //     setmodalOpen(true);
 
-                      dispatch(
-                        projectListActions.getUserAllocatedProject(
-                          true,
-                          projectuniqueId
-                        )
-                      );
+                  //     dispatch(
+                  //       projectListActions.getUserAllocatedProject(
+                  //         true,
+                  //         projectuniqueId
+                  //       )
+                  //     );
 
-                      setmodalHead("Allocate User");
-                      setmodalBody(
-                        <>
-                          <AllocateProjectForm
-                            from={"mileStone"}
-                            listsite={[]}
-                            projectuniqueId={projectuniqueId}
-                            isOpen={modalOpen}
-                            setIsOpen={setmodalOpen}
-                            resetting={false}
-                            formValue={iewq}
-                          />
-                        </>
-                      );
-                    } else {
-                      let msgdata = {
-                        show: true,
-                        icon: "error",
-                        buttons: [],
-                        type: 1,
-                        text: "This task is already closed so cannot reallocate",
-                      };
-                      dispatch(ALERTS(msgdata));
-                    }
+                  //     setmodalHead("Allocate User");
+                  //     setmodalBody(
+                  //       <>
+                  //         <AllocateProjectForm
+                  //           from={"mileStone"}
+                  //           listsite={[]}
+                  //           projectuniqueId={projectuniqueId}
+                  //           isOpen={modalOpen}
+                  //           setIsOpen={setmodalOpen}
+                  //           resetting={false}
+                  //           formValue={iewq}
+                  //         />
+                  //       </>
+                  //     );
+                  //   } else {
+                  //     let msgdata = {
+                  //       show: true,
+                  //       icon: "error",
+                  //       buttons: [],
+                  //       type: 1,
+                  //       text: "This task is already closed so cannot reallocate",
+                  //     };
+                  //     dispatch(ALERTS(msgdata));
+                  //   }
 
-                    console.log("ahshshhs", itm);
-                  }}
+                  //   console.log("ahshshhs", itm);
+                  // }}
                 >
                   {iewq.assignerResult ? (
 
@@ -429,7 +429,7 @@ const MyTask = () => {
 
             SiteNaming: (
               <p
-                className=""
+                className="text-yellow-500 font-extrabold"
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
@@ -956,11 +956,11 @@ const MyTask = () => {
         value: "siteageing",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Completion (%)",
-        value: "CompletionBar",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Completion (%)",
+      //   value: "CompletionBar",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Predecessor",
         value: "Predecessor",
@@ -972,11 +972,11 @@ const MyTask = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
 
-      {
-        name: "Billing Status",
-        value: "siteBillingStatus",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Billing Status",
+      //   value: "siteBillingStatus",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       // {
       //   name: "Event Logs",
       //   value: "siteeventLogs",
@@ -1052,11 +1052,11 @@ const MyTask = () => {
           value: "taskmageing",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
-        {
-          name: "Completion (%)",
-          value: "CompletionBar",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+        // {
+        //   name: "Completion (%)",
+        //   value: "CompletionBar",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
 
         {
           name: "Predecessor",
@@ -1069,11 +1069,11 @@ const MyTask = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-        {
-          name: "Billing Status",
-          value: "",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+        // {
+        //   name: "Billing Status",
+        //   value: "",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
         // {
         //   name: "Event Logs",
         //   value: "eventLogsmilestone",
@@ -1117,18 +1117,20 @@ const MyTask = () => {
           name: "siteStatus",
           option: [
             { label: "Open", value: "Open" },
-            { label: "Closed", value: "Closed" },
+            { label: "Close", value: "Close" },
             { label: "Drop", value: "Drop" },
+            { label: "All", value: "all" },
           ],
           props: {}
       },
       {
-          label: "Billing Status",
+          label: "MileStone Status",
           type: "select",
-          name: "siteBillingStatus",
+          name: "mileStoneStatus",
           option:[
-            {label:'Unbilled', value:'Unbilled'},
-            {label:'Billed', value:'Billed'},
+            {label:'Open', value:'Open'},
+            {label:'Closed', value:'Closed'},
+            {label:'All', value:'both'},
           ],
           props: {}
       }

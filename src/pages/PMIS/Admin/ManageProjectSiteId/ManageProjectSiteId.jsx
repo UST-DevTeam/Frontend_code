@@ -290,45 +290,45 @@ const ManageProjectSiteId = () => {
             MileDevName: (
               <div className="flex">
                 <p
-                  className="cursor"
-                  onClick={() => {
-                    if (iewq.mileStoneStatus != "Closed") {
-                      setmodalOpen(true);
+                  // className="cursor"
+                  // onClick={() => {
+                  //   if (iewq.mileStoneStatus != "Closed") {
+                  //     setmodalOpen(true);
 
-                      dispatch(
-                        projectListActions.getUserAllocatedProject(
-                          true,
-                          projectuniqueId
-                        )
-                      );
+                  //     dispatch(
+                  //       projectListActions.getUserAllocatedProject(
+                  //         true,
+                  //         projectuniqueId
+                  //       )
+                  //     );
 
-                      setmodalHead("Allocate User");
-                      setmodalBody(
-                        <>
-                          <AllocateProjectForm
-                            from={"mileStone"}
-                            listsite={[]}
-                            projectuniqueId={projectuniqueId}
-                            isOpen={modalOpen}
-                            setIsOpen={setmodalOpen}
-                            resetting={false}
-                            formValue={iewq}
-                          />
-                        </>
-                      );
-                    } else {
-                      let msgdata = {
-                        show: true,
-                        icon: "error",
-                        buttons: [],
-                        type: 1,
-                        text: "This task is already closed so cannot reallocate",
-                      };
-                      dispatch(ALERTS(msgdata));
-                    }
+                  //     setmodalHead("Allocate User");
+                  //     setmodalBody(
+                  //       <>
+                  //         <AllocateProjectForm
+                  //           from={"mileStone"}
+                  //           listsite={[]}
+                  //           projectuniqueId={projectuniqueId}
+                  //           isOpen={modalOpen}
+                  //           setIsOpen={setmodalOpen}
+                  //           resetting={false}
+                  //           formValue={iewq}
+                  //         />
+                  //       </>
+                  //     );
+                  //   } else {
+                  //     let msgdata = {
+                  //       show: true,
+                  //       icon: "error",
+                  //       buttons: [],
+                  //       type: 1,
+                  //       text: "This task is already closed so cannot reallocate",
+                  //     };
+                  //     dispatch(ALERTS(msgdata));
+                  //   }
 
-                    console.log("ahshshhs", itm);
-                  }}
+                  //   console.log("ahshshhs", itm);
+                  // }}
                 >
                   {iewq.assignerResult ? (
 
