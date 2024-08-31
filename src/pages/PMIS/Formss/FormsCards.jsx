@@ -99,10 +99,10 @@ const FormsCards = () => {
       />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-36 gap-2">
-        <MonthRevenueTrend />
+        {/* <MonthRevenueTrend />
         <MonthlyRevenueCircle />
         <CumulativeTrendPlanVsActual />
-        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
+        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
 
       </div>
     </>

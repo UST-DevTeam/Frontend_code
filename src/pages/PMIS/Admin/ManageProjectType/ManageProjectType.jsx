@@ -32,6 +32,9 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
 import ProjectChart from "../../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
+import TrendPlanVSActualWorkdone from "../../Formss/FinancialGraph/TrendPlanVSActualWorkdone";
+import CirclePlanVSActualWorkdone from "../../Formss/FinancialGraph/CirclePlanVSActualWorddone";
+import MS1AndMS2CircleWise from "../../Dashboard1/MS1AndMS2CircleWise";
 
 const   ManageProjectType = () => {
   const { cname, customeruniqueId } = useParams();
@@ -1301,8 +1304,9 @@ const   ManageProjectType = () => {
       </div>
       {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-80 gap-2"> */}
       <div className={`grid grid-cols-1 lg:grid-cols-1 m-2 ${hasCards ? "mt-48" : "mt-20"} gap-2`}>
-
-      <ProjectChart />
+      <TrendPlanVSActualWorkdone /> 
+      <CirclePlanVSActualWorkdone />
+      <MS1AndMS2CircleWise />
       {/* <ClaimAndAdvanceChart /> */}
       {/* <MileStoneChart />
       <PoStatusChart />

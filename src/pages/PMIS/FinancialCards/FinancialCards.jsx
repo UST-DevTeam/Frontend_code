@@ -14,6 +14,10 @@ import TrendPlanVSActualWorkdone from "../Formss/FinancialGraph/TrendPlanVSActua
 import CirclePlanVSActualWorkdone from "../Formss/FinancialGraph/CirclePlanVSActualWorddone";
 import PoStatusChart from "../Dashboard1/PoStatusChart";
 import PoTrackingWorkdoneChart from "../Dashboard1/PoTrackingWorkdoneChart";
+import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
+import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
+import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
+import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
 
 const FinancialCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -101,11 +105,17 @@ const FinancialCards = () => {
       />
      </div>
      <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
+     <PoStatusChart customeruniqueId = {customeruniqueId} />
+     <MonthRevenueTrend />
+            <MonthlyRevenueCircle />
+            <CumulativeTrendPlanVsActual />
+            <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
+            <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
 
-     <TrendPlanVSActualWorkdone /> 
+     {/* <TrendPlanVSActualWorkdone /> 
      <CirclePlanVSActualWorkdone />
      <PoStatusChart customeruniqueId = {customeruniqueId} />
-     <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
+     <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
 
 
 

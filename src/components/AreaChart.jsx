@@ -24,6 +24,7 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
         },
       },
       grid: {
+        show: false,
         borderColor: "#1c1c1c",
       },
       xaxis: {
@@ -43,6 +44,7 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
 
           },
         },
+        position: "bottom",
       },
       yaxis: {
         title: {
@@ -66,15 +68,14 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
           opacityTo: 0.8,
           stops: [0, 90, 100],
         },
-        colors: ["#FF9999"], 
+        colors: ["#5cccb7"], 
       },
-      colors: ["#FF9999"],
+      colors: ["#5cccb7"],
       dataLabels: {
         enabled: true,
         formatter: (val) => {
-          // Ensure 'val' is a number and format with 'L' suffix
           if (typeof val === 'number') {
-            return `${val} ${dataLabelSuffix}`; // E.g., "500 Lacs"
+            return `${val} ${dataLabelSuffix}`;
           }
           return val;
         },

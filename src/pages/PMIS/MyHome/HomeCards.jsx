@@ -19,6 +19,10 @@ import NewJoiningMonthly from "../HRGraph/NewJoiningMonthly";
 import MonthlyActiveTrend from "../HRGraph/MonthlyActiveTrend";
 import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
 import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
+import MileStoneChart from "../Dashboard1/MileStoneChart";
+import ExpenseApprovalStatus from "../ExpenseAdvanceGraph/ExpenseApprovalStatus";
+import AdvanceApprovalStatus from "../ExpenseAdvanceGraph/AdvanceApprovalStatus";
+import TrendExpenseAdvance from "../ExpenseAdvanceGraph/TrendExpenseAdvance";
 
 const HomeCards = () => {
   const [type, settype] = useState(false);
@@ -121,11 +125,15 @@ const HomeCards = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
-      <ActiveEmpwithCostCenter />
+      <MileStoneChart />
+      <TrendExpenseAdvance />
+      <ExpenseApprovalStatus />
+      <AdvanceApprovalStatus />
+      {/* <ActiveEmpwithCostCenter />
       <NewJoiningMonthly />
       <MonthlyActiveTrend />
       <MonthlyJoiningVsExit />
-      <WeeklyActiveEmpList />
+      <WeeklyActiveEmpList /> */}
       {/* <MS1AndMS2CircleWise /> */}
       {/* <CumulativeTrendPlanVsActual /> */}
         {/* <ProjectChart />

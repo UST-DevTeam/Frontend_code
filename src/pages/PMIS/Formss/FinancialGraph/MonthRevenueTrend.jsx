@@ -262,7 +262,7 @@ const MonthRevenueTrend = () => {
           </div>
         </div>
       </div>
-      <TripleBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="Cr" />
+      <TripleBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="L" />
     </div>
   );
 };

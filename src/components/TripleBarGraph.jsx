@@ -16,33 +16,33 @@ const TripleBarGraph = ({
 }) => {
   const months = Array(12).fill(0);
 
-  const monthStr = `${month}`
+  // const monthStr = `${month}`
 
-  const elevatevalues = (key) => {
-    return months.map((_, index) => {
-        const i = index + 1;
-          const searchedData = data.find((item) => {
-            return Object.keys(item)[1].split("-")[1] == i 
-          }) 
-          return searchedData ? searchedData[`${key}-${i}`] : 0
-      })
-  }
+  // const elevatevalues = (key) => {
+  //   return months.map((_, index) => {
+  //       const i = index + 1;
+  //         const searchedData = data.find((item) => {
+  //           return Object.keys(item)[1].split("-")[1] == i 
+  //         }) 
+  //         return searchedData ? searchedData[`${key}-${i}`] : 0
+  //     })
+  // }
 
   const category = data?.map((item) => item.description) || [];
 
   const defaultSeries = [
     {
       name: "AOP-Target",
-      data: elevatevalues('aop')
-    },
-    {
+      data: data?.map(item => item.aop) || [],
+  },
+  {
       name: "PV-Target",
-      data: elevatevalues('pv')
-    },
-    {
+      data: data?.map(item => item.pv) || [],
+  },
+  {
       name: "Actual Revenue",
-      data: elevatevalues('amount')
-    },
+      data: data?.map(item => item.amount) || [],
+  },
   ];
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;

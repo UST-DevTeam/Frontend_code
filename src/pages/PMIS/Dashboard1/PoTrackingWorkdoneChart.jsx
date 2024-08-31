@@ -38,12 +38,14 @@ const PoTrackingWorkdoneChart = () => {
     return state?.GraphData?.getGraphPoTrackingWorkdone || [""]
   });
 
+  console.log(GraphData,"GraphDataGraphDataGraphData..............FF")
+
 
   let value = []
 
   if (GraphData.length > 0) {
     const { invoicedQty = 0, workDoneQty = 0, openQty = 0 } = GraphData[0];
-    value.push(invoicedQty, workDoneQty, openQty);
+    value.push(openQty, workDoneQty, invoicedQty);
   } else {
     value.push(0, 0, 0);
   }
@@ -77,11 +79,11 @@ const PoTrackingWorkdoneChart = () => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
       <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">PO ItemCode Workdone</h1>
+            <h1 className="text-white text-base font-bold">PO Item Code Workdone</h1>
         </div>
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
-          <NewMultiSelects label='Project Group' option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
+          <NewMultiSelects label='Project Group' placeholder="Project Group" option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
           <div className="flex space-x-4">
             <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"}/>}></Button>
             <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
