@@ -317,7 +317,14 @@ const L1AdvanceForm = () => {
                 ],
                 // props: {
                 // }
-            }
+            },
+            {
+              label: "EMP Name",
+              type: "text",
+              name: "empName",
+              props: {
+              }
+          },
         ]
     }
 

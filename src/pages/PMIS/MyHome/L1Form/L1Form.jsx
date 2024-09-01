@@ -74,13 +74,13 @@ const L1Form = () => {
                 setAdvanceRow((prev) => [...prev, e.target.value]);
                 
               } else {
-                if (selectAll.includes(e.target.id)) {
+                if (selectAll.includes(e?.target?.id)) {
                   setSelectAll((prev) =>
-                    prev.filter((id) => id !== e.target.id)
+                    prev.filter((id) => id !== e?.target?.id)
                   );
                 }
                 setAdvanceRow((prev) =>
-                  prev.filter((id) => id !== e.target.value)
+                  prev.filter((id) => id !== e?.target?.value)
                 );
               }
               

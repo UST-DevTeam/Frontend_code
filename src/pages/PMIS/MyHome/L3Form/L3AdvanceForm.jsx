@@ -351,6 +351,7 @@ const L3AdvanceForm = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
+    
     filter: [
       {
         label: "Approval Status",
@@ -360,14 +361,21 @@ const L3AdvanceForm = () => {
           { label: "Submitted", value: "Submitted" },
           { label: "L1-Approved", value: "L1-Approved" },
           { label: "L1-Rejected", value: "L1-Rejected" },
-          { label: "L3-Approved", value: "L3-Approved" },
-          { label: "L3-Rejected", value: "L3-Rejected" },
+          { label: "L2-Approved", value: "L2-Approved" },
+          { label: "L2-Rejected", value: "L2-Rejected" },
           { label: "L3-Approved", value: "L3-Approved" },
           { label: "L3-Rejected", value: "L3-Rejected" },
         ],
         // props: {
         // }
       },
+      {
+        label: "EMP Name",
+        type: "text",
+        name: "empName",
+        props: {
+        }
+    },
     ],
   };
 
