@@ -252,13 +252,13 @@ const handleFilter = () => {
             cb={(data) => setSelectedCircle(data)}
             placeholder="Circle"
           />
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Project Type"
             option={projectTypeList}
             value={selectedProjectType}
             cb={(data) => setSelectedProjectType(data)}
             placeholder="Project Type"
-          />
+          /> */}
           <NewSingleSelect
             label="Year"
             option={years}

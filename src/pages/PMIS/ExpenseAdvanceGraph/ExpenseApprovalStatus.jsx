@@ -151,7 +151,7 @@ const [selectedMonths, setSelectedMonths] = useState([]);
             label="Org Level"
             option={OrgLevelList}
             value={selectedOrglevel}
-            placeholder="Description"
+            placeholder="Organization Level"
             cb={(data) => setSelectedOrgLevel(data)}
           />
           {/* <NewMultiSelects
