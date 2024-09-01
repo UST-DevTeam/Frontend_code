@@ -509,7 +509,6 @@ const L1Form = () => {
 
     keys.forEach((key) => {
       const item = dbConfigList.find(item => item.uniqueId === key);
-      console.log(item , amount , 'afdfadfsdfgfdgdgfddfgsddfassfadf')
       if (item) {
           amountRemark.push({
               _id: key,

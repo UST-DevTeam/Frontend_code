@@ -2,14 +2,14 @@
 // export const backendassetUrl="http://127.0.0.1:7980/"
 
 
-// export const baseUrl="http://192.168.29.247:7979"
-// export const backendassetUrl="http://192.168.29.247:7979" 
+export const baseUrl="http://192.168.29.247:7979"
+export const backendassetUrl="http://192.168.29.247:7979" 
 
 // export const baseUrl="http://192.168.29.24:7980"
 // export const backendassetUrl="http://192.168.29.24:7980" 
 
-export const baseUrl="http://192.168.29.236:7989"
-export const backendassetUrl="http://192.168.29.236:7989" 
+// export const baseUrl="http://192.168.29.236:7989"
+// export const backendassetUrl="http://192.168.29.236:7989" 
 
 
 // export const baseUrl="https://pmisapi.mcpsinc.com"

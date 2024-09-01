@@ -188,6 +188,14 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             marker: {
               fillColors: colors,  
             },
+            y: {
+              formatter: function(value, { seriesIndex }) {
+                if (seriesIndex === 2) { 
+                  return `${value}%`;  
+                }
+                return value;
+              },
+            },
           },
     };
 
