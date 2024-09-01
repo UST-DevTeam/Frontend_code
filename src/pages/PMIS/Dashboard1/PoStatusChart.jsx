@@ -24,29 +24,29 @@ const PoStatusChart = () => {
   let projectGroupList = useSelector((state) => {
     return state?.filterData?.getfinancialPoManagementProjectGroup?.map((itm) => {
       return {
-        label: itm.projectGroup,
-        value: itm.projectGroup,
+        label: itm.projectGroupId,
+        value: itm.uniqueId,
       };
     });
   });
 
-  let projectTypeList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectType.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.projectType,
-      };
-    });
-  });
+  // let projectTypeList = useSelector((state) => {
+  //   return state?.filterData?.getProjectProjectType.map((itm) => {
+  //     return {
+  //       label: itm.projectType,
+  //       value: itm.projectType,
+  //     };
+  //   });
+  // });
 
-  let projectManagerList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectManager.map((itm) => {
-      return {
-        label: itm.projectManager,
-        value: itm.projectManager,
-      };
-    });
-  });
+  // let projectManagerList = useSelector((state) => {
+  //   return state?.filterData?.getProjectProjectManager.map((itm) => {
+  //     return {
+  //       label: itm.projectManager,
+  //       value: itm.projectManager,
+  //     };
+  //   });
+  // });
 
   let pieGraphData = useSelector((state) => {
     return state?.GraphData?.getGraphPoStatus || [""]

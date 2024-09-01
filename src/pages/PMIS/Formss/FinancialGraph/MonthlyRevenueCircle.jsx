@@ -113,28 +113,15 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 
   const monthStr = `${month}`;
 
-//   let departmentList = useSelector((state) => {
-//     return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-//       label: itm?.orgLevel,
-//       value: itm?.orgLevel,
-//     }));
-//   });
 
-let CircleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleCode,
-      value: itm?.circleCode,
+  let CircleList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+      label: itm?.circle,
+      value: itm?.projectuid,
     }));
   });
 
-  let projectTypeList = useSelector((state) => {
-    return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.uid,
-      };
-    });
-  });
+
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Circle || [];
@@ -173,35 +160,11 @@ let CircleList = useSelector((state) => {
 
 
   useEffect(() => {
-    // dispatch(AdminActions.getManageDepartment());
-    // dispatch(AdminActions.getManageCircle());
-    // dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
-    dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
-  };
 
-//   const handleFilter = () => {
-//     const filterData = {
-//       orgLevel: selectedDepartment.map((item) => item.value) || [],
-//       year: selectedYears ? selectedYears.value : currentYear,
-//       month: selectedMonths?.map((item) => item.value) || monthsNumber,
-//     };
 
-//     dispatch(
-//       GraphActions.postGraphMonthlyJoiningVsExit(
-//         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
-//         () => {}
-//       )
-//     );
-//   };
 const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
@@ -214,19 +177,17 @@ const handleFilter = () => {
       filterData.year = selectedYears.value;
     }
     if (selectedMonths.length > 0) {
-      filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+      filterData.viewBy = selectedMonths?.map((Sweety) => Sweety.value);
     }
     dispatch(GraphActions.postGraphRevenuePlanVSActual_Circle(filterData, () => {}));
   };
 
 
   const handleClear = () => {
-    // setSelectedDepartment([]);
     setSelectedCircle([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

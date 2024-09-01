@@ -224,7 +224,6 @@ const NewJoiningMonthly = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

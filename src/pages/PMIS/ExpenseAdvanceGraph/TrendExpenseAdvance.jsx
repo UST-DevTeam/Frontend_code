@@ -76,20 +76,9 @@ const TrendExpenseAdvance = () => {
     // dispatch(GraphActions.getGraphOrganizationLevel());
     // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphTrendExpenseAdvance());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-      dispatch(
-        GraphActions.getGraphTrendExpenseAdvance(
-          { month: exportData.current.join(",") },
-          () => {}
-        )
-      );
-    };;
+
 
   // const handleFilter = () => {
   //   const filterData = {
@@ -120,7 +109,6 @@ const TrendExpenseAdvance = () => {
   const handleClear = () => {
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

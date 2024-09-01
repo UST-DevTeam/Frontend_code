@@ -69,15 +69,8 @@ const [selectedMonths, setSelectedMonths] = useState([]);
     // dispatch(GraphActions.getGraphOrganizationLevel());
     // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphExpenseApprovalStatus());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphExpenseApprovalStatus());};
 
   // const handleFilter = () => {
   //   const filterData = {
@@ -116,7 +109,6 @@ const [selectedMonths, setSelectedMonths] = useState([]);
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

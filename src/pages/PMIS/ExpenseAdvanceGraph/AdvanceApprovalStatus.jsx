@@ -68,32 +68,8 @@ const AdvanceApprovalStatus = () => {
 
   useEffect(() => {
     dispatch(GraphActions.getWeeklyHorizontalName());
-    // dispatch(GraphActions.getGraphOrganizationLevel());
-    // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphAdvanceApprovalStatus());
-    fetchGraphData();
   }, []);
-
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphAdvanceApprovalStatus());};
-
-  // const handleFilter = () => {
-  //   const filterData = {
-  //       description: selectedOrglevel?.map((item) => item.value) || [],
-  //       orgLevel: selectedDepartment?.map((item) => item.value) || [],
-  //   };
-
-  //   dispatch(
-  //     GraphActions.postGraphWeeklyActiveEmp(
-  //       { description: filterData.description, orgLevel: filterData.orgLevel},
-  //       () => {}
-  //     )
-  //   );
-  // };
 
   const handleFilter = () => {
     const filterData = {};
@@ -118,7 +94,6 @@ const AdvanceApprovalStatus = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

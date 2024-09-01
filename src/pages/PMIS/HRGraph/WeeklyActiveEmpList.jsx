@@ -167,15 +167,8 @@ const WeeklyActiveEmpList = () => {
     // dispatch(GraphActions.getGraphOrganizationLevel());
     // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphWeeklyActiveEmp());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphWeeklyActiveEmp());};
 
   // const handleFilter = () => {
   //   const filterData = {
@@ -204,9 +197,7 @@ const WeeklyActiveEmpList = () => {
 
 
   const handleClear = () => {
-    // setSelectedOrgLevel([]);
     setSelectedDepartment([]);
-    fetchGraphData();
   };
 
 

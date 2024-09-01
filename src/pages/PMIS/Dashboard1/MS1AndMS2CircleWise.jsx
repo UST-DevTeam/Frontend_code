@@ -165,35 +165,11 @@ let CircleList = useSelector((state) => {
   ];
 
   useEffect(() => {
-    // dispatch(AdminActions.getManageDepartment());
     dispatch(AdminActions.getManageCircle());
     dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphMS1AndMS2CircleWise());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    exportData.current = extraColumnsState.map(
-      (itm) => `M-${itm.month}Y-${itm.year}`
-    );
-    dispatch(
-      GraphActions.getGraphMS1AndMS2CircleWise());
-    };
-
-//   const handleFilter = () => {
-//     const filterData = {
-//       orgLevel: selectedDepartment.map((item) => item.value) || [],
-//       year: selectedYears ? selectedYears.value : currentYear,
-//       month: selectedMonths?.map((item) => item.value) || monthsNumber,
-//     };
-
-//     dispatch(
-//       GraphActions.postGraphMonthlyJoiningVsExit(
-//         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
-//         () => {}
-//       )
-//     );
-//   };
 const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
@@ -213,12 +189,9 @@ const handleFilter = () => {
 
 
   const handleClear = () => {
-    // setSelectedDepartment([]);
     setSelectedCircle([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
-    // setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

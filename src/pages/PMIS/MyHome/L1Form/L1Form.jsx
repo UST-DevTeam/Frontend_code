@@ -438,28 +438,12 @@ const L1Form = () => {
             value: "amount",
             style: "min-w-[150px] max-w-[450px] text-center",
           },
-          // {
-          //   name: "Status",
-          //   value: "status",
-          //   style: "min-w-[100px] max-w-[450px] text-center",
-          // },
           {
             name: "Remarks",
             value: "remark",
             style: "min-w-[350px] max-w-[450px] text-center",
           },
         ]),
-
-      // {
-      //   name: "Edit",
-      //   value: "edit",
-      //   style: "min-w-[100px] max-w-[100px] text-center",
-      // },
-      //   {
-      //     name: "Delete",
-      //     value: "delete",
-      //     style: "min-w-[100px] max-w-[100px] text-center",
-      //   },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -478,8 +462,6 @@ const L1Form = () => {
           { label: "L3-Approved", value: "L3-Approved" },
           { label: "L3-Rejected", value: "L3-Rejected" },
         ],
-        // props: {
-        // }
       },
     ],
   };

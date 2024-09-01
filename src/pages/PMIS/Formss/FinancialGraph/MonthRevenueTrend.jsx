@@ -102,70 +102,36 @@ const MonthRevenueTrend = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
-  // const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
-  // let departmentList = useSelector((state) => {
-  //   return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-  //     label: itm?.orgLevel,
-  //     value: itm?.orgLevel,
+
+  const CircleList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+      label: itm?.circle,
+      value: itm?.projectuid,
+    }));
+  });
+
+  // let AllProjectTypeList = useSelector((state) => {
+  //   return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
+  //     label: itm?.projectType,
+  //     value: itm?.projectType,
   //   }));
   // });
-
-  let CircleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleName,
-      value: itm?.circleName,
-    }));
-  });
-
-  let AllProjectTypeList = useSelector((state) => {
-    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-      label: itm?.projectType,
-      value: itm?.projectType,
-    }));
-  });
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Trend || [];
   });
 
   useEffect(() => {
-    // dispatch(AdminActions.getManageCircle());
-    // dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Trend());
-    fetchGraphData(); 
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphRevenuePlanVSActual_Trend(
-      )
-    );
-  };
 
-  // const handleFilter = () => {
-  //   const filterData = {
-  //     orgLevel: selectedDepartment.map((item) => item.value) || [],
-  //     year: selectedYears ? selectedYears.value : currentYear,
-  //     month: selectedMonths?.map((item) => item.value) || monthsNumber,
-  //   };
-  //   console.log('FilterData:', filterData);
-
-  //   dispatch(
-  //     GraphActions.postGraphMonthlyJoiningVsExit(
-  //       { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
-  //       () => {}
-  //     )
-  //   );
-  // };
   const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
@@ -178,7 +144,7 @@ const MonthRevenueTrend = () => {
       filterData.year = selectedYears.value;
     }
     if (selectedMonths.length > 0) {
-      filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+      filterData.viewBy = selectedMonths?.map((Sweety) => Sweety.value);
     }
     dispatch(GraphActions.postGraphRevenuePlanVSActual_Trend(filterData, () => {}));
   };
@@ -199,18 +165,18 @@ const MonthRevenueTrend = () => {
   }));
 
   const monthsList = [
-    { value: 1, label: "Jan" },
-    { value: 2, label: "Feb" },
-    { value: 3, label: "Mar" },
-    { value: 4, label: "Apr" },
-    { value: 5, label: "May" },
-    { value: 6, label: "Jun" },
-    { value: 7, label: "Jul" },
-    { value: 8, label: "Aug" },
-    { value: 9, label: "Sep" },
-    { value: 10, label: "Oct" },
-    { value: 11, label: "Nov" },
-    { value: 12, label: "Dec" },
+    { value: "1", label: "Jan" },
+    { value: "2", label: "Feb" },
+    { value: "3", label: "Mar" },
+    { value: "4", label: "Apr" },
+    { value: "5", label: "May" },
+    { value: "6", label: "Jun" },
+    { value: "7", label: "Jul" },
+    { value: "8", label: "Aug" },
+    { value: "9", label: "Sep" },
+    { value: "10", label: "Oct" },
+    { value: "11", label: "Nov" },
+    { value: "12", label: "Dec" },
   ];
 
   return (

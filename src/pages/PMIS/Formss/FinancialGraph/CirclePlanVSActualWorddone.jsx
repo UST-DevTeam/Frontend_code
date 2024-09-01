@@ -71,12 +71,8 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 
   useEffect(() => {
     dispatch(GraphActions.getGraphCirclePlanVSActualWorkdone());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
- 
-    dispatch(GraphActions.getGraphCirclePlanVSActualWorkdone());};
 
 
 const handleFilter = () => {
@@ -111,7 +107,6 @@ const handleFilter = () => {
     setSelectedYears(null);
     setSelectedView([]);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

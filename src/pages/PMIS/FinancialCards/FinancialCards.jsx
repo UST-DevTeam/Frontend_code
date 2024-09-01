@@ -18,6 +18,7 @@ import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
 import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
+import CurrentuserActions from "../../../store/actions/currentuser-action";
 
 const FinancialCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -30,6 +31,7 @@ const FinancialCards = () => {
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
+    dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
   }, []);
   return (
     <>
@@ -107,8 +109,8 @@ const FinancialCards = () => {
      <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
      <PoStatusChart customeruniqueId = {customeruniqueId} />
      <MonthRevenueTrend />
-            <MonthlyRevenueCircle />
-            <CumulativeTrendPlanVsActual />
+      <MonthlyRevenueCircle />
+      <CumulativeTrendPlanVsActual />
             <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
             <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
       </div>

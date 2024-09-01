@@ -110,65 +110,27 @@ const CumulativeTrendPlanVsActual = () => {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
-  // let departmentList = useSelector((state) => {
-  //   return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-  //     label: itm?.orgLevel,
-  //     value: itm?.orgLevel,
-  //   }));
-  // });
 
-  let CircleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleName,
-      value: itm?.circleName,
+
+  const CircleList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+      label: itm?.circle,
+      value: itm?.projectuid,
     }));
   });
 
-  let AllProjectTypeList = useSelector((state) => {
-    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-      label: itm?.projectType,
-      value: itm?.projectType,
-    }));
-  });
+ 
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphCumulativeTrendPlanVsActual || [];
   });
 
-  console.log(GraphData,"getGraphCumulativeTrendPlanVsActual")
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphCumulativeTrendPlanVsActual());
-    fetchGraphData(); 
+   
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphCumulativeTrendPlanVsActual(
-      )
-    );
-  };
-
-  // const handleFilter = () => {
-  //   const filterData = {
-  //     orgLevel: selectedDepartment.map((item) => item.value) || [],
-  //     year: selectedYears ? selectedYears.value : currentYear,
-  //     month: selectedMonths?.map((item) => item.value) || monthsNumber,
-  //   };
-  //   console.log('FilterData:', filterData);
-
-  //   dispatch(
-  //     GraphActions.postGraphMonthlyJoiningVsExit(
-  //       { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
-  //       () => {}
-  //     )
-  //   );
-  // };
   const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
@@ -181,7 +143,7 @@ const CumulativeTrendPlanVsActual = () => {
       filterData.year = selectedYears.value;
     }
     if (selectedMonths.length > 0) {
-      filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+      filterData.viewBy = selectedMonths?.map((Sweety) => Sweety.value);
     }
     dispatch(GraphActions.postGraphRevenuePlanVSActual_Trend(filterData, () => {}));
   };
@@ -192,8 +154,6 @@ const CumulativeTrendPlanVsActual = () => {
     setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
-    // dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
   };  
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
