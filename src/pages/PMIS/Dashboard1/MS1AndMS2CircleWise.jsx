@@ -136,7 +136,7 @@ let CircleList = useSelector((state) => {
     const TotalMS1Done = item.TotalMS1Done || 0;
     const TotalMS2Done = item.TotalMS2Done || 0;
     const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(1);
-    return Number(percentage); // Return as number for proper graphing
+    return Number(percentage);
   }) || [];
 
 

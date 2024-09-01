@@ -127,12 +127,7 @@ const [selectedCircle, setSelectedCircle] = useState([]);
     return state?.GraphData?.getGraphRevenuePlanVSActual_Circle || [];
   });
 
-  const SecondaryAxis = GraphData?.map(item => {
-    const aop = item.aop || 0;
-    const pv = item.pv || 0; 
-    const percentage = aop === 0 ? 0 : ((pv / aop) * 100).toFixed(1);
-    return `${percentage}%`; 
-});
+  const SecondaryAxis = GraphData?.map(item => item.ach) || [];
 
   const SeriesData = [
     {

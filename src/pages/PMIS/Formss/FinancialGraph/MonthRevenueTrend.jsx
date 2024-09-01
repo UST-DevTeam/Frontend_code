@@ -127,6 +127,33 @@ const MonthRevenueTrend = () => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Trend || [];
   });
 
+  const SecondaryAxis = GraphData?.map(item => item.ach) || [];
+
+
+  const SeriesData = [
+    {
+      name: "AOP-Target",
+      type: "bar",
+      data: GraphData?.map(item => item.aop) || [],
+  },
+  {
+      name: "PV-Target",
+      type: "bar",
+      data: GraphData?.map(item => item.pv) || [],
+  },
+  {
+      name: "Actual Revenue",
+      type: "bar",
+      data: GraphData?.map(item => item.amount) || [],
+  },
+  {
+      name: "Acheievement(%)",
+      type: "line",
+      data: SecondaryAxis,
+      yaxis: 1
+  },
+];
+
   useEffect(() => {
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Trend());
   }, []);
@@ -228,7 +255,21 @@ const MonthRevenueTrend = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="L" />
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="L" 
+      yaxis={[
+        {
+          title: {
+            text: "Primary Axis - Revenue", // Custom title for Primary Axis
+          },
+          opposite: false, // This will be on the left side by default
+        },
+        {
+          title: {
+            text: "Secondary Axis - Achievement (%)", // Custom title for Secondary Axis
+          },
+          opposite: true, // This will be on the right side
+        },
+      ]}/>
     </div>
   );
 };

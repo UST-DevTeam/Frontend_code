@@ -15,6 +15,8 @@ import AreaChart from "../../../components/AreaChart";
 import moment from "moment/moment";
 import FormssActions from "../../../store/actions/formss-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
+import LineChartsss from "../../../components/LineChartsss";
+import { Series } from "highcharts";
 
 
 const AccrualRevenueTrendChart = () => {
@@ -89,6 +91,13 @@ const AccrualRevenueTrendChart = () => {
     let pieGraphData = useSelector((state) => {
         return state?.GraphData?.getGraphAccrualRevenueTrend ||['']
     });
+
+    const SeriesData = [
+      {
+          name: "Acc.Revenue",
+          data: pieGraphData?.map(item => item.y) ||[],
+      },
+  ];
 
 
     // let pieGraphData = [
@@ -188,7 +197,7 @@ const AccrualRevenueTrendChart = () => {
                       ></Button>
                     </div>
                   </div>
-              <AreaChart data = {pieGraphData} dataLabelSuffix="L"/>
+              <LineChartsss data = {pieGraphData} seriesData={SeriesData} dataLabelSuffix="L"/>
 
             </div>
 

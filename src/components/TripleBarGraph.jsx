@@ -31,35 +31,17 @@ const TripleBarGraph = ({
 
   const category = data?.map((item) => item.description) || [];
 
-  const SecondaryAxis = data?.map(item => {
-    const pv = item.pv || 0;
-    const amount = item.amount || 0;
-    const percentage = pv === 0 ? 0 : ((amount / pv) * 100).toFixed(2);
-    return `${percentage}%`;
-    }) || [];
+  // const SecondaryAxis = data?.map(item => {
+  //   const pv = item.pv || 0;
+  //   const amount = item.amount || 0;
+  //   const percentage = pv === 0 ? 0 : ((amount / pv) * 100).toFixed(2);
+  //   return `${percentage}%`;
+  //   }) || [];
 
+  const SecondaryAxis = data?.map(item => item.ach);
 
   const defaultSeries = [
-    {
-      name: "AOP-Target",
-      type: "bar",
-      data: data?.map(item => item.aop) || [],
-  },
-  {
-      name: "PV-Target",
-      type: "bar",
-      data: data?.map(item => item.pv) || [],
-  },
-  {
-      name: "Actual Revenue",
-      type: "bar",
-      data: data?.map(item => item.amount) || [],
-  },
-  {
-      name: "Acheievement(%)",
-      type: "line",
-      data: SecondaryAxis,
-  },
+   
   ];
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
@@ -68,7 +50,8 @@ const TripleBarGraph = ({
   const colors = ["#5cccb7", "#ffab2d", "#f9a8d4", "#b8ee30"];
   const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
-  const offsetY = horizontal ? 0 : -16;
+  const offsetX = horizontal ? 0 : -5;
+  const offsetY = horizontal ? 0 : -8;
 
   const options = {
     chart: {
@@ -100,8 +83,9 @@ const TripleBarGraph = ({
     },
     dataLabels: {
       enabled: true,
-      formatter: (val) => `${val} ${dataLabelSuffix}`,
+      formatter: (val, { seriesIndex }) => (seriesIndex === 3 ? `${val}%` : `${val} ${dataLabelSuffix}`),
       enabledOnSeries: [0,1,2,3],
+      offsetX: offsetX,
       offsetY: offsetY,
       style: {
         colors: ["transparent"],
@@ -242,6 +226,14 @@ const TripleBarGraph = ({
       theme: "dark",  
       marker: {
         fillColors: colors,  
+      },
+      y: {
+        formatter: function(value, { seriesIndex }) {
+          if (seriesIndex === 3) { 
+            return `${value}%`;  
+          }
+          return value;
+        },
       },
     },
   };

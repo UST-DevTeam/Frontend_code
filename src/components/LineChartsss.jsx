@@ -1,15 +1,22 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LineChartsss = ({ data, horizontal = false, title="", XAxisTitle = "", YAxisTitle = "",  }) => {
-    let SeriesData = data?.map(item => item.count) ||[];  
+const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "",  }) => {
+
     let category = data?.map(item => item.description) ||[];
-    const series = [
+    // const series = [
+    //     {
+    //         name: "Active Employee",
+    //         data: SeriesData
+    //     },
+    // ];
+    const defaultSeries = [
         {
             name: "Active Employee",
-            data: SeriesData
+            data: data?.map(item => item.count) ||[],
         },
     ];
+    const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
     const options = {
         chart: {

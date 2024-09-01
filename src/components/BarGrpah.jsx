@@ -105,7 +105,7 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             },
         },
         stroke: {
-            width: [1.5],
+            width: [1],
             colors: BarBorderColors,
           },
         grid: {

@@ -11,7 +11,7 @@ const TripleLineBarGraph = ({
   dataLabelSuffix="", 
   XAxisTitle = "",  
   YAxisTitle = "", 
-  lineDataKey = "",
+  lineDataKey = "Acheievement(%)",
 }) => {
 
   const category = data?.map((item) => item.description) || [];
@@ -75,7 +75,7 @@ const computeLineData = (key) => {
 
   // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
   const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
-
+  const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
   const offsetY = horizontal ? 0 : -7;
 
   const options = {
@@ -144,25 +144,44 @@ const computeLineData = (key) => {
         },
       },
     },
-    yaxis: {
-        title: {
+    yaxis: [
+        {
+          title: {
             text: YAxisTitle,
             style: {
-              color: '#ffffff',
-              fontSize: '17px',
-              fontWeight: 'bold',
+              color: "#ffffff",
+              fontSize: "17px",
+              fontWeight: "bold",
             },
           },
-      labels: {
-        style: {
-          colors: "#ffffff",
-          fontSize: "9px",
+          labels: {
+            style: {
+              colors: "#ffffff",
+              fontSize: "9px",
+            },
+          },
         },
-    //     formatter: (value) => {
-    //       return Math.round(value);
-    //   },
-      },
-    },
+        {
+          opposite: true,
+          min:0,
+          // max:150,
+          title: {
+            text: lineDataKey,
+            style: {
+              color: "#ffffff",
+              fontSize: "17px",
+              fontWeight: "bold",
+            },
+          },
+          labels: {
+            style: {
+              colors: "#ffffff",
+              fontSize: "9px",
+            },
+            formatter: (value) => `${value}%`,
+          },
+        },
+      ],
     plotOptions: {
       bar: {
         columnWidth: columnWidth,
@@ -177,10 +196,11 @@ const computeLineData = (key) => {
       },
     },
     stroke: {
-      colors: ["transparent", "transparent", "transparent", "#b8ee30"],
-      curve: 'smooth',
-      width: [1, 1, 1, 2],
-    },
+        // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+        curve: 'smooth',
+        width: [0.8, 0.8, 0.8, 2],
+        colors: BarBorderColors,
+      },
     grid: {
       borderColor: "transparent",
       strokeDashArray: 0,
@@ -215,6 +235,14 @@ const computeLineData = (key) => {
         marker: {
           fillColors: colors,  
         },
+        y: {
+            formatter: function(value, { seriesIndex }) {
+              if (seriesIndex === 3) { 
+                return `${value}%`;  
+              }
+              return value;
+            },
+          },
       },
   };
 
