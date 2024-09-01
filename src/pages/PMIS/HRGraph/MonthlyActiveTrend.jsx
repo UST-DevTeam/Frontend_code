@@ -122,20 +122,9 @@ const MonthlyActiveTrend = () => {
   useEffect(() => {
     dispatch(GraphActions.getGraphOrganizationLevel());
     dispatch(GraphActions.getGraphMonthlyActiveTrend());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphMonthlyActiveTrend(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
-    );
-  };
+
 
   // const handleFilter = () => {
   //   const filterData = {
@@ -171,7 +160,6 @@ const MonthlyActiveTrend = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

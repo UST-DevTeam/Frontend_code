@@ -175,20 +175,9 @@ const NewJoiningMonthly = () => {
     // dispatch(AdminActions.getManageDepartment());
     dispatch(GraphActions.getGraphOrganizationLevel());
     dispatch(GraphActions.getGraphNewJoiningMonthly());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphNewJoiningMonthly(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
-    );
-  };
+;
 
   // const handleFilter = () => {
   //   const filterData = {

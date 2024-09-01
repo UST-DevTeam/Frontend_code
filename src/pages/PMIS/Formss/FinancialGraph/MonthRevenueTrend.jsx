@@ -182,7 +182,6 @@ const MonthRevenueTrend = () => {
     setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
-    fetchGraphData();
     // dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
   };  
 

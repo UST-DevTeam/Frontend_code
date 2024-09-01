@@ -125,15 +125,9 @@ const ActiveEmpwithCostCenter = () => {
   useEffect(() => {
     dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
     dispatch(GraphActions.getAirtelActiveEmpVerticalName());
-    fetchGraphData();
   }, []);
 
-  const fetchGraphData = () => {
-    // exportData.current = extraColumnsState.map(
-    //   (itm) => `M-${itm.month}Y-${itm.year}`
-    // );
-    dispatch(
-      GraphActions.getGraphActiveEmpwithCostCenter());};
+
 
   const handleFilter = () => {
     const filterData = {
@@ -151,7 +145,6 @@ const ActiveEmpwithCostCenter = () => {
 
   const handleClear = () => {
     setSelectedOrgLevel([]);
-    fetchGraphData();
   };
 
 
