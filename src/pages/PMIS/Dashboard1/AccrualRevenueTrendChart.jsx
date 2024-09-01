@@ -51,13 +51,6 @@ const AccrualRevenueTrendChart = () => {
 
    
 
-
-    
-
-
-
-    let customeruniqueId = "667d593927f39f1ac03d7863"
-
     let costCenterList = useSelector((state) => {
         return state?.formssData?.getAccrualRevenueTrend.map((itm) => {
           return {

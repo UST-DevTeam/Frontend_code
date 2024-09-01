@@ -71,7 +71,7 @@ const PieChart = ({ data,colors }) => {
         options={options}
         type="pie"
         series={options.series}
-        height="350"
+        height="450"
       />
   );
 };

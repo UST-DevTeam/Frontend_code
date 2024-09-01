@@ -1,75 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { useForm } from "react-hook-form";
-// import * as Unicons from "@iconscout/react-unicons";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import GraphActions from "../../../store/actions/graph-actions";
-// import FilterActions from "../../../store/actions/filter-actions";
-// import Button from "../../../components/Button";
-// import DountChart from "../../../components/DountChart";
-// import PieChart from "../../../components/PieChart";
-// import { UilImport,UilSearch } from '@iconscout/react-unicons' 
-// import PolarChart from "../../../components/FormElements/PolarChart";
-// import BarGraph from "../../../components/BarGrpah";
-// import LineChartsss from "../../../components/LineChartsss";
-// import DoubleBarGraph from "../../../components/DoubleBarGraph";
-
-
-// const MonthlyJoiningVsExit = () => {
-//     const [type, setType] = useState(false);
-//     let dispatch = useDispatch();
-//     const [ data ,setData] = useState([])
-
-//     let customeruniqueId = "65dee316811c797c9f26d836"
-
-//     let projectGroupList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectGroup.map((itm) => {
-//           return {
-//             label: itm.ProjectGroup,
-//             value: itm.ProjectGroup,
-//           };
-//         });
-//       });
-
-//       let projectTypeList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectType.map((itm) => {
-//           return {
-//             label: itm.projectType,
-//             value: itm.projectType,
-//           };
-//         });
-//       });
-
-//       let projectManagerList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectManager.map((itm) => {
-//           return {
-//             label: itm.projectManager,
-//             value: itm.projectManager,
-//           };
-//         });
-//       });
-
-//     let GraphData = useSelector((state) => {
-//         return state?.GraphData?.getGraphMonthlyJoiningVsExit || []
-//     });
-//     console.log(GraphData,"GraphDataGraphDataGraphData")
-
-//     useEffect(() => {
-//         dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
-//     }, []);
-
-//     return (
-//         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-            
-//             <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
-//             {/* <BarGraph data={GraphData} horizontal={type} /> */}
-//             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
-//             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
-//         </div>
-//     );
-// };
-// export default MonthlyJoiningVsExit;
-
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewMultiSelects from "../../../../components/NewMultiSelect";
@@ -82,6 +10,8 @@ import NewSingleSelect from "../../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../../components/DoubleBarGraph";
 import TripleBarGraph from "../../../../components/TripleBarGraph";
 import BarLineGraph from "../../../../components/BarLineGraph";
+import FilterActions from "../../../../store/actions/filter-actions";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
 
 const TrendPlanVSActualWorkdone = () => {
   const exportData = useRef([]);
@@ -114,61 +44,32 @@ const TrendPlanVSActualWorkdone = () => {
 
   const monthStr = `${month}`;
 
-//   let departmentList = useSelector((state) => {
-//     return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-//       label: itm?.orgLevel,
-//       value: itm?.orgLevel,
-//     }));
-//   });
+
 let CircleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleName,
-      value: itm?.circleName,
+    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+      label: itm?.circle,
+      value: itm?.projectuid,
     }));
   });
 
-  let AllProjectTypeList = useSelector((state) => {
-    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-      label: itm?.projectType,
-      value: itm?.projectType,
-    }));
+  let projectTypeList = useSelector((state) => {
+    return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.uid,
+      };
+    });
   });
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphTrendPlanVSActualWorkdone || [];
   });
 
-//   const percentageData = GraphData?.map(item => {
-//     const plan = item.plan || 1;
-//     const achieved = item.achievement || 0;
-//     return ((achieved / plan) * 100).toFixed(2);
-//   });
 
-
-//   const SeriesData = [
-//     {
-//         name: "Planned",
-//         type: "bar",
-//         data: GraphData?.map(item => item.plan) || [],
-//       },
-//       {
-//         name: "Achieved",
-//         type: "bar",
-//         data: GraphData?.map(item => item.achievement) || [],
-//       },
-//       {
-//         name: "Achievement",
-//         type: "line",
-//         data: percentageData || [],
-//       },
-//   ];
-//   console.log(SeriesData, "SeriesData");
 
   useEffect(() => {
-    // dispatch(AdminActions.getManageDepartment());
-    dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphTrendPlanVSActualWorkdone());
+
     fetchGraphData();
   }, []);
 
@@ -189,12 +90,17 @@ const handleFilter = () => {
       filterData.year = selectedYears.value;
     }
     if (selectedView?.value === "Monthly" && selectedMonths.length > 0) {
-        filterData.month = selectedMonths.map((item) => item.value);
-      } else if (selectedView?.value === "Weekly" && selectedMonths.length > 0) {
-        filterData.week = selectedMonths.map((item) => item.value);
-      }filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
-      
-    dispatch(GraphActions.postGraphRevenuePlanVSActual_Circle(filterData, () => {}));
+      filterData.viewBy = selectedMonths.map((item) => item.value);
+    } 
+    else if (selectedView?.value === "Weekly" && selectedMonths.length > 0) {
+      filterData.viewBy = selectedMonths.map((item) => item.value);
+    }
+    let typeSelectional = "Monthly"
+    if (selectedView && selectedView.length !== 0) {
+      typeSelectional = selectedView.value;
+    }
+    filterData.typeSelectional = typeSelectional
+    dispatch(GraphActions.postGraphTrendPlanVSActualWorkdone(filterData, () => {}));
   };
 
 
@@ -223,18 +129,18 @@ const handleFilter = () => {
     "": [],
     Weekly: generateWeeks(),
     Monthly: [
-        { value: 1, label: "Jan" },
-        { value: 2, label: "Feb" },
-        { value: 3, label: "Mar" },
-        { value: 4, label: "Apr" },
-        { value: 5, label: "May" },
-        { value: 6, label: "Jun" },
-        { value: 7, label: "Jul" },
-        { value: 8, label: "Aug" },
-        { value: 9, label: "Sep" },
-        { value: 10, label: "Oct" },
-        { value: 11, label: "Nov" },
-        { value: 12, label: "Dec" },
+        { value: "1", label: "Jan" },
+        { value: "2", label: "Feb" },
+        { value: "3", label: "Mar" },
+        { value: "4", label: "Apr" },
+        { value: "5", label: "May" },
+        { value: "6", label: "Jun" },
+        { value: "7", label: "Jul" },
+        { value: "8", label: "Aug" },
+        { value: "9", label: "Sep" },
+        { value: "10", label: "Oct" },
+        { value: "11", label: "Nov" },
+        { value: "12", label: "Dec" },
     ],
   };
 
@@ -266,7 +172,7 @@ const handleFilter = () => {
           />
           <NewMultiSelects
             label="Project Type"
-            option={AllProjectTypeList}
+            option={projectTypeList}
             value={selectedProjectType}
             cb={(data) => setSelectedProjectType(data)}
             placeholder="Project Type"

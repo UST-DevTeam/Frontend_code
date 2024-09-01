@@ -111,14 +111,6 @@ const FinancialCards = () => {
             <CumulativeTrendPlanVsActual />
             <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
             <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
-
-     {/* <TrendPlanVSActualWorkdone /> 
-     <CirclePlanVSActualWorkdone />
-     <PoStatusChart customeruniqueId = {customeruniqueId} />
-     <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
-
-
-
       </div>
     </>
   );

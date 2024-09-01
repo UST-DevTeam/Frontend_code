@@ -9,6 +9,7 @@ import FilterActions from "../../../store/actions/filter-actions";
 import Button from "../../../components/Button";
 import PieChart from "../../../components/PieChart";
 import { UilImport, UilSearch, UilRefresh } from "@iconscout/react-unicons";
+import CurrentuserActions from "../../../store/actions/currentuser-action";
 
 const MileStoneChart = (id) => {
   const [type, settype] = useState(false);
@@ -21,30 +22,30 @@ const MileStoneChart = (id) => {
   const [data, setData] = useState([]);
 
   let customeruniqueId = id["customeruniqueId"];
-
+  
   let projectTypeList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectType.map((itm) => {
+    return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
       return {
         label: itm.projectType,
-        value: itm.projectType,
+        value: itm.uid,
       };
     });
   });
 
-  let projectGroupList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectGroup.map((itm) => {
-      return {
-        label: itm.ProjectGroup,
-        value: itm.ProjectGroup,
-      };
-    });
-  });
+  // let projectGroupList = useSelector((state) => {
+  //   return state?.filterData?.getProjectProjectGroup.map((itm) => {
+  //     return {
+  //       label: itm.ProjectGroup,
+  //       value: itm.ProjectGroup,
+  //     };
+  //   });
+  // });
 
   let projectIdList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectId.map((itm) => {
+    return state?.currentuserData?.getcurrentuserPID.map((itm) => {
       return {
         label: itm.projectId,
-        value: itm.projectId,
+        value: itm.uniqueId,
       };
     });
   });
@@ -55,9 +56,12 @@ const MileStoneChart = (id) => {
 
   useEffect(() => {
     dispatch(GraphActions.getGraphMilestoneStatus());
-    dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
-    dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
-    dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}`));
+    dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+    dispatch(CurrentuserActions.getcurrentuserPID(true,"",0))
+
+    // dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
+    // dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
+    // dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}`));
   }, []);
 
   const handleFilter = () => {
@@ -74,8 +78,6 @@ const MileStoneChart = (id) => {
     };
 
     dispatch(GraphActions.postGraphMilestoneStatus(filterData, () => {}));
-
-    console.info("filterData____", filterData);
   };
 
   const handleClear = () => {
@@ -94,7 +96,7 @@ const MileStoneChart = (id) => {
         <div className="flex space-x-1 h-14 justify-between w-full">
           <div className="flex space-x-1 h-14 justify-between w-full">
             <NewMultiSelects
-              label="Project Group"
+              // label="Project Group"
               placeholder="Project Type"
               option={projectTypeList}
               value={selectedProjectType}
@@ -108,7 +110,6 @@ const MileStoneChart = (id) => {
               cb={(data) => setselectedProjectGroup(data)}
             /> */}
             <NewMultiSelects
-              label="Project Manager"
               placeholder="Project Id"
               option={projectIdList}
               value={selectedProjectId}

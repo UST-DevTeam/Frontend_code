@@ -5,6 +5,7 @@ const initialState = {
     getcurrentuserPG: [],
     getcurrentuserPT: [],
     getcurrentuserPID: [],
+    getcurrentusercircleprojectid: [],
 }
 
 
@@ -37,11 +38,19 @@ const currentuserData = createSlice({
                 state.getcurrentuserPID  = [...state.getcurrentuserPID,...payload.dataAll]
             }
         },
+
+        GET_CURRENT_USER_CIRCLE_PROJECTID:(state,{payload}) => {
+            if(payload.reset){
+                state.getcurrentusercircleprojectid = payload.dataAll
+            }else{
+                state.getcurrentusercircleprojectid  = [...state.getcurrentusercircleprojectid,...payload.dataAll]
+            }
+        },
     }
 
 })
 
 
-export const {GET_CURRENT_USER_PG, GET_CURRENT_USER_PT,GET_CURRENT_USER_PID} = currentuserData.actions
+export const {GET_CURRENT_USER_PG, GET_CURRENT_USER_PT,GET_CURRENT_USER_PID,GET_CURRENT_USER_CIRCLE_PROJECTID} = currentuserData.actions
 
 export default currentuserData.reducer

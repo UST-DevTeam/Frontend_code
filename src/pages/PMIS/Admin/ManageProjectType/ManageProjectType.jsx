@@ -35,6 +35,8 @@ import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
 import TrendPlanVSActualWorkdone from "../../Formss/FinancialGraph/TrendPlanVSActualWorkdone";
 import CirclePlanVSActualWorkdone from "../../Formss/FinancialGraph/CirclePlanVSActualWorddone";
 import MS1AndMS2CircleWise from "../../Dashboard1/MS1AndMS2CircleWise";
+import FilterActions from "../../../../store/actions/filter-actions";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
 
 const   ManageProjectType = () => {
   const { cname, customeruniqueId } = useParams();
@@ -1196,6 +1198,8 @@ const   ManageProjectType = () => {
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));
     dispatch(AdminActions.getManageCompletionCriteria())
+    dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+    dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
   }, []);
 
   const hasCards = dbConfigListCard && dbConfigListCard.length > 0;
@@ -1307,11 +1311,6 @@ const   ManageProjectType = () => {
       <TrendPlanVSActualWorkdone /> 
       <CirclePlanVSActualWorkdone />
       <MS1AndMS2CircleWise />
-      {/* <ClaimAndAdvanceChart /> */}
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart /> */}
 
 
 

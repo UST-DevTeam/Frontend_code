@@ -114,12 +114,6 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 
   const monthStr = `${month}`;
 
-//   let departmentList = useSelector((state) => {
-//     return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-//       label: itm?.orgLevel,
-//       value: itm?.orgLevel,
-//     }));
-//   });
 let CircleList = useSelector((state) => {
     return state?.adminData?.getManageCircle?.map((itm) => ({
       label: itm?.circleCode,
