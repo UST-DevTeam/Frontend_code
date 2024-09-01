@@ -450,6 +450,29 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    postGraphVendorActiveInactive: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_vendor_active_inactive  })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_VENDOR_ACTIVE_INACTIVE({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
 
     getGraphRevenuePlanVSActual_Trend:(reset=true,args="") => async (dispatch, _) => {
         try {
@@ -559,14 +582,27 @@ const GraphActions = {
         } catch (error) {
         }
     },
-
-    getGraphAdvanceApprovalStatus:(reset=true,args="") => async (dispatch, _) => {
+    postGraphExpenseApprovalStatus: (data, cb) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.graph_advance_approval_status}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_GRAPH_ADVANCE_APPROVAL_STATUS({dataAll,reset}))
+            const res = await Api.post({ data: data, url: Urls.graph_expense_approval_status })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_EXPENSE_APPROVAL_STATUS({ dataAll, reset:true }))
+
+            }
+
         } catch (error) {
+            return;
         }
     },
 
@@ -577,6 +613,29 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_ADVANCE_APPROVAL_STATUS({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    postGraphAdvanceApprovalStatus: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_advance_approval_status })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_ADVANCE_APPROVAL_STATUS({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
 

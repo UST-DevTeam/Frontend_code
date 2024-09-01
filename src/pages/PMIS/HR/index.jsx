@@ -110,11 +110,13 @@ const HRHomeView = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
       <ActiveEmpwithCostCenter />
       <NewJoiningMonthly />
-      <MonthlyActiveTrend />
+      <MonthlyActiveTrend /> 
       <MonthlyJoiningVsExit />
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 gap-2">
       <WeeklyActiveEmpList />
       </div>
     </>

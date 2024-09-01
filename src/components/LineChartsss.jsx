@@ -97,7 +97,7 @@ const LineChartsss = ({ data, horizontal = false, title="", XAxisTitle = "", YAx
             strokeDashArray: 0,
         },
         markers: {
-            size: 4, 
+            size: 4.5, 
             colors: ['#f9a3a4'], 
             strokeColor: 'black', 
             strokeWidth: 0.5, 
@@ -105,6 +105,12 @@ const LineChartsss = ({ data, horizontal = false, title="", XAxisTitle = "", YAx
                 size: 6, 
             }
         },
+        tooltip: {
+            theme: "dark",  
+            marker: {
+                fillColors: ['#f9a3a4'],  
+            },
+            },  
         
     };
 

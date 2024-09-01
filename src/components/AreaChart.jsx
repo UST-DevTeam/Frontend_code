@@ -62,15 +62,15 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
       },
       stroke: {
         curve: "straight",
-        width: 2,
+        width: 2.7,
       },
       markers: {
-        size: 4.5, 
+        size: 5.5, 
         colors: ['#f9a3a4'], 
         strokeColor: 'black', 
         strokeWidth: 0.5, 
         hover: {
-            size: 6, 
+            size: 7, 
         }
     },
       fill: {
@@ -95,10 +95,23 @@ const AreaChart = ({data, dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "", 
         offsetY:  -6,
         offsetX: 23,
         style: {
-          colors: ["white"],  
-          fontSize: '11px',    
+          colors: ["transparent"],
+          fontSize: "10px",
+          fontWeight: 'bold',
+      }, 
+      background: {
+          enabled: true, 
+          borderRadius: 0,
+          borderWidth: 0, 
+          borderColor: "transparent", 
         },
       },
+      tooltip: {
+        theme: "dark",  
+        marker: {
+          fillColors: ["#5cccb7"],  
+        },
+    },
     },
   };
 

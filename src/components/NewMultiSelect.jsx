@@ -32,7 +32,7 @@ const NewMultiSelects = ({ label, option = [], value = [], required = false, pla
 export const NewMultiSelects2 = ({ label, option = [], value = [], required = false, cb = (data) => { }, ...props }) => {
     const [length, setLength] = useState(0)
     return (
-        <div className={`max-w-[200px] min-w-[200px]  relative p-0 z-50 ${props?.height || ''} ${props?.className || ''} w-full`}>
+        <div className={`max-w-[200px] min-w-[100px]  relative p-0 z-50 ${props?.height || ''} ${props?.className || ''} w-full`}>
             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label + (length > 0 ? " ( " + length + " )" : "")}</label> */}
             {/* <label htmlFor={label} className='text-white ml-2'>{required ? <span className='text-red-600 mr-1 '>*</span> : <></>}{label}</label> */}
             <MultiSelect

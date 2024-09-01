@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = "",}) => {
+const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = "", XAxisTitle = "", YAxisTitle = "", YAxisSecondaryTitle = "Acheievement(%)",}) => {
 
     const category = data?.map(item => item.description);
 
@@ -24,15 +24,16 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             data: data?.map(item => item.achievement) || [],
           },
           {
-            name: "Achievement",
+            name: "Acheievement(%)",
             type: "line",
-            data: percentageData || [],
-          },
+            data: percentageData,
+        },
     ];
 
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-    const colors = ["#5cccb7", "#FF9999", "#b8ee30"];
+    const colors = ["#5cccb7", "#ffab2d", "#b8ee30"];
+    const BarBorderColors = ["#28a745", "#b8ee30","#b8ee30"];
 
     const options = {
         chart: {
@@ -85,24 +86,60 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
         },
         xaxis: {
             categories: category,
+            title: {
+              text: XAxisTitle,
+              style: {
+                color: '#ffffff',
+                fontSize: '16px',
+                fontWeight: 'bold',
+              },
+            },
             labels: {
+              style: {
+                colors: "#ffffff",
+                fontSize: "10px",
+              },
+            },
+          },
+          yaxis: [
+            {
+              title: {
+                text: YAxisTitle,
                 style: {
-                    colors: '#ffffff',
-                    fontSize: '10px',
-                }
-            }
-        },
-        yaxis: {
-            labels: {
-                style: {
-                    colors: '#ffffff',
-                    fontSize: '9px',
+                  color: "#ffffff",
+                  fontSize: "17px",
+                  fontWeight: "bold",
                 },
-                formatter: (value) => {
-                    return Math.round(value);
-                }
-            }
-        },
+              },
+              labels: {
+                style: {
+                  colors: "#ffffff",
+                  fontSize: "9px",
+                },
+              },
+            },
+            {
+              opposite: true,
+              min: 0,
+              max: 650,
+              tickAmount: 7,
+              title: {
+                text: YAxisSecondaryTitle,
+                style: {
+                  color: "#ffffff",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                },
+              },
+              labels: {
+                style: {
+                  colors: "#ffffff",
+                  fontSize: "9px",
+                },
+                formatter: (value) => `${value}%`,
+              },
+            },
+          ],
         plotOptions: {
             bar: {
                 columnWidth: '60%',
@@ -111,10 +148,11 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             },
         },
         stroke: {
-            width: [1, 1, 2], 
+            // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
             curve: 'smooth',
-            colors: ["", "", "#b8ee30"],
-        },
+            width: [0.8, 0.8, 2],
+            colors: BarBorderColors,
+          },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
@@ -145,6 +183,12 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
             fontSize: '10px',
             fontWeight: 'bold',
         },
+        tooltip: {
+            theme: "dark",  
+            marker: {
+              fillColors: colors,  
+            },
+          },
     };
 
     return <ReactApexChart options={options} series={series} type="line" height={440} />;

@@ -37,15 +37,15 @@ const VendorActiveInactive = ({customeruniqueId}) => {
   }, []);
 
   const handleFilter = () => {
-    const filterData = {
-      ...(setSelectedCircle.length && { selectedCircle: selectedCircle?.map(item => item.value) }),
+    const filterData = {};
+    if (selectedCircle.length > 0) {
+      filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
     }
+    dispatch(GraphActions.postGraphVendorActiveInactive(filterData, () => {}));
+  };
 
-    dispatch(GraphActions.getGraphVendorActiveInactive(filterData, () => { }))
-
-  }
   const handleClear = () => {
-    setSelectedCircle
+    setSelectedCircle([])
     dispatch(GraphActions.getGraphVendorActiveInactive());
   };
 

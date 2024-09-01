@@ -120,6 +120,7 @@ const ActiveEmpwithCostCenter = () => {
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphActiveEmpWithCC || [];
   });
+  
 
   useEffect(() => {
     dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
@@ -159,8 +160,8 @@ const ActiveEmpwithCostCenter = () => {
       <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Airtel Active Employee</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1  justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
@@ -168,7 +169,8 @@ const ActiveEmpwithCostCenter = () => {
             placeholder="Description"
             cb={(data) => setSelectedOrgLevel(data)}
           />
-          <div className="flex space-x-1">
+           </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -181,7 +183,6 @@ const ActiveEmpwithCostCenter = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <BarGraph data={GraphData} horizontal={true} YAxisTitle={"Description"} columnWidth='80%' />
     </div>
   );

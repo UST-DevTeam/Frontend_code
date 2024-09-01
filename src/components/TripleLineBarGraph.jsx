@@ -210,6 +210,12 @@ const computeLineData = (key) => {
       fontSize: "10px",
       fontWeight: "bold",
     },
+    tooltip: {
+        theme: "dark",  
+        marker: {
+          fillColors: colors,  
+        },
+      },
   };
 
   return (

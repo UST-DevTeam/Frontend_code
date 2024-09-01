@@ -252,8 +252,8 @@ const NewJoiningMonthly = () => {
       <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Monthly New Joining</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             label="Department"
             option={ORGLevelList}
@@ -275,7 +275,8 @@ const NewJoiningMonthly = () => {
             placeholder="Month"
             cb={(data) => setSelectedMonths(data)}
           />
-          <div className="flex space-x-1">
+           </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -288,7 +289,6 @@ const NewJoiningMonthly = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <BarGraph data={GraphData} horizontal={false} YAxisTitle={"Employee"} title="Monthly New Joining" />
     </div>
   );

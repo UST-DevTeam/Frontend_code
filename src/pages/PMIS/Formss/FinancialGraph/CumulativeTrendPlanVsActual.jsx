@@ -219,10 +219,10 @@ const CumulativeTrendPlanVsActual = () => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
        <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">Plan VS Actual Trend Cumulative</h1>
+            <h1 className="text-white text-base font-bold">Revenue - Plan VS Actual Trend Cumulative</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           {/* <NewMultiSelects
             label="Circle"
             option={CircleList}
@@ -251,7 +251,8 @@ const CumulativeTrendPlanVsActual = () => {
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-          <div className="flex space-x-1 ">
+           </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -264,7 +265,6 @@ const CumulativeTrendPlanVsActual = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <TripleLineBarGraph data={GraphData} horizontal={false} dataLabelSuffix="L" lineDataKey="Acheivement"  />
     </div>
   );

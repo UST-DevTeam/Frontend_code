@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", XAxisTitle = "", YAxisTitle = "",  dataLabelSuffix="",}) => {
-    // const horizontal = data?.horizontal || false;
-    // let SeriesData1 = data?.map(item => item.joined) ||[];  
-    // let SeriesData2 = data?.map(item => item.exit) ||[];  
+const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", XAxisTitle = "", YAxisTitle = "", columnWidth= '70%', dataLabelSuffix="",}) => {
+
     let category = data?.map(item => item.description) ||[];
-    // let SeriesDataMonth = data?.map(item => item.month_year) ||[];
-    // let category = data?.map(item => item.description) ||[];
 
     const defaultSeries = [
         {
@@ -24,6 +20,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
 
     // const colors = ["#FFA0A0", "#B9D9EB"];
     const colors = ["#5cccb7", "#ffab2d"];
+    const BarBorderColors = ["#28a745", "#b8ee30"];
 
     const offsetY = horizontal ? 0 : -14;
 
@@ -55,7 +52,6 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
               },
         },
         xaxis: {
-            // categories: ["AIRTEL MACRO KTK","AIRTEL MACRO UP WEST","AIRTEL SMALL CELL BIHAR & JHARKHAND","AIRTEL SMALL CELL DELHI & NCR","AIRTEL SMALL CELL ORISSA","AIRTEL SMALL CELL RAJASTHAN","AIRTEL SURVEY KOLKATA","AIRTEL TI SERVICE J&K","AIRTEL TI SERVICES AP & TELANGANA","AIRTEL TI SERVICES MPCG","AIRTEL TI SERVICES MUMBAI","AIRTEL TI SERVICES PUNJAB","AIRTEL TI SERVICES TNCH","AIRTEL TI SERVICES UP EAST"],
             categories: category,
             title: {
                 text: XAxisTitle,
@@ -93,7 +89,7 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
         },
         plotOptions: {
             bar: {
-                columnWidth: '70%',
+                columnWidth: columnWidth,
                 horizontal: horizontal,
                 borderRadius: 2,
                 dataLabels: {
@@ -102,14 +98,13 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
                     },
                     position: 'top',
                 },
-                // colors: {
-                //     ranges: [{ from: 0, to: 200000, color: '#199afb'}],
-                // },
             },
         },
         stroke: {
-            colors: ["transparent"],
-            width: 1
+            // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+            curve: 'smooth',
+            width: [0.8, 0.8],
+            colors: BarBorderColors,
           },
         grid: {
             borderColor: 'transparent',
@@ -121,6 +116,15 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
         // },
         fill:{
             colors: colors,
+        },
+        markers: {
+            size: 6, 
+            colors: colors,  
+            strokeColor: 'black', 
+            strokeWidth: 0.5, 
+            hover: {
+                size: 6, 
+            }
         },
         legend: {
             show: true,
@@ -134,8 +138,12 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
             fontSize: '10px', 
             fontWeight: 'bold',
         },
-
-
+        tooltip: {
+            theme: "dark",  
+            marker: {
+                colors: colors,  
+            },
+        },
     };
     return (<ReactApexChart options={options} series={series} type="bar" height={440} />)
 }

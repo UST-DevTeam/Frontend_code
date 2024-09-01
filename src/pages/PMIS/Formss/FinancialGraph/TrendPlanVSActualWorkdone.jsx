@@ -189,23 +189,26 @@ const handleFilter = () => {
       filterData.year = selectedYears.value;
     }
     if (selectedView?.value === "Monthly" && selectedMonths.length > 0) {
-        filterData.month = selectedMonths.map((item) => item.value);
-      } else if (selectedView?.value === "Weekly" && selectedMonths.length > 0) {
-        filterData.week = selectedMonths.map((item) => item.value);
-      }filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
+      filterData.month = selectedMonths.map((item) => item.value);
+    } else if (selectedView?.value === "Weekly" && selectedMonths.length > 0) {
+      filterData.week = selectedMonths.map((item) => item.value);
+    }
       
     dispatch(GraphActions.postGraphRevenuePlanVSActual_Circle(filterData, () => {}));
   };
 
 
   const handleClear = () => {
-    setSelectedCircle([]);
-    setSelectedProjectType([]);
-    setSelectedYears(null);
-    setSelectedView([]);
-    setSelectedMonths([]);
+    setSelectedCircle([]); 
+    setSelectedProjectType([]); 
+    setSelectedYears(null); 
+    setSelectedView();
+    setSelectedMonths([]); 
     fetchGraphData(); 
   };
+
+  console.log(handleClear,"handleClearhandleClear...........handleClear")
+  
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
     label: 2021 + index,
@@ -254,49 +257,49 @@ const handleFilter = () => {
          <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Trend - Plan VS Actual Workdone</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
-        <div className="flex space-x-1 h-14 justify-between w-full">
-          <NewMultiSelects
-            label="Circle"
-            option={CircleList}
-            value={selectedCircle}
-            cb={(data) => setSelectedCircle(data)}
-            placeholder="Circle"
-          />
-          <NewMultiSelects
-            label="Project Type"
-            option={AllProjectTypeList}
-            value={selectedProjectType}
-            cb={(data) => setSelectedProjectType(data)}
-            placeholder="Project Type"
-          />
-          <NewSingleSelect
-            label="Year"
-            option={years}
-            value={selectedYears}
-            placeholder="Year"
-            cb={(data) => setSelectedYears(data)}
-          />
-          <NewSingleSelect
-            label="View As"
-            option={viewAs}
-            value={selectedView}
-            cb={(data) => {
-              setSelectedView(data);
-              setExtraColumns(listDict[data.value]);
-            }}
-            placeholder="View As"
-          />
-          <NewMultiSelects
-            label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            option={extraColumnsState}
-            value={selectedMonths}
-            cb={(data) => setSelectedMonths(data)}
-            placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-          />
-        </div>
-          <div className="flex space-x-1 ">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
+            <NewMultiSelects
+              label="Circle"
+              option={CircleList}
+              value={selectedCircle}
+              cb={(data) => setSelectedCircle(data)}
+              placeholder="Circle"
+            />
+            <NewMultiSelects
+              label="Project Type"
+              option={AllProjectTypeList}
+              value={selectedProjectType}
+              cb={(data) => setSelectedProjectType(data)}
+              placeholder="Project Type"
+            />
+            <NewSingleSelect
+              label="Year"
+              option={years}
+              value={selectedYears}
+              placeholder="Year"
+              cb={(data) => setSelectedYears(data)}
+            />
+            <NewSingleSelect
+              label="View As"
+              option={viewAs}
+              value={selectedView}
+              cb={(data) => {
+                setSelectedView(data);
+                setExtraColumns(listDict[data.value]);
+                setSelectedMonths([]);
+              }}
+              placeholder="View As"
+            />
+            <NewMultiSelects
+              label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
+              option={extraColumnsState}
+              value={selectedMonths}
+              cb={(data) => setSelectedMonths(data)}
+              placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
+            />
+           </div>
+        <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -309,7 +312,6 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <BarLineGraph data={GraphData} horizontal={false}/>
     </div>
   );

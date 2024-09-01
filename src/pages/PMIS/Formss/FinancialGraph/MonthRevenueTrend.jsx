@@ -135,8 +135,8 @@ const MonthRevenueTrend = () => {
   });
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
+    // dispatch(AdminActions.getManageCircle());
+    // dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Trend());
     fetchGraphData(); 
   }, []);
@@ -218,8 +218,8 @@ const MonthRevenueTrend = () => {
        <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Trend - Revenue Plan VS Actual</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             label="Circle"
             option={CircleList}
@@ -248,7 +248,8 @@ const MonthRevenueTrend = () => {
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-          <div className="flex space-x-1 ">
+           </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -261,7 +262,6 @@ const MonthRevenueTrend = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <TripleBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} enabledOnSeries={[true, true, true]} dataLabelSuffix="L" />
     </div>
   );

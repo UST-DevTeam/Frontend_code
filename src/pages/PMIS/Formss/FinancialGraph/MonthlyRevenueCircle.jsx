@@ -140,25 +140,41 @@ let CircleList = useSelector((state) => {
     return state?.GraphData?.getGraphRevenuePlanVSActual_Circle || [];
   });
 
+  const SecondaryAxis = GraphData?.map(item => {
+    const aop = item.aop || 0;
+    const pv = item.pv || 0; 
+    const percentage = aop === 0 ? 0 : ((pv / aop) * 100).toFixed(1);
+    return `${percentage}%`; 
+});
+
   const SeriesData = [
     {
         name: "AOP-Target",
+        type: "bar",
         data: GraphData?.map(item => item.aop) || [],
     },
     {
         name: "PV-Target",
+        type: "bar",
         data: GraphData?.map(item => item.pv) || [],
     },
     {
         name: "Actual Revenue",
+        type: "bar",
         data: GraphData?.map(item => item.amount) || [],
+    },
+    {
+        name: "Acheievement(%)",
+        type: "line",
+        data: SecondaryAxis,
+        yaxis: 1,
     },
 ];
 
 
   useEffect(() => {
     // dispatch(AdminActions.getManageDepartment());
-    dispatch(AdminActions.getManageCircle());
+    // dispatch(AdminActions.getManageCircle());
     // dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
     dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
@@ -169,12 +185,7 @@ let CircleList = useSelector((state) => {
     // exportData.current = extraColumnsState.map(
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
-    dispatch(
-      GraphActions.getGraphRevenuePlanVSActual_Circle(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
-    );
+    dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
   };
 
 //   const handleFilter = () => {
@@ -243,8 +254,8 @@ const handleFilter = () => {
          <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Circle - Revenue Plan VS Actual</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
         <NewMultiSelects
             label="Circle"
             option={CircleList}
@@ -273,7 +284,8 @@ const handleFilter = () => {
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-          <div className="flex space-x-1 ">
+           </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -286,8 +298,21 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} enabledOnSeries={[true, true, true]} horizontal={false} dataLabelSuffix="L" />
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} enabledOnSeries={[true, true, true]} horizontal={false} dataLabelSuffix="L"
+       yaxis={[
+        {
+          title: {
+            text: "Primary Axis - Revenue", // Custom title for Primary Axis
+          },
+          opposite: false, // This will be on the left side by default
+        },
+        {
+          title: {
+            text: "Secondary Axis - Achievement (%)", // Custom title for Secondary Axis
+          },
+          opposite: true, // This will be on the right side
+        },
+      ]}/>
     </div>
   );
 };

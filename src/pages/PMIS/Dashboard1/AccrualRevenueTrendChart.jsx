@@ -173,22 +173,28 @@ const AccrualRevenueTrendChart = () => {
         <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Accrual Revenue Trend</h1>
         </div>
-      <div className="flex items-center space-x-4 mb-8">
-        <div className="flex space-x-4 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
                   <NewSingleSelect label='Cost Center' option={costCenterList} value={selectedOptions1} cb={( data ) => setSelectedOptions1(data)} placeholder = "Cost Center" />
 
                   <NewSingleSelect label='Year' option={listYear} value={selectedOptions2} cb={( data ) => setSelectedOptions2(data)} placeholder = "Year" />
 
                   <NewMultiSelects label='Month' option={listMonth} value={selectedOptions3} cb={( data ) => setSelectedOptions3(data)} placeholder = "Month" />
                 
-                  <div className="flex space-x-4">
-                  <Button classes = "w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2" onClick={handleFilter}  icon={<UilSearch size="18" className={"hello"} />}></Button>
-
-                  <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
-                </div>
-                        
-              </div>
-              </div>
+                  </div>
+                <div className="flex space-x-2">
+                      <Button
+                        classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+                        onClick={handleFilter}
+                        icon={<UilSearch size="18" className={"hello"} />}
+                      ></Button>
+                      <Button
+                        classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+                        onClick={handleClear}
+                        icon={<UilRefresh size="36" />}
+                      ></Button>
+                    </div>
+                  </div>
               <AreaChart data = {pieGraphData} dataLabelSuffix="L"/>
 
             </div>

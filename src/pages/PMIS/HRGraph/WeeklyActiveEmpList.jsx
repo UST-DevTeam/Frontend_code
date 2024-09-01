@@ -215,8 +215,8 @@ const WeeklyActiveEmpList = () => {
         <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Weekly Active Employee</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           {/* <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
@@ -231,7 +231,8 @@ const WeeklyActiveEmpList = () => {
             placeholder="Org Level"
             cb={(data) => setSelectedDepartment(data)}
           />
-          <div className="flex space-x-1">
+           </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -244,7 +245,6 @@ const WeeklyActiveEmpList = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <DoubleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false}/>
     </div>
   );

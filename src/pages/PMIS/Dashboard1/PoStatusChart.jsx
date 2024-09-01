@@ -22,8 +22,7 @@ const PoStatusChart = () => {
   const [data, setData] = useState([])
 
   let projectGroupList = useSelector((state) => {
-    return state?.filterData?.getfinancialPoManagementProjectGroup
-    .map((itm) => {
+    return state?.filterData?.getfinancialPoManagementProjectGroup?.map((itm) => {
       return {
         label: itm.projectGroup,
         value: itm.projectGroup,
