@@ -3,7 +3,7 @@ import { offset } from "highcharts";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="30%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#5cccb7"], }) => { 
+const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="40%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#5cccb7"], }) => { 
     let category = data?.map(item => item.description) ||[];
 
     const defaultSeries = [
@@ -17,6 +17,8 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
 
     const offsetX = horizontal ? 13 : 0;
     const offsetY = horizontal ? 0 : -15;
+
+    const BarBorderColors = ["#399c85", "#cc881c", "#e19b9b", "#d178a5", "#8ab222"];
 
 
     const options = {
@@ -88,7 +90,8 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             bar: {
                 columnWidth: columnWidth,
                 horizontal: horizontal,
-                borderRadius: 2,
+                borderRadius: 4,
+                borderRadiusApplication: 'end',
                 dataLabels: {
                     style: {
                         colors: '#fff',
@@ -101,6 +104,10 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
                 distributed: true,
             },
         },
+        stroke: {
+            width: [1.5],
+            colors: BarBorderColors,
+          },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
@@ -117,7 +124,12 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             fontSize: '8px', 
             fontWeight: 'bold',           
           },
-
+        tooltip: {
+        theme: "dark",  
+        marker: {
+            fillColors: colors,  
+        },
+        },  
     };
     return (<ReactApexChart options={options} series={series} type="bar" height={440} />)
 }

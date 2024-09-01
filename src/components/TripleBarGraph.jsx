@@ -6,12 +6,13 @@ const TripleBarGraph = ({
   seriesData = [],
   horizontal = false,
   title = "",
-  columnWidth = "80%",
+  columnWidth = "90%",
   month = [],
   enabledOnSeries = [false, false, false],
   dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
+  YAxisSecondaryTitle = "Acheievement(%)",
   
 }) => {
   const months = Array(12).fill(0);
@@ -30,33 +31,62 @@ const TripleBarGraph = ({
 
   const category = data?.map((item) => item.description) || [];
 
+  const SecondaryAxis = data?.map(item => {
+    const pv = item.pv || 0;
+    const amount = item.amount || 0;
+    const percentage = pv === 0 ? 0 : ((amount / pv) * 100).toFixed(2);
+    return `${percentage}%`;
+    }) || [];
+
+
   const defaultSeries = [
     {
       name: "AOP-Target",
+      type: "bar",
       data: data?.map(item => item.aop) || [],
   },
   {
       name: "PV-Target",
+      type: "bar",
       data: data?.map(item => item.pv) || [],
   },
   {
       name: "Actual Revenue",
+      type: "bar",
       data: data?.map(item => item.amount) || [],
+  },
+  {
+      name: "Acheievement(%)",
+      type: "line",
+      data: SecondaryAxis,
   },
   ];
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
   // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
-  const colors = ["#5cccb7", "#ffab2d", "#f9a8d4"];
+  const colors = ["#5cccb7", "#ffab2d", "#f9a8d4", "#b8ee30"];
+  const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
   const offsetY = horizontal ? 0 : -16;
 
   const options = {
     chart: {
       height: 440,
-      type: "bar",
+      type: "line",
       background: "#3e454d",
+      stacked: false,
+      toolbar: {
+          show: true,
+          tools: {
+              download: true, 
+              zoomin: false, 
+              zoomout: false, 
+              reset: false,
+              pan: false,
+              zoom: false,                
+          },
+      }
       
     },
     title: {
@@ -71,9 +101,7 @@ const TripleBarGraph = ({
     dataLabels: {
       enabled: true,
       formatter: (val) => `${val} ${dataLabelSuffix}`,
-      enabledOnSeries: enabledOnSeries
-        ?.map((enabled, index) => (enabled ? index : -1))
-        .filter((index) => index !== -1),
+      enabledOnSeries: [0,1,2,3],
       offsetY: offsetY,
       style: {
         colors: ["transparent"],
@@ -104,25 +132,64 @@ const TripleBarGraph = ({
         },
       },
     },
-    yaxis: {
-      title: {
-            text: YAxisTitle,
-            style: {
-              color: '#ffffff',
-              fontSize: '17px',
-              fontWeight: 'bold',
-            },
+    yaxis: [
+      {
+        title: {
+          text: YAxisTitle,
+          style: {
+            color: "#ffffff",
+            fontSize: "17px",
+            fontWeight: "bold",
           },
-      labels: {
-        style: {
-          colors: "#ffffff",
-          fontSize: "9px",
         },
-        formatter: (value) => {
-          return Math.round(value);
-      }
+        labels: {
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+        },
       },
-    },
+      {
+        opposite: true,
+        min:0,
+        // max:150,
+        title: {
+          text: YAxisSecondaryTitle,
+          style: {
+            color: "#ffffff",
+            fontSize: "17px",
+            fontWeight: "bold",
+          },
+        },
+        labels: {
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+          formatter: (value) => `${value}%`,
+        },
+      },
+    ],
+    // yaxis: {
+    //   title: {
+    //         text: YAxisTitle,
+    //         style: {
+    //           color: '#ffffff',
+    //           fontSize: '17px',
+    //           fontWeight: 'bold',
+    //         },
+    //       },
+    //   labels: {
+    //     style: {
+    //       colors: "#ffffff",
+    //       fontSize: "9px",
+    //     },
+    //     formatter: (value) => {
+    //       return Math.round(value);
+    //   }
+    //   },
+    // },
+
     plotOptions: {
       bar: {
         columnWidth: columnWidth,
@@ -137,8 +204,10 @@ const TripleBarGraph = ({
       },
     },
     stroke: {
-      colors: ["transparent"],
-      width: 1,
+      // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+      curve: 'smooth',
+      width: [0.8, 0.8, 0.8, 2],
+      colors: BarBorderColors,
     },
     grid: {
       borderColor: "transparent",
@@ -147,6 +216,15 @@ const TripleBarGraph = ({
     fill: {
       colors: colors,
     },
+    markers: {
+      size: 6, 
+      colors: ['#b8ee30'], 
+      strokeColor: 'black', 
+      strokeWidth: 0.5, 
+      hover: {
+          size: 6, 
+      }
+  },
     legend: {
       show: true,
       colors: colors,
@@ -160,10 +238,16 @@ const TripleBarGraph = ({
       fontSize: "10px",
       fontWeight: "bold",
     },
+    tooltip: {
+      theme: "dark",  
+      marker: {
+        fillColors: colors,  
+      },
+    },
   };
 
   return (
-    <ReactApexChart options={options} series={series} type="bar" height={440} />
+    <ReactApexChart options={options} series={series} type="line" height={440} />
   );
 };
 

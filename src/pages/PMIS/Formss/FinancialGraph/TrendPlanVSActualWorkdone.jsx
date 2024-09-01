@@ -105,13 +105,16 @@ const handleFilter = () => {
 
 
   const handleClear = () => {
-    setSelectedCircle([]);
-    setSelectedProjectType([]);
-    setSelectedYears(null);
-    setSelectedView([]);
-    setSelectedMonths([]);
+    setSelectedCircle([]); 
+    setSelectedProjectType([]); 
+    setSelectedYears(null); 
+    setSelectedView();
+    setSelectedMonths([]); 
     fetchGraphData(); 
   };
+
+  console.log(handleClear,"handleClearhandleClear...........handleClear")
+  
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
     label: 2021 + index,
@@ -215,9 +218,9 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      </div>
       <BarLineGraph data={GraphData} horizontal={false}/>
     </div>
+            
   );
 };
 

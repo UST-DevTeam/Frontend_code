@@ -115,8 +115,9 @@ const MileStoneChart = (id) => {
               value={selectedProjectId}
               cb={(data) => setselectedProjectId(data)}
             />
-          </div>
-          <div className="flex space-x-1 ">
+      
+      </div>
+      <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -129,7 +130,6 @@ const MileStoneChart = (id) => {
             ></Button>
           </div>
         </div>
-      </div>
       <PieChart data={pieGraphData} />
     </div>
   );

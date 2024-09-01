@@ -109,7 +109,7 @@ const AdvanceApprovalStatus = () => {
     if (selectedMonths.length > 0) {
       filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
     }
-    dispatch(GraphActions.postGraphWeeklyActiveEmp(filterData, () => {}));
+    dispatch(GraphActions.postGraphAdvanceApprovalStatus(filterData, () => {}));
   };
 
 
@@ -147,8 +147,8 @@ const AdvanceApprovalStatus = () => {
         <div className="text-center mb-4">
             <h1 className="text-white text-base font-bold">Advance Approval Status</h1>
         </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+        <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
@@ -177,7 +177,8 @@ const AdvanceApprovalStatus = () => {
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-          <div className="flex space-x-1">
+           </div>
+          <div className="flex space-x-2">
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
@@ -190,8 +191,7 @@ const AdvanceApprovalStatus = () => {
             ></Button>
           </div>
         </div>
-      </div>
-      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" colors={["#5db7a3","#fbd0d0","#c4f4a0","#f6a04c","#9ee6f1"]} />
+      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" columnWidth="30%" colors={["#5cccb7", "#ffab2d", "#fbd0d0", "#f9a8d4", "#b8ee30"]} />
     </div>
   );
 };
