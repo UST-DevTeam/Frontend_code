@@ -46,7 +46,6 @@ const ManageCustomer = () => {
     .replace(/\//g, "-");
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.adminData?.getManageCustomer;
     return interdata?.map((itm) => {
       let updateditm = {
@@ -61,23 +60,6 @@ const ManageCustomer = () => {
           </div>
         ),
         shortName: <span className="text-pcol font-extrabold">{itm.shortName}</span>,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
         edit: (
           <CstmButton
             className={"p-2"}
@@ -146,15 +128,6 @@ const ManageCustomer = () => {
             }
           />
         ),
-
-        // "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-        //     setmodalOpen(true)
-        //     setmodalHead("Show PDF")
-        //     setmodalBody(<>
-
-        //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //     </>)
-        // }}></Button>} />,
       };
       return updateditm;
     });
@@ -167,10 +140,12 @@ const ManageCustomer = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+
+  let dbConfiglist2 = useSelector((state) => {
+    let interdata = state?.adminData?.getCardCustomer;
+    return interdata
+  });
+
   const {
     register,
     handleSubmit,
@@ -242,16 +217,7 @@ const ManageCustomer = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
-    ],
+    filter: [],
   };
   const onSubmit = (data) => {
     let value = data.reseter;
@@ -260,12 +226,11 @@ const ManageCustomer = () => {
   };
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
-
-
+    dispatch(AdminActions.getCardCustomer())
     dispatch(ComponentActions.breadcrumb("Project Management", "/manageCustomer", 0, true));
   }, []);
 
-  const hasCards = dbConfigList && dbConfigList.length > 0;
+  const hasCards = dbConfiglist2 && dbConfiglist2.length > 0;
 
   return type ? (
     <>
@@ -323,15 +288,13 @@ const ManageCustomer = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
-      {/* <CommonForm/> */} 
     </>
   ) : (
     <>
        {/* <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto"> */}
        <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-32  z-10 bg-[#3e454d] overflow-auto`}>
        <CCDash
-        approveddata={dbConfigList?.map((itm) => {
+        approveddata={dbConfiglist2?.map((itm) => {
           return (
             <>
               <div
@@ -360,17 +323,8 @@ const ManageCustomer = () => {
         label="Add/Modify Customer"
       />
       </div>
-      {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-40 gap-2"> */}
       <div className={`grid grid-cols-1 lg:grid-cols-1 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
-
       <ProjectChart />
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart /> */}
-
-
-
       </div>
     </>
   );

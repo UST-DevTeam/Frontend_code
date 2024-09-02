@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 
     getManageCustomer: [],
+    getCardCustomer: [],
     getManageCircle:[],
     getCardProjectType:[],
     getManageProjectType:[],
@@ -56,6 +57,13 @@ const adminData = createSlice({
                 state.getManageCustomer = payload.dataAll
             }else{
                 state.getManageCustomer  = [...state.getManageCustomer,...payload.dataAll]
+            }
+        },
+        GET_CARD_CUSTOMER:(state,{payload}) => {
+            if(payload.reset){
+                state.getCardCustomer = payload.dataAll
+            }else{
+                state.getCardCustomer  = [...state.getCardCustomer,...payload.dataAll]
             }
         },
         GET_SUBPROJECT_MULTIDYNAMIC:(state,{payload}) => {
@@ -383,6 +391,7 @@ const adminData = createSlice({
 export const { 
     
     GET_MANAGE_CUSTOMER,
+    GET_CARD_CUSTOMER,
     GET_MANAGE_CIRCLE, 
     GET_MANAGE_ZONE,
     GET_MANAGE_COST_CENTER, 

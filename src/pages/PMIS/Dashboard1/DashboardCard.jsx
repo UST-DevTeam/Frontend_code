@@ -44,7 +44,7 @@ const DashboardCard = () => {
     .replace(/\//g, "-");
 
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.adminData?.getManageCustomer;
+    let interdata = state?.adminData?.getCardCustomer;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -74,7 +74,7 @@ const DashboardCard = () => {
   } = useForm();
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCustomer());
+    dispatch(AdminActions.getCardCustomer());
     dispatch(ComponentActions.breadcrumb("Project Management", "/manageCustomer", 0, true));
   }, []);
 

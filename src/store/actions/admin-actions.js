@@ -42,7 +42,8 @@ import {
     GET_ACCURAL_REVENUE_MASTER_PROJECT,
     GET_ACCURAL_REVENUE_MASTER_PROJECTID,
     GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE,
-    GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE
+    GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE,
+    GET_CARD_CUSTOMER
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
 
@@ -59,17 +60,17 @@ const AdminActions = {
         } catch (error) {
         }
     },
-    // getSubProjectMultiDynamic:(reset=true,customeruniqueId,args="") => async (dispatch, _) => {
-    //     try {
-    //         const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}/${args!=""?"?"+args:""}`;
-    //         // const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}/${args!=""?"?"+args:""}`;
-    //         const res = await Api.get({ url, reset });
-    //         if (res?.status !== 200) return
-    //         let dataAll = res?.data?.data
-    //         dispatch(GET_SUBPROJECT_MULTIDYNAMIC({dataAll,reset}))
-    //     } catch (error) {
-    //     }
-    // },
+
+    getCardCustomer:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.card_customer}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_CARD_CUSTOMER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
     getSubProjectMultiDynamic: (reset = true, customeruniqueId, args = "") => async (dispatch, _) => {
         try {
           const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;

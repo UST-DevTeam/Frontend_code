@@ -13,45 +13,46 @@ const TripleBarGraph = ({
   XAxisTitle = "",  
   YAxisTitle = "", 
   YAxisSecondaryTitle = "Acheievement(%)",
+  data1,
+  data2,
+  data3,
+  data4,
   
 }) => {
+
+  let max1 = Math.max(
+    ...(data1 || []),
+    ...(data2 || []),
+    ...(data3 || []),
+  )
+
+  max1 = Math.round(max1)
+
+  let max2 = Math.max(
+    ...(data4 || [])
+  )
+
+  max2 = Math.round(max2)
+
+
+
   const months = Array(12).fill(0);
-
-  // const monthStr = `${month}`
-
-  // const elevatevalues = (key) => {
-  //   return months.map((_, index) => {
-  //       const i = index + 1;
-  //         const searchedData = data.find((item) => {
-  //           return Object.keys(item)[1].split("-")[1] == i 
-  //         }) 
-  //         return searchedData ? searchedData[`${key}-${i}`] : 0
-  //     })
-  // }
 
   const category = data?.map((item) => item.description) || [];
 
-  // const SecondaryAxis = data?.map(item => {
-  //   const pv = item.pv || 0;
-  //   const amount = item.amount || 0;
-  //   const percentage = pv === 0 ? 0 : ((amount / pv) * 100).toFixed(2);
-  //   return `${percentage}%`;
-  //   }) || [];
 
   const SecondaryAxis = data?.map(item => item.ach);
 
-  const defaultSeries = [
-   
-  ];
+  const defaultSeries = [];
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-  // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
+
   const colors = ["#5cccb7", "#ffab2d", "#f9a8d4", "#b8ee30"];
   const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
-  const offsetX = horizontal ? 0 : -5;
-  const offsetY = horizontal ? 0 : -8;
+  const offsetX = horizontal ? 0 : -1;
+  const offsetY = horizontal ? 0 : -7;
 
   const options = {
     chart: {
@@ -119,60 +120,75 @@ const TripleBarGraph = ({
     yaxis: [
       {
         title: {
-          text: YAxisTitle,
-          style: {
+          text: 'Revenue (₹) Lac', 
+          style:{
             color: "#ffffff",
-            fontSize: "17px",
-            fontWeight: "bold",
-          },
+            fontSize: '16px'
+          } 
         },
         labels: {
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
           style: {
             colors: "#ffffff",
             fontSize: "9px",
           },
         },
-      },
+        min:0,
+        max:max1
+      }, 
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+        },
+        min:0,
+        max:max1
+      }, 
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+        },
+        min:0,
+        max:max1
+      }, 
       {
         opposite: true,
-        min:0,
-        // max:150,
         title: {
-          text: YAxisSecondaryTitle,
-          style: {
+          text: 'Achievement(%)',
+          style:{
             color: "#ffffff",
-            fontSize: "17px",
-            fontWeight: "bold",
-          },
+            fontSize: '16px',
+          }  
         },
         labels: {
           style: {
             colors: "#ffffff",
             fontSize: "9px",
           },
-          formatter: (value) => `${value}%`,
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-      },
+        min:0,
+        max:max2
+      }
     ],
-    // yaxis: {
-    //   title: {
-    //         text: YAxisTitle,
-    //         style: {
-    //           color: '#ffffff',
-    //           fontSize: '17px',
-    //           fontWeight: 'bold',
-    //         },
-    //       },
-    //   labels: {
-    //     style: {
-    //       colors: "#ffffff",
-    //       fontSize: "9px",
-    //     },
-    //     formatter: (value) => {
-    //       return Math.round(value);
-    //   }
-    //   },
-    // },
 
     plotOptions: {
       bar: {

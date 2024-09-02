@@ -35,9 +35,6 @@ const component = createSlice({
         data = [...state.globalValue,payload]
       }
       localStorage.setItem("GLOBAL_VALUE",JSON.stringify(data))
-
-
-      console.log(data,"datadatadatadGLOBAL_VALUEatadatadatadatadata")
       state.globalValue = data
     },
     BREADCRUMB: (state, { payload }) => {
