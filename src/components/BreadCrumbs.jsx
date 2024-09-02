@@ -107,7 +107,7 @@ const BreadCrumbs = () => {
       "url":"/financial/invoiceMgmt",
     },
     "poWorkDone":{
-      "name":"PO WorkDone",
+      "name":"Work done",
       "url":"/financial/poWorkDone",
     },
     "unbilled":{
