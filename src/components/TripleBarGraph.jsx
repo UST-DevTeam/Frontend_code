@@ -51,7 +51,7 @@ const TripleBarGraph = ({
   const colors = ["#5cccb7", "#ffab2d", "#f9a8d4", "#b8ee30"];
   const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
-  const offsetX = horizontal ? 0 : -5;
+  const offsetX = horizontal ? 0 : -1;
   const offsetY = horizontal ? 0 : -8;
 
   const options = {
@@ -86,7 +86,7 @@ const TripleBarGraph = ({
       enabled: true,
       formatter: (val, { seriesIndex }) => (seriesIndex === 3 ? `${val}%` : `${val} ${dataLabelSuffix}`),
       enabledOnSeries: [0,1,2,3],
-      // offsetX: offsetX,
+      offsetX: offsetX,
       offsetY: offsetY,
       style: {
         colors: ["transparent"],
