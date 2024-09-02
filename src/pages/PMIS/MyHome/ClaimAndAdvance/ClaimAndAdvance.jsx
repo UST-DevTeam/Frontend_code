@@ -283,35 +283,35 @@ const ClaimAndAdvance = () => {
           {/* <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
             {Amounts?.finalAmount}
           </span> */}
-          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
+          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-pcol" : "text-rose-400"}`}>
             {Amounts?.finalAmount < 0 
-              ? `${Math.abs(Amounts.finalAmount)} Dr` 
-              : `${Amounts?.finalAmount} Cr`
+              ? `${Math.abs(Amounts.finalAmount)} Cr` 
+              : `${Amounts?.finalAmount} Dr`
             }
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
           Expenses Approved :{" "}
-          <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal > 0 ? "text-rose-400" : "text-pcol"}`}>
+          <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal ? "text-pcol" : "text-rose-400"}`}>
            
-            {`${Amounts?.ExpenseAmountTotal} Dr`}
+            {`${Amounts?.ExpenseAmountTotal} Cr`}
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
           Advance Approved :{" "}
-          <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-500"}`}>
+          <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-rose-500" : "text-pcol"}`}>
             
-            {`${Amounts?.AdvanceAmountTotal} Cr`}
+            {`${Amounts?.AdvanceAmountTotal} Dr`}
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
             Opening balance :{" "}
-            <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-rose-400" : "text-pcol"}`}>
+            <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"}`}>
             {Amounts?.Openingbalance > 0 
-              ? `${Amounts?.Openingbalance} Cr` 
+              ? `${Amounts?.Openingbalance} Dr` 
               : Amounts?.Openingbalance < 0 
               
-              ? `${Math.abs(Amounts?.Openingbalance)} Dr`
+              ? `${Math.abs(Amounts?.Openingbalance)} Cr`
               : Amounts?.Openingbalance}
             </span>
         </p>

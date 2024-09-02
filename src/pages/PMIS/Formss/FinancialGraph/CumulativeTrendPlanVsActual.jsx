@@ -225,7 +225,7 @@ const CumulativeTrendPlanVsActual = () => {
             ></Button>
           </div>
         </div>
-      <TripleLineBarGraph data={GraphData} horizontal={false}  YAxisTitle={"Sites"} dataLabelSuffix="L" lineDataKey="Acheivement"  />
+      <TripleLineBarGraph data={GraphData} horizontal={false} YAxisTitle={"Sites"} dataLabelSuffix="L" lineDataKey="Acheivement"  />
     </div>
   );
 };
