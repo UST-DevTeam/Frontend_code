@@ -404,15 +404,9 @@ const SuperAdmin = () => {
       />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 sm:mt-20 md:mt-36 xl:mt-48 gap-2">
-
+{/* 
       <ProjectChart />
-      <VendorActiveInactive />
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart />  */}
-
-
+      <VendorActiveInactive /> */}
 
       </div>
     </>

@@ -104,8 +104,11 @@ const POMgmtCards = () => {
       <PoStatusChart />
       <PoTrackingWorkdoneChart />
       <AccrualRevenueTrendChart /> */}
-      <PoStatusChart customeruniqueId = {customeruniqueId} />
-      <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
+
+
+      
+      {/* <PoStatusChart customeruniqueId = {customeruniqueId} />
+      <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
 
       </div>
     </>

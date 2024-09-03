@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "",  }) => {
+const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "", dataLabelSuffix="", }) => {
 
     let category = data?.map(item => item.description) ||[];
     // const series = [
@@ -46,6 +46,7 @@ const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAx
         },
         dataLabels: {
             enabled: true,
+            formatter: (val) => `${val} ${dataLabelSuffix}`,
             style: {
                 fontSize: '13px',
                 fontWeight: 'bold',
@@ -105,7 +106,7 @@ const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAx
         },
         markers: {
             size: 4.5, 
-            colors: ['#f9a3a4'], 
+            colors: ['#ffab2d'], 
             strokeColor: 'black', 
             strokeWidth: 0.5, 
             hover: {
@@ -115,7 +116,7 @@ const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAx
         tooltip: {
             theme: "dark",  
             marker: {
-                fillColors: ['#f9a3a4'],  
+                fillColors: ['#ffab2d'],  
             },
             },  
         

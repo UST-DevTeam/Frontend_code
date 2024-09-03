@@ -125,10 +125,10 @@ const HomeCards = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
-        <MileStoneChart />
+        {/* <MileStoneChart />
         <TrendExpenseAdvance />
         <ExpenseApprovalStatus />
-        <AdvanceApprovalStatus />
+        <AdvanceApprovalStatus /> */}
       </div>
     </>
   );

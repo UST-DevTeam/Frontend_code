@@ -19,8 +19,8 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
     // const colors = ["#FFA0A0", "#B9D9EB"];
-    const colors = ["#5cccb7", "#ffab2d"];
-    const BarBorderColors = ["#28a745", "#b8ee30"];
+    const colors = ["#13b497", "#ffab2d"];
+    // const BarBorderColors = ["#28a745", "#b8ee30"];
 
     const offsetY = horizontal ? 0 : -14;
 
@@ -101,10 +101,10 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
             },
         },
         stroke: {
-            // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+            colors: ["transparent", "transparent", "#b8ee30"],
             curve: 'smooth',
-            width: [0.8, 0.8],
-            colors: BarBorderColors,
+            width: [1.5, 1.5],
+            // colors: BarBorderColors,
           },
         grid: {
             borderColor: 'transparent',

@@ -32,10 +32,10 @@ const MenuItem = ({ itm, value, sidebarOpen, size, permission,checkp, parenting 
                 
                 // ((!checkp)||(checkp && itm.link==parenting ? permission[parenting] : permission[parenting] && permission[parenting].indexOf(itm.link)!=-1)) && 
                 ((!checkp)||(checkp != {} && permission.permission && permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true) !=-1 && permission.permission[permission?.permission.findIndex(prev=>prev.moduleName==itm.name && prev.accessType==true)])) && 
-                    <div className={`pl-3 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md ${itm.link == pathname && "text-[#E6BE8A]"}`} >
+                    <div className={`pl-3 flex items-center w-full p-2 first-letter hover:text-gray-200 hover:rounded-md ${itm.link == pathname && "text-[#f4d3a8]"}`} >
                         <span className="text-pcol">{itm.icon}</span>
                         {
-                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm hover:text-[#13b497] font-semibold ransition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#E6BE8A]  font-extrabold !important"}`}>
+                            sidebarOpen && <Link to={itm.link} state={{ name: itm.name }} class={`text-${sizeArr[size]} pl-3 text-sm hover:text-[#13b497] font-semibold ransition duration-75 rounded-lg group hover:text-heading ${itm.link == pathname && "text-[#f4d3a8]  font-extrabold !important"}`}>
                                 {itm.name}
                             </Link>
                         }

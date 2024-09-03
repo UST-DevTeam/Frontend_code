@@ -121,6 +121,7 @@ const handleFilter = () => {
     setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
@@ -146,7 +147,7 @@ const handleFilter = () => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
          <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">Circle - Revenue Plan VS Actual</h1>
+            <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Circle - Revenue Plan VS Actual</h1>
         </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
@@ -183,16 +184,16 @@ const handleFilter = () => {
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
-              icon={<UilSearch size="18" className={"hello"} />}
+              icon={<UilSearch size="36" className="text-[#f4d3a8]"/>}
             ></Button>
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleClear}
-              icon={<UilRefresh size="36" />}
+              icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} enabledOnSeries={[true, true, true]} horizontal={false} dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} horizontal={false} dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
     </div>
   );
 };

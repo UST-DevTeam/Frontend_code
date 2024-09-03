@@ -52,16 +52,16 @@ const VendorActiveInactive = ({customeruniqueId}) => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
       <div className="text-center mb-4">
-            <h1 className="text-white text-base font-bold">Total Partners</h1>
+            <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Total Partners</h1>
         </div>
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
           <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} />
 
         <div className="flex space-x-4">
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="18" className={"hello"} />}></Button>
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="36" className="text-[#f4d3a8]" />}></Button>
 
-          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" />}></Button>
+          <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleClear} icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}></Button>
         </div>
 
       </div>

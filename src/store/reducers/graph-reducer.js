@@ -27,6 +27,7 @@ const initialState = {
     getGraphTrendPlanVSActualWorkdone:[],
     getGraphCirclePlanVSActualWorkdone:[],
     getGraphCumulativeTrendPlanVsActual:[],
+    getGraphCumulativeWorkdonePlanVsActual:[],
 } 
  
 const GraphData = createSlice({
@@ -241,6 +242,14 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphCumulativeWorkdonePlanVsActual = payload.dataAll
+            }else{
+                state.getGraphCumulativeWorkdonePlanVsActual  = [...state.getGraphCumulativeWorkdonePlanVsActual,...payload.dataAll]
+            }
+        },
+
     }
 })
 
@@ -270,6 +279,7 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_TREND_PLAN_VS_ACTUAL_WORKDONE,
     GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE,
     GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL,
+    GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL,
 } = GraphData.actions
     
 export default GraphData.reducer    
