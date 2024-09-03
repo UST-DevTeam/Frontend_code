@@ -102,8 +102,7 @@ const InvoiceMgmt = () => {
       <MonthlyRevenueCircle />
       <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
 
-
-
+      
       {/* <ProjectChart />
       <ClaimAndAdvanceChart /> */}
       {/* <MileStoneChart />

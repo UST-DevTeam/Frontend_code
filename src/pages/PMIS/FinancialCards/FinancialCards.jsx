@@ -4,9 +4,14 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate, useParams } from "react-router-dom";
+
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
+import ProjectChart from "../Dashboard1/ProjectChart";
+import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
+import TrendPlanVSActualWorkdone from "../Formss/FinancialGraph/TrendPlanVSActualWorkdone";
+import CirclePlanVSActualWorkdone from "../Formss/FinancialGraph/CirclePlanVSActualWorddone";
 import PoStatusChart from "../Dashboard1/PoStatusChart";
 import PoTrackingWorkdoneChart from "../Dashboard1/PoTrackingWorkdoneChart";
 import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
@@ -26,7 +31,7 @@ const FinancialCards = () => {
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
-    dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
+    // dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
   }, []);
   return (
     <>
@@ -108,6 +113,12 @@ const FinancialCards = () => {
       <CumulativeTrendPlanVsActual />
             <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
             <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
+
+
+              {/* <ProjectChart />
+              <ClaimAndAdvanceChart />
+              <TrendPlanVSActualWorkdone customeruniqueId = {customeruniqueId} />
+            <CirclePlanVSActualWorkdone customeruniqueId = {customeruniqueId} /> */}
       </div>
     </>
   );
