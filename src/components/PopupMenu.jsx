@@ -211,7 +211,7 @@ const PopupMenu = ({
       ref={buttonRef}
       className={`mr-1  h-10 z-50 relative left-0 right-0 mx-auto ${classes} ${
         popupname === "" ? "w-12" : "w-full"
-      } bg-green-600 not`}
+      } not`}
       id="add-not"
     >
       <Button

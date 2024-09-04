@@ -474,14 +474,14 @@ const L1AdvanceForm = () => {
         headerButton={
           <div className="flex gap-1">
             <Button
-              classes="w-auto"
+              classes="w-auto bg-rose-400" 
               onClick={(e) => {
                 navigate("/home/approverCards/L1Approver");
               }}
               name={"L1 Expense"}
             ></Button>
             <Button
-              classes="w-auto"
+              classes="w-auto bg-[#0e8670]"
               onClick={(e) => {
                 navigate("/home/approverCards/L1Advance");
               }}
@@ -490,17 +490,26 @@ const L1AdvanceForm = () => {
 
             <div className="flex gap-1">
               <Button
+                classes="w-auto bg-[#0e8670]"
                 onClick={() => {
                   handleAmountAndRemark("Rejected");
                 }}
                 name="Reject"
               />
               <Button
+                classes="w-auto bg-[#0e8670]"
                 onClick={() => {
                   handleAmountAndRemark("Approved");
                 }}
                 name="Approve"
               />
+              <Button
+              classes="w-auto bg-[#0e8670]"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/","Export_Circle.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
             </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
