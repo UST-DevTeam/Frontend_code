@@ -6,7 +6,7 @@ const PieChart = ({ data,colors }) => {
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || []
 
-  let colorSeries = ["#5cccb7", "#ffab2d"]
+  let colorSeries = ["#13b497", "#ffab2d"]
 
   const options = {
     chart: {

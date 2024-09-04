@@ -301,7 +301,7 @@ const WorkDone = () => {
       {
         name: "Project Type",
         value: "projectType",
-        style: "min-w-[100px] max-w-[200px] text-center ",
+        style: "min-w-[100px] max-w-[200px] text-center p-2",
       },
       {
         name: "Project ID",

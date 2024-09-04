@@ -137,13 +137,13 @@ const MonthRevenueTrend = () => {
         </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Circle"
             option={CircleList}
             value={selectedCircle}
             cb={(data) => setSelectedCircle(data)}
-            placeholder="Circle"
-          />
+            placeholder="Circle" 
+          /> */}
           {/* <NewMultiSelects
             label="Project Type"
             option={AllProjectTypeList}
@@ -179,7 +179,7 @@ const MonthRevenueTrend = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
     </div>
   );
 };

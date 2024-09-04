@@ -224,7 +224,7 @@ const MonthlyActiveTrend = () => {
             ></Button>
           </div>
         </div>
-      <LineChartsss data={GraphData} YAxisTitle={"Employee"}/>
+      <LineChartsss data={GraphData} />
     </div>
   );
 };

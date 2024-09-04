@@ -193,7 +193,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} horizontal={false} dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} horizontal={false}  data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
     </div>
   );
 };
