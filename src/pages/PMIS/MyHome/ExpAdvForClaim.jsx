@@ -189,6 +189,11 @@ const ExpAdvForClaim = () => {
             style: "min-w-[130px] max-w-[450px] text-center sticky left-[149px] bg-[#3e454d]",
         },
         {
+          name: "UST Employee Code",
+          value: "UST Employee Code",
+          style: "min-w-[150px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
+      },
+        {
             name: "Contact No.",
             value: "Contact Number",
             style: "min-w-[140px] max-w-[200px] text-center",

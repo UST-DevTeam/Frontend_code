@@ -51,17 +51,27 @@ const L1Form = () => {
     })
     .replace(/\//g, "-");
 
-  const monthMap = {"01": "Jan","02": "Feb","03": "Mar","04": "Apr","05": "May","06": "Jun","07": "Jul","08": "Aug","09": "Sep","10": "Oct","11": "Nov","12": "Dec"};
+  const monthMap = {
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getL1Data || [""];
     return interdata?.map((itm) => {
-      
       let updateditm = {
         ...itm,
-
         expensemonth: monthMap[itm.expensemonth] || itm.expensemonth,
-        
         checkboxAdvance: (
           <input
             type="checkbox"
@@ -72,27 +82,47 @@ const L1Form = () => {
               if (e.target.checked) {
                 setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
                 setAdvanceRow((prev) => [...prev, e.target.value]);
-                
               } else {
-                if (selectAll.includes(e?.target?.id)) {
+                if (selectAll.includes(e.target.id)) {
                   setSelectAll((prev) =>
-                    prev.filter((id) => id !== e?.target?.id)
+                    prev.filter((id) => id !== e.target.id)
                   );
                 }
                 setAdvanceRow((prev) =>
-                  prev.filter((id) => id !== e?.target?.value)
+                  prev.filter((id) => id !== e.target.value)
                 );
               }
-              
             }}
           />
         ),
-        
+        // checkboxAdvance: (
+        //   <input
+        //     type="checkbox"
+        //     id={itm.uniqueId}
+        //     checked={advanceRow.includes(itm.uniqueId)}
+        //     value={itm.uniqueId}
+        //     onChange={(e) => {
+        //       if (e.target.checked) {
+        //         setSelectAll((prev) => [...new Set([...prev, e.target.id])]);
+        //         setAdvanceRow((prev) => [...prev, e.target.value]);
+        //       } else {
+        //         if (selectAll.includes(e.target.id)) {
+        //           setSelectAll((prev) =>
+        //             prev.filter((id) => id !== e.target.id)
+        //           );
+        //         }
+        //         setAdvanceRow((prev) =>
+        //           prev.filter((id) => id !== e.target.value)
+        //         );
+        //       }
+        //     }}
+        //   />
+        // ),
+
         ExpenseNo: (
           <p
             className="cursor-pointer text-pcol font-extrabold"
             onClick={(e) => {
-              
               expenseRef.current = itm;
               dispatch(
                 ExpenseAdvanceActions.getL1Data(
@@ -148,7 +178,7 @@ const L1Form = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes='w-15 bg-rose-400'
+                        classes="w-15 bg-rose-400"
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -204,85 +234,91 @@ const L1Form = () => {
 
   let table = {
     columns: [
-      ...( !hide ? [
-        {
-          name: (
-            <input
-              type="checkbox"
-              checked={(dbConfigList?.length === selectAll?.length)}
-              className='check-state'
-              onChange={(e) => {
-                
-                if (e.target.checked) {
-                  setAdvanceRow(dbConfigList.map((itm) => itm.uniqueId));
-                  setSelectAll(Array.isArray(dbConfigList) ? dbConfigList.map(itm => itm.uniqueId) : []);
-                  
-                  try {
-                    let eleRefs = document.getElementsByClassName('check-state');
-                    if (eleRefs) {
-                      eleRefs = Array.from(eleRefs);
-                      if (Array.isArray(eleRefs)) {
-                        eleRefs.forEach(ele => {
-                          if (ele) {
-                            ele.setAttribute('checked', true);
+      ...(!hide
+        ? [
+            {
+              name: (
+                <input
+                  type="checkbox"
+                  checked={dbConfigList?.length === selectAll?.length}
+                  className="check-state"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setAdvanceRow(dbConfigList.map((itm) => itm.uniqueId));
+                      setSelectAll(
+                        Array.isArray(dbConfigList)
+                          ? dbConfigList.map((itm) => itm.uniqueId)
+                          : []
+                      );
+
+                      try {
+                        let eleRefs =
+                          document.getElementsByClassName("check-state");
+                        if (eleRefs) {
+                          eleRefs = Array.from(eleRefs);
+                          if (Array.isArray(eleRefs)) {
+                            eleRefs.forEach((ele) => {
+                              if (ele) {
+                                ele.setAttribute("checked", true);
+                              }
+                            });
                           }
-                        });
-                      }
-                    }
-                  } catch (error) {
-                  }
-                } else {
-                  setAdvanceRow([]);
-                  setSelectAll([]);
-                  
-                  try {
-                    let eleRefs = document.getElementsByClassName('check-state');
-                    if (eleRefs) {
-                      eleRefs = Array.from(eleRefs);
-                      if (Array.isArray(eleRefs)) {
-                        eleRefs.forEach(ele => {
-                          if (ele) {
-                            ele.removeAttribute('checked');
+                        }
+                      } catch (error) {}
+                    } else {
+                      setAdvanceRow([]);
+                      setSelectAll([]);
+
+                      try {
+                        let eleRefs =
+                          document.getElementsByClassName("check-state");
+                        if (eleRefs) {
+                          eleRefs = Array.from(eleRefs);
+                          if (Array.isArray(eleRefs)) {
+                            eleRefs.forEach((ele) => {
+                              if (ele) {
+                                ele.removeAttribute("checked");
+                              }
+                            });
                           }
-                        });
-                      }
+                        }
+                      } catch (error) {}
                     }
-                  } catch (error) {
-                  }
-                }
-                
-              }}
-            />
-          )
-          ,
-          value: "checkboxAdvance",
-          style: "min-w-[40px] max-w-[60px] text-center sticky left-0 bg-[#3e454d]",
-        },
-      ] : 
-        []),
+                  }}
+                />
+              ),
+              value: "checkboxAdvance",
+              style:
+                "min-w-[40px] max-w-[60px] text-center sticky left-0 bg-[#3e454d]",
+            },
+          ]
+        : []),
       {
         name: "Month",
         value: "expensemonth",
-        style: "min-w-[80px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
+        style:
+          "min-w-[80px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Expense ID",
         value: "ExpenseNo",
-        style: "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d] p-2",
+        style:
+          "min-w-[170px] max-w-[450px] text-center sticky left-[79px] bg-[#3e454d] p-2",
       },
       {
         name: "Expense Date",
         value: "expenseDate",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
-      ...( !hide ? [] : 
-      [
-        {
-          name: "Claim Type",
-          value: "claimType",
-          style: "min-w-[170px] max-w-[450px] text-center",
-        },
-      ]),
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Claim Type",
+              value: "claimType",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+          ]),
       {
         name: "Circle",
         value: "circle",
@@ -361,46 +397,46 @@ const L1Form = () => {
       ...(!hide
         ? []
         : [
-          {
-            name: "Start KM",
-            value: "startKm",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "End KM",
-            value: "endKm",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Total KM",
-            value: "Total_distance",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Start Location",
-            value: "startLocation",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "End Location",
-            value: "endLocation",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Check-IN Date",
-            value: "checkInDate",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Check-Out Date",
-            value: "checkOutDate",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Total Days",
-            value: "totaldays",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },          
+            {
+              name: "Start KM",
+              value: "startKm",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "End KM",
+              value: "endKm",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "Total KM",
+              value: "Total_distance",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "Start Location",
+              value: "startLocation",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "End Location",
+              value: "endLocation",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "Check-IN Date",
+              value: "checkInDate",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "Check-Out Date",
+              value: "checkOutDate",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+              name: "Total Days",
+              value: "totaldays",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
           ]),
       {
         name: "Bill Number",
@@ -410,7 +446,8 @@ const L1Form = () => {
       {
         name: "Claimed Amount",
         value: "Amount",
-        style: "min-w-[170px] max-w-[450px] text-center sticky left-[248px] bg-[#3e454d]",
+        style:
+          "min-w-[170px] max-w-[450px] text-center sticky left-[248px] bg-[#3e454d]",
       },
       {
         name: "Current Status",
@@ -418,37 +455,39 @@ const L1Form = () => {
         style: "min-w-[120px] max-w-[450px] text-center",
       },
 
-      ...( !hide ? [] : 
-        [
-          {
-            name: "Attachment",
-            value: "attachment",
-            style: "min-w-[150px] max-w-[450px] text-center",
-          },
-          {
-            name: "Attachment Preview",
-            value: "view",
-            style: "min-w-[150px] max-w-[450px] text-center",
-          },
-        ]),
-      ...( !hide ? [] : 
-        [
-          {
-            name: "Amount",
-            value: "amount",
-            style: "min-w-[150px] max-w-[450px] text-center",
-          },
-          // {
-          //   name: "Status",
-          //   value: "status",
-          //   style: "min-w-[100px] max-w-[450px] text-center",
-          // },
-          {
-            name: "Remarks",
-            value: "remark",
-            style: "min-w-[350px] max-w-[450px] text-center",
-          },
-        ]),
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Attachment",
+              value: "attachment",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+            {
+              name: "Attachment Preview",
+              value: "view",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+          ]),
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Amount",
+              value: "amount",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+            // {
+            //   name: "Status",
+            //   value: "status",
+            //   style: "min-w-[100px] max-w-[450px] text-center",
+            // },
+            {
+              name: "Remarks",
+              value: "remark",
+              style: "min-w-[350px] max-w-[450px] text-center",
+            },
+          ]),
 
       // {
       //   name: "Edit",
@@ -464,41 +503,53 @@ const L1Form = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
+
     filter: [
       {
-          label: "Approval Status",
-          type: "select",
-          name: "status",
-          option: [
-              { "label":"Submitted", "value":"Submitted" },
-              { "label":"L1-Approved", "value":"L1-Approved" },
-              { "label":"L1-Rejected", "value":"L1-Rejected" },
-              { "label":"L2-Approved", "value":"L2-Approved" },
-              { "label":"L2-Rejected", "value":"L2-Rejected" },
-              { "label":"L3-Approved", "value":"L3-Approved" },
-              { "label":"L3-Rejected", "value":"L3-Rejected" },
-          ],
-          // props: {
-          // }
+        label: "Approval Status",
+        type: "select",
+        name: "status",
+        option: [
+          { label: "Submitted", value: "Submitted" },
+          { label: "L1-Approved", value: "L1-Approved" },
+          { label: "L1-Rejected", value: "L1-Rejected" },
+          { label: "L2-Approved", value: "L2-Approved" },
+          { label: "L2-Rejected", value: "L2-Rejected" },
+          { label: "L3-Approved", value: "L3-Approved" },
+          { label: "L3-Rejected", value: "L3-Rejected" },
+        ],
+        // props: {
+        // }
       },
       {
-        label: "EMP Name",
+        label: "Employee Name",
         type: "text",
         name: "empName",
-        props: {
-        }
-    },
-  ]
+        props: {},
+      },
+    ],
+  };
+  const onSubmit = (data) => {
+    console.log("hhiuhuihuihiuhuihiuhih", data);
+    let value = data.reseter;
+    delete data.reseter;
+    dispatch(
+      ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data))
+    );
+  };
+  const onSubmit2 = (data) => {
+    let value = data.reseter;
+    delete data.reseter;
+    dispatch(
+      ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data))
+    );
   };
 
   useEffect(() => {
-    if(!modalFullOpen){
-      setHide(false)
+    if (!modalFullOpen) {
+      setHide(false);
     }
-  } , [modalFullOpen])
-
-
-  
+  }, [modalFullOpen]);
 
   function handleAmountAndRemark(type) {
     const data = { approver: "L1-" + type, type: "Expense", status: type };
@@ -512,21 +563,21 @@ const L1Form = () => {
     // const keys = [...new Set([...Object.keys(amount.amount), ...Object.keys(amount.remark)])];
     const keys = dbConfigList.map((item) => item.uniqueId);
 
-   
-
     keys.forEach((key) => {
-      const item = dbConfigList.find(item => item.uniqueId === key);
-      console.log(item , amount , 'afdfadfsdfgfdgdgfddfgsddfassfadf')
+      const item = dbConfigList.find((item) => item.uniqueId === key);
+      console.log(item, amount, "afdfadfsdfgfdgdgfddfgsddfassfadf");
       if (item) {
-          amountRemark.push({
-              _id: key,
-              ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
-              Amount: key in amount.claimedAmount ? +item?.Amount : dbConfigList.find(item => item.uniqueId === key)?.Amount,
-              remark: key in amount.remark ? amount.remark[key] : "",
-              
-          });
+        amountRemark.push({
+          _id: key,
+          ApprovedAmount: key in amount.amount ? +amount.amount[key] : 0,
+          Amount:
+            key in amount.claimedAmount
+              ? +item?.Amount
+              : dbConfigList.find((item) => item.uniqueId === key)?.Amount,
+          remark: key in amount.remark ? amount.remark[key] : "",
+        });
       }
-  });
+    });
 
     data.data = amountRemark;
     data.expenseId = expenseRef.current?.ExpenseNo;
@@ -553,37 +604,31 @@ const L1Form = () => {
     );
   }
 
-
- function AllAmountAndRemark(type) {
+  function AllAmountAndRemark(type) {
     const data = { approver: "L1-" + type, type: "Expense", status: type };
-    const selectedExpenses = advanceRow; 
+    const selectedExpenses = advanceRow;
 
     if (!selectedExpenses || selectedExpenses.length === 0) {
-      alert("Please select at least one")
+      alert("Please select at least one");
     }
 
-    data.data = selectedExpenses.map(expenseId => {
-        const allExpense = dbConfigList.find(item => item.uniqueId === expenseId);
-        return {
-            ExpenseNo: allExpense?.ExpenseNo.props.children || "",
-        };
-    }); 
+    data.data = selectedExpenses.map((expenseId) => {
+      const allExpense = dbConfigList.find(
+        (item) => item.uniqueId === expenseId
+      );
+      return {
+        ExpenseNo: allExpense?.ExpenseNo.props.children || "",
+      };
+    });
 
     dispatch(
-        ExpenseAdvanceActions.postApprovalAllExpenseStatus(true, data, () => {
-            dispatch(ExpenseAdvanceActions.getL1Data());
-            setAdvanceRow([]);
-            setSelectAll([]);
-        })
+      ExpenseAdvanceActions.postApprovalAllExpenseStatus(true, data, () => {
+        dispatch(ExpenseAdvanceActions.getL1Data());
+        setAdvanceRow([]);
+        setSelectAll([]);
+      })
     );
-}
-
-
-  const onSubmit = (data) => {
-    let value = data.reseter;
-    delete data.reseter;
-    dispatch(ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data)));
-  };
+  }
 
   useEffect(() => {
     if (!modalFullOpen) {
@@ -619,22 +664,22 @@ const L1Form = () => {
               }}
               name={"L1 Advance"}
             ></Button>
-              <div className="flex gap-1">
-                <Button
-                  onClick={() => {
-                    // alert("Checked")
-                    AllAmountAndRemark("Rejected");
-                  }}
-                  name="Reject"
-                />
-                <Button
-                  onClick={() => {
-                    // alert("Checked")
-                    AllAmountAndRemark("Approved");
-                  }}
-                  name="Approve"
-                />
-              </div>
+            <div className="flex gap-1">
+              <Button
+                onClick={() => {
+                  // alert("Checked")
+                  AllAmountAndRemark("Rejected");
+                }}
+                name="Reject"
+              />
+              <Button
+                onClick={() => {
+                  // alert("Checked")
+                  AllAmountAndRemark("Approved");
+                }}
+                name="Approve"
+              />
+            </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
@@ -677,11 +722,10 @@ const L1Form = () => {
               </div>
             }
             table={table}
-            filterAfter={onSubmit}
+            filterAfter={onSubmit2}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
             data={dbConfigList?.map((item, index) => {
-
               return {
                 ...item,
                 amount: (
@@ -739,43 +783,47 @@ const L1Form = () => {
                   <CstmButton
                     className={"p-2"}
                     child={
-                    <DownloadButton
+                      <DownloadButton
                         name={""}
                         onClick={() => {
-                            dispatch(CommonActions.commondownload("/expenses/downloadFile"+"?"+`attachment=${item.attachment}`,`${item?.attachment}`))                      
+                          dispatch(
+                            CommonActions.commondownload(
+                              "/expenses/downloadFile" +
+                                "?" +
+                                `attachment=${item.attachment}`,
+                              `${item?.attachment}`
+                            )
+                          );
                         }}
                       ></DownloadButton>
                     }
                   />
                 ),
 
-
                 view: (
-                <CstmButton
-                  className={"p-2"}
-                  child={
-                    <ViewButton
-                      name={""}
-                      onClick={() => {
-                        setmodalOpen(true);
-                        setmodalHead("Attachment Preview");
-                        setmodalBody(
-                          <>
-                  
-                             <div className="flex justify-center items-center">
-                             <img
-                                 src={backendassetUrl + item?.attachment}
-                                 className="w-full h-full content-center flex object-contain"
-                               />
-                           </div>
-                  
-                          </>
-                        );
-                      }}
-                    ></ViewButton>
-                  }
-          />
-              ),
+                  <CstmButton
+                    className={"p-2"}
+                    child={
+                      <ViewButton
+                        name={""}
+                        onClick={() => {
+                          setmodalOpen(true);
+                          setmodalHead("Attachment Preview");
+                          setmodalBody(
+                            <>
+                              <div className="flex justify-center items-center">
+                                <img
+                                  src={backendassetUrl + item?.attachment}
+                                  className="w-full h-full content-center flex object-contain"
+                                />
+                              </div>
+                            </>
+                          );
+                        }}
+                      ></ViewButton>
+                    }
+                  />
+                ),
               };
             })}
             errors={errors}

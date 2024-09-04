@@ -43,6 +43,8 @@ const FilterView = ({
             <>
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => {
+                  setValue(itm.name , '')
+                  console.log('itmitmitmitm',itm)
 
                   return (
                     <>
@@ -52,15 +54,19 @@ const FilterView = ({
                         </label>
 
                         {itm.type == "select" && (
+                
                           <>
                           <select
-                            onChange={itm.onChanging ? itm.onChanging : null}
+                          
+                        onChange  ={itm.onChanging ? itm.onChanging : null}
+                        
                             {...register(itm.name, {
                               required: itm.required
                                 ? "This " + " Field is required"
                                 : false,
                               ...itm.props,
                             })}
+                            onInput={(e) => setValue(itm.name, e.target.value)}
                             className={
                               "bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             }
@@ -74,11 +80,11 @@ const FilterView = ({
                               );
                             })}
                           </select>
-                          {/* {console.log(
+                          {console.log(
                               errors[itm.name],
                               itm.required,
                               "errors?.itm?"
-                            )} */}
+                            )}
                             <p className="text-xs text-red-700">
                               {errors[itm.name]?.message}
                             </p>
@@ -97,6 +103,7 @@ const FilterView = ({
                                   : false,
                                 ...itm.props,
                               })}
+
                               className={
                                 "bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               }
@@ -122,13 +129,16 @@ const FilterView = ({
                                   : false,
                                 ...itm.props,
                               })}
+                              onChange={(e) => setValue(itm.name, e.target.value)}
+
                               className=" bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               {...itm.props}
                             />
                             {console.log(
-                              errors[itm.name],
+                              errors,
                               itm.required,
-                              "errors?.itm?"
+                              itm.name,itm.type,
+                              "errors?.itmvdvd?"
                             )}
                             <p className="text-xs text-red-700">
                               {errors[itm.name]?.message}

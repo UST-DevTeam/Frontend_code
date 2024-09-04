@@ -470,6 +470,12 @@ const L2Form = () => {
         // props: {
         // }
       },
+      {
+        label: "Employee Name",
+        type: "text",
+        name: "empName",
+        props: {},
+      },
     ],
   };
 
