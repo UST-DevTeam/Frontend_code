@@ -634,6 +634,13 @@ const L3Form = () => {
                   }}
                   name="Approve"
                 />
+                <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/l3Approval","Export_L3Aprroval.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
               </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {

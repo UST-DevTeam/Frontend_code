@@ -235,13 +235,13 @@ const handleFilter = () => {
             cb={(data) => setSelectedProjectType(data)}
             placeholder="Project Type"
           />
-          <NewSingleSelect
+          {/* <NewSingleSelect
             label="Year"
             option={years}
             value={selectedYears}
             placeholder="Year"
             cb={(data) => setSelectedYears(data)}
-          />
+          /> */}
           {/* <NewMultiSelects
             label="Month"
             option={monthsList}

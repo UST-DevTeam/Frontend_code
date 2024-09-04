@@ -648,14 +648,14 @@ const L1Form = () => {
         headerButton={
           <div className="flex gap-1">
             <Button
-              classes="w-auto bg-rose-400"  
+              classes="w-auto"
               onClick={(e) => {
                 navigate("/home/approverCards/L1Approver");
               }}
               name={"L1 Expense"}
             ></Button>
             <Button
-              classes="w-auto bg-[#0e8670]"
+              classes="w-auto"
               onClick={(e) => {
                 navigate("/home/approverCards/L1Advance");
               }}
@@ -663,14 +663,13 @@ const L1Form = () => {
             ></Button>
             <div className="flex gap-1">
               <Button
-                classes="w-auto bg-rose-400"
                 onClick={() => {
+                  // alert("Checked")
                   AllAmountAndRemark("Rejected");
                 }}
                 name="Reject"
               />
               <Button
-                classes="w-auto bg-rose-400"
                 onClick={() => {
                   // alert("Checked")
                   AllAmountAndRemark("Approved");
@@ -678,9 +677,9 @@ const L1Form = () => {
                 name="Approve"
               />
               <Button
-              classes="w-auto bg-rose-400"
+              classes="w-auto"
               onClick={(e) => {
-                dispatch(CommonActions.commondownload("/export/","Export_Circle.xlsx"))
+                dispatch(CommonActions.commondownload("/export/l1Approval","Export_L1Aprroval.xlsx"))
               }}
               name={"Export"}
             ></Button>

@@ -73,8 +73,9 @@ const computeLineData = (key) => {
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-  // const colors = ["#FFA0A0", "#c4f4a0", "#B9D9EB"];
-  const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
+  // const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
+  const colors = ["#5cccb7", "#ffab2d", "#2b98d6", "#b8ee30"];
+
   const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
   const offsetY = horizontal ? 0 : -7;
 

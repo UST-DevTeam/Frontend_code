@@ -9,7 +9,7 @@ const BarLineGraph = ({ data,
   dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
-  YAxisSecondaryTitle = "Acheievement(%)",
+  YAxisSecondaryTitle = "Acheievement (%)",
   data1,
   data2,
   data3,
@@ -151,7 +151,7 @@ const BarLineGraph = ({ data,
             {
               opposite: true,
               title: {
-                text: 'Achievement(%)',
+                text: 'Achievement (%)',
                 style:{
                   color: "#ffffff",
                   fontSize: '18px',

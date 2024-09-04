@@ -640,6 +640,13 @@ const L2Form = () => {
                   }}
                   name="Approve"
                 />
+                <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/l2Approval","Export_L2Aprroval.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
               </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {

@@ -582,6 +582,13 @@ const L2AdvanceForm = () => {
                 }}
                 name="Approve"
               />
+              <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/Advance/l2Approval","Export__Advance_L2Aprroval.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
             </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {

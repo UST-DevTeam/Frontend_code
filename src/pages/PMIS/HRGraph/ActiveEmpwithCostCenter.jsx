@@ -111,9 +111,9 @@ const ActiveEmpwithCostCenter = () => {
   const dispatch = useDispatch();
 
   let OrgLevelList = useSelector((state) => {
-    return state?.GraphData?.getAirtelActiveEmpVerticalName?.map((itm) => ({
-      label: itm?.description,
-      value: itm?.description,
+    return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
+      label: itm?.orgLevel,
+      value: itm?.orgLevel,
     }));
   });
 
@@ -124,19 +124,19 @@ const ActiveEmpwithCostCenter = () => {
 
   useEffect(() => {
     dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
-    dispatch(GraphActions.getAirtelActiveEmpVerticalName());
+    dispatch(GraphActions.getGraphOrganizationLevel());
   }, []);
 
 
 
   const handleFilter = () => {
     const filterData = {
-        description: selectedOrglevel?.map((item) => item.value) || [],
+      orgLevel: selectedOrglevel?.map((item) => item.value) || [],
     };
 
     dispatch(
       GraphActions.postGraphActiveEmpwithCostCenter(
-        { description: filterData.description},
+        { orgLevel: filterData.orgLevel},
         () => {}
       )
     );
@@ -145,6 +145,7 @@ const ActiveEmpwithCostCenter = () => {
 
   const handleClear = () => {
     setSelectedOrgLevel([]);
+    dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
   };
 
 
@@ -159,7 +160,7 @@ const ActiveEmpwithCostCenter = () => {
             label="Org Level"
             option={OrgLevelList}
             value={selectedOrglevel}
-            placeholder="Description"
+            placeholder="Org Level"
             cb={(data) => setSelectedOrgLevel(data)}
           />
            </div>

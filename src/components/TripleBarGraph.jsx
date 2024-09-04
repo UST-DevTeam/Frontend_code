@@ -12,7 +12,7 @@ const TripleBarGraph = ({
   dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
-  YAxisSecondaryTitle = "Acheievement(%)",
+  YAxisSecondaryTitle = "Acheievement (%)",
   data1,
   data2,
   data3,
@@ -41,7 +41,9 @@ const TripleBarGraph = ({
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-  const colors = ["#13b497", "#ffab2d", "#f9a8d4", "#b8ee30"];
+  // const colors = ["#13b497", "#ffab2d", "#f9a8d4", "#b8ee30"];
+
+  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30"];
   // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
 
@@ -205,7 +207,7 @@ const TripleBarGraph = ({
       {
         opposite: true,
         title: {
-          text: 'Achievement(%)',
+          text: 'Achievement (%)',
           style:{
             color: "#ffffff",
             fontSize: '18px',
