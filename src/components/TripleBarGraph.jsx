@@ -48,8 +48,8 @@ const TripleBarGraph = ({
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
 
-  const colors = ["#5cccb7", "#ffab2d", "#f9a8d4", "#b8ee30"];
-  const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
+  const colors = ["#5cccb7", "#d07407", "#f9a8d4", "#b8ee30"];
+  const BarBorderColors = ["#d07407", "#b8ee30", "#e83e8c","#b8ee30"];
 
   const offsetX = horizontal ? 0 : -1;
   const offsetY = horizontal ? 0 : -7;

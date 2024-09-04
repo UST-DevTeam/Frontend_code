@@ -90,14 +90,14 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   //   }
   // });
 
-  let projectIdList = useSelector((state) => {
-    return state?.currentuserData?.getcurrentuserPID.map((itm) => {
-      return {
-        label: itm?.projectId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+  // let projectIdList = useSelector((state) => {
+  //   return state?.currentuserData?.getcurrentuserPID.map((itm) => {
+  //     return {
+  //       label: itm?.projectId,
+  //       value: itm?.uniqueId,
+  //     };
+  //   });
+  // });
 
 
   let Form = [
@@ -112,7 +112,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       props: {
         onChange: (e) => {
           dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${e.target.value}`))
-          // dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${e.target.value}`))
         },
       },
     },
@@ -139,24 +138,24 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       option: projectGroupList,
       props: {
         onChange: (e) => {
-          dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${e.target.value}`))
+          // dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${e.target.value}`))
         },
       },
       required: true,
       classes: "col-span-1",
     },
-    {
-      label: "Project ID",
-      value: "",
-      name: "projectId",
-      option: projectIdList,
-      type: "select",
-      required: true,
-      props: {
-        onChange: (e) => { },
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Project ID",
+    //   value: "",
+    //   name: "projectId",
+    //   option: projectIdList,
+    //   type: "select",
+    //   required: true,
+    //   props: {
+    //     onChange: (e) => { },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "GBPA",
       value: "",

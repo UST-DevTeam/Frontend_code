@@ -600,16 +600,8 @@ const WorkDone = () => {
   };
 
   useEffect(() => {
-    // dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':year,'viewBy':month},() => {}));
-
     dispatch(FinanceActions.getPOWorkDoneBased());
     dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
-    
-
-
-    
-
-    // dispatch(FilterActions.getfinancialPoWorkDoneCustomer());
   }, [dispatch]);
 
   const onTableViewSubmit = (data) => {

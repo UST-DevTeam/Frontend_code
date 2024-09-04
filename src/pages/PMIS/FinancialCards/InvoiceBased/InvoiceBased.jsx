@@ -79,7 +79,7 @@ const InvoiceBased = () => {
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
-                    dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
+                    // dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
                     // dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
                     // dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
                     // dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
@@ -167,7 +167,6 @@ const InvoiceBased = () => {
                 name: (
                   <input
                     type="checkbox"
-                    // checked={selectAll}
                     className='check-state'
                     onChange={(e) => {
                       if (e.target.checked) {
@@ -234,11 +233,11 @@ const InvoiceBased = () => {
             //     value: "subProjectName",
             //     style: "min-w-[140px] max-w-[200px] text-center "
             // },            
-            {
-                name: "Project ID",
-                value: "projectIdName",
-                style: "min-w-[170px] max-w-[200px] text-center sticky left-[300px] bg-[#3e454d]  -top-1 z-20"
-            },                        
+            // {
+            //     name: "Project ID",
+            //     value: "projectIdName",
+            //     style: "min-w-[170px] max-w-[200px] text-center sticky left-[300px] bg-[#3e454d]  -top-1 z-20"
+            // },                        
             {
                 name: "GBPA",
                 value: "gbpa",
@@ -358,14 +357,14 @@ const InvoiceBased = () => {
             //     props: {
             //     }
             // },
-            {
-                label: "Project ID",
-                type: "text",
-                name: "projectId",
-                option:projectIdList,
-                props: {
-                }
-            },
+            // {
+            //     label: "Project ID",
+            //     type: "text",
+            //     name: "projectId",
+            //     option:projectIdList,
+            //     props: {
+            //     }
+            // },
             {
                 label: "GBPA",
                 type: "text",

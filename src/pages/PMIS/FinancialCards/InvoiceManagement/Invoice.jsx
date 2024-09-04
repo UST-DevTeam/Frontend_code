@@ -463,8 +463,8 @@ const Invoice = () => {
   };
   useEffect(() => {
     dispatch(FinanceActions.getInvoice());
-    dispatch(FilterActions.getfinancialRevenueManagementCustomer());
-    dispatch(FilterActions.getfinancialRevenueManagementProjectGroup());
+    // dispatch(FilterActions.getfinancialRevenueManagementCustomer());
+    // dispatch(FilterActions.getfinancialRevenueManagementProjectGroup());
   }, []);
 
   const onTableViewSubmit = (data) => {
