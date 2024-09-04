@@ -119,6 +119,7 @@ const AdvancedTable = ({
 
 
   const onSubmit = (formdata) => {
+    console.log('suuuuudud',formdata)
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,
@@ -228,15 +229,15 @@ const AdvancedTable = ({
                 onSubmit={onSubmit}
                 handleSubmit={handleSubmit}
                 table={table}
-                data={data}
+                data={data} 
                 errors={errors}
                 register={register}
                 setValue={setValue}
                 getValues={getValues}
               />
               <PopupMenu
-                name={"Hide / Unhide"}
-                //icon={<UilColumns size="32" className={"hello"} />}
+                name={"Hide/Unhide"}
+                // icon={<UilColumns size="32" className={"hello"} />}
                 icon={
                   icon ? icon : <UilColumns size="32" className={"hello"} />
                 }
@@ -246,11 +247,12 @@ const AdvancedTable = ({
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                            <div className="flex m-1">
+                            <div className="flex m-1 not">
                               <input
                                 type="checkbox"
                                 checked={hide.indexOf(String(index)) == -1}
                                 value={String(index)}
+                                className="not"
                                 onChange={(e) => {
                                   setHide((prev) => {
                                     // console.log(e.target.checked,prev,[e.target.value],e.target.value,"checkboxchecked")
@@ -275,7 +277,7 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-[11px] text-white mx-2 font-semibold">
+                              <span className="text-[11px] not text-white mx-2 font-semibold">
                                 {itts.name}
                               </span>
                             </div>

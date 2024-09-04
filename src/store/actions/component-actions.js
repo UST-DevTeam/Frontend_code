@@ -5,6 +5,7 @@ import { LOADERS, POP_MENU, BREADCRUMB, GLOBAL_VALUE } from "../reducers/compone
 
 const ComponentActions = {
     popmenu: (data,tkn) => async (dispatch, _) => {
+        console.log('datadatadatauuu',data,tkn)
         try {
             dispatch(POP_MENU({data,tkn}))
         } catch (error) {
@@ -13,6 +14,7 @@ const ComponentActions = {
         }
     },
     breadcrumb: (data,link,index,tkn) => async (dispatch, _) => {
+
         try {
             dispatch(BREADCRUMB({data,link,index,tkn}))
         } catch (error) {

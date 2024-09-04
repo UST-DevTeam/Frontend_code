@@ -4,7 +4,6 @@ export const backendassetUrl="http://127.0.0.1:7980/"
 // export const baseUrl="https://pmisapi.mcpsinc.com"
 // export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
 
-
 export const Urls={
 
     login:"/login",
