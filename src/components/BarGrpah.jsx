@@ -3,7 +3,7 @@ import { offset } from "highcharts";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="40%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#5cccb7"], }) => { 
+const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="40%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#13b497"], }) => { 
     let category = data?.map(item => item.description) ||[];
 
     const defaultSeries = [
@@ -18,7 +18,7 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
     const offsetX = horizontal ? 13 : 0;
     const offsetY = horizontal ? 0 : -15;
 
-    const BarBorderColors = ["#399c85", "#cc881c", "#e19b9b", "#d178a5", "#8ab222"];
+    // const BarBorderColors = ["#399c85", "#cc881c", "#e19b9b", "#d178a5", "#8ab222"];
 
 
     const options = {
@@ -26,7 +26,6 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             height: 440,
             type: 'bar',
             background: '#3e454d',
-
         },
         // title: {
         //     text: title, 
@@ -105,8 +104,8 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
             },
         },
         stroke: {
-            width: [1],
-            colors: BarBorderColors,
+            width: [0],
+            // colors: BarBorderColors,
           },
         grid: {
             borderColor: 'transparent',

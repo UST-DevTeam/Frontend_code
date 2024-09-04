@@ -19,7 +19,7 @@ const POMgmtCards = () => {
   const [type, settype] = useState(false);
   // const [modalHead, setmodalHead] = useState(<></>)
   let dispatch = useDispatch();
-  const { customeruniqueId } = useParams();
+  // const { customeruniqueId } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -104,8 +104,8 @@ const POMgmtCards = () => {
       <PoStatusChart />
       <PoTrackingWorkdoneChart />
       <AccrualRevenueTrendChart /> */}
-      <PoStatusChart customeruniqueId = {customeruniqueId} />
-      <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
+      {/* <PoStatusChart customeruniqueId = {customeruniqueId} />
+      <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
 
       </div>
     </>

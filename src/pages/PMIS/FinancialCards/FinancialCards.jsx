@@ -31,7 +31,7 @@ const FinancialCards = () => {
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
-    dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
+    // dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
   }, []);
   return (
     <>
@@ -107,12 +107,18 @@ const FinancialCards = () => {
       />
      </div>
      <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
-     <PoStatusChart customeruniqueId = {customeruniqueId} />
-     <MonthRevenueTrend />
-      <MonthlyRevenueCircle />
-      <CumulativeTrendPlanVsActual />
-            <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
-            <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
+        {/* <PoStatusChart customeruniqueId = {customeruniqueId} />
+        <MonthRevenueTrend />
+        <MonthlyRevenueCircle />
+        <CumulativeTrendPlanVsActual />
+        <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
+        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
+
+
+              {/* <ProjectChart />
+              <ClaimAndAdvanceChart />
+              <TrendPlanVSActualWorkdone customeruniqueId = {customeruniqueId} />
+            <CirclePlanVSActualWorkdone customeruniqueId = {customeruniqueId} /> */}
       </div>
     </>
   );

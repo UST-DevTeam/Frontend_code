@@ -234,7 +234,7 @@ import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import BarLineGraph from "../../../../components/BarLineGraph";
 import NewSingleSelect from "../../../../components/NewSingleSelect";
 
-const TrendPlanVSActualWorkdone = () => {
+const CumulativeWorkdonePlanVsActual = () => {
   const exportData = useRef([]);
   const months = [];
   const now = new Date();
@@ -274,11 +274,11 @@ const TrendPlanVSActualWorkdone = () => {
   });
 
   const GraphData = useSelector((state) => {
-    return state?.GraphData?.getGraphTrendPlanVSActualWorkdone || [];
+    return state?.GraphData?.getGraphCumulativeWorkdonePlanVsActual || [];
   });
 
   let data1 = GraphData?.map(item => item.plan) || []
-  let data2 = GraphData?.map(item => item.achievement) || []
+  let data2 = GraphData?.map(item => item.count) || []
   const SecondaryAxis = GraphData?.map(item => item.ach) || [];
 
 
@@ -302,7 +302,7 @@ const TrendPlanVSActualWorkdone = () => {
 ];
 
   useEffect(() => {
-    dispatch(GraphActions.getGraphTrendPlanVSActualWorkdone());
+    dispatch(GraphActions.getGraphCumulativeWorkdonePlanVsActual());
   }, [dispatch]);
 
   const handleFilter = () => {
@@ -376,11 +376,11 @@ const TrendPlanVSActualWorkdone = () => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
          <div className="text-center mb-4">
-            <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Trend - Plan VS Actual Workdone</h1>
+            <h1 className="text-white text-base font-bold">Cumulative - Plan VS Actual Workdone</h1>
         </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
-            <NewMultiSelects
+            {/* <NewMultiSelects
               label="Circle"
               option={CircleList}
               value={selectedCircle}
@@ -393,7 +393,7 @@ const TrendPlanVSActualWorkdone = () => {
               value={selectedProjectType}
               cb={(data) => setSelectedProjectType(data)}
               placeholder="Project Type"
-            />
+            /> */}
             <NewSingleSelect
               label="Year"
               option={years}
@@ -401,7 +401,7 @@ const TrendPlanVSActualWorkdone = () => {
               placeholder="Year"
               cb={(data) => setSelectedYears(data)}
             />
-            <NewSingleSelect
+            {/* <NewSingleSelect
               label="View As"
               option={viewAs}
               value={selectedView}
@@ -411,7 +411,7 @@ const TrendPlanVSActualWorkdone = () => {
                 setSelectedMonths([]);
               }}
               placeholder="View As"
-            />
+            /> */}
             <NewMultiSelects
               label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
               option={extraColumnsState}
@@ -424,12 +424,12 @@ const TrendPlanVSActualWorkdone = () => {
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
-              icon={<UilSearch size="36" className="text-[#f4d3a8]"/>}
+              icon={<UilSearch size="18" className={"hello"} />}
             ></Button>
             <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleClear}
-              icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
+              icon={<UilRefresh size="36" />}
             ></Button>
           </div>
         </div>
@@ -438,4 +438,4 @@ const TrendPlanVSActualWorkdone = () => {
   );
 };
 
-export default TrendPlanVSActualWorkdone;
+export default CumulativeWorkdonePlanVsActual;

@@ -33,23 +33,17 @@ const TripleBarGraph = ({
   )
 
   max2 = Math.round(max2)
-
-
-
   const months = Array(12).fill(0);
 
   const category = data?.map((item) => item.description) || [];
-
-
-  const SecondaryAxis = data?.map(item => item.ach);
 
   const defaultSeries = [];
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
+  const colors = ["#13b497", "#ffab2d", "#f9a8d4", "#b8ee30"];
+  // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
-  const colors = ["#5cccb7", "#d07407", "#f9a8d4", "#b8ee30"];
-  const BarBorderColors = ["#d07407", "#b8ee30", "#e83e8c","#b8ee30"];
 
   const offsetX = horizontal ? 0 : -1;
   const offsetY = horizontal ? 0 : -7;
@@ -162,7 +156,7 @@ const TripleBarGraph = ({
           text: 'Revenue (₹) Lac', 
           style:{
             color: "#ffffff",
-            fontSize: '16px'
+            fontSize: '18px'
           } 
         },
         labels: {
@@ -214,7 +208,7 @@ const TripleBarGraph = ({
           text: 'Achievement(%)',
           style:{
             color: "#ffffff",
-            fontSize: '16px',
+            fontSize: '18px',
           }  
         },
         labels: {
@@ -243,10 +237,10 @@ const TripleBarGraph = ({
       },
     },
     stroke: {
-      // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+      colors: ["transparent", "transparent", "transparent", "#b8ee30"],
       curve: 'smooth',
       width: [0.8, 0.8, 0.8, 2],
-      colors: BarBorderColors,
+      // colors: BarBorderColors,
     },
     grid: {
       borderColor: "transparent",

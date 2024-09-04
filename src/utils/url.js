@@ -189,6 +189,7 @@ export const Urls={
     graph_trend_plan_vs_actual_workdone:"/graph/workdoneRevenueTrend",
     graph_Circle_plan_vs_actual_workdone:"/graph/workdoneRevenueCircle",
     graph_cumulative_trend_plan_vs_actual:"/graph/trendPlanVsActualCumulative",
+    graph_cumulative_workdone_plan_vs_actual:"/graph/cumulativeWorkdone",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

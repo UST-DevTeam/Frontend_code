@@ -141,7 +141,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import * as Unicons from "@iconscout/react-unicons";
+import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import NewMultiSelects from "../../../components/NewMultiSelect";
 import GraphActions from "../../../store/actions/graph-actions";
 import FilterActions from "../../../store/actions/filter-actions";
@@ -206,10 +206,10 @@ const MileStoneChart = ({ customeruniqueId }) => {
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
       <div className="text-center mb-4">
-        <h1 className="text-white text-base font-bold">MileStone Status</h1>
+        <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">MileStone Status</h1>
       </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex space-x-1 h-14 justify-between w-full">
+      <div className="flex items-center justify-between space-x-10">
+        <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             placeholder="Project Type"
             option={projectTypeList}
@@ -229,20 +229,20 @@ const MileStoneChart = ({ customeruniqueId }) => {
             value={selectedProjectId}
             cb={setSelectedProjectId}
           />
+         </div>
+       <div className="flex space-x-2">
+            <Button
+              classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+              onClick={handleFilter}
+              icon={<UilSearch size="36" className="text-[#f4d3a8]" />}
+            ></Button>
+            <Button
+              classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+              onClick={handleClear}
+              icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
+            ></Button>
+          </div>
         </div>
-        <div className="flex space-x-2">
-          <Button
-            classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
-            onClick={handleFilter}
-            icon={<Unicons.UilSearch size="18" />}
-          />
-          <Button
-            classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
-            onClick={handleClear}
-            icon={<Unicons.UilRefresh size="36" />}
-          />
-        </div>
-      </div>
       <PieChart data={pieGraphData} />
     </div>
   );

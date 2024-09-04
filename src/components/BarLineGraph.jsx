@@ -1,39 +1,48 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = "", XAxisTitle = "", YAxisTitle = "", YAxisSecondaryTitle = "Acheievement(%)",}) => {
+const BarLineGraph = ({ data,
+  seriesData = [],
+  horizontal = false,
+  title = "",
+  columnWidth = "90%",
+  dataLabelSuffix="",
+  XAxisTitle = "",  
+  YAxisTitle = "", 
+  YAxisSecondaryTitle = "Acheievement(%)",
+  data1,
+  data2,
+  data3,
+}) => {
+
+  let max1 = Math.max(
+    ...(data1 || []),
+    ...(data2 || []),
+  )
+
+  max1 = Math.round(max1)
+
+  let max2 = Math.max(
+    ...(data3 || [])
+  )
+
+  max2 = Math.round(max2)
 
     const category = data?.map(item => item.description);
 
-    const percentageData = data?.map(item => {
-        const plan = item.plan || 0;
-        const achieved = item.achievement || 0; 
-        const percentage = plan === 0 ? 0 : ((achieved / plan) * 100).toFixed(1);
-        return `${percentage}%`; 
-    });
+    // const percentageData = data?.map(item => {
+    //     const plan = item.plan || 0;
+    //     const achieved = item.achievement || 0; 
+    //     const percentage = plan === 0 ? 0 : ((achieved / plan) * 100).toFixed(1);
+    //     return `${percentage}%`; 
+    // });
         
-    const defaultSeries = [
-        {
-            name: "Planned",
-            type: "bar",
-            data: data?.map(item => item.plan) || [],
-          },
-          {
-            name: "Achieved",
-            type: "bar",
-            data: data?.map(item => item.achievement) || [],
-          },
-          {
-            name: "Acheievement(%)",
-            type: "line",
-            data: percentageData,
-        },
-    ];
+    const defaultSeries = [];
 
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-    const colors = ["#5cccb7", "#ffab2d", "#b8ee30"];
-    const BarBorderColors = ["#28a745", "#b8ee30","#b8ee30"];
+    const colors = ["#13b497", "#ffab2d", "#b8ee30"];
+    // const BarBorderColors = ["#28a745", "#b8ee30","#b8ee30"];
 
     const options = {
         chart: {
@@ -64,7 +73,8 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: [0,1,2,3],
+            formatter: (val, { seriesIndex }) => (seriesIndex === 3 ? `${val}%` : `${val} ${dataLabelSuffix}`),
+            enabledOnSeries: [0,1,2],
             formatter: (val, { seriesIndex }) => {
                 if (seriesIndex === 2) {
                   return `${val}%`;
@@ -104,54 +114,73 @@ const BarLineGraph = ({ data = [], seriesData = [], horizontal = false, title = 
           yaxis: [
             {
               title: {
-                text: YAxisTitle,
-                style: {
+                text: 'Revenue (₹) Lac', 
+                style:{
                   color: "#ffffff",
-                  fontSize: "17px",
-                  fontWeight: "bold",
-                },
+                  fontSize: '18px'
+                } 
               },
               labels: {
+                formatter: function (val) {
+                  return val.toFixed(0);
+                },
+                
                 style: {
                   colors: "#ffffff",
                   fontSize: "9px",
                 },
               },
-            },
+              min:0,
+              max:max1
+            }, 
+            {
+              labels: {
+                show:false,
+                formatter: function (val) {
+                  return val.toFixed(0);
+                },
+                
+                style: {
+                  colors: "#ffffff",
+                  fontSize: "9px",
+                },
+              },
+              min:0,
+              max:max1
+            }, 
             {
               opposite: true,
-              min: 0,
-              max: 650,
-              tickAmount: 7,
               title: {
-                text: YAxisSecondaryTitle,
-                style: {
+                text: 'Achievement(%)',
+                style:{
                   color: "#ffffff",
-                  fontSize: "17px",
-                  fontWeight: "bold",
-                },
+                  fontSize: '18px',
+                }  
               },
               labels: {
                 style: {
                   colors: "#ffffff",
                   fontSize: "9px",
                 },
-                formatter: (value) => `${value}%`,
+                formatter: function (val) {return `${val.toFixed(0)}%`;},
               },
-            },
+              min:0,
+              max:max2
+            }
           ],
         plotOptions: {
             bar: {
-                columnWidth: '60%',
+                columnWidth: '50%',
                 horizontal: horizontal,
                 borderRadius: 2,
+               
             },
         },
         stroke: {
-            // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+            colors: ["transparent", "transparent", "#b8ee30"],
             curve: 'smooth',
-            width: [0.8, 0.8, 2],
-            colors: BarBorderColors,
+            width: ["1.5", "1.5", 2],
+            // colors: BarBorderColors,
           },
         grid: {
             borderColor: 'transparent',
