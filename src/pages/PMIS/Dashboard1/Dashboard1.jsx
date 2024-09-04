@@ -27,6 +27,7 @@ import CirclePlanVSActualWorkdone from "../Formss/FinancialGraph/CirclePlanVSAct
 import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
 import MS1AndMS2CircleWise from "./MS1AndMS2CircleWise";
 import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
+import CumulativeWorkdonePlanVsActual from "../Formss/FinancialGraph/CumulativeWorkdonePlanVsActual";
 
 
 
@@ -54,6 +55,7 @@ const Dashboard1 = () => {
             <AdvanceApprovalStatus />
             <TrendPlanVSActualWorkdone /> 
             <CirclePlanVSActualWorkdone />
+            <CumulativeWorkdonePlanVsActual />
             <MS1AndMS2CircleWise />
             <VendorActiveInactive />
             <ProjectChart customeruniqueId = {customeruniqueId} />
