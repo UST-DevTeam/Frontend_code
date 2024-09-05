@@ -42,6 +42,7 @@ import EventLog from "../../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
 import FileUploader from "../../../../components/FIleUploader";
+import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -548,19 +549,9 @@ const ManageProjectSiteId = () => {
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
-                      // dispatch(AdminActions.getProject())
-
-                      setmodalHead("Event Log");
-                      dispatch(
-                        eventManagementActions.getmilestoneeventList(
-                          true,
-                          iewq.uniqueId
-                        )
-                      );
-
-                      setmodalBody(
-                        <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />
-                      );
+                      setmodalHead(`MileStone Event Log:-( ${iewq?.["Name"]})`);
+                      dispatch(eventManagementActions.getmilestoneeventList(true,iewq.uniqueId));
+                      setmodalBody(<EventLog type={"milestone"} unqeId={iewq?.uniqueId} urlType={'getmilestoneeventList'} />);
                     }}
                   >
                     <MdMessage size={30} />
@@ -797,13 +788,10 @@ const ManageProjectSiteId = () => {
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
-                      setmodalHead("Event Log");
-                      dispatch(
-                        eventManagementActions.getsiteeventList(true,itm?.uniqueId)
-                      );
-                      setmodalBody(
-                        <EventLog type={"site"} unqeId={itm?.uniqueId} />
-                      );
+                      setmodalHead(`Site Event Log:-( ${itm?.["Site Id"]})`);
+                      dispatch(SITEEVENTLIST({dataAll:[],reset:true}))
+                      dispatch(eventManagementActions.getsiteeventList(true,itm?.uniqueId));
+                      setmodalBody(<EventLog type={"site"} unqeId={itm?.uniqueId} urlType={"getsiteeventList"} />);
                     }}
                   >
                     <MdMessage size={30} />

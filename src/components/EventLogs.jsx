@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import eventManagementActions from "../store/actions/eventLogs-actions";
+import { objectToQueryString } from "../utils/commonFunnction";
 
-const EventLog = ({type,unqeId}) => {
-    console.log(unqeId,"unqeId")
+const EventLog = ({type,unqeId,urlType}) => {
     const {
         register,
         reset,
@@ -22,20 +22,31 @@ const EventLog = ({type,unqeId}) => {
         // dispatch(OperationManagementActions.getRoleList())
       }, []);
       let dispatch=useDispatch()
+
+      let dbConfigList = useSelector((state) => {
+        let interdata = []
+        if(type=="site"){
+            interdata = state?.eventlogsReducer?.siteeventList || [];
+        }else if(type=="milestone"){
+            interdata = state?.eventlogsReducer?.milestoneeventList || [];
+        }else if(type=="project"){
+            interdata = state?.eventlogsReducer?.projecteventList || [];
+        }
+        return interdata?.map((itm) => {
+          let updateditm = {
+            ...itm,
+          }
+          return updateditm
+        });
+      })
+
       const onSubmit = (data) => {
-        console.log(data, "datadatadatadatadatadata");
-        delete data["reseter"];
-        dispatch(
-          AdminActions.getProject(
-            `${customeruniqueId}${
-              projecttypeuniqueId ? "/" + projecttypeuniqueId : ""
-            }`,
-            "",
-            true,
-            objectToQueryString(data)
-          )
-        );
+        let shouldReset = data.reseter;
+        delete data.reseter;
+        let strVal = objectToQueryString(data);
+        dispatch(eventManagementActions.urlType(true,unqeId,strVal));
       };
+
     let dbConfigTotalCount = useSelector((state) => {
 
         let interdata = []
@@ -46,7 +57,11 @@ const EventLog = ({type,unqeId}) => {
         }else if(type=="project"){
             interdata = state?.eventlogsReducer?.projecteventList || [];
         }
-        return interdata
+        if (interdata.length > 0 && interdata[0]["overall_table_count"] !== undefined) {
+          return interdata[0]["overall_table_count"];
+        } else {
+            return 0;
+        }
     })
 
     let siteIdLogsTable = {
@@ -107,13 +122,14 @@ const EventLog = ({type,unqeId}) => {
       table={siteIdLogsTable}
       filterAfter={onSubmit}
       tableName={"Milestone Event Logs"}
-    //   handleSubmit={handleSubmit}
-      data={dbConfigTotalCount}
+      handleSubmit={handleSubmit}
+      data={dbConfigList}
       errors={errors}
       register={register}
       setValue={setValue}
       getValues={getValues}
       totalCount={dbConfigTotalCount}
+      heading = {"Total Count :-  "}
     />
   );
 };

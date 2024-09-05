@@ -735,14 +735,14 @@ export const Sidebar_content = {
     ...[
       {
         name: "My Dashboard",
-        link: "/",
+        link: "/mydash-board",
         component: <DashboardCard />,
         icon: <UilAirplay className="hover:text-heading cursor-pointer"/>,
         subMenu: [],
       },
       {
         name: "My Home",
-        link: "/home",
+        link: "/",
         component: <HomeCards />,
         icon: <UilHome className="hover:text-heading cursor-pointer"/>,
         subMenu: [],

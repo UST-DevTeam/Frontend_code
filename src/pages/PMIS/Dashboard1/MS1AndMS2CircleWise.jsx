@@ -1,75 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { useForm } from "react-hook-form";
-// import * as Unicons from "@iconscout/react-unicons";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import GraphActions from "../../../store/actions/graph-actions";
-// import FilterActions from "../../../store/actions/filter-actions";
-// import Button from "../../../components/Button";
-// import DountChart from "../../../components/DountChart";
-// import PieChart from "../../../components/PieChart";
-// import { UilImport,UilSearch } from '@iconscout/react-unicons' 
-// import PolarChart from "../../../components/FormElements/PolarChart";
-// import BarGraph from "../../../components/BarGrpah";
-// import LineChartsss from "../../../components/LineChartsss";
-// import DoubleBarGraph from "../../../components/DoubleBarGraph";
-
-
-// const MonthlyJoiningVsExit = () => {
-//     const [type, setType] = useState(false);
-//     let dispatch = useDispatch();
-//     const [ data ,setData] = useState([])
-
-//     let customeruniqueId = "65dee316811c797c9f26d836"
-
-//     let projectGroupList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectGroup.map((itm) => {
-//           return {
-//             label: itm.ProjectGroup,
-//             value: itm.ProjectGroup,
-//           };
-//         });
-//       });
-
-//       let projectTypeList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectType.map((itm) => {
-//           return {
-//             label: itm.projectType,
-//             value: itm.projectType,
-//           };
-//         });
-//       });
-
-//       let projectManagerList = useSelector((state) => {
-//         return state?.filterData?.getProjectProjectManager.map((itm) => {
-//           return {
-//             label: itm.projectManager,
-//             value: itm.projectManager,
-//           };
-//         });
-//       });
-
-//     let GraphData = useSelector((state) => {
-//         return state?.GraphData?.getGraphMonthlyJoiningVsExit || []
-//     });
-//     console.log(GraphData,"GraphDataGraphDataGraphData")
-
-//     useEffect(() => {
-//         dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
-//     }, []);
-
-//     return (
-//         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-            
-//             <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
-//             {/* <BarGraph data={GraphData} horizontal={type} /> */}
-//             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
-//             <button onClick={() => setType(false)}> <Unicons.UilVerticalAlignBottom size="15" color="#13b497" /></button> */}
-//         </div>
-//     );
-// };
-// export default MonthlyJoiningVsExit;
-
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewMultiSelects from "../../../components/NewMultiSelect";
@@ -135,32 +63,37 @@ let CircleList = useSelector((state) => {
   const MS2MS1 = GraphData?.map((item) => {
     const TotalMS1Done = item.TotalMS1Done || 0;
     const TotalMS2Done = item.TotalMS2Done || 0;
-    const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(1);
+    const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(0);
     return Number(percentage);
   }) || [];
+
+
+  let data1 = GraphData?.map(item => item.SiteIdCount) || []
+  let data2 = GraphData?.map(item => item.TotalMS1Done) || []
+  let data3 = GraphData?.map(item => item.TotalMS2Done) || []
+  let data4 = MS2MS1
 
 
   const SeriesData = [
     {
       name: "Total Sites",
-      data: GraphData?.map(item => item.SiteIdCount) || [],
+      data: data1,
       type: "bar",
     },
     {
         name: "MS1",
-        data: GraphData?.map(item => item.TotalMS1Done) || [],
+        data: data2,
         type: "bar",
       },
       {
         name: "MS2",
-        data: GraphData?.map(item => item.TotalMS2Done) || [],
+        data: data3,
         type: "bar",
       },
       {
         name: "MS2/MS1(%)", 
-        data: MS2MS1,
+        data: data4,
         type: "line", 
-        yAxisIndex: 1,
       },
   ];
 
@@ -181,9 +114,6 @@ const handleFilter = () => {
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
-    // if (selectedMonths.length > 0) {
-    //   filterData.month = selectedMonths?.map((Sweety) => Sweety.value);
-    // }
     dispatch(GraphActions.postGraphMS1AndMS2CircleWise(filterData, () => {}));
   };
 
@@ -263,7 +193,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} />
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4}/>
     </div>
   );
 };

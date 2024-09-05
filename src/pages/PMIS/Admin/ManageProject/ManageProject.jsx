@@ -37,6 +37,7 @@ import PopupMenu from "../../../../components/PopupMenu";
 import FilterActions from "../../../../store/actions/filter-actions";
 import ManageSubProjectMultiDynamicFormTask from "./ManageSubProjectMultiDynamicFormTask";
 import { GET_PROJECT_ALL_LIST } from "../../../../store/reducers/projectList-reducer";
+import { PROJECTEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 
 
 const ManageProject = () => {
@@ -109,9 +110,7 @@ const ManageProject = () => {
               onClick={() => {
                 dispatch(GET_PROJECT_ALL_LIST({dataAll:[],reset:true}))
                 dispatch(
-                  ComponentActions.globalUrlStore(
-                    itm.projectId,
-                    `/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`
+                  ComponentActions.globalUrlStore(itm.projectId,`/projectManagement_2/${cname}/${ptname}/${itm.projectId}/${itm.uniqueId}`
                   )
                 );
                 dispatch(
@@ -141,9 +140,10 @@ const ManageProject = () => {
                 onClick={() => {
                   setModalSize("lg")
                   setmodalFullOpen((prev) => !prev);
-                  setmodalHead("Project Event Logs");sss
+                  setmodalHead("Project Event Logs");
+                  dispatch(PROJECTEVENTLIST({dataAll:[],reset:true}))
                   dispatch(eventManagementActions?.getprojecteventList(true,itm?.uniqueId));
-                  setmodalBody(<EventLog type={"project"} unqeId={itm?.uniqueId} /> );
+                  setmodalBody(<EventLog type={"project"} unqeId={itm?.uniqueId} urlType={"getprojecteventList"}/> );
                 }}
               >
                 <MdMessage size={30} />

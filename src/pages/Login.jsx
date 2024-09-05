@@ -35,7 +35,7 @@ const Login = () => {
 
     const onSubmit = (data) => {
         dispatch(AuthActions.signIn(data, () => {
-            navigate('/home')
+            navigate('/')
         }))
     }
 

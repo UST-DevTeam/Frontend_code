@@ -1,9 +1,8 @@
 import React from 'react';
 import { moreinfo } from '../utils/commonFunnction';
 
-const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=32 }) => {
-  
-
+const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=10000 }) => {
+    
     if (value?.length > ctt) {
         return <>
             <div class="">
