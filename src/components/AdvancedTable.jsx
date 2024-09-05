@@ -42,6 +42,7 @@ const AdvancedTable = ({
   setValue,
   getValues,
   totalCount = 0,
+  showTotalCount = true,
   actions = ["Edit", "Delete"],
   icon,
   checkboxshow = false,
@@ -193,7 +194,9 @@ const AdvancedTable = ({
             <div className="flex flex-row">
             <div className="flex flex-row mt-[6px] text-white">
             <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
-            <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
+            {showTotalCount && (
+                  <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
+                )}
               </div>
             
               {/* {activeFilter.length > 0 && (

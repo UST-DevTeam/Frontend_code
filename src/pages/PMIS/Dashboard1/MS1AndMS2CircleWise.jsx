@@ -135,32 +135,37 @@ let CircleList = useSelector((state) => {
   const MS2MS1 = GraphData?.map((item) => {
     const TotalMS1Done = item.TotalMS1Done || 0;
     const TotalMS2Done = item.TotalMS2Done || 0;
-    const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(1);
+    const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(0);
     return Number(percentage);
   }) || [];
+
+
+  let data1 = GraphData?.map(item => item.SiteIdCount) || []
+  let data2 = GraphData?.map(item => item.TotalMS1Done) || []
+  let data3 = GraphData?.map(item => item.TotalMS2Done) || []
+  let data4 = MS2MS1
 
 
   const SeriesData = [
     {
       name: "Total Sites",
-      data: GraphData?.map(item => item.SiteIdCount) || [],
+      data: data1,
       type: "bar",
     },
     {
         name: "MS1",
-        data: GraphData?.map(item => item.TotalMS1Done) || [],
+        data: data2,
         type: "bar",
       },
       {
         name: "MS2",
-        data: GraphData?.map(item => item.TotalMS2Done) || [],
+        data: data3,
         type: "bar",
       },
       {
         name: "MS2/MS1(%)", 
-        data: MS2MS1,
+        data: data4,
         type: "line", 
-        yAxisIndex: 1,
       },
   ];
 
@@ -192,6 +197,7 @@ const handleFilter = () => {
     setSelectedCircle([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
+    dispatch(GraphActions.getGraphMS1AndMS2CircleWise());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
@@ -263,7 +269,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} />
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4}/>
     </div>
   );
 };

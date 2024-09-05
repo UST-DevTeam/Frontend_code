@@ -37,6 +37,7 @@ import CirclePlanVSActualWorkdone from "../../Formss/FinancialGraph/CirclePlanVS
 import MS1AndMS2CircleWise from "../../Dashboard1/MS1AndMS2CircleWise";
 import FilterActions from "../../../../store/actions/filter-actions";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
+import CumulativeWorkdonePlanVsActual from "../../Formss/FinancialGraph/CumulativeWorkdonePlanVsActual";
 
 const   ManageProjectType = () => {
   const { cname, customeruniqueId } = useParams();
@@ -1310,6 +1311,7 @@ const   ManageProjectType = () => {
       <div className={`grid grid-cols-1 lg:grid-cols-1 m-2 ${hasCards ? "mt-48" : "mt-20"} gap-2`}>
       {/* <TrendPlanVSActualWorkdone /> 
       <CirclePlanVSActualWorkdone />
+      <CumulativeWorkdonePlanVsActual />
       <MS1AndMS2CircleWise /> */}
 
 

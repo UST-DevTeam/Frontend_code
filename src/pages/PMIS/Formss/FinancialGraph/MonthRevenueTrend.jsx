@@ -60,7 +60,6 @@ const MonthRevenueTrend = () => {
       name: "AOP-Target",
       type: "bar",
       data: data1,
-
   },
   {
       name: "PV-Target",
