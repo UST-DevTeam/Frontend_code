@@ -180,6 +180,15 @@ const DAFormFillFORM = ({
         // required: true,
         classes: "col-span-1",
     },
+    // {
+    //   label: "Additional Info",
+    //   value: "",
+    //   name: "additionalInfo",
+    //   type: "text",
+    //   props: {},
+    //   // required: true,
+    //   classes: "col-span-1",
+    // },
     {
       label: "Remarks ",
       value: "",

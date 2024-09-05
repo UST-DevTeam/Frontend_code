@@ -527,14 +527,14 @@ const L1Form = () => {
       },
     ],
   };
-  const onSubmit = (data) => {
-    console.log("hhiuhuihuihiuhuihiuhih", data);
-    let value = data.reseter;
-    delete data.reseter;
-    dispatch(
-      ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data))
-    );
-  };
+  // const onSubmit = (data) => {
+  //   console.log("hhiuhuihuihiuhuihiuhih", data);
+  //   let value = data.reseter;
+  //   delete data.reseter;
+  //   dispatch(
+  //     ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data))
+  //   );
+  // };
   const onSubmit2 = (data) => {
     let value = data.reseter;
     delete data.reseter;
@@ -625,7 +625,15 @@ const L1Form = () => {
         setSelectAll([]);
       })
     );
-  }
+}
+
+
+  const onSubmit = (data) => {
+    // console.log('datadatadata',data)
+    let value = data.reseter;
+    delete data.reseter;
+    dispatch(ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data)));
+  };
 
   useEffect(() => {
     if (!modalFullOpen) {

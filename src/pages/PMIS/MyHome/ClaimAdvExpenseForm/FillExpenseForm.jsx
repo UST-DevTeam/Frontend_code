@@ -281,6 +281,14 @@ const FillExpenseForm = ({
       classes: "col-span-1",
       multiple: false,
     },
+    // {
+    //   label: "Additional Info",
+    //   value: "",
+    //   name: "additionalInfo",
+    //   type: "text",
+    //   // required: true,
+    //   classes: "col-span-1",
+    // },
   ];
   if (selectedLabel.toLocaleLowerCase() === "hotel") {
     Form.splice(1, 0,

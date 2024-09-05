@@ -168,7 +168,11 @@ const ClaimAdvanceOnclick = () => {
         value: "customStatus",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
-
+      // {
+      //   name: "Additional Info",
+      //   value: "additionalInfo",
+      //   style: "min-w-[200px] max-w-[100px] text-center",
+      // },
       {
         name: "Remarks",
         value: "remark",
