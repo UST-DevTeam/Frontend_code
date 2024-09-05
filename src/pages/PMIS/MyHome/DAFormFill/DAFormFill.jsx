@@ -129,6 +129,11 @@ const DAFormFill = () => {
             value: "remark",
             style: "min-w-[370px] max-w-[450px] text-center",
           },
+        //   {
+        //     name: "Additional Info",
+        //     value: "additionalInfo",
+        //     style: "min-w-[370px] max-w-[450px] text-center",
+        //   },
           {
             name: "Edit",
             value: "edit",

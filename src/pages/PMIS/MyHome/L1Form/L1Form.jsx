@@ -573,6 +573,7 @@ const L1Form = () => {
 
 
   const onSubmit = (data) => {
+    // console.log('datadatadata',data)
     let value = data.reseter;
     delete data.reseter;
     dispatch(ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data)));
