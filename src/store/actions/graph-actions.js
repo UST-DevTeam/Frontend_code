@@ -726,5 +726,28 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    postGraphCumulativeWorkdonePlanVsActual: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_cumulative_workdone_plan_vs_actual})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
 }
 export default GraphActions;

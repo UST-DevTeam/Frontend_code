@@ -367,6 +367,7 @@ const ClaimAndAdvance = () => {
           setValue={setValue}
           getValues={getValues}
           totalCount={dbConfigTotalCount}
+          showTotalCount = {false}
           getaccessExport={"Export(Claim&Advance)"}
         />
       </div>

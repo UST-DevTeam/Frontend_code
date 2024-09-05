@@ -38,13 +38,10 @@ const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedView, setSelectedView] = useState([]);
+  const [monthSelectDisabled, setMonthSelectDisabled] = useState(true);
   const dispatch = useDispatch();
 
   const monthStr = `${month}`;
-
-
-
-
 
   let CircleList = useSelector((state) => {
     return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
@@ -94,8 +91,10 @@ const [selectedCircle, setSelectedCircle] = useState([]);
   useEffect(() => {
     dispatch(GraphActions.getGraphCirclePlanVSActualWorkdone());
   }, []);
-
-
+  useEffect(() => {
+    setMonthSelectDisabled(selectedView?.value !== "Monthly" && selectedView?.value !== "Weekly");
+    setExtraColumns(listDict[selectedView?.value]);
+  }, [selectedView]);
 
 const handleFilter = () => {
     const filterData = {};
@@ -129,6 +128,7 @@ const handleFilter = () => {
     setSelectedYears(null);
     setSelectedView([]);
     setSelectedMonths([]);
+     dispatch(GraphActions.getGraphCirclePlanVSActualWorkdone());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
@@ -217,6 +217,7 @@ const handleFilter = () => {
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
+            disabled={monthSelectDisabled}
           />
       </div>
       <div className="flex space-x-2">

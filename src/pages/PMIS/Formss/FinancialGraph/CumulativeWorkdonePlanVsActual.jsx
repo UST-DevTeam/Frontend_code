@@ -252,11 +252,12 @@ const CumulativeWorkdonePlanVsActual = () => {
   monthsNumber.reverse();
 
   const [extraColumnsState, setExtraColumns] = useState(months);
+
+  const currentYear = new Date().getFullYear();
   const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
-  const [selectedView, setSelectedView] = useState([]);
   const dispatch = useDispatch();
 
   const CircleList = useSelector((state) => {
@@ -303,74 +304,51 @@ const CumulativeWorkdonePlanVsActual = () => {
 
   useEffect(() => {
     dispatch(GraphActions.getGraphCumulativeWorkdonePlanVsActual());
-  }, [dispatch]);
+  }, []);
 
   const handleFilter = () => {
     const filterData = {};
-    if (selectedCircle.length > 0) {
-      filterData.circleName = selectedCircle?.map((item) => item.value);
-    }
+    // if (selectedCircle.length > 0) {
+    //   filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
+    // }
     if (selectedProjectType.length > 0) {
       filterData.projectType = selectedProjectType?.map((item) => item.value);
     }
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
-    if (selectedView?.value === "Monthly" && selectedMonths.length > 0) {
-      filterData.viewBy = selectedMonths.map((item) => item.value);
-    } else if (selectedView?.value === "Weekly" && selectedMonths.length > 0) {
-      filterData.viewBy = selectedMonths.map((item) => item.value);
+    if (selectedMonths.length > 0) {
+      filterData.viewBy = selectedMonths?.map((Sweety) => Sweety.value);
     }
-
-    filterData.typeSelectional = selectedView?.value || "Monthly";
-
-    dispatch(GraphActions.postGraphTrendPlanVSActualWorkdone(filterData, () => {}));
+    dispatch(GraphActions.postGraphCumulativeWorkdonePlanVsActual(filterData, () => {}));
   };
 
   const handleClear = () => {
-    setSelectedCircle([]);
+    // setSelectedCircle([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
-    setSelectedView(null);
     setSelectedMonths([]);
-    dispatch(GraphActions.getGraphTrendPlanVSActualWorkdone());
+    dispatch(GraphActions.getGraphCumulativeWorkdonePlanVsActual());
   };
 
-  const currentYear = new Date().getFullYear();
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
     label: 2021 + index,
     value: 2021 + index,
   }));
 
-  const generateWeeks = () => {
-    return Array.from({ length: 52 }, (_, index) => ({
-      value: `WK#${(index + 1).toString().padStart(2, '0')}`,
-      label: `WK#${(index + 1).toString().padStart(2, '0')}`,
-    }));
-  };
-
-  const listDict = {
-    "": [],
-    Weekly: generateWeeks(),
-    Monthly: [
-      { value: "1", label: "Jan" },
-      { value: "2", label: "Feb" },
-      { value: "3", label: "Mar" },
-      { value: "4", label: "Apr" },
-      { value: "5", label: "May" },
-      { value: "6", label: "Jun" },
-      { value: "7", label: "Jul" },
-      { value: "8", label: "Aug" },
-      { value: "9", label: "Sep" },
-      { value: "10", label: "Oct" },
-      { value: "11", label: "Nov" },
-      { value: "12", label: "Dec" },
-    ],
-  };
-
-  const viewAs = [
-    { label: "Monthly View", value: "Monthly" },
-    { label: "Weekly View", value: "Weekly" },
+  const monthsList = [
+    { value: "1", label: "Jan" },
+    { value: "2", label: "Feb" },
+    { value: "3", label: "Mar" },
+    { value: "4", label: "Apr" },
+    { value: "5", label: "May" },
+    { value: "6", label: "Jun" },
+    { value: "7", label: "Jul" },
+    { value: "8", label: "Aug" },
+    { value: "9", label: "Sep" },
+    { value: "10", label: "Oct" },
+    { value: "11", label: "Nov" },
+    { value: "12", label: "Dec" },
   ];
 
   return (
@@ -386,39 +364,28 @@ const CumulativeWorkdonePlanVsActual = () => {
               value={selectedCircle}
               cb={(data) => setSelectedCircle(data)}
               placeholder="Circle"
-            />
+            /> */}
             <NewMultiSelects
               label="Project Type"
               option={projectTypeList}
               value={selectedProjectType}
               cb={(data) => setSelectedProjectType(data)}
               placeholder="Project Type"
-            /> */}
+            />
             <NewSingleSelect
-              label="Year"
-              option={years}
-              value={selectedYears}
-              placeholder="Year"
-              cb={(data) => setSelectedYears(data)}
-            />
-            {/* <NewSingleSelect
-              label="View As"
-              option={viewAs}
-              value={selectedView}
-              cb={(data) => {
-                setSelectedView(data);
-                setExtraColumns(listDict[data.value]);
-                setSelectedMonths([]);
-              }}
-              placeholder="View As"
-            /> */}
-            <NewMultiSelects
-              label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-              option={extraColumnsState}
-              value={selectedMonths}
-              cb={(data) => setSelectedMonths(data)}
-              placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            />
+            label="Year"
+            option={years}
+            value={selectedYears}
+            placeholder="Year"
+            cb={(data) => setSelectedYears(data)}
+          />
+          <NewMultiSelects
+            label="Month"
+            option={monthsList} 
+            value={selectedMonths}
+            cb={(data) => setSelectedMonths(data)}
+            placeholder="Month"
+          />
            </div>
         <div className="flex space-x-2">
             <Button

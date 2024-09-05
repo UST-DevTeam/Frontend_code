@@ -257,6 +257,7 @@ const TrendPlanVSActualWorkdone = () => {
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedView, setSelectedView] = useState([]);
+  const [monthSelectDisabled, setMonthSelectDisabled] = useState(true);
   const dispatch = useDispatch();
 
   const CircleList = useSelector((state) => {
@@ -303,7 +304,12 @@ const TrendPlanVSActualWorkdone = () => {
 
   useEffect(() => {
     dispatch(GraphActions.getGraphTrendPlanVSActualWorkdone());
-  }, [dispatch]);
+  }, []);
+  useEffect(() => {
+    setMonthSelectDisabled(selectedView?.value !== "Monthly" && selectedView?.value !== "Weekly");
+    setExtraColumns(listDict[selectedView?.value]);
+  }, [selectedView]);
+
 
   const handleFilter = () => {
     const filterData = {};
@@ -408,17 +414,17 @@ const TrendPlanVSActualWorkdone = () => {
               cb={(data) => {
                 setSelectedView(data);
                 setExtraColumns(listDict[data.value]);
-                setSelectedMonths([]);
               }}
               placeholder="View As"
             />
             <NewMultiSelects
-              label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-              option={extraColumnsState}
-              value={selectedMonths}
-              cb={(data) => setSelectedMonths(data)}
-              placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
-            />
+            label={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
+            option={extraColumnsState}
+            value={selectedMonths}
+            cb={(data) => setSelectedMonths(data)}
+            placeholder={selectedView?.value === "Weekly" ? "Weeks" : "Months"}
+            disabled={monthSelectDisabled}
+          />
            </div>
         <div className="flex space-x-2">
             <Button

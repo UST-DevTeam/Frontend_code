@@ -334,6 +334,7 @@ const ManageVendor = () => {
         geturl = {VendorActions.getManageVendorDetails()}
         getaccessExport = {"Export(Partner On-Board)"}
         heading = {"Total Partner :- "}
+
       />
 
       <Modal

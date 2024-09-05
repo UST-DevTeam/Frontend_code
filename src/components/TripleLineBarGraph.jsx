@@ -74,9 +74,9 @@ const computeLineData = (key) => {
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
   // const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
-  const colors = ["#5cccb7", "#ffab2d", "#2b98d6", "#b8ee30"];
+  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30"];
 
-  const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
+  // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
   const offsetY = horizontal ? 0 : -7;
 
   const options = {
@@ -197,10 +197,10 @@ const computeLineData = (key) => {
       },
     },
     stroke: {
-        // colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+        colors: ["transparent", "transparent", "transparent", "#b8ee30"],
         curve: 'smooth',
-        width: [0.8, 0.8, 0.8, 2],
-        colors: BarBorderColors,
+        width: [1.5, 1.5, 1.5, 2],
+        // colors: BarBorderColors,
       },
     grid: {
       borderColor: "transparent",

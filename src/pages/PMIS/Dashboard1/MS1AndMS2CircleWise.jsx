@@ -122,6 +122,7 @@ const handleFilter = () => {
     setSelectedCircle([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
+    dispatch(GraphActions.getGraphMS1AndMS2CircleWise());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
