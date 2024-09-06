@@ -30,7 +30,7 @@ const FilterView = ({
     };
   }, []);
 
-  
+  console.log('tablefilter.lengthtablefilter.lengthtablefilter.length',tablefilter.length)
   return ( 
     <>
       {tablefilter.length > 0 && (
@@ -44,7 +44,7 @@ const FilterView = ({
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => {
                   setValue(itm.name , '')
-                  console.log('itmitmitmitm',itm)
+                  // console.log('itmitmitmitm',itm)
 
                   return (
                     <>

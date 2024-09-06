@@ -293,11 +293,27 @@ const L1Form = () => {
         value: "costcenter",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+      
       {
         name: "Project ID",
         value: "projectIdName",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+      ...(!hide
+        ? []
+        : [
+          {
+            name: "Site ID",
+            value: "Site_Id",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Task Name",
+            value: "Task",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          ]),
+
       {
         name: "Employee Name",
         value: "empName",
