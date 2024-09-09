@@ -5,6 +5,7 @@ const initialState = {
     getGraphProjectStatus: [],
     getGraphMilestoneStatus: [],
     getGraphPoStatus: [],
+    getGraphTotalActiveCustomer: [],
     getGraphMS1AndMS2CircleWise: [],
     getGraphOrganizationLevel: [],
     getGraphAllProjectType: [],
@@ -57,6 +58,13 @@ const GraphData = createSlice({
                 state.getGraphPoStatus = payload.dataAll
             }else{
                 state.getGraphPoStatus  = [...state.getGraphPoStatus,...payload.dataAll]
+            }
+        },
+        GET_TOTAL_ACTIVE_CUSTOMER:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphTotalActiveCustomer = payload.dataAll
+            }else{
+                state.getGraphTotalActiveCustomer  = [...state.getGraphTotalActiveCustomer,...payload.dataAll]
             }
         },
 
@@ -258,6 +266,7 @@ export const {  GET_GRAPH_PROJECT_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_MS1_AND_MS2_CIRCLEWISE,
     GET_GRAPH_ORG_LEVEL,
+    GET_TOTAL_ACTIVE_CUSTOMER,
     GET_GRAPH_ALL_PROJECT_TYPE,
     GET_GRAPH_PO_Tracking_WorkDone,
     GET_GRAPH_ACCRUAL_REVENUE_TREND,

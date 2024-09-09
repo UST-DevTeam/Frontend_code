@@ -1296,6 +1296,7 @@ const   ManageProjectType = () => {
             </>
           );
         })}
+        alignment = "vertical"
         className="flex flex-col"
         settype={settype}
         showbtn={true}

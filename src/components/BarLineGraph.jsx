@@ -228,7 +228,7 @@ const BarLineGraph = ({ data,
           },
     };
 
-    return <ReactApexChart options={options} series={series} type="line" height={440} />;
+    return <ReactApexChart options={options} series={series} type="line" height={355} />;
 };
 
 export default BarLineGraph;

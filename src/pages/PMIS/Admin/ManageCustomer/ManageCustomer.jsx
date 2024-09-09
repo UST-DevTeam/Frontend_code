@@ -26,6 +26,7 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
 import ProjectChart from "../../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
+import TotalActiveCustomer from "../../Dashboard1/TotalActiveCustomer";
 const ManageCustomer = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -323,8 +324,9 @@ const ManageCustomer = () => {
         label="Add/Modify Customer"
       />
       </div>
-      <div className={`grid grid-cols-1 lg:grid-cols-1 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
-      {/* <ProjectChart /> */}
+      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
+      <ProjectChart />
+      <TotalActiveCustomer />
       </div>
     </>
   );

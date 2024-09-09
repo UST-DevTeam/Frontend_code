@@ -198,6 +198,7 @@ const WeeklyActiveEmpList = () => {
 
   const handleClear = () => {
     setSelectedDepartment([]);
+    dispatch(GraphActions.getGraphWeeklyActiveEmp());
   };
 
 

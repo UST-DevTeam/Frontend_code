@@ -38,8 +38,6 @@ const PoTrackingWorkdoneChart = () => {
     return state?.GraphData?.getGraphPoTrackingWorkdone || [""]
   });
 
-  console.log(GraphData,"GraphDataGraphDataGraphData..............FF")
-
 
   let value = []
 

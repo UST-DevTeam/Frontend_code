@@ -33,6 +33,10 @@ import PitchDeckAdmin from "./pages/PitchDeck/viewPitchDeckAdmin";
 import Sidebar from "./components/Sidebar";
 import Business_Registration from "./pages/Business_Registration";
 import SetUpRegistration from "./pages/setupRegistration";
+import MonthRevenueTrend from "./pages/PMIS/Formss/FinancialGraph/MonthRevenueTrend";
+import MonthlyRevenueCircle from "./pages/PMIS/Formss/FinancialGraph/MonthlyRevenueCircle";
+import CumulativeTrendPlanVsActual from "./pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
+import MS1AndMS2CircleWise from "./pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
 
 function App() {
   const [count, setCount] = useState(0);

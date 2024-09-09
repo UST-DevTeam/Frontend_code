@@ -133,10 +133,10 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
             }}
             className={`${sidebarOpen && "rotate-180"}`}
           >
-            <svg
+            {/* <svg
               className="w-6 h-6"
               aria-hidden="true"
-              fill="white"
+              fill="# f4d3a8"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -145,7 +145,27 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
                 fillRule="evenodd"
                 d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
               ></path>
-            </svg>
+            </svg> */}
+            <svg
+  className="w-6 h-6"
+  aria-hidden="true"
+  viewBox="0 0 20 20"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="30%" stopColor="#f4d3a8"/> 
+      <stop offset="100%" stopColor="#22c55e"/> 
+    </linearGradient>
+  </defs>
+  <path
+    fill="url(#gradient1)"
+    clipRule="evenodd"
+    fillRule="evenodd"
+     d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+  />
+</svg>
+
           </button>
           <h1 className="font-semibold text-white">{name || ""}</h1>
         </div>

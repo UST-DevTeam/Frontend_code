@@ -8,7 +8,7 @@ const TripleBarGraph = ({
   title = "",
   columnWidth = "90%",
   month = [],
-  enabledOnSeries = [false, false, false],
+  enabledOnSeries = [false, false, false, false, false], 
   dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
@@ -17,6 +17,7 @@ const TripleBarGraph = ({
   data2,
   data3,
   data4,
+  data5,
   
 }) => {
 
@@ -30,7 +31,8 @@ const TripleBarGraph = ({
   }
 
   let max2 = Math.max(
-    ...(data4 || [])
+    ...(data4 || []),
+    ...(data5 || []),
   )
   if (max2 % 25 !== 0) {
     max2 = Math.ceil(max2 /25) * 25;
@@ -47,7 +49,7 @@ const TripleBarGraph = ({
 
   // const colors = ["#13b497", "#ffab2d", "#f9a8d4", "#b8ee30"];
 
-  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30"];
+  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30", "#f4d3a8"];
   // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
 
 
@@ -84,8 +86,8 @@ const TripleBarGraph = ({
     },
     dataLabels: {
       enabled: true,
-      formatter: (val, { seriesIndex }) => (seriesIndex === 3 ? `${val}%` : `${val} ${dataLabelSuffix}`),
-      enabledOnSeries: [0,1,2,3],
+      formatter: (val, { seriesIndex }) => (seriesIndex === 3 || seriesIndex === 4 ? `${val}%` : `${val} ${dataLabelSuffix}`),
+      enabledOnSeries: [0,1,2,3,4],
       offsetX: offsetX,
       offsetY: offsetY,
       style: {
@@ -188,7 +190,27 @@ const TripleBarGraph = ({
         },
         min:0,
         max:max2,
-        tickAmount: 5,
+        tickAmount: 5
+      },
+      {
+        opposite: true,
+        show:false,
+        title: {
+          text: 'Achievement (%)',
+          style:{
+            color: "#ffffff",
+            fontSize: '18px',
+          }  
+        },
+        labels: {
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        min:0,
+        max:max2
       }
     ],
 
@@ -206,9 +228,9 @@ const TripleBarGraph = ({
       },
     },
     stroke: {
-      colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+      colors: ["transparent", "transparent", "transparent", "#b8ee30", "#f4d3a8"],
       curve: 'smooth',
-      width: [0.8, 0.8, 0.8, 2],
+      width: [0.8, 0.8, 0.8, 2.5, 2.5],
       // colors: BarBorderColors,
     },
     grid: {
@@ -220,9 +242,9 @@ const TripleBarGraph = ({
     },
     markers: {
       size: 6, 
-      colors: ['#b8ee30'], 
+      colors: ['#f4d3a8', '#b8ee30'],  
       strokeColor: 'black', 
-      strokeWidth: 0.5, 
+      strokeWidth:1, 
       hover: {
           size: 6, 
       }
@@ -246,18 +268,19 @@ const TripleBarGraph = ({
         fillColors: colors,  
       },
       y: {
-        formatter: function(value, { seriesIndex }) {
-          if (seriesIndex === 3) { 
-            return `${value}%`;  
+        formatter: function (value, { seriesIndex }) {
+          if (seriesIndex === 3 || seriesIndex === 4) {
+            return `${value}%`;
           }
           return value;
         },
       },
+      
     },
   };
 
   return (
-    <ReactApexChart options={options} series={series} type="line" height={440} />
+    <ReactApexChart options={options} series={series} type="line" height={355} />
   );
 };
 

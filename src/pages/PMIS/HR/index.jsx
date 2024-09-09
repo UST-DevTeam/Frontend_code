@@ -18,6 +18,7 @@ import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
 import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
 import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
+import TrendExpenseAdvance from "../ExpenseAdvanceGraph/TrendExpenseAdvance";
 
 const HRHomeView = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -33,7 +34,7 @@ const HRHomeView = () => {
   }, []);
   return (
     <>
-       <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto">
+       <div className="absolute w-full top-12 mt-12 h-20 z-10 bg-[#3e454d] overflow-auto">
         <CCDash
           showbtn={false}
           approveddata={[
@@ -110,14 +111,13 @@ const HRHomeView = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-2   lg:grid-cols-1 m-2 mt-20 gap-2">
-      {/* <ActiveEmpwithCostCenter /> */}
-      {/* <NewJoiningMonthly />
-      <MonthlyActiveTrend /> 
-      <MonthlyJoiningVsExit /> */}
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 gap-2">
-      {/* <WeeklyActiveEmpList /> */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
+      <NewJoiningMonthly />
+      <MonthlyActiveTrend />
+      <MonthlyJoiningVsExit />
+      <WeeklyActiveEmpList />
+      <ActiveEmpwithCostCenter />
+      <TrendExpenseAdvance />
       </div>
     </>
   );

@@ -88,6 +88,7 @@ const MonthlyActiveTrend = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphMonthlyActiveTrend());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

@@ -33,7 +33,7 @@ const ProjectChart = (id) => {
   // });
 
   let projectTypeList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectType.map((itm) => {
+    return state?.filterData?.getProjectProjectType?.map((itm) => {
       return {
         label: itm.projectType,
         value: itm.projectType,
@@ -102,7 +102,7 @@ const ProjectChart = (id) => {
       </div>
       </div>
 
-      <DountChart data={pieGraphData} label="Total Projects" />
+      <DountChart data={pieGraphData} label="Total Projects"/>
 
     </div>
 

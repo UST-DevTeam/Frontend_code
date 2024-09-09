@@ -414,6 +414,7 @@ const TrendPlanVSActualWorkdone = () => {
               cb={(data) => {
                 setSelectedView(data);
                 setExtraColumns(listDict[data.value]);
+                setSelectedMonths([]);
               }}
               placeholder="View As"
             />

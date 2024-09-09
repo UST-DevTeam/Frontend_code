@@ -109,6 +109,7 @@ const TrendExpenseAdvance = () => {
   const handleClear = () => {
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphTrendExpenseAdvance());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

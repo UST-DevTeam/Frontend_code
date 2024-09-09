@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
@@ -29,13 +29,26 @@ const HomeCards = () => {
   let dispatch = useDispatch();
 
   let navigate = useNavigate();
+  const { customeruniqueId } = useParams();
+  const [viewMoreGraphs, setViewMoreGraphs] = useState(2); 
+
+  const viewMore = () => {
+    setViewMoreGraphs((prev) => prev + 2); 
+  };
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
   }, []);
+
+  const graphs = [
+    ExpenseApprovalStatus,
+    AdvanceApprovalStatus,
+    MileStoneChart,
+  ];
+
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-16  z-10 bg-[#3e454d] overflow-auto ">
+      <div className="absolute w-full top-12 mt-12 h-20 z-10 bg-[#3e454d] overflow-auto ">
         <CCDash
           showbtn={false}
           approveddata={[
@@ -126,10 +139,25 @@ const HomeCards = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
         <MileStoneChart />
-        <TrendExpenseAdvance />
+        {/* <TrendExpenseAdvance /> */}
         <ExpenseApprovalStatus />
         <AdvanceApprovalStatus />
       </div>
+       {/* <div className="grid lg:grid-cols-2 m-2 gap-2">
+        {graphs.slice(0, viewMoreGraphs)?.map((AllGraphs, index) => (
+          <AllGraphs key={index} customeruniqueId={customeruniqueId} />
+        ))}
+        {viewMoreGraphs < graphs.length && (
+          <button
+          className="flex w-full justify-center rounded-lg py-1.5 text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+          focus-visible:outline-2 mr-4  focus-visible:outline-offset-2  buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+          duration-1000 ease-in-out hover:bg-[#ffab2d] hover:text-white bg-[#13b497] hover:border-[#FF6347] hover:border-[0.5px]"
+            onClick={viewMore} 
+          >
+            View More
+          </button>
+        )}
+      </div> */}
     </>
   );
 };

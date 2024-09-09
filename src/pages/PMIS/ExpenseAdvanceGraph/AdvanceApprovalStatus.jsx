@@ -94,6 +94,7 @@ const AdvanceApprovalStatus = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphAdvanceApprovalStatus());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
