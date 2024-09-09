@@ -25,14 +25,18 @@ const TripleBarGraph = ({
     ...(data2 || []),
     ...(data3 || []),
   )
-
-  max1 = Math.round(max1)
+  if (max1 % 500 !== 0) {
+    max1 = Math.ceil(max1 / 500) * 500;
+  }
 
   let max2 = Math.max(
     ...(data4 || [])
   )
+  if (max2 % 25 !== 0) {
+    max2 = Math.ceil(max2 /25) * 25;
+  }
 
-  max2 = Math.round(max2)
+  // max2 = Math.round(max2)
   const months = Array(12).fill(0);
 
   const category = data?.map((item) => item.description) || [];
@@ -113,45 +117,6 @@ const TripleBarGraph = ({
         },
       },
     },
-    // yaxis: [
-    //   {
-    //     title: {
-    //       text: YAxisTitle,
-    //       style: {
-    //         color: "#ffffff",
-    //         fontSize: "17px",
-    //         fontWeight: "bold",
-    //       },
-    //     },
-    //     labels: {
-    //       style: {
-    //         colors: "#ffffff",
-    //         fontSize: "9px",
-    //       },
-    //     },
-    //   },
-    //   {
-    //     opposite: true,
-    //     min:0,
-    //     // max:150,
-    //     title: {
-    //       text: YAxisSecondaryTitle,
-    //       style: {
-    //         color: "#ffffff",
-    //         fontSize: "17px",
-    //         fontWeight: "bold",
-    //       },
-    //     },
-    //     labels: {
-    //       style: {
-    //         colors: "#ffffff",
-    //         fontSize: "9px",
-    //       },
-    //       // formatter: (value) => `${value}%`,
-    //       formatter: (value) => `${value}`,
-    //     },
-    //   },
-    // ],
     yaxis: [
       {
         title: {
@@ -172,7 +137,8 @@ const TripleBarGraph = ({
           },
         },
         min:0,
-        max:max1
+        max:max1,
+        tickAmount: 5,
       }, 
       {
         labels: {
@@ -187,7 +153,7 @@ const TripleBarGraph = ({
           },
         },
         min:0,
-        max:max1
+        max:max1,
       }, 
       {
         labels: {
@@ -202,7 +168,7 @@ const TripleBarGraph = ({
           },
         },
         min:0,
-        max:max1
+        max:max1,
       }, 
       {
         opposite: true,
@@ -221,13 +187,14 @@ const TripleBarGraph = ({
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
         min:0,
-        max:max2
+        max:max2,
+        tickAmount: 5,
       }
     ],
 
     plotOptions: {
       bar: {
-        columnWidth: columnWidth,
+        columnWidth:columnWidth,
         horizontal: horizontal,
         borderRadius: 2,
         dataLabels: {

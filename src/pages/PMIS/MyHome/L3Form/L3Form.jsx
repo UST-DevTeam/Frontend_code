@@ -34,6 +34,7 @@ const L3Form = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [advanceRow, setAdvanceRow] = useState([]);
+  const [strValFil, setstrVal] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -563,14 +564,11 @@ const L3Form = () => {
 }
 
   const onSubmit = (data) => {
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getL3Data(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    dispatch(ExpenseAdvanceActions.getL3Data(value, strVal));
   };
-  console.log(
-    "amountamountamountamountamountamountamountamount======",
-    expensAmount
-  );
 
   
   useEffect(() => {
@@ -637,7 +635,7 @@ const L3Form = () => {
                 <Button
               classes="w-auto"
               onClick={(e) => {
-                dispatch(CommonActions.commondownload("/export/l3Approval","Export_L3Aprroval.xlsx"))
+                dispatch(CommonActions.commondownload("/export/l3Approval"+"?"+strValFil,"Export_L3Aprroval.xlsx"))
               }}
               name={"Export"}
             ></Button>

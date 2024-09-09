@@ -120,7 +120,6 @@ const AdvancedTable = ({
 
 
   const onSubmit = (formdata) => {
-    console.log('suuuuudud',formdata)
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,
@@ -240,34 +239,22 @@ const AdvancedTable = ({
               />
               <PopupMenu
                 name={"Hide/Unhide"}
-                // icon={<UilColumns size="32" className={"hello"} />}
-                icon={
-                  icon ? icon : <UilColumns size="32" className={"hello"} />
-                }
+                icon={icon ? icon : <UilColumns size="32" className={"hello"} />}
                 child={
                   <>
                     <div className="flex z-40 max-h-96 overflow-scroll flex-col">
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                            <div className="flex m-1 not">
+                            <div className="flex m-1">
                               <input
                                 type="checkbox"
                                 checked={hide.indexOf(String(index)) == -1}
                                 value={String(index)}
-                                className="not"
+                                // className="not"
                                 onChange={(e) => {
                                   setHide((prev) => {
-                                    // console.log(e.target.checked,prev,[e.target.value],e.target.value,"checkboxchecked")
-
-                                    // console.log(
-                                    //   e.target.checked,
-                                    //   e.target.value,
-                                    //   "e.target.checked"
-                                    // );
-                                    // alert("caller")
                                     if (!e.target.checked) {
-                                      //   alert("pusher")
                                       return [...prev, e.target.value];
                                     } else {
                                       let vle = prev.indexOf(e.target.value);
@@ -280,7 +267,7 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-[11px] not text-white mx-2 font-semibold">
+                              <span className="text-[11px]  text-white mx-2 font-semibold">
                                 {itts.name}
                               </span>
                             </div>
@@ -293,7 +280,6 @@ const AdvancedTable = ({
               />
 
               {headerButton}
-              {/* {headerButton} */}
               {templateButton ? (
                 <Button
                   name={"Template"}

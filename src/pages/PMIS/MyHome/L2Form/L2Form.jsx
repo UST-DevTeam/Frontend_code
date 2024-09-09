@@ -34,6 +34,7 @@ const L2Form = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [advanceRow, setAdvanceRow] = useState([]);
+  const [strValFil, setstrVal] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -567,14 +568,12 @@ const L2Form = () => {
 }
 
   const onSubmit = (data) => {
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getL2Data(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(ExpenseAdvanceActions.getL2Data(value, strVal));
   };
-  console.log(
-    "amountamountamountamountamountamountamountamount======",
-    expensAmount
-  );
 
   // useEffect(()=>{
   //   dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
@@ -643,7 +642,7 @@ const L2Form = () => {
                 <Button
               classes="w-auto"
               onClick={(e) => {
-                dispatch(CommonActions.commondownload("/export/l2Approval","Export_L2Aprroval.xlsx"))
+                dispatch(CommonActions.commondownload("/export/l2Approval"+"?"+strValFil,"Export_L2Aprroval.xlsx"))
               }}
               name={"Export"}
             ></Button>

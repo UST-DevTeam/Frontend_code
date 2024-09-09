@@ -43,6 +43,7 @@ const FinancialCards = () => {
           ["Revenue Management", "bg-pcol", "/financial/invoiceMgmt"],
           ["Workdone", "bg-pcol", "/financial/poWorkDone",],
           ["Unbilled", "bg-pcol", "/financial/unbilled"],
+  
         ].map((itm) => {
           return (
             <>
@@ -109,8 +110,8 @@ const FinancialCards = () => {
      <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
         {/* <PoStatusChart customeruniqueId = {customeruniqueId} /> */}
 
-        {/* <MonthRevenueTrend />
-        <MonthlyRevenueCircle />
+        <MonthRevenueTrend />
+        {/* <MonthlyRevenueCircle />
         <CumulativeTrendPlanVsActual /> */}
 
         {/* <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />

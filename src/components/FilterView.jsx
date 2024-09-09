@@ -44,8 +44,6 @@ const FilterView = ({
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => {
                   setValue(itm.name , '')
-                  console.log('itmitmitmitm',itm)
-
                   return (
                     <>
                       <div className="flex flex-col ">
@@ -129,17 +127,13 @@ const FilterView = ({
                                   : false,
                                 ...itm.props,
                               })}
-                              onChange={(e) => setValue(itm.name, e.target.value)}
+                              onChange={(e) => 
+                                setValue(itm.name, e.target.value)
+                              }
 
                               className=" bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               {...itm.props}
                             />
-                            {console.log(
-                              errors,
-                              itm.required,
-                              itm.name,itm.type,
-                              "errors?.itmvdvd?"
-                            )}
                             <p className="text-xs text-red-700">
                               {errors[itm.name]?.message}
                             </p>
@@ -148,11 +142,6 @@ const FilterView = ({
                         {itm.type == "datetime" && (
                           <>
                             <DatePicker
-                              // selected={getValues(itm.name)}
-                              // onChange={(date) => {
-                              //     setValue(itm.name,date)
-                              //     setSelectedDate(prev=>!prev)
-                              // }}
                               selectsRange
                               selected={
                                 getValues(itm.name)
@@ -163,32 +152,9 @@ const FilterView = ({
                                   : getValues(itm.name)
                               }
                               onChange={(date) => {
-                                console.log(
-                                  date,
-                                  getValues(itm.name),
-                                  "datedatedatedatedate"
-                                );
 
                                 let curr = moment(date);
-
-                                // console.log(curr.format(itm?.format),getValues(itm.name),itm?.format,"datedatedatedatedate")
                                 setValue(itm.name, date);
-                                console.log(
-                                  typeof date,
-                                  "datedatedatedatedate"
-                                );
-
-                                console.log(
-                                  getValues(itm.name)
-                                    ? moment(
-                                        getValues(itm.name),
-                                        itm?.formatop
-                                      ).toDate()
-                                    : getValues(itm.name),
-                                  "datedatedatedatedate"
-                                );
-
-                                // setSelectedDate(prev => !prev)
                               }}
                               // showTimeSelect={itm.formattype == "time" || itm.formattype == "datetime"}
                               // showTimeSelectOnly={itm.formattype == "time" || itm.formattype == "datetime"}

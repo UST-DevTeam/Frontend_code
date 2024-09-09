@@ -33,6 +33,7 @@ const L1Form = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [advanceRow, setAdvanceRow] = useState([]);
+  const [strValFil, setstrVal] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -629,10 +630,11 @@ const L1Form = () => {
 
 
   const onSubmit = (data) => {
-    // console.log('datadatadata',data)
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(ExpenseAdvanceActions?.getL1Data(value, strVal));
   };
 
   useEffect(() => {
@@ -687,7 +689,7 @@ const L1Form = () => {
               <Button
               classes="w-auto"
               onClick={(e) => {
-                dispatch(CommonActions.commondownload("/export/l1Approval","Export_L1Aprroval.xlsx"))
+                dispatch(CommonActions.commondownload("/export/l1Approval"+ "?"+ strValFil,"Export_L1Aprroval.xlsx"))
               }}
               name={"Export"}
             ></Button>

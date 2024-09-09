@@ -26,6 +26,7 @@ const AllocateProjectForm = ({
   resetting,
   formValue = {},
   projectuniqueId,
+  filtervalue,
 }) => {
   // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
@@ -71,8 +72,6 @@ const AllocateProjectForm = ({
         setOld(oldata);
       }
     }
-
-    console.log(oldata, "olddataolddataolddata");
     return oldata;
   });
 
@@ -127,7 +126,6 @@ const AllocateProjectForm = ({
   //   });
   // });
 
-  console.log(old, "dataGetterOlddataGetterOlddataGetterOld");
   let Form = [
     // {
     //   label: "Project Id",
@@ -226,17 +224,9 @@ const AllocateProjectForm = ({
   ];
   const onSubmit = (data) => {
     console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
   };
 
-
-  console.log(activeTab,"_________activeTabactiveTab")
-
-  console.log(errors, "dsadasdsadasdasdasdasdas");
   const onTableViewSubmit = (data) => {
-    console.log(formValue, data, "globalDataglobalDataglobalData");
 
 
     
@@ -334,7 +324,7 @@ const AllocateProjectForm = ({
         size={"xl"}
         children={<ManageSite />}
         isOpen={modalOpen}
-        setIsOpen={setmodalOpen}
+        setIsOpen={setmodalOpen}oedxrAQ
       /> */}
 
       <Modal

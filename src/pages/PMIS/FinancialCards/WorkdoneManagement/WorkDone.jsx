@@ -313,11 +313,11 @@ const WorkDone = () => {
         value: "subProject",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "SSID",
-      //   value: "systemId",
-      //   style: "min-w-[120px] max-w-[200px] text-center sticky left-[420px] bg-[#3e454d] z-10",
-      // },
+      {
+        name: "SSID",
+        value: "systemId",
+        style: "min-w-[120px] max-w-[200px] text-center bg-[#3e454d] z-10",
+      },
       {
         name: "Site ID",
         value: "Site Id",
@@ -592,7 +592,6 @@ const WorkDone = () => {
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    // console.info("page_data",data)
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
     // dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':year,'viewBy':month},() => {},strVal));
