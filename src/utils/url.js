@@ -175,6 +175,7 @@ export const Urls={
     graph_project_status:"/graph/projectStatus",
     graph_milestone_status:"/graph/milestoneStatus",
     graph_po_status:"/graph/poStatus",
+    graph_active_customer:"/graph/activeCustomer",
     graph_ms1_ms2_circleWise:"/graph/circlewiseMS1AndMs2",
     graph_organzation_level:"/graph/getorganationLevel",
     graph_all_project_type:"/graph/getAllprojectType",

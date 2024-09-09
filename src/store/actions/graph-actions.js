@@ -6,6 +6,7 @@ import {
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_MS1_AND_MS2_CIRCLEWISE,
     GET_GRAPH_ORG_LEVEL,
+    GET_TOTAL_ACTIVE_CUSTOMER,
     GET_GRAPH_ALL_PROJECT_TYPE,
     GET_GRAPH_PO_Tracking_WorkDone,
     GET_GRAPH_ACCRUAL_REVENUE_TREND,
@@ -129,6 +130,39 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_ALL_PROJECT_TYPE({dataAll,reset}))
         } catch (error) {
+        }
+    },
+
+    getGraphTotalActiveCustomer:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_active_customer}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_TOTAL_ACTIVE_CUSTOMER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphTotalActiveCustomer: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_active_customer })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_TOTAL_ACTIVE_CUSTOMER({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
 

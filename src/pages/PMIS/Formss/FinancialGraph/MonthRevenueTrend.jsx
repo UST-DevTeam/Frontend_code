@@ -53,6 +53,7 @@ const MonthRevenueTrend = () => {
   let data2 = GraphData?.map(item => item.pv) || []
   let data3 = GraphData?.map(item => item.amount) || []
   const SecondaryAxis = GraphData?.map(item => item.ach) || [];
+  const ThirdAxis = GraphData?.map(item => item.percentage) || [];
 
 
   const SeriesData = [
@@ -72,9 +73,14 @@ const MonthRevenueTrend = () => {
       data: data3,
   },
   {
-      name: "Acheievement(%)",
+      name: "Acheievement (%)",
       type: "line",
       data: SecondaryAxis,
+  },
+  {
+      name: "Acheievement (%)",
+      type: "line",
+      data: ThirdAxis,
   },
 ];
 
@@ -178,7 +184,7 @@ const MonthRevenueTrend = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { offset } from "highcharts";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnWidth="40%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#13b497"], }) => { 
+const BarGraph = ({ data, seriesData = [], height="440", horizontal = false, title="", columnWidth="40%", dataLabelSuffix="", XAxisTitle = "", YAxisTitle = "",  colors = ["#13b497"], }) => { 
     let category = data?.map(item => item.description) ||[];
 
     const defaultSeries = [
@@ -130,6 +130,6 @@ const BarGraph = ({ data, seriesData = [], horizontal = false, title="", columnW
         },
         },  
     };
-    return (<ReactApexChart options={options} series={series} type="bar" height={440} />)
+    return (<ReactApexChart options={options} series={series} type="bar" height={height} />)
 }
 export default BarGraph;

@@ -109,6 +109,7 @@ const [selectedMonths, setSelectedMonths] = useState([]);
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphExpenseApprovalStatus());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

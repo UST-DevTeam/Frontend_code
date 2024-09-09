@@ -120,20 +120,21 @@ const ActiveEmpwithCostCenter = () => {
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphActiveEmpWithCC || [];
   });
-  
 
+  const totalEmployees = GraphData.length > 0 ? GraphData[0]?.total || 0 : 0;
+  
   useEffect(() => {
     dispatch(GraphActions.getGraphActiveEmpwithCostCenter());
     dispatch(GraphActions.getGraphOrganizationLevel());
   }, []);
 
-
+  useEffect(() => {
+  }, [GraphData]);
 
   const handleFilter = () => {
     const filterData = {
       orgLevel: selectedOrglevel?.map((item) => item.value) || [],
     };
-
     dispatch(
       GraphActions.postGraphActiveEmpwithCostCenter(
         { orgLevel: filterData.orgLevel},
@@ -151,8 +152,14 @@ const ActiveEmpwithCostCenter = () => {
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md w-auto p-4">
-      <div className="text-center mb-4">
+        <div className="w-full flex justify-between items-center">
+          <div className="flex">
+            <p className="text-[#f4d3a8] font-semibold whitespace-nowrap px-1">Total Employee: </p>
+            <p className="text-[#E6BE8A] font-bold">{totalEmployees}</p>
+          </div>
+          <div className="text-center flex-1 mr-32">
             <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Airtel Active Employee</h1>
+          </div>
         </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">

@@ -134,10 +134,7 @@ let ORGLevelList = useSelector((state) => {
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
     dispatch(
-      GraphActions.getGraphMonthlyJoiningVsExit(
-        { month: exportData.current.join(",") },
-        () => {}
-      )
+      GraphActions.getGraphMonthlyJoiningVsExit()
     );
   };
 
@@ -174,6 +171,7 @@ let ORGLevelList = useSelector((state) => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

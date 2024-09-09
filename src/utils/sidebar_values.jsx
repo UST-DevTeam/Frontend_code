@@ -135,6 +135,10 @@ import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
 import MyTask from "../pages/PMIS/MyTask/MyTask";
 import SOB from "../pages/PMIS/Formss/SOB/SOB";
 import AccuralRevenueMaster from "../pages/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
+import MonthRevenueTrend from "../pages/PMIS/Formss/FinancialGraph/MonthRevenueTrend";
+import MonthlyRevenueCircle from "../pages/PMIS/Formss/FinancialGraph/MonthlyRevenueCircle";
+import CumulativeTrendPlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
+import MS1AndMS2CircleWise from "../pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -246,6 +250,12 @@ export const Sidebar_content = {
       link: "/dashboard/:cname/:customeruniqueId",
       subMenu: [],
       component: <Dashboard1 />,
+    },
+    {
+      name: "",
+      link: "/projectManagement/:cname/:customeruniqueId",
+      subMenu: [],
+      component: <ManageProjectType />,
     },
     {
       name: "",

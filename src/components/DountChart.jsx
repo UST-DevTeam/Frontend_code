@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DountChart = ({ data , label=""}) => {
+const DountChart = ({ data , label="", DonutHeight="250"}) => {
 
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || [] 
@@ -41,7 +41,7 @@ const DountChart = ({ data , label=""}) => {
     plotOptions: {
       pie: {
         donut: {
-          size:'70%',
+          size:'65%',
           labels: { 
             show: true,
             total: {
@@ -65,7 +65,7 @@ const DountChart = ({ data , label=""}) => {
     dataLabels: {
       enabled: true,
         style: {
-        fontSize: '16px',
+        fontSize: '12px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 'bold',
         colors: ['#fff']
@@ -110,7 +110,7 @@ const DountChart = ({ data , label=""}) => {
         options={options}
         type="donut"
         series={options.series}
-        height="250"
+        height= {DonutHeight}
       />
   );
 };

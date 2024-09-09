@@ -168,8 +168,6 @@ const NewJoiningMonthly = () => {
     return state?.GraphData?.getGraphNewJoiningMonthly || [];
   });
 
-  console.log('GraphData:', GraphData);
-
 
   useEffect(() => {
     // dispatch(AdminActions.getManageDepartment());
@@ -213,6 +211,7 @@ const NewJoiningMonthly = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
     setSelectedMonths([]);
+    dispatch(GraphActions.getGraphNewJoiningMonthly());
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({

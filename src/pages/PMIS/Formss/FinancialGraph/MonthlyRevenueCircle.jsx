@@ -60,6 +60,7 @@ const [selectedCircle, setSelectedCircle] = useState([]);
   let data3 = GraphData?.map(item => item.amount) || []
 
   const SecondaryAxis = GraphData?.map(item => item.ach) || [];
+  const ThirdAxis = GraphData?.map(item => item.percentage) || [];
 
 
 
@@ -87,6 +88,12 @@ const [selectedCircle, setSelectedCircle] = useState([]);
         name: "Acheievement(%)",
         type: "line",
         data: SecondaryAxis,
+        yaxisIndex: 1
+    },
+    {
+        name: "Acheievement (%)",
+        type: "line",
+        data: ThirdAxis,
         yaxisIndex: 1
     },
 ];
@@ -193,7 +200,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} horizontal={false}  data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} horizontal={false}  data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
     </div>
   );
 };
