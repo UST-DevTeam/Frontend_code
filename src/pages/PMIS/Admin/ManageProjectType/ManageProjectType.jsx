@@ -58,20 +58,7 @@ const   ManageProjectType = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const [modalSize, setmodalSize] = useState("full");
   const [uniqueness, setUniqueness] = useState("");
-
   const [listing, setlisting] = useState([]);
-
-  // setconditioncountform((prev) => {
-  //     let val = [...prev]
-  //     let sval = val.pop()
-  //     if (isNaN(sval)) {
-  //       finval = 1
-  //     } else {
-  //       finval = sval + 1
-  //     }
-  //     console.log(finval, "finval", val, prev)
-  //     return [...prev, finval]
-  //   })
 
   let dispatch = useDispatch();
 

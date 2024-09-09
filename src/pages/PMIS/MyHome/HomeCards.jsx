@@ -1,24 +1,12 @@
-// According to Shashank Srivastava code for changing theme of cards:
-
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate, useParams } from "react-router-dom";
-
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
-import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
-import ProjectChart from "../Dashboard1/ProjectChart";
-import MS1AndMS2CircleWise from "../Dashboard1/MS1AndMS2CircleWise";
-import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
-import ActiveEmpwithCostCenter from "../HRGraph/ActiveEmpwithCostCenter";
-import NewJoiningMonthly from "../HRGraph/NewJoiningMonthly";
-import MonthlyActiveTrend from "../HRGraph/MonthlyActiveTrend";
-import MonthlyJoiningVsExit from "../HRGraph/MonthlyJoiningVsExit";
-import WeeklyActiveEmpList from "../HRGraph/WeeklyActiveEmpList";
 import MileStoneChart from "../Dashboard1/MileStoneChart";
 import ExpenseApprovalStatus from "../ExpenseAdvanceGraph/ExpenseApprovalStatus";
 import AdvanceApprovalStatus from "../ExpenseAdvanceGraph/AdvanceApprovalStatus";
@@ -46,9 +34,27 @@ const HomeCards = () => {
     MileStoneChart,
   ];
 
+  let showType1 = getAccessType("MS Status(Graph)")
+  let showType2 = getAccessType("Expanse Approval Status(Graph)")
+  let showType3 = getAccessType("Advance Approval Status(Graph)")
+
+  let graph1 = false
+  let graph2 = false
+  let graph3 = false
+
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+  if (showType2 === "visible"){
+    graph2 = true
+  }
+  if (showType3 === "visible"){
+    graph3 = true
+  }
+
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-20 z-10 bg-[#3e454d] overflow-auto ">
+      <div className="absolute w-full top-6 mt-12 h-18 z-10 bg-[#3e454d] overflow-auto ">
         <CCDash
           showbtn={false}
           approveddata={[
@@ -137,11 +143,11 @@ const HomeCards = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
-        <MileStoneChart />
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-24 gap-2">
+        {graph1 && <MileStoneChart />}
         {/* <TrendExpenseAdvance /> */}
-        <ExpenseApprovalStatus />
-        <AdvanceApprovalStatus />
+        {graph2 && <ExpenseApprovalStatus />}
+        {graph3 && <AdvanceApprovalStatus />}
       </div>
        {/* <div className="grid lg:grid-cols-2 m-2 gap-2">
         {graphs.slice(0, viewMoreGraphs)?.map((AllGraphs, index) => (

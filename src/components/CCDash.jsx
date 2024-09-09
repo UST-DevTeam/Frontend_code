@@ -38,73 +38,104 @@ const CCDash = ({
   const navigate = useNavigate();
   const [selectedCard, setSelectedCard] = useState(null);
 
-  // let data = [
-  //     ["bg-", "bg-[#143b64]"],
-  //     ["w-", "w-full"]
-  // ]
 
-  // let tkn = 1
-  // let value = ""
+  let showType1 = getAccessType("Circle Plan VS Actual Work Done(Graph)")
+  let showType2 = getAccessType("Cumulative Plan Vs Actual Work Done(Graph)")
+  let showType3 = getAccessType("Trend Plan VS Actual Work Done(Graph)")
+  let showType4 = getAccessType("MS1-MS2 Report(Graph)")
+  let showType5 = getAccessType("RFAI VS MS1 Reason(Graph)")
+  let showType6 = getAccessType("MS1 VS MS2 Reason(Graph)")
+  let showType7 = getAccessType("MS2 Vs WCC Pending Reason(Graph)")
+  let showType8 = getAccessType("Pendency Bucket- MS2 Aging(Graph)")
+  let showType9 = getAccessType("SOB(Graph)")
 
-  // data.map((itm) => {
-  //     if (classes.search(itm[0]) == -1) {
-  //         value = value + " " + itm[1]
-  //     }
-  // })
 
-  // classes = classes + value
+  let graph1 = false
+  let graph2 = false
+  let graph3 = false
+  let graph4 = false
+  let graph5 = false
+  let graph6 = false
+  let graph7 = false
+  let graph8 = false
+  let graph9 = false
+
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+  if (showType2 === "visible"){
+    graph2 = true
+  }
+  if (showType3 === "visible"){
+    graph3 = true
+  }
+  if (showType4 === "visible"){
+    graph4 = true
+  }
+  if (showType5 === "visible"){
+    graph5 = true
+  }
+  if (showType6 === "visible"){
+    graph6 = true
+  }
+  if (showType7 === "visible"){
+    graph7 = true
+  }
+  if (showType8 === "visible"){
+    graph8 = true
+  }
+  if (showType9 === "visible"){
+    graph9 = true
+  }
+
+
 
   const cardData = [
-    {
+    ...(graph1 ? [{
       icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
       title: "Circle - Plan VS Actual Work Done",
       component: <CirclePlanVSActualWorkdone />,
-    },
-    {
+    }] : []),
+    ...(graph2 ?[{
       icon: <UilComparison className="text-[#13b497] w-28 h-28" />,
       title: "Cumulative - Plan VS Actual Work Done",
       component: <CumulativeWorkdonePlanVsActual />, 
-    },
-    {
+    }] : []),
+    ...(graph3 ?[{
       icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
       title: "Trend - Plan VS Actual Work Done",
       component: <TrendPlanVSActualWorkdone />,
-    },
-    {
+    }] : []),
+    ...(graph4 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
       title: "MS1 / MS2 Report",
       component: <MS1AndMS2CircleWise />,
-    },
-    {
-      icon: <UilVerticalAlignBottom className="text-[#13b497] w-28 h-28" />,
-      title: "Total Active Customer",
-      component: <TotalActiveCustomer />,
-    },
-    {
+    }] : []),
+    ...(graph5 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
       title: "RFAI VS MS1 Reason",
     //   component: <TotalActiveCustomer />,
-    },
-    {
+    }] : []),
+    ...(graph6 ?[{
       icon: <UilChartPieAlt className="text-[#13b497] w-28 h-28" />,
       title: "MS1 VS MS2 Reason",
     //   component: <TotalActiveCustomer />,
-    },
-    {
+    }] : []),
+    ...(graph7 ?[{
       icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
       title: "MS2 Vs WCC Pending Reason",
     //   component: <TotalActiveCustomer />,
-    },
-    {
+    }] : []),
+    ...(graph8 ?[{
       icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
       title: "Pendency Bucket- MS2 Aging",
     //   component: <TotalActiveCustomer />,
-    },
-    {
+    }] : []),
+    ...(graph9 ?[{
       icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
       title: "SOB",
     //   component: <TotalActiveCustomer />,
-    },
+    }] : []),
   ];
 
   const handleCardClick = (index) => {

@@ -37,6 +37,17 @@ const ManageCustomer = () => {
 
   let navigate = useNavigate();
 
+  let showType1 = getAccessType("Total Active Projects(Graph)")
+  let showType2 = getAccessType("Total Active Customers(Graph)")
+  let graph1 = false
+  let graph2 = false
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+  if (showType2 === "visible"){
+    graph2 = true
+  }
+
   const currentDate = new Date();
   const dt = currentDate
     .toLocaleDateString("en-GB", {
@@ -325,8 +336,8 @@ const ManageCustomer = () => {
       />
       </div>
       <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
-      <ProjectChart />
-      <TotalActiveCustomer />
+      {graph1 && <ProjectChart />}
+      {graph2 && <TotalActiveCustomer />}
       </div>
     </>
   );

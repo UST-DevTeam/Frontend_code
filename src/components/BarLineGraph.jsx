@@ -19,14 +19,19 @@ const BarLineGraph = ({ data,
     ...(data1 || []),
     ...(data2 || []),
   )
+  if (max1 % 500 !== 0) {
+    max1 = Math.ceil(max1 / 500) * 500;
+  }
 
-  max1 = Math.round(max1)
+
 
   let max2 = Math.max(
     ...(data3 || [])
   )
 
-  max2 = Math.round(max2)
+  if (max2 % 25 !== 0) {
+    max2 = Math.ceil(max2 /25) * 25;
+  }
 
     const category = data?.map(item => item.description);
 
@@ -131,7 +136,8 @@ const BarLineGraph = ({ data,
                 },
               },
               min:0,
-              max:max1
+              max:max1,
+              tickAmount:5,
             }, 
             {
               labels: {
@@ -165,7 +171,8 @@ const BarLineGraph = ({ data,
                 formatter: function (val) {return `${val.toFixed(0)}%`;},
               },
               min:0,
-              max:max2
+              max:max2,
+              tickAmount:5,
             }
           ],
         plotOptions: {

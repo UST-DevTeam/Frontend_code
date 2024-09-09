@@ -67,7 +67,7 @@ const BreadCrumbs = () => {
     },
     "home":{
       "name":"My Home",
-      "url":"/home"
+      "url":"/"
     },
     "hr":{
       "name":"Human Resource",
