@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -323,6 +326,20 @@ const L3Form = () => {
         value: "projectIdName",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+      ...(!hide
+        ? []
+        : [
+          {
+            name: "Site ID",
+            value: "Site_Id",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Task Name",
+            value: "Task",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          ]),
       {
         name: "Employee Name",
         value: "empName",
@@ -473,6 +490,12 @@ const L3Form = () => {
         name: "empName",
         props: {},
       },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
     ],
   };
 
@@ -567,7 +590,7 @@ const L3Form = () => {
     let shouldReset = data.reseter;
     delete data.reseter;
     let strVal = objectToQueryString(data);
-    dispatch(ExpenseAdvanceActions.getL3Data(value, strVal));
+    dispatch(ExpenseAdvanceActions.getL3Data(true, strVal));
   };
 
   

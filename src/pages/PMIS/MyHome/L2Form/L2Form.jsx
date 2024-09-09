@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -321,6 +324,20 @@ const L2Form = () => {
         value: "projectIdName",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+      ...(!hide
+        ? []
+        : [
+          {
+            name: "Site ID",
+            value: "Site_Id",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Task Name",
+            value: "Task",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          ]),
       {
         name: "Employee Name",
         value: "empName",
@@ -477,6 +494,12 @@ const L2Form = () => {
         name: "empName",
         props: {},
       },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
     ],
   };
 
@@ -572,7 +595,7 @@ const L2Form = () => {
     delete data.reseter;
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
-    dispatch(ExpenseAdvanceActions.getL2Data(value, strVal));
+    dispatch(ExpenseAdvanceActions.getL2Data(true, strVal));
   };
 
   // useEffect(()=>{

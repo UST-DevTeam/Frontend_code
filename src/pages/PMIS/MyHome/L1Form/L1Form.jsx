@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -335,6 +338,20 @@ const L1Form = () => {
         value: "projectIdName",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+            ...(!hide
+        ? []
+        : [
+          {
+            name: "Site ID",
+            value: "Site_Id",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
+            name: "Task Name",
+            value: "Task",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          ]),
       {
         name: "Employee Name",
         value: "empName",
@@ -526,6 +543,12 @@ const L1Form = () => {
         name: "empName",
         props: {},
       },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
     ],
   };
   // const onSubmit = (data) => {
@@ -540,7 +563,7 @@ const L1Form = () => {
     let value = data.reseter;
     delete data.reseter;
     dispatch(
-      ExpenseAdvanceActions?.getL1Data(value, objectToQueryString(data))
+      ExpenseAdvanceActions?.getL1Data(true, objectToQueryString(data))
     );
   };
 
@@ -634,7 +657,7 @@ const L1Form = () => {
     delete data.reseter;
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
-    dispatch(ExpenseAdvanceActions?.getL1Data(value, strVal));
+    dispatch(ExpenseAdvanceActions?.getL1Data(true, strVal));
   };
 
   useEffect(() => {
@@ -873,3 +896,4 @@ const L1Form = () => {
 };
 
 export default L1Form;
+

@@ -367,12 +367,11 @@ const L2AdvanceForm = () => {
         // }
       },
       {
-        label: "EMP Name",
+        label: "Employee Code",
         type: "text",
-        name: "empName",
-        props: {
-        }
-    },
+        name: "empCode",
+        props: {},
+      },
     ],
   };
 
