@@ -368,6 +368,12 @@ const L3AdvanceForm = () => {
         // props: {
         // }
       },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
     ],
   };
 

@@ -366,6 +366,12 @@ const L2AdvanceForm = () => {
         // props: {
         // }
       },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
     ],
   };
 

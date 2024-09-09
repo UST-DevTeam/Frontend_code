@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +37,7 @@ const L2Form = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [advanceRow, setAdvanceRow] = useState([]);
+  const [strValFil, setstrVal] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -484,6 +488,18 @@ const L2Form = () => {
         // props: {
         // }
       },
+      {
+        label: "Employee Name",
+        type: "text",
+        name: "empName",
+        props: {},
+      },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
     ],
   };
 
@@ -575,14 +591,12 @@ const L2Form = () => {
 }
 
   const onSubmit = (data) => {
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getL2Data(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(ExpenseAdvanceActions.getL2Data(true, strVal));
   };
-  console.log(
-    "amountamountamountamountamountamountamountamount======",
-    expensAmount
-  );
 
   // useEffect(()=>{
   //   dispatch(CLEAR_GET_CLAIM_AND_ADVANCE())
@@ -648,6 +662,13 @@ const L2Form = () => {
                   }}
                   name="Approve"
                 />
+                <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/l2Approval"+"?"+strValFil,"Export_L2Aprroval.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
               </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {

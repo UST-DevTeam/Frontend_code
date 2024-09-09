@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +37,7 @@ const L3Form = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [advanceRow, setAdvanceRow] = useState([]);
+  const [strValFil, setstrVal] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -336,7 +340,6 @@ const L3Form = () => {
             style: "min-w-[170px] max-w-[450px] text-center",
           },
           ]),
-      
       {
         name: "Employee Name",
         value: "empName",
@@ -473,13 +476,25 @@ const L3Form = () => {
           { label: "Submitted", value: "Submitted" },
           { label: "L1-Approved", value: "L1-Approved" },
           { label: "L1-Rejected", value: "L1-Rejected" },
-          { label: "L3-Approved", value: "L3-Approved" },
-          { label: "L3-Rejected", value: "L3-Rejected" },
+          { label: "L2-Approved", value: "L2-Approved" },
+          { label: "L2-Rejected", value: "L2-Rejected" },
           { label: "L3-Approved", value: "L3-Approved" },
           { label: "L3-Rejected", value: "L3-Rejected" },
         ],
         // props: {
         // }
+      },
+      {
+        label: "Employee Name",
+        type: "text",
+        name: "empName",
+        props: {},
+      },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
       },
     ],
   };
@@ -572,14 +587,11 @@ const L3Form = () => {
 }
 
   const onSubmit = (data) => {
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getL3Data(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    dispatch(ExpenseAdvanceActions.getL3Data(true, strVal));
   };
-  console.log(
-    "amountamountamountamountamountamountamountamount======",
-    expensAmount
-  );
 
   
   useEffect(() => {
@@ -643,6 +655,13 @@ const L3Form = () => {
                   }}
                   name="Approve"
                 />
+                <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/l3Approval"+"?"+strValFil,"Export_L3Aprroval.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
               </div>
 
             {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {

@@ -23,14 +23,14 @@ const FilterView = ({
         handleSubmit(onSubmit)();
       }
     };
-
+    
     document.addEventListener("keypress", handleEnterKey);
     return () => {
       document.removeEventListener("keypress", handleEnterKey);
     };
   }, []);
 
-  console.log('tablefilter.lengthtablefilter.lengthtablefilter.length',tablefilter.length)
+  console.log('handleSubmithandleSubmit',handleSubmit,'bjkjvghjkl',)
   return ( 
     <>
       {tablefilter.length > 0 && (
@@ -43,6 +43,7 @@ const FilterView = ({
             <>
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => {
+                  console.log('tablefilterlengthtablefilterlengthtablefilterlength',itm)
                   setValue(itm.name , '')
                   // console.log('itmitmitmitm',itm)
 
@@ -83,7 +84,7 @@ const FilterView = ({
                           {console.log(
                               errors[itm.name],
                               itm.required,
-                              "errors?.itm?"
+                              "errors?.itm?dggd"
                             )}
                             <p className="text-xs text-red-700">
                               {errors[itm.name]?.message}
