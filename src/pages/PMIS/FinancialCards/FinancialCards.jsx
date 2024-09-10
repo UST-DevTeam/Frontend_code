@@ -33,6 +33,9 @@ const FinancialCards = () => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
     // dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
   }, []);
+
+
+
   return (
     <>
     <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
@@ -112,8 +115,8 @@ const FinancialCards = () => {
         <MonthRevenueTrend />
         <MonthlyRevenueCircle />
         <CumulativeTrendPlanVsActual />
-        <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />
-        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
+        <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
+        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
       </div>
     </>
   );

@@ -13,6 +13,7 @@ import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
 import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
+import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 
 const InvoiceMgmt = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -26,6 +27,27 @@ const InvoiceMgmt = () => {
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
   }, []);
+
+  let showType1 = getAccessType("Trend- Revenue Plan Vs Actual(Graph)")
+  let showType2 = getAccessType("Circle- Revenue Plan VS Actual(Graph)")
+  let showType3 = getAccessType("Revenue Plan VS Actual Cumulative(Graph)")
+
+  let graph1 = false
+  let graph2 = false
+  let graph3 = false
+
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+  if (showType2 === "visible"){
+    graph2 = true
+  }
+  if (showType3 === "visible"){
+    graph3 = true
+  }
+
+
+
   return (
     <>
       <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
@@ -98,20 +120,9 @@ const InvoiceMgmt = () => {
       />
       </div>
       <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
-      {/* <MonthRevenueTrend />
-      <MonthlyRevenueCircle />
-      <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
-
-      
-      {/* <ProjectChart />
-      <ClaimAndAdvanceChart /> */}
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart /> */}
-
-
-
+        {graph1 && <MonthRevenueTrend />}
+        {graph2 && <MonthlyRevenueCircle />}
+        {graph3 && <CumulativeTrendPlanVsActual />}
       </div>
     </>
   );

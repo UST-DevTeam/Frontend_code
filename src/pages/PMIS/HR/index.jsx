@@ -26,8 +26,49 @@ const HRHomeView = () => {
   const [type, settype] = useState(false);
   // const [modalHead, setmodalHead] = useState(<></>)
   let dispatch = useDispatch();
-
   let navigate = useNavigate();
+
+  let showType1 = getAccessType("Monthly New Joining(Graph)")
+  let showType2 = getAccessType("Monthly Active Trend(Graph)")
+  let showType3 = getAccessType("Monthly Joining Vs Exit(Graph)")
+  let showType4 = getAccessType("Weekly Active Employee(Graph)")
+  let showType5 = getAccessType("Airtel Active Employee(Graph)")
+  let showType6 = getAccessType("Trend Exp Advance(Graph)")
+
+
+  let graph1 = false
+  let graph2 = false
+  let graph3 = false
+  let graph4 = false
+  let graph5 = false
+  let graph6 = false
+
+
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+  if (showType2 === "visible"){
+    graph2 = true
+  }
+  if (showType3 === "visible"){
+    graph3 = true
+  }
+  if (showType4 === "visible"){
+    graph4 = true
+  }
+  if (showType5 === "visible"){
+    graph5 = true
+  }
+  if (showType6 === "visible"){
+    graph6 = true
+  }
+
+
+
+
+
+
+
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("HR", "/hr", 0, true));
@@ -112,12 +153,12 @@ const HRHomeView = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
-      {/* <NewJoiningMonthly />
-      <MonthlyActiveTrend />
-      <MonthlyJoiningVsExit />
-      <WeeklyActiveEmpList />
-      <ActiveEmpwithCostCenter />
-      <TrendExpenseAdvance /> */}
+      {graph1 && <NewJoiningMonthly />}
+      {graph2 && <MonthlyActiveTrend />}
+      {graph3 && <MonthlyJoiningVsExit />}
+      {graph4 && <WeeklyActiveEmpList />}
+      {graph5 && <ActiveEmpwithCostCenter />}
+      {graph6 && <TrendExpenseAdvance />}
       </div>
     </>
   );

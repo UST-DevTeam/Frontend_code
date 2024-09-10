@@ -27,6 +27,17 @@ const VendorCards = () => {
     dispatch(ComponentActions.breadcrumb("Vendor", "/vendor", 0, true));
   }, []);
 
+  let showType1 = getAccessType("Total Partners(Graph)")
+
+  let graph1 = false
+
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+
+
+
+
   return (
     <>
       <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
@@ -101,7 +112,7 @@ const VendorCards = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
-        {/* <VendorActiveInactive /> */}
+        {graph1 && <VendorActiveInactive />}
       </div>
     </>
   );

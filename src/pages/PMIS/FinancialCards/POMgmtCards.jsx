@@ -25,6 +25,21 @@ const POMgmtCards = () => {
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
   }, []);
+
+  let showType1 = getAccessType("PO Status(Graph)")
+  let showType2 = getAccessType("PO Item Code Work Done(Graph)")
+
+  let graph1 = false
+  let graph2 = false
+
+  if (showType1 === "visible"){
+    graph1 = true
+  }
+  if (showType2 === "visible"){
+    graph2 = true
+  }
+
+
   return (
     <>
      <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
@@ -98,14 +113,8 @@ const POMgmtCards = () => {
      </div>
      <div className="grid lg:grid-cols-2 m-2 mt-20 gap-2">
 
-      {/* <ProjectChart />
-      <ClaimAndAdvanceChart /> */}
-      {/* <MileStoneChart />
-      <PoStatusChart />
-      <PoTrackingWorkdoneChart />
-      <AccrualRevenueTrendChart /> */}
-      {/* <PoStatusChart customeruniqueId = {customeruniqueId} />
-      <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
+      {graph1 && <PoStatusChart  />}
+      {graph2 && <PoTrackingWorkdoneChart />}
 
       </div>
     </>
