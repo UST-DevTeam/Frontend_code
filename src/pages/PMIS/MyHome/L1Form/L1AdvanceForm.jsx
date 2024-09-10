@@ -238,6 +238,11 @@ const L1AdvanceForm = () => {
             style: "min-w-[170px] max-w-[450px] text-center",
           },
           {
+            name: "UST Code",
+            value: "ustCode",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
             name: "Designation",
             value: "designation",
             style: "min-w-[170px] max-w-[450px] text-center",
@@ -310,10 +315,10 @@ const L1AdvanceForm = () => {
                     { "label":"Submitted", "value":"Submitted" },
                     { "label":"L1-Approved", "value":"L1-Approved" },
                     { "label":"L1-Rejected", "value":"L1-Rejected" },
-                    { "label":"L2-Approved", "value":"L2-Approved" },
-                    { "label":"L2-Rejected", "value":"L2-Rejected" },
-                    { "label":"L3-Approved", "value":"L3-Approved" },
-                    { "label":"L3-Rejected", "value":"L3-Rejected" },
+                    // { "label":"L2-Approved", "value":"L2-Approved" },
+                    // { "label":"L2-Rejected", "value":"L2-Rejected" },
+                    // { "label":"L3-Approved", "value":"L3-Approved" },
+                    // { "label":"L3-Rejected", "value":"L3-Rejected" },
                 ],
                 // props: {
                 // }
@@ -421,7 +426,13 @@ const L1AdvanceForm = () => {
                   }}
                   name="Approve"
                 />
-                
+                <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/Advance/l1Approval","Export__Advance_L2Aprroval.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
               </div>
                 
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
