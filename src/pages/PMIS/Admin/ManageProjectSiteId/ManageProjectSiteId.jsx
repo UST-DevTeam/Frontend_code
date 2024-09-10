@@ -39,6 +39,7 @@ import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/
 import FilterActions from "../../../../store/actions/filter-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
+import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectList-reducer";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -1210,14 +1211,8 @@ const ManageProjectSiteId = () => {
               onClick={(e) => {
                 if (childsite.length > 0) {
                   setmodalOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
-
-                  dispatch(
-                    projectListActions.getUserAllocatedProject(
-                      true,
-                      projectuniqueId
-                    )
-                  );
+                  dispatch(GET_USER_ALLLOCATED_PROJECT({dataAll:[],reset:true}))
+                  dispatch(projectListActions.getUserAllocatedProject(true,projectuniqueId));
                   setmodalHead("Allocate Task");
                   setmodalBody(
                     <AllocateProjectForm
@@ -1229,6 +1224,7 @@ const ManageProjectSiteId = () => {
                       resetting={false}
                       formValue={{}}
                       filtervalue = {strValFil}
+                      checkbox = {setchildsite}
                     />
                   );
                 } else {
@@ -1237,7 +1233,7 @@ const ManageProjectSiteId = () => {
                     icon: "error",
                     buttons: [],
                     type: 1,
-                    text: "Please Select at least one site for bulk allocate",
+                    text: "Please Select at least one Task for bulk allocate",
                   };
                   dispatch(ALERTS(msgdata));
                 }

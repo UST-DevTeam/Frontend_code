@@ -1,9 +1,9 @@
 import React from 'react';
 import { moreinfo } from '../utils/commonFunnction';
 
-const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=10000 }) => {
+const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100 }) => {
     
-    if (value?.length > ctt) {
+    if (value?.length > 100) {
         return <>
             <div class="">
                 <div class="group flex flex-col relative items-center w-full">

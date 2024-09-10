@@ -27,13 +27,8 @@ const AllocateProjectForm = ({
   formValue = {},
   projectuniqueId,
   filtervalue,
+  checkbox
 }) => {
-  // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
-  // console.log(isOpen,"isOpen")
-  // console.log(setIsOpen,"setIsOpen")
-  // console.log(resetting,"resetting")
-  // console.log(formValue,"formValue")
 
   const {
     register,
@@ -48,9 +43,7 @@ const AllocateProjectForm = ({
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [activeTab, setactiveTab] = useState(3);
-
   const [modalFullBody, setmodalFullBody] = useState(<></>);
-
   const [modalBody, setmodalBody] = useState(<></>);
   const [SiteId, setSiteId] = useState("Add");
   const [mile, setMile] = useState("Add");
@@ -75,74 +68,8 @@ const AllocateProjectForm = ({
     return oldata;
   });
 
-  //   let employeeList = useSelector((state) => {
-  //     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-  //         return {
-  //           label: itm?.empName + "(" + itm.empCode + ")",
-  //           value: itm?.empName + " " + itm.empCode
-  //         }
-  //     })
-  // })
-
-  //   let roleList = useSelector((state) => {
-  //     return state?.adminData?.getManageProfile.map((itm) => {
-  //         return {
-  //             label: itm?.roleName,
-  //             value: itm?.roleName
-  //         }
-  //     })
-  // })
-
-  // let projectTypeList = useSelector((state) => {
-  //   return state?.adminData?.getCardProjectType.map((itm) => {
-
-  //   //   if (projectTypeList === "project[uniqueId]") {
-  //   //     const ProjectTypeValue = "projectType";
-  //   //     setValue("projectType", ProjectTypeValue);
-  //   //   }
-  //   //   else
-  //     return {
-  //       label: itm.projectType,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
-
-  // let SubProjectList = useSelector((state) => {
-  //     return state?.adminData?.getManageSubProject.map((itm) => {
-  //         return {
-  //             label: itm.subProject,
-  //             value: itm.subProject
-  //         }
-  //     })
-  // })
-
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm.circleName,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
 
   let Form = [
-    // {
-    //   label: "Project Id",
-    //   name: "ptypeId",
-    //   type: "sdisabled",
-    //   value: "",
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Milestone Name",
-    //   name: "mileName",
-    //   type: "sdisabled",
-    //   value: "",
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
     {
       label: "Assign User",
       name: "userId",
@@ -175,22 +102,6 @@ const AllocateProjectForm = ({
   ];
 
   let VendorForm = [
-    // {
-    //   label: "Project Id",
-    //   name: "ptypeId",
-    //   type: "sdisabled",
-    //   value: "",
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Milestone Name",
-    //   name: "mileName",
-    //   type: "sdisabled",
-    //   value: "",
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
     {
       label: "Assign Vendor",
       name: "vendorId",
@@ -256,13 +167,12 @@ const AllocateProjectForm = ({
       };
 
       dispatch(
-        projectListActions.globalProjectTypeDataPatch(
-          Urls.projectList_globalSaver,
-          projectuniqueId,
-          finaldata,
+        projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver,projectuniqueId,finaldata,
           () => {
-            dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+            dispatch(projectListActions.getProjectTypeAll(projectuniqueId,filtervalue));
             setIsOpen(false);
+            checkbox([]);
+
           }
         )
       );
@@ -284,48 +194,18 @@ const AllocateProjectForm = ({
           projectuniqueId,
           finaldata,
           () => {
-            dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+            dispatch(projectListActions.getProjectTypeAll(projectuniqueId,filtervalue));
             setIsOpen(false);
+            checkbox([]);
           }
         )
       );
     }
-
-    // dsadadasdas
-    // if (formValue.uniqueId) {
-    //   dispatch(
-    //     AdminActions.postProjectAllocation(
-    //       data,
-    //       () => {
-    //         console.log("CustomQueryActions.postDBConfig");
-    //         setIsOpen(false);
-    //         dispatch(AdminActions.getProjectAllocation());
-    //       },
-    //       formValue.uniqueId
-    //     )
-    //   );
-    // } else {
-    //   dispatch(
-    //     AdminActions.postProjectAllocation(data, () => {
-    //       console.log("CustomQueryActions.postDBConfig");
-    //       setIsOpen(false);
-    //       dispatch(AdminActions.getProjectAllocation());
-    //     })
-    //   );
-    // }
   };
-  console.log(Form, "Form 11");
   useEffect(() => {
-    // dispatch(projectListActions.getUserAllocatedProject(projectuniqueId))
   }, [isOpen]);
   return (
     <>
-      {/* <Modal
-        size={"xl"}
-        children={<ManageSite />}
-        isOpen={modalOpen}
-        setIsOpen={setmodalOpen}oedxrAQ
-      /> */}
 
       <Modal
         size={"xl"}
