@@ -165,7 +165,10 @@ const CCDash = ({
             <div className="flex p-2">
             <button
                 onClick={handleBackToCards}
-                className="w-auto h-10 bg-[#13b497] border-[1.5px] border-[#0f7f65] text-white font-bold hover:bg-pcolhover rounded-md px-4"
+                // className="w-auto h-10 bg-[#13b497] border-[1.5px] border-[#0f7f65] text-white font-bold hover:bg-pcolhover rounded-md px-4"
+                className="w-[70px] rounded-md py-1.5 text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+                focus-visible:outline-2 mr-4  focus-visible:outline-offset-2 buttonAnim border-[1.1px] border-[#0e8670] font-poppins transition
+                duration-1000 ease-in-out hover:bg-[#ca8a04] hover:text-white bg-[#13b497] hover:border-[#b99039] hover:border-[1.3px]"
             >
                 Back
             </button>

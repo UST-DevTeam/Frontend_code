@@ -19,8 +19,8 @@ const BarLineGraph = ({ data,
     ...(data1 || []),
     ...(data2 || []),
   )
-  if (max1 % 500 !== 0) {
-    max1 = Math.ceil(max1 / 500) * 500;
+  if (max1 % 100 !== 0) {
+    max1 = Math.ceil(max1 / 100) * 100;
   }
 
 
@@ -89,7 +89,7 @@ const BarLineGraph = ({ data,
             offsetY: -7,
             style: {
                 colors: ["transparent"],
-                fontSize: "9px",
+                fontSize: "6px",
                 fontWeight: 'bold',
             }, 
             background: {

@@ -273,6 +273,7 @@ const CumulativeWorkdonePlanVsActual = () => {
       value: itm.uid,
     }));
   });
+  console.log(projectTypeList,"projectTypeListprojectTypeListprojectTypeListprojectTypeList")
 
   const GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphCumulativeWorkdonePlanVsActual || [];
@@ -296,7 +297,7 @@ const CumulativeWorkdonePlanVsActual = () => {
       data: data2,
   },
   {
-      name: "Acheievement(%)",
+      name: "Achieved Vs Planned(%)",
       type: "line",
       data: SecondaryAxis,
   },

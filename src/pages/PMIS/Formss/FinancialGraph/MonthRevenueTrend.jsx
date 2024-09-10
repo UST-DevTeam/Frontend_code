@@ -73,12 +73,12 @@ const MonthRevenueTrend = () => {
       data: data3,
   },
   {
-      name: "Acheievement (%)",
+      name: "PV vs Actual",
       type: "line",
       data: SecondaryAxis,
   },
   {
-      name: "Acheievement (%)",
+      name: "AOP vs Actual",
       type: "line",
       data: ThirdAxis,
   },
