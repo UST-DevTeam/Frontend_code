@@ -349,6 +349,11 @@ const L2Form = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "UST Code",
+        value: "ustCode",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
         name: "Designation",
         value: "designation",
         style: "min-w-[170px] max-w-[450px] text-center",
@@ -477,13 +482,13 @@ const L2Form = () => {
         type: "select",
         name: "status",
         option: [
-          { label: "Submitted", value: "Submitted" },
+          // { label: "Submitted", value: "Submitted" },
           { label: "L1-Approved", value: "L1-Approved" },
-          { label: "L1-Rejected", value: "L1-Rejected" },
+          // { label: "L1-Rejected", value: "L1-Rejected" },
           { label: "L2-Approved", value: "L2-Approved" },
           { label: "L2-Rejected", value: "L2-Rejected" },
-          { label: "L3-Approved", value: "L3-Approved" },
-          { label: "L3-Rejected", value: "L3-Rejected" },
+          // { label: "L3-Approved", value: "L3-Approved" },
+          // { label: "L3-Rejected", value: "L3-Rejected" },
         ],
         // props: {
         // }
@@ -814,7 +819,7 @@ const L2Form = () => {
                         name={""}
                         onClick={() => {
                           dispatch(
-                            CommonActions.commondownload(
+                            CommonActions.commondownload2(
                               "/expenses/downloadFile" +
                                 "?" +
                                 `attachment=${item.attachment}`,
