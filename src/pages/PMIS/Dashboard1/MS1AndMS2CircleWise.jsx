@@ -73,7 +73,6 @@ let CircleList = useSelector((state) => {
   let data3 = GraphData?.map(item => item.TotalMS2Done) || []
   let data4 = MS2MS1
 
-
   const SeriesData = [
     {
       name: "Total Sites",
@@ -194,7 +193,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4}/>
+      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4}/>
     </div>
   );
 };

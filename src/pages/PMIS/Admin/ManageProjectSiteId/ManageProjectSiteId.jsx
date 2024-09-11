@@ -389,21 +389,21 @@ const ManageProjectSiteId = () => {
                     className="cursor-pointer"
                     onClick={() => {
                       setmodalOpen(true);
-                      setmodalHead("");
+                      setmodalHead("If you want to OPEN the task again");
                       setmodalBody(
                         <>
-                          <div className="flex justify-between">
-                            <label htmlFor="" className="font-bold">
+                          <div className="flex justify-between mt-5">
+                            <label htmlFor="" className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap">
                               {" "}
-                              Status:
+                              Current Status:
                             </label>
-                            <p className="bg-green-400 rounded-lg w-16 text-center">
+                            <p className="w-20 rounded-xl font-extrabold justify-center text-yellow-500 bg-slate-500 flex text- mr-28 whitespace-nowrap">
                               {iewq.mileStoneStatus}
                             </p>
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
                           <Button
-                              classes={"mt-2 w-sm text-center flex mx-auto"}
+                              classes={"mt-2 w-sm text-center flex mx-auto font-bold text-base"}
                               name="Open Task"
                               onClick={() => {
                                 let finaldata = {
