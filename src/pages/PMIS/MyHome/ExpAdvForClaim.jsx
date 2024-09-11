@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
-import { objectToQueryString } from "../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
 import HrActions from "../../../store/actions/hr-actions";
@@ -19,6 +19,7 @@ import FileUploader from "../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
 import DownloadButton from "../../../components/DownloadButton";
 import { Urls } from "../../../utils/url";
+import ConditionalButton from "../../../components/ConditionalButton";
 
 const ExpAdvForClaim = () => {
   const expenseRef = useRef("");
@@ -404,47 +405,56 @@ const ExpAdvForClaim = () => {
     <>
       <AdvancedTable
         headerButton={
-          <div className="flex gap-1">
-            {" "}
-            <Button
+          <div className="flex">
+
+            <ConditionalButton
               name={"Upload Claims"}
-              classes="w-auto"
+              showType={getAccessType("Upload Claims(Exp & Adv)")}
+              classes="mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
               }}
-            ></Button>
-            <Button
+            ></ConditionalButton>
+
+            <ConditionalButton
               name={"Opening Balance"}
-              classes="w-auto"
+              showType={getAccessType("Opening Balance(Exp & Adv)")}
+              classes="mr-1"
               onClick={(e) => {
                 setFileOpen3((prev) => !prev);
               }}
-            ></Button>
-            <Button
-              classes="w-auto"
+            ></ConditionalButton>
+
+            <ConditionalButton
+              classes="mr-1"
+              showType={getAccessType("Expense(Exp & Adv)")}
               onClick={(e) => {
                 navigate("/hr/Claim");
               }}    
               name={"Expense"}
-            ></Button>
-            <Button
-              classes="w-auto mr-1"
+            ></ConditionalButton>
+
+            <ConditionalButton
+              classes="mr-1"
+              showType={getAccessType("Advance(Exp & Adv)")}
               onClick={(e) => {
                 navigate("/hr/Advance");
               }}
               name={"Advance"}
-            ></Button>
-            {/* <Button
-              name={"Upload File"}
-              classes="w-auto"
+            ></ConditionalButton>
+
+            <ConditionalButton
+              classes="mr-1"
+              showType={getAccessType("Export(Exp & Adv)")}
               onClick={(e) => {
-                setFileOpen((prev) => !prev);
+                dispatch(CommonActions.commondownload("export/AllExpenses","Export_AllExpenses.xlsx"))
               }}
-            ></Button> */}
+              name={"Export"}
+            ></ConditionalButton>
+            
           </div>
         }
         table={table}
-        exportButton={["export/AllExpenses","Export_AllExpenses.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -454,7 +464,6 @@ const ExpAdvForClaim = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        getaccessExport = {"Export(Expense&Advance)"}
         heading="Total Count:-"
       />
 

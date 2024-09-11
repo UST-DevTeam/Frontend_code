@@ -38,11 +38,13 @@ import FilterActions from "../../../../store/actions/filter-actions";
 import ManageSubProjectMultiDynamicFormTask from "./ManageSubProjectMultiDynamicFormTask";
 import { GET_PROJECT_ALL_LIST } from "../../../../store/reducers/projectList-reducer";
 import { PROJECTEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
+import SearchBarView from "../../../../components/SearchBarView";
+import projectListActions from "../../../../store/actions/projectList-actions";
 
 
 const ManageProject = () => {
-  const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
 
+  const { cname, ptname, projecttypeuniqueId, customeruniqueId } = useParams();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -55,7 +57,6 @@ const ManageProject = () => {
   const [modalSize, setModalSize] = useState("lg");
 
   let dispatch = useDispatch();
-
   let navigate = useNavigate();
 
   let projectTypeForm = [
@@ -436,41 +437,41 @@ const ManageProject = () => {
     //   rpp: [10, 20, 50, 100],
     // },
     filter: [
-      {
-        label: "Project ID",
-        type: "select",
-        name: "projectId",
-        option: projectIdList,
-        props: {},
-      },
-      {
-        label: "Project Group",
-        type: "select",
-        name: "projectGroup",
-        option: projectGroupList,
-        props: {},
-      },
-      {
-        label: "Project Type",
-        type: "select",
-        name: "projectType",
-        option: projectTypeList,
-        props: {},
-      },
-      {
-        label: "Project Manager",
-        type: "autoSuggestion",
-        name: "projectManager",
-        option: projectManagerList,
-        props: {},
-      },
-      {
-        label: "Circle",
-        type: "select",
-        name: "circle",
-        option: circleList,
-        props: {},
-      },
+      // {
+      //   label: "Project ID",
+      //   type: "select",
+      //   name: "projectId",
+      //   option: projectIdList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project Group",
+      //   type: "select",
+      //   name: "projectGroup",
+      //   option: projectGroupList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project Type",
+      //   type: "select",
+      //   name: "projectType",
+      //   option: projectTypeList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Project Manager",
+      //   type: "autoSuggestion",
+      //   name: "projectManager",
+      //   option: projectManagerList,
+      //   props: {},
+      // },
+      // {
+      //   label: "Circle",
+      //   type: "select",
+      //   name: "circle",
+      //   option: circleList,
+      //   props: {},
+      // },
       {
         label: "Status",
         type: "select",
@@ -506,20 +507,17 @@ const ManageProject = () => {
 
     let value = data.reseter
     delete data["reseter"];
-
     let strVal=objectToQueryString(data)
-
     setstrVal(strVal)
-
     dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"",true,strVal));
   };
   useEffect(() => {
     dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    dispatch(FilterActions.getProjectCircle(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    // dispatch(FilterActions.getProjectCircle(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    // dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    // dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    // dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+    // dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
     // dispatch(eventManagementActions.getprojecteventList());
   }, []);
 
@@ -583,6 +581,18 @@ const ManageProject = () => {
   return (
     <>
       <AdvancedTable
+        searchView={
+          <>
+            <SearchBarView
+              onblur={(e) => {
+              }}
+              onchange={(e) => {
+                dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,true,e.target.value != ""? "searvhView=" + e.target.value: ""));
+              }}
+              placeHolder={"Search...."}
+            />
+          </>
+        }
         headerButton={
           <div className="flex">
             <ConditionalButton

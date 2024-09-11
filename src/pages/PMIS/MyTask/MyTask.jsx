@@ -406,7 +406,7 @@ const MyTask = () => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId
+                                          projectuniqueId,strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -511,7 +511,7 @@ const MyTask = () => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId
+                                          projectuniqueId,strValFil
                                         )
                                       );
                                       setmodalOpen(false);

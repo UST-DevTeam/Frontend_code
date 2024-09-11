@@ -415,7 +415,7 @@ const ManageProjectSiteId = () => {
                                     iewq.uniqueId,
                                     finaldata,
                                     () => {
-                                      dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+                                      dispatch(projectListActions.getProjectTypeAll(projectuniqueId,strValFil));
                                       setmodalOpen(false);
                                     }
                                   )
@@ -513,7 +513,7 @@ const ManageProjectSiteId = () => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId
+                                          projectuniqueId,strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -1168,7 +1168,7 @@ const ManageProjectSiteId = () => {
           <div className="flex">
             {(Array.isArray(parentsite) && parentsite?.length > 0 && shouldIncludeEditColumn) && (
                 <Button
-                  classes="w-auto"
+                  classes="mr-1"
                   onClick={(e) => {
                     setmodalOpen((prev) => !prev);
                     setmodalHead("Confirm Delete");

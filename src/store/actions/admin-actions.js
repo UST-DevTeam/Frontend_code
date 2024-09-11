@@ -392,7 +392,7 @@ const AdminActions = {
     },
     
 
-    getProject:(customeruniqueId,rowId,reset=true,args="") => async (dispatch, _) => {
+    getProject:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`},reset)
             if (res?.status !== 200) return

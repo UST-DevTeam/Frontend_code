@@ -50,7 +50,8 @@ const AdvancedTable = ({
   geturl = "",
   getaccessAdd = "",
   getaccessExport = "",
-  heading = ""
+  heading = "",
+  searchView = "",
 }) => {
 
   const [hide, setHide] = useState([]);
@@ -197,18 +198,7 @@ const AdvancedTable = ({
                   <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
                 )}
               </div>
-            
-              {/* {activeFilter.length > 0 && (
-                <h1 className="p-1 m-1">Active Filter:</h1>
-              )}
-              {activeFilter.map((itm) => {
-                return (
-                  <h1 className="text-pbutton text-white p-1 rounded-xl m-1">
-                    {itm}
-                  </h1>
-                );
-              })} */}
-              {/* <label className='h-8 align-middle'>Search: </label><input className="ml-4 pl-2  bg-white border-black border block h-8 w-full rounded-md py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type='text' /> */}
+              <div className="flex flex-row mx-8 gap-1">{searchView}</div>
             </div>
             <div className="flex flex-row">
             
