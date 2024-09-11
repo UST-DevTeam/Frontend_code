@@ -81,7 +81,6 @@ import AdminActions from "../../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../../components/NewSingleSelect";
 import DoubleBarGraph from "../../../../components/DoubleBarGraph";
 import TripleBarGraph from "../../../../components/TripleBarGraph";
-import TripleLineBarGraph from "../../../../components/TripleLineBarGraph";
 
 const CumulativeTrendPlanVsActual = () => {
   const exportData = useRef([]);

@@ -7,11 +7,17 @@ const TripleLineBarGraph = ({
   seriesData = [],
   horizontal = false,
   title = "",
-  columnWidth = "80%",
-  dataLabelSuffix="", 
+  columnWidth = "90%",
+  month = [],
+  enabledOnSeries = [false, false, false, false, false], 
+  dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
-  lineDataKey = "Acheievement(%)",
+  YAxisSecondaryTitle = "Acheievement (%)",
+  data1,
+  data2,
+  data3,
+  data4,
 }) => {
 
   const category = data?.map((item) => item.description) || [];
@@ -22,21 +28,22 @@ const TripleLineBarGraph = ({
 //     const percentage = aop === 0 ? 0 : ((pv / aop) * 100).toFixed(1);
 //     return `${percentage}%`; 
 // });
-const computeLineData = (key) => {
-    switch (key) {
-      case "Acheivement":
-        return data?.map((item) => {
-          const pv = item.pv || 0;
-          const amount = item.amount || 0;
-          const percentage = pv === 0 ? 0 : ((amount / pv) * 100).toFixed(1);
-          return `${percentage}%`;
-        }) || [];
-      default:
-        return [];
-    }
-  };
 
-  const lineData = computeLineData(lineDataKey);
+let max1 = Math.max(
+  ...(data1 || []),
+  ...(data2 || []),
+  ...(data3 || []),
+)
+if (max1 % 500 !== 0) {
+  max1 = Math.ceil(max1 / 500) * 500;
+}
+
+let max2 = Math.max(
+  ...(data4 || []),
+)
+if (max2 % 25 !== 0) {
+  max2 = Math.ceil(max2 /25) * 25;
+}
 
   const defaultSeries = [
     {
@@ -53,12 +60,6 @@ const computeLineData = (key) => {
         name: "Achievement",
         data: data?.map(item => item.amount) || [],
         type: "bar",
-      },
-      {
-        name: "Achievement(%)",
-        type: "line",
-        data: lineData,
-        
       },
   ];
 
@@ -146,43 +147,117 @@ const computeLineData = (key) => {
       },
     },
     yaxis: [
-        {
-          title: {
-            text: YAxisTitle,
-            style: {
-              color: "#ffffff",
-              fontSize: "17px",
-              fontWeight: "bold",
-            },
+      {
+        title: {
+          text: 'Sites', 
+          style:{
+            color: "#ffffff",
+            fontSize: '18px'
+          } 
+        },
+        labels: {
+          formatter: function (val) {
+            return val.toFixed(0);
           },
-          labels: {
-            style: {
-              colors: "#ffffff",
-              fontSize: "9px",
-            },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
           },
         },
-        {
-          opposite: true,
-          min:0,
-          // max:150,
-          title: {
-            text: lineDataKey,
-            style: {
-              color: "#ffffff",
-              fontSize: "17px",
-              fontWeight: "bold",
-            },
+        min:0,
+        max:max1,
+        tickAmount: 5,
+      }, 
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
           },
-          labels: {
-            style: {
-              colors: "#ffffff",
-              fontSize: "9px",
-            },
-            formatter: (value) => `${value}%`,
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
           },
         },
-      ],
+        min:0,
+        max:max1,
+      }, 
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+        },
+        min:0,
+        max:max1,
+      }, 
+      {
+        opposite: true,
+        title: {
+          text: 'Achievement (%)',
+          style:{
+            color: "#ffffff",
+            fontSize: '18px',
+          }  
+        },
+        labels: {
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        min:0,
+        max:max2,
+        tickAmount: 5
+      },
+    ],
+    // yaxis: [
+    //     {
+    //       title: {
+    //         text: YAxisTitle,
+    //         style: {
+    //           color: "#ffffff",
+    //           fontSize: "17px",
+    //           fontWeight: "bold",
+    //         },
+    //       },
+    //       labels: {
+    //         style: {
+    //           colors: "#ffffff",
+    //           fontSize: "9px",
+    //         },
+    //       },
+    //     },
+    //     {
+    //       opposite: true,
+    //       min:0,
+    //       // max:150,
+    //       title: {
+    //         text: lineDataKey,
+    //         style: {
+    //           color: "#ffffff",
+    //           fontSize: "17px",
+    //           fontWeight: "bold",
+    //         },
+    //       },
+    //       labels: {
+    //         style: {
+    //           colors: "#ffffff",
+    //           fontSize: "9px",
+    //         },
+    //         formatter: (value) => `${value}%`,
+    //       },
+    //     },
+    //   ],
     plotOptions: {
       bar: {
         columnWidth: columnWidth,
@@ -197,11 +272,11 @@ const computeLineData = (key) => {
       },
     },
     stroke: {
-        colors: ["transparent", "transparent", "transparent", "#b8ee30"],
-        curve: 'smooth',
-        width: [1.5, 1.5, 1.5, 2],
-        // colors: BarBorderColors,
-      },
+      colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+      curve: 'smooth',
+      width: [0.8, 0.8, 0.8, 2.5],
+      // colors: BarBorderColors,
+    },
     grid: {
       borderColor: "transparent",
       strokeDashArray: 0,
@@ -210,7 +285,7 @@ const computeLineData = (key) => {
       size: 6, 
       colors: ['#b8ee30'], 
       strokeColor: 'black', 
-      strokeWidth: 0.5, 
+      strokeWidth: 1, 
       hover: {
           size: 6, 
       }
