@@ -402,7 +402,12 @@ const L3Form = () => {
             name: "Total Days",
             value: "totaldays",
             style: "min-w-[170px] max-w-[450px] text-center",
-          },          
+          }, 
+          {
+            name: "Additional Info",
+            value: "additionalInfo",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },         
           ]),
       {
         name: "Bill Number",
@@ -595,6 +600,7 @@ const L3Form = () => {
     let shouldReset = data.reseter;
     delete data.reseter;
     let strVal = objectToQueryString(data);
+    setstrVal(strVal);
     dispatch(ExpenseAdvanceActions.getL3Data(true, strVal));
   };
 

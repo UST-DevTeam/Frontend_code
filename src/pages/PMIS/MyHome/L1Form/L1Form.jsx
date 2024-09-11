@@ -460,6 +460,11 @@ const L1Form = () => {
               value: "totaldays",
               style: "min-w-[170px] max-w-[450px] text-center",
             },
+            {
+              name: "Additional Info",
+              value: "additionalInfo",
+              style: "min-w-[170px] max-w-[450px] text-center",
+            },
           ]),
       {
         name: "Bill Number",

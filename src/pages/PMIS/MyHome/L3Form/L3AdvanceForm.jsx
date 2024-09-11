@@ -35,6 +35,7 @@ const L3AdvanceForm = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const [advanceRow, setAdvanceRow] = useState([]);
   const [selectAll, setSelectAll] = useState([]);
+  const [strValFil, setstrVal] = useState(false);
   // const [isSelectAllChecked, setIsSelectAllChecked] = useState(false);
 
   const navigate = useNavigate();
@@ -318,6 +319,11 @@ const L3AdvanceForm = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "Additional Info",
+        value: "additionalInfo",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
         name: "Current Status",
         value: "customStatus",
         style: "min-w-[120px] max-w-[450px] text-center",
@@ -452,10 +458,15 @@ const L3AdvanceForm = () => {
   }
 
   const onSubmit = (data) => {
-    let value = data.reseter;
+    // let value = data.reseter;
+    // delete data.reseter;
+
+    let shouldReset = data.reseter;
     delete data.reseter;
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
     dispatch(
-      ExpenseAdvanceActions.getL3AdvanceData(value, objectToQueryString(data))
+      ExpenseAdvanceActions.getL3AdvanceData(true,strVal)
     );
   };
 
@@ -592,7 +603,7 @@ const L3AdvanceForm = () => {
               <Button
               classes="w-auto"
               onClick={(e) => {
-                dispatch(CommonActions.commondownload("/export/Advance/l3Approval","Export__Advance_L3Aprroval.xlsx"))
+                dispatch(CommonActions.commondownload("/export/Advance/l3Approval"+"?"+strValFil,"Export__Advance_L3Aprroval.xlsx"))
               }}
               name={"Export"}
             ></Button>
