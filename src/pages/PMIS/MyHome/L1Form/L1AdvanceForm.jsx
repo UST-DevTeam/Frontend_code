@@ -263,6 +263,11 @@ const L1AdvanceForm = () => {
             style: "min-w-[170px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
           },
           {
+            name: "Additional Info",
+            value: "additionalInfo",
+            style: "min-w-[170px] max-w-[450px] text-center",
+          },
+          {
             name: "Current Status",
             value: "customStatus",
             style: "min-w-[120px] max-w-[450px] text-center",
