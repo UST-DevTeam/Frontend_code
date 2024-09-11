@@ -1165,8 +1165,8 @@ const ManageProjectSiteId = () => {
           </>
         }
         headerButton={
-          <div className="flex gap-1">
-          {(Array.isArray(parentsite) && parentsite?.length > 0 ) && (
+          <div className="flex">
+            {(Array.isArray(parentsite) && parentsite?.length > 0 && shouldIncludeEditColumn) && (
                 <Button
                   classes="w-auto"
                   onClick={(e) => {
@@ -1189,7 +1189,7 @@ const ManageProjectSiteId = () => {
             
             <ConditionalButton
               showType={getAccessType("Add Site")}
-              classes="w-auto "
+              classes="mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("Add Site");
@@ -1205,9 +1205,10 @@ const ManageProjectSiteId = () => {
               }}
               name={"Add Site"}
             ></ConditionalButton>
+
             <ConditionalButton
               showType={getAccessType("Task Allocation")}
-              classes="w-auto "
+              classes="mr-1"
               onClick={(e) => {
                 if (childsite.length > 0) {
                   setmodalOpen((prev) => !prev);
@@ -1241,7 +1242,7 @@ const ManageProjectSiteId = () => {
               name={"Task Allocate"}
             ></ConditionalButton>
 
-            <ConditionalButton
+            {/* <ConditionalButton
               showType={getAccessType("Site Allocation")}
               classes="w-auto"
               onClick={(e) => {
@@ -1278,17 +1279,18 @@ const ManageProjectSiteId = () => {
                 }
               }}
               name={"Site Allocate"}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
           
           <ConditionalButton
               name={"Upload"}
               showType={getAccessType("Upload(Site Page)")}
-              classes="w-auto"
+              classes="mr-1"
               onClick={(e) => {
                 setbulkfileOpen(prev=>!prev)
               }}
               
             ></ConditionalButton>
+
           {upgradepopupShowType && (
           <PopupMenu
                 name={"Upgrade"}
@@ -1304,20 +1306,17 @@ const ManageProjectSiteId = () => {
                           setfileType(`updateSiteOneProject`)
                       }}>
                     </Button>
-
-                     <Button
+                    <Button
                       name={"Upgrade Task"}
                       classes="w-auto m-5"
                       onClick={() => {
                         setFileOpen(prev=>!prev)
                         setFileOpenlink([`/template/Task_Update.xlsx`,"Task_Update.xlsx"])
                         setfileType(`updateMilestoneOneProject`)
-                      }}
-                      >
-                      </Button>
-                </div>
-                    
-                  }
+                      }}>
+                    </Button>
+                  </div>
+                }
               />
           )}
           {siteexportpopup && (
@@ -1327,7 +1326,8 @@ const ManageProjectSiteId = () => {
               classes={"w-auto"}
               bgColor={"bg-[#147b99]"}
               child={
-                <div classes="z-40 max-h-96 justify-center">
+                <div classes="flex z-40 max-h-96 flex-col p-1">
+                {/* <div classes="z-40 max-h-96 justify-center"> */}
                   <Button
                     name={"Export"}
                     classes="w-auto m-5"

@@ -211,9 +211,7 @@ const AdvancedTableExpandable = ({
                   </>
                 }
               />
-
               {headerButton}
-              {console.log(headerButton, "headerButton")}
             </div>
           </div>
         </div>

@@ -605,31 +605,7 @@ const ManageProject = () => {
               }}
               name={"Add Project"}
             ></ConditionalButton>
-
-            {/* <ButtonWithTooltip text="hello" tooltipText="hiii" icon={<></>} className="" onClick={}/> */}
-
-            {/* <ButtonWithTooltip
-              tooltipText={"Bulk Site"}
-              text={"Bulk Site"}
-              className="w-24 bg-green-700"
-              onClick={(e) => {
-                // setFileOpen(prev=>!prev)
-              }}
-            ></ButtonWithTooltip> */}
-            {/* <Button
-              name={"Bulk Task"}
-              classes="w-auto bg-indigo-600"
-              onClick={(e) => {
-                // setFileOpen(prev=>!prev)
-              }}
-            ></Button> */}
-            {/* <Button
-              name={"Update Site"}
-              classes="w-auto bg-yellow-600"
-              onClick={(e) => {
-                setFileOpen((prev) => !prev);
-              }}
-            ></Button> */}
+          
             <ConditionalButton
               name={"Bulk Upload"}
               showType={getAccessType("Bulk Upload(Project)")}
@@ -639,13 +615,7 @@ const ManageProject = () => {
                 setbulkfileOpen((prev) => !prev);
               }}
             ></ConditionalButton>
-            {/* <Button
-              name={"Update Task"}
-              classes="w-auto mr-1 bg-cyan-600"
-              onClick={(e) => {
-                setFileOpen((prev) => !prev);
-              }}
-            ></Button> */}
+
             { exportpopupShowType && (
             <PopupMenu
               name={"Export"}
@@ -653,7 +623,7 @@ const ManageProject = () => {
               classes={"w-auto"}
               bgColor={"bg-[#147b99]"}
               child={
-                <div classes="z-40 max-h-96 justify-ce0nter">
+                <div classes="z-40 max-h-96 justify-center">
                   <Button
                     name={"Export Project"}
                     classes="w-auto m-4"
@@ -744,6 +714,7 @@ const ManageProject = () => {
               }
             />
             )}
+
             {upgradepopupShowType && (
               <PopupMenu
                 name={"Upgrade"}
@@ -776,7 +747,6 @@ const ManageProject = () => {
               />
             )}
 
-
           </div>
         }
         table={table}
@@ -791,7 +761,6 @@ const ManageProject = () => {
         heading = {"Total Projects:-"}
         totalCount={dbConfigTotalCount}
       />
-
       <Modal
         size={modalSize}
         Form={FormMulti}
@@ -807,18 +776,15 @@ const ManageProject = () => {
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
-      {/* <CommonForm/> */}
+
       <FileUploader
         isOpen={fileOpen}
         fileUploadUrl={""}  
         onTableViewSubmit={onTableViewSubmit}
-
         tempbtn={fileOpenlink.length!=0}
         tempbtnlink={fileOpenlink}
-        
         setIsOpen={setFileOpen}
       />
-
 
        <FileUploader
         isOpen={bulkfileOpen}
