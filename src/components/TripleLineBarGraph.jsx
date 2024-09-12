@@ -119,7 +119,7 @@ if (max2 % 25 !== 0) {
       offsetY: offsetY,
       style: {
         colors: ["transparent"],
-        fontSize: "9px",
+        fontSize: "6.5px",
         fontWeight: 'bold',
     }, 
     background: {

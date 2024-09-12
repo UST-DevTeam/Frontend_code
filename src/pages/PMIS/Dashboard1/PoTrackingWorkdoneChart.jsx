@@ -26,8 +26,8 @@ const PoTrackingWorkdoneChart = () => {
     return state?.filterData?.getfinancialPoManagementProjectGroup
     .map((itm) => {
       return {
-        label: itm.projectGroup,
-        value: itm.projectGroup,
+        label: itm.projectGroupId,
+        value: itm.projectGroupId,
       };
     });
   });
@@ -53,6 +53,7 @@ const PoTrackingWorkdoneChart = () => {
   let colors = ['#003459','#007EA7','#00A8E8']
 
   useEffect(() => {
+    // dispatch(FilterActions.getfinancialPoManagementProjectGroup());
     dispatch(GraphActions.getGraphPOTrackingWorkdone());
   }, []);
 

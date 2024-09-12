@@ -50,7 +50,8 @@ const AdvancedTable = ({
   geturl = "",
   getaccessAdd = "",
   getaccessExport = "",
-  heading = ""
+  heading = "",
+  TableHeight = "h-[68vh]" 
 }) => {
 
   const [hide, setHide] = useState([]);
@@ -451,7 +452,8 @@ const AdvancedTable = ({
 
                 </div>
             </div> */}
-        <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg">
+        <div className={`m-2 overflow-x-scroll ${TableHeight} pb-6 border-1 border-solid border-black rounded-lg`}>
+        {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
           {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">

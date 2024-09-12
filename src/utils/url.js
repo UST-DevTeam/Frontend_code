@@ -168,6 +168,7 @@ export const Urls={
     //  GRAPH
 
     graph_project_status:"/graph/projectStatus",
+    graph_zone_in_circle_revenue:"/graph/getZone",
     graph_milestone_status:"/graph/milestoneStatus",
     graph_po_status:"/graph/poStatus",
     graph_active_customer:"/graph/activeCustomer",

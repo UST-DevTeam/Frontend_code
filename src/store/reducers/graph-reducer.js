@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 
     getGraphProjectStatus: [],
+    getGraphZoneInCirlceRevenue: [],
     getGraphMilestoneStatus: [],
     getGraphPoStatus: [],
     getGraphTotalActiveCustomer: [],
@@ -42,6 +43,14 @@ const GraphData = createSlice({
                 state.getGraphProjectStatus = payload.dataAll
             }else{
                 state.getGraphProjectStatus  = [...state.getGraphProjectStatus,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_ZONE_IN_CIRCLE_REVENUE:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphZoneInCirlceRevenue = payload.dataAll
+            }else{
+                state.getGraphZoneInCirlceRevenue  = [...state.getGraphZoneInCirlceRevenue,...payload.dataAll]
             }
         },
 
@@ -261,7 +270,9 @@ const GraphData = createSlice({
     }
 })
 
-export const {  GET_GRAPH_PROJECT_STATUS,
+export const { 
+    GET_GRAPH_PROJECT_STATUS,
+    GET_GRAPH_ZONE_IN_CIRCLE_REVENUE,
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_MS1_AND_MS2_CIRCLEWISE,
