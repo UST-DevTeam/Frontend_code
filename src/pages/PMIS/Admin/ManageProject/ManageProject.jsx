@@ -167,6 +167,7 @@ const ManageProject = () => {
                             setIsOpen={setmodalOpen}
                             resetting={false}
                             formValue={itm}
+                            filterData = {strValFil}
                           />
                           {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                         </>
@@ -509,7 +510,7 @@ const ManageProject = () => {
     delete data["reseter"];
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,"",true,strVal));
+    dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,true,strVal));
   };
   useEffect(() => {
     dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));

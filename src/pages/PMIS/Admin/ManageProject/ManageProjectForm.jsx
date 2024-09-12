@@ -14,7 +14,7 @@ import { ALERTS } from "../../../../store/reducers/component-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
 import { GET_PROJECT_CIRCLE } from "../../../../store/reducers/projectList-reducer";
 
-const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) => {
+const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filterData }) => {
 
   const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors } } = useForm();
 
@@ -59,19 +59,19 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
     });
   });
 
-  let subProjectList = useSelector((state) => {
-    return state?.adminData?.getManageProjectType
-      .filter((itm) => {
-        console.log(itm.projectType == pType, "dasdsadsadas");
-        return itm.projectType == pType;
-      })
-      .map((itm) => {
-        return {
-          label: itm.subProject,
-          value: itm.uniqueId,
-        };
-      });
-  });
+  // let subProjectList = useSelector((state) => {
+  //   return state?.adminData?.getManageProjectType
+  //     .filter((itm) => {
+  //       console.log(itm.projectType == pType, "dasdsadsadas");
+  //       return itm.projectType == pType;
+  //     })
+  //     .map((itm) => {
+  //       return {
+  //         label: itm.subProject,
+  //         value: itm.uniqueId,
+  //       };
+  //     });
+  // });
 
   let PMList = useSelector((state) => {
     return state?.hrReducer?.getManageEmpDetails.map((itm) => {
@@ -246,11 +246,8 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
   };
   const onTableViewSubmit = (data) => {
 
-    console.log("aofjaiosdjfoasmdfoas", data);
     let startDate = data['startDate'];
-    console.log("asfasfasfapsf",startDate);
     let endDate = data['endDate']
-    console.log("afapfafsampsdf",endDate);
     let start = new Date(startDate)
     let end = new Date(endDate)
     
@@ -292,7 +289,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, }) =>
     if (formValue?.uniqueId) {
       dispatch(AdminActions.postProject(true, customeruniqueId, data, () => {
         setIsOpen(false);
-        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
+        dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,true,filterData));
       },
         formValue?.uniqueId
       )

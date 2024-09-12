@@ -82,8 +82,7 @@ const AllocateProjectForm = ({
         : [],
       props: {
         onChange: (e) => {
-          // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
-          console.log(e.target.value, "e.target.value");
+          // console.log(e.target.value, "e.target.value");
         },
       },
 
@@ -206,7 +205,6 @@ const AllocateProjectForm = ({
   }, [isOpen]);
   return (
     <>
-
       <Modal
         size={"xl"}
         children={modalFullBody}
@@ -253,17 +251,6 @@ const AllocateProjectForm = ({
             />,
           ]}
         />
-
-        {/* <button
-          onClick={() => setModalOpen(true)}
-          className="bg-transparent border-none p-0 focus:outline-none"
-        >
-          <input className="col-span-1" label="ADD" type="text" {...register("siteId")} />
-        </button> */}
-
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         {activeTab != 3 ? (
           <Button
             classes={"mt-2 w-sm text-center flex mx-auto"}
