@@ -277,8 +277,8 @@ const ClaimAndAdvance = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
-        <p className="p-2 text-white font-extrabold">
+      <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2 pl-2">
+        <p className="text-white font-extrabold">
           Current Balance :{" "}
           {/* <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
             {Amounts?.finalAmount}
@@ -290,21 +290,21 @@ const ClaimAndAdvance = () => {
             }
           </span>
         </p>
-        <p className="p-2 text-white font-extrabold">
+        <p className=" text-white font-extrabold">
           Expenses Approved :{" "}
           <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal ? "text-pcol" : "text-rose-400"}`}>
            
             {`${Amounts?.ExpenseAmountTotal} Cr`}
           </span>
         </p>
-        <p className="p-2 text-white font-extrabold">
+        <p className=" text-white font-extrabold">
           Advance Approved :{" "}
           <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-rose-500" : "text-pcol"}`}>
             
             {`${Amounts?.AdvanceAmountTotal} Dr`}
           </span>
         </p>
-        <p className="p-2 text-white font-extrabold">
+        <p className=" text-white font-extrabold">
             Opening balance :{" "}
             <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"}`}>
             {Amounts?.Openingbalance > 0 
@@ -318,7 +318,7 @@ const ClaimAndAdvance = () => {
         
       </div>
 
-      <div className="">
+      <div className="mb-20">
         <AdvancedTable
           headerButton={
             <>
@@ -358,6 +358,7 @@ const ClaimAndAdvance = () => {
             </>
           }
           table={table}
+          TableHeight = "h-[65vh]" 
           filterAfter={onSubmit}
           tableName={"UserListTable"}
           handleSubmit={handleSubmit}

@@ -135,10 +135,10 @@ const [selectedMonths, setSelectedMonths] = useState([]);
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-         <div className="text-center mb-4">
-            <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Expense Approval Status</h1>
-        </div>
-        <div className="flex items-center justify-between space-x-10">
+      <div className="text-center mb-4">
+        <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Expense Approval Status</h1>
+      </div>
+      <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             label="Org Level"

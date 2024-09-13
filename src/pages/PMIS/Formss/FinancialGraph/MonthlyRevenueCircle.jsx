@@ -33,7 +33,8 @@ const MonthlyRevenueCircle = () => {
 
   const currentYear = new Date().getFullYear();
 //   const [selectedDepartment, setSelectedDepartment] = useState([]);
-const [selectedCircle, setSelectedCircle] = useState([]);
+  const [selectedCircle, setSelectedCircle] = useState([]);
+  const [selectedZone, setSelectedZone] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
@@ -42,10 +43,17 @@ const [selectedCircle, setSelectedCircle] = useState([]);
   const monthStr = `${month}`;
 
 
-  let CircleList = useSelector((state) => {
-    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
-      label: itm?.circle,
-      value: itm?.projectuid,
+  // let CircleList = useSelector((state) => {
+  //   return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+  //     label: itm?.circle,
+  //     value: itm?.projectuid,
+  //   }));
+  // });
+
+  let ZoneList = useSelector((state) => {
+    return state?.GraphData?.getGraphZoneInCirlceRevenue?.map((itm) => ({
+      label: itm?.zone,
+      value: itm?.projectgroupuid,
     }));
   });
 
@@ -100,6 +108,7 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 
 
   useEffect(() => {
+    dispatch(GraphActions.getGraphZoneInCirlceRevenue());
     dispatch(GraphActions.getGraphRevenuePlanVSActual_Circle());
   }, []);
 
@@ -107,8 +116,8 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 
 const handleFilter = () => {
     const filterData = {};
-    if (selectedCircle.length > 0) {
-      filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
+    if (selectedZone.length > 0) {
+      filterData.projectgroupuid = selectedZone?.map((Sweety) => Sweety.value);
     }
     if (selectedProjectType.length > 0) {
       filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
@@ -124,7 +133,8 @@ const handleFilter = () => {
 
 
   const handleClear = () => {
-    setSelectedCircle([]);
+    // setSelectedCircle([]);
+    setSelectedZone([]);
     setSelectedProjectType([]);
     setSelectedYears(null);
     setSelectedMonths([]);
@@ -160,10 +170,10 @@ const handleFilter = () => {
         <div className="flex space-x-2 items-center w-full">
         <NewMultiSelects
             label="Circle"
-            option={CircleList}
-            value={selectedCircle}
-            cb={(data) => setSelectedCircle(data)}
-            placeholder="Circle"
+            option={ZoneList}
+            value={selectedZone}
+            cb={(data) => setSelectedZone(data)}
+            placeholder="Zone"
           />
           {/* <NewMultiSelects
             label="Project Type"
@@ -200,7 +210,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Circle"} horizontal={false}  data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
+      <TripleBarGraph data={GraphData} seriesData={SeriesData} YAxisTitle={"Sites"} XAxisTitle={"Zone"} horizontal={false}  data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
     </div>
   );
 };

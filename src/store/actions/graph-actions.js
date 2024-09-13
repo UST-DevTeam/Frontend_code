@@ -2,6 +2,7 @@ import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import {
     GET_GRAPH_PROJECT_STATUS,
+    GET_GRAPH_ZONE_IN_CIRCLE_REVENUE,
     GET_GRAPH_MILESTONE_STATUS,
     GET_GRAPH_PO_STATUS,
     GET_GRAPH_MS1_AND_MS2_CIRCLEWISE,
@@ -42,6 +43,15 @@ const GraphActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_PROJECT_STATUS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getGraphZoneInCirlceRevenue:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_zone_in_circle_revenue}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_ZONE_IN_CIRCLE_REVENUE({dataAll,reset}))
         } catch (error) {
         }
     },
