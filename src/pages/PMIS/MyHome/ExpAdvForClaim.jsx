@@ -27,6 +27,7 @@ const ExpAdvForClaim = () => {
   const [type, settype] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [fileOpen2, setFileOpen2] = useState(false);
+  const [strValFil, setstrVal] = useState(false);
   const [fileOpen3, setFileOpen3] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
 
@@ -362,20 +363,57 @@ const ExpAdvForClaim = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
+      {
+        label: "Status",
+        type: "select",
+        name: "status",
+        option: [
+          { label: "Submitted", value: "Submitted" },
+          { label: "L1-Approved", value: "L1-Approved" },
+          { label: "L1-Rejected", value: "L1-Rejected" },
+          { label: "L2-Approved", value: "L2-Approved" },
+          { label: "L2-Rejected", value: "L2-Rejected" },
+          { label: "L3-Approved", value: "L3-Approved" },
+          { label: "L3-Rejected", value: "L3-Rejected" },
+        ],
+        // props: {
+        // }
+      },
+      
       // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      //   label: "Employee Code",
+      //   type: "text",
+      //   name: "empCode",
+      //   props: {},
+      // },
+      {
+        label: "Expense Number",
+        type: "text",
+        name: "ExpenseNo",
+        props: {},
+      },
+      // {
+      //   label: "Claim Month",
+      //   type: "text",
+      //   name: "claimMonth",
+      //   props: {},
+      // },
+      // {
+      //   label: "Claim Type",
+      //   type: "text",
+      //   name: "ExpenseNo",
+      //   props: {},
+      // },
     ],
   };
   const onSubmit = (data) => {
-    let value = data.reseter;
+    // let value = data.reseter;
+    // delete data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getHRAllExpenses(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(ExpenseAdvanceActions.getHRAllExpenses(true, strVal));
   };
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getHRAllExpenses());

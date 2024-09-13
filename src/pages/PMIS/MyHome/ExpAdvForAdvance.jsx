@@ -23,6 +23,7 @@ const ExpAdvForAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [type, settype] = useState(false);
+  const [strValFil, setstrVal] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
 
