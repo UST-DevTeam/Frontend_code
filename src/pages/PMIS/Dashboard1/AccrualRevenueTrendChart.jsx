@@ -100,14 +100,7 @@ const AccrualRevenueTrendChart = () => {
   ];
 
 
-    // let pieGraphData = [
 
-    //   {"status":"Approved Claims","count":20},
-    //   {"status":"L1 Approved","count":30},
-    //   {"status":"L2 Approved","count":50},
-    //   {"status":"Rejected claims","count":60},
-    //   {"status":"Submitted Claims","count":30},
-    // ]
 
 
     useEffect(() => {
@@ -123,14 +116,14 @@ const AccrualRevenueTrendChart = () => {
               () => {}
             )
           );
-          dispatch(
-                FormssActions.postAccrualRevenueTrend(
-              {
-                Monthly: exportData.current.join(",")
-              },
-              () => {}
-            )
-          );
+          // dispatch(
+          //       FormssActions.postAccrualRevenueTrend(
+          //     {
+          //       Monthly: exportData.current.join(",")
+          //     },
+          //     () => {}
+          //   )
+          // );
     }, []);
 
 

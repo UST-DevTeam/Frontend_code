@@ -32,8 +32,15 @@ const ExpAdvForClaim = () => {
   const [modalHead, setmodalHead] = useState(<></>);
 
   let dispatch = useDispatch();
-
   let navigate = useNavigate();
+
+  let showType = getAccessType("Action(Exp & Adv)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  }
 
   const monthMap = { "01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr", "05": "May", "06": "Jun", "07": "Jul", "08": "Aug", "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dec" };
   
@@ -291,18 +298,17 @@ const ExpAdvForClaim = () => {
             value: "Transport Mode",
             style: "min-w-[150px] max-w-[450px] text-center",
         },
-        
-            {
+        {
               name: "Check-IN Date",
               value: "Check-IN Date",
               style: "min-w-[150px] max-w-[450px] text-center",
-          },
-          {
+        },
+        {
             name: "Check-OUT Date",
             value: "Check-OUT Date",
             style: "min-w-[150px] max-w-[450px] text-center",
         },
-          {
+        {
             name: "Total Days",
             value: "Total Days",
             style: "min-w-[150px] max-w-[450px] text-center",
@@ -352,11 +358,15 @@ const ExpAdvForClaim = () => {
             value: "attachment",
             style: "min-w-[200px] max-w-[450px] text-center",
         },
-        {
-            name: "Actions",
-            value: "delete",
-            style: "min-w-[200px] max-w-[450px] text-center",
-        },
+        ...(shouldIncludeEditColumn ? 
+          [
+            {
+                name: "Actions",
+                value: "delete",
+                style: "min-w-[200px] max-w-[450px] text-center",
+            }
+          ]: []
+        )
     ],
 
     properties: {

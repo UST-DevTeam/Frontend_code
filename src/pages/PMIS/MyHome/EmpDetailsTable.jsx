@@ -21,6 +21,7 @@ import FileUploader from "../../../components/FIleUploader";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 import AdminActions from "../../../store/actions/admin-actions";
 import ConditionalButton from "../../../components/ConditionalButton";
+import { GET_CITIES } from "../../../store/reducers/admin-reducer";
 
 const EmpDetailsTable = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -93,7 +94,9 @@ const EmpDetailsTable = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
+                  dispatch(GET_CITIES({dataAll:[],reset:true}))
+                  dispatch(AdminActions.getCities(true, `stateCode=${itm?.state}`));
+                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true}));
                   navigate(`/empdetails/${itm.uniqueId}`);
                   setmodalBody(
                     <>
@@ -286,7 +289,7 @@ const EmpDetailsTable = () => {
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    let strVal =objectToQueryString(data)
+    let strVal=objectToQueryString(data)
     setstrVal(strVal)
     dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };

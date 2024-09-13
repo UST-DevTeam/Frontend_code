@@ -22,6 +22,7 @@ import FilterActions from '../../../../store/actions/filter-actions';
 import moment from 'moment';
 import ConditionalButton from '../../../../components/ConditionalButton';
 import CurrentuserActions from '../../../../store/actions/currentuser-action';
+import SearchBarView from '../../../../components/SearchBarView';
 
 const InvoiceBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -35,7 +36,6 @@ const InvoiceBased = () => {
     let dispatch = useDispatch()
 
     let showType = getAccessType("Actions(PO Status Invoice)")
-
     let shouldIncludeEditColumn = false
 
     if (showType === "visible"){
@@ -163,6 +163,7 @@ const InvoiceBased = () => {
 
     let table = {
         columns: [
+          ...(shouldIncludeEditColumn ? [
             {
                 name: (
                   <input
@@ -212,8 +213,10 @@ const InvoiceBased = () => {
                 ,
                 value: "checkboxInvoice",
                 style: "min-w-[40px] max-w-[60px] text-center",
-              },
-              {
+              }
+            ]
+            : []),
+            {
                 name: "Customer",
                 value: "customerName",
                 style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]  -top-1 z-20"
@@ -271,7 +274,7 @@ const InvoiceBased = () => {
             {
                 name: "Description",
                 value: "description",
-                style: "min-w-[200px] max-w-[300px] text-center -z-10"
+                style: "min-w-[500px] max-w-[500px] text-center -z-10"
             },            
             {
                 name: "Unit Rate(INR)",
@@ -327,100 +330,95 @@ const InvoiceBased = () => {
             rpp: [10, 20, 50, 100]
         },
         filter: [
-            {
-                label: "Customer",
-                type: "select",
-                name: "customer",
-                option:customerList,
-                props: {
-                }
-            },
-            {
-                label: "ProjectGroup",
-                type: "text",
-                name: "projectGroup",
-                option:projectGroupList,
-                props: {
-                }
-            },
             // {
-            //     label: "Project Type",
-            //     type: "text",
+            //     label: "Customer",
+            //     type: "select",
             //     name: "customer",
+            //     option:customerList,
             //     props: {
             //     }
             // },
             // {
-            //     label: "Sub Project",
+            //     label: "ProjectGroup",
             //     type: "text",
-            //     name: "customer",
+            //     name: "projectGroup",
+            //     option:projectGroupList,
+            //     props: {
+            //     }
+            // },
+            // // {
+            // //     label: "Project Type",
+            // //     type: "text",
+            // //     name: "customer",
+            // //     props: {
+            // //     }
+            // // },
+            // // {
+            // //     label: "Sub Project",
+            // //     type: "text",
+            // //     name: "customer",
+            // //     props: {
+            // //     }
+            // // },
+            // // {
+            // //     label: "Project ID",
+            // //     type: "text",
+            // //     name: "projectId",
+            // //     option:projectIdList,
+            // //     props: {
+            // //     }
+            // // },
+            // {
+            //     label: "GBPA",
+            //     type: "text",
+            //     name: "gbpa",
             //     props: {
             //     }
             // },
             // {
-            //     label: "Project ID",
+            //     label: "PO Number",
             //     type: "text",
-            //     name: "projectId",
-            //     option:projectIdList,
+            //     name: "poNumber",
             //     props: {
             //     }
             // },
-            {
-                label: "GBPA",
-                type: "text",
-                name: "gbpa",
-                props: {
-                }
-            },
-            {
-                label: "PO Number",
-                type: "text",
-                name: "poNumber",
-                props: {
-                }
-            },
-            {
-                label: "Item Code",
-                type: "text",
-                name: "itemCode",
-                props: {
-                }
-            },
-            {
-                label: "Item Code Status",
-                type: "select",
-                name: "itemCodeStatus",
-                option:[
-                    {label:"Open",value:'Open'},
-                    {label:"Closed",value:'Closed'},
-                ],
-                props: {
-                }
-            },
-            {
-                label: "PO Status",
-                type: "select",
-                name: "poStatus",
-                option:[
-                    {label:"Open",value:'Open'},
-                    {label:"Closed",value:'Closed'},
-                    {label:"Short Closed",value:'Short Closed'},
-                ],
-                props: {
-                }
-            },
+            // {
+            //     label: "Item Code",
+            //     type: "text",
+            //     name: "itemCode",
+            //     props: {
+            //     }
+            // },
+            // {
+            //     label: "Item Code Status",
+            //     type: "select",
+            //     name: "itemCodeStatus",
+            //     option:[
+            //         {label:"Open",value:'Open'},
+            //         {label:"Closed",value:'Closed'},
+            //     ],
+            //     props: {
+            //     }
+            // },
+            // {
+            //     label: "PO Status",
+            //     type: "select",
+            //     name: "poStatus",
+            //     option:[
+            //         {label:"Open",value:'Open'},
+            //         {label:"Closed",value:'Closed'},
+            //         {label:"Short Closed",value:'Short Closed'},
+            //     ],
+            //     props: {
+            //     }
+            // },
         ]
     }
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-
         let strVal=objectToQueryString(data)
-
         setstrVal(strVal)
-
-        
-
         dispatch(FinanceActions.getPOInvoicedBased(value, strVal))
     }
     useEffect(() => {
@@ -462,9 +460,24 @@ const InvoiceBased = () => {
 
     return <>
         <AdvancedTable
+            searchView={
+              <>
+                <SearchBarView
+                  onblur={(e) => {}}
+                  onchange={(e) => {
+                    const value = e.target.value.trim();
+                    // if (value !== "") {
+                    //   setstrVal(value);
+                    // }
+                    dispatch(FinanceActions.getPOInvoicedBased(true,value!= ""?"searvhView="+value:""))
+                  }}
+                  placeHolder={"Search...."}
+                />
+              </>
+            }
             headerButton={
             <>
-            {(Array.isArray(selectAll) && selectAll?.length > 0 ) && (
+            {(Array.isArray(selectAll) && selectAll?.length > 0 && shouldIncludeEditColumn ) && (
                 <Button
                   classes="w-auto mr-1"
                   onClick={(e) => {

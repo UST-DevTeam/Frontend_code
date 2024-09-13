@@ -21,6 +21,7 @@ import {
   UilSave,
 } from "@iconscout/react-unicons";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
+import { GET_CITIES } from "../../../store/reducers/admin-reducer";
 
 const EmpDetails = (props) => {
   const {
@@ -34,7 +35,6 @@ const EmpDetails = (props) => {
     formState: { errors },
   } = useForm();
   const { empuid } = useParams();
-  // console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState({});
   const [dataQuery, SetdataQuery] = useState("Select * from values;");
@@ -72,6 +72,7 @@ const EmpDetails = (props) => {
     pincode: "",
     address: "",
   });
+
   const handleCheckboxChange = (e) => {
     setisSame(e.target.checked);
     if (e.target.checked === true) {
@@ -352,9 +353,8 @@ const EmpDetails = (props) => {
       props: {
         onChange: (e) => {
           setValue("state", e.target.value);
-          dispatch(
-            AdminActions.getCities(false, `stateCode=${e.target.value}`)
-          );
+          dispatch(GET_CITIES({dataAll:[],reset:true}))
+          dispatch(AdminActions.getCities(true, `stateCode=${e.target.value}`));
         },
       },
     },

@@ -33,11 +33,14 @@ const ManageProjectSiteIdForm = ({
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
-
   const [modalBody, setmodalBody] = useState(<></>);
   const [SiteId, setSiteId] = useState("Add");
   const [mile, setMile] = useState("Add");
   const [old, setOld] = useState({});
+
+  const[projectType,setProjectType] = useState("");
+  const[subProjectType,setSubProjectType] = useState("");
+
   const [globalData, setGlobalData] = useState({
     "siteEngineer": {},
     "t_issues": {},
@@ -52,27 +55,13 @@ const ManageProjectSiteIdForm = ({
     let oldata = state.projectList.getProjectTypeSub
     if (old["_id"] != oldata["_id"]) {
       setOld(oldata)
+      setProjectType(oldata["projectType"])
       setValue("ptype", oldata["projectType"])
 
     }
     return state.projectList.getProjectTypeSub
   })
 
-
-
-
-
-  //   //   if (projectTypeList === "project[uniqueId]") {
-  //   //     const ProjectTypeValue = "projectType";
-  //   //     setValue("projectType", ProjectTypeValue);
-  //   //   }
-  //   //   else
-  //     return {
-  //       label: itm.projectType,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
 
   let Form = [
 
@@ -92,14 +81,16 @@ const ManageProjectSiteIdForm = ({
       option: dataGetterOld.subprojectresult,
       props: {
         onChange: (e) => {
+          const selectedIndex = e.target.selectedIndex; 
+          const selectedOption = e.target.options[selectedIndex];
+          const label = selectedOption.label; 
+          setSubProjectType(label)
           dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
-          // alert(e.target.value, "e.target.value")
         }
       },
       required: true,
       classes: "col-span-1",
     },
-
     {
       label: "Site ID",
       name: "siteId",
@@ -107,11 +98,7 @@ const ManageProjectSiteIdForm = ({
       value: "",
       component: <p className="cursor-pointer" onClick={() => {
         setmodalFullOpen(prev => !prev)
-
-
         setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
-
-
         setmodalBody(<CommonForm
           classes={"grid-cols-1 gap-1"}
           Form={Form}
@@ -122,7 +109,20 @@ const ManageProjectSiteIdForm = ({
       }}>
         <NewLookBadge text={SiteId} notifyType={"info"} />
         </p>,
-      //   option: employeeList,
+      component: <p className="cursor-pointer" onClick={() => {
+        setmodalFullOpen(prev => !prev)
+        setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
+        setmodalBody(<CommonForm
+          classes={"grid-cols-1 gap-1"}
+          Form={Form}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues} />)
+      }}>
+        <NewLookBadge text={SiteId} notifyType={"info"} />
+        </p>,
+
       props: {
         onChange: (e) => { },
       },
@@ -138,18 +138,9 @@ const ManageProjectSiteIdForm = ({
         setmodalFullOpen(true)
 
         setmodalFullBody(<ManageMilestone setGlobalData={setGlobalData} setSiteId={setMile} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
-        // setmodalHead("Edit Site ID")
-        // setmodalBody(<>
-
-        //   <ManageSite />
-        //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
-        //   {/* <ManageProjectForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
-        //   {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        // </>)
       }}> 
       <NewLookBadge text={"Add"} notifyType={"error"} />
       </p >,
-      //   option: employeeList,
       props: {
         onChange: (e) => { },
       },
@@ -171,7 +162,6 @@ const ManageProjectSiteIdForm = ({
     console.log(globalData, "globalDataglobalDataglobalData")
 
     dispatch(projectListActions.submitProjectTypeData(Urls.projectList_globalSaver, globalData, () => {
-
       dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
       setIsOpen(false)
     }))

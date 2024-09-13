@@ -101,11 +101,8 @@ const Invoice = () => {
                         resetting={false}
                         formValue={itm}
                       />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  console.log("ahshshhs", itm);
-                  //setmodalOpen(false)
                 }}
               ></EditButton>
             }
@@ -212,11 +209,12 @@ const Invoice = () => {
 
   let table = {
     columns: [
+      ...(shouldIncludeEditColumn
+        ? [
       {
         name: (
           <input
             type="checkbox"
-            // checked={selectAll}
             className='check-state'
             onChange={(e) => {
               if (e.target.checked) {
@@ -258,11 +256,12 @@ const Invoice = () => {
               }
             }}
           />
-        )
-        ,
+        ),
         value: "checkboxInvoice",
         style: "min-w-[40px] max-w-[60px] text-center",
-      },
+      }
+      ]
+      : []),
       {
         name: "Year",
         value: "year",
@@ -361,7 +360,7 @@ const Invoice = () => {
       },
       ...(shouldIncludeEditColumn
         ? [
-          {
+        {
             name: "Edit",
             value: "edit",
             style: "min-w-[100px] max-w-[200px] text-center"
@@ -500,7 +499,7 @@ const Invoice = () => {
       <AdvancedTable
         headerButton={
           <>
-            {(Array.isArray(selectAll) && selectAll?.length > 0 ) && (
+            {(Array.isArray(selectAll) && selectAll?.length > 0 && shouldIncludeEditColumn ) && (
                 <Button
                   classes="w-auto mr-1"
                   onClick={(e) => {

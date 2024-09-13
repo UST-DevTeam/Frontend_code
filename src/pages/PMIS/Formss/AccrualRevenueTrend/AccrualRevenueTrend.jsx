@@ -72,14 +72,7 @@ const AccrualRevenueTrend = () => {
   let dispatch = useDispatch();
 
 
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm?.circleName,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
+
 
 
   let dbConfigList = useSelector((state) => {

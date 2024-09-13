@@ -745,7 +745,6 @@ const AdminActions = {
 
     getCities:(reset=true,args="") => async (dispatch, _) => {
         try {
-            console.log("cities",args)
             const res = await Api.get({ url:`${Urls.Cities}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data

@@ -116,7 +116,7 @@ const FinancialCards = () => {
         <MonthlyRevenueCircle />
         <CumulativeTrendPlanVsActual />
         <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} /> */}
-        {/* <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
+        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />
       </div>
     </>
   );

@@ -4,12 +4,6 @@ import ReactApexChart from "react-apexcharts";
 const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "", dataLabelSuffix="", }) => {
 
     let category = data?.map(item => item.description) ||[];
-    // const series = [
-    //     {
-    //         name: "Active Employee",
-    //         data: SeriesData
-    //     },
-    // ];
     const defaultSeries = [
         {
             name: "Active Employee",

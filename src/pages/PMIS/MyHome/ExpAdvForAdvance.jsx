@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
-import { objectToQueryString } from "../../../utils/commonFunnction";
+import { getAccessType, objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
 import HrActions from "../../../store/actions/hr-actions";
@@ -18,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
 import { Urls } from "../../../utils/url";
+import ConditionalButton from "../../../components/ConditionalButton";
 
 const ExpAdvForAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -305,33 +306,35 @@ const ExpAdvForAdvance = () => {
     <>
       <AdvancedTable
         headerButton={
-          <div className="flex gap-1">
-            {" "}
-            <Button
-              classes="w-auto"
+          <div className="flex">
+            <ConditionalButton
+              classes="mr-1"
+              showType={getAccessType("Expense(Exp & Adv)")}
               onClick={(e) => {
                 navigate("/hr/Claim");
               }}
               name={"Expense"}
-            ></Button>
-            <Button
-              classes="w-auto mr-1"
+            ></ConditionalButton>
+            <ConditionalButton
+              classes="mr-1"
+              showType={getAccessType("Advance(Exp & Adv)")}
               onClick={(e) => {
                 navigate("/hr/Advance");
               }}
               name={"Advance"}
-            ></Button>
-            {/* <Button
-              name={"Upload File"}
-              classes="w-auto"
+            ></ConditionalButton>
+
+            <ConditionalButton
+              classes="mr-1"
+              showType={getAccessType("Export(Exp & Adv)")}
               onClick={(e) => {
-                setFileOpen((prev) => !prev);
+                dispatch(CommonActions.commondownload("export/AllAdvance","Export_AllAdvance.xlsx"))
               }}
-            ></Button> */}
+              name={"Export"}
+            ></ConditionalButton>
           </div>
         }
         table={table}
-        exportButton={["export/AllAdvance","Export_AllAdvance.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -341,7 +344,6 @@ const ExpAdvForAdvance = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        getaccessExport = {"Export(Expense&Advance)"}
         heading="Total Count:-"
       />
 
