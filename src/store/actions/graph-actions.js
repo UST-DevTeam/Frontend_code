@@ -726,7 +726,6 @@ const GraphActions = {
         } catch (error) {
         }
     }, 
-
     postGraphCirclePlanVSActualWorkdone: (data, cb) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: Urls.graph_Circle_plan_vs_actual_workdone})
@@ -758,6 +757,29 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    postGraphCumulativeTrendPlanVsActual: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_cumulative_trend_plan_vs_actual})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL({ dataAll, reset:true }))
+
+            }
+
+        } catch (error) {
+            return;
         }
     },
 
