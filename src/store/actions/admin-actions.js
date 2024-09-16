@@ -43,7 +43,11 @@ import {
     GET_ACCURAL_REVENUE_MASTER_PROJECTID,
     GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE,
     GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE,
-    GET_CARD_CUSTOMER
+    GET_CARD_CUSTOMER,
+
+    ////// Filter expense Advance
+    GET_MANAGE_ADVANCE_TYPE_FILTER,
+    GET_MANAGE_EXPENSE_TYPE_FILTER
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
 
@@ -699,6 +703,29 @@ const AdminActions = {
             return;
         }
     },
+
+
+
+    getManageExpenseTypeFilter:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_claim_type_Expenses}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_EXPENSE_TYPE_FILTER({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    }, 
+    getManageAdvanceTypeFilter:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_claim_type_Advances}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_ADVANCE_TYPE_FILTER({dataAll,reset}))
+            cb()
+        } catch (error) {
+        }
+    }, 
 
     getManageExpenseAdvance:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
         try {

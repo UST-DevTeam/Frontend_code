@@ -4,6 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../components/EditButton";
 import EmpDetails from "./EmpDetails";
+import moment from "moment";
 import AdvancedTable from "../../../components/AdvancedTable";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
@@ -18,6 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions";
 import { Urls } from "../../../utils/url";
+import AdminActions from "../../../store/actions/admin-actions";
 
 const ExpAdvForAdvance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -26,8 +28,29 @@ const ExpAdvForAdvance = () => {
   const [strValFil, setstrVal] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+  const endDate = moment().format("Y");
 
   let dispatch = useDispatch();
+  let listYear = [];
+
+  for (let ywq = 2021; ywq <= +endDate; ywq++) {
+    listYear.push({'label':ywq,'value':ywq});
+  }
+
+  let monthList = [
+    {'label':'Jan', 'value':'Jan'},
+    {'label':'Feb', 'value':'Feb'},
+    {'label':'Mar', 'value':'Mar'},
+    {'label':'Apr', 'value':'Apr'},
+    {'label':'May', 'value':'May'},
+    {'label':'Jun', 'value':'Jun'},
+    {'label':'Jul', 'value':'Jul'},
+    {'label':'Aug', 'value':'Aug'},
+    {'label':'Sep', 'value':'Sep'},
+    {'label':'Oct', 'value':'Oct'},
+    {'label':'Nov', 'value':'Nov'},
+    {'label':'Dec', 'value':'Dec'},
+  ]
 
   let navigate = useNavigate();
 
@@ -139,6 +162,7 @@ const ExpAdvForAdvance = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
+    console.log('statestatestate',state)
     let interdata = state?.expenseAdvanceData?.getHRAllAdvance;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
@@ -146,6 +170,18 @@ const ExpAdvForAdvance = () => {
       return 0;
     }
   });
+  let claimTypeList = useSelector((state) => {
+    return state?.adminData?.getClaimTypeAdvances?.map((itm) => {
+      return {
+        label: itm?.claimType,
+        value: itm?.claimTypeId,
+      };
+    });
+  });
+
+
+  
+
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -229,6 +265,11 @@ const ExpAdvForAdvance = () => {
             style: "min-w-[150px] max-w-[450px] text-center",
         },
         {
+          name: "Current Status",
+          value: "Status",
+          style: "min-w-[100px] max-w-[200px] text-center",
+      },
+        {
             name: "L1 Status",
             value: "L1 Status",
             style: "min-w-[100px] max-w-[200px] text-center",
@@ -274,23 +315,90 @@ const ExpAdvForAdvance = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
+      {
+        label: "Status",
+        type: "select",
+        name: "status",
+        option: [
+          { label: "Submitted", value: "Submitted" },
+          { label: "L1-Approved", value: "L1-Approved" },
+          { label: "L1-Rejected", value: "L1-Rejected" },
+          { label: "L2-Approved", value: "L2-Approved" },
+          { label: "L2-Rejected", value: "L2-Rejected" },
+          { label: "L3-Approved", value: "L3-Approved" },
+          { label: "L3-Rejected", value: "L3-Rejected" },
+        ],
+        // props: {
+        // }
+      },
+      
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
+      {
+        label: "Advance Number",
+        type: "text",
+        name: "AdvanceNo",
+        props: {},
+      },
+     
+      {
+        label: "Claim Type",
+        value: "",
+        // name: Object.entries(formValue).length > 0 ? "name" : "claimType",
+        name: "claimType",
+        // type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+        type:"select",
+        option: claimTypeList,
+        props: {
+            onChange: (e) => {
+              // dispatch(
+              //   AdminActions.getManageExpenseAdvance(
+              //     true,
+              //     `claimtypeDa=${e.target.value}`
+              //   )
+              // );
+            },
+          },
+        // required: true,
+        classes: "col-span-1",
+    },
+    {
+      label: "Month",
+      type: "select",
+      name: "month",
+      option:monthList,
+      props: {
+      }
+    },
+    {
+      label: "Year",
+      type: "select",
+      name: "year",
+      option:listYear,
+      props: {
+      }
+    },
+   
     ],
   };
   const onSubmit = (data) => {
-    let value = data.reseter;
+    // let value = data.reseter;
+    // delete data.reseter;
+    // dispatch(ExpenseAdvanceActions.getHRAllAdvance(value, objectToQueryString(data)));
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(ExpenseAdvanceActions.getHRAllAdvance(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    // dispatch(ExpenseAdvanceActions?.getL1Data(true, strVal));
+    dispatch(ExpenseAdvanceActions.getHRAllAdvance(true, strVal));
   };
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getHRAllAdvance());
+    dispatch(AdminActions.getManageAdvanceTypeFilter())
   }, []);
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageEmployee";
@@ -329,10 +437,17 @@ const ExpAdvForAdvance = () => {
                 setFileOpen((prev) => !prev);
               }}
             ></Button> */}
+            <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload("/export/AllAdvance"+ "?"+ strValFil,"Export_AllAdvance.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
           </div>
         }
         table={table}
-        exportButton={["export/AllAdvance","Export_AllAdvance.xlsx"]}
+        // exportButton={["export/AllAdvance","Export_AllAdvance.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
