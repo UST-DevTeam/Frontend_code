@@ -95,8 +95,8 @@ const EmpDetailsTable = () => {
                 name={""}
                 onClick={() => {
                   dispatch(GET_CITIES({dataAll:[],reset:true}))
-                  dispatch(AdminActions.getCities(true, `stateCode=${itm?.state}`));
                   dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true}));
+                  dispatch(AdminActions.getCities(true, `stateCode=${itm?.state}`));
                   navigate(`/empdetails/${itm.uniqueId}`);
                   setmodalBody(
                     <>
