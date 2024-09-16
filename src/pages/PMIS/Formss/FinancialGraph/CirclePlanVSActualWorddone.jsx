@@ -233,7 +233,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <BarLineGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {SecondaryAxis}/>
+      <BarLineGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTextTitle ="Planned (₹) Lac" dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {SecondaryAxis}/>
     </div>
   );
 };

@@ -60,18 +60,11 @@ let CircleList = useSelector((state) => {
     return state?.GraphData?.getGraphMS1AndMS2CircleWise || [];
   });
 
-  const MS2MS1 = GraphData?.map((item) => {
-    const TotalMS1Done = item.TotalMS1Done || 0;
-    const TotalMS2Done = item.TotalMS2Done || 0;
-    const percentage = TotalMS1Done === 0 ? 0 : ((TotalMS2Done / TotalMS1Done) * 100).toFixed(0);
-    return Number(percentage);
-  }) || [];
-
-
   let data1 = GraphData?.map(item => item.SiteIdCount) || []
   let data2 = GraphData?.map(item => item.TotalMS1Done) || []
   let data3 = GraphData?.map(item => item.TotalMS2Done) || []
-  let data4 = MS2MS1
+  let data4 = GraphData?.map(item => item.ach1) || []
+  let data5 = GraphData?.map(item => item.ach2) || []
 
   const SeriesData = [
     {
@@ -90,8 +83,13 @@ let CircleList = useSelector((state) => {
         type: "bar",
       },
       {
-        name: "MS2/MS1(%)", 
+        name: "Total Sites / MS1(%)", 
         data: data4,
+        type: "line", 
+      },
+      {
+        name: "Total Sites / MS2(%)", 
+        data: data5,
         type: "line", 
       },
   ];
@@ -193,7 +191,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4}/>
+      <TripleLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} XAxisTitle={"Circle"} columnWidth={"20%"} data1={data1} data2={data2} data3={data3} data4={data4} data5={data5}/>
     </div>
   );
 };

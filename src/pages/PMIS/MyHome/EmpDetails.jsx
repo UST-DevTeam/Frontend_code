@@ -172,7 +172,7 @@ const EmpDetails = (props) => {
   });
 
   let stateList = useSelector((state) => {
-    return state?.adminData?.getState.map((itm) => {
+    return state?.adminData?.getState?.map((itm) => {
       return {
         label: itm?.name,
         value: itm?.state_code,
@@ -181,7 +181,7 @@ const EmpDetails = (props) => {
   });
 
   let cityList = useSelector((state) => {
-    return state?.adminData?.getCities.map((itm) => {
+    return state?.adminData?.getCities?.map((itm) => {
       return {
         label: itm?.name,
         value: itm?.name,
@@ -189,7 +189,6 @@ const EmpDetails = (props) => {
       };
     });
   });
-
 
   let PersonalInformation = [
     {
@@ -916,7 +915,7 @@ const EmpDetails = (props) => {
       name: "password",
       value: "",
       type: "text",
-      required: false,
+      required: true,
       props: {},
       classes: "col-span-1",
     },
@@ -964,8 +963,6 @@ const EmpDetails = (props) => {
   ];
 
   const onTableViewGenerateSubmit = (data) => {
-    console.log(data, "dsadasdsadsadsadas");
-
     data["samePerAdd"] = isSame;
     if (isSame) {
       data["paddress"] = data["address"];

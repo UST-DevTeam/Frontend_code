@@ -8,7 +8,7 @@ const BarLineGraph = ({ data,
   columnWidth = "90%",
   dataLabelSuffix="",
   XAxisTitle = "",  
-  YAxisTitle = "", 
+  YAxisTextTitle = 'Revenue (₹) Lac',
   YAxisSecondaryTitle = "Acheievement (%)",
   data1,
   data2,
@@ -86,8 +86,8 @@ const BarLineGraph = ({ data,
                 }
                 return val;
               },
-            offsetY: -7,
-            style: {
+            offsetY: -5,
+            style: { 
                 colors: ["transparent"],
                 fontSize: "6px",
                 fontWeight: 'bold',
@@ -119,7 +119,7 @@ const BarLineGraph = ({ data,
           yaxis: [
             {
               title: {
-                text: 'Revenue (₹) Lac', 
+                text: YAxisTextTitle, 
                 style:{
                   color: "#ffffff",
                   fontSize: '18px'
