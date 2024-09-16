@@ -198,7 +198,7 @@ const FinancialCards = () => {
               <div className="w-full flex flex-col items-center">
                 <button
                   onClick={handleBackToCards}  
-                  className="w-[60px] mb-1 ml-auto rounded-md text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+                  className="w-[60px] mb-1 mr-auto rounded-md text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
                 focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.4px] border-[#0e8670] font-poppins transition
                 duration-1000 ease-in-out hover:bg-[#ffab2d] hover:text-white bg-[#13b497] hover:border-[#b99039] hover:border-[1.5px]"
                 >

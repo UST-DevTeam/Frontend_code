@@ -18,6 +18,7 @@ const TripleLineBarGraph = ({
   data2,
   data3,
   data4,
+  data5,
 }) => {
 
   const category = data?.map((item) => item.description) || [];
@@ -40,6 +41,7 @@ if (max1 % 500 !== 0) {
 
 let max2 = Math.max(
   ...(data4 || []),
+  ...(data5 || []),
 )
 if (max2 % 25 !== 0) {
   max2 = Math.ceil(max2 /25) * 25;
@@ -75,9 +77,10 @@ if (max2 % 25 !== 0) {
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
   // const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
-  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30"];
+  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30", "#f4d3a8"];
 
   // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
+  const offsetX = horizontal ? 0 : -3;
   const offsetY = horizontal ? 0 : -7;
 
   const options = {
@@ -109,17 +112,13 @@ if (max2 % 25 !== 0) {
     },
     dataLabels: {
       enabled: true,
-      formatter: (val, { seriesIndex }) => {
-        if (seriesIndex === 3) {
-          return `${val}%`; 
-        }
-        return `${val} ${dataLabelSuffix}`.trim();
-      },     
-      enabledOnSeries: [0,1,2,3],
+      formatter: (val, { seriesIndex }) => (seriesIndex === 3 || seriesIndex === 4 ? `${val}%` : `${val} ${dataLabelSuffix}`),
+      enabledOnSeries: [0,1,2,3,4],
+      offsetX: offsetX,
       offsetY: offsetY,
       style: {
         colors: ["transparent"],
-        fontSize: "6.5px",
+        fontSize: "6px",
         fontWeight: 'bold',
     }, 
     background: {
@@ -219,6 +218,26 @@ if (max2 % 25 !== 0) {
         max:max2,
         tickAmount: 5
       },
+      {
+        opposite: true,
+        show:false,
+        title: {
+          text: 'Achievement (%)',
+          style:{
+            color: "#ffffff",
+            fontSize: '18px',
+          }  
+        },
+        labels: {
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        min:0,
+        max:max2
+      }
     ],
     // yaxis: [
     //     {
@@ -272,9 +291,9 @@ if (max2 % 25 !== 0) {
       },
     },
     stroke: {
-      colors: ["transparent", "transparent", "transparent", "#b8ee30"],
+      colors: ["transparent", "transparent", "transparent", "#b8ee30", "#f4d3a8"],
       curve: 'smooth',
-      width: [0.8, 0.8, 0.8, 2.5],
+      width: [0.8, 0.8, 0.8, 3, 3],
       // colors: BarBorderColors,
     },
     grid: {
@@ -282,12 +301,12 @@ if (max2 % 25 !== 0) {
       strokeDashArray: 0,
     },
     markers: {
-      size: 6, 
-      colors: ['#b8ee30'], 
+      size: 7, 
+      colors: ['#f4d3a8', '#b8ee30'],  
       strokeColor: 'black', 
-      strokeWidth: 1, 
+      strokeWidth:1, 
       hover: {
-          size: 6, 
+          size: 8, 
       }
   },
     fill: {
@@ -307,19 +326,20 @@ if (max2 % 25 !== 0) {
       fontWeight: "bold",
     },
     tooltip: {
-        theme: "dark",  
-        marker: {
-          fillColors: colors,  
-        },
-        y: {
-            formatter: function(value, { seriesIndex }) {
-              if (seriesIndex === 3) { 
-                return `${value}%`;  
-              }
-              return value;
-            },
-          },
+      theme: "dark",  
+      marker: {
+        fillColors: colors,  
       },
+      y: {
+        formatter: function (value, { seriesIndex }) {
+          if (seriesIndex === 3 || seriesIndex === 4) {
+            return `${value}%`;
+          }
+          return value;
+        },
+      },
+      
+    },
   };
 
   return (

@@ -18,7 +18,8 @@ const TripleBarGraph = ({
   data3,
   data4,
   data5,
-  
+  shubham = false, 
+   
 }) => {
 
   let max1 = Math.max(
@@ -26,8 +27,19 @@ const TripleBarGraph = ({
     ...(data2 || []),
     ...(data3 || []),
   )
-  if (max1 % 500 !== 0) {
-    max1 = Math.ceil(max1 / 500) * 500;
+
+
+  // if (max1 % 500 !== 0) {
+  //   max1 = Math.ceil(max1 / 500) * 500;
+  // }
+  if (!shubham) {
+    if (max1 % 500 !== 0) {
+      max1 = Math.ceil(max1 / 500) * 500;
+    }
+  } else {
+    if (max1 % 50 !== 0) {
+      max1 = Math.ceil(max1 / 50) * 50;
+    }
   }
 
   let max2 = Math.max(
