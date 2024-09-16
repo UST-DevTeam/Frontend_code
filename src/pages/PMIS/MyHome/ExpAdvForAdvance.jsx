@@ -152,6 +152,14 @@ const ExpAdvForAdvance = () => {
   //     { label: "Custom Queries", value: "", type: "textarea" }
   // ]
 
+  let showType = getAccessType("Action(Exp & Adv)")
+
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible"){
+    shouldIncludeEditColumn = true
+  }
+
   let table = {
     columns: [
         {
@@ -264,11 +272,15 @@ const ExpAdvForAdvance = () => {
             value: "Remarks",
             style: "min-w-[200px] max-w-[450px] text-center",
         },
-        {
-            name: "Actions",
-            value: "delete",
-            style: "min-w-[200px] max-w-[450px] text-center",
-        },
+        ...(shouldIncludeEditColumn ? 
+          [
+            {
+                name: "Actions",
+                value: "delete",
+                style: "min-w-[200px] max-w-[450px] text-center",
+            }
+          ]: []
+        )
     ],
 
     properties: {
