@@ -44,7 +44,8 @@ const initialState = {
     getAccuralRevenueMasterProjectId:[],
     getAccuralRevenueMasterSubProject:[],
     getAccuralRevenueMasterProjectType:[],
-
+    getClaimTypeExpenses:[],
+    getClaimTypeAdvances:[],
 }
 
 const adminData = createSlice({
@@ -59,6 +60,7 @@ const adminData = createSlice({
                 state.getManageCustomer  = [...state.getManageCustomer,...payload.dataAll]
             }
         },
+
         GET_CARD_CUSTOMER:(state,{payload}) => {
             if(payload.reset){
                 state.getCardCustomer = payload.dataAll
@@ -279,6 +281,22 @@ const adminData = createSlice({
             }
             
         },
+        GET_MANAGE_EXPENSE_TYPE_FILTER:(state,{payload}) => {
+            if(payload.reset){
+                state.getClaimTypeExpenses = payload.dataAll
+            }else{
+                state.getClaimTypeExpenses  = [...state.getClaimTypeExpenses,...payload.dataAll]
+            }
+            
+        },
+        GET_MANAGE_ADVANCE_TYPE_FILTER:(state,{payload}) => {
+            if(payload.reset){
+                state.getClaimTypeAdvances = payload.dataAll
+            }else{
+                state.getClaimTypeAdvances  = [...state.getClaimTypeAdvances,...payload.dataAll]
+            }
+            
+        },
         
 
         GET_MANAGE_SUB_PROJECT:(state,{payload}) => {
@@ -433,6 +451,8 @@ export const {
     GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE,
     GET_ACCURAL_REVENUE_MASTER_PROJECTID,
     GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE,
+    GET_MANAGE_EXPENSE_TYPE_FILTER,
+    GET_MANAGE_ADVANCE_TYPE_FILTER
 
 
 } = adminData.actions

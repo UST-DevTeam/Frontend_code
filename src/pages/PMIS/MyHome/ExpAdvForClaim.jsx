@@ -20,6 +20,8 @@ import ExpenseAdvanceActions from "../../../store/actions/expenseAdvance-actions
 import DownloadButton from "../../../components/DownloadButton";
 import { Urls } from "../../../utils/url";
 import ConditionalButton from "../../../components/ConditionalButton";
+import moment from "moment";
+import AdminActions from "../../../store/actions/admin-actions";
 
 const ExpAdvForClaim = () => {
   const expenseRef = useRef("");
@@ -31,9 +33,30 @@ const ExpAdvForClaim = () => {
   const [strValFil, setstrVal] = useState(false);
   const [fileOpen3, setFileOpen3] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
+  const endDate = moment().format("Y");
 
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  let listYear = [];
+
+  for (let ywq = 2021; ywq <= +endDate; ywq++) {
+    listYear.push({'label':ywq,'value':ywq});
+  }
+
+  let monthList = [
+    {'label':'Jan', 'value':'Jan'},
+    {'label':'Feb', 'value':'Feb'},
+    {'label':'Mar', 'value':'Mar'},
+    {'label':'Apr', 'value':'Apr'},
+    {'label':'May', 'value':'May'},
+    {'label':'Jun', 'value':'Jun'},
+    {'label':'Jul', 'value':'Jul'},
+    {'label':'Aug', 'value':'Aug'},
+    {'label':'Sep', 'value':'Sep'},
+    {'label':'Oct', 'value':'Oct'},
+    {'label':'Nov', 'value':'Nov'},
+    {'label':'Dec', 'value':'Dec'},
+  ]
 
   let showType = getAccessType("Action(Exp & Adv)")
 
@@ -163,12 +186,25 @@ const ExpAdvForClaim = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
+    console.log('statestatestate2',state)
     let interdata = state?.expenseAdvanceData?.getHRAllExpenses;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
       return 0;
     }
+  });
+
+
+
+  let claimTypeList = useSelector((state) => {
+    return state?.adminData?.getClaimTypeExpenses?.map((itm) => {
+      
+      return {
+        label: itm?.claimType,
+        value: itm?.claimTypeId,
+      };
+    });
   });
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
@@ -315,6 +351,11 @@ const ExpAdvForClaim = () => {
             style: "min-w-[150px] max-w-[450px] text-center",
         },
         {
+          name: "Current Status",
+          value: "Status",
+          style: "min-w-[150px] max-w-[450px] text-center",
+      },
+        {
             name: "Last Action Date",
             value: "Last Action Date",
             style: "min-w-[150px] max-w-[450px] text-center",
@@ -391,30 +432,56 @@ const ExpAdvForClaim = () => {
         // }
       },
       
-      // {
-      //   label: "Employee Code",
-      //   type: "text",
-      //   name: "empCode",
-      //   props: {},
-      // },
+      {
+        label: "Employee Code",
+        type: "text",
+        name: "empCode",
+        props: {},
+      },
       {
         label: "Expense Number",
         type: "text",
         name: "ExpenseNo",
         props: {},
       },
-      // {
-      //   label: "Claim Month",
-      //   type: "text",
-      //   name: "claimMonth",
-      //   props: {},
-      // },
-      // {
-      //   label: "Claim Type",
-      //   type: "text",
-      //   name: "ExpenseNo",
-      //   props: {},
-      // },
+      
+      {
+        label: "Claim Type",
+        value: "",
+        // name: Object.entries(formValue).length > 0 ? "name" : "claimType",
+        name: "claimType",
+        // type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+        type:"select",
+        option: claimTypeList,
+        props: {
+            onChange: (e) => {
+              // dispatch(
+              //   AdminActions.getManageExpenseAdvance(
+              //     true,
+              //     `claimtypeDa=${e.target.value}`
+              //   )
+              // );
+            },
+          },
+        // required: true,
+        classes: "col-span-1",
+    },
+    {
+      label: "Month",
+      type: "select",
+      name: "month",
+      option:monthList,
+      props: {
+      }
+    },
+    {
+      label: "Year",
+      type: "select",
+      name: "year",
+      option:listYear,
+      props: {
+      }
+    },
     ],
   };
   const onSubmit = (data) => {
@@ -428,6 +495,7 @@ const ExpAdvForClaim = () => {
   };
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getHRAllExpenses());
+    dispatch(AdminActions.getManageExpenseTypeFilter());
   }, []);
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageClaims";
@@ -495,7 +563,7 @@ const ExpAdvForClaim = () => {
               classes="mr-1"
               showType={getAccessType("Export(Exp & Adv)")}
               onClick={(e) => {
-                dispatch(CommonActions.commondownload("export/AllExpenses","Export_AllExpenses.xlsx"))
+                dispatch(CommonActions.commondownload("export/AllExpenses"+"?"+strValFil,"Export_AllExpenses.xlsx"))
               }}
               name={"Export"}
             ></ConditionalButton>
