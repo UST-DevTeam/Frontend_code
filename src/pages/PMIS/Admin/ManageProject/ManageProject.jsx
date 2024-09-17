@@ -752,6 +752,17 @@ const ManageProject = () => {
                       }}
                       >
                       </Button>
+
+                     <Button
+                      name={"Upgrade Old Task"}
+                      classes="w-auto m-5"
+                      onClick={() => {
+                        setFileOpen(prev=>!prev)
+                        setFileOpenlink([`/template/Old_Task_Update.xlsx`,"Old_Task_Update.xlsx"])
+                        setfileType(`updateOldMilestone`)
+                      }}
+                      >
+                      </Button>
                 </div>
                     
                   }
