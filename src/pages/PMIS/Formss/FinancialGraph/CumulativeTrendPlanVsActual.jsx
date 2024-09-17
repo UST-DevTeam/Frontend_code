@@ -148,12 +148,12 @@ const CumulativeTrendPlanVsActual = () => {
       data: data3,
   },
   {
-      name: "Acheievement (%)",
+      name: "Actual / PV (%)",
       type: "line",
       data: SecondaryAxis,
   },
   {
-      name: "Acheievement (%)",
+      name: "Actual / AOP (%)",
       type: "line",
       data: ThirdAxis,
   },

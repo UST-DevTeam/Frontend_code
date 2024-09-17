@@ -20,6 +20,8 @@ import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-acti
 import FillExpenseForm from "../../../../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpenseForm";
 import AdvancedTableRow from "../../../../components/AdvancedTableRow";
 import { objectKeys } from "react-querybuilder";
+import DownloadButton from "../../../../components/DownloadButton";
+import ViewButton from "../../../../components/ViewButton";
 
 const FillExpense = () => {
   const expenseRef = useRef("");
@@ -56,14 +58,14 @@ const FillExpense = () => {
 
         categories: categoriesArray.join(","),
 
-        attachment: (
-          <div className="flex justify-center items-center">
-            <img
-              src={backendassetUrl + itm?.attachment}
-              className="w-24 h-14 content-center flex object-contain"
-            />
-          </div>
-        ),
+        // attachment: (
+        //   <div className="flex justify-center items-center">
+        //     <img
+        //       src={backendassetUrl + itm?.attachment}
+        //       className="w-24 h-14 content-center flex object-contain"
+        //     />
+        //   </div>
+        // ),
 
         edit: (
           <CstmButton
@@ -166,14 +168,14 @@ const FillExpense = () => {
 
         categories: categoriesArray.join(","),
 
-        attachment: (
-          <div className="flex justify-center items-center">
-            <img
-              src={backendassetUrl + itm?.attachment}
-              className="w-24 h-14 content-center flex object-contain"
-            />
-          </div>
-        ),
+        // attachment: (
+        //   <div className="flex justify-center items-center">
+        //     <img
+        //       src={backendassetUrl + itm?.attachment}
+        //       className="w-24 h-14 content-center flex object-contain"
+        //     />
+        //   </div>
+        // ),
 
         ExpenseNo: (
           <p
@@ -296,6 +298,7 @@ const FillExpense = () => {
             }
           />
         ),
+
       };
       return updateditm;
     });
@@ -426,11 +429,20 @@ const FillExpense = () => {
         value: "SubmissionDate",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
-      {
-        name: "Attachment",
-        value: "attachment",
-        style: "min-w-[100px] max-w-[450px] text-center",
-      },
+      ...(!hide
+        ? []
+        : [
+            {
+              name: "Attachment",
+              value: "attachment",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+            {
+              name: "Attachment Preview",
+              value: "view",
+              style: "min-w-[150px] max-w-[450px] text-center",
+            },
+          ]),
       {
         name: "Status",
         value: "status",
@@ -537,7 +549,7 @@ const FillExpense = () => {
         size={"full"}
         modalHead={modalHead}
         children={ <AdvancedTableRow
-          headerButton={<div className="flex gap-1"></div>}
+        headerButton={<div className="flex gap-1"></div>}
           // table={{
           //   ...table,
           //   columns: [...table.columns].splice(table.columns.length - 3, 0, {
@@ -550,7 +562,58 @@ const FillExpense = () => {
           filterAfter={onSubmit}
           tableName={"UserListTable"}
           handleSubmit={handleSubmit}
-          data={dbConfigListL}
+          // data={dbConfigListL}
+          data={dbConfigListL?.map((item, index) => {
+            return {
+              ...item,
+              attachment: (
+                <CstmButton
+                  className={"p-2"}
+                  child={
+                    <DownloadButton
+                      name={""}
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/expenses/downloadFile" +
+                              "?" +
+                              `attachment=${item.attachment}`,
+                            `${item?.attachment}`
+                          )
+                        );
+                      }}
+                    ></DownloadButton>
+                  }
+                />
+              ),
+
+              view: (
+                <CstmButton
+                  className={"p-2"}
+                  child={
+                    <ViewButton
+                      name={""}
+                      onClick={() => {
+                        setmodalOpen(true);
+                        setmodalHead("Attachment Preview");
+                        setmodalBody(
+                          <>
+                            <div className="flex justify-center items-center">
+                              <img
+                                src={backendassetUrl + item?.attachment}
+                                className="w-full h-full content-center flex object-contain"
+                              />
+                            </div>
+                          </>
+                        );
+                        setmodalFullOpen((prev) => !prev);
+                      }}
+                    ></ViewButton>
+                  }
+                />
+              ),
+            };
+          })}
           errors={errors}
           register={register}
           setValue={setValue}

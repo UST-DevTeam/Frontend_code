@@ -30,6 +30,7 @@ import {
     GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE,
     GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL,
     GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL,
+    GET_GRAPH_MS2_VS_WCC_PENDING_REASON,
     
  } from "../reducers/graph-reducer"
 
@@ -809,6 +810,37 @@ const GraphActions = {
                 let dataAll = res?.data?.data
                 dispatch(GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL({ dataAll, reset:true }))
 
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+    getGraphMS2vsWCCPendingReason:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_ms2_vs_wcc_pending_reason}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_MS2_VS_WCC_PENDING_REASON({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphMS2vsWCCPendingReason: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_ms2_vs_wcc_pending_reason})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_MS2_VS_WCC_PENDING_REASON({ dataAll, reset:true }))
             }
 
         } catch (error) {

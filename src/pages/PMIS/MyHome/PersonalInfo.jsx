@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CommonForm from "../../../components/CommonForm";
 import AdminActions from "../../../store/actions/admin-actions";
 import MyHomeActions from "../../../store/actions/myHome-actions"
+import { backendassetUrl } from "../../../utils/url";
 
 const PersonalInfo = (props) => {
   const {
@@ -28,6 +29,10 @@ const PersonalInfo = (props) => {
   const [countform, setcountform] = useState([1]);
   const navigate = useNavigate();
   const [showPassportNumber, setshowPassportNumber] = useState(false);
+
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const [cvPreview, setCvPreview] = useState(null);
+  const [docsPreview, setDocsPreview] = useState(null);
 
   const PersonalInfo = useSelector((state) => {
     let data = state.myHomeData.getPersonalInfo;
@@ -830,6 +835,13 @@ const PersonalInfo = (props) => {
     dispatch(MyHomeActions.getPersonalInfo({ reset: false }))
     reset({});
   }, [])
+ 
+  useEffect(() => {
+    if (oneLoad && oneLoad["img[]"]) {
+      const imagePath = oneLoad["img[]"].replace(/\\/g, '/');
+      setPhotoPreview(`${backendassetUrl}${imagePath}`);
+    }
+  }, [oneLoad]);
 
   return (
     <>
@@ -894,7 +906,7 @@ const PersonalInfo = (props) => {
                     setValue={setValue}
                     getValues={getValues}
                   />
-                  <CommonForm
+                  {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full bg-[#3e454d] border border-[0.7px] border-pcol p-4 mt-2 rounded-lg overflow-y-hidden"
                     }
@@ -903,7 +915,64 @@ const PersonalInfo = (props) => {
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />
+                  /> */}
+               <div className="grid grid-cols-3 gap-4 w-full bg-[#3e454d] border-[0.7px] border-pcol p-4 mt-2 rounded-lg overflow-y-hidden">
+                <h2 className="col-span-4 font-extrabold text-pcol text-start pl-7">
+                  Supporting Documents
+                </h2>
+
+                {/* Photo Preview */}
+                <div className="col-span-1">
+                  <label className="text-white">Photo</label>
+                  {photoPreview ? (
+                    <img
+                      src={photoPreview}
+                      alt="Photo Preview"
+                      className="mt-2 h-28 w-28 rounded-md object-cover"
+                    />
+                  ) : (
+                    <p className="text-gray-400">No photo available</p>
+                  )}
+                </div>
+
+                {/* CV Preview */}
+                <div className="col-span-1">
+                  <label className="text-white">CV</label>
+                  {cvPreview ? (
+                    <div className="mt-2">
+                      <a
+                        href={cvPreview}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline"
+                      >
+                        View CV
+                      </a>
+                    </div>
+                  ) : (
+                    <p className="text-gray-400">No CV available</p>
+                  )}
+                </div>
+
+                {/* Other Documents Preview */}
+                <div className="col-span-1">
+                  <label className="text-white">All Other Documents</label>
+                  {docsPreview ? (
+                    <div className="mt-2">
+                      <a
+                        href={docsPreview}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline"
+                      >
+                        View Documents
+                      </a>
+                    </div>
+                  ) : (
+                    <p className="text-gray-400">No documents available</p>
+                  )}
+                </div>
+              </div>
                   {/* <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
                   register={register} setValue={setValue} getValues={getValues} /> */}
                 </div>

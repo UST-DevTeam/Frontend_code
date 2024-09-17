@@ -8,21 +8,14 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
-import EarnValueMgmtForm from "../EarnValueMgmtFinancial/EarnValueMgmtForm";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
-import AdminActions from "../../../../store/actions/admin-actions";
-import Multiselection from "../../../../components/FormElements/Multiselection";
-import SelectDropDown from "../../../../components/FormElements/SelectDropDown";
-import { data } from "autoprefixer";
 import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
-
 import PLform from "./PLform";
 import { UilSearch } from "@iconscout/react-unicons";
 
@@ -285,54 +278,44 @@ const PL = () => {
 
   let table = {
     columns: [
-      {
-        name: "Year",
-        value: "year",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Month",
-        value: "months",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Customer",
-        value: "customer",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Year",
+      //   value: "year",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Month",
+      //   value: "months",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Customer",
+      //   value: "customer",
+      //   style: "min-w-[200px] max-w-[200px] text-center",
+      // },
       {
         name: "Cost Center",
         value: "costCenter",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Project Group",
-        value: "projectGroup",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "Zone",
+        value: "zone",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Project Manager",
-        value: "empName",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Project Group",
+      //   value: "projectGroup",
+      //   style: "min-w-[200px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Project Manager",
+      //   value: "empName",
+      //   style: "min-w-[200px] max-w-[200px] text-center",
+      // },
       {
         name: "Projected Revenue",
         value: "totalAmount",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
-      {
-        name: "Projected Cost",
-        value: "projectedCost",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
-      {
-        name: "Projected Gros Profit",
-        value: "projectedGrossProfit",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
-      {
-        name: "Projected Margin(%)",
-        value: "projectedMargin",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -341,28 +324,43 @@ const PL = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
+        name: "Projected Cost",
+        value: "projectedCost",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
         name: "Actual Cost",
         value: "actualCost",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Actual Gross Profit",
-        value: "actualGrossProfit",
+        name: "Gros Profit",
+        value: "grossProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "SGNA",
+        name: "Gross Margin(%)",
+        value: "grossMargin",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Actual Gross Profit",
+      //   value: "actualGrossProfit",
+      //   style: "min-w-[200px] max-w-[200px] text-center",
+      // },
+      {
+        name: "SGNA Cost",
         value: "SGNA",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Actual Net Profit",
-        value: "actualNetProfit",
+        name: "Net Profit",
+        value: "netProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
         name: "Net Margin(%)",
-        value: "actualMargin",
+        value: "netMargin",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       
