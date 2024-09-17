@@ -93,13 +93,13 @@ const MonthlyRevenueCircle = () => {
         yaxisIndex: 0
     },
     {
-        name: "Acheievement(%)",
+        name: "Actual / PV (%)",
         type: "line",
         data: SecondaryAxis,
         yaxisIndex: 1
     },
     {
-        name: "Acheievement (%)",
+        name: "Actual / AOP (%)",
         type: "line",
         data: ThirdAxis,
         yaxisIndex: 1

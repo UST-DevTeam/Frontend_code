@@ -23,7 +23,6 @@ import { objectKeys } from "react-querybuilder";
 import DownloadButton from "../../../../components/DownloadButton";
 import ViewButton from "../../../../components/ViewButton";
 
-
 const FillExpense = () => {
   const expenseRef = useRef("");
   const [modalFullOpen, setmodalFullOpen] = useState(false);
@@ -169,14 +168,14 @@ const FillExpense = () => {
 
         categories: categoriesArray.join(","),
 
-        attachment: (
-          <div className="flex justify-center items-center">
-            <img
-              src={backendassetUrl + itm?.attachment}
-              className="w-24 h-14 content-center flex object-contain"
-            />
-          </div>
-        ),
+        // attachment: (
+        //   <div className="flex justify-center items-center">
+        //     <img
+        //       src={backendassetUrl + itm?.attachment}
+        //       className="w-24 h-14 content-center flex object-contain"
+        //     />
+        //   </div>
+        // ),
 
         ExpenseNo: (
           <p
@@ -299,6 +298,7 @@ const FillExpense = () => {
             }
           />
         ),
+
       };
       return updateditm;
     });
@@ -549,7 +549,7 @@ const FillExpense = () => {
         size={"full"}
         modalHead={modalHead}
         children={ <AdvancedTableRow
-          headerButton={<div className="flex gap-1"></div>}
+        headerButton={<div className="flex gap-1"></div>}
           // table={{
           //   ...table,
           //   columns: [...table.columns].splice(table.columns.length - 3, 0, {
@@ -564,7 +564,6 @@ const FillExpense = () => {
           handleSubmit={handleSubmit}
           // data={dbConfigListL}
           data={dbConfigListL?.map((item, index) => {
-            console.log('itemitemitem',item)
             return {
               ...item,
               attachment: (
@@ -607,6 +606,7 @@ const FillExpense = () => {
                             </div>
                           </>
                         );
+                        setmodalFullOpen((prev) => !prev);
                       }}
                     ></ViewButton>
                   }

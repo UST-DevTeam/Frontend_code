@@ -144,7 +144,7 @@ const Dashboard1 = () => {
         <button
         className="flex w-full justify-center rounded-lg py-1.5 text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
         focus-visible:outline-2 mr-4  focus-visible:outline-offset-2  buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
-        duration-1000 ease-in-out hover:bg-[#ffab2d] hover:text-white bg-[#13b497] hover:border-[#FF6347] hover:border-[0.5px]"
+        duration-1000 ease-in-out hover:bg-[#ffab2d] hover:text-[#24252d] hover:font-black bg-[#13b497] hover:border-[#FF6347] hover:border-[0.5px]"
           onClick={viewMore} 
         >
           View More

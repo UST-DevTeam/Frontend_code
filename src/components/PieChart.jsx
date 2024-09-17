@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const PieChart = ({ data,colors }) => {
+const PieChart = ({ data, colorSeries = ["#13b497", "#ffab2d"] }) => {
 
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || []
-
-  let colorSeries = ["#13b497", "#ffab2d"]
-
+  
   const options = {
     chart: {
       type: 'pie',

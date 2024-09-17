@@ -30,6 +30,7 @@ const initialState = {
     getGraphCirclePlanVSActualWorkdone:[],
     getGraphCumulativeTrendPlanVsActual:[],
     getGraphCumulativeWorkdonePlanVsActual:[],
+    getGraphMS2vsWCCPendingReason:[],
 } 
  
 const GraphData = createSlice({
@@ -266,6 +267,13 @@ const GraphData = createSlice({
                 state.getGraphCumulativeWorkdonePlanVsActual  = [...state.getGraphCumulativeWorkdonePlanVsActual,...payload.dataAll]
             }
         },
+        GET_GRAPH_MS2_VS_WCC_PENDING_REASON:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphMS2vsWCCPendingReason = payload.dataAll
+            }else{
+                state.getGraphMS2vsWCCPendingReason  = [...state.getGraphMS2vsWCCPendingReason,...payload.dataAll]
+            }
+        },
 
     }
 })
@@ -300,6 +308,7 @@ export const {
     GET_GRAPH_Circle_PLAN_VS_ACTUAL_WORKDONE,
     GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL,
     GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL,
+    GET_GRAPH_MS2_VS_WCC_PENDING_REASON,
 } = GraphData.actions
     
 export default GraphData.reducer    
