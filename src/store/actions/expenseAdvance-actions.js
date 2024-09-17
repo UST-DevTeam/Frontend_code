@@ -26,7 +26,8 @@ import {
     GET_DOWNLOAD_ATTACHMENT,
     GET_HR_ALL_EXPENSES,
     GET_HR_ALL_ADVANCE,
-    GET_USER_LIMIT
+    GET_USER_LIMIT,
+    GET_SETTLEMENT_AMOUNT
 } from "../reducers/expenseAdvance-reducer"
 
 
@@ -259,6 +260,64 @@ const ExpenseAdvanceActions = {
             return;
         }
     },
+
+
+
+
+    getSettlementAmount:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.settlementAmount}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_SETTLEMENT_AMOUNT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    // postSettlementAmount: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    //     try {
+    //         const res = await Api.post({ data: data, url: uniqueId == null ? Urls.settlementAmount : Urls.settlementAmount + "/" + uniqueId ,data, reset} )
+    //         if (res?.status !== 201 && res?.status !== 200) {
+    //             let msgdata = {
+    //                 show: true,
+    //                 icon: "error",
+    //                 buttons: [],
+    //                 type: 1,
+    //                 text: res?.data?.msg,
+    //             };
+    //             dispatch(ALERTS(msgdata));
+    //         }else{
+    //             cb()
+
+    //         }
+            
+    //     } catch (error) {
+    //         return;
+    //     }
+    // },
+    postSettlementAmount: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.settlementAmount : Urls.settlementAmount + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+    
 
     postApprovalAllExpenseStatus: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
