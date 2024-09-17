@@ -139,6 +139,7 @@ import MonthRevenueTrend from "../pages/PMIS/Formss/FinancialGraph/MonthRevenueT
 import MonthlyRevenueCircle from "../pages/PMIS/Formss/FinancialGraph/MonthlyRevenueCircle";
 import CumulativeTrendPlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 import MS1AndMS2CircleWise from "../pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
+import Settlement from "../pages/PMIS/MyHome/SettlementForm/Settlement";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -712,6 +713,13 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/MasterUnitRate",
       component: <AccuralRevenueMaster />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/home/approverCards/SettlementAmount",
+      component: <Settlement />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

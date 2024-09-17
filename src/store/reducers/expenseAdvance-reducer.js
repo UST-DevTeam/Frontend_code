@@ -25,6 +25,8 @@ const initialState = {
     getHRAllExpenses:[],
     getHRAllAdvance:[],
     getUserLimit:[],
+    getSettlementAmount:[],
+   
 }
 
 const ExpenseAdvanceReducer = createSlice({
@@ -43,6 +45,13 @@ const ExpenseAdvanceReducer = createSlice({
                 state.getClaimAndAdvance = payload.dataAll
             }else{
                 state.getClaimAndAdvance  = [...state.getClaimAndAdvance,...payload.dataAll]
+            }
+        },
+        GET_SETTLEMENT_AMOUNT:(state,{payload}) => {
+            if(payload.reset){
+                state.getSettlementAmount = payload.dataAll
+            }else{
+                state.getSettlementAmount  = [...state.getSettlementAmount,...payload.dataAll]
             }
         },
 
@@ -263,6 +272,7 @@ export const {
     GET_HR_ALL_EXPENSES,
     GET_HR_ALL_ADVANCE,
     CLEAR_GET_CLAIM_AND_ADVANCE,
-    GET_USER_LIMIT
+    GET_USER_LIMIT,
+    GET_SETTLEMENT_AMOUNT
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

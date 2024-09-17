@@ -41,6 +41,10 @@ const ApproverCards = () => {
             "Finance Approver", 
             "bg-pcol",
             "/home/approverCards/FinanceApprover", "/home/approverCards/L2Advance"],
+            [
+              "Settlement Amount", 
+              "bg-pcol",
+              "/home/approverCards/SettlementAmount", "/home/approverCards/SettlementAmount"],
           
 
         ].map((itm) => {
