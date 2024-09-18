@@ -39,6 +39,22 @@ const  Settlement = () => {
             
             let updateditm = {
                 ...itm,
+
+
+                SettlementID: (
+                    <p
+                      className={`cursor-pointer font-extrabold ${
+                        [3, 5, 7].includes(itm?.SettlementID)
+                          ? "text-pcol"
+                          : "text-pcol"
+                      }`}
+                    >
+                      {itm.SettlementID}
+                    </p>
+                  ),
+
+
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     setmodalHead("Edit Settlement Amount")
@@ -105,7 +121,7 @@ const  Settlement = () => {
             {
                 name: "Settlement ID",
                 value: "SettlementID",
-                style: "min-w-[100px] max-w-[200px] text-center sticky"
+                style: "min-w-[100px] max-w-[200px] text-center sticky text-red-600"
             },
             {
                 name: "Employee ID",
@@ -194,7 +210,7 @@ const  Settlement = () => {
     }, []);
 
     const onTableViewSubmit3 = (data) => {
-        data["fileType"] = "UploadAccuralRevenueMaster";
+        data["fileType"] = "SettlementAmount";
         dispatch(
           CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(ExpenseAdvanceActions.getSettlementAmount());
@@ -215,18 +231,18 @@ const  Settlement = () => {
                         setmodalBody(<SettlementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
                         }}>
                     </Button>
-                    {/* <Button
+                    <Button
                         name={"Upload"}
                         classes="w-auto"
                         onClick={(e) => {setFileOpen((prev) => !prev);}}>
-                    </Button> */}
-                    {/* <Button
+                    </Button>
+                    <Button
                         name={"Export"}
                         classes="w-auto"
                         onClick={() => {
-                            dispatch(CommonActions.commondownload("/export/MasterUnitRate","Export_MasterUnitRate.xlsx"))
+                            dispatch(CommonActions.commondownload("/export/SettlementAmount","Export_SettlementAmount.xlsx"))
                           }}>
-                    </Button> */}
+                    </Button>
                 </div>
             }
             table={table}
@@ -247,7 +263,7 @@ const  Settlement = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit3}
         setIsOpen={setFileOpen}
-        tempbtn={true} tempbtnlink = {["/template/AccuralRevenueMaster.xlsx","AccuralRevenueMaster.xlsx"]}
+        tempbtn={true} tempbtnlink = {["/template/SettlementAmount.xlsx","SettlementAmount.xlsx"]}
         head = {"Upload File"}
       />
 
