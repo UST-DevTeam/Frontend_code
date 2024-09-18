@@ -14,18 +14,16 @@ import FunnelChart from "../../../components/PyramidCharts";
 import AdminActions from "../../../store/actions/admin-actions";
 
 
-const MS2vsWCCPendingReason = ({customeruniqueId}) => {
+const MS2vsWCCPendingReason = () => {
   const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   let dispatch = useDispatch();
   const [data, setData] = useState([])
 
-  // let customeruniqueId = "65dee316811c797c9f26d836"
-
   let CircleList = useSelector((state) => {
     return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleCode,
-      value: itm?.circleCode,
+      label: itm?.circleName,
+      value: itm?.circleName,
     }));
   });
 
@@ -50,7 +48,7 @@ const MS2vsWCCPendingReason = ({customeruniqueId}) => {
   const handleFilter = () => {
     const filterData = {};
     if (selectedCircle.length > 0) {
-      filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
+      filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
     }
     if (selectedProjectType.length > 0) {
       filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
@@ -71,7 +69,7 @@ const MS2vsWCCPendingReason = ({customeruniqueId}) => {
         </div>
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
-          {/* <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} /> */}
+          <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} />
           <NewMultiSelects placeholder="Project Type" option={AllProjectTypeList} value={selectedProjectType} cb={setSelectedProjectType} />
 
         <div className="flex space-x-4">

@@ -18,6 +18,7 @@ const FunnelChart = ({data}) => {
         bar: {
           horizontal: true,
           isFunnel: true,
+          borderRadius: 3,
         },
       },
     // title: {

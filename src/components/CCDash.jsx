@@ -23,6 +23,7 @@ import CumulativeTrendPlanVsActual from "../pages/PMIS/Formss/FinancialGraph/Cum
 import MS1AndMS2CircleWise from "../pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
 import CumulativeWorkdonePlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeWorkdonePlanVsActual";
 import TotalActiveCustomer from "../pages/PMIS/Dashboard1/TotalActiveCustomer";
+import MS2vsWCCPendingReason from "../pages/PMIS/Dashboard1/MS2vsWCCPendingReason";
 
 const CCDash = ({
   oppshowbtn = false,
@@ -124,7 +125,7 @@ const CCDash = ({
     ...(graph7 ?[{
       icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
       title: "MS2 Vs WCC Pending Reason",
-    //   component: <TotalActiveCustomer />,
+      component: <MS2vsWCCPendingReason />,
     }] : []),
     ...(graph8 ?[{
       icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,

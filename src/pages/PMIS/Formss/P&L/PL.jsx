@@ -635,6 +635,7 @@ const PL = () => {
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
+    console.log(res,"resresresresresresres........../")
     try {
       if (res?.typeSelectional === "Monthly") {
         setExtraColumns(
