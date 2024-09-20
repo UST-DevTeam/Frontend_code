@@ -25,6 +25,13 @@ const SoftMS1VsMS2 = () => {
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphSoftMS1vsMS2 || [];
   });
+
+  const seriesData = [
+    {
+        name: "Count",
+        data: GraphData?.map(item => item.count) ||[],
+    },
+];
   
   useEffect(() => {
     dispatch(GraphActions.getGraphSoftMS1vsMS2());
@@ -60,16 +67,16 @@ const SoftMS1VsMS2 = () => {
           </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
-          <NewMultiSelects
+          {/* <NewMultiSelects
             label="Org Level"
             option={OrgLevelList}
             value={selectedOrglevel}
             placeholder="Org Level"
             cb={(data) => setSelectedOrgLevel(data)}
-          />
+          /> */}
            </div>
       <div className="flex space-x-2">
-            <Button
+            {/* <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
               icon={<UilSearch size="36" className="text-[#f4d3a8]"/>}
@@ -78,10 +85,10 @@ const SoftMS1VsMS2 = () => {
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleClear}
               icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
-            ></Button>
+            ></Button> */}
           </div>
         </div>
-      <BarGraph data={GraphData} horizontal={false}  columnWidth='50%' />
+      <BarGraph data={GraphData} seriesData={seriesData} horizontal={false}  columnWidth='50%' />
     </div>
   );
 };
