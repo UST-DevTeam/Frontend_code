@@ -34,10 +34,6 @@ const PL = () => {
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
-  // let roleList = useSelector((state) => {
-  //     let interdata = state?.operationManagement?.USERS_LIST
-  //     return interdata
-  // })
 
 
 
@@ -84,60 +80,20 @@ const PL = () => {
     shouldIncludeEditColumn = true
   }
 
-
-
   let dbConfigList = useSelector((state) => {
-    const projectedCosts = {
-      1 : 'projectedCost-1',
-      2 : 'projectedCost-2',
-      3 : 'projectedCost-3',
-      4 : 'projectedCost-4',
-      5 : 'projectedCost-5',
-      6 : 'projectedCost-6',
-      7 : 'projectedCost-7',
-      8 : 'projectedCost-8',
-      9 : 'projectedCost-9',
-      10 : 'projectedCost-10',
-      11 : 'projectedCost-11',
-      12 : 'projectedCost-12',
-    }
-    const actualCosts = {
-      1 : 'actualCost-1',
-      2 : 'actualCost-2',
-      3 : 'actualCost-3',
-      4 : 'actualCost-4',
-      5 : 'actualCost-5',
-      6 : 'actualCost-6',
-      7 : 'actualCost-7',
-      8 : 'actualCost-8',
-      9 : 'actualCost-9',
-      10 : 'actualCost-10',
-      11 : 'actualCost-11',
-      12 : 'actualCost-12',
-    }
-    
     let interdata = state?.formssData?.getProfitloss || [];
-    
     return interdata?.map((itm) => {
-
       let updateditm = {
         ...itm,
-
         // projectedGrossProfit : (+itm['totalAmount'] - (itm[`projectedCost-${+itm['month']}`] ?? 0 )) ?? 0,
         // projectedGrossProfit : (itm['projectedGrossProfit'] ?? 0),
         // projectedMargin: ((+itm['totalAmount'] - (itm[`projectedCost-${+itm['month']}`] ?? 0 )) / (itm['totalAmount'])).toFixed(2) ?? 0,
-
         // actualGrossProfit : Math.abs((+itm['actualRevenue'] - (itm[`actualCost-${+itm['month']}`] ?? 0)) ?? 0),
         // actualMargin:  (itm['actualRevenue'] ) ? (((+itm['actualRevenue'] - (itm[`actualCost-${+itm['month']}`] ?? 0)) / (itm['actualRevenue'])).toFixed(2)) : 0,
-
-
-
         // projectedCost : itm[projectedCosts[+itm?.month]],
         // actualCost : itm[actualCosts[+itm?.month]],
-        projectedCost: (itm && itm.hasOwnProperty(projectedCosts[+itm?.month])) ? itm[projectedCosts[+itm?.month]] : 0,
-        actualCost: (itm && itm.hasOwnProperty(actualCosts[+itm?.month])) ? itm[actualCosts[+itm?.month]] : 0,
-
-
+        // projectedCost: (itm && itm.hasOwnProperty(projectedCosts[+itm?.month])) ? itm[projectedCosts[+itm?.month]] : 0,
+        // actualCost: (itm && itm.hasOwnProperty(actualCosts[+itm?.month])) ? itm[actualCosts[+itm?.month]] : 0,
 
         edit: (
           <CstmButton
@@ -147,7 +103,6 @@ const PL = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  // dispatch(FormssActions.getEarnValueMgmtFinancial(true));
                   setmodalHead("Edit P&L");
                   setmodalBody(
                     <>
@@ -159,11 +114,8 @@ const PL = () => {
                         year = {year}
                         monthss = {[itm?.month]}
                       />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  console.log("ahshshhs", itm);
-                  //setmodalOpen(false)
                 }}
               ></EditButton>
             }
@@ -225,10 +177,7 @@ const PL = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+
   const {
     register,
     handleSubmit,
@@ -278,21 +227,16 @@ const PL = () => {
 
   let table = {
     columns: [
-      // {
-      //   name: "Year",
-      //   value: "year",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Month",
-      //   value: "months",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Customer",
-      //   value: "customer",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
+      {
+        name: "Year",
+        value: "year",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Month",
+        value: "month",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
       {
         name: "Cost Center",
         value: "costCenter",
@@ -303,16 +247,6 @@ const PL = () => {
         value: "zone",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Project Group",
-      //   value: "projectGroup",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Project Manager",
-      //   value: "empName",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
       {
         name: "Projected Revenue",
         value: "totalAmount",
@@ -334,20 +268,25 @@ const PL = () => {
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Gros Profit",
-        value: "grossProfit",
+        name: "Projected Gross Profit",
+        value: "projectedGrossProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
-        name: "Gross Margin(%)",
-        value: "grossMargin",
+        name: "Actual Gross Profit",
+        value: "actualGrossProfit",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Actual Gross Profit",
-      //   value: "actualGrossProfit",
-      //   style: "min-w-[200px] max-w-[200px] text-center",
-      // },
+      {
+        name: "Projected Gross Margin(%)",
+        value: "projectedGrossMargin",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
+      {
+        name: "Actual Gross Margin(%)",
+        value: "actualGrossMargin",
+        style: "min-w-[200px] max-w-[200px] text-center",
+      },
       {
         name: "SGNA Cost",
         value: "SGNA",
@@ -363,9 +302,7 @@ const PL = () => {
         value: "netMargin",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
-      
       ...newColumns,
-
       ...(shouldIncludeEditColumn
         ? [
             {

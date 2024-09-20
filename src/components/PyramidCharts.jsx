@@ -5,7 +5,7 @@ import ApexCharts from 'react-apexcharts';
 const FunnelChart = ({data}) => {
     let name = data?.map(item => item.description) || []
   const series = [{
-    name: 'Sales',
+    name: 'Counts',
     data: data?.map(item => item.count) ||[]
   }];
 

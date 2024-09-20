@@ -20,31 +20,15 @@ const PLform = ({
   month,
   monthss,
 }) => {
-  // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
-  // console.log(isOpen,"isOpen")
-  // console.log(setIsOpen,"setIsOpen")
-  // console.log(resetting,"resetting")
-  // console.log(formValue,"formValue")
   let roleName = useSelector((state) => {
-    console.log("afafasdfasdfasdfasfasdadfs", state);
     let role = state?.auth?.user?.roleName;
     return role;
   });
-  console.log("adsfasfasdfasdfadfs", roleName);
 
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
-
-  // const projectList = useSelector((state) => {
-  //   return state?.adminData?.getProject.map((itm) => {
-  //     return {
-  //       label: itm?.projectId,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
 
   const months = [
     "Jan",
@@ -96,84 +80,63 @@ const PLform = ({
     "Nov",
     "Dec",
   ];
-  // console.log("afasdfasdfasdfasdfadsadf", monthsss[1]);
-  // console.log("afdasfasfasfasdfafasdfasafds", ...monthss);
 
   let Form = [
-    ...monthss.map((itm) => ({
-      label: `Projected Cost (${monthsss[itm]} ${year})`,
-      value: "",
-      // name: `M-${itm}_y`,
-      name: `projectedCost-${itm}`,
-      type: "number",
-      props: {
-        valueAsNumber: true,
-        min: 0,
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    })),
-    ...monthss.map((itm) => ({
-      label: `Actual Cost (${monthsss[itm]} ${year})`,
-      value: "",
-      name: `actualCost-${itm}`,
-      type: "number",
-      props: {
-        valueAsNumber: true,
-        min: 0,
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    })),
     {
-      label: "SGNA",
+      label: "Projected Revenue",
+      value: "",
+      name: `projectedCost`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+    },
+    {
+      label: "Actual Revenue",
+      value: "",
+      name: `actualCost`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Projected Cost",
+      value: "",
+      name: `actualCost`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+        onChange: (e) => {},
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Actual Cost",
+      value: "",
+      name: `actualCost`,
+      type: "number",
+      props: {
+        valueAsNumber: true,
+        min: 0,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "SGNA Cost",
       value: "",
       name: "SGNA",
       type: "number",
-      // option: [
-      //   { name: "Yes", label: "Yes" },
-      //   { name: "No", label: "No" },
-      // ],
-      // required: true,
-      classes: "col-span-1",
-    },
-  ];
-  let Form2 = [
-    {
-      label: `Projected Cost (${currentMonthData.month} ${currentMonthData.year})`,
-      value: "",
-      // name:  `M-${monthss[0]}_y`,
-      name: `projectedCost-${monthss[0]}`,
-      type: "number",
       props: {
         valueAsNumber: true,
         min: 0,
-        onChange: (e) => {},
       },
-      classes: "col-span-1",
-    },
-    {
-      label: `Actual Cost (${currentMonthData.month} ${currentMonthData.year})`,
-      value: "",
-      name: `actualCost-${monthss[0]}`,
-      type: "number",
-      props: {
-        valueAsNumber: true,
-        min: 0,
-        onChange: (e) => {},
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: "SGNA",
-      value: "",
-      name: "SGNA",
-      type: "text",
-      // option: [
-      //   { name: "Yes", label: "Yes" },
-      //   { name: "No", label: "No" },
-      // ],
-      required: true,
       classes: "col-span-1",
     },
   ];
