@@ -198,6 +198,9 @@ export const Urls={
     graph_cumulative_trend_plan_vs_actual:"/graph/trendPlanVsActualCumulative",
     graph_cumulative_workdone_plan_vs_actual:"/graph/cumulativeWorkdone",
     graph_ms2_vs_wcc_pending_reason:"/graph/MS2VsWCCPendingReason",
+    graph_soft_ms1_vs_ms2:"/graph/softMS1Reason",
+    graph_phy_ms1_vs_ms2:"/graph/phyMS1Reason",
+    graph_kpi_ms1_vs_ms2:"/graph/kpiMS1Reason",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

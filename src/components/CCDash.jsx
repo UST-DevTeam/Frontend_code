@@ -24,6 +24,8 @@ import MS1AndMS2CircleWise from "../pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
 import CumulativeWorkdonePlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeWorkdonePlanVsActual";
 import TotalActiveCustomer from "../pages/PMIS/Dashboard1/TotalActiveCustomer";
 import MS2vsWCCPendingReason from "../pages/PMIS/Dashboard1/MS2vsWCCPendingReason";
+import PHYMS1VsMS2 from "../pages/PMIS/Dashboard1/PHYMS1VsMS2";
+import SoftMS1VsMS2 from "../pages/PMIS/Dashboard1/SoftMS1VsMS2";
 
 const CCDash = ({
   oppshowbtn = false,
@@ -49,6 +51,9 @@ const CCDash = ({
   let showType7 = getAccessType("MS2 Vs WCC Pending Reason(Graph)")
   let showType8 = getAccessType("Pendency Bucket- MS2 Aging(Graph)")
   let showType9 = getAccessType("SOB(Graph)")
+  let showType10 = getAccessType("")
+  let showType11 = getAccessType("")
+  let showType12 = getAccessType("")
 
 
   let graph1 = false
@@ -60,6 +65,9 @@ const CCDash = ({
   let graph7 = false
   let graph8 = false
   let graph9 = false
+  let graph10 = false
+  let graph11 = false
+  let graph12 = false
 
   if (showType1 === "visible"){
     graph1 = true
@@ -87,6 +95,15 @@ const CCDash = ({
   }
   if (showType9 === "visible"){
     graph9 = true
+  }
+  if (showType10 === "visible"){
+    graph10 = true
+  }
+  if (showType11 === "visible"){
+    graph11 = true
+  }
+  if (showType12 === "visible"){
+    graph12 = true
   }
 
 
@@ -135,6 +152,21 @@ const CCDash = ({
     ...(graph9 ?[{
       icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
       title: "SOB",
+    //   component: <TotalActiveCustomer />,
+    }] : []),
+    ...(graph10 ?[{
+      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+      title: "Soft MS1 Vs MS2",
+      component: <SoftMS1VsMS2 />,
+    }] : []),
+    ...(graph11 ?[{
+      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+      title: "Phy MS1 Vs MS2",
+      component: <PHYMS1VsMS2 />,
+    }] : []),
+    ...(graph12 ?[{
+      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+      title: "KPI MS1 Vs MS2",
     //   component: <TotalActiveCustomer />,
     }] : []),
   ];

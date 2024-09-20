@@ -471,6 +471,7 @@ const handleAddActivity = (res) => {
 
         filterAfter={onSubmit}
         tableName={"SobTable"}
+        TableHeight="68vh"
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

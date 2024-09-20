@@ -12,6 +12,9 @@ import { ALERTS } from "../../../store/reducers/component-reducer";
 import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
 import CumulativeWorkdonePlanVsActual from "../Formss/FinancialGraph/CumulativeWorkdonePlanVsActual";
 import MS2vsWCCPendingReason from "../Dashboard1/MS2vsWCCPendingReason";
+import KPIMS1VsMS2 from "../Dashboard1/KPIMS1VsMS2";
+import SoftMS1VsMS2 from "../Dashboard1/SoftMS1VsMS2";
+import PHYMS1VsMS2 from "../Dashboard1/PHYMS1VsMS2";
 
 const VendorCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -115,6 +118,9 @@ const VendorCards = () => {
       <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
         {graph1 && <VendorActiveInactive />}
         {/* {graph1 && <MS2vsWCCPendingReason />} */}
+        {graph1 && <SoftMS1VsMS2 />}
+        {graph1 && <PHYMS1VsMS2 />}
+        {graph1 && <KPIMS1VsMS2 />}
       </div>
     </>
   );
