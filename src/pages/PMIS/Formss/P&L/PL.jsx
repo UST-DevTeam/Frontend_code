@@ -642,6 +642,7 @@ const PL = () => {
 
         filterAfter={onSubmit}
         tableName={"PLform"}
+        TableHeight = "h-[51vh]" 
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

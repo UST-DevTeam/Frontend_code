@@ -31,6 +31,9 @@ const initialState = {
     getGraphCumulativeTrendPlanVsActual:[],
     getGraphCumulativeWorkdonePlanVsActual:[],
     getGraphMS2vsWCCPendingReason:[],
+    getGraphSoftMS1vsMS2:[],
+    getGraphphyMS1vsMS2:[],
+    getGraphkpiMS1vsMS2:[],
 } 
  
 const GraphData = createSlice({
@@ -275,6 +278,30 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_SOFT_MS1_VS_MS2:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphSoftMS1vsMS2 = payload.dataAll
+            }else{
+                state.getGraphSoftMS1vsMS2  = [...state.getGraphSoftMS1vsMS2,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_PHY_MS1_VS_MS2:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphphyMS1vsMS2 = payload.dataAll
+            }else{
+                state.getGraphphyMS1vsMS2  = [...state.getGraphphyMS1vsMS2,...payload.dataAll]
+            }
+        },
+
+        GET_GRAPH_KPI_MS1_VS_MS2:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphkpiMS1vsMS2 = payload.dataAll
+            }else{
+                state.getGraphkpiMS1vsMS2  = [...state.getGraphkpiMS1vsMS2,...payload.dataAll]
+            }
+        },
+
     }
 })
 
@@ -309,6 +336,9 @@ export const {
     GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL,
     GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL,
     GET_GRAPH_MS2_VS_WCC_PENDING_REASON,
+    GET_GRAPH_SOFT_MS1_VS_MS2,
+    GET_GRAPH_PHY_MS1_VS_MS2,
+    GET_GRAPH_KPI_MS1_VS_MS2,
 } = GraphData.actions
     
 export default GraphData.reducer    

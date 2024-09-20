@@ -31,6 +31,9 @@ import {
     GET_GRAPH_CUMULATIVE_TREND_PLAN_VS_ACTUAL,
     GET_GRAPH_CUMULATIVE_WORKDONE_PLAN_VS_ACTUAL,
     GET_GRAPH_MS2_VS_WCC_PENDING_REASON,
+    GET_GRAPH_SOFT_MS1_VS_MS2,
+    GET_GRAPH_PHY_MS1_VS_MS2,
+    GET_GRAPH_KPI_MS1_VS_MS2,
     
  } from "../reducers/graph-reducer"
 
@@ -845,6 +848,36 @@ const GraphActions = {
 
         } catch (error) {
             return;
+        }
+    },
+
+    getGraphSoftMS1vsMS2:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_soft_ms1_vs_ms2}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_SOFT_MS1_VS_MS2({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphphyMS1vsMS2:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_phy_ms1_vs_ms2}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_PHY_MS1_VS_MS2({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getGraphkpiMS1vsMS2:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_kpi_ms1_vs_ms2}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_KPI_MS1_VS_MS2({dataAll,reset}))
+        } catch (error) {
         }
     },
 }

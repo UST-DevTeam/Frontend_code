@@ -579,6 +579,7 @@ const ActualWorkdone = () => {
           projectId:projectId,}]}
           filterAfter={onSubmit}
           tableName={"AcctualWorkdoneform"}
+          TableHeight = "h-[52vh]" 
           handleSubmit={handleSubmit}
           data={dbConfigList}
           errors={errors}

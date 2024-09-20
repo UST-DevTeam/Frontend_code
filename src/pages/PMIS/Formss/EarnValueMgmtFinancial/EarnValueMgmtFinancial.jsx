@@ -511,6 +511,7 @@ const EarnValueMgmtFinancial = () => {
           typeSelectional: "Monthly",}]}
         filterAfter={onSubmit}
         tableName={"EvmFinancialForm"}
+        TableHeight = "h-[52vh]" 
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
