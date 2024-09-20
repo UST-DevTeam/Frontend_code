@@ -510,6 +510,12 @@ const L2Form = () => {
         name: "empCode",
         props: {},
       },
+      // {
+      //   label: "Cost Center",
+      //   type: "text",
+      //   name: "costCenter",
+      //   props: {},
+      // },
     ],
   };
 
