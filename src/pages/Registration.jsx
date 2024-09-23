@@ -27,9 +27,9 @@ export default function Registration() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let Form = [
-        { label: "Name", name: "firstName", value: "firstName", type: "text", props: "", required: true, placeholder: "" },
-        { label: "Surname", name: "surname", value: "surname", type: "text", props: "", required: true, placeholder: "" },
-        { label: "E-mail", name: "email", value: "email", type: "text", props: "", required: true, placeholder: "" },
+        // { label: "Name", name: "firstName", value: "firstName", type: "text", props: "", required: true, placeholder: "" },
+        // { label: "Surname", name: "surname", value: "surname", type: "text", props: "", required: true, placeholder: "" },
+        { label: "E-mail",name: "email", value: "email", type: "text", props: "", required: true, placeholder: "example@domain.com" },
         // {
         //     label: "Country Code",
         //     value: "",
@@ -43,26 +43,26 @@ export default function Registration() {
         //     },
 
         // },
-        {
-            label: "Phone Number", name: "mobile", value: "mobile", type: "text", props: "",
-            required: true,
-            placeholder: "",
-            amp: [{
-                type: "select",
-                name: "currency",
-                styling: "w-20",
-                option: countries,
-                value: "currency"
-            }]
-        },
+        // {
+        //     label: "Phone Number", name: "mobile", value: "mobile", type: "text", props: "",
+        //     required: true,
+        //     placeholder: "",
+        //     amp: [{
+        //         type: "select",
+        //         name: "currency",
+        //         styling: "w-20",
+        //         option: countries,
+        //         value: "currency"
+        //     }]
+        // },
 
-        {
-            label: "Role", name: "roleName", value: "", type: "radio", props: {}, required: true, option: [
-                { "label": "INVESTOR", "value": "Investor" },
-                { "label": "FUND SEEKER", "value": "Fund Seeker" },
-                { "label": "CHARITABLE ORGANISATION", "value": "Charitable Organisation" }
-            ]
-        }
+        // {
+        //     label: "Role", name: "roleName", value: "", type: "radio", props: {}, required: true, option: [
+        //         { "label": "INVESTOR", "value": "Investor" },
+        //         { "label": "FUND SEEKER", "value": "Fund Seeker" },
+        //         { "label": "CHARITABLE ORGANISATION", "value": "Charitable Organisation" }
+        //     ]
+        // }
     ]
     const {
         register,
@@ -80,19 +80,26 @@ export default function Registration() {
         }))
     }
     return <>
-        <WithSideImage sideImage={"bg-regsideimage"} formclass={" h-[80vh]"} form={<>
-            <CommonForm classes={"grid-cols-1 gap-0 font-body"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            <Button classes={"mt-4 mx-auto bg-neavycolor  "} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
-            <div className="p-0 m-2 flex justify-center items-center">
-                <div>
-                    <p className="text-neavy text-sm">Already have an account? </p>
+        <WithSideImage sideImage={"bg-regsideimage"} formclass={" h-auto p-8"} form={<>
+            <CommonForm classes={"grid-cols-1 p-4"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <div className="flex space-x-2 p-4 justify-center font-extrabold">
+                <Button
+                    classes="w-24 justify-center rounded-lg text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+                                focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+                                duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
+                    onClick={handleSubmit(onTableViewSubmit)}
+                    name="Submit"
+                />
+                <button
+                    type="button"
+                    className="flex w-24 justify-center rounded-lg py-1.5 text-sm leading-6 text-white shadow-sm focus-visible:outline 
+                                focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+                                duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
+                    onClick={() => navigate('/login')}
+                >
+                    Sign in
+                </button>
                 </div>
-                <div onClick={() => {
-                    navigate('/login')
-                }} >
-                    <button className="btn text-neavy text-sm ml-2 ">Login</button>
-                </div>
-            </div>
-        </>} labeling={""} />
+        </>} labeling={"Find Your Account"} />
     </>
 }

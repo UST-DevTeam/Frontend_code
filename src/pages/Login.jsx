@@ -8,7 +8,6 @@ import { FaEyeSlash } from "react-icons/fa6";
 import { IoEye } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
 
-
 const Login = () => {
 
     //password visible functioality
@@ -42,11 +41,23 @@ const Login = () => {
     useEffect(() => {
         checkauth = localStorage.getItem("auth")
 
-        console.log(checkauth == "true", "checkauthcheckauthcheckafauth")
         if (checkauth == "true") {
             navigate('/')
         }
     }, [checkauth])
+
+    useEffect(() => {
+        const handleEnterKey = (e) => {
+          if (e.key === "Enter") {
+            handleSubmit(onSubmit)();
+          }
+        };
+        
+        document.addEventListener("keypress", handleEnterKey);
+        return () => {
+          document.removeEventListener("keypress", handleEnterKey);
+        };
+      }, []);
 
 
 
@@ -98,7 +109,10 @@ const Login = () => {
                     </div>
                 </div>
                 <p className='text-xs text-rose-500 font-extrabold mt-1'>{errors.password?.message}</p>
-                {/* <button className="btn text-txt-neavy text-sm float-right pt-2">Forgot Password?</button> */}
+                <div className='flex float-end'>
+                <button className="btn text-[#c2a57b] text-sm font-extrabold float-right mr-2" onClick={() => { navigate('/setupPassword')}} >Change Password?</button>
+                <button className="btn text-[#13b497] text-sm font-extrabold float-right mr-5" onClick={() => { navigate('/register')}} >Forgot Password?</button>
+                </div>
             </div>
             <div className='flex w-full pt-8'>
                 {/* <button onClick={() => {
@@ -109,16 +123,14 @@ const Login = () => {
                     duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]">Sign in</button>
             </div>
         </form>
-        <div className="p-0 m-2 flex justify-center items-center">
+        {/* <div className="p-0 m-2 flex justify-center items-center"> */}
             {/* <div>
                 <p className="text-neavy text-sm">Don't have an account? </p>
             </div> */}
-            <div onClick={() => {
-                navigate('/register')
-            }} >
+            {/* <div onClick={() => { navigate('/register')}} > */}
                 {/* <button className="btn text-neavy text-sm ml-2 ">Sign Up</button> */}
-            </div>
-        </div>
+            {/* </div> */}
+        {/* </div> */}
     </div>} /></>
 
 

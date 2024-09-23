@@ -184,7 +184,7 @@ const TopBar = ({ sidebarOpen, setsidebarOpenn }) => {
             onClick={handleLogoutClick}
             className="dark:text-white flex space-x-1 cursor-pointer items-center"
           >
-            <span className="text-sky-100 hover:text-heading hover:cursor-pointer">
+            <span className="text-[#ffe1bb] hover:text-heading hover:cursor-pointer font-extrabold">
               {empName}
             </span>
             <Unicons.UilSignout

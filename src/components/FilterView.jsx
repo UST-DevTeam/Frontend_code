@@ -30,7 +30,6 @@ const FilterView = ({
     };
   }, []);
 
-  console.log('handleSubmithandleSubmit',handleSubmit,'bjkjvghjkl',)
   return ( 
     <>
       {tablefilter.length > 0 && (

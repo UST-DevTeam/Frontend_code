@@ -860,6 +860,28 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    postGraphSoftMS1vsMS2: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_soft_ms1_vs_ms2})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_SOFT_MS1_VS_MS2({ dataAll, reset:true }))
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
 
     getGraphphyMS1vsMS2:(reset=true,args="") => async (dispatch, _) => {
         try {
@@ -870,6 +892,28 @@ const GraphActions = {
         } catch (error) {
         }
     },
+    postGraphphyMS1vsMS2: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_phy_ms1_vs_ms2})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_PHY_MS1_VS_MS2({ dataAll, reset:true }))
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
 
     getGraphkpiMS1vsMS2:(reset=true,args="") => async (dispatch, _) => {
         try {
@@ -878,6 +922,28 @@ const GraphActions = {
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_KPI_MS1_VS_MS2({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    postGraphkpiMS1vsMS2: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_kpi_ms1_vs_ms2})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_KPI_MS1_VS_MS2({ dataAll, reset:true }))
+            }
+
+        } catch (error) {
+            return;
         }
     },
 }
