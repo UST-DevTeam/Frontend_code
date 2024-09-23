@@ -18,8 +18,10 @@ import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 import PLform from "./PLform";
 import { UilSearch } from "@iconscout/react-unicons";
+import FileUploader from "../../../../components/FIleUploader";
 
 const PL = () => {
+
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [refresh, setRefresh] = useState(false);
@@ -30,12 +32,12 @@ const PL = () => {
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
-  let dispatch = useDispatch();
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
+  const [fileOpen, setFileOpen] = useState(false)
 
-
+  let dispatch = useDispatch();
 
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
@@ -46,34 +48,13 @@ const PL = () => {
     });
   });
 
-  let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
-      return {
-        label: itm?.projectType,
-        value: itm?.uniqueId,
-      };
-    });
-  });
 
-  let ccList = useSelector((state) => {
-    return state?.adminData?.getManageCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-  let projectList = useSelector((state) => {
-    return state?.adminData?.getProject.map((itm) => {
-      return {
-        label: itm?.projectId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
+
+
+
+
 
   let showType = getAccessType("Actions(P&L)")
-
   let shouldIncludeEditColumn = false
 
   if (showType === "visible"){
@@ -85,15 +66,6 @@ const PL = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        // projectedGrossProfit : (+itm['totalAmount'] - (itm[`projectedCost-${+itm['month']}`] ?? 0 )) ?? 0,
-        // projectedGrossProfit : (itm['projectedGrossProfit'] ?? 0),
-        // projectedMargin: ((+itm['totalAmount'] - (itm[`projectedCost-${+itm['month']}`] ?? 0 )) / (itm['totalAmount'])).toFixed(2) ?? 0,
-        // actualGrossProfit : Math.abs((+itm['actualRevenue'] - (itm[`actualCost-${+itm['month']}`] ?? 0)) ?? 0),
-        // actualMargin:  (itm['actualRevenue'] ) ? (((+itm['actualRevenue'] - (itm[`actualCost-${+itm['month']}`] ?? 0)) / (itm['actualRevenue'])).toFixed(2)) : 0,
-        // projectedCost : itm[projectedCosts[+itm?.month]],
-        // actualCost : itm[actualCosts[+itm?.month]],
-        // projectedCost: (itm && itm.hasOwnProperty(projectedCosts[+itm?.month])) ? itm[projectedCosts[+itm?.month]] : 0,
-        // actualCost: (itm && itm.hasOwnProperty(actualCosts[+itm?.month])) ? itm[actualCosts[+itm?.month]] : 0,
 
         edit: (
           <CstmButton
@@ -103,7 +75,7 @@ const PL = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  setmodalHead("Edit P&L");
+                  setmodalHead("Edit Plan");
                   setmodalBody(
                     <>
                       <PLform
@@ -137,7 +109,7 @@ const PL = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.formss_earnValue_mgmt_financial}/${itm.uniqueId}`,
+                              `${Urls.forms_profit_loss}/${itm.uniqueId}`,
                               () => {
                                 dispatch(
                                   FormssActions.getProfitloss()
@@ -169,8 +141,9 @@ const PL = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getProfiltLoss || [];
+    let interdata = state?.formssData?.getProfitloss || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -239,17 +212,12 @@ const PL = () => {
       },
       {
         name: "Cost Center",
-        value: "costCenter",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Zone",
-        value: "zone",
+        value: "costCenterName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Projected Revenue",
-        value: "totalAmount",
+        value: "projectedRevenue",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -289,7 +257,7 @@ const PL = () => {
       },
       {
         name: "SGNA Cost",
-        value: "SGNA",
+        value: "sgna",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
       {
@@ -310,105 +278,27 @@ const PL = () => {
               value: "edit",
               style: "min-w-[100px] max-w-[200px] text-center",
             },
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
           ]
         : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //   label: "Cirlce",
-      //   type: "autoSuggestion",
-      //   name: "cirlce",
-      //   option: circleList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Project Type",
-      //   type: "autoSuggestion",
-      //   name: "projectType",
-      //   option: projectTypeList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Cost Center",
-      //   type: "autoSuggestion",
-      //   name: "costCenter",
-      //   option: ccList,
-      //   props: {},
-      // },
-      // {
-      //   label: "Project ID",
-      //   type: "autoSuggestion",
-      //   name: "projectId",
-      //   option: projectList,
-      //   props: {},
-      // },
-      // {
-      //     label: "Project ID",
-      //     type: "autoSuggestion",
-      //     name: "projectId",
-      //     option: `${}`,
-      //     props: {
-      //     }
-      // },
-    ],
+    filter: [],
   };
 
   let listYear = [];
-
-  // let listYear=[]
-
-  function getWeekNumber(d) {
-    // Copy date so don't modify original
-    d = new Date(+d);
-    d.setHours(0, 0, 0, 0);
-    // Set to nearest Thursday: current date + 4 - current day number
-    // Make Sunday's day number 7
-    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-    // Get first day of year
-    var yearStart = new Date(d.getFullYear(), 0, 1);
-    // Calculate full weeks to nearest Thursday
-    var weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-    // Return array of year and week number
-    return [d.getFullYear(), weekNo];
-  }
-
-  function weeksInYear(year) {
-    var month = 11,
-      day = 31,
-      week;
-
-    // Find week that 31 Dec is in. If is first week, reduce date until
-    // get previous week.
-    do {
-      let d = new Date(year, month, day--);
-      week = getWeekNumber(d)[1];
-    } while (week == 1);
-
-    return week;
-  }
-
-  let listW = [];
-  for (let wwq = 1; wwq <= +weeksInYear(year); wwq++) {
-    const weekString = "W-" + wwq;
-    listW.push({ id: weekString, name: weekString });
-  }
-
-
-
-
-
-
-  for (let ywq = 2021; ywq <= +endDate; ywq++) {
+  for (let ywq = 2023; ywq <= +endDate; ywq++) {
     listYear.push(ywq);
   }
 
   let listDict = {
     "": [],
-    Weekly: listW,
-    // Monthly: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     Monthly: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
@@ -426,56 +316,21 @@ const PL = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
     dispatch(FinanceActions.getProfiltLoss(value, objectToQueryString(data)));
   };
   useEffect(() => {
-    dispatch(
-      FormssActions.postProfiltLossOnSearch(
-        {
-          viewBy: extraColumns.join(","),
-          year: `${currrentYear}`,
-          yyear: `${currrentYear}`,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",
-        },
-        () => {}
-      )
-    );
+    dispatch(FormssActions.getProfiltLoss())
   }, []);
 
-  const totalAmount = watch("totalAmount");
-  const projectedCost = watch("projectedCost");
-
-  // useEffect(() => {
-  //   if(table.columns){
-  //     reset({
-        
-  //         totalAmount:"",
-  //         projectedCost:"",
-       
-  //     })
-  //   }
-
-  // }, [reset])
-
-  // useEffect(() => {
-  //   console.log(`totalAmount: ${totalAmount}, projectedCost: ${projectedCost}`);
-
-  //   const projectedGrossProfit = totalAmount - projectedCost;
-
-  //   console.log(`projectedGrossProfit: ${projectedGrossProfit}`);
-
-  //   setValue("projectedGrossProfit", projectedGrossProfit>=0 ? projectedGrossProfit: 0);
-  // }, [totalAmount, projectedCost, setValue]);
 
   let formD = [
     {
       label: "Year",
       name: "year",
       value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -487,23 +342,20 @@ const PL = () => {
         onChange: (e) => {
           setValue("yyear", e.target.value);
           setyear(e.target.value);
-          // alert()
         },
       },
       required: true,
       classes: "col-span-1 h-38px",
     },
-
-
     {
       label: ValGm,
       name: "viewBy",
       value: "Select",
-      type: "muitiSelect",
+      type: "newmuitiSelect2",
       option: listDict[ValGm].map((dasd) => {
         return {
-          id: dasd?.id,
-          name: dasd?.name,
+          value: dasd?.id,
+          label: dasd?.name,
         };
       }),
       props: {
@@ -531,48 +383,11 @@ const PL = () => {
       12: "Dec",
     };
     let cols = [];
-    // extraColumns.forEach((index) => {
-    //   if (ValGm && ValGm === "Monthly") {
-    //     cols.push([
-    //       {
-    //         name: `Projected Cost (${monthMap[index]} ${year})`,
-    //         value: "projectedCost-"+index,
-    //         style: "min-w-[200px] max-w-[200px] text-center",
-    //       },
-    //       {
-    //         name: `Actual Cost (${monthMap[index]} ${year})`,
-    //         value: "actualCost-"+index,
-    //         style: "min-w-[200px] max-w-[200px] text-center",
-    //       },
-    //     ]);
-    //   } else {
-    //     cols.push([
-    //       {
-    //         name: `Projected Cost (${index} ${year})`,
-    //         value: '',
-    //         style: "min-w-[200px] max-w-[200px] text-center",
-    //       },
-    //       {
-    //         name: `Actual Cost (${index} ${year})`,
-    //         value: '',
-    //         style: "min-w-[200px] max-w-[200px] text-center",
-    //       },
-        
-    //     ]);
-    //   }
-    // });
     cols = cols.flat(Infinity);
-    console.log("cols_cols_____", cols);
-
     setNewColumns(cols);
-
-    // setValue('year',`${year}`)
-    // setValue('typeSelectional',"Monthly")
-    // setValue('viewBy',`${extraColumns.map(i=> `${i}`)}`)
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
-    console.log(res,"resresresresresresres........../")
     try {
       if (res?.typeSelectional === "Monthly") {
         setExtraColumns(
@@ -595,26 +410,32 @@ const PL = () => {
       console.error("[ERROR] :: " + error.message);
     }
   };
-  console.log("afadfasfasfadfadsfafaf",extraColumns);
+  const onTableViewSubmit = (data) => { 
+    data["fileType"]="profitloss"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false)
+        dispatch(FormssActions.getProfiltLoss())
+    }))
+  }
 
   return (
     <>
-      <div className="flex">
-   
-        <CommonForm
-          classes={"w-5/6 grid-cols-3 gap-1 h-[111px]"}
-          Form={formD}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
-
-        <div className="pt-12 p-6  flex justify-center">
+      <div className="flex items-center justify-start">
+        <div className="col-span-1 md:col-span-1">
+          <CommonForm
+            classes="grid grid-cols-2 w-[400px] overflow-y-hidden p-2"
+            Form={formD}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </div>
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
           <Button
-            classes=""
-            name="Search "
-            icon={<UilSearch className="w-4 h-4 mx-2" />}
+            classes=" flex h-fit "
+            name=""
+            icon={<UilSearch className="w-5 m-2 h-5" />}
             onClick={handleSubmit(handleAddActivity)}
           />
         </div>
@@ -623,23 +444,28 @@ const PL = () => {
       <AdvancedTable 
         headerButton={
           <>
-            {/* <Button
+          <div className="flex gap-1">
+            <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Plan");
-                // setmodalBody(<EarnValueMgmtForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<PLform isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
               name={"Add New"}
-            ></Button> */}
+              classes='w-auto'>
+            </Button>
+            <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
+                    setFileOpen(prev=>!prev)
+                }}>
+            </Button>
+            <Button name={"Export"} classes='w-auto mr-1' onClick = {(e) => {
+              dispatch(CommonActions.commondownload("/export/profit&loss","Export_Profit&Loss.xlsx"))
+              }}>
+            </Button>
+          </div>
           </>
         }
         table={table}
-        exportButton={["/export/profit&loss", "Export_Profit&Loss.xlsx","POST",{viewBy: extraColumns.join(","),
-          year: year,
-          yyear: year,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",}]}
-
         filterAfter={onSubmit}
         tableName={"PLform"}
         TableHeight = "h-[51vh]" 
@@ -650,9 +476,8 @@ const PL = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        getaccessExport = {"Export(P&L)"}
+        heading = {'Total Count :-'}
       />
-
       <Modal
         size={"sm"}
         modalHead={modalHead}
@@ -660,8 +485,7 @@ const PL = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
-      {/* <CommonForm/> */}
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/P&L_Form.xlsx","P&L_Form.xlsx"]} />
     </>
   );
 };

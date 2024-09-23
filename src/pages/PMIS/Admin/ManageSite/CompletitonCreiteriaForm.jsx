@@ -16,6 +16,7 @@ const CompletitonCreiteriaForm = ({
   setmodalOpen,
   customeruniqueId,
   myTaskPage,
+  filterView
 }) => {
   const dispatch = useDispatch();
   // let mileStoneCompletion = {
@@ -82,7 +83,7 @@ const CompletitonCreiteriaForm = ({
     });
   });
 
-  let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId);
+  let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId,filterView);
   if (myTaskPage === "Yes") {
     backgeturl = MyHomeActions.getMyTask();
   }

@@ -41,6 +41,7 @@ const ManageMilestoneSite = ({
   setmodalFullOpen,
   setSiteId,
   myTaskPage,
+  filterView
 }) => {
   const { customeruniqueId } = useParams;
   const today = moment().format("YYYY-MM-DD");
@@ -646,6 +647,7 @@ const ManageMilestoneSite = ({
                         setmodalOpen={setmodalOpen}
                         mileStone={mileStone}
                         myTaskPage={myTaskPage}
+                        filterView = {filterView}
                       />
                     );
                     setmodalOpen(true);

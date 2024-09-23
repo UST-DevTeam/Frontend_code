@@ -1,10 +1,10 @@
-// export const baseUrl="http://127.0.0.1:7980"
-// export const backendassetUrl="http://127.0.0.1:7980/"
+export const baseUrl="http://127.0.0.1:7980"
+export const backendassetUrl="http://127.0.0.1:7980/"
 
 
 
-export const baseUrl="https://pmisapi.mcpsinc.com"
-export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
+// export const baseUrl="https://pmisapi.mcpsinc.com"
+// export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
 
 export const Urls={
 
@@ -206,6 +206,7 @@ export const Urls={
     current_user_PT:"/currentuser/ProjectType",
     current_user_PID:"/currentuser/ProjectId",
     current_user_circle_projectId:"/currentuser/Circle/projectId",
+    current_user_cost_center:'/currentuser/CostCenter',
 
 }
 

@@ -38,12 +38,12 @@ const EarnValueMgmtFinancial = () => {
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
-  let dispatch = useDispatch();
   const [extraColumns, setExtraColumns] = useState([currentMonth]);
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
 
+  let dispatch = useDispatch();
 
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
@@ -187,7 +187,6 @@ const EarnValueMgmtFinancial = () => {
     }
   });
 
-  console.log(dbConfigTotalCount,"_______dbConfigTotalCount")
   const {
     register,
     handleSubmit,
@@ -200,7 +199,6 @@ const EarnValueMgmtFinancial = () => {
 
 
   const months = [
-
     "Jan",
     "Feb",
     "Mar",
@@ -369,7 +367,6 @@ const EarnValueMgmtFinancial = () => {
           label: dasd?.name,
         };
       }),
-      required: true,
       props: {
         selectType:selectType
       },
@@ -500,7 +497,8 @@ const EarnValueMgmtFinancial = () => {
           <>
             <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
-                }}></Button>
+                }}>
+            </Button>
           </>
         }
         table={table}
@@ -530,7 +528,6 @@ const EarnValueMgmtFinancial = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
       <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/EvmFinancial.xlsx","EvmFinancial.xlsx"]} />
     </>
   );

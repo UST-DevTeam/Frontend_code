@@ -79,38 +79,6 @@ const FormssActions = {
         }
     },
 
-    putprofitandloss: (data, cb) => async (dispatch, _) => {
-        try {
-            console.log("adfasfasfasasfadfsa",data);
-            const res = await Api.put({ data: data, url: Urls.forms_profit_loss })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-               
-            }
-             else {
-                let dataAll = res?.data?.data
-                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
-        
-            }
-            cb()
-
-        
-
-        } catch (error) {
-
-            // cb()
-
-            // alert(error.message)
-        }
-    },
-
     getEVMDelivery: (projectId,reset = true, args = "") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.formss_EVM_delivery +'/'+projectId}${args != "" ? "?" + args : ""} `, reset })
@@ -138,11 +106,11 @@ const FormssActions = {
                 dispatch(GET_EVM_DELIVERY({ dataAll, reset:true }))
 
             }
-
         } catch (error) {
             return;
         }
     },
+   
     putEVMDelivery: (data, cb) => async (dispatch, _) => {
         try {
             console.log("adfasfasfasasfadfsa",data);
@@ -269,13 +237,33 @@ const FormssActions = {
                 let dataAll = res?.data?.data
                 dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
                 cb();
-
             }
 
         } catch (error) {
             return;
         }
-    },   
+    },  
+    putprofitandloss: (data,cb,uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.put({ data: data, url: uniqueId == null ? Urls.forms_profit_loss :Urls.forms_profit_loss+"/"+uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+             else {
+                let dataAll = res?.data?.data
+                dispatch(GET_PROFIT_LOSS({ dataAll, reset:true }));
+            }
+            cb()
+        } catch (error) {
+        }
+    }, 
 
     getSobdataDynamic:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
         try {

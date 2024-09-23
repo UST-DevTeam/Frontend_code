@@ -385,6 +385,7 @@ const AccrualRevenueTrend = () => {
         exportButton={["/export/accrualRevenueTrend", "Export_Accrual_Revenue_Trend_Form.xlsx","POST",{ Monthly  :exportData.current}]}
         filterAfter={onSubmit}
         tableName={"AccrualRevenueTrend"}
+        TableHeight = "h-[51vh]" 
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

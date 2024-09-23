@@ -215,9 +215,6 @@ const CommonActions = {
         } finally {
             store.dispatch(ComponentActions.loaders(false))
         }
-
-        
-
     },
     commondownload2: (urls, filename, method = "GET", data = {}, cb) => async (dispatch, _) => {
         try {

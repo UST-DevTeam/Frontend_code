@@ -451,6 +451,7 @@ const ManageProjectSiteId = () => {
                       setSiteId={setSiteId}
                       setmodalFullOpen={setmodalFullOpen}
                       projectuniqueId={projectuniqueId}
+                      filterView = {strValFil}
                     />
                   );
 
