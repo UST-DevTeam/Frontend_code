@@ -19,6 +19,7 @@ import ClaimAdvanceForm from "./ClaimAdvanceForm";
 import DownloadButton from "../../../../components/DownloadButton";
 import jsPDF from "jspdf";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import PopupMenu from "../../../../components/PopupMenu";
 
 const ClaimAndAdvance = () => {
 
@@ -356,21 +357,66 @@ const ClaimAndAdvance = () => {
               ></Button>
               <ConditionalButton
                 showType={getAccessType("Fill DA")}
-                classes="ml-1"
+                classes="ml-1 mr-1"
                 onClick={() => {
                   navigate(`${"/home/claimAndAdvance/DAFormFill"}`);
                 }}
                 name={"Fill DA"}
               ></ConditionalButton>
 
-              <ConditionalButton
+              
+
+
+
+
+              <PopupMenu
+              name={"Export"}
+              icon={"Export"}
+              classes={"w-auto"}
+              bgColor={"bg-[#147b99]"}
+              
+              child={
+                <div classes="z-40 max-h-70 justify-ce0nter w-2">
+                  <Button
+                    name={"Export Expenses"}
+                    classes="w-auto m-3"
+                    onClick={() => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/UserExpenses",
+                          "Export_Expenses.xlsx"
+                        )
+                      );
+                    }}
+                    >
+                  </Button>
+                  <Button
+                    name={"Export Advances"}
+                    classes="w-auto m-3"
+                    onClick={() => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/userAdvances",
+                          "Export_Advances.xlsx"
+                        )
+                      );
+                    }}
+                    >
+                  </Button>
+                  <Button
                 showType={getAccessType("Export(CA & ADV)")}
-                classes="ml-1"
+                classes="w-auto ml-1"
                 onClick={() => {
                   dispatch(CommonActions.commondownload("/export/ExpensesAndAdvance","Export_ExpensesAndAdvance.xlsx"))
                 }}
-                name={"Export"}
-              ></ConditionalButton>
+                name={"Export Ledger Book"}
+              ></Button> 
+                      
+                     
+                     
+                </div>
+              }
+            />
 
 
             </>

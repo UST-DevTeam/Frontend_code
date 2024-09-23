@@ -339,7 +339,7 @@ const FillExpense = () => {
         style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
-        name: "Project ID",
+        name: "projectIdName",
         value: "projectIdName",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
