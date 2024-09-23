@@ -559,6 +559,12 @@ const L1Form = () => {
         name: "empCode",
         props: {},
       },
+      // {
+      //   label: "Cost Center",
+      //   type: "text",
+      //   name: "costCenter",
+      //   props: {},
+      // },
     ],
   };
   // const onSubmit = (data) => {

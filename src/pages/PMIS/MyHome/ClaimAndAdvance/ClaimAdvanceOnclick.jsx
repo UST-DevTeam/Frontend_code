@@ -70,25 +70,25 @@ const ClaimAdvanceOnclick = () => {
         value: "expensemonth",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-
       {
-        name: "Expense/Advance ID",
+        name: "Claim/Advance/Settlement Date",
+        value: "expenseDate",
+        style: "min-w-[180px] max-w-[100px] text-center",
+      },
+      {
+        name: "Claim/Advance/Settlement ID",
         value: "name",
         style:
           "min-w-[180px] max-w-[100px] text-center sticky left-0 bg-[#3e454d]",
       },
-      {
-        name: "Expense Date",
-        value: "expenseDate",
-        style: "min-w-[180px] max-w-[100px] text-center",
-      },
+      
       {
         name: "Designation",
         value: "designation",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
       {
-        name: "Claim/Advance Type",
+        name: "Claim/Advance/Settlement Type",
         value: "types",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
@@ -255,6 +255,7 @@ const ClaimAdvanceOnclick = () => {
         data={
           claimByNumber?.length > 0
             ? claimByNumber?.map((item) => {
+              console.log('itemitemitem',item)
                 return {
                   ...item,
                   edit: (
@@ -264,6 +265,19 @@ const ClaimAdvanceOnclick = () => {
                         <EditButton
                           name={""}
                           onClick={() => {
+                            if (item.type === "Settlement") {
+                              // alert("You are not Authorized to Edit!");
+                              // return; 
+                              let msgdata = {
+                                show: true,
+                                icon: "error",
+                                buttons: [],
+                                type: 1,
+                                text: "You Are Not Authorize to Edit !",
+                            };
+                            dispatch(ALERTS(msgdata));
+                            return;
+                            }
                             setmodalOpen(true);
                             // dispatch(AdminActions.getManageExpenseAdvance());
                             setmodalHead(

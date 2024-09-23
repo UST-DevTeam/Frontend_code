@@ -271,7 +271,7 @@ const PopupMenu = ({
       {filterVisibility === location.pathname + "_" + name && (
         <div
           ref={modalRef}
-          className={`${dataclasses} fixed not border-black cursor-pointer border-[1.5px] w-96 bg-[#3e454d] pos`}
+          className={`${dataclasses} fixed not border-black cursor-pointer border-[1.5px] w-auto bg-[#3e454d] pos pb-2`}
         >
           <div className="flex not justify-center bg-secLine text-white ">
             <h5 className="text-base not text-white font-bold">{name}</h5>

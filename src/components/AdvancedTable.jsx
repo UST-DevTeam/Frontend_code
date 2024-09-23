@@ -147,6 +147,25 @@ const AdvancedTable = ({
     }
   },[data])
 
+  useEffect(() => {
+    function addClassToAllChildren(el) {
+      if (el) {
+        el.classList.add("not");
+        const children = el.children;
+
+        for (let i = 0; i < children.length; i++) {
+          addClassToAllChildren(children[i]);
+        }
+      }
+    }
+
+    const element = document.querySelector("#add-not");
+    addClassToAllChildren(element);
+  });
+
+
+
+
   const handleSelectAll = () => {
     if (selectAll) {
       setSelectedRows([]);
@@ -229,16 +248,16 @@ const AdvancedTable = ({
                 icon={icon ? icon : <UilColumns size="32" className={"hello"} />}
                 child={
                   <>
-                    <div className="flex z-40 max-h-96 overflow-scroll flex-col">
+                    <div className="flex z-40 max-h-96 overflow-scroll flex-col not">
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                            <div className="flex m-1">
+                            <div className="flex m-1 not">
                               <input
                                 type="checkbox"
                                 checked={hide.indexOf(String(index)) == -1}
                                 value={String(index)}
-                                // className="not"
+                                className="not"
                                 onChange={(e) => {
                                   setHide((prev) => {
                                     if (!e.target.checked) {
@@ -254,7 +273,7 @@ const AdvancedTable = ({
                                 }}
                                 name={itts.name}
                               />
-                              <span className="text-[11px]  text-white mx-2 font-semibold">
+                              <span className="text-[11px]  text-white mx-2 font-semibold not">
                                 {itts.name}
                               </span>
                             </div>

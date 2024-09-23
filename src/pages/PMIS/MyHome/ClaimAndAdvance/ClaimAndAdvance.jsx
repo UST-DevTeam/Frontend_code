@@ -19,6 +19,7 @@ import ClaimAdvanceForm from "./ClaimAdvanceForm";
 import DownloadButton from "../../../../components/DownloadButton";
 import jsPDF from "jspdf";
 import ConditionalButton from "../../../../components/ConditionalButton";
+import PopupMenu from "../../../../components/PopupMenu";
 
 const ClaimAndAdvance = () => {
 
@@ -61,12 +62,13 @@ const ClaimAndAdvance = () => {
       interdata2 = interdata[0]?.data || [];
     }
     return interdata2?.map((item) => {
+      console.log('itemitemitem',item)
       const itm = { ...item };
       itm["debitExpense"] = 0;
       itm.advanceExpense = 0;
-      if (itm?.type === "Expense" || itm?.type === "Daily Allowance") {
+      if (itm?.type == "Expense" || itm?.type === "Daily Allowance") {
         itm.debitExpense = itm?.totalApprovedAmountRow;
-      } else if (itm?.type === "Advance") {
+      } else if (itm?.type !== "Expense" || itm?.type !== "Daily Allowance") {
         itm.advanceExpense = itm?.totalApprovedAmountRow;
       }
 
@@ -203,12 +205,12 @@ const ClaimAndAdvance = () => {
       // },
       {
         name: "Cost Center",
-        value: "costcenter",
+        value: "costCenter",
         style: "min-w-[130px] max-w-[450px] text-center",
       },
       
       {
-        name: "Expense/Advance ID",
+        name: "Expanse/Advance/Settlement ID",
         value: "name",
         style:
           "min-w-[250px] max-w-[450px] text-center left-[220px] bg-[#3e454d]",
@@ -227,12 +229,12 @@ const ClaimAndAdvance = () => {
       
       
       {
-        name: "Debit(Expense)",
+        name: "Credit(Expanse)",
         value: "debitExpense",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "Credit(Advance)",
+        name: "Debit(Advance)",
         value: "advanceExpense",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
@@ -277,8 +279,35 @@ const ClaimAndAdvance = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2 pl-2">
-        <p className="text-white font-extrabold">
+      <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
+      <p className="p-2 text-white font-extrabold">
+            Opening balance :{" "}
+            <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"}`}>
+            {Amounts?.Openingbalance > 0 
+              ? `${Amounts?.Openingbalance} Dr` 
+              : Amounts?.Openingbalance < 0 
+              
+              ? `${Math.abs(Amounts?.Openingbalance)} Cr`
+              : Amounts?.Openingbalance}
+            </span>
+        </p>
+        
+        <p className="p-2 text-white font-extrabold">
+          Expanse Approved :{" "}
+          <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal ? "text-rose-400" : "text-pcol"}`}>
+           
+            {`${Amounts?.ExpenseAmountTotal} Cr`}
+          </span>
+        </p>
+        <p className="p-2 text-white font-extrabold">
+          Advance Approved/Reimbursed :{" "}
+          <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-400"}`}>
+            
+            {`${Amounts?.AdvanceAmountTotal} Dr`}
+          </span>
+        </p>
+        
+        <p className="p-2 text-white font-extrabold">
           Current Balance :{" "}
           {/* <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
             {Amounts?.finalAmount}
@@ -290,31 +319,21 @@ const ClaimAndAdvance = () => {
             }
           </span>
         </p>
-        <p className=" text-white font-extrabold">
-          Expenses Approved :{" "}
-          <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal ? "text-pcol" : "text-rose-400"}`}>
-           
-            {`${Amounts?.ExpenseAmountTotal} Cr`}
+
+
+        {/* <p className="p-2 text-white font-extrabold">
+        Settlement Amount:{" "}
+          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
+            {Amounts?.finalAmount}
           </span>
-        </p>
-        <p className=" text-white font-extrabold">
-          Advance Approved :{" "}
-          <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-rose-500" : "text-pcol"}`}>
-            
-            {`${Amounts?.AdvanceAmountTotal} Dr`}
+          <span className={`font-extrabold ${Amounts?.SettleAmountTotal > 0 ? "text-pcol" : "text-pcol"}`}>
+            {Amounts?.SettleAmountTotal < 0 
+              ? `${Math.abs(Amounts.SettleAmountTotal)}` 
+              : `${Amounts?.SettleAmountTotal}`
+            }
           </span>
-        </p>
-        <p className=" text-white font-extrabold">
-            Opening balance :{" "}
-            <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"}`}>
-            {Amounts?.Openingbalance > 0 
-              ? `${Amounts?.Openingbalance} Dr` 
-              : Amounts?.Openingbalance < 0 
-              
-              ? `${Math.abs(Amounts?.Openingbalance)} Cr`
-              : Amounts?.Openingbalance}
-            </span>
-        </p>
+        </p> */}
+        
         
       </div>
 
@@ -338,21 +357,66 @@ const ClaimAndAdvance = () => {
               ></Button>
               <ConditionalButton
                 showType={getAccessType("Fill DA")}
-                classes="ml-1"
+                classes="ml-1 mr-1"
                 onClick={() => {
                   navigate(`${"/home/claimAndAdvance/DAFormFill"}`);
                 }}
                 name={"Fill DA"}
               ></ConditionalButton>
 
-              <ConditionalButton
+              
+
+
+
+
+              <PopupMenu
+              name={"Export"}
+              icon={"Export"}
+              classes={"w-auto"}
+              bgColor={"bg-[#147b99]"}
+              
+              child={
+                <div classes="z-40 max-h-70 justify-ce0nter w-2">
+                  <Button
+                    name={"Export Expenses"}
+                    classes="w-auto m-3"
+                    onClick={() => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/UserExpenses",
+                          "Export_Expenses.xlsx"
+                        )
+                      );
+                    }}
+                    >
+                  </Button>
+                  <Button
+                    name={"Export Advances"}
+                    classes="w-auto m-3"
+                    onClick={() => {
+                      dispatch(
+                        CommonActions.commondownload(
+                          "/export/userAdvances",
+                          "Export_Advances.xlsx"
+                        )
+                      );
+                    }}
+                    >
+                  </Button>
+                  <Button
                 showType={getAccessType("Export(CA & ADV)")}
-                classes="ml-1"
+                classes="w-auto ml-1"
                 onClick={() => {
                   dispatch(CommonActions.commondownload("/export/ExpensesAndAdvance","Export_ExpensesAndAdvance.xlsx"))
                 }}
-                name={"Export"}
-              ></ConditionalButton>
+                name={"Export Ledger Book"}
+              ></Button> 
+                      
+                     
+                     
+                </div>
+              }
+            />
 
 
             </>

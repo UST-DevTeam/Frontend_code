@@ -198,7 +198,42 @@ const FillExpenseForm = ({
       },
       // required: true,
       classes: "col-span-1",
+    
     },
+    // {},
+    // {
+    //   label: "Project Id",
+    //   value: "",
+    //   name:
+    //     Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
+    //   type: Object.entries(formValue).length > 0 ? "sdisabled" : "newmultiselect",
+    //   option: projectDetailsList,
+    //   props: {
+    //     onChange: (e) => {
+    //       dispatch(
+    //         ExpenseAdvanceActions.getExpADvSiteID(
+    //           true,
+    //           `projectId=${e.target.value}`
+    //         )
+    //       );
+    //     },
+    //   },
+    //   // required: true,
+    //   classes: "col-span-1",
+    // },
+    // {
+    //   label: "Project Id",
+    //   name: "projectId",
+    //   type: "newSingleSelect45",
+    //   option: projectDetailsList,
+    //   props: {
+    //     onChange: e => {
+    //       console.log(e,'ettetetetettet')
+    //       dispatch(ExpenseAdvanceActions.getExpADvSiteID(true, `projectId=${e.target.value}`));
+    //     },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Site Id",
       value: "",
