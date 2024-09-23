@@ -10,17 +10,24 @@ import NewSingleSelect from "../../../components/NewSingleSelect";
 
 const KPIMS1VsMS2 = () => {
 
-//   const [extraColumnsState, setExtraColumns] = useState(months);
-  const [selectedDepartment, setSelectedDepartment] = useState([]);
-  const [selectedOrglevel, setSelectedOrgLevel] = useState([]);
-  const dispatch = useDispatch();
+    const [selectedCircle, setSelectedCircle] = useState([]);
+    const [selectedProjectType, setSelectedProjectType] = useState([]);
+    const dispatch = useDispatch();
 
-  let OrgLevelList = useSelector((state) => {
-    return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
-      label: itm?.orgLevel,
-      value: itm?.orgLevel,
-    }));
-  });
+    let CircleList = useSelector((state) => {
+        return state?.adminData?.getManageCircle?.map((itm) => ({
+          label: itm?.circleName,
+          value: itm?.circleName,
+        }));
+      });
+    
+      const AllProjectTypeList = useSelector((state) => {
+        return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
+          label: itm?.projectType,
+          value: itm?.projectType,
+        }));
+      });
+      
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphkpiMS1vsMS2 || [];
@@ -35,29 +42,29 @@ const KPIMS1VsMS2 = () => {
 
   
   
-  useEffect(() => {
+useEffect(() => {
+    // dispatch(AdminActions.getManageCircle());
+    dispatch(GraphActions.getGraphAllProjectType());
     dispatch(GraphActions.getGraphkpiMS1vsMS2());
-    dispatch(GraphActions.getGraphOrganizationLevel());
   }, []);
 
   useEffect(() => {
   }, [GraphData]);
 
   const handleFilter = () => {
-    const filterData = {
-      orgLevel: selectedOrglevel?.map((item) => item.value) || [],
-    };
-    dispatch(
-      GraphActions.getGraphkpiMS1vsMS2(
-        { orgLevel: filterData.orgLevel},
-        () => {}
-      )
-    );
+    const filterData = {};
+    if (selectedCircle.length > 0) {
+      filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
+    }
+    if (selectedProjectType.length > 0) {
+      filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
+    }
+    dispatch(GraphActions.postGraphkpiMS1vsMS2(filterData, () => {}));
   };
 
-
   const handleClear = () => {
-    setSelectedOrgLevel([]);
+    setSelectedCircle([])
+    setSelectedProjectType([]);
     dispatch(GraphActions.getGraphkpiMS1vsMS2());
   };
 
@@ -69,16 +76,11 @@ const KPIMS1VsMS2 = () => {
           </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
-          {/* <NewMultiSelects
-            label="Org Level"
-            option={OrgLevelList}
-            value={selectedOrglevel}
-            placeholder="Org Level"
-            cb={(data) => setSelectedOrgLevel(data)}
-          /> */}
+        <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} />
+        <NewMultiSelects placeholder="Project Type" option={AllProjectTypeList} value={selectedProjectType} cb={setSelectedProjectType} />
            </div>
       <div className="flex space-x-2">
-            {/* <Button
+            <Button
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleFilter}
               icon={<UilSearch size="36" className="text-[#f4d3a8]"/>}
@@ -87,7 +89,7 @@ const KPIMS1VsMS2 = () => {
               classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
               onClick={handleClear}
               icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
-            ></Button> */}
+            ></Button>
           </div>
         </div>
       <BarGraph data={GraphData} seriesData={seriesData} horizontal={false}  columnWidth='70%' />

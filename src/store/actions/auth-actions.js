@@ -36,7 +36,7 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         }
     },
     register: (data, cb) => async (dispatch, _) => {
@@ -55,7 +55,7 @@ const AuthActions = {
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -76,7 +76,7 @@ const AuthActions = {
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -105,7 +105,7 @@ const AuthActions = {
             }
             
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
             
             // dispatch(Notify.error('something went wrong! please try again after a while'))
             return;
@@ -128,12 +128,11 @@ const AuthActions = {
             if (res?.status !== 200) {
                 failcb()
             } else {
-                console.log(dtaa, 'hdhdhhdhhdhhd')
                 dispatch(SET_USER_ROLE(dtaa?.role))
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
             //dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
@@ -160,7 +159,7 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -172,7 +171,7 @@ const AuthActions = {
             const dataAll = res?.data?.data[0]
             dispatch(USERS_PROFILE({ dataAll }))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         }
     },
     sendMail: (data, cb) => async (dispatch, _) => {
@@ -197,7 +196,7 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
@@ -214,7 +213,7 @@ const AuthActions = {
             dispatch(SET_USER_ROLE(dtaa?.role))
             cb()
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -230,7 +229,7 @@ const AuthActions = {
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -244,7 +243,7 @@ const AuthActions = {
             const dataAll = res?.data?.data[0]
             dispatch(ALL_COUNTRIES({ dataAll }))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         }
     },
 
@@ -257,7 +256,7 @@ const AuthActions = {
             const dataAll = res?.data?.data[0]
             dispatch(AGREEMENT({ dataAll }))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         }
     },
 

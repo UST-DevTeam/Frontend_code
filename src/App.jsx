@@ -72,7 +72,7 @@ function App() {
       component: <Otp />,
     },
     {
-      url: "/setupPassword/:uid",
+      url: "/setupPassword",
       component: <SetupPassword />,
     },
     {

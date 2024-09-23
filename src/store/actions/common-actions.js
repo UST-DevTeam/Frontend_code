@@ -47,7 +47,7 @@ const CommonActions = {
             }
             cb();
         } catch (error) {
-            console.log(error, "amit errorerror 37");
+            console.log(error, "shubham errorerror 37");
         } 
         // finally {
         //     store.dispatch(ComponentActions.loaders(false)); 
@@ -76,7 +76,7 @@ const CommonActions = {
             // }
             // dispatch(ALERTS(msgdata))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         }
     },
     getApiCaller: (urls, cb) => async (dispatch, _) => {
@@ -87,7 +87,7 @@ const CommonActions = {
 
             cb()
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -109,7 +109,7 @@ const CommonActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         }
     },
     deleteApiCallerBulk: (urls,data,cb) => async (dispatch, _) => {
@@ -130,7 +130,7 @@ const CommonActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -180,7 +180,7 @@ const CommonActions = {
 
     //     }
     //     catch (error) {
-    //         console.log(error, "amit errorerror 37")
+    //         console.log(error, "shubham errorerror 37")
     //     }
 
         
@@ -211,7 +211,7 @@ const CommonActions = {
                 link.click();
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37");
+            console.log(error, "shubham errorerror 37");
         } finally {
             store.dispatch(ComponentActions.loaders(false))
         }
@@ -278,7 +278,7 @@ const CommonActions = {
 
         }
         catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "shubham errorerror 37")
         } finally {
             store.dispatch(ComponentActions.loaders(false))
         }
