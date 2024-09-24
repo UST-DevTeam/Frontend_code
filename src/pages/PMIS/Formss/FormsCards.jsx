@@ -40,6 +40,7 @@ const FormsCards = () => {
           ["P&L", "bg-pcol", "/forms/P&L"],
           ["Liquidation Plan", "bg-pcol", "/forms/LiquidationPlan"],
           ["Accrual Revenue Trend", "bg-pcol", "/forms/AccrualRevenueTrend"],
+          ['AOP-P&L',"bg-pcol","/forms/P&L"]
         ].map((itm) => {
           return (
             <>
