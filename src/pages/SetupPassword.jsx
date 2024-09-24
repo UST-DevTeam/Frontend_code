@@ -29,6 +29,7 @@ export default function SetupPassword() {
 
     const navigate = useNavigate()
     let Form = [
+         { label: "E-mail",name: "email", value: "email", type: "text", props: "", required: true, placeholder: "example@domain.com" },
         { label: "Current Password", name: "currentpassword", value: "currentpassword", type: "password", props: "", required: true, placeholder:"••••••••••••••" },
         { label: "New Password", name: "newPassword", value: "newPassword", type: "password", props: "", required: true, placeholder:"••••••••••••••"  },
         { label: "Confirm Password", name: "confirmPassword", value: "confirmPassword", type: "password", props: "", required: true, placeholder:"••••••••••••••"  },
@@ -158,11 +159,11 @@ export default function SetupPassword() {
     // };
     return <>
         
-        <WithSideImage sideImage={"bg-setuppassword"} formclass={" h-auto p-10" } 
+        <WithSideImage sideImage={"bg-setuppassword"} formclass={" h-auto p-6" } 
         form={<>
-            <CommonForm classes={"grid-cols-1 p-2"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"w-11/12 pl-10 "} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             <Button
-                    classes="flex mx-auto mt-6 w-28 h-10 justify-center rounded-lg leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+                    classes="flex mx-auto mt-2 w-28 h-10 justify-center rounded-lg leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
                             focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
                             duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
                     onClick={handleSubmit(onTableViewSubmit)}

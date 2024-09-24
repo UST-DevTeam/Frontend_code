@@ -26,7 +26,8 @@ import TotalActiveCustomer from "../pages/PMIS/Dashboard1/TotalActiveCustomer";
 import MS2vsWCCPendingReason from "../pages/PMIS/Dashboard1/MS2vsWCCPendingReason";
 import PHYMS1VsMS2 from "../pages/PMIS/Dashboard1/PHYMS1VsMS2";
 import SoftMS1VsMS2 from "../pages/PMIS/Dashboard1/SoftMS1VsMS2";
-
+import KPIMS1VsMS2 from "../pages/PMIS/Dashboard1/KPIMS1VsMS2";
+  
 const CCDash = ({
   oppshowbtn = false,
   opplabel = "",
@@ -47,7 +48,7 @@ const CCDash = ({
   let showType3 = getAccessType("Trend Plan VS Actual Work Done(Graph)")
   let showType4 = getAccessType("MS1-MS2 Report(Graph)")
   let showType5 = getAccessType("RFAI VS MS1 Reason(Graph)")
-  let showType6 = getAccessType("MS1 VS MS2 Reason(Graph)")
+  // let showType6 = getAccessType("MS1 VS MS2 Reason(Graph)")
   let showType7 = getAccessType("MS2 Vs WCC Pending Reason(Graph)")
   let showType8 = getAccessType("Pendency Bucket- MS2 Aging(Graph)")
   let showType9 = getAccessType("SOB(Graph)")
@@ -84,9 +85,9 @@ const CCDash = ({
   if (showType5 === "visible"){
     graph5 = true
   }
-  if (showType6 === "visible"){
-    graph6 = true
-  }
+  // if (showType6 === "visible"){
+  //   graph6 = true
+  // }
   if (showType7 === "visible"){
     graph7 = true
   }
@@ -134,11 +135,11 @@ const CCDash = ({
       title: "RFAI VS MS1 Reason",
     //   component: <TotalActiveCustomer />,
     }] : []),
-    ...(graph6 ?[{
-      icon: <UilChartPieAlt className="text-[#13b497] w-28 h-28" />,
-      title: "MS1 VS MS2 Reason",
-    //   component: <TotalActiveCustomer />,
-    }] : []),
+    // ...(graph6 ?[{
+    //   icon: <UilChartPieAlt className="text-[#13b497] w-28 h-28" />,
+    //   title: "MS1 VS MS2 Reason",
+    // //   component: <TotalActiveCustomer />,
+    // }] : []),
     ...(graph7 ?[{
       icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
       title: "MS2 Vs WCC Pending Reason",
@@ -154,21 +155,21 @@ const CCDash = ({
       title: "SOB",
     //   component: <TotalActiveCustomer />,
     }] : []),
-    ...(graph10 ?[{
-      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+    {
+      icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
       title: "Soft MS1 Vs MS2",
       component: <SoftMS1VsMS2 />,
-    }] : []),
-    ...(graph11 ?[{
-      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+    },
+    {
+      icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
       title: "Phy MS1 Vs MS2",
       component: <PHYMS1VsMS2 />,
-    }] : []),
-    ...(graph12 ?[{
-      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+    },
+    {
+      icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
       title: "KPI MS1 Vs MS2",
-    //   component: <TotalActiveCustomer />,
-    }] : []),
+      component: <KPIMS1VsMS2 />,
+    },
   ];
 
   const handleCardClick = (index) => {
@@ -226,7 +227,7 @@ const CCDash = ({
         <div
           className={`${
             alignment === "vertical"
-              ? `p-2 flex gap-1 min-w-[140px] flex-1 overflow-y-scroll overflow-x-hidden sm:h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh]`
+              ? `p-2 flex gap-1 min-w-[140px] flex-1 overflow-y-scroll overflow-x-hidden sm:h-[74vh] md:h-[75vh] lg:h-[75vh] xl:h-[74vh]`
               : 'p-2 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6 grid col-span-12 rounded-md gap-3'
           }`}
         >

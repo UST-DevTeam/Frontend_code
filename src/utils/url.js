@@ -65,6 +65,7 @@ export const Urls={
     projectList_closeMilestone:"/closeMilestone/",
     project_circle:'/project/circle',
     setuppassword_stepOne:'/setupPassword',
+    register:'/forgetPassword',
 
 
 

@@ -179,9 +179,9 @@ const AdminActions = {
 
 
 
-    getManageCircle:(reset=true,args="") => async (dispatch, _) => {
+    getManageCircle:(reset=true,args="", show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_circle}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url:`${Urls.admin_circle}${args!=""?"?"+args:""}`,show:show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_CIRCLE({dataAll,reset}))
