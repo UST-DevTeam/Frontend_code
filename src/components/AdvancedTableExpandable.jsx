@@ -68,6 +68,21 @@ const AdvancedTableExpandable = ({
     }; 
     callApiPagination(1,value)
   };
+  useEffect(() => {
+    function addClassToAllChildren(el) {
+      if (el) {
+        el.classList.add("not");
+        const children = el.children;
+
+        for (let i = 0; i < children.length; i++) {
+          addClassToAllChildren(children[i]);
+        }
+      }
+    }
+
+    const element = document.querySelector("#add-not");
+    addClassToAllChildren(element);
+  });
 
   let dispatch = useDispatch();
 
@@ -172,15 +187,16 @@ const AdvancedTableExpandable = ({
                 icon={<UilColumns size="32" className={"hello"} />}
                 child={
                   <>
-                    <div className="flex z-40 max-h-96 overflow-scroll flex-col">
+                    <div className="flex z-40 max-h-96 overflow-scroll flex-col not">
                       {table.columns.map((itts, index) => {
                         return (
                           <>
-                            <div className="flex m-1">
+                            <div className="flex m-1 not">
                               <input
                                 type="checkbox"
                                 checked={hide.indexOf(String(index)) == -1}
                                 value={String(index)}
+                                className="not"
                                 onChange={(e) => {
                                   setHide((prev) => {
                                     // alert("caller")

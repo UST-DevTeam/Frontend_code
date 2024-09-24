@@ -1,140 +1,80 @@
-// import React, { useEffect, useState } from "react";
-// import Select from "react-select";
-
-// const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
-//   const [selectedValue, setSelectedValue] = useState(null);
-
-//   const options = itm.option.map(option => ({
-//     value: option.id,
-//     label: option.name,
-//   }));
-
-//   useEffect(() => {
-//     if (getValues()[itm.name]) {
-//       const oldValue = getValues()[itm.name];
-//       const selectedOption = options.find(option => option.value === oldValue);
-//       setSelectedValue(selectedOption);
-//     }
-//   }, [getValues, itm.name, options]);
-
-//   const handleSelectChange = (selected) => {
-//     setSelectedValue(selected);
-//     setValue(itm.name, selected ? selected.value : '');
-//   };
-
-//   return (
-//     <div className="max-w-[180px] min-w-[180px] relative p-0 z-50 w-full">
-//       <Select
-//         value={selectedValue}
-//         onChange={handleSelectChange}
-//         options={options}
-//         styles={{
-//           control: (provided) => ({
-//             ...provided,
-//             border: "1px solid black",
-//             borderRadius: "0.375rem",
-//             height: "38px",
-//             boxShadow: "none",
-//             "&:hover": {
-//               borderColor: "indigo",
-//             },
-//           }),
-//           input: (provided) => ({
-//             ...provided,
-//             color: "black",
-//             padding: "0px",
-//           }),
-//           placeholder: (provided) => ({
-//             ...provided,
-//             color: "gray",
-//           }),
-//         }}
-//         className="pt-1 text-black bg-white block h-12 rounded-md py-1.5 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//       />
-//       {errors[itm.name] && <span className="text-red-500">{errors[itm.name].message}</span>}
-//     </div>
-//   );
-// };
-
-// export default NewSingleSelectForm45;
-import { MultiSelect } from "react-multi-select-component";
 import React, { useEffect, useState } from "react";
-// import { Select } from "@material-ui/core";
-import Select from "react-select";
+import Select from "react-select"; // Import react-select for select box with search
 
-
-const NewSingleSelectForm45 = ({
-  itm,
-  errors,
-  handleSubmit,
-  setValue,
-  getValues,
-  register,
-  classes,
-}) => {
-  const [selectedValues, setSelectedValues] = useState([]);
-
-  console.log(itm,"_________itmitm")
-
-  const SelectAllOption = { name: "Select All", id: "select-all" };
-  let datew = [];
-  if (getValues()[itm.name]) {
-    let oldData = getValues()[itm.name].split(",");
-
-    datew = itm.option.filter((itm) => {
-      if (oldData.indexOf(itm.id) != -1) {
-        return itm;
-      }
-    });
-  }
+const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
+  const [selectedValue, setSelectedValue] = useState(null);
 
   useEffect(() => {
-    if (itm.props.selectType) {
-      setSelectedValues([]);
-      setValue(itm.name, '');
+    if (getValues()[itm.name]) {
+      const oldValue = itm.option.find(
+        (option) => option.value === getValues()[itm.name]
+      );
+      setSelectedValue(oldValue);
     }
-  }, [itm.props.selectType]);
+  }, [getValues, itm.name, itm.option]);
 
-  const handleSelect = (e) => {
-    let finalselection = e.map((itm) => itm.id);
-    setSelectedValues(e);
-    console.log("asasfasfasfafasfadsaf__onSelect",e);
-    setValue(itm.name, finalselection.join());
+  const handleSelectChange = (selectedOption) => {
+    setSelectedValue(selectedOption);
+    setValue(itm.name, selectedOption ? selectedOption.value : "");
+
+    // Execute dynamic onChange if provided
+    if (itm.props?.onChange) {
+      itm.props.onChange({ target: { value: selectedOption?.value || "" } });
+    }
   };
 
-  const handleRemove = (e) => {
-    let finalselection = e.map((itm) => itm.id);
-    setSelectedValues(e);
-    console.log("afafafafasdfadsasfasdf__onRemove",e);
-    setValue(itm.name, finalselection.join());
+  // Custom styles for white background and gray text
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      // backgroundColor: "white",
+      // border: "1px solid gray",
+      // borderRadius: "0.375rem",
+      // height: "38px",
+      boxShadow: "none",
+      "&:hover": {
+        borderColor: "black",
+      },
+    }),
+    input: (provided) => ({
+      ...provided,
+      color: "black",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "black",
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "black",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: "white",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? "#f0f0f0" : "white", // Light gray background on hover
+      color: state.isSelected ? "black" : "black", // Selected text will be black
+      
+    }),
   };
-  console.log("asdfasadfsasafasfadsfadf__selectedValues",selectedValues);
+
   return (
-        <div className={`max-w-[180px] min-w-[180px]  relative p-0 z-50  w-full`}>
-            <Select
-                // className="outline-none border rounded-md border-main w-full mt-[2px] z-9999"
-                options={itm.option}
-                // value={value}
-                defaultIsOpen={false}
-                onChange={(data) => {
-                    cb(data) 
-                    setLength(data.length)
-                    }
-                }
-                style={{
-                    searchBox: {
-                        border: "none",
-                        "border-radius": "0px",
-                        padding: "0px",
-                        color: "black !important",
-                        height: "38px",
-                    },
-                }}
-                className="pt-1 text-black bg-white border-black border block h-12 rounded-md py-1.5 p-2 text-black-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-200 sm:text-sm sm:leading-6"
-            />
-        </div>
-
-    )
+    <div className={`${itm.classes}`}>
+      <Select
+        value={selectedValue}
+        onChange={handleSelectChange}
+        options={itm.option} // Dynamic options passed as props
+        placeholder="Select"
+        isClearable={true} // Optional clear option
+        styles={customStyles} // Apply custom styles
+        // className="pt-1 bg-white block h-max rounded-md py-1.5 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      className="rounded-md text-white-900 shadow-lg focus:shadow-indigo-500/30 ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      />
+      {errors[itm.name] && <span className="text-red-500">{errors[itm.name].message}</span>}
+    </div>
+  );
 };
 
 export default NewSingleSelectForm45;

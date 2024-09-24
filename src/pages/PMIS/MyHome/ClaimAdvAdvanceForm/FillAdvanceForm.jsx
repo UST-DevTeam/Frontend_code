@@ -43,7 +43,7 @@ const FillAdvanceForm = ({
       label: "Project Id",
       value: "",
       name:Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "newSingleSelect45",
       option: projectDetailsList,
       props: {
         onChange: (e) => {

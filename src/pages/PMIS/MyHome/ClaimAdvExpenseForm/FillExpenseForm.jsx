@@ -184,7 +184,7 @@ const FillExpenseForm = ({
       value: "",
       name:
         Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "newSingleSelect45",
       option: projectDetailsList,
       props: {
         onChange: (e) => {
@@ -227,18 +227,23 @@ const FillExpenseForm = ({
     //   type: "newSingleSelect45",
     //   option: projectDetailsList,
     //   props: {
-    //     onChange: e => {
-    //       console.log(e,'ettetetetettet')
-    //       dispatch(ExpenseAdvanceActions.getExpADvSiteID(true, `projectId=${e.target.value}`));
-    //     },
+    //   onChange: (e) => {
+    //     console.log('ehjdjduduyhyh',e)
+    //     dispatch(
+    //       ExpenseAdvanceActions.getExpADvSiteID(
+    //         true,
+    //         `projectId=${e.target.value}`
+    //       )
+    //     );
     //   },
+    // },
     //   classes: "col-span-1",
     // },
     {
       label: "Site Id",
       value: "",
       name: Object.entries(formValue).length > 0 ? "Site_Id" : "Site Id",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "newSingleSelect45",
       option: projectSiteIdList,
       props: {
         onChange: (e) => {
@@ -257,7 +262,7 @@ const FillExpenseForm = ({
       label: "Task Name",
       value: "",
       name: Object.entries(formValue).length > 0 ? "Task" : "Name",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+      type: Object.entries(formValue).length > 0 ? "sdisabled" : "newSingleSelect45",
       option: projectTaskNameList,
       // required: true,
       classes: "col-span-1",
