@@ -321,7 +321,6 @@ const CommonForm = ({
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}
-                        
                         setValue={setValue}
                         getValues={getValues}
                         register={register}

@@ -382,7 +382,7 @@ const ClaimAndAdvance = () => {
                     classes="w-auto m-3"
                     onClick={() => {
                       dispatch(
-                        CommonActions.commondownload(
+                        CommonActions.commondownload3(
                           "/export/UserExpenses",
                           "Export_Expenses.xlsx"
                         )
@@ -395,7 +395,7 @@ const ClaimAndAdvance = () => {
                     classes="w-auto m-3"
                     onClick={() => {
                       dispatch(
-                        CommonActions.commondownload(
+                        CommonActions.commondownload3(
                           "/export/userAdvances",
                           "Export_Advances.xlsx"
                         )
@@ -407,7 +407,7 @@ const ClaimAndAdvance = () => {
                 showType={getAccessType("Export(CA & ADV)")}
                 classes="w-auto ml-1"
                 onClick={() => {
-                  dispatch(CommonActions.commondownload("/export/ExpensesAndAdvance","Export_ExpensesAndAdvance.xlsx"))
+                  dispatch(CommonActions.commondownload3("/export/ExpensesAndAdvance","Export_ExpensesAndAdvance.xlsx"))
                 }}
                 name={"Export Ledger Book"}
               ></Button> 

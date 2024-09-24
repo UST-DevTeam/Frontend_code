@@ -115,7 +115,7 @@ const DAFormFillFORM = ({
         label: "Employee",
         value: "",
         name: "EmpCode",
-        type: "select",
+        type: "newSingleSelect45",
         option: EmpCodeList,
         props: {
             onChange: (e) => {
@@ -145,7 +145,7 @@ const DAFormFillFORM = ({
         label: "Project ID",
         value: "",
         name: "projectId",
-        type: "select",
+        type: "newSingleSelect45",
         option: projectList,
         props: {
             onChange: (e) => {
