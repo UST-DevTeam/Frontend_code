@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewMultiSelects from "../../../components/NewMultiSelect";
 import GraphActions from "../../../store/actions/graph-actions";
-import Button from "../../../components/Button";
+import Button from "../../../components/Button"; 
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import BarGraph from "../../../components/BarGrpah";
 import AdminActions from "../../../store/actions/admin-actions";
@@ -43,8 +43,8 @@ const KPIMS1VsMS2 = () => {
   
   
 useEffect(() => {
-    // dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
+    dispatch(AdminActions.getManageCircle(true, "", 0));
+    dispatch(GraphActions.getGraphAllProjectType(true, "", 0));
     dispatch(GraphActions.getGraphkpiMS1vsMS2());
   }, []);
 

@@ -58,7 +58,7 @@ const ProjectChart = (id) => {
   useEffect(() => {
     
     // dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}`));
-    dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}`));
+    dispatch(FilterActions.getProjectProjectType());
     // dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}`));
     dispatch(GraphActions.getGraphProjectStatus());
   }, []);

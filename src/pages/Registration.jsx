@@ -27,8 +27,7 @@ export default function Registration() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let Form = [
-        // { label: "Name", name: "firstName", value: "firstName", type: "text", props: "", required: true, placeholder: "" },
-        // { label: "Surname", name: "surname", value: "surname", type: "text", props: "", required: true, placeholder: "" },
+
         { label: "E-mail",name: "email", value: "email", type: "text", props: "", required: true, placeholder: "example@domain.com" },
         // {
         //     label: "Country Code",
@@ -73,26 +72,25 @@ export default function Registration() {
         getValues,
         formState: { errors },
     } = useForm()
+
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        dispatch(AuthActions.register(data, () => {
-            navigate("/register")
-        }))
+        dispatch(AuthActions.register(data, () => {navigate("/register")}));
     }
     return <>
         <WithSideImage sideImage={"bg-regsideimage"} formclass={" h-auto p-8"} form={<>
             <CommonForm classes={"grid-cols-1 p-4"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            <div className="flex space-x-2 p-4 justify-center font-extrabold">
+            <div className="flex space-x-2 p-4 justify-center">
                 <Button
                     classes="w-24 justify-center rounded-lg text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
                                 focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
                                 duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
                     onClick={handleSubmit(onTableViewSubmit)}
                     name="Submit"
+
                 />
                 <button
                     type="button"
-                    className="flex w-24 justify-center rounded-lg py-1.5 text-sm leading-6 text-white shadow-sm focus-visible:outline 
+                    className="flex w-24 justify-center rounded-lg py-1.5 text-[12.5px] font-semibold leading-6 text-white shadow-sm focus-visible:outline 
                                 focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
                                 duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
                     onClick={() => navigate('/login')}

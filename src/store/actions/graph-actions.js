@@ -137,9 +137,9 @@ const GraphActions = {
         }
     },
 
-    getGraphAllProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getGraphAllProjectType:(reset=true,args="",show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.graph_all_project_type}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url:`${Urls.graph_all_project_type}${args!=""?"?"+args:""}`,show:show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_GRAPH_ALL_PROJECT_TYPE({dataAll,reset}))

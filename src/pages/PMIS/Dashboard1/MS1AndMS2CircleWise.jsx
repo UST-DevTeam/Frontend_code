@@ -83,20 +83,20 @@ let CircleList = useSelector((state) => {
         type: "bar",
       },
       {
-        name: "Total Sites / MS1(%)", 
+        name: "MS1/Total Sites(%)", 
         data: data4,
         type: "line", 
       },
       {
-        name: "Total Sites / MS2(%)", 
+        name: "MS2/MS1(%)", 
         data: data5,
         type: "line", 
       },
   ];
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
+    dispatch(AdminActions.getManageCircle(true,"",0));
+    dispatch(GraphActions.getGraphAllProjectType(true,"",0));
     dispatch(GraphActions.getGraphMS1AndMS2CircleWise());
   }, []);
 

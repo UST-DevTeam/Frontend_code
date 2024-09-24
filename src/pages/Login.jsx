@@ -7,7 +7,7 @@ import WithSideImage from '../components/WithSideImage';
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEye } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
-
+ 
 const Login = () => {
 
     //password visible functioality

@@ -46,7 +46,7 @@ const FilterActions = {
 
     getProjectProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_project_projectType}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.filter_project_projectType}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FILTER_PROJECT_PROJECTTYPE({dataAll,reset}))

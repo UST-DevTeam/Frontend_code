@@ -40,8 +40,8 @@ const MS2vsWCCPendingReason = () => {
 
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle());
-    dispatch(GraphActions.getGraphAllProjectType());
+    dispatch(AdminActions.getManageCircle(true, "", 0));
+    dispatch(GraphActions.getGraphAllProjectType(true, "", 0));
     dispatch(GraphActions.getGraphMS2vsWCCPendingReason());
   }, []);
 

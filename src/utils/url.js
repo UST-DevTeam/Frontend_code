@@ -62,6 +62,7 @@ export const Urls={
     project_circle:'/project/circle',
     settlementAmount:'/Expenses/SettlementAmountEmp',
     setuppassword_stepOne:'/setupPassword',
+    register:'/forgetPassword',
 
 
 
