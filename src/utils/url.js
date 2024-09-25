@@ -1,11 +1,11 @@
 // export const baseUrl="http://127.0.0.1:7980"
 // export const backendassetUrl="http://127.0.0.1:7980/"
 
-export const baseUrl="http://192.168.29.247:7979"
-export const backendassetUrl="http://192.168.29.247:7979/"
+// export const baseUrl="http://192.168.29.247:7979"
+// export const backendassetUrl="http://192.168.29.247:7979/"
 
-// export const baseUrl="http://192.168.29.23:7980"
-// export const backendassetUrl="http://192.168.29.23:7980/"
+export const baseUrl="http://192.168.29.23:7980"
+export const backendassetUrl="http://192.168.29.23:7980/"
 
 // export const baseUrl="https://pmisapi.mcpsinc.com"
 // export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
@@ -203,6 +203,7 @@ export const Urls={
     graph_soft_ms1_vs_ms2:"/graph/softMS1Reason",
     graph_phy_ms1_vs_ms2:"/graph/phyMS1Reason",
     graph_kpi_ms1_vs_ms2:"/graph/kpiMS1Reason",
+    graph_P_and_L_forms:"/graph/profitloss",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

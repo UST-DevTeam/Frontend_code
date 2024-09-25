@@ -34,6 +34,7 @@ import {
     GET_GRAPH_SOFT_MS1_VS_MS2,
     GET_GRAPH_PHY_MS1_VS_MS2,
     GET_GRAPH_KPI_MS1_VS_MS2,
+    GET_GRAPH_P_AND_L_FORMS,
     
  } from "../reducers/graph-reducer"
 
@@ -940,6 +941,38 @@ const GraphActions = {
             } else {
                 let dataAll = res?.data?.data
                 dispatch(GET_GRAPH_KPI_MS1_VS_MS2({ dataAll, reset:true }))
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    getGraphPAndLForms:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_P_and_L_forms}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_P_AND_L_FORMS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphPAndLForms: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_P_and_L_forms})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_P_AND_L_FORMS({ dataAll, reset:true }))
             }
 
         } catch (error) {

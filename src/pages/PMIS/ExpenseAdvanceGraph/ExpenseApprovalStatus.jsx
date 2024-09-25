@@ -140,7 +140,7 @@ const [selectedMonths, setSelectedMonths] = useState([]);
       </div>
       <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
-          <NewMultiSelects
+          <NewMultiSelects 
             label="Org Level"
             option={OrgLevelList}
             value={selectedOrglevel}
