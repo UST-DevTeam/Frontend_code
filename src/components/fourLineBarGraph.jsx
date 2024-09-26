@@ -2,14 +2,12 @@ import autoprefixer from "autoprefixer";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const fourLineBarGraph = ({
+const FourLineBarGraph = ({
   data,
   seriesData = [],
   horizontal = false,
   title = "",
-  columnWidth = "90%",
-  month = [],
-  enabledOnSeries = [false, false, false, false, false], 
+  columnWidth = "100%",
   dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
@@ -19,32 +17,29 @@ const fourLineBarGraph = ({
   data3,
   data4,
   data5,
+  data6,
+  data7,
 }) => {
 
   const category = data?.map((item) => item.description) || [];
-
-//   const lineDataKey = data?.map(item => {
-//     const aop = item.aop || 0;
-//     const pv = item.pv || 0; 
-//     const percentage = aop === 0 ? 0 : ((pv / aop) * 100).toFixed(1);
-//     return `${percentage}%`; 
-// });
 
 let max1 = Math.max(
   ...(data1 || []),
   ...(data2 || []),
   ...(data3 || []),
+  ...(data4 || []),
 )
 if (max1 % 500 !== 0) {
   max1 = Math.ceil(max1 / 500) * 500;
 }
 
 let max2 = Math.max(
-  ...(data4 || []),
   ...(data5 || []),
+  ...(data6 || []),
+  ...(data7 || []),
 )
-if (max2 % 25 !== 0) {
-  max2 = Math.ceil(max2 /25) * 25;
+if (max2 % 50 !== 0) {
+  max2 = Math.ceil(max2 /50) * 50;
 }
 
   const defaultSeries = [
@@ -70,20 +65,10 @@ if (max2 % 25 !== 0) {
       },
   ];
 
-//   if (lineDataKey) {
-//     const lineSeriesData = data?.map(item => item[lineDataKey]) || []; 
-//     defaultSeries.push({
-//       name: lineSeriesName,
-//       data: lineSeriesData,
-//       type: "line",
-//     });
-//   }
-
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
   // const colors = ["#5cccb7", "#ffab2d", "#B9D9EB", "#b8ee30"];
-  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30", "#f4d3a8"];
-
+  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#fd5c63", "#b8ee30", "#f4d3a8", "#BDA9EB"];
   // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
   const offsetX = horizontal ? 0 : -3;
   const offsetY = horizontal ? 0 : -7;
@@ -117,8 +102,8 @@ if (max2 % 25 !== 0) {
     },
     dataLabels: {
       enabled: true,
-      formatter: (val, { seriesIndex }) => (seriesIndex === 3 || seriesIndex === 4 ? `${val}%` : `${val} ${dataLabelSuffix}`),
-      enabledOnSeries: [0,1,2,3,4],
+      formatter: (val, { seriesIndex }) => (seriesIndex === 4 || seriesIndex === 5 || seriesIndex === 6 ? `${val}%` : `${val} ${dataLabelSuffix}`),
+      enabledOnSeries: [0,1,2,3,4,5,6],
       offsetX: offsetX,
       offsetY: offsetY,
       style: {
@@ -153,7 +138,7 @@ if (max2 % 25 !== 0) {
     yaxis: [
       {
         title: {
-          text: 'Sites', 
+          text: '', 
           style:{
             color: "#ffffff",
             fontSize: '18px'
@@ -204,9 +189,24 @@ if (max2 % 25 !== 0) {
         max:max1,
       }, 
       {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+        },
+        min:0,
+        max:max1,
+      }, 
+      {
         opposite: true,
         title: {
-          text: 'Achievement (%)',
+          text: '',
           style:{
             color: "#ffffff",
             fontSize: '18px',
@@ -219,7 +219,7 @@ if (max2 % 25 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        min:0,
+        // min:0,
         max:max2,
         tickAmount: 5
       },
@@ -240,48 +240,31 @@ if (max2 % 25 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        min:0,
+        // min:0,
+        max:max2
+      },
+      {
+        opposite: true,
+        show:false,
+        title: {
+          text: 'Achievement (%)',
+          style:{
+            color: "#ffffff",
+            fontSize: '18px',
+          }  
+        },
+        labels: {
+          style: {
+            colors: "#ffffff",
+            fontSize: "9px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        // min:0,
         max:max2
       }
     ],
-    // yaxis: [
-    //     {
-    //       title: {
-    //         text: YAxisTitle,
-    //         style: {
-    //           color: "#ffffff",
-    //           fontSize: "17px",
-    //           fontWeight: "bold",
-    //         },
-    //       },
-    //       labels: {
-    //         style: {
-    //           colors: "#ffffff",
-    //           fontSize: "9px",
-    //         },
-    //       },
-    //     },
-    //     {
-    //       opposite: true,
-    //       min:0,
-    //       // max:150,
-    //       title: {
-    //         text: lineDataKey,
-    //         style: {
-    //           color: "#ffffff",
-    //           fontSize: "17px",
-    //           fontWeight: "bold",
-    //         },
-    //       },
-    //       labels: {
-    //         style: {
-    //           colors: "#ffffff",
-    //           fontSize: "9px",
-    //         },
-    //         formatter: (value) => `${value}%`,
-    //       },
-    //     },
-    //   ],
+
     plotOptions: {
       bar: {
         columnWidth: columnWidth,
@@ -296,23 +279,23 @@ if (max2 % 25 !== 0) {
       },
     },
     stroke: {
-      colors: ["transparent", "transparent", "transparent", "#b8ee30", "#f4d3a8"],
-      curve: 'smooth',
-      width: [0.8, 0.8, 0.8, 3, 3],
-      // colors: BarBorderColors,
+        colors: ["#13b497", "#ffab2d", "#2b98d6", "#fd5c63", "#b8ee30", "#f4d3a8", "#BDA9EB"],
+        curve: 'smooth',
+        width: [0.5, 0.5, 0.5, 0.5, 3, 3, 3],
+        // colors: BarBorderColors,
     },
     grid: {
       borderColor: "transparent",
       strokeDashArray: 0,
     },
     markers: {
-      size: 7, 
-      colors: ['#f4d3a8', '#b8ee30'],  
-      strokeColor: 'black', 
-      strokeWidth:1, 
-      hover: {
-          size: 8, 
-      }
+        size: 6, 
+        colors: ['#13b497', '#ffab2d', '#2b98d6', '#fd5c63', '#b8ee30', '#f4d3a8', '#BDA9EB'],
+        strokeColor: 'black', 
+        strokeWidth:1, 
+        hover: {
+            size: 8, 
+        }
   },
     fill: {
       colors: colors,
@@ -337,7 +320,7 @@ if (max2 % 25 !== 0) {
       },
       y: {
         formatter: function (value, { seriesIndex }) {
-          if (seriesIndex === 3 || seriesIndex === 4) {
+          if (seriesIndex === 4 || seriesIndex === 5 || seriesIndex === 6) {
             return `${value}%`;
           }
           return value;
@@ -352,4 +335,4 @@ if (max2 % 25 !== 0) {
   );
 };
 
-export default fourLineBarGraph;
+export default FourLineBarGraph;
