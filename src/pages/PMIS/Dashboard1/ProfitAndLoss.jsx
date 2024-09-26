@@ -133,8 +133,8 @@ const handleFilter = () => {
   };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
-    label: 2021 + index,
-    value: 2021 + index,
+    label: 2023 + index,
+    value: 2023 + index,
   }));
 
   const monthsList = [
