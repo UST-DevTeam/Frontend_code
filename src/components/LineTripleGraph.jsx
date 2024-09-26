@@ -18,7 +18,10 @@ const LineTripleGraph = ({ data, horizontal = false, seriesData = [], title="", 
             data: data?.map(item => item.netMargin) ||[],
         },
     ];
+
     const series = seriesData.length > 0 ? seriesData : defaultSeries;
+
+    const colors = ["#b8ee30", "#f4d3a8", "#BDA9EB"];
 
     const options = {
         chart: {
@@ -56,18 +59,20 @@ const LineTripleGraph = ({ data, horizontal = false, seriesData = [], title="", 
             enabled: true,
             formatter: (val) => `${val} ${dataLabelSuffix}`,
             style: {
-                fontSize: '12px',
+                fontSize: '10px',
                 fontWeight: 'bold',
                 colors: ['transparent'],
             }, 
             offsetY: -7,
             dropShadow: {
                 enabled: false,
-            }, 
+            },  
             background: {
-                enabled: true,
-                borderColor: 'transparent',
-              },          
+                enabled: true, 
+                borderRadius: 0,
+                borderWidth: 0, 
+                borderColor: "transparent", 
+              },         
         },
         xaxis: {
             categories: category,
@@ -103,28 +108,44 @@ const LineTripleGraph = ({ data, horizontal = false, seriesData = [], title="", 
             }
         },
         stroke: {
+            colors: ["#b8ee30", "#f4d3a8", "#BDA9EB"],
             curve: 'smooth',
-            width: 3,
-            // colors: '#f9a3a4'
-            colors: '#5cccb7'
-        },
+            width: [2.5, 2.5, 2.5],
+            // colors: BarBorderColors,
+          },
         grid: {
             borderColor: 'transparent',
             strokeDashArray: 0,
         },
         markers: {
-            size: 4.5, 
-            colors: ['#ffab2d'], 
+            size: 6, 
+            colors: ['#b8ee30', '#f4d3a8', '#BDA9EB'],
             strokeColor: 'black', 
-            strokeWidth: 0.5, 
+            strokeWidth:1, 
             hover: {
-                size: 6, 
+                size: 8, 
             }
+      },
+      fill: {
+        colors: colors,
+      },
+      legend: {
+        show: true,
+        colors: colors,
+        position: "bottom",
+        labels: {
+          colors: "#ffffff",
         },
+        markers: {
+          fillColors: colors,
+        },
+        fontSize: "10px",
+        fontWeight: "bold",
+      },
         tooltip: {
             theme: "dark",  
             marker: {
-                fillColors: ['#ffab2d'],  
+                fillColors: ['#b8ee30', '#f4d3a8', '#BDA9EB'],  
             },
             },  
         
