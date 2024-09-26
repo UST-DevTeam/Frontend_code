@@ -4,9 +4,10 @@ import NewMultiSelects from "../../../components/NewMultiSelect";
 import GraphActions from "../../../store/actions/graph-actions";
 import Button from "../../../components/Button";
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
 import CurrentuserActions from "../../../store/actions/currentuser-action";
+import moment from "moment";
+import TripleLineFourBarGraph from "../../../components/TripleLineFourBarGraph";
 
 const ProfitAndLoss = () => {
   const exportData = useRef([]);
@@ -200,7 +201,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <FourLineBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={""} XAxisTitle={"Cost Center"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4} data5={data5} data6={data6} data7={data7}/>
+      <TripleLineFourBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={""} XAxisTitle={"Cost Center"} columnWidth={"80%"} data1={data1} data2={data2} data3={data3} data4={data4} data5={data5} data6={data6} data7={data7}/>
     </div>
   );
 };

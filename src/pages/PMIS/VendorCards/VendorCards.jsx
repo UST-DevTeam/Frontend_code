@@ -119,7 +119,6 @@ const VendorCards = () => {
       <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-20 gap-2">
         {graph1 && <VendorActiveInactive />}
         {graph1 && <ProfitAndLoss />}
-        {/* {graph1 && <MS2vsWCCPendingReason />} */}
       </div>
     </>
   );
