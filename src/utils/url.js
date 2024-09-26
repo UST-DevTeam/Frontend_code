@@ -208,6 +208,7 @@ export const Urls={
     graph_phy_ms1_vs_ms2:"/graph/phyMS1Reason",
     graph_kpi_ms1_vs_ms2:"/graph/kpiMS1Reason",
     graph_P_and_L_forms:"/graph/profitloss",
+    graph_P_and_L_Trends:"/graph/profitlossTrend",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

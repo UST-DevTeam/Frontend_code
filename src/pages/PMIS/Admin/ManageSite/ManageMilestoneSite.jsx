@@ -730,6 +730,18 @@ const ManageMilestoneSite = ({
                               : [];
                             }
 
+                            if (its["fieldName"] === "PARENT PROJECT ID") {
+                              type = "newSingleSelect45";
+                              option = its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                  return {
+                                    label: itm,
+                                    value: itm,
+                                  };
+                                })
+                              : [];
+                            }
+
                             return {
                               label: its.fieldName,
                               value: "",

@@ -35,6 +35,7 @@ import {
     GET_GRAPH_PHY_MS1_VS_MS2,
     GET_GRAPH_KPI_MS1_VS_MS2,
     GET_GRAPH_P_AND_L_FORMS,
+    GET_GRAPH_P_AND_L_TRENDS,
     
  } from "../reducers/graph-reducer"
 
@@ -973,6 +974,37 @@ const GraphActions = {
             } else {
                 let dataAll = res?.data?.data
                 dispatch(GET_GRAPH_P_AND_L_FORMS({ dataAll, reset:true }))
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+    getGraphPAndLTrends:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_P_and_L_Trends}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_P_AND_L_TRENDS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postGraphPAndLTrends: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_P_and_L_Trends})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_P_AND_L_TRENDS({ dataAll, reset:true }))
             }
 
         } catch (error) {

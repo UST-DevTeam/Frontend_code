@@ -28,6 +28,8 @@ import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
 import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
+import ProfitAndLoss from "../Dashboard1/ProfitAndLoss";
+import ProfitAndLossTrend from "../Dashboard1/ProfitAndLossTrend";
 
 const FinancialCards = () => {
   // const [modalOpen, setmodalOpen] = useState(false)
@@ -102,10 +104,15 @@ const FinancialCards = () => {
       title: "Accrual Revenue Trend",
       component: <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />,
     }] : []),
-    ...(graph6 ?[{
+    ...(graph5 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      title: "P&L",
-      // component: <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />,
+      title: "Profit&Loss",
+      component: < ProfitAndLoss  customeruniqueId = {customeruniqueId} />,
+    }] : []),
+    ...(graph5 ?[{
+      icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
+      title: "Profit&Loss Trend",
+      component: <ProfitAndLossTrend customeruniqueId = {customeruniqueId} />,
     }] : []),
   ];
   

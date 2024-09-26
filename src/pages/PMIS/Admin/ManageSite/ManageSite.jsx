@@ -231,18 +231,10 @@ const ManageSite = ({
       text: "Site Engg. Data Added Click on submit to close menu",
     };
     dispatch(ALERTS(msgdata));
-    // setmodalFullOpen(false)
 
-    // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_siteEngineer, final_data, () => {
-
-    //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-    // }))
-
-    console.log(data, dataOfProject["uniqueId"], "dasugdjsahj");
   };
 
   const handleTrackingSubmit = (data) => {
-    console.log(data, "dasugdjsahj");
     // setSiteId(data["siteid"]?data["siteid"]:"Add")
 
     // let final_data = {
@@ -507,6 +499,17 @@ const ManageSite = ({
                                     return {
                                       id: itm,
                                       name: itm,
+                                    };
+                                  })
+                                : [];
+                              }
+                              if (its["fieldName"] === "PARENT PROJECT ID") {
+                                type = "newSingleSelect45";
+                                option = its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      label: itm,
+                                      value: itm,
                                     };
                                   })
                                 : [];
