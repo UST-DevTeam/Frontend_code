@@ -219,7 +219,7 @@ if (max2 % 50 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        // min:0,
+        min:0,
         max:max2,
         tickAmount: 5
       },
@@ -240,7 +240,7 @@ if (max2 % 50 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        // min:0,
+        min:0,
         max:max2
       },
       {
@@ -260,7 +260,7 @@ if (max2 % 50 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        // min:0,
+        min:0,
         max:max2
       }
     ],
