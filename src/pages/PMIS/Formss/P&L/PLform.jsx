@@ -93,7 +93,7 @@ const PLform = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
       },
     },
     {
@@ -103,7 +103,7 @@ const PLform = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
       },
       classes: "col-span-1",
     },
@@ -114,7 +114,7 @@ const PLform = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
       },
       classes: "col-span-1",
     },
@@ -125,7 +125,7 @@ const PLform = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
       },
       classes: "col-span-1",
     },
@@ -136,7 +136,7 @@ const PLform = ({
       type: "number",
       props: {
         valueAsNumber: true,
-        min: 0,
+        min: 1,
       },
       classes: "col-span-1",
     },
