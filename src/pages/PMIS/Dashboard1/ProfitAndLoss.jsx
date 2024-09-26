@@ -6,9 +6,7 @@ import Button from "../../../components/Button";
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
-import moment from "moment";
-
-
+import CurrentuserActions from "../../../store/actions/currentuser-action";
 
 const ProfitAndLoss = () => {
   const exportData = useRef([]);
@@ -31,9 +29,7 @@ const ProfitAndLoss = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
-//   const [selectedDepartment, setSelectedDepartment ] = useState([]);
     const [selectedCircle, setSelectedCircle] = useState([]);
-  const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedCostCenter, setSelectedCostCenter] = useState([]);
@@ -106,6 +102,7 @@ const ProfitAndLoss = () => {
   ];
 
   useEffect(() => {
+    dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0));
     dispatch(GraphActions.getGraphPAndLForms());
   }, []);
 
@@ -114,8 +111,8 @@ const handleFilter = () => {
     if (selectedCircle.length > 0) {
       filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
     }
-    if (selectedProjectType.length > 0) {
-      filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
+    if (selectedCostCenter.length > 0) {
+      filterData.costCenter = selectedCostCenter?.map((Sweety) => Sweety.value);
     }
     if (selectedYears) {
       filterData.year = selectedYears.value;
@@ -167,13 +164,6 @@ const handleFilter = () => {
             value={selectedCircle}
             cb={(data) => setSelectedCircle(data)}
             placeholder="Circle"
-          />
-          <NewMultiSelects
-            label="Project Type"
-            option={AllProjectTypeList}
-            value={selectedProjectType}
-            cb={(data) => setSelectedProjectType(data)}
-            placeholder="Project Type"
           /> */}
           <NewSingleSelect
             label="Year"

@@ -51,7 +51,7 @@ const CurrentuserActions = {
             let dataAll = res?.data?.data
             dispatch(GET_CURRENT_USER_COST_CENTER({dataAll,reset}))
         } catch (error) {
-        }
+        }   
     },
 
 }
