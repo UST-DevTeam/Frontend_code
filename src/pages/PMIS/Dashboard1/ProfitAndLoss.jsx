@@ -109,15 +109,12 @@ const ProfitAndLoss = () => {
 
 const handleFilter = () => {
     const filterData = {};
-    if (selectedCircle.length > 0) {
-      filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
-    }
-    if (selectedCostCenter.length > 0) {
-      filterData.costCenter = selectedCostCenter?.map((Sweety) => Sweety.value);
-    }
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
+    if (selectedMonths.length > 0) {
+        filterData.viewBy = selectedMonths?.map((Sweety) => Sweety.value);
+      }
     if (selectedCostCenter.length > 0) {
       filterData.costCenter = selectedCostCenter?.map((Sweety) => Sweety.value);
     }
@@ -126,9 +123,9 @@ const handleFilter = () => {
 
 
   const handleClear = () => {
-    setSelectedCircle([]);
-    setSelectedCostCenter([]);
     setSelectedYears(null);
+    setSelectedMonths([]);
+    setSelectedCostCenter([]);
     dispatch(GraphActions.getGraphPAndLForms());
   };
 
@@ -151,7 +148,6 @@ const handleFilter = () => {
     { value: 11, label: "Nov" },
     { value: 12, label: "Dec" },
   ];
-
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
          <div className="text-center mb-4">
@@ -169,7 +165,7 @@ const handleFilter = () => {
           <NewSingleSelect
             label="Year"
             option={listYear}
-            value={selectedYears}
+            value={selectedYears || null}
             placeholder="Year"
             cb={(data) => setSelectedYears(data)}
           />

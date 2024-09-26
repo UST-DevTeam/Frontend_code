@@ -52,7 +52,8 @@ const NewSingleSelect = ({ label, option = [], value = null, required = false, c
             <Select
                 className="outline-none font-semibold rounded-md border-main mt-[5px] border-solid border-[#64676d] border-[1.3px]"
                 options={option}
-                value={selectedOption}
+                // value={selectedOption}
+                value={value}
                 defaultIsOpen={false}
                 // onChange={(data) => {    
                 //     cb(data)
