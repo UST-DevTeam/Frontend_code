@@ -27,12 +27,14 @@ export default function SetupPassword() {
         return state?.auth?.userRole
       })
 
+    //   props: { onPaste: (e) => e.preventDefault() }, (for disabled the paste)
+
     const navigate = useNavigate()
     let Form = [
          { label: "E-mail",name: "email", value: "email", type: "text", props: "", required: true, placeholder: "example@domain.com" },
-        { label: "Current Password", name: "currentpassword", value: "currentpassword", type: "password", props: "", required: true, placeholder:"••••••••••••••" },
-        { label: "New Password", name: "newPassword", value: "newPassword", type: "password", props: "", required: true, placeholder:"••••••••••••••"  },
-        { label: "Confirm Password", name: "confirmPassword", value: "confirmPassword", type: "password", props: "", required: true, placeholder:"••••••••••••••"  },
+        { label: "Current Password", name: "currentpassword", value: "currentpassword", type: "password", props: "", required: true, placeholder:"current password ",  },
+        { label: "New Password", name: "newPassword", value: "newPassword", type: "password", props: "", required: true, placeholder:"8+ characters (At least 1 Letter & 1 Number)",  },
+        { label: "Confirm Password", name: "confirmPassword", value: "confirmPassword", type: "password", props: "", required: true, placeholder:"confirm New Password", },
     ]
     const {
         register,
@@ -162,13 +164,25 @@ export default function SetupPassword() {
         <WithSideImage sideImage={"bg-setuppassword"} formclass={" h-auto p-6" } 
         form={<>
             <CommonForm classes={"w-11/12 pl-10 "} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            <Button
-                    classes="flex mx-auto mt-2 w-28 h-10 justify-center rounded-lg leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
-                            focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
-                            duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
+            <div className="flex space-x-2 p-3 justify-center">
+                <Button
+                    classes="w-24 justify-center rounded-lg text-sm leading-6 text-white font-extrabold shadow-sm focus-visible:outline 
+                                focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+                                duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
                     onClick={handleSubmit(onTableViewSubmit)}
                     name="Submit"
+
                 />
+                <button
+                    type="button"
+                    className="flex w-24 justify-center rounded-lg py-1.5 text-[12.5px] font-semibold leading-6 text-white shadow-sm focus-visible:outline 
+                                focus-visible:outline-2 focus-visible:outline-offset-2 buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
+                                duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]"
+                    onClick={() => navigate('/login')}
+                >
+                    Sign in
+                </button>
+                </div>
         </>} labeling={"Reset Current Password"} />
     </>
 }

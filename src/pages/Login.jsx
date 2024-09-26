@@ -77,7 +77,7 @@ const Login = () => {
     //         </div>
     //     </div>
     // </>
-    return checkauth ? <></> : <><WithSideImage sideImage={"bg-sideimage"} formclass={" h-[60vh]"} labeling={"Login to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg ">
+    return checkauth ? <></> : <><WithSideImage sideImage={"bg-sideimage"} formclass={" h-auto"} labeling={"Login to your account"} form={<div className="mt-10 w-full sm:mx-auto sm:w-full sm:max-w-lg ">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 m-8" action="" method="POST">
             <div>
                 <div className="flex items-center justify-between">
@@ -109,12 +109,8 @@ const Login = () => {
                     </div>
                 </div>
                 <p className='text-xs text-rose-500 font-extrabold mt-1'>{errors.password?.message}</p>
-                <div className='flex float-end'>
-                <button className="btn text-[#c2a57b] text-sm font-extrabold float-right mr-2" onClick={() => { navigate('/setupPassword')}} >Change Password?</button>
-                <button className="btn text-[#13b497] text-sm font-extrabold float-right mr-5" onClick={() => { navigate('/register')}} >Forgot Password?</button>
-                </div>
             </div>
-            <div className='flex w-full pt-8'>
+            <div className='flex w-full pt-4'>
                 {/* <button onClick={() => {
                 navigate('/register')
             }} type="button" className="flex w-full justify-center rounded-full bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:outline-bg-pbutton hover:animate-pulse buttonAnim border-2 hover:border-2 border-gray-700 hover:border-gray-700">Register</button> */}
@@ -122,6 +118,15 @@ const Login = () => {
                     focus-visible:outline-2 mr-4  focus-visible:outline-offset-2  buttonAnim border-[1.5px] border-[#0e8670] font-poppins transition
                     duration-1000 ease-in-out hover:bg-[#3e454d] hover:text-white bg-[#13b497] hover:border-gray-500 hover:border-[1.5px]">Sign in</button>
             </div>
+            <div className="flex items-center justify-between space-x-3 mr-4">
+                <hr className="flex-grow border-t border-[#13b497]" />
+                <p className="text-center text-[#dbbf96] text-[13px] font-bold">Or</p>
+                <hr className="flex-grow border-t border-[#13b497]" />
+            </div>
+            <div className='flex justify-center'>
+                <button className="btn text-[#cbaf87] text-sm font-semibold float-right mr-2 hover:underline hover:font-extrabold" onClick={() => { navigate('/setupPassword')}} >Change Password?</button>
+                <button className="btn text-[#13b497] text-sm font-semibold float-right mr-5 hover:underline hover:font-extrabold" onClick={() => { navigate('/register')}} >Forgot Password?</button>
+                </div>
         </form>
         {/* <div className="p-0 m-2 flex justify-center items-center"> */}
             {/* <div>

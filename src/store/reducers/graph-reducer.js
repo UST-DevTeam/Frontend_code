@@ -34,6 +34,7 @@ const initialState = {
     getGraphSoftMS1vsMS2:[],
     getGraphphyMS1vsMS2:[],
     getGraphkpiMS1vsMS2:[],
+    getGraphPAndLForms:[],
 } 
  
 const GraphData = createSlice({
@@ -301,6 +302,14 @@ const GraphData = createSlice({
                 state.getGraphkpiMS1vsMS2  = [...state.getGraphkpiMS1vsMS2,...payload.dataAll]
             }
         },
+        
+        GET_GRAPH_P_AND_L_FORMS:(state,{payload}) => {
+            if(payload.reset){
+                state.getGraphPAndLForms = payload.dataAll
+            }else{
+                state.getGraphPAndLForms  = [...state.getGraphPAndLForms,...payload.dataAll]
+            }
+        },
 
     }
 })
@@ -339,6 +348,7 @@ export const {
     GET_GRAPH_SOFT_MS1_VS_MS2,
     GET_GRAPH_PHY_MS1_VS_MS2,
     GET_GRAPH_KPI_MS1_VS_MS2,
+    GET_GRAPH_P_AND_L_FORMS,
 } = GraphData.actions
     
 export default GraphData.reducer    
