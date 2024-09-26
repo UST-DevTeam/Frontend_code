@@ -4,11 +4,12 @@ import NewMultiSelects from "../../../components/NewMultiSelect";
 import GraphActions from "../../../store/actions/graph-actions";
 import Button from "../../../components/Button";
 import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import BarGraph from "../../../components/BarGrpah";
 import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
-import TripleLineBarGraph from "../../../components/TripleLineBarGraph";
 import FourLineBarGraph from "../../../components/FourLineBarGraph";
+import moment from "moment";
+
+
 
 const ProfitAndLoss = () => {
   const exportData = useRef([]);
@@ -36,21 +37,22 @@ const ProfitAndLoss = () => {
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
+  const [selectedCostCenter, setSelectedCostCenter] = useState([]);
+  const endDate = moment().format("Y");
   const dispatch = useDispatch();
 
   const monthStr = `${month}`;
 
-let CircleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleCode,
-      value: itm?.circleCode,
-    }));
-  });
-
-  let AllProjectTypeList = useSelector((state) => {
-    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-      label: itm?.projectType,
-      value: itm?.projectType,
+// let CircleList = useSelector((state) => {
+//     return state?.adminData?.getManageCircle?.map((itm) => ({
+//       label: itm?.circleCode,
+//       value: itm?.circleCode,
+//     }));
+//   });
+  let CostCenterList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentusercostcenter?.map((itm) => ({
+      label: itm?.costCenter,
+      value: itm?.uniqueId,
     }));
   });
 
@@ -62,9 +64,9 @@ let CircleList = useSelector((state) => {
   let data2 = GraphData?.map(item => item.projectedCost) || []
   let data3 = GraphData?.map(item => item.actualRevenue) || []
   let data4 = GraphData?.map(item => item.actualCost) || []
-  let data5 = GraphData?.map(item => item.netMargin) || []
+  let data5 = GraphData?.map(item => item.projectedGrossMargin) || []
   let data6 = GraphData?.map(item => item.actualGrossMargin) || []
-  let data7 = GraphData?.map(item => item.projectedGrossMargin) || []
+  let data7 = GraphData?.map(item => item.netMargin) || []
 
   const SeriesData = [
     {
@@ -88,7 +90,7 @@ let CircleList = useSelector((state) => {
         type: "bar",
       },
       {
-        name: "Net Margin(%)", 
+        name: "Projected Gross Margin(%)", 
         data: data5,
         type: "line", 
       },
@@ -98,15 +100,13 @@ let CircleList = useSelector((state) => {
         type: "line", 
       },
       {
-        name: "Projected Gross Margin(%)", 
+        name: "Net Margin(%)", 
         data: data7,
         type: "line", 
       },
   ];
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle(true,"",0));
-    dispatch(GraphActions.getGraphAllProjectType(true,"",0));
     dispatch(GraphActions.getGraphPAndLForms());
   }, []);
 
@@ -121,21 +121,24 @@ const handleFilter = () => {
     if (selectedYears) {
       filterData.year = selectedYears.value;
     }
+    if (selectedCostCenter.length > 0) {
+      filterData.costCenter = selectedCostCenter?.map((Sweety) => Sweety.value);
+    }
     dispatch(GraphActions.postGraphPAndLForms(filterData, () => {}));
   };
 
 
   const handleClear = () => {
     setSelectedCircle([]);
-    setSelectedProjectType([]);
+    setSelectedCostCenter([]);
     setSelectedYears(null);
     dispatch(GraphActions.getGraphPAndLForms());
   };
 
-  const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
-    label: 2023 + index,
-    value: 2023 + index,
-  }));
+  let listYear = [];
+  for (let ywq = 2023; ywq <= +endDate; ywq++) {
+    listYear.push({'value':ywq,'label':ywq});
+  }
 
   const monthsList = [
     { value: 1, label: "Jan" },
@@ -175,7 +178,7 @@ const handleFilter = () => {
           /> */}
           <NewSingleSelect
             label="Year"
-            option={years}
+            option={listYear}
             value={selectedYears}
             placeholder="Year"
             cb={(data) => setSelectedYears(data)}
@@ -186,6 +189,13 @@ const handleFilter = () => {
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
+          />
+          <NewMultiSelects
+            label="Cost Center"
+            option={CostCenterList}
+            value={selectedCostCenter}
+            cb={(data) => setSelectedCostCenter(data)}
+            placeholder="Cost Center"
           />
            </div>
         <div className="flex space-x-2">
