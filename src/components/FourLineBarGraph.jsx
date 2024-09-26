@@ -41,6 +41,14 @@ let max2 = Math.max(
 if (max2 % 50 !== 0) {
   max2 = Math.ceil(max2 /50) * 50;
 }
+let min2 = Math.min(
+  ...(data5 || []),
+  ...(data6 || []),
+  ...(data7 || []),
+)
+if (min2 % 50 !== 0) {
+    min2 = Math.ceil(min2 /50) * 50;
+}
 
   const defaultSeries = [
     {
@@ -219,7 +227,7 @@ if (max2 % 50 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        min:0,
+        min:min2,
         max:max2,
         tickAmount: 5
       },
@@ -240,7 +248,7 @@ if (max2 % 50 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        min:0,
+        min:min2,
         max:max2
       },
       {
@@ -260,7 +268,7 @@ if (max2 % 50 !== 0) {
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
-        min:0,
+        min:min2,
         max:max2
       }
     ],
