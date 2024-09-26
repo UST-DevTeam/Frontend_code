@@ -246,10 +246,12 @@ const DAFormFillFORM = ({
     // dispatch(ExpenseAdvanceActions.getExpenseDAProjectId());
     dispatch(ExpenseAdvanceActions.getExpenseDACostCenter());
     if (resetting) {
+      
       reset({});
       Form.map((fieldName) => {
         setValue(fieldName["name"], fieldName["value"]);
       });
+      
     } else {
       reset({});
       console.log(Object.keys(formValue), "Object.keys(formValue)");
