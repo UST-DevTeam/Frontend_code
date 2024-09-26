@@ -44,10 +44,15 @@ if (max2 % 50 !== 0) {
 let min2 = Math.min(
   ...(data5 || []),
   ...(data6 || []),
-  ...(data7 || []),
+  ...(data7 || []), 
 )
-if (min2 % 50 !== 0) {
-    min2 = Math.ceil(min2 /50) * 50;
+
+if (min2 < 0) {
+if (min2 % 25 !== 0) {
+    min2 = Math.floor(min2 /25) * 25;
+}
+} else {
+    min2 = 0;
 }
 
   const defaultSeries = [

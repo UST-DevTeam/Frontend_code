@@ -9,6 +9,7 @@ import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
 import TripleLineBarGraph from "../../../components/TripleLineBarGraph";
 import FourLineBarGraph from "../../../components/FourLineBarGraph";
+import CurrentuserActions from "../../../store/actions/currentuser-action";
 
 const ProfitAndLoss = () => {
   const exportData = useRef([]);
@@ -31,9 +32,8 @@ const ProfitAndLoss = () => {
   const [extraColumnsState, setExtraColumns] = useState(months);
 
   const currentYear = new Date().getFullYear();
-//   const [selectedDepartment, setSelectedDepartment ] = useState([]);
     const [selectedCircle, setSelectedCircle] = useState([]);
-  const [selectedProjectType, setSelectedProjectType] = useState([]);
+  const [selectedCostCenter, setSelectedCostCenter] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
@@ -47,10 +47,10 @@ let CircleList = useSelector((state) => {
     }));
   });
 
-  let AllProjectTypeList = useSelector((state) => {
-    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-      label: itm?.projectType,
-      value: itm?.projectType,
+  let CostCenterList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentusercostcenter?.map((itm) => ({
+      label: itm?.costCenter,
+      value: itm?.uniqueId,
     }));
   });
 
@@ -105,8 +105,7 @@ let CircleList = useSelector((state) => {
   ];
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle(true,"",0));
-    dispatch(GraphActions.getGraphAllProjectType(true,"",0));
+    dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0));
     dispatch(GraphActions.getGraphPAndLForms());
   }, []);
 
@@ -115,8 +114,8 @@ const handleFilter = () => {
     if (selectedCircle.length > 0) {
       filterData.circleCode = selectedCircle?.map((Sweety) => Sweety.value);
     }
-    if (selectedProjectType.length > 0) {
-      filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
+    if (selectedCostCenter.length > 0) {
+      filterData.costCenter = selectedCostCenter?.map((Sweety) => Sweety.value);
     }
     if (selectedYears) {
       filterData.year = selectedYears.value;
@@ -127,7 +126,7 @@ const handleFilter = () => {
 
   const handleClear = () => {
     setSelectedCircle([]);
-    setSelectedProjectType([]);
+    setSelectedCostCenter([]);
     setSelectedYears(null);
     dispatch(GraphActions.getGraphPAndLForms());
   };
@@ -165,13 +164,6 @@ const handleFilter = () => {
             value={selectedCircle}
             cb={(data) => setSelectedCircle(data)}
             placeholder="Circle"
-          />
-          <NewMultiSelects
-            label="Project Type"
-            option={AllProjectTypeList}
-            value={selectedProjectType}
-            cb={(data) => setSelectedProjectType(data)}
-            placeholder="Project Type"
           /> */}
           <NewSingleSelect
             label="Year"
@@ -186,6 +178,13 @@ const handleFilter = () => {
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
+          />
+          <NewMultiSelects
+            label="Cost Center"
+            option={CostCenterList}
+            value={selectedCostCenter}
+            cb={(data) => setSelectedCostCenter(data)}
+            placeholder="Cost Center"
           />
            </div>
         <div className="flex space-x-2">
