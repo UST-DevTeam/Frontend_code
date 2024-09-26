@@ -7,7 +7,6 @@ import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
 import moment from "moment";
-import FourLineBarGraph from "../../../components/FourLineBarGraph";
 
 
 
