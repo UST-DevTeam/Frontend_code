@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarLineGraph = ({ data,
+const BarLineGraph = ({ data, headerName,
   seriesData = [],
   horizontal = false,
   title = "",
@@ -65,6 +65,17 @@ const BarLineGraph = ({ data,
                     pan: false,
                     zoom: false,                
                 },
+                export: {
+                  csv:{
+                      filename:headerName
+                  },
+                  svg: {
+                      filename: headerName,
+                  },
+                  png: {
+                      filename: headerName,
+                  }
+              }
             }
         },
         title: {

@@ -89,7 +89,7 @@ const SoftMS1VsMS2 = () => {
             ></Button>
           </div>
         </div>
-      <BarGraph data={GraphData} seriesData={seriesData} horizontal={false}  columnWidth='50%' />
+      <BarGraph data={GraphData} headerName={"Soft_MS1_Vs_MS2"} seriesData={seriesData} horizontal={false}  columnWidth='50%' />
     </div>
   );
 };

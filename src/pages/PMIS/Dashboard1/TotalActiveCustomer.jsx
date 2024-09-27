@@ -73,7 +73,7 @@ const TotalActiveCustomer = () => {
           </div>
 
         </div>
-      <DountChart data={GraphData} label="Total Customers" height={360} horizontal={false} columnWidth="30%" colors={["#5cccb7", "#ffab2d", "#fbd0d0", "#f9a8d4", "#b8ee30"]} />
+      <DountChart data={GraphData} headerName = {"Total_Customer"} label="Total Customers" height={360} horizontal={false} columnWidth="30%" colors={["#5cccb7", "#ffab2d", "#fbd0d0", "#f9a8d4", "#b8ee30"]} />
     </div>
   );
 };

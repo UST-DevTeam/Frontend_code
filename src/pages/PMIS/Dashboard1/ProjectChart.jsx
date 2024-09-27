@@ -102,7 +102,7 @@ const ProjectChart = (id) => {
       </div>
       </div>
 
-      <DountChart data={pieGraphData} label="Total Projects"/>
+      <DountChart data={pieGraphData} headerName = {"Total_Projects"} label="Total Projects"/>
 
     </div>
 

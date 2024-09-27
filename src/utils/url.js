@@ -1,5 +1,5 @@
-export const baseUrl="http://127.0.0.1:7980"
-export const backendassetUrl="http://127.0.0.1:7980/"
+export const baseUrl="http://127.0.0.1:7979"
+export const backendassetUrl="http://127.0.0.1:7979/"
 
 // export const baseUrl="https://pmisapi.mcpsinc.com"
 // export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
@@ -14,7 +14,7 @@ export const Urls={
     user_notification:'/notification',
     
 
-    // new url
+    // new urlP
     admin_userAccess:"/admin/userAccess",
     admin_customer:"/admin/manageCustomer",
     card_customer:"/admin/cardCustomer",

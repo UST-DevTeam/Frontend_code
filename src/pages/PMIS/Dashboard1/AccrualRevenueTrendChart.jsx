@@ -189,7 +189,7 @@ const AccrualRevenueTrendChart = () => {
                       ></Button>
                     </div>
                   </div>
-              <LineChartsss data = {pieGraphData} seriesData={SeriesData} dataLabelSuffix="L"/>
+              <LineChartsss data = {pieGraphData} headerName={"Accrual_Revenue_Trend"} seriesData={SeriesData} dataLabelSuffix="L"/>
 
             </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LineTripleGraph = ({ data, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "", dataLabelSuffix="", }) => {
+const LineTripleGraph = ({ data, headerName,horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "", dataLabelSuffix="", }) => {
 
     let category = data?.map(item => item.description) ||[];
     const defaultSeries = [
@@ -38,6 +38,17 @@ const LineTripleGraph = ({ data, horizontal = false, seriesData = [], title="", 
                     pan: false,
                     zoom: false,                
                 },
+                export: {
+                    csv:{
+                        filename:headerName
+                    },
+                    svg: {
+                        filename: headerName,
+                    },
+                    png: {
+                        filename: headerName,
+                    }
+                }
             }
         },
         title: {

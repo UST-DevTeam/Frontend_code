@@ -236,7 +236,7 @@ let ORGLevelList = useSelector((state) => {
             ></Button>
           </div>
         </div>
-      <DoubleBarGraph data={GraphData} horizontal={false}/>
+      <DoubleBarGraph headerName = {'Monthly_Joining_Vs_Exit'} data={GraphData} horizontal={false}/>
     </div>
   );
 };

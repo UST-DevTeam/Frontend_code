@@ -167,7 +167,7 @@ const AdvanceApprovalStatus = () => {
             ></Button>
           </div>
         </div>
-      <BarGraph data={GraphData} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" columnWidth="30%" colors={["#5cccb7", "#ffab2d", "#fbd0d0", "#f9a8d4", "#b8ee30"]} />
+      <BarGraph data={GraphData} headerName={"Advance_Approval_Status"} seriesData={SeriesData} horizontal={false} dataLabelSuffix="L" columnWidth="30%" colors={["#5cccb7", "#ffab2d", "#fbd0d0", "#f9a8d4", "#b8ee30"]} />
     </div>
   );
 };

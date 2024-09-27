@@ -184,7 +184,7 @@ const ActiveEmpwithCostCenter = () => {
             ></Button>
           </div>
         </div>
-      <BarGraph data={GraphData} horizontal={true}  columnWidth='80%' />
+      <BarGraph data={GraphData} headerName={"Airtel_Active_Employee"} horizontal={true}  columnWidth='80%' />
     </div>
   );
 };

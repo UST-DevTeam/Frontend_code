@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const PieChart = ({ data, colorSeries = ["#13b497", "#ffab2d"] }) => {
+const PieChart = ({ data,headerName, colorSeries = ["#13b497", "#ffab2d"] }) => {
 
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || []
@@ -18,22 +18,16 @@ const PieChart = ({ data, colorSeries = ["#13b497", "#ffab2d"] }) => {
           download: true,
         },
         export: {
-          csv: {
-            filename: "",
-            columnDelimiter: '',
-            headerCategory: '',
-            headerValue: '',
-            dateFormatter(timestamp) {
-              return new Date(timestamp).toDateString();
-            }
+          csv:{
+              filename:headerName
           },
           svg: {
-            filename: '',
+              filename: headerName,
           },
           png: {
-            filename: '',
+              filename: headerName,
           }
-        },
+      }
       }
     },
     dataLabels: {

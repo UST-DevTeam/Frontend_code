@@ -259,7 +259,7 @@ const CumulativeTrendPlanVsActual = () => {
             ></Button>
           </div>
         </div>
-      <TripleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
+      <TripleBarGraph data={GraphData} headerName={"Revenue_Plan_Vs_Actual_Trend_Cumulative"} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
     </div>
   );
 };

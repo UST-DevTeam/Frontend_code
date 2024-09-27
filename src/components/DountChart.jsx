@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DountChart = ({ data , label="", DonutHeight="250"}) => {
+const DountChart = ({ data ,headerName, label="", DonutHeight="250"}) => {
 
   let name = data?.map(item => item.status) || []
   let dataSeries = data?.map(item => item.count) || [] 
@@ -20,22 +20,16 @@ const DountChart = ({ data , label="", DonutHeight="250"}) => {
           download: true,
         },
         export: {
-          csv: {
-            filename: "Partner_Status_Dount_Chart",
-            columnDelimiter: ',',
-            headerCategory: 'Project Status',
-            headerValue: 'value',
-            dateFormatter(timestamp) {
-              return new Date(timestamp).toDateString();
-            }
+          csv:{
+              filename:headerName
           },
           svg: {
-            filename: 'Partner_Status_Dount_Chart',
+              filename: headerName,
           },
           png: {
-            filename: 'Partner_Status_Dount_Chart',
+              filename: headerName,
           }
-        },
+      }
       }
     },
     plotOptions: {

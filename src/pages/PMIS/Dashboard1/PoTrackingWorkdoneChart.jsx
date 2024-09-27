@@ -97,7 +97,7 @@ const PoTrackingWorkdoneChart = () => {
             ></Button>
           </div>
         </div>
-      <ColumnChart data={value}/>
+      <ColumnChart data={value} headerName={"PO_Item_Code_Workdone"} />
     </div>
 
   );
