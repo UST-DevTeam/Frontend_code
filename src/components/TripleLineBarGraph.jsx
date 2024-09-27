@@ -4,6 +4,7 @@ import ReactApexChart from "react-apexcharts";
 
 const TripleLineBarGraph = ({
   data,
+  headerName,
   seriesData = [],
   horizontal = false,
   title = "",
@@ -98,6 +99,17 @@ if (max2 % 25 !== 0) {
             pan: false,
             zoom: false,                
         },
+        export: {
+          csv:{
+              filename:headerName
+          },
+          svg: {
+              filename: headerName,
+          },
+          png: {
+              filename: headerName,
+          }
+      }
     }
       
     },

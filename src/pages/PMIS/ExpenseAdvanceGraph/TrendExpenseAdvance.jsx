@@ -182,7 +182,7 @@ const TrendExpenseAdvance = () => {
                 ></Button>
               </div>
             </div>
-      <DoubleBarGraph data={GraphData} seriesData={SeriesData} columnWidth={"50%"} horizontal={false} dataLabelSuffix='L'  />
+      <DoubleBarGraph data={GraphData} headerName={"Trend_Expense_Advance"} seriesData={SeriesData} columnWidth={"50%"} horizontal={false} dataLabelSuffix='L'  />
     </div>
   );
 };

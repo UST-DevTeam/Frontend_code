@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const ColumnChart = ({data,colors}) => {
+const ColumnChart = ({data,headerName,colors}) => {
   const chartData = {
     series: [{
       name:"Count",
@@ -11,7 +11,29 @@ const ColumnChart = ({data,colors}) => {
       chart: {
         height: 350,
         type: 'bar',
-        background:''
+        background:'#3e454d',
+        toolbar: {
+          show: true,
+          tools: {
+              download: true, 
+              zoomin: false, 
+              zoomout: false, 
+              reset: false,
+              pan: false,
+              zoom: false,                
+          },
+          export: {
+            csv:{
+                filename:headerName
+            },
+            svg: {
+                filename: headerName,
+            },
+            png: {
+                filename: headerName,
+            }
+        }
+      }
       },
       colors: colors,
       plotOptions: {

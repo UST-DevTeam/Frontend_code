@@ -140,7 +140,7 @@ const handleFilter = () => {
             ></Button>
           </div>
         </div>
-      <LineTripleGraph data={GraphData} headerName = {"Profit_And_Loss_Trend"}/>
+      <LineTripleGraph data={GraphData} headerName={"Profit_and_Loss_Trend"} />
     </div>
   );
 };

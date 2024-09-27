@@ -4,6 +4,7 @@ import ReactApexChart from "react-apexcharts";
 
 const TripleLineFourBarGraph = ({
   data,
+  headerName,
   seriesData = [],
   horizontal = false,
   title = "",
@@ -101,6 +102,17 @@ if (min2<0){
             pan: false,
             zoom: false,                
         },
+        export: {
+          csv:{
+              filename:headerName
+          },
+          svg: {
+              filename: headerName,
+          },
+          png: {
+              filename: headerName,
+          }
+      }
     }
       
     },

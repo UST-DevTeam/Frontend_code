@@ -276,7 +276,7 @@ const NewJoiningMonthly = () => {
             ></Button>
           </div>
         </div>
-      <BarGraph data={GraphData} horizontal={false}  title="Monthly New Joining" />
+      <BarGraph data={GraphData} headerName={"Monthly_New_Joining"} horizontal={false}  title="Monthly New Joining" />
     </div>
   );
 };

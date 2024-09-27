@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", XAxisTitle = "", YAxisTitle = "", columnWidth= '70%', dataLabelSuffix="",}) => {
+const DoubleBarGraph = ({ data,headerName, seriesData = [], horizontal = false, title="", XAxisTitle = "", YAxisTitle = "", columnWidth= '70%', dataLabelSuffix="",}) => {
 
     let category = data?.map(item => item.description) ||[];
 
@@ -29,6 +29,25 @@ const DoubleBarGraph = ({ data, seriesData = [], horizontal = false, title="", X
             height: 440,
             type: 'bar',
             background: '#3e454d',
+            toolbar: {
+                show: true,
+                offsetX: 0,
+                offsetY: 0,
+                tools: {
+                  download: true,
+                },
+                export: {
+                  csv:{
+                      filename:headerName
+                  },
+                  svg: {
+                      filename: headerName,
+                  },
+                  png: {
+                      filename: headerName,
+                  }
+              }
+              }
 
         },
         title: {

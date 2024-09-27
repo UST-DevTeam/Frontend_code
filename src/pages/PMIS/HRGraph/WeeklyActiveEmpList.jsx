@@ -237,7 +237,7 @@ const WeeklyActiveEmpList = () => {
             ></Button>
           </div>
         </div>
-      <DoubleBarGraph data={GraphData} seriesData={SeriesData} horizontal={false}/>
+      <DoubleBarGraph data={GraphData} headerName={"Weekly_Active_Employee"} seriesData={SeriesData} horizontal={false}/>
     </div>
   );
 };

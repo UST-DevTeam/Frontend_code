@@ -89,7 +89,7 @@ useEffect(() => {
             ></Button>
           </div>
         </div>
-      <BarGraph data={GraphData} seriesData={seriesData} horizontal={false}  columnWidth='60%' />
+      <BarGraph data={GraphData} headerName={"PHY_MS1_Vs_MS2"} seriesData={seriesData} horizontal={false}  columnWidth='60%' />
     </div>
   );
 };

@@ -440,7 +440,7 @@ const TrendPlanVSActualWorkdone = () => {
             ></Button>
           </div>
         </div>
-      <BarLineGraph data={GraphData} seriesData={SeriesData} horizontal={false} YAxisTextTitle ="Planned" dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {SecondaryAxis}/>
+      <BarLineGraph data={GraphData} headerName={"Trend_Plan_VS_Actual_Workdone"} seriesData={SeriesData} horizontal={false} YAxisTextTitle ="Planned" dataLabelSuffix="L" data1= {data1} data2= {data2} data3= {SecondaryAxis}/>
     </div>
   );
 };

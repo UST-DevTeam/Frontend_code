@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "", dataLabelSuffix="", }) => {
+const LineChartsss = ({ data,headerName, horizontal = false, seriesData = [], title="", XAxisTitle = "", YAxisTitle = "", dataLabelSuffix="", }) => {
 
     let category = data?.map(item => item.description) ||[];
     const defaultSeries = [
@@ -27,6 +27,17 @@ const LineChartsss = ({ data, horizontal = false, seriesData = [], title="", XAx
                     pan: false,
                     zoom: false,                
                 },
+                export: {
+                    csv:{
+                        filename:headerName
+                    },
+                    svg: {
+                        filename: headerName,
+                    },
+                    png: {
+                        filename: headerName,
+                    }
+                }
             }
         },
         title: {

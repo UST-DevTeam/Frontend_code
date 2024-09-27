@@ -153,7 +153,7 @@ const MonthlyActiveTrend = () => {
             ></Button>
           </div>
         </div>
-      <LineChartsss data={GraphData} />
+      <LineChartsss headerName = {"Monthly_Active_Trend"} data={GraphData} />
     </div>
   );
 };

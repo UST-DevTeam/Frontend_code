@@ -243,7 +243,7 @@ const MileStoneChart = ({ customeruniqueId }) => {
             ></Button>
           </div>
         </div>
-      <PieChart data={pieGraphData} />
+      <PieChart headerName={"MileStone_Status"} data={pieGraphData} />
     </div>
   );
 };
