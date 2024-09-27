@@ -155,21 +155,21 @@ const CCDash = ({
       title: "SOB",
     //   component: <TotalActiveCustomer />,
     }] : []),
-    {
+    ...(graph4 ?[{
       icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
       title: "Soft MS1 Vs MS2",
       component: <SoftMS1VsMS2 />,
-    },
-    {
+    }] : []),
+    ...(graph4 ?[{
       icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
       title: "Phy MS1 Vs MS2",
       component: <PHYMS1VsMS2 />,
-    },
-    {
+    }] : []),
+    ...(graph4 ?[{
       icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
       title: "KPI MS1 Vs MS2",
       component: <KPIMS1VsMS2 />,
-    },
+    }] : []),
   ];
 
   const handleCardClick = (index) => {

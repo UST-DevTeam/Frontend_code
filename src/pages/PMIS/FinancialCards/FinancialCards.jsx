@@ -106,12 +106,12 @@ const FinancialCards = () => {
     }] : []),
     ...(graph5 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      title: "Profit&Loss",
+      title: "Profit & Loss",
       component: < ProfitAndLoss  customeruniqueId = {customeruniqueId} />,
     }] : []),
     ...(graph5 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      title: "Profit&Loss Trend",
+      title: "Profit & Loss Trend",
       component: <ProfitAndLossTrend customeruniqueId = {customeruniqueId} />,
     }] : []),
   ];

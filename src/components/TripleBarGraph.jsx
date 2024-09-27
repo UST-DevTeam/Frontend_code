@@ -3,6 +3,7 @@ import ReactApexChart from "react-apexcharts";
 
 const TripleBarGraph = ({
   data,
+  headerName,
   seriesData = [],
   horizontal = false,
   title = "",
@@ -84,6 +85,17 @@ const TripleBarGraph = ({
               pan: false,
               zoom: false,                
           },
+          export: {
+            csv:{
+                filename:headerName
+            },
+            svg: {
+                filename: headerName,
+            },
+            png: {
+                filename: headerName,
+            }
+        }
       }
       
     },
