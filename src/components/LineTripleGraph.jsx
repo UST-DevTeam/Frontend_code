@@ -108,14 +108,15 @@ const LineTripleGraph = ({ data, headerName,horizontal = false, seriesData = [],
                 style: {
                   color: '#ffffff',
                   fontSize: '17px',
-                  fontWeight: 'bold',
+                  fontWeight: 'bold',   
                 },
               },
             labels: {
                 style: {
                     colors: '#ffffff',
                     fontSize: '9px',
-                }
+                },
+                formatter: (val) => `${val}%` 
             }
         },
         stroke: {

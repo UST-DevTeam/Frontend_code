@@ -24,6 +24,7 @@ import NewMultiselection from "./FormElements/NewMultiselection";
 import Email from "./FormElements/Email";
 import NewMultiselection3 from "./NewMultiselection3";
 import NewSingleSelectForm45 from "./FormElements/NewSingleSelect45";
+import NewSingleSelectCommon from "./FormElements/NewSingleSelectCommon";
 
 
 const CommonForm = ({
@@ -318,6 +319,18 @@ const CommonForm = ({
                     )}
                     {itm.type == "newSingleSelect45" ? (
                       <NewSingleSelectForm45
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    {itm.type == "newSingleSelectCommon" ? (
+                      <NewSingleSelectCommon
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}

@@ -8,7 +8,7 @@ const TripleLineFourBarGraph = ({
   seriesData = [],
   horizontal = false,
   title = "",
-  columnWidth = "100%",
+  columnWidth = "90%",
   dataLabelSuffix="",
   XAxisTitle = "",  
   YAxisTitle = "", 
@@ -89,7 +89,7 @@ if (min2<0){
 
   const options = {
     chart: {
-      height: 440,
+      height: 400,
       type: "line",
       background: "#3e454d",
       toolbar: {
@@ -306,7 +306,7 @@ if (min2<0){
     stroke: {
         colors: ["#13b497", "#ffab2d", "#2b98d6", "#fd5c63", "#b8ee30", "#f4d3a8", "#BDA9EB"],
         curve: 'smooth',
-        width: [0.5, 0.5, 0.5, 0.5, 3, 3, 3],
+        width: [0.8, 0.8, 0.8, 0.8, 2.5, 2.5, 2.5],
         // colors: BarBorderColors,
     },
     grid: {
@@ -356,7 +356,7 @@ if (min2<0){
   };
 
   return (
-    <ReactApexChart options={options} series={series} type="line" height={440} />
+    <ReactApexChart options={options} series={series} type="line" height={400} />
   );
 };
 
