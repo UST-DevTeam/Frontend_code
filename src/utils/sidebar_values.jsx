@@ -140,6 +140,9 @@ import MonthlyRevenueCircle from "../pages/PMIS/Formss/FinancialGraph/MonthlyRev
 import CumulativeTrendPlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 import MS1AndMS2CircleWise from "../pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
 import Settlement from "../pages/PMIS/MyHome/SettlementForm/Settlement";
+import ActivityLogs from "../pages/PMIS/HR/ActivityLogs/ActivityLogs";
+import ApprovalLogs from "../pages/PMIS/HR/ActivityLogs/ApprovalLogs";
+import AdminLogs from "../pages/PMIS/HR/ActivityLogs/AdminLogs";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -713,6 +716,27 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/MasterUnitRate",
       component: <AccuralRevenueMaster />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/ActivityLogs",
+      component: <ActivityLogs />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/ActivityLogs/ApprovalLogs",
+      component: <ApprovalLogs />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/ActivityLogs/SuperAdminLogs",
+      component: <AdminLogs/>,
       icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

@@ -47,7 +47,9 @@ import {
 
     ////// Filter expense Advance
     GET_MANAGE_ADVANCE_TYPE_FILTER,
-    GET_MANAGE_EXPENSE_TYPE_FILTER
+    GET_MANAGE_EXPENSE_TYPE_FILTER,
+    GET_MANAGE_APPROVAL_LOGS,
+    GET_MANAGE_ADMIN_LOGS
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
 
@@ -589,6 +591,24 @@ const AdminActions = {
         } catch (error) {
         }
     },   
+    getapprovalLogs:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.approval_Logs}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_APPROVAL_LOGS({dataAll,reset}))
+        } catch (error) {
+        }
+    }, 
+    getadminLogs:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_logs}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MANAGE_ADMIN_LOGS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
     postManageCompletionCriteria: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_completion_criteria : Urls.admin_completion_criteria + "/" + uniqueId })
