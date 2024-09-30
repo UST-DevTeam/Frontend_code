@@ -90,12 +90,12 @@ const FinancialCards = () => {
       component: <MonthlyRevenueCircle />, 
     }] : []),
     ...(graph3 ?[{
-      // icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
-      icon: <img src="/revanueCumulative.png" alt="Profit & Loss Trend" className="w-full h-full object-cover"/>,
+      icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
+      // icon: <img src="/revanueCumulative.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
       title: "Revenue - Plan VS Actual Trend Cumulative",
       component:  <CumulativeTrendPlanVsActual />,
     }] : []),
-    ...(graph4 ?[{
+    ...(graph4 ?[{ 
       icon: <UilVerticalAlignBottom className="text-[#13b497] w-28 h-28" />,
       title: "PO Item Code Workdone",
       component:  <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />,
@@ -106,8 +106,8 @@ const FinancialCards = () => {
       component: <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />,
     }] : []),
     ...(graph5 ?[{
-      // icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      icon: <img src="/PL.png" alt="Profit & Loss Trend" className="w-full h-full object-cover"/>,
+      icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
+      // icon: <img src="/PL.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
       title: "Profit & Loss",
       component: < ProfitAndLoss  customeruniqueId = {customeruniqueId} />,
     }] : []),
@@ -225,7 +225,8 @@ const FinancialCards = () => {
                   >
                     <h3 className="text-[#f4d3a8] font-bold text-base mb-4">{card.title}</h3>
                     <div className="w-full flex justify-center items-center">
-                      <div className="w-full h-16 sm:w-full sm:h-20 md:w-full md:h-24 lg:w-full lg:h-28">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28">
+                      {/* <div className="w-full h-16 sm:w-full sm:h-20 md:w-full md:h-24 lg:w-full lg:h-28"> */}
                         {card.icon} 
                       </div>
                     </div>

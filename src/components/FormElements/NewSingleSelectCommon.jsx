@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Select from "react-select"; // Import react-select for select box with search
+import Select from "react-select";
 
-const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
+const NewSingleSelectCommon = ({ itm, errors, setValue, getValues }) => {
   const [selectedValue, setSelectedValue] = useState(null);
 
   useEffect(() => {
@@ -17,48 +17,50 @@ const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
     setSelectedValue(selectedOption);
     setValue(itm.name, selectedOption ? selectedOption.value : "");
 
-    // Execute dynamic onChange if provided
     if (itm.props?.onChange) {
       itm.props.onChange({ target: { value: selectedOption?.value || "" } });
     }
   };
-
-  // Custom styles for white background and gray text
+  
   const customStyles = {
     control: (provided) => ({
-      ...provided,
-      // backgroundColor: "white",
-      // border: "1px solid gray",
-      // borderRadius: "0.375rem",
-      // height: "38px",
-      boxShadow: "none",
-      "&:hover": {
-        borderColor: "black",
-      },
+        ...provided,
+        backgroundColor: '#3e454d',
+        borderColor: '#64676d',  
+            
+    }),
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: '#f0f0f0',
+    }),
+    menuList: (provided) => ({
+        ...provided,
+        paddingTop: 0, 
+        paddingBottom: 0, 
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        backgroundColor: state.isSelected ? '#d4d4d4' : '#3e454d',
+        color: state.isSelected ? '#000' : 'white',     
+        fontSize :"12px", 
+        fontWeight: "bold",  
+        '&:hover': {
+            backgroundColor: '#24292d',
+            color:"white"                        
+        },
+    }),
+    placeholder : (porvided, state) =>({
+        ...porvided,
+        color: state.isSelected ? '#000' : '#AAAAAA', 
     }),
     input: (provided) => ({
       ...provided,
-      color: "black",
+      color: 'white',
     }),
-    placeholder: (provided) => ({
-      ...provided,
-      color: "black",
+    indicatorSeparator: () => ({
+        display: 'none', 
     }),
-    singleValue: (provided) => ({
-      ...provided,
-      color: "black",
-    }),
-    menu: (provided) => ({
-      ...provided,
-      backgroundColor: "white",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? "#f0f0f0" : "white",
-      color: state.isSelected ? "black" : "black",
-      
-    }),
-  };
+};
 
   return (
     <div className={`${itm.classes}`}>
@@ -77,4 +79,4 @@ const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
   );
 };
 
-export default NewSingleSelectForm45;
+export default NewSingleSelectCommon;
