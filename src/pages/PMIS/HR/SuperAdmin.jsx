@@ -8,6 +8,7 @@ import ComponentActions from "../../../store/actions/component-actions";
 import ProjectChart from "../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
+import ActivityLogs from "./ActivityLogs/ActivityLogs";
 // import EditButton from '../../../../components/EditButton';
 // import ManageCustomerForm from '../../../PMIS/Admin/ManageCustomer/ManageCustomerForm'
 // import AdvancedTable from '../../../../components/AdvancedTable';
@@ -354,6 +355,13 @@ const SuperAdmin = () => {
             "Master Unit Rate",
             "bg-pcol",
             "/hr/superAdmin/MasterUnitRate",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Activity Logs",
+            "bg-pcol",
+            "/hr/superAdmin/ActivityLogs",
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],

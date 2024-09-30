@@ -140,6 +140,12 @@ export const Urls={
     admin_claim_type_Expenses:"/expenses/expensesClaimType",
     admin_claim_type_Advances:"/expenses/AdvanceClaimType",
 
+
+
+    ///Activity Logs
+    approval_Logs:"/Approval/Logs",
+    admin_logs:"/admin/AdminLogs",
+
     // FILTER
 
     filter_project_circle:'/filter/project/circle',

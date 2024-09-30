@@ -46,6 +46,8 @@ const initialState = {
     getAccuralRevenueMasterProjectType:[],
     getClaimTypeExpenses:[],
     getClaimTypeAdvances:[],
+    getManageApprovalLogs:[],
+    getManageAdminLogs:[]
 }
 
 const adminData = createSlice({
@@ -393,9 +395,21 @@ const adminData = createSlice({
             }
         },
 
+        GET_MANAGE_APPROVAL_LOGS:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageApprovalLogs = payload.dataAll
+            }else{
+                state.getManageApprovalLogs  = [...state.getManageApprovalLogs,...payload.dataAll]
+            }
+        },
         
-        
-
+        GET_MANAGE_ADMIN_LOGS:(state,{payload}) => {
+            if(payload.reset){
+                state.getManageAdminLogs = payload.dataAll
+            }else{
+                state.getManageAdminLogs  = [...state.getManageAdminLogs,...payload.dataAll]
+            }
+        },
         // GET_ASSET_REGISTRATION:(state,{payload}) => {
         //     if(payload.reset){
         //         state.getAssetRegistration = payload.dataAll
@@ -433,6 +447,8 @@ export const {
     GET_MANAGE_CLAIM_TYPE_UNIT_RATE,
     GET_MANAGE_CLAIM_TYPE_DESIGNATION,
     GET_MANAGE_EXPENSE_ADVANCE,
+    GET_MANAGE_APPROVAL_LOGS,
+    GET_MANAGE_ADMIN_LOGS,
     // Not in use
     // GET_MANAGE_PROJECT,
     GET_MANAGE_SUB_PROJECT,  

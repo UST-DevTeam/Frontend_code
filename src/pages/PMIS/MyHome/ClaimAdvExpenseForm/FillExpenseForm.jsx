@@ -87,7 +87,7 @@ const FillExpenseForm = ({
     );
     setSelectedLabel(selectedOption ? selectedOption.label : '');
 
-    if (selectedOption?.categories.length > 0) {
+    if (selectedOption?.categories.length > 1) {
       setKm(true);
     } else {
       setKm(false);
