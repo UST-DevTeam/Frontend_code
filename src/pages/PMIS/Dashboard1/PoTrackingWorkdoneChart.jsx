@@ -12,22 +12,35 @@ import { UilImport, UilSearch,UilTimes,UilRefresh } from '@iconscout/react-unico
 import PieChart from "../../../components/PieChart";
 import RadialBarChart from "../../../components/FormElements/RadialBarChart";
 import ColumnChart from "../../../components/Columnchart";
+import FinanceActions from "../../../store/actions/finance-actions";
+import NewSingleSelect from "../../../components/NewSingleSelect";
+import CurrentuserActions from "../../../store/actions/currentuser-action";
 
 
 const PoTrackingWorkdoneChart = () => {
   const [type, settype] = useState(false);
   const [selectedProjectGroup, setSelectedProjectGroup] = useState([]);
-  const [selectedProjectType, setSelectedProjectType] = useState([]);
-  const [selectedProjectManager, setSelectedProjectManager] = useState([]);
+  const [selectedItemCode, setSelectedItemCode] = useState([]);
+
   let dispatch = useDispatch();
   const [data, setData] = useState([])
 
   let projectGroupList = useSelector((state) => {
-    return state?.filterData?.getfinancialPoManagementProjectGroup
+    return state?.currentuserData?.getcurrentuserPG
     .map((itm) => {
       return {
-        label: itm.projectGroupId,
-        value: itm.projectGroupId,
+        label: itm.projectGroup,
+        value: itm.uniqueId,
+      };
+    });
+  });
+
+  let itemCodeList = useSelector((state) => {
+    return state?.financeData?.getPOWorkDoneItemCode
+    .map((itm) => {
+      return {
+        label: itm.itemCode,
+        value: itm.itemCode,
       };
     });
   });
@@ -53,8 +66,9 @@ const PoTrackingWorkdoneChart = () => {
   let colors = ['#003459','#007EA7','#00A8E8']
 
   useEffect(() => {
-    // dispatch(FilterActions.getfinancialPoManagementProjectGroup());
+    dispatch(FinanceActions.getPOWorkDoneItemCode())
     dispatch(GraphActions.getGraphPOTrackingWorkdone());
+    dispatch(CurrentuserActions.getcurrentuserPG())
   }, []);
 
 
@@ -62,9 +76,9 @@ const PoTrackingWorkdoneChart = () => {
 
   const handleFilter = () => {
     const filterData = {
+      selectedItemCode:selectedItemCode.value || "",
       ...(selectedProjectGroup.length && { selectedProjectGroup: selectedProjectGroup.map(item => item.value) }),
     }
-
     dispatch(GraphActions.postGraphPOTrackingWorkdone(filterData,() => {}))
   }
   
@@ -72,6 +86,7 @@ const PoTrackingWorkdoneChart = () => {
 
   const handleClear = () => {
     setSelectedProjectGroup([]);
+    setSelectedItemCode([]);
     dispatch(GraphActions.getGraphPOTrackingWorkdone());
   };
 
@@ -82,7 +97,8 @@ const PoTrackingWorkdoneChart = () => {
         </div>
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
-          <NewMultiSelects label='Project Group' placeholder="Project Group" option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)} />
+          <NewMultiSelects label='Project Group' placeholder="Project Group" option={projectGroupList} value={selectedProjectGroup} cb={(data) => setSelectedProjectGroup(data)}/>
+          <NewSingleSelect label='Item Code' placeholder = "Item Code"  option={itemCodeList} value={selectedItemCode} cb={( data ) => setSelectedItemCode(data)} />
           </div>
       <div className="flex space-x-2">
             <Button

@@ -6,9 +6,9 @@ import { GET_CURRENT_USER_CIRCLE_PROJECTID, GET_CURRENT_USER_COST_CENTER, GET_CU
 
 const CurrentuserActions = {
 
-    getcurrentuserPG:(reset=true,args="") => async (dispatch, _) => {
+    getcurrentuserPG:(reset=true,args="",show=0) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.current_user_PG}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.current_user_PG}${args!=""?"?"+args:""}`, show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_CURRENT_USER_PG({dataAll,reset}))
