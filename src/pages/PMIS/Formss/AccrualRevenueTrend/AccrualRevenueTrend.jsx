@@ -159,7 +159,7 @@ const AccrualRevenueTrend = () => {
 
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
+    let interdata = state?.formssData?.getAccrualRevenueTrend || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -394,6 +394,7 @@ const AccrualRevenueTrend = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         getaccessExport = {"Export(Accrual Revenue Trend)"}
+        heading = {"Total Count :- "}
       />
       <Modal
         size={"sm"}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,23 +19,23 @@ import CommonForm from "../../../../components/CommonForm";
 import PLform from "./PLform";
 import { UilSearch } from "@iconscout/react-unicons";
 import FileUploader from "../../../../components/FIleUploader";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
 
 const PL = () => {
 
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
-  const [refresh, setRefresh] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
-  const [change, setChange] = useState(false);
   const [modalBody, setmodalBody] = useState(<></> );
-  const [ValGm, setValGm] = useState("Monthly");
+  const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
-  const [extraColumns, setExtraColumns] = useState([currentMonth]);
+  const [extraColumns, setExtraColumns] = useState("");
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
+  const Data = useRef("")
 
   let dispatch = useDispatch();
 
@@ -43,6 +43,15 @@ const PL = () => {
     return state?.adminData?.getManageCircle.map((itm) => {
       return {
         label: itm?.circleName,
+        value: itm?.uniqueId,
+      };
+    });
+  });
+
+  let costCenterList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentusercostcenter.map((itm) => {
+      return {
+        label: itm?.costCenter,
         value: itm?.uniqueId,
       };
     });
@@ -111,9 +120,7 @@ const PL = () => {
                             CommonActions.deleteApiCaller(
                               `${Urls.forms_profit_loss}/${itm.uniqueId}`,
                               () => {
-                                dispatch(
-                                  FormssActions.getProfitloss()
-                                );
+                                dispatch(FormssActions.getProfiltLoss());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -299,7 +306,7 @@ const PL = () => {
 
   let listDict = {
     "": [],
-    Monthly: [
+    Month: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
       { id: 3, name: "Mar" },
@@ -322,6 +329,7 @@ const PL = () => {
   };
   useEffect(() => {
     dispatch(FormssActions.getProfiltLoss())
+    dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
   }, []);
 
 
@@ -340,7 +348,7 @@ const PL = () => {
       }),
       props: {
         onChange: (e) => {
-          setValue("yyear", e.target.value);
+          setValue("year", e.target.value);
           setyear(e.target.value);
         },
       },
@@ -359,10 +367,22 @@ const PL = () => {
         };
       }),
       props: {
-        selectType:selectType
+        selectType:selectType,
       },
       hasSelectAll:true,
       required: true,
+      classes: "col-span-1 h-10",
+    },
+    {
+      label: 'Cost Center',
+      name: "costCenter",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: costCenterList,
+      props: {
+        selectType:selectType,
+      },
+      hasSelectAll:true,
       classes: "col-span-1 h-10",
     },
   ];
@@ -388,28 +408,13 @@ const PL = () => {
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
-    try {
-      if (res?.typeSelectional === "Monthly") {
-        setExtraColumns(
-          res?.viewBy
-            ?.split(",")
-            ?.map((key) => +key)
-            ?.sort((a, b) => a - b)
-        );
-      } else {
-        setExtraColumns(res?.viewBy?.split(",")?.sort((a, b) => {
-          const numA = parseInt(a.split("-")[1]);
-          const numB = parseInt(b.split("-")[1]);
-          
-          return numA - numB;
-        }));
-      }
-
-      dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-    } catch (error) {
-      console.error("[ERROR] :: " + error.message);
-    }
+    Data.current = ""
+    setExtraColumns(res['Month'])
+    Data.current  = res['Cost Center']
+    dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
   };
+  
+
   const onTableViewSubmit = (data) => { 
     data["fileType"]="profitloss"
     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
@@ -423,7 +428,7 @@ const PL = () => {
       <div className="flex items-center justify-start">
         <div className="col-span-1 md:col-span-1">
           <CommonForm
-            classes="grid grid-cols-2 w-[400px] overflow-y-hidden p-2"
+            classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
             Form={formD}
             errors={errors}
             register={register}
@@ -433,7 +438,7 @@ const PL = () => {
         </div>
         <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
           <Button
-            classes=" flex h-fit "
+            classes="flex h-fit"
             name=""
             icon={<UilSearch className="w-5 m-2 h-5" />}
             onClick={handleSubmit(handleAddActivity)}
@@ -459,7 +464,7 @@ const PL = () => {
                 }}>
             </Button>
             <Button name={"Export"} classes='w-auto mr-1' onClick = {(e) => {
-              dispatch(CommonActions.commondownload("/export/profit&loss","Export_Profit&Loss.xlsx"))
+              dispatch(CommonActions.commondownloadpost("/export/profit&loss","Export_Profit&Loss.xlsx","POST",{'year':year,'Month':extraColumns,'Cost Center':Data.current}))
               }}>
             </Button>
           </div>

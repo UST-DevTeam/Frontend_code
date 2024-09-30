@@ -550,9 +550,9 @@ const ActualWorkdone = () => {
           />
         </div>
 
-        <div className="flex w-fit mt-4 -ml-3 items-center justify-center ">
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
           <Button
-            classes=" flex h-fit "
+            classes="flex h-fit"
             name=""
             icon={<UilSearch className="w-5 m-2 h-5" />}
             onClick={handleSubmit(handleAddActivity)}
