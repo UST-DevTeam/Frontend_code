@@ -591,12 +591,13 @@ const AdminActions = {
         } catch (error) {
         }
     },   
-    getapprovalLogs:(reset=true,args="") => async (dispatch, _) => {
+    getapprovalLogs:(reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.approval_Logs}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MANAGE_APPROVAL_LOGS({dataAll,reset}))
+            cb()
         } catch (error) {
         }
     }, 
