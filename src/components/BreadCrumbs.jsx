@@ -146,6 +146,10 @@ const BreadCrumbs = () => {
       "name":"Personal Information",
       "url":"/home/personalInfo",
     },
+    "ActivityLogs":{
+      "name":"Activity Logs",
+      "url":"/hr/superAdmin/ActivityLogs",
+    }
   }
   
 

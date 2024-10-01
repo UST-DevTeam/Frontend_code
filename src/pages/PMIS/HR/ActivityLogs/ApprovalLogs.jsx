@@ -24,6 +24,7 @@ const ApprovalLogs = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [strValFil, setstrVal] = useState(false);
 
 
     let dispatch = useDispatch()
@@ -178,19 +179,38 @@ const ApprovalLogs = () => {
             // }
         ]
     }
+    // const onSubmit = (data) => {
+    //     console.log("jsjsjsjss", data)
+    //     let value = data.reseter
+    //     delete data.reseter
+    //     dispatch(OperationManagementActions.getOperationUserList(value, objectToQueryString(data)))
+    // }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
-        let value = data.reseter
-        delete data.reseter
-        dispatch(OperationManagementActions.getOperationUserList(value, objectToQueryString(data)))
-    }
+        // let value = data.reseter;
+        // delete data.reseter;
+        let shouldReset = data.reseter;
+        delete data.reseter;
+        let strVal = objectToQueryString(data);
+        setstrVal(strVal);
+        dispatch(AdminActions.getapprovalLogs(true, strVal));
+      };
     useEffect(() => {
         dispatch(AdminActions.getapprovalLogs())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
     return <>
         <AdvancedTable
-            headerButton={<></>}
+            headerButton={
+            <div className="flex gap-1">
+              <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload2("/export/ApprovalLogs","Export_ApprovalLogs.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
+            </div>
+            }
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
