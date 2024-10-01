@@ -68,13 +68,14 @@ const LineTripleGraph = ({ data, headerName,horizontal = false, seriesData = [],
         },
         dataLabels: {
             enabled: true,
-            formatter: (val) => `${val} ${dataLabelSuffix}`,
+            enabledOnSeries: true,
+            formatter: (val) => `${val}%`,
             style: {
                 fontSize: '10px',
                 fontWeight: 'bold',
                 colors: ['transparent'],
             }, 
-            offsetY: -7,
+            offsetY: -5,
             dropShadow: {
                 enabled: false,
             },  
@@ -83,7 +84,8 @@ const LineTripleGraph = ({ data, headerName,horizontal = false, seriesData = [],
                 borderRadius: 0,
                 borderWidth: 0, 
                 borderColor: "transparent", 
-              },         
+              },   
+            // position:'top'
         },
         xaxis: {
             categories: category,
@@ -159,12 +161,12 @@ const LineTripleGraph = ({ data, headerName,horizontal = false, seriesData = [],
             marker: {
                 fillColors: ['#b8ee30', '#f4d3a8', '#BDA9EB'],  
             },
-            },  
-        
+            },          
     };
 
     return (
-        <ReactApexChart options={options} series={series} type="line" height={400} />
+        <ReactApexChart 
+        options={options} series={series} type="line" height={400} />
     );
 }
 
