@@ -35,7 +35,7 @@ const ColumnChart = ({data,headerName,colors}) => {
         }
       }
       },
-      colors: colors,
+      colors: ["#13b497", "#ffab2d", "#2b98d6", "#fd5c63",],
       plotOptions: {
         bar: {
           columnWidth: '45%',
@@ -47,9 +47,10 @@ const ColumnChart = ({data,headerName,colors}) => {
       },
       xaxis: {
         categories: [
-          ['Open Qunatity'],
+          ['Total Open Qunatity'],
+          ['Invoiced Quantity'],   
           ['Workdone Quantity'],
-          ['Invoiced Quantity'],     
+          ['Open Quantity']  
         ],
         labels: {
           style: {

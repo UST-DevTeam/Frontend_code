@@ -15,6 +15,7 @@ import ColumnChart from "../../../components/Columnchart";
 import FinanceActions from "../../../store/actions/finance-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
 import CurrentuserActions from "../../../store/actions/currentuser-action";
+import NewSingleSelectCommon from "../../../components/FormElements/NewSingleSelectCommon";
 
 
 const PoTrackingWorkdoneChart = () => {
@@ -45,6 +46,8 @@ const PoTrackingWorkdoneChart = () => {
     });
   });
 
+  console.log(itemCodeList,"itemCodeList")
+
   
 
   let GraphData = useSelector((state) => {
@@ -55,15 +58,14 @@ const PoTrackingWorkdoneChart = () => {
   let value = []
 
   if (GraphData.length > 0) {
-    const { invoicedQty = 0, workDoneQty = 0, openQty = 0 } = GraphData[0];
-    value.push(openQty, workDoneQty, invoicedQty);
+    const { totalQty=0, invoicedQty = 0, workDoneQty = 0, openQty = 0 } = GraphData[0];
+    value.push(totalQty,invoicedQty,workDoneQty,openQty);
   } else {
-    value.push(0, 0, 0);
+    value.push(0, 0, 0,0);
   }
 
 
-
-  let colors = ['#003459','#007EA7','#00A8E8']
+  let colors = ["#13b497", "#ffab2d", "#2b98d6", "#fd5c63",]
 
   useEffect(() => {
     dispatch(FinanceActions.getPOWorkDoneItemCode())
