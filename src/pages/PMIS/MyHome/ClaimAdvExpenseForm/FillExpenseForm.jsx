@@ -294,7 +294,7 @@ const FillExpenseForm = ({
             name: "Amount",
             type: "number",
             props: {
-              valueAsNumber: true,
+              // valueAsNumber: true,
               min: 0,
               onChange: (e) => {},
             },
