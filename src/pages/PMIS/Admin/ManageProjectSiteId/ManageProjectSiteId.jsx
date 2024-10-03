@@ -1127,8 +1127,8 @@ const ManageProjectSiteId = () => {
           setFileOpen(false)
       }))
   }
-  const onBulkUploadSite = (data, cuid) => {
-    let makeUrl = `${Urls.upload_bulk_site_one_project}${"/" + cuid }`;
+  const onBulkUploadSite = (data, projectuniqueId) => {
+    let makeUrl = `${Urls.upload_bulk_site_one_project}${"/" + projectuniqueId }`;
     dispatch(
       CommonActions.fileSubmit(makeUrl, data, () => {
         setFileOpen(false);
