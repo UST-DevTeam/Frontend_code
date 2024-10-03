@@ -619,10 +619,10 @@ const ManageMilestoneSite = ({
           <div className="flex flex-row">
             <div className="w-full">
               <div className="w-auto flex text-[#13b497] font-extrabold pl-2 gap-2">
-                <h1>Milestone Status : </h1>
+                <h1>Milestone Status <span className="text-[#f4d3a8]"> :</span></h1>
                 {
                   <p
-                    className={`w-20 rounded-xl text-center text-yellow-500 bg-slate-500 ${
+                    className={`w-20 rounded-xl text-center text-yellow-500 bg-slate-500 border-[0.01px] border-[#f4d3a8] ${
                       uiStatusColor[mileStone?.mileStoneStatus]
                     }`}
                   >
@@ -634,10 +634,11 @@ const ManageMilestoneSite = ({
             <div className="w-full">
               { milestoneStatus =="Open" || (rolename=="Admin" || rolename=="PMO") ? <ConditionalButton
                 showType={getAccessType("Task Completion Criteria")}
-                classes="w-auto "
+                classes="w-auto"
                 name={"Completion Criteria"}
                 onClick={() => {
                   if (assignedToCount != 0) {
+                    
                     setmodalBody(
                       <CompletitonCreiteriaForm
                         siteCompleteData={siteCompleteData}
