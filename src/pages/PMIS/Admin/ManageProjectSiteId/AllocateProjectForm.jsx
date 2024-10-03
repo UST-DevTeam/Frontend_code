@@ -27,7 +27,8 @@ const AllocateProjectForm = ({
   formValue = {},
   projectuniqueId,
   filtervalue,
-  checkbox
+  checkbox,
+  parentcheckbox
 }) => {
 
   const {
@@ -171,6 +172,7 @@ const AllocateProjectForm = ({
             dispatch(projectListActions.getProjectTypeAll(projectuniqueId,filtervalue));
             setIsOpen(false);
             checkbox([]);
+            parentcheckbox([]);
 
           }
         )
@@ -196,6 +198,7 @@ const AllocateProjectForm = ({
             dispatch(projectListActions.getProjectTypeAll(projectuniqueId,filtervalue));
             setIsOpen(false);
             checkbox([]);
+            parentcheckbox([]);
           }
         )
       );

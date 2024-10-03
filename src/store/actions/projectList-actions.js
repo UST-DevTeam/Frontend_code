@@ -150,23 +150,22 @@ const projectListActions = {
     },
     globalProjectTypeDataPatch: (urle,projectuniqueId,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
         try {
-            console.log("maiglaosdfaofsddfdfsfcawefwefs",data);
             if (projectuniqueId!=null){data["projectuniqueId"]=projectuniqueId}
             const res = await Api.patch({ url: urle+"/"+projectuniqueId, data:data })
-            if (res?.status !== 200 && res?.status !== 201) return
-            cb()
-
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+            else{
+                cb()
+            }
             
-            let msgdata = {
-                show: true,
-                icon: res?.data?.icon,
-                buttons: [],
-                type: 1,
-                text: res?.data?.msg,
-            };
-            dispatch(ALERTS(msgdata));
-            // let dataAll = res?.data?.data[0]
-            // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
         } catch (error) {
             console.log(error, "amit errorerror 37")
 

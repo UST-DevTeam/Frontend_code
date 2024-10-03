@@ -1227,6 +1227,7 @@ const ManageProjectSiteId = () => {
                       formValue={{}}
                       filtervalue = {strValFil}
                       checkbox = {setchildsite}
+                      parentcheckbox = {setparentsite}
                     />
                   );
                 } else {
