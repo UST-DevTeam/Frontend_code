@@ -68,24 +68,25 @@ const LineTripleGraph = ({ data, headerName,horizontal = false, seriesData = [],
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: true,
+            enabledOnSeries: [0,1,2],
             formatter: (val) => `${val}%`,
             style: {
                 fontSize: '10px',
                 fontWeight: 'bold',
-                colors: ['transparent'],
+                colors: colors,
             }, 
-            offsetY: -5,
+            offsetY:-4,
+            // offsetY: (val) => (val === 0 ? -6 : 6) & (val === 1 ? -0 : 6) & (val === 2 ? 6 : 6),
             dropShadow: {
                 enabled: false,
             },  
             background: {
-                enabled: true, 
+                enabled: false, 
                 borderRadius: 0,
                 borderWidth: 0, 
                 borderColor: "transparent", 
               },   
-            // position:'top'
+            // position:'top' 
         },
         xaxis: {
             categories: category,
