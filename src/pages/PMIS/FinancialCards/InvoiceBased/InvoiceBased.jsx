@@ -32,6 +32,8 @@ const InvoiceBased = () => {
     const [invoiceRow, setInvoiceRow] = useState([]);
     const [fileOpen, setFileOpen] = useState(false);
     const [strValFil, setstrVal] = useState(false);
+    const [bulkfileOpen, setbulkfileOpen] = useState(false);
+    const [fileType, setfileType] = useState("");
     const endDate = moment().format("Y");
     let dispatch = useDispatch()
 
@@ -429,12 +431,13 @@ const InvoiceBased = () => {
     }, [])
 
     const onTableViewSubmit = (data) => {
-        data["fileType"] = "PoInvoice";
+        data["fileType"]=fileType
         dispatch(
           CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(FinanceActions.getPOInvoicedBased());
             setFileOpen(false);
+            setbulkfileOpen(false)
             resetting("");
+            dispatch(FinanceActions.getPOInvoicedBased());
           })
         );
       };
@@ -509,6 +512,17 @@ const InvoiceBased = () => {
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
+                setfileType(`PoInvoice`)
+              }}
+            ></ConditionalButton>
+
+            <ConditionalButton
+              showType={getAccessType("Upload file(PO Status Invoice)")}
+              name={"Upgrade File"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                setbulkfileOpen((prev) => !prev);
+                setfileType(`PoUpgrade`)
               }}
             ></ConditionalButton>
                 
@@ -528,13 +542,22 @@ const InvoiceBased = () => {
             getaccessExport = {"Export(PO Status Invoice)"}
         />
         <FileUploader
-        isOpen={fileOpen}
-        fileUploadUrl={""}
-        onTableViewSubmit={onTableViewSubmit}
-        setIsOpen={setFileOpen}
-        tempbtn={   true} 
-        tempbtnlink = {["/template/PoInvoice.xlsx","PoInvoice.xlsx"]}
-      />
+          isOpen={fileOpen}
+          fileUploadUrl={""}
+          tempbtn={true} 
+          onTableViewSubmit={onTableViewSubmit}
+          setIsOpen={setFileOpen}
+          tempbtnlink = {["/template/PoInvoice.xlsx","PoInvoice.xlsx"]}
+        />
+        <FileUploader
+          isOpen={bulkfileOpen}
+          fileUploadUrl={""}
+          tempbtn={true}
+          onTableViewSubmit={onTableViewSubmit}
+          setIsOpen={setbulkfileOpen}
+          head = {"PO-Upgrade"}
+          tempbtnlink = {["/template/PO_Upgrade.xlsx","PO_Upgrade.xlsx"]}
+        />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 

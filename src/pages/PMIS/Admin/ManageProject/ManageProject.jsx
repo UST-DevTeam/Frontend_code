@@ -554,11 +554,9 @@ const ManageProject = () => {
       name: "subProject",
       type: "select",
       value: "",
-      // option: circleList,
       required: true,
       props: {
         onChange: (e) => {
-          // alert(e.target.value)
         },
       },
       classes: "col-span-1",
@@ -783,14 +781,14 @@ const ManageProject = () => {
         heading = {"Total Projects:-"}
         totalCount={dbConfigTotalCount}
       />
-      <Modal
+      {/* <Modal
         size={modalSize}
         Form={FormMulti}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
-      />
+      /> */}
       <Modal
         size={"full"}
         modalHead={modalHead}
