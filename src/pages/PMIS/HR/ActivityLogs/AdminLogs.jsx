@@ -96,7 +96,7 @@ const AdminLogs = () => {
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getManageAdminLogs
         if (interdata.length > 0) {
-            return null
+            return interdata[0]["overall_table_count"]
         } else {
             return 0
         }
@@ -191,7 +191,17 @@ const AdminLogs = () => {
     }, [])
     return <>
         <AdvancedTable
-            headerButton={<></>}
+            headerButton={<>
+            {/* <div className="flex gap-1">
+              <Button
+              classes="w-auto"
+              onClick={(e) => {
+                dispatch(CommonActions.commondownload2("/export/AdminLogs","Export_AdminLogs.xlsx"))
+              }}
+              name={"Export"}
+            ></Button>
+            </div> */}
+            </>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
