@@ -47,6 +47,7 @@ const CommonForm = ({
       <form className={`overflow-scroll grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
         {console.log(errors, "errorserrorserrors")}
         {Form.map((itm) => {
+          console.log('hghdhhdhdhhhdhdhdh',itm)
           {
           }
           return (
@@ -254,6 +255,7 @@ const CommonForm = ({
                       <></>
                     )}
                     {itm.type == "datetime" ? (
+                     
                       <>
                         <DatePicking
                           itm={itm}

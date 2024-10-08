@@ -964,7 +964,7 @@ const EmpDetails = (props) => {
   ];
 
   const onTableViewGenerateSubmit = (data) => {
-    console.log(data, "dsadasdsadsadsadas");
+
 
     data["samePerAdd"] = isSame;
     if (isSame) {

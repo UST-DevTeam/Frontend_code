@@ -123,6 +123,10 @@ const ManageClaimTypeUnitRateForm = ({ isOpen, setIsOpen, resetting, formValue =
             })
         }
     }, [formValue, resetting])
+
+    useEffect(() => {
+        dispatch(AdminActions.getManageClaimTypeUnitRate())
+    }, [])
     return <>
 
 
