@@ -393,14 +393,14 @@ const Invoice = () => {
         props: {
         }
       },
-      {
-        label: "Customer",
-        type: "select",
-        name: "customer",
-        option:customerList,
-        props: {
-        }
-      },
+      // {
+      //   label: "Customer",
+      //   type: "select",
+      //   name: "customer",
+      //   option:customerList,
+      //   props: {
+      //   }
+      // },
       {
         label: "Project Group",
         type: "text",
@@ -436,17 +436,17 @@ const Invoice = () => {
         props: {
         }
       },
-      {
-        label: "Status",
-        type: "select",
-        name: "status",
-        option:[
-        {label:'Partially Billed',value:'Partially Billed'},
-        {label:'Billed',value:'Billed'},
-        ],
-        props: {
-        }
-      },
+      // {
+      //   label: "Status",
+      //   type: "select",
+      //   name: "status",
+      //   option:[
+      //   {label:'Partially Billed',value:'Partially Billed'},
+      //   {label:'Billed',value:'Billed'},
+      //   ],
+      //   props: {
+      //   }
+      // },
     ],
   };
   const onSubmit = (data) => {
