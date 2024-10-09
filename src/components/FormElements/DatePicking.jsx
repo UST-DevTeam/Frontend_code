@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment/moment';
 
-
 const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register }) => {
 
     const [value, onChange] = useState(new Date());
@@ -14,7 +13,6 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
     // };
 
     return <>
-
 
         <DatePicker
 
@@ -39,7 +37,6 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
             timeFormat={"HH:mm"}
             className='bg-white border-black border block h-9 w-full rounded-md py-0.5 p-2 text-white-900 shadow-lg focus:shadow-indigo-500/30 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
         />
-
 
         {
             (itm.required && !getValues(itm.name)) &&
@@ -109,4 +106,3 @@ export default DatePicking;
 // };
 
 // export default DatePicking;
-
