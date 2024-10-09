@@ -24,7 +24,7 @@ import NewMultiselection from "./FormElements/NewMultiselection";
 import Email from "./FormElements/Email";
 import NewMultiselection3 from "./NewMultiselection3";
 import NewSingleSelectForm45 from "./FormElements/NewSingleSelect45";
-
+import DatePicking2 from "./FormElements/DatePicking2";
 
 const CommonForm = ({
   classes,
@@ -269,6 +269,21 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
+                    {itm.type == "datetime2" ? (
+                     
+                     <>
+                       <DatePicking2
+                         itm={itm}
+                         errors={errors}
+                         handleSubmit={handleSubmit}
+                         setValue={setValue}
+                         getValues={getValues}
+                         register={register}
+                       />
+                     </>
+                   ) : (
+                     <></>
+                   )}
                     {itm.type == "muitiSelect" ? (
                       <Multiselection
                         itm={itm}
