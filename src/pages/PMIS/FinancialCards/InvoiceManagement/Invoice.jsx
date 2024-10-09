@@ -91,7 +91,7 @@ const Invoice = () => {
                   dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
                   dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
                   dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${itm?.projectId}`));
-                  dispatch(FinanceActions.getInvoice());
+                  // dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(
                     <>
@@ -100,6 +100,7 @@ const Invoice = () => {
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={itm}
+                        filtervalue = {strValFil}
                       />
                     </>
                   );
@@ -186,14 +187,14 @@ const Invoice = () => {
     {'label':'Dec', 'value':'Dec'},
   ]
 
-  let customerList = useSelector((state) => {
-    return state?.filterData?.getfinancialRevenueManagementCustomer.map((itm) => {
-      return {
-        label: itm.customer,
-        value: itm.customer,
-      };
-    });
-  });
+  // let customerList = useSelector((state) => {
+  //   return state?.filterData?.getfinancialRevenueManagementCustomer.map((itm) => {
+  //     return {
+  //       label: itm.customer,
+  //       value: itm.customer,
+  //     };
+  //   });
+  // });
 
 
 
@@ -450,20 +451,15 @@ const Invoice = () => {
     ],
   };
   const onSubmit = (data) => {
-    console.log("jsjsjsjss", data);
     let value = data.reseter;
     delete data.reseter;
-
     let strVal=objectToQueryString(data)
-
     setstrVal(strVal)
-
     dispatch(FinanceActions.getInvoice(value, strVal));
   };
+
   useEffect(() => {
     dispatch(FinanceActions.getInvoice());
-    // dispatch(FilterActions.getfinancialRevenueManagementCustomer());
-    // dispatch(FilterActions.getfinancialRevenueManagementProjectGroup());
   }, []);
 
   const onTableViewSubmit = (data) => {
@@ -575,8 +571,6 @@ const Invoice = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
-      {/* <CommonForm/> */}
     </>
   );
 };

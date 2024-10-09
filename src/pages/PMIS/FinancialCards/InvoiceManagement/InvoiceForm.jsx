@@ -15,7 +15,7 @@ import { GET_CARD_PROJECT_TYPE, GET_MANAGE_PROJECT_GROUP, GET_PO_PROJECTTYPE, GE
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
 import { GET_CURRENT_USER_PG, GET_CURRENT_USER_PID, GET_CURRENT_USER_PT } from "../../../../store/reducers/currentuser-reducer";
 
-const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
   const {
     register,
     handleSubmit,
@@ -51,14 +51,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
-  // let projectTypeList = useSelector((state) => {
-  //   return state?.currentuserData?.getcurrentuserPT.map((itm) => {
-  //     return {
-  //       label: itm.projectType,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
 
   let projectIdList = useSelector((state) => {
     return state?.currentuserData?.getcurrentuserPID.map((itm) => {
@@ -78,14 +70,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     });
   });
 
-  // let SSIDList = useSelector((state) => {
-  //   return state?.adminData?.getInvoiceSSID.map((itm) => {
-  //     return {
-  //       label: itm.systemId,
-  //       value: itm?.uniqueId,
-  //     };
-  //   });
-  // });
+
 
 
   let Form = [
@@ -99,25 +84,10 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
       props: {
         onChange: (e) => {
-          dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${e.target.value}`))
-          // dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${e.target.value}`))
+          dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${e.target.value}`,1))
         },
       },
     },
-    // {
-    //   label: "Project Type (Sub Project Type)",
-    //   value: "",
-    //   name: "projectType",
-    //   type: "select",
-    //   // required: true,
-    //   option: projectTypeList,
-    //   props: {
-    //     onChange: (e) => {
-    //       dispatch(AdminActions.getInvoiceSiteId(true, `subProjectId=${e.target.value}`))
-    //     },
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Project Group",
       type: "select",
@@ -132,18 +102,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       required: true,
       classes: "col-span-1",
     },
-    // {
-    //   label: "Sub-Project Type",
-    //   name: "subProject",
-    //   type: "select",
-    //   value: "",
-    //   option: subProjectList,
-    //   // required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Project ID",
       value: "",
@@ -168,24 +126,10 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       required: true,
       props: {
         onChange: (e) => {
-          // dispatch(AdminActions.getInvoiceSSID(true,`siteId=${e.target.value}`))
         },
       },
       classes: "col-span-1",
     },
-    // {
-    //   label: "SSID",
-    //   value: "",
-    //   name: "systemId",
-    //   type: "select",
-    //   // required: true,
-    //   option:SSIDList,
-    //   props: {
-    //     onChange: (e) => {
-    //     },
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "WCC No",
       value: "",
@@ -273,22 +217,11 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       required: true,
       props: {
         valueAsNumber: true,
-        min: 1,
+        min: 0,
         onChange: (e) => { },
       },
       classes: "col-span-1",
     },
-    // {
-    //   label: "Amount",
-    //   value: "",
-    //   name: "amount",
-    //   type: "text",
-    //   // required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Status",
       value: "",
@@ -302,24 +235,22 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       classes: "col-span-1",
     },
   ];
-  const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   // dispatch(AuthActions.signIn(data, () => {
+  //   //     navigate('/authenticate')
+  //   // }))
+  // };
 
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadatbbbabaa");
     if (formValue.uniqueId) {
       dispatch(
         FinanceActions.postInvoice(
           true,
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig");
             setIsOpen(false);
-            dispatch(FinanceActions.getInvoice());
+            dispatch(FinanceActions.getInvoice(true,filtervalue));
           },
           formValue.uniqueId
         )
@@ -327,7 +258,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     } else {
       dispatch(
         FinanceActions.postInvoice(true, data, () => {
-          console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(FinanceActions.getInvoice());
         })
@@ -335,12 +265,13 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     }
   };
   useEffect(() => {
+    dispatch(AdminActions.getManageCustomer());
     dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
     dispatch(GET_CURRENT_USER_PT({ dataAll: [], reset: true }))
     dispatch(GET_CURRENT_USER_PID({ dataAll: [], reset: true }))
     dispatch(GET_INVOICE_SITEID({ dataAll: [], reset: true }))
     dispatch(GET_INVOICE_SSID({ dataAll: [], reset: true }))
-    dispatch(AdminActions.getManageCustomer());
+    
 
     if (resetting) {
       reset({});
@@ -349,9 +280,7 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       });
     } else {
       reset({});
-      // console.log(formValue, "Object.keys(formValue)");
       Form.forEach((key) => {
-
         if (["wccSignOffdate", "invoiceDate"].indexOf(key.name) != -1 &&
           formValue[key.name]) {
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
@@ -369,8 +298,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           let dtwq = key.option.filter(
             (itq) => itq.label == formValue[key.name]
           );
-
-          console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
           if (dtwq.length > 0) {
             setValue(key.name, dtwq[0]["value"]);
           } else {
@@ -412,11 +339,6 @@ const InvoiceForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
           setValue={setValue}
           getValues={getValues}
         />
-        {/* <button></button> */}
-
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}

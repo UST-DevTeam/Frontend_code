@@ -51,6 +51,7 @@ const FinancialCards = () => {
   let showType4 = getAccessType("PO Item Code Work Done(Graph)")
   let showType5 = getAccessType("Accrual Revenue Trend(Graph)")
   let showType6 = getAccessType("P&L(Graph)")
+  let showType7 = getAccessType("P&L Trend(Graph)")
 
   let graph1 = false
   let graph2 = false
@@ -58,6 +59,7 @@ const FinancialCards = () => {
   let graph4 = false
   let graph5 = false
   let graph6 = false
+  let graph7 = false
 
   if (showType1 === "visible"){
     graph1 = true
@@ -76,6 +78,9 @@ const FinancialCards = () => {
   }
   if (showType6 === "visible"){
     graph6 = true
+  }
+  if (showType7 === "visible"){
+    graph7 = true
   }
 
   const cardData = [
@@ -105,13 +110,13 @@ const FinancialCards = () => {
       title: "Accrual Revenue Trend",
       component: <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />,
     }] : []),
-    ...(graph5 ?[{
+    ...(graph6 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
       // icon: <img src="/PL.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
       title: "Profit & Loss",
       component: < ProfitAndLoss  customeruniqueId = {customeruniqueId} />,
     }] : []),
-    ...(graph5 ?[{
+    ...(graph7 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
       title: "Profit & Loss Trend",
       component: <ProfitAndLossTrend customeruniqueId = {customeruniqueId} />,
@@ -147,8 +152,6 @@ const FinancialCards = () => {
                   className={`${itm[1]} bg-pcol text-white text-center text-[13px] md:text-[11px] xl:text-[13px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
                   onClick={() => {
 
-
-                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                     if (getAccessType(itm[0]) == "visible") {
 
                       dispatch(

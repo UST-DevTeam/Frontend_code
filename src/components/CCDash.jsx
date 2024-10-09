@@ -52,9 +52,9 @@ const CCDash = ({
   let showType7 = getAccessType("MS2 Vs WCC Pending Reason(Graph)")
   let showType8 = getAccessType("Pendency Bucket- MS2 Aging(Graph)")
   let showType9 = getAccessType("SOB(Graph)")
-  let showType10 = getAccessType("")
-  let showType11 = getAccessType("")
-  let showType12 = getAccessType("")
+  let showType10 = getAccessType("Soft MS1 Vs MS2(Graph)")
+  let showType11 = getAccessType("Phy MS1 Vs MS2(Graph)")
+  let showType12 = getAccessType("KPI MS1 Vs MS2(Graph)")
 
 
   let graph1 = false
@@ -155,17 +155,17 @@ const CCDash = ({
       title: "SOB",
     //   component: <TotalActiveCustomer />,
     }] : []),
-    ...(graph4 ?[{
+    ...(graph10 ?[{
       icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
       title: "Soft MS1 Vs MS2",
       component: <SoftMS1VsMS2 />,
     }] : []),
-    ...(graph4 ?[{
+    ...(graph11 ?[{
       icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
       title: "Phy MS1 Vs MS2",
       component: <PHYMS1VsMS2 />,
     }] : []),
-    ...(graph4 ?[{
+    ...(graph12 ?[{
       icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
       title: "KPI MS1 Vs MS2",
       component: <KPIMS1VsMS2 />,

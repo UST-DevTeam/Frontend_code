@@ -94,6 +94,7 @@ const PL = () => {
                         formValue={itm}
                         year = {year}
                         monthss = {[itm?.month]}
+                        filtervalue = {""}
                       />
                     </>
                   );
