@@ -8,7 +8,7 @@ import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
-import { GET_CURRENT_USER_PG, GET_CURRENT_USER_PID, GET_CURRENT_USER_PT } from "../../../../store/reducers/currentuser-reducer";
+import { GET_CURRENT_USER_PG, GET_CURRENT_USER_PID } from "../../../../store/reducers/currentuser-reducer";
 
 const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
