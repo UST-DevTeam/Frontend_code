@@ -192,7 +192,7 @@ const AdminLogs = () => {
     return <>
         <AdvancedTable
             headerButton={<>
-            {/* <div className="flex gap-1">
+            <div className="flex gap-1">
               <Button
               classes="w-auto"
               onClick={(e) => {
@@ -200,7 +200,7 @@ const AdminLogs = () => {
               }}
               name={"Export"}
             ></Button>
-            </div> */}
+            </div>
             </>}
             table={table}
             filterAfter={onSubmit}
