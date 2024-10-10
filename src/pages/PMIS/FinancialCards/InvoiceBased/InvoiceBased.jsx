@@ -25,6 +25,7 @@ import CurrentuserActions from '../../../../store/actions/currentuser-action';
 import SearchBarView from '../../../../components/SearchBarView';
 
 const InvoiceBased = () => {
+
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -80,11 +81,7 @@ const InvoiceBased = () => {
                     ),
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`))
-                    // dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
-                    // dispatch(AdminActions.getManageProjectGroup(true,`customer=${itm?.customer}`))
-                    // dispatch(AdminActions.getPOProjectType(true,`customer=${itm?.customer}`))
-                    // dispatch(AdminActions.getPOProjectID(true,`projectGroup=${itm?.projectGroup}`))
+                    dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`,1))
                     dispatch(FinanceActions.getPOInvoicedBased())
                     setmodalHead("Update PO Invoice Based")
                     setmodalBody(<>
@@ -425,9 +422,6 @@ const InvoiceBased = () => {
     }
     useEffect(() => {
         dispatch(FinanceActions.getPOInvoicedBased())
-        // dispatch(FilterActions.getfinancialPoManagementCustomer())
-        // dispatch(FilterActions.getfinancialPoManagementProjectGroup())
-        // dispatch(FilterActions.getfinancialPoManagementProjectId())
     }, [])
 
     const onTableViewSubmit = (data) => {
