@@ -229,7 +229,7 @@ const PLform = ({
         <>
           <CommonForm
             classes={"grid-cols-2 gap-1"}
-            Form={roleName === "Admin" ? Form : Form2}
+            Form={Form}
             errors={errors}
             register={register}
             setValue={setValue}

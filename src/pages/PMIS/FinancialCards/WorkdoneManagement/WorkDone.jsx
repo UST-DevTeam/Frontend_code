@@ -349,6 +349,11 @@ const WorkDone = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "Invoice Date",
+        value: "invoiceDate",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Unbilled MS1 Done",
         value: "amount1",
         style: "min-w-[140px] max-w-[200px] text-center",

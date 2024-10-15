@@ -224,6 +224,11 @@ const PL = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "Zone",
+        value: "zone",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Projected Revenue",
         value: "projectedRevenue",
         style: "min-w-[200px] max-w-[200px] text-center",

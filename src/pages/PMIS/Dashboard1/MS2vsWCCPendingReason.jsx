@@ -12,6 +12,7 @@ import { UilImport, UilSearch, UilTimes, UilRefresh } from '@iconscout/react-uni
 import projectListActions from "../../../store/actions/projectList-actions";
 import FunnelChart from "../../../components/PyramidCharts";
 import AdminActions from "../../../store/actions/admin-actions";
+import CurrentuserActions from "../../../store/actions/currentuser-action";
 
 
 const MS2vsWCCPendingReason = () => {
@@ -21,17 +22,19 @@ const MS2vsWCCPendingReason = () => {
   const [data, setData] = useState([])
 
   let CircleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle?.map((itm) => ({
-      label: itm?.circleName,
-      value: itm?.circleName,
+    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+      label: itm?.circle,
+      value: itm?.projectuid,
     }));
   });
 
-  const AllProjectTypeList = useSelector((state) => {
-    return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-      label: itm?.projectType,
-      value: itm?.projectType,
-    }));
+  let projectTypeList = useSelector((state) => {
+    return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.uid,
+      };
+    });
   });
 
   let pieGraphData = useSelector((state) => {
@@ -40,8 +43,7 @@ const MS2vsWCCPendingReason = () => {
 
 
   useEffect(() => {
-    dispatch(AdminActions.getManageCircle(true, "", 0));
-    dispatch(GraphActions.getGraphAllProjectType(true, "", 0));
+    dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true, "", 0))
     dispatch(GraphActions.getGraphMS2vsWCCPendingReason());
   }, []);
 
@@ -70,7 +72,7 @@ const MS2vsWCCPendingReason = () => {
       <div className="flex items-center space-x-4 mb-8">
         <div className="flex space-x-4 justify-between w-full">
           <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} />
-          <NewMultiSelects placeholder="Project Type" option={AllProjectTypeList} value={selectedProjectType} cb={setSelectedProjectType} />
+          <NewMultiSelects placeholder="Project Type" option={projectTypeList} value={selectedProjectType} cb={setSelectedProjectType} />
 
         <div className="flex space-x-4">
           <Button classes="w-12 h-10 text-white mt-1 flex justify-center bg-[#3e454d] border-solid border-[#64676d] border-2" onClick={handleFilter} icon={<UilSearch size="36" className="text-[#f4d3a8]" />}></Button>
