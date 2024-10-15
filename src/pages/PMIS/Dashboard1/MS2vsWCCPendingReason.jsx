@@ -13,6 +13,7 @@ import projectListActions from "../../../store/actions/projectList-actions";
 import FunnelChart from "../../../components/PyramidCharts";
 import AdminActions from "../../../store/actions/admin-actions";
 import CurrentuserActions from "../../../store/actions/currentuser-action";
+import { GET_GRAPH_MS2_VS_WCC_PENDING_REASON } from "../../../store/reducers/graph-reducer";
 
 
 const MS2vsWCCPendingReason = () => {
@@ -43,7 +44,7 @@ const MS2vsWCCPendingReason = () => {
 
 
   useEffect(() => {
-    dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true, "", 0))
+    dispatch(GET_GRAPH_MS2_VS_WCC_PENDING_REASON({dataAll:[],reset:true}))
     dispatch(GraphActions.getGraphMS2vsWCCPendingReason());
   }, []);
 
