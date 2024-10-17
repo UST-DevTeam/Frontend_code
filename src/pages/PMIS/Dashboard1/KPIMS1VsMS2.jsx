@@ -7,6 +7,7 @@ import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
 import BarGraph from "../../../components/BarGrpah";
 import AdminActions from "../../../store/actions/admin-actions";
 import NewSingleSelect from "../../../components/NewSingleSelect";
+import { GET_GRAPH_KPI_MS1_VS_MS2 } from "../../../store/reducers/graph-reducer";
 
 const KPIMS1VsMS2 = () => {
 
@@ -15,18 +16,20 @@ const KPIMS1VsMS2 = () => {
     const dispatch = useDispatch();
 
     let CircleList = useSelector((state) => {
-        return state?.adminData?.getManageCircle?.map((itm) => ({
-          label: itm?.circleName,
-          value: itm?.circleName,
-        }));
+      return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
+        label: itm?.circle,
+        value: itm?.projectuid,
+      }));
+    });
+  
+    let projectTypeList = useSelector((state) => {
+      return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+        return {
+          label: itm.projectType,
+          value: itm.uid,
+        };
       });
-    
-      const AllProjectTypeList = useSelector((state) => {
-        return state?.GraphData?.getGraphAllProjectType?.map((itm) => ({
-          label: itm?.projectType,
-          value: itm?.projectType,
-        }));
-      });
+    });
       
 
   let GraphData = useSelector((state) => {
@@ -34,22 +37,20 @@ const KPIMS1VsMS2 = () => {
   });
 
   const seriesData = [
-    {
-        name: "Count",
-        data: GraphData?.map(item => item.count) ||[],
-    },
-];
+      {
+          name: "Count",
+          data: GraphData?.map(item => item.count) ||[],
+      },
+  ];
 
   
   
 useEffect(() => {
-    dispatch(AdminActions.getManageCircle(true, "", 0));
-    dispatch(GraphActions.getGraphAllProjectType(true, "", 0));
+    dispatch(GET_GRAPH_KPI_MS1_VS_MS2({dataAll:[],reset:true}))
     dispatch(GraphActions.getGraphkpiMS1vsMS2());
   }, []);
 
-  useEffect(() => {
-  }, [GraphData]);
+
 
   const handleFilter = () => {
     const filterData = {};
@@ -77,7 +78,7 @@ useEffect(() => {
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
         <NewMultiSelects label='Partner' placeholder="Circle" option={CircleList} value={selectedCircle} cb={(data) => setSelectedCircle(data)} />
-        <NewMultiSelects placeholder="Project Type" option={AllProjectTypeList} value={selectedProjectType} cb={setSelectedProjectType} />
+        <NewMultiSelects placeholder="Project Type" option={projectTypeList} value={selectedProjectType} cb={setSelectedProjectType} />
            </div>
       <div className="flex space-x-2">
             <Button
