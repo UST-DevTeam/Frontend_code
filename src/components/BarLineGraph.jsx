@@ -35,12 +35,7 @@ const BarLineGraph = ({ data, headerName,
 
     const category = data?.map(item => item.description);
 
-    // const percentageData = data?.map(item => {
-    //     const plan = item.plan || 0;
-    //     const achieved = item.achievement || 0; 
-    //     const percentage = plan === 0 ? 0 : ((achieved / plan) * 100).toFixed(1);
-    //     return `${percentage}%`; 
-    // });
+
         
     const defaultSeries = [];
 
@@ -97,10 +92,10 @@ const BarLineGraph = ({ data, headerName,
                 }
                 return val;
               },
-            offsetY: -5,
+            offsetY: -7,
             style: { 
                 colors: ["transparent"],
-                fontSize: "6px",
+                fontSize: "8px",
                 fontWeight: 'bold',
             }, 
             background: {
