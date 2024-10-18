@@ -47,8 +47,6 @@ const SoftMS1VsMS2 = () => {
     dispatch(GraphActions.getGraphSoftMS1vsMS2());
   }, []);
 
-  useEffect(() => {
-  }, [GraphData]);
 
   const handleFilter = () => {
     const filterData = {};

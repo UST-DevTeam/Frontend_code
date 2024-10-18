@@ -210,6 +210,7 @@ export const Urls={
     graph_kpi_ms1_vs_ms2:"/graph/kpiMS1Reason",
     graph_P_and_L_forms:"/graph/profitloss",
     graph_P_and_L_Trends:"/graph/profitlossTrend",
+    graph_Project_Type_Unbiled:"/graph/unbilled/projecttypewise",
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",

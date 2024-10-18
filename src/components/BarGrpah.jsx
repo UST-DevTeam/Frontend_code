@@ -65,7 +65,7 @@ const BarGraph = ({ data,headerName, seriesData = [], height="440", horizontal =
             offsetX: offsetX,
             style: {
                 colors: ["white"],
-                fontSize: "9px",
+                fontSize: "10px",
                 fontWeight: 'bold',
               },
         },
@@ -83,7 +83,7 @@ const BarGraph = ({ data,headerName, seriesData = [], height="440", horizontal =
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '8px',
+                    fontSize: '10px',
                 }
             }
         },
@@ -100,7 +100,7 @@ const BarGraph = ({ data,headerName, seriesData = [], height="440", horizontal =
             labels:{
                 style:{
                     colors:'#ffffff',
-                    fontSize: '8.45px',
+                    fontSize: '10px',
                     fontWeight: 'bold',
                 }
             },

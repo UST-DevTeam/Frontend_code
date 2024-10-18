@@ -30,10 +30,10 @@ import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTren
 import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
 import ProfitAndLoss from "../Dashboard1/ProfitAndLoss";
 import ProfitAndLossTrend from "../Dashboard1/ProfitAndLossTrend";
+import ProjectTypeUnbilled from "../Dashboard1/ProjectTypeunbilled";
 
 const FinancialCards = () => {
-  // const [modalOpen, setmodalOpen] = useState(false)
-  // const [modalBody, setmodalBody] = useState(<></>)
+
   const [type, settype] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   let dispatch = useDispatch();
@@ -42,7 +42,6 @@ const FinancialCards = () => {
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Financial", "/financial", 0, true));
-    // dispatch(CurrentuserActions.getcurrentuserCircleWithProjectId(true,"",0));
   }, []);
 
   let showType1 = getAccessType("Trend- Revenue Plan Vs Actual(Graph)")
@@ -121,6 +120,11 @@ const FinancialCards = () => {
       title: "Profit & Loss Trend",
       component: <ProfitAndLossTrend customeruniqueId = {customeruniqueId} />,
     }] : []),
+    ...(graph7 ?[{
+      icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
+      title: "Unbilled",
+      component: <ProjectTypeUnbilled customeruniqueId = {customeruniqueId} />,
+    }] : []),
   ];
   
   const handleCardClick = (index) => {
@@ -148,7 +152,6 @@ const FinancialCards = () => {
               {(getAccessType(itm[0]) == "visible" ||
                 getAccessType(itm[0]) == "disabled") ? (
                 <div
-                  // className={`${itm[1]} shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  `}
                   className={`${itm[1]} bg-pcol text-white text-center text-[13px] md:text-[11px] xl:text-[13px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
                   onClick={() => {
 
@@ -229,7 +232,6 @@ const FinancialCards = () => {
                     <h3 className="text-[#f4d3a8] font-bold text-base mb-4">{card.title}</h3>
                     <div className="w-full flex justify-center items-center">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28">
-                      {/* <div className="w-full h-16 sm:w-full sm:h-20 md:w-full md:h-24 lg:w-full lg:h-28"> */}
                         {card.icon} 
                       </div>
                     </div>

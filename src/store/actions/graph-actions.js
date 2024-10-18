@@ -36,6 +36,7 @@ import {
     GET_GRAPH_KPI_MS1_VS_MS2,
     GET_GRAPH_P_AND_L_FORMS,
     GET_GRAPH_P_AND_L_TRENDS,
+    GET_GRAPH_PROJECT_TYPE_UNBILLED,
     
  } from "../reducers/graph-reducer"
 
@@ -1007,6 +1008,36 @@ const GraphActions = {
                 dispatch(GET_GRAPH_P_AND_L_TRENDS({ dataAll, reset:true }))
             }
 
+        } catch (error) {
+            return;
+        }
+    },
+    getProjectTypeUnbilledGraph:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.graph_Project_Type_Unbiled}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GRAPH_PROJECT_TYPE_UNBILLED({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postProjectTypeUnbilledGraph: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: Urls.graph_Project_Type_Unbiled})
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+                cb()
+            } else {
+                let dataAll = res?.data?.data
+                dispatch(GET_GRAPH_PROJECT_TYPE_UNBILLED({ dataAll, reset:true }))
+            }
         } catch (error) {
             return;
         }

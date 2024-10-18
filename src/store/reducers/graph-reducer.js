@@ -36,6 +36,7 @@ const initialState = {
     getGraphkpiMS1vsMS2:[],
     getGraphPAndLForms:[],
     getGraphPAndLTrends:[],
+    getProjectTypeUnbilledGraph:[],
 } 
  
 const GraphData = createSlice({
@@ -319,6 +320,14 @@ const GraphData = createSlice({
             }
         },
 
+        GET_GRAPH_PROJECT_TYPE_UNBILLED:(state,{payload}) => {
+            if(payload.reset){
+                state.getProjectTypeUnbilledGraph = payload.dataAll
+            }else{
+                state.getProjectTypeUnbilledGraph  = [...state.getProjectTypeUnbilledGraph,...payload.dataAll]
+            }
+        },
+
     }
 })
 
@@ -358,6 +367,7 @@ export const {
     GET_GRAPH_KPI_MS1_VS_MS2,
     GET_GRAPH_P_AND_L_FORMS,
     GET_GRAPH_P_AND_L_TRENDS,
+    GET_GRAPH_PROJECT_TYPE_UNBILLED
 } = GraphData.actions
     
 export default GraphData.reducer    
