@@ -3,8 +3,12 @@
 
 
 
-export const baseUrl="https://pmisapi.mcpsinc.com"
-export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
+// export const baseUrl="https://pmisapi.mcpsinc.com"
+// export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
+
+
+export const baseUrl="https://api.mcpspmis.com"
+export const backendassetUrl="https://api.mcpspmis.com/" 
 
 export const Urls={
 
