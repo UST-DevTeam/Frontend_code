@@ -326,6 +326,7 @@ const vendorProject = () => {
             return updateditm
         });
     })
+
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.vendorData?.getVendorProjectList
         if (interdata.length > 0) {
@@ -334,10 +335,9 @@ const vendorProject = () => {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+
+
     let table = {
         columns: [
             {
@@ -424,7 +424,6 @@ const vendorProject = () => {
                 value: "siteBillingStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-
             {
                 name: "Edit",
                 value: "edit",

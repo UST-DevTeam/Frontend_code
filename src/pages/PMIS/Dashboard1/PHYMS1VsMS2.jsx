@@ -44,7 +44,7 @@ const PHYMS1VsMS2 = () => {
   
   useEffect(() => {
     dispatch(GET_GRAPH_PHY_MS1_VS_MS2({dataAll:[],reset:true}))
-      dispatch(GraphActions.getGraphphyMS1vsMS2());
+    dispatch(GraphActions.getGraphphyMS1vsMS2());
     }, []);
 
   const handleFilter = () => {

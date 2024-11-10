@@ -9,24 +9,18 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
-import {
-  getAccessType,
-  objectToQueryString,
-} from "../../../../utils/commonFunnction";
+import {getAccessType,objectToQueryString} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
+import { Urls, backendassetUrl} from "../../../../utils/url";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
 import ConditionalButton from "../../../../components/ConditionalButton";
-
 import ComponentActions from "../../../../store/actions/component-actions";
 import ProjectChart from "../../Dashboard1/ProjectChart";
-import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
 import TotalActiveCustomer from "../../Dashboard1/TotalActiveCustomer";
+
 const ManageCustomer = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -90,7 +84,6 @@ const ManageCustomer = () => {
                         resetting={false}
                         formValue={itm}
                       />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
                 }}
@@ -144,6 +137,7 @@ const ManageCustomer = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getManageCustomer;
     if (interdata.length > 0) {
@@ -152,6 +146,8 @@ const ManageCustomer = () => {
       return 0;
     }
   });
+
+
 
   let dbConfiglist2 = useSelector((state) => {
     let interdata = state?.adminData?.getCardCustomer;
@@ -219,12 +215,7 @@ const ManageCustomer = () => {
         name: "Delete",
         value: "delete",
         style: "min-w-[100px] max-w-[100px] text-center",
-      },
-      // {
-      //     name: "View",
-      //     value: "view",
-      //     style: "min-w-[100px] max-w-[100px] text-center"
-      // }
+      }
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -236,6 +227,7 @@ const ManageCustomer = () => {
     delete data.reseter;
     dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)));
   };
+
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
     dispatch(AdminActions.getCardCustomer())
@@ -278,10 +270,7 @@ const ManageCustomer = () => {
           </>
         }
         table={table}
-        exportButton={[
-          "/export/manageCustomer",
-          "Export_Customer(" + dt + ").xlsx",
-        ]}
+        exportButton={["/export/manageCustomer","Export_Customer(" + dt + ").xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
@@ -291,6 +280,7 @@ const ManageCustomer = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        heading = {"Total Customers:-"}
       />
 
       <Modal

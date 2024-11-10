@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-
-
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -15,11 +12,10 @@ import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
-import SettlementForm from './SettlementForm';
+import FilterActions from '../../../../store/actions/filter-actions';
 import EditButton from '../../../../components/EditButton';
-import HrActions from '../../../../store/actions/hr-actions';
-import ExpenseAdvanceActions from '../../../../store/actions/expenseAdvance-actions';
-const  Settlement = () => {
+import AccuralRevenueMasterForm from './AccuralRevenueMasterForm';
+const AccuralRevenueMaster = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
@@ -28,33 +24,16 @@ const  Settlement = () => {
     const [strValFil, setstrVal] = useState(false);
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
-        console.log('statattatat',state)
-        let interdata = state?.expenseAdvanceData?.getSettlementAmount
+        let interdata = state?.adminData?.getAccuralRevenueMasterProject
         return interdata?.map((itm) => {
             
             let updateditm = {
                 ...itm,
-
-
-                SettlementID: (
-                    <p
-                      className={`cursor-pointer font-extrabold ${
-                        [3, 5, 7].includes(itm?.SettlementID)
-                          ? "text-pcol"
-                          : "text-pcol"
-                      }`}
-                    >
-                      {itm.SettlementID}
-                    </p>
-                  ),
-
-
-
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    setmodalHead("Edit Settlement Amount")
+                    setmodalHead("Edit Master Rate")
                     setmodalBody(<>
-                        <SettlementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} filtervalue = {strValFil} />
+                        <AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} filtervalue = {strValFil} />
                     </>)
                 }}></EditButton>} />,
                 
@@ -83,7 +62,7 @@ const  Settlement = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.expenseAdvanceData?.getSettlementAmount
+        let interdata = state?.adminData?.getAccuralRevenueMasterProject
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -100,92 +79,107 @@ const  Settlement = () => {
         });
       });
 
-    let employeesList = useSelector((state) => {
-    return state?.hrReducer?.getHRAllEmployee.map((itm) => {
-        return {
-        label: itm.empName,
-        value: itm.uniqueId,
-        };
-    });
-    });
-
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
     let table = {
         columns: [
             {
-                name: "Settlement ID",
-                value: "SettlementID",
-                style: "min-w-[100px] max-w-[200px] text-center sticky text-red-600"
+                name: "Project Type",
+                value: "projectTypeName",
+                style: "min-w-[100px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Employee ID",
-                value: "empCode",
+                name: "Project ID",
+                value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center sticky"
             },
              
             {
-                name: "UST Employee ID",
-                value: "ustCode",
+                name: "Sub Project",
+                value: "subProjectName",
                 style: "min-w-[140px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Employee Name",
-                value: "empName",
+                name: "Band",
+                value: "band",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Settlement Requisition Date",
-                value: "SettlementRequisitionDate",
+                name: "Activity",
+                value: "activity",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Approval Date",
-                value: "approvalDate",
+                name: "Rate",
+                value: "rate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Amount",
-                value: "Amount",
+                name: "Item Code-01",
+                value: "itemCode01",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Remarks",
-                value: "remarks",
+                name: "Item Code-02",
+                value: "itemCode02",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            
+            {
+                name: "Item Code-03",
+                value: "itemCode03",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code-04",
+                value: "itemCode04",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code-05",
+                value: "itemCode05",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code-06",
+                value: "itemCode06",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Item Code-07",
+                value: "itemCode07",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
                        
             {
                 name: "Edit",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
             },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
         },
-        // filter: [
-        //     {
-        //         label: "Project Type",
-        //         type: "select",
-        //         name: "projectType",
-        //         option:projectTypeList,
-        //         props: {
-        //         }
-        //     },
-        //     {
-        //         label: "Project ID",
-        //         type: "text",
-        //         name: "projectId",
-        //         props: {}
-        //     },
-        // ]
+        filter: [
+            {
+                label: "Project Type",
+                type: "select",
+                name: "projectType",
+                option:projectTypeList,
+                props: {
+                }
+            },
+            {
+                label: "Project ID",
+                type: "text",
+                name: "projectId",
+                props: {}
+            },
+        ]
     }
 
     const onSubmit = (data) => {
@@ -195,20 +189,23 @@ const  Settlement = () => {
         delete data.reseter
         let strVal = objectToQueryString(data);
         setstrVal(strVal);
-        dispatch(ExpenseAdvanceActions.getSettlementAmount(true, objectToQueryString(data)))
+        dispatch(AdminActions.getAccuralRevenueMasterProject(true, objectToQueryString(data)))
     }
 
     
     useEffect(() => {
-        dispatch(ExpenseAdvanceActions.getSettlementAmount())
-        dispatch(HrActions.getHRAllEmployee());
+        dispatch(AdminActions.getAccuralRevenueMasterProject());
+        dispatch(AdminActions.getAccuralRevenueMasterProjectType());
+        dispatch(AdminActions.getAccuralRevenueMasterProjectID());
+        dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
+        dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
     }, []);
 
     const onTableViewSubmit3 = (data) => {
-        data["fileType"] = "SettlementAmount";
+        data["fileType"] = "UploadAccuralRevenueMaster";
         dispatch(
           CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(ExpenseAdvanceActions.getSettlementAmount());
+            dispatch(AdminActions.getAccuralRevenueMasterProject());
             setFileOpen(false);
             resetting("");
           })
@@ -219,11 +216,11 @@ const  Settlement = () => {
             headerButton={
                 <div className='flex gap-1'>
                     <Button
-                        name={"Add New Settlement"}
+                        name={"Add New"}
                         classes="w-auto"
                         onClick={(e) => {setmodalOpen((prev) => !prev)
-                        setmodalHead("Add") 
-                        setmodalBody(<SettlementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
+                        setmodalHead("Add Master Rate") 
+                        setmodalBody(<AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
                         }}>
                     </Button>
                     <Button
@@ -235,7 +232,7 @@ const  Settlement = () => {
                         name={"Export"}
                         classes="w-auto"
                         onClick={() => {
-                            dispatch(CommonActions.commondownload("/export/SettlementAmount","Export_SettlementAmount.xlsx"))
+                            dispatch(CommonActions.commondownload("/export/MasterUnitRate","Export_MasterUnitRate.xlsx"))
                           }}>
                     </Button>
                 </div>
@@ -258,7 +255,7 @@ const  Settlement = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit3}
         setIsOpen={setFileOpen}
-        tempbtn={true} tempbtnlink = {["/template/SettlementAmount.xlsx","SettlementAmount.xlsx"]}
+        tempbtn={true} tempbtnlink = {["/template/AccuralRevenueMaster.xlsx","AccuralRevenueMaster.xlsx"]}
         head = {"Upload File"}
       />
 
@@ -266,4 +263,4 @@ const  Settlement = () => {
 
 };
 
-export default Settlement;
+export default AccuralRevenueMaster;

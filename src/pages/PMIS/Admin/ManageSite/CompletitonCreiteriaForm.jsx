@@ -28,8 +28,11 @@ const CompletitonCreiteriaForm = ({
   //     "Reference No": "number",
   // };
 
+
+
+
   const dateString = siteCompleteData["siteStartDate"];
-  const [day, month, year] = dateString.split("-").map(Number);
+  const [day, month, year] = dateString?.split("-")?.map(Number);
 
   const datestr = new Date(year, month - 1, day);
 
@@ -49,13 +52,10 @@ const CompletitonCreiteriaForm = ({
   };
 
   let mileStoneCompletion = useSelector((state) => {
-    console.log("opppppp", state?.adminData?.getManageCompletionCriteria);
 
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
     return mileStone["Completion Criteria"].split(",").map((dta) => {
-      console.log("opppppp2", mtoneCompletion, dta);
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
-      console.log("geetergeeter", geeter);
       return {
         label: dta,
         value: "",

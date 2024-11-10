@@ -3,7 +3,6 @@ import React from 'react';
 import { Sidebar_content } from './utils/sidebar_values';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './pages/Layout';
-import BIDashboard from './pages/BusinessIntelligence/BIDashboard';
 
 
 const Navigation = ({ sidebarOpen }) => {

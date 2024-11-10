@@ -3,14 +3,10 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import AlertConfigurationActions from "../../../../store/actions/alertConfiguration-actions";
-import CustomQueryActions from "../../../../store/actions/customQuery-actions";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
-import { useParams } from "react-router";
 import AdminActions from "../../../../store/actions/admin-actions";
-import HrActions from "../../../../store/actions/hr-actions";
 
 const VendorProjectAllocationForm = ({
   isOpen,
@@ -18,34 +14,10 @@ const VendorProjectAllocationForm = ({
   resetting,
   formValue = {},
 }) => {
-  // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
-  // console.log(isOpen,"isOpen")
-  // console.log(setIsOpen,"setIsOpen")
-  // console.log(resetting,"resetting")
-  // console.log(formValue,"formValue")
-  // const {cus}
 
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
 
-  //   let employeeList = useSelector((state) => {
-  //         return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-  //             return {
-  //             label: itm?.empName + "(" + itm.empCode + ")",
-  //             value: itm?.empName
-  //             }
-  //         })
-  //     })
-
-  //   let roleList = useSelector((state) => {
-  //         return state?.adminData?.getManageProfile.map((itm) => {
-  //             return {
-  //                 label: itm?.roleName,
-  //                 value: itm?.roleName
-  //             }
-  //         })
-  //     })
 
   let projectList = useSelector((state) => {
     return state?.adminData?.getVishal.map((itm) => {
@@ -56,38 +28,6 @@ const VendorProjectAllocationForm = ({
     });
   });
 
-  // let projectTypeList = useSelector((state) => {
-  //   return state?.adminData?.getCardProjectType.map((itm) => {
-
-  //   //   if (projectTypeList === "project[uniqueId]") {
-  //   //     const ProjectTypeValue = "projectType";
-  //   //     setValue("projectType", ProjectTypeValue);
-  //   //   }
-  //   //   else
-  //     return {
-  //       label: itm.projectType,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
-
-  // let SubProjectList = useSelector((state) => {
-  //     return state?.adminData?.getManageSubProject.map((itm) => {
-  //         return {
-  //             label: itm.subProject,
-  //             value: itm.subProject
-  //         }
-  //     })
-  // })
-
-  // let circleList = useSelector((state) => {
-  //   return state?.adminData?.getManageCircle.map((itm) => {
-  //     return {
-  //       label: itm.circleName,
-  //       value: itm.uniqueId,
-  //     };
-  //   });
-  // });
 
   let Form = [
     {
@@ -98,31 +38,6 @@ const VendorProjectAllocationForm = ({
       type: "sdisabled",
       classes: "col-span-1",
     },
-    // {
-    //   label: "Profile",
-    //   name: "roleName",
-    //   type: "select",
-    //   value: "",
-    //   option: roleList,
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Employee Name",
-    //   value: "",
-    //   name: "empName",
-    //   type: "select",
-    //   option: employeeList,
-    //   required: true,
-    //   props: {
-    //     onChange: (e) => {
-    //       console.log(e.target.value, "e geeter")
-
-    //       setValue("projectType", e.target.value);
-    //     },
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Project",
       name: "project",
@@ -146,12 +61,8 @@ const VendorProjectAllocationForm = ({
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+
+
   const onTableViewSubmit = (data) => {
     if (formValue.uniqueId) {
       dispatch(
@@ -175,10 +86,8 @@ const VendorProjectAllocationForm = ({
       );
     }
   };
-  console.log(Form, "Form 11");
+
   useEffect(() => {
-    // dispatch(HrActions.getManageEmpDetails())
-    // dispatch(AdminActions.getProjectAllocation())
     dispatch(AdminActions.getVishal());
     if (resetting) {
       reset({});
@@ -194,7 +103,6 @@ const VendorProjectAllocationForm = ({
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {
-          // console.log("formValuekey",key,key)
           setValue(key.name, formValue[key.name]);
         }
 

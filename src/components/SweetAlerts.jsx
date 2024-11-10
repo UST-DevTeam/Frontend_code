@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SweetAlert2 from 'react-sweetalert2';
 import Modal from './Modal';
 import { ALERTS } from '../store/reducers/component-reducer';
-
 import { UilExclamationTriangle, UilInfoCircle } from '@iconscout/react-unicons'
-import Button from './Button';
 import swal from 'sweetalert';
+import Button from './Button';
 export const SweetAlerts = () => {
 
     const dispatch = useDispatch()
     let swAlerts = useSelector((state) => {
-        // console.log(state, "statedsadsadsadsadasdsada")
         let interdata = state?.component?.alerts
         interdata = {
             ...interdata,
@@ -20,7 +17,6 @@ export const SweetAlerts = () => {
                     dispatch(ALERTS({ show: false }))
                 }} name={"OK"} />]
         }
-        // console.log(interdata.buttons, "interdatainterdatadsadassadsadas")
         return interdata
     })
 
@@ -48,17 +44,7 @@ export const SweetAlerts = () => {
         dispatch(ALERTS({ show: false }))
 
     };
-
-
-    // let msgdata={
-    //     show: true,
-    //     icon:'error',
-    //     text: res?.data?.msg,
-    // }
-    // dispatch(ALERTS(msgdata))
-
     return <>
-        {/* <SweetAlert2 {...swAlerts} /> */}
 
         {
             swAlerts?.type == 1 ? <>{showAlert()}</> : <>

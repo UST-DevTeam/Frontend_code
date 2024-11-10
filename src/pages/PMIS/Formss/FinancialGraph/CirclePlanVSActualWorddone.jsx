@@ -33,7 +33,7 @@ const CirclePlanVSActualWorkdone = () => {
 
   const currentYear = new Date().getFullYear();
 //   const [selectedDepartment, setSelectedDepartment] = useState([]);
-const [selectedCircle, setSelectedCircle] = useState([]);
+  const [selectedCircle, setSelectedCircle] = useState([]);
   const [selectedProjectType, setSelectedProjectType] = useState([]);
   const [selectedYears, setSelectedYears] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState([]);
@@ -70,22 +70,22 @@ const [selectedCircle, setSelectedCircle] = useState([]);
 
   const SeriesData = [
     {
-      name: "Planned",
-      type: "bar",
-      data: data1,
+        name: "Planned",
+        type: "bar",
+        data: data1,
 
-  },
-  {
-      name: "Achieved",
-      type: "bar",
-      data: data2,
-  },
-  {
-      name: "Acheievement(%)",
-      type: "line",
-      data: SecondaryAxis,
-  },
-];
+    },
+    {
+        name: "Achieved",
+        type: "bar",
+        data: data2,
+    },
+    {
+        name: "Acheievement(%)",
+        type: "line",
+        data: SecondaryAxis,
+    },
+  ];
 
 
   useEffect(() => {

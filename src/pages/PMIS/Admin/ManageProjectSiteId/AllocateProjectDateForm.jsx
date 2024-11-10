@@ -5,18 +5,10 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import AlertConfigurationActions from "../../../../store/actions/alertConfiguration-actions";
-import CustomQueryActions from "../../../../store/actions/customQuery-actions";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
-import AdminActions from "../../../../store/actions/admin-actions";
-import HrActions from "../../../../store/actions/hr-actions";
-import NewLookBadge from "../../../../components/Badge";
-import ManageSite from "../ManageSite/ManageSite";
 import projectListActions from "../../../../store/actions/projectList-actions";
-import { useParams } from "react-router-dom";
-import ManageMilestone from "../ManageMilestone/ManageMilestone";
 import { Urls } from "../../../../utils/url";
 
 const AllocateProjectDateForm = ({

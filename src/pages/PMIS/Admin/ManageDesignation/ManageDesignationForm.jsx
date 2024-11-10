@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form';
 import moment from 'moment';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import AlertConfigurationActions from '../../../../store/actions/alertConfiguration-actions';
-import CustomQueryActions from '../../../../store/actions/customQuery-actions';
 import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
@@ -12,12 +10,6 @@ import AdminActions from '../../../../store/actions/admin-actions';
 
 const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
-    // console.log(isOpen,"isOpen")
-    // console.log(setIsOpen,"setIsOpen")
-    // console.log(resetting,"resetting")
-    // console.log(formValue,"formValue")
 
 
     const [modalOpen, setmodalOpen] = useState(false)

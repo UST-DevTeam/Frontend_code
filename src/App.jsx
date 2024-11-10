@@ -1,42 +1,16 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import "./index.css";
-import Login from "./pages/Login";
-import Registration from "./pages/Registration";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Layout from "./pages/Layout";
-import DataPlusAnalytics from "./pages/DataPlusAnalytics";
-import LaverView from "./pages/LaverView";
-import RunQuery from "./pages/CustomQuery/RunQuery";
-import CommonForm from "./components/CommonForm";
-import DBConfig from "./pages/CustomQuery/DBConfig";
-import Modal from "./components/Modal";
 import TopBar from "./components/TopBar";
-import BIDashboard from "./pages/BusinessIntelligence/BIDashboard";
-import QueryBuilderComponent from "./pages/CustomQuery/QueryBuilder";
-import { PowerBIEmbed } from "powerbi-client-react";
-import { Sidebar_content } from "./utils/sidebar_values";
 import Navigation from "./Navigation";
 import SweetAlerts from "./components/SweetAlerts";
-import { useSelector } from "react-redux";
 import Loaders from "./components/Loaders";
 import WebSocketClient from "./components/WebSocketClient";
-import SetupPassword from "./pages/SetupPassword";
-import Kycregister from "./pages/Kycregister";
-import Agreement from "./pages/Agreement";
-import Otp from "./pages/Otp";
-import ViewPitchDeck from "./pages/PitchDeck/ViewPitchDeck";
-import PitchDeckAdmin from "./pages/PitchDeck/viewPitchDeckAdmin";
 import Sidebar from "./components/Sidebar";
-import Business_Registration from "./pages/Business_Registration";
-import SetUpRegistration from "./pages/setupRegistration";
-import MonthRevenueTrend from "./pages/PMIS/Formss/FinancialGraph/MonthRevenueTrend";
-import MonthlyRevenueCircle from "./pages/PMIS/Formss/FinancialGraph/MonthlyRevenueCircle";
-import CumulativeTrendPlanVsActual from "./pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
-import MS1AndMS2CircleWise from "./pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
+import Login from "./pages/Login";
+import SetupPassword from "./pages/SetupPassword";
+import Registration from "./pages/Registration";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -56,36 +30,8 @@ function App() {
       component: <Registration />,
     },
     {
-      url: "/setupRegistration/:uid",
-      component: <SetUpRegistration />,
-    },
-    {
-      url: "/kycregister/:uid",
-      component: <Kycregister />,
-    },
-    {
-      url: "/agreement/:uid",
-      component: <Agreement />,
-    },
-    {
-      url: "/otp",
-      component: <Otp />,
-    },
-    {
       url: "/setupPassword",
       component: <SetupPassword />,
-    },
-    {
-      url: "/",
-      component: <></>,
-    },
-    {
-      url: "/viewPitch/:pitchId",
-      component: <ViewPitchDeck />,
-    },
-    {
-      url: "/businessRegistration/:uid",
-      component: <Business_Registration />,
     },
   ];
 

@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form';
 import moment from 'moment';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import AlertConfigurationActions from '../../../../store/actions/alertConfiguration-actions';
-import CustomQueryActions from '../../../../store/actions/customQuery-actions';
 import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
@@ -42,8 +40,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             value: "",
             name: Object.entries(formValue).length > 0  ? "customerName" : "customer",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-            // name: "customer",
-            // type: "select",
             required: true,
             option: customerList,
             classes: "col-span-1"
@@ -69,7 +65,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             required: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
 
                 }),
             },

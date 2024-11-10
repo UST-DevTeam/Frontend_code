@@ -331,7 +331,8 @@ const PL = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(FinanceActions.getProfiltLoss(value, objectToQueryString(data)));
+    let strVal = objectToQueryString(data);
+    dispatch(FormssActions.getProfiltLoss(true, strVal));
   };
   useEffect(() => {
     dispatch(FormssActions.getProfiltLoss())

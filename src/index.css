@@ -411,6 +411,11 @@ form::-webkit-scrollbar-corner{
   background: #3e454d;
 }
 
+.custom-Muiltiselect::-webkit-scrollbar-corner{
+  background: white;
+  border-radius: 6px;
+}
+
 .amountWithRemark::placeholder {
   color: white !important;
   /* padding-left: 10px !important; */

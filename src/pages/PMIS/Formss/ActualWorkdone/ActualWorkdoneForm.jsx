@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import AlertConfigurationActions from "../../../../store/actions/alertConfiguration-actions";
-import CustomQueryActions from "../../../../store/actions/customQuery-actions";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";

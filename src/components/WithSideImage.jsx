@@ -15,10 +15,14 @@ const WithSideImage = ({ form, labeling, formclass,sideImage }) => {
                 <div className=" my-auto sm:w-full sm:max-w-sm md:max-w-xl">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <div className="flex justify-center items-center">
-                    <img className="w-20 h-12 " src="/logo.png" alt="PIMS" />
+                    {/* <img className="w-20 h-12 " src="/logo.png" alt="PIMS" /> */}
+                    <a href="https://www.mcpsinc.com/" target='_blank'>
+                        <img className="w-36 h-36" src="/mobilecomm.png" alt="PIMS" />
+                    </a>
+                    
                     </div>
                         {/* <div className="mx-auto font-kat text-txt-neavy text-5xl text-center dark:text-darkBg">PMIS</div> */}
-                        <h2 className="mt-2 text-center font-bold text-2xl font-body leading-9 tracking-tight text-[#13b497] dark:text-darkBg">{labeling}</h2>
+                        <h2 className=" text-center font-bold text-2xl font-body leading-9 tracking-tight text-[#13b497] dark:text-darkBg">{labeling}</h2>
                     </div>
 
                     <div className={`overflow-y-hidden nobar mt-4 bg-[#2e3339] rounded-lg ${formclass}`}>

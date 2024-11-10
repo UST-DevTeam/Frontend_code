@@ -85,10 +85,10 @@ const AdminActions = {
           let dataAll = res?.data?.data;
           dispatch(GET_SUBPROJECT_MULTIDYNAMIC({ dataAll, reset }));
         } catch (error) {
-          // handle error
           console.error("Error fetching sub projects:", error);
         }
       },
+
     getProjectTypeMultiDynamic:(reset=true,customeruniqueId,projecttypeuniqueId=null) => async (dispatch, _) => {
         try {
             // const url = `${Urls.get_project_type_Dyanmic}/${customeruniqueId}/${projecttypeuniqueId}`;
@@ -158,12 +158,6 @@ const AdminActions = {
         }
     },
 
-    
-
-
-    
-
-
     getComponentAllocationList:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_userAccess}${args!=""?"?"+args:""}`})
@@ -173,6 +167,7 @@ const AdminActions = {
         } catch (error) {
         }
     },
+
     getOldComponentAllocationList:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_uamView}${args!=""?"?"+args:""}`})
@@ -182,7 +177,6 @@ const AdminActions = {
         } catch (error) {
         }
     },
-
 
 
     getManageCircle:(reset=true,args="", show=1) => async (dispatch, _) => {
@@ -211,7 +205,6 @@ const AdminActions = {
                 cb()
 
             }
-            
         } catch (error) {
             return;
         }

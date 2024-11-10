@@ -9,53 +9,10 @@ import {
   UilDatabase,
   UilFileContract,
 } from "@iconscout/react-unicons";
-import RunQuery from "../pages/CustomQuery/RunQuery";
-import QueryBuilderComponent from "../pages/CustomQuery/QueryBuilder";
-import BIDashboard from "../pages/BusinessIntelligence/BIDashboard";
-import AdvancedQueryBuilderComponent from "../pages/CustomQuery/AdvancedQueryBuilder";
-import TestTable from "../pages/DataPlusAnalytics/TestTable";
-import CommonPowerBI from "../pages/CommonPowerBI";
 
-import DataPlusAnalytics from "../pages/DataPlusAnalytics";
-import LaverView from "../pages/LaverView";
-import DBConfig from "../pages/CustomQuery/DBConfig";
-import SavedQueries from "../pages/CustomQuery/SavedQueries";
-import AlertConfigure from "../pages/AlertMonitoringSystem/AlertConfigure";
-import ViewMtandaoComplaints from "../pages/MtandaoComplaints/ViewMtandaoComplaints";
-import AlertScheduler from "../pages/AlertMonitoringSystem/AlertScheduler";
-import UserManagement from "../pages/Admin/UserManagement/UserManagement";
-import RoleManagement from "../pages/Admin/RoleManagement/RoleManagement";
-import Registration from "../pages/Registration";
-import Cart from "../pages/Cart";
-import Carts from "../pages/Carts";
-import Home from "../pages/Home";
-import InvestmentDiscovery from "../pages/Investment/InvestmentDiscovery";
-import Kycregister from "../pages/Kycregister";
-import NokiaToolManagementQuery from "../pages/NokiaToolManagement/NokiaToolManagementQuery";
-// import NetworkAnalyticsPro from '../pages/DataPlusAnalytics/NetworkAnalyticsPro';
-import SiteAnalyticsPro from "../pages/DataPlusAnalytics/SiteAnalyticsPro";
-import ProRulesQuery from "../pages/ProRules/ProRulesQuery";
-import Portfolio from "../pages/Portfolio";
-import Profile from "../pages/Profile";
-import PitchDeck from "../pages/PitchDeck/PitchDeck";
-import InvestmentTransaction from "../pages/Investment/InvestmentTransaction";
-import InvestorCrm from "../pages/Investment/InvestorCrm";
-import Details from "../pages/Details";
-
-import InvestorCRMDetails from "../pages/InvestorCRMDetails";
-import ViewPitchDeck from "../pages/PitchDeck/ViewPitchDeck";
-import BlobFileViewer from "../pages/testing/BlobFile";
-import SendEmail from "../pages/Admin/RoleManagement/SendEmail";
-import KYCManagement from "../pages/KYCManagement/KYCManagement";
-import PitchDeckAdmin from "../pages/PitchDeck/viewPitchDeckAdmin";
-import InvestmentDetailsManagement from "../pages/InvestmentDetails/InvestmentDetails";
-import FundSeekerDetails from "../pages/FundSeekerDetails/FundSeekerDetails";
-import OperationManagement from "../pages/OperationManagement/OperationManagement";
-import AgreementManagement from "../pages/Admin/AgreementManagement/AgreementManagement";
 
 // newimport
 import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer";
-import UserAllocation from "../pages/PMIS/HR/UserAllocation/UserAllocation";
 import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
 import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
@@ -88,12 +45,8 @@ import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
 import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
 import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
 import ManageUserProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageUserProjectSiteId";
-import ISONForm from "../pages/iSON/ISONForm";
-import UserComponentManagement from "../pages/UserComponentManagement/UserComponentManagement";
-import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
 import ManageClaimType from "../pages/PMIS/Admin/ManageClaimType/ManageClaimType";
-import { getAccessType } from "./commonFunnction";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
 import FormsCards from "../pages/PMIS/Formss/FormsCards";
 import WorkdoneForecastCards from "../pages/PMIS/Formss/WorkdoneForecastCards";
@@ -127,14 +80,12 @@ import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
 import ActualWorkdone from "../pages/PMIS/Formss/ActualWorkdone/ActualWorkdone";
 import PL from "../pages/PMIS/Formss/P&L/PL";
 import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
-import Dashboard from "../pages/Dashboard";
 import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
 import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/AccrualRevenueTrend";
 import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
 import MyTask from "../pages/PMIS/MyTask/MyTask";
 import SOB from "../pages/PMIS/Formss/SOB/SOB";
-import AccuralRevenueMaster from "../pages/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
 import MonthRevenueTrend from "../pages/PMIS/Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../pages/PMIS/Formss/FinancialGraph/MonthlyRevenueCircle";
 import CumulativeTrendPlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
@@ -143,6 +94,8 @@ import Settlement from "../pages/PMIS/MyHome/SettlementForm/Settlement";
 import ActivityLogs from "../pages/PMIS/HR/ActivityLogs/ActivityLogs";
 import ApprovalLogs from "../pages/PMIS/HR/ActivityLogs/ApprovalLogs";
 import AdminLogs from "../pages/PMIS/HR/ActivityLogs/AdminLogs";
+import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
+import AccuralRevenueMaster from "../pages/PMIS/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -213,21 +166,20 @@ if (user) {
 }
 
 
-// console.log(abcd,"abcdabcdabcd")
 
 let rolename = user?.roleName;
 
-console.log(
-  rolename,
-  [
-    "Field Resource",
-    "QE",
-    "Circle Support",
-    "Project Support",
-    "Vendor",
-  ].indexOf(rolename),
-  "rolenamerolenamerolename"
-);
+// console.log(
+//   rolename,
+//   [
+//     "Field Resource",
+//     "QE",
+//     "Circle Support",
+//     "Project Support",
+//     "Vendor",
+//   ].indexOf(rolename),
+//   "rolenamerolenamerolename"
+// );
 export const Sidebar_content = {
   temp: [],
   GlobalUrl: [
@@ -242,12 +194,6 @@ export const Sidebar_content = {
           subMenu: [],
         },
       ],
-    },
-    {
-      name: "",
-      link: "/isoning",
-      subMenu: [],
-      component: <UserComponentManagement />,
     },
     {
       name: "",
@@ -272,7 +218,6 @@ export const Sidebar_content = {
       link: "/ManageSite/:customeruniqueId",
       subMenu: [],
       component: <ManageSite />,
-      // component: <ManageProjectType />,
     },
     {
       name: "",
@@ -489,14 +434,6 @@ export const Sidebar_content = {
       subMenu: [],
       component: <UserAccessManagement />,
     },
-
-    {
-      name: "",
-      link: "/hr/superAdmin/userAccessManagement",
-      subMenu: [],
-      component: <RoleManagement />,
-    },
-
     {
       name: "",
       link: "/hr/superAdmin/partnerProjectAllocation",
@@ -593,13 +530,6 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
-    // {
-    //   name: "",
-    //   link: "/financial/invoiceMgmt/invoice",
-    //   component: <Invoice />,
-    //   icon: <UilStore />,
-    //   subMenu: [],
-    // },
     {
       name: "",
       link: "/financial/invoiceMgmt/revenueInvoiced",
@@ -666,14 +596,12 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/forms/gapAnalysis/ETPPendingReason",
-      // component: <E />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
     {
       name: "",
       link: "/forms/gapAnalysis/MS2VSWCCPendingReason",
-      // component: <E />,
       icon: <UilStore className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },
@@ -750,29 +678,6 @@ export const Sidebar_content = {
     
   ],
 
-  SuperAdmin: [
-    {
-      name: "Super Admin",
-      link: "/admin",
-      subMenu: [
-        {
-          name: "User Management",
-          link: "/admin/user-management",
-          subMenu: [],
-          component: <UserManagement />,
-          icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer"/>,
-        },
-        {
-          name: "Role Management",
-          link: "/admin/role-management",
-          subMenu: [],
-          component: <RoleManagement />,
-          icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer"/>,
-        },
-      ],
-      icon: <Unicons.UilReact className="hover:text-heading cursor-pointer"/>,
-    },
-  ],
   all_routes: [
     ...[
       {
@@ -802,22 +707,7 @@ export const Sidebar_content = {
       {
         name: "Human Resource",
         link: "/hr",
-        subMenu: [
-          // {
-          //   name: "Manage Employee",
-          //   link: "/manageEmployee",
-          //   subMenu: [],
-          //   component: <ManageEmp />,
-          //   icon: <UilAirplay size="16" />,
-          // },
-          // {
-          //   name: "User Allocation",
-          //   link: "/userallocation",
-          //   subMenu: [],
-          //   component: <UserAllocation />,
-          //   icon: <Unicons.UilChannel size="16" />,
-          // },
-        ],
+        subMenu: [],
         component: <HRHomeView />,
         icon: <UilUserSquare className="hover:text-heading cursor-pointer"/>,
       },
@@ -850,48 +740,28 @@ export const Sidebar_content = {
         subMenu: [],
       },
       
-      // {
-      //   name: "Super Admin",
-      //   link: "/admin",
-      //   subMenu: [
-      //     {
-      //       name: "Manage Circle",
-      //       link: "/manageCircle",
-      //       subMenu: [],
-      //       component: <ManageCircle />,
-      //       icon: <Unicons.UilChannel size="16" />,
-      //     },
-      //     {
-      //       name: "Asset Registration",
-      //       link: "/assetRegistration",
-      //       subMenu: [],
-      //       component: <AssetRegistration />,
-      //       icon: <Unicons.UilChannel size="16" />,
-      //     },
-      //     {
-      //       name: "Manage Zone",
-      //       link: "/manageZone",
-      //       subMenu: [],
-      //       component: <ManageZone />,
-      //       icon: <Unicons.UilChannel size="16" />,
-      //     },
-      //     // {
-      //     //   name: "User Management",
-      //     //   link: "/admin/user-management",
-      //     //   subMenu: [],
-      //     //   component: <UserManagement />,
-      //     //   icon: <Unicons.UilChannel size="16" />,
-      //     // },
-      //     // {
-      //     //   name: "Role Management",
-      //     //   link: "/admin/role-management",
-      //     //   subMenu: [],
-      //     //   component: <RoleManagement />,
-      //     //   icon: <Unicons.UilChannel size="16" />,
-      //     // },
-      //   ],
-      //   icon: <Unicons.UilReact />,
-      // },
+      {
+        name: "Super Admin",
+        link: "/admin",
+        subMenu: [
+          {
+            name: "Manage Circle",
+            link: "/manageCircle",
+            subMenu: [],
+            component: <ManageCircle />,
+            icon: <Unicons.UilChannel size="16" />,
+          },
+      
+          {
+            name: "Manage Zone",
+            link: "/manageZone",
+            subMenu: [],
+            component: <ManageZone />,
+            icon: <Unicons.UilChannel size="16" />,
+          },
+        ],
+        icon: <Unicons.UilReact />,
+      },
     ],
   ],
 };

@@ -6,10 +6,8 @@ import CommonForm from "../components/CommonForm";
 import AuthActions from "../store/actions/auth-actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SelectDropDown from "../components/FormElements/SelectDropDown";
 import { baseUrl } from "../utils/url";
 import WithSideImage from "../components/WithSideImage";
-import getCountries from "./CountryCode";
 const field = [{
     logo: baseUrl + "/logo.png",
     firstname: "Name",
@@ -21,8 +19,6 @@ const field = [{
     regiter: "Register",
     roleName: "roleName"
 }]
-const countries = getCountries();
-// console.log(countries, 'jsjsjsjsjjs');
 export default function Registration() {
     const dispatch = useDispatch()
     const navigate = useNavigate()

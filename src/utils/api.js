@@ -38,11 +38,9 @@ instance.interceptors.response.use((response) => {
     if (response.config.show === 1) {
         store.dispatch(ComponentActions.loaders(false));
     }
-    // store.dispatch(ComponentActions.loaders(false))
     return response;
 }, (error) => {
     store.dispatch(ComponentActions.loaders(false))
-    // console.error(error?.response, 'hgfhjdhgf')
     if (error?.response?.status == 401) {
         store.dispatch(CommonActions.logoutCaller(() => {
             window.location.href = '/login';
@@ -99,7 +97,6 @@ const Api = {
     },
 
     post: ({ data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }) => {
-        console.log(data, url)
         return instance({
             method: "POST",
             data,
