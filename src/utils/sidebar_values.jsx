@@ -96,6 +96,7 @@ import ApprovalLogs from "../pages/PMIS/HR/ActivityLogs/ApprovalLogs";
 import AdminLogs from "../pages/PMIS/HR/ActivityLogs/AdminLogs";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import AccuralRevenueMaster from "../pages/PMIS/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
+import ManageCompliance from "../pages/PMIS/Admin/ManageCompliance/ManageCompliance";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -665,6 +666,13 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/ActivityLogs/SuperAdminLogs",
       component: <AdminLogs/>,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/compliance",
+      component: <ManageCompliance />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

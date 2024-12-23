@@ -11,6 +11,7 @@ const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButto
         smsh: 'w-[64vw] h-[92vh]',
         modal: 'w-[94vw] h-[38vh] md:w-[48vw] h-[30vh]',
         full: 'w-[96vw] h-[96vh] md:w-[98vw] md:h-[98vh]',
+        full1: 'w-[96vw] h-[60vh] md:w-[98vw] md:h-[60vh]',
     }
 
     const bgClass = {
@@ -28,7 +29,7 @@ const Modal =   ({ size, modalHead = "", children, isOpen, setIsOpen, closeButto
                         {/* <svg className='hover:fill-black' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093  18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z" className='dark:fill-white'></path></svg> */}
                     </div>
                 </div>
-                <div className='  overflow-scroll p-2 bg-[#3e454d]'>   
+                <div className='overflow-y-scroll p-2 bg-[#3e454d]'>   
                 {/* <div className=''> */}
                     {children}
                 </div>

@@ -40,7 +40,6 @@ const CommonTableFormSiteParent = ({
   defaultValue
 }) => {
 
-  console.log(tabslist,"tabslisttabslisttabslist")
 
   const [activeTab, setActiveTab] = useState(defaultValue);
 

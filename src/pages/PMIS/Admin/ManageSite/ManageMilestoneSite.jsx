@@ -31,6 +31,7 @@ import { uiStatusColor } from "../../../../utils/queryBuilder";
 import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import moment from "moment";
+import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTemplateForm";
 
 const ManageMilestoneSite = ({
   siteCompleteData,
@@ -47,6 +48,7 @@ const ManageMilestoneSite = ({
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
   let milestoneStatus = mileStone?.mileStoneStatus
+  let milestonName = mileStone?.Name
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
 
@@ -611,7 +613,8 @@ const ManageMilestoneSite = ({
         children={modalBody}
         setIsOpen={setmodalOpen}
         isOpen={modalOpen}
-        size={"lg"}
+        size={"full"}
+        modalHead="Compliance Form"
       />
       <div className="p-4">
         {/* <Button /> */}
@@ -638,18 +641,30 @@ const ManageMilestoneSite = ({
                 name={"Completion Criteria"}
                 onClick={() => {
                   if (assignedToCount != 0) {
-                    
+                    dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
                     setmodalBody(
-                      <CompletitonCreiteriaForm
-                        siteCompleteData={siteCompleteData}
-                        customeruniqueId={customeruniqueId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView = {filterView}
-                      />
+                    
+                      
+                      // <CompletitonCreiteriaForm
+                      //   siteCompleteData={siteCompleteData}
+                      //   customeruniqueId={customeruniqueId}
+                      //   projectuniqueId={projectuniqueId}
+                      //   setmodalFullOpen={setmodalFullOpen}
+                      //   setmodalOpen={setmodalOpen}
+                      //   mileStone={mileStone}
+                      //   myTaskPage={myTaskPage}
+                      //   filterView = {filterView}
+                      // />
+                        <ManageComplianceTemplateForm
+                          siteCompleteData={siteCompleteData}
+                          customeruniqueId={customeruniqueId}
+                          projectuniqueId={projectuniqueId}
+                          setmodalFullOpen={setmodalFullOpen}
+                          setmodalOpen={setmodalOpen}
+                          mileStone={mileStone}
+                          myTaskPage={myTaskPage}
+                          filterView = {filterView}
+                        />
                     );
                     setmodalOpen(true);
                   } else {

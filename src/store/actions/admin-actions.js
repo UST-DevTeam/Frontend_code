@@ -49,7 +49,13 @@ import {
     GET_MANAGE_ADVANCE_TYPE_FILTER,
     GET_MANAGE_EXPENSE_TYPE_FILTER,
     GET_MANAGE_APPROVAL_LOGS,
-    GET_MANAGE_ADMIN_LOGS
+    GET_MANAGE_ADMIN_LOGS,
+    GET_ACTIVITY_AND_OEM_COMPLIANCE,
+    GET_SUB_PROJECT_TYPE_COMPLIANCE,
+    GET_PROJECT_TYPE_COMPLIANCE,
+    GET_ONE_COMPLIANCE_DY_FORM,
+    ADD_COMPLIANCE,
+
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
 
@@ -922,32 +928,6 @@ const AdminActions = {
         }
     },
 
-
-
-
-    
-    
-
-    
-
-   
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     getManageSubProjectType:(projecttypeuniqueId,reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.admin_sub_projecttype}/${projecttypeuniqueId}${args!=""?"?"+args:""}`, reset })
@@ -1005,15 +985,109 @@ const AdminActions = {
 
             }
 
+           
+        } catch (error) {
+            return;
+        }
+    },
 
+    // super admin compiliance starts  -----
 
+    getProjectTypeCompiliance: (reset = true, args = "", cid="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.projectTypeCompliance}/${cid}${args ? ("?" + args) : ""}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
 
+    getSubProjectTypeCompiliance: (reset = true, args = "",cid="", subType="",) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.subProjectTypeCompliance}/${cid}/${subType}${args ? ("?" + args) : ""}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_SUB_PROJECT_TYPE_COMPLIANCE({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
 
+    getActivityAndOemCompiliance: (reset = true, args = "", cid="", subProjectTypeId="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.activityAndOemCompliance}/${cid}/${subProjectTypeId}${args ? ("?" + args) : ""}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getCompiliance: (reset = true, args = "",) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.addComplianceForm}${args ? ("?" + args) : ""}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(ADD_COMPLIANCE({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    postCompiliance: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.addComplianceForm : Urls.addComplianceForm + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
 
+            }
+
+           
+        } catch (error) {
+            return;
+        }
+    },
+
+    patchCompiliance: (reset,uniqueId, data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ data: data, url: Urls.addComplianceForm+"/"+uniqueId , reset })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
             
         } catch (error) {
             return;
         }
     },
+
+    getOneComplianceDyform:(id,mstName,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_getOneCompliance}/${id}/${mstName}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ONE_COMPLIANCE_DY_FORM({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    
+
+    // super admin compiliance  ends -----
 }
 export default AdminActions;

@@ -723,6 +723,23 @@ td p {
   max-height: 150px; /* Optional: control the dropdown height */
 }
 
+.formCard-shadow {
+  background: rgb(255, 255, 255);
+  box-shadow: 20px 20px 100px rgb(134, 8, 29);
+  z-index: -1;
+  mix-blend-mode: multiply;
+  border-radius: 50%;
+  /* filter: blur(80px); */
+}
+
+.formCard-shadow-2 {
+  background-color: rgb(255, 255, 255);
+  box-shadow: -20px -20px 100px rgb(134, 8, 29);
+  z-index: -1;
+  mix-blend-mode: multiply;
+  border-radius: 50%;
+}
+
 
 
 

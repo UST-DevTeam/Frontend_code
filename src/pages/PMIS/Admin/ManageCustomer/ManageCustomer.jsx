@@ -316,7 +316,7 @@ const ManageCustomer = () => {
                     />
                   </>
                 )}
-                <div className="m-auto ">{itm["customerName"]}</div>
+                <div className="m-auto text-[16px] sm:text-[8px] md:text-[10px] xl:text-[16px]">{itm["customerName"]}</div>
               </div>
             </>
           );

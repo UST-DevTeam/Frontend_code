@@ -56,7 +56,8 @@ const CommonTableForm = ({
   oldList,
   rowId,
   name,
-  customeruniqueId
+  customeruniqueId,
+  page
 }) => {
   const [value, onChange] = useState(new Date());
   const [editing, setediting] = useState(false);
@@ -85,26 +86,12 @@ const CommonTableForm = ({
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState(true);
   const [selectFile, setSelectFile] = useState(false);
-  // const [selectedDate, setSelectedDate] = useState(true);
   newars["index"] = 1;
-  // const [listing, setlisting] = useState([]);
-
-  console.log(Form, newars, "FormFormForm");
 
 
-  // let listing = ["a", "b", "c", "b", "c", "b", "c"]
 
-  // useEffect(() => {
-  //   console.log("sadadasdsadsa", oldList)
-  //   // setlisting(tabHead,oldList)
 
-  //   dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: oldList, reseter: true }))
 
-  // }, [])
-
-  const dsadsa = (res) => {
-    console.log(res, "resresresresres");
-  };
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = tabHead;
@@ -136,31 +123,33 @@ console.log(newdte, "listinglistinglisting")
       <div className="sticky -top-[8px] z-[1000000]">
         <div className="w-full bg-[#2e3339] static ">
           <div className="w-full flex justify-end gap-1 bg-[#3e454d] sticky top-0 z-[1000000]">
-            <Button
-              name={"Bulk Upload"}
-              icon={""}
-              classes={"w-auto my-auto"}
-              onClick={() => {
-                console.log("dasdasdas");
+            {page !== "Compliance" && 
+              <Button
+                name={"Bulk Upload"}
+                icon={""}
+                classes={"w-auto my-auto"}
+                onClick={() => {
+                  console.log("dasdasdas");
 
-                setSelectFile(true);
-                // setlisting(prev => {
-                //   console.log(prev, "prevprevprev")
-                //   prev.push("")
-                //   return prev
-                // })
+                  setSelectFile(true);
+                  // setlisting(prev => {
+                  //   console.log(prev, "prevprevprev")
+                  //   prev.push("")
+                  //   return prev
+                  // })
 
-                // setedit(prev => !prev)
+                  // setedit(prev => !prev)
 
-                // setlisting(prev => {
-                //   const updatedListing = [...prev, ""];
-                //   console.log(updatedListing, "updatedListing");
-                //   return updatedListing;
-                // });
+                  // setlisting(prev => {
+                  //   const updatedListing = [...prev, ""];
+                  //   console.log(updatedListing, "updatedListing");
+                  //   return updatedListing;
+                  // });
 
-                // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: oldList, reseter: false }))
-              }}
-            />
+                  // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: oldList, reseter: false }))
+                }}
+              />
+            }
             <Button
               name={"Export"}
               icon={""}
@@ -230,19 +219,7 @@ console.log(newdte, "listinglistinglisting")
                 onClick={() => {
                   console.log("dasdasdas");
                   setedit((prev) => !prev);
-
-                  // setlisting(prev => {
-
-                  //   console.log({ ...newars, index: listing + 1 }, "newarsnewarsnewars")
-                  //   newars["index"] = listing.length + 1
-                  //   const updatedListing = [...prev, { ...newars }];
-                  //   console.log(updatedListing, "updatedListing");
-                  //   return updatedListing;
-
-                  // });
-
                   newars["index"] = listing.length + 1;
-
                   dispatch(
                     SET_DYNAMIC_FORM({
                       label: tabHead,

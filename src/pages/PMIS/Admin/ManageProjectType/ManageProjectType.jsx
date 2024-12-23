@@ -322,17 +322,15 @@ const   ManageProjectType = () => {
   ];
 
   const handleAddActivity = (res, sediting, targ, itm) => {
-    console.log(res, "sediting", sediting, "uniqueness", "handleAddActivity");
-
+  
     let newdata = {
       [targ]: res,
     };
 
     dispatch(
       AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {
-        // alert("done")
         sediting((prev) => !prev);
-        dispatch(AdminActions.getManageProjectType(customeruniqueId));
+        // dispatch(AdminActions.getManageProjectType(customeruniqueId));
       })
     );
   };
@@ -344,7 +342,6 @@ const   ManageProjectType = () => {
   );
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.adminData?.getManageProjectType;
     return interdata?.map((itm) => {
       let updateditm = {
@@ -385,12 +382,7 @@ const   ManageProjectType = () => {
                   // console.log(itm["t_sengg"], "setUniqueness")
                   setmodalHead("Templates");
 
-                  // [""].map((itesw)=>{
-
-                  //     console.log(itesw,"itm[itesw]itm[itesw]")
-
-                  //     // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: itm[itesw]?itm[itesw]:[], reseter: true }))
-                  // })
+       
                   dispatch(
                     SET_DYNAMIC_FORM({
                       label: "Site Engg",
@@ -419,9 +411,6 @@ const   ManageProjectType = () => {
                       reseter: true,
                     })
                   );
-
-                  console.log(itm, "setmodalHeadsetmodalHead");
-                  console.log(itm["uniqueId"], "setmodalHeadsetmodalHead");
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">
