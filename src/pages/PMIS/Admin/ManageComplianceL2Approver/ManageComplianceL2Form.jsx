@@ -6,8 +6,12 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
+import { GET_CURRENT_USER_PG } from "../../../../store/reducers/currentuser-reducer";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
+import { GET_ACTIVITY_AND_OEM_COMPLIANCE, GET_PROJECT_TYPE_COMPLIANCE, GET_SUB_PROJECT_TYPE_COMPLIANCE } from "../../../../store/reducers/admin-reducer";
+import HrActions from "../../../../store/actions/hr-actions";
 
-const ManageComplianceForm = ({
+const ManageComplianceL2Form = ({
   customeruniqueId,
   isOpen,
   setIsOpen,
@@ -23,16 +27,10 @@ const ManageComplianceForm = ({
 
   let dispatch = useDispatch();
 
-  console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue");
-
   const [modalOpen, setmodalOpen] = useState(false);
 
-  // let dispatch = useDispatch()
-  // let roleList = useSelector((state) => {
-  //     console.log(state, "state state")
-  //     return state?.adminManagement?.roleList
-  // })
-  const { customerList, projectTypes, subProjectTypes, activity, OEM } =
+  
+  const { customerList, projectTypes, subProjectTypes, activity,milestone } =
     useSelector((state) => {
       const customerList = state?.adminData?.getManageCustomer.map((itm) => {
         return {
@@ -65,17 +63,35 @@ const ManageComplianceForm = ({
         }
       ) || []
 
-      const OEM= state?.adminData?.getActivityAndOemCompliance.find(itm => itm.fieldName === "OEM NAME")?.dropdownValue.split(",").map(
+      const milestone= state?.adminData?.getActivityAndOemCompliance[0]?.MileStone?.map(
         (itm) => {
           return {
-            label: itm,
-            value: itm,
+            label: itm.fieldName,
+            value: itm.fieldName,
           };
         }
       ) || []
 
-      return { customerList, projectTypes, subProjectTypes, activity, OEM };
+      return { customerList, projectTypes, subProjectTypes, activity,milestone };
     });
+
+    let projectGroupList = useSelector((state) => {
+        return state?.currentuserData?.getcurrentuserPG.map((itm) => {
+          return {
+            label: itm.projectGroup,
+            value: itm.uniqueId,
+          };
+        });
+      });
+
+      let allEmployeeList = useSelector((state) => {
+        return state?.hrReducer?.getHRAllEmployee.map((itm) => {
+          return {
+            label: itm?.empName,
+            value: itm.uniqueId,
+          };
+        });
+      });
 
 
   let Form = [
@@ -88,6 +104,7 @@ const ManageComplianceForm = ({
       option: customerList,
       props: {
         onChange: (e) => {
+        dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${e.target.value}`,1))
           const cid = e.target.value;
           complainceRef.current.cid = cid;
           dispatch(AdminActions.getProjectTypeCompiliance(true, "", cid));
@@ -95,7 +112,19 @@ const ManageComplianceForm = ({
       },
       classes: "col-span-1",
     },
-
+    {
+        label: "Project Group",
+        name: Object.entries(formValue).length > 0 ? "projectGroupId" : "projectGroup",
+        type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+        value: "",
+        option: projectGroupList,
+        props: {
+          onChange: (e) => {
+          },
+        },
+        required: true,
+        classes: "col-span-1",
+    },
     {
       label: "Project Type",
       name: "projectType",
@@ -154,30 +183,23 @@ const ManageComplianceForm = ({
       classes: "col-span-1",
     },
     {
-      label: "OEM",
-      name: "oem",
-      type: "select",
-      value: "",
-      props: {
-        onChange: (e) => {},
-      },
-      option: OEM,
-      required: true,
-      classes: "col-span-1",
-    },
-    {
       label: "Milestone",
       name: "complianceMilestone",
       type: "select",
       value: "",
-      option: [
-        { label: "PAT", value: "PAT" },
-        { label: "SAT", value: "SAT" },
-        { label: "KAT", value: "KAT" },
-        { label: "SURVEY", value: "SURVEY" },
-        { label: "DISMANTLE", value: "DISMANTLE" },
-        { label: "MATERIAL", value: "MATERIAL" },
-      ],
+      option: milestone,
+      props: {
+        onChange: (e) => {},
+      },
+      required: true,
+      classes: "col-span-1",
+    },
+    {
+      label: "L2 Approver",
+      name: "empApprover",
+      type: "newSingleSelect45",
+      value: "",
+      option: allEmployeeList,
       props: {
         onChange: (e) => {},
       },
@@ -202,43 +224,45 @@ const ManageComplianceForm = ({
     // }))
   };
   const onTableViewSubmit = (data) => {
+    data['approverType'] = "L2Approver"
     if (formValue?.uniqueId) {
       dispatch(
-        AdminActions.postCompiliance(
+        AdminActions.postComplianceApprover(
           true,
           data,
           () => {
             setIsOpen(false);
-            dispatch(AdminActions.getCompiliance());
+            dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`));
           },
           formValue?.uniqueId
         )
       );
     } else {
       dispatch(
-        AdminActions.postCompiliance(true, data, () => {
+        AdminActions.postComplianceApprover(true, data, () => {
           setIsOpen(false);
-          dispatch(AdminActions.getCompiliance());
+          dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`));
 
         })
       );
     }
   };
-  console.log(Form, "Form 11");
   useEffect(() => {
-    dispatch(AdminActions.getCompiliance());
     dispatch(AdminActions.getManageCustomer());
+    dispatch(HrActions.getHRAllEmployee());
+    dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
+    dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
+    dispatch(GET_SUB_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
+    dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll:[], reset:true }))
 
-    // alert(resetting)
+
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
-        console.log(fieldName, "fieldNamefieldNamefieldName");
         setValue(fieldName["name"], fieldName["value"]);
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
           console.log("date formValuekey", key.name, formValue[key.name]);
@@ -294,4 +318,4 @@ const ManageComplianceForm = ({
   );
 };
 
-export default ManageComplianceForm;
+export default ManageComplianceL2Form;

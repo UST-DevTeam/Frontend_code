@@ -1,12 +1,12 @@
 import recat, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import AdminActions from '../../store/actions/admin-actions'
-import { Urls } from '../../utils/url'
+import AdminActions from "../../../../store/actions/admin-actions";
+import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
 import ReactDOM from 'react-dom'
-import CommonForm from '../CommonForm'
-import Button from '../Button'
+import CommonForm from "../../../../components/CommonForm";
+import Button from "../../../../components/Button";
 import { useForm } from 'react-hook-form'
-import Modal from '../Modal'
+import Modal from "../../../../components/Modal";
 
 const FormCard = ({ sIndex }) => {
   const dispatch = useDispatch()
@@ -218,7 +218,7 @@ const ManageSnap = () => {
     const data = state.adminData?.getCompiliance?.snap
     if (Array.isArray(data)) return data
     return []
-  }) || [
+  }).length || [
       {
         _id: "",
         for: "S1",
@@ -293,7 +293,7 @@ const ManageSnap = () => {
 
   return (
     <div className='grid grid-cols-2 content-start md:grid-cols-4 gap-4 py-6 p-4 !overflow-y-scroll'>
-      {snapData.lenth ? snapData.map(item => {
+      {snapData.length ? snapData.map(item => {
         const sIndex = item.for
         return (
           <>

@@ -55,6 +55,7 @@ import {
     GET_PROJECT_TYPE_COMPLIANCE,
     GET_ONE_COMPLIANCE_DY_FORM,
     ADD_COMPLIANCE,
+    GET_COMPLIANCE_APPROVER,
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -1083,6 +1084,38 @@ const AdminActions = {
             let dataAll = res?.data?.data
             dispatch(GET_ONE_COMPLIANCE_DY_FORM({dataAll,reset}))
         } catch (error) {
+        }
+    },
+
+    getComplianceApprover:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_getComplianceapprover}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_COMPLIANCE_APPROVER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postComplianceApprover: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_getComplianceapprover : Urls.admin_getComplianceapprover + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+
+           
+        } catch (error) {
+            return;
         }
     },
 

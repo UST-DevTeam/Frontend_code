@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Select from "react-select"; // Import react-select for select box with search
+import Select from "react-select";
 
 const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
   const [selectedValue, setSelectedValue] = useState(null);
@@ -23,7 +23,6 @@ const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
     }
   };
 
-  // Custom styles for white background and gray text
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -52,6 +51,10 @@ const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
       ...provided,
       backgroundColor: "white",
     }),
+    menuPortal: (provided) => ({
+      ...provided,
+      zIndex: 1050,
+    }),
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isFocused ? "#f0f0f0" : "white",
@@ -68,7 +71,7 @@ const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
         options={itm.option} // Dynamic options passed as props
         placeholder="Select"
         isClearable={true} // Optional clear option
-        styles={customStyles} // Apply custom styles
+        styles={customStyles} 
         // className="pt-1 bg-white block h-max rounded-md py-1.5 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       className="rounded-md text-white-900 shadow-lg focus:shadow-indigo-500/30 ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />

@@ -97,6 +97,8 @@ import AdminLogs from "../pages/PMIS/HR/ActivityLogs/AdminLogs";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import AccuralRevenueMaster from "../pages/PMIS/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
 import ManageCompliance from "../pages/PMIS/Admin/ManageCompliance/ManageCompliance";
+import ManageComplianceL1 from "../pages/PMIS/Admin/ManageComplianceL1Approver/ManageComplianceL1";
+import ManageComplianceL2 from "../pages/PMIS/Admin/ManageComplianceL2Approver/ManageComplianceL2";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -316,6 +318,12 @@ export const Sidebar_content = {
       link: "/vendorForm",
       subMenu: [],
       component: <ManageVendorForm />,
+    },
+    {
+      name: "",
+      link: "/home/approverCards",
+      subMenu: [],
+      component: <ApproverCards />,
     },
     {
       name: "",
@@ -673,6 +681,20 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/compliance",
       component: <ManageCompliance />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/complianceL1Approver",
+      component: <ManageComplianceL1 />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/complianceL2Approver",
+      component: <ManageComplianceL2 />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer"/>,
       subMenu: [],
     },

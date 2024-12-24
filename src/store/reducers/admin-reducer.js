@@ -54,6 +54,7 @@ const initialState = {
     getActivityAndOemCompliance: [],
     getOneComplianceDyform:[],
     getCompiliance:[],
+    getComplianceApprover:[],
 }
 
 const adminData = createSlice({
@@ -458,6 +459,14 @@ const adminData = createSlice({
                 state.getOneComplianceDyform  = [...state.getOneComplianceDyform,...payload.dataAll]
             }
         },
+
+        GET_COMPLIANCE_APPROVER:(state,{payload}) => {
+            if(payload.reset){
+                state.getComplianceApprover = payload.dataAll
+            }else{
+                state.getComplianceApprover  = [...state.getComplianceApprover,...payload.dataAll]
+            }
+        },
     }
 })
 
@@ -516,6 +525,7 @@ export const {
     GET_PROJECT_TYPE_COMPLIANCE,
     ADD_COMPLIANCE,
     GET_ONE_COMPLIANCE_DY_FORM,
+    GET_COMPLIANCE_APPROVER,
 
 
 } = adminData.actions

@@ -231,6 +231,7 @@ export const Urls={
     subProjectTypeCompliance: "/admin/projectSubType",
     activityAndOemCompliance: "/admin/projectSubTypeFieldName",
     addComplianceForm: "/admin/addComplianceForm",
+    admin_getComplianceapprover:"/admin/addComplianceApprover",
     // super admin compiliance  ends -----
 
 }

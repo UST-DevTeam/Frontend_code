@@ -13,17 +13,19 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
-import ManageComplianceL1Form from './ManageComplianceL1Form';
+import ManageComplianceL2Form from './ManageComplianceL2Form';
 
-const ManageComplianceL1 = () => {
+const ManageComplianceL2 = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     const [fileOpen, setFileOpen] = useState(false)
 
+
     let dispatch = useDispatch()
   
+
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getComplianceApprover
         return interdata?.map((itm) => {
@@ -39,13 +41,13 @@ const ManageComplianceL1 = () => {
                 //     }, itm.id))
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
-
+                
                 // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                 //     setmodalOpen(true)
                 //     dispatch(AdminActions.getComplianceApprover())
                 //     setmodalHead("Edit")
                 //     setmodalBody(
-                //         <ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                //         <ManageComplianceL2Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                 //     )
                 // }}></EditButton>} />,
                 
@@ -56,11 +58,12 @@ const ManageComplianceL1 = () => {
                         buttons: [
                             <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_getComplianceapprover}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getComplianceApprovertrue,`approverType=L1Approver`())
+                                    dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`))
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-auto' onClick={() => {
+                                console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],
@@ -124,7 +127,7 @@ const ManageComplianceL1 = () => {
                 style: "min-w-[100px] max-w-[200px] text-center",
             },         
             {
-                name: "L1 Approver",
+                name: "L2 Approver",
                 value: "approverName",
                 style: "min-w-[120px] max-w-[200px] text-center",
             },         
@@ -159,7 +162,7 @@ const ManageComplianceL1 = () => {
         dispatch(AdminActions.getComplianceApprover(value, objectToQueryString(data)))
     }
     useEffect(() => {
-        dispatch(AdminActions.getComplianceApprover(true,`approverType=L1Approver`))
+        dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`))
     }, [])
 
     const onTableViewSubmit = (data) => {
@@ -176,16 +179,10 @@ const ManageComplianceL1 = () => {
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("New Compliance L1 Approver")
-                setmodalBody(<ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalHead("New Compliance L2 Approver")
+                setmodalBody(<ManageComplianceL2Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Compliance L1"}></Button>
-                {/* <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
-                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
-                    dispatch(CommonActions.commondownload("/export/manageCostCenter","Export_Cost_Center.xlsx"))
-                }}></Button> */}
+                name={"Add Compliance L2"}></Button>
                 </div>}
             table={table}
             filterAfter={onSubmit}
@@ -197,7 +194,7 @@ const ManageComplianceL1 = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {"Total L1 Compliance :- "}
+            heading = {"Total L2 Compliance :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
@@ -207,4 +204,4 @@ const ManageComplianceL1 = () => {
 
 };
 
-export default ManageComplianceL1;
+export default ManageComplianceL2;

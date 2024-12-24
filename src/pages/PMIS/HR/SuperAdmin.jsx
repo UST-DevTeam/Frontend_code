@@ -372,6 +372,20 @@ const SuperAdmin = () => {
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
+          [
+            "Compliance L1 Approver",
+            "bg-pcol",
+            "/hr/superAdmin/complianceL1Approver",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Compliance L2 Approver",
+            "bg-pcol",
+            "/hr/superAdmin/complianceL2Approver",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
         ].map((itm) => {
           return (
             <>

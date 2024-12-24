@@ -134,6 +134,10 @@ const BreadCrumbs = () => {
       "name":"Approval",
       "url":"/home/approverCards",
     },
+    "parentApproverCards":{
+      "name":"Approval",
+      "url":"home/parentApproverCards",
+    },
     "vendor":{
       "name":"Partner",
       "url":"/vendor",
