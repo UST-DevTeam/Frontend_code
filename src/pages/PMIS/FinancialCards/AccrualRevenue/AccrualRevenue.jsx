@@ -464,13 +464,8 @@ const AccrualRevenue = () => {
             }
         });
         cols = cols.flat(Infinity);
-        console.log("cols_cols_____", cols);
 
         setNewColumns(cols);
-
-        // setValue('year',`${year}`)
-        // setValue('typeSelectional',"Monthly")
-        // setValue('viewBy',`${extraColumns.map(i=> `${i}`)}`)
     }, [extraColumns]);
 
     const handleAddActivity = (res) => {

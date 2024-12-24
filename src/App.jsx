@@ -57,6 +57,7 @@ function App() {
   window.addEventListener('popstate',function(event){
     console.log("backaddEventListeneraddEventListener")
   })
+
   return (
     <main className="flex h-screen overflow-hidden  justify-center">
       {locdata.pathname != "/login" && <WebSocketClient />}
@@ -109,47 +110,9 @@ function App() {
       ) : (
         <></>
       )}
-      {/* <div className='flex-1'>
-                    <BIDashboard />
-                </div> */}
-      {/* </div> */}
-      {/* <div class="flex-1 bg-white p-4"> */}
-      {/* <Layout child={<DBConfig />} /> */}
-      {/* </div> */}
-      {/* </div> */}
-      {/* <div className='grid grid-cols-12'>
-                <div className='bg-red-900 col-span-2'>  
-                </div>
-                <div className='bg-blue-900 col-span-10'>
-                    hiii
-                </div>
-            </div> */}
-      {/* <Modal size={"xl"} children={<>Hello</>} isOpen={sidebarOpen} setIsOpen={setsidebarOpenn}/> */}
-      {/* <Layout child={<RunQuery />}/> */}
-      {/* <CommonForm/> */}
-      {/* <Routes>
-                <Route path='/login' element={<Login />} />
-                <Route path='/' element={1==2} >
-                    <Route path='/' element={<Layout child={<DataPlusAnalytics />} />} />
-                    <Route path='/dataPlusAnaltyics' element={<Layout child={<DataPlusAnalytics />} />} />
-                    <Route path='/laverView' element={<Layout child={<LaverView />} />} />
-                    <Route path='/custom_query/run_query' element={<Layout child={<RunQuery />} />} />
-                </Route>
-
-            </Routes> */}
-
-      {/* <QueryBuilderComponent/> */}
-
       <SweetAlerts />
-
       <Loaders />
     </main>
-
-    // <div className="min-h-screen min-w-screen">
-    // <div>
-
-    //     {/* <Login/> */}
-    // </div>
   );
 }
 

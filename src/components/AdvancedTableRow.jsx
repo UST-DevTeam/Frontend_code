@@ -87,9 +87,6 @@ const AdvancedTableRow = ({
     setActivedFilter({});
   }, [tableName]);
 
-  // const [filterVisiblity, setfilterVisiblity] = useState(false)
-  console.log("fasodfjanflasdfnaifaewasdf",data.length);
-  console.log("asdfamarnathadfasfasdfadfs",activeFilter);
   return (
     <>
       <div className="absolute left-0 right-0 flex-col">

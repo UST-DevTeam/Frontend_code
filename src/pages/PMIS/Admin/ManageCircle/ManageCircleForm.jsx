@@ -93,14 +93,9 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         getValues,
         formState: { errors },
     } = useForm()
-    const onSubmit = (data) => {
-        console.log(data)
-        // dispatch(AuthActions.signIn(data, () => {
-        //     navigate('/authenticate')
-        // }))
-    }
+
+
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageCircle(true, data, () => {
                 setIsOpen(false)

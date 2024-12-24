@@ -52,10 +52,12 @@ const ProjectTypeUnbilled = () => {
     return state?.GraphData?.getProjectTypeUnbilledGraph || [];
   });
 
+  const total = GraphData.reduce((sum, item) => sum + item.count, 0);
+
   const seriesData = [
     {
-        name: "Count",
-        data: GraphData?.map(item => item.count) ||[],
+        name: "Amount",
+        data: GraphData?.map(item => item.count) || [],
     },
   ];
 
@@ -112,9 +114,16 @@ const ProjectTypeUnbilled = () => {
   ]
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-         <div className="text-center mb-4">
+      <div className="w-full flex justify-between items-center">
+        <div className="flex">
+          <p className="text-[#f4d3a8] font-semibold whitespace-nowrap px-1">Total Amount:</p>
+          <p className="text-[#E6BE8A] font-bold">{total}L</p>
+        </div>
+        <div className="text-center flex-1 mr-32">
             <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Project Type Unbilled</h1>
         </div>
+      </div>
+         
         <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
           <NewSingleSelect
@@ -146,7 +155,7 @@ const ProjectTypeUnbilled = () => {
             ></Button>
           </div>
         </div>
-        <BarGraph data={GraphData} headerName={"Project_Type_Unbilled"} seriesData={seriesData} horizontal={false}  columnWidth='50%' />
+        <BarGraph data={GraphData} headerName={"Project_Type_Unbilled"} seriesData={seriesData} horizontal={false} dataLabelSuffix="L" columnWidth='50%' />
     </div>
   );
 };

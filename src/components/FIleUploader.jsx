@@ -51,13 +51,7 @@ const FileUploader = ({ isOpen, setIsOpen,fileUploadUrl,onTableViewSubmit,tempbt
                     setValue={setValue}
                     getValues={getValues}
                 />
-                
-             
-                
                 {<Button classes={"w-auto mx-auto mb-2 py-1 font-extrabold px-50 py-5 text-[16px]"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />}
-        
-
-                
             </>
         } isOpen={isOpen} setIsOpen={setIsOpen} />
 

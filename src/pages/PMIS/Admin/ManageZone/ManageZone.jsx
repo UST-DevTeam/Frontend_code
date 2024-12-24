@@ -165,14 +165,12 @@ const ManageZone = () => {
         ]
     }
     const onSubmit = (data) => {
-        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
         dispatch(AdminActions.getManageZone(value, objectToQueryString(data)))
     }
     useEffect(() => {
         dispatch(AdminActions.getManageZone())
-        // dispatch(OperationManagementActions.getRoleList())
     }, [])
 
     const onTableViewSubmit = (data) => {

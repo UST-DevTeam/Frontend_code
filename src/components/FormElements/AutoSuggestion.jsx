@@ -6,7 +6,6 @@ const AutoSuggestion = ({ itm, errors, handleSubmit, setValue, getValues, regist
     const [value, onChange] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(true);
 
-    console.log(itm?.option,"AutoSuggestionAutoSuggestion")
     return <>
         <input type={"text"}
             disabled={itm.disabled ? true : false}

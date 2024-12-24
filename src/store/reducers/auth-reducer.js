@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
     authenticated: Boolean(JSON.parse(localStorage.getItem('authenticated'))),
     user: JSON.parse(localStorage.getItem('user')) || null,
@@ -36,18 +35,15 @@ const auth = createSlice({
         ALL_COUNTRIES:(state, { payload }) => {
             state.countries = payload.dataAll
         },
-        AGREEMENT:(state, { payload }) => {
-            state.agreementText = payload.dataAll
-        },
         
         RESET_STATE: (state) => {
             state.authenticated = false;
             state.user = null;
             state.token = null;
             state.permission = null;
-          }
+        }
     }
 })
 
-export const { SET_USER, SET_TOKEN, SET_AUTHENTICATED,SET_PERMISSION,SET_USER_ROLE,USERS_PROFILE, RESET_STATE,SET_USER_BUSINESS,ALL_COUNTRIES,AGREEMENT } = auth.actions
+export const { SET_USER, SET_TOKEN, SET_AUTHENTICATED,SET_PERMISSION,SET_USER_ROLE,USERS_PROFILE, RESET_STATE,SET_USER_BUSINESS,ALL_COUNTRIES } = auth.actions
 export default auth.reducer

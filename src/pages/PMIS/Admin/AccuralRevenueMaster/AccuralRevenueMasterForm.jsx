@@ -37,7 +37,6 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
           return {
             label: itm?.projectId,
             value: itm?.project,
-            
           };
         });
       });

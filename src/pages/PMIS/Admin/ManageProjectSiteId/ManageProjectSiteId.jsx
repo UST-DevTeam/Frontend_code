@@ -2,37 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
-import ManageProjectGroupForm from "../ManageProjectGroup/ManageProjectGroupForm";
-import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
 import PopupMenu from "../../../../components/PopupMenu";
 import {getAccessType,objectToQueryString,parseTwoDigit} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import ManageProjectSiteIdForm from "./ManageProjectSiteIdForm";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import AdvancedTableExpandable from "../../../../components/AdvancedTableExpandable";
 import AllocateProjectForm from "./AllocateProjectForm";
-import AllocateProjectDateForm from "./AllocateProjectDateForm";
 import SearchBarView from "../../../../components/SearchBarView";
-import ManageSite from "../ManageSite/ManageSite";
-import EditingManageSite from "../ManageSite/EditingManageSite";
 import ManageMilestoneSite from "../ManageSite/ManageMilestoneSite";
 import ProgressBar from "../../../../components/ProgressBar";
 import { onehundcolor } from "../../../../utils/queryBuilder";
-import Tooltip from "../../../../components/Tooltip";
 import ConditionalButton from "../../../../components/ConditionalButton";
-import NewLookBadge from "../../../../components/Badge";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
@@ -42,16 +32,12 @@ import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectList-reducer";
 
 const ManageProjectSiteId = () => {
+
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
-  // console.log(permission?.pmpermission,"permission")
-  // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
 
-  // console.log(getAccessType("Add Site"), "getAccessType");
   const { proId,projectuniqueId } = useParams();
-
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false)
@@ -59,23 +45,14 @@ const ManageProjectSiteId = () => {
   const [fileType, setfileType] = useState("");
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
-
   const [bulkfileOpen, setbulkfileOpen] = useState(false);
-
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
   const [parentsite, setparentsite] = useState([]);
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
-
-
-
-
-
-
   const [modalHead, setmodalHead] = useState(<></>);
-
   const [old, setOld] = useState(<></>);
   const navigate = useNavigate();
 
@@ -89,7 +66,9 @@ const ManageProjectSiteId = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
   let dispatch = useDispatch();
+
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub;
     if (old["_id"] != oldata["_id"]) {
@@ -127,46 +106,11 @@ const ManageProjectSiteId = () => {
   });
 
 
-
-  
-
-  // const onTaskSubmit = (data) => {
-  //     // if (siteStatus.uniqueId) {
-
-  //     //     dispatch(projectListActions.postProjectTypeAll(data))
-  //     // }
-  //     // console.log(data, "datadata")
-  //     // dasdsadsadasdas
-  //     if (data.uniqueId) {
-  //         dispatch(projectListActions.postProjectTypeAll(true, data, () => {
-  //             console.log("CustomQueryActions.postDBConfig")
-  //             setIsOpen(false)
-  //             // dispatch(AdminActions.getManageDepartment())
-  //         }, data.uniqueId))
-  //     } else {
-  //         dispatch(projectListActions.postProjectTypeAll(true, data, () => {
-  //             console.log("CustomQueryActions.postDBConfig")
-  //             setIsOpen(false)
-  //             // dispatch(AdminActions.getManageDepartment())
-  //         }))
-  //     }
-  // }
-
-
   let dbConfigL = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
     return interdata;
   });
 
-  // let milestoneEventLogsData = useSelector((state) => {
-  //   let interdata = state?.eventlogsReducer?.milestoneeventList || [];
-  //   return interdata;
-  // });
-
-  // let sitelogsEventLogsData = useSelector((state) => {
-  //   let interdata = state?.eventlogsReducer?.siteeventList || [];
-  //   return interdata;
-  // });
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
@@ -822,6 +766,7 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
@@ -830,34 +775,6 @@ const ManageProjectSiteId = () => {
       }
     }) || [];
 
-  let milestoneLogsTable = {
-    columns: [
-      {
-        name: "Site Id",
-        value: "SiteId",
-        style: "min-w-[50px] max-w-[100px] text-center",
-      },
-      {
-        name: "Email",
-        value: "email",
-        style: "min-w-[50px] max-w-[200px] text-center",
-      },
-      {
-        name: "Time & Date ",
-        value: "UpdatedAt",
-        style: "min-w-[80px] max-w-[200px] text-center",
-      },
-      {
-        name: "Updated Data",
-        value: "updatedData",
-        style: "min-w-[50px] max-w-[300px] text-center",
-      },
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [],
-  };
   let table = {
     columns: [
       {
@@ -894,8 +811,7 @@ const ManageProjectSiteId = () => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "Sub Project",
@@ -942,7 +858,6 @@ const ManageProjectSiteId = () => {
         value: "siteStatus",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-
       {
         name: "Billing Status",
         value: "siteBillingStatus",
@@ -1048,6 +963,7 @@ const ManageProjectSiteId = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
+
     filter: [
       {
           label: "Site ID",
@@ -1085,6 +1001,7 @@ const ManageProjectSiteId = () => {
       }
     ],
   };
+
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
@@ -1092,6 +1009,7 @@ const ManageProjectSiteId = () => {
     setstrVal(strVal)
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
   };
+
   useEffect(() => {
     dispatch(projectListActions.getProjectType(projectuniqueId,true,0));
     dispatch(projectListActions.getCircleWithPGData(projectuniqueId,true,0));
@@ -1099,8 +1017,8 @@ const ManageProjectSiteId = () => {
     dispatch(projectListActions.getMappedData(projectuniqueId,true,0));
     dispatch(FilterActions.getSiteSubProject(projectuniqueId,true,"",0));
   }, []);
+
   const handleBulkDelte = () => {
-   
     dispatch(CommonActions.deleteApiCallerBulk(`${Urls.projectList_siteEngineer}`,{ids: parentsite},
         () => {
           dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
@@ -1119,7 +1037,6 @@ const ManageProjectSiteId = () => {
   }
 
   const onTableViewSubmit = (data) => { 
-
       data["fileType"]=fileType
       let makeurl  = `${Urls.common_update_site_milestone}${"/"+ projectuniqueId}`
       dispatch(CommonActions.fileSubmit(makeurl, data, () => {
@@ -1127,6 +1044,7 @@ const ManageProjectSiteId = () => {
           setFileOpen(false)
       }))
   }
+
   const onBulkUploadSite = (data, projectuniqueId) => {
     let makeUrl = `${Urls.upload_bulk_site_one_project}${"/" + projectuniqueId }`;
     dispatch(
@@ -1140,8 +1058,8 @@ const ManageProjectSiteId = () => {
   return (
     <>
       <AdvancedTableExpandable
-      parentsite={parentsite}
-      childsite={childsite}
+        parentsite={parentsite}
+        childsite={childsite}
         searchView={
           <>
             <SearchBarView
@@ -1388,17 +1306,22 @@ const ManageProjectSiteId = () => {
         isOpen={fileOpen}
         fileUploadUrl={""}  
         onTableViewSubmit={onTableViewSubmit}
-
         tempbtn={fileOpenlink.length!=0}
         tempbtnlink={fileOpenlink}
-        
         setIsOpen={setFileOpen}
       />
-      <FileUploader isOpen={bulkfileOpen} fileUploadUrl={""} onTableViewSubmit={(data) => {
+      <FileUploader 
+        isOpen={bulkfileOpen} 
+        fileUploadUrl={""} 
+        onTableViewSubmit={(data) => {
           onBulkUploadSite(data, projectuniqueId );
           setbulkfileOpen(false)
           resetting("")
-        }} setIsOpen={setbulkfileOpen} tempbtn={true} tempbtnlink = {[`/template/OneProject/${projectuniqueId}`,`Template (${proId}).xlsx`]} />
+        }} 
+        setIsOpen={setbulkfileOpen} 
+        tempbtn={true} 
+        tempbtnlink = {[`/template/OneProject/${projectuniqueId}`,`Template (${proId}).xlsx`]} 
+      />
     </>
   );
 };

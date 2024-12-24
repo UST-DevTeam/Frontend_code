@@ -1,16 +1,14 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
-import { SET_AUTHENTICATED, SET_PERMISSION, SET_TOKEN, SET_USER, USERS_PROFILE, SET_USER_ROLE,SET_USER_BUSINESS,ALL_COUNTRIES, AGREEMENT } from "../reducers/auth-reducer"
+import { SET_AUTHENTICATED, SET_PERMISSION, SET_TOKEN, SET_USER, USERS_PROFILE, SET_USER_ROLE,SET_USER_BUSINESS,ALL_COUNTRIES, } from "../reducers/auth-reducer"
 import { ALERTS } from "../reducers/component-reducer"
-// import Notify from "./notify-actions"
+
 const AuthActions = {
+
     signIn: (data, cb) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin")
             const res = await Api.post({ url: Urls.login, data })
-            console.log(res?.status, "res?.statusres?.status")
             if (res?.status == 400) {
-                console.log(res?.data, "401401401")
                 let msgdata = {
                     show: true,
                     icon: 'error',
@@ -21,10 +19,7 @@ const AuthActions = {
                 return
             }
             if (res?.status == 200) {
-                console.log(res.data, "res.data")
                 const user = res.data.data
-                console.log(user, user, "res.data")
-                console.log(res.data, "res.data")
                 localStorage.setItem('user', JSON.stringify(user))
                 localStorage.setItem('token', user.idToken)
                 localStorage.setItem('permission', JSON.stringify(user.permissions))
@@ -56,8 +51,6 @@ const AuthActions = {
             cb()
         } catch (error) {
             console.log(error, "shubham errorerror 69")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     businessRegister: (data, cb) => async (dispatch, _) => {
@@ -133,7 +126,6 @@ const AuthActions = {
             }
         } catch (error) {
             console.log(error, "shubham errorerror 69")
-            //dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     kycregiter: (data, cb, failcb) => async (dispatch, _) => {
@@ -160,8 +152,6 @@ const AuthActions = {
             }
         } catch (error) {
             console.log(error, "shubham errorerror 69")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     profile: () => async (dispatch, _) => {
@@ -197,15 +187,11 @@ const AuthActions = {
             }
         } catch (error) {
             console.log(error, "shubham errorerror 69")
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     postProfile: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             console.log("AuthActions.signin", uniqueId)
-            // if(reset){
-            //     dispatch(GENERATED_SQL_QUERY({}))
-            // }
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.profile : Urls.profile })
             console.log(res, 'jsjjjsjh')
             dtaa=res?.data
@@ -214,24 +200,15 @@ const AuthActions = {
             cb()
         } catch (error) {
             console.log(error, "shubham errorerror 69")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     postProfileDocuments: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", uniqueId)
-            // if(reset){
-            //     dispatch(GENERATED_SQL_QUERY({}))
-            // }
             const res = await Api.put({ data: data, url: uniqueId == null ? Urls.profile : Urls.profile, contentType: "multipart/form-data" })
-            console.log(res, 'jsjjjsjh')
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
             console.log(error, "shubham errorerror 69")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
 
@@ -242,19 +219,6 @@ const AuthActions = {
             if (res?.status !== 200) return
             const dataAll = res?.data?.data[0]
             dispatch(ALL_COUNTRIES({ dataAll }))
-        } catch (error) {
-            console.log(error, "shubham errorerror 69")
-        }
-    },
-
-    
-    getAgreement: (roleName) => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url: Urls.agreement_byrole+roleName })
-            console.log(res,'sjjdjdjhdhdh')
-            if (res?.status !== 200) return
-            const dataAll = res?.data?.data[0]
-            dispatch(AGREEMENT({ dataAll }))
         } catch (error) {
             console.log(error, "shubham errorerror 69")
         }

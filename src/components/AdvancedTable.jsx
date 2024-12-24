@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import PopupMenu from "./PopupMenu";
-import { current } from "@reduxjs/toolkit";
 import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
-import { UilFilter } from "@iconscout/react-unicons";
 import Modalmoreinfo from "./Modalmoreinfo";
 import Modal from "./Modal";
-import DatePicker from "react-datepicker";
 import { getAccessType, objectToArray } from "../utils/commonFunnction";
-import moment from "moment";
 import FilterView from "./FilterView";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import CommonActions from "../store/actions/common-actions";
 import ConditionalButton from "./ConditionalButton";
 import ComponentActions from "../store/actions/component-actions";
-import { Urls } from '../utils/url';
-import HrActions from "../store/actions/hr-actions";
 
 
 

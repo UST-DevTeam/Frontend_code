@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { UilMultiply } from '@iconscout/react-unicons'
 import { parseTwoDigit } from '../utils/commonFunnction';
@@ -12,7 +10,6 @@ const ProgressBar = ({ text,percent, notifyType }) => {
         "success": ["bg-green-700", "bg-pcol"],
         "info": ["bg-blue-900", "bg-blue-500"]
     }
-    // console.log(notifyType, "notifyType colorList", colorList)
     return <div class="w-[84%] relative bg-gray-200 rounded-full h-5 dark:bg-gray-700 m-2">
         <div className='flex absolute w-full justify-center'>
             <p className='text-center text-black font-bold m-1'>{text}</p>

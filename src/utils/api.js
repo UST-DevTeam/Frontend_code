@@ -75,7 +75,6 @@ axiosInstanceblobFile.interceptors.response.use((response) => {
             window.location.href = '/login';
         }))
     }
-    // store.dispatch(ComponentActions.loaders(false))
 
     return error?.response
 })

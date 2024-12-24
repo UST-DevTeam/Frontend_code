@@ -124,20 +124,6 @@ const AdminManagementActions = {
         }
     },
 
-    getAgreementList: (reset=true,args="") => async (dispatch, _) => {
-        try {
-            console.log("AuthActions.signin")
-            const res = await Api.get({ url: `${Urls.agreementl}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            console.log(res.data, "res.data")
-            const dataAll = res.data.data
-            dispatch(AGREEMENT_LIST({dataAll,reset}))
-        } catch (error) {
-            console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
-        }
-    },
     
 
     postAgreement: (reset, data, cb, uniqueId) => async (dispatch, _) => {

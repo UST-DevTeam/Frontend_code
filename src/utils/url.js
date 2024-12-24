@@ -1,10 +1,6 @@
-
-// export const baseUrl="https://pmisapi.mcpsinc.com"
-// export const backendassetUrl="https://pmisapi.mcpsinc.com/" 
-
-
 export const baseUrl="https://api.mcpspmis.com"
 export const backendassetUrl="https://api.mcpspmis.com/" 
+
 
 
 // export const baseUrl="http://localhost:7980"
@@ -92,10 +88,7 @@ export const Urls={
     finance_poworkdone_based:"/finance/poWorkdoneBased",
     finance_poworkdone_itemCode:"/finance/commercial",
     finance_poworkdone_dashboard:"/finance/poTrackingWorkdone",
-    // finance_poaccrual_revenue:"/finance/accrualRevenue",
     finance_poaccrual_revenue:"/finance/accrualRevenue",
-
-
 
     projectEvent:"/projectEventLog",
     siteEventLog:"/siteEventLog",
@@ -146,8 +139,6 @@ export const Urls={
     expAdv_user_limit:"/expenses/userLimit",
     admin_claim_type_Expenses:"/expenses/expensesClaimType",
     admin_claim_type_Advances:"/expenses/AdvanceClaimType",
-
-
 
     ///Activity Logs
     approval_Logs:"/Approval/Logs",
@@ -223,7 +214,6 @@ export const Urls={
     current_user_circle_projectId:"/currentuser/Circle/projectId",
     current_user_cost_center:'/currentuser/CostCenter',
 
-    // vishal
 
 }
 
