@@ -29,28 +29,10 @@ const TableRow = ({ data, columns, editing, tabHead, indexing, className }) => {
         }
         <td>
             <RoundedButton onClick={() => {
-                // tabHead
-                // setlisting(prev => {
-                //     prev.pop()
-                //     console.log(prev, "prevprevprev")
-                //     return [...prev]
-                // })
-
                 dispatch(SET_DYNAMIC_RM_INDEX({ label: tabHead, indexToUpdate: indexing, reseter: false }))
-
             }} icon={<UilTimes />} />
 
         </td>
-
-        {/* <td><input className='border-2 border-black' type='text' /></td>
-        <td><input className='border-2 border-black' type='text' /></td>
-        <td><input className='border-2 border-black' type='text' /></td>
-        <td><select className='border-2 border-black'>
-            <option>Text</option>
-            <option>File</option>
-            <option>Select</option>
-        </select></td>
-        <td><input className='border-2 border-black' type='text' /></td> */}
     </tr>
 
 }

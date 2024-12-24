@@ -47,7 +47,14 @@ const initialState = {
     getClaimTypeExpenses:[],
     getClaimTypeAdvances:[],
     getManageApprovalLogs:[],
-    getManageAdminLogs:[]
+    getManageAdminLogs:[],
+
+    getSubProjectTypeCompliance: [],
+    getProjectTypeCompliance: [],
+    getActivityAndOemCompliance: [],
+    getOneComplianceDyform:[],
+    getCompiliance:[],
+    getComplianceApprover:[],
 }
 
 const adminData = createSlice({
@@ -123,8 +130,6 @@ const adminData = createSlice({
                 state.getOneProjectTypeDyform  = [...state.getProjectTypeDyform,...payload.dataAll]
             }
         },
-
-        
         
         GET_MANAGE_CIRCLE:(state,{payload}) => {
             if(payload.reset){
@@ -417,6 +422,51 @@ const adminData = createSlice({
         //         state.getAssetRegistration  = [...state.getAssetRegistration,...payload.dataAll]
         //     }
         // },
+
+        GET_PROJECT_TYPE_COMPLIANCE: (state, { payload }) => {
+            if (payload.reset) {
+                state.getProjectTypeCompliance = payload.dataAll
+            } else {
+                state.getProjectTypeCompliance = [...state.getProjectTypeCompliance, ...payload.dataAll]
+            }
+        },
+        GET_SUB_PROJECT_TYPE_COMPLIANCE: (state, { payload }) => {
+            if (payload.reset) {
+                state.getSubProjectTypeCompliance = payload.dataAll
+            } else {
+                state.getSubProjectTypeCompliance = [...state.getSubProjectTypeCompliance, ...payload.dataAll]
+            }
+        },
+        GET_ACTIVITY_AND_OEM_COMPLIANCE: (state, { payload }) => {
+            if (payload.reset) {
+                state.getActivityAndOemCompliance = payload.dataAll
+            } else {
+                state.getActivityAndOemCompliance = [...state.getActivityAndOemCompliance, ...payload.dataAll]
+            }
+        },
+        ADD_COMPLIANCE: (state, { payload }) => {
+            if (payload.reset) {
+                state.getCompiliance = payload.dataAll
+            } else {
+                state.getCompiliance = [...state.getCompiliance, ...payload.dataAll]
+            }
+        },
+
+        GET_ONE_COMPLIANCE_DY_FORM:(state,{payload}) => {
+            if(payload.reset){
+                state.getOneComplianceDyform = payload.dataAll
+            }else{
+                state.getOneComplianceDyform  = [...state.getOneComplianceDyform,...payload.dataAll]
+            }
+        },
+
+        GET_COMPLIANCE_APPROVER:(state,{payload}) => {
+            if(payload.reset){
+                state.getComplianceApprover = payload.dataAll
+            }else{
+                state.getComplianceApprover  = [...state.getComplianceApprover,...payload.dataAll]
+            }
+        },
     }
 })
 
@@ -468,7 +518,14 @@ export const {
     GET_ACCURAL_REVENUE_MASTER_PROJECTID,
     GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE,
     GET_MANAGE_EXPENSE_TYPE_FILTER,
-    GET_MANAGE_ADVANCE_TYPE_FILTER
+    GET_MANAGE_ADVANCE_TYPE_FILTER,
+
+    GET_ACTIVITY_AND_OEM_COMPLIANCE,
+    GET_SUB_PROJECT_TYPE_COMPLIANCE,
+    GET_PROJECT_TYPE_COMPLIANCE,
+    ADD_COMPLIANCE,
+    GET_ONE_COMPLIANCE_DY_FORM,
+    GET_COMPLIANCE_APPROVER,
 
 
 } = adminData.actions

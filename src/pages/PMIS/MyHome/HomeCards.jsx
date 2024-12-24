@@ -91,6 +91,12 @@ const HomeCards = () => {
               <Unicons.UilCheckCircle size="40" color="" />,
             ],
             [
+              "Approvals",
+              "bg-pcol",
+              "home/parentApproverCards",
+              <Unicons.UilCheckCircle size="40" color="" />,
+            ],
+            [
               "PTW",
               "bg-pcol",
               "/home/ptw",

@@ -26,6 +26,7 @@ import NewMultiselection3 from "./NewMultiselection3";
 import NewSingleSelectForm45 from "./FormElements/NewSingleSelect45";
 import NewSingleSelectCommon from "./FormElements/NewSingleSelectCommon";
 import DatePicking2 from "./FormElements/DatePicking2";
+import NewMuitiSelect007 from "./NewMuitiSelect007";
 
 const CommonForm = ({
   classes,
@@ -368,7 +369,18 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
-                    {console.log(errors, "errorsendDateendDate")}
+                    {itm.type == "newMuitiSelect007" ? (
+                      <NewMuitiSelect007
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               ) : (

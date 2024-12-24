@@ -40,13 +40,13 @@ const NotificationBar = ({ modalRef, roleName, calllogout }) => {
     <>
       <div
         ref={modalRef}
-        className="absolute right-1 mt-10 w-[400px] h-72 overflow-scroll bg-[#4f5760] shadow-lg rounded-md z-[100000] border-[1.5px] border-pcol"
+        className="absolute right-1 mt-10 w-[400px] h-72 overflow-scroll bg-[#3e454d] shadow-lg rounded-tl-md rounded-bl-md rounded-br-md z-[100000] border-[1.5px] border-pcol"
       >
         <div className="p-2">
           {[...msgapidata,...msgdata].map((it,index) => {
-            return it.typem!="new"?<div className="border-2 border-white p-2 m-2 flex text-center items-center bg-gray-300">
-                <img src="/logo.png" width={60} height={60} className="bg-gray-400 rounded-lg p-2"/>
-                <p className="pl-2 text-black text-left">{it.msg}<br/>{it.time}</p>
+            return it.typem!="new"?<div className="border-[1.2px] rounded-md border-pcol p-2 m-2 flex text-center items-center bg-gray-200">
+                <img src="/mobilecomm.png" width={60} height={60} className="bg-gray-600 rounded-lg"/>
+                <p className="pl-2 text-[#3e454d] text-left">{it.msg}<br/>{it.time}</p>
               </div>:<div className="border-2 border-white p-2 m-2 flex text-center items-center bg-gray-600">
                 <img src="/logo.png" width={60} height={60} className="bg-gray-400 rounded-xl p-2"/>
                 <p className="pl-2 text-white text-left">{it.msg}<br/>{it.time}</p>

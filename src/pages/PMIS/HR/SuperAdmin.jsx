@@ -365,11 +365,32 @@ const SuperAdmin = () => {
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
+          [
+            "Compliance",
+            "bg-pcol",
+            "/hr/superAdmin/compliance",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Compliance L1 Approver",
+            "bg-pcol",
+            "/hr/superAdmin/complianceL1Approver",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Compliance L2 Approver",
+            "bg-pcol",
+            "/hr/superAdmin/complianceL2Approver",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
         ].map((itm) => {
           return (
             <>
               <div
-                  className={`${itm[1]} bg-pcol text-white text-[14px] md:text-[11px] xl:text-[14px] text-center shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[14px] hover:text-[#444c54] hover:bg-pcolhover`}
+                  className={`${itm[1]} bg-pcol text-white text-[14px] md:text-[11px] xl:text-[14px] text-center shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
                 // className={`${itm[1]} shadow-md hover:shadow-2xl w-[96%] h-16 flex cursor-pointer rounded-lg hover:scale-[106%] transition-all duration-500 font-oxygen font-bold hover:text-lg border-[1px] border-b-[7px] ${itm[4]} relative`}
                 onClick={() => {
                   dispatch(
