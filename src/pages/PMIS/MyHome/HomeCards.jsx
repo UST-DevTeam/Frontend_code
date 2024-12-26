@@ -84,12 +84,12 @@ const HomeCards = () => {
               "/home/assets",
               <Unicons.UilArchive size="40" color="white" />,
             ],
-            [
-              "Approvals",
-              "bg-pcol",
-              "/home/approverCards",
-              <Unicons.UilCheckCircle size="40" color="" />,
-            ],
+            // [
+            //   "Approvals",
+            //   "bg-pcol",
+            //   "/home/approverCards",
+            //   <Unicons.UilCheckCircle size="40" color="" />,
+            // ],
             [
               "Approvals",
               "bg-pcol",

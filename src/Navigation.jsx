@@ -11,6 +11,7 @@ const Navigation = ({ sidebarOpen }) => {
     let permission=JSON.parse(localStorage.getItem("permission"))
     let user=JSON.parse(localStorage.getItem("user"))
     let rolename=user?.roleName
+
     const RouteCreator = (itm) => {
 
         // { console.log("RouteCreatoritmitmitm 16", itm.subMenu) }
@@ -32,25 +33,14 @@ const Navigation = ({ sidebarOpen }) => {
         }
 
     }
+
     return <Routes>
         {
             [...Sidebar_content["all_routes"], ...Sidebar_content["GlobalUrl"],...rolename=="SuperAdmin"?Sidebar_content[rolename]:[]].map((itm) => {
-
-                // console.log("RouteCreatorRouteCreator", RouteCreator(itm))
                 return RouteCreator(itm)
             })
         }
-{/* 
-        {
-            console.log("dsdsadadaas",
-                [...Sidebar_content["all_routes"], ...Sidebar_content["GlobalUrl"]].map((itm) => {
-
-                    console.log("RouteCreatorRouteCreator", RouteCreator(itm))
-                    return RouteCreator(itm)
-                })
-                
-            )
-        } */}
+        
     </Routes>
 
 };

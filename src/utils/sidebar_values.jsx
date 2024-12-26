@@ -99,6 +99,11 @@ import AccuralRevenueMaster from "../pages/PMIS/Admin/AccuralRevenueMaster/Accur
 import ManageCompliance from "../pages/PMIS/Admin/ManageCompliance/ManageCompliance";
 import ManageComplianceL1 from "../pages/PMIS/Admin/ManageComplianceL1Approver/ManageComplianceL1";
 import ManageComplianceL2 from "../pages/PMIS/Admin/ManageComplianceL2Approver/ManageComplianceL2";
+import ParentApproverCards from "../pages/PMIS/MyHome/ParentApprovalCards";
+import ComplianceMilestoneCard from "../pages/PMIS/MyHome/ComplianceMilestoneCard";
+import ComplianceApproverCard from "../pages/PMIS/MyHome/ComplianceApproverCard";
+import ComplianceL1ApproverTable from "../pages/PMIS/MyHome/ComplianceL1ApproverTable";
+import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2ApproverTable";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -172,17 +177,6 @@ if (user) {
 
 let rolename = user?.roleName;
 
-// console.log(
-//   rolename,
-//   [
-//     "Field Resource",
-//     "QE",
-//     "Circle Support",
-//     "Project Support",
-//     "Vendor",
-//   ].indexOf(rolename),
-//   "rolenamerolenamerolename"
-// );
 export const Sidebar_content = {
   temp: [],
   GlobalUrl: [
@@ -321,15 +315,39 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/approverCards",
+      link: "/home/parentApproverCards",
       subMenu: [],
-      component: <ApproverCards />,
+      component: <ParentApproverCards />,
     },
     {
       name: "",
       link: "/home/approverCards",
       subMenu: [],
       component: <ApproverCards />,
+    },
+    {
+      name: "",
+      link: "/home/complianceMilestoneCard",
+      subMenu: [],
+      component: <ComplianceMilestoneCard />,
+    },
+    {
+      name: "",
+      link: "/home/complianceMilestoneCard/:mName",
+      subMenu: [],
+      component: <ComplianceApproverCard />,
+    },
+    {
+      name: "",
+      link: "/home/complianceMilestoneCard/1/:mName/:approverType",
+      subMenu: [],
+      component: <ComplianceL1ApproverTable />,
+    },
+    {
+      name: "",
+      link: "/home/complianceMilestoneCard/2/:mName/:approverType",
+      subMenu: [],
+      component: <ComplianceL2ApproverTable />,
     },
     {
       name: "",
@@ -709,7 +727,6 @@ export const Sidebar_content = {
   ],
 
   all_routes: [
-    ...[
       {
         name: "My Dashboard",
         link: "/mydash-board",
@@ -732,8 +749,6 @@ export const Sidebar_content = {
         subMenu: [],
         icon: <UilFileShieldAlt className="hover:text-heading cursor-pointer" />,
       },
-    ],
-    ...[
       {
         name: "Human Resource",
         link: "/hr",
@@ -773,27 +788,15 @@ export const Sidebar_content = {
       {
         name: "Super Admin",
         link: "/admin",
-        subMenu: [
-          {
-            name: "Manage Circle",
-            link: "/manageCircle",
-            subMenu: [],
-            component: <ManageCircle />,
-            icon: <Unicons.UilChannel size="16" />,
-          },
-      
-          {
-            name: "Manage Zone",
-            link: "/manageZone",
-            subMenu: [],
-            component: <ManageZone />,
-            icon: <Unicons.UilChannel size="16" />,
-          },
-        ],
+        subMenu: [],
         icon: <Unicons.UilReact />,
       },
-    ],
   ],
+
+  
+
+  
 };
+
 
 

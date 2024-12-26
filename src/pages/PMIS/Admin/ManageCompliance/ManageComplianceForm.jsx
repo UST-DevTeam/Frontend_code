@@ -27,12 +27,7 @@ const ManageComplianceForm = ({
 
   const [modalOpen, setmodalOpen] = useState(false);
 
-  // let dispatch = useDispatch()
-  // let roleList = useSelector((state) => {
-  //     console.log(state, "state state")
-  //     return state?.adminManagement?.roleList
-  // })
-  const { customerList, projectTypes, subProjectTypes, activity, OEM } =
+  const { customerList, projectTypes, subProjectTypes, activity, OEM, milestone } =
     useSelector((state) => {
       const customerList = state?.adminData?.getManageCustomer.map((itm) => {
         return {
@@ -74,7 +69,16 @@ const ManageComplianceForm = ({
         }
       ) || []
 
-      return { customerList, projectTypes, subProjectTypes, activity, OEM };
+      const milestone= state?.adminData?.getActivityAndOemCompliance[0]?.MileStone?.map(
+        (itm) => {
+          return {
+            label: itm.fieldName,
+            value: itm.fieldName,
+          };
+        }
+      ) || []
+
+      return { customerList, projectTypes, subProjectTypes, activity, OEM, milestone};
     });
 
 
@@ -170,21 +174,13 @@ const ManageComplianceForm = ({
       name: "complianceMilestone",
       type: "select",
       value: "",
-      option: [
-        { label: "PAT", value: "PAT" },
-        { label: "SAT", value: "SAT" },
-        { label: "KAT", value: "KAT" },
-        { label: "SURVEY", value: "SURVEY" },
-        { label: "DISMANTLE", value: "DISMANTLE" },
-        { label: "MATERIAL", value: "MATERIAL" },
-      ],
+      option: milestone,
       props: {
         onChange: (e) => {},
       },
       required: true,
       classes: "col-span-1",
     },
-    // { label: "User", value: "", option: ["User Name"], type: "select" }
   ];
   const {
     register,

@@ -208,8 +208,6 @@ const ManageComplianceL1Form = ({
       classes: "col-span-1",
       option:milestone
     },
-    
-    // { label: "User", value: "", option: ["User Name"], type: "select" }
   ];
   const {
     register,
@@ -252,6 +250,7 @@ const ManageComplianceL1Form = ({
   };
 
   useEffect(() => {
+    setSelectType([])
     dispatch(AdminActions.getManageCustomer());
     dispatch(HrActions.getHRAllEmployee());
     dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))

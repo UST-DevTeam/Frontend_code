@@ -56,6 +56,7 @@ import {
     GET_ONE_COMPLIANCE_DY_FORM,
     ADD_COMPLIANCE,
     GET_COMPLIANCE_APPROVER,
+    GET_CARD_COMPLIANCE_MILESTONE,
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -361,9 +362,11 @@ const AdminActions = {
             if (res?.status !== 200) return;
             const dataAll = res?.data?.data;
             dispatch(GET_CARD_PROJECT_TYPE({ dataAll, reset }));
-        } catch (error) {
+        } 
+            catch (error) {
+                console.log("Vishal")
         }
-},
+    },
 
 
     getManageProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
@@ -1113,9 +1116,20 @@ const AdminActions = {
 
             }
 
-           
         } catch (error) {
             return;
+        }
+    },
+
+    getCardComplianceMilestone: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({url:`${Urls.complainceMilestoneCard}${args!=""?"?"+args:""}`, reset });
+            if (res?.status !== 200) return;
+            const dataAll = res?.data?.data;
+            dispatch(GET_CARD_COMPLIANCE_MILESTONE({ dataAll, reset }));
+        } 
+            catch (error) {
+                console.log("Vishal")
         }
     },
 

@@ -55,6 +55,7 @@ const initialState = {
     getOneComplianceDyform:[],
     getCompiliance:[],
     getComplianceApprover:[],
+    getCardComplainceMilestone:[]
 }
 
 const adminData = createSlice({
@@ -467,6 +468,16 @@ const adminData = createSlice({
                 state.getComplianceApprover  = [...state.getComplianceApprover,...payload.dataAll]
             }
         },
+
+        GET_CARD_COMPLIANCE_MILESTONE:(state,{payload}) => {
+            if(payload.reset){
+                state.getCardComplainceMilestone = payload.dataAll
+            }else{ 
+                state.getCardComplainceMilestone  = [...state.getCardComplainceMilestone,...payload.dataAll]
+            }
+        },
+
+
     }
 })
 
@@ -526,8 +537,8 @@ export const {
     ADD_COMPLIANCE,
     GET_ONE_COMPLIANCE_DY_FORM,
     GET_COMPLIANCE_APPROVER,
-
-
+    GET_CARD_COMPLIANCE_MILESTONE,
+    
 } = adminData.actions
     
 export default adminData.reducer

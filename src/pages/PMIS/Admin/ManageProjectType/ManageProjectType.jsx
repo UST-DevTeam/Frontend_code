@@ -732,6 +732,7 @@ const   ManageProjectType = () => {
       return updateditm;
     });
   });
+
   let dbConfigListCard = useSelector((state) => {
     let interdata = state?.adminData?.getCardProjectType;
     return interdata?.map((itm) => {
@@ -989,25 +990,7 @@ const   ManageProjectType = () => {
             }
           />
         ),
-        // "milestone": <CstmButton className={"p-2"} child={<Button classes='w- 10' name={""} icon={<Unicons.UilAirplay />} onClick={() => {
-        //     setmodalOpen(true)
-        //     dispatch(AdminActions.getManageCustomer())
-        //     setmodalHead("Milestone")
-        //     setmodalBody(<>
-        //         <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-        //         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //     </>)
-        // }}></Button>} />,
-        // "commercial": <CstmButton className={"p-2"} child={<Button classes='w-10' icon={<Unicons.UilAirplay />} name={""} onClick={() => {
-        //   setmodalOpen(true)
-        //   dispatch(AdminActions.getManageCustomer())
-        //   setmodalHead("Coomercial")
-        //   setmodalBody(<>
-        //     <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-        //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //   </>)
-        // }}></Button>} />,
-
+        
         commercial: (
           <CstmButton
             className={"p-2"}
@@ -1094,6 +1077,7 @@ const   ManageProjectType = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getManageProjectType;
     if (interdata.length > 0) {
@@ -1102,10 +1086,9 @@ const   ManageProjectType = () => {
       return 0;
     }
   });
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
+
+  
+
   let table = {
     columns: [
       {
@@ -1256,14 +1239,14 @@ const   ManageProjectType = () => {
                   );
                 }}
               >
-                {itm["companyimg"] && itm["companyimg"] != "" && (
+                {/* {itm["companyimg"] && itm["companyimg"] != "" && (
                   <>
                     <img
                       className="m-auto w-24"
                       src={backendassetUrl + itm["companyimg"]}
                     />
                   </>
-                )}
+                )} */}
                 <div className="m-auto">{itm["projectType"]}</div>
               </div>
             </>

@@ -28,6 +28,7 @@ const ManageComplianceL2Form = ({
   let dispatch = useDispatch();
 
   const [modalOpen, setmodalOpen] = useState(false);
+  const [selectType, setSelectType] = useState([]);
 
   
   const { customerList, projectTypes, subProjectTypes, activity,milestone } =
@@ -113,6 +114,19 @@ const ManageComplianceL2Form = ({
       classes: "col-span-1",
     },
     {
+        label: "L2 Approver",
+        name: "empApprover",
+        type: "newMuitiSelect007",
+        value: "",
+        option: allEmployeeList,
+        props: {
+            selectType:selectType
+          },
+          hasSelectAll:true,
+        required: true,
+        classes: "col-span-1",
+    },
+    {
         label: "Project Group",
         name: Object.entries(formValue).length > 0 ? "projectGroupId" : "projectGroup",
         type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
@@ -194,19 +208,6 @@ const ManageComplianceL2Form = ({
       required: true,
       classes: "col-span-1",
     },
-    {
-      label: "L2 Approver",
-      name: "empApprover",
-      type: "newSingleSelect45",
-      value: "",
-      option: allEmployeeList,
-      props: {
-        onChange: (e) => {},
-      },
-      required: true,
-      classes: "col-span-1",
-    },
-    // { label: "User", value: "", option: ["User Name"], type: "select" }
   ];
   const {
     register,
@@ -217,13 +218,10 @@ const ManageComplianceL2Form = ({
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data, "datadatadatadata");
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+
+
   const onTableViewSubmit = (data) => {
+    data['empApprover'] = data['empApprover']?.split(",")
     data['approverType'] = "L2Approver"
     if (formValue?.uniqueId) {
       dispatch(
@@ -247,7 +245,10 @@ const ManageComplianceL2Form = ({
       );
     }
   };
+
+
   useEffect(() => {
+    setSelectType([])
     dispatch(AdminActions.getManageCustomer());
     dispatch(HrActions.getHRAllEmployee());
     dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
@@ -274,6 +275,8 @@ const ManageComplianceL2Form = ({
       });
     }
   }, [formValue, resetting]);
+
+
   return (
     <>
       <Modal
@@ -303,11 +306,7 @@ const ManageComplianceL2Form = ({
           setValue={setValue}
           getValues={getValues}
         />
-        {/* <button></button> */}
 
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}

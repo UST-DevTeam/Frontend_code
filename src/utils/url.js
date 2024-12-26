@@ -1,10 +1,10 @@
-export const baseUrl="https://api.mcpspmis.com"
-export const backendassetUrl="https://api.mcpspmis.com/" 
+// export const baseUrl="https://api.mcpspmis.com"
+// export const backendassetUrl="https://api.mcpspmis.com/" 
 
 
 
-// export const baseUrl="http://localhost:7980"
-// export const backendassetUrl="http://localhost:7980/" 
+export const baseUrl="http://localhost:7980"
+export const backendassetUrl="http://localhost:7980/" 
 
 export const Urls={
 
@@ -22,7 +22,6 @@ export const Urls={
     card_customer:"/admin/cardCustomer",
     admin_projecttype:"/admin/manageProjectType",
     admin_getOneSiteEngg:"/getOneSiteEngg",
-    admin_getOneCompliance:"/getOneCompliance",
     admin_getProjectTypeDyform:"/admin/getProjectTypeDyform",
     admin_sub_projecttype:"/admin/manageSubProjectType",
     admin_circle:"/admin/manageCircle",
@@ -215,13 +214,15 @@ export const Urls={
     current_user_circle_projectId:"/currentuser/Circle/projectId",
     current_user_cost_center:'/currentuser/CostCenter',
 
-    // super admin compiliance starts  -----
-    projectTypeCompliance: "/admin/projectType",  
-    subProjectTypeCompliance: "/admin/projectSubType",
-    activityAndOemCompliance: "/admin/projectSubTypeFieldName",
-    addComplianceForm: "/admin/addComplianceForm",
-    admin_getComplianceapprover:"/admin/addComplianceApprover",
-    // super admin compiliance  ends -----
+        // super admin compiliance starts  -----
+        projectTypeCompliance: "/admin/projectType",  
+        subProjectTypeCompliance: "/admin/projectSubType",
+        activityAndOemCompliance: "/admin/projectSubTypeFieldName",
+        addComplianceForm: "/admin/addComplianceForm",
+        admin_getComplianceapprover:"/admin/addComplianceApprover",
+        complainceMilestoneCard:"/admin/complainceMilestoneCard"
+        // super admin compiliance  ends -----
+
 
 }
 
