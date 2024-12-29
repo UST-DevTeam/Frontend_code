@@ -5,7 +5,6 @@ import Button from "../../../../components/Button";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Urls } from "../../../../utils/url";
-import AdminActions from "../../../../store/actions/admin-actions";
 import MyHomeActions from "../../../../store/actions/myHome-actions";
 
 const CompletitonCreiteriaForm = ({
@@ -18,23 +17,20 @@ const CompletitonCreiteriaForm = ({
   myTaskPage,
   filterView
 }) => {
+
   const dispatch = useDispatch();
-  // let mileStoneCompletion = {
-  //     "Completion Date": "datetime",
-  //     "Checklist": "",
-  //     "MO No": "number",
-  //     "Challan copy": "file",
-  //     "Attachment": "file",
-  //     "Reference No": "number",
-  // };
-
-
-
-
   const dateString = siteCompleteData["siteStartDate"];
   const [day, month, year] = dateString?.split("-")?.map(Number);
-
   const datestr = new Date(year, month - 1, day);
+
+
+  const {
+    register:register,
+    handleSubmit:handleSubmit,
+    setValue:setValue,
+    getValues:getValues,
+    formState: { errors:errors },
+  } = useForm();
 
   let mileStoneprops = {
     "Completion Date": {
@@ -60,7 +56,8 @@ const CompletitonCreiteriaForm = ({
         label: dta,
         value: "",
         name: "CC_" + dta,
-        required: true,
+        // required: true,
+        required: dta === "Forms & Checklist" ? false : true,
         type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
         option: geeter[0]["type"]=="Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
           return {
@@ -69,16 +66,6 @@ const CompletitonCreiteriaForm = ({
           };
         }):[],
         props: mileStoneprops[dta] || {},
-      };
-    });
-
-    return [];
-    return geeter.length > 0 ? geeter[0]["type"] : "";
-    return state?.adminData?.getManageCompletionCriteria || [];
-    return state?.adminData?.getManageCompletionCriteria.map((itm) => {
-      return {
-        label: itm?.type,
-        value: itm?.uniqueId,
       };
     });
   });
@@ -91,10 +78,7 @@ const CompletitonCreiteriaForm = ({
 
   const onsubmiting = (data) => {
     dispatch(
-      projectListActions.postSubmit(
-        Urls.projectList_closeMilestone + mileStone["uniqueId"],
-        data,
-        () => {
+      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"],data,() => {
           setmodalOpen(false);
           setmodalFullOpen(false);
           dispatch(backgeturl);
@@ -106,15 +90,7 @@ const CompletitonCreiteriaForm = ({
   useEffect(() => {
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm();
+
 
   return (
     <>

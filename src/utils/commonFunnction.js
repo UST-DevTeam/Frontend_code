@@ -10,12 +10,11 @@ export function moreinfo(text, len) {
 export function getAccessType(valName){
 
     let permission=JSON.parse(localStorage.getItem("permission")) || {}
-    // console.log(valName,permission,"getTypegetType")
+
     if(permission && permission?.pmpermission && permission?.pmpermission.findIndex(prev=>prev.moduleName==valName)!=-1){
 
         let getType=permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName==valName)]["accessType"]
-
-        // console.log(getType,valName,"getTypegetType")
+        
         if(getType=="H"){
             return "invisible"
         }

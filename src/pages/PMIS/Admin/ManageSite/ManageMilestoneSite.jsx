@@ -484,25 +484,6 @@ const ManageMilestoneSite = ({
   };
 
   const handleFinancialsSubmit = (data) => {
-    // console.log(data, "dasugdjsahj")
-    // setSiteId(data["siteid"]?data["siteid"]:"Add")
-
-    // let final_data = {
-    //     "SubProjectId": dataOfProject["uniqueId"],
-    //     "new_u_id": dataOfProject["new_u_id"],
-    //     "projectuniqueId": projectuniqueId
-
-    // }
-    // dataOfProject["t_sFinancials"].map((itew) => {
-    //     let fieldNaming = labelToValue(itew.fieldName)
-
-    //     final_data[fieldNaming] = data[fieldNaming]
-    // })
-
-    // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_financialData, final_data, () => {
-    //     setmodalFullOpen(false)
-    //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-    // }))
 
     let final_data = {};
     dataOfProject["t_sFinancials"].map((itew) => {
@@ -528,27 +509,6 @@ const ManageMilestoneSite = ({
       )
     );
 
-    // let updatedData = {
-    //     "": ""
-    // }
-
-    // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
-
-    // let final_data = {
-    // }
-    // dataOfProject["t_sFinancials"].map((itew) => {
-    //     let fieldNaming = labelToValue(itew.fieldName)
-
-    //     final_data[fieldNaming] = data[fieldNaming]
-    // })
-
-    // setGlobalData(prev=>{
-    //     return {
-    //         ...prev,
-    //         "t_sFinancials":final_data
-    //     }
-    // })
-    // setmodalFullOpen(false)
   };
   const funcaller = () => {
     reset({});
@@ -577,7 +537,6 @@ const ManageMilestoneSite = ({
   useEffect(() => {
 
     dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
-    // dispatch(projectListActions.getMappedData(projectuniqueId))
     
     reset({});
     settype(true);
@@ -594,14 +553,6 @@ const ManageMilestoneSite = ({
     "Auto Created": "sdisabled",
   };
 
-  // console.log(dataOfProject ? dataOfProject["t_sengg"] ? dataOfProject["t_sengg"].map((its) => {
-  //     return {
-  //         label: "abc",
-  //         value: "",
-  //         name: "",
-  //         type: "text"
-  //     }
-  // }) : [] : [], "dsadasssssssssssssssssssssssssss")
 
   const filesUploadForm = [
     { label: "file", value: "", name: "file", required: true, type: "file" },
@@ -613,11 +564,11 @@ const ManageMilestoneSite = ({
         children={modalBody}
         setIsOpen={setmodalOpen}
         isOpen={modalOpen}
-        size={"full"}
-        modalHead="Compliance Form"
+        size={"smsh"}
+        modalHead="Completion Criteria"
       />
+
       <div className="p-4">
-        {/* <Button /> */}
         {mileStone.assignerResult ? (
           <div className="flex flex-row">
             <div className="w-full">
@@ -645,26 +596,26 @@ const ManageMilestoneSite = ({
                     setmodalBody(
                     
                       
-                      // <CompletitonCreiteriaForm
-                      //   siteCompleteData={siteCompleteData}
-                      //   customeruniqueId={customeruniqueId}
-                      //   projectuniqueId={projectuniqueId}
-                      //   setmodalFullOpen={setmodalFullOpen}
-                      //   setmodalOpen={setmodalOpen}
-                      //   mileStone={mileStone}
-                      //   myTaskPage={myTaskPage}
-                      //   filterView = {filterView}
-                      // />
-                        <ManageComplianceTemplateForm
-                          siteCompleteData={siteCompleteData}
-                          customeruniqueId={customeruniqueId}
-                          projectuniqueId={projectuniqueId}
-                          setmodalFullOpen={setmodalFullOpen}
-                          setmodalOpen={setmodalOpen}
-                          mileStone={mileStone}
-                          myTaskPage={myTaskPage}
-                          filterView = {filterView}
-                        />
+                      <CompletitonCreiteriaForm
+                        siteCompleteData={siteCompleteData}
+                        customeruniqueId={customeruniqueId}
+                        projectuniqueId={projectuniqueId}
+                        setmodalFullOpen={setmodalFullOpen}
+                        setmodalOpen={setmodalOpen}
+                        mileStone={mileStone}
+                        myTaskPage={myTaskPage}
+                        filterView = {filterView}
+                      />
+                        // <ManageComplianceTemplateForm
+                        //   siteCompleteData={siteCompleteData}
+                        //   customeruniqueId={customeruniqueId}
+                        //   projectuniqueId={projectuniqueId}
+                        //   setmodalFullOpen={setmodalFullOpen}
+                        //   setmodalOpen={setmodalOpen}
+                        //   mileStone={mileStone}
+                        //   myTaskPage={myTaskPage}
+                        //   filterView = {filterView}
+                        // />
                     );
                     setmodalOpen(true);
                   } else {
@@ -773,7 +724,6 @@ const ManageMilestoneSite = ({
                         : []
                       : []
                   }
-                  // Form={filesUploadForm}
                   errors={errorsForm1}
                   register={registerForm1}
                   setValue={setValueForm1}

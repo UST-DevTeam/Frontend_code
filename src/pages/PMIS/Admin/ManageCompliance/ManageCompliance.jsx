@@ -42,19 +42,8 @@ const   ManageCompliance = () => {
 
   let dispatch = useDispatch();
 
-  let navigate = useNavigate();
 
 
-  let completionCriteriaList = useSelector((state) => {
-    let interdata = state?.adminData?.getCompiliance || []
-    return interdata?.map((itm) => {
-      const data = {
-        name: itm.completion,
-        id: itm.completion,
-      }
-      return data
-    })
-  })
 
   let conditionmultiForm = [
     {
@@ -117,15 +106,6 @@ const   ManageCompliance = () => {
             option: [],
           },
         },
-        // {
-        //   label: "Auto Created",
-        //   value: "Auto Created",
-        //   extended: {
-        //     typer: "add",
-        //     type: "text",
-        //     option: [],
-        //   },
-        // },
       ],
       props: "",
       required: false,

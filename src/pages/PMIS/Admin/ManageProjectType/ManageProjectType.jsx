@@ -2,42 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
 import ManageProjectTypeForm from "../../../PMIS/Admin/ManageProjectType/ManageProjectTypeForm";
 import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
-import {
-  getAccessType,
-  objectToQueryString,
-} from "../../../../utils/commonFunnction";
+import {getAccessType,objectToQueryString} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
-
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-// import AdminActions from '../../../../store/actions/admin-actions';
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../../components/CCDash";
-import CommonForm from "../../../../components/CommonForm";
 import CommonTableForm from "../../../../components/CommonTableForm";
-import CommonTableFormParent from "../../../../components/CommonTableFormSiteParent";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
 import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer";
-import { completiton_critieria } from "../../../../utils/queryBuilder";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
-import ProjectChart from "../../Dashboard1/ProjectChart";
-import ClaimAndAdvanceChart from "../../Dashboard1/ClaimAndAdvanceChart";
-import TrendPlanVSActualWorkdone from "../../Formss/FinancialGraph/TrendPlanVSActualWorkdone";
-import CirclePlanVSActualWorkdone from "../../Formss/FinancialGraph/CirclePlanVSActualWorddone";
-import MS1AndMS2CircleWise from "../../Dashboard1/MS1AndMS2CircleWise";
 import FilterActions from "../../../../store/actions/filter-actions";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
-import CumulativeWorkdonePlanVsActual from "../../Formss/FinancialGraph/CumulativeWorkdonePlanVsActual";
 
 const   ManageProjectType = () => {
   const { cname, customeruniqueId } = useParams();
@@ -1122,11 +1106,6 @@ const   ManageProjectType = () => {
         value: "commercial",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Edit",
-      //   value: "edit",
-      //   style: "min-w-[100px] max-w-[200px] text-center"
-      // },
       {
         name: "Delete",
         value: "delete",
@@ -1136,24 +1115,15 @@ const   ManageProjectType = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
-    ],
+    filter: []
   };
   const onSubmit = (data) => {
-    let value = data.reseter;
+    let shouldReset = data.reseter;
     delete data.reseter;
-    dispatch(
-      AdminActions.getManageProjectType(value, objectToQueryString(data))
-    );
+    let strVal=objectToQueryString(data)
+    dispatch(AdminActions.getManageProjectType(customeruniqueId,shouldReset,strVal));
   };
+
   useEffect(() => {
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(AdminActions.getCardProjectType(customeruniqueId));

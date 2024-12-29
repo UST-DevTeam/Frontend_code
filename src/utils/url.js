@@ -2,6 +2,10 @@ export const baseUrl="https://devapi.mcpspmis.com"
 export const backendassetUrl="https://devapi.mcpspmis.com/" 
 
 
+// export const baseUrl="https://api.mcpspmis.com"
+// export const backendassetUrl="https://api.mcpspmis.com/" 
+
+
 
 // export const baseUrl="http://localhost:7980"
 // export const backendassetUrl="http://localhost:7980/" 
@@ -22,6 +26,7 @@ export const Urls={
     card_customer:"/admin/cardCustomer",
     admin_projecttype:"/admin/manageProjectType",
     admin_getOneSiteEngg:"/getOneSiteEngg",
+    admin_getOneCompliance:'/getOneCompliance',
     admin_getProjectTypeDyform:"/admin/getProjectTypeDyform",
     admin_sub_projecttype:"/admin/manageSubProjectType",
     admin_circle:"/admin/manageCircle",
