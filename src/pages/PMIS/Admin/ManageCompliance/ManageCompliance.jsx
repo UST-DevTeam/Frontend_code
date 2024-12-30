@@ -788,9 +788,7 @@ const   ManageCompliance = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(
-      AdminActions.getCompiliance(value, objectToQueryString(data))
-    );
+    dispatch(AdminActions.getCompiliance(value, objectToQueryString(data)));
   };
 
 

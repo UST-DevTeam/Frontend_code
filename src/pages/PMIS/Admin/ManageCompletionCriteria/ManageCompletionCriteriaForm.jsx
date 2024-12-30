@@ -43,6 +43,7 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
                 { label: "Date", value: "Date" },
                 { label: "Text", value: "Text" },
                 { label: "Dropdown", value: "Dropdown" },
+                { label: "Form", value: "Form" },
             ],
             props: {
                 onChange: (e) => {

@@ -142,22 +142,17 @@ const ManageComplianceL1 = () => {
         properties: {
             rpp: [10, 20, 50, 100]
         },
-        filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
-        ]
+        filter: []
     }
+
     const onSubmit = (data) => {
-        let value = data.reseter
+        let shouldReset = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getComplianceApprover(value, objectToQueryString(data)))
+        data['approverType'] = "L1Approver"
+        let strVal = objectToQueryString(data)
+        dispatch(AdminActions.getComplianceApprover(shouldReset,strVal))
     }
+
     useEffect(() => {
         dispatch(AdminActions.getComplianceApprover(true,`approverType=L1Approver`))
     }, [])

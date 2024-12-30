@@ -130,12 +130,7 @@ const ManageComplianceL2 = () => {
                 name: "L2 Approver",
                 value: "approverName",
                 style: "min-w-[120px] max-w-[200px] text-center",
-            },         
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
+            },   
             {
                 name: "Action",
                 value: "delete",
@@ -145,21 +140,14 @@ const ManageComplianceL2 = () => {
         properties: {
             rpp: [10, 20, 50, 100]
         },
-        filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
-        ]
+        filter: []
     }
     const onSubmit = (data) => {
-        let value = data.reseter
+        let shouldReset = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getComplianceApprover(value, objectToQueryString(data)))
+        data['approverType'] = "L2Approver"
+        let strVal = objectToQueryString(data)
+        dispatch(AdminActions.getComplianceApprover(shouldReset,strVal))
     }
     useEffect(() => {
         dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`))
