@@ -24,7 +24,7 @@ const component = createSlice({
 
     GLOBAL_VALUE: (state, { payload }) => {
       let alreadyPayloading = [...state.globalValue];
-      console.log(alreadyPayloading, "alreadyPayloading");
+
       let alreadyPayload = alreadyPayloading.findIndex(
         (item) => item.name == payload.name
       );
@@ -39,6 +39,7 @@ const component = createSlice({
       state.globalValue = data;
     },
     BREADCRUMB: (state, { payload }) => {
+      // console.log("__payload___", payload)
       if (payload.tkn) {
         let lendata = [...state.breadcrumb].length;
         state.breadcrumb = [

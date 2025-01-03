@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ComponentActions from "../store/actions/component-actions";
 
 const Expander = ({
   itm,
-  parentTitle,
-  breadCrumb,
-  setBreadcrumb,
+  parentTitle = '',
   navigate,
 }) => {
   const [expand, setExpend] = useState(false);
   const dispatch = useDispatch();
 
   const handleExpend = () => {
-    if (
-      !breadCrumb.includes(itm.title)
-    ) {
-      setBreadcrumb((prev) => [...prev, itm.title]);
-    }
     setExpend((prev) => !prev);
   };
 
@@ -30,17 +23,16 @@ const Expander = ({
           itm.children.length
             ? handleExpend
             : () => {
-                const data = [...breadCrumb, itm.title].join(" -> ");
-                dispatch(
-                  ComponentActions.breadcrumb(
-                    data,
-                    itm.href + "?" + `type=${parentTitle}`,
-                    1,
-                    false
-                  )
-                );
-                navigate(itm.href + "?" + `type=${parentTitle}`);
-              }
+              // dispatch(
+              //   ComponentActions.breadcrumb(
+              //     data,
+              //     itm.href + "?" + `type=${parentTitle}`,
+              //     1,
+              //     false
+              //   )
+              // );
+              navigate(itm.href + (itm?.use ? "" : `${parentTitle}`) + `?from=${parentTitle}`);
+            }
         }
         classes="btn-cls !py-[6px] !w-fit"
         name={itm.title}
@@ -50,14 +42,12 @@ const Expander = ({
         <div className="ml-6">
           {itm.children.map((item, index) => (
             <div
-              className={`flex ${
-                index + 1 !== itm.children.length ? "border-l-2" : ""
-              } relative`}
+              className={`flex ${index + 1 !== itm.children.length ? "border-l-2" : ""
+                } relative`}
             >
               <div
-                className={`h-[25px] border-b-2 ${
-                  index + 1 === itm.children.length ? "border-l-2" : ""
-                } w-[40px] relative`}
+                className={`h-[25px] border-b-2 ${index + 1 === itm.children.length ? "border-l-2" : ""
+                  } w-[40px] relative`}
               >
                 {Boolean(item.children.length) && (
                   <div className="w-fit cursor-pointer border-white border-2 rounded-full absolute -bottom-2 z-10 bg-[#3E454D] -left-2">
@@ -76,9 +66,7 @@ const Expander = ({
               <Expander
                 key={index + item.title}
                 itm={item}
-                parentTitle={itm.title}
-                setBreadcrumb={setBreadcrumb}
-                breadCrumb={breadCrumb}
+                parentTitle={parentTitle + "/" + item.title}
                 navigate={navigate}
               />
             </div>
@@ -92,8 +80,8 @@ const Expander = ({
 };
 
 const TreeStructure = ({ data }) => {
+
   const navigate = useNavigate();
-  const [breadCrumb, setBreadcrumb] = useState([]);
 
   return (
     <div className="px-4 flex space-x-4 h-[80vh] overflow-y-scroll mb-[300px]">
@@ -102,9 +90,8 @@ const TreeStructure = ({ data }) => {
           <Expander
             key={index + itm.title}
             itm={itm}
-            setBreadcrumb={setBreadcrumb}
-            breadCrumb={breadCrumb}
             navigate={navigate}
+            parentTitle={itm.title}
           />
         );
       })}

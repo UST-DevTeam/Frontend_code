@@ -5,10 +5,12 @@ import AdvancedTable from '../../../components/AdvancedTable';
 import { Modal } from '@material-ui/core';
 import { objectToQueryString } from '../../../utils/commonFunnction';
 import AdminActions from '../../../store/actions/admin-actions';
+import { useSearchParams } from 'react-router-dom';
 
 
 const ComplianceL1ApproverTable = () => {
-
+ const [URLSearchParams, setURLSearchParams] = useSearchParams()
+  const route = URLSearchParams.get("from")
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
@@ -185,8 +187,7 @@ const ComplianceL1ApproverTable = () => {
                 name: "Current Status",
                 value: "activity",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            
+            }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -210,7 +211,7 @@ const ComplianceL1ApproverTable = () => {
     }
 
     useEffect(() => {
-        
+        dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/")))
     }, [])
 
     return <>

@@ -34,11 +34,11 @@ const CompletitonCreiteriaForm = ({
 
 
   const {
-    register:register,
-    handleSubmit:handleSubmit,
-    setValue:setValue,
-    getValues:getValues,
-    formState: { errors:errors },
+    register: register,
+    handleSubmit: handleSubmit,
+    setValue: setValue,
+    getValues: getValues,
+    formState: { errors: errors },
   } = useForm();
 
   let mileStoneprops = {
@@ -61,19 +61,20 @@ const CompletitonCreiteriaForm = ({
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
     return mileStone["Completion Criteria"].split(",").map((dta) => {
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
-      if (dta == "Forms & Checklist"){
+      if (dta == "Forms & Checklist") {
         return {
           label: dta,
           name: "Checklist",
           type: "jsxcmpt",
           value: "",
-          component: 
-            <p className="cursor-pointer" 
+          component:
+            <p className="cursor-pointer"
               onClick={() => {
-                dispatch(GET_ONE_COMPLIANCE_L1_LIST({dataAll:[],reset:true}))
-                dispatch(GET_ONE_COMPLIANCE_DY_FORM({dataAll:[],reset:true}))
-                dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
-                dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId,mileStone.Name,true,""));
+                dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll: [], reset: true }))
+                dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
+                dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId, mileStone.Name, true, ""));
+                dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId, mileStone.Name, true, ""));
+                dispatch(projectListActions.globalComplianceTypeDataGet(siteCompleteData.uniqueId, mileStone.uniqueId, "", true));
                 setmodalFullOpen1(true)
                 setmodalFullBody(
                   <ManageComplianceTemplateForm
@@ -84,7 +85,7 @@ const CompletitonCreiteriaForm = ({
                     setmodalOpen={setmodalOpen}
                     mileStone={mileStone}
                     myTaskPage={myTaskPage}
-                    filterView = {filterView}
+                    filterView={filterView}
                   />
                 )
               }}>
@@ -98,26 +99,26 @@ const CompletitonCreiteriaForm = ({
         };
 
       }
-      else{
+      else {
         return {
           label: dta,
           value: "",
           name: "CC_" + dta,
           required: true,
           type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
-          option: geeter[0]["type"]=="Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
+          option: geeter?.[0]?.type == "Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
             return {
               label: itm,
               value: itm,
             };
-          }):[],
+          }) : [],
           props: mileStoneprops[dta] || {},
         };
       }
     });
   });
 
-  let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId,filterView);
+  let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId, filterView);
   if (myTaskPage === "Yes") {
     backgeturl = MyHomeActions.getMyTask();
   }
@@ -125,19 +126,17 @@ const CompletitonCreiteriaForm = ({
 
   const onsubmiting = (data) => {
     dispatch(
-      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"],data,() => {
-          setmodalOpen(false);
-          setmodalFullOpen(false);
-          dispatch(backgeturl);
-        }
+      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
+        setmodalOpen(false);
+        setmodalFullOpen(false);
+        dispatch(backgeturl);
+      }
       )
     );
   };
 
   useEffect(() => {
   }, []);
-
-
 
   return (
     <>
@@ -146,7 +145,7 @@ const CompletitonCreiteriaForm = ({
         children={modalFullBody}
         isOpen={modalFullOpen1}
         setIsOpen={setmodalFullOpen1}
-        modalHead = {"Forms & Checklist"}
+        modalHead={"Forms & Checklist"}
       />
 
       <CommonForm

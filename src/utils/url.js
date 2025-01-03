@@ -4,8 +4,8 @@
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
-export const baseUrl = "http://192.168.1.39:7980";
-export const backendassetUrl = "http://192.168.1.39:7980/";
+export const baseUrl = "http://192.168.1.10:7980";
+export const backendassetUrl = "http://192.168.1.10:7980/";
 
 export const Urls = {
   login: "/login",
@@ -221,6 +221,7 @@ export const Urls = {
 
   // super admin compiliance starts  -----
 
+  compliance_globalSaver: '/compliance/globalSaver',
   projectTypeCompliance: "/admin/projectType",
   subProjectTypeCompliance: "/admin/projectSubType",
   activityAndOemCompliance: "/admin/projectSubTypeFieldName",
@@ -230,6 +231,10 @@ export const Urls = {
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",
 
   // super admin compiliance  ends -----
+
+  complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",
+  complianceMilestoneL2Approver: "/admin/complianceMilestoneL2Approver",
+
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };

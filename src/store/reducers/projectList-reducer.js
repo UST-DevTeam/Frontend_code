@@ -6,10 +6,11 @@ const initialState = {
     getProjectTypeSub: {},
     getprojectalllist: [],
     getuserallocatedproject: [],
-    getprojectcircle:[],
-    getMappedData:[],
-    getCircleWithPGData:[],
-    getusernotification:[],
+    getprojectcircle: [],
+    getMappedData: [],
+    getCircleWithPGData: [],
+    getusernotification: [],
+    globalComplianceTypeData: []
 }
 
 const projectList = createSlice({
@@ -38,6 +39,13 @@ const projectList = createSlice({
                 state.getProjectTypeSub = payload.dataAll
             } else {
                 state.getProjectTypeSub = [...state.getProjectTypeSub, ...payload.dataAll]
+            }
+        },
+        GET_GLOBAL_COMPLAINCE_TYPE_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.globalComplianceTypeData = payload.dataAll
+            } else {
+                state.globalComplianceTypeData = [...state.globalComplianceTypeData, ...payload.dataAll]
             }
         },
 
@@ -117,9 +125,9 @@ const projectList = createSlice({
             state.dynamicForm[payload.label] = arrayMove(state.dynamicForm[payload.label], payload.oldIndex, payload.newIndex)
 
         },
-        SET_DYNAMIC_FORM_INDEX_INNER:(state, { payload }) => {
+        SET_DYNAMIC_FORM_INDEX_INNER: (state, { payload }) => {
 
-            console.log(payload,"85payloadpayloadpayloadpayloadpayloadpayload")
+            console.log(payload, "85payloadpayloadpayloadpayloadpayloadpayload")
 
             state.dynamicForm[payload.label][payload.indexToUpdate] = {
                 ...state.dynamicForm[payload.label][payload.indexToUpdate],
@@ -130,7 +138,7 @@ const projectList = createSlice({
         },
         SET_DYNAMIC_FORM_INDEX: (state, { payload }) => {
 
-            console.log(payload,"92payloadpayloadpayloadpayloadpayloadpayload")
+            console.log(payload, "92payloadpayloadpayloadpayloadpayloadpayload")
             // const oldDataon = prev[indexToUpdate];
 
             //   console.log(oldDataon, "oldDataonoldDataon")
@@ -177,5 +185,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, SET_DYNAMIC_FORM_INDEX,SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE,GET_MAPPED_DATA,GET_CIRCLE_WITH_PG_DATA,GET_USR_NOTIFICATION } = projectList.actions
+export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION } = projectList.actions
 export default projectList.reducer

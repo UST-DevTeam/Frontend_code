@@ -18,6 +18,7 @@ const ComponentActions = {
     }
   },
   breadcrumb: (data, link, index, tkn) => async (dispatch, _) => {
+   
     try {
       dispatch(BREADCRUMB({ data, link, index, tkn }));
     } catch (error) {

@@ -35,9 +35,8 @@ const FormCard = ({ sIndex }) => {
     },
     {
       label: "Image",
-      value: "",
-      name: "image",
-      required: true,
+      name: "img",
+      // required: true,
       type: "file",
       props: {
         onChange: ((event) => {
@@ -80,6 +79,7 @@ const FormCard = ({ sIndex }) => {
 }
 
 const FullViewImage = ({ fullView, sIndex, images, setFullView }) => {
+  const dispatch = useDispatch()
   const handleFullView = (_) => {
     setFullView({ index: null, imagePath: null })
   }
@@ -106,6 +106,10 @@ const FullViewImage = ({ fullView, sIndex, images, setFullView }) => {
     }
   }, [fullView])
 
+  const handleImageApproval = () => {
+    // dispatch()
+  }
+
   return <div className='fixed inset-0 bg-[rgba(0,0,0,.8)] text-white z-[99999]'>
     <div className='absolute top-6 left-6 flex items-center gap-4'>
       <svg onClick={handleFullView} className='fill-white cursor-pointer hover:fill-gray-100 hover:scale-[110%] duration-300 transition-all  h-7 w-7 grid place-items-center right-4 top-[50%] rounded-full hover:bg-[rgba(0,0,0,.5)] group' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>
@@ -119,6 +123,12 @@ const FullViewImage = ({ fullView, sIndex, images, setFullView }) => {
     </div>
     <div className='absolute [transform:translate(0%,-50%)] h-10 w-10 grid place-items-center right-4 top-[50%] rounded-full hover:bg-[rgba(0,0,0,.2)] group transition-all duration-300'>
       <svg onClick={() => { handleImageNavigation("RIGHT") }} className='w-6 h-6 fill-white rotate-180 cursor-pointer group-hover:fill-gray-200 hover:scale-[115%] transition-all' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.0003 12.9999L22.0004 11L8.41421 11V5.58582L2 12L8.41421 18.4142L8.41421 13L22.0003 12.9999Z"></path></svg>
+    </div>
+    <div className='absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,.2)] h-20 flex justify-center items-center'>
+      <button onClick={handleImageApproval} className='flex justify-center items-center space-x-2'>
+        <svg className='w-6 h-6 cursor-pointer fill-green-500' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.602 13.7599L13.014 15.1719L21.4795 6.7063L22.8938 8.12051L13.014 18.0003L6.65 11.6363L8.06421 10.2221L10.189 12.3469L11.6025 13.7594L11.602 13.7599ZM11.6037 10.9322L16.5563 5.97949L17.9666 7.38977L13.014 12.3424L11.6037 10.9322ZM8.77698 16.5873L7.36396 18.0003L1 11.6363L2.41421 10.2221L3.82723 11.6352L3.82604 11.6363L8.77698 16.5873Z"></path></svg>
+        <p className='cursor-pointer'>Approve</p>
+      </button>
     </div>
   </div>
 }
@@ -150,156 +160,25 @@ const ImageGrid = ({ sIndex, images }) => {
   </div>
 }
 
-const ManageSnap = () => {
-  const snapImages = [
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s",
-      index: 1
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 2
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 3
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 4
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 5
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 6
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 7
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 8
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://images.pexels.com/photos/9936976/pexels-photo-9936976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      index: 9
-    },
-    {
-      _id: "",
-      for: "S1",
-      imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s",
-      index: 10
-    },
-  ]
+const ManageSnap = ({ projectData }) => {
+
+  console.log("projectData____",projectData)
 
   const snapData = useSelector(state => {
-    const data = state.adminData?.getCompiliance?.snap
+    const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap
     if (Array.isArray(data)) return data
     return []
-  }).length || [
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "S1",
-        images: snapImages
-      },
-      {
-        _id: "",
-        for: "s2",
-        images: snapImages
-      },
-    ]
+  })
 
   return (
     <div className='grid grid-cols-2 content-start md:grid-cols-4 gap-4 py-6 p-4 !overflow-y-scroll'>
-      {snapData.length ? snapData.map(item => {
-        const sIndex = item.for
+      {(snapData && snapData.length) ? snapData.map(item => {
+        const sIndex = item.fieldName
         return (
           <>
             <FormCard key={sIndex} sIndex={sIndex} />
             {
-              item?.images.length ? <ImageGrid sIndex={sIndex} images={item.images} /> : <></>
+              item?.images?.length ? <ImageGrid sIndex={sIndex} images={item.images} /> : <></>
             }
           </>
         )

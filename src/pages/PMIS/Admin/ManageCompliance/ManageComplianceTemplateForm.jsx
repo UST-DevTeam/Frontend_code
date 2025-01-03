@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
-import {getAccessType,labelToValue,objectToQueryString,} from "../../../../utils/commonFunnction";
-import { Urls} from "../../../../utils/url";
+import { getAccessType, labelToValue, objectToQueryString, } from "../../../../utils/commonFunnction";
+import { Urls } from "../../../../utils/url";
 import CommonForm from "../../../../components/CommonForm";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
 import projectListActions from "../../../../store/actions/projectList-actions";
@@ -23,12 +23,14 @@ const ManageComplianceTemplateForm = ({
   myTaskPage,
   filterView
 }) => {
+  const { L1UserId = "" } = useSelector(state => state.projectList.globalComplianceTypeData?.[0]) || {}
 
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
   let milestoneStatus = mileStone?.mileStoneStatus
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
+  let userId = user?.uniqueId
 
   const {
     register,
@@ -68,16 +70,16 @@ const ManageComplianceTemplateForm = ({
     getValues: getValuesForm4,
     handleSubmit: handleSubmitForm4,
     formState: { errors: errorsForm4 },
-  } 
-  = useForm();
+  }
+    = useForm();
   const {
     register: registerForm5,
     setValue: setValueForm5,
     getValues: getValuesForm5,
     handleSubmit: handleSubmitForm5,
     formState: { errors: errorsForm5 },
-  } 
-  = useForm();
+  }
+    = useForm();
   const {
     register: registerForm0,
     setValue: setValueForm0,
@@ -100,7 +102,7 @@ const ManageComplianceTemplateForm = ({
   const [invoiceData, setinvoiceData] = useState([]);
   const [uniqueness, setUniqueness] = useState("");
   const [listing, setlisting] = useState([]);
-  const[L1Approver,setL1Approver] = useState(null);
+  const [L1Approver, setL1Approver] = useState(null);
   const dispatch = useDispatch();
 
   let L1optionList = useSelector((state) => {
@@ -113,36 +115,41 @@ const ManageComplianceTemplateForm = ({
   })
 
 
+  useEffect(() => {
+    setL1Approver(L1UserId)
+    setValueFormSelect("selectField", L1UserId)
+  }, [L1UserId])
+
+
 
   let dataOfOldProject = useSelector((state) => {
-    let datew = state.adminData.getOneProjectTypeDyform;
+    let datew = state.projectList.globalComplianceTypeData;
 
     if (type && datew && datew.length > 0) {
       settype(false);
 
-      let dtresult = datew[0]["result"];
+      let dtresult = datew[0];
 
 
-      dtresult["planDetails"] && dtresult["planDetails"].map((iytm) => {
-          setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+      dtresult["PlanDetailsData"] && Object.keys(dtresult["PlanDetailsData"]).map((iytm) => {
+        setValueForm1(iytm, dtresult["PlanDetailsData"][iytm]);
       });
 
-      dtresult["siteDetails"] && dtresult["siteDetails"].map((iytm) => {
-        setValueForm2(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+      dtresult["AcceptanceLogData"] && Object.keys(dtresult["AcceptanceLogData"]).map((iytm) => {
+        setValueForm5(iytm, dtresult["AcceptanceLogData"][iytm]);
       });
 
-      dtresult["ranChecklist"] && dtresult["ranChecklist"].map((iytm) => {
-          setValueForm3(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+      dtresult["RanCheckListData"] && Object.keys(dtresult["RanCheckListData"]).map((iytm) => {
+        setValueForm3(iytm, dtresult["RanCheckListData"][iytm]);
       });
 
-      dtresult["snap"] && dtresult["snap"].map((iytm) => {
-        setValueForm4(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+      dtresult["SiteDetailsData"] && Object.keys(dtresult["SiteDetailsData"]).map((iytm) => {
+        setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
       });
 
-      dtresult["acceptanceLog"] && dtresult["acceptanceLog"].map((iytm) => {
-        setValueForm5(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+      dtresult["TemplateData"] && Object.keys(dtresult["TemplateData"]).map((iytm) => {
+        setValueForm0(iytm, dtresult["TemplateData"][iytm]);
       });
-    
 
       return datew[0];
     }
@@ -162,7 +169,7 @@ const ManageComplianceTemplateForm = ({
 
   const handleTemplateSubmit = (data) => {
 
-    if (!L1Approver){
+    if (!L1Approver) {
       let msgdata = {
         show: true,
         icon: "error",
@@ -176,7 +183,7 @@ const ManageComplianceTemplateForm = ({
 
     let final_data = {};
     dataOfProject["Template"].map((itew) => {
-        
+
       let fieldNaming = labelToValue(itew.fieldName);
       final_data[fieldNaming] = data[fieldNaming];
     });
@@ -191,32 +198,32 @@ const ManageComplianceTemplateForm = ({
 
 
 
-    
+
 
     let fdata = {
       name: "TemplateData",
       data: final_data,
       from: {
-        siteuid:siteCompleteData['uniqueId'],
-        milestoneuid:mileStone['uniqueId'],
-        projectuniqueId:projectuniqueId,
-        subprojectId:siteCompleteData['SubProjectId'],
-        L1Approver:L1Approver
+        siteuid: siteCompleteData['uniqueId'],
+        milestoneuid: mileStone['uniqueId'],
+        projectuniqueId: projectuniqueId,
+        subprojectId: siteCompleteData['SubProjectId'],
+        L1Approver: L1Approver
       },
     };
 
     dispatch(
-      projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,fdata,() => {})
+      projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver, fdata, () => { })
     );
 
-  };  
+  };
 
   const handlePlanDetailsSubmit = (data) => {
     let final_data = {};
     dataOfProject["planDetails"].map((itew) => {
 
       let fieldNaming = labelToValue(itew.fieldName);
-      final_data[fieldNaming] = data[fieldNaming];      
+      final_data[fieldNaming] = data[fieldNaming];
     });
 
     // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
@@ -264,7 +271,7 @@ const ManageComplianceTemplateForm = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => {}
+        () => { }
       )
     );
 
@@ -292,7 +299,7 @@ const ManageComplianceTemplateForm = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => {}
+        () => { }
       )
     );
   };
@@ -319,10 +326,11 @@ const ManageComplianceTemplateForm = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => {}
+        () => { }
       )
     );
   };
+
   const handleAcceptanceLogSubmit = (data) => {
 
     let final_data = {};
@@ -345,11 +353,10 @@ const ManageComplianceTemplateForm = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => {}
+        () => { }
       )
     );
   };
-
 
   const funcaller = () => {
     reset({});
@@ -370,10 +377,14 @@ const ManageComplianceTemplateForm = ({
     "Auto Created": "sdisabled",
   };
 
+  // useEffect(() => {
+  //   setValue("BTS Manufacturer (OEM)",TemplateData['BTS Manufacturer (OEM)'])
+  // },[])
+
   return (
     <>
       <Modal
-        modalHead = "Compliance Form"
+        modalHead="Compliance Form"
         children={modalBody}
         setIsOpen={setmodalOpen}
         isOpen={modalOpen}
@@ -382,33 +393,33 @@ const ManageComplianceTemplateForm = ({
 
       <div className="overflow-scroll h-[94vh] p-4">
 
-      <CommonForm
-        classes={"flex mx-auto w-1/4 mb-[-10px]"}
-        Form={[
-          {
-            label: "Select Your L1 Approver",
-            value: "",
-            name: "selectField",
-            type: "select",
-            option: L1optionList,
-            props:{
-              onChange:(e) =>{
-                setL1Approver(e.target.value)
-              }
+        <CommonForm
+          classes={"flex mx-auto w-1/4 mb-[-10px]"}
+          Form={[
+            {
+              label: "Select Your L1 Approver",
+              value: '',
+              name: "selectField",
+              type: "select",
+              option: L1optionList,
+              props: {
+                onChange: (e) => {
+                  setL1Approver(e.target.value)
+                }
+              },
+              required: true,
             },
-            required: true,
-          },
-        ]}
-        errors={errorsFormSelect}
-        register={registerFormSelect}
-        setValue={setValueFormSelect}
-        getValues={getValuesFormSelect}
-      />
+          ]}
+          errors={errorsFormSelect}
+          register={registerFormSelect}
+          setValue={setValueFormSelect}
+          getValues={getValuesFormSelect}
+        />
 
-      <CommonTableFormSiteParent
-        funcaller={funcaller}
-        defaultValue={"Template"}
-        tabslist={{
+        <CommonTableFormSiteParent
+          funcaller={funcaller}
+          defaultValue={"Template"}
+          tabslist={{
             "Template": (
               <>
                 <div className="flex justify-end">
@@ -424,28 +435,28 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["Template"]
                         ? dataOfProject["Template"].map((its) => {
-                            let type = dtype[its.dataType];
-                            let option = its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
-                              : [];
+                          let type = dtype[its.dataType];
+                          let option = its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
+                            : [];
 
-                            return {
-                              label: its.fieldName,
-                              value: "",
-                              required: its.required == "Yes" ? true : false,
-                              option: option,
-                              name: its.fieldName,
-                              type: type,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "",
+                            required: its.required == "Yes" ? true : false,
+                            option: option,
+                            name: its.fieldName,
+                            type: type,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -456,7 +467,7 @@ const ManageComplianceTemplateForm = ({
                 />
               </>
             ),
-        }}
+          }}
         />
         <CommonTableFormSiteParent
           funcaller={funcaller}
@@ -477,28 +488,28 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["planDetails"]
                         ? dataOfProject["planDetails"].map((its) => {
-                            let type = dtype[its.dataType];
-                            let option = its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
-                              : [];
+                          let type = dtype[its.dataType];
+                          let option = its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
+                            : [];
 
-                            return {
-                              label: its.fieldName,
-                              value: "",
-                              required: its.required == "Yes" ? true : false,
-                              option: option,
-                              name: its.fieldName,
-                              type: type,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "",
+                            required: its.required == "Yes" ? true : false,
+                            option: option,
+                            name: its.fieldName,
+                            type: type,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -525,25 +536,25 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["siteDetails"]
                         ? dataOfProject["siteDetails"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                              option:its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              required: its.required == "Yes" ? true : false,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: dtype[its.dataType],
+                            option: its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
+                              : [],
+                            required: its.required == "Yes" ? true : false,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -570,25 +581,25 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["ranChecklist"]
                         ? dataOfProject["ranChecklist"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                              option:its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              required: its.required == "Yes" ? true : false,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: dtype[its.dataType],
+                            option: its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
+                              : [],
+                            required: its.required == "Yes" ? true : false,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -602,54 +613,67 @@ const ManageComplianceTemplateForm = ({
             ),
 
             Snap: (
-                <ManageSnap />
-              ),
+              <ManageSnap projectData={
+                (() => {
+                  const final_data = {}
+                  final_data['siteuid'] = siteCompleteData['uniqueId']
+                  final_data['milestoneuid'] = mileStone['uniqueId']
+                  final_data['projectuniqueId'] = projectuniqueId
+                  final_data['subprojectId'] = siteCompleteData['SubProjectId']
+                  final_data['approverType'] = "L1Approver"
+                  final_data['L1UserId'] = L1Approver
+                  final_data['SnapData'] = 1
+                  final_data['userId'] = userId
+                  return final_data
+                })()
+              } />
+            ),
 
-              "Acceptance Log": (
-                <>
-                  <div className="flex justify-end">
-                    <Button
-                      classes="w-30"
-                      name="Save Acceptance Log"
-                      onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
-                    />
-                  </div>
-                  <CommonForm
-                    classes={"grid-cols-4 gap-1"}
-                    Form={
-                      dataOfProject
-                        ? dataOfProject["acceptanceLog"]
-                          ? dataOfProject["acceptanceLog"].map((its) => {
-                              return {
-                                label: its.fieldName,
-                                value: "abc",
-                                name: its.fieldName,
-                                type: dtype[its.dataType],
-                                option:its.dropdownValue
-                                  ? its.dropdownValue.split(",").map((itm) => {
-                                      return {
-                                        value: itm,
-                                        label: itm,
-                                      };
-                                    })
-                                  : [],
-                                required: its.required == "Yes" ? true : false,
-                                props: {
-                                  maxSelectableDate: today,
-                                },
-                              };
-                            })
-                          : []
-                        : []
-                    }
-                    // Form={filesUploadForm}
-                    errors={errorsForm5}
-                    register={registerForm5}
-                    setValue={setValueForm5}
-                    getValues={getValuesForm5}
+            "Acceptance Log": (
+              <>
+                <div className="flex justify-end">
+                  <Button
+                    classes="w-30"
+                    name="Save Acceptance Log"
+                    onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
                   />
-                </>
-              ),
+                </div>
+                <CommonForm
+                  classes={"grid-cols-4 gap-1"}
+                  Form={
+                    dataOfProject
+                      ? dataOfProject["acceptanceLog"]
+                        ? dataOfProject["acceptanceLog"].map((its) => {
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: dtype[its.dataType],
+                            option: its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
+                              : [],
+                            required: its.required == "Yes" ? true : false,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
+                        : []
+                      : []
+                  }
+                  // Form={filesUploadForm}
+                  errors={errorsForm5}
+                  register={registerForm5}
+                  setValue={setValueForm5}
+                  getValues={getValuesForm5}
+                />
+              </>
+            ),
           }}
         />
       </div>

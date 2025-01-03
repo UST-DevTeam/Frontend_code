@@ -35,8 +35,8 @@ const FillAdvance = () => {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
-      }).replace(/\//g, '-')
-    
+    }).replace(/\//g, '-')
+
     let dbConfigList = useSelector((state) => {
         let interdata = state?.expenseAdvanceData?.getFillAdvance || [""]
         return interdata?.map((itm) => {
@@ -51,7 +51,7 @@ const FillAdvance = () => {
                 //     />
                 //   </div>
                 // ),
-                              
+
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(ExpenseAdvanceActions.getFillAdvance())
@@ -62,7 +62,7 @@ const FillAdvance = () => {
                     </>)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
-                
+
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                     let msgdata = {
                         show: true,
@@ -96,65 +96,65 @@ const FillAdvance = () => {
         }
     })
 
-    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
+    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors }, } = useForm()
 
     let table = {
         columns: [
-          {
-            name: "Advance No.",
-            value: "AdvanceNo",
-            style: "min-w-[170px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d]",
-          },
-          {
-            name: "Project ID",
-            value: "projectIdName",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Advance Type",
-            value: "advanceType",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Advance Date",
-            value: "CreatedAt",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Cost Center",
-            value: "costcenter",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Amount",
-            value: "Amount",
-            style: "min-w-[170px] max-w-[450px] text-center",
-          },
-          {
-            name: "Current Status",
-            value: "status",
-            style: "min-w-[140px] max-w-[450px] text-center",
-          },
-          {
-            name: "Additional Info",
-            value: "additionalInfo",
-            style: "min-w-[330px] max-w-[450px] text-center",
-          },
-          {
-            name: "Remarks",
-            value: "remark",
-            style: "min-w-[330px] max-w-[450px] text-center",
-          },
-          {
-            name: "Edit",
-            value: "edit",
-            style: "min-w-[100px] max-w-[100px] text-center",
-          },
-          {
-            name: "Delete",
-            value: "delete",
-            style: "min-w-[100px] max-w-[100px] text-center",
-          },
+            {
+                name: "Advance No.",
+                value: "AdvanceNo",
+                style: "min-w-[170px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d]",
+            },
+            {
+                name: "Project ID",
+                value: "projectIdName",
+                style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+                name: "Advance Type",
+                value: "advanceType",
+                style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+                name: "Advance Date",
+                value: "CreatedAt",
+                style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+                name: "Cost Center",
+                value: "costcenter",
+                style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+                name: "Amount",
+                value: "Amount",
+                style: "min-w-[170px] max-w-[450px] text-center",
+            },
+            {
+                name: "Current Status",
+                value: "status",
+                style: "min-w-[140px] max-w-[450px] text-center",
+            },
+            {
+                name: "Additional Info",
+                value: "additionalInfo",
+                style: "min-w-[330px] max-w-[450px] text-center",
+            },
+            {
+                name: "Remarks",
+                value: "remark",
+                style: "min-w-[330px] max-w-[450px] text-center",
+            },
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[100px] max-w-[100px] text-center",
+            },
+            {
+                name: "Delete",
+                value: "delete",
+                style: "min-w-[100px] max-w-[100px] text-center",
+            },
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -177,12 +177,12 @@ const FillAdvance = () => {
         dispatch(ExpenseAdvanceActions.getFillAdvance(value, objectToQueryString(data)))
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         dispatch(ExpenseAdvanceActions.getFillAdvance())
     }, [])
 
-    const onTableViewSubmit = (data) => { 
-        data["fileType"]="ManageClaimType"
+    const onTableViewSubmit = (data) => {
+        data["fileType"] = "ManageClaimType"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             dispatch(ExpenseAdvanceActions.getFillAdvance())
             setFileOpen(false)
@@ -200,7 +200,7 @@ const FillAdvance = () => {
                 {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button> */}
-                </div>}
+            </div>}
             table={table}
             // templateButton={["/template/Circle.xlsx","Circle.xlsx"]}
             // exportButton={["/export/manageCircle","Export_Circle("+dt+").xlsx"]}
@@ -219,7 +219,7 @@ const FillAdvance = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         {/* <CommonForm/> */}
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Circle.xlsx","Circle.xlsx"]}/>
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink={["/template/Circle.xlsx", "Circle.xlsx"]} />
     </>
 
 
