@@ -29,6 +29,11 @@
 //           [
 //           "Compliance", 
 //           "bg-pcol",
+//           "/home/approverCards"
+//           ],
+//           [
+//           "Compliance",
+//           "bg-pcol",
 //           "/home/complianceMilestoneCard"
 //           ],
 //         ].map((itm) => {
@@ -73,22 +78,87 @@
 
 // export default ParentApproverCards;
 
-
-
-
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import AdminActions from "../../../store/actions/admin-actions";
+import TreeStructure from "../../../components/TreeStructure";
 
 const ParentApproverCards = () => {
-
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  const complianceData = [
+    {
+      title: "Expense/Advance",
+      href: null,
+      children: [
+        {
+          title: "L1 Approver",
+          href: "/home/approverCards/L1Approver",
+          children: [],
+        },
+        {
+          title: "L2 Approver",
+          href: "/home/approverCards/L2Approver",
+          children: [],
+        },
+        {
+          title: "Finance Approver",
+          href: "/home/approverCards/FinanceApprover",
+          children: [],
+        },
+        {
+          title: "Settlement Amount",
+          href: "/home/approverCards/SettlementAmount",
+          children: [],
+        },
+      ],
+    },
+  ]
+
+  const complianceMilestoneData = useSelector((state) => {
+    const lApprover = [
+      {
+        title: "L1 Approver",
+        href: "/home/approverCards/L1Approver",
+        children: [],
+      },
+      {
+        title: "L2 Approver",
+        href: "/home/approverCards/L2Approver",
+        children: [],
+      },
+    ];
+    const data = {
+      title: "Compliance",
+      href: null,
+      children: Array.isArray(state?.adminData?.getCardComplainceMilestone)
+        ? state?.adminData?.getCardComplainceMilestone?.map((itm) => {
+            return {
+              title: itm?.complianceMilestone,
+              href: null,
+              children: lApprover,
+            };
+          })
+        : [],
+    };
+
+    return [...complianceData, data];
+  });
+
+
+    Compliance: [
+      ["Compliance 1", "bg-pcol", "/home/compliance1"],
+      ["Compliance 2", "bg-pcol", "/home/compliance2"],
+    ]
+  
+
+
+
 
   let dbConfigListCard = useSelector((state) => {
     let interdata = state?.adminData?.getCardComplainceMilestone;
@@ -125,35 +195,12 @@ const ParentApproverCards = () => {
   useEffect(() => {
     dispatch(AdminActions.getCardComplianceMilestone());
     dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
-  }, []);
-
-  const handleCardClick = (cardName, cardPath) => {
-    if (selectedCard === cardName) {
-      setSelectedCard(null);
-    } else {
-      setSelectedCard(cardName);
-      dispatch(ComponentActions.globalUrlStore(cardName, cardPath));
-      dispatch(ComponentActions.breadcrumb(cardName, cardPath, 1, false));
-      // navigate(cardPath);
-    }
-  }
+  }, [dispatch]);
 
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto">
-        <CCDash
-          showbtn={false}
-          approveddata={cards.map((itm) => (
-            <div
-              key={itm[0]}
-              className={`${itm[1]} bg-pcol text-white text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
-              onClick={() => handleCardClick(itm[0], itm[2])}
-            >
-              <div className="m-auto">{itm[0]}</div>
-            </div>
-          ))}
-          settype={settype}
-        />
+      <div className="absolute w-full top-12 mt-12 z-10 bg-[#3e454d] overflow-auto">
+        <TreeStructure data={complianceMilestoneData} />
       </div>
 
       {selectedCard && (
@@ -176,7 +223,7 @@ const ParentApproverCards = () => {
       )}
     </>
   );
-};
+}
 
 export default ParentApproverCards;
 

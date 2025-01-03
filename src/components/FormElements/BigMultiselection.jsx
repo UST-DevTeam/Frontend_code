@@ -1,7 +1,7 @@
 import Multiselect from "multiselect-react-dropdown";
 import React from "react";
 
-const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}) => {
+const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register, height = "h-32"}) => {
 
 
   let datew=[] 
@@ -65,7 +65,7 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}
           width:itm?.width,
           },
         }}
-        className="custom-scrollbar pt-1 text-black bg-white block h-32 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+        className={`custom-scrollbar pt-1 text-black bg-white block ${height} rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6`}
       />
     </>
   );

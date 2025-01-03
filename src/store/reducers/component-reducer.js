@@ -21,39 +21,45 @@ const component = createSlice({
         state.popmenu = "";
       }
     },
-    
-    GLOBAL_VALUE: (state, { payload }) => {
 
-      let alreadyPayloading=[...state.globalValue]
-      console.log(alreadyPayloading,"alreadyPayloading")
-      let alreadyPayload = alreadyPayloading.findIndex(item=>item.name==payload.name)
-      let data=[]
-      if(alreadyPayload!=-1){
-        data = [...state.globalValue]
-        data[alreadyPayload]=payload
-      }else{
-        data = [...state.globalValue,payload]
+    GLOBAL_VALUE: (state, { payload }) => {
+      let alreadyPayloading = [...state.globalValue];
+      console.log(alreadyPayloading, "alreadyPayloading");
+      let alreadyPayload = alreadyPayloading.findIndex(
+        (item) => item.name == payload.name
+      );
+      let data = [];
+      if (alreadyPayload != -1) {
+        data = [...state.globalValue];
+        data[alreadyPayload] = payload;
+      } else {
+        data = [...state.globalValue, payload];
       }
-      localStorage.setItem("GLOBAL_VALUE",JSON.stringify(data))
-      state.globalValue = data
+      localStorage.setItem("GLOBAL_VALUE", JSON.stringify(data));
+      state.globalValue = data;
     },
     BREADCRUMB: (state, { payload }) => {
       if (payload.tkn) {
-        let lendata=[...state.breadcrumb].length
-        state.breadcrumb = [{name:payload.data,index:lendata,link:payload.link}];
+        let lendata = [...state.breadcrumb].length;
+        state.breadcrumb = [
+          { name: payload.data, index: lendata, link: payload.link },
+        ];
       } else {
-        if(payload.data!=""){
-          let lendata=[...state.breadcrumb].length
-          state.breadcrumb = [...state.breadcrumb,{name:payload.data,index:lendata,link:payload.link}];
-        }else{
-          let lendata=[...state.breadcrumb].length
-          state.breadcrumb = [...state.breadcrumb.splice(0,payload.index+1)];
+        if (payload.data != "") {
+          let lendata = [...state.breadcrumb].length;
+          state.breadcrumb = [
+            ...state.breadcrumb,
+            { name: payload.data, index: lendata, link: payload.link },
+          ];
+        } else {
+          let lendata = [...state.breadcrumb].length;
+          state.breadcrumb = [...state.breadcrumb.splice(0, payload.index + 1)];
         }
       }
     },
 
     // splice(0,payload.index)
-    
+
     TABLE_PAGINATON: (state, { payload }) => {
       state.table_pagination = payload;
     },
