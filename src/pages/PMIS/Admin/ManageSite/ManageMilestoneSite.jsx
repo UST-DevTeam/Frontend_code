@@ -325,9 +325,9 @@ const ManageMilestoneSite = ({
                 name={"Completion Criteria"}
                 onClick={() => {
                   if (assignedToCount != 0) {
-                    dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
+                    // dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
+                    // dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.SubProjectId,mileStone.Name,siteCompleteData.ACTIVITY,true,""));
                     setmodalBody(
-
                       <CompletitonCreiteriaForm
                         siteCompleteData={siteCompleteData}
                         customeruniqueId={customeruniqueId}

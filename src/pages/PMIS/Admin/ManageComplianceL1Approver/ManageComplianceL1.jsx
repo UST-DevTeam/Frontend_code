@@ -14,6 +14,9 @@ import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 import ManageComplianceL1Form from './ManageComplianceL1Form';
+import { GET_CURRENT_USER_PG } from '../../../../store/reducers/currentuser-reducer';
+import { GET_ACTIVITY_AND_OEM_COMPLIANCE, GET_PROJECT_TYPE_COMPLIANCE } from '../../../../store/reducers/admin-reducer';
+import CurrentuserActions from '../../../../store/actions/currentuser-action';
 
 const ManageComplianceL1 = () => {
 
@@ -22,6 +25,16 @@ const ManageComplianceL1 = () => {
     const [modalHead, setmodalHead] = useState(<></>)
     const [fileOpen, setFileOpen] = useState(false)
 
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        setValues,
+        getValues,
+        formState: { errors },
+    } = useForm()
+
     let dispatch = useDispatch()
   
     let dbConfigList = useSelector((state) => {
@@ -29,45 +42,56 @@ const ManageComplianceL1 = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+
                 // "status": <CstmButton child={<ToggleButton onChange={(e) => {
                 //     console.log(e.target.checked, "e.target.checked")
                 //     let data = {
                 //         "enabled": e.target.checked ? 1 : 0
-                //     }
+                //     }    
                 //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
                 //         e.target.checked = e.target.checked
                 //     }, itm.id))
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
 
-                // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                //     setmodalOpen(true)
-                //     dispatch(AdminActions.getComplianceApprover())
-                //     setmodalHead("Edit")
-                //     setmodalBody(
-                //         <ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                //     )
-                // }}></EditButton>} />,
+                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                    setmodalOpen(true)
+                    setmodalHead("L1 Approver")
+                    setValue("customer",null);
+                    setValue("projectGroup", null);
+                    setValue("projectType", null);
+                    setValue("complianceMilestone", null);
+                    dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
+                    dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
+                    dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll:[], reset:true }))
+                    dispatch(AdminActions.getManageCustomer(true,`empId=${itm.uniqueId}`))
+                    dispatch(CurrentuserActions.getcurrentuserPG(true, `customerId=${itm.customer}`))
+                    dispatch(AdminActions.getProjectTypeCompiliance(true, `customerId=${itm.customer}`));
+                    dispatch(AdminActions.getActivityAndOemCompiliance(true,`customerId=${itm.customer}&projectType=${itm.projectType}`))
+                    setmodalBody(
+                        <ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                    )
+                }}></EditButton>} />,
                 
-                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                    let msgdata = {
-                        show: true,
-                        icon: 'warning',
-                        buttons: [
-                            <Button classes='w-15 bg-rose-400' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_getComplianceapprover}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getComplianceApprovertrue,`approverType=L1Approver`())
-                                    dispatch(ALERTS({ show: false }))
-                                }))
-                            }} name={"OK"} />,
-                            <Button classes='w-auto' onClick={() => {
-                                dispatch(ALERTS({ show: false }))
-                            }} name={"Cancel"} />
-                        ],
-                        text: "Are you sure you want to Delete?"
-                    }
-                    dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />
+                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
+                //     let msgdata = {
+                //         show: true,
+                //         icon: 'warning',
+                //         buttons: [
+                //             <Button classes='w-15 bg-rose-400' onClick={() => {
+                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_getComplianceapprover}/${itm.uniqueId}`, () => {
+                //                     dispatch(AdminActions.getComplianceApprovertrue,`approverType=L1Approver`())
+                //                     dispatch(ALERTS({ show: false }))
+                //                 }))
+                //             }} name={"OK"} />,
+                //             <Button classes='w-auto' onClick={() => {
+                //                 dispatch(ALERTS({ show: false }))
+                //             }} name={"Cancel"} />
+                //         ],
+                //         text: "Are you sure you want to Delete?"
+                //     }
+                //     dispatch(ALERTS(msgdata))
+                // }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -81,18 +105,20 @@ const ManageComplianceL1 = () => {
         }
     })
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        setValue,
-        setValues,
-        getValues,
-        formState: { errors },
-    } = useForm()
+    
 
     let table = {
         columns: [
+            {
+                name: "Emp Name",
+                value: "emp",
+                style: "min-w-[150px] max-w-[200px] text-center",
+            }, 
+            {
+                name: "Profile",
+                value: "userRole",
+                style: "min-w-[120px] max-w-[200px] text-center",
+            }, 
             {
                 name: "Customer Name",
                 value: "customerName",
@@ -109,35 +135,15 @@ const ManageComplianceL1 = () => {
                 style: "min-w-[120px] max-w-[200px] text-center",
             },
             {
-                name: "Sub Project",
-                value: "subProjectName",
-                style: "min-w-[120px] max-w-[200px] text-center",
-            },
-            {
-                name: "Activity",
-                value: "activity",
-                style: "min-w-[100px] max-w-[200px] text-center",
-            }, 
-            {
                 name: "Milestone",
                 value: "complianceMilestone",
                 style: "min-w-[100px] max-w-[200px] text-center",
-            },         
-            {
-                name: "L1 Approver",
-                value: "approverName",
-                style: "min-w-[120px] max-w-[200px] text-center",
-            },         
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
+            },               
             {
                 name: "Action",
-                value: "delete",
+                value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            },
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -169,19 +175,16 @@ const ManageComplianceL1 = () => {
 
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                setmodalHead("New Compliance L1 Approver")
-                setmodalBody(<ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
-                name={"Add Compliance L1"}></Button>
-                {/* <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
-                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
-                    dispatch(CommonActions.commondownload("/export/manageCostCenter","Export_Cost_Center.xlsx"))
-                }}></Button> */}
-                </div>}
+            headerButton={
+                <></>
+                // <div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+                //     setmodalOpen(prev => !prev)
+                //     setmodalHead("New Compliance L1 Approver")
+                //     setmodalBody(<ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                //     }}
+                //     name={"Add Compliance L1"}></Button>
+                // </div>
+            }
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}

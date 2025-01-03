@@ -158,7 +158,7 @@ const BreadCrumbs = () => {
   
 
 
-  console.log(consoleUrl.split("/"),"consoleUrlconsoleUrl")
+  // console.log(consoleUrl.split("/"),"consoleUrlconsoleUrl")
   let breadcrumblist = useSelector((state) => {
     return state.component.breadcrumb;
   });
@@ -167,7 +167,7 @@ const BreadCrumbs = () => {
   });
 
 
-  console.log(consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)),"breadcrumblistbreadcrumblist")
+  // console.log(consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)),"breadcrumblistbreadcrumblist")
 
   const dispatch = useDispatch();
   

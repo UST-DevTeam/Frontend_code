@@ -5,22 +5,17 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}
 
 
   let datew=[] 
+
   if (getValues()[itm.name]) {
     let oldData = getValues()[itm.name].split(",");
-    console.log(oldData,itm.option, "oldData");
-
-    console.log(itm.option,"qwertyui")
-
     datew=itm.option.filter((itm)=>{
-        console.log(itm,"itmitmitmitmitm")
-
         if(oldData.indexOf(itm.id)!=-1){
             return itm
         }
     })
-
-
   }
+
+
   return (
     <>
       <Multiselect
@@ -47,8 +42,11 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register}
           let finalselection = e.map((itm) => {
             return itm.id;
           });
-          setValue(itm.name, finalselection.join());
-          console.log(e, "onRemovesdfasasf");
+          if (finalselection.length === 0) {
+            setValue(itm.name, null);
+          } else {
+            setValue(itm.name, finalselection.join());
+          }
           if(itm.onRemoving){
             itm.onRemoving(finalselection)
           }

@@ -5,7 +5,7 @@ import { LOADERS, POP_MENU, BREADCRUMB, GLOBAL_VALUE } from "../reducers/compone
 
 const ComponentActions = {
     popmenu: (data,tkn) => async (dispatch, _) => {
-        console.log('datadatadatauuu',data,tkn)
+        // console.log('datadatadatauuu',data,tkn)
         try {
             dispatch(POP_MENU({data,tkn}))
         } catch (error) {
@@ -29,7 +29,6 @@ const ComponentActions = {
             dispatch(GLOBAL_VALUE({name,value}))
         } catch (error) {
             console.log(error, "amit errorerror 37")
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     alerts: (data) => async (dispatch, _) => {

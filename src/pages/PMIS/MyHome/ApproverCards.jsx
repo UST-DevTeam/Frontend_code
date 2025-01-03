@@ -30,12 +30,13 @@ const ApproverCards = () => {
           "L1 Approver",
           "bg-pcol", 
           "/home/approverCards/L1Approver", "/home/approverCards/L1Advance",
-        ],
+          ],
 
           [
           "L2 Approver", 
          "bg-pcol",
-          "/home/approverCards/L2Approver", "/home/approverCards/L2Advance"],
+          "/home/approverCards/L2Approver", "/home/approverCards/L2Advance"
+          ],
 
           [
             "Finance Approver", 

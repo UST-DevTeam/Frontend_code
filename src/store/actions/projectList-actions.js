@@ -172,6 +172,29 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
+    globalComplianceTypeDataPatch: (urle,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
+        try {
+            const res = await Api.patch({ url: urle, data:data })
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+            else{
+                cb()
+            }
+            
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+
+            // dispatch(Notify.error('something went wrong! please try again after a while'))
+        }
+    },
 
     getUserAllocatedProject:(reset=true,uid,args="") => async (dispatch, _) => {
         try {

@@ -6,6 +6,12 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Urls } from "../../../../utils/url";
 import MyHomeActions from "../../../../store/actions/myHome-actions";
+import NewLookBadge from "../../../../components/Badge";
+import ManageSite from "./ManageSite";
+import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTemplateForm";
+import Modal from "../../../../components/Modal";
+import AdminActions from "../../../../store/actions/admin-actions";
+import { GET_ONE_COMPLIANCE_DY_FORM, GET_ONE_COMPLIANCE_L1_LIST } from "../../../../store/reducers/admin-reducer";
 
 const CompletitonCreiteriaForm = ({
   siteCompleteData,
@@ -22,6 +28,9 @@ const CompletitonCreiteriaForm = ({
   const dateString = siteCompleteData["siteStartDate"];
   const [day, month, year] = dateString?.split("-")?.map(Number);
   const datestr = new Date(year, month - 1, day);
+  // const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [modalFullBody, setmodalFullBody] = useState(<></>);
+  const [modalFullOpen1, setmodalFullOpen1] = useState(false);
 
 
   const {
@@ -52,21 +61,59 @@ const CompletitonCreiteriaForm = ({
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
     return mileStone["Completion Criteria"].split(",").map((dta) => {
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
-      return {
-        label: dta,
-        value: "",
-        name: "CC_" + dta,
-        // required: true,
-        required: dta === "Forms & Checklist" ? false : true,
-        type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
-        option: geeter[0]["type"]=="Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
-          return {
-            label: itm,
-            value: itm,
-          };
-        }):[],
-        props: mileStoneprops[dta] || {},
-      };
+      if (dta == "Forms & Checklist"){
+        return {
+          label: dta,
+          name: "Checklist",
+          type: "jsxcmpt",
+          value: "",
+          component: 
+            <p className="cursor-pointer" 
+              onClick={() => {
+                dispatch(GET_ONE_COMPLIANCE_L1_LIST({dataAll:[],reset:true}))
+                dispatch(GET_ONE_COMPLIANCE_DY_FORM({dataAll:[],reset:true}))
+                dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
+                dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId,mileStone.Name,true,""));
+                setmodalFullOpen1(true)
+                setmodalFullBody(
+                  <ManageComplianceTemplateForm
+                    siteCompleteData={siteCompleteData}
+                    customeruniqueId={customeruniqueId}
+                    projectuniqueId={projectuniqueId}
+                    setmodalFullOpen={setmodalFullOpen}
+                    setmodalOpen={setmodalOpen}
+                    mileStone={mileStone}
+                    myTaskPage={myTaskPage}
+                    filterView = {filterView}
+                  />
+                )
+              }}>
+              <NewLookBadge text={"Form"} notifyType={"info"} />
+            </p>,
+          props: {
+            onChange: (e) => { },
+          },
+          required: false,
+          classes: "col-span-1",
+        };
+
+      }
+      else{
+        return {
+          label: dta,
+          value: "",
+          name: "CC_" + dta,
+          required: true,
+          type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
+          option: geeter[0]["type"]=="Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
+            return {
+              label: itm,
+              value: itm,
+            };
+          }):[],
+          props: mileStoneprops[dta] || {},
+        };
+      }
     });
   });
 
@@ -94,6 +141,14 @@ const CompletitonCreiteriaForm = ({
 
   return (
     <>
+      <Modal
+        size={"full"}
+        children={modalFullBody}
+        isOpen={modalFullOpen1}
+        setIsOpen={setmodalFullOpen1}
+        modalHead = {"Forms & Checklist"}
+      />
+
       <CommonForm
         classes={"grid-cols-1 gap-1"}
         Form={mileStoneCompletion}

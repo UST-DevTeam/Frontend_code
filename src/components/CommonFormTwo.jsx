@@ -55,7 +55,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                                 required: itm.required ? "This " + " Field is required" : false,
                                                 ...itm.props
                                             })} className=" bg-white border-black border block h-8 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" {...itm.props} />
-                                            {console.log(errors, [itm.name], itm.required, "errors?.itm?")}
+                                            {/* {console.log(errors, [itm.name], itm.required, "errors?.itm?")} */}
                                             <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
                                         </>
                                         :
@@ -69,7 +69,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                                 required: itm.required ? "This " + " Field is required" : false,
                                                 ...itm.props
                                             })} className=" bg-white border-black border block h-8 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" {...itm.props} />
-                                            {console.log(errors, [itm.name], itm.required, "errors?.itm?")}
+                                            {/* {console.log(errors, [itm.name], itm.required, "errors?.itm?")} */}
                                             <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
                                         </>
                                         :
@@ -83,7 +83,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
 
                                                 ...itm.props
                                             })} className=" bg-white block h-8 w-full rounded-md py-1.5 p-2 text-white-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" {...itm.props} />
-                                            {console.log(errors, [itm.name], itm.required, "errors?.itm?")}
+                                            {/* {console.log(errors, [itm.name], itm.required, "errors?.itm?")} */}
                                             <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
                                         </>
                                         :
@@ -97,7 +97,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                                 required: itm.required ? "This " + " Field is required" : false,
                                                 ...itm.props
                                             })} className=" bg-white  block h-8 w-full rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" {...itm.props} />
-                                            {console.log(errors, [itm.name], itm.required, "errors?.itm?")}
+                                            {/* {console.log(errors, [itm.name], itm.required, "errors?.itm?")} */}
                                             <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
                                         </>
                                         :
@@ -116,7 +116,7 @@ const CommonFormTwo = ({ classes, encType = false, Form, errors, handleSubmit, s
                                                 )}
                                                 className="m-2 block w-full text-sm text-black border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-black focus:outline-none dark:bg-white dark:border-black dark:placeholder-black"
                                                 {...itm.props} />
-                                            {console.log(errors, [itm.name], itm.required, "errors?.itm?")}
+                                            {/* {console.log(errors, [itm.name], itm.required, "errors?.itm?")} */}
                                             <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
                                         </>
                                         :

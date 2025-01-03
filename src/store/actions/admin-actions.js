@@ -57,6 +57,7 @@ import {
     ADD_COMPLIANCE,
     GET_COMPLIANCE_APPROVER,
     GET_CARD_COMPLIANCE_MILESTONE,
+    GET_ONE_COMPLIANCE_L1_LIST,
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -997,9 +998,9 @@ const AdminActions = {
 
     // super admin compiliance starts  -----
 
-    getProjectTypeCompiliance: (reset = true, args = "", cid="") => async (dispatch, _) => {
+    getProjectTypeCompiliance: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.projectTypeCompliance}/${cid}${args ? ("?" + args) : ""}` })
+            const res = await Api.get({ url: `${Urls.projectTypeCompliance}${args ? ("?" + args) : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll, reset }))
@@ -1007,7 +1008,7 @@ const AdminActions = {
         }
     },
 
-    getSubProjectTypeCompiliance: (reset = true, args = "",cid="", subType="",) => async (dispatch, _) => {
+    getSubProjectTypeCompiliance: (reset = true, args = "",cid="", subType="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.subProjectTypeCompliance}/${cid}/${subType}${args ? ("?" + args) : ""}` })
             if (res?.status !== 200) return
@@ -1017,9 +1018,9 @@ const AdminActions = {
         }
     },
 
-    getActivityAndOemCompiliance: (reset = true, args = "", cid="", subProjectTypeId="") => async (dispatch, _) => {
+    getActivityAndOemCompiliance: (reset = true, args = "", show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.activityAndOemCompliance}/${cid}/${subProjectTypeId}${args ? ("?" + args) : ""}` })
+            const res = await Api.get({ url: `${Urls.activityAndOemCompliance}${args ? ("?" + args) : ""}`, show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll, reset }))
@@ -1080,9 +1081,9 @@ const AdminActions = {
         }
     },
 
-    getOneComplianceDyform:(id,mstName,reset=true,args="") => async (dispatch, _) => {
+    getOneComplianceDyform:(id,mstName,reset=true,args="",show=1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_getOneCompliance}/${id}/${mstName}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.admin_getOneCompliance}/${id}/${mstName}${args!=""?"?"+args:""}`, reset,show:show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_ONE_COMPLIANCE_DY_FORM({dataAll,reset}))
@@ -1132,6 +1133,18 @@ const AdminActions = {
                 console.log("Vishal")
         }
     },
+
+    getOneComplianceL1List:(id,mstName,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_ComplianceL1List}/${id}/${mstName}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ONE_COMPLIANCE_L1_LIST({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+
 
     
 

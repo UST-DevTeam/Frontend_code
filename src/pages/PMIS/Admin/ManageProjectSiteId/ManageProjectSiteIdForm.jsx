@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
@@ -91,33 +90,14 @@ const ManageProjectSiteIdForm = ({
       name: "siteId",
       type: "jsxcmpt",
       value: "",
-      component: <p className="cursor-pointer" onClick={() => {
-        setmodalFullOpen(prev => !prev)
-        setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
-        setmodalBody(<CommonForm
-          classes={"grid-cols-1 gap-1"}
-          Form={Form}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues} />)
-      }}>
-        <NewLookBadge text={SiteId} notifyType={"info"} />
+      component: 
+        <p className="cursor-pointer" 
+          onClick={() => {
+            setmodalFullOpen(prev => !prev)
+            setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
+          }}>
+          <NewLookBadge text={SiteId} notifyType={"info"} />
         </p>,
-      component: <p className="cursor-pointer" onClick={() => {
-        setmodalFullOpen(prev => !prev)
-        setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}/>)
-        setmodalBody(<CommonForm
-          classes={"grid-cols-1 gap-1"}
-          Form={Form}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues} />)
-      }}>
-        <NewLookBadge text={SiteId} notifyType={"info"} />
-        </p>,
-
       props: {
         onChange: (e) => { },
       },
@@ -131,7 +111,6 @@ const ManageProjectSiteIdForm = ({
       value: "",
       component: <p className="cursor-pointer" onClick={() => {
         setmodalFullOpen(true)
-
         setmodalFullBody(<ManageMilestone setGlobalData={setGlobalData} setSiteId={setMile} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId} />)
       }}> 
       <NewLookBadge text={"Add"} notifyType={"error"} />
@@ -143,9 +122,7 @@ const ManageProjectSiteIdForm = ({
       classes: "col-span-1",
     },
   ];
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  
   const onTableViewSubmit = (data) => {
     dispatch(projectListActions.submitProjectTypeData(Urls.projectList_globalSaver, globalData, () => {
       dispatch(projectListActions.getProjectTypeAll(projectuniqueId))

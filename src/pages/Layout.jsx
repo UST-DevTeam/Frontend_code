@@ -26,7 +26,7 @@ const Layout = ({ child }) => {
   //     navigate("/login")
   // }
   let checkAuth = localStorage.getItem("auth");
-  console.log(checkAuth, "statestatestatestate");
+  // console.log(checkAuth, "statestatestatestate");
   // let checkauth;
   useEffect(() => {
     if (checkAuth == "false") {

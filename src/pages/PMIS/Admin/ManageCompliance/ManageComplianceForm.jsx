@@ -6,6 +6,7 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
+import { GET_ACTIVITY_AND_OEM_COMPLIANCE, GET_PROJECT_TYPE_COMPLIANCE, GET_SUB_PROJECT_TYPE_COMPLIANCE } from "../../../../store/reducers/admin-reducer";
 
 const ManageComplianceForm = ({
   customeruniqueId,
@@ -94,7 +95,7 @@ const ManageComplianceForm = ({
         onChange: (e) => {
           const cid = e.target.value;
           complainceRef.current.cid = cid;
-          dispatch(AdminActions.getProjectTypeCompiliance(true, "", cid));
+          dispatch(AdminActions.getProjectTypeCompiliance(true,`customerId=${cid}`));
         },
       },
       classes: "col-span-1",
@@ -109,12 +110,7 @@ const ManageComplianceForm = ({
           const projectType = e.target.value;
           complainceRef.current.projectType = projectType;
           dispatch(
-            AdminActions.getSubProjectTypeCompiliance(
-              true,
-              "",
-              complainceRef.current.cid,
-              projectType
-            )
+            AdminActions.getSubProjectTypeCompiliance(true,"",complainceRef.current.cid,projectType)
           );
         },
       },
@@ -124,7 +120,7 @@ const ManageComplianceForm = ({
       classes: "col-span-1",
     },
     {
-      label: " Sub Project",
+      label: "Sub Project",
       name: "subProject",
       type: "select",
       value: "",
@@ -132,12 +128,7 @@ const ManageComplianceForm = ({
         onChange: (e) => {
           const subProjectType = e.target.value;
           dispatch(
-            AdminActions.getActivityAndOemCompiliance(
-              true,
-              "",
-              complainceRef.current.cid,
-              subProjectType
-            )
+            AdminActions.getActivityAndOemCompiliance(true,`subProjectType=${subProjectType}&milestoneArgs=${"YES"}`)
           );
         },
       },
@@ -191,8 +182,8 @@ const ManageComplianceForm = ({
     getValues,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
-    console.log(data, "datadatadatadata");
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
@@ -220,12 +211,11 @@ const ManageComplianceForm = ({
       );
     }
   };
-  console.log(Form, "Form 11");
   useEffect(() => {
-    dispatch(AdminActions.getCompiliance());
     dispatch(AdminActions.getManageCustomer());
-
-    // alert(resetting)
+    dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
+    dispatch(GET_SUB_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
+    dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll:[], reset:true }))
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

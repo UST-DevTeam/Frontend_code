@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-
+    
     getcurrentuserPG: [],
     getcurrentuserPT: [],
     getcurrentuserPID: [],
     getcurrentusercircleprojectid: [],
-    getcurrentusercostcenter:[]
+    getcurrentusercostcenter:[],
+    getcurrentusermultiplePG: [],
 }
 
 
@@ -55,11 +56,19 @@ const currentuserData = createSlice({
                 state.getcurrentusercostcenter  = [...state.getcurrentusercostcenter,...payload.dataAll]
             }
         },
+
+        GET_CURRENT_USER_MULTIPLE_PG:(state,{payload}) => {
+            if(payload.reset){
+                state.getcurrentusermultiplePG = payload.dataAll
+            }else{
+                state.getcurrentusermultiplePG  = [...state.getcurrentusermultiplePG,...payload.dataAll]
+            }
+        },
     }
 
 })
 
 
-export const {GET_CURRENT_USER_PG, GET_CURRENT_USER_PT,GET_CURRENT_USER_PID,GET_CURRENT_USER_CIRCLE_PROJECTID,GET_CURRENT_USER_COST_CENTER} = currentuserData.actions
+export const {GET_CURRENT_USER_PG, GET_CURRENT_USER_PT,GET_CURRENT_USER_PID,GET_CURRENT_USER_CIRCLE_PROJECTID,GET_CURRENT_USER_COST_CENTER,GET_CURRENT_USER_MULTIPLE_PG} = currentuserData.actions
 
 export default currentuserData.reducer

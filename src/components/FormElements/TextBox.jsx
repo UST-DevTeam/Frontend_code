@@ -25,7 +25,7 @@ const TextBox = ({
           {...itm.props}
         />
 
-        {console.log(errors, itm.name, itm.required, "errors?.itm?")}
+        {/* {console.log(errors, itm.name, itm.required, "errors?.itm?")} */}
         <p className="text-xs text-rose-400 font-bold">{errors[itm.name]?.message}</p>
 
       </div>

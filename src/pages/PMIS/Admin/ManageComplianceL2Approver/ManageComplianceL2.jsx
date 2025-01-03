@@ -14,6 +14,9 @@ import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
 import ManageComplianceL2Form from './ManageComplianceL2Form';
+import { GET_CURRENT_USER_PG } from '../../../../store/reducers/currentuser-reducer';
+import { GET_ACTIVITY_AND_OEM_COMPLIANCE, GET_PROJECT_TYPE_COMPLIANCE } from '../../../../store/reducers/admin-reducer';
+import CurrentuserActions from '../../../../store/actions/currentuser-action';
 
 const ManageComplianceL2 = () => {
 
@@ -42,35 +45,45 @@ const ManageComplianceL2 = () => {
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
                 
-                // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                //     setmodalOpen(true)
-                //     dispatch(AdminActions.getComplianceApprover())
-                //     setmodalHead("Edit")
-                //     setmodalBody(
-                //         <ManageComplianceL2Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                //     )
-                // }}></EditButton>} />,
+                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                    setmodalOpen(true)
+                    setmodalHead("L2 Approver")
+                    setValue("customer",null);
+                    setValue("projectGroup", null);
+                    setValue("projectType", null);
+                    setValue("complianceMilestone", null);
+                    dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
+                    dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
+                    dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll:[], reset:true }))
+                    dispatch(AdminActions.getManageCustomer(true,`empId=${itm.uniqueId}`))
+                    dispatch(CurrentuserActions.getcurrentuserPG(true, `customerId=${itm.customer}`))
+                    dispatch(AdminActions.getProjectTypeCompiliance(true, `customerId=${itm.customer}`));
+                    dispatch(AdminActions.getActivityAndOemCompiliance(true,`customerId=${itm.customer}&projectType=${itm.projectType}`))
+                    setmodalBody(
+                        <ManageComplianceL2Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                    )
+                }}></EditButton>} />,
                 
-                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                    let msgdata = {
-                        show: true,
-                        icon: 'warning',
-                        buttons: [
-                            <Button classes='w-15 bg-rose-400' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_getComplianceapprover}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`))
-                                    dispatch(ALERTS({ show: false }))
-                                }))
-                            }} name={"OK"} />,
-                            <Button classes='w-auto' onClick={() => {
-                                console.log('snnsnsnsns')
-                                dispatch(ALERTS({ show: false }))
-                            }} name={"Cancel"} />
-                        ],
-                        text: "Are you sure you want to Delete?"
-                    }
-                    dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />
+                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
+                //     let msgdata = {
+                //         show: true,
+                //         icon: 'warning',
+                //         buttons: [
+                //             <Button classes='w-15 bg-rose-400' onClick={() => {
+                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_getComplianceapprover}/${itm.uniqueId}`, () => {
+                //                     dispatch(AdminActions.getComplianceApprover(true,`approverType=L2Approver`))
+                //                     dispatch(ALERTS({ show: false }))
+                //                 }))
+                //             }} name={"OK"} />,
+                //             <Button classes='w-auto' onClick={() => {
+                //                 console.log('snnsnsnsns')
+                //                 dispatch(ALERTS({ show: false }))
+                //             }} name={"Cancel"} />
+                //         ],
+                //         text: "Are you sure you want to Delete?"
+                //     }
+                //     dispatch(ALERTS(msgdata))
+                // }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -97,9 +110,19 @@ const ManageComplianceL2 = () => {
     let table = {
         columns: [
             {
+                name: "Emp Name",
+                value: "emp",
+                style: "min-w-[150px] max-w-[200px] text-center"
+            },
+            {
+                name: "Profile",
+                value: "userRole",
+                style: "min-w-[120px] max-w-[200px] text-center"
+            },
+            {
                 name: "Customer Name",
                 value: "customerName",
-                style: "min-w-[100px] max-w-[200px] text-center"
+                style: "min-w-[120px] max-w-[200px] text-center",
             },
             {
                 name: "Project Group",
@@ -112,30 +135,15 @@ const ManageComplianceL2 = () => {
                 style: "min-w-[120px] max-w-[200px] text-center",
             },
             {
-                name: "Sub Project",
-                value: "subProjectName",
-                style: "min-w-[120px] max-w-[200px] text-center",
-            },
-            {
-                name: "Activity",
-                value: "activity",
-                style: "min-w-[100px] max-w-[200px] text-center",
-            }, 
-            {
                 name: "Milestone",
                 value: "complianceMilestone",
                 style: "min-w-[100px] max-w-[200px] text-center",
-            },         
-            {
-                name: "L2 Approver",
-                value: "approverName",
-                style: "min-w-[120px] max-w-[200px] text-center",
-            },   
+            },               
             {
                 name: "Action",
-                value: "delete",
+                value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            },
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -165,13 +173,19 @@ const ManageComplianceL2 = () => {
 
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                setmodalHead("New Compliance L2 Approver")
-                setmodalBody(<ManageComplianceL2Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
-                name={"Add Compliance L2"}></Button>
-                </div>}
+            headerButton={
+                <></>
+                // <div className='flex gap-1'>
+                //     <Button classes='w-auto ' 
+                //         onClick={(e) => {
+                //             setmodalOpen(prev => !prev)
+                //             setmodalHead("New Compliance L2 Approver")
+                //             setmodalBody(<ManageComplianceL2Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                //         }}
+                //         name={"Add Compliance L2"}>
+                //     </Button>
+                // </div>
+            }
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}

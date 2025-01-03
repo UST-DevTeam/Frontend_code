@@ -17,6 +17,7 @@ import CommonTableForm from "../../../../components/CommonTableForm";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
 import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer";
 import ManageComplianceForm from "./ManageComplianceForm";
+import { GET_MANAGE_CUSTOMER } from "../../../../store/reducers/admin-reducer";
 
 const   ManageCompliance = () => {
 
@@ -809,6 +810,7 @@ const   ManageCompliance = () => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Compliance");
                 setmodalSize("sm");
+                dispatch(GET_MANAGE_CUSTOMER({dataAll:[],reset:true}))
                 setmodalBody(
                   <ManageComplianceForm
                     customeruniqueId={customeruniqueId}

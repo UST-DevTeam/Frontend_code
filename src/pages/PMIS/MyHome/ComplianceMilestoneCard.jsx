@@ -55,13 +55,7 @@ const ComplianceMilestoneCard = () => {
             </>
           );
         })}
-        // className="flex flex-col"
         settype={settype}
-        // showbtn={true}
-        // oppshowbtn={true}
-        // onpassclick={() => {
-        //   navigate(`${"/projectManagement_1"}/${cname}/GoToProject/${customeruniqueId}`);
-        // }}
       />
       </div>
     </>

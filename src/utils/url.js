@@ -62,6 +62,7 @@ export const Urls={
     projectList_siteEngineer:"/siteEngineer",
     projectList_milestone:"/milestone",
     projectList_globalSaver:"/globalSaver",
+    compliance_globalSaver:"/compliance/globalSaver",
     projectList_changeTaskStatus:"/changeTaskStatus",
     projectList_closeMilestone:"/closeMilestone/",
     project_circle:'/project/circle',
@@ -214,19 +215,21 @@ export const Urls={
 
     // currentuser
     current_user_PG:"/currentuser/ProjectGroup",
+    current_user_multiple_PG:"/currentuser/ProjectGroup",
     current_user_PT:"/currentuser/ProjectType",
     current_user_PID:"/currentuser/ProjectId",
     current_user_circle_projectId:"/currentuser/Circle/projectId",
     current_user_cost_center:'/currentuser/CostCenter',
 
-        // super admin compiliance starts  -----
-        projectTypeCompliance: "/admin/projectType",  
-        subProjectTypeCompliance: "/admin/projectSubType",
-        activityAndOemCompliance: "/admin/projectSubTypeFieldName",
-        addComplianceForm: "/admin/addComplianceForm",
-        admin_getComplianceapprover:"/admin/addComplianceApprover",
-        complainceMilestoneCard:"/admin/complainceMilestoneCard"
-        // super admin compiliance  ends -----
+    // super admin compiliance starts  -----
+    projectTypeCompliance: "/admin/projectType",  
+    subProjectTypeCompliance: "/admin/projectSubType",
+    activityAndOemCompliance: "/admin/projectSubTypeFieldName",
+    addComplianceForm: "/admin/addComplianceForm",
+    admin_getComplianceapprover:"/admin/addComplianceApprover",
+    complainceMilestoneCard:"/admin/complainceMilestoneCard",
+    admin_ComplianceL1List:"/admin/getOneComplianceL1List",
+    // super admin compiliance  ends -----
 
 
 }

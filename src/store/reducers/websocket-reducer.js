@@ -11,12 +11,12 @@ const component = createSlice({
     reducers: {
         SETUP_SOCKET: (state, { payload }) => {
 
-            console.log("socket_setup", payload, "payload")
+            // console.log("socket_setup", payload, "payload")
             state.socket_setup = payload
         },
         DATA_FROM_SOCKET: (state, { payload }) => {
 
-            console.log("socket_setup", payload, "payload")
+            // console.log("socket_setup", payload, "payload")
             // state.data_from_socket = payload
             state.data_from_socket = {
                 ...state.data_from_socket,
