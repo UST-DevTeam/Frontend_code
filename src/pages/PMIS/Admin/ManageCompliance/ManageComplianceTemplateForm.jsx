@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import {getAccessType,labelToValue,objectToQueryString,} from "../../../../utils/commonFunnction";
-import { ALERTS } from "../../../../store/reducers/component-reducer";
 import { Urls} from "../../../../utils/url";
 import CommonForm from "../../../../components/CommonForm";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
@@ -29,10 +28,6 @@ const ManageComplianceTemplateForm = ({
   let milestoneStatus = mileStone?.mileStoneStatus
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
-
-  console.log(siteCompleteData,mileStone,projectuniqueId,"____________setDAta")
-
-
 
   const {
     register,
@@ -88,6 +83,13 @@ const ManageComplianceTemplateForm = ({
     getValues: getValuesForm0,
     handleSubmit: handleSubmitForm0,
     formState: { errors: errorsForm0 },
+  } = useForm();
+  const {
+    register: registerFormSelect,
+    setValue: setValueFormSelect,
+    getValues: getValuesFormSelect,
+    handleSubmit: handleSubmitFormSelect,
+    formState: { errors: errorsFormSelect },
   } = useForm();
 
   const [modalOpen, setmodalOpen] = useState(false);
@@ -182,7 +184,7 @@ const ManageComplianceTemplateForm = ({
     //   )
     // );
 
-  };
+  };  
 
   const handlePlanDetailsSubmit = (data) => {
     let final_data = {};
@@ -353,8 +355,30 @@ const ManageComplianceTemplateForm = ({
         size={"full1"}
       />
 
+      <div className="overflow-scroll h-[94vh] p-4">
 
-      <div className="overflow-scroll  h-[94vh] p-4">
+      <CommonForm
+        classes={"flex mx-auto w-1/4 mb-[-10px]"}
+        Form={[
+          {
+            label: "Select L1",
+            value: "",
+            name: "selectField",
+            type: "select",
+            option: [
+              { value: "option1", label: "Option 1" },
+              { value: "option2", label: "Option 2" },
+              { value: "option3", label: "Option 3" },
+            ],
+            required: true,
+          },
+        ]}
+        errors={errorsFormSelect}
+        register={registerFormSelect}
+        setValue={setValueFormSelect}
+        getValues={getValuesFormSelect}
+      />
+
       <CommonTableFormSiteParent
         funcaller={funcaller}
         defaultValue={"Template"}

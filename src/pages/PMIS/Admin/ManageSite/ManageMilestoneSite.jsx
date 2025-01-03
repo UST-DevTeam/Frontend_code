@@ -328,26 +328,26 @@ const ManageMilestoneSite = ({
                     dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
                     setmodalBody(
 
-                      <CompletitonCreiteriaForm
-                        siteCompleteData={siteCompleteData}
-                        customeruniqueId={customeruniqueId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView = {filterView}
-                      />
-                        // <ManageComplianceTemplateForm
-                        //   siteCompleteData={siteCompleteData}
-                        //   customeruniqueId={customeruniqueId}
-                        //   projectuniqueId={projectuniqueId}
-                        //   setmodalFullOpen={setmodalFullOpen}
-                        //   setmodalOpen={setmodalOpen}
-                        //   mileStone={mileStone}
-                        //   myTaskPage={myTaskPage}
-                        //   filterView = {filterView}
-                        // />
+                      // <CompletitonCreiteriaForm
+                      //   siteCompleteData={siteCompleteData}
+                      //   customeruniqueId={customeruniqueId}
+                      //   projectuniqueId={projectuniqueId}
+                      //   setmodalFullOpen={setmodalFullOpen}
+                      //   setmodalOpen={setmodalOpen}
+                      //   mileStone={mileStone}
+                      //   myTaskPage={myTaskPage}
+                      //   filterView = {filterView}
+                      // />
+                        <ManageComplianceTemplateForm
+                          siteCompleteData={siteCompleteData}
+                          customeruniqueId={customeruniqueId}
+                          projectuniqueId={projectuniqueId}
+                          setmodalFullOpen={setmodalFullOpen}
+                          setmodalOpen={setmodalOpen}
+                          mileStone={mileStone}
+                          myTaskPage={myTaskPage}
+                          filterView = {filterView}
+                        />
                     );
                     setmodalOpen(true);
                   } else {

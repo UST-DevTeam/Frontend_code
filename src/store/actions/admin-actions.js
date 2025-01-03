@@ -57,6 +57,8 @@ import {
     ADD_COMPLIANCE,
     GET_COMPLIANCE_APPROVER,
     GET_CARD_COMPLIANCE_MILESTONE,
+    GET_ONE_COMPLIANCE_L1_LIST,
+    
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -1130,6 +1132,16 @@ const AdminActions = {
         } 
             catch (error) {
                 console.log("Vishal")
+        }
+    },
+
+    getOneComplianceL1List:(subid,mstName,activity,reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.admin_ComplianceL1List}/${subid}/${mstName}/${activity}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_ONE_COMPLIANCE_L1_LIST({dataAll,reset}))
+        } catch (error) {
         }
     },
 

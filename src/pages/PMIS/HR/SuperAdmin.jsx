@@ -367,7 +367,7 @@ const SuperAdmin = () => {
             "border-b-[#b8e0d2]",
           ],
           [
-            "Compliance",
+            "Forms & Checklist",
             "bg-pcol",
             "/hr/superAdmin/compliance",
             <Unicons.UilPagerduty size="32" color="" />,

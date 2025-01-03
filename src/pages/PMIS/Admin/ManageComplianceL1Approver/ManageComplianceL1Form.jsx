@@ -88,14 +88,28 @@ const ManageComplianceL1Form = ({
       let allEmployeeList = useSelector((state) => {
           return state?.hrReducer?.getHRAllEmployee.map((itm) => {
             return {
-              label: itm?.empName,
-              value: itm.uniqueId,
+              name: itm?.empName,
+              id: itm.uniqueId,
             };
           });
         });
 
 
   let Form = [
+    {
+      label: "L1 Approver",
+      name: "empApprover",
+      // type: "newMuitiSelect007",
+      type: "BigmuitiSelect",
+      value: "",
+      option: allEmployeeList,
+      props: {
+          selectType:selectType,
+        },
+      hasSelectAll:true,
+      required: true,
+      classes: "col-span-1 ",
+    },
     {
       label: "Customer Name",
       value: "",
@@ -112,19 +126,6 @@ const ManageComplianceL1Form = ({
         },
       },
       classes: "col-span-1",
-    },
-    {
-        label: "L1 Approver",
-        name: "empApprover",
-        type: "newMuitiSelect007",
-        value: "",
-        option: allEmployeeList,
-        props: {
-            selectType:selectType
-          },
-          hasSelectAll:true,
-        required: true,
-        classes: "col-span-1",
     },
     {
         label: "Project Group",

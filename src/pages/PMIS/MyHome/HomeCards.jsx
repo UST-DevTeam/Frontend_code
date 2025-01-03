@@ -93,7 +93,7 @@ const HomeCards = () => {
             [
               "Approvals",
               "bg-pcol",
-              "home/parentApproverCards",
+              "/home/parentApproverCards",
               <Unicons.UilCheckCircle size="40" color="" />,
             ],
             [

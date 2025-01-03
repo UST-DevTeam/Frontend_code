@@ -182,12 +182,7 @@ const FillExpense = () => {
             className="cursor-pointer text-pcol font-extrabold"
             onClick={(e) => {
               expenseRef.current = itm;
-              dispatch(
-                ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp(
-                  true,
-                  `ExpenseNo=${itm?.ExpenseNo}`
-                )
-              );
+              dispatch(ExpenseAdvanceActions.getExpensesByExpenseNoInPopUp(true,`ExpenseNo=${itm?.ExpenseNo}`));
               setmodalFullOpen((prev) => !prev);
               setHide(true);
               setmodalHead(itm?.ExpenseNo);

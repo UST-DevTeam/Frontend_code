@@ -321,13 +321,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/approverCards",
+      link: "/home/parentApproverCards/approverCards",
       subMenu: [],
       component: <ApproverCards />,
     },
     {
       name: "",
-      link: "/home/complianceMilestoneCard",
+      link: "/home/parentApproverCards/complianceMilestoneCard",
       subMenu: [],
       component: <ComplianceMilestoneCard />,
     },
