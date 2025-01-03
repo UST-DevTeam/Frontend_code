@@ -172,6 +172,7 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
+    
     globalComplianceTypeDataPatch: (urle,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
         try {
             const res = await Api.patch({ url: urle, data:data })

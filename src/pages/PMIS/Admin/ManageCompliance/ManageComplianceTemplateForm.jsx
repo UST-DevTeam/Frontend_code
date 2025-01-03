@@ -29,6 +29,8 @@ const ManageComplianceTemplateForm = ({
   let milestoneStatus = mileStone?.mileStoneStatus
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
+  let userId = user?.uniqueId
+
 
   const {
     register,
@@ -174,11 +176,13 @@ const ManageComplianceTemplateForm = ({
       return
     }
 
-    let final_data = {};
+    let final_data = {}
+
+    let Template_data = {};
     dataOfProject["Template"].map((itew) => {
         
       let fieldNaming = labelToValue(itew.fieldName);
-      final_data[fieldNaming] = data[fieldNaming];
+      Template_data[fieldNaming] = data[fieldNaming];
     });
 
     final_data['siteuid'] = siteCompleteData['uniqueId']
@@ -186,115 +190,124 @@ const ManageComplianceTemplateForm = ({
     final_data['projectuniqueId'] = projectuniqueId
     final_data['subprojectId'] = siteCompleteData['SubProjectId']
     final_data['approverType'] = "L1Approver"
-    final_data['approverId'] = L1Approver
-    final_data['TemplateStatus'] = 1
+    final_data['L1UserId'] = L1Approver
+    final_data['TemplateData'] = Template_data
+    final_data['userId'] = userId
 
 
-
-    
-
-    let fdata = {
-      name: "TemplateData",
-      data: final_data,
-      from: {
-        siteuid:siteCompleteData['uniqueId'],
-        milestoneuid:mileStone['uniqueId'],
-        projectuniqueId:projectuniqueId,
-        subprojectId:siteCompleteData['SubProjectId'],
-        L1Approver:L1Approver
-      },
-    };
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,fdata,() => {})
-    );
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
 
   };  
 
   const handlePlanDetailsSubmit = (data) => {
-    let final_data = {};
-    dataOfProject["planDetails"].map((itew) => {
 
+    if (!L1Approver){
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please Select Your L1 Approver",
+      };
+      dispatch(ALERTS(msgdata));
+      return
+    }
+
+    let final_data = {}
+
+    let Plan_Deatils_data = {};
+    dataOfProject["planDetails"].map((itew) => {
+        
       let fieldNaming = labelToValue(itew.fieldName);
-      final_data[fieldNaming] = data[fieldNaming];      
+      Plan_Deatils_data[fieldNaming] = data[fieldNaming];
     });
 
-    // dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, final_data, () => { }))
+    final_data['siteuid'] = siteCompleteData['uniqueId']
+    final_data['milestoneuid'] = mileStone['uniqueId']
+    final_data['projectuniqueId'] = projectuniqueId
+    final_data['subprojectId'] = siteCompleteData['SubProjectId']
+    final_data['approverType'] = "L1Approver"
+    final_data['L1UserId'] = L1Approver
+    final_data['PlanDetailsData'] = Plan_Deatils_data
+    final_data['userId'] = userId
 
-    let fdata = {
-      name: "updateSiteEngg",
-      data: final_data,
-      from: {
-        uid: uid,
-      },
-    };
 
-    dispatch(
-      projectListActions.globalProjectTypeDataPatch(
-        Urls.projectList_globalSaver,
-        projectuniqueId,
-        fdata,
-        () => {
-          dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-        }
-      )
-    );
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+
 
   };
 
   const handleSiteDetailsSubmit = (data) => {
 
-    let final_data = {};
-    dataOfProject["siteDetails"].map((itew) => {
+    if (!L1Approver){
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please Select Your L1 Approver",
+      };
+      dispatch(ALERTS(msgdata));
+      return
+    }
 
+    let final_data = {}
+
+    let Site_Deatils_data = {};
+    dataOfProject["siteDetails"].map((itew) => {
+        
       let fieldNaming = labelToValue(itew.fieldName);
-      final_data[fieldNaming] = data[fieldNaming];
+      Site_Deatils_data[fieldNaming] = data[fieldNaming];
     });
 
-    let fdata = {
-      name: "updateSiteEngg",
-      data: final_data,
-      from: {
-        uid: uid,
-      },
-    };
+    final_data['siteuid'] = siteCompleteData['uniqueId']
+    final_data['milestoneuid'] = mileStone['uniqueId']
+    final_data['projectuniqueId'] = projectuniqueId
+    final_data['subprojectId'] = siteCompleteData['SubProjectId']
+    final_data['approverType'] = "L1Approver"
+    final_data['L1UserId'] = L1Approver
+    final_data['SiteDetailsData'] = Site_Deatils_data
+    final_data['userId'] = userId
 
-    dispatch(
-      projectListActions.globalProjectTypeDataPatch(
-        Urls.projectList_globalSaver,
-        projectuniqueId,
-        fdata,
-        () => {}
-      )
-    );
+
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
 
   };
 
   const handleRanCheckListSubmit = (data) => {
 
-    let final_data = {};
-    dataOfProject["ranChecklist"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
+    if (!L1Approver){
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please Select Your L1 Approver",
+      };
+      dispatch(ALERTS(msgdata));
+      return
+    }
 
-      final_data[fieldNaming] = data[fieldNaming];
+    let final_data = {}
+
+    let Ran_Checklist_data = {};
+    dataOfProject["ranChecklist"].map((itew) => {
+        
+      let fieldNaming = labelToValue(itew.fieldName);
+      Ran_Checklist_data[fieldNaming] = data[fieldNaming];
     });
 
-    let fdata = {
-      name: "updateSiteEngg",
-      data: final_data,
-      from: {
-        uid: uid,
-      },
-    };
+    final_data['siteuid'] = siteCompleteData['uniqueId']
+    final_data['milestoneuid'] = mileStone['uniqueId']
+    final_data['projectuniqueId'] = projectuniqueId
+    final_data['subprojectId'] = siteCompleteData['SubProjectId']
+    final_data['approverType'] = "L1Approver"
+    final_data['L1UserId'] = L1Approver
+    final_data['RanCheckListData'] = Ran_Checklist_data
+    final_data['userId'] = userId
 
-    dispatch(
-      projectListActions.globalProjectTypeDataPatch(
-        Urls.projectList_globalSaver,
-        projectuniqueId,
-        fdata,
-        () => {}
-      )
-    );
+
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
   const handleSnapSubmit = (data) => {
@@ -325,30 +338,43 @@ const ManageComplianceTemplateForm = ({
   };
   const handleAcceptanceLogSubmit = (data) => {
 
-    let final_data = {};
-    dataOfProject["acceptanceLog"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
 
-      final_data[fieldNaming] = data[fieldNaming];
+    if (!L1Approver){
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please Select Your L1 Approver",
+      };
+      dispatch(ALERTS(msgdata));
+      return
+    }
+
+    let final_data = {}
+
+    let Acceptance_Log_data = {};
+    dataOfProject["acceptanceLog"].map((itew) => {
+        
+      let fieldNaming = labelToValue(itew.fieldName);
+      Acceptance_Log_data[fieldNaming] = data[fieldNaming];
     });
 
-    let fdata = {
-      name: "updateSiteEngg",
-      data: final_data,
-      from: {
-        uid: uid,
-      },
-    };
+    final_data['siteuid'] = siteCompleteData['uniqueId']
+    final_data['milestoneuid'] = mileStone['uniqueId']
+    final_data['projectuniqueId'] = projectuniqueId
+    final_data['subprojectId'] = siteCompleteData['SubProjectId']
+    final_data['approverType'] = "L1Approver"
+    final_data['L1UserId'] = L1Approver
+    final_data['AcceptanceLogData'] = Acceptance_Log_data
+    final_data['userId'] = userId
 
-    dispatch(
-      projectListActions.globalProjectTypeDataPatch(
-        Urls.projectList_globalSaver,
-        projectuniqueId,
-        fdata,
-        () => {}
-      )
-    );
+
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+
   };
+
+
 
 
   const funcaller = () => {

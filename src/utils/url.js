@@ -1,11 +1,16 @@
-export const baseUrl="https://devapi.mcpspmis.com"
-export const backendassetUrl="https://devapi.mcpspmis.com/"
+// export const baseUrl="https://devapi.mcpspmis.com"
+// export const backendassetUrl="https://devapi.mcpspmis.com/"
 
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 // export const baseUrl = "http://192.168.1.39:7980";
 // export const backendassetUrl = "http://192.168.1.39:7980/";
+
+export const baseUrl = "http://127.0.0.1:7980";
+export const backendassetUrl = "http://127.0.0.1:7980/";
+
+
 
 export const Urls = {
   login: "/login",
@@ -228,6 +233,7 @@ export const Urls = {
   admin_getComplianceapprover: "/admin/addComplianceApprover",
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",
+  compliance_globalSaver:'/compliance/globalSaver'
 
   // super admin compiliance  ends -----
 };
