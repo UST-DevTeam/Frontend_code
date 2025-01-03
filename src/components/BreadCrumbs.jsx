@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { UilMultiply } from "@iconscout/react-unicons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ComponentActions from "../store/actions/component-actions";
 import { isValidObjectId } from "../utils/commonFunnction";
 
 function changeCase(str) {
+
   const words = str.split(/(?=[A-Z]+)|(?=[a-z])(?=[A-Z])/);
   const capitalizedWords = words.map(
     (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
@@ -15,6 +16,7 @@ function changeCase(str) {
 }
 
 const BreadCrumbs = () => {
+
   const consoleUrl = window.location.pathname;
   let data = consoleUrl.split("/");
 
@@ -156,14 +158,11 @@ const BreadCrumbs = () => {
     },
   };
 
-  
-
-
   // console.log(consoleUrl.split("/"),"consoleUrlconsoleUrl")
   let breadcrumblist = useSelector((state) => {
     return state.component.breadcrumb;
   });
-  
+
   let globalValuelist = useSelector((state) => {
     return state.component.globalValue;
   });
@@ -180,7 +179,7 @@ const BreadCrumbs = () => {
 
     let dwqata = globalValuelist.filter((item) => item.name == data);
 
-   
+
     if (dwqata.length > 0) {
       return dwqata[0]["value"];
     } else {
@@ -202,12 +201,7 @@ const BreadCrumbs = () => {
             .map((item, index) => {
               return (
                 <>
-                  {index !=
-                  consoleUrl
-                    .split("/")
-                    .filter((item) => item !== "" && !isValidObjectId(item))
-                    .length -
-                    1 ? (
+                  {index != consoleUrl.split("/").filter((item) => item !== "" && !isValidObjectId(item)).length - 1 ? (
                     <>
                       <li>
                         <a
@@ -217,27 +211,23 @@ const BreadCrumbs = () => {
                               item in Dtheader
                                 ? Dtheader[item]["url"]
                                 : checkInGlobalValue(item) != ""
-                                ? checkInGlobalValue(item)
-                                : ""
+                                  ? checkInGlobalValue(item)
+                                  : ""
                             );
                           }}
                         >
                           {item in Dtheader
                             ? Dtheader[item]["name"]
                             : isValidObjectId(item)
-                            ? ""
-                            : changeCase(item)}
+                              ? ""
+                              : changeCase(item)}
                         </a>
                       </li>
                       <li className="mx-2">/</li>
                     </>
                   ) : (
                     <>
-                      {item in Dtheader
-                        ? Dtheader[item]["name"]
-                        : isValidObjectId(item)
-                        ? " "
-                        : addSpacesToWords(changeCase(item))}
+                      {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item) ? " " : addSpacesToWords(changeCase(item))}
                     </>
                   )}
                 </>

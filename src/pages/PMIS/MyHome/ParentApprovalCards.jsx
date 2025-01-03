@@ -98,21 +98,25 @@ const ParentApproverCards = () => {
       children: [
         {
           title: "L1 Approver",
+          use:true,
           href: "/home/approverCards/L1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
+          use:true,
           href: "/home/approverCards/L2Approver",
           children: [],
         },
         {
           title: "Finance Approver",
+          use:true,
           href: "/home/approverCards/FinanceApprover",
           children: [],
         },
         {
           title: "Settlement Amount",
+          use:true,
           href: "/home/approverCards/SettlementAmount",
           children: [],
         },
@@ -124,12 +128,12 @@ const ParentApproverCards = () => {
     const lApprover = [
       {
         title: "L1 Approver",
-        href: "/home/approverCards/L1Approver",
+        href: "/home/parentApproverCards/",
         children: [],
       },
       {
         title: "L2 Approver",
-        href: "/home/approverCards/L2Approver",
+        href: "/home/parentApproverCards/",
         children: [],
       },
     ];

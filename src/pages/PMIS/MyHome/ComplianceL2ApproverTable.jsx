@@ -5,10 +5,12 @@ import AdvancedTable from '../../../components/AdvancedTable';
 import { Modal } from '@material-ui/core';
 import { objectToQueryString } from '../../../utils/commonFunnction';
 import AdminActions from '../../../store/actions/admin-actions';
+import { useSearchParams } from 'react-router-dom';
 
 
 const ComplianceL2ApproverTable = () => {
-
+const [URLSearchParams, setURLSearchParams] = useSearchParams()
+  const route = URLSearchParams.get("from")
     const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
@@ -21,8 +23,8 @@ const ComplianceL2ApproverTable = () => {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
-      }).replace(/\//g, '-')
-    
+    }).replace(/\//g, '-')
+
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getManageCircle || [""]
         return interdata?.map((itm) => {
@@ -43,7 +45,7 @@ const ComplianceL2ApproverTable = () => {
                 //     // }
                 //     // itm.enabled=itm.enabled==0?1:0
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                
+
                 // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                 //     setmodalOpen(true)
                 //     dispatch(AdminActions.getManageCircle())
@@ -52,7 +54,7 @@ const ComplianceL2ApproverTable = () => {
                 //         <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                 //     </>)
                 // }}></EditButton>} />,
-                
+
                 // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                 //     let msgdata = {
                 //         show: true,
@@ -87,7 +89,7 @@ const ComplianceL2ApproverTable = () => {
     })
 
 
-    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors }} = useForm()
+    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
 
     let table = {
         columns: [
@@ -120,12 +122,12 @@ const ComplianceL2ApproverTable = () => {
                 name: "Sub Project",
                 value: "circleCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            },
             {
                 name: "Project ID",
                 value: "band",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            },
             {
                 name: "ACTIVITY",
                 value: "activity",
@@ -186,7 +188,7 @@ const ComplianceL2ApproverTable = () => {
                 value: "activity",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            
+
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -210,14 +212,15 @@ const ComplianceL2ApproverTable = () => {
     }
 
     useEffect(() => {
-        
+        dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/")))
+
     }, [])
 
     return <>
         <AdvancedTable
             headerButton={
-            <div className='flex gap-1'>
-                {/* <Button classes='w-auto' onClick={(e) => {
+                <div className='flex gap-1'>
+                    {/* <Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 dispatch(AdminActions.getManageCircle())
                 setmodalHead("New Circle")
@@ -242,7 +245,7 @@ const ComplianceL2ApproverTable = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {"Total Count :- "}
+            heading={"Total Count :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

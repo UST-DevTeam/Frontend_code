@@ -1,8 +1,8 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import {
-    GET_MANAGE_CUSTOMER, 
-    GET_MANAGE_CIRCLE, 
+    GET_MANAGE_CUSTOMER,
+    GET_MANAGE_CIRCLE,
     GET_MANAGE_ZONE,
     GET_MANAGE_COST_CENTER,
     GET_MANAGE_PROJECT_GROUP,
@@ -58,6 +58,8 @@ import {
     GET_COMPLIANCE_APPROVER,
     GET_CARD_COMPLIANCE_MILESTONE,
     GET_ONE_COMPLIANCE_L1_LIST,
+    GET_COMPLIANCE_L1_APPROVER,
+    GET_COMPLIANCE_L2_APPROVER,
 
 } from "../reducers/admin-reducer"
 import { ALERTS } from "../reducers/component-reducer"
@@ -66,39 +68,39 @@ import { ALERTS } from "../reducers/component-reducer"
 const AdminActions = {
 
 
-    getManageCustomer:(reset=true,args="") => async (dispatch, _) => {
+    getManageCustomer: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_customer}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_customer}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_CUSTOMER({dataAll,reset}))
+            dispatch(GET_MANAGE_CUSTOMER({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getCardCustomer:(reset=true,args="") => async (dispatch, _) => {
+    getCardCustomer: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.card_customer}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.card_customer}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_CARD_CUSTOMER({dataAll,reset}))
+            dispatch(GET_CARD_CUSTOMER({ dataAll, reset }))
         } catch (error) {
         }
     },
 
     getSubProjectMultiDynamic: (reset = true, customeruniqueId, args = "") => async (dispatch, _) => {
         try {
-          const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
-          const res = await Api.get({ url, reset });
-          if (res?.status !== 200) return;
-          let dataAll = res?.data?.data;
-          dispatch(GET_SUBPROJECT_MULTIDYNAMIC({ dataAll, reset }));
+            const url = `${Urls.get_Subproject_Dyanmic}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
+            const res = await Api.get({ url, reset });
+            if (res?.status !== 200) return;
+            let dataAll = res?.data?.data;
+            dispatch(GET_SUBPROJECT_MULTIDYNAMIC({ dataAll, reset }));
         } catch (error) {
-          console.error("Error fetching sub projects:", error);
+            console.error("Error fetching sub projects:", error);
         }
-      },
+    },
 
-    getProjectTypeMultiDynamic:(reset=true,customeruniqueId,projecttypeuniqueId=null) => async (dispatch, _) => {
+    getProjectTypeMultiDynamic: (reset = true, customeruniqueId, projecttypeuniqueId = null) => async (dispatch, _) => {
         try {
             // const url = `${Urls.get_project_type_Dyanmic}/${customeruniqueId}/${projecttypeuniqueId}`;
             let url;
@@ -110,13 +112,13 @@ const AdminActions = {
             const res = await Api.get({ url, reset });
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_PROJECTTYPE_MULTIDYNAMIC({dataAll,reset}))
+            dispatch(GET_PROJECTTYPE_MULTIDYNAMIC({ dataAll, reset }))
         } catch (error) {
         }
     },
     postManageCustomer: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_customer : Urls.admin_customer + "/" + uniqueId , contentType:"multipart/form-data", reset })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_customer : Urls.admin_customer + "/" + uniqueId, contentType: "multipart/form-data", reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -126,74 +128,74 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
 
-    getOneManageProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+    getOneManageProjectType: (customeruniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_projecttype}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_projecttype}/${customeruniqueId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ONE_MANAGE_PROJECT({dataAll,reset}))
+            dispatch(GET_ONE_MANAGE_PROJECT({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getProjectTypeDyform:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+    getProjectTypeDyform: (customeruniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_getProjectTypeDyform}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_getProjectTypeDyform}/${customeruniqueId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_PROJECT_TYPE_DY_FORM({dataAll,reset}))
+            dispatch(GET_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getOneProjectTypeDyform:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+    getOneProjectTypeDyform: (customeruniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_getOneSiteEngg}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_getOneSiteEngg}/${customeruniqueId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll,reset}))
+            dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getComponentAllocationList:(reset=true,args="") => async (dispatch, _) => {
+    getComponentAllocationList: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_userAccess}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_userAccess}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_COMPONENT_ALLOCATION({dataAll,reset}))
+            dispatch(GET_COMPONENT_ALLOCATION({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getOldComponentAllocationList:(reset=true,args="") => async (dispatch, _) => {
+    getOldComponentAllocationList: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_uamView}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_uamView}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_OLD_COMPONENT_ALLOCATION({dataAll,reset}))
+            dispatch(GET_OLD_COMPONENT_ALLOCATION({ dataAll, reset }))
         } catch (error) {
         }
     },
 
 
-    getManageCircle:(reset=true,args="", show=1) => async (dispatch, _) => {
+    getManageCircle: (reset = true, args = "", show = 1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_circle}${args!=""?"?"+args:""}`,show:show})
+            const res = await Api.get({ url: `${Urls.admin_circle}${args != "" ? "?" + args : ""}`, show: show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_CIRCLE({dataAll,reset}))
+            dispatch(GET_MANAGE_CIRCLE({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -210,7 +212,7 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
@@ -219,12 +221,12 @@ const AdminActions = {
         }
     },
 
-    getManageZone:(reset=true,args="") => async (dispatch, _) => {
+    getManageZone: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_zone}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_zone}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_ZONE({dataAll,reset}))
+            dispatch(GET_MANAGE_ZONE({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -241,19 +243,19 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    patchManageProjectType: (reset,uniqueId, data, cb) => async (dispatch, _) => {
+    patchManageProjectType: (reset, uniqueId, data, cb) => async (dispatch, _) => {
         try {
-            const res = await Api.patch({ data: data, url: Urls.admin_projecttype+"/"+uniqueId , reset })
+            const res = await Api.patch({ data: data, url: Urls.admin_projecttype + "/" + uniqueId, reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -263,23 +265,23 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
-    
 
-    getManageCostCenter:(reset=true,args="") => async (dispatch, _) => {
+
+    getManageCostCenter: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_cost_center}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_cost_center}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_COST_CENTER({dataAll,reset}))
+            dispatch(GET_MANAGE_COST_CENTER({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -296,9 +298,9 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
-            }   
+            }
         } catch (error) {
             return;
         }
@@ -316,19 +318,19 @@ const AdminActions = {
 
     getManageProjectGroup: (reset = true, args = "", customerUniqueId) => async (dispatch, _) => {
         try {
-          let url;
-          if (customerUniqueId) {
-            url = `${Urls.admin_project_group}/${customerUniqueId}`;
-          } else {
-            url = `${Urls.admin_project_group}${args !== "" ? "?" + args : ""}`;
-          }
-          const res = await Api.get({ url });
-          if (res?.status !== 200) return;
-          const dataAll = res?.data?.data;
-          dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll, reset }));
+            let url;
+            if (customerUniqueId) {
+                url = `${Urls.admin_project_group}/${customerUniqueId}`;
+            } else {
+                url = `${Urls.admin_project_group}${args !== "" ? "?" + args : ""}`;
+            }
+            const res = await Api.get({ url });
+            if (res?.status !== 200) return;
+            const dataAll = res?.data?.data;
+            dispatch(GET_MANAGE_PROJECT_GROUP({ dataAll, reset }));
         } catch (error) {
         }
-      },
+    },
 
     postManageProjectGroup: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
@@ -342,10 +344,10 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
-            } 
+            }
         } catch (error) {
             return;
         }
@@ -355,33 +357,33 @@ const AdminActions = {
         try {
             let url;
             if (customeruniqueId && projecttypeuniqueId) {
-            url = `${Urls.admin_card_projecttype}/${customeruniqueId}/${projecttypeuniqueId}${args !== "" ? "?" + args : ""}`;
+                url = `${Urls.admin_card_projecttype}/${customeruniqueId}/${projecttypeuniqueId}${args !== "" ? "?" + args : ""}`;
             } else {
-            url = `${Urls.admin_card_projecttype}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
+                url = `${Urls.admin_card_projecttype}/${customeruniqueId}${args !== "" ? "?" + args : ""}`;
             }
             const res = await Api.get({ url, reset });
             if (res?.status !== 200) return;
             const dataAll = res?.data?.data;
             dispatch(GET_CARD_PROJECT_TYPE({ dataAll, reset }));
-        } 
-            catch (error) {
-                console.log("Vishal")
+        }
+        catch (error) {
+            console.log("Vishal")
         }
     },
 
 
-    getManageProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+    getManageProjectType: (customeruniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_projecttype}/${customeruniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_projecttype}/${customeruniqueId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_PROJECT_TYPE({dataAll,reset}))
+            dispatch(GET_MANAGE_PROJECT_TYPE({ dataAll, reset }))
         } catch (error) {
         }
     },
-    postManageProjectType: (reset,customeruniqueId, data, cb, uniqueId) => async (dispatch, _) => {
+    postManageProjectType: (reset, customeruniqueId, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_projecttype+"/"+customeruniqueId : Urls.admin_projecttype+"/"+customeruniqueId + "/" + uniqueId , contentType:"multipart/form-data", reset })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_projecttype + "/" + customeruniqueId : Urls.admin_projecttype + "/" + customeruniqueId + "/" + uniqueId, contentType: "multipart/form-data", reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -391,30 +393,30 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
-    
 
-    getProject:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
+
+    getProject: (customeruniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_project}/${customeruniqueId}${args!=""?"?"+args:""}`},reset)
+            const res = await Api.get({ url: `${Urls.admin_project}/${customeruniqueId}${args != "" ? "?" + args : ""}` }, reset)
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_PROJECT({dataAll,reset}))
+            dispatch(GET_PROJECT({ dataAll, reset }))
         } catch (error) {
         }
     },
-    
-    postProject: (reset,customeruniqueId, data, cb, uniqueId) => async (dispatch, _) => {
+
+    postProject: (reset, customeruniqueId, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project+"/"+customeruniqueId : Urls.admin_project +"/"+customeruniqueId + "/" + uniqueId , reset })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project + "/" + customeruniqueId : Urls.admin_project + "/" + customeruniqueId + "/" + uniqueId, reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -424,7 +426,7 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
@@ -433,12 +435,12 @@ const AdminActions = {
         }
     },
 
-    getManageDepartment:(reset=true,args="") => async (dispatch, _) => {
+    getManageDepartment: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_department}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_department}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_DEPARTMENT({dataAll,reset}))
+            dispatch(GET_MANAGE_DEPARTMENT({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -455,22 +457,22 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageDesignation:(reset=true,args="") => async (dispatch, _) => {
+    getManageDesignation: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_designation}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_designation}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_DESIGNATION({dataAll,reset}))
+            dispatch(GET_MANAGE_DESIGNATION({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -487,58 +489,58 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageProfile:(reset=true,args="") => async (dispatch, _) => {
+    getManageProfile: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_profile}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_profile}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_PROFILE({dataAll,reset}))
+            dispatch(GET_MANAGE_PROFILE({ dataAll, reset }))
         } catch (error) {
         }
     },
-    getAccuralRevenueMasterProject:(reset=true,args="") => async (dispatch, _) => {
+    getAccuralRevenueMasterProject: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.get_accural_revenue_master_project}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECT({dataAll,reset}))
+            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECT({ dataAll, reset }))
         } catch (error) {
         }
     },
-    getAccuralRevenueMasterProjectID:(reset=true,args="") => async (dispatch, _) => {
+    getAccuralRevenueMasterProjectID: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project_projectId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.get_accural_revenue_master_project_projectId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({dataAll,reset}))
+            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll, reset }))
         } catch (error) {
         }
     },
-    getAccuralRevenueMasterProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getAccuralRevenueMasterProjectType: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project_projectType}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.get_accural_revenue_master_project_projectType}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({dataAll,reset}))
+            dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll, reset }))
         } catch (error) {
         }
     },
-    getAccuralRevenueMasterSubProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getAccuralRevenueMasterSubProjectType: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.get_accural_revenue_master_project_subProjectType}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.get_accural_revenue_master_project_subProjectType}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({dataAll,reset}))
+            dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -554,16 +556,16 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
-    
+
     postManageProfile: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_profile : Urls.admin_profile + "/" + uniqueId })
@@ -576,41 +578,41 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageCompletionCriteria:(reset=true,args="") => async (dispatch, _) => {
+    getManageCompletionCriteria: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_completion_criteria}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_completion_criteria}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_COMPLETION_CRITERIA({dataAll,reset}))
+            dispatch(GET_MANAGE_COMPLETION_CRITERIA({ dataAll, reset }))
         } catch (error) {
         }
-    },   
-    getapprovalLogs:(reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
+    },
+    getapprovalLogs: (reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.approval_Logs}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.approval_Logs}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_APPROVAL_LOGS({dataAll,reset}))
+            dispatch(GET_MANAGE_APPROVAL_LOGS({ dataAll, reset }))
             cb()
         } catch (error) {
         }
-    }, 
-    getadminLogs:(reset=true,args="") => async (dispatch, _) => {
+    },
+    getadminLogs: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_logs}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_logs}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_ADMIN_LOGS({dataAll,reset}))
+            dispatch(GET_MANAGE_ADMIN_LOGS({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -626,25 +628,25 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageClaimType:(reset=true,args="") => async (dispatch, _) => {
+    getManageClaimType: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_claim_type}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_claim_type}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_CLAIM_TYPE({dataAll,reset}))
+            dispatch(GET_MANAGE_CLAIM_TYPE({ dataAll, reset }))
         } catch (error) {
         }
-    },   
+    },
     postManageClaimType: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_claim_type : Urls.admin_claim_type + "/" + uniqueId })
@@ -657,25 +659,25 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageClaimTypeUnitRate:(reset=true,args="") => async (dispatch, _) => {
+    getManageClaimTypeUnitRate: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_claim_type_unit_rate}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_claim_type_unit_rate}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_CLAIM_TYPE_UNIT_RATE({dataAll,reset}))
+            dispatch(GET_MANAGE_CLAIM_TYPE_UNIT_RATE({ dataAll, reset }))
         } catch (error) {
         }
-    },   
+    },
     postManageClaimTypeUnitRate: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_claim_type_unit_rate : Urls.admin_claim_type_unit_rate + "/" + uniqueId })
@@ -688,25 +690,25 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageClaimTypeDesignation:(reset=true,args="") => async (dispatch, _) => {
+    getManageClaimTypeDesignation: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_claim_type_designation}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_claim_type_designation}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_CLAIM_TYPE_DESIGNATION({dataAll,reset}))
+            dispatch(GET_MANAGE_CLAIM_TYPE_DESIGNATION({ dataAll, reset }))
         } catch (error) {
         }
-    },   
+    },
     postManageClaimTypeDesignation: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_claim_type_designation : Urls.admin_claim_type_designation + "/" + uniqueId })
@@ -719,11 +721,11 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
@@ -731,38 +733,38 @@ const AdminActions = {
 
 
 
-    getManageExpenseTypeFilter:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+    getManageExpenseTypeFilter: (reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_claim_type_Expenses}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_claim_type_Expenses}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_EXPENSE_TYPE_FILTER({dataAll,reset}))
+            dispatch(GET_MANAGE_EXPENSE_TYPE_FILTER({ dataAll, reset }))
             cb()
         } catch (error) {
         }
-    }, 
-    getManageAdvanceTypeFilter:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+    },
+    getManageAdvanceTypeFilter: (reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_claim_type_Advances}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_claim_type_Advances}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_ADVANCE_TYPE_FILTER({dataAll,reset}))
+            dispatch(GET_MANAGE_ADVANCE_TYPE_FILTER({ dataAll, reset }))
             cb()
         } catch (error) {
         }
-    }, 
+    },
 
-    getManageExpenseAdvance:(reset=true,args="",cb=()=>{}) => async (dispatch, _) => {
+    getManageExpenseAdvance: (reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_expense_advance}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_expense_advance}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_EXPENSE_ADVANCE({dataAll,reset}))
+            dispatch(GET_MANAGE_EXPENSE_ADVANCE({ dataAll, reset }))
             cb()
         } catch (error) {
         }
-    },   
-    
+    },
+
     postManageExpenseAdvance: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_expense_advance : Urls.admin_expense_advance + "/" + uniqueId })
@@ -775,50 +777,50 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getState:(reset=true,args="") => async (dispatch, _) => {
+    getState: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.State}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.State}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_STATE({dataAll,reset}))
+            dispatch(GET_STATE({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getCities:(reset=true,args="") => async (dispatch, _) => {
+    getCities: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.Cities}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.Cities}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_CITIES({dataAll,reset}))
+            dispatch(GET_CITIES({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getProjectAllocation:(reset=true,args="") => async (dispatch, _) => {
+    getProjectAllocation: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            console.log("cities",args)
-            const res = await Api.get({ url:`${Urls.admin_project_allocation}${args!=""?"?"+args:""}`, reset })
+            console.log("cities", args)
+            const res = await Api.get({ url: `${Urls.admin_project_allocation}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_PROJECT_ALLLOCATION({dataAll,reset}))
+            dispatch(GET_PROJECT_ALLLOCATION({ dataAll, reset }))
         } catch (error) {
         }
     },
 
     postProjectAllocation: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project_allocation : Urls.admin_project_allocation + "/" + uniqueId})
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_project_allocation : Urls.admin_project_allocation + "/" + uniqueId })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -828,92 +830,92 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getVishal:(reset=true,args="") => async (dispatch, _) => {
+    getVishal: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            console.log("cities",args)
-            const res = await Api.get({ url:`${Urls.admin_vishal}${args!=""?"?"+args:""}`, reset })
+            console.log("cities", args)
+            const res = await Api.get({ url: `${Urls.admin_vishal}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_VISHAL({dataAll,reset}))
+            dispatch(GET_VISHAL({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getPOProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getPOProjectType: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_poProjectType}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_poProjectType}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_PO_PROJECTTYPE({dataAll,reset}))
+            dispatch(GET_PO_PROJECTTYPE({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getPOSubProjectType:(reset=true,args="") => async (dispatch, _) => {
+    getPOSubProjectType: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_poSubProjectType}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_poSubProjectType}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_PO_SUB_PROJECTTYPE({dataAll,reset}))
+            dispatch(GET_PO_SUB_PROJECTTYPE({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getPOProjectID:(reset=true,args="") => async (dispatch, _) => {
+    getPOProjectID: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_poProjectID}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_poProjectID}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_PO_PROJECTID({dataAll,reset}))
+            dispatch(GET_PO_PROJECTID({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getInvoiceSiteId:(reset=true,args="") => async (dispatch, _) => {
+    getInvoiceSiteId: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_invoiceSiteId}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_invoiceSiteId}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_INVOICE_SITEID({dataAll,reset}))
+            dispatch(GET_INVOICE_SITEID({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getInvoiceSSID:(reset=true,args="") => async (dispatch, _) => {
+    getInvoiceSSID: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_invoiceSSID}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_invoiceSSID}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_INVOICE_SSID({dataAll,reset}))
+            dispatch(GET_INVOICE_SSID({ dataAll, reset }))
         } catch (error) {
         }
     },
 
 
-    getVendorProjectAllocation:(reset=true,args="") => async (dispatch, _) => {
+    getVendorProjectAllocation: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            console.log("cities",args)
-            const res = await Api.get({ url:`${Urls.vendor_project_allocation}${args!=""?"?"+args:""}`, reset })
+            console.log("cities", args)
+            const res = await Api.get({ url: `${Urls.vendor_project_allocation}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_PROJECT_ALLLOCATION({dataAll,reset}))
+            dispatch(GET_VENDOR_PROJECT_ALLLOCATION({ dataAll, reset }))
         } catch (error) {
         }
     },
 
     postVendorProjectAllocation: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.vendor_project_allocation : Urls.vendor_project_allocation + "/" + uniqueId})
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.vendor_project_allocation : Urls.vendor_project_allocation + "/" + uniqueId })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -923,29 +925,29 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getManageSubProjectType:(projecttypeuniqueId,reset=true,args="") => async (dispatch, _) => {
+    getManageSubProjectType: (projecttypeuniqueId, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_sub_projecttype}/${projecttypeuniqueId}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_sub_projecttype}/${projecttypeuniqueId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_MANAGE_SUB_PROJECT({dataAll,reset}))
+            dispatch(GET_MANAGE_SUB_PROJECT({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    postManageSubProjectType: (reset,projecttypeuniqueId, data, cb, uniqueId) => async (dispatch, _) => {
+    postManageSubProjectType: (reset, projecttypeuniqueId, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_sub_projecttype+"/"+projecttypeuniqueId : Urls.admin_sub_projecttype+"/"+projecttypeuniqueId+ "/" + customeruniqueId , contentType:"multipart/form-data", reset })
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_sub_projecttype + "/" + projecttypeuniqueId : Urls.admin_sub_projecttype + "/" + projecttypeuniqueId + "/" + customeruniqueId, contentType: "multipart/form-data", reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -955,21 +957,21 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getAssetRegistration:(reset=true,args="") => async (dispatch, _) => {
+    getAssetRegistration: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_assetRegistration}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url: `${Urls.admin_assetRegistration}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ASSET_REGISTRATION({dataAll,reset}))
+            dispatch(GET_ASSET_REGISTRATION({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -985,12 +987,12 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
 
-           
+
         } catch (error) {
             return;
         }
@@ -1008,7 +1010,7 @@ const AdminActions = {
         }
     },
 
-    getSubProjectTypeCompiliance: (reset = true, args = "",cid="", subType="") => async (dispatch, _) => {
+    getSubProjectTypeCompiliance: (reset = true, args = "", cid = "", subType = "") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.subProjectTypeCompliance}/${cid}/${subType}${args ? ("?" + args) : ""}` })
             if (res?.status !== 200) return
@@ -1018,9 +1020,9 @@ const AdminActions = {
         }
     },
 
-    getActivityAndOemCompiliance: (reset = true, args = "", show=1) => async (dispatch, _) => {
+    getActivityAndOemCompiliance: (reset = true, args = "", show = 1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.activityAndOemCompliance}${args ? ("?" + args) : ""}`, show:show })
+            const res = await Api.get({ url: `${Urls.activityAndOemCompliance}${args ? ("?" + args) : ""}`, show: show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll, reset }))
@@ -1048,20 +1050,20 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
 
-           
+
         } catch (error) {
             return;
         }
     },
 
-    patchCompiliance: (reset,uniqueId, data, cb) => async (dispatch, _) => {
+    patchCompiliance: (reset, uniqueId, data, cb) => async (dispatch, _) => {
         try {
-            const res = await Api.patch({ data: data, url: Urls.addComplianceForm+"/"+uniqueId , reset })
+            const res = await Api.patch({ data: data, url: Urls.addComplianceForm + "/" + uniqueId, reset })
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -1071,32 +1073,32 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
-            
+
         } catch (error) {
             return;
         }
     },
 
-    getOneComplianceDyform:(id,mstName,reset=true,args="",show=1) => async (dispatch, _) => {
+    getOneComplianceDyform: (id, mstName, reset = true, args = "", show = 1) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_getOneCompliance}/${id}/${mstName}${args!=""?"?"+args:""}`, reset,show:show })
+            const res = await Api.get({ url: `${Urls.admin_getOneCompliance}/${id}/${mstName}${args != "" ? "?" + args : ""}`, reset, show: show })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ONE_COMPLIANCE_DY_FORM({dataAll,reset}))
+            dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll, reset }))
         } catch (error) {
         }
     },
 
-    getComplianceApprover:(reset=true,args="") => async (dispatch, _) => {
+    getComplianceApprover: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_getComplianceapprover}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_getComplianceapprover}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_COMPLIANCE_APPROVER({dataAll,reset}))
+            dispatch(GET_COMPLIANCE_APPROVER({ dataAll, reset }))
         } catch (error) {
         }
     },
@@ -1112,7 +1114,7 @@ const AdminActions = {
                     text: res?.data?.msg,
                 };
                 dispatch(ALERTS(msgdata));
-            }else{
+            } else {
                 cb()
 
             }
@@ -1124,29 +1126,47 @@ const AdminActions = {
 
     getCardComplianceMilestone: (reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({url:`${Urls.complainceMilestoneCard}${args!=""?"?"+args:""}`, reset });
+            const res = await Api.get({ url: `${Urls.complainceMilestoneCard}${args != "" ? "?" + args : ""}`, reset });
             if (res?.status !== 200) return;
             const dataAll = res?.data?.data;
             dispatch(GET_CARD_COMPLIANCE_MILESTONE({ dataAll, reset }));
-        } 
-            catch (error) {
-                console.log("Vishal")
+        }
+        catch (error) {
+            console.log("Vishal")
         }
     },
 
-    getOneComplianceL1List:(id,mstName,reset=true,args="") => async (dispatch, _) => {
+    getOneComplianceL1List: (id, mstName, reset = true, args = "") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_ComplianceL1List}/${id}/${mstName}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url: `${Urls.admin_ComplianceL1List}/${id}/${mstName}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            dispatch(GET_ONE_COMPLIANCE_L1_LIST({dataAll,reset}))
+            dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getComplianceMilestoneL1Approver: (mileStoneName, reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.complianceMilestoneL1Approver}/${mileStoneName[1]}/${mileStoneName[2]}${args != "" ? "?" + args : ""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_COMPLIANCE_L1_APPROVER({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getComplianceMilestoneL2Approver: (mileStoneName, reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.complianceMilestoneL2Approver}/${mileStoneName[1]}/${mileStoneName[2]}${args != "" ? "?" + args : ""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_COMPLIANCE_L2_APPROVER({ dataAll, reset }))
         } catch (error) {
         }
     },
 
 
 
-    
+
 
     // super admin compiliance  ends -----
 }
