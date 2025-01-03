@@ -36,7 +36,7 @@ const FormCard = ({ sIndex }) => {
     {
       label: "Image",
       name: "img",
-      // required: true,
+      required: true,
       type: "file",
       props: {
         onChange: ((event) => {
