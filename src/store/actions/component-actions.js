@@ -9,7 +9,7 @@ import {
 
 const ComponentActions = {
   popmenu: (data, tkn) => async (dispatch, _) => {
-    console.log("datadatadatauuu", data, tkn);
+    // console.log("datadatadatauuu", data, tkn);
     try {
       dispatch(POP_MENU({ data, tkn }));
     } catch (error) {

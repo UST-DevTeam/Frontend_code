@@ -15,7 +15,7 @@ import { uiStatusColor } from "../../../../utils/queryBuilder";
 import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import moment from "moment";
-import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTemplateForm";
+
 
 const ManageMilestoneSite = ({
   siteCompleteData,
@@ -338,16 +338,6 @@ const ManageMilestoneSite = ({
                         myTaskPage={myTaskPage}
                         filterView = {filterView}
                       />
-                        // <ManageComplianceTemplateForm
-                        //   siteCompleteData={siteCompleteData}
-                        //   customeruniqueId={customeruniqueId}
-                        //   projectuniqueId={projectuniqueId}
-                        //   setmodalFullOpen={setmodalFullOpen}
-                        //   setmodalOpen={setmodalOpen}
-                        //   mileStone={mileStone}
-                        //   myTaskPage={myTaskPage}
-                        //   filterView = {filterView}
-                        // />
                     );
                     setmodalOpen(true);
                   } else {
