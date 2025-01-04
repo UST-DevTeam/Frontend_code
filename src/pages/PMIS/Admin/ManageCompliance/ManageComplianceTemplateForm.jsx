@@ -3,12 +3,16 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
-import { getAccessType, labelToValue, objectToQueryString, } from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  labelToValue,
+  objectToQueryString,
+} from "../../../../utils/commonFunnction";
 import { Urls } from "../../../../utils/url";
 import CommonForm from "../../../../components/CommonForm";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
 import projectListActions from "../../../../store/actions/projectList-actions";
-import ManageSnap from "./ManageSnap"
+import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
@@ -21,16 +25,18 @@ const ManageComplianceTemplateForm = ({
   setmodalFullOpen,
   setSiteId,
   myTaskPage,
-  filterView
+  filterView,
 }) => {
-  const { L1UserId = "" } = useSelector(state => state.projectList.globalComplianceTypeData?.[0]) || {}
+  const { L1UserId = "" , SnapData = {}} =
+    useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
+    {};
 
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
-  let milestoneStatus = mileStone?.mileStoneStatus
+  let milestoneStatus = mileStone?.mileStoneStatus;
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
-  let userId = user?.uniqueId
+  let userId = user?.uniqueId;
 
   const {
     register,
@@ -70,16 +76,14 @@ const ManageComplianceTemplateForm = ({
     getValues: getValuesForm4,
     handleSubmit: handleSubmitForm4,
     formState: { errors: errorsForm4 },
-  }
-    = useForm();
+  } = useForm();
   const {
     register: registerForm5,
     setValue: setValueForm5,
     getValues: getValuesForm5,
     handleSubmit: handleSubmitForm5,
     formState: { errors: errorsForm5 },
-  }
-    = useForm();
+  } = useForm();
   const {
     register: registerForm0,
     setValue: setValueForm0,
@@ -111,16 +115,13 @@ const ManageComplianceTemplateForm = ({
         label: itm?.approverName,
         value: itm?.approverId,
       };
-    })
-  })
-
+    });
+  });
 
   useEffect(() => {
-    setL1Approver(L1UserId)
-    setValueFormSelect("selectField", L1UserId)
-  }, [L1UserId])
-
-
+    setL1Approver(L1UserId);
+    setValueFormSelect("selectField", L1UserId);
+  }, [L1UserId]);
 
   let dataOfOldProject = useSelector((state) => {
     let datew = state.projectList.globalComplianceTypeData;
@@ -130,31 +131,34 @@ const ManageComplianceTemplateForm = ({
 
       let dtresult = datew[0];
 
+      dtresult["PlanDetailsData"] &&
+        Object.keys(dtresult["PlanDetailsData"]).map((iytm) => {
+          setValueForm1(iytm, dtresult["PlanDetailsData"][iytm]);
+        });
 
-      dtresult["PlanDetailsData"] && Object.keys(dtresult["PlanDetailsData"]).map((iytm) => {
-        setValueForm1(iytm, dtresult["PlanDetailsData"][iytm]);
-      });
+      dtresult["AcceptanceLogData"] &&
+        Object.keys(dtresult["AcceptanceLogData"]).map((iytm) => {
+          setValueForm5(iytm, dtresult["AcceptanceLogData"][iytm]);
+        });
 
-      dtresult["AcceptanceLogData"] && Object.keys(dtresult["AcceptanceLogData"]).map((iytm) => {
-        setValueForm5(iytm, dtresult["AcceptanceLogData"][iytm]);
-      });
+      dtresult["RanCheckListData"] &&
+        Object.keys(dtresult["RanCheckListData"]).map((iytm) => {
+          setValueForm3(iytm, dtresult["RanCheckListData"][iytm]);
+        });
 
-      dtresult["RanCheckListData"] && Object.keys(dtresult["RanCheckListData"]).map((iytm) => {
-        setValueForm3(iytm, dtresult["RanCheckListData"][iytm]);
-      });
+      dtresult["SiteDetailsData"] &&
+        Object.keys(dtresult["SiteDetailsData"]).map((iytm) => {
+          setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
+        });
 
-      dtresult["SiteDetailsData"] && Object.keys(dtresult["SiteDetailsData"]).map((iytm) => {
-        setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
-      });
-
-      dtresult["TemplateData"] && Object.keys(dtresult["TemplateData"]).map((iytm) => {
-        setValueForm0(iytm, dtresult["TemplateData"][iytm]);
-      });
+      dtresult["TemplateData"] &&
+        Object.keys(dtresult["TemplateData"]).map((iytm) => {
+          setValueForm0(iytm, dtresult["TemplateData"][iytm]);
+        });
 
       return datew[0];
     }
   });
-
 
   let dataOfProject = useSelector((state) => {
     let dataOlder = state.adminData.getOneComplianceDyform
@@ -162,7 +166,6 @@ const ManageComplianceTemplateForm = ({
         ? state.adminData.getOneComplianceDyform[0]["result"]
         : state.adminData.getOneComplianceDyform
       : state.adminData.getOneComplianceDyform;
-
 
     return dataOlder;
   });
@@ -185,7 +188,6 @@ const ManageComplianceTemplateForm = ({
 
 
   const handleTemplateSubmit = (data) => {
-
     if (!L1Approver) {
       let msgdata = {
         show: true,
@@ -195,12 +197,11 @@ const ManageComplianceTemplateForm = ({
         text: "Please Select Your L1 Approver",
       };
       dispatch(ALERTS(msgdata));
-      return
+      return;
     }
 
     let Template_data = {};
     dataOfProject["Template"].map((itew) => {
-
       let fieldNaming = labelToValue(itew.fieldName);
       Template_data[fieldNaming] = data[fieldNaming]?.trim();
     });
@@ -209,11 +210,17 @@ const ManageComplianceTemplateForm = ({
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
 
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
   const handlePlanDetailsSubmit = (data) => {
-
-    if (!L1Approver){
+    if (!L1Approver) {
       let msgdata = {
         show: true,
         icon: "error",
@@ -222,12 +229,11 @@ const ManageComplianceTemplateForm = ({
         text: "Please Select Your L1 Approver",
       };
       dispatch(ALERTS(msgdata));
-      return
+      return;
     }
 
     let Plan_Deatils_data = {};
     dataOfProject["planDetails"].map((itew) => {
-        
       let fieldNaming = labelToValue(itew.fieldName);
       Plan_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
     });
@@ -239,11 +245,17 @@ const ManageComplianceTemplateForm = ({
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
 
 
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
   const handleSiteDetailsSubmit = (data) => {
-
-    if (!L1Approver){
+    if (!L1Approver) {
       let msgdata = {
         show: true,
         icon: "error",
@@ -252,12 +264,11 @@ const ManageComplianceTemplateForm = ({
         text: "Please Select Your L1 Approver",
       };
       dispatch(ALERTS(msgdata));
-      return
+      return;
     }
 
     let Site_Deatils_data = {};
     dataOfProject["siteDetails"].map((itew) => {
-        
       let fieldNaming = labelToValue(itew.fieldName);
       Site_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
     });
@@ -266,11 +277,17 @@ const ManageComplianceTemplateForm = ({
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
 
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
   const handleRanCheckListSubmit = (data) => {
-
-    if (!L1Approver){
+    if (!L1Approver) {
       let msgdata = {
         show: true,
         icon: "error",
@@ -279,12 +296,11 @@ const ManageComplianceTemplateForm = ({
         text: "Please Select Your L1 Approver",
       };
       dispatch(ALERTS(msgdata));
-      return
+      return;
     }
 
     let Ran_Checklist_data = {};
     dataOfProject["ranChecklist"].map((itew) => {
-        
       let fieldNaming = labelToValue(itew.fieldName);
       Ran_Checklist_data[fieldNaming] = data[fieldNaming]?.trim();
     });
@@ -295,7 +311,6 @@ const ManageComplianceTemplateForm = ({
   };
 
   const handleSnapSubmit = (data) => {
-
     let final_data = {};
     dataOfProject["snap"].map((itew) => {
       let fieldNaming = labelToValue(itew.fieldName);
@@ -316,15 +331,13 @@ const ManageComplianceTemplateForm = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => { }
+        () => {}
       )
     );
   };
 
   const handleAcceptanceLogSubmit = (data) => {
-
-
-    if (!L1Approver){
+    if (!L1Approver) {
       let msgdata = {
         show: true,
         icon: "error",
@@ -333,12 +346,11 @@ const ManageComplianceTemplateForm = ({
         text: "Please Select Your L1 Approver",
       };
       dispatch(ALERTS(msgdata));
-      return
+      return;
     }
 
     let Acceptance_Log_data = {};
     dataOfProject["acceptanceLog"].map((itew) => {
-        
       let fieldNaming = labelToValue(itew.fieldName);
       Acceptance_Log_data[fieldNaming] = data[fieldNaming]?.trim();
     });
@@ -348,13 +360,9 @@ const ManageComplianceTemplateForm = ({
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
-
-
-
   const funcaller = () => {
     reset({});
   };
-
 
   useEffect(() => {
     reset({});
@@ -385,20 +393,19 @@ const ManageComplianceTemplateForm = ({
       />
 
       <div className="overflow-scroll h-[94vh] p-4">
-
         <CommonForm
           classes={"flex mx-auto w-1/4 mb-[-10px]"}
           Form={[
             {
               label: "Select Your L1 Approver",
-              value: '',
+              value: "",
               name: "selectField",
               type: "select",
               option: L1optionList,
               props: {
                 onChange: (e) => {
-                  setL1Approver(e.target.value)
-                }
+                  setL1Approver(e.target.value);
+                },
               },
               required: true,
             },
@@ -413,7 +420,7 @@ const ManageComplianceTemplateForm = ({
           funcaller={funcaller}
           defaultValue={"Template"}
           tabslist={{
-            "Template": (
+            Template: (
               <>
                 <div className="flex justify-end">
                   <Button
@@ -428,28 +435,28 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["Template"]
                         ? dataOfProject["Template"].map((its) => {
-                          let type = dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
-                              return {
-                                value: itm,
-                                label: itm,
-                              };
-                            })
-                            : [];
+                            let type = dtype[its.dataType];
+                            let option = its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                  return {
+                                    value: itm,
+                                    label: itm,
+                                  };
+                                })
+                              : [];
 
-                          return {
-                            label: its.fieldName,
-                            value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            return {
+                              label: its.fieldName,
+                              value: "",
+                              required: its.required == "Yes" ? true : false,
+                              option: option,
+                              name: its.fieldName,
+                              type: type,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
@@ -481,28 +488,28 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["planDetails"]
                         ? dataOfProject["planDetails"].map((its) => {
-                          let type = dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
-                              return {
-                                value: itm,
-                                label: itm,
-                              };
-                            })
-                            : [];
+                            let type = dtype[its.dataType];
+                            let option = its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                  return {
+                                    value: itm,
+                                    label: itm,
+                                  };
+                                })
+                              : [];
 
-                          return {
-                            label: its.fieldName,
-                            value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            return {
+                              label: its.fieldName,
+                              value: "",
+                              required: its.required == "Yes" ? true : false,
+                              option: option,
+                              name: its.fieldName,
+                              type: type,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
@@ -529,25 +536,25 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["siteDetails"]
                         ? dataOfProject["siteDetails"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            return {
+                              label: its.fieldName,
+                              value: "abc",
+                              name: its.fieldName,
+                              type: dtype[its.dataType],
+                              option: its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [],
+                              required: its.required == "Yes" ? true : false,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
@@ -574,25 +581,25 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["ranChecklist"]
                         ? dataOfProject["ranChecklist"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            return {
+                              label: its.fieldName,
+                              value: "abc",
+                              name: its.fieldName,
+                              type: dtype[its.dataType],
+                              option: its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [],
+                              required: its.required == "Yes" ? true : false,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
@@ -606,20 +613,24 @@ const ManageComplianceTemplateForm = ({
             ),
 
             Snap: (
-              <ManageSnap projectData={
-                (() => {
-                  const final_data = {}
-                  final_data['siteuid'] = siteCompleteData['uniqueId']
-                  final_data['milestoneuid'] = mileStone['uniqueId']
-                  final_data['projectuniqueId'] = projectuniqueId
-                  final_data['subprojectId'] = siteCompleteData['SubProjectId']
-                  final_data['approverType'] = "L1Approver"
-                  final_data['L1UserId'] = L1Approver
-                  final_data['SnapData'] = 1
-                  final_data['userId'] = userId
-                  return final_data
-                })()
-              } />
+              <ManageSnap
+                L1Approver={L1Approver}
+                snapData={SnapData}
+                projectData={(() => {
+                  const final_data = {};
+                  final_data["siteuid"] = siteCompleteData["uniqueId"];
+                  final_data["milestoneuid"] = mileStone["uniqueId"];
+                  final_data["projectuniqueId"] = projectuniqueId;
+                  final_data["subprojectId"] = siteCompleteData["SubProjectId"];
+                  final_data["approverType"] = "L1Approver";
+                  final_data["L1UserId"] = L1Approver;
+                  final_data["userId"] = userId;
+                  final_data["milestoneName"] = mileStone["Name"];
+                  final_data["siteIdName"] = siteCompleteData["Site Id"];
+                  final_data["systemId"] = siteCompleteData["systemId"];
+                  return final_data;
+                })()}
+              />
             ),
 
             "Acceptance Log": (
@@ -637,25 +648,25 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["acceptanceLog"]
                         ? dataOfProject["acceptanceLog"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
+                            return {
+                              label: its.fieldName,
+                              value: "abc",
+                              name: its.fieldName,
+                              type: dtype[its.dataType],
+                              option: its.dropdownValue
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      value: itm,
+                                      label: itm,
+                                    };
+                                  })
+                                : [],
+                              required: its.required == "Yes" ? true : false,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
+                          })
                         : []
                       : []
                   }
