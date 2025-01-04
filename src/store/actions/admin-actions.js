@@ -275,6 +275,30 @@ const AdminActions = {
         }
     },
 
+    patchComplinaceSnapImageSubmition: (data, cb) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ data: data, url: Urls.compliance_globalSaver + "?forFile=true" , contentType: "multipart/form-data" })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            } else {
+                cb()
+            }
+
+        } catch (error) {
+            return;
+        }
+    },
+
+    setComplianceSnapImage : (sIndex, index, imageUrl) => (dispatch, store) => {
+      
+    },
 
     getManageCostCenter: (reset = true, args = "") => async (dispatch, _) => {
         try {
@@ -1075,7 +1099,6 @@ const AdminActions = {
                 dispatch(ALERTS(msgdata));
             } else {
                 cb()
-
             }
 
         } catch (error) {
@@ -1171,3 +1194,16 @@ const AdminActions = {
     // super admin compiliance  ends -----
 }
 export default AdminActions;
+
+
+// snapData : {
+//    s1 : {
+//     approvedIndex : 1,
+//     images : [
+//         {
+//             index : 1,
+//             image : "https://example.com/image1.jpg",
+//         }
+//     ]
+//    },
+// }
