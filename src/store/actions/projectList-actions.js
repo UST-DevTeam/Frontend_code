@@ -3,7 +3,7 @@ import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, SET_DYNAMIC_FORM, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION, GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../reducers/projectList-reducer"
+import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, SET_DYNAMIC_FORM, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION, GET_GLOBAL_COMPLAINCE_TYPE_DATA, GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } from "../reducers/projectList-reducer"
 import CommonActions from "./common-actions"
 // import Notify from "./notify-actions"
 
@@ -139,15 +139,11 @@ const projectListActions = {
             else {
                 cb()
             }
-
-            // let dataAll = res?.data?.data[0]
-            // dispatch(GET_PROJECT_TYPE_SUB({dataAll,reset}))
         } catch (error) {
             console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
+
     globalProjectTypeDataPatch: (urle, projectuniqueId, data, cb = () => { }, reset = true) => async (dispatch, _) => {
         try {
             if (projectuniqueId != null) { data["projectuniqueId"] = projectuniqueId }
@@ -192,12 +188,10 @@ const projectListActions = {
 
         } catch (error) {
             console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
    
-     globalComplianceTypeDataGet: (sietId,mileStoneId, args = "", reset = true) => async (dispatch, _) => {
+    globalComplianceTypeDataGet: (sietId,mileStoneId, args = "", reset = true) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.compliance_globalSaver}/${sietId}/${mileStoneId}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
@@ -205,8 +199,61 @@ const projectListActions = {
             dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll, reset }))
         } catch (error) {
             // console.log(error, "amit errorerror 37")
+        }
+    },
 
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
+
+    globalComplianceTypeApproverDataGet: (id, args = "", reset = true) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.compliance_globalSaver_Approver}/${id}${args != "" ? "?" + args : ""}` })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA({ dataAll, reset }))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
+
+    globalComplianceTypeApproverDataPost: (id,data, cb = () => { }, reset = true) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ url: `${Urls.compliance_globalSaver_Approver}/${id}${args != "" ? "?" + args : ""}`, data: data })
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+            else {
+                cb()
+            }
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
+
+    globalComplianceTypeApproverDataPatch: (urle,id,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
+        try {
+            const res = await Api.patch({ url: urle + "/" + id, data: data })
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+            else {
+                cb()
+            }
+
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
         }
     },
 

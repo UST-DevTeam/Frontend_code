@@ -23,7 +23,7 @@ const DatePicking2 = ({
   const handleClearDate = () => {
     setSelectedDate(null);
     console.log("itm.name", itm.name);  
-    setValue(itm.name, "");
+    setValue(itm.name, null);
   };
 
   return (

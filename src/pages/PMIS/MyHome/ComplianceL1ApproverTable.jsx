@@ -16,6 +16,7 @@ import CommonForm from '../../../components/CommonForm';
 import ManageComplianceTemplateApproverForm from '../Admin/ManageCompliance/ManageComplinaceTemplateApproverForm';
 import { GET_ONE_COMPLIANCE_DY_FORM } from '../../../store/reducers/admin-reducer';
 import projectListActions from '../../../store/actions/projectList-actions';
+import { GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } from '../../../store/reducers/projectList-reducer';
 
 
 const ComplianceL1ApproverTable = () => {
@@ -82,13 +83,12 @@ const ComplianceL1ApproverTable = () => {
                         setmodalFullOpen((prev) => !prev);
                         setmodalHead(itm['siteIdName']);
                         dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
+                        dispatch(GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA({ dataAll:[], reset:true }))
                         dispatch(AdminActions.getOneComplianceDyform(itm.siteuid, itm.milestoneName, true, ""));
-                        dispatch(projectListActions.globalComplianceTypeDataGet(itm.siteuid, itm.milestoneuid, "", true));
+                        dispatch(projectListActions.globalComplianceTypeApproverDataGet(itm.uniqueId,"", true));
                         setmodalBody(
                             <ManageComplianceTemplateApproverForm
                                 CompleteData = {itm}
-                                uid = {itm['uniqueId']}
-                                setmodalFullOpen={setmodalFullOpen}
                             />
                         );
                       }}

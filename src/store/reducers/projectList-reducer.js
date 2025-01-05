@@ -10,7 +10,8 @@ const initialState = {
     getMappedData: [],
     getCircleWithPGData: [],
     getusernotification: [],
-    globalComplianceTypeData: []
+    globalComplianceTypeData: [],
+    globalComplianceTypeApproverData: [],
 }
 
 const projectList = createSlice({
@@ -46,6 +47,13 @@ const projectList = createSlice({
                 state.globalComplianceTypeData = payload.dataAll
             } else {
                 state.globalComplianceTypeData = [...state.globalComplianceTypeData, ...payload.dataAll]
+            }
+        },
+        GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.globalComplianceTypeApproverData = payload.dataAll
+            } else {
+                state.globalComplianceTypeApproverData = [...state.globalComplianceTypeApproverData, ...payload.dataAll]
             }
         },
 
@@ -185,5 +193,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION } = projectList.actions
+export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION,GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } = projectList.actions
 export default projectList.reducer

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import Modal from "../../../../components/Modal";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
-const FormCard = ({ sIndex, projectData, L1Approver }) => {
+const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
   const dispatch = useDispatch();
   const [formState, setFormState] = useState(false);
   const {
@@ -31,24 +31,28 @@ const FormCard = ({ sIndex, projectData, L1Approver }) => {
     const formData = new FormData();
     const content = { ...data, fieldName: sIndex, ...projectData };
     console.log("content", content);
-    if (!content?.L1UserId && !L1Approver) {
-      let msgdata = {
-        show: true,
-        icon: "error",
-        buttons: [],
-        type: 1,
-        text: "Please Select Your L1 Approver",
-      };
-      dispatch(ALERTS.showAlert(msgdata));
-      return;
-    }
     Object.keys(content).forEach((itm) => {
       formData.append(itm, content[itm]);
     });
     formData.delete("img");
-    dispatch(
-      AdminActions.patchComplinaceSnapImageSubmition(formData, handleFormState)
-    );
+    if (!l1ApproverForm){
+      if (!content?.L1UserId && !L1Approver) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: "Please Select Your L1 Approver",
+        };
+        dispatch(ALERTS(msgdata));
+        return;
+      }
+      dispatch(AdminActions.patchComplinaceSnapImageSubmition(formData, handleFormState));
+    }
+    else {
+      dispatch(AdminActions.patchComplinaceApproverSnapImageSubmition(formData,projectData?.uniqueId,handleFormState));
+    }
+    
   };
 
   const imageSubmitionForm = [
@@ -102,20 +106,21 @@ const FormCard = ({ sIndex, projectData, L1Approver }) => {
             isOpen={formState}
             setIsOpen={setFormState}
             onClose={true}
-            modalHead={`Add image for ${sIndex}`}
+            modalHead={`Upload Snap for ${sIndex}`}
             size="sm"
             children={
               <>
-                <CommonForm
-                  classes="grid-cols-1 gap-1"
-                  Form={imageSubmitionForm}
-                  errors={errors}
-                  register={register}
-                  setValue={setValue}
-                  getValues={getValues}
-                />
-                <div className="px-4">
+                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
+                  <CommonForm
+                    classes="grid-cols-2 gap-1"
+                    Form={imageSubmitionForm}
+                    errors={errors}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  />
                   <Button
+                    classes={"mt-2 w-sm text-center flex mx-auto"}
                     name="Upload"
                     onClick={handleSubmit(handleImageSubmition)}
                   />
@@ -299,7 +304,7 @@ const ImageGrid = ({ sIndex, approvedIndex, images }) => {
   );
 };
 
-const ManageSnap = ({ projectData, L1Approver, snapData }) => {
+const ManageSnap = ({ projectData, L1Approver, snapData, l1ApproverForm=false }) => {
   const snaps = useSelector((state) => {
     const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap;
     if (Array.isArray(data)) return data;
@@ -311,7 +316,9 @@ const ManageSnap = ({ projectData, L1Approver, snapData }) => {
       {snaps && snaps.length ? (
         snaps.map((item) => {
           const sIndex = item.fieldName;
-          const fieldData = JSON.parse(JSON.stringify(snapData[sIndex])) || {
+          // const fieldData = JSON.parse(JSON.stringify(snapData[sIndex])) || 
+          const fieldData = 
+          {
             images: [],
             approvedIndex: null,
           };
@@ -324,6 +331,7 @@ const ManageSnap = ({ projectData, L1Approver, snapData }) => {
                 sIndex={sIndex}
                 projectData={projectData}
                 L1Approver={L1Approver}
+                l1ApproverForm = {l1ApproverForm}
               />
               {fieldData?.images?.length ? (
                 <ImageGrid

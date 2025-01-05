@@ -13,11 +13,8 @@ import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
 const ManageComplianceTemplateApproverForm = ({
-  CompleteData,
-  uid,
-  setmodalFullOpen,
+  CompleteData
 }) => {
-//   const { L1UserId = "" } = useSelector(state => state.projectList.globalComplianceTypeData?.[0]) || {}
 
   const today = moment().format("YYYY-MM-DD");
 //   let assignedToCount = mileStone?.assignerResult?.length || 0;
@@ -25,6 +22,10 @@ const ManageComplianceTemplateApproverForm = ({
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
   let userId = user?.uniqueId
+
+  let rowId = CompleteData?.uniqueId
+
+
 
   const {
     register,
@@ -99,25 +100,10 @@ const ManageComplianceTemplateApproverForm = ({
   const [L1Approver, setL1Approver] = useState(null);
   const dispatch = useDispatch();
 
-//   let L1optionList = useSelector((state) => {
-//     return state?.adminData?.getOneComplianceL1List.map((itm) => {
-//       return {
-//         label: itm?.approverName,
-//         value: itm?.approverId,
-//       };
-//     })
-//   })
-
-
-//   useEffect(() => {
-//     setL1Approver(L1UserId)
-//     setValueFormSelect("selectField", L1UserId)
-//   }, [L1UserId])
-
 
 
   let dataOfOldProject = useSelector((state) => {
-    let datew = state.projectList.globalComplianceTypeData;
+    let datew = state.projectList.globalComplianceTypeApproverData;
 
     if (type && datew && datew.length > 0) {
       settype(false);
@@ -163,24 +149,7 @@ const ManageComplianceTemplateApproverForm = ({
 
   let final_data = {}
 
-
-
-
-
-
   const handleTemplateSubmit = (data) => {
-
-    // if (!L1Approver) {
-    //   let msgdata = {
-    //     show: true,
-    //     icon: "error",
-    //     buttons: [],
-    //     type: 1,
-    //     text: "Please Select Your L1 Approver",
-    //   };
-    //   dispatch(ALERTS(msgdata));
-    //   return
-    // }
 
     let Template_data = {};
     dataOfProject["Template"].map((itew) => {
@@ -191,23 +160,11 @@ const ManageComplianceTemplateApproverForm = ({
 
     final_data['TemplateData'] = Template_data
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(projectListActions.globalComplianceTypeApproverDataPatch(Urls.compliance_globalSaver_Approver,rowId,final_data,() => {}));
 
   };
 
   const handlePlanDetailsSubmit = (data) => {
-
-    // if (!L1Approver){
-    //   let msgdata = {
-    //     show: true,
-    //     icon: "error",
-    //     buttons: [],
-    //     type: 1,
-    //     text: "Please Select Your L1 Approver",
-    //   };
-    //   dispatch(ALERTS(msgdata));
-    //   return
-    // }
 
     let Plan_Deatils_data = {};
     dataOfProject["planDetails"].map((itew) => {
@@ -220,24 +177,12 @@ const ManageComplianceTemplateApproverForm = ({
     final_data['PlanDetailsData'] = Plan_Deatils_data
 
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(projectListActions.globalComplianceTypeApproverDataPatch(Urls.compliance_globalSaver_Approver,rowId,final_data,() => {}));
 
 
   };
 
   const handleSiteDetailsSubmit = (data) => {
-
-    // if (!L1Approver){
-    //   let msgdata = {
-    //     show: true,
-    //     icon: "error",
-    //     buttons: [],
-    //     type: 1,
-    //     text: "Please Select Your L1 Approver",
-    //   };
-    //   dispatch(ALERTS(msgdata));
-    //   return
-    // }
 
     let Site_Deatils_data = {};
     dataOfProject["siteDetails"].map((itew) => {
@@ -248,23 +193,11 @@ const ManageComplianceTemplateApproverForm = ({
 
     final_data['SiteDetailsData'] = Site_Deatils_data
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(projectListActions.globalComplianceTypeApproverDataPatch(Urls.compliance_globalSaver_Approver,rowId,final_data,() => {}));
 
   };
 
   const handleRanCheckListSubmit = (data) => {
-
-    // if (!L1Approver){
-    //   let msgdata = {
-    //     show: true,
-    //     icon: "error",
-    //     buttons: [],
-    //     type: 1,
-    //     text: "Please Select Your L1 Approver",
-    //   };
-    //   dispatch(ALERTS(msgdata));
-    //   return
-    // }
 
     let Ran_Checklist_data = {};
     dataOfProject["ranChecklist"].map((itew) => {
@@ -275,50 +208,10 @@ const ManageComplianceTemplateApproverForm = ({
 
     final_data['RanCheckListData'] = Ran_Checklist_data
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(projectListActions.globalComplianceTypeApproverDataPatch(Urls.compliance_globalSaver_Approver,rowId,final_data,() => {}));
   };
 
-//   const handleSnapSubmit = (data) => {
-
-//     let final_data = {};
-//     dataOfProject["snap"].map((itew) => {
-//       let fieldNaming = labelToValue(itew.fieldName);
-
-//       final_data[fieldNaming] = data[fieldNaming];
-//     });
-
-//     let fdata = {
-//       name: "updateSiteEngg",
-//       data: final_data,
-//       from: {
-//         uid: uid,
-//       },
-//     };
-
-//     dispatch(
-//       projectListActions.globalProjectTypeDataPatch(
-//         Urls.projectList_globalSaver,
-//         projectuniqueId,
-//         fdata,
-//         () => { }
-//       )
-//     );
-//   };
-
   const handleAcceptanceLogSubmit = (data) => {
-
-
-    // if (!L1Approver){
-    //   let msgdata = {
-    //     show: true,
-    //     icon: "error",
-    //     buttons: [],
-    //     type: 1,
-    //     text: "Please Select Your L1 Approver",
-    //   };
-    //   dispatch(ALERTS(msgdata));
-    //   return
-    // }
 
     let Acceptance_Log_data = {};
     dataOfProject["acceptanceLog"].map((itew) => {
@@ -329,21 +222,18 @@ const ManageComplianceTemplateApproverForm = ({
 
     final_data['AcceptanceLogData'] = Acceptance_Log_data
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(projectListActions.globalComplianceTypeApproverDataPatch(Urls.compliance_globalSaver_Approver,rowId,final_data,() => {}));
   };
-
-
 
 
   const funcaller = () => {
     reset({});
   };
 
-
   useEffect(() => {
     reset({});
     settype(true);
-  }, [uid]);
+  }, [rowId]);
 
   let dtype = {
     Decimal: "number",
@@ -354,9 +244,6 @@ const ManageComplianceTemplateApproverForm = ({
     "Auto Created": "sdisabled",
   };
 
-  // useEffect(() => {
-  //   setValue("BTS Manufacturer (OEM)",TemplateData['BTS Manufacturer (OEM)'])
-  // },[])
 
   return (
     <>
@@ -369,29 +256,6 @@ const ManageComplianceTemplateApproverForm = ({
       />
 
       <div className="overflow-scroll h-[94vh] p-4">
-
-        {/* <CommonForm
-          classes={"flex mx-auto w-1/4 mb-[-10px]"}
-          Form={[
-            {
-              label: "Select Your L1 Approver",
-              value: '',
-              name: "selectField",
-              type: "select",
-              option: L1optionList,
-              props: {
-                onChange: (e) => {
-                  setL1Approver(e.target.value)
-                }
-              },
-              required: true,
-            },
-          ]}
-          errors={errorsFormSelect}
-          register={registerFormSelect}
-          setValue={setValueFormSelect}
-          getValues={getValuesFormSelect}
-        /> */}
 
         <CommonTableFormSiteParent
           funcaller={funcaller}
@@ -590,21 +454,16 @@ const ManageComplianceTemplateApproverForm = ({
             ),
 
             Snap: (
-                <></>
-            //   <ManageSnap projectData={
-            //     (() => {
-            //       const final_data = {}
-            //       final_data['siteuid'] = siteCompleteData['uniqueId']
-            //       final_data['milestoneuid'] = mileStone['uniqueId']
-            //       final_data['projectuniqueId'] = projectuniqueId
-            //       final_data['subprojectId'] = siteCompleteData['SubProjectId']
-            //       final_data['approverType'] = "L1Approver"
-            //       final_data['L1UserId'] = L1Approver
-            //       final_data['SnapData'] = 1
-            //       final_data['userId'] = userId
-            //       return final_data
-            //     })()
-            //   } />
+              <ManageSnap 
+                projectData={
+                  (() => {
+                    const final_data = {}
+                    final_data['uniqueId'] = rowId
+                    return final_data
+                  })()
+                } 
+                l1ApproverForm = {true}
+              />
             ),
 
             "Acceptance Log": (
@@ -644,7 +503,6 @@ const ManageComplianceTemplateApproverForm = ({
                         : []
                       : []
                   }
-                  // Form={filesUploadForm}
                   errors={errorsForm5}
                   register={registerForm5}
                   setValue={setValueForm5}
