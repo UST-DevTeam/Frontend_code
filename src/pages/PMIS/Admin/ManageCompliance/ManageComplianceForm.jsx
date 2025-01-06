@@ -24,8 +24,6 @@ const ManageComplianceForm = ({
 
   let dispatch = useDispatch();
 
-  console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue");
-
   const [modalOpen, setmodalOpen] = useState(false);
 
   const { customerList, projectTypes, subProjectTypes, activity, OEM, milestone } =

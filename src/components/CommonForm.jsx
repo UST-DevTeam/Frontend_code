@@ -44,8 +44,12 @@ const CommonForm = ({
 
   return (
     <>
-      <form className={`overflow-scroll grid ${classes} ${Form.length>12? " h-[70vh] " : " h-auto " }`} encType="multipart/form-data">
-        
+      <form
+        className={`overflow-scroll grid ${classes} ${
+          Form.length > 12 ? " h-[70vh] " : " h-auto "
+        }`}
+        encType="multipart/form-data"
+      >
         {Form.map((itm) => {
           return (
             <>
@@ -80,21 +84,17 @@ const CommonForm = ({
                       }
                     </div>
                   )}
-                  <div
-                    className={
-                      uiList[itm.type]?.height + " mt-2  px-2 "
-                    }
-                  >
+                  <div className={uiList[itm.type]?.height + " mt-2  px-2 "}>
                     {itm?.amp &&
                       itm?.amp?.map((its) => {
                         return (
                           <div
                             className={`flex flex-row border-b-2 text-white-900 sm:text-sm sm:leading-6 rounded-md bg-opacity-50  font-poppins outline-none border-gray-400  shadow-lg focus:shadow-indigo-500/30 ${
                               its?.styling
-                            } ${its?.styling?.includes("w-full") ? "" : " w-24 "}`}
+                            } ${
+                              its?.styling?.includes("w-full") ? "" : " w-24 "
+                            }`}
                           >
-                        
-                            
                             {its?.type == "select" && (
                               <SelectDropDown
                                 itm={its}
@@ -134,7 +134,6 @@ const CommonForm = ({
                       <></>
                     )}
 
-                    
                     {itm.type == "sdisabled" || itm.type == "hdisabled" ? (
                       <>
                         <Disabled
@@ -149,7 +148,7 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
-                    
+
                     {itm.type == "jsxcmpt" ? <>{itm.component}</> : <></>}
 
                     {itm.type == "radio" ? (
@@ -166,19 +165,20 @@ const CommonForm = ({
                     ) : (
                       <></>
                     )}
-                    {itm.type == 'email' ?(
+                    {itm.type == "email" ? (
                       <>
-                      <Email
-                        itm={itm}
-                        errors={errors}
-                        handleSubmit={handleSubmit}
-                        setValue={setValue}
-                        getValues={getValues}
-                        register={register}
-                      />
-                      
+                        <Email
+                          itm={itm}
+                          errors={errors}
+                          handleSubmit={handleSubmit}
+                          setValue={setValue}
+                          getValues={getValues}
+                          register={register}
+                        />
                       </>
-                    ):(<></>)}
+                    ) : (
+                      <></>
+                    )}
                     {itm.type == "checkbox" ? (
                       <>
                         <CheckBox
@@ -204,11 +204,12 @@ const CommonForm = ({
                           register={register}
                         />
                       </>
-                    ) : (
-                      itm?.name == 'img' ? <div>
+                    ) : itm?.name == "img" ? (
+                      <div>
                         <img src={itm.value} alt="" />
-                        
-                      </div> : <></>
+                      </div>
+                    ) : (
+                      <></>
                     )}
                     {itm.type == "select" ? (
                       <>
@@ -253,7 +254,6 @@ const CommonForm = ({
                       <></>
                     )}
                     {itm.type == "datetime" ? (
-                     
                       <>
                         <DatePicking
                           itm={itm}
@@ -268,20 +268,19 @@ const CommonForm = ({
                       <></>
                     )}
                     {itm.type == "datetime2" ? (
-                     
-                     <>
-                       <DatePicking2
-                         itm={itm}
-                         errors={errors}
-                         handleSubmit={handleSubmit}
-                         setValue={setValue}
-                         getValues={getValues}
-                         register={register}
-                       />
-                     </>
-                   ) : (
-                     <></>
-                   )}
+                      <>
+                        <DatePicking2
+                          itm={itm}
+                          errors={errors}
+                          handleSubmit={handleSubmit}
+                          setValue={setValue}
+                          getValues={getValues}
+                          register={register}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
                     {itm.type == "muitiSelect" ? (
                       <Multiselection
                         itm={itm}
@@ -323,7 +322,6 @@ const CommonForm = ({
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}
-
                         setValue={setValue}
                         getValues={getValues}
                         register={register}

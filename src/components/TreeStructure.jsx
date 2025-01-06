@@ -23,15 +23,8 @@ const Expander = ({
           itm.children.length
             ? handleExpend
             : () => {
-              // dispatch(
-              //   ComponentActions.breadcrumb(
-              //     data,
-              //     itm.href + "?" + `type=${parentTitle}`,
-              //     1,
-              //     false
-              //   )
-              // );
-              navigate(itm.href + (itm?.use ? "" : `${parentTitle}`) + `?from=${parentTitle}`);
+              if(!itm.href) return
+              navigate(itm.href + (itm?.use ? "" : `${parentTitle}`) + `?from=${parentTitle}`) 
             }
         }
         classes="btn-cls !py-[6px] !w-fit"
@@ -80,7 +73,7 @@ const Expander = ({
 };
 
 const TreeStructure = ({ data }) => {
-
+console.log("____data__", data)
   const navigate = useNavigate();
 
   return (

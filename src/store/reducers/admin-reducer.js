@@ -490,6 +490,7 @@ const adminData = createSlice({
         },
 
         GET_COMPLIANCE_L1_APPROVER: (state, { payload }) => {
+            console.log("____payload", payload)
             if (payload.reset) {
                 state.getComplianceMilestoneL1Approver = payload.dataAll
             } else {

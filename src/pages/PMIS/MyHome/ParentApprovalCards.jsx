@@ -23,11 +23,11 @@
 //         approveddata={[
 //           [
 //           "Expense/Advance",
-//           "bg-pcol", 
+//           "bg-pcol",
 //           "/home/approverCards"
 //           ],
 //           [
-//           "Compliance", 
+//           "Compliance",
 //           "bg-pcol",
 //           "/home/approverCards"
 //           ],
@@ -98,31 +98,31 @@ const ParentApproverCards = () => {
       children: [
         {
           title: "L1 Approver",
-          use:true,
+          use: true,
           href: "/home/approverCards/L1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
-          use:true,
+          use: true,
           href: "/home/approverCards/L2Approver",
           children: [],
         },
         {
           title: "Finance Approver",
-          use:true,
+          use: true,
           href: "/home/approverCards/FinanceApprover",
           children: [],
         },
         {
           title: "Settlement Amount",
-          use:true,
+          use: true,
           href: "/home/approverCards/SettlementAmount",
           children: [],
         },
       ],
     },
-  ]
+  ];
 
   const complianceMilestoneData = useSelector((state) => {
     const lApprover = [
@@ -154,15 +154,10 @@ const ParentApproverCards = () => {
     return [...complianceData, data];
   });
 
-
-    Compliance: [
-      ["Compliance 1", "bg-pcol", "/home/compliance1"],
-      ["Compliance 2", "bg-pcol", "/home/compliance2"],
-    ]
-  
-
-
-
+  Compliance: [
+    ["Compliance 1", "bg-pcol", "/home/compliance1"],
+    ["Compliance 2", "bg-pcol", "/home/compliance2"],
+  ];
 
   let dbConfigListCard = useSelector((state) => {
     let interdata = state?.adminData?.getCardComplainceMilestone;
@@ -174,7 +169,6 @@ const ParentApproverCards = () => {
     });
   });
 
-
   const cards = [
     ["Expense/Advance", "bg-pcol", "/home/approverCards"],
     ["Compliance", "bg-pcol", "/home/complianceMilestoneCard"],
@@ -182,12 +176,12 @@ const ParentApproverCards = () => {
 
   const additionalCards = {
     "Expense/Advance": [
-      ["L1 Approver","bg-pcol","/home/approverCards/L1Approver"],
-      ["L2 Approver", "bg-pcol","/home/approverCards/L2Approver"],
-      ["Finance Approver", "bg-pcol","/home/approverCards/FinanceApprover"],
-      ["Settlement Amount", "bg-pcol","/home/approverCards/SettlementAmount"],
+      ["L1 Approver", "bg-pcol", "/home/approverCards/L1Approver"],
+      ["L2 Approver", "bg-pcol", "/home/approverCards/L2Approver"],
+      ["Finance Approver", "bg-pcol", "/home/approverCards/FinanceApprover"],
+      ["Settlement Amount", "bg-pcol", "/home/approverCards/SettlementAmount"],
     ],
-    "Compliance": [
+    Compliance: [
       ["Compliance 1", "bg-pcol", "/home/compliance1"],
       ["Compliance 2", "bg-pcol", "/home/compliance2"],
     ],
@@ -227,7 +221,6 @@ const ParentApproverCards = () => {
       )}
     </>
   );
-}
+};
 
 export default ParentApproverCards;
-
