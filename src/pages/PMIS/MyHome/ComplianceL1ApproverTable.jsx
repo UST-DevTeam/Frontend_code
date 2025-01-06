@@ -122,40 +122,42 @@ const ComplianceL1ApproverTable = () => {
                       }
                     />
                 ),
-                approverAction: (
-                    <CstmButton
-                      className={"p-2"}
-                      child={
-                        <>
-                            <div className='flex space-x-2'>
-                            <ActionButton
-                            name={""}
-                            onClick={() => {
-                                setmodalOpen(prev => !prev);
-                                setmodalHead("Approve Milestone");
-                                setmodalBody(
-                                <>
-                                    <div className="sm:mx-auto sm:w-full sm:max-w-full pb-2">
-                                        <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-                                        <Button classes={"mt-4 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
-                                    </div>
-                                </>
-                                );
-                            }}
-                            >
-                            </ActionButton>
+                ...(itm['currentStatus'] === "Submit" && 
+                   { approverAction: (
+                        <CstmButton
+                        className={"p-2"}
+                        child={
+                            <>
+                                <div className='flex space-x-2'>
+                                <ActionButton
+                                name={""}
+                                onClick={() => {
+                                    setmodalOpen(prev => !prev);
+                                    setmodalHead("Approve Milestone");
+                                    setmodalBody(
+                                    <>
+                                        <div className="sm:mx-auto sm:w-full sm:max-w-full pb-2">
+                                            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+                                            <Button classes={"mt-4 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
+                                        </div>
+                                    </>
+                                    );
+                                }}
+                                >
+                                </ActionButton>
 
-                            <RejectionButton
-                            name={""}
-                            onClick={() => {
-                                setShowRejectModal(true)
-                            }}
-                            >
-                            </RejectionButton>
-                            </div>
-                        </>
-                      }
-                    />
+                                <RejectionButton
+                                name={""}
+                                onClick={() => {
+                                    setShowRejectModal(true)
+                                }}
+                                >
+                                </RejectionButton>
+                                </div>
+                            </>
+                        }
+                        />
+                    )}
                 ),
                 // "status": <CstmButton child={<ToggleButton onChange={(e) => {
                 //     let data = {
@@ -276,13 +278,13 @@ const ComplianceL1ApproverTable = () => {
                 style: "min-w-[250px] max-w-[300px] text-center"
             },
             {
-                name: "Form submission Date",
-                value: "",
+                name: "Form Submission Date",
+                value: "formSubmitDate",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
                 name: "Approval/Rejection Date",
-                value: "",
+                value: "L1ActionDate",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
@@ -297,7 +299,7 @@ const ComplianceL1ApproverTable = () => {
             },
             {
                 name: "L1-Ageing",
-                value: "",
+                value: "L1Age",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -327,7 +329,7 @@ const ComplianceL1ApproverTable = () => {
             // },
             {
                 name: "Current Status",
-                value: "",
+                value: "currentStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {

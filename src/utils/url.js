@@ -233,6 +233,7 @@ export const Urls = {
   admin_getComplianceapprover: "/admin/addComplianceApprover",
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",
+  admin_ComplianceL2List: "/admin/getOneComplianceL2List",
   compliance_globalSaver:'/compliance/globalSaver',
   compliance_globalSaver_Approver:'/compliance/globalSaver/Approved',
   complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",

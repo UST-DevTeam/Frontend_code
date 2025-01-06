@@ -182,6 +182,8 @@ const ManageComplianceTemplateForm = ({
   final_data['milestoneName'] = mileStone['Name']
   final_data['siteIdName'] = siteCompleteData['Site Id']
   final_data['systemId'] = siteCompleteData['systemId']
+  final_data['currentStatus'] = "In Process"
+
 
 
 
@@ -210,13 +212,6 @@ const ManageComplianceTemplateForm = ({
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => {}
-      )
-    );
   };
 
   const handlePlanDetailsSubmit = (data) => {
@@ -243,15 +238,6 @@ const ManageComplianceTemplateForm = ({
 
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
-
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => {}
-      )
-    );
   };
 
   const handleSiteDetailsSubmit = (data) => {
@@ -276,14 +262,6 @@ const ManageComplianceTemplateForm = ({
     final_data['SiteDetailsData'] = Site_Deatils_data
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => {}
-      )
-    );
   };
 
   const handleRanCheckListSubmit = (data) => {
@@ -310,31 +288,6 @@ const ManageComplianceTemplateForm = ({
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
-  const handleSnapSubmit = (data) => {
-    let final_data = {};
-    dataOfProject["snap"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-
-      final_data[fieldNaming] = data[fieldNaming];
-    });
-
-    let fdata = {
-      name: "updateSiteEngg",
-      data: final_data,
-      from: {
-        uid: uid,
-      },
-    };
-
-    dispatch(
-      projectListActions.globalProjectTypeDataPatch(
-        Urls.projectList_globalSaver,
-        projectuniqueId,
-        fdata,
-        () => {}
-      )
-    );
-  };
 
   const handleAcceptanceLogSubmit = (data) => {
     if (!L1Approver) {
@@ -359,6 +312,7 @@ const ManageComplianceTemplateForm = ({
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
+
 
   const funcaller = () => {
     reset({});
@@ -628,6 +582,7 @@ const ManageComplianceTemplateForm = ({
                   final_data["milestoneName"] = mileStone["Name"];
                   final_data["siteIdName"] = siteCompleteData["Site Id"];
                   final_data["systemId"] = siteCompleteData["systemId"];
+                  final_data['currentStatus'] = "In Process"
                   return final_data;
                 })()}
               />

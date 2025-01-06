@@ -416,9 +416,9 @@ const ManageProjectSiteId = () => {
             CompletionBar: (
               <ProgressBar
                 notifyType={iewq.taskageing >= 0 ? "success" : "alert"}
-                percent={iewq.mileStoneStatus == "Open" ? "0" : "100"}
+                percent={iewq.mileStoneStatus == "Closed" ? "100" : "0"}
                 text={
-                  parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100") +
+                  parseTwoDigit(iewq.mileStoneStatus == "Closed" ? "100" : "0") +
                   " %"
                 }
               />

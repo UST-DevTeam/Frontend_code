@@ -2,19 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvancedTable from '../../../components/AdvancedTable';
-import { Modal } from '@material-ui/core';
 import { objectToQueryString } from '../../../utils/commonFunnction';
 import AdminActions from '../../../store/actions/admin-actions';
 import { useSearchParams } from 'react-router-dom';
+import CstmButton from '../../../components/CstmButton';
+import DownloadButton from '../../../components/DownloadButton';
+import ActionButton from '../../../components/ActionButton';
+import RejectionButton from '../../../components/RejectionButton';
+import { UilExclamationTriangle}  from "@iconscout/react-unicons";
+import Button from '../../../components/Button';
+import Modal from '../../../components/Modal';
+import CommonForm from '../../../components/CommonForm';
+import ManageComplianceTemplateApproverForm from '../Admin/ManageCompliance/ManageComplinaceTemplateApproverForm';
+import { GET_ONE_COMPLIANCE_DY_FORM } from '../../../store/reducers/admin-reducer';
+import projectListActions from '../../../store/actions/projectList-actions';
+import { GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } from '../../../store/reducers/projectList-reducer';
 
 
 const ComplianceL2ApproverTable = () => {
-const [URLSearchParams, setURLSearchParams] = useSearchParams()
-  const route = URLSearchParams.get("from")
+    const [URLSearchParams, setURLSearchParams] = useSearchParams()
+    const route = URLSearchParams.get("from")
     const [modalOpen, setmodalOpen] = useState(false)
-    const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+    const [showRejectModal, setShowRejectModal] = useState(false);
+    const [modalFullOpen, setmodalFullOpen] = useState(false);
+
+    const {register,handleSubmit,watch,reset,setValue,setValues,getValues,formState: { errors }} = useForm()
 
     let dispatch = useDispatch()
 
@@ -25,11 +39,126 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
         year: 'numeric'
     }).replace(/\//g, '-')
 
+    let Form = [
+        {
+            label: "Select Your L2 Approver",
+            value: "",
+            name: "customer",
+            type: "select",
+            required: true,
+            option: [
+                {'label':"Option1","value":"1"},
+                {'label':"Option2","value":"2"},
+                {'label':"Option3","value":"3"},
+                {'label':"Option4","value":"4"},
+            ],
+            classes: "col-span-1"
+        }
+    ]
+
+    const onTableViewSubmit = (data) => {
+        // if (formValue.uniqueId) {
+        //     dispatch(AdminActions.postManageCircle(true, data, () => {
+        //         setIsOpen(false)
+        //         dispatch(AdminActions.getManageCircle())
+        //     }, formValue.uniqueId))
+        // } else {
+        //     dispatch(AdminActions.postManageCircle(true, data, () => {
+        //         setIsOpen(false)
+        //         dispatch(AdminActions.getManageCircle())
+        //     }))
+        // }
+    }
+    
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle || [""]
+        let interdata = state?.adminData?.getComplianceMilestoneL2Approver || [""]
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
+
+                siteIdLink: (
+                    <p
+                      className="text-[#13b497] cursor-pointer font-extrabold"
+                      onClick={() => {
+                        setmodalFullOpen((prev) => !prev);
+                        setmodalHead(itm['siteIdName']);
+                        dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
+                        dispatch(GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA({ dataAll:[], reset:true }))
+                        dispatch(AdminActions.getOneComplianceDyform(itm.siteuid, itm.milestoneName, true, ""));
+                        dispatch(projectListActions.globalComplianceTypeApproverDataGet(itm.uniqueId,"", true));
+                        setmodalBody(
+                            <ManageComplianceTemplateApproverForm
+                                CompleteData = {itm}
+                            />
+                        );
+                      }}
+                    >
+                    {itm["siteIdName"]}
+                    </p>
+                ),
+                attachmentDownload: (
+                    <CstmButton
+                      className={"p-2"}
+                      child={
+                        <DownloadButton
+                          name={""}
+                          onClick={() => {
+                            alert("This function for Dowload Forms & Checklist for particular Site Id and Milestone")
+                        //     setmodalOpen(true);
+                        //     setmodalHead("Attachment Preview");
+                        //     setmodalBody(
+                        //       <>
+                        //         <div className="flex justify-center items-center">
+                        //           <img
+                        //             src={backendassetUrl + item?.attachment}
+                        //             className="w-full h-full content-center flex object-contain"
+                        //           />
+                        //         </div>
+                        //       </>
+                        //     );
+                        //     setmodalFullOpen((prev) => !prev);
+                          }}
+                        ></DownloadButton>
+                      }
+                    />
+                ),
+                ...(itm['currentStatus'] === "Approve" && 
+                   { approverAction: (
+                        <CstmButton
+                        className={"p-2"}
+                        child={
+                            <>
+                                <div className='flex space-x-2'>
+                                <ActionButton
+                                name={""}
+                                onClick={() => {
+                                    setmodalOpen(prev => !prev);
+                                    setmodalHead("Approve Milestone");
+                                    setmodalBody(
+                                    <>
+                                        <div className="sm:mx-auto sm:w-full sm:max-w-full pb-2">
+                                            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+                                            <Button classes={"mt-4 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
+                                        </div>
+                                    </>
+                                    );
+                                }}
+                                >
+                                </ActionButton>
+
+                                <RejectionButton
+                                name={""}
+                                onClick={() => {
+                                    setShowRejectModal(true)
+                                }}
+                                >
+                                </RejectionButton>
+                                </div>
+                            </>
+                        }
+                        />
+                    )}
+                ),
                 // "status": <CstmButton child={<ToggleButton onChange={(e) => {
                 //     let data = {
                 //         "enabled": e.target.checked ? 1 : 0
@@ -45,7 +174,7 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
                 //     // }
                 //     // itm.enabled=itm.enabled==0?1:0
                 // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-
+                
                 // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                 //     setmodalOpen(true)
                 //     dispatch(AdminActions.getManageCircle())
@@ -54,7 +183,7 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
                 //         <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                 //     </>)
                 // }}></EditButton>} />,
-
+                
                 // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
                 //     let msgdata = {
                 //         show: true,
@@ -79,8 +208,9 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
         });
     })
 
+
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCircle
+        let interdata = state?.adminData?.getComplianceMilestoneL2Approver
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -89,23 +219,22 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
     })
 
 
-    const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
 
     let table = {
         columns: [
             {
                 name: "Site Id",
-                value: "activity",
+                value: "siteIdLink",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Milestone",
-                value: "activity",
+                value: "milestoneName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "SR Number",
-                value: "activity",
+                value: "srNumber",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -115,19 +244,19 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
             },
             {
                 name: "Project Type",
-                value: "circleName",
+                value: "projectTypeName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Sub Project",
-                value: "circleCode",
+                value: "subTypeName",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
+            },          
             {
                 name: "Project ID",
-                value: "band",
+                value: "projectIdName",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
+            },          
             {
                 name: "ACTIVITY",
                 value: "activity",
@@ -135,7 +264,7 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
             },
             {
                 name: "SSID",
-                value: "activity",
+                value: "systemId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -145,50 +274,69 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
             },
             {
                 name: "Unique ID",
-                value: "activity",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                value: "Unique ID",
+                style: "min-w-[250px] max-w-[300px] text-center"
             },
             {
-                name: "Final submit Date",
-                value: "activity",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                name: "Form Submission Date",
+                value: "",
+                style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
-                name: "Final Approved Date",
-                value: "activity",
-                style: "min-w-[160px] max-w-[200px] text-center"
+                name: "Approval/Rejection Date",
+                value: "",
+                style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
                 name: "Submitted to Airtel Date",
-                value: "activity",
+                value: "",
                 style: "min-w-[180px] max-w-[200px] text-center"
             },
             {
                 name: "Airtel Action Date",
-                value: "activity",
+                value: "",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Delay",
-                value: "activity",
-                style: "min-w-[100px] max-w-[200px] text-center"
+                name: "L1-Ageing",
+                value: "",
+                style: "min-w-[140px] max-w-[200px] text-center"
             },
+            {
+                name: "L2-Ageing",
+                value: "",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Airtel-Ageing",
+                value: "",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            // {
+            //     name: "Delay",
+            //     value: "",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
             {
                 name: "Form & Checklist Attachment",
-                value: "activity",
+                value: "attachmentDownload",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },
-            {
-                name: "Form & Checklist Attachment Preview",
-                value: "activity",
-                style: "min-w-[300px] max-w-[300px] text-center"
-            },
+            // {
+            //     name: "Form & Checklist Attachment Preview",
+            //     value: "",
+            //     style: "min-w-[300px] max-w-[300px] text-center"
+            // },
             {
                 name: "Current Status",
-                value: "activity",
+                value: "currentStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-
+            {
+                name: "Action",
+                value: "approverAction",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -211,16 +359,35 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
         dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)))
     }
 
+    const handleReject = () => {
+        setShowRejectModal(false);
+        // dispatch(
+        //   CommonActions.deleteApiCallerBulk(
+        //      `${delurl}`,
+        //     {
+        //       ids: selectedRows
+        //     },
+        //     () => {
+        //       setShowRejectModal(false);
+        //       setSelectedRows([]);
+        //       setSelectAll(false);
+        //       setRPP(50)
+        //       setcurrentPage(1); 
+        //       dispatch(geturl);
+        //     }
+        //   )
+        // );
+    };
+
     useEffect(() => {
         dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/")))
-
     }, [])
 
     return <>
         <AdvancedTable
             headerButton={
-                <div className='flex gap-1'>
-                    {/* <Button classes='w-auto' onClick={(e) => {
+            <div className='flex gap-1'>
+                {/* <Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 dispatch(AdminActions.getManageCircle())
                 setmodalHead("New Circle")
@@ -245,11 +412,24 @@ const [URLSearchParams, setURLSearchParams] = useSearchParams()
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading={"Total Count :- "}
+            heading = {"Total Count :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"full"} modalHead={modalHead} children={modalBody} isOpen={modalFullOpen} setIsOpen={setmodalFullOpen}/>
 
+        {showRejectModal && (
+            <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
+            <div className="bg-white p-4 rounded-lg shadow-xl">
+                <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
+                <p className="mt-4">{`Are you sure you want to Reject This Milestone?`}</p>
+                <div className="mt-6 flex justify-center space-x-4">
+                <Button name="Reject" classes="w-auto bg-rose-500" onClick={handleReject} />
+                <Button name="Cancel" classes="w-auto" onClick={() => setShowRejectModal(false)} />
+                </div>
+            </div>
+            </div>
+        )}
 
     </>
 
