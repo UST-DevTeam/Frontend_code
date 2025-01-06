@@ -216,7 +216,7 @@ const projectListActions = {
 
     globalComplianceTypeApproverDataPost: (id,data, cb = () => { }, reset = true) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ url: `${Urls.compliance_globalSaver_Approver}/${id}${args != "" ? "?" + args : ""}`, data: data })
+            const res = await Api.post({ url: `${Urls.compliance_globalSaver_Approver}/${id}`, data: data })
             if (res?.status !== 200 && res?.status !== 201) {
                 let msgdata = {
                     show: true,

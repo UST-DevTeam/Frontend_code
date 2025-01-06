@@ -65,7 +65,14 @@ const component = createSlice({
       state.table_pagination = payload;
     },
     ALERTS: (state, { payload }) => {
-      state.alerts = payload;
+      const data = JSON.parse(JSON.stringify(payload));
+      if (!data?.icon) {
+        data.icon = "error";
+      }
+      if (!data?.text) {
+        data.text = "Internal Server Error";
+      }
+      state.alerts = data;
     },
     LOADERS: (state, { payload }) => {
       state.loader = payload;

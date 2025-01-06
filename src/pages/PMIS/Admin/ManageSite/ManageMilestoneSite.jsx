@@ -309,7 +309,7 @@ const ManageMilestoneSite = ({
                 <h1>Milestone Status <span className="text-[#f4d3a8]"> :</span></h1>
                 {
                   <p
-                    className={`w-20 rounded-xl text-center text-yellow-500 bg-slate-500 border-[0.01px] border-[#f4d3a8] ${
+                    className={`px-3.5 rounded-xl text-center text-yellow-400 bg-slate-500 border-[0.01px] border-[#f4d3a8] whitespace-nowrap ${
                       uiStatusColor[mileStone?.mileStoneStatus]
                     }`}
                   >

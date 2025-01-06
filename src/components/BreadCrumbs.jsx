@@ -6,7 +6,7 @@ import ComponentActions from "../store/actions/component-actions";
 import { isValidObjectId } from "../utils/commonFunnction";
 
 function changeCase(str) {
-
+  
   const words = str.split(/(?=[A-Z]+)|(?=[a-z])(?=[A-Z])/);
   const capitalizedWords = words.map(
     (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()

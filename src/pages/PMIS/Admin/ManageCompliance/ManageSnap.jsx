@@ -8,6 +8,7 @@ import Button from "../../../../components/Button";
 import { useForm } from "react-hook-form";
 import Modal from "../../../../components/Modal";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import projectListActions from "../../../../store/actions/projectList-actions";
 
 const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
   const dispatch = useDispatch();
@@ -29,13 +30,15 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
 
   const handleImageSubmition = (data) => {
     const formData = new FormData();
+
     const content = { ...data, fieldName: sIndex, ...projectData };
-    console.log("content", content);
+
     Object.keys(content).forEach((itm) => {
       formData.append(itm, content[itm]);
     });
     formData.delete("img");
-    if (!l1ApproverForm){
+
+    if (!l1ApproverForm) {
       if (!content?.L1UserId && !L1Approver) {
         let msgdata = {
           show: true,
@@ -47,12 +50,39 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
         dispatch(ALERTS(msgdata));
         return;
       }
-      dispatch(AdminActions.patchComplinaceSnapImageSubmition(formData, handleFormState));
+      dispatch(
+        AdminActions.patchComplinaceSnapImageSubmition(formData, () => {
+          handleFormState();
+          dispatch(
+            projectListActions.globalComplianceTypeDataGet(
+              projectData.siteuid,
+              projectData.milestoneuid,
+              "",
+              true
+            )
+          );
+        })
+      );
+    } else {
+      formData.delete("uniqueId");
+
+      dispatch(
+        AdminActions.patchComplinaceApproverSnapImageSubmition(
+          formData,
+          projectData?.uniqueId,
+          () => {
+            handleFormState();
+            dispatch(
+              projectListActions.globalComplianceTypeApproverDataGet(
+                projectData?.uniqueId,
+                "",
+                true
+              )
+            );
+          }
+        )
+      );
     }
-    else {
-      dispatch(AdminActions.patchComplinaceApproverSnapImageSubmition(formData,projectData?.uniqueId,handleFormState));
-    }
-    
   };
 
   const imageSubmitionForm = [
@@ -142,6 +172,9 @@ const FullViewImage = ({
   images,
   setFullView,
   approvedIndex,
+  projectData,
+  l1ApproverForm,
+  viewOnly,
 }) => {
   const dispatch = useDispatch();
   const handleFullView = (_) => {
@@ -177,11 +210,28 @@ const FullViewImage = ({
   }, [fullView]);
 
   const handleImageApproval = () => {
-    // dispatch()
+    dispatch(
+      projectListActions.globalComplianceTypeApproverDataPost(
+        projectData?.uniqueId,
+        {
+          fieldName: sIndex,
+          approvedIndex: `${fullView.index}`,
+        },
+        () => {
+          dispatch(
+            projectListActions.globalComplianceTypeApproverDataGet(
+              projectData?.uniqueId,
+              "",
+              true
+            )
+          );
+        }
+      )
+    );
   };
 
   return (
-    <div className="fixed inset-0 bg-[rgba(0,0,0,.8)] text-white z-[99999]">
+    <div className="fixed inset-0 bg-[rgba(0,0,0,.8)] text-white z-[9999]">
       <div className="absolute top-6 left-6 flex items-center gap-4">
         <svg
           onClick={handleFullView}
@@ -197,7 +247,11 @@ const FullViewImage = ({
         <p>{fullView.index}</p>
       </div>
       <img
-        src={backendassetUrl + fullView.image}
+        src={
+          fullView.image
+            ? backendassetUrl + fullView.image
+            : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+        }
         className="w-full h-full object-contain rounded-md"
       />
       <div className="absolute [transform:translate(0%,-50%)] left-4 top-[50%] h-10 w-10 grid place-items-center right-4 rounded-full hover:bg-[rgba(0,0,0,.2)] group transition-all duration-300">
@@ -226,50 +280,91 @@ const FullViewImage = ({
           <path d="M22.0003 12.9999L22.0004 11L8.41421 11V5.58582L2 12L8.41421 18.4142L8.41421 13L22.0003 12.9999Z"></path>
         </svg>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,.2)] h-20 flex justify-center items-center">
-        <button
-          onClick={handleImageApproval}
-          className="flex justify-center items-center space-x-2"
-        >
-          <svg
-            className="w-6 h-6 cursor-pointer fill-green-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M11.602 13.7599L13.014 15.1719L21.4795 6.7063L22.8938 8.12051L13.014 18.0003L6.65 11.6363L8.06421 10.2221L10.189 12.3469L11.6025 13.7594L11.602 13.7599ZM11.6037 10.9322L16.5563 5.97949L17.9666 7.38977L13.014 12.3424L11.6037 10.9322ZM8.77698 16.5873L7.36396 18.0003L1 11.6363L2.41421 10.2221L3.82723 11.6352L3.82604 11.6363L8.77698 16.5873Z"></path>
-          </svg>
-          <p className="cursor-pointer">Approve</p>
-        </button>
-      </div>
+      {viewOnly ? (
+        <></>
+      ) : fullView.image && l1ApproverForm ? (
+        <div className="absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,.2)] hover:bg-[rgba(0,0,0,.5)] transition-all duration-500 h-20 flex justify-center items-center">
+          {approvedIndex.includes(fullView.index) ? (
+            <button
+              onClick={handleImageApproval}
+              className="flex justify-center items-center space-x-2 border-transparent hover:border-rose-500 border-t-2 transition-all duration-300 border-b-2 px-4 py-[6px] rounded-lg"
+            >
+              <svg
+                className="w-6 h-6 cursor-pointer fill-red-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path>
+              </svg>
+              <p className="cursor-pointer">Disapprove</p>
+            </button>
+          ) : (
+            <button
+              onClick={handleImageApproval}
+              className="flex justify-center items-center space-x-2 border-t-2 border-b-2 transition-all duration-300 border-transparent hover:border-green-500 px-4 py-[6px] rounded-lg"
+            >
+              <svg
+                className="w-6 h-6 cursor-pointer fill-green-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="green"
+              >
+                <path d="M11.602 13.7599L13.014 15.1719L21.4795 6.7063L22.8938 8.12051L13.014 18.0003L6.65 11.6363L8.06421 10.2221L10.189 12.3469L11.6025 13.7594L11.602 13.7599ZM11.6037 10.9322L16.5563 5.97949L17.9666 7.38977L13.014 12.3424L11.6037 10.9322ZM8.77698 16.5873L7.36396 18.0003L1 11.6363L2.41421 10.2221L3.82723 11.6352L3.82604 11.6363L8.77698 16.5873Z"></path>
+              </svg>
+              <p className="cursor-pointer">Approve</p>
+            </button>
+          )}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
 
-const ImageCard = ({ index, images, sIndex, image, approvedIndex }) => {
+const ImageCard = ({
+  index,
+  images,
+  sIndex,
+  image,
+  approvedIndex,
+  projectData,
+  l1ApproverForm,
+  viewOnly,
+}) => {
   const [fullView, setFullView] = useState({
     index: null,
     image: null,
   });
-  const handleFullView = (event) => {
-    setFullView({ index, image });
+  const handleFullView = (_) => {
+    setFullView({ index: index, image: image });
   };
 
   return (
     <>
       <div
         onClick={handleFullView}
-        className="group relative overflow-hidden rounded-tl-md rounded-br-md"
+        className="group p-1 relative overflow-hidden border rounded-tl-md rounded-br-md"
       >
         <img
-          src={backendassetUrl + image}
-          className="w-full h-full object-cover group-hover:scale-[110%] rounded-sm transition-all duration-500"
+          src={
+            image
+              ? backendassetUrl + image
+              : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+          }
+          className="w-full h-full group-hover:scale-[110%] rounded-sm transition-all duration-500"
         />
         <div className="absolute text-white scale-125 place-items-center transition-all font-semibold duration-300 group-hover:grid hidden inset-0 bg-[rgba(0,0,0,.4)]">
           {index}
+          {approvedIndex.includes(index) ? (
+            <div className="w-[6px] h-[6px] bg-green-500 rounded-full -mt-10" />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-      {fullView.image ? (
+      {fullView.index ? (
         ReactDOM.createPortal(
           <FullViewImage
             images={images}
@@ -277,6 +372,9 @@ const ImageCard = ({ index, images, sIndex, image, approvedIndex }) => {
             setFullView={setFullView}
             fullView={fullView}
             approvedIndex={approvedIndex}
+            projectData={projectData}
+            l1ApproverForm={l1ApproverForm}
+            viewOnly={viewOnly}
           />,
           document.getElementById("fullview")
         )
@@ -287,7 +385,14 @@ const ImageCard = ({ index, images, sIndex, image, approvedIndex }) => {
   );
 };
 
-const ImageGrid = ({ sIndex, approvedIndex, images }) => {
+const ImageGrid = ({
+  sIndex,
+  approvedIndex,
+  images,
+  projectData,
+  l1ApproverForm,
+  viewOnly
+}) => {
   return (
     <div className="grid grid-cols-5 grid-rows-2 h-[160px] border-2 gap-1 p-1 rounded-md border-gray-300 cursor-pointer">
       {images.map((item) => (
@@ -298,13 +403,22 @@ const ImageGrid = ({ sIndex, approvedIndex, images }) => {
           index={+item.index}
           image={item.image}
           approvedIndex={approvedIndex}
+          projectData={projectData}
+          l1ApproverForm={l1ApproverForm}
+          viewOnly={viewOnly}
         />
       ))}
     </div>
   );
 };
 
-const ManageSnap = ({ projectData, L1Approver, snapData, l1ApproverForm=false }) => {
+const ManageSnap = ({
+  viewOnly = false,
+  projectData,
+  L1Approver,
+  snapData,
+  l1ApproverForm = false,
+}) => {
   const snaps = useSelector((state) => {
     const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap;
     if (Array.isArray(data)) return data;
@@ -316,28 +430,47 @@ const ManageSnap = ({ projectData, L1Approver, snapData, l1ApproverForm=false })
       {snaps && snaps.length ? (
         snaps.map((item) => {
           const sIndex = item.fieldName;
-          // const fieldData = JSON.parse(JSON.stringify(snapData[sIndex])) || 
-          const fieldData = 
-          {
-            images: [],
-            approvedIndex: null,
-          };
-          fieldData.images = fieldData.images?.sort((a,b) => +a.index - +b.index)
-          
+          const fieldData = snapData?.[sIndex]
+            ? { ...snapData[sIndex] }
+            : { images: [], approvedIndex: null };
+
+          const existingIndices = new Set(
+            fieldData.images.map((itm) => +itm.index)
+          );
+          const newImages = Array.from({ length: 10 }, (_, index) => index + 1)
+            .filter((idx) => !existingIndices.has(idx))
+            .map((idx) => ({ index: `${idx}`, image: "" }));
+
+          fieldData.images = [...fieldData.images, ...newImages].sort(
+            (a, b) => +a.index - +b.index
+          );
+
           return (
-            <>  
-              <FormCard
-                key={sIndex}
-                sIndex={sIndex}
-                projectData={projectData}
-                L1Approver={L1Approver}
-                l1ApproverForm = {l1ApproverForm}
-              />
+            <>
+              {viewOnly ? (
+                <></>
+              ) : (
+                <FormCard
+                  key={sIndex}
+                  sIndex={sIndex}
+                  projectData={projectData}
+                  L1Approver={L1Approver}
+                  l1ApproverForm={l1ApproverForm}
+                />
+              )}
+
               {fieldData?.images?.length ? (
                 <ImageGrid
                   sIndex={sIndex}
-                  approvedIndex={fieldData?.approvedIndex}
+                  approvedIndex={
+                    Array.isArray(fieldData?.approvedIndex)
+                      ? fieldData?.approvedIndex?.map((itm) => +itm)
+                      : []
+                  }
                   images={fieldData?.images}
+                  projectData={projectData}
+                  l1ApproverForm={l1ApproverForm}
+                  viewOnly={viewOnly}
                 />
               ) : (
                 <></>

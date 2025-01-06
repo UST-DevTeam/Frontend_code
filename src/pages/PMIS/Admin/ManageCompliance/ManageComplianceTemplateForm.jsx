@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
+import { UilRefresh } from "@iconscout/react-unicons";
 import {
   getAccessType,
   labelToValue,
@@ -27,9 +28,12 @@ const ManageComplianceTemplateForm = ({
   myTaskPage,
   filterView,
 }) => {
-  const { L1UserId = "" , SnapData = {}} =
-    useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
-    {};
+  const {
+    L1UserId = "",
+    currentStatus = "",
+    SnapData = {},
+  } = useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
+  {};
 
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
@@ -170,24 +174,19 @@ const ManageComplianceTemplateForm = ({
     return dataOlder;
   });
 
-  let final_data = {}
+  let final_data = {};
 
-  final_data['siteuid'] = siteCompleteData['uniqueId']
-  final_data['milestoneuid'] = mileStone['uniqueId']
-  final_data['projectuniqueId'] = projectuniqueId
-  final_data['subprojectId'] = siteCompleteData['SubProjectId']
-  final_data['approverType'] = "L1Approver"
-  final_data['L1UserId'] = L1Approver
-  final_data['userId'] = userId
-  final_data['milestoneName'] = mileStone['Name']
-  final_data['siteIdName'] = siteCompleteData['Site Id']
-  final_data['systemId'] = siteCompleteData['systemId']
+  final_data["siteuid"] = siteCompleteData["uniqueId"];
+  final_data["milestoneuid"] = mileStone["uniqueId"];
+  final_data["projectuniqueId"] = projectuniqueId;
+  final_data["subprojectId"] = siteCompleteData["SubProjectId"];
+  final_data["approverType"] = "L1Approver";
+  final_data["L1UserId"] = L1Approver;
+  final_data["userId"] = userId;
+  final_data["milestoneName"] = mileStone["Name"];
+  final_data["siteIdName"] = siteCompleteData["Site Id"];
+  final_data["systemId"] = siteCompleteData["systemId"];
   final_data['currentStatus'] = "In Process"
-
-
-
-
-
 
   const handleTemplateSubmit = (data) => {
     if (!L1Approver) {
@@ -208,9 +207,15 @@ const ManageComplianceTemplateForm = ({
       Template_data[fieldNaming] = data[fieldNaming]?.trim();
     });
 
-    final_data['TemplateData'] = Template_data
+    final_data["TemplateData"] = Template_data;
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
 
   };
 
@@ -259,7 +264,7 @@ const ManageComplianceTemplateForm = ({
       Site_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
     });
 
-    final_data['SiteDetailsData'] = Site_Deatils_data
+    final_data["SiteDetailsData"] = Site_Deatils_data;
 
     dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
@@ -283,9 +288,15 @@ const ManageComplianceTemplateForm = ({
       Ran_Checklist_data[fieldNaming] = data[fieldNaming]?.trim();
     });
 
-    final_data['RanCheckListData'] = Ran_Checklist_data
+    final_data["RanCheckListData"] = Ran_Checklist_data;
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
 
@@ -308,9 +319,15 @@ const ManageComplianceTemplateForm = ({
       Acceptance_Log_data[fieldNaming] = data[fieldNaming]?.trim();
     });
 
-    final_data['AcceptanceLogData'] = Acceptance_Log_data
+    final_data["AcceptanceLogData"] = Acceptance_Log_data;
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
 
@@ -336,6 +353,10 @@ const ManageComplianceTemplateForm = ({
   //   setValue("BTS Manufacturer (OEM)",TemplateData['BTS Manufacturer (OEM)'])
   // },[])
 
+  function isViewOnly() {
+    return ["In Process", "Reject", ""].includes(currentStatus) ? null : 'sdisabled'
+  }
+
   return (
     <>
       <Modal
@@ -346,15 +367,18 @@ const ManageComplianceTemplateForm = ({
         size={"full1"}
       />
 
-      <div className="overflow-scroll h-[94vh] p-4">
+      <div className="relative overflow-scroll h-[94vh] p-4">
+      <div className="aboslute top-5 right-5 flex justify-end">
+      <Button classes='w-auto h-8' onClick={(e) => {}} name={""} icon={<UilRefresh />}></Button>
+      </div>
         <CommonForm
           classes={"flex mx-auto w-1/4 mb-[-10px]"}
           Form={[
             {
               label: "Select Your L1 Approver",
-              value: "",
+              value: L1UserId,
               name: "selectField",
-              type: "select",
+              type: isViewOnly() || "select",
               option: L1optionList,
               props: {
                 onChange: (e) => {
@@ -389,7 +413,7 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["Template"]
                         ? dataOfProject["Template"].map((its) => {
-                            let type = dtype[its.dataType];
+                            let type = isViewOnly() || dtype[its.dataType];
                             let option = its.dropdownValue
                               ? its.dropdownValue.split(",").map((itm) => {
                                   return {
@@ -442,7 +466,7 @@ const ManageComplianceTemplateForm = ({
                     dataOfProject
                       ? dataOfProject["planDetails"]
                         ? dataOfProject["planDetails"].map((its) => {
-                            let type = dtype[its.dataType];
+                            let type = isViewOnly() || dtype[its.dataType];
                             let option = its.dropdownValue
                               ? its.dropdownValue.split(",").map((itm) => {
                                   return {
@@ -494,7 +518,7 @@ const ManageComplianceTemplateForm = ({
                               label: its.fieldName,
                               value: "abc",
                               name: its.fieldName,
-                              type: dtype[its.dataType],
+                              type: isViewOnly() || dtype[its.dataType],
                               option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
@@ -539,7 +563,7 @@ const ManageComplianceTemplateForm = ({
                               label: its.fieldName,
                               value: "abc",
                               name: its.fieldName,
-                              type: dtype[its.dataType],
+                              type: isViewOnly() || dtype[its.dataType],
                               option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
@@ -568,6 +592,7 @@ const ManageComplianceTemplateForm = ({
 
             Snap: (
               <ManageSnap
+                viewOnly={isViewOnly()}
                 L1Approver={L1Approver}
                 snapData={SnapData}
                 projectData={(() => {
@@ -607,7 +632,7 @@ const ManageComplianceTemplateForm = ({
                               label: its.fieldName,
                               value: "abc",
                               name: its.fieldName,
-                              type: dtype[its.dataType],
+                              type: isViewOnly() || dtype[its.dataType],
                               option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
