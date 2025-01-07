@@ -187,7 +187,7 @@ const projectListActions = {
             }
 
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "globalComplianceTypeApproverDataamit errorerror 37")
         }
     },
 

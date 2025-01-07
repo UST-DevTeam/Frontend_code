@@ -31,7 +31,6 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
 
   let rowId = CompleteData?.uniqueId;
 
-
   const {
     register,
     handleSubmit,
@@ -273,7 +272,9 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
   }, [])
 
   function isViewOnly() {
-    return ["In Process", "Submit"].includes(CompleteData?.currentStatus) ? null : 'sdisabled'
+    return ["In Process", "Submit"].includes(CompleteData?.currentStatus)
+      ? null
+      : "sdisabled";
   }
 
   return (
