@@ -166,7 +166,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
         Urls.compliance_globalSaver_Approver,
         rowId,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -185,7 +185,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
         Urls.compliance_globalSaver_Approver,
         rowId,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -204,7 +204,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
         Urls.compliance_globalSaver_Approver,
         rowId,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -223,7 +223,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
         Urls.compliance_globalSaver_Approver,
         rowId,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -242,7 +242,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
         Urls.compliance_globalSaver_Approver,
         rowId,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -265,7 +265,13 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
     "Auto Created": "sdisabled",
   };
 
-  
+  useEffect(() => {
+    setTimeout(() => {
+      reset({})
+      settype(true)
+    }, 100)
+  }, [])
+
   function isViewOnly() {
     return ["In Process", "Submit"].includes(CompleteData?.currentStatus) ? null : 'sdisabled'
   }
@@ -281,9 +287,23 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
       />
 
       <div className="relative overflow-scroll h-[94vh] p-4">
-      <div className="aboslute top-5 right-5 flex justify-end">
-      <Button classes='w-auto h-8' onClick={(e) => {}} name={""} icon= {<UilRefresh />}></Button>
-      </div>
+        <div className="aboslute top-5 right-5 flex justify-end">
+          <Button classes='w-auto h-8' onClick={(e) => {
+            reset({});
+            settype(true);
+            dispatch(
+              projectListActions.globalComplianceTypeApproverDataGet(
+                CompleteData?.uniqueId,
+                "",
+                true,
+                () => {
+                  reset({});
+              settype(true);
+                }
+              )
+            );
+          }} name={""} icon={<UilRefresh />}></Button>
+        </div>
         <CommonTableFormSiteParent
           funcaller={funcaller}
           defaultValue={"Template"}
@@ -303,28 +323,28 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                     dataOfProject
                       ? dataOfProject["Template"]
                         ? dataOfProject["Template"].map((its) => {
-                            let type = isViewOnly() || dtype[its.dataType];
-                            let option = its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
-                              : [];
+                          let type = isViewOnly() || dtype[its.dataType];
+                          let option = its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
+                            : [];
 
-                            return {
-                              label: its.fieldName,
-                              value: "",
-                              required: its.required == "Yes" ? true : false,
-                              option: option,
-                              name: its.fieldName,
-                              type: type,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "",
+                            required: its.required == "Yes" ? true : false,
+                            option: option,
+                            name: its.fieldName,
+                            type: type,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -356,28 +376,28 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                     dataOfProject
                       ? dataOfProject["planDetails"]
                         ? dataOfProject["planDetails"].map((its) => {
-                            let type = isViewOnly() || dtype[its.dataType];
-                            let option = its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
-                              : [];
+                          let type = isViewOnly() || dtype[its.dataType];
+                          let option = its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
+                            : [];
 
-                            return {
-                              label: its.fieldName,
-                              value: "",
-                              required: its.required == "Yes" ? true : false,
-                              option: option,
-                              name: its.fieldName,
-                              type: type,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "",
+                            required: its.required == "Yes" ? true : false,
+                            option: option,
+                            name: its.fieldName,
+                            type: type,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -404,26 +424,26 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                     dataOfProject
                       ? dataOfProject["siteDetails"]
                         ? dataOfProject["siteDetails"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: isViewOnly() || dtype[its.dataType],
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: isViewOnly() || dtype[its.dataType],
 
-                              option: its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              required: its.required == "Yes" ? true : false,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                            option: its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
+                              : [],
+                            required: its.required == "Yes" ? true : false,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -450,25 +470,25 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                     dataOfProject
                       ? dataOfProject["ranChecklist"]
                         ? dataOfProject["ranChecklist"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type:isViewOnly() || dtype[its.dataType],
-                              option: its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              required: its.required == "Yes" ? true : false,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: isViewOnly() || dtype[its.dataType],
+                            option: its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
+                              : [],
+                            required: its.required == "Yes" ? true : false,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }
@@ -510,25 +530,25 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                     dataOfProject
                       ? dataOfProject["acceptanceLog"]
                         ? dataOfProject["acceptanceLog"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type:  isViewOnly() || dtype[its.dataType],
-                              option: its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              required: its.required == "Yes" ? true : false,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
+                          return {
+                            label: its.fieldName,
+                            value: "abc",
+                            name: its.fieldName,
+                            type: isViewOnly() || dtype[its.dataType],
+                            option: its.dropdownValue
+                              ? its.dropdownValue.split(",").map((itm) => {
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
+                              : [],
+                            required: its.required == "Yes" ? true : false,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
                         : []
                       : []
                   }

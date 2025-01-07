@@ -18,6 +18,7 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
     setValue,
     getValues,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     index: null,
@@ -83,6 +84,7 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
         )
       );
     }
+    reset()
   };
 
   const imageSubmitionForm = [
