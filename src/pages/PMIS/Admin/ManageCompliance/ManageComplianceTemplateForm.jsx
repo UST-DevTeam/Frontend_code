@@ -16,6 +16,7 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
 
 const ManageComplianceTemplateForm = ({
   siteCompleteData,
@@ -114,7 +115,7 @@ const ManageComplianceTemplateForm = ({
   const dispatch = useDispatch();
 
   let L1optionList = useSelector((state) => {
-    return state?.adminData?.getOneComplianceL1List.map((itm) => {
+    return state?.adminData?.getOneComplianceL1List?.map((itm) => {
       return {
         label: itm?.approverName,
         value: itm?.approverId,
@@ -127,10 +128,13 @@ const ManageComplianceTemplateForm = ({
     setValueFormSelect("selectField", L1UserId);
   }, [L1UserId]);
 
+
   let dataOfOldProject = useSelector((state) => {
     let datew = state.projectList.globalComplianceTypeData;
 
-    if (type && datew && datew.length > 0) {
+    console.log(datew, "____________datew_____________");
+
+    if (type && datew && datew.length) {
       settype(false);
 
       let dtresult = datew[0];
@@ -160,7 +164,7 @@ const ManageComplianceTemplateForm = ({
           setValueForm0(iytm, dtresult["TemplateData"][iytm]);
         });
 
-      return datew[0];
+     
     }
   });
 
@@ -186,6 +190,7 @@ const ManageComplianceTemplateForm = ({
   final_data["milestoneName"] = mileStone["Name"];
   final_data["siteIdName"] = siteCompleteData["Site Id"];
   final_data["systemId"] = siteCompleteData["systemId"];
+  final_data['currentStatus'] = "In Process";
 
   const handleTemplateSubmit = (data) => {
     if (!L1Approver) {
@@ -331,32 +336,6 @@ const ManageComplianceTemplateForm = ({
     );
   };
 
-  const handleSnapSubmit = (data) => {
-    let final_data = {};
-    dataOfProject["snap"].map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-
-      final_data[fieldNaming] = data[fieldNaming];
-    });
-
-    let fdata = {
-      name: "updateSiteEngg",
-      data: final_data,
-      from: {
-        uid: uid,
-      },
-    };
-
-    dispatch(
-      projectListActions.globalProjectTypeDataPatch(
-        Urls.projectList_globalSaver,
-        projectuniqueId,
-        fdata,
-        () => {}
-      )
-    );
-  };
-
   const handleAcceptanceLogSubmit = (data) => {
     if (!L1Approver) {
       let msgdata = {
@@ -410,7 +389,9 @@ const ManageComplianceTemplateForm = ({
   // },[])
 
   function isViewOnly() {
-    return ["In Process", "Reject", ""].includes(currentStatus) ? null : 'sdisabled'
+    return ["In Process", "Reject", ""].includes(currentStatus)
+      ? null
+      : "sdisabled";
   }
 
   return (
@@ -424,9 +405,24 @@ const ManageComplianceTemplateForm = ({
       />
 
       <div className="relative overflow-scroll h-[94vh] p-4">
-      <div className="aboslute top-5 right-5 flex justify-end">
-      <Button classes='w-auto h-8' onClick={(e) => {}} name={""} icon={<UilRefresh />}></Button>
-      </div>
+        <div className="aboslute top-5 right-5 flex justify-end">
+          <Button
+            classes="w-auto h-8"
+            onClick={(e) => {
+              // dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll:[], reset:true }))
+              dispatch(
+                projectListActions.globalComplianceTypeDataGet(
+                  siteCompleteData.uniqueId,
+                  mileStone.uniqueId,
+                  "",
+                  true
+                )
+              );
+            }}
+            name={""}
+            icon={<UilRefresh />}
+          ></Button>
+        </div>
         <CommonForm
           classes={"flex mx-auto w-1/4 mb-[-10px]"}
           Form={[
