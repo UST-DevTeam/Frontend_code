@@ -31,7 +31,6 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
 
   let rowId = CompleteData?.uniqueId;
 
-
   const {
     register,
     handleSubmit,
@@ -265,9 +264,10 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
     "Auto Created": "sdisabled",
   };
 
-  
   function isViewOnly() {
-    return ["In Process", "Submit"].includes(CompleteData?.currentStatus) ? null : 'sdisabled'
+    return ["In Process", "Submit"].includes(CompleteData?.currentStatus)
+      ? null
+      : "sdisabled";
   }
 
   return (
@@ -281,9 +281,14 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
       />
 
       <div className="relative overflow-scroll h-[94vh] p-4">
-      <div className="aboslute top-5 right-5 flex justify-end">
-      <Button classes='w-auto h-8' onClick={(e) => {}} name={""} icon= {<UilRefresh />}></Button>
-      </div>
+        <div className="aboslute top-5 right-5 flex justify-end">
+          <Button
+            classes="w-auto h-8"
+            onClick={(e) => {}}
+            name={""}
+            icon={<UilRefresh />}
+          ></Button>
+        </div>
         <CommonTableFormSiteParent
           funcaller={funcaller}
           defaultValue={"Template"}
@@ -454,7 +459,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                               label: its.fieldName,
                               value: "abc",
                               name: its.fieldName,
-                              type:isViewOnly() || dtype[its.dataType],
+                              type: isViewOnly() || dtype[its.dataType],
                               option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
@@ -514,7 +519,7 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                               label: its.fieldName,
                               value: "abc",
                               name: its.fieldName,
-                              type:  isViewOnly() || dtype[its.dataType],
+                              type: isViewOnly() || dtype[its.dataType],
                               option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
