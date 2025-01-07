@@ -17,9 +17,11 @@ import ManageComplianceTemplateApproverForm from '../Admin/ManageCompliance/Mana
 import { GET_ONE_COMPLIANCE_DY_FORM } from '../../../store/reducers/admin-reducer';
 import projectListActions from '../../../store/actions/projectList-actions';
 import { GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } from '../../../store/reducers/projectList-reducer';
+import ManageApproverForm from './ManageApproverForm';
 
 
 const ComplianceL1ApproverTable = () => {
+
     const [URLSearchParams, setURLSearchParams] = useSearchParams()
     const route = URLSearchParams.get("from")
     const [modalOpen, setmodalOpen] = useState(false)
@@ -27,6 +29,8 @@ const ComplianceL1ApproverTable = () => {
     const [modalHead, setmodalHead] = useState(<></>)
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [modalFullOpen, setmodalFullOpen] = useState(false);
+    const[rowId,setRowId] = useState(null)
+    const[mileId,setMileId] = useState(null)
 
     const {register,handleSubmit,watch,reset,setValue,setValues,getValues,formState: { errors }} = useForm()
 
@@ -39,36 +43,9 @@ const ComplianceL1ApproverTable = () => {
         year: 'numeric'
     }).replace(/\//g, '-')
 
-    let Form = [
-        {
-            label: "Select Your L2 Approver",
-            value: "",
-            name: "customer",
-            type: "select",
-            required: true,
-            option: [
-                {'label':"Option1","value":"1"},
-                {'label':"Option2","value":"2"},
-                {'label':"Option3","value":"3"},
-                {'label':"Option4","value":"4"},
-            ],
-            classes: "col-span-1"
-        }
-    ]
 
-    const onTableViewSubmit = (data) => {
-        // if (formValue.uniqueId) {
-        //     dispatch(AdminActions.postManageCircle(true, data, () => {
-        //         setIsOpen(false)
-        //         dispatch(AdminActions.getManageCircle())
-        //     }, formValue.uniqueId))
-        // } else {
-        //     dispatch(AdminActions.postManageCircle(true, data, () => {
-        //         setIsOpen(false)
-        //         dispatch(AdminActions.getManageCircle())
-        //     }))
-        // }
-    }
+
+
     
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getComplianceMilestoneL1Approver || [""]
@@ -130,25 +107,31 @@ const ComplianceL1ApproverTable = () => {
                             <>
                                 <div className='flex space-x-2'>
                                 <ActionButton
-                                name={""}
-                                onClick={() => {
-                                    setmodalOpen(prev => !prev);
-                                    setmodalHead("Approve Milestone");
-                                    setmodalBody(
-                                    <>
-                                        <div className="sm:mx-auto sm:w-full sm:max-w-full pb-2">
-                                            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-                                            <Button classes={"mt-4 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
-                                        </div>
-                                    </>
-                                    );
-                                }}
+                                    name={""}
+                                    onClick={() => {
+                                        dispatch(AdminActions.getOneComplianceL2List(itm.siteuid, itm.milestoneName, true, ""))
+                                        .then(() => {
+                                            setmodalOpen(prev => !prev);
+                                            setmodalHead("Approve Milestone");
+                                            setmodalBody(
+                                                <ManageApproverForm
+                                                    formData = {itm}
+                                                    setmodalOpen={setmodalOpen}
+                                                />
+                                            );
+                                        })
+                                        .catch(() => {
+                                            console.log("condition in catch")
+                                        });
+                                    }}
                                 >
                                 </ActionButton>
 
                                 <RejectionButton
                                 name={""}
                                 onClick={() => {
+                                    setRowId(itm['uniqueId'])
+                                    setMileId(itm['milestoneuid'])
                                     setShowRejectModal(true)
                                 }}
                                 >
@@ -289,7 +272,7 @@ const ComplianceL1ApproverTable = () => {
             },
             {
                 name: "Submitted to Airtel Date",
-                value: "",
+                value: "L2ActionDate",
                 style: "min-w-[180px] max-w-[200px] text-center"
             },
             {
@@ -304,7 +287,7 @@ const ComplianceL1ApproverTable = () => {
             },
             {
                 name: "L2-Ageing",
-                value: "",
+                value: "L2Age",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -360,24 +343,26 @@ const ComplianceL1ApproverTable = () => {
     }
 
     const handleReject = () => {
-        setShowRejectModal(false);
-        // dispatch(
-        //   CommonActions.deleteApiCallerBulk(
-        //      `${delurl}`,
-        //     {
-        //       ids: selectedRows
-        //     },
-        //     () => {
-        //       setShowRejectModal(false);
-        //       setSelectedRows([]);
-        //       setSelectAll(false);
-        //       setRPP(50)
-        //       setcurrentPage(1); 
-        //       dispatch(geturl);
-        //     }
-        //   )
-        // );
+        let data = {
+            "type":"L1",
+            "milestoneuid":mileId,
+            "currentStatus":"Reject"
+        }
+        dispatch(AdminActions.approverActionPost(rowId,data,
+                () => {
+                    setShowRejectModal(false);
+                    setRowId(null);
+                    setMileId(null);
+                    dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/")))
+                },
+                true
+            )
+        )
     };
+
+    
+
+    
 
     useEffect(() => {
         dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/")))
@@ -425,7 +410,7 @@ const ComplianceL1ApproverTable = () => {
                 <p className="mt-4">{`Are you sure you want to Reject This Milestone?`}</p>
                 <div className="mt-6 flex justify-center space-x-4">
                 <Button name="Reject" classes="w-auto bg-rose-500" onClick={handleReject} />
-                <Button name="Cancel" classes="w-auto" onClick={() => setShowRejectModal(false)} />
+                <Button name="Cancel" classes="w-auto" onClick={() => {setShowRejectModal(false);setRowId(null);setMileId(null)}} />
                 </div>
             </div>
             </div>

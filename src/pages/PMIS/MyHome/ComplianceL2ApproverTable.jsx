@@ -25,7 +25,10 @@ const ComplianceL2ApproverTable = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
-    const [showRejectModal, setShowRejectModal] = useState(false);
+    const [showActionModal, setShowActionModal] = useState(false);
+    const[actionType,setActionType] = useState(null);
+    const[rowId,setRowId] = useState(null)
+    const[mileId,setMileId] = useState(null)
     const [modalFullOpen, setmodalFullOpen] = useState(false);
 
     const {register,handleSubmit,watch,reset,setValue,setValues,getValues,formState: { errors }} = useForm()
@@ -39,22 +42,6 @@ const ComplianceL2ApproverTable = () => {
         year: 'numeric'
     }).replace(/\//g, '-')
 
-    let Form = [
-        {
-            label: "Select Your L2 Approver",
-            value: "",
-            name: "customer",
-            type: "select",
-            required: true,
-            option: [
-                {'label':"Option1","value":"1"},
-                {'label':"Option2","value":"2"},
-                {'label':"Option3","value":"3"},
-                {'label':"Option4","value":"4"},
-            ],
-            classes: "col-span-1"
-        }
-    ]
 
     const onTableViewSubmit = (data) => {
         // if (formValue.uniqueId) {
@@ -132,16 +119,10 @@ const ComplianceL2ApproverTable = () => {
                                 <ActionButton
                                 name={""}
                                 onClick={() => {
-                                    setmodalOpen(prev => !prev);
-                                    setmodalHead("Approve Milestone");
-                                    setmodalBody(
-                                    <>
-                                        <div className="sm:mx-auto sm:w-full sm:max-w-full pb-2">
-                                            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-                                            <Button classes={"mt-4 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
-                                        </div>
-                                    </>
-                                    );
+                                    setRowId(itm['uniqueId'])
+                                    setMileId(itm['milestoneuid'])
+                                    setActionType("Accept")
+                                    setShowActionModal(true)
                                 }}
                                 >
                                 </ActionButton>
@@ -149,7 +130,10 @@ const ComplianceL2ApproverTable = () => {
                                 <RejectionButton
                                 name={""}
                                 onClick={() => {
-                                    setShowRejectModal(true)
+                                    setRowId(itm['uniqueId'])
+                                    setMileId(itm['milestoneuid'])
+                                    setShowActionModal(true)
+                                    setActionType("Reject")
                                 }}
                                 >
                                 </RejectionButton>
@@ -279,32 +263,32 @@ const ComplianceL2ApproverTable = () => {
             },
             {
                 name: "Form Submission Date",
-                value: "",
+                value: "formSubmitDate",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
                 name: "Approval/Rejection Date",
-                value: "",
+                value: "L1ActionDate",
                 style: "min-w-[200px] max-w-[200px] text-center"
             },
             {
                 name: "Submitted to Airtel Date",
-                value: "",
+                value: "L2ActionDate",
                 style: "min-w-[180px] max-w-[200px] text-center"
             },
             {
                 name: "Airtel Action Date",
-                value: "",
+                value: "AirtelActionDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "L1-Ageing",
-                value: "",
+                value: "L1Age",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "L2-Ageing",
-                value: "",
+                value: "L2Age",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -359,24 +343,41 @@ const ComplianceL2ApproverTable = () => {
         dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)))
     }
 
-    const handleReject = () => {
-        setShowRejectModal(false);
-        // dispatch(
-        //   CommonActions.deleteApiCallerBulk(
-        //      `${delurl}`,
-        //     {
-        //       ids: selectedRows
-        //     },
-        //     () => {
-        //       setShowRejectModal(false);
-        //       setSelectedRows([]);
-        //       setSelectAll(false);
-        //       setRPP(50)
-        //       setcurrentPage(1); 
-        //       dispatch(geturl);
-        //     }
-        //   )
-        // );
+    const handleAction = () => {
+        
+        let data = {
+            "type":"L2",
+            "currentStatus":"Submit to Airtel",
+            "milestoneuid":mileId
+        }
+        if (actionType === "Accept"){
+            dispatch(
+                AdminActions.approverActionPatch(
+                    rowId,
+                    data,
+                    () => {
+                        setShowActionModal(false);
+                        dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/")))
+                    },
+                    true))
+        }
+
+        dispatch(
+          CommonActions.deleteApiCallerBulk(
+             `${delurl}`,
+            {
+              ids: selectedRows
+            },
+            () => {
+              setShowActionModal(false);
+              setSelectedRows([]);
+              setSelectAll(false);
+              setRPP(50)
+              setcurrentPage(1); 
+              dispatch(geturl);
+            }
+          )
+        );
     };
 
     useEffect(() => {
@@ -418,14 +419,19 @@ const ComplianceL2ApproverTable = () => {
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
         <Modal size={"full"} modalHead={modalHead} children={modalBody} isOpen={modalFullOpen} setIsOpen={setmodalFullOpen}/>
 
-        {showRejectModal && (
+        {showActionModal && (
             <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
             <div className="bg-white p-4 rounded-lg shadow-xl">
                 <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
-                <p className="mt-4">{`Are you sure you want to Reject This Milestone?`}</p>
+                {actionType === "Accept" && (
+                    <p className="mt-4">{`Are you sure you want to approve and submit this milestone to Airtel?`}</p>
+                )}
+                {actionType === "Reject" && (
+                    <p className="mt-4">{`Are you sure you want to Reject This Milestone?`}</p>
+                )}
                 <div className="mt-6 flex justify-center space-x-4">
-                <Button name="Reject" classes="w-auto bg-rose-500" onClick={handleReject} />
-                <Button name="Cancel" classes="w-auto" onClick={() => setShowRejectModal(false)} />
+                    <Button name={actionType} classes="w-auto bg-rose-500" onClick={handleAction} />
+                    <Button name="Cancel" classes="w-auto" onClick={() => {setShowActionModal(false); setActionType(null); setRowId(null); setMileId(null)}} />
                 </div>
             </div>
             </div>

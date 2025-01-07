@@ -5,12 +5,12 @@
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-export const baseUrl = "http://192.168.1.37:7980";
-export const backendassetUrl = "http://192.168.1.37:7980/";
+// export const baseUrl = "http://192.168.1.37:7980";
+// export const backendassetUrl = "http://192.168.1.37:7980/";
 
 
-// export const baseUrl = "http://localhost:7980";
-// export const backendassetUrl = "http://localhost:7980/";
+export const baseUrl = "http://localhost:7980";
+export const backendassetUrl = "http://localhost:7980/";
 
 export const Urls = {
   login: "/login",
@@ -238,6 +238,7 @@ export const Urls = {
   compliance_globalSaver_Approver:'/compliance/globalSaver/Approved',
   complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",
   complianceMilestoneL2Approver: "/admin/complianceMilestoneL2Approver",
+  approverAction:"/admin/approverAction",
 
   // super admin compiliance  ends -----
 

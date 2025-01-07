@@ -1209,6 +1209,7 @@ const AdminActions = {
         } catch (error) {
         }
     },
+
     getComplianceMilestoneL2Approver: (mileStoneName, reset = true, args = "") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.complianceMilestoneL2Approver}/${mileStoneName[1]}/${mileStoneName[2]}${args != "" ? "?" + args : ""}`, reset })
@@ -1216,6 +1217,46 @@ const AdminActions = {
             let dataAll = res?.data?.data
             dispatch(GET_COMPLIANCE_L2_APPROVER({ dataAll, reset }))
         } catch (error) {
+        }
+    },
+
+    approverActionPatch: (uniqueId,data,cb,reset) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ data: data, url:Urls.approverAction + "/" + uniqueId, reset })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            } else {
+                cb()
+            }
+        } catch (error) {
+            return;
+        }
+    },
+
+    approverActionPost: (uniqueId,data,cb,reset) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url:Urls.approverAction + "/" + uniqueId, reset })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            } else {
+                cb()
+            }
+        } catch (error) {
+            return;
         }
     },
 
@@ -1228,14 +1269,3 @@ const AdminActions = {
 export default AdminActions;
 
 
-// snapData : {
-//    s1 : {
-//     approvedIndex : 1,
-//     images : [
-//         {
-//             index : 1,
-//             image : "https://example.com/image1.jpg",
-//         }
-//     ]
-//    },
-// }

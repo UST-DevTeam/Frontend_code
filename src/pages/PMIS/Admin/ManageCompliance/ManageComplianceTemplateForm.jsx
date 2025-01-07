@@ -369,7 +369,7 @@ const ManageComplianceTemplateForm = ({
 
       <div className="relative overflow-scroll h-[94vh] p-4">
       <div className="aboslute top-5 right-5 flex justify-end">
-      <Button classes='w-auto h-8' onClick={(e) => {}} name={""} icon={<UilRefresh />}></Button>
+        <Button classes='w-auto h-8' onClick={(e) => {}} name={""} icon={<UilRefresh />}></Button>
       </div>
         <CommonForm
           classes={"flex mx-auto w-1/4 mb-[-10px]"}
