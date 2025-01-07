@@ -168,8 +168,8 @@ const projectListActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
-    
-    globalComplianceTypeDataPatch: (urle,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
+
+    globalComplianceTypeDataPatch: (urle, data, cb = () => { }, reset = true) => async (dispatch, _) => {
         try {
             const res = await Api.patch({ url: urle, data: data })
             if (res?.status !== 200 && res?.status !== 201) {
@@ -187,34 +187,38 @@ const projectListActions = {
             }
 
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            console.log(error, "globalComplianceTypeApproverDataamit errorerror 37")
         }
     },
-   
-    globalComplianceTypeDataGet: (sietId,mileStoneId, args = "", reset = true) => async (dispatch, _) => {
+
+    globalComplianceTypeDataGet: (sietId, mileStoneId, args = "", reset = true, cb = () => { }) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.compliance_globalSaver}/${sietId}/${mileStoneId}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
+            cb()
             dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll, reset }))
+            
         } catch (error) {
             // console.log(error, "amit errorerror 37")
         }
     },
 
 
-    globalComplianceTypeApproverDataGet: (id, args = "", reset = true) => async (dispatch, _) => {
+    globalComplianceTypeApproverDataGet: (id, args = "", reset = true, cb = () => { }) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.compliance_globalSaver_Approver}/${id}${args != "" ? "?" + args : ""}` })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
+            cb()
             dispatch(GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA({ dataAll, reset }))
+            
         } catch (error) {
             console.log(error, "amit errorerror 37")
         }
     },
 
-    globalComplianceTypeApproverDataPost: (id,data, cb = () => { }, reset = true) => async (dispatch, _) => {
+    globalComplianceTypeApproverDataPost: (id, data, cb = () => { }, reset = true) => async (dispatch, _) => {
         try {
             const res = await Api.post({ url: `${Urls.compliance_globalSaver_Approver}/${id}`, data: data })
             if (res?.status !== 200 && res?.status !== 201) {
@@ -235,7 +239,7 @@ const projectListActions = {
         }
     },
 
-    globalComplianceTypeApproverDataPatch: (urle,id,data,cb=()=>{},reset=true) => async (dispatch, _) => {  
+    globalComplianceTypeApproverDataPatch: (urle, id, data, cb = () => { }, reset = true) => async (dispatch, _) => {
         try {
             const res = await Api.patch({ url: urle + "/" + id, data: data })
             if (res?.status !== 200 && res?.status !== 201) {

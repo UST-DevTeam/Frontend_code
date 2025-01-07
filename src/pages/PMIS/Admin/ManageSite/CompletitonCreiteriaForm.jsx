@@ -12,6 +12,7 @@ import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTe
 import Modal from "../../../../components/Modal";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { GET_ONE_COMPLIANCE_DY_FORM, GET_ONE_COMPLIANCE_L1_LIST } from "../../../../store/reducers/admin-reducer";
+import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
 
 const CompletitonCreiteriaForm = ({
   siteCompleteData,
@@ -75,6 +76,7 @@ const CompletitonCreiteriaForm = ({
               onClick={() => {
                 dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll: [], reset: true }))
                 dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
+                dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll:[], reset:true }))
                 dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId, mileStone.Name, true, ""));
                 dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId, mileStone.Name, true, ""));
                 dispatch(projectListActions.globalComplianceTypeDataGet(siteCompleteData.uniqueId, mileStone.uniqueId, "", true));

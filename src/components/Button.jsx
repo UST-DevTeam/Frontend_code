@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ onClick = () => {}, name, classes = "", icon, bgColor }) => {
+const Button = ({ onClick = () => {}, name, classes = "", icon, bgColor, ...props }) => {
   let data = [
     ["bg-", "bg-pcol"],
     ["w-", "w-full"],
@@ -23,8 +23,8 @@ const Button = ({ onClick = () => {}, name, classes = "", icon, bgColor }) => {
       className={`${classes} ${
         classes.includes("bg") ? `${bgColor}` : " bg-pbutton "
       } flex text-nowrap items-center rounded-md px-3 py-[0.5px] text-xs font-semibold leading-6 text-white shadow-md hover:bg-onHoverButton transition-colors duration-500 not`}
-    >
-      {name} {icon} 
+    {...props}>
+      {name} {icon}  {props?.children}
     </button>
   );
 };
