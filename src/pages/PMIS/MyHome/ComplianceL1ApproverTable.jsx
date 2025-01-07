@@ -18,6 +18,7 @@ import { GET_ONE_COMPLIANCE_DY_FORM } from "../../../store/reducers/admin-reduce
 import projectListActions from "../../../store/actions/projectList-actions";
 import { GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } from "../../../store/reducers/projectList-reducer";
 import ManageApproverForm from "./ManageApproverForm";
+import CommonActions from "../../../store/actions/common-actions";
 import ComplianceApprovalLog from "../../../components/ComplianceApprovalLogss";
 
 const ComplianceL1ApproverTable = () => {
@@ -231,6 +232,7 @@ const ComplianceL1ApproverTable = () => {
             />
           ),
         }),
+
         // "status": <CstmButton child={<ToggleButton onChange={(e) => {
         //     let data = {
         //         "enabled": e.target.checked ? 1 : 0
