@@ -17,7 +17,7 @@ import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
-const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
+const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { }, CompleteData }) => {
   const { L1UserId = "", SnapData = {} } =
     useSelector(
       (state) => state.projectList.globalComplianceTypeApproverData?.[0]
@@ -248,11 +248,20 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
 
   const funcaller = () => {
     reset({});
+    // alert("removed")
   };
 
   useEffect(() => {
     reset({});
     settype(true);
+    callbackFoResetForm(() => {
+      reset({});
+      settype(true);
+    })
+    return () => {
+      reset({});
+      settype(false);
+    }
   }, [rowId]);
 
   let dtype = {
@@ -264,12 +273,6 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
     "Auto Created": "sdisabled",
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      reset({})
-      settype(true)
-    }, 100)
-  }, [])
 
   function isViewOnly() {
     return ["In Process", "Submit"].includes(CompleteData?.currentStatus)
@@ -299,13 +302,15 @@ const ManageComplianceTemplateApproverForm = ({ CompleteData }) => {
                 true,
                 () => {
                   reset({});
-              settype(true);
+                  settype(true);
                 }
               )
             );
           }} name={""} icon={<UilRefresh />}></Button>
         </div>
+
         <CommonTableFormSiteParent
+          setType={settype}
           funcaller={funcaller}
           defaultValue={"Template"}
           tabslist={{

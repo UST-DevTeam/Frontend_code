@@ -12,24 +12,35 @@ const CommonTableFormSiteParent = ({
   tabslist,
   setmodalFullOpen,
   funcaller,
-  defaultValue
+  defaultValue,
+  setType = () => { }
 }) => {
 
   const [activeTab, setActiveTab] = useState(defaultValue);
 
   const [tabData, setTabData] = useState({});
 
-    const handleTabClick = (index) => {
-        funcaller()
-        setActiveTab(index);
-    };
+  const handleTabClick = (index) => {
+    funcaller()
+    setActiveTab(index);
+  };
 
-    const updateTabData = (tabName, newData) => {
-        setTabData(prevData => ({
-            ...prevData,
-            [tabName]: newData
-        }));
-    };
+  const updateTabData = (tabName, newData) => {
+    setTabData(prevData => ({
+      ...prevData,
+      [tabName]: newData
+    }));
+  };
+
+  useEffect(() => {
+    // funcaller()
+    // setType(true)
+    // return () => {
+    //   funcaller()
+    //   setType(false)
+    //   console.log("component unmounted")
+    // }
+  }, [])
 
   return (
     <div className="max-w-full mx-auto">
@@ -62,9 +73,10 @@ const CommonTableFormSiteParent = ({
 
       <div className="flex">
         {setmodalFullOpen && activeTab !== "Financials" &&
-          <Button name={"Submit"} classes="w-auto" onClick={()=>{
-            setmodalFullOpen(prev=>!prev)
-          }}/>
+          <Button name={"Submit"} classes="w-auto" onClick={() => {
+            setmodalFullOpen(prev => !prev)
+          }} />
+
         }
       </div>
 

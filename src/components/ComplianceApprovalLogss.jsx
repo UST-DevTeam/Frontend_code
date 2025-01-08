@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import eventManagementActions from "../store/actions/eventLogs-actions";
 import { objectToQueryString } from "../utils/commonFunnction";
 
-const ComplianceApprovalLog = ({ type, unqeId, urlType }) => {
+const ComplianceApprovalLog = ({ type, unqeId }) => {
   const {
     register,
     reset,
