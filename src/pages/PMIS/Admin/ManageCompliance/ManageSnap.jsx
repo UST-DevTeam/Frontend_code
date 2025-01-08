@@ -234,19 +234,24 @@ const FullViewImage = ({
 
   return (
     <div className="fixed inset-0 bg-[rgba(0,0,0,.8)] text-white z-[9999]">
-      <div className="absolute top-6 left-6 flex items-center gap-4">
+      <div className="absolute flex justify-between inset-0 h-16 bg-[rgba(0,0,0,.1)] transition-all duration-500 hover:bg-[rgba(0,0,0,.4)] items-center gap-4 px-8">
+
+        <div className="flex items-center space-x-2">
+          <h2>{sIndex}</h2>
+          <div className="w-3 h-[2px] bg-white"></div>
+          <p>{fullView.index}</p>
+        </div>
+
+
         <svg
           onClick={handleFullView}
-          className="fill-white cursor-pointer hover:fill-gray-100 hover:scale-[110%] duration-300 transition-all  h-7 w-7 grid place-items-center right-4 top-[50%] rounded-full hover:bg-[rgba(0,0,0,.5)] group"
+          className="fill-white cursor-pointer hover:fill-gray-100 hover:scale-[110%] duration-300 transition-all  h-8 w-8 grid place-items-center right-4 top-[50%] rounded-full hover:bg-[rgba(0,0,0,.5)] group"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
         >
           <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path>
         </svg>
-        <h2>{sIndex}</h2>
-        <div className="w-3 h-[2px] bg-white"></div>
-        <p>{fullView.index}</p>
       </div>
       <img
         src={
@@ -285,36 +290,36 @@ const FullViewImage = ({
       {viewOnly ? (
         <></>
       ) : fullView.image && l1ApproverForm ? (
-        <div className="absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,.2)] hover:bg-[rgba(0,0,0,.5)] transition-all duration-500 h-20 flex justify-center items-center">
+        <div className="absolute bottom-0  group left-0 right-0 bg-[rgba(0,0,0,.1)] hover:bg-[rgba(0,0,0,.4)] transition-all duration-500 h-20 flex justify-center items-center">
           {approvedIndex.includes(fullView.index) ? (
             <button
               onClick={handleImageApproval}
-              className="flex justify-center items-center space-x-2 border-transparent hover:border-rose-500 border-t-2 transition-all duration-300 border-b-2 px-4 py-[6px] rounded-lg"
+              className="flex justify-center items-center space-x-2 border-transparent group-hover:border-rose-500 border-t-2 transition-all duration-300 border-b-2 px-4 py-[6px] rounded-lg"
             >
               <svg
-                className="w-6 h-6 cursor-pointer fill-red-500"
+                className="w-8 h-8 cursor-pointer fill-red-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
                 <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path>
               </svg>
-              <p className="cursor-pointer">Disapprove</p>
+              <p className="cursor-pointer font-bold text-lg">Disapprove</p>
             </button>
           ) : (
             <button
               onClick={handleImageApproval}
-              className="flex justify-center items-center space-x-2 border-t-2 border-b-2 transition-all duration-300 border-transparent hover:border-green-500 px-4 py-[6px] rounded-lg"
+              className="flex justify-center items-center space-x-2 border-t-2 border-b-2 transition-all duration-300 border-transparent group-hover:border-green-500 px-4 py-[6px] rounded-lg"
             >
               <svg
-                className="w-6 h-6 cursor-pointer fill-green-500"
+                className="w-8 h-8 cursor-pointer fill-green-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="green"
               >
                 <path d="M11.602 13.7599L13.014 15.1719L21.4795 6.7063L22.8938 8.12051L13.014 18.0003L6.65 11.6363L8.06421 10.2221L10.189 12.3469L11.6025 13.7594L11.602 13.7599ZM11.6037 10.9322L16.5563 5.97949L17.9666 7.38977L13.014 12.3424L11.6037 10.9322ZM8.77698 16.5873L7.36396 18.0003L1 11.6363L2.41421 10.2221L3.82723 11.6352L3.82604 11.6363L8.77698 16.5873Z"></path>
               </svg>
-              <p className="cursor-pointer">Approve</p>
+              <p className="cursor-pointer font-bold text-lg">Approve</p>
             </button>
           )}
         </div>

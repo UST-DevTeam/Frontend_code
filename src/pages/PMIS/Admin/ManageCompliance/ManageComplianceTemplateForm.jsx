@@ -30,7 +30,8 @@ const ManageComplianceTemplateForm = ({
   filterView,
 }) => {
   const {
-    L1UserId = "",
+    L1UserName = '',
+    L1UserId = '',
     currentStatus = "",
     SnapData = {},
   } = useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
@@ -125,16 +126,25 @@ const ManageComplianceTemplateForm = ({
 
   useEffect(() => {
     setL1Approver(L1UserId);
-
+    reset({})
+    settype(true)
     setTimeout(() => {
+    const value = isViewOnly()
+    if (!value) {
+      console.log("____", `[value="${L1UserId}"]`)
       const ele = document.querySelector(`[value="${L1UserId}"]`)
       if (!ele) return
       ele.setAttribute("selected", true)
-      setValueFormSelect("selectField", L1UserId);
-      reset({})
-      settype(true)
-    }, 100)
-  }, [L1UserId]);
+    } else {
+      const ele = document.querySelector(`[name="sdisabled"]`)
+      if (!ele) return
+      ele.value = L1UserName
+    }
+    setValueFormSelect("selectField", L1UserId);
+    // reset({})
+    settype(true)
+    }, 0)
+  }, [L1UserId, L1UserName]);
 
 
   let dataOfOldProject = useSelector((state) => {
@@ -438,9 +448,8 @@ const ManageComplianceTemplateForm = ({
             {
               label: "Select Your L1 Approver",
               // value: L1UserId,
-              name: "selectField",
-              type: "select",
-              disabled: Boolean(isViewOnly()),
+              name: isViewOnly() || "selectField",
+              type: isViewOnly() || "select",
               option: L1optionList,
               props: {
                 onChange: (e) => {
