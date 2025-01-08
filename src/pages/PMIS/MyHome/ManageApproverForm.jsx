@@ -29,6 +29,8 @@ const ManageApproverForm = ({formData,setmodalOpen}) => {
     const [modalHead, setmodalHead] = useState(<></>)
     const [showRejectModal, setShowRejectModal] = useState(false);
     const [modalFullOpen, setmodalFullOpen] = useState(false);
+    const [L2ApproverName, setL2ApproverName] = useState(null);
+
 
     const {register,handleSubmit,watch,reset,setValue,setValues,getValues,formState: { errors }} = useForm()
 
@@ -46,7 +48,7 @@ const ManageApproverForm = ({formData,setmodalOpen}) => {
         return state?.adminData?.getOneComplianceL2List.map((itm) => {
             return {
             label: itm?.approverName,
-            value: itm?.approverId,
+            value: itm?.approverId + ":" + itm?.approverName ,
             };
         }); 
     }); 
@@ -54,17 +56,22 @@ const ManageApproverForm = ({formData,setmodalOpen}) => {
 
 
 
+
+
     const onTableViewSubmit = (data) => {
-        
+
+        data['L2UserId'] = data['L2UserId'].split(":")[0]
         data['currentStatus'] = "Approve"
         data['milestoneuid'] = formData['milestoneuid']
         data['type'] = "L1"
+        data['approverName'] = L2ApproverName
         dispatch(
             AdminActions.approverActionPatch(
                 formData.uniqueId,
                 data,
                 () => {
                     setmodalOpen(false);
+                    setL2ApproverName(null);
                     dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/")))
                 },
                 true))
@@ -85,7 +92,14 @@ const ManageApproverForm = ({formData,setmodalOpen}) => {
             type: "select",
             required: true,
             option: L2optionList,
-            classes: "col-span-1"
+            classes: "col-span-1",
+            props:{
+                onChange: (e) => { 
+                    let approverName = e.target.value
+                    approverName = approverName.split(":")[1]
+                    setL2ApproverName(approverName)
+                },
+            }
         },
       
     ]

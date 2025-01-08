@@ -317,11 +317,13 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
             Template: (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Template"
                     onClick={handleSubmitForm0(handleTemplateSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1 mt-1"}
@@ -370,11 +372,13 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
             "Planning Details": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Plan Details"
                     onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1 mt-1"}
@@ -418,11 +422,13 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
             "Site Details": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Site Details"
                     onClick={handleSubmitForm2(handleSiteDetailsSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1"}
@@ -464,11 +470,13 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
             "RAN AT Checklist": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Ran AT Checklist"
                     onClick={handleSubmitForm3(handleRanCheckListSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1"}
@@ -524,11 +532,13 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
             "Acceptance Log": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Acceptance Log"
                     onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1"}

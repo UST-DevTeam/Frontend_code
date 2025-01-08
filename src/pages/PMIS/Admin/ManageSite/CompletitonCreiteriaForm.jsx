@@ -33,7 +33,14 @@ const CompletitonCreiteriaForm = ({
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [modalFullOpen1, setmodalFullOpen1] = useState(false);
 
+
+
   const checkmilestone = mileStone["Completion Criteria"].split(",")
+  const checkmilestoneStatus = mileStone['mileStoneStatus']
+
+
+
+
 
 
 
@@ -168,11 +175,20 @@ const CompletitonCreiteriaForm = ({
       />
 
       <div className="flex justify-center">
+      {!checkmilestone.includes("Forms & Checklist") && (
         <Button
           onClick={handleSubmit(onsubmiting)}
           name={"Submit"}
           classes="w-auto"
         />
+      )}
+      {checkmilestone.includes("Forms & Checklist") && ['Open','In Process'].includes(checkmilestoneStatus) && (
+        <Button
+          onClick={handleSubmit(onsubmiting)}
+          name={"Submit"}
+          classes="w-auto"
+        />
+      )}
       </div>
     </>
   );

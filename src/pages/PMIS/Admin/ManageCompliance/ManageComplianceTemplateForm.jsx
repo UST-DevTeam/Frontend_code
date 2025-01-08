@@ -442,11 +442,13 @@ const ManageComplianceTemplateForm = ({
             Template: (
               <>
                 <div className="flex justify-end">
+                  {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Template"
                     onClick={handleSubmitForm0(handleTemplateSubmit)}
                   />
+                  )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1 mt-1"}
@@ -495,11 +497,13 @@ const ManageComplianceTemplateForm = ({
             "Planning Details": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Plan Details"
                     onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1 mt-1"}
@@ -543,11 +547,13 @@ const ManageComplianceTemplateForm = ({
             "Site Details": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Site Details"
                     onClick={handleSubmitForm2(handleSiteDetailsSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1"}
@@ -588,11 +594,13 @@ const ManageComplianceTemplateForm = ({
             "RAN AT Checklist": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Ran AT Checklist"
                     onClick={handleSubmitForm3(handleRanCheckListSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1"}
@@ -657,11 +665,13 @@ const ManageComplianceTemplateForm = ({
             "Acceptance Log": (
               <>
                 <div className="flex justify-end">
+                {!isViewOnly() && (
                   <Button
                     classes="w-30"
                     name="Save Acceptance Log"
                     onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
                   />
+                )}
                 </div>
                 <CommonForm
                   classes={"grid-cols-4 gap-1"}

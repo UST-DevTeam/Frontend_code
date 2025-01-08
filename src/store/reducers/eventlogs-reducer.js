@@ -4,6 +4,7 @@ const initialState = {
     milestoneeventList: [],
     projecteventList:[],
     siteeventList:[],
+    getComplianceLog:[],
 }
 
 const eventManagement = createSlice({
@@ -32,6 +33,13 @@ const eventManagement = createSlice({
                 state.siteeventList = [...state.siteeventList, ...payload.siteeventList];
             }
         },
+        COMPLIANCELOGLIST: (state, { payload }) => {
+            if(payload.reset){
+                state.getComplianceLog = payload.dataAll
+            }else{
+                state.getComplianceLog = [...state.getComplianceLog, ...payload.getComplianceLog];
+            }
+        },
 
         RESET_STATE: (state) => {
             state.milestoneeventList = [];
@@ -40,5 +48,5 @@ const eventManagement = createSlice({
     }
 })
 
-export const { MILESTONEEVENTLIST,RESET_STATE,SITEEVENTLIST,PROJECTEVENTLIST } = eventManagement.actions
+export const { MILESTONEEVENTLIST,RESET_STATE,SITEEVENTLIST,PROJECTEVENTLIST,COMPLIANCELOGLIST } = eventManagement.actions
 export default eventManagement.reducer

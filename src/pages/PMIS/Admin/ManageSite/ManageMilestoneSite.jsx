@@ -319,7 +319,7 @@ const ManageMilestoneSite = ({
               </div>
             </div>
             <div className="w-full">
-              { (milestoneStatus =="Open" || (rolename=="Admin" || rolename=="PMO")) ? <ConditionalButton
+              { (milestoneStatus != "Closed" || (rolename=="Admin" || rolename=="PMO")) ? <ConditionalButton
                 showType={getAccessType("Task Completion Criteria")}
                 classes="w-auto"
                 name={"Completion Criteria"}
@@ -344,7 +344,7 @@ const ManageMilestoneSite = ({
                       icon: "error",
                       buttons: [],
                       type: 1,
-                      text: "For Closing this task you need to assign first?",
+                      text: "To close this task, you need to assign it first.",
                     };
                     dispatch(ALERTS(msgdata));
                   }

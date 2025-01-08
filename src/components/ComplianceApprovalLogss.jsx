@@ -17,21 +17,15 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
     getValues,
     formState: { errors },
   } = useForm();
+
   useEffect(() => {
-    // dispatch(eventManagementActions.getprojecteventList(true,unqeId))
-    // dispatch(OperationManagementActions.getRoleList())
+    dispatch(eventManagementActions.getComplianceLog(true,unqeId))
   }, []);
+
   let dispatch = useDispatch();
 
   let dbConfigList = useSelector((state) => {
-    let interdata = [];
-    if (type == "site") {
-      interdata = state?.eventlogsReducer?.siteeventList || [];
-    } else if (type == "milestone") {
-      interdata = state?.eventlogsReducer?.milestoneeventList || [];
-    } else if (type == "project") {
-      interdata = state?.eventlogsReducer?.projecteventList || [];
-    }
+    let interdata = state?.eventlogsReducer?.getComplianceLog || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -39,6 +33,7 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
       return updateditm;
     });
   });
+
 
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
@@ -48,18 +43,8 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
   };
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = [];
-    if (type == "site") {
-      interdata = state?.eventlogsReducer?.siteeventList || [];
-    } else if (type == "milestone") {
-      interdata = state?.eventlogsReducer?.milestoneeventList || [];
-    } else if (type == "project") {
-      interdata = state?.eventlogsReducer?.projecteventList || [];
-    }
-    if (
-      interdata.length > 0 &&
-      interdata[0]["overall_table_count"] !== undefined
-    ) {
+    let interdata = state?.eventlogsReducer?.siteeventList || [];
+    if (interdata.length > 0 && interdata[0]["overall_table_count"] !== undefined) {
       return interdata[0]["overall_table_count"];
     } else {
       return 0;
@@ -70,7 +55,7 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
     columns: [
       {
         name: "Site Id",
-        value: "siteName",
+        value: "siteIdName",
         style: "min-w-[70px] max-w-[100px] text-center p-1",
       },
       {
@@ -85,33 +70,20 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
       },
       {
         name: "Date & Time",
-        value: "UpdatedAt",
+        value: "currentTime",
         style: "min-w-[120px] max-w-[70px] text-center",
       },
       {
         name: "Event",
-        value: "updatedData",
+        value: "event",
         style: "min-w-[300px] max-w-[500px] text-center",
       },
     ],
     filter: [],
   };
 
-  // if (type=="milestone"){
-  //     siteIdLogsTable?.columns.push({
-  //     name: "Milestone",
-  //     value: "mileStoneName",
-  //     style: "min-w-[50px] max-w-[200px] text-center",
-  //   })
-  // }
 
-  if (type === "project") {
-    siteIdLogsTable?.columns.unshift({
-      name: "Project Id",
-      value: "projectName",
-      style: "min-w-[50px] max-w-[200px] text-center p-1",
-    });
-  }
+
 
   return (
     <AdvancedTable
