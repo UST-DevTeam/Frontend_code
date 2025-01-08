@@ -57,6 +57,7 @@ const initialState = {
     getComplianceApprover: [],
     getCardComplainceMilestone: [],
     getOneComplianceL1List: [],
+    getOneComplianceL2List: [],
     getComplianceMilestoneL1Approver:[],
     getComplianceMilestoneL2Approver:[],
 
@@ -489,6 +490,14 @@ const adminData = createSlice({
             }
         },
 
+        GET_ONE_COMPLIANCE_L2_LIST: (state, { payload }) => {
+            if (payload.reset) {
+                state.getOneComplianceL2List = payload.dataAll
+            } else {
+                state.getOneComplianceL2List = [...state.getOneComplianceL2List, ...payload.dataAll]
+            }
+        },
+
         GET_COMPLIANCE_L1_APPROVER: (state, { payload }) => {
             console.log("____payload", payload)
             if (payload.reset) {
@@ -568,7 +577,8 @@ export const {
     GET_ONE_COMPLIANCE_DY_FORM,
     GET_COMPLIANCE_APPROVER,
     GET_CARD_COMPLIANCE_MILESTONE,
-    GET_ONE_COMPLIANCE_L1_LIST
+    GET_ONE_COMPLIANCE_L1_LIST,
+    GET_ONE_COMPLIANCE_L2_LIST
 
 
 } = adminData.actions

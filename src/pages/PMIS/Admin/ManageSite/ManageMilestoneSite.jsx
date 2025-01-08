@@ -319,14 +319,12 @@ const ManageMilestoneSite = ({
               </div>
             </div>
             <div className="w-full">
-              { milestoneStatus =="Open" || (rolename=="Admin" || rolename=="PMO") ? <ConditionalButton
+              { (milestoneStatus =="Open" || (rolename=="Admin" || rolename=="PMO")) ? <ConditionalButton
                 showType={getAccessType("Task Completion Criteria")}
                 classes="w-auto"
                 name={"Completion Criteria"}
                 onClick={() => {
                   if (assignedToCount != 0) {
-                    // dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId,mileStone.Name,true,""));
-                    // dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.SubProjectId,mileStone.Name,siteCompleteData.ACTIVITY,true,""));
                     setmodalBody(
                       <CompletitonCreiteriaForm
                         siteCompleteData={siteCompleteData}

@@ -204,7 +204,7 @@ const ManageComplianceTemplateForm = ({
   final_data["milestoneName"] = mileStone["Name"];
   final_data["siteIdName"] = siteCompleteData["Site Id"];
   final_data["systemId"] = siteCompleteData["systemId"];
-  final_data['currentStatus'] = "In Process";
+  final_data['currentStatus'] = "In Process"
 
   const handleTemplateSubmit = (data) => {
     if (!L1Approver) {
@@ -235,13 +235,6 @@ const ManageComplianceTemplateForm = ({
       )
     );
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
   };
 
   const handlePlanDetailsSubmit = (data) => {
@@ -263,23 +256,11 @@ const ManageComplianceTemplateForm = ({
       Plan_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
     });
 
-    final_data["PlanDetailsData"] = Plan_Deatils_data;
+    
+    final_data['PlanDetailsData'] = Plan_Deatils_data
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
   const handleSiteDetailsSubmit = (data) => {
@@ -303,21 +284,7 @@ const ManageComplianceTemplateForm = ({
 
     final_data["SiteDetailsData"] = Site_Deatils_data;
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
   const handleRanCheckListSubmit = (data) => {
@@ -345,10 +312,11 @@ const ManageComplianceTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => {}
       )
     );
   };
+
 
   const handleAcceptanceLogSubmit = (data) => {
     if (!L1Approver) {
@@ -379,6 +347,7 @@ const ManageComplianceTemplateForm = ({
       )
     );
   };
+
 
   const funcaller = () => {
     reset({});
@@ -678,8 +647,7 @@ const ManageComplianceTemplateForm = ({
                   final_data["milestoneName"] = mileStone["Name"];
                   final_data["siteIdName"] = siteCompleteData["Site Id"];
                   final_data["systemId"] = siteCompleteData["systemId"];
-                  final_data["currentStatus"] = "In Process";
-
+                  final_data['currentStatus'] = "In Process"
                   return final_data;
                 })()}
               />

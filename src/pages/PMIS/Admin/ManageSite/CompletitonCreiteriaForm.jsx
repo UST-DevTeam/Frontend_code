@@ -33,6 +33,9 @@ const CompletitonCreiteriaForm = ({
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [modalFullOpen1, setmodalFullOpen1] = useState(false);
 
+  const checkmilestone = mileStone["Completion Criteria"].split(",")
+
+
 
   const {
     register: register,
@@ -127,6 +130,11 @@ const CompletitonCreiteriaForm = ({
 
 
   const onsubmiting = (data) => {
+    if(checkmilestone.includes("Forms & Checklist")){
+      data['Checklist'] = "Yes"
+      data['siteuid'] = siteCompleteData.uniqueId
+      data['mName'] = mileStone['Name']
+    }
     dispatch(
       projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
         setmodalOpen(false);

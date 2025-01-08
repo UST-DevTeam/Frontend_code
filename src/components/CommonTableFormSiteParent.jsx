@@ -63,28 +63,12 @@ const CommonTableFormSiteParent = ({
           Object.keys(tabslist).map((itm) => {
             return activeTab === itm && (
               <div>
-                {/* <h2 className="text-xl font-semibold"></h2>
-                <p>This is the content of tab 1.</p> */}
-
                 {tabslist[itm]}
               </div>
             )
-
           })
         }
 
-        {/* {activeTab === 1 && (
-          <div>
-            <h2 className="text-xl font-semibold">Content 2</h2>
-            <p>This is the content of tab 2.</p>
-          </div>
-        )}
-        {activeTab === 2 && (
-          <div>
-            <h2 className="text-xl font-semibold">Content 3</h2>
-            <p>This is the content of tab 3.</p>
-          </div>
-        )} */}
       </div>
 
       <div className="flex">
