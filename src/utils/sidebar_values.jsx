@@ -104,6 +104,8 @@ import ComplianceMilestoneCard from "../pages/PMIS/MyHome/ComplianceMilestoneCar
 import ComplianceApproverCard from "../pages/PMIS/MyHome/ComplianceApproverCard";
 import ComplianceL1ApproverTable from "../pages/PMIS/MyHome/ComplianceL1ApproverTable";
 import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2ApproverTable";
+import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerCard";
+import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -723,6 +725,14 @@ export const Sidebar_content = {
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+    {
+      name: "",
+      link: "/repository/:customer/:projectGroup/:projectId/:id",
+      component: <RepositoryProjectGroupSites />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
 
   ],
 
@@ -772,11 +782,12 @@ export const Sidebar_content = {
     },
     {
       name: "Repository",
-      link: "/operation-team",
-      // component: <OperationManagement />,
+      link: "/repository",
+      component: <RepositoryCustomerCard />,
       icon: <UilDatabase className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+
     {
       name: "Forms",
       link: "/forms",

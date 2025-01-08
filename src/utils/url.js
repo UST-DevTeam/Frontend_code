@@ -5,8 +5,8 @@
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-// export const baseUrl = "http://192.168.1.37:7980";
-// export const backendassetUrl = "http://192.168.1.37:7980/";
+export const baseUrl = "http://192.168.1.37:7980";
+export const backendassetUrl = "http://192.168.1.37:7980/";
 
 
 export const baseUrl = "http://localhost:7980";
@@ -234,8 +234,8 @@ export const Urls = {
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",
   admin_ComplianceL2List: "/admin/getOneComplianceL2List",
-  compliance_globalSaver:'/compliance/globalSaver',
-  compliance_globalSaver_Approver:'/compliance/globalSaver/Approved',
+  compliance_globalSaver: '/compliance/globalSaver',
+  compliance_globalSaver_Approver: '/compliance/globalSaver/Approved',
   complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",
   complianceMilestoneL2Approver: "/admin/complianceMilestoneL2Approver",
   approverAction:"/admin/approverAction",

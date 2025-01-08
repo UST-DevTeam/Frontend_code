@@ -15,6 +15,7 @@ import eventlogsReducer from "./reducers/eventlogs-reducer";
 import filterData from "./reducers/filter-reducer";
 import GraphData from "./reducers/graph-reducer";
 import currentuserData from "./reducers/currentuser-reducer";
+import repository from "./reducers/repository-reducer";
 
 const store = configureStore({
     reducer: {
@@ -33,7 +34,8 @@ const store = configureStore({
         eventlogsReducer,
         filterData,
         GraphData,
-        currentuserData
+        currentuserData,
+        repository
     },
     devTools: true
 })
