@@ -18,11 +18,14 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    dispatch(eventManagementActions.getComplianceLog(true,unqeId))
-  }, []);
 
   let dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(eventManagementActions.getComplianceLog(true,unqeId))
+  // }, []);
+
+
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.eventlogsReducer?.getComplianceLog || [];
@@ -43,7 +46,7 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
   };
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.eventlogsReducer?.siteeventList || [];
+    let interdata = state?.eventlogsReducer?.getComplianceLog || [];
     if (interdata.length > 0 && interdata[0]["overall_table_count"] !== undefined) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -88,13 +91,10 @@ const ComplianceApprovalLog = ({ type, unqeId }) => {
   return (
     <AdvancedTable
       headerButton={<></>}
-      exportButton={[
-        `/export/${type}EventLog/${unqeId}`,
-        `Export_${type}_Event_log.xlsx`,
-      ]}
+      exportButton={[`/export/${type}EventLog/${unqeId}`, `Export_${type}_Event_log.xlsx`,]}
       table={siteIdLogsTable}
       filterAfter={onSubmit}
-      tableName={"Milestone Event Logs"}
+      tableName={""}
       handleSubmit={handleSubmit}
       data={dbConfigList}
       errors={errors}

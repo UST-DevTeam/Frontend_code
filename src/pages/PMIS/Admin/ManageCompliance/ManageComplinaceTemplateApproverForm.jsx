@@ -17,7 +17,7 @@ import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
-const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { }, CompleteData }) => {
+const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { }, CompleteData ,approverType}) => {
   const { L1UserId = "", SnapData = {} } =
     useSelector(
       (state) => state.projectList.globalComplianceTypeApproverData?.[0]
@@ -275,9 +275,17 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
 
 
   function isViewOnly() {
-    return ["In Process", "Submit"].includes(CompleteData?.currentStatus)
+    if (approverType === "L1") {
+      return ["In Process", "Submit"].includes(CompleteData?.currentStatus)
       ? null
       : "sdisabled";
+    }
+    else if (approverType === "L2") {
+      return ["Approve"].includes(CompleteData?.currentStatus)
+      ? null
+      : "sdisabled";
+    }
+    
   }
 
   return (
