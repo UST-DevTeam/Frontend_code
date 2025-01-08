@@ -347,37 +347,40 @@ const ComplianceL2ApproverTable = () => {
         
         let data = {
             "type":"L2",
-            "currentStatus":"Submit to Airtel",
             "milestoneuid":mileId
         }
         if (actionType === "Accept"){
+            data['currentStatus'] = "Submit to Airtel"
             dispatch(
                 AdminActions.approverActionPatch(
                     rowId,
                     data,
                     () => {
                         setShowActionModal(false);
+                        setRowId(null);
+                        setMileId(null);
                         dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/")))
                     },
-                    true))
+                    true)
+            )
+        }
+        else if (actionType === "Reject"){
+            data['currentStatus'] = "Reject"
+            dispatch(
+                AdminActions.approverActionPost(
+                    rowId,
+                    data,
+                    () => {
+                        setShowActionModal(false);
+                        setRowId(null);
+                        setMileId(null);
+                        dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/")))
+                    },
+                    true)
+            )
+
         }
 
-        dispatch(
-          CommonActions.deleteApiCallerBulk(
-             `${delurl}`,
-            {
-              ids: selectedRows
-            },
-            () => {
-              setShowActionModal(false);
-              setSelectedRows([]);
-              setSelectAll(false);
-              setRPP(50)
-              setcurrentPage(1); 
-              dispatch(geturl);
-            }
-          )
-        );
     };
 
     useEffect(() => {
