@@ -16,8 +16,9 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
 
-const ManageComplianceTemplateForm = ({
+const ManageComplianceDegrowTemplateForm = ({
   siteCompleteData,
   uid,
   mileStone,
@@ -36,8 +37,16 @@ const ManageComplianceTemplateForm = ({
   } = useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
     {};
 
+
+    const projectTypeName = siteCompleteData['projectType']
+    const subProjectName = siteCompleteData['subProject']
+
+
   const today = moment().format("YYYY-MM-DD");
+  let assignedToCount = mileStone?.assignerResult?.length || 0;
+  let milestoneStatus = mileStone?.mileStoneStatus;
   let user = JSON.parse(localStorage.getItem("user"));
+  let rolename = user?.roleName;
   let userId = user?.uniqueId;
 
   const {
@@ -103,7 +112,11 @@ const ManageComplianceTemplateForm = ({
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [type, settype] = useState(true);
+  const [modalHead, setmodalHead] = useState(<></>);
   const [modalBody, setmodalBody] = useState(<></>);
+  const [invoiceData, setinvoiceData] = useState([]);
+  const [uniqueness, setUniqueness] = useState("");
+  const [listing, setlisting] = useState([]);
   const [L1Approver, setL1Approver] = useState(null);
   const dispatch = useDispatch();
 
@@ -261,22 +274,7 @@ const ManageComplianceTemplateForm = ({
     final_data['PlanDetailsData'] = Plan_Deatils_data
 
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => {
-          let msgdata = {
-            show: true,
-            icon: "success",
-            buttons: [],
-            type: 1,
-            text: "Planning Details Tab Data has been successfully updated.",
-          };
-          dispatch(ALERTS(msgdata));
-        }
-      )
-    );
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
   const handleSiteDetailsSubmit = (data) => {
@@ -300,22 +298,7 @@ const ManageComplianceTemplateForm = ({
 
     final_data["SiteDetailsData"] = Site_Deatils_data;
 
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => {
-          let msgdata = {
-            show: true,
-            icon: "success",
-            buttons: [],
-            type: 1,
-            text: "Site Details Tab Data has been successfully updated.",
-          };
-          dispatch(ALERTS(msgdata));
-        }
-      )
-    );
+    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
   };
 
   const handleRanCheckListSubmit = (data) => {
@@ -343,16 +326,7 @@ const ManageComplianceTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => {
-          let msgdata = {
-            show: true,
-            icon: "success",
-            buttons: [],
-            type: 1,
-            text: "Ran Checklist Tab Data has been successfully updated.",
-          };
-          dispatch(ALERTS(msgdata));
-        }
+        () => {}
       )
     );
   };
@@ -383,16 +357,7 @@ const ManageComplianceTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { 
-          let msgdata = {
-            show: true,
-            icon: "success",
-            buttons: [],
-            type: 1,
-            text: "Acceptance Log Tab Data has been successfully updated.",
-          };
-          dispatch(ALERTS(msgdata));
-        }
+        () => { }
       )
     );
   };
@@ -416,7 +381,9 @@ const ManageComplianceTemplateForm = ({
     "Auto Created": "sdisabled",
   };
 
-
+  // useEffect(() => {
+  //   setValue("BTS Manufacturer (OEM)",TemplateData['BTS Manufacturer (OEM)'])
+  // },[])
 
   function isViewOnly() {
     return ["In Process", "Reject", ""].includes(currentStatus)
@@ -456,37 +423,16 @@ const ManageComplianceTemplateForm = ({
             }}
             name={""}
             icon={<UilRefresh />}
-            title="Refresh"
           ></Button>
         </div>
        
-        <CommonForm
-          classes={"flex mx-auto w-1/4 mb-[-10px]"}
-          Form={[
-            {
-              label: "Select Your L1 Approver",
-              name: isViewOnly() || "selectField",
-              type: isViewOnly() || "select",
-              option: L1optionList,
-              props: {
-                onChange: (e) => {
-                  setL1Approver(e.target.value);
-                },
-              },
-              required: true,
-            },
-          ]}
-          errors={errorsFormSelect}
-          register={registerFormSelect}
-          setValue={setValueFormSelect}
-          getValues={getValuesFormSelect}
-        />
+        
 
         <CommonTableFormSiteParent
           funcaller={funcaller}
-          defaultValue={"Template"}
+          defaultValue={subProjectName}
           tabslist={{
-            Template: (
+            [subProjectName]: (
               <>
                 <div className="flex justify-end">
                   {!isViewOnly() && (
@@ -539,9 +485,9 @@ const ManageComplianceTemplateForm = ({
         />
         <CommonTableFormSiteParent
           funcaller={funcaller}
-          defaultValue={"Planning Details"}
+          defaultValue={"TB Antenna Specifications"}
           tabslist={{
-            "Planning Details": (
+            "TB Antenna Specifications": (
               <>
                 <div className="flex justify-end">
                 {!isViewOnly() && (
@@ -583,6 +529,7 @@ const ManageComplianceTemplateForm = ({
                         : []
                       : []
                   }
+                  // Form={filesUploadForm}
                   errors={errorsForm1}
                   register={registerForm1}
                   setValue={setValueForm1}
@@ -590,7 +537,57 @@ const ManageComplianceTemplateForm = ({
                 />
               </>
             ),
-            "Site Details": (
+            "Existing Other Antenna Specifications": (
+              <>
+                <div className="flex justify-end">
+                {!isViewOnly() && (
+                  <Button
+                    classes="w-30"
+                    name="Save Plan Details"
+                    onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
+                  />
+                )}
+                </div>
+                <CommonForm
+                  classes={"grid-cols-4 gap-1 mt-1"}
+                  Form={
+                    dataOfProject
+                      ? dataOfProject["planDetails"]
+                        ? dataOfProject["planDetails"].map((its) => {
+                          let type = isViewOnly() || dtype[its.dataType];
+                          let option = its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
+                            : [];
+
+                          return {
+                            label: its.fieldName,
+                            value: "",
+                            required: its.required == "Yes" ? true : false,
+                            option: option,
+                            name: its.fieldName,
+                            type: type,
+                            props: {
+                              maxSelectableDate: today,
+                            },
+                          };
+                        })
+                        : []
+                      : []
+                  }
+                  // Form={filesUploadForm}
+                  errors={errorsForm1}
+                  register={registerForm1}
+                  setValue={setValueForm1}
+                  getValues={getValuesForm1}
+                />
+              </>
+            ),
+            "Radio Specifications In Sector": (
               <>
                 <div className="flex justify-end">
                 {!isViewOnly() && (
@@ -629,6 +626,7 @@ const ManageComplianceTemplateForm = ({
                         : []
                       : []
                   }
+                  // Form={filesUploadForm}
                   errors={errorsForm2}
                   register={registerForm2}
                   setValue={setValueForm2}
@@ -636,7 +634,7 @@ const ManageComplianceTemplateForm = ({
                 />
               </>
             ),
-            "RAN AT Checklist": (
+            "BBU/card Specifications": (
               <>
                 <div className="flex justify-end">
                 {!isViewOnly() && (
@@ -675,6 +673,7 @@ const ManageComplianceTemplateForm = ({
                         : []
                       : []
                   }
+                  // Form={filesUploadForm}
                   errors={errorsForm3}
                   register={registerForm3}
                   setValue={setValueForm3}
@@ -706,7 +705,7 @@ const ManageComplianceTemplateForm = ({
               />
             ),
 
-            "Acceptance Log": (
+            "Misc Material Specifications": (
               <>
                 <div className="flex justify-end">
                 {!isViewOnly() && (
@@ -745,6 +744,7 @@ const ManageComplianceTemplateForm = ({
                         : []
                       : []
                   }
+                  // Form={filesUploadForm}
                   errors={errorsForm5}
                   register={registerForm5}
                   setValue={setValueForm5}
@@ -759,4 +759,4 @@ const ManageComplianceTemplateForm = ({
   );
 };
 
-export default ManageComplianceTemplateForm;
+export default ManageComplianceDegrowTemplateForm;

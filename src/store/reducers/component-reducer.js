@@ -64,16 +64,22 @@ const component = createSlice({
     TABLE_PAGINATON: (state, { payload }) => {
       state.table_pagination = payload;
     },
+    
+    // ALERTS: (state, { payload }) => {
+    //   const data = JSON.parse(JSON.stringify(payload));
+    //   if (!data?.icon) {
+    //     data.icon = "error";
+    //   }
+    //   if (!data?.text) {
+    //     data.text = "Internal Server Error";
+    //   }
+    //   state.alerts = data;
+    // },
+
     ALERTS: (state, { payload }) => {
-      const data = JSON.parse(JSON.stringify(payload));
-      if (!data?.icon) {
-        data.icon = "error";
-      }
-      if (!data?.text) {
-        data.text = "Internal Server Error";
-      }
-      state.alerts = data;
+      state.alerts = payload;
     },
+
     LOADERS: (state, { payload }) => {
       state.loader = payload;
     },

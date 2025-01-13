@@ -65,7 +65,7 @@ const AdvancedTable = ({
       setRPP(value);
       setcurrentPage(1); 
       const callApiPagination = (page,rrp) => {
-        setcurrentPage(value);
+        setcurrentPage(page);
         const filters = {
           ...activedFilter,
           reseter: true,
@@ -212,18 +212,15 @@ const AdvancedTable = ({
             </div>
             <div className="flex flex-row">
             
-              {/* <Button onClick={() => { setfilterVisiblity(prev => !prev) }} name={"Filter"} /> */}
-
-              {/* <PopupMenu visiblity={filterVisiblity}/> */}
               {selectedRows.length > 0 && (
-              <Button
-                name={"Delete"}
-                classes="w-full mr-1 bg-rose-500 text-white"
-                onClick={() => setShowDeleteModal(true)}
-              >
-                Delete
-              </Button>
-            )}
+                <Button
+                  name={""}
+                  classes="w-full mr-1 bg-rose-500 text-white"
+                  onClick={() => setShowDeleteModal(true)}
+                >
+                  Delete
+                </Button>
+              )}
 
               <FilterView
                 onReset={onReset}
@@ -407,50 +404,10 @@ const AdvancedTable = ({
               ) : (
                 <></>
               )}
-              {/* {console.log(headerButton, "headerButton")} */}
             </div>
           </div>
         </div>
-        {/* <div className='m-2 '>
-                <div className='flex'>
-                    {
-                        table.filter.map((itm) => {
-                            return <>
-                                <div className='flex flex-col'>
-                                    <label className="block text-sm p-2 font-medium text-black  dark:text-black">{itm.name}</label>
 
-                                    {
-                                        itm.type == "select" ?
-
-                                            <select onChange={itm.onChanging ? itm.onChanging : null}
-
-                                                {...register(itm.name, {
-                                                    required: itm.required ? "This " + " Field is required" : false,
-                                                    ...itm.props
-                                                })} className={"bg-white border-black border block h-8 w-32 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}>
-                                                {
-                                                    itm.option.map((selitm) => {
-                                                        return <option value={selitm.value}>{selitm.label}</option>
-                                                    })
-                                                }
-                                            </select> :
-                                            <>
-                                                <input type={itm.type} {...register(itm.name, {
-                                                    required: itm.required ? "This " + " Field is required" : false,
-                                                    ...itm.props
-                                                })} className=" bg-white border-black border block h-8 w-32 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" {...itm.props} />
-                                                {console.log(errors[itm.name], itm.required, "errors?.itm?")}
-                                                <p className='text-xs text-red-700'>{errors[itm.name]?.message}</p>
-                                            </>
-                                    }
-                                </div>
-                            </>
-                        })
-
-                    }
-
-                </div>
-            </div> */}
         <div className={`m-2 overflow-x-auto ${TableHeight} pb-6 border-1 border-solid border-black rounded-lg`}>
         {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
           {1 == 1 ? (

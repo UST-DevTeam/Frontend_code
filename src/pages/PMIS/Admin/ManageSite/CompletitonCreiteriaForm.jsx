@@ -13,6 +13,8 @@ import Modal from "../../../../components/Modal";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { GET_ONE_COMPLIANCE_DY_FORM, GET_ONE_COMPLIANCE_L1_LIST } from "../../../../store/reducers/admin-reducer";
 import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
+import ManageComplianceTemplateApproverForm from "../ManageCompliance/ManageComplinaceTemplateApproverForm";
+import ManageComplianceDegrowTemplateForm from "../ManageCompliance/ManageComplianceDegrowTemplateForm";
 
 const CompletitonCreiteriaForm = ({
   siteCompleteData,
@@ -33,10 +35,15 @@ const CompletitonCreiteriaForm = ({
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [modalFullOpen1, setmodalFullOpen1] = useState(false);
 
+  const projectTypeName = siteCompleteData['projectType']
+  const subProjectName = siteCompleteData['subProject']
+
 
 
   const checkmilestone = mileStone["Completion Criteria"].split(",")
   const checkmilestoneStatus = mileStone['mileStoneStatus']
+
+
 
 
 
@@ -89,6 +96,19 @@ const CompletitonCreiteriaForm = ({
                 dispatch(projectListActions.globalComplianceTypeDataGet(siteCompleteData.uniqueId, mileStone.uniqueId, "", true));
                 setmodalFullOpen1(true)
                 setmodalFullBody(
+
+                  projectTypeName === "DEGROW" ?
+                      <ManageComplianceDegrowTemplateForm
+                      siteCompleteData={siteCompleteData}
+                      customeruniqueId={customeruniqueId}
+                      projectuniqueId={projectuniqueId}
+                      setmodalFullOpen={setmodalFullOpen}
+                      setmodalOpen={setmodalOpen}
+                      mileStone={mileStone}
+                      myTaskPage={myTaskPage}
+                      filterView={filterView}
+                    />
+                  :
                   <ManageComplianceTemplateForm
                     siteCompleteData={siteCompleteData}
                     customeruniqueId={customeruniqueId}

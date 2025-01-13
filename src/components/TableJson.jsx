@@ -190,7 +190,7 @@ const TableJson = ({ headers, columns, check, setCheck = () => { } }) => {
 
         // console.log(itm, "testtesttesttest")
         return headers.map((innerItm) => {
-            console.log(itm, innerItm, "testtesttesttest")
+            // console.log(itm, innerItm, "testtesttesttest")
         })
     })
     return <>

@@ -55,7 +55,7 @@ const AdvancedTableExpandable = ({
     setRPP(value);
     setcurrentPage(1); 
     const callApiPagination = (page,rrp) => {
-      setcurrentPage(value);
+      setcurrentPage(page);
       const filters = {
         ...activedFilter,
         reseter: true,

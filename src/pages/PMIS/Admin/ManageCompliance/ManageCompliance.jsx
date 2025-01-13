@@ -133,160 +133,12 @@ const   ManageCompliance = () => {
     },
   ];
 
-  let templatemultiForm = [
-    {
-        label: "Field Name",
-        name: "fieldName",
-        value: "",
-        type: "text",
-        props: "",
-        required: false,
-        placeholder: "",
-      },
-      {
-        label: "Mandatory(Y/N)",
-        name: "required",
-        value: "Select",
-        type: "select",
-        option: [
-          {
-            label: "Yes",
-            value: "Yes",
-          },
-          {
-            label: "No",
-            value: "No",
-          },
-        ],
-        props: "",
-        required: false,
-        placeholder: "",
-      },
-      {
-        label: "Input Type",
-        name: "dataType",
-        value: "Select",
-        innerSmart: true,
-        type: "select",
-        option: [
-          {
-            label: "Text",
-            value: "Text",
-          },
-          {
-            label: "Number",
-            value: "Number",
-          },
-          {
-            label: "Decimal",
-            value: "Decimal",
-          },
-          {
-            label: "Date",
-            value: "Date",
-          },
-          {
-            label: "Dropdown",
-            value: "Dropdown",
-            extended: {
-              typer: "add",
-              type: "text",
-              option: [],
-            },
-          },
-        ],
-        props: "",
-        required: false,
-        placeholder: "",
-      },
-      {
-        label: "Status",
-        name: "Status",
-        value: "Select",
-        type: "select",
-        option: [
-          {
-            label: "Active",
-            value: "Active",
-          },
-          {
-            label: "Inactive",
-            value: "Inactive",
-          },
-        ],
-        props: "",
-        required: false,
-        placeholder: "",
-      },
-  ];
 
-  let commercialmultiForm = [
-    // { label: "Sequence", name: "sequence", value: "", type: "text", props: "", required: false, placeholder: "" },
-    {
-      label: "GBPA",
-      name: "GBPA",
-      value: "Select",
-      type: "text",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Item Code",
-      name: "ItemCode",
-      value: "",
-      type: "text",
-      props: "",
-      required: true,
-      placeholder: "",
-    },
-    {
-      label: "Unit Rate",
-      name: "UnitRate",
-      value: "Select",
-      type: "number",
-      props: {
-        valueAsNumber: true,
-        min: 1,
-        onChange: (e) => {},
-      },
-      required: true,
-      placeholder: "",
-    },
-    // {
-    //   label: "Project Type",
-    //   name: "dataType",
-    //   value: "Select",
-    //   innerSmart: true,
-    //   type: "select",
-    //   option: [
-    //   ],
-    //   props: "",
-    //   required: false,
-    //   placeholder: ""
-    // },
-    {
-      label: "Description",
-      name: "Description",
-      value: "Select",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    // {
-    //   label: "Attachment",
-    //   name: "Attachment",
-    //   value: "Select",
-    //   type: "file",
-    //   option: [],
-    //   props: "",
-    //   required: false,
-    //   placeholder: ""
-    // }
-  ];
+
+
 
   const handleAddActivity = (res, sediting, targ, itm) => {
-    console.log(res, "sediting", sediting, targ,itm,"uniqueness", "handleAddActivity");
+    // console.log(res, "sediting", sediting, targ,itm,"uniqueness", "handleAddActivity");
     let newdata = {
       [targ]: res,
     };
@@ -299,36 +151,13 @@ const   ManageCompliance = () => {
     );
   };
 
-  const [modalBody, setmodalBody] = useState(
-    <>
-      {/* <Button name={"sasaass"} onClick={(handleSubmit(handleAddActivity))}></Button> */}
-    </>
-  );
+  const [modalBody, setmodalBody] = useState(<></>);
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getCompiliance;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-
-        imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
         checkList: (
           <CstmButton
@@ -343,13 +172,7 @@ const   ManageCompliance = () => {
                   setmodalOpen(true);
                   setmodalSize("full");
                   setmodalHead("Compliance Form");
-
-                  // [""].map((itesw)=>{
-
-                  //     console.log(itesw,"itm[itesw]itm[itesw]")
-
-                  //     // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: itm[itesw]?itm[itesw]:[], reseter: true }))
-                  // })
+                  dispatch(SET_DYNAMIC_FORM({ label: "Template", value: itm["Template"] ? itm["Template"] : [], reseter: true }));
                   dispatch(
                     SET_DYNAMIC_FORM({
                       label: "Planning Details",
@@ -389,32 +212,40 @@ const   ManageCompliance = () => {
                     <>
                       <div className="flex flex-col justify-between p-2">
                         <div class="overflow-scroll">
-                          {/* {conditioncountform.map((val, index) => {
-                                    return <>
-                                        <CommonForm classes={"grid-cols-1 md:grid-cols-2 lg:gap-8 w-full"} errors={errors} Form={conditionmultiForm.map((itm) => {
-                                            return {
-                                                ...itm,
-                                                type: itm.name == "formovalue" ? nestfilter["wherecondition" + "_" + val + "_form"] == "joins" ? "muitiSelect" : "text" : itm.type,
-                                                props: itm.label == "Select Column" || (itm.label == "Value" && nestfilter["wherecondition" + "_" + val + "_form"] == "joins") ? {
-                                                    ...itm.props, onSelect: (a, b) => {
-                                                        console.log("gamecall", a, b, "column" + "_" + val + "_form")
-                                                        setValue(itm.label == "Select Column" ? "wherecolumn" + "_" + val + "_form" : "formovalue" + "_" + val + "_form", b.category + "smartGame" + b.name)
-                                                    }
-                                                } : { ...itm.props },
-                                                option: itm.label == "Expression" ? all_command_type_wise[nestfilter["wherecondition" + "_" + val + "_form"]] : itm.option,
-                                                name: itm.name + "_" + val + "_form"
-                                            }
-                                        })}
-                                            register={register} setValue={setValue} getValues={getValues} />
-                                    </>
-                                })} */}
                         </div>
                       </div>
-                      {/* <CommonTableForm classes={"grid-cols-2 gap-1"} Form={conditionmultiForm} errors={errors} register={register} setValue={setValue} getValues={getValues} /> */}
                       <CommonTableFormSiteParent
                         funcaller={() => { }}
-                        defaultValue={"Planning Details"}
+                        defaultValue={"Template"}
                         tabslist={{
+                          "Template": (
+                            <CommonTableForm
+                              setmodalOpen={setmodalOpen}
+                              tabHead={"Template"}
+                              customeruniqueId={customeruniqueId}
+                              classes={"grid-cols-2 gap-1"}
+                              Form={conditionmultiForm}
+                              errors={errors}
+                              register={register}
+                              setValue={setValue}
+                              getValues={getValues}
+                              functioning={(res, changeState) =>
+                                handleAddActivity(
+                                  res,
+                                  changeState,
+                                  "Template",
+                                  itm
+                                )
+                              }
+                              oldList={[]}
+                              listing={listing}
+                              setlisting={setlisting}
+                              rowId={itm["uniqueId"]}
+                              name={"Tempalte"}
+                              page={"Compliance"}
+
+                            />
+                          ),
                           "Planning Details": (
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
@@ -438,7 +269,7 @@ const   ManageCompliance = () => {
                               listing={listing}
                               setlisting={setlisting}
                               rowId={itm["uniqueId"]}
-                              name={"Checklist"}
+                              name={"Tempalte"}
                               page={"Compliance"}
 
                             />
@@ -466,7 +297,7 @@ const   ManageCompliance = () => {
                               listing={listing}
                               setlisting={setlisting}
                               rowId={itm["uniqueId"]}
-                              name={"Checklist"}
+                              name={"Tempalte"}
                               page={"Compliance"}
                             />
                           ),
@@ -493,7 +324,7 @@ const   ManageCompliance = () => {
                               listing={listing}
                               setlisting={setlisting}
                               rowId={itm["uniqueId"]}
-                              name={"Checklist"}
+                              name={"Tempalte"}
                               page={"Compliance"}
                             />
                           ),
@@ -520,7 +351,7 @@ const   ManageCompliance = () => {
                               listing={listing}
                               setlisting={setlisting}
                               rowId={itm["uniqueId"]}
-                              name={"Checklist"}
+                              name={"Tempalte"}
                               page={"Compliance"}
                             />
                           ),
@@ -547,7 +378,7 @@ const   ManageCompliance = () => {
                               listing={listing}
                               setlisting={setlisting}
                               rowId={itm["uniqueId"]}
-                              name={"Checklist"}
+                              name={"Tempalte"}
                               page={"Compliance"}
                             />
                           ),
@@ -560,100 +391,49 @@ const   ManageCompliance = () => {
             }
           />
         ),
-        template: (
-          <CstmButton
-            className={"p-2"}
-            child={
-              <Button
-                classes="w-10"
-                name={""}
-                icon={<Unicons.UilAirplay />}
-                onClick={() => {
-                  setmodalOpen(true);
-                  setmodalSize("full");
-                  setmodalHead("Template");
+        // template: (
+        //   <CstmButton
+        //     className={"p-2"}
+        //     child={
+        //       <Button
+        //         classes="w-10"
+        //         name={""}
+        //         icon={<Unicons.UilAirplay />}
+        //         onClick={() => {
+        //           setmodalOpen(true);
+        //           setmodalSize("full");
+        //           setmodalHead("Template");
 
-                  dispatch(SET_DYNAMIC_FORM({ label: "Template", value: itm["Template"] ? itm["Template"] : [], reseter: true }));
-                  setmodalBody(
-                    <>
-                      <CommonTableForm
-                        setmodalOpen={setmodalOpen}
-                        tabHead={"Template"}
-                        customeruniqueId={customeruniqueId}
-                        classes={"grid-cols-2 gap-1"}
-                        Form={templatemultiForm}
-                        errors={errors}
-                        register={register}
-                        setValue={setValue}
-                        getValues={getValues}
-                        functioning={(res, changeState) =>
-                          handleAddActivity(res, changeState, "Template", itm)
-                        }
-                        oldList={[]}
-                        listing={listing}
-                        setlisting={setlisting}
-                        rowId={itm["uniqueId"]}
-                        name={"Tempalte"}
-                      />
-                      {/* <ManageProjectTypeForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} /> */}
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>
-                  );
-                }}
-              ></Button>
-            }
-          />
-        ),
+        //           dispatch(SET_DYNAMIC_FORM({ label: "Template", value: itm["Template"] ? itm["Template"] : [], reseter: true }));
+        //           setmodalBody(
+        //             <>
+        //               <CommonTableForm
+        //                 setmodalOpen={setmodalOpen}
+        //                 tabHead={"Template"}
+        //                 customeruniqueId={customeruniqueId}
+        //                 classes={"grid-cols-2 gap-1"}
+        //                 Form={conditionmultiForm}
+        //                 errors={errors}
+        //                 register={register}
+        //                 setValue={setValue}
+        //                 getValues={getValues}
+        //                 functioning={(res, changeState) =>
+        //                   handleAddActivity(res, changeState, "Template", itm)
+        //                 }
+        //                 oldList={[]}
+        //                 listing={listing}
+        //                 setlisting={setlisting}
+        //                 rowId={itm["uniqueId"]}
+        //                 name={"Tempalte"}
+        //               />
+        //             </>
+        //           );
+        //         }}
+        //       ></Button>
+        //     }
+        //   />
+        // ),
         
-        commercial: (
-          <CstmButton
-            className={"p-2"}
-            child={
-              <Button
-                classes="w-10"
-                icon={<Unicons.UilBriefcaseAlt />}
-                name={""}
-                onClick={() => {
-                  setmodalOpen(true);
-                  setmodalHead("Commercial");
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Commercial",
-                      value: itm["Commercial"] ? itm["Commercial"] : [],
-                      reseter: true,
-                    })
-                  );
-                  setmodalSize("full");
-                  setmodalBody(
-                    <>
-                      <CommonTableForm
-                        setmodalOpen={setmodalOpen}
-                        tabHead={"Commercial"}
-                        customeruniqueId={customeruniqueId}
-                        classes={"grid-cols-2 gap-1"}
-                        Form={commercialmultiForm}
-                        errors={errors}
-                        register={register}
-                        setValue={setValue}
-                        getValues={getValues}
-                        functioning={(res, changeState) =>
-                          handleAddActivity(res, changeState, "Commercial", itm)
-                        }
-                        oldList={[]}
-                        listing={listing}
-                        setlisting={setlisting}
-                        rowId={itm["uniqueId"]}
-                        name={"Commercial"}
-                      />
-                      {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>
-                  );
-                }}
-              ></Button>
-            }
-          />
-        ),
-
         delete: (
           <CstmButton
             child={
@@ -749,21 +529,10 @@ const   ManageCompliance = () => {
         value: "checkList",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Template",
-        value: "template",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-
-    //   {
-    //     name: "Commercial",
-    //     value: "commercial",
-    //     style: "min-w-[140px] max-w-[200px] text-center",
-    //   },
       // {
-      //   name: "Edit",
-      //   value: "edit",
-      //   style: "min-w-[100px] max-w-[200px] text-center"
+      //   name: "Template",
+      //   value: "template",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
       // },
       {
         name: "Delete",
@@ -774,16 +543,7 @@ const   ManageCompliance = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
-    ],
+    filter: [],
   };
 
   const onSubmit = (data) => {

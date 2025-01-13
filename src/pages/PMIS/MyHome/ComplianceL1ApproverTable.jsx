@@ -60,9 +60,7 @@ const ComplianceL1ApproverTable = () => {
 
   function downloadAttachment(type, id) {
     dispatch(
-      CommonActions.commondownload(
-        `${id}/${id}?type=${type}`,
-        `site-${id}.${type === "Excel" ? "xlsx" : "pdf"}`
+      CommonActions.commondownload(`/compliance/export/${type}/${id}`,`site-report.${type === "Excel" ? "xlsx" : "pdf"}`
       )
     );
   }
@@ -145,10 +143,10 @@ const ComplianceL1ApproverTable = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    downloadAttachment("PDF", itm?.uniqueId);
+                    downloadAttachment("Pdf", itm?.uniqueId);
                   }}
                   classes="!py-[2px] bg-red-600"
-                  title="Download PDf"
+                  title="Download Pdf"
                 >
                   <svg
                     className="w-4 h-4 fill-white"
@@ -163,6 +161,22 @@ const ComplianceL1ApproverTable = () => {
             }
           />
         ),
+        L1Age: itm.L1Age?(
+          itm.L1Age > 2 ? (
+            <p className="text-rose-400 font-extrabold">{itm.L1Age + " Days"}</p>
+            
+          ) : (
+            <p className="text-[#13b497] font-extrabold">{itm.L1Age + " Days"}</p>
+          )
+        ):(""),
+        L2Age: itm.L2Age?(
+          itm.L2Age > 2 ? (
+            <p className="text-rose-400 font-extrabold">{itm.L2Age + " Days"}</p>
+            
+          ) : (
+            <p className="text-[#13b497] font-extrabold">{itm.L2Age + " Days"}</p>
+          )
+        ):(""),
         logs: (
           <CstmButton
             className={"p-2"}
@@ -190,6 +204,13 @@ const ComplianceL1ApproverTable = () => {
               </>
             }
           />
+        ),
+        currentStatus:(
+          <p
+            className={`px-3.5 font-extrabold rounded-xl text-center ${itm["currentStatus"] === "Reject" ? "text-rose-400 " : "text-[#13b497]" }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
+          >
+            {itm["currentStatus"]}
+          </p>
         ),
         ...(itm["currentStatus"] === "Submit" && {
           approverAction: (

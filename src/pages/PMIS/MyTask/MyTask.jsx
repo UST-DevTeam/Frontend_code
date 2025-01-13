@@ -113,30 +113,6 @@ const MyTask = () => {
 
 
 
-  
-
-  // const onTaskSubmit = (data) => {
-  //     // if (siteStatus.uniqueId) {
-
-  //     //     dispatch(projectListActions.postProjectTypeAll(data))
-  //     // }
-  //     // console.log(data, "datadata")
-  //     // dasdsadsadasdas
-  //     if (data.uniqueId) {
-  //         dispatch(projectListActions.postProjectTypeAll(true, data, () => {
-  //             console.log("CustomQueryActions.postDBConfig")
-  //             setIsOpen(false)
-  //             // dispatch(AdminActions.getManageDepartment())
-  //         }, data.uniqueId))
-  //     } else {
-  //         dispatch(projectListActions.postProjectTypeAll(true, data, () => {
-  //             console.log("CustomQueryActions.postDBConfig")
-  //             setIsOpen(false)
-  //             // dispatch(AdminActions.getManageDepartment())
-  //         }))
-  //     }
-  // }
-
   let dbConfigL = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
     return interdata;
@@ -1129,8 +1105,13 @@ const MyTask = () => {
           name: "mileStoneStatus",
           option:[
             {label:'Open', value:'Open'},
+            {label:'In Process', value:'In Process'},
+            {label:'Submit', value:'Submit'},
+            {label:'Approve', value:'Approve'},
+            {label:'Submit to Airtel', value:'Submit to Airtel'},
+            {label:'Reject', value:'Reject'},
             {label:'Closed', value:'Closed'},
-            {label:'All', value:'both'},
+            {label:'All', value:'All'},
           ],
           props: {}
       }

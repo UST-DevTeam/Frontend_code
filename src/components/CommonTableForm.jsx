@@ -68,12 +68,6 @@ const CommonTableForm = ({
 
 
   let listing = useSelector((state) => {
-    console.log(
-      state.projectList.dynamicForm[tabHead]
-        ? state.projectList.dynamicForm[tabHead]
-        : [],
-      "statestatestatestatestate"
-    );
     return state.projectList.dynamicForm[tabHead]
       ? state.projectList.dynamicForm[tabHead]
       : [];
@@ -98,71 +92,41 @@ const CommonTableForm = ({
     dispatch(CommonActions.fileSubmit(Urls.templateUploadFile + "/" + `${rowId}`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
-          dispatch(AdminActions.getManageProjectType(customeruniqueId));
+          if (page === "Compliance"){
+            dispatch(AdminActions.getCompiliance());
+          }
+          else {
+            dispatch(AdminActions.getManageProjectType(customeruniqueId));
+          }
         }
       )
     );
-    
   };
 
-  {
-    /* <Button classes="w-auto" name={"Save"} onClick={(e) => {
 
-let newdte = listing.map((itmm, indes) => {
-  itmm["index"] = indes + 1
-  return itmm
-})
-functioning(newdte)
-
-setediting(prev=>!prev)
-console.log(newdte, "listinglistinglisting")
-}} /> */
-  }
   return (
     <>
       <div className="sticky -top-[8px] z-[1000000]">
         <div className="w-full bg-[#2e3339] static ">
           <div className="w-full flex justify-end gap-1 bg-[#3e454d] sticky top-0 z-[1000000]">
-            {page !== "Compliance" && 
+           
               <Button
                 name={"Bulk Upload"}
                 icon={""}
                 classes={"w-auto my-auto"}
                 onClick={() => {
-                  console.log("dasdasdas");
-
                   setSelectFile(true);
-                  // setlisting(prev => {
-                  //   console.log(prev, "prevprevprev")
-                  //   prev.push("")
-                  //   return prev
-                  // })
-
-                  // setedit(prev => !prev)
-
-                  // setlisting(prev => {
-                  //   const updatedListing = [...prev, ""];
-                  //   console.log(updatedListing, "updatedListing");
-                  //   return updatedListing;
-                  // });
-
-                  // dispatch(SET_DYNAMIC_FORM({ label: tabHead, value: oldList, reseter: false }))
                 }}
               />
-            }
             <Button
               name={"Export"}
               icon={""}
               classes={"w-auto  my-auto"}
               onClick={() => {
-                console.log("dasdasdas");
+                const fileName = page === "Compliance" ? "Export_Forms_Checklist_" + name + ".xlsx" : "Export_Project_Type_" + name + ".xlsx";
                 dispatch(
-                  CommonActions.commondownload(
-                    "/export/Template/" + `${tabHead}` + "/" + `${rowId}`,
-                    "Export_Project_Type_" + name + ".xlsx"
-                  )
+                  CommonActions.commondownload("/export/Template/" + `${tabHead}` + "/" + `${rowId}`,fileName)
                 );
-                // setSelectFile(true)
               }}
             />
 
@@ -638,7 +602,7 @@ console.log(newdte, "listinglistinglisting")
 
                 console.log(itm, "itmitmitm");
                 Form.forEach((its, innerIndex) => {
-                  console.log(its, itm, "its,itmits,itmits,itmits,itm");
+                  // console.log(its, itm, "its,itmits,itmits,itmits,itm");
                   newObj[its.label] = `${itm[its.name]} ${
                     (itm["dataType"] == "Auto Created" ||
                       itm["dataType"] == "Dropdown") &&

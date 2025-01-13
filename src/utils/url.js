@@ -1,13 +1,12 @@
-export const baseUrl="https://devapi.mcpspmis.com"
-export const backendassetUrl="https://devapi.mcpspmis.com/"
+// export const baseUrl="https://devapi.mcpspmis.com"
+// export const backendassetUrl="https://devapi.mcpspmis.com/"
 
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-
-// export const baseUrl = "http://localhost:7980";
-// export const backendassetUrl = "http://localhost:7980/";
+export const baseUrl = "http://localhost:7980";
+export const backendassetUrl = "http://localhost:7980/";
 
 export const Urls = {
   login: "/login",
@@ -236,9 +235,16 @@ export const Urls = {
   complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",
   complianceMilestoneL2Approver: "/admin/complianceMilestoneL2Approver",
   approverAction:"/admin/approverAction",
-  complianceLog:"/complianceLog"
+  complianceLog:"/complianceLog",
 
   // super admin compiliance  ends -----
+
+  // Repository starts  -----
+
+  admin_repositorySiteId:"/admin/repositorySiteId"
+
+
+  // Repository ends   ---------
 
 
 
