@@ -17,6 +17,7 @@ import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
+import AdminActions from "../../../../store/actions/admin-actions";
 
 const ManageComplianceDegrowTemplateForm = ({
   siteCompleteData,
@@ -30,17 +31,54 @@ const ManageComplianceDegrowTemplateForm = ({
   filterView,
 }) => {
   const {
-    L1UserName = '',
-    L1UserId = '',
+    L1UserName = "",
+    L1UserId = "",
     currentStatus = "",
     SnapData = {},
   } = useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
-    {};
+  {};
+  const {
+    bbuCard = [],
+    existingAntenna = [],
+    miscMaterial = [],
+    radio = [],
+    tbAnteena = [],
+  } = useSelector(
+    (state) => state.adminData.getComplianceDegrowTemplateData?.usedfields?.[0]
+  ) || {};
 
+  const forms = {
+    "TWIN BEAM": [
+      "TB Antenna Specifications",
+      "Existing Other Antenna Specifications",
+      "Radio Specifications In Sector",
+      "BBU/card Specifications",
+      "Misc Material Specifications",
+      "Snap",
+    ],
+    "LAYER DEGROW": [
+      "Existing Other Antenna Specifications",
+      "Radio Specifications In Sector",
+      "BBU/card Specifications",
+      "Misc Material Specifications",
+      "Snap",
+    ],
+    "SECTOR DEGROW": [
+      "Existing Other Antenna Specifications",
+      "Radio Specifications In Sector",
+      "BBU/card Specifications",
+      "Misc Material Specifications",
+      "Snap",
+    ],
+    "4TR-2TR": [
+      "Radio Specifications In Sector",
+      "BBU/card Specifications",
+      "Misc Material Specifications",
+    ],
+  };
 
-    const projectTypeName = siteCompleteData['projectType']
-    const subProjectName = siteCompleteData['subProject']
-
+  const projectTypeName = siteCompleteData["projectType"];
+  const subProjectName = siteCompleteData["subProject"];
 
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
@@ -131,26 +169,36 @@ const ManageComplianceDegrowTemplateForm = ({
 
   useEffect(() => {
     setL1Approver(L1UserId);
-    reset({})
-    settype(true)
+    reset({});
+    settype(true);
     setTimeout(() => {
-    const value = isViewOnly()
-    if (!value) {
-      console.log("____", `[value="${L1UserId}"]`)
-      const ele = document.querySelector(`[value="${L1UserId}"]`)
-      if (!ele) return
-      ele.setAttribute("selected", true)
-    } else {
-      const ele = document.querySelector(`[name="sdisabled"]`)
-      if (!ele) return
-      ele.value = L1UserName
-    }
-    setValueFormSelect("selectField", L1UserId);
-    // reset({})
-    settype(true)
-    }, 0)
+      const value = isViewOnly();
+      if (!value) {
+        console.log("____", `[value="${L1UserId}"]`);
+        const ele = document.querySelector(`[value="${L1UserId}"]`);
+        if (!ele) return;
+        ele.setAttribute("selected", true);
+      } else {
+        const ele = document.querySelector(`[name="sdisabled"]`);
+        if (!ele) return;
+        ele.value = L1UserName;
+      }
+      setValueFormSelect("selectField", L1UserId);
+      // reset({})
+      settype(true);
+    }, 0);
   }, [L1UserId, L1UserName]);
 
+  useEffect(() => {
+    dispatch(
+      AdminActions.getComplianceDegrowTemplateData(
+        projectTypeName,
+        subProjectName,
+        true,
+        ""
+      )
+    );
+  }, [subProjectName]);
 
   let dataOfOldProject = useSelector((state) => {
     let datew = state.projectList.globalComplianceTypeData;
@@ -209,7 +257,7 @@ const ManageComplianceDegrowTemplateForm = ({
   final_data["milestoneName"] = mileStone["Name"];
   final_data["siteIdName"] = siteCompleteData["Site Id"];
   final_data["systemId"] = siteCompleteData["systemId"];
-  final_data['currentStatus'] = "In Process"
+  final_data["currentStatus"] = "In Process";
 
   const handleTemplateSubmit = (data) => {
     if (!L1Approver) {
@@ -236,7 +284,7 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { 
+        () => {
           let msgdata = {
             show: true,
             icon: "success",
@@ -248,7 +296,6 @@ const ManageComplianceDegrowTemplateForm = ({
         }
       )
     );
-
   };
 
   const handlePlanDetailsSubmit = (data) => {
@@ -270,11 +317,15 @@ const ManageComplianceDegrowTemplateForm = ({
       Plan_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
     });
 
-    
-    final_data['PlanDetailsData'] = Plan_Deatils_data
+    final_data["PlanDetailsData"] = Plan_Deatils_data;
 
-
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
   const handleSiteDetailsSubmit = (data) => {
@@ -298,7 +349,13 @@ const ManageComplianceDegrowTemplateForm = ({
 
     final_data["SiteDetailsData"] = Site_Deatils_data;
 
-    dispatch(projectListActions.globalComplianceTypeDataPatch(Urls.compliance_globalSaver,final_data,() => {}));
+    dispatch(
+      projectListActions.globalComplianceTypeDataPatch(
+        Urls.compliance_globalSaver,
+        final_data,
+        () => {}
+      )
+    );
   };
 
   const handleRanCheckListSubmit = (data) => {
@@ -331,7 +388,6 @@ const ManageComplianceDegrowTemplateForm = ({
     );
   };
 
-
   const handleAcceptanceLogSubmit = (data) => {
     if (!L1Approver) {
       let msgdata = {
@@ -357,11 +413,10 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => {}
       )
     );
   };
-
 
   const funcaller = () => {
     reset({});
@@ -425,334 +480,373 @@ const ManageComplianceDegrowTemplateForm = ({
             icon={<UilRefresh />}
           ></Button>
         </div>
-       
-        
 
         <CommonTableFormSiteParent
           funcaller={funcaller}
           defaultValue={subProjectName}
-          tabslist={{
-            [subProjectName]: (
-              <>
-                <div className="flex justify-end">
-                  {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Template"
-                    onClick={handleSubmitForm0(handleTemplateSubmit)}
-                  />
-                  )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1 mt-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["Template"]
-                        ? dataOfProject["Template"].map((its) => {
-                          let type = isViewOnly() || dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
-                              return {
-                                value: itm,
-                                label: itm,
-                              };
-                            })
-                            : [];
-
-                          return {
-                            label: its.fieldName,
+          tabslist={
+            ["4TR-2TR"].includes(subProjectName)
+              ? null
+              : {
+                  [subProjectName]: (
+                    <>
+                      <div className="flex justify-end">
+                        {!isViewOnly() && (
+                          <Button
+                            classes="w-30"
+                            name={
+                              "Save " +
+                              subProjectName
+                                .split(" ")
+                                .map(
+                                  (itm) =>
+                                    itm?.[0] + itm?.slice(1).toLowerCase()
+                                )
+                                .join(" ")
+                            }
+                            onClick={handleSubmitForm0(handleTemplateSubmit)}
+                          />
+                        )}
+                      </div>
+                      <CommonForm
+                        classes={"grid-cols-4 gap-1 mt-1"}
+                        Form={[
+                          {
+                            label: "Antenna Total in Sector",
                             value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  errors={errorsForm0}
-                  register={registerForm0}
-                  setValue={setValueForm0}
-                  getValues={getValuesForm0}
-                />
-              </>
-            ),
-          }}
+                            required: true,
+                            name: "antennaCount",
+                            type: "number",
+                            props: {},
+                          },
+                        ]}
+                        errors={errorsForm0}
+                        register={registerForm0}
+                        setValue={setValueForm0}
+                        getValues={getValuesForm0}
+                      />
+                    </>
+                  ),
+                }
+          }
         />
         <CommonTableFormSiteParent
           funcaller={funcaller}
           defaultValue={"TB Antenna Specifications"}
-          tabslist={{
-            "TB Antenna Specifications": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Plan Details"
-                    onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1 mt-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["planDetails"]
-                        ? dataOfProject["planDetails"].map((its) => {
-                          let type = isViewOnly() || dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
+          tabslist={(() => {
+            const fields = {};
+
+            forms[subProjectName].forEach((itm) => {
+              if ("TB Antenna Specifications" === itm) {
+                fields["TB Antenna Specifications"] = (
+                  <>
+                    <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name="Save TB Antenna"
+                          onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
+                        />
+                      )}
+                    </div>
+                    <CommonForm
+                      classes={"grid-cols-4 gap-1 mt-1"}
+                      Form={tbAnteena.map((its, index) => {
+                        let type = isViewOnly() || dtype[its.dataType];
+                        let option = its.dropdownValue
+                          ? its.dropdownValue.split(",").map((itm) => {
                               return {
                                 value: itm,
                                 label: itm,
                               };
                             })
-                            : [];
+                          : [];
 
-                          return {
-                            label: its.fieldName,
-                            value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm1}
-                  register={registerForm1}
-                  setValue={setValueForm1}
-                  getValues={getValuesForm1}
-                />
-              </>
-            ),
-            "Existing Other Antenna Specifications": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Plan Details"
-                    onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1 mt-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["planDetails"]
-                        ? dataOfProject["planDetails"].map((its) => {
-                          let type = isViewOnly() || dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
+                        return {
+                          label: its.fieldName,
+                          value: "",
+                          required: its.required == "Yes" ? true : false,
+                          option: option,
+                          name: its.fieldName,
+                          type: type,
+                          props: {
+                            maxSelectableDate: today,
+                            ...(index === 0 && {
+                              onChange: (e) => {
+                             
+                                dispatch(
+                                  AdminActions.updateFields(
+                                    +e.target.value,
+                                    "tbAnteena"
+                                  )
+                                );
+                              },
+                            }),
+                          },
+                        };
+                      })}
+                      // Form={filesUploadForm}
+                      errors={errorsForm1}
+                      register={registerForm1}
+                      setValue={setValueForm1}
+                      getValues={getValuesForm1}
+                    />
+                  </>
+                );
+              }
+
+              if ("Existing Other Antenna Specifications" === itm) {
+                fields["Existing Other Antenna Specifications"] = (
+                  <>
+                    <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name="Save Existing Other Antenna"
+                          onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
+                        />
+                      )}
+                    </div>
+                    <CommonForm
+                      classes={"grid-cols-4 gap-1 mt-1"}
+                      Form={existingAntenna.map((its, index) => {
+                        let type = isViewOnly() || dtype[its.dataType];
+                        let option = its.dropdownValue
+                          ? its.dropdownValue.split(",").map((itm) => {
                               return {
                                 value: itm,
                                 label: itm,
                               };
                             })
-                            : [];
+                          : [];
 
-                          return {
-                            label: its.fieldName,
-                            value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm1}
-                  register={registerForm1}
-                  setValue={setValueForm1}
-                  getValues={getValuesForm1}
-                />
-              </>
-            ),
-            "Radio Specifications In Sector": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Site Details"
-                    onClick={handleSubmitForm2(handleSiteDetailsSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["siteDetails"]
-                        ? dataOfProject["siteDetails"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: isViewOnly() || dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
+                        return {
+                          label: its.fieldName,
+                          value: "",
+                          required: its.required == "Yes" ? true : false,
+                          option: option,
+                          name: its.fieldName,
+                          type: type,
+                          props: {
+                            maxSelectableDate: today,
+                            ...(index === 0 && {
+                              onChange: (e) => {
+                                
+                                dispatch(
+                                  AdminActions.updateFields(
+                                    +e.target.value,
+                                    "existingAntenna"
+                                  )
+                                );
+                              },
+                            }),
+                          },
+                        };
+                      })}
+                      // Form={filesUploadForm}
+                      errors={errorsForm1}
+                      register={registerForm1}
+                      setValue={setValueForm1}
+                      getValues={getValuesForm1}
+                    />
+                  </>
+                );
+              }
+
+              if ("Radio Specifications In Sector" === itm) {
+                fields["Radio Specifications In Sector"] = (
+                  <>
+                    <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name="Save Radio Specifications"
+                          onClick={handleSubmitForm2(handleSiteDetailsSubmit)}
+                        />
+                      )}
+                    </div>
+                    <CommonForm
+                      classes={"grid-cols-4 gap-1"}
+                      Form={radio.map((its, index) => {
+                        return {
+                          label: its.fieldName,
+                          value: "abc",
+                          name: its.fieldName,
+                          type: isViewOnly() || dtype[its.dataType],
+                          option: its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
                                 return {
                                   value: itm,
                                   label: itm,
                                 };
                               })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm2}
-                  register={registerForm2}
-                  setValue={setValueForm2}
-                  getValues={getValuesForm2}
-                />
-              </>
-            ),
-            "BBU/card Specifications": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Ran AT Checklist"
-                    onClick={handleSubmitForm3(handleRanCheckListSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["ranChecklist"]
-                        ? dataOfProject["ranChecklist"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: isViewOnly() || dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
+                            : [],
+                          required: its.required == "Yes" ? true : false,
+                          props: {
+                            maxSelectableDate: today,
+                            ...(index === 0 && {
+                              onChange: (e) => {
+                                
+                                dispatch(
+                                  AdminActions.updateFields(
+                                    +e.target.value,
+                                    "radio"
+                                  )
+                                );
+                              },
+                            }),
+                          },
+                        };
+                      })}
+                      // Form={filesUploadForm}
+                      errors={errorsForm2}
+                      register={registerForm2}
+                      setValue={setValueForm2}
+                      getValues={getValuesForm2}
+                    />
+                  </>
+                );
+              }
+
+              if ("BBU/card Specifications" === itm) {
+                fields["BBU/card Specifications"] = (
+                  <>
+                    <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name="Save BBU/card"
+                          onClick={handleSubmitForm3(handleRanCheckListSubmit)}
+                        />
+                      )}
+                    </div>
+                    <CommonForm
+                      classes={"grid-cols-4 gap-1"}
+                      Form={bbuCard.map((its, index) => {
+                        return {
+                          label: its.fieldName,
+                          value: "abc",
+                          name: its.fieldName,
+                          type: isViewOnly() || dtype[its.dataType],
+                          option: its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
                                 return {
                                   value: itm,
                                   label: itm,
                                 };
                               })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm3}
-                  register={registerForm3}
-                  setValue={setValueForm3}
-                  getValues={getValuesForm3}
-                />
-              </>
-            ),
+                            : [],
+                          required: its.required == "Yes" ? true : false,
+                          props: {
+                            maxSelectableDate: today,
+                            ...(index === 0 && {
+                              onChange: (e) => {
+                               
+                                dispatch(
+                                  AdminActions.updateFields(
+                                    +e.target.value,
+                                    "bbuCard"
+                                  )
+                                );
+                              },
+                            }),
+                          },
+                        };
+                      })}
+                      // Form={filesUploadForm}
+                      errors={errorsForm3}
+                      register={registerForm3}
+                      setValue={setValueForm3}
+                      getValues={getValuesForm3}
+                    />
+                  </>
+                );
+              }
 
-            Snap: (
-              <ManageSnap
-                viewOnly={isViewOnly()}
-                L1Approver={L1Approver}
-                snapData={SnapData}
-                projectData={(() => {
-                  const final_data = {};
-                  final_data["siteuid"] = siteCompleteData["uniqueId"];
-                  final_data["milestoneuid"] = mileStone["uniqueId"];
-                  final_data["projectuniqueId"] = projectuniqueId;
-                  final_data["subprojectId"] = siteCompleteData["SubProjectId"];
-                  final_data["approverType"] = "L1Approver";
-                  final_data["L1UserId"] = L1Approver;
-                  final_data["userId"] = userId;
-                  final_data["milestoneName"] = mileStone["Name"];
-                  final_data["siteIdName"] = siteCompleteData["Site Id"];
-                  final_data["systemId"] = siteCompleteData["systemId"];
-                  final_data['currentStatus'] = "In Process"
-                  return final_data;
-                })()}
-              />
-            ),
-
-            "Misc Material Specifications": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Acceptance Log"
-                    onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
+              if ("Snap" === itm) {
+                fields["Snap"] = (
+                  <ManageSnap
+                    viewOnly={isViewOnly()}
+                    L1Approver={L1Approver}
+                    snapData={SnapData}
+                    projectData={(() => {
+                      const final_data = {};
+                      final_data["siteuid"] = siteCompleteData["uniqueId"];
+                      final_data["milestoneuid"] = mileStone["uniqueId"];
+                      final_data["projectuniqueId"] = projectuniqueId;
+                      final_data["subprojectId"] =
+                        siteCompleteData["SubProjectId"];
+                      final_data["approverType"] = "L1Approver";
+                      final_data["L1UserId"] = L1Approver;
+                      final_data["userId"] = userId;
+                      final_data["milestoneName"] = mileStone["Name"];
+                      final_data["siteIdName"] = siteCompleteData["Site Id"];
+                      final_data["systemId"] = siteCompleteData["systemId"];
+                      final_data["currentStatus"] = "In Process";
+                      return final_data;
+                    })()}
                   />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["acceptanceLog"]
-                        ? dataOfProject["acceptanceLog"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: isViewOnly() || dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
+                );
+              }
+
+              if ("Misc Material Specifications" === itm) {
+                fields["Misc Material Specifications"] = (
+                  <>
+                    <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name="Save Misc Material"
+                          onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
+                        />
+                      )}
+                    </div>
+                    <CommonForm
+                      classes={"grid-cols-4 gap-1"}
+                      Form={miscMaterial.map((its, index) => {
+                        return {
+                          label: its.fieldName,
+                          value: "abc",
+                          name: its.fieldName,
+                          type: isViewOnly() || dtype[its.dataType],
+                          option: its.dropdownValue
+                            ? its.dropdownValue.split(",").map((itm) => {
                                 return {
                                   value: itm,
                                   label: itm,
                                 };
                               })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm5}
-                  register={registerForm5}
-                  setValue={setValueForm5}
-                  getValues={getValuesForm5}
-                />
-              </>
-            ),
-          }}
+                            : [],
+                          required: its.required == "Yes" ? true : false,
+                          props: {
+                            maxSelectableDate: today,
+                            ...(index === 0 && {
+                              onChange: (e) => {
+                               
+                                dispatch(
+                                  AdminActions.updateFields(
+                                    +e.target.value,
+                                    "miscMaterial"
+                                  )
+                                );
+                              },
+                            }),
+                          },
+                        };
+                      })}
+                      // Form={filesUploadForm}
+                      errors={errorsForm5}
+                      register={registerForm5}
+                      setValue={setValueForm5}
+                      getValues={getValuesForm5}
+                    />
+                  </>
+                );
+              }
+            });
+
+            return fields;
+          })()}
         />
       </div>
     </>

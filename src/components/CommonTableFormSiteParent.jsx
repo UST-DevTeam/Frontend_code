@@ -13,22 +13,21 @@ const CommonTableFormSiteParent = ({
   setmodalFullOpen,
   funcaller,
   defaultValue,
-  setType = () => { }
+  setType = () => {},
 }) => {
-
   const [activeTab, setActiveTab] = useState(defaultValue);
 
   const [tabData, setTabData] = useState({});
 
   const handleTabClick = (index) => {
-    funcaller()
+    funcaller();
     setActiveTab(index);
   };
 
   const updateTabData = (tabName, newData) => {
-    setTabData(prevData => ({
+    setTabData((prevData) => ({
       ...prevData,
-      [tabName]: newData
+      [tabName]: newData,
     }));
   };
 
@@ -40,46 +39,47 @@ const CommonTableFormSiteParent = ({
     //   setType(false)
     //   console.log("component unmounted")
     // }
-  }, [])
+  }, []);
 
   return (
     <div className="max-w-full mx-auto">
-      <div className="flex border-b-[1.5px] border-gray-400 p-1">
-        {
-          Object.keys(tabslist).map((itm) => {
-            return <CustomizedButton
-              onClick={() => handleTabClick(itm)}
-              classes={`${activeTab === itm ? 'mb-1 border-b-[3px] border-pcol text-[#f4d3a8] bg-primaryLine text-center' : 'bg-purple-200 hover:bg-rose-400 hover:text-white text-black '} mx-1 w-auto`}
-              name={itm}
-            >
-            </CustomizedButton>
-          })
-        }
+      {tabslist && (
+        <>
+          <div className="flex border-b-[1.5px] border-gray-400 p-1">
+            {Object.keys(tabslist).map((itm) => {
+              return (
+                <CustomizedButton
+                  onClick={() => handleTabClick(itm)}
+                  classes={`${
+                    activeTab === itm
+                      ? "mb-1 border-b-[3px] border-pcol text-[#f4d3a8] bg-primaryLine text-center"
+                      : "bg-purple-200 hover:bg-rose-400 hover:text-white text-black "
+                  } mx-1 w-auto`}
+                  name={itm}
+                ></CustomizedButton>
+              );
+            })}
+          </div>
 
-      </div>
-
-      <div className="p-1">
-        {
-          Object.keys(tabslist).map((itm) => {
-            return activeTab === itm && (
-              <div>
-                {tabslist[itm]}
-              </div>
-            )
-          })
-        }
-
-      </div>
+          <div className="p-1">
+            {Object.keys(tabslist).map((itm) => {
+              return activeTab === itm && <div>{tabslist[itm]}</div>;
+            })}
+          </div>
+        </>
+      )}
 
       <div className="flex">
-        {setmodalFullOpen && activeTab !== "Financials" &&
-          <Button name={"Submit"} classes="w-auto" onClick={() => {
-            setmodalFullOpen(prev => !prev)
-          }} />
-
-        }
+        {setmodalFullOpen && activeTab !== "Financials" && (
+          <Button
+            name={"Submit"}
+            classes="w-auto"
+            onClick={() => {
+              setmodalFullOpen((prev) => !prev);
+            }}
+          />
+        )}
       </div>
-
     </div>
   );
 };
