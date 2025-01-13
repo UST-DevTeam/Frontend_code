@@ -207,7 +207,7 @@ const ComplianceL1ApproverTable = () => {
         ),
         currentStatus:(
           <p
-            className={`px-3.5 font-extrabold rounded-xl text-center ${itm["currentStatus"] === "Reject" ? "text-rose-400 " : "text-[#13b497]" }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
+            className={`px-3.5 font-extrabold rounded-xl text-center ${itm["currentStatus"] === "Reject" ? "bg-red-600 " : itm["currentStatus"] === "Closed"? "bg-green-600":"bg-yellow-600" }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
           >
             {itm["currentStatus"]}
           </p>
@@ -338,7 +338,7 @@ const ComplianceL1ApproverTable = () => {
       },
       {
         name: "Project Group",
-        value: "customerName",
+        value: "projectGroupName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
