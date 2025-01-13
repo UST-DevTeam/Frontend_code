@@ -36,6 +36,8 @@ const ManageComplianceTemplateForm = ({
   } = useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
     {};
 
+
+
   const today = moment().format("YYYY-MM-DD");
   let user = JSON.parse(localStorage.getItem("user"));
   let userId = user?.uniqueId;
@@ -424,6 +426,283 @@ const ManageComplianceTemplateForm = ({
       : "sdisabled";
   }
 
+
+  const tabslist = {};
+
+  if (dataOfProject?.Template) {
+    tabslist["Template"] = (
+      <>
+        <div className="flex justify-end">
+          {!isViewOnly() && (
+            <Button
+              classes="w-30"
+              name="Save Template"
+              onClick={handleSubmitForm0(handleTemplateSubmit)}
+            />
+          )}
+        </div>
+        <CommonForm
+          classes={"grid-cols-4 gap-1 mt-1"}
+          Form={
+            dataOfProject["Template"].map((its) => {
+              let type = isViewOnly() || dtype[its.dataType];
+              let option = its.dropdownValue
+                ? its.dropdownValue.split(",").map((itm) => ({
+                    value: itm,
+                    label: itm,
+                  }))
+                : [];
+
+              return {
+                label: its.fieldName,
+                value: "",
+                required: its.required === "Yes",
+                option: option,
+                name: its.fieldName,
+                type: type,
+                props: {
+                  maxSelectableDate: today,
+                },
+              };
+            }) || []
+          }
+          errors={errorsForm0}
+          register={registerForm0}
+          setValue={setValueForm0}
+          getValues={getValuesForm0}
+        />
+      </>
+    );
+  }
+
+  if (dataOfProject?.planDetails) {
+    tabslist["Planning Details"] = (
+      <>
+        <div className="flex justify-end">
+          {!isViewOnly() && (
+            <Button
+              classes="w-30"
+              name="Save Plan Details"
+              onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
+            />
+          )}
+        </div>
+        <CommonForm
+          classes={"grid-cols-4 gap-1 mt-1"}
+          Form={
+            dataOfProject["planDetails"].map((its) => {
+              let type = isViewOnly() || dtype[its.dataType];
+              let option = its.dropdownValue
+                ? its.dropdownValue.split(",").map((itm) => ({
+                    value: itm,
+                    label: itm,
+                  }))
+                : [];
+
+              return {
+                label: its.fieldName,
+                value: "",
+                required: its.required === "Yes",
+                option: option,
+                name: its.fieldName,
+                type: type,
+                props: {
+                  maxSelectableDate: today,
+                },
+              };
+            }) || []
+          }
+          errors={errorsForm1}
+          register={registerForm1}
+          setValue={setValueForm1}
+          getValues={getValuesForm1}
+        />
+      </>
+    );
+  }
+
+  if (dataOfProject?.siteDetails) {
+    tabslist["Site Details"] = (
+      <>
+        <div className="flex justify-end">
+        {!isViewOnly() && (
+          <Button
+            classes="w-30"
+            name="Save Site Details"
+            onClick={handleSubmitForm2(handleSiteDetailsSubmit)}
+          />
+        )}
+        </div>
+        <CommonForm
+          classes={"grid-cols-4 gap-1"}
+          Form={
+            dataOfProject
+              ? dataOfProject["siteDetails"]
+                ? dataOfProject["siteDetails"].map((its) => {
+                  return {
+                    label: its.fieldName,
+                    value: "abc",
+                    name: its.fieldName,
+                    type: isViewOnly() || dtype[its.dataType],
+                    option: its.dropdownValue
+                      ? its.dropdownValue.split(",").map((itm) => {
+                        return {
+                          value: itm,
+                          label: itm,
+                        };
+                      })
+                      : [],
+                    required: its.required == "Yes" ? true : false,
+                    props: {
+                      maxSelectableDate: today,
+                    },
+                  };
+                })
+                : []
+              : []
+          }
+          errors={errorsForm2}
+          register={registerForm2}
+          setValue={setValueForm2}
+          getValues={getValuesForm2}
+        />
+      </>
+    )
+  }
+
+  if (dataOfProject?.ranChecklist) {
+    tabslist["Checklist"] = (
+      <>
+        <div className="flex justify-end">
+        {!isViewOnly() && (
+          <Button
+            classes="w-30"
+            name="Save Ran AT Checklist"
+            onClick={handleSubmitForm3(handleRanCheckListSubmit)}
+          />
+        )}
+        </div>
+        <CommonForm
+          classes={"grid-cols-4 gap-1"}
+          Form={
+            dataOfProject
+              ? dataOfProject["ranChecklist"]
+                ? dataOfProject["ranChecklist"].map((its) => {
+                  return {
+                    label: its.fieldName,
+                    value: "abc",
+                    name: its.fieldName,
+                    type: isViewOnly() || dtype[its.dataType],
+                    option: its.dropdownValue
+                      ? its.dropdownValue.split(",").map((itm) => {
+                        return {
+                          value: itm,
+                          label: itm,
+                        };
+                      })
+                      : [],
+                    required: its.required == "Yes" ? true : false,
+                    props: {
+                      maxSelectableDate: today,
+                    },
+                  };
+                })
+                : []
+              : []
+          }
+          errors={errorsForm3}
+          register={registerForm3}
+          setValue={setValueForm3}
+          getValues={getValuesForm3}
+        />
+      </>
+    )
+  }
+
+  if (dataOfProject?.snap) {
+    tabslist["Snap"] = (
+      <ManageSnap
+        viewOnly={isViewOnly()}
+        L1Approver={L1Approver}
+        snapData={SnapData}
+        projectData={{
+          siteuid: siteCompleteData["uniqueId"],
+          milestoneuid: mileStone["uniqueId"],
+          projectuniqueId: projectuniqueId,
+          subprojectId: siteCompleteData["SubProjectId"],
+          approverType: "L1Approver",
+          L1UserId: L1Approver,
+          userId: userId,
+          milestoneName: mileStone["Name"],
+          siteIdName: siteCompleteData["Site Id"],
+          systemId: siteCompleteData["systemId"],
+          currentStatus: "In Process",
+        }}
+      />
+    )
+  }
+
+  if (dataOfProject?.acceptanceLog) {
+    tabslist["Acceptance Log"] = (
+      <>
+        <div className="flex justify-end">
+        {!isViewOnly() && (
+          <Button
+            classes="w-30"
+            name="Save Acceptance Log"
+            onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
+          />
+        )}
+        </div>
+        <CommonForm
+          classes={"grid-cols-4 gap-1"}
+          Form={
+            dataOfProject
+              ? dataOfProject["acceptanceLog"]
+                ? dataOfProject["acceptanceLog"].map((its) => {
+                  return {
+                    label: its.fieldName,
+                    value: "abc",
+                    name: its.fieldName,
+                    type: isViewOnly() || dtype[its.dataType],
+                    option: its.dropdownValue
+                      ? its.dropdownValue.split(",").map((itm) => {
+                        return {
+                          value: itm,
+                          label: itm,
+                        };
+                      })
+                      : [],
+                    required: its.required == "Yes" ? true : false,
+                    props: {
+                      maxSelectableDate: today,
+                    },
+                  };
+                })
+                : []
+              : []
+          }
+          errors={errorsForm5}
+          register={registerForm5}
+          setValue={setValueForm5}
+          getValues={getValuesForm5}
+        />
+      </>
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+  
+
   return (
     <>
       <Modal
@@ -461,7 +740,7 @@ const ManageComplianceTemplateForm = ({
         </div>
        
         <CommonForm
-          classes={"flex mx-auto w-1/4 mb-[-10px]"}
+          classes={"flex mx-auto w-1/4"}
           Form={[
             {
               label: "Select Your L1 Approver",
@@ -485,274 +764,7 @@ const ManageComplianceTemplateForm = ({
         <CommonTableFormSiteParent
           funcaller={funcaller}
           defaultValue={"Template"}
-          tabslist={{
-            Template: (
-              <>
-                <div className="flex justify-end">
-                  {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Template"
-                    onClick={handleSubmitForm0(handleTemplateSubmit)}
-                  />
-                  )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1 mt-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["Template"]
-                        ? dataOfProject["Template"].map((its) => {
-                          let type = isViewOnly() || dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
-                              return {
-                                value: itm,
-                                label: itm,
-                              };
-                            })
-                            : [];
-
-                          return {
-                            label: its.fieldName,
-                            value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  errors={errorsForm0}
-                  register={registerForm0}
-                  setValue={setValueForm0}
-                  getValues={getValuesForm0}
-                />
-              </>
-            ),
-          }}
-        />
-        <CommonTableFormSiteParent
-          funcaller={funcaller}
-          defaultValue={"Planning Details"}
-          tabslist={{
-            "Planning Details": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Plan Details"
-                    onClick={handleSubmitForm1(handlePlanDetailsSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1 mt-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["planDetails"]
-                        ? dataOfProject["planDetails"].map((its) => {
-                          let type = isViewOnly() || dtype[its.dataType];
-                          let option = its.dropdownValue
-                            ? its.dropdownValue.split(",").map((itm) => {
-                              return {
-                                value: itm,
-                                label: itm,
-                              };
-                            })
-                            : [];
-
-                          return {
-                            label: its.fieldName,
-                            value: "",
-                            required: its.required == "Yes" ? true : false,
-                            option: option,
-                            name: its.fieldName,
-                            type: type,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  errors={errorsForm1}
-                  register={registerForm1}
-                  setValue={setValueForm1}
-                  getValues={getValuesForm1}
-                />
-              </>
-            ),
-            "Site Details": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Site Details"
-                    onClick={handleSubmitForm2(handleSiteDetailsSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["siteDetails"]
-                        ? dataOfProject["siteDetails"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: isViewOnly() || dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  errors={errorsForm2}
-                  register={registerForm2}
-                  setValue={setValueForm2}
-                  getValues={getValuesForm2}
-                />
-              </>
-            ),
-            "RAN AT Checklist": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Ran AT Checklist"
-                    onClick={handleSubmitForm3(handleRanCheckListSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["ranChecklist"]
-                        ? dataOfProject["ranChecklist"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: isViewOnly() || dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  errors={errorsForm3}
-                  register={registerForm3}
-                  setValue={setValueForm3}
-                  getValues={getValuesForm3}
-                />
-              </>
-            ),
-
-            Snap: (
-              <ManageSnap
-                viewOnly={isViewOnly()}
-                L1Approver={L1Approver}
-                snapData={SnapData}
-                projectData={(() => {
-                  const final_data = {};
-                  final_data["siteuid"] = siteCompleteData["uniqueId"];
-                  final_data["milestoneuid"] = mileStone["uniqueId"];
-                  final_data["projectuniqueId"] = projectuniqueId;
-                  final_data["subprojectId"] = siteCompleteData["SubProjectId"];
-                  final_data["approverType"] = "L1Approver";
-                  final_data["L1UserId"] = L1Approver;
-                  final_data["userId"] = userId;
-                  final_data["milestoneName"] = mileStone["Name"];
-                  final_data["siteIdName"] = siteCompleteData["Site Id"];
-                  final_data["systemId"] = siteCompleteData["systemId"];
-                  final_data['currentStatus'] = "In Process"
-                  return final_data;
-                })()}
-              />
-            ),
-
-            "Acceptance Log": (
-              <>
-                <div className="flex justify-end">
-                {!isViewOnly() && (
-                  <Button
-                    classes="w-30"
-                    name="Save Acceptance Log"
-                    onClick={handleSubmitForm5(handleAcceptanceLogSubmit)}
-                  />
-                )}
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["acceptanceLog"]
-                        ? dataOfProject["acceptanceLog"].map((its) => {
-                          return {
-                            label: its.fieldName,
-                            value: "abc",
-                            name: its.fieldName,
-                            type: isViewOnly() || dtype[its.dataType],
-                            option: its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
-                              : [],
-                            required: its.required == "Yes" ? true : false,
-                            props: {
-                              maxSelectableDate: today,
-                            },
-                          };
-                        })
-                        : []
-                      : []
-                  }
-                  errors={errorsForm5}
-                  register={registerForm5}
-                  setValue={setValueForm5}
-                  getValues={getValuesForm5}
-                />
-              </>
-            ),
-          }}
+          tabslist={tabslist}
         />
       </div>
     </>
