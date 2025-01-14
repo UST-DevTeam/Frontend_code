@@ -657,6 +657,9 @@ const adminData = createSlice({
         };
       }
     },
+    GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS: (state, { payload }) => {
+      state.getComplianceDegrowTemplateData.usedfields[0][payload.tabName] = payload.dataAll
+    },
   },
 });
 
@@ -721,6 +724,7 @@ export const {
   GET_ONE_COMPLIANCE_L1_LIST,
   GET_ONE_COMPLIANCE_L2_LIST,
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA,
+  GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS
 } = adminData.actions;
 
 export default adminData.reducer;
