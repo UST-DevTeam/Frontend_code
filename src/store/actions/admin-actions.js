@@ -1660,10 +1660,17 @@ const AdminActions = {
 
   updateFields: (value, tabName) => (dispatch, getStore) => {
     value = Math.abs(value);
-    if (value < 1) return;
-    if(value > 5) {
-        alert("b**k chutita hai kya")
-        return
+    if (value < 0) return;
+    if (value > 5) {
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please put the Value",
+      };
+      dispatch(ALERTS(msgdata));
+      return;
     }
     console.log("value_", value);
     const degrowFields = JSON.parse(
@@ -1673,18 +1680,18 @@ const AdminActions = {
       )
     );
     const fromFields = degrowFields[tabName];
-    const actualFields = fromFields.slice(1);   
+    const actualFields = fromFields.slice(1);
     const extraFields = [];
     for (let i = 1; i <= value; i++) {
       extraFields.push(
         ...actualFields.map((itm) => ({
           ...itm,
-          fieldName: itm.fieldName + (i || " " + i),
+          fieldName: itm.fieldName + " " + i,
         }))
       );
     }
 
-    degrowFields[tabName] = [actualFields[0], ...extraFields];
+    degrowFields[tabName] = [actualFields[0], ...actualFields, ...extraFields];
     dispatch(
       GET_COMPLIANCE_DEGROW_TEMPLATE_DATA({
         dataAll: [degrowFields],
