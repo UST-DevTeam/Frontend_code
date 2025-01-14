@@ -189,7 +189,7 @@ const   ManageCompliance = () => {
                   );
                   dispatch(
                     SET_DYNAMIC_FORM({
-                      label: "RAN AT Checklist",
+                      label: "Checklist",
                       value: itm["ranChecklist"] ? itm["ranChecklist"] : [],
                       reseter: true,
                     })
@@ -301,10 +301,10 @@ const   ManageCompliance = () => {
                               page={"Compliance"}
                             />
                           ),
-                          "RAN AT Checklist": (
+                          "Checklist": (
                             <CommonTableForm
                               setmodalOpen={setmodalOpen}
-                              tabHead={"RAN AT Checklist"}
+                              tabHead={"Checklist"}
                               customeruniqueId={customeruniqueId}
                               classes={"grid-cols-2 gap-1"}
                               Form={conditionmultiForm}

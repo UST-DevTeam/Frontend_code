@@ -428,8 +428,10 @@ const ManageComplianceTemplateForm = ({
 
 
   const tabslist = {};
+  const activeTab = []
 
   if (dataOfProject?.Template) {
+    activeTab.push("Template")
     tabslist["Template"] = (
       <>
         <div className="flex justify-end">
@@ -476,6 +478,7 @@ const ManageComplianceTemplateForm = ({
   }
 
   if (dataOfProject?.planDetails) {
+    activeTab.push("Planning Details")
     tabslist["Planning Details"] = (
       <>
         <div className="flex justify-end">
@@ -522,6 +525,7 @@ const ManageComplianceTemplateForm = ({
   }
 
   if (dataOfProject?.siteDetails) {
+    activeTab.push("Site Details")
     tabslist["Site Details"] = (
       <>
         <div className="flex justify-end">
@@ -571,6 +575,7 @@ const ManageComplianceTemplateForm = ({
   }
 
   if (dataOfProject?.ranChecklist) {
+    activeTab.push("Checklist")
     tabslist["Checklist"] = (
       <>
         <div className="flex justify-end">
@@ -620,6 +625,7 @@ const ManageComplianceTemplateForm = ({
   }
 
   if (dataOfProject?.snap) {
+    activeTab.push("Snap")
     tabslist["Snap"] = (
       <ManageSnap
         viewOnly={isViewOnly()}
@@ -643,6 +649,7 @@ const ManageComplianceTemplateForm = ({
   }
 
   if (dataOfProject?.acceptanceLog) {
+    activeTab.push("Acceptance Log")
     tabslist["Acceptance Log"] = (
       <>
         <div className="flex justify-end">
@@ -690,6 +697,9 @@ const ManageComplianceTemplateForm = ({
       </>
     )
   }
+
+
+  console.log(tabslist,activeTab[1],"____________tabslist____________")
 
 
 
@@ -763,7 +773,7 @@ const ManageComplianceTemplateForm = ({
 
         <CommonTableFormSiteParent
           funcaller={funcaller}
-          defaultValue={"Template"}
+          defaultValue={activeTab[0]}
           tabslist={tabslist}
         />
       </div>

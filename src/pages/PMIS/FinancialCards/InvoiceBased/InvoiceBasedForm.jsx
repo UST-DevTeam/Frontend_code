@@ -211,7 +211,6 @@ const InvoiceBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     dispatch(GET_CURRENT_USER_PG({ dataAll: [], reset: true }))
     dispatch(GET_CURRENT_USER_PID({ dataAll: [], reset: true }))
     dispatch(AdminActions.getManageCustomer());
-
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

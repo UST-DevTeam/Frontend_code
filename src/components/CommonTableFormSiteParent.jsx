@@ -17,6 +17,10 @@ const CommonTableFormSiteParent = ({
 }) => {
   const [activeTab, setActiveTab] = useState(defaultValue);
 
+  useEffect(() => {
+    setActiveTab(defaultValue)
+  }, [defaultValue])
+
   const [tabData, setTabData] = useState({});
 
   const handleTabClick = (index) => {
