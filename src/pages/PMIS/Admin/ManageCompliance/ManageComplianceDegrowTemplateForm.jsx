@@ -265,8 +265,6 @@ const ManageComplianceDegrowTemplateForm = ({
     return dataOlder;
   });
 
-  console.log(dataOfProject, "____dataOfProject____")
-
   let final_data = {};
 
   final_data["siteuid"] = siteCompleteData["uniqueId"];
@@ -281,7 +279,6 @@ const ManageComplianceDegrowTemplateForm = ({
   final_data["formType"] = "Static";
 
   const handleSubProjectSubmit = (data) => {
-
 
     final_data["subProjectName"] = data;
 
