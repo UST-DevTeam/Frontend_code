@@ -5,8 +5,8 @@
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-export const baseUrl = "http://192.168.1.26:7980";
-export const backendassetUrl = "http://192.168.1.26:7980/";
+export const baseUrl = "http://192.168.1.15:7980";
+export const backendassetUrl = "http://192.168.1.15:7980/";
 
 // export const baseUrl = "http://192.168.1.24:7980";
 // export const backendassetUrl = "http://192.168.1.24:7980/";
@@ -237,15 +237,15 @@ export const Urls = {
   compliance_globalSaver_Approver: '/compliance/globalSaver/Approved',
   complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",
   complianceMilestoneL2Approver: "/admin/complianceMilestoneL2Approver",
-  approverAction:"/admin/approverAction",
-  complianceLog:"/complianceLog",
-  complianceDegrowTemplateData:"/admin/complianceDegrowTemplateData",
+  approverAction: "/admin/approverAction",
+  complianceLog: "/complianceLog",
+  complianceDegrowTemplateData: "/admin/complianceDegrowTemplateData",
 
   // super admin compiliance  ends -----
 
   // Repository starts  -----
 
-  admin_repositorySiteId:"/admin/repositorySiteId"
+  admin_repositorySiteId: "/admin/repositorySiteId"
 
 
   // Repository ends   ---------

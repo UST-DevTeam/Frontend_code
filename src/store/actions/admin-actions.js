@@ -327,11 +327,11 @@ const AdminActions = {
       }
     },
 
-  patchComplinaceSnapImageSubmition: (data, cb) => async (dispatch, _) => {
+  patchComplinaceSnapImageSubmition: (data, cb, siteId = "", milestoneId = "") => async (dispatch, _) => {
     try {
       const res = await Api.patch({
         data: data,
-        url: Urls.compliance_globalSaver + "?forFile=true",
+        url: Urls.compliance_globalSaver + (siteId && milestoneId ? `/${siteId}/${milestoneId}` : "") + "?forFile=true",
         contentType: "multipart/form-data",
       });
       if (res?.status !== 201 && res?.status !== 200) {
@@ -1633,6 +1633,9 @@ const AdminActions = {
   updateFields: (value, tabName) => (dispatch, getStore) => {
     value = Math.abs(value);
 
+
+    console.log("tabName_value", value, tabName)
+
     if (value > 5) {
       let msgdata = {
         show: true,
@@ -1653,6 +1656,14 @@ const AdminActions = {
           ?.originalFields?.[0]
       )
     );
+    
+    const usedFields = JSON.parse(
+      JSON.stringify(
+        getStore().adminData.getComplianceDegrowTemplateData
+          ?.usedfields?.[0]
+      )
+    );
+
     const formFields = degrowFields[tabName];
     const actualFields = formFields.slice(1);
 
@@ -1674,10 +1685,11 @@ const AdminActions = {
       );
     }
 
-    degrowFields[tabName] = [formFields[0], ...actualFields, ...extraFields];
+    usedFields[tabName] = [formFields[0], ...actualFields, ...extraFields];
+
     dispatch(
       GET_COMPLIANCE_DEGROW_TEMPLATE_DATA({
-        dataAll: [degrowFields],
+        dataAll: [usedFields],
         reset: true,
         updateOriginal: false,
       })
