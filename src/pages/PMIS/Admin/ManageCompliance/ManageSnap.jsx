@@ -431,6 +431,8 @@ const ManageSnap = ({
   snapData,
   l1ApproverForm = false,
 }) => {
+
+  console.log("snapFieldssnapFields", externalData)
   const snaps = useSelector((state) => {
     const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap;
     if (Array.isArray(data)) return data;

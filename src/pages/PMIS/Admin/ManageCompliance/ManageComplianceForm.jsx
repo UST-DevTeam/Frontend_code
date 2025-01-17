@@ -16,7 +16,7 @@ const ManageComplianceForm = ({
   formValue = {},
 }) => {
 
-    
+
   const complainceRef = useRef({
     cid: "",
     projectType: "",
@@ -50,7 +50,7 @@ const ManageComplianceForm = ({
           };
         }
       );
-      const activity= state?.adminData?.getActivityAndOemCompliance.find(itm => itm.fieldName === "ACTIVITY")?.dropdownValue.split(",").map(
+      const activity = state?.adminData?.getActivityAndOemCompliance.find(itm => itm.fieldName === "ACTIVITY")?.dropdownValue.split(",").map(
         (itm) => {
           return {
             label: itm,
@@ -59,7 +59,7 @@ const ManageComplianceForm = ({
         }
       ) || []
 
-      const OEM= state?.adminData?.getActivityAndOemCompliance.find(itm => itm.fieldName === "OEM NAME")?.dropdownValue.split(",").map(
+      const OEM = state?.adminData?.getActivityAndOemCompliance.find(itm => itm.fieldName === "OEM NAME")?.dropdownValue.split(",").map(
         (itm) => {
           return {
             label: itm,
@@ -68,7 +68,7 @@ const ManageComplianceForm = ({
         }
       ) || []
 
-      const milestone= state?.adminData?.getActivityAndOemCompliance[0]?.MileStone?.map(
+      const milestone = state?.adminData?.getActivityAndOemCompliance[0]?.MileStone?.map(
         (itm) => {
           return {
             label: itm.fieldName,
@@ -77,7 +77,7 @@ const ManageComplianceForm = ({
         }
       ) || []
 
-      return { customerList, projectTypes, subProjectTypes, activity, OEM, milestone};
+      return { customerList, projectTypes, subProjectTypes, activity, OEM, milestone };
     });
 
 
@@ -93,7 +93,7 @@ const ManageComplianceForm = ({
         onChange: (e) => {
           const cid = e.target.value;
           complainceRef.current.cid = cid;
-          dispatch(AdminActions.getProjectTypeCompiliance(true,`customerId=${cid}`));
+          dispatch(AdminActions.getProjectTypeCompiliance(true, `customerId=${cid}`));
         },
       },
       classes: "col-span-1",
@@ -108,7 +108,7 @@ const ManageComplianceForm = ({
           const projectType = e.target.value;
           complainceRef.current.projectType = projectType;
           dispatch(
-            AdminActions.getSubProjectTypeCompiliance(true,"",complainceRef.current.cid,projectType)
+            AdminActions.getSubProjectTypeCompiliance(true, "", complainceRef.current.cid, projectType)
           );
         },
       },
@@ -126,7 +126,7 @@ const ManageComplianceForm = ({
         onChange: (e) => {
           const subProjectType = e.target.value;
           dispatch(
-            AdminActions.getActivityAndOemCompiliance(true,`subProjectType=${subProjectType}&milestoneArgs=${"YES"}`)
+            AdminActions.getActivityAndOemCompiliance(true, `subProjectType=${subProjectType}&milestoneArgs=${"YES"}`)
           );
         },
       },
@@ -140,7 +140,7 @@ const ManageComplianceForm = ({
       type: "select",
       value: "",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       option: activity,
       required: true,
@@ -152,7 +152,7 @@ const ManageComplianceForm = ({
       type: "select",
       value: "",
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       option: OEM,
       required: true,
@@ -165,7 +165,7 @@ const ManageComplianceForm = ({
       value: "",
       option: milestone,
       props: {
-        onChange: (e) => {},
+        onChange: (e) => { },
       },
       required: true,
       classes: "col-span-1",
@@ -211,9 +211,9 @@ const ManageComplianceForm = ({
   };
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
-    dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
-    dispatch(GET_SUB_PROJECT_TYPE_COMPLIANCE({ dataAll:[], reset:true }))
-    dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll:[], reset:true }))
+    dispatch(GET_PROJECT_TYPE_COMPLIANCE({ dataAll: [], reset: true }))
+    dispatch(GET_SUB_PROJECT_TYPE_COMPLIANCE({ dataAll: [], reset: true }))
+    dispatch(GET_ACTIVITY_AND_OEM_COMPLIANCE({ dataAll: [], reset: true }))
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -254,7 +254,7 @@ const ManageComplianceForm = ({
         setIsOpen={setmodalOpen}
       />
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4 pb-5">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-5">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
           Form={Form}
