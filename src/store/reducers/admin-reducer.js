@@ -640,6 +640,7 @@ const adminData = createSlice({
     },
 
     GET_COMPLIANCE_DEGROW_TEMPLATE_DATA: (state, { payload }) => {
+      console.log("payload", payload)
       if (payload.reset) {
         state.getComplianceDegrowTemplateData = {
           originalFields: payload?.updateOriginal

@@ -88,17 +88,18 @@ const CompletitonCreiteriaForm = ({
           component:
             <p className="cursor-pointer"
               onClick={() => {
-                dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll: [], reset: true }))
-                dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
-                dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll:[], reset:true }))
-                dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId, mileStone.Name, true, ""));
-                dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId, mileStone.Name, true, ""));
+                if (projectTypeName !== "DEGROW") {
+                  dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll: [], reset: true }))
+                  dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
+                  dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll: [], reset: true }))
+                  dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId, mileStone.Name, true, ""));
+                  dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId, mileStone.Name, true, ""));
+                }
                 dispatch(projectListActions.globalComplianceTypeDataGet(siteCompleteData.uniqueId, mileStone.uniqueId, "", true));
                 setmodalFullOpen1(true)
                 setmodalFullBody(
-
                   projectTypeName === "DEGROW" ?
-                      <ManageComplianceDegrowTemplateForm
+                    <ManageComplianceDegrowTemplateForm
                       siteCompleteData={siteCompleteData}
                       customeruniqueId={customeruniqueId}
                       projectuniqueId={projectuniqueId}
@@ -108,17 +109,17 @@ const CompletitonCreiteriaForm = ({
                       myTaskPage={myTaskPage}
                       filterView={filterView}
                     />
-                  :
-                  <ManageComplianceTemplateForm
-                    siteCompleteData={siteCompleteData}
-                    customeruniqueId={customeruniqueId}
-                    projectuniqueId={projectuniqueId}
-                    setmodalFullOpen={setmodalFullOpen}
-                    setmodalOpen={setmodalOpen}
-                    mileStone={mileStone}
-                    myTaskPage={myTaskPage}
-                    filterView={filterView}
-                  />
+                    :
+                    <ManageComplianceTemplateForm
+                      siteCompleteData={siteCompleteData}
+                      customeruniqueId={customeruniqueId}
+                      projectuniqueId={projectuniqueId}
+                      setmodalFullOpen={setmodalFullOpen}
+                      setmodalOpen={setmodalOpen}
+                      mileStone={mileStone}
+                      myTaskPage={myTaskPage}
+                      filterView={filterView}
+                    />
                 )
               }}>
               <NewLookBadge text={"Form"} notifyType={"info"} />
@@ -157,7 +158,7 @@ const CompletitonCreiteriaForm = ({
 
 
   const onsubmiting = (data) => {
-    if(checkmilestone.includes("Forms & Checklist")){
+    if (checkmilestone.includes("Forms & Checklist")) {
       data['Checklist'] = "Yes"
       data['siteuid'] = siteCompleteData.uniqueId
       data['mName'] = mileStone['Name']
@@ -195,20 +196,20 @@ const CompletitonCreiteriaForm = ({
       />
 
       <div className="flex justify-center">
-      {!checkmilestone.includes("Forms & Checklist") && (
-        <Button
-          onClick={handleSubmit(onsubmiting)}
-          name={"Submit"}
-          classes="w-auto"
-        />
-      )}
-      {checkmilestone.includes("Forms & Checklist") && ['Open','In Process'].includes(checkmilestoneStatus) && (
-        <Button
-          onClick={handleSubmit(onsubmiting)}
-          name={"Submit"}
-          classes="w-auto"
-        />
-      )}
+        {!checkmilestone.includes("Forms & Checklist") && (
+          <Button
+            onClick={handleSubmit(onsubmiting)}
+            name={"Submit"}
+            classes="w-auto"
+          />
+        )}
+        {checkmilestone.includes("Forms & Checklist") && ['Open', 'In Process'].includes(checkmilestoneStatus) && (
+          <Button
+            onClick={handleSubmit(onsubmiting)}
+            name={"Submit"}
+            classes="w-auto"
+          />
+        )}
       </div>
     </>
   );

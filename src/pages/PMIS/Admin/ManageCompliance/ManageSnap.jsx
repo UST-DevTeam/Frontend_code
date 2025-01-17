@@ -10,7 +10,7 @@ import Modal from "../../../../components/Modal";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import projectListActions from "../../../../store/actions/projectList-actions";
 
-const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
+const FormCard = ({ sIndex, checkL1 = true, indexes, projectData, L1Approver, l1ApproverForm }) => {
   const dispatch = useDispatch();
   const [formState, setFormState] = useState(false);
   const {
@@ -37,20 +37,24 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
     Object.keys(content).forEach((itm) => {
       formData.append(itm, content[itm]);
     });
+
     formData.delete("img");
 
     if (!l1ApproverForm) {
-      if (!content?.L1UserId && !L1Approver) {
-        let msgdata = {
-          show: true,
-          icon: "error",
-          buttons: [],
-          type: 1,
-          text: "Please Select Your L1 Approver",
-        };
-        dispatch(ALERTS(msgdata));
-        return;
+      if (checkL1) {
+        if (!content?.L1UserId && !L1Approver) {
+          let msgdata = {
+            show: true,
+            icon: "error",
+            buttons: [],
+            type: 1,
+            text: "Please Select Your L1 Approver",
+          };
+          dispatch(ALERTS(msgdata));
+          return;
+        }
       }
+
       dispatch(
         AdminActions.patchComplinaceSnapImageSubmition(formData, () => {
           handleFormState();
@@ -62,7 +66,7 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
               true
             )
           );
-        })
+        }, (checkL1 ? "" : projectData.siteuid), (checkL1 ? "" : projectData.milestoneuid))
       );
     } else {
       formData.delete("uniqueId");
@@ -94,7 +98,7 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
       name: "index",
       required: true,
       type: "select",
-      option: Array.from({ length: 10 }).map((_, index) => ({
+      option: Array.from({ length: indexes }).map((_, index) => ({
         label: index + 1,
         value: index + 1,
       })),
@@ -118,7 +122,7 @@ const FormCard = ({ sIndex, projectData, L1Approver, l1ApproverForm }) => {
         onClick={handleFormState}
         className="p-4 h-[160px] border-2 overflow-hidden relative rounded-md border-gray-500 group cursor-pointer grid place-items-center"
       >
-        <h2 className="text-2xl font-bold absolute top-4 left-4 text-gray-100">
+        <h2 className="text-sm font-bold absolute top-4 left-4 text-gray-100">
           {sIndex}
         </h2>
         <div className="w-12 h-12 absolute -top-4 -left-4 formCard-shadow" />
@@ -420,8 +424,9 @@ const ImageGrid = ({
 };
 
 const ManageSnap = ({
+  externalData = null,
   viewOnly = false,
-  projectData,
+  projectData = {},
   L1Approver,
   snapData,
   l1ApproverForm = false,
@@ -434,23 +439,14 @@ const ManageSnap = ({
 
   return (
     <div className="grid grid-cols-2 content-start md:grid-cols-4 gap-4 py-6 p-4 !overflow-y-scroll">
-      {snaps && snaps.length ? (
-        snaps.map((item) => {
-          const sIndex = item.fieldName;
-          const fieldData = snapData?.[sIndex]
-            ? { ...snapData[sIndex] }
-            : { images: [], approvedIndex: null };
 
-          const existingIndices = new Set(
-            fieldData.images.map((itm) => +itm.index)
-          );
-          const newImages = Array.from({ length: 10 }, (_, index) => index + 1)
-            .filter((idx) => !existingIndices.has(idx))
-            .map((idx) => ({ index: `${idx}`, image: "" }));
+      {
+        externalData && Object.keys(externalData).map(item => {
 
-          fieldData.images = [...fieldData.images, ...newImages].sort(
-            (a, b) => +a.index - +b.index
-          );
+          if (!externalData[item]) return <></>
+          const images = Array.from({ length: externalData[item] }).map((_, index) => ({
+            index: index + 1, image: snapData[item] ? snapData[item]?.images.find(item => item.index === `${index + 1}`)?.image : null
+          }))
 
           return (
             <>
@@ -458,25 +454,23 @@ const ManageSnap = ({
                 <></>
               ) : (
                 <FormCard
-                  key={sIndex}
-                  sIndex={sIndex}
+                  checkL1={false}
+                  indexes={externalData[item]}
+                  key={item}
+                  sIndex={item}
                   projectData={projectData}
-                  L1Approver={L1Approver}
-                  l1ApproverForm={l1ApproverForm}
+                  L1Approver={''}
+                  l1ApproverForm={false}
                 />
               )}
 
-              {fieldData?.images?.length ? (
+              {images ? (
                 <ImageGrid
-                  sIndex={sIndex}
-                  approvedIndex={
-                    Array.isArray(fieldData?.approvedIndex)
-                      ? fieldData?.approvedIndex?.map((itm) => +itm)
-                      : []
-                  }
-                  images={fieldData?.images}
+                  sIndex={item}
+                  approvedIndex={[]}
+                  images={images}
                   projectData={projectData}
-                  l1ApproverForm={l1ApproverForm}
+                  l1ApproverForm={false}
                   viewOnly={viewOnly}
                 />
               ) : (
@@ -485,10 +479,67 @@ const ManageSnap = ({
             </>
           );
         })
-      ) : (
-        <p className="text-gray-100">No data to display</p>
-      )}
-    </div>
+      }
+
+      {
+        !externalData && snaps && snaps.length ? (
+          snaps.map((item) => {
+            const sIndex = item.fieldName;
+            const fieldData = snapData?.[sIndex]
+              ? { ...snapData[sIndex] }
+              : { images: [], approvedIndex: null };
+
+            const existingIndices = new Set(
+              fieldData.images.map((itm) => +itm.index)
+            );
+            const newImages = Array.from({ length: 10 }, (_, index) => index + 1)
+              .filter((idx) => !existingIndices.has(idx))
+              .map((idx) => ({ index: `${idx}`, image: "" }));
+
+            fieldData.images = [...fieldData.images, ...newImages].sort(
+              (a, b) => +a.index - +b.index
+            );
+
+            return (
+              <>
+                {viewOnly ? (
+                  <></>
+                ) : (
+                  <FormCard
+                    indexes={10}
+                    key={sIndex}
+                    sIndex={sIndex}
+                    projectData={projectData}
+                    L1Approver={L1Approver}
+                    l1ApproverForm={l1ApproverForm}
+                  />
+                )}
+
+                {fieldData?.images?.length ? (
+                  <ImageGrid
+                    sIndex={sIndex}
+                    approvedIndex={
+                      Array.isArray(fieldData?.approvedIndex)
+                        ? fieldData?.approvedIndex?.map((itm) => +itm)
+                        : []
+                    }
+                    images={fieldData?.images}
+                    projectData={projectData}
+                    l1ApproverForm={l1ApproverForm}
+                    viewOnly={viewOnly}
+                  />
+                ) : (
+                  <></>
+                )}
+              </>
+            );
+          })
+        ) : (
+          // <p className="text-gray-100">No data to display</p>
+          <></>
+        )
+      }
+    </div >
   );
 };
 
