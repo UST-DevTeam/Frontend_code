@@ -10,9 +10,9 @@ import CommonActions from "./common-actions"
 
 const projectListActions = {
 
-    postSubmit: (url, data, cb) => async (dispatch, _) => {
+    postSubmit: (url, data, cb,reset) => async (dispatch, _) => {
         try {
-            const res = await Api.post({ url: url, data: data, contentType: "multipart/form-data" })
+            const res = await Api.post({ url: url, data: data, contentType: "multipart/form-data",reset })
             console.log(res, "res?.statusres?.status")
 
             const dtaa = res.data

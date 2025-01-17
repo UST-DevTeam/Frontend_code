@@ -9,7 +9,7 @@ import CstmButton from '../../../components/CstmButton';
 import DownloadButton from '../../../components/DownloadButton';
 import ActionButton from '../../../components/ActionButton';
 import RejectionButton from '../../../components/RejectionButton';
-import { UilExclamationTriangle}  from "@iconscout/react-unicons";
+import { UilExclamationTriangle,UilThumbsUp}  from "@iconscout/react-unicons";
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import CommonForm from '../../../components/CommonForm';
@@ -21,6 +21,8 @@ import ComplianceApprovalLog from '../../../components/ComplianceApprovalLogss';
 import { COMPLIANCELOGLIST } from '../../../store/reducers/eventlogs-reducer';
 import eventManagementActions from '../../../store/actions/eventLogs-actions';
 import CommonActions from '../../../store/actions/common-actions';
+import {UilCheckCircle,UilFolderCheck,UilCheckSquare} from "@iconscout/react-unicons";
+import { backendassetUrl, Urls } from '../../../utils/url';
 
 
 const ComplianceL2ApproverTable = () => {
@@ -47,12 +49,11 @@ const ComplianceL2ApproverTable = () => {
         year: 'numeric'
     }).replace(/\//g, '-')
 
-    function downloadAttachment(type, id) {
+    function downloadAttachment(type,id,siteName,milestoneName) {
         dispatch(
-            CommonActions.commondownload(`/compliance/export/${type}/${id}`,`site-report.${type === "Excel" ? "xlsx" : "pdf"}`
-          )
+            CommonActions.commondownload(`/compliance/export/${type}/${id}`,`${siteName}_${milestoneName}_(${dt})_report.${type === "Excel" ? "xlsx" : "pdf"}`)
         );
-      }
+    }
 
 
 
@@ -96,7 +97,7 @@ const ComplianceL2ApproverTable = () => {
                         <div className="flex space-x-2 items-center">
                           <Button
                             onClick={() => {
-                              downloadAttachment("Excel", itm?.uniqueId);
+                                downloadAttachment("Excel", itm?.uniqueId,itm?.siteIdName,itm?.milestoneName);
                             }}
                             classes="!py-[2px] bg-green-600"
                             title="Download Excel"
@@ -114,7 +115,7 @@ const ComplianceL2ApproverTable = () => {
                           </Button>
                           <Button
                             onClick={() => {
-                              downloadAttachment("Pdf", itm?.uniqueId);
+                                downloadAttachment("pdf", itm?.uniqueId,itm?.siteIdName,itm?.milestoneName);
                             }}
                             classes="!py-[2px] bg-red-600"
                             title="Download Pdf"
@@ -178,8 +179,7 @@ const ComplianceL2ApproverTable = () => {
                 ),
                 currentStatus:(
                     <p
-                    //   className={`px-3.5 font-extrabold rounded-xl text-center ${itm["currentStatus"] === "Reject" ? "text-rose-400 " : "text-[#13b497]" }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
-                      className={`px-3.5 font-extrabold rounded-xl text-center ${itm["currentStatus"] === "Reject" ? "bg-red-600 " : itm["currentStatus"] === "Closed"? "bg-green-600":"bg-yellow-600" }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
+                      className={`font-extrabold rounded-xl text-center text-sm ${itm["currentStatus"] === "Reject" ? "bg-red-600 " : itm["currentStatus"] === "Closed"? "bg-green-600":"bg-yellow-600" }   border-[0.5px] border-b-[2px] border-[#eed398] whitespace-nowrap `}
                     >
                       {itm["currentStatus"]}
                     </p>
@@ -193,10 +193,33 @@ const ComplianceL2ApproverTable = () => {
                                 <div className='flex space-x-2'>
                                 <ActionButton
                                 name={""}
+                                icon = {<img 
+                                    src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Bharti_Airtel_Logo.svg"
+                                    alt="Airtel Logo" 
+                                    style={{ width: "18px", height: "18px" }} 
+                                    className="hello" 
+                                  />}
                                 onClick={() => {
                                     setRowId(itm['uniqueId'])
                                     setMileId(itm['milestoneuid'])
                                     setActionType("Accept")
+                                    setShowActionModal(true)
+                                }}
+                                >
+                                </ActionButton>
+
+                                <ActionButton
+                                name={""}
+                                icon = {<img 
+                                    src="https://upload.wikimedia.org/wikipedia/commons/9/98/UST_%28company%29_Logo.svg"
+                                    alt="Airtel Logo" 
+                                    style={{ width: "18px", height: "18px" }} 
+                                    className="hello" 
+                                  />}
+                                onClick={() => {
+                                    setRowId(itm['uniqueId'])
+                                    setMileId(itm['milestoneuid'])
+                                    setActionType("Close")
                                     setShowActionModal(true)
                                 }}
                                 >
@@ -460,6 +483,23 @@ const ComplianceL2ApproverTable = () => {
             )
 
         }
+        else if (actionType === "Close"){
+            let allData = {
+                "formType":"Static"
+            }
+            dispatch(
+                projectListActions.postSubmit(Urls.projectList_closeMilestone + mileId, 
+                    allData, 
+                    () => {
+                        setShowActionModal(false);
+                        setRowId(null);
+                        setMileId(null);
+                        dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/")))
+                    },true
+                )
+            );
+
+        }
 
     };
 
@@ -504,25 +544,33 @@ const ComplianceL2ApproverTable = () => {
 
         {showActionModal && (
             <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
-            <div className="bg-white p-4 rounded-lg shadow-xl">
-                <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
-                {actionType === "Accept" && (
-                    <p className="mt-4">{`Are you sure you want to approve and submit this milestone to Airtel?`}</p>
-                )}
-                {actionType === "Reject" && (
-                    <p className="mt-4">{`Are you sure you want to Reject This Milestone?`}</p>
-                )}
-                <div className="mt-6 flex justify-center space-x-4">
-                    <Button name={actionType} classes="w-auto bg-rose-500" onClick={handleAction} />
-                    <Button name="Cancel" classes="w-auto" onClick={() => {setShowActionModal(false); setActionType(null); setRowId(null); setMileId(null)}} />
+                <div className="bg-white p-4 rounded-lg shadow-xl">
+                    {actionType === "Accept" && (
+                        <>
+                            <UilThumbsUp className="text-green-500 flex mx-auto w-14 h-14" />
+                            <p className="mt-4">{`Are you sure you want to approve and submit this milestone to Airtel?`}</p>
+                        </> 
+                    )}
+                    {actionType === "Reject" && (
+                        <>
+                            <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
+                            <p className="mt-4">{`Are you sure you want to Reject This Milestone?`}</p>
+                        </>
+                    )}
+                    {actionType === "Close" && (
+                        <>
+                            <UilThumbsUp className="text-green-500 flex mx-auto w-14 h-14" />
+                            <p className="mt-4">{`Are you sure you want to Close This Milestone?`}</p>
+                        </>
+                    )}
+                    <div className="mt-6 flex justify-center space-x-4">
+                        <Button name={actionType} classes="w-auto bg-rose-500" onClick={handleAction} />
+                        <Button name="Cancel" classes="w-auto" onClick={() => {setShowActionModal(false); setActionType(null); setRowId(null); setMileId(null)}} />
+                    </div>
                 </div>
             </div>
-            </div>
         )}
-
     </>
-
-
 };
 
 export default ComplianceL2ApproverTable;

@@ -58,10 +58,9 @@ const ComplianceL1ApproverTable = () => {
     })
     .replace(/\//g, "-");
 
-  function downloadAttachment(type, id) {
+  function downloadAttachment(type,id,siteName,milestoneName) {
     dispatch(
-      CommonActions.commondownload(`/compliance/export/${type}/${id}`,`site-report.${type === "Excel" ? "xlsx" : "pdf"}`
-      )
+      CommonActions.commondownload(`/compliance/export/${type}/${id}`,`${siteName}_${milestoneName}_(${dt})_report.${type === "Excel" ? "xlsx" : "pdf"}`)
     );
   }
 
@@ -125,7 +124,7 @@ const ComplianceL1ApproverTable = () => {
               <div className="flex space-x-2 items-center">
                 <Button
                   onClick={() => {
-                    downloadAttachment("Excel", itm?.uniqueId);
+                    downloadAttachment("Excel", itm?.uniqueId,itm?.siteIdName,itm?.milestoneName);
                   }}
                   classes="!py-[2px] bg-green-600"
                   title="Download Excel"
@@ -143,7 +142,7 @@ const ComplianceL1ApproverTable = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    downloadAttachment("Pdf", itm?.uniqueId);
+                    downloadAttachment("pdf", itm?.uniqueId,itm?.siteIdName,itm?.milestoneName);
                   }}
                   classes="!py-[2px] bg-red-600"
                   title="Download Pdf"
