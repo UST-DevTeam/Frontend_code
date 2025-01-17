@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +55,8 @@ const ManageProject = () => {
   const [bulkfileOpen, setbulkfileOpen] = useState(false);
   const [strValFil, setstrVal] = useState(false);
   const [modalSize, setModalSize] = useState("lg");
+  const [searchTerm, setSearchTerm] = useState("");
+  const debounceTimeout = useRef(null);
 
   let dispatch = useDispatch();
   let navigate = useNavigate();
@@ -575,6 +577,31 @@ const ManageProject = () => {
     upgradepopupShowType = true
   }
 
+  const handleSearch = (value) => {
+    dispatch(
+      AdminActions.getProject(
+        `${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,
+        true,
+        value !== "" ? "searvhView=" + value : ""
+      )
+    );
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Clear the previous timeout
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    // Set a new timeout
+    debounceTimeout.current = setTimeout(() => {
+      handleSearch(value);
+    }, 500); // Adjust the delay (in milliseconds) as needed
+  };
+
 
 
   return (
@@ -585,9 +612,10 @@ const ManageProject = () => {
             <SearchBarView
               onblur={(e) => {
               }}
-              onchange={(e) => {
-                dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,true,e.target.value != ""? "searvhView=" + e.target.value: ""));
-              }}
+              // onchange={(e) => {
+              //   dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,true,e.target.value != ""? "searvhView=" + e.target.value: ""));
+              // }}
+              onchange={handleChange}
               placeHolder={"Search...."}
             />
           </>
