@@ -816,6 +816,20 @@ const ManageComplianceDegrowTemplateForm = ({
                   if ("Snap" === itm) {
                     fields["Snap"] = (
                       <ManageSnap
+                      beforeLoad={() => { 
+                        dispatch(
+                          projectListActions.globalComplianceTypeDataGet(
+                            siteCompleteData.uniqueId,
+                            mileStone.uniqueId,
+                            "",
+                            true,
+                            () => {
+                              reset({});
+                              settype(true);
+                            }
+                          )
+                        );
+                       }}
                         externalData={(() => {
 
                           const indexes = {}

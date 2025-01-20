@@ -424,6 +424,7 @@ const ImageGrid = ({
 };
 
 const ManageSnap = ({
+  beforeLoad=()=>{},
   externalData = null,
   viewOnly = false,
   projectData = {},
@@ -431,6 +432,12 @@ const ManageSnap = ({
   snapData,
   l1ApproverForm = false,
 }) => {
+
+
+  useEffect(() => {
+     beforeLoad()
+  },[])
+  
   const snaps = useSelector((state) => {
     const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap;
     if (Array.isArray(data)) return data;

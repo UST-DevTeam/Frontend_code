@@ -1653,19 +1653,23 @@ const AdminActions = {
     const degrowFields = JSON.parse(
       JSON.stringify(
         getStore().adminData.getComplianceDegrowTemplateData
-          ?.originalFields?.[0]
-      )
-    );
-    
-    const usedFields = JSON.parse(
-      JSON.stringify(
-        getStore().adminData.getComplianceDegrowTemplateData
-          ?.usedfields?.[0]
+          ?.originalFields?.[0] || "{}"
       )
     );
 
+    const usedFields = JSON.parse(
+      JSON.stringify(
+        getStore().adminData.getComplianceDegrowTemplateData
+          ?.usedfields?.[0] || "{}"
+      )
+    );
+
+
+    console.log("degrowFields[tabName]_", degrowFields, usedFields)
+
+    if (!degrowFields) return
     const formFields = degrowFields[tabName];
-    const actualFields = formFields.slice(1);
+    const actualFields = formFields?.slice(1);
 
 
     if (value < 2) {
@@ -1678,7 +1682,7 @@ const AdminActions = {
     const extraFields = [];
     for (let i = 2; i < value + 1; i++) {
       extraFields.push(
-        ...actualFields.map((itm) => ({
+        ...actualFields?.map((itm) => ({
           ...itm,
           fieldName: itm.fieldName + " " + i,
         }))
