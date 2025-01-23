@@ -1635,7 +1635,7 @@ const AdminActions = {
 
 
     console.log("tabName_value", value, tabName)
-
+console.log(`getStore().adminData.getComplianceDegrowTemplateData`,getStore())
     if (value > 5) {
       let msgdata = {
         show: true,
@@ -1648,28 +1648,30 @@ const AdminActions = {
       return;
     }
 
-
-
     const degrowFields = JSON.parse(
       JSON.stringify(
         getStore().adminData.getComplianceDegrowTemplateData
-          ?.originalFields?.[0] || "{}"
+          ?.originalFields?.[0] || {}
       )
     );
 
     const usedFields = JSON.parse(
       JSON.stringify(
         getStore().adminData.getComplianceDegrowTemplateData
-          ?.usedfields?.[0] || "{}"
+          ?.usedfields?.[0] || {}
       )
     );
 
 
-    console.log("degrowFields[tabName]_", degrowFields, usedFields)
+    console.log("degrowFields[tabName]_", degrowFields, usedFields,Object.keys(degrowFields).length,Object.keys(degrowFields))
 
-    if (!degrowFields) return
+
+    if  (!degrowFields || !Object.keys(degrowFields).length) return
     const formFields = degrowFields[tabName];
     const actualFields = formFields?.slice(1);
+
+
+    console.log(formFields,actualFields,"____actualFields____")
 
 
     if (value < 2) {
