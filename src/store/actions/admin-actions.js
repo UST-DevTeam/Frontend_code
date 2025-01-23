@@ -1631,75 +1631,81 @@ const AdminActions = {
       },
 
   updateFields: (value, tabName) => (dispatch, getStore) => {
-    value = Math.abs(value);
+    try {
+      value = Math.abs(value);
+
+      console.log("tabName_value", value, tabName)
+      console.log(`store_data`, getStore().adminData.getComplianceDegrowTemplateData)
+
+      if (value > 5) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: "Please put the value b/w 2 to 5",
+        };
+        dispatch(ALERTS(msgdata));
+        return;
+      }
+
+      const degrowFields = JSON.parse(
+        JSON.stringify(
+          getStore().adminData.getComplianceDegrowTemplateData?.originalFields?.[0] || {}
+        )
+      );
+
+      const usedFields = JSON.parse(
+        JSON.stringify(
+          getStore().adminData.getComplianceDegrowTemplateData?.usedfields?.[0] || {}
+        )
+      );
 
 
-    console.log("tabName_value", value, tabName)
-console.log(`getStore().adminData.getComplianceDegrowTemplateData`,getStore())
-    if (value > 5) {
-      let msgdata = {
-        show: true,
-        icon: "error",
-        buttons: [],
-        type: 1,
-        text: "Please put the value b/w 2 to 5",
-      };
-      dispatch(ALERTS(msgdata));
-      return;
-    }
-
-    const degrowFields = JSON.parse(
-      JSON.stringify(
-        getStore().adminData.getComplianceDegrowTemplateData
-          ?.originalFields?.[0] || {}
-      )
-    );
-
-    const usedFields = JSON.parse(
-      JSON.stringify(
-        getStore().adminData.getComplianceDegrowTemplateData
-          ?.usedfields?.[0] || {}
-      )
-    );
+      console.log("____________", degrowFields, usedFields, Object.keys(degrowFields).length, Object.keys(degrowFields))
 
 
-    console.log("degrowFields[tabName]_", degrowFields, usedFields,Object.keys(degrowFields).length,Object.keys(degrowFields))
+      if (!degrowFields || !Object.keys(degrowFields).length) return
+      const formFields = degrowFields[tabName];
+      const actualFields = formFields?.slice(1);
 
 
-    if  (!degrowFields || !Object.keys(degrowFields).length) return
-    const formFields = degrowFields[tabName];
-    const actualFields = formFields?.slice(1);
+      console.log(formFields, actualFields, "____actualFields____")
 
 
-    console.log(formFields,actualFields,"____actualFields____")
+      if (value < 2) {
+        dispatch(
+          GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS({ tabName, dataAll: [formFields[0], ...actualFields] })
+        );
+        return
+      }
 
+      const extraFields = [];
+      for (let i = 2; i < value + 1; i++) {
+        extraFields.push(
+          ...actualFields?.map((itm) => ({
+            ...itm,
+            fieldName: itm.fieldName + " " + i,
+          }))
+        );
+      }
 
-    if (value < 2) {
+      console.log("usedFields[tabName]",usedFields[tabName])
+
+      usedFields[tabName] = [formFields[0], ...actualFields, ...extraFields];
+
+      console.log("usedFields___tabName__",usedFields[tabName])
+
       dispatch(
-        GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS({ tabName, dataAll: [formFields[0], ...actualFields] })
+        GET_COMPLIANCE_DEGROW_TEMPLATE_DATA({
+          dataAll: [usedFields],
+          reset: true,
+          updateOriginal: false,
+        })
       );
-      return
+    } catch (error) {
+      console.log(error.message)
     }
-
-    const extraFields = [];
-    for (let i = 2; i < value + 1; i++) {
-      extraFields.push(
-        ...actualFields?.map((itm) => ({
-          ...itm,
-          fieldName: itm.fieldName + " " + i,
-        }))
-      );
-    }
-
-    usedFields[tabName] = [formFields[0], ...actualFields, ...extraFields];
-
-    dispatch(
-      GET_COMPLIANCE_DEGROW_TEMPLATE_DATA({
-        dataAll: [usedFields],
-        reset: true,
-        updateOriginal: false,
-      })
-    );
   },
 
   // super admin compiliance  ends -----

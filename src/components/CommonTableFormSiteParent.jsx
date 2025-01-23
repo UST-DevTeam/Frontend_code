@@ -13,6 +13,7 @@ const CommonTableFormSiteParent = ({
   setmodalFullOpen,
   funcaller,
   defaultValue,
+  beforeAnyChange = () => {},
   setType = () => { },
 }) => {
   const [activeTab, setActiveTab] = useState(defaultValue);
@@ -44,7 +45,8 @@ const CommonTableFormSiteParent = ({
     //   setType(false)
     //   console.log("component unmounted")
     // }
-  }, []);
+    beforeAnyChange()
+  }, [activeTab]);
 
   return (
     <div className="max-w-full mx-auto">
@@ -56,8 +58,8 @@ const CommonTableFormSiteParent = ({
                 <CustomizedButton
                   onClick={() => handleTabClick(itm)}
                   classes={`${activeTab === itm
-                      ? "mb-1 border-b-[3px] border-pcol text-[#f4d3a8] bg-primaryLine text-center"
-                      : "bg-purple-200 hover:bg-rose-400 hover:text-white text-black "
+                    ? "mb-1 border-b-[3px] border-pcol text-[#f4d3a8] bg-primaryLine text-center"
+                    : "bg-purple-200 hover:bg-rose-400 hover:text-white text-black "
                     } mx-1 w-auto`}
                   name={itm}
                 ></CustomizedButton>
