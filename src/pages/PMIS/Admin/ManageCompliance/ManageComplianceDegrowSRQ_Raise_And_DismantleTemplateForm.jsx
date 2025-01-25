@@ -47,7 +47,6 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
   const snapFields = useSelector((state) => state.adminData.getComplianceDegrowTemplateData?.usedfields?.[0]) ||
     {};
 
-    console.log("__snapFields",)
   const {
     bbuCard = [],
     existingAntenna = [],

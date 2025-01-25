@@ -41,7 +41,7 @@ const ManageComplianceDegrowTemplateForm = ({
     radio: radioWithData = [],
     tbAnteena: tbAnteenaWithData = [],
   } = useSelector((state) => state.projectList.globalComplianceTypeData?.[0]) ||
-  {};
+    {};
   const {
     bbuCard = [],
     existingAntenna = [],
@@ -255,7 +255,7 @@ const ManageComplianceDegrowTemplateForm = ({
         dispatch(
           AdminActions.updateFields(
             +dtresult["existingAntenna"]["Existing Antenna Quantity"] ||
-              +dtresult["existingAntenna"]["Existing Other Antenna Quantity"],
+            +dtresult["existingAntenna"]["Existing Other Antenna Quantity"],
             "existingAntenna"
           )
         );
@@ -281,7 +281,7 @@ const ManageComplianceDegrowTemplateForm = ({
         dispatch(
           AdminActions.updateFields(
             +dtresult["bbuCard"]["BBU/Card Count"] ||
-              +dtresult["bbuCard"]["BBU/Card Quantity"],
+            +dtresult["bbuCard"]["BBU/Card Quantity"],
             "bbuCard"
           )
         );
@@ -294,7 +294,7 @@ const ManageComplianceDegrowTemplateForm = ({
         dispatch(
           AdminActions.updateFields(
             +dtresult["radio"]["Radio Count"] ||
-              +dtresult["radio"]["Radio Quantity"],
+            +dtresult["radio"]["Radio Quantity"],
             "radio"
           )
         );
@@ -308,7 +308,7 @@ const ManageComplianceDegrowTemplateForm = ({
           setValueForm0(iytm, dtresult["TemplateData"][iytm]);
         });
     }
-  }, [data]);
+  }, [type, data]);
 
   let dataOfProject = useSelector((state) => {
     let dataOlder = state.adminData.getOneComplianceDyform
@@ -372,7 +372,7 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -394,7 +394,7 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -413,7 +413,7 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -436,7 +436,7 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -454,7 +454,7 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => {}
+        () => { }
       )
     );
   };
@@ -524,51 +524,65 @@ const ManageComplianceDegrowTemplateForm = ({
 
         <CommonTableFormSiteParent
           funcaller={funcaller}
+          beforeAnyChange={() => {
+            dispatch(
+              projectListActions.globalComplianceTypeDataGet(
+                siteCompleteData.uniqueId,
+                mileStone.uniqueId,
+                "",
+                true,
+                () => {
+                  reset({});
+                  settype(true);
+                }
+              )
+            );
+          }}
           defaultValue={subProjectName}
           tabslist={
             ["4TR-2TR"].includes(subProjectName)
               ? null
               : {
-                  [subProjectName]: (
-                    <>
-                      <div className="flex justify-end">
-                        {!isViewOnly() && (
-                          <Button
-                            classes="w-30"
-                            name={
-                              "Save " +
-                              subProjectName
-                                .split(" ")
-                                .map(
-                                  (itm) =>
-                                    itm?.[0] + itm?.slice(1).toLowerCase()
-                                )
-                                .join(" ")
-                            }
-                            onClick={handleSubmitForm0(handleSubProjectSubmit)}
-                          />
-                        )}
-                      </div>
-                      <CommonForm
-                        classes={"grid-cols-4 gap-1 mt-1"}
-                        Form={[
-                          {
-                            label: "Antenna Total in Sector",
-                            value: "",
-                            required: true,
-                            name: "antennaCount",
-                            type: "number",
-                            props: {},
-                          },
-                        ]}
-                        errors={errorsForm0}
-                        register={registerForm0}
-                        setValue={setValueForm0}
-                        getValues={getValuesForm0}
-                      />
-                    </>
-                  ),
-                }
+                [subProjectName]: (
+                  <>
+                    <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name={
+                            "Save " +
+                            subProjectName
+                              .split(" ")
+                              .map(
+                                (itm) =>
+                                  itm?.[0] + itm?.slice(1).toLowerCase()
+                              )
+                              .join(" ")
+                          }
+                          onClick={handleSubmitForm0(handleSubProjectSubmit)}
+                        />
+                      )}
+                    </div>
+                    <CommonForm
+                      classes={"grid-cols-4 gap-1 mt-1"}
+                      Form={[
+                        {
+                          label: "Antenna Total in Sector",
+                          value: "",
+                          required: true,
+                          name: "antennaCount",
+                          type: "number",
+                          props: {},
+                        },
+                      ]}
+                      errors={errorsForm0}
+                      register={registerForm0}
+                      setValue={setValueForm0}
+                      getValues={getValuesForm0}
+                    />
+                  </>
+                ),
+              }
           }
         />
         {subProjectName && (
@@ -597,11 +611,11 @@ const ManageComplianceDegrowTemplateForm = ({
                           let type = isViewOnly() || dtype[its.dataType];
                           let option = its.dropdownValue
                             ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
                             : [];
 
                           return {
@@ -659,11 +673,11 @@ const ManageComplianceDegrowTemplateForm = ({
                           let type = isViewOnly() || dtype[its.dataType];
                           let option = its.dropdownValue
                             ? its.dropdownValue.split(",").map((itm) => {
-                                return {
-                                  value: itm,
-                                  label: itm,
-                                };
-                              })
+                              return {
+                                value: itm,
+                                label: itm,
+                              };
+                            })
                             : [];
 
                           return {
@@ -723,11 +737,11 @@ const ManageComplianceDegrowTemplateForm = ({
                             type: isViewOnly() || dtype[its.dataType],
                             option: its.dropdownValue
                               ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
                               : [],
                             required: its.required == "Yes" ? true : false,
                             props: {
@@ -780,11 +794,11 @@ const ManageComplianceDegrowTemplateForm = ({
                             type: isViewOnly() || dtype[its.dataType],
                             option: its.dropdownValue
                               ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
                               : [],
                             required: its.required == "Yes" ? true : false,
                             props: {
@@ -850,10 +864,10 @@ const ManageComplianceDegrowTemplateForm = ({
                         ) {
                           indexes["Existing Other Antenna Specifications"] =
                             +existingAntennaWithData?.[
-                              "Existing Antenna Quantity"
+                            "Existing Antenna Quantity"
                             ] ||
                             +existingAntennaWithData?.[
-                              "Existing Other Antenna Quantity"
+                            "Existing Other Antenna Quantity"
                             ];
                         }
                         if (
@@ -923,11 +937,11 @@ const ManageComplianceDegrowTemplateForm = ({
                             type: isViewOnly() || dtype[its.dataType],
                             option: its.dropdownValue
                               ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    value: itm,
-                                    label: itm,
-                                  };
-                                })
+                                return {
+                                  value: itm,
+                                  label: itm,
+                                };
+                              })
                               : [],
                             required: its.required == "Yes" ? true : false,
                             props: {
