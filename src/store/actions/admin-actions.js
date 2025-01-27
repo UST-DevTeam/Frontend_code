@@ -1662,15 +1662,12 @@ const AdminActions = {
       );
 
 
-      console.log("____________", degrowFields, usedFields, Object.keys(degrowFields).length, Object.keys(degrowFields))
+
 
 
       if (!degrowFields || !Object.keys(degrowFields).length) return
       const formFields = degrowFields[tabName];
       const actualFields = formFields?.slice(1);
-
-
-      console.log(formFields, actualFields, "____actualFields____")
 
 
       if (value < 2) {

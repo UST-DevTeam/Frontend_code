@@ -16,7 +16,6 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
 import AdminActions from "../../../../store/actions/admin-actions";
 
 const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
@@ -30,6 +29,7 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
   myTaskPage,
   filterView,
 }) => {
+
   const {
     L1UserName = "",
     L1UserId = "",
@@ -79,44 +79,13 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
     return temp
   }
 
-  const forms = {
-    "TWIN BEAM": [
-      "TB Antenna Specifications",
-      "Existing Other Antenna Specifications",
-      "Radio Specifications In Sector",
-      "BBU/card Specifications",
-      "Misc Material Specifications",
-      "Snap",
-    ],
-    "LAYER DEGROW": [
-      "Existing Other Antenna Specifications",
-      "Radio Specifications In Sector",
-      "BBU/card Specifications",
-      "Misc Material Specifications",
-      "Snap",
-    ],
-    "SECTOR DEGROW": [
-      "Existing Other Antenna Specifications",
-      "Radio Specifications In Sector",
-      "BBU/card Specifications",
-      "Misc Material Specifications",
-      "Snap",
-    ],
-    "4TR-2TR": [
-      "Radio Specifications In Sector",
-      "BBU/card Specifications",
-      "Misc Material Specifications",
-    ],
-  };
+
 
   const projectTypeName = siteCompleteData["projectType"];
   const subProjectName = siteCompleteData["subProject"];
 
   const today = moment().format("YYYY-MM-DD");
-  let assignedToCount = mileStone?.assignerResult?.length || 0;
-  let milestoneStatus = mileStone?.mileStoneStatus;
   let user = JSON.parse(localStorage.getItem("user"));
-  let rolename = user?.roleName;
   let userId = user?.uniqueId;
 
   const {
@@ -189,43 +158,10 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [type, settype] = useState(true);
-  const [modalHead, setmodalHead] = useState(<></>);
   const [modalBody, setmodalBody] = useState(<></>);
-  const [invoiceData, setinvoiceData] = useState([]);
-  const [uniqueness, setUniqueness] = useState("");
-  const [listing, setlisting] = useState([]);
   const [L1Approver, setL1Approver] = useState(null);
   const dispatch = useDispatch();
 
-  let L1optionList = useSelector((state) => {
-    return state?.adminData?.getOneComplianceL1List?.map((itm) => {
-      return {
-        label: itm?.approverName,
-        value: itm?.approverId,
-      };
-    });
-  });
-
-  useEffect(() => {
-    setL1Approver(L1UserId);
-    reset({});
-    settype(true);
-    setTimeout(() => {
-      const value = isViewOnly();
-      if (!value) {
-        const ele = document.querySelector(`[value="${L1UserId}"]`);
-        if (!ele) return;
-        ele.setAttribute("selected", true);
-      } else {
-        const ele = document.querySelector(`[name="sdisabled"]`);
-        if (!ele) return;
-        ele.value = L1UserName;
-      }
-      setValueFormSelect("selectField", L1UserId);
-      // reset({})
-      settype(true);
-    }, 0);
-  }, [L1UserId, L1UserName]);
 
   useEffect(() => {
     dispatch(
@@ -246,89 +182,14 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
 
       let dtresult = datew[0];
 
-      if (dtresult["tbAnteena"]) {
-
-        dispatch(
-          AdminActions.updateFields(
-            +dtresult['tbAnteena']["TB Antenna Quantity"],
-            "tbAnteena"
-          )
-        );
-        Object.keys(dtresult["tbAnteena"]).map((iytm) => {
-          setValueForm6(iytm, dtresult["tbAnteena"][iytm]);
-        })
-
-      }
-
-      if (dtresult["existingAntenna"]) {
-
-        dispatch(
-          AdminActions.updateFields(
-            (+dtresult['existingAntenna']["Existing Antenna Quantity"] || +dtresult['existingAntenna']["Existing Other Antenna Quantity"]),
-            "existingAntenna"
-          )
-        );
-        Object.keys(dtresult["existingAntenna"]).map((iytm) => {
-          setValueForm1(iytm, dtresult["existingAntenna"][iytm]);
-        })
-
-      }
-
-      if (dtresult["miscMaterial"]) {
-        // dispatch(
-        //   AdminActions.updateFields(
-        //     +dtresult['miscMaterial']["TB Antenna Quantity"],
-        //     "miscMaterial"
-        //   )
-        // );
-        dtresult["miscMaterial"] &&
-          Object.keys(dtresult["miscMaterial"]).map((iytm) => {
-            setValueForm5(iytm, dtresult["miscMaterial"][iytm]);
-          });
-      }
-
-      if (dtresult["bbuCard"]) {
-
-        dispatch(
-          AdminActions.updateFields(
-            (+dtresult['bbuCard']["BBU/Card Count"] || +dtresult['bbuCard']["BBU/Card Quantity"]),
-            "bbuCard"
-          )
-        );
-        Object.keys(dtresult["bbuCard"]).map((iytm) => {
-          setValueForm3(iytm, dtresult["bbuCard"][iytm]);
-        });
-      }
-
-      if (dtresult["radio"]) {
-
-        dispatch(
-          AdminActions.updateFields(
-            +dtresult['radio']["Radio Count"] || +dtresult['radio']["Radio Quantity"],
-            "radio"
-          )
-        );
-        Object.keys(dtresult["radio"]).map((iytm) => {
-          setValueForm2(iytm, dtresult["radio"][iytm]);
-        });
-      }
-
-      dtresult["TemplateData"] &&
-        Object.keys(dtresult["TemplateData"]).map((iytm) => {
-          setValueForm0(iytm, dtresult["TemplateData"][iytm]);
+      dtresult["Template"] &&
+        Object.keys(dtresult["Template"]).map((iytm) => {
+          setValueForm0(iytm, dtresult["Template"][iytm]);
         });
     }
   });
 
-  let dataOfProject = useSelector((state) => {
-    let dataOlder = state.adminData.getOneComplianceDyform
-      ? state.adminData.getOneComplianceDyform.length > 0
-        ? state.adminData.getOneComplianceDyform[0]["result"]
-        : state.adminData.getOneComplianceDyform
-      : state.adminData.getOneComplianceDyform;
 
-    return dataOlder;
-  });
 
   let final_data = {};
 
@@ -365,105 +226,6 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
     );
   };
 
-  const handleTbAnteenaSubmit = (data) => {
-
-    const newData = removeExtraFields(["TB Antenna Quantity", "TB Antenna Count"], data)
-
-    let Tv_Anteena_data = {};
-    tbAnteena.map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-      Tv_Anteena_data[fieldNaming] = newData[fieldNaming]?.trim();
-    });
-
-    final_data["tbAnteena"] = Tv_Anteena_data;
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
-  };
-
-  const handleExistingAnteenaSubmit = (data) => {
-    const newData = removeExtraFields(["Existing Other Antenna Quantity", "Existing Antenna Quantity"], data)
-    let Existing_Antenna_data = {};
-    existingAntenna.map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-      Existing_Antenna_data[fieldNaming] = newData[fieldNaming]?.trim();
-    });
-
-    final_data["existingAntenna"] = Existing_Antenna_data;
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
-  };
-
-  const handleRadoioSubmit = (data) => {
-    const newData = removeExtraFields(["Radio Quantity", "Radio Count"], data)
-    let Radio_data = {};
-    radio.map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-      Radio_data[fieldNaming] = newData[fieldNaming]?.trim();
-    });
-
-    final_data["radio"] = Radio_data;
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
-  };
-
-  const handleBbuCardSubmit = (data) => {
-    const newData = removeExtraFields(["BBU/Card Count", "BBU/Card Quantity"], data)
-
-    let Bbu_Card_data = {};
-    bbuCard.map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-      Bbu_Card_data[fieldNaming] = newData[fieldNaming]?.trim();
-    });
-
-    final_data["bbuCard"] = Bbu_Card_data;
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
-  };
-
-  const handleMiscMaterialSubmit = (data) => {
-
-
-    let Misc_Material_data = {};
-    miscMaterial.map((itew) => {
-      let fieldNaming = labelToValue(itew.fieldName);
-      Misc_Material_data[fieldNaming] = data[fieldNaming]?.trim();
-    });
-
-    final_data["miscMaterial"] = Misc_Material_data;
-
-    dispatch(
-      projectListActions.globalComplianceTypeDataPatch(
-        Urls.compliance_globalSaver,
-        final_data,
-        () => { }
-      )
-    );
-  };
-
   const funcaller = () => {
     reset({});
   };
@@ -482,9 +244,7 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
     "Auto Created": "sdisabled",
   };
 
-  // useEffect(() => {
-  //   setValue("BTS Manufacturer (OEM)",TemplateData['BTS Manufacturer (OEM)'])
-  // },[])
+
 
   function isViewOnly() {
     return ["In Process", "Reject", ""].includes(currentStatus)

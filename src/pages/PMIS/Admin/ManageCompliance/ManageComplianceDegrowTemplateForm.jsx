@@ -16,7 +16,6 @@ import projectListActions from "../../../../store/actions/projectList-actions";
 import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
 import AdminActions from "../../../../store/actions/admin-actions";
 
 const ManageComplianceDegrowTemplateForm = ({
@@ -179,52 +178,14 @@ const ManageComplianceDegrowTemplateForm = ({
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [type, settype] = useState(true);
-  const [modalHead, setmodalHead] = useState(<></>);
   const [modalBody, setmodalBody] = useState(<></>);
-  const [invoiceData, setinvoiceData] = useState([]);
-  const [uniqueness, setUniqueness] = useState("");
-  const [listing, setlisting] = useState([]);
   const [L1Approver, setL1Approver] = useState(null);
   const dispatch = useDispatch();
 
-  let L1optionList = useSelector((state) => {
-    return state?.adminData?.getOneComplianceL1List?.map((itm) => {
-      return {
-        label: itm?.approverName,
-        value: itm?.approverId,
-      };
-    });
-  });
-
-  useEffect(() => {
-    setL1Approver(L1UserId);
-    reset({});
-    settype(true);
-    setTimeout(() => {
-      const value = isViewOnly();
-      if (!value) {
-        const ele = document.querySelector(`[value="${L1UserId}"]`);
-        if (!ele) return;
-        ele.setAttribute("selected", true);
-      } else {
-        const ele = document.querySelector(`[name="sdisabled"]`);
-        if (!ele) return;
-        ele.value = L1UserName;
-      }
-      setValueFormSelect("selectField", L1UserId);
-      // reset({})
-      settype(true);
-    }, 0);
-  }, [L1UserId, L1UserName]);
 
   useEffect(() => {
     dispatch(
-      AdminActions.getComplianceDegrowTemplateData(
-        projectTypeName,
-        subProjectName,
-        true,
-        ""
-      )
+      AdminActions.getComplianceDegrowTemplateData(projectTypeName,subProjectName,true,"")
     );
   }, [subProjectName]);
 
@@ -236,7 +197,6 @@ const ManageComplianceDegrowTemplateForm = ({
       settype(false);
 
       let dtresult = data[0];
-      console.log("data____", dtresult);
 
       if (dtresult["tbAnteena"]) {
         dispatch(
@@ -265,12 +225,6 @@ const ManageComplianceDegrowTemplateForm = ({
       }
 
       if (dtresult["miscMaterial"]) {
-        // dispatch(
-        //   AdminActions.updateFields(
-        //     +dtresult['miscMaterial']["TB Antenna Quantity"],
-        //     "miscMaterial"
-        //   )
-        // );
 
         Object.keys(dtresult["miscMaterial"]).map((iytm) => {
           setValueForm5(iytm, dtresult["miscMaterial"][iytm]);
@@ -303,22 +257,22 @@ const ManageComplianceDegrowTemplateForm = ({
         });
       }
 
-      dtresult["TemplateData"] &&
-        Object.keys(dtresult["TemplateData"]).map((iytm) => {
-          setValueForm0(iytm, dtresult["TemplateData"][iytm]);
+      dtresult["subProjectName"] &&
+        Object.keys(dtresult["subProjectName"]).map((iytm) => {
+          setValueForm0(iytm, dtresult["subProjectName"][iytm]);
         });
     }
   }, [type, data]);
 
-  let dataOfProject = useSelector((state) => {
-    let dataOlder = state.adminData.getOneComplianceDyform
-      ? state.adminData.getOneComplianceDyform.length > 0
-        ? state.adminData.getOneComplianceDyform[0]["result"]
-        : state.adminData.getOneComplianceDyform
-      : state.adminData.getOneComplianceDyform;
+  // let dataOfProject = useSelector((state) => {
+  //   let dataOlder = state.adminData.getOneComplianceDyform
+  //     ? state.adminData.getOneComplianceDyform.length > 0
+  //       ? state.adminData.getOneComplianceDyform[0]["result"]
+  //       : state.adminData.getOneComplianceDyform
+  //     : state.adminData.getOneComplianceDyform;
 
-    return dataOlder;
-  });
+  //   return dataOlder;
+  // });
 
   let final_data = {};
 
@@ -346,7 +300,7 @@ const ManageComplianceDegrowTemplateForm = ({
             icon: "success",
             buttons: [],
             type: 1,
-            text: "Template Tab Data has been successfully updated.",
+            text: subProjectName+" Tab Data has been successfully updated.",
           };
           dispatch(ALERTS(msgdata));
         }
@@ -372,7 +326,16 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => { 
+          let msgdata = {
+            show: true,
+            icon: "success",
+            buttons: [],
+            type: 1,
+            text: "TB Antenna Specifications Tab Data has been successfully updated.",
+          };
+          dispatch(ALERTS(msgdata));
+        }
       )
     );
   };
@@ -394,7 +357,16 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => {
+          let msgdata = {
+            show: true,
+            icon: "success",
+            buttons: [],
+            type: 1,
+            text: "Existing Antenna Specifications Tab Data has been successfully updated.",
+          };
+          dispatch(ALERTS(msgdata));
+         }
       )
     );
   };
@@ -413,7 +385,16 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => {
+          let msgdata = {
+            show: true,
+            icon: "success",
+            buttons: [],
+            type: 1,
+            text: "Radio Specifications In Sector Tab Data has been successfully updated.",
+          };
+          dispatch(ALERTS(msgdata));
+         }
       )
     );
   };
@@ -436,7 +417,16 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => { 
+          let msgdata = {
+            show: true,
+            icon: "success",
+            buttons: [],
+            type: 1,
+            text: "BBU/card Specifications Tab Data has been successfully updated.",
+          };
+          dispatch(ALERTS(msgdata));
+        }
       )
     );
   };
@@ -454,7 +444,16 @@ const ManageComplianceDegrowTemplateForm = ({
       projectListActions.globalComplianceTypeDataPatch(
         Urls.compliance_globalSaver,
         final_data,
-        () => { }
+        () => { 
+          let msgdata = {
+            show: true,
+            icon: "success",
+            buttons: [],
+            type: 1,
+            text: "Misc Material Specifications Tab Data has been successfully updated.",
+          };
+          dispatch(ALERTS(msgdata));
+        }
       )
     );
   };
@@ -477,9 +476,7 @@ const ManageComplianceDegrowTemplateForm = ({
     "Auto Created": "sdisabled",
   };
 
-  // useEffect(() => {
-  //   setValue("BTS Manufacturer (OEM)",TemplateData['BTS Manufacturer (OEM)'])
-  // },[])
+
 
   function isViewOnly() {
     return ["In Process", "Reject", ""].includes(currentStatus)
@@ -571,8 +568,10 @@ const ManageComplianceDegrowTemplateForm = ({
                           value: "",
                           required: true,
                           name: "antennaCount",
-                          type: "number",
-                          props: {},
+                          type: isViewOnly() || "number",
+                          props: {
+                            min:0
+                          },
                         },
                       ]}
                       errors={errorsForm0}

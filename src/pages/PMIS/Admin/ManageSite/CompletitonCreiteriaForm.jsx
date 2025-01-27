@@ -11,7 +11,7 @@ import ManageSite from "./ManageSite";
 import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTemplateForm";
 import Modal from "../../../../components/Modal";
 import AdminActions from "../../../../store/actions/admin-actions";
-import { GET_ONE_COMPLIANCE_DY_FORM, GET_ONE_COMPLIANCE_L1_LIST } from "../../../../store/reducers/admin-reducer";
+import { GET_COMPLIANCE_DEGROW_TEMPLATE_DATA, GET_ONE_COMPLIANCE_DY_FORM, GET_ONE_COMPLIANCE_L1_LIST } from "../../../../store/reducers/admin-reducer";
 import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
 import ManageComplianceTemplateApproverForm from "../ManageCompliance/ManageComplinaceTemplateApproverForm";
 import ManageComplianceDegrowTemplateForm from "../ManageCompliance/ManageComplianceDegrowTemplateForm";
@@ -90,10 +90,10 @@ const CompletitonCreiteriaForm = ({
           component:
             <p className="cursor-pointer"
               onClick={() => {
+                dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll: [], reset: true }))
                 if (projectTypeName !== "DEGROW") {
                   dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll: [], reset: true }))
                   dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
-                  dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll: [], reset: true }))
                   dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId, mileStone.Name, true, ""));
                   dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId, mileStone.Name, true, ""));
                 }
@@ -103,6 +103,7 @@ const CompletitonCreiteriaForm = ({
                   projectTypeName === "DEGROW" && milestoneName === "Survey" ?
                     <ManageComplianceDegrowTemplateForm
                       siteCompleteData={siteCompleteData}
+                      uid={siteCompleteData.uniqueId}
                       customeruniqueId={customeruniqueId}
                       projectuniqueId={projectuniqueId}
                       setmodalFullOpen={setmodalFullOpen}
@@ -114,6 +115,7 @@ const CompletitonCreiteriaForm = ({
                     : projectTypeName === "DEGROW" && (milestoneName === "SRQ Raise" || milestoneName === "Dismantle") ?
                       <ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm
                         siteCompleteData={siteCompleteData}
+                        uid={siteCompleteData.uniqueId}
                         customeruniqueId={customeruniqueId}
                         projectuniqueId={projectuniqueId}
                         setmodalFullOpen={setmodalFullOpen}
@@ -124,6 +126,7 @@ const CompletitonCreiteriaForm = ({
                       />
                       : <ManageComplianceTemplateForm
                         siteCompleteData={siteCompleteData}
+                        uid={siteCompleteData.uniqueId}
                         customeruniqueId={customeruniqueId}
                         projectuniqueId={projectuniqueId}
                         setmodalFullOpen={setmodalFullOpen}
@@ -174,6 +177,8 @@ const CompletitonCreiteriaForm = ({
       data['Checklist'] = "Yes"
       data['siteuid'] = siteCompleteData.uniqueId
       data['mName'] = mileStone['Name']
+      data['projectTypeName'] = projectTypeName
+      data['subProjectTypeName'] = subProjectName
     }
     dispatch(
       projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
