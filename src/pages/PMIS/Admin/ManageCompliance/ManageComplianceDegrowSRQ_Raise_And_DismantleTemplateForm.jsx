@@ -100,61 +100,73 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
   } = useForm();
 
   const {
-    register: registerForm1,
-    setValue: setValueForm1,
-    getValues: getValuesForm1,
-    handleSubmit: handleSubmitForm1,
-    formState: { errors: errorsForm1 },
-  } = useForm();
-  const {
-    register: registerForm2,
-    setValue: setValueForm2,
-    getValues: getValuesForm2,
-    handleSubmit: handleSubmitForm2,
-    formState: { errors: errorsForm2 },
-  } = useForm();
-  const {
-    register: registerForm3,
-    setValue: setValueForm3,
-    getValues: getValuesForm3,
-    handleSubmit: handleSubmitForm3,
-    formState: { errors: errorsForm3 },
-  } = useForm();
-  const {
-    register: registerForm4,
-    setValue: setValueForm4,
-    getValues: getValuesForm4,
-    handleSubmit: handleSubmitForm4,
-    formState: { errors: errorsForm4 },
-  } = useForm();
-  const {
-    register: registerForm6,
-    setValue: setValueForm6,
-    getValues: getValuesForm6,
-    handleSubmit: handleSubmitForm6,
-    formState: { errors: errorsForm6 },
-  } = useForm();
-  const {
-    register: registerForm5,
-    setValue: setValueForm5,
-    getValues: getValuesForm5,
-    handleSubmit: handleSubmitForm5,
-    formState: { errors: errorsForm5 },
-  } = useForm();
-  const {
     register: registerForm0,
     setValue: setValueForm0,
     getValues: getValuesForm0,
     handleSubmit: handleSubmitForm0,
     formState: { errors: errorsForm0 },
+    reset: reset0
   } = useForm();
-  const {
-    register: registerFormSelect,
-    setValue: setValueFormSelect,
-    getValues: getValuesFormSelect,
-    handleSubmit: handleSubmitFormSelect,
-    formState: { errors: errorsFormSelect },
-  } = useForm();
+
+  // const {
+  //   register: registerForm1,
+  //   setValue: setValueForm1,
+  //   getValues: getValuesForm1,
+  //   handleSubmit: handleSubmitForm1,
+  //   formState: { errors: errorsForm1 },
+  //   reset: reset1
+  // } = useForm();
+  // const {
+  //   register: registerForm2,
+  //   setValue: setValueForm2,
+  //   getValues: getValuesForm2,
+  //   handleSubmit: handleSubmitForm2,
+  //   formState: { errors: errorsForm2 },
+  //   reset: reset2
+  // } = useForm();
+  // const {
+  //   register: registerForm3,
+  //   setValue: setValueForm3,
+  //   getValues: getValuesForm3,
+  //   handleSubmit: handleSubmitForm3,
+  //   formState: { errors: errorsForm3 },
+  //   reset: reset3
+  // } = useForm();
+  // const {
+  //   register: registerForm4,
+  //   setValue: setValueForm4,
+  //   getValues: getValuesForm4,
+  //   handleSubmit: handleSubmitForm4,
+  //   formState: { errors: errorsForm4 },
+  //   reset: reset4
+  // } = useForm();
+
+  // const {
+  //   register: registerForm5,
+  //   setValue: setValueForm5,
+  //   getValues: getValuesForm5,
+  //   handleSubmit: handleSubmitForm5,
+  //   formState: { errors: errorsForm5 },
+  //   reset: reset5
+  // } = useForm();
+
+  // const {
+  //   register: registerForm6,
+  //   setValue: setValueForm6,
+  //   getValues: getValuesForm6,
+  //   handleSubmit: handleSubmitForm6,
+  //   formState: { errors: errorsForm6 },
+  //   reset: reset6
+  // } = useForm();
+
+
+  // const {
+  //   register: registerFormSelect,
+  //   setValue: setValueFormSelect,
+  //   getValues: getValuesFormSelect,
+  //   handleSubmit: handleSubmitFormSelect,
+  //   formState: { errors: errorsFormSelect },
+  // } = useForm();
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [type, settype] = useState(true);
@@ -233,6 +245,7 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
   useEffect(() => {
     reset({});
     settype(true);
+    reset0()
   }, [uid]);
 
   let dtype = {
@@ -264,7 +277,7 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
       />
 
       <div className="relative overflow-scroll h-[94vh] p-4">
-        <div className="aboslute top-5 right-5 flex justify-end">
+        {/* <div className="aboslute top-5 right-5 flex justify-end">
           <Button
             classes="w-auto h-8"
             onClick={(e) => {
@@ -286,7 +299,7 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
             name={""}
             icon={<UilRefresh />}
           ></Button>
-        </div>
+        </div> */}
 
         <CommonTableFormSiteParent
           funcaller={funcaller}
@@ -295,17 +308,19 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
             {
               [mileStone["Name"]]: (
                 <>
-                  <div className="flex justify-end">
-                    {!isViewOnly() && (
-                      <Button
-                        classes="w-30"
-                        name={
-                          "Save"
-                        }
-                        onClick={handleSubmitForm0(handleSubmitMileStone)}
-                      />
-                    )}
-                  </div>
+                  {
+                    mileStone["Name"] === "SRQ Raise" && <div className="flex justify-end">
+                      {!isViewOnly() && (
+                        <Button
+                          classes="w-30"
+                          name={
+                            "Save"
+                          }
+                          onClick={handleSubmitForm0(handleSubmitMileStone)}
+                        />
+                      )}
+                    </div>
+                  }
                   {
                     mileStone["Name"] === "SRQ Raise" ? <CommonForm
                       classes={"grid-cols-4 gap-1 mt-1"}
