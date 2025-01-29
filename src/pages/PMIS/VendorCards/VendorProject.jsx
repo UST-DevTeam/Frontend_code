@@ -340,30 +340,40 @@ const vendorProject = () => {
 
     let table = {
         columns: [
-            {
-                name: <input type={"checkbox"} checked={dbConfigL.length != 0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
-                    if (e.target.checked) {
-                        dbConfigL.map((itm) => {
-                            if (childsite.indexOf(itm.uniqueId) == -1) {
-                                setparentsite(prev => [...prev, itm.uniqueId])
-                            }
-                            itm.milestoneArray.map((iewq) => {
-                                if (childsite.indexOf(iewq.uniqueId) == -1) {
-                                    setchildsite(prev => [...prev, iewq.uniqueId])
-                                }
-                            })
-                        })
-                    } else {
-                        setchildsite(prev => [])
-                        setparentsite(prev => [])
-                    }
-                }} />,
-                value: "checkboxProject",
-                style: "min-w-[40px] max-w-[40px] text-center"
-            },
+            // {
+            //     name: <input type={"checkbox"} checked={dbConfigL.length != 0 && parentsite.length == dbConfigL.length ? true : false} onClick={(e) => {
+            //         if (e.target.checked) {
+            //             dbConfigL.map((itm) => {
+            //                 if (childsite.indexOf(itm.uniqueId) == -1) {
+            //                     setparentsite(prev => [...prev, itm.uniqueId])
+            //                 }
+            //                 itm.milestoneArray.map((iewq) => {
+            //                     if (childsite.indexOf(iewq.uniqueId) == -1) {
+            //                         setchildsite(prev => [...prev, iewq.uniqueId])
+            //                     }
+            //                 })
+            //             })
+            //         } else {
+            //             setchildsite(prev => [])
+            //             setparentsite(prev => [])
+            //         }
+            //     }} />,
+            //     value: "checkboxProject",
+            //     style: "min-w-[40px] max-w-[40px] text-center"
+            // },
             {
                 name: "Site ID",
                 value: "siteIdLink",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Customer",
+                value: "customer",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Project Group",
+                value: "projectGroup",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
@@ -372,68 +382,106 @@ const vendorProject = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
+                name: "Project Type",
+                value: "projectType",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
                 name: "Sub Project",
                 value: "subProject",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Owner",
-                value: "PMName",
+                name: "Vendor Name",
+                value: "vendorName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Planned Start Date",
-                value: "siteStartDate",
+                name: "Vendor ID",
+                value: "vendorId",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Planned End Date",
-                value: "siteEndDate",
+                name: "Task Allocation Date",
+                value: "taskAllocationDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Completition Date",
-                value: "Site_Completion Date",
+                name: "MS Completition Date",
+                value: "msCompletitionDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Ageing",
-                value: "siteage",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-
-            {
-                name: "Completion (%)",
-                value: "CompletionBar",
+                value: "ageing",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
                 name: "Predecessor",
+                value: "predecessor",
+                style: "min-w-[240px] max-w-[240px] text-center"
+
+            },
+            {
+                name: "MS1 Completition Date",
+                value: "predecessor",
+                style: "min-w-[240px] max-w-[240px] text-center"
+
+            },
+            {
+                name: "MS2 Completition Date",
                 value: "",
                 style: "min-w-[240px] max-w-[240px] text-center"
 
             },
             {
-                name: "Status",
-                value: "siteStatus",
+                name: "MS Status",
+                value: "msStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Vendor Item code",
+                value: "vendorItemCode",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "Vendor Rate",
+                value: "vendorRate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
+                name: "PO eligibility (Yes/No)",
+                value: "poEliibility",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
 
-            },
-            {
-                name: "Billing Status",
-                value: "siteBillingStatus",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            }
+            // {
+            //     name: "Completion (%)",
+            //     value: "CompletionBar",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            
+            // {
+            //     name: "Status",
+            //     value: "siteStatus",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+
+            // },
+            // {
+            //     name: "Billing Status",
+            //     value: "siteBillingStatus",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Edit",
+            //     value: "edit",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // }
         ],
         childList: [""],
         childs: {

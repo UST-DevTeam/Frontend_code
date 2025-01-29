@@ -107,6 +107,13 @@ import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2Approver
 import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerCard";
 import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
 
+import SalaryDB from "../pages/PMIS/gpTracking/salaryDB";
+import OtherFixedCost from "../pages/PMIS/gpTracking/OtherFixedCost/OtherFixedCost";
+import OtherFixedCostTypes from "../pages/PMIS/gpTracking/OtherFixedCostTypes/OtherFixedCostTypes";
+import GPTracking from "../pages/PMIS/gpTracking/GpTrackingMain/gpTracking";
+import VendorProjectTracking from "../pages/PMIS/VendorProjectTracking/VendorProjectTracking";
+import VendorCost from "../pages/PMIS/gpTracking/VendorCost/vendorCost";
+
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
 const pmpermission = permission?.pmpermission;
@@ -499,10 +506,19 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/vendor/projectTracking",
-      component: <VendorProject />,
+      // component: <VendorProject />,
+      component: <VendorProjectTracking />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+    // {
+    //   name: "",
+    //   link: "/vendor/vendorCost",
+    //   // component: <VendorProject />,
+    //   component: <AssetRegistration />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
       name: "",
       link: "/vendor/commercial",
@@ -715,6 +731,41 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/complianceL2Approver",
       component: <ManageComplianceL2 />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/salaryDB",
+      component: <SalaryDB/>,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/OtherFixedCostTypes",
+      component: <OtherFixedCostTypes/>,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/OtherFixedCost",
+      component: <OtherFixedCost/>,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/vendorCost",
+      component: <VendorCost/>,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/gpTracking",
+      component: <GPTracking/>,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

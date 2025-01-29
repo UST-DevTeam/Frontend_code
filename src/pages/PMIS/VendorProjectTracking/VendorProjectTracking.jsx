@@ -34,11 +34,14 @@ import FilterActions from "../../../store/actions/filter-actions";
 import ManageProjectSiteIdForm from "../Admin/ManageProjectSiteId/ManageProjectSiteIdForm";
 import AllocateProjectForm from "../Admin/ManageProjectSiteId/AllocateProjectForm";
 import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
-import { GET_CIRCLE_WITH_PG_DATA, GET_MAPPED_DATA } from "../../../store/reducers/projectList-reducer";
+import {
+  GET_CIRCLE_WITH_PG_DATA,
+  GET_MAPPED_DATA,
+} from "../../../store/reducers/projectList-reducer";
 import MyHomeActions from "../../../store/actions/myHome-actions";
+import VendorActions from "../../../store/actions/vendor-actions";
 
-
-const MyTask = () => {
+const VendorProjectTracking = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
@@ -59,11 +62,6 @@ const MyTask = () => {
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
-
-
-
-
-
 
   const [modalHead, setmodalHead] = useState(<></>);
 
@@ -91,27 +89,31 @@ const MyTask = () => {
     return state.projectList.getProjectTypeSub;
   });
 
-  let showTypeforAction = getAccessType("Actions(Site)")
+  let showTypeforAction = getAccessType("Actions(Site)");
 
-  let shouldIncludeEditColumn = false
+  let shouldIncludeEditColumn = false;
 
-  if (showTypeforAction === "visible"){
-    shouldIncludeEditColumn = true
+  if (showTypeforAction === "visible") {
+    shouldIncludeEditColumn = true;
   }
 
-
-  
-
+  // let subProjectList = useSelector((state) => {
+  //   console.log(state,'statestatestatestate')
+  //   return state?.vendorData?.getvendorSubProject.map((itm) => {
+  //     return {
+  //       label: itm.subprojectName,
+  //       value: itm.subProjectId,
+  //     };
+  //   });
+  // });
   let subProjectList = useSelector((state) => {
-    return state?.filterData?.getMyTaskSubProject.map((itm) => {
-      return {
-        label: itm.subprojectName,
-        value: itm.subProjectId,
-      };
+      return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+        return {
+          label: itm.projectType,
+          value: itm.uid,
+        };
+      });
     });
-  });
-
-
 
   let dbConfigL = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
@@ -129,7 +131,7 @@ const MyTask = () => {
   });
 
   let dbConfigList = useSelector((state) => {
-    let interdata = state?.myHomeData?.getmyTask || [];
+    let interdata = state?.vendorData?.getvendorProjectTracking || [];
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
@@ -138,12 +140,19 @@ const MyTask = () => {
             className="text-[#13b497] font-extrabold"
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site:-"+itm['Site Id']);
-              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
+              setmodalHead("Update Site:-" + itm["Site Id"]);
+              dispatch(
+                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                  dataAll: [],
+                  reset: true,
+                })
+              );
               // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
-              dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
+              dispatch(GET_MAPPED_DATA({ dataAll: [], reset: true }));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-              dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
+              dispatch(
+                projectListActions.getCircleWithPGData(itm.projectuniqueId)
+              );
               dispatch(projectListActions.getMappedData(itm.projectuniqueId));
               setmodalBody(
                 <ManageMilestoneSite
@@ -153,8 +162,8 @@ const MyTask = () => {
                   setGlobalData={setGlobalData}
                   setSiteId={setSiteId}
                   setmodalFullOpen={setmodalFullOpen}
-                  projectuniqueId={itm['projectuniqueId']}
-                  myTaskPage = "Yes"
+                  projectuniqueId={itm["projectuniqueId"]}
+                  myTaskPage="Yes"
                 />
               );
 
@@ -185,45 +194,49 @@ const MyTask = () => {
             } / ${itm?.milestoneArray?.length}`}
           />
         ),
-        checkboxProject: (
-          <>
-            <input
-              type={"checkbox"}
-              id={itm.uniqueId}
-              checked={parentsite.indexOf(itm.uniqueId) != -1}
-              value={itm.uniqueId}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setparentsite((prev) => [...prev, e.target.value]);
-                  let dlisting = itm.milestoneArray.map((iewq) => {
-                    return iewq.uniqueId;
-                  });
-                  setchildsite((prev) => [...prev, ...dlisting]);
-                } else {
-                  setparentsite((prev) => {
-                    let lst = prev.indexOf(e.target.value);
-                    prev.splice(lst, 1);
-                    return [...prev];
-                  });
+        // checkboxProject: (
+        //   <>
+        //     <input
+        //       type={"checkbox"}
+        //       id={itm.uniqueId}
+        //       checked={parentsite.indexOf(itm.uniqueId) != -1}
+        //       value={itm.uniqueId}
+        //       onChange={(e) => {
+        //         if (e.target.checked) {
+        //           setparentsite((prev) => [...prev, e.target.value]);
+        //           let dlisting = itm.milestoneArray.map((iewq) => {
+        //             return iewq.uniqueId;
+        //           });
+        //           setchildsite((prev) => [...prev, ...dlisting]);
+        //         } else {
+        //           setparentsite((prev) => {
+        //             let lst = prev.indexOf(e.target.value);
+        //             prev.splice(lst, 1);
+        //             return [...prev];
+        //           });
 
-                  setchildsite((prev) => {
-                    itm?.milestoneArray?.map((iewq) => {
-                      let lst = prev.indexOf(iewq.uniqueId);
-                      prev.splice(lst, 1);
-                    });
-                    return [...prev];
-                  });
-                }
-              }}
-            />
-          </>
-        ),
+        //           setchildsite((prev) => {
+        //             itm?.milestoneArray?.map((iewq) => {
+        //               let lst = prev.indexOf(iewq.uniqueId);
+        //               prev.splice(lst, 1);
+        //             });
+        //             return [...prev];
+        //           });
+        //         }
+        //       }}
+        //     />
+        //   </>
+        // ),
 
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
-            <p className="text-[#13b497] font-extrabold">{itm.siteageing + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">
+              {itm.siteageing + " Days"}
+            </p>
           ) : (
-            <p className="text-rose-400 font-extrabold">{itm.siteageing + " Days"}</p>
+            <p className="text-rose-400 font-extrabold">
+              {itm.siteageing + " Days"}
+            </p>
           )
         ) : (
           ""
@@ -252,67 +265,72 @@ const MyTask = () => {
             MileDevName: (
               <div className="flex">
                 <p
-                  // className="cursor"
-                  // onClick={() => {
-                  //   if (iewq.mileStoneStatus != "Closed") {
-                  //     setmodalOpen(true);
+                // className="cursor"
+                // onClick={() => {
+                //   if (iewq.mileStoneStatus != "Closed") {
+                //     setmodalOpen(true);
 
-                  //     dispatch(
-                  //       projectListActions.getUserAllocatedProject(
-                  //         true,
-                  //         projectuniqueId
-                  //       )
-                  //     );
+                //     dispatch(
+                //       projectListActions.getUserAllocatedProject(
+                //         true,
+                //         projectuniqueId
+                //       )
+                //     );
 
-                  //     setmodalHead("Allocate User");
-                  //     setmodalBody(
-                  //       <>
-                  //         <AllocateProjectForm
-                  //           from={"mileStone"}
-                  //           listsite={[]}
-                  //           projectuniqueId={projectuniqueId}
-                  //           isOpen={modalOpen}
-                  //           setIsOpen={setmodalOpen}
-                  //           resetting={false}
-                  //           formValue={iewq}
-                  //         />
-                  //       </>
-                  //     );
-                  //   } else {
-                  //     let msgdata = {
-                  //       show: true,
-                  //       icon: "error",
-                  //       buttons: [],
-                  //       type: 1,
-                  //       text: "This task is already closed so cannot reallocate",
-                  //     };
-                  //     dispatch(ALERTS(msgdata));
-                  //   }
+                //     setmodalHead("Allocate User");
+                //     setmodalBody(
+                //       <>
+                //         <AllocateProjectForm
+                //           from={"mileStone"}
+                //           listsite={[]}
+                //           projectuniqueId={projectuniqueId}
+                //           isOpen={modalOpen}
+                //           setIsOpen={setmodalOpen}
+                //           resetting={false}
+                //           formValue={iewq}
+                //         />
+                //       </>
+                //     );
+                //   } else {
+                //     let msgdata = {
+                //       show: true,
+                //       icon: "error",
+                //       buttons: [],
+                //       type: 1,
+                //       text: "This task is already closed so cannot reallocate",
+                //     };
+                //     dispatch(ALERTS(msgdata));
+                //   }
 
-                  //   console.log("ahshshhs", itm);
-                  // }}
+                //   console.log("ahshshhs", itm);
+                // }}
                 >
                   {iewq.assignerResult ? (
-
-                   
                     <>
                       <div class="">
                         <div class="group flex flex-row relative items-center w-full">
-                        {iewq.assignerResult
-                          .slice(0, 2)
-                          .map((itwsw, index) => (
+                          {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
                               <p
-                                  key={index}
-                                  className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                                key={index}
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
                               >
-                                  {" "}
-                                  {itwsw.assignerName && itwsw.assignerName.trim().split(" ").length > 1
-                                      ? `${itwsw.assignerName.split(" ")[0].substr(0, 1)}${itwsw.assignerName.split(" ")[1].substr(0, 1)}`
-                                      : itwsw.assignerName
-                                          ? itwsw.assignerName.split(" ")[0].substr(0, 1)
-                                          : ''}
+                                {" "}
+                                {itwsw.assignerName &&
+                                itwsw.assignerName.trim().split(" ").length > 1
+                                  ? `${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)}`
+                                  : itwsw.assignerName
+                                  ? itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)
+                                  : ""}
                               </p>
-                          ))}
+                            ))}
                           {/* {iewq.assignerResult
                             .slice(0, 2)
                             .map((itwsw, index) => (
@@ -346,6 +364,134 @@ const MyTask = () => {
                 </p>
               </div>
             ),
+            VendorName: (
+              <div className="flex">
+                <p
+               
+                >
+                  {iewq.assignerResult ? (
+                    <>
+                      <div class="">
+                        <div class="group flex flex-row relative items-center w-full">
+                          {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
+                              <p
+                                key={index}
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                              >
+                                {" "}
+                                {itwsw.assignerName &&
+                                itwsw.assignerName.trim().split(" ").length > 1
+                                  ? `${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)}`
+                                  : itwsw.assignerName
+                                  ? itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)
+                                  : ""}
+                              </p>
+                            ))}
+                          {/* {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
+                              <p
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                              >
+                                {" "}
+                                {itwsw.assignerName.split(" ").length > 1
+                                  ? itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1) +
+                                    itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)
+                                  : itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}
+                              </p>
+                            ))} */}
+                          <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
+                            {iewq.assignerResult.map((itws) => {
+                              return itws.assignerName + ", ";
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    "Unassigned"
+                  )}
+                </p>
+              </div>
+            ),
+            // VendorId: (
+            //   <div className="flex">
+            //     <p
+               
+            //     >
+            //       {iewq.assignerResult ? (
+            //         <>
+            //           <div class="">
+            //             <div class="group flex flex-row relative items-center w-full">
+            //               {iewq?.assignerResult
+            //                 .slice(0, 2)
+            //                 .map((itwsw, index) => (
+            //                   <p
+            //                     key={index}
+            //                     className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+            //                   >
+            //                     {" "}
+            //                     {itwsw?.vendorCode &&
+            //                     itwsw?.vendorCode.trim().split(" ").length > 1
+            //                       ? `${itwsw?.vendorCode
+            //                           .split(" ")[0]
+            //                           .substr(0, 1)}${itwsw.vendorCode
+            //                           .split(" ")[1]
+            //                           .substr(0, 1)}`
+            //                       : itwsw?.vendorCode
+            //                       ? itwsw?.vendorCode
+            //                           .split(" ")[0]
+            //                           .substr(0, 1)
+            //                       : ""}
+            //                   </p>
+            //                 ))}
+            //               {/* {iewq.assignerResult
+            //                 .slice(0, 2)
+            //                 .map((itwsw, index) => (
+            //                   <p
+            //                     className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+            //                   >
+            //                     {" "}
+            //                     {itwsw.assignerName.split(" ").length > 1
+            //                       ? itwsw.assignerName
+            //                           .split(" ")[0]
+            //                           .substr(0, 1) +
+            //                         itwsw.assignerName
+            //                           .split(" ")[1]
+            //                           .substr(0, 1)
+            //                       : itwsw.assignerName
+            //                           .split(" ")[0]
+            //                           .substr(0, 1)}
+            //                   </p>
+            //                 ))} */}
+            //               <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
+            //                 {iewq.assignerResult.map((itws) => {
+            //                   return itws.vendorCode + ", ";
+            //                 })}
+            //               </span>
+            //             </div>
+            //           </div>
+            //         </>
+            //       ) : (
+            //         "Unassigned"
+            //       )}
+            //     </p>
+            //   </div>
+            // ),
 
             mileStoneStatusUpda:
               iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
@@ -358,7 +504,10 @@ const MyTask = () => {
                       setmodalBody(
                         <>
                           <div className="flex justify-between">
-                            <label htmlFor="" className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap">
+                            <label
+                              htmlFor=""
+                              className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap"
+                            >
                               {" "}
                               Current Status:
                             </label>
@@ -367,7 +516,7 @@ const MyTask = () => {
                             </p>
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-                          <Button
+                            <Button
                               classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
                               onClick={() => {
@@ -382,7 +531,8 @@ const MyTask = () => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId,strValFil
+                                          projectuniqueId,
+                                          strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -410,11 +560,16 @@ const MyTask = () => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
-                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
+                  dispatch(
+                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                      dataAll: [],
+                      reset: true,
+                    })
+                  );
                   // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
                   // dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-                  
+
                   setmodalBody(
                     <ManageMilestoneSite
                       siteCompleteData={itm}
@@ -424,7 +579,7 @@ const MyTask = () => {
                       setSiteId={setSiteId}
                       setmodalFullOpen={setmodalFullOpen}
                       projectuniqueId={itm.projectuniqueId}
-                      myTaskPage = "Yes"
+                      myTaskPage="Yes"
                     />
                   );
 
@@ -437,9 +592,13 @@ const MyTask = () => {
             eventLogsmilestone: <></>,
             taskmageing:
               iewq.taskageing >= 0 ? (
-                <p className="text-[#13b497] font-extrabold">{iewq.taskageing + " Days"}</p>
+                <p className="text-[#13b497] font-extrabold">
+                  {iewq.taskageing + " Days"}
+                </p>
               ) : (
-                <p className="text-rose-400 font-extrabold">{iewq.taskageing + " Days"}</p>
+                <p className="text-rose-400 font-extrabold">
+                  {iewq.taskageing + " Days"}
+                </p>
               ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (
@@ -487,7 +646,8 @@ const MyTask = () => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId,strValFil
+                                          projectuniqueId,
+                                          strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -543,7 +703,7 @@ const MyTask = () => {
 
                             buttons: [
                               <Button
-                                classes='w-15 bg-rose-400'
+                                classes="w-15 bg-rose-400"
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCaller(
@@ -580,53 +740,53 @@ const MyTask = () => {
                 </>
               </div>
             ),
-            checkboxProject: (
-              <>
-                <input
-                  type={"checkbox"}
-                  checked={childsite.indexOf(iewq.uniqueId) != -1}
-                  value={iewq.uniqueId}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setchildsite((prev) => {
-                        let finalinzingdata = [...prev, e.target.value];
+            // checkboxProject: (
+            //   <>
+            //     <input
+            //       type={"checkbox"}
+            //       checked={childsite.indexOf(iewq.uniqueId) != -1}
+            //       value={iewq.uniqueId}
+            //       onChange={(e) => {
+            //         if (e.target.checked) {
+            //           setchildsite((prev) => {
+            //             let finalinzingdata = [...prev, e.target.value];
 
-                        let tkChaeck = true;
-                        itm.milestoneArray.map((iefr) => {
-                          if (finalinzingdata.indexOf(iefr.uniqueId) == -1) {
-                            tkChaeck = false;
-                          }
-                        });
+            //             let tkChaeck = true;
+            //             itm.milestoneArray.map((iefr) => {
+            //               if (finalinzingdata.indexOf(iefr.uniqueId) == -1) {
+            //                 tkChaeck = false;
+            //               }
+            //             });
 
-                        console.log(tkChaeck, "tkChaecktkChaecktkChaeck");
+            //             console.log(tkChaeck, "tkChaecktkChaecktkChaeck");
 
-                        if (tkChaeck && itm.totalCount == itm.milestoneCount) {
-                          setparentsite((prev) => [...prev, itm.uniqueId]);
-                        }
+            //             if (tkChaeck && itm.totalCount == itm.milestoneCount) {
+            //               setparentsite((prev) => [...prev, itm.uniqueId]);
+            //             }
 
-                        return finalinzingdata;
-                      });
+            //             return finalinzingdata;
+            //           });
 
-                      console.log(
-                        childsite,
-                        "childsitechildsitechildsitechildsite"
-                      );
-                    } else {
-                      setchildsite((prev) => {
-                        let lst = prev.indexOf(e.target.value);
-                        prev.splice(lst, 1);
-                        setparentsite((preving) => {
-                          let lst = preving.indexOf(itm.uniqueId);
-                          preving.splice(lst, 1);
-                          return [...preving];
-                        });
-                        return [...prev];
-                      });
-                    }
-                  }}
-                />
-              </>
-            ),
+            //           console.log(
+            //             childsite,
+            //             "childsitechildsitechildsitechildsite"
+            //           );
+            //         } else {
+            //           setchildsite((prev) => {
+            //             let lst = prev.indexOf(e.target.value);
+            //             prev.splice(lst, 1);
+            //             setparentsite((preving) => {
+            //               let lst = preving.indexOf(itm.uniqueId);
+            //               preving.splice(lst, 1);
+            //               return [...preving];
+            //             });
+            //             return [...prev];
+            //           });
+            //         }
+            //       }}
+            //     />
+            //   </>
+            // ),
             // MileStartDate: <div className='flex content-center w-full justify-center'>
             //     <CstmButton className={"p-2 w-full"} child={<Button name={iewq.plannedStartDate ? iewq.plannedStartDate : "Assign Date"} onClick={() => {
             //         setmodalOpen(true)
@@ -788,11 +948,12 @@ const MyTask = () => {
                             icon: "warning",
                             buttons: [
                               <Button
-                                classes='w-15 bg-rose-400'
+                                classes="w-15 bg-rose-400"
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCallerBulk(
-                                      `${Urls.projectList_siteEngineer}`,{ids : [itm.uniqueId]},
+                                      `${Urls.projectList_siteEngineer}`,
+                                      { ids: [itm.uniqueId] },
                                       () => {
                                         dispatch(
                                           projectListActions.getProjectTypeAll(
@@ -833,10 +994,11 @@ const MyTask = () => {
       return updateditm;
     });
   });
-  console.log("safasfasfasfasfasdfasdfasdfabc4545", dbConfigList[0]);
+  
   let dbConfigTotalCount =
     useSelector((state) => {
-        let interdata = state?.myHomeData?.getmyTask || 0;
+      
+      let interdata = state?.vendorData?.getvendorProjectTracking || 0;
       // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
         console.log(
@@ -894,7 +1056,18 @@ const MyTask = () => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style:"min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style:
+          "min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+      },
+      {
+        name: "Customer",
+        value: "Customer",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Project Group",
+        value: "projectGroupName",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Project ID",
@@ -903,28 +1076,38 @@ const MyTask = () => {
           "min-w-[140px] max-w-[200px] text-center sticky left-[140px] bg-[#3e454d] z-20",
       },
       {
+        name: "Project Type",
+        value: "projectType",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Sub Project",
         value: "subProject",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Owner",
-        value: "PMName",
+        name: "Vendor Name",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Planned Start Date",
-        value: "siteStartDate",
+        name: "Vendor ID",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Planned End Date",
-        value: "siteEndDate",
+        name: "Task Allocation Date",
+        value: "taskAllocationDate",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Completition Date",
-        value: "Site_Completion Date",
+        name: "MS Completition Date",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Task Closure Date",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -932,22 +1115,75 @@ const MyTask = () => {
         value: "siteageing",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      // {
-      //   name: "Completion (%)",
-      //   value: "CompletionBar",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
       {
         name: "Predecessor",
         value: "Predecessor",
         style: "min-w-[240px] max-w-[240px] text-center",
       },
       {
-        name: "Status",
-        value: "siteStatus",
+        name: "MS1 Completion Date",
+        value: "ms1CompletitionDate",
+        style: "min-w-[240px] max-w-[240px] text-center",
+      },
+      {
+        name: "MS2 Completion Date",
+        value: "ms2CompletitionDate",
+        style: "min-w-[240px] max-w-[240px] text-center",
+      },
+      
+      
+      //   {
+      //     name: "Owner",
+      //     value: "PMName",
+      //     style: "min-w-[140px] max-w-[200px] text-center",
+      //   },
+    //   {
+    //     name: "Planned Start Date",
+    //     value: "siteStartDate",
+    //     style: "min-w-[140px] max-w-[200px] text-center",
+    //   },
+    //   {
+    //     name: "Planned End Date",
+    //     value: "siteEndDate",
+    //     style: "min-w-[140px] max-w-[200px] text-center",
+    //   },
+    //   {
+    //     name: "Completition Date",
+    //     value: "Site_Completion Date",
+    //     style: "min-w-[140px] max-w-[200px] text-center",
+    //   },
+
+      // {
+      //   name: "Completion (%)",
+      //   value: "CompletionBar",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+
+      //   {
+      //     name: "MS Status",
+      //     value: "siteStatus",
+      //     style: "min-w-[140px] max-w-[200px] text-center",
+      //   },
+      {
+        name: "MS Status",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-
+      {
+        name: "Vendor Item Code",
+        value: "vendorItemCode",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Vendor Rate",
+        value: "vendorRate",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "PO eligibility (Yes/No)",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
       // {
       //   name: "Billing Status",
       //   value: "siteBillingStatus",
@@ -963,15 +1199,15 @@ const MyTask = () => {
       //   value: "edit",
       //   style: "min-w-[100px] max-w-[200px] text-center",
       // },
-    //   ...(shouldIncludeEditColumn
-    //     ? [
-    //         {
-    //           name: "Delete",
-    //           value: "delete",
-    //           style: "min-w-[50px] max-w-[100px] text-center",
-    //         },
-    //       ]
-    //     : [])
+      //   ...(shouldIncludeEditColumn
+      //     ? [
+      //         {
+      //           name: "Delete",
+      //           value: "delete",
+      //           style: "min-w-[50px] max-w-[100px] text-center",
+      //         },
+      //       ]
+      //     : [])
       // {
       //   name: "Delete",
       //   value: "delete",
@@ -993,10 +1229,25 @@ const MyTask = () => {
             "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center  z-20",
         },
         {
+          name: "Customer",
+          value: "customer",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+        {
+          name: "Project Group",
+          value: "projectGroup",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+        {
           name: "Project ID",
           value: "projectId",
           style:
             "min-w-[140px] max-w-[200px] sticky left-[140px] bg-[#3e454d] text-center z-20",
+        },
+        {
+          name: "Project Type",
+          value: "projectType",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
           name: "Sub Project",
@@ -1004,46 +1255,95 @@ const MyTask = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: "Owner",
-          value: "MileDevName",
+          name: "Vendor Name",
+          value: "VendorName",
           style: "min-w-[180px] max-w-[180px] text-center",
         },
         {
-          name: "Planned Start Date",
-          value: "mileStoneStartDate",
+          name: "Vendor ID",
+          value: "VendorId",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: "Planned End Date",
-          value: "mileStoneEndDate",
+            name: "Task Allocation Date",
+            value: "taskAllocationDate",
+            style: "min-w-[140px] max-w-[200px] text-center",
+          },
+        {
+          name: "MS Completition Date",
+          value: "MSCompletitionDate",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: "Completition Date",
-          value: "CC_Completion Date",
+          name: "Task Closure Date",
+          value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: "Ageing",
-          value: "taskmageing",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+            name: "Ageing",
+            value: "taskmageing",
+            style: "min-w-[140px] max-w-[200px] text-center",
+          },
+          {
+            name: "Predecessor",
+            value: "Predecessor",
+            style: "min-w-[240px] max-w-[240px] text-center",
+          },
+          {
+            name: "MS1 Completion Date",
+            value: "ms1CompletitionDate",
+            style: "min-w-[240px] max-w-[240px] text-center",
+          },
+          {
+            name: "MS2 Completion Date",
+            value: "ms2CompletitionDate",
+            style: "min-w-[240px] max-w-[240px] text-center",
+          },
+          {
+            name: "MS Status",
+            value: "mileStoneStatusUpda",
+            style: "min-w-[140px] max-w-[200px] text-center",
+          },
+          {
+            name: "Vendor Item Code",
+            value: "",
+            style: "min-w-[140px] max-w-[200px] text-center",
+          },
+          {
+            name: "Vendor Rate",
+            value: "",
+            style: "min-w-[140px] max-w-[200px] text-center",
+          },
+          {
+            name: "PO eligibility (Yes/No)",
+            value: "",
+            style: "min-w-[140px] max-w-[200px] text-center",
+          },
+          
+        // {
+        //   name: "Planned Start Date",
+        //   value: "mileStoneStartDate",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
+        // {
+        //   name: "Planned End Date",
+        //   value: "mileStoneEndDate",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
+        // {
+        //   name: "Completition Date",
+        //   value: "CC_Completion Date",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
+        
         // {
         //   name: "Completion (%)",
         //   value: "CompletionBar",
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
 
-        {
-          name: "Predecessor",
-          value: "Predecessor",
-          style: "min-w-[240px] max-w-[240px] text-center",
-        },
-        {
-          name: "Status",
-          value: "mileStoneStatusUpda",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+        
+       
 
         // {
         //   name: "Billing Status",
@@ -1084,52 +1384,56 @@ const MyTask = () => {
         label: "Sub Project",
         type: "select",
         name: "subProject",
-        option:subProjectList,
-        props: {}
+        option: subProjectList,
+        props: {},
       },
       {
-          label: "Site Status",
-          type: "select",
-          name: "siteStatus",
-          option: [
-            { label: "Open", value: "Open" },
-            { label: "Close", value: "Close" },
-            { label: "Drop", value: "Drop" },
-            { label: "All", value: "all" },
-          ],
-          props: {}
+        label: "Site Status",
+        type: "select",
+        name: "siteStatus",
+        option: [
+          { label: "Open", value: "Open" },
+          { label: "Close", value: "Close" },
+          { label: "Drop", value: "Drop" },
+          { label: "All", value: "all" },
+        ],
+        props: {},
       },
       {
-          label: "MileStone Status",
-          type: "select",
-          name: "mileStoneStatus",
-          option:[
-            {label:'Open', value:'Open'},
-            {label:'In Process', value:'In Process'},
-            {label:'Submit', value:'Submit'},
-            {label:'Approve', value:'Approve'},
-            {label:'Submit to Airtel', value:'Submit to Airtel'},
-            {label:'Reject', value:'Reject'},
-            {label:'Closed', value:'Closed'},
-            {label:'All', value:'All'},
-          ],
-          props: {}
-      }
+        label: "MileStone Status",
+        type: "select",
+        name: "mileStoneStatus",
+        option: [
+          { label: "Open", value: "Open" },
+          { label: "In Process", value: "In Process" },
+          { label: "Submit", value: "Submit" },
+          { label: "Approve", value: "Approve" },
+          { label: "Submit to Airtel", value: "Submit to Airtel" },
+          { label: "Reject", value: "Reject" },
+          { label: "Closed", value: "Closed" },
+          { label: "All", value: "All" },
+        ],
+        props: {},
+      },
     ],
   };
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    let strVal=objectToQueryString(data)
-    setstrVal(strVal)
-    dispatch(MyHomeActions.getMyTask(true,objectToQueryString(data)))
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
   };
   useEffect(() => {
-    dispatch(MyHomeActions.getMyTask())
-    dispatch(FilterActions.getMyTaskSubProject())
+    // dispatch(MyHomeActions.getMyTask());
+    dispatch(FilterActions.getMyTaskSubProject());
+    dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+    dispatch(VendorActions.getVendorProjectTracking())
+    dispatch(VendorActions.getVendorActivitySubProject())
+    dispatch(VendorActions.getVendorSubProject())
+    
   }, []);
   const handleBulkDelte = () => {
-   
     // dispatch(
     //   CommonActions.deleteApiCallerBulk(
     //     `${Urls.projectList_siteEngineer}`,
@@ -1143,66 +1447,74 @@ const MyTask = () => {
     //       setmultiSelect([])
     //     }
     //   )
-    // );   
+    // );
   };
-
 
   return (
     <>
       <AdvancedTableExpandable
-      parentsite={parentsite}
-      childsite={childsite}
+        parentsite={parentsite}
+        childsite={childsite}
         searchView={
           <>
-            <SearchBarView
-              onblur={(e) => {
-              }}
+            {/* <SearchBarView
+              onblur={(e) => {}}
               onchange={(e) => {
-                const siteNameQuery = (e.target.value ? "siteName=" + (e.target.value + '&') : "" ) +strValFil;
-                dispatch(MyHomeActions.getMyTask(true,siteNameQuery));  
+                const siteNameQuery =
+                  (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
+                  strValFil;
+                dispatch(MyHomeActions.getMyTask(true, siteNameQuery));
               }}
               placeHolder={"Site Name"}
-            />
+            /> */}
 
-            <SearchBarView
-              onblur={(e) => {
-              }}
+            {/* <SearchBarView
+              onblur={(e) => {}}
               onchange={(e) => {
-                dispatch(MyHomeActions.getMyTask(true,(e.target.value ? "mileStoneName=" + (e.target.value + '&'): "") +strValFil));
+                dispatch(
+                  MyHomeActions.getMyTask(
+                    true,
+                    (e.target.value
+                      ? "mileStoneName=" + (e.target.value + "&")
+                      : "") + strValFil
+                  )
+                );
               }}
               placeHolder={"Milestone Name"}
-            />
+            /> */}
           </>
         }
-        
         headerButton={
           <div className="flex gap-1">
-          {(Array.isArray(parentsite) && parentsite?.length > 0 ) && (
-                <Button
-                  classes="w-auto"
-                  onClick={(e) => {
-                    setmodalOpen((prev) => !prev);
-                    setmodalHead("Confirm Delete");
-                    setmodalBody(
-                      <div className="flex justify-center py-6">
-                        <button 
-                          onClick={handleBulkDelte}
-                          className="w-1/4 rounded-full bg-green-600"
-                        >
+            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+              <Button
+                classes="w-auto"
+                onClick={(e) => {
+                  setmodalOpen((prev) => !prev);
+                  setmodalHead("Confirm Delete");
+                  setmodalBody(
+                    <div className="flex justify-center py-6">
+                      <button
+                        onClick={handleBulkDelte}
+                        className="w-1/4 rounded-full bg-green-600"
+                      >
                         OK
-                        </button>
-                      </div>
-                    );
-                  }}
-                  name={"Delete"}
-                ></Button>
+                      </button>
+                    </div>
+                  );
+                }}
+                name={"Delete"}
+              ></Button>
             )}
             <ConditionalButton
               showType={getAccessType("Export(Site)")}
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
-                  CommonActions.commondownload("/export/myTask","Export_My_Task.xlsx")
+                  CommonActions.commondownload(
+                    "/export/myTask",
+                    "Export_My_Task.xlsx"
+                  )
                 );
               }}
               name={"Export"}
@@ -1222,7 +1534,7 @@ const MyTask = () => {
         getmultiSelect={getmultiSelect}
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
-        heading = {'Total Sites:-'}
+        heading={"Total Sites:-"}
       />
 
       <Modal
@@ -1244,4 +1556,4 @@ const MyTask = () => {
   );
 };
 
-export default MyTask;
+export default VendorProjectTracking;

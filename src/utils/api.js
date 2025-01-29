@@ -96,6 +96,7 @@ const Api = {
     },
 
     post: ({ data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }) => {
+        console.log("uhjuhjrfuhujuhyuhyui",data,url,contentType)
         return instance({
             method: "POST",
             data,
