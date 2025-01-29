@@ -106,6 +106,7 @@ import ComplianceL1ApproverTable from "../pages/PMIS/MyHome/ComplianceL1Approver
 import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2ApproverTable";
 import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerCard";
 import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
+import AOPTracking from "../pages/PMIS/Formss/AOP/AOPTracking";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -652,6 +653,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/P&L",
       component: <PL />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/AOPTracking",
+      component: <AOPTracking />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
