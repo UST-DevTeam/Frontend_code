@@ -218,7 +218,7 @@ const ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm = ({
             icon: "success",
             buttons: [],
             type: 1,
-            text: mileStone?.Name + " Tab Data has been successfully updated.",
+            text: mileStone?.Name + "Tab Data has been successfully updated.",
           };
           dispatch(ALERTS(msgdata));
         }

@@ -12,7 +12,6 @@ import ConditionalButton from "./ConditionalButton";
 import ComponentActions from "../store/actions/component-actions";
 
 
-
 const AdvancedTable = ({
   tableName = "",
   headerButton,

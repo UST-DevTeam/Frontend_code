@@ -58,12 +58,12 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
             border: "none",
             "border-radius": "0px",
             padding: "0px",
+           
             color: "black !important", 
             
           },
           multiselectContainer: {
-          width:itm?.width,
-          },
+            width:"100%",          },
         }}
         className={`custom-scrollbar pt-1 text-black bg-white block ${height} rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6`}
       />

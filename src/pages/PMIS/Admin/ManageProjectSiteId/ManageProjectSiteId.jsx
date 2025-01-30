@@ -8,7 +8,11 @@ import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import { MdMessage } from "react-icons/md";
 import PopupMenu from "../../../../components/PopupMenu";
-import {getAccessType,objectToQueryString,parseTwoDigit} from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+  parseTwoDigit,
+} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
@@ -30,17 +34,17 @@ import FilterActions from "../../../../store/actions/filter-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectList-reducer";
+import VendorGroupTaskAllocation from "./VendorGroupTaskAllocation";
 
 const ManageProjectSiteId = () => {
-
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
 
-  const { proId,projectuniqueId } = useParams();
+  const { proId, projectuniqueId } = useParams();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
-  const [fileOpen, setFileOpen] = useState(false)
+  const [fileOpen, setFileOpen] = useState(false);
   const [fileOpenlink, setFileOpenlink] = useState([]);
   const [fileType, setfileType] = useState("");
   const [modalFullBody, setmodalFullBody] = useState(<></>);
@@ -78,23 +82,20 @@ const ManageProjectSiteId = () => {
     return state.projectList.getProjectTypeSub;
   });
 
-  let showTypeforAction = getAccessType("Actions(Site)")
+  let showTypeforAction = getAccessType("Actions(Site)");
 
-  let shouldIncludeEditColumn = false
+  let shouldIncludeEditColumn = false;
 
-  if (showTypeforAction === "visible"){
-    shouldIncludeEditColumn = true
+  if (showTypeforAction === "visible") {
+    shouldIncludeEditColumn = true;
   }
 
-  let upgradepopupShowType = false
+  let upgradepopupShowType = false;
 
-  let showType1 = getAccessType("Upgrade(Site Page)")
-  if (showType1 === "visible"){
-    upgradepopupShowType = true
+  let showType1 = getAccessType("Upgrade(Site Page)");
+  if (showType1 === "visible") {
+    upgradepopupShowType = true;
   }
-
-
-  
 
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getSiteSubProject.map((itm) => {
@@ -105,12 +106,10 @@ const ManageProjectSiteId = () => {
     });
   });
 
-
   let dbConfigL = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
     return interdata;
   });
-
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.projectList?.getprojectalllist || [];
@@ -122,8 +121,13 @@ const ManageProjectSiteId = () => {
             className="text-[#13b497] font-extrabold"
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site:-"+itm['Site Id']);
-              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true,}));
+              setmodalHead("Update Site:-" + itm["Site Id"]);
+              dispatch(
+                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                  dataAll: [],
+                  reset: true,
+                })
+              );
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
               setmodalBody(
                 <ManageMilestoneSite
@@ -200,9 +204,13 @@ const ManageProjectSiteId = () => {
 
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
-            <p className="text-[#13b497] font-extrabold">{itm.siteageing + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">
+              {itm.siteageing + " Days"}
+            </p>
           ) : (
-            <p className="text-rose-400 font-extrabold">{itm.siteageing + " Days"}</p>
+            <p className="text-rose-400 font-extrabold">
+              {itm.siteageing + " Days"}
+            </p>
           )
         ) : (
           ""
@@ -231,67 +239,72 @@ const ManageProjectSiteId = () => {
             MileDevName: (
               <div className="flex">
                 <p
-                  // className="cursor"
-                  // onClick={() => {
-                  //   if (iewq.mileStoneStatus != "Closed") {
-                  //     setmodalOpen(true);
+                // className="cursor"
+                // onClick={() => {
+                //   if (iewq.mileStoneStatus != "Closed") {
+                //     setmodalOpen(true);
 
-                  //     dispatch(
-                  //       projectListActions.getUserAllocatedProject(
-                  //         true,
-                  //         projectuniqueId
-                  //       )
-                  //     );
+                //     dispatch(
+                //       projectListActions.getUserAllocatedProject(
+                //         true,
+                //         projectuniqueId
+                //       )
+                //     );
 
-                  //     setmodalHead("Allocate User");
-                  //     setmodalBody(
-                  //       <>
-                  //         <AllocateProjectForm
-                  //           from={"mileStone"}
-                  //           listsite={[]}
-                  //           projectuniqueId={projectuniqueId}
-                  //           isOpen={modalOpen}
-                  //           setIsOpen={setmodalOpen}
-                  //           resetting={false}
-                  //           formValue={iewq}
-                  //         />
-                  //       </>
-                  //     );
-                  //   } else {
-                  //     let msgdata = {
-                  //       show: true,
-                  //       icon: "error",
-                  //       buttons: [],
-                  //       type: 1,
-                  //       text: "This task is already closed so cannot reallocate",
-                  //     };
-                  //     dispatch(ALERTS(msgdata));
-                  //   }
+                //     setmodalHead("Allocate User");
+                //     setmodalBody(
+                //       <>
+                //         <AllocateProjectForm
+                //           from={"mileStone"}
+                //           listsite={[]}
+                //           projectuniqueId={projectuniqueId}
+                //           isOpen={modalOpen}
+                //           setIsOpen={setmodalOpen}
+                //           resetting={false}
+                //           formValue={iewq}
+                //         />
+                //       </>
+                //     );
+                //   } else {
+                //     let msgdata = {
+                //       show: true,
+                //       icon: "error",
+                //       buttons: [],
+                //       type: 1,
+                //       text: "This task is already closed so cannot reallocate",
+                //     };
+                //     dispatch(ALERTS(msgdata));
+                //   }
 
-                  //   console.log("ahshshhs", itm);
-                  // }}
+                //   console.log("ahshshhs", itm);
+                // }}
                 >
                   {iewq.assignerResult ? (
-
-                   
                     <>
                       <div class="">
                         <div class="group flex flex-row relative items-center w-full">
-                        {iewq.assignerResult
-                          .slice(0, 2)
-                          .map((itwsw, index) => (
+                          {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
                               <p
-                                  key={index}
-                                  className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                                key={index}
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
                               >
-                                  {" "}
-                                  {itwsw.assignerName && itwsw.assignerName.trim().split(" ").length > 1
-                                      ? `${itwsw.assignerName.split(" ")[0].substr(0, 1)}${itwsw.assignerName.split(" ")[1].substr(0, 1)}`
-                                      : itwsw.assignerName
-                                          ? itwsw.assignerName.split(" ")[0].substr(0, 1)
-                                          : ''}
+                                {" "}
+                                {itwsw.assignerName &&
+                                itwsw.assignerName.trim().split(" ").length > 1
+                                  ? `${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)}`
+                                  : itwsw.assignerName
+                                  ? itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)
+                                  : ""}
                               </p>
-                          ))}
+                            ))}
                           {/* {iewq.assignerResult
                             .slice(0, 2)
                             .map((itwsw, index) => (
@@ -337,7 +350,10 @@ const ManageProjectSiteId = () => {
                       setmodalBody(
                         <>
                           <div className="flex justify-between mt-5">
-                            <label htmlFor="" className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap">
+                            <label
+                              htmlFor=""
+                              className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap"
+                            >
                               {" "}
                               Current Status:
                             </label>
@@ -346,8 +362,10 @@ const ManageProjectSiteId = () => {
                             </p>
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-                          <Button
-                              classes={"mt-2 w-sm text-center flex mx-auto font-bold text-base"}
+                            <Button
+                              classes={
+                                "mt-2 w-sm text-center flex mx-auto font-bold text-base"
+                              }
                               name="Open Task"
                               onClick={() => {
                                 let finaldata = {
@@ -359,7 +377,12 @@ const ManageProjectSiteId = () => {
                                     iewq.uniqueId,
                                     finaldata,
                                     () => {
-                                      dispatch(projectListActions.getProjectTypeAll(projectuniqueId,strValFil));
+                                      dispatch(
+                                        projectListActions.getProjectTypeAll(
+                                          projectuniqueId,
+                                          strValFil
+                                        )
+                                      );
                                       setmodalOpen(false);
                                     }
                                   )
@@ -384,7 +407,12 @@ const ManageProjectSiteId = () => {
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
                   setmodalHead("Update Milestone");
-                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                  dispatch(
+                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                      dataAll: [],
+                      reset: true,
+                    })
+                  );
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
                   setmodalBody(
                     <ManageMilestoneSite
@@ -395,7 +423,7 @@ const ManageProjectSiteId = () => {
                       setSiteId={setSiteId}
                       setmodalFullOpen={setmodalFullOpen}
                       projectuniqueId={projectuniqueId}
-                      filterView = {strValFil}
+                      filterView={strValFil}
                     />
                   );
 
@@ -408,9 +436,13 @@ const ManageProjectSiteId = () => {
             eventLogsmilestone: <></>,
             taskmageing:
               iewq.taskageing >= 0 ? (
-                <p className="text-[#13b497] font-extrabold">{iewq.taskageing + " Days"}</p>
+                <p className="text-[#13b497] font-extrabold">
+                  {iewq.taskageing + " Days"}
+                </p>
               ) : (
-                <p className="text-rose-400 font-extrabold">{iewq.taskageing + " Days"}</p>
+                <p className="text-rose-400 font-extrabold">
+                  {iewq.taskageing + " Days"}
+                </p>
               ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (
@@ -418,8 +450,9 @@ const ManageProjectSiteId = () => {
                 notifyType={iewq.taskageing >= 0 ? "success" : "alert"}
                 percent={iewq.mileStoneStatus == "Closed" ? "100" : "0"}
                 text={
-                  parseTwoDigit(iewq.mileStoneStatus == "Closed" ? "100" : "0") +
-                  " %"
+                  parseTwoDigit(
+                    iewq.mileStoneStatus == "Closed" ? "100" : "0"
+                  ) + " %"
                 }
               />
             ),
@@ -458,7 +491,8 @@ const ManageProjectSiteId = () => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId,strValFil
+                                          projectuniqueId,
+                                          strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -487,8 +521,19 @@ const ManageProjectSiteId = () => {
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
                       setmodalHead(`MileStone Event Log:-( ${iewq?.["Name"]})`);
-                      dispatch(eventManagementActions.getmilestoneeventList(true,iewq.uniqueId));
-                      setmodalBody(<EventLog type={"milestone"} unqeId={iewq?.uniqueId} urlType={'getmilestoneeventList'} />);
+                      dispatch(
+                        eventManagementActions.getmilestoneeventList(
+                          true,
+                          iewq.uniqueId
+                        )
+                      );
+                      setmodalBody(
+                        <EventLog
+                          type={"milestone"}
+                          unqeId={iewq?.uniqueId}
+                          urlType={"getmilestoneeventList"}
+                        />
+                      );
                     }}
                   >
                     <MdMessage size={30} />
@@ -504,7 +549,7 @@ const ManageProjectSiteId = () => {
 
                             buttons: [
                               <Button
-                                classes='w-15 bg-rose-400'
+                                classes="w-15 bg-rose-400"
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCaller(
@@ -704,9 +749,20 @@ const ManageProjectSiteId = () => {
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
                       setmodalHead(`Site Event Log:-( ${itm?.["Site Id"]})`);
-                      dispatch(SITEEVENTLIST({dataAll:[],reset:true}))
-                      dispatch(eventManagementActions.getsiteeventList(true,itm?.uniqueId));
-                      setmodalBody(<EventLog type={"site"} unqeId={itm?.uniqueId} urlType={"getsiteeventList"} />);
+                      dispatch(SITEEVENTLIST({ dataAll: [], reset: true }));
+                      dispatch(
+                        eventManagementActions.getsiteeventList(
+                          true,
+                          itm?.uniqueId
+                        )
+                      );
+                      setmodalBody(
+                        <EventLog
+                          type={"site"}
+                          unqeId={itm?.uniqueId}
+                          urlType={"getsiteeventList"}
+                        />
+                      );
                     }}
                   >
                     <MdMessage size={30} />
@@ -721,11 +777,12 @@ const ManageProjectSiteId = () => {
                             icon: "warning",
                             buttons: [
                               <Button
-                                classes='w-15 bg-rose-400'
+                                classes="w-15 bg-rose-400"
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCallerBulk(
-                                      `${Urls.projectList_siteEngineer}`,{ids : [itm.uniqueId]},
+                                      `${Urls.projectList_siteEngineer}`,
+                                      { ids: [itm.uniqueId] },
                                       () => {
                                         dispatch(
                                           projectListActions.getProjectTypeAll(
@@ -811,7 +868,8 @@ const ManageProjectSiteId = () => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style:
+          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "Sub Project",
@@ -881,7 +939,7 @@ const ManageProjectSiteId = () => {
               style: "min-w-[50px] max-w-[100px] text-center",
             },
           ]
-        : [])
+        : []),
     ],
     childList: [""],
     childs: {
@@ -957,7 +1015,7 @@ const ManageProjectSiteId = () => {
                 style: "min-w-[50px] max-w-[100px] text-center",
               },
             ]
-          : [])
+          : []),
       ],
     },
     properties: {
@@ -966,87 +1024,102 @@ const ManageProjectSiteId = () => {
 
     filter: [
       {
-          label: "Site ID",
-          type: "text",
-          name: "siteId",
-          props: {}
+        label: "Site ID",
+        type: "text",
+        name: "siteId",
+        props: {},
       },
       {
         label: "Sub Project",
         type: "select",
         name: "subProject",
-        option:subProjectList,
-        props: {}
+        option: subProjectList,
+        props: {},
       },
       {
-          label: "Site Status",
-          type: "select",
-          name: "siteStatus",
-          option: [
-            { label: "Open", value: "Open" },
-            { label: "Close", value: "Close" },
-            { label: "Drop", value: "Drop" },
-          ],
-          props: {}
+        label: "Site Status",
+        type: "select",
+        name: "siteStatus",
+        option: [
+          { label: "Open", value: "Open" },
+          { label: "Close", value: "Close" },
+          { label: "Drop", value: "Drop" },
+        ],
+        props: {},
       },
       {
-          label: "Billing Status",
-          type: "select",
-          name: "siteBillingStatus",
-          option:[
-            {label:'Unbilled', value:'Unbilled'},
-            {label:'Billed', value:'Billed'},
-          ],
-          props: {}
-      }
+        label: "Billing Status",
+        type: "select",
+        name: "siteBillingStatus",
+        option: [
+          { label: "Unbilled", value: "Unbilled" },
+          { label: "Billed", value: "Billed" },
+        ],
+        props: {},
+      },
     ],
   };
 
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    let strVal=objectToQueryString(data)
-    setstrVal(strVal)
-    dispatch(projectListActions.getProjectTypeAll(projectuniqueId, objectToQueryString(data),shouldReset));
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(
+      projectListActions.getProjectTypeAll(
+        projectuniqueId,
+        objectToQueryString(data),
+        shouldReset
+      )
+    );
   };
 
   useEffect(() => {
-    dispatch(projectListActions.getProjectType(projectuniqueId,true,0));
-    dispatch(projectListActions.getCircleWithPGData(projectuniqueId,true,0));
+    dispatch(projectListActions.getProjectType(projectuniqueId, true, 0));
+    dispatch(projectListActions.getCircleWithPGData(projectuniqueId, true, 0));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    dispatch(projectListActions.getMappedData(projectuniqueId,true,0));
-    dispatch(FilterActions.getSiteSubProject(projectuniqueId,true,"",0));
+    dispatch(projectListActions.getMappedData(projectuniqueId, true, 0));
+    dispatch(FilterActions.getSiteSubProject(projectuniqueId, true, "", 0));
   }, []);
 
   const handleBulkDelte = () => {
-    dispatch(CommonActions.deleteApiCallerBulk(`${Urls.projectList_siteEngineer}`,{ids: parentsite},
+    dispatch(
+      CommonActions.deleteApiCallerBulk(
+        `${Urls.projectList_siteEngineer}`,
+        { ids: parentsite },
         () => {
           dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-          setmodalOpen(false)
-          setparentsite([])
-          setmultiSelect([])
+          setmodalOpen(false);
+          setparentsite([]);
+          setmultiSelect([]);
         }
       )
-    );   
+    );
   };
 
-  let siteexportpopup = false
-  let exportpopupshowType = getAccessType("Export(Site)")
-  if(exportpopupshowType === "visible"){
-    siteexportpopup = true
+  let siteexportpopup = false;
+  let exportpopupshowType = getAccessType("Export(Site)");
+  if (exportpopupshowType === "visible") {
+    siteexportpopup = true;
   }
 
-  const onTableViewSubmit = (data) => { 
-      data["fileType"]=fileType
-      let makeurl  = `${Urls.common_update_site_milestone}${"/"+ projectuniqueId}`
-      dispatch(CommonActions.fileSubmit(makeurl, data, () => {
-          dispatch(AdminActions.getManageCircle())
-          setFileOpen(false)
-      }))
-  }
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = fileType;
+    let makeurl = `${Urls.common_update_site_milestone}${
+      "/" + projectuniqueId
+    }`;
+    dispatch(
+      CommonActions.fileSubmit(makeurl, data, () => {
+        dispatch(AdminActions.getManageCircle());
+        setFileOpen(false);
+      })
+    );
+  };
 
   const onBulkUploadSite = (data, projectuniqueId) => {
-    let makeUrl = `${Urls.upload_bulk_site_one_project}${"/" + projectuniqueId }`;
+    let makeUrl = `${Urls.upload_bulk_site_one_project}${
+      "/" + projectuniqueId
+    }`;
     dispatch(
       CommonActions.fileSubmit(makeUrl, data, () => {
         setFileOpen(false);
@@ -1076,7 +1149,12 @@ const ManageProjectSiteId = () => {
               }}
               onchange={(e) => {
                 dispatch(
-                  projectListActions.getProjectTypeAll(projectuniqueId,e.target.value != "" ? "mileStoneName=" + e.target.value: "")
+                  projectListActions.getProjectTypeAll(
+                    projectuniqueId,
+                    e.target.value != ""
+                      ? "mileStoneName=" + e.target.value
+                      : ""
+                  )
                 );
               }}
               placeHolder={"S Milestone Name"}
@@ -1085,7 +1163,9 @@ const ManageProjectSiteId = () => {
         }
         headerButton={
           <div className="flex">
-            {(Array.isArray(parentsite) && parentsite?.length > 0 && shouldIncludeEditColumn) && (
+            {Array.isArray(parentsite) &&
+              parentsite?.length > 0 &&
+              shouldIncludeEditColumn && (
                 <Button
                   classes="mr-1"
                   onClick={(e) => {
@@ -1093,19 +1173,19 @@ const ManageProjectSiteId = () => {
                     setmodalHead("Confirm Delete");
                     setmodalBody(
                       <div className="flex justify-center py-6">
-                        <button 
+                        <button
                           onClick={handleBulkDelte}
                           className="w-1/4 rounded-full bg-green-600"
                         >
-                        OK
+                          OK
                         </button>
                       </div>
                     );
                   }}
                   name={"Delete"}
                 ></Button>
-            )}
-            
+              )}
+
             <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="mr-1"
@@ -1129,10 +1209,63 @@ const ManageProjectSiteId = () => {
               showType={getAccessType("Task Allocation")}
               classes="mr-1"
               onClick={(e) => {
+                // if (childsite.length > 0) {
+                  setmodalOpen((prev) => !prev);
+                  dispatch(
+                    GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
+                  );
+                  dispatch(
+                    projectListActions.getUserAllocatedProject(
+                      true,
+                      projectuniqueId
+                    )
+                  );
+                  setmodalHead("Partner Allocation");
+                  setmodalBody(
+                    <VendorGroupTaskAllocation
+                      from={"bulktask"}
+                      listsite={childsite}
+                      projectuniqueId={projectuniqueId}
+                      isOpen={modalOpen}
+                      setIsOpen={setmodalOpen}
+                      resetting={false}
+                      formValue={{}}
+                      filtervalue={strValFil}
+                      checkbox={setchildsite}
+                      parentcheckbox={setparentsite}
+                    />
+                  );
+                } 
+              //   else {
+              //     let msgdata = {
+              //       show: true,
+              //       icon: "error",
+              //       buttons: [],
+              //       type: 1,
+              //       text: "Please Select at least one Task for bulk allocate",
+              //     };
+              //     dispatch(ALERTS(msgdata));
+              //   }
+              // }
+            }
+              name={"Allocate to Partner"}
+            ></ConditionalButton>
+
+            <ConditionalButton
+              showType={getAccessType("Task Allocation")}
+              classes="mr-1"
+              onClick={(e) => {
                 if (childsite.length > 0) {
                   setmodalOpen((prev) => !prev);
-                  dispatch(GET_USER_ALLLOCATED_PROJECT({dataAll:[],reset:true}))
-                  dispatch(projectListActions.getUserAllocatedProject(true,projectuniqueId));
+                  dispatch(
+                    GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
+                  );
+                  dispatch(
+                    projectListActions.getUserAllocatedProject(
+                      true,
+                      projectuniqueId
+                    )
+                  );
                   setmodalHead("Allocate Task");
                   setmodalBody(
                     <AllocateProjectForm
@@ -1143,9 +1276,9 @@ const ManageProjectSiteId = () => {
                       setIsOpen={setmodalOpen}
                       resetting={false}
                       formValue={{}}
-                      filtervalue = {strValFil}
-                      checkbox = {setchildsite}
-                      parentcheckbox = {setparentsite}
+                      filtervalue={strValFil}
+                      checkbox={setchildsite}
+                      parentcheckbox={setparentsite}
                     />
                   );
                 } else {
@@ -1159,7 +1292,7 @@ const ManageProjectSiteId = () => {
                   dispatch(ALERTS(msgdata));
                 }
               }}
-              name={"Task Allocate"}
+              name={"Allocate to In-house"}
             ></ConditionalButton>
 
             {/* <ConditionalButton
@@ -1200,76 +1333,95 @@ const ManageProjectSiteId = () => {
               }}
               name={"Site Allocate"}
             ></ConditionalButton> */}
-          
-          <ConditionalButton
+
+            <ConditionalButton
               name={"Upload"}
               showType={getAccessType("Upload(Site Page)")}
               classes="mr-1"
               onClick={(e) => {
-                setbulkfileOpen(prev=>!prev)
+                setbulkfileOpen((prev) => !prev);
               }}
-              
             ></ConditionalButton>
 
-          {upgradepopupShowType && (
-          <PopupMenu
+            {upgradepopupShowType && (
+              <PopupMenu
                 name={"Upgrade"}
                 icon={"Upgrade"}
                 classes="w-auto"
                 bgColor={"bg-[#A16E83]"}
                 child={
                   <div classes="flex z-40 max-h-96 flex-col p-1">
-                    <Button name={"Upgrade Site"} classes='w-auto m-5' 
+                    <Button
+                      name={"Upgrade Site"}
+                      classes="w-auto m-5"
                       onClick={(e) => {
-                          setFileOpen(prev=>!prev)
-                          setFileOpenlink([`/template/Site_Update.xlsx`,"Site_Update.xlsx"])
-                          setfileType(`updateSiteOneProject`)
-                      }}>
-                    </Button>
+                        setFileOpen((prev) => !prev);
+                        setFileOpenlink([
+                          `/template/Site_Update.xlsx`,
+                          "Site_Update.xlsx",
+                        ]);
+                        setfileType(`updateSiteOneProject`);
+                      }}
+                    ></Button>
                     <Button
                       name={"Upgrade Task"}
                       classes="w-auto m-5"
                       onClick={() => {
-                        setFileOpen(prev=>!prev)
-                        setFileOpenlink([`/template/Task_Update.xlsx`,"Task_Update.xlsx"])
-                        setfileType(`updateMilestoneOneProject`)
-                      }}>
-                    </Button>
+                        setFileOpen((prev) => !prev);
+                        setFileOpenlink([
+                          `/template/Task_Update.xlsx`,
+                          "Task_Update.xlsx",
+                        ]);
+                        setfileType(`updateMilestoneOneProject`);
+                      }}
+                    ></Button>
                   </div>
                 }
               />
-          )}
-          {siteexportpopup && (
-            <PopupMenu
-              name={"Export"}
-              icon={"Export"}
-              classes={"w-auto"}
-              bgColor={"bg-[#147b99]"}
-              child={
-                <div classes="flex z-40 max-h-96 flex-col p-1">
-                {/* <div classes="z-40 max-h-96 justify-center"> */}
-                  <Button
-                    name={"Export"}
-                    classes="w-auto m-5"
-                    onClick={(e) => {
-                      dispatch(
-                        CommonActions.commondownload("/export/siteId/" + `${projectuniqueId}`+'?'+ `${strValFil}`,`Export_Sites.xlsx`)
-                      );
-                    }}
-                  ></Button>
-                  <Button
-                    name={"Export with Task"}
-                    classes="w-auto m-5"
-                    onClick={(e) => {
-                      dispatch(
-                        CommonActions.commondownload("/export/siteIdwithMilestone/" + `${projectuniqueId}`+'?'+ `${strValFil}`,"Export_Sites_with_Milestone.xlsx")
-                      );
-                    }}
-                  ></Button>
-                </div>
-              }
-            />
-          )}
+            )}
+            {siteexportpopup && (
+              <PopupMenu
+                name={"Export"}
+                icon={"Export"}
+                classes={"w-auto"}
+                bgColor={"bg-[#147b99]"}
+                child={
+                  <div classes="flex z-40 max-h-96 flex-col p-1">
+                    {/* <div classes="z-40 max-h-96 justify-center"> */}
+                    <Button
+                      name={"Export"}
+                      classes="w-auto m-5"
+                      onClick={(e) => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/siteId/" +
+                              `${projectuniqueId}` +
+                              "?" +
+                              `${strValFil}`,
+                            `Export_Sites.xlsx`
+                          )
+                        );
+                      }}
+                    ></Button>
+                    <Button
+                      name={"Export with Task"}
+                      classes="w-auto m-5"
+                      onClick={(e) => {
+                        dispatch(
+                          CommonActions.commondownload(
+                            "/export/siteIdwithMilestone/" +
+                              `${projectuniqueId}` +
+                              "?" +
+                              `${strValFil}`,
+                            "Export_Sites_with_Milestone.xlsx"
+                          )
+                        );
+                      }}
+                    ></Button>
+                  </div>
+                }
+              />
+            )}
           </div>
         }
         table={table}
@@ -1285,7 +1437,7 @@ const ManageProjectSiteId = () => {
         getmultiSelect={getmultiSelect}
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
-        heading = {'Total Sites:-'}
+        heading={"Total Sites:-"}
       />
 
       <Modal
@@ -1304,23 +1456,26 @@ const ManageProjectSiteId = () => {
       />
       <FileUploader
         isOpen={fileOpen}
-        fileUploadUrl={""}  
+        fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
-        tempbtn={fileOpenlink.length!=0}
+        tempbtn={fileOpenlink.length != 0}
         tempbtnlink={fileOpenlink}
         setIsOpen={setFileOpen}
       />
-      <FileUploader 
-        isOpen={bulkfileOpen} 
-        fileUploadUrl={""} 
+      <FileUploader
+        isOpen={bulkfileOpen}
+        fileUploadUrl={""}
         onTableViewSubmit={(data) => {
-          onBulkUploadSite(data, projectuniqueId );
-          setbulkfileOpen(false)
-          resetting("")
-        }} 
-        setIsOpen={setbulkfileOpen} 
-        tempbtn={true} 
-        tempbtnlink = {[`/template/OneProject/${projectuniqueId}`,`Template (${proId}).xlsx`]} 
+          onBulkUploadSite(data, projectuniqueId);
+          setbulkfileOpen(false);
+          resetting("");
+        }}
+        setIsOpen={setbulkfileOpen}
+        tempbtn={true}
+        tempbtnlink={[
+          `/template/OneProject/${projectuniqueId}`,
+          `Template (${proId}).xlsx`,
+        ]}
       />
     </>
   );

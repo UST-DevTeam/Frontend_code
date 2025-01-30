@@ -106,6 +106,7 @@ import ComplianceL1ApproverTable from "../pages/PMIS/MyHome/ComplianceL1Approver
 import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2ApproverTable";
 import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerCard";
 import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
+import ManagePolicy from "../pages/PMIS/MyHome/ManagePolicy";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -284,6 +285,12 @@ export const Sidebar_content = {
       link: "/home/myTask",
       subMenu: [],
       component: <MyTask />,
+    },
+    {
+      name: "",
+      link: "/home/myPolicy",
+      subMenu: [],
+      component: <ManagePolicy />,
     },
     {
       name: "",

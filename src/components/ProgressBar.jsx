@@ -10,7 +10,7 @@ const ProgressBar = ({ text,percent, notifyType }) => {
         "success": ["bg-green-700", "bg-pcol"],
         "info": ["bg-blue-900", "bg-blue-500"]
     }
-    return <div class="w-[84%] relative bg-gray-200 rounded-full h-5 dark:bg-gray-700 m-2">
+    return <div class="w-[84%] relative bg-gray-200 rounded-full h-5 dark:bg-gray-700 m-2 border-r-[#13b497] border-r-2">
         <div className='flex absolute w-full justify-center'>
             <p className='text-center text-black font-bold m-1'>{text}</p>
         </div>
