@@ -1209,7 +1209,7 @@ const ManageProjectSiteId = () => {
               showType={getAccessType("Task Allocation")}
               classes="mr-1"
               onClick={(e) => {
-                // if (childsite.length > 0) {
+                if (childsite.length > 0) {
                   setmodalOpen((prev) => !prev);
                   dispatch(
                     GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
@@ -1236,18 +1236,17 @@ const ManageProjectSiteId = () => {
                     />
                   );
                 } 
-              //   else {
-              //     let msgdata = {
-              //       show: true,
-              //       icon: "error",
-              //       buttons: [],
-              //       type: 1,
-              //       text: "Please Select at least one Task for bulk allocate",
-              //     };
-              //     dispatch(ALERTS(msgdata));
-              //   }
-              // }
-            }
+                else {
+                  let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: "Please Select at least one Task for bulk allocate",
+                  };
+                  dispatch(ALERTS(msgdata));
+                }
+              }}
               name={"Allocate to Partner"}
             ></ConditionalButton>
 
