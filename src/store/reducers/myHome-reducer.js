@@ -4,6 +4,7 @@ const initialState = {
     getMyHome: [],
     getPersonalInfo:[],
     getmyTask:[],
+    getMyPolicy:[],
 }
 
 const myHome = createSlice({
@@ -34,8 +35,21 @@ const myHome = createSlice({
                 state.getmyTask  = [...state.getmyTask,...payload.dataAll]
             }
         },
+
+        GET_MY_POLICY:(state,{payload}) => {
+            if(payload.reset){
+                state.getMyPolicy = payload.dataAll
+            }else{
+                state.getMyPolicy  = [...state.getMyPolicy,...payload.dataAll]
+            }
+        },
     }
 })
 
-export const { GET_MY_HOME, GET_PERSONAL_INFO, GET_MY_TASK } = myHome.actions
+export const {
+    GET_MY_HOME,
+    GET_PERSONAL_INFO,
+    GET_MY_TASK,
+    GET_MY_POLICY,
+} = myHome.actions
 export default myHome.reducer

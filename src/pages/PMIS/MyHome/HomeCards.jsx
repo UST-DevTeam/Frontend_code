@@ -72,6 +72,12 @@ const HomeCards = () => {
               <Unicons.UilFileAlt size="40" color="" />,
             ],
             [
+              "My Task",
+              "bg-pcol",
+              "/home/myPolicy",
+              <Unicons.UilFileAlt size="40" color="" />,
+            ],
+            [
               "Claim & Advance",
               "bg-pcol",
               "/home/claimAndAdvance",
@@ -84,12 +90,6 @@ const HomeCards = () => {
               "/home/assets",
               <Unicons.UilArchive size="40" color="white" />,
             ],
-            // [
-            //   "Approvals",
-            //   "bg-pcol",
-            //   "/home/approverCards",
-            //   <Unicons.UilCheckCircle size="40" color="" />,
-            // ],
             [
               "Approvals",
               "bg-pcol",
@@ -149,7 +149,7 @@ const HomeCards = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-24  gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-32  gap-2">
         {graph1 && <MileStoneChart />}
         {/* <TrendExpenseAdvance /> */}
         {graph2 && <ExpenseApprovalStatus />}

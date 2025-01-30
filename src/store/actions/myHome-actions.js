@@ -1,7 +1,11 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import {GET_MY_HOME, GET_MY_TASK, GET_PERSONAL_INFO } from "../reducers/myHome-reducer"
+import {
+    GET_MY_HOME, GET_MY_TASK,
+    GET_PERSONAL_INFO,
+    GET_MY_POLICY,
+} from "../reducers/myHome-reducer"
 
 
 const MyHomeActions = {
@@ -54,6 +58,16 @@ const MyHomeActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MY_TASK({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
+    getMyPolicy:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.user_myPolicy}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_MY_POLICY({dataAll,reset}))
         } catch (error) {
         }
     },

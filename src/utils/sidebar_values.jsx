@@ -108,6 +108,7 @@ import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerC
 import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
 import VendorWorkDescription from "../pages/PMIS/Admin/VendorWorkDescription/VendorWorkDescription";
 import VendorActivity from "../pages/PMIS/Admin/VendorActivity/VendorActivity";
+import ManagePolicy from "../pages/PMIS/MyHome/ManagePolicy";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -286,6 +287,12 @@ export const Sidebar_content = {
       link: "/home/myTask",
       subMenu: [],
       component: <MyTask />,
+    },
+    {
+      name: "",
+      link: "/home/myPolicy",
+      subMenu: [],
+      component: <ManagePolicy />,
     },
     {
       name: "",
