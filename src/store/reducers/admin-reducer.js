@@ -63,6 +63,8 @@ const initialState = {
     originalFields: [],
     usedfields: [],
   },
+  getPartnerWorkDescription:[],
+  getPartnerActivity:[],
 };
 
 const adminData = createSlice({
@@ -153,6 +155,22 @@ const adminData = createSlice({
           ...state.getProjectTypeDyform,
           ...payload.dataAll,
         ];
+      }
+    },
+
+    GET_PARTNER_WORK_DESCRIPTION: (state, { payload }) => {
+      if (payload.reset) {
+        state.getPartnerWorkDescription = payload.dataAll;
+      } else {
+        state.getPartnerWorkDescription = [...state.getPartnerWorkDescription, ...payload.getPartnerWorkDescription];
+      }
+    },
+
+    GET_PARTNER_ACTIVITY: (state, { payload }) => {
+      if (payload.reset) {
+        state.getPartnerActivity = payload.dataAll;
+      } else {
+        state.getPartnerActivity = [...state.getPartnerActivity, ...payload.getPartnerActivity];
       }
     },
 
@@ -725,7 +743,9 @@ export const {
   GET_ONE_COMPLIANCE_L1_LIST,
   GET_ONE_COMPLIANCE_L2_LIST,
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA,
-  GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS
+  GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS,
+  GET_PARTNER_WORK_DESCRIPTION,
+  GET_PARTNER_ACTIVITY
 } = adminData.actions;
 
 export default adminData.reducer;

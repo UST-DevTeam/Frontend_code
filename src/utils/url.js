@@ -1,12 +1,12 @@
-export const baseUrl="https://devapi.mcpspmis.com"
-export const backendassetUrl="https://devapi.mcpspmis.com/"
+// export const baseUrl="https://devapi.mcpspmis.com"
+// export const backendassetUrl="https://devapi.mcpspmis.com/"
 
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-// export const baseUrl = "http://localhost:7980";
-// export const backendassetUrl = "http://localhost:7980/";
+export const baseUrl = "http://localhost:7980";
+export const backendassetUrl = "http://localhost:7980/";
 
 // export const baseUrl = "http://192.168.1.24:7980";
 // export const backendassetUrl = "http://192.168.1.24:7980/";
@@ -29,6 +29,8 @@ export const Urls = {
   admin_getProjectTypeDyform: "/admin/getProjectTypeDyform",
   admin_sub_projecttype: "/admin/manageSubProjectType",
   admin_circle: "/admin/manageCircle",
+  admin_partner_work_description:"/admin/partnerWorkDescription",
+  admin_partner_activity:"/admin/partnerActivity",
   admin_zone: "/admin/manageZone",
   admin_cost_center: "/admin/manageCostCenter",
   admin_project_group: "/admin/manageProjectGroup",

@@ -106,6 +106,8 @@ import ComplianceL1ApproverTable from "../pages/PMIS/MyHome/ComplianceL1Approver
 import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2ApproverTable";
 import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerCard";
 import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
+import VendorWorkDescription from "../pages/PMIS/Admin/VendorWorkDescription/VendorWorkDescription";
+import VendorActivity from "../pages/PMIS/Admin/VendorActivity/VendorActivity";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -448,6 +450,20 @@ export const Sidebar_content = {
       link: "/hr/superAdmin/manageCostCenter",
       subMenu: [],
       component: <ManageCostCenter />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Partner Work Description",
+      link: "/hr/superAdmin/partnerWorkDescription",
+      subMenu: [],
+      component: <VendorWorkDescription />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
+      name: "Partner Acitivity",
+      link: "/hr/superAdmin/partnerActivity",
+      subMenu: [],
+      component: <VendorActivity />,
       icon: <Unicons.UilChannel size="16" />,
     },
     {

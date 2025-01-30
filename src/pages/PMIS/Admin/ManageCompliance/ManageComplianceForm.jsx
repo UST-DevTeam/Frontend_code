@@ -181,11 +181,7 @@ const ManageComplianceForm = ({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+
   const onTableViewSubmit = (data) => {
     if (formValue?.uniqueId) {
       dispatch(

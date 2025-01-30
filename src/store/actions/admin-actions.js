@@ -62,6 +62,8 @@ import {
   GET_ONE_COMPLIANCE_L2_LIST,
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA,
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS,
+  GET_PARTNER_WORK_DESCRIPTION,
+  GET_PARTNER_ACTIVITY,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
 
@@ -224,6 +226,88 @@ const AdminActions = {
           dispatch(GET_OLD_COMPONENT_ALLOCATION({ dataAll, reset }));
         } catch (error) { }
       },
+  
+  getPartnerWorkDescription:
+    (reset = true, args = "", show = 1) =>
+      async (dispatch, _) => {
+        try {
+          const res = await Api.get({
+            url: `${Urls.admin_partner_work_description}${args != "" ? "?" + args : ""}`,
+            show: show,
+          });
+          if (res?.status !== 200) return;
+          let dataAll = res?.data?.data;
+          dispatch(GET_PARTNER_WORK_DESCRIPTION({ dataAll, reset }));
+        } catch (error) { }
+      },
+  
+  postPartnerWorkDescription: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.admin_partner_work_description
+            : Urls.admin_partner_work_description + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } 
+    catch (error) {
+      return;
+    }
+  },
+
+  getPartnerActivity:
+    (reset = true, args = "", show = 1) =>
+      async (dispatch, _) => {
+        try {
+          const res = await Api.get({
+            url: `${Urls.admin_partner_activity}${args != "" ? "?" + args : ""}`,
+            show: show,
+          });
+          if (res?.status !== 200) return;
+          let dataAll = res?.data?.data;
+          dispatch(GET_PARTNER_ACTIVITY({ dataAll, reset }));
+        } catch (error) { }
+      },
+  
+  postPartnerActivity: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.admin_partner_activity
+            : Urls.admin_partner_activity + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } 
+    catch (error) {
+      return;
+    }
+  },
 
   getManageCircle:
     (reset = true, args = "", show = 1) =>
@@ -1687,11 +1771,11 @@ const AdminActions = {
         );
       }
 
-      console.log("usedFields[tabName]",usedFields[tabName])
+      console.log("usedFields[tabName]", usedFields[tabName])
 
       usedFields[tabName] = [formFields[0], ...actualFields, ...extraFields];
 
-      console.log("usedFields___tabName__",usedFields[tabName])
+      console.log("usedFields___tabName__", usedFields[tabName])
 
       dispatch(
         GET_COMPLIANCE_DEGROW_TEMPLATE_DATA({
