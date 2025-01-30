@@ -7,8 +7,6 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 import { GET_ACTIVITY_AND_OEM_COMPLIANCE, GET_PARTNER_WORK_DESCRIPTION, GET_PROJECT_TYPE_COMPLIANCE, GET_SUB_PROJECT_TYPE_COMPLIANCE } from '../../../../store/reducers/admin-reducer';
-import SweetAlerts from '../../../../components/SweetAlerts';
-import { ALERTS } from '../../../../store/reducers/component-reducer';
 
 const VendorActivityForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
@@ -208,7 +206,7 @@ const VendorActivityForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-            <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>
