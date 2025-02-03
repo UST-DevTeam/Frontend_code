@@ -7,7 +7,6 @@ import Button from "../../../../components/Button";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { Urls } from "../../../../utils/url";
 
-
 const VendorGroupTaskAllocation = ({
   from,
   listsite,
@@ -19,12 +18,14 @@ const VendorGroupTaskAllocation = ({
   filtervalue,
   checkbox,
   parentcheckbox,
+  onClose = () => {},
+  formName
 }) => {
   const {
     register,
     handleSubmit,
     watch,
-    reset:reset,
+    reset: reset,
     setValue,
     getValues,
     formState: { errors },
@@ -55,16 +56,16 @@ const VendorGroupTaskAllocation = ({
   });
 
 
+  console.log("_____Deallocate Task______",formName)
+
   const workDescriptionOption = useSelector((state) => {
     return state?.adminData?.getPartnerActivity.map((itm) => {
-      return{
-        label:itm.workDescriptionName,
-        value:itm.workDescription + ":;" + itm.milestone
+      return {
+        label: itm.workDescriptionName,
+        value: itm.workDescription + ":;" + itm.milestone,
       };
-    })
-  })
-
-
+    });
+  });
 
   let Form = [
     {
@@ -73,12 +74,12 @@ const VendorGroupTaskAllocation = ({
       value: "",
       required: true,
       type: "select",
-      option:workDescriptionOption,
-      props:{
+      option: workDescriptionOption,
+      props: {
         onChange: (e) => {
-          const selectedValue = e.target.value.split(":;")[1]
-          setValue("groupMilestone",selectedValue)
-        }
+          const selectedValue = e.target.value.split(":;")[1];
+          setValue("groupMilestone", selectedValue);
+        },
       },
       classes: "col-span-1",
     },
@@ -89,46 +90,47 @@ const VendorGroupTaskAllocation = ({
       required: true,
       type: "sdisabled",
       classes: "col-span-1",
-    },
-    {
-      label: "Assign Vendor",
-      name: "vendorId",
-      type: "BigmuitiSelect",
-      value: "",
-      singleSelect: true,
-      option: dataGetterOld
-        ? dataGetterOld["vendorDetails"]
-          ? dataGetterOld["vendorDetails"]
-          : []
-        : [],
-      onSelecting: (e) => {
-        console.log("onRemovings vendor", e);
-        setValue("userId", "");
-      },
-      onRemoving: (e) => {
-        console.log("onRemoving vendor", e);
-        setValue("userId", "");
-      },
-      required: true,
-      classes: "col-span-1",
-      width: "400px",
-    },
+    }
   ];
 
-
+  if (formName !== "Deallocate Task"){
+    Form.push(
+      {
+        label: "Assign Vendor",
+        name: "vendorId",
+        type: "BigmuitiSelect",
+        value: "",
+        singleSelect: true,
+        option: dataGetterOld
+          ? dataGetterOld["vendorDetails"]
+            ? dataGetterOld["vendorDetails"]
+            : []
+          : [],
+        onSelecting: (e) => {
+          console.log("onRemovings vendor", e);
+          setValue("userId", "");
+        },
+        onRemoving: (e) => {
+          console.log("onRemoving vendor", e);
+          setValue("userId", "");
+        },
+        required: true,
+        classes: "col-span-1",
+        width: "400px",
+      },
+    )
+  }
 
   const onTableViewSubmit = (data) => {
-
-    
-    let allData = {}
-    
-    allData['workDescription'] = data['workDescription'].split(":;")[0]
-    allData['groupMilestone'] = data['groupMilestone']
-    allData['vendorId'] = data['vendorId']
-    allData['siteId'] = listsite
+    let allData = {};
+    allData["workDescription"] = data["workDescription"].split(":;")[0];
+    allData["groupMilestone"] = data["groupMilestone"];
+    allData["vendorId"] = data["vendorId"];
+    allData["siteId"] = listsite;
 
 
-    dispatch(
+    if (formName !== "Deallocate Task"){
+      dispatch(
         projectListActions.partnerGroupMilestonePatch(
           Urls.projectList_partner_group_milestone,
           allData,
@@ -142,83 +144,32 @@ const VendorGroupTaskAllocation = ({
           }
         )
       );
-    
+    }
+    else {
+      dispatch(
+        projectListActions.partnerGroupMilestonePost(
+          Urls.projectList_partner_group_milestone,
+          allData,
+          () => {
+            dispatch(
+              projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
+            );
+            setIsOpen(false);
+            checkbox([]);
+            parentcheckbox([]);
+          }
+        )
+      );
+    }
 
 
 
-    // let dataForApp = [];
-
-    // let finaldata = {};
-
-    // let assigningTo = "";
-    // if (activeTab == 0) {
-    //   dataForApp = data["userId"];
-    //   assigningTo = "userRegister";
-    // } else if (activeTab == 1) {
-    //   dataForApp = data["vendorId"];
-    //   assigningTo = "vendor";
-    // }
-    // if (listsite.length == 0) {
-    //   let finaldata = {
-    //     name: from,
-    //     data: {
-    //       assignerId: dataForApp,
-    //       assigningTo: assigningTo,
-    //     },
-    //     from: {
-    //       uid: formValue["uniqueId"],
-    //     },
-    //   };
-
-    //   dispatch(
-    //     projectListActions.globalProjectTypeDataPatch(
-    //       Urls.projectList_globalSaver,
-    //       projectuniqueId,
-    //       finaldata,
-    //       () => {
-    //         dispatch(
-    //           projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
-    //         );
-    //         setIsOpen(false);
-    //         checkbox([]);
-    //         parentcheckbox([]);
-    //       }
-    //     )
-    //   );
-    // } else {
-    //   let finaldata = {
-    //     name: from,
-    //     data: {
-    //       assignerId: dataForApp,
-    //       assigningTo: assigningTo,
-    //     },
-    //     from: {
-    //       uid: listsite,
-    //     },
-    //   };
-
-    //   dispatch(
-    //     projectListActions.globalProjectTypeDataPatch(
-    //       Urls.projectList_globalSaver,
-    //       projectuniqueId,
-    //       finaldata,
-    //       () => {
-    //         dispatch(
-    //           projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
-    //         );
-    //         setIsOpen(false);
-    //         checkbox([]);
-    //         parentcheckbox([]);
-    //       }
-    //     )
-    //   );
-    // }
   };
 
   useEffect(() => {
-      reset()
+    
+    reset();
   }, []);
-
 
   return (
     <>

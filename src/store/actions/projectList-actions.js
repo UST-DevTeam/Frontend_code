@@ -314,6 +314,29 @@ const projectListActions = {
         }
     },
 
+    partnerGroupMilestonePost: (urle, data, cb = () => { }, reset = true) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ url: urle, data: data })
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+            else {
+                cb()
+            }
+        } catch (error) {
+            console.log(error, "errorerror 37")
+        }
+    },
+
+    
+
 
     setDynamicForm: (label, value, reseter) => async (dispatch, _) => {
         try {

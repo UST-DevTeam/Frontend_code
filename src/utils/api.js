@@ -83,6 +83,7 @@ axiosInstanceblobFile.interceptors.response.use((response) => {
 
 
 const Api = {
+    
     get: ({ url, contentType = "application/json", show = 1 }) => {
 
         return instance({

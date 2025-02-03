@@ -29,12 +29,16 @@ import { onehundcolor } from "../../../../utils/queryBuilder";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
-import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM, GET_PARTNER_ACTIVITY } from "../../../../store/reducers/admin-reducer";
+import {
+  GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
+  GET_PARTNER_ACTIVITY,
+} from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectList-reducer";
 import VendorGroupTaskAllocation from "./VendorGroupTaskAllocation";
+import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -58,10 +62,8 @@ const ManageProjectSiteId = () => {
   const [getmultiSelect, setmultiSelect] = useState([]);
   const [modalHead, setmodalHead] = useState(<></>);
   const [old, setOld] = useState(<></>);
-  const [subProjectId,setSubProjectId] = useState([]);
-
-
-
+  const [subProjectId, setSubProjectId] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     register,
@@ -176,7 +178,7 @@ const ManageProjectSiteId = () => {
             <input
               type={"checkbox"}
               id={itm.uniqueId}
-              subId = {itm.SubProjectId}
+              subId={itm.SubProjectId}
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
@@ -233,8 +235,7 @@ const ManageProjectSiteId = () => {
 
             MileDevName: (
               <div className="flex">
-                <p
-                >
+                <p>
                   {iewq.assignerResult ? (
                     <>
                       <div class="">
@@ -917,6 +918,7 @@ const ManageProjectSiteId = () => {
         () => {
           dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
           setmodalOpen(false);
+          setShowDeleteModal(false)
           setparentsite([]);
           setmultiSelect([]);
         }
@@ -994,37 +996,57 @@ const ManageProjectSiteId = () => {
               parentsite?.length > 0 &&
               shouldIncludeEditColumn && (
                 <Button
-                  classes="mr-1 bg-rose-500"
-                  onClick={(e) => {
-                    setmodalOpen((prev) => !prev);
-                    setmodalHead("Confirm Delete");
-                    setmodalBody(
-                      <div className="flex justify-center py-6">
-                        <button
-                          onClick={handleBulkDelte}
-                          className="w-1/4 rounded-full bg-green-600"
-                        >
-                          OK
-                        </button>
-                      </div>
-                    );
-                  }}
-                  name={"Delete"}
-                ></Button>
-              )
-            }
-            {Array.isArray(parentsite) && parentsite?.length > 0 &&(
+                  name={""}
+                  classes="w-full mr-1 bg-rose-500 text-white"
+                  onClick={() => setShowDeleteModal(true)}
+                >
+                  Delete
+                </Button>
+                // <Button
+                //   classes="mr-1 bg-rose-500"
+                //   onClick={(e) => {
+                //     setmodalOpen((prev) => !prev);
+                //     setmodalHead("Confirm Delete");
+                //     setmodalBody(
+                //       <div className="flex justify-center py-6">
+                //         <button
+                //           onClick={handleBulkDelte}
+                //           className="w-1/4 rounded-full bg-green-600"
+                //         >
+                //           OK
+                //         </button>
+                //       </div>
+                //     );
+                //   }}
+                //   name={"Delete"}
+                // ></Button>
+              )}
+            {Array.isArray(parentsite) && parentsite?.length > 0 && (
               <ConditionalButton
                 showType={getAccessType("Task Allocation")}
                 classes="mr-1 bg-[#ebad5d]"
                 onClick={(e) => {
                   const uniqueArr = [...new Set(subProjectId)];
-                  if (uniqueArr.length === 1){
+                  if (uniqueArr.length === 1) {
                     setmodalOpen((prev) => !prev);
-                    dispatch(GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true }));
-                    dispatch(GET_PARTNER_ACTIVITY({ dataAll:[], reset:true }));
-                    dispatch(AdminActions.getPartnerActivity(true,`subProjectId=${uniqueArr[0]}`))
-                    dispatch(projectListActions.getUserAllocatedProject(true,projectuniqueId));
+                    dispatch(
+                      GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
+                    );
+                    dispatch(
+                      GET_PARTNER_ACTIVITY({ dataAll: [], reset: true })
+                    );
+                    dispatch(
+                      AdminActions.getPartnerActivity(
+                        true,
+                        `subProjectId=${uniqueArr[0]}`
+                      )
+                    );
+                    dispatch(
+                      projectListActions.getUserAllocatedProject(
+                        true,
+                        projectuniqueId
+                      )
+                    );
                     setmodalHead("Partner Allocation");
                     setmodalBody(
                       <VendorGroupTaskAllocation
@@ -1038,11 +1060,10 @@ const ManageProjectSiteId = () => {
                         filtervalue={strValFil}
                         checkbox={setchildsite}
                         parentcheckbox={setparentsite}
-                        subId = {uniqueArr[0]}
+                        subId={uniqueArr[0]}
                       />
                     );
-                  }
-                  else {
+                  } else {
                     let msgdata = {
                       show: true,
                       icon: "error",
@@ -1054,6 +1075,63 @@ const ManageProjectSiteId = () => {
                   }
                 }}
                 name={"Allocate to Partner"}
+              ></ConditionalButton>
+            )}
+            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+              <ConditionalButton
+                showType={getAccessType("Task Allocation")}
+                classes="mr-1 bg-[#4b8085]"
+                onClick={(e) => {
+                  const uniqueArr = [...new Set(subProjectId)];
+                  if (uniqueArr.length === 1) {
+                    setmodalOpen((prev) => !prev);
+                    dispatch(
+                      GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
+                    );
+                    dispatch(
+                      GET_PARTNER_ACTIVITY({ dataAll: [], reset: true })
+                    );
+                    dispatch(
+                      AdminActions.getPartnerActivity(
+                        true,
+                        `subProjectId=${uniqueArr[0]}`
+                      )
+                    );
+                    dispatch(
+                      projectListActions.getUserAllocatedProject(
+                        true,
+                        projectuniqueId
+                      )
+                    );
+                    setmodalHead("Deallocate Task");
+                    setmodalBody(
+                      <VendorGroupTaskAllocation
+                        from={"bulktask"}
+                        listsite={parentsite}
+                        projectuniqueId={projectuniqueId}
+                        isOpen={modalOpen}
+                        setIsOpen={setmodalOpen}
+                        resetting={false}
+                        formValue={{}}
+                        filtervalue={strValFil}
+                        checkbox={setchildsite}
+                        parentcheckbox={setparentsite}
+                        subId={uniqueArr[0]}
+                        formName = {"Deallocate Task"}
+                      />
+                    );
+                  } else {
+                    let msgdata = {
+                      show: true,
+                      icon: "error",
+                      buttons: [],
+                      type: 1,
+                      text: "Kindly select Site's from the same Sub-Project.",
+                    };
+                    dispatch(ALERTS(msgdata));
+                  }
+                }}
+                name={"Deallocate Task"}
               ></ConditionalButton>
             )}
 
@@ -1075,8 +1153,7 @@ const ManageProjectSiteId = () => {
               }}
               name={"Add Site"}
             ></ConditionalButton>
-            
-      
+
             <ConditionalButton
               showType={getAccessType("Task Allocation")}
               classes="mr-1"
@@ -1097,7 +1174,7 @@ const ManageProjectSiteId = () => {
                     <AllocateProjectForm
                       from={"bulktask"}
                       listsite={childsite}
-                      parentsite = {parentsite}
+                      parentsite={parentsite}
                       projectuniqueId={projectuniqueId}
                       isOpen={modalOpen}
                       setIsOpen={setmodalOpen}
@@ -1272,6 +1349,9 @@ const ManageProjectSiteId = () => {
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
+        actionOnClose={() => {
+          setmodalBody(null);
+        }}
         setIsOpen={setmodalOpen}
       />
       <Modal
@@ -1279,6 +1359,9 @@ const ManageProjectSiteId = () => {
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalFullOpen}
+        actionOnClose={() => {
+          setmodalBody(null);
+        }}
         setIsOpen={setmodalFullOpen}
       />
       <FileUploader
@@ -1304,6 +1387,21 @@ const ManageProjectSiteId = () => {
           `Template (${proId}).xlsx`,
         ]}
       />
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
+          <div className="bg-white p-4 rounded-lg shadow-xl">
+            <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
+            <p className="mt-4">{`Are you sure you want to delete ${
+              parentsite.length > 1 ? "these rows" : "this row"
+            }?`}</p>
+            <div className="mt-6 flex justify-center space-x-4">
+              <Button name="Delete" classes="w-auto bg-rose-500" onClick={handleBulkDelte} />
+              <Button name="Cancel" classes="w-auto" onClick={() => setShowDeleteModal(false)} />
+              
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
