@@ -1,12 +1,12 @@
-export const baseUrl="https://devapi.mcpspmis.com"
-export const backendassetUrl="https://devapi.mcpspmis.com/"
+// export const baseUrl="https://devapi.mcpspmis.com"
+// export const backendassetUrl="https://devapi.mcpspmis.com/"
 
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-// export const baseUrl = "http://localhost:7980";
-// export const backendassetUrl = "http://localhost:7980/";
+export const baseUrl = "http://localhost:7980";
+export const backendassetUrl = "http://localhost:7980/";
 
 
 export const Urls = {
@@ -64,6 +64,7 @@ export const Urls = {
   projectList_siteEngineer: "/siteEngineer",
   projectList_milestone: "/milestone",
   projectList_globalSaver: "/globalSaver",
+  projectList_partner_group_milestone:"/partner_group_milestone",
   projectList_changeTaskStatus: "/changeTaskStatus",
   projectList_closeMilestone: "/closeMilestone/",
   project_circle: "/project/circle",

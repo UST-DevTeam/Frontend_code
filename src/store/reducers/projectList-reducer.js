@@ -141,48 +141,11 @@ const projectList = createSlice({
                 ...state.dynamicForm[payload.label][payload.indexToUpdate],
                 ...payload.value
             }
-            // state.dynamicForm[payload.label][payload.indexToUpdate][payload.valer] = payload.fieldNameValue;
-            // state.dynamicForm[payload.label][payload.indexToUpdate][payload.valer] = payload.fieldNameValue;
+
         },
         SET_DYNAMIC_FORM_INDEX: (state, { payload }) => {
 
-            console.log(payload, "92payloadpayloadpayloadpayloadpayloadpayload")
-            // const oldDataon = prev[indexToUpdate];
-
-            //   console.log(oldDataon, "oldDataonoldDataon")
-
-            //   console.log(oldDataon[its.name], "oldDataonoldDataononew")
-
-            //   const updatedData = {
-            //     ...oldDataon,
-            //     [its.name]: e.target.value // Assuming e.target.value is the new field value
-            //   };
-
-
-
-            //   const updatedListing = [...prev];
-            //   updatedListing[indexToUpdate] = updatedData;
-            //   console.log(updatedListing, "updatedDataupdatedData")
-            //   return updatedListing
-
-
-
-
-            //   return prev
-            // console.log(state.dynamicForm,state.dynamicForm[payload.label][payload.indexToUpdate], "state.dynamicForm[payload.label]");
-            // state.dynamicForm = {
-            //     ...state.dynamicForm,
-            //     [payload.label]: state.dynamicForm[payload.label] ? [...state.dynamicForm[payload.label], payload.value] : [payload.value]
-            // }
-
-            // state.dynamicForm = {
-            //     ...state.dynamicForm,
-            //     [payload.label]: state.dynamicForm[payload.label] ? state.dynamicForm[payload.label].map((item, index) => index === payload.indexToUpdate ? payload.value : item) : [payload.value]
-            // };
-
             state.dynamicForm[payload.label][payload.indexToUpdate][payload.valer] = payload.fieldNameValue;
-
-
 
         },
         RESET_STATE: (state) => {
@@ -193,5 +156,5 @@ const projectList = createSlice({
     }
 })
 
-export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION,GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } = projectList.actions
+export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION,GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA,GET_PARTNER_GROUP_MILESTONE } = projectList.actions
 export default projectList.reducer

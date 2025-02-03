@@ -29,7 +29,7 @@ import { onehundcolor } from "../../../../utils/queryBuilder";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
-import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../../store/reducers/admin-reducer";
+import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM, GET_PARTNER_ACTIVITY } from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
@@ -58,7 +58,10 @@ const ManageProjectSiteId = () => {
   const [getmultiSelect, setmultiSelect] = useState([]);
   const [modalHead, setmodalHead] = useState(<></>);
   const [old, setOld] = useState(<></>);
-  const navigate = useNavigate();
+  const [subProjectId,setSubProjectId] = useState([]);
+
+
+
 
   const {
     register,
@@ -173,10 +176,12 @@ const ManageProjectSiteId = () => {
             <input
               type={"checkbox"}
               id={itm.uniqueId}
+              subId = {itm.SubProjectId}
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
                 if (e.target.checked) {
+                  setSubProjectId((prev) => [...prev, itm.SubProjectId]);
                   setparentsite((prev) => [...prev, e.target.value]);
                   let dlisting = itm.milestoneArray.map((iewq) => {
                     return iewq.uniqueId;
@@ -185,6 +190,11 @@ const ManageProjectSiteId = () => {
                 } else {
                   setparentsite((prev) => {
                     let lst = prev.indexOf(e.target.value);
+                    prev.splice(lst, 1);
+                    return [...prev];
+                  });
+                  setSubProjectId((prev) => {
+                    let lst = prev.indexOf(itm.SubProjectId);
                     prev.splice(lst, 1);
                     return [...prev];
                   });
@@ -215,23 +225,8 @@ const ManageProjectSiteId = () => {
         ) : (
           ""
         ),
-        // siteStartDate: <div className='flex content-center w-full justify-center'>
-        //     <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
-        //         setmodalOpen(true)
-
-        //         dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
-        //         setmodalHead("Add Planned Start Date")
-        //         setmodalBody(<>
-        //             <AllocateProjectDateForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-        //             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //         </>)
-        //         console.log('ahshshhs', itm)
-        //         //setmodalOpen(false)
-        //     }} classes='w-full'></Button>} />
-        // </div>,
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
-          // console.log(iewq, "iewqiewqiewqiewq");
           return {
             ...iewq,
             SubProject: "",
@@ -239,45 +234,6 @@ const ManageProjectSiteId = () => {
             MileDevName: (
               <div className="flex">
                 <p
-                // className="cursor"
-                // onClick={() => {
-                //   if (iewq.mileStoneStatus != "Closed") {
-                //     setmodalOpen(true);
-
-                //     dispatch(
-                //       projectListActions.getUserAllocatedProject(
-                //         true,
-                //         projectuniqueId
-                //       )
-                //     );
-
-                //     setmodalHead("Allocate User");
-                //     setmodalBody(
-                //       <>
-                //         <AllocateProjectForm
-                //           from={"mileStone"}
-                //           listsite={[]}
-                //           projectuniqueId={projectuniqueId}
-                //           isOpen={modalOpen}
-                //           setIsOpen={setmodalOpen}
-                //           resetting={false}
-                //           formValue={iewq}
-                //         />
-                //       </>
-                //     );
-                //   } else {
-                //     let msgdata = {
-                //       show: true,
-                //       icon: "error",
-                //       buttons: [],
-                //       type: 1,
-                //       text: "This task is already closed so cannot reallocate",
-                //     };
-                //     dispatch(ALERTS(msgdata));
-                //   }
-
-                //   console.log("ahshshhs", itm);
-                // }}
                 >
                   {iewq.assignerResult ? (
                     <>
@@ -305,25 +261,6 @@ const ManageProjectSiteId = () => {
                                   : ""}
                               </p>
                             ))}
-                          {/* {iewq.assignerResult
-                            .slice(0, 2)
-                            .map((itwsw, index) => (
-                              <p
-                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
-                              >
-                                {" "}
-                                {itwsw.assignerName.split(" ").length > 1
-                                  ? itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1) +
-                                    itwsw.assignerName
-                                      .split(" ")[1]
-                                      .substr(0, 1)
-                                  : itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}
-                              </p>
-                            ))} */}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
@@ -628,117 +565,7 @@ const ManageProjectSiteId = () => {
             ),
           };
         }),
-        // "status": <CstmButton child=
-        // {<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
-        projectId: (
-          <p
-            onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-            className="text-pcol font-extrabold hover:underline focus:outline-none hover:font-semibold"
-          >
-            {itm.projectId}
-          </p>
-        ),
-
-        // "siteStatus": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-        //     setmodalOpen(true)
-        //     setmodalHead("")
-        //     setmodalBody(<>
-        //    <div className='flex justify-between'>
-        //    <label htmlFor="" className='font-bold'> Status:</label>
-        //       <p className='bg-green-400 rounded-lg w-16 text-center'>{itm.siteStatus}</p>
-        //    </div>
-        //    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-        //         <Button classes={"mt-2 w-sm text-center flex mx-auto"} name="Open Task" />
-        //     </div>
-        //     </>)
-        // }}></EditButton>} /></div>,
-
-        // siteStatus:
-        //   itm.siteStatus == "Close" && rolename == "Admin" ? (
-        //     <>
-        //       <p
-        //         className="cursor-pointer"
-        //         onClick={() => {
-        //           setmodalOpen(true);
-        //           setmodalHead("");
-        //           setmodalBody(
-        //             <>
-        //               <div className="flex justify-between">
-        //                 <label htmlFor="" className="font-bold">
-        //                   {" "}
-        //                   Status:
-        //                 </label>
-        //                 <p className="bg-green-400 rounded-lg w-16 text-center">
-        //                   {itm.siteStatus}
-        //                 </p>
-        //               </div>
-        //               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-        //                 <Button
-        //                   classes={"mt-2 w-sm text-center flex mx-auto"}
-        //                   name="Open Task"
-        //                 />
-        //               </div>
-        //             </>
-        //           );
-        //         }}
-        //       >
-        //         {itm.siteStatus}
-        //       </p>
-        //     </>
-        //   ) : (
-        //     <p>{itm.siteStatus}</p>
-        //   ),
-
-        // edit: (
-        //   <div className="flex ">
-        //     <CstmButton
-        //       className={"p-2"}
-        //       child={
-        //         <EditButton
-        //           name={""}
-        //           onClick={() => {
-        //             setmodalOpen(true);
-        //             dispatch(AdminActions.getProject());
-        //             setmodalHead("Edit Site ID");
-        //             setmodalBody(
-        //               <>
-        //                 <ManageProjectSiteIdForm
-        //                   isOpen={modalOpen}
-        //                   setIsOpen={setmodalOpen}
-        //                   resetting={false}
-        //                   formValue={itm}
-        //                 />
-        //                 {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //               </>
-        //             );
-        //             console.log("ahshshhs", itm);
-        //             //setmodalOpen(false)
-        //           }}
-        //         ></EditButton>
-        //       }
-        //     />
-        //   </div>
-        // ),
-
-        // edit: <div className="flex "></div>,
-        siteeventLogs: <></>,
         delete: (
           <>
             {1 == 1 ? (
@@ -1167,7 +994,7 @@ const ManageProjectSiteId = () => {
               parentsite?.length > 0 &&
               shouldIncludeEditColumn && (
                 <Button
-                  classes="mr-1"
+                  classes="mr-1 bg-rose-500"
                   onClick={(e) => {
                     setmodalOpen((prev) => !prev);
                     setmodalHead("Confirm Delete");
@@ -1184,7 +1011,51 @@ const ManageProjectSiteId = () => {
                   }}
                   name={"Delete"}
                 ></Button>
-              )}
+              )
+            }
+            {Array.isArray(parentsite) && parentsite?.length > 0 &&(
+              <ConditionalButton
+                showType={getAccessType("Task Allocation")}
+                classes="mr-1 bg-[#ebad5d]"
+                onClick={(e) => {
+                  const uniqueArr = [...new Set(subProjectId)];
+                  if (uniqueArr.length === 1){
+                    setmodalOpen((prev) => !prev);
+                    dispatch(GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true }));
+                    dispatch(GET_PARTNER_ACTIVITY({ dataAll:[], reset:true }));
+                    dispatch(AdminActions.getPartnerActivity(true,`subProjectId=${uniqueArr[0]}`))
+                    dispatch(projectListActions.getUserAllocatedProject(true,projectuniqueId));
+                    setmodalHead("Partner Allocation");
+                    setmodalBody(
+                      <VendorGroupTaskAllocation
+                        from={"bulktask"}
+                        listsite={parentsite}
+                        projectuniqueId={projectuniqueId}
+                        isOpen={modalOpen}
+                        setIsOpen={setmodalOpen}
+                        resetting={false}
+                        formValue={{}}
+                        filtervalue={strValFil}
+                        checkbox={setchildsite}
+                        parentcheckbox={setparentsite}
+                        subId = {uniqueArr[0]}
+                      />
+                    );
+                  }
+                  else {
+                    let msgdata = {
+                      show: true,
+                      icon: "error",
+                      buttons: [],
+                      type: 1,
+                      text: "Kindly select Site's from the same Sub-Project.",
+                    };
+                    dispatch(ALERTS(msgdata));
+                  }
+                }}
+                name={"Allocate to Partner"}
+              ></ConditionalButton>
+            )}
 
             <ConditionalButton
               showType={getAccessType("Add Site")}
@@ -1204,52 +1075,8 @@ const ManageProjectSiteId = () => {
               }}
               name={"Add Site"}
             ></ConditionalButton>
-
-            <ConditionalButton
-              showType={getAccessType("Task Allocation")}
-              classes="mr-1"
-              onClick={(e) => {
-                if (childsite.length > 0) {
-                  setmodalOpen((prev) => !prev);
-                  dispatch(
-                    GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
-                  );
-                  dispatch(
-                    projectListActions.getUserAllocatedProject(
-                      true,
-                      projectuniqueId
-                    )
-                  );
-                  setmodalHead("Partner Allocation");
-                  setmodalBody(
-                    <VendorGroupTaskAllocation
-                      from={"bulktask"}
-                      listsite={childsite}
-                      projectuniqueId={projectuniqueId}
-                      isOpen={modalOpen}
-                      setIsOpen={setmodalOpen}
-                      resetting={false}
-                      formValue={{}}
-                      filtervalue={strValFil}
-                      checkbox={setchildsite}
-                      parentcheckbox={setparentsite}
-                    />
-                  );
-                } 
-                else {
-                  let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: "Please Select at least one Task for bulk allocate",
-                  };
-                  dispatch(ALERTS(msgdata));
-                }
-              }}
-              name={"Allocate to Partner"}
-            ></ConditionalButton>
-
+            
+      
             <ConditionalButton
               showType={getAccessType("Task Allocation")}
               classes="mr-1"
@@ -1270,6 +1097,7 @@ const ManageProjectSiteId = () => {
                     <AllocateProjectForm
                       from={"bulktask"}
                       listsite={childsite}
+                      parentsite = {parentsite}
                       projectuniqueId={projectuniqueId}
                       isOpen={modalOpen}
                       setIsOpen={setmodalOpen}

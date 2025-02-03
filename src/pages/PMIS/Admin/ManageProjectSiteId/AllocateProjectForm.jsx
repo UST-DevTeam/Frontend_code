@@ -213,13 +213,13 @@ const AllocateProjectForm = ({
           }}
           classes="w-auto mt-10"
         />
-        <Button
+        {/* <Button
           name={"Allocate Vendor"}
           onClick={() => {
             setactiveTab(1);
           }}
           classes="w-auto mt-10"
-        />
+        /> */}
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">

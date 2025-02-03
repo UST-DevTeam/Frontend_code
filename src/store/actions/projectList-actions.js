@@ -272,6 +272,7 @@ const projectListActions = {
         } catch (error) {
         }
     },
+
     getProjectCircle: (reset = true, args = "") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: `${Urls.project_circle}${args != "" ? "?" + args : ""}`, reset })
@@ -291,6 +292,28 @@ const projectListActions = {
         } catch (error) {
         }
     },
+
+    partnerGroupMilestonePatch: (urle, data, cb = () => { }, reset = true) => async (dispatch, _) => {
+        try {
+            const res = await Api.patch({ url: urle, data: data })
+            if (res?.status !== 200 && res?.status !== 201) {
+                let msgdata = {
+                    show: true,
+                    icon: res?.data?.icon,
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
+            else {
+                cb()
+            }
+        } catch (error) {
+            console.log(error, "errorerror 37")
+        }
+    },
+
 
     setDynamicForm: (label, value, reseter) => async (dispatch, _) => {
         try {

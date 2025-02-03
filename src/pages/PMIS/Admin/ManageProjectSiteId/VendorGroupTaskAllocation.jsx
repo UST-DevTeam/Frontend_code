@@ -6,7 +6,7 @@ import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { Urls } from "../../../../utils/url";
-import DynamicTabContent from "../../../../components/DynamicTabContent";
+
 
 const VendorGroupTaskAllocation = ({
   from,
@@ -24,7 +24,7 @@ const VendorGroupTaskAllocation = ({
     register,
     handleSubmit,
     watch,
-    reset,
+    reset:reset,
     setValue,
     getValues,
     formState: { errors },
@@ -54,18 +54,37 @@ const VendorGroupTaskAllocation = ({
     return oldata;
   });
 
+
+  const workDescriptionOption = useSelector((state) => {
+    return state?.adminData?.getPartnerActivity.map((itm) => {
+      return{
+        label:itm.workDescriptionName,
+        value:itm.workDescription + ":;" + itm.milestone
+      };
+    })
+  })
+
+
+
   let Form = [
     {
       label: "Work Description",
-      name: "emp",
+      name: "workDescription",
       value: "",
       required: true,
-      type: "sdisabled",
+      type: "select",
+      option:workDescriptionOption,
+      props:{
+        onChange: (e) => {
+          const selectedValue = e.target.value.split(":;")[1]
+          setValue("groupMilestone",selectedValue)
+        }
+      },
       classes: "col-span-1",
     },
     {
       label: "Milestone Name",
-      name: "userRole",
+      name: "groupMilestone",
       value: "",
       required: true,
       type: "sdisabled",
@@ -82,13 +101,6 @@ const VendorGroupTaskAllocation = ({
           ? dataGetterOld["vendorDetails"]
           : []
         : [],
-      props: {
-        onChange: (e) => {
-          alert("dasdasdas");
-          // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
-          console.log(e.target.value, "e.target.value");
-        },
-      },
       onSelecting: (e) => {
         console.log("onRemovings vendor", e);
         setValue("userId", "");
@@ -103,40 +115,23 @@ const VendorGroupTaskAllocation = ({
     },
   ];
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+
 
   const onTableViewSubmit = (data) => {
-    let dataForApp = [];
 
-    let finaldata = {};
+    
+    let allData = {}
+    
+    allData['workDescription'] = data['workDescription'].split(":;")[0]
+    allData['groupMilestone'] = data['groupMilestone']
+    allData['vendorId'] = data['vendorId']
+    allData['siteId'] = listsite
 
-    let assigningTo = "";
-    if (activeTab == 0) {
-      dataForApp = data["userId"];
-      assigningTo = "userRegister";
-    } else if (activeTab == 1) {
-      dataForApp = data["vendorId"];
-      assigningTo = "vendor";
-    }
-    if (listsite.length == 0) {
-      let finaldata = {
-        name: from,
-        data: {
-          assignerId: dataForApp,
-          assigningTo: assigningTo,
-        },
-        from: {
-          uid: formValue["uniqueId"],
-        },
-      };
 
-      dispatch(
-        projectListActions.globalProjectTypeDataPatch(
-          Urls.projectList_globalSaver,
-          projectuniqueId,
-          finaldata,
+    dispatch(
+        projectListActions.partnerGroupMilestonePatch(
+          Urls.projectList_partner_group_milestone,
+          allData,
           () => {
             dispatch(
               projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
@@ -147,36 +142,84 @@ const VendorGroupTaskAllocation = ({
           }
         )
       );
-    } else {
-      let finaldata = {
-        name: from,
-        data: {
-          assignerId: dataForApp,
-          assigningTo: assigningTo,
-        },
-        from: {
-          uid: listsite,
-        },
-      };
+    
 
-      dispatch(
-        projectListActions.globalProjectTypeDataPatch(
-          Urls.projectList_globalSaver,
-          projectuniqueId,
-          finaldata,
-          () => {
-            dispatch(
-              projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
-            );
-            setIsOpen(false);
-            checkbox([]);
-            parentcheckbox([]);
-          }
-        )
-      );
-    }
+
+
+    // let dataForApp = [];
+
+    // let finaldata = {};
+
+    // let assigningTo = "";
+    // if (activeTab == 0) {
+    //   dataForApp = data["userId"];
+    //   assigningTo = "userRegister";
+    // } else if (activeTab == 1) {
+    //   dataForApp = data["vendorId"];
+    //   assigningTo = "vendor";
+    // }
+    // if (listsite.length == 0) {
+    //   let finaldata = {
+    //     name: from,
+    //     data: {
+    //       assignerId: dataForApp,
+    //       assigningTo: assigningTo,
+    //     },
+    //     from: {
+    //       uid: formValue["uniqueId"],
+    //     },
+    //   };
+
+    //   dispatch(
+    //     projectListActions.globalProjectTypeDataPatch(
+    //       Urls.projectList_globalSaver,
+    //       projectuniqueId,
+    //       finaldata,
+    //       () => {
+    //         dispatch(
+    //           projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
+    //         );
+    //         setIsOpen(false);
+    //         checkbox([]);
+    //         parentcheckbox([]);
+    //       }
+    //     )
+    //   );
+    // } else {
+    //   let finaldata = {
+    //     name: from,
+    //     data: {
+    //       assignerId: dataForApp,
+    //       assigningTo: assigningTo,
+    //     },
+    //     from: {
+    //       uid: listsite,
+    //     },
+    //   };
+
+    //   dispatch(
+    //     projectListActions.globalProjectTypeDataPatch(
+    //       Urls.projectList_globalSaver,
+    //       projectuniqueId,
+    //       finaldata,
+    //       () => {
+    //         dispatch(
+    //           projectListActions.getProjectTypeAll(projectuniqueId, filtervalue)
+    //         );
+    //         setIsOpen(false);
+    //         checkbox([]);
+    //         parentcheckbox([]);
+    //       }
+    //     )
+    //   );
+    // }
   };
-  useEffect(() => {}, [isOpen]);
+
+  useEffect(() => {
+      reset()
+  }, []);
+
+
   return (
     <>
       <Modal
