@@ -33,7 +33,7 @@ const OtherFixedCostTypes = () => {
       }).replace(/\//g, '-')
     
     let dbConfigList = useSelector((state) => {
-        console.log("jujuujhedujhhedhbjedhhe",state)
+        
         let interdata = state?.gpTrackingReducer?.getOtherFixedCostTypes || [""]
         return interdata?.map((itm) => {
             let updateditm = {
@@ -79,7 +79,7 @@ const OtherFixedCostTypes = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageClaimTypeUnitRate
+        let interdata = state?.gpTrackingReducer?.getOtherFixedCostTypes || 0
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -172,6 +172,7 @@ const OtherFixedCostTypes = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            heading = {'Total Count :-'}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

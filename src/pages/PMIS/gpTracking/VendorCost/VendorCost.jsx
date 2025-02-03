@@ -150,7 +150,7 @@ const VendorCost = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Item Code",
+                name: "Vendor Item Code",
                 value: "itemCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
@@ -262,16 +262,17 @@ const VendorCost = () => {
                         setmodalBody(<VendorCostForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
                         }}>
                     </Button>
-                    <Button
+                    {/* <Button
                         name={"Upload"}
                         classes="w-auto"
                         onClick={(e) => {setFileOpen((prev) => !prev);}}>
-                    </Button>
+                    </Button> */}
                     <Button
                         name={"Export"}
                         classes="w-auto"
                         onClick={() => {
-                            dispatch(CommonActions.commondownload("/export/MasterUnitRate","Export_MasterUnitRate.xlsx"))
+                            // dispatch(CommonActions.commondownload("/export/vendorCost","Export_VendorCost.xlsx"))
+                            dispatch(CommonActions.commondownloadpost("/export/vendorCost","Export_VendorCost.xlsx","POST",{}))
                           }}>
                     </Button>
                 </div>

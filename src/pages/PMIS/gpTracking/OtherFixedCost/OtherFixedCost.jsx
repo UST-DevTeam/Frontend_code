@@ -148,7 +148,7 @@ const OtherFixedCost = () => {
   });
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.gpTrackingReducer?.getSalaryDB || [];
+    let interdata = state?.gpTrackingReducer?.getOtherFixedCost || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -490,7 +490,7 @@ const OtherFixedCost = () => {
                 }}>
             </Button>
             <Button name={"Export"} classes='w-auto mr-1' onClick = {(e) => {
-              dispatch(CommonActions.commondownloadpost("/export/salaryDB","Export_salaryDB.xlsx","POST",{'year':year,'Month':extraColumns,'Cost Center':Data.current}))
+              dispatch(CommonActions.commondownloadpost("/export/OtherFixedCost","Export_OtherFixedCost.xlsx","POST",{'year':year,'Month':extraColumns,'Cost Center':Data.current}))
               }}>
             </Button>
           </div>
@@ -498,8 +498,8 @@ const OtherFixedCost = () => {
         }
         table={table}
         filterAfter={onSubmit}
-        tableName={"Salary DB Form"}
-        TableHeight = "h-[51vh]" 
+        tableName={"Other Fixed Cost Form"}
+        TableHeight = "h-[68vh]" 
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -516,7 +516,7 @@ const OtherFixedCost = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/SalaryDb.xlsx","Salary_DB.xlsx"]} />
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/OtherFixedCost.xlsx","OtherFixedCost.xlsx"]} />
     </>
   );
 };

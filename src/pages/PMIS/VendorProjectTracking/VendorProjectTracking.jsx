@@ -8,6 +8,7 @@ import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
+import { UilSearch } from "@iconscout/react-unicons";
 import PopupMenu from "../../../components/PopupMenu";
 import {
   getAccessType,
@@ -40,6 +41,9 @@ import {
 } from "../../../store/reducers/projectList-reducer";
 import MyHomeActions from "../../../store/actions/myHome-actions";
 import VendorActions from "../../../store/actions/vendor-actions";
+import moment from "moment/moment";
+import CommonForm from "../../../components/CommonForm";
+import gpTrackingActions from "../../../store/actions/gpTrackingActions";
 
 const VendorProjectTracking = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -50,23 +54,65 @@ const VendorProjectTracking = () => {
 
   // console.log(getAccessType("Add Site"), "getAccessType");
   const { projectuniqueId } = useParams();
-
+  const [ValGm, setValGm] = useState("Month");
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
-
+  const currrentYear = new Date().getFullYear();
+  const [year, setyear] = useState(currrentYear);
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
   const [parentsite, setparentsite] = useState([]);
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
-
+  const endDate = moment().format("Y");
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [selectType, setSelectType] = useState("");
   const [modalHead, setmodalHead] = useState(<></>);
 
   const [old, setOld] = useState(<></>);
   const navigate = useNavigate();
+
+
+  let Month= [
+    { id: 1, name: "Jan" },
+    { id: 2, name: "Feb" },
+    { id: 3, name: "Mar" },
+    { id: 4, name: "Apr" },
+    { id: 5, name: "May" },
+    { id: 6, name: "Jun" },
+    { id: 7, name: "Jul" },
+    { id: 8, name: "Aug" },
+    { id: 9, name: "Sep" },
+    { id: 10, name: "Oct" },
+    { id: 11, name: "Nov" },
+    { id: 12, name: "Dec" }
+  ]
+  let listYear = [];
+  for (let ywq = 2023; ywq <= +endDate; ywq++) {
+    listYear.push(ywq);
+  }
+  let listDict = {
+    "": [],
+    Month: [
+      { id: 1, name: "Jan" },
+      { id: 2, name: "Feb" },
+      { id: 3, name: "Mar" },
+      { id: 4, name: "Apr" },
+      { id: 5, name: "May" },
+      { id: 6, name: "Jun" },
+      { id: 7, name: "Jul" },
+      { id: 8, name: "Aug" },
+      { id: 9, name: "Sep" },
+      { id: 10, name: "Oct" },
+      { id: 11, name: "Nov" },
+      { id: 12, name: "Dec" }
+    ],
+  };
+
+
 
   const {
     register,
@@ -129,6 +175,14 @@ const VendorProjectTracking = () => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
+  const handleAddActivity = (res) => {
+  //  Data.current = ""
+    setExtraColumns(res['Month'])
+    // Data.current  = res['Cost Center']
+    alert(res)
+    // FilterActions.getMyTaskSubProject(true,res)
+    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+  };
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.vendorData?.getvendorProjectTracking || [];
@@ -428,70 +482,70 @@ const VendorProjectTracking = () => {
                 </p>
               </div>
             ),
-            // VendorId: (
-            //   <div className="flex">
-            //     <p
+            VendorId: (
+              <div className="flex">
+                <p
                
-            //     >
-            //       {iewq.assignerResult ? (
-            //         <>
-            //           <div class="">
-            //             <div class="group flex flex-row relative items-center w-full">
-            //               {iewq?.assignerResult
-            //                 .slice(0, 2)
-            //                 .map((itwsw, index) => (
-            //                   <p
-            //                     key={index}
-            //                     className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
-            //                   >
-            //                     {" "}
-            //                     {itwsw?.vendorCode &&
-            //                     itwsw?.vendorCode.trim().split(" ").length > 1
-            //                       ? `${itwsw?.vendorCode
-            //                           .split(" ")[0]
-            //                           .substr(0, 1)}${itwsw.vendorCode
-            //                           .split(" ")[1]
-            //                           .substr(0, 1)}`
-            //                       : itwsw?.vendorCode
-            //                       ? itwsw?.vendorCode
-            //                           .split(" ")[0]
-            //                           .substr(0, 1)
-            //                       : ""}
-            //                   </p>
-            //                 ))}
-            //               {/* {iewq.assignerResult
-            //                 .slice(0, 2)
-            //                 .map((itwsw, index) => (
-            //                   <p
-            //                     className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
-            //                   >
-            //                     {" "}
-            //                     {itwsw.assignerName.split(" ").length > 1
-            //                       ? itwsw.assignerName
-            //                           .split(" ")[0]
-            //                           .substr(0, 1) +
-            //                         itwsw.assignerName
-            //                           .split(" ")[1]
-            //                           .substr(0, 1)
-            //                       : itwsw.assignerName
-            //                           .split(" ")[0]
-            //                           .substr(0, 1)}
-            //                   </p>
-            //                 ))} */}
-            //               <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
-            //                 {iewq.assignerResult.map((itws) => {
-            //                   return itws.vendorCode + ", ";
-            //                 })}
-            //               </span>
-            //             </div>
-            //           </div>
-            //         </>
-            //       ) : (
-            //         "Unassigned"
-            //       )}
-            //     </p>
-            //   </div>
-            // ),
+                >
+                  {iewq.assignerResult ? (
+                    <>
+                      <div class="">
+                        <div class="group flex flex-row relative items-center w-full">
+                          {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
+                              <p
+                                key={index}
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                              >
+                                {" "}
+                                {itwsw.vendorCode &&
+                                itwsw.vendorCode.trim().split(" ").length > 1
+                                  ? `${itwsw.vendorCode
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.vendorCode
+                                      .split(" ")[1]
+                                      .substr(0, 1)}`
+                                  : itwsw.vendorCode
+                                  ? itwsw.vendorCode
+                                      .split(" ")[0]
+                                      .substr(0, 1)
+                                  : ""}
+                              </p>
+                            ))}
+                          {/* {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
+                              <p
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                              >
+                                {" "}
+                                {itwsw.assignerName.split(" ").length > 1
+                                  ? itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1) +
+                                    itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)
+                                  : itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}
+                              </p>
+                            ))} */}
+                          <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
+                            {iewq.assignerResult.map((itws) => {
+                              return itws.vendorCode + ", ";
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    "Unassigned"
+                  )}
+                </p>
+              </div>
+            ),
 
             mileStoneStatusUpda:
               iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
@@ -994,7 +1048,14 @@ const VendorProjectTracking = () => {
       return updateditm;
     });
   });
-  
+  let customerList = useSelector((state)=>{
+    return state?.gpTrackingReducer?.getCustomer.map((itm) => {
+        return {
+            label: itm?.customer,
+            value: itm?.uniqueId,
+        };
+      });
+})
   let dbConfigTotalCount =
     useSelector((state) => {
       
@@ -1051,6 +1112,65 @@ const VendorProjectTracking = () => {
       // }
     ],
   };
+  let formD = [
+    {
+      label: "Year",
+      name: "year",
+      value: "Select",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      type: "select",
+      option: listYear.map((itmYr) => {
+        return {
+          label: itmYr,
+          value: itmYr,
+        };
+      }),
+      props: {
+        onChange: (e) => {
+          setValue("year", e.target.value);
+          setyear(e.target.value);
+        },
+      },
+      required: true,
+      classes: "col-span-1 h-38px",
+    },
+    {
+      label: ValGm,
+      name: "viewBy",
+      value: "Select",
+      type: "newmuitiSelect2",
+      option: listDict[ValGm].map((dasd) => {
+        return {
+          value: dasd?.id,
+          label: dasd?.name,
+        };
+      }),
+      props: {
+        selectType:selectType,
+      },
+      hasSelectAll:true,
+      required: true,
+      classes: "col-span-1 h-10",
+    },
+    {
+      label: "Customer",
+      value: "",
+      name:"customerId",
+      type: "select",
+      bg:"bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+      option: customerList,
+      props: {
+        onChange: (e) => {
+          setSelectedCustomer(e?.target?.value)
+        //   dispatch(VendorActions.getVendorCostprojectGroupList(true,`customerId=${e?.target?.value}`));
+        //   dispatch(VendorActions.getVendorCostprojectTypeList(true,`customerId=${e?.target?.value}`));
+        //   dispatch(VendorActions.getvendorCostVendorsList())
+
+        },
+      },
+      required: true,
+    },
+  ];
   let table = {
     columns: [
       {
@@ -1122,12 +1242,12 @@ const VendorProjectTracking = () => {
       },
       {
         name: "MS1 Completion Date",
-        value: "ms1CompletitionDate",
+        value: "MS1Date",
         style: "min-w-[240px] max-w-[240px] text-center",
       },
       {
         name: "MS2 Completion Date",
-        value: "ms2CompletitionDate",
+        value: "MS2Date",
         style: "min-w-[240px] max-w-[240px] text-center",
       },
       
@@ -1271,12 +1391,12 @@ const VendorProjectTracking = () => {
           },
         {
           name: "MS Completition Date",
-          value: "MSCompletitionDate",
+          value: "CC_Completion Date",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
           name: "Task Closure Date",
-          value: "",
+          value: "Task Closure",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
@@ -1415,6 +1535,60 @@ const VendorProjectTracking = () => {
         ],
         props: {},
       },
+      // {
+      //   label: "Year",
+      //   name: "year",
+      //   value: "Select",
+      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      //   type: "select",
+      //   option: listYear.map((itmYr) => {
+      //     return {
+      //       label: itmYr,
+      //       value: itmYr,
+      //     };
+      //   }),
+      //   props: {
+      //     onChange: (e) => {
+      //       setValue("year", e.target.value);
+      //       setyear(e.target.value);
+      //     },
+      //   },
+      //   required: true,
+      //   classes: "col-span-1 h-38px",
+      // },
+      // {
+      //   label: "Month",
+      //   name: "month",
+      //   value: "Select",
+      //   type: "muitiSelect",
+      //   option: Month.map((dasd) => {
+      //     return {
+      //       id: dasd?.id,
+      //       name: dasd?.name,
+      //     };
+      //   }),
+      //   // props: {
+      //   //   selectType:selectType,
+      //   // },
+      //   hasSelectAll:true,
+      //   required: true,
+      //   classes: "col-span-1 h-10",
+      // },
+      // {
+      //   label: "Month",
+      //   name: "month",
+      //   type: "muitiSelect",
+      //     option: Month.map((dasd) => {
+      //     return {
+      //       id: dasd?.id,
+      //       name: dasd?.name,
+      //     };
+      //   }),
+      //   props: "",
+      //   required: false,
+      //   value: "Select",
+      //   placeholder: "",
+      // },
     ],
   };
   const onSubmit = (data) => {
@@ -1424,13 +1598,15 @@ const VendorProjectTracking = () => {
     setstrVal(strVal);
     dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
   };
-  useEffect(() => {
-    // dispatch(MyHomeActions.getMyTask());
+  useEffect(async ()  =>  {
+    dispatch(gpTrackingActions.getGPCustomer());
+    dispatch(MyHomeActions.getMyTask());
+    
     dispatch(FilterActions.getMyTaskSubProject());
     dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
-    dispatch(VendorActions.getVendorProjectTracking())
     dispatch(VendorActions.getVendorActivitySubProject())
     dispatch(VendorActions.getVendorSubProject())
+    await (dispatch(VendorActions.getVendorProjectTracking()))
     
   }, []);
   const handleBulkDelte = () => {
@@ -1452,6 +1628,27 @@ const VendorProjectTracking = () => {
 
   return (
     <>
+    <div className="flex items-center justify-start">
+        <div className="col-span-1 md:col-span-1">
+          <CommonForm
+            classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
+            Form={formD}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </div>
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+          <Button
+            classes="flex h-fit"
+            name=""
+            icon={<UilSearch className="w-5 m-2 h-5" />}
+            onClick={handleSubmit(handleAddActivity)}
+          />
+        </div>
+      </div>
+
       <AdvancedTableExpandable
         parentsite={parentsite}
         childsite={childsite}

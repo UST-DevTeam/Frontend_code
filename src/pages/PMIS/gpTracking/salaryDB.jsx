@@ -254,7 +254,7 @@ const SalaryDB = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Cost",
+        name: "Salary Cost",
         value: "cost",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
@@ -496,7 +496,7 @@ const SalaryDB = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"Salary DB Form"}
-        TableHeight = "h-[51vh]" 
+        TableHeight = "h-[68vh]" 
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

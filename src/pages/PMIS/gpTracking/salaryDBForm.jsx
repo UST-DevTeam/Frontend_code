@@ -116,7 +116,7 @@ const SalaryDBForm = ({
       required: true,
     },
     {
-      label: "Cost",
+      label: "Salary Cost",
       value: "",
       name: "cost",
       type: "text",

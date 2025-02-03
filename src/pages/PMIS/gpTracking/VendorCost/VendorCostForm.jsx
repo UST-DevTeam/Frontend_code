@@ -218,7 +218,7 @@ let milestneList = useSelector((state) => {
       classes: "col-span-1",
     },
     {
-      label: "Item Code",
+      label: "Vendor Item Code",
       value: "",
       name: "itemCode",
       type: "text",
