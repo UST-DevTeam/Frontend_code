@@ -29,11 +29,9 @@ const ComponentActions = {
 
   globalUrlStore: (name, value) => async (dispatch, _) => {
     try {
-      console.log(name, value, "amit errorerror 37");
       dispatch(GLOBAL_VALUE({ name, value }));
     } catch (error) {
       console.log(error, "amit errorerror 37");
-      // dispatch(Notify.error('something went wrong! please try again after a while'))
     }
   },
   alerts: (data) => async (dispatch, _) => {

@@ -7,6 +7,7 @@ import Button from "../../../../components/Button";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { Urls } from "../../../../utils/url";
 import DynamicTabContent from "../../../../components/DynamicTabContent";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
 
 const AllocateProjectForm = ({
   from,
@@ -129,8 +130,17 @@ const AllocateProjectForm = ({
 
   const onTableViewSubmit = (data) => {
 
-
-    
+    if (!("userId" in data) || data['userId'] === null || data['userId'] === ""){
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please select al least one User",
+      };
+      dispatch(ALERTS(msgdata));
+      return
+    }
 
     let dataForApp = [];
 

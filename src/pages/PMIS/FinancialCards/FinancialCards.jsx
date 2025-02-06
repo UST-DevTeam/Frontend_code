@@ -37,7 +37,7 @@ const FinancialCards = () => {
   const [type, settype] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   let dispatch = useDispatch();
-  const { cname, customeruniqueId } = useParams();
+  const { customer, customerId } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -102,28 +102,28 @@ const FinancialCards = () => {
     ...(graph4 ?[{ 
       icon: <UilVerticalAlignBottom className="text-[#13b497] w-28 h-28" />,
       title: "PO Item Code Workdone",
-      component:  <PoTrackingWorkdoneChart customeruniqueId = {customeruniqueId} />,
+      component:  <PoTrackingWorkdoneChart customerId = {customerId} />,
     }] : []),
     ...(graph5 ?[{
       icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
       title: "Accrual Revenue Trend",
-      component: <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} />,
+      component: <AccrualRevenueTrendChart customerId = {customerId} />,
     }] : []),
     ...(graph6 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
       // icon: <img src="/PL.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
       title: "Profit & Loss",
-      component: < ProfitAndLoss  customeruniqueId = {customeruniqueId} />,
+      component: < ProfitAndLoss  customerId = {customerId} />,
     }] : []),
     ...(graph7 ?[{
       icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
       title: "Profit & Loss Trend",
-      component: <ProfitAndLossTrend customeruniqueId = {customeruniqueId} />,
+      component: <ProfitAndLossTrend customerId = {customerId} />,
     }] : []),
     ...(graph7 ?[{
       icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
       title: "Unbilled",
-      component: <ProjectTypeUnbilled customeruniqueId = {customeruniqueId} />,
+      component: <ProjectTypeUnbilled customerId = {customerId} />,
     }] : []),
   ];
   
@@ -141,9 +141,9 @@ const FinancialCards = () => {
      <CCDash
         showbtn={false}
         approveddata={[
-          ["PO Management", "bg-pcol", "/financial/poManagement",],
-          ["Revenue Management", "bg-pcol", "/financial/invoiceMgmt"],
-          ["Workdone", "bg-pcol", "/financial/poWorkDone",],
+          ["PO Management", "bg-pcol", `/financial/${customer}/${customerId}/poManagement`],
+          ["Revenue Management", "bg-pcol", `/financial/${customer}/${customerId}/invoiceMgmt`],
+          ["Workdone", "bg-pcol",`/financial/${customer}/${customerId}/poWorkDone`],
           ["Unbilled", "bg-pcol", "/financial/unbilled"],
   
         ].map((itm) => {
@@ -156,13 +156,7 @@ const FinancialCards = () => {
                   onClick={() => {
 
                     if (getAccessType(itm[0]) == "visible") {
-
-                      dispatch(
-                        ComponentActions.globalUrlStore(
-                          itm[0],
-                          itm[2]
-                        )
-                      );
+                      dispatch(ComponentActions.globalUrlStore(itm[0],itm[2]));
                       navigate(itm[2]);
 
 

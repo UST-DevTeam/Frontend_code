@@ -56,7 +56,6 @@ const VendorGroupTaskAllocation = ({
   });
 
 
-  console.log("_____Deallocate Task______",formName)
 
   const workDescriptionOption = useSelector((state) => {
     return state?.adminData?.getPartnerActivity.map((itm) => {

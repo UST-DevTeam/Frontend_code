@@ -109,6 +109,7 @@ import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProj
 import VendorWorkDescription from "../pages/PMIS/Admin/VendorWorkDescription/VendorWorkDescription";
 import VendorActivity from "../pages/PMIS/Admin/VendorActivity/VendorActivity";
 import ManagePolicy from "../pages/PMIS/MyHome/ManagePolicy";
+import FinancialDashboardCard from "../pages/PMIS/FinancialCards/FinancialDashboardCard";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -570,35 +571,42 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/poManagement",
+      link: "financial/:customer/:customerId",
+      component: <FinancialCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/financial/:customer/:customerId/poManagement",
       component: <POMgmtCards />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financial/poManagement/poStatusInvoice",
+      link: "/financial/:customer/:customerId/poManagement/poStatusInvoice",
       component: <InvoiceBased />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financial/invoiceMgmt/revenueInvoiced",
+      link: "/financial/:customer/:customerId/invoiceMgmt/revenueInvoiced",
       component: <Invoice />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financial/poManagement/poTrackingWorkdone",
+      link: "/financial/:customer/:customerId/poManagement/poTrackingWorkdone",
       component: <POWorkDoneBased />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/financial/invoiceMgmt",
+      link: "/financial/:customer/:customerId/invoiceMgmt",
       component: <InvoiceMgmtt />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
@@ -612,7 +620,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/invoiceMgmt/accrualRevenue",
+      link: "/financial/:customer/:customerId/invoiceMgmt/accrualRevenue",
       component: <AccrualRevenue />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
@@ -799,7 +807,7 @@ export const Sidebar_content = {
     {
       name: "Financial",
       link: "/financial",
-      component: <FinancialCards />,
+      component: <FinancialDashboardCard />,
       icon: <UilCoins className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

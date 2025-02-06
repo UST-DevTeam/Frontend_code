@@ -1,14 +1,14 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_DASHBOARD, GET_POWORKDONE_BASED, GET_POWORKDONE_ITEMCODE, GET_POACCRUAL_REVENUE } from "../reducers/finance-reducer"
+import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_DASHBOARD, GET_POWORKDONE_BASED, GET_POWORKDONE_ITEMCODE, GET_POACCRUAL_REVENUE, GET_CUSTOMERS } from "../reducers/finance-reducer"
 
 
 const FinanceActions = {
 
-    getPOInvoicedBased:(reset=true,args="") => async (dispatch, _) => {
+    getPOInvoicedBased:(reset=true,args="",customerId) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.finance_poinvoice_based}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.finance_poinvoice_based}/${customerId}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_POINVOICED_BASED({dataAll,reset}))
@@ -37,15 +37,16 @@ const FinanceActions = {
         }
     },
 
-    getPOWorkDoneDashboard:(reset=true,value,args="") => async (dispatch, _) => {
+    getPOWorkDoneDashboard:(reset=true,value,args="",customerId) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.finance_poworkdone_dashboard}${args!=""?"?"+args:""}`, value })
+            const res = await Api.get({ url:`${Urls.finance_poworkdone_dashboard}/${customerId}${args!=""?"?"+args:""}`, value })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_POWORKDONE_DASHBOARD({dataAll,reset}))
         } catch (error) {
         }
     },
+
     getPOWorkDoneBased:(reset=true,value,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.finance_poworkdone_based}${args!=""?"?"+args:""}`, value })
@@ -100,9 +101,9 @@ const FinanceActions = {
         }
     },
 
-    getInvoice:(reset=true,args="") => async (dispatch, _) => {
+    getInvoice:(reset=true,args="",customerId) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.finance_Invoice}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.finance_Invoice}/${customerId}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_INVOICE({dataAll,reset}))
@@ -171,6 +172,22 @@ const FinanceActions = {
 
         } catch (error) {
             return;
+        }
+    },
+    getCustomers: (employeeID) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.admin_customer}?empId=${employeeID}` })
+            const { data = [] } = res.data
+            dispatch(GET_CUSTOMERS(data))
+        } catch (error) {
+            let msgdata = {
+                show: true,
+                icon: "error",
+                buttons: [],
+                type: 1,
+                text: error.response?.data?.msg,
+            };
+            dispatch(ALERTS(msgdata));
         }
     },
 

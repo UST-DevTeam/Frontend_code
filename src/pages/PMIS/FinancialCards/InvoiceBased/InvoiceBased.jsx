@@ -19,6 +19,7 @@ import moment from 'moment';
 import ConditionalButton from '../../../../components/ConditionalButton';
 import CurrentuserActions from '../../../../store/actions/currentuser-action';
 import SearchBarView from '../../../../components/SearchBarView';
+import { useParams } from 'react-router-dom';
 
 const InvoiceBased = () => {
 
@@ -33,6 +34,7 @@ const InvoiceBased = () => {
     const [fileType, setfileType] = useState("");
     const endDate = moment().format("Y");
     let dispatch = useDispatch()
+    const {customer,customerId} = useParams()
 
     let showType = getAccessType("Actions(PO Status Invoice)")
     let shouldIncludeEditColumn = false
@@ -342,41 +344,40 @@ const InvoiceBased = () => {
         delete data.reseter
         let strVal=objectToQueryString(data)
         setstrVal(strVal)
-        dispatch(FinanceActions.getPOInvoicedBased(value, strVal))
+        dispatch(FinanceActions.getPOInvoicedBased(value, strVal,customerId))
     }
     useEffect(() => {
-        dispatch(FinanceActions.getPOInvoicedBased())
+        dispatch(FinanceActions.getPOInvoicedBased(true,"",customerId))
     }, [])
 
     const onTableViewSubmit = (data) => {
-        data["fileType"]=fileType
-        dispatch(
-          CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            setFileOpen(false);
-            setbulkfileOpen(false)
-            resetting("");
-            dispatch(FinanceActions.getPOInvoicedBased());
-          })
-        );
-      };
+      data["fileType"]=fileType
+      dispatch(
+        CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+          setFileOpen(false);
+          setbulkfileOpen(false)
+          resetting("");
+          dispatch(FinanceActions.getPOInvoicedBased(true,"",customerId));
+        })
+      );
+    };
 
-      const handleBulkDelte = () => {
-   
-        dispatch(
-          CommonActions.deleteApiCallerBulk(
-            `${Urls.finance_poinvoice_based}`,
-            {
-              ids: selectAll
-            },
-            () => {
-              dispatch(FinanceActions.getPOInvoicedBased());
-              setmodalOpen(false)
-              setInvoiceRow([]);
-              setSelectAll([]);
-            }
-          )
-        );   
-      };
+    const handleBulkDelte = () => {
+      dispatch(
+        CommonActions.deleteApiCallerBulk(
+          `${Urls.finance_poinvoice_based}`,
+          {
+            ids: selectAll
+          },
+          () => {
+            dispatch(FinanceActions.getPOInvoicedBased(true,"",customerId));
+            setmodalOpen(false)
+            setInvoiceRow([]);
+            setSelectAll([]);
+          }
+        )
+      );   
+    };
 
 
     return <>
@@ -443,7 +444,7 @@ const InvoiceBased = () => {
                 
                 </>}
             table={table}
-            exportButton={["/export/poInvoice/"+"?"+strValFil , "Export_PoInvoice.xlsx",]}
+            exportButton={[`/export/poInvoice/${customerId}`+"?"+strValFil , "Export_PoInvoice.xlsx",]}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
@@ -8,7 +7,6 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
@@ -16,12 +14,11 @@ import { Urls } from "../../../../utils/url";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import AdminActions from "../../../../store/actions/admin-actions";
-import projectListActions from "../../../../store/actions/projectList-actions";
 import InvoiceForm from "../InvoiceManagement/InvoiceForm";
 import moment from "moment";
-import FilterActions from "../../../../store/actions/filter-actions";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
+import { useParams } from "react-router-dom";
 
 const Invoice = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -34,6 +31,8 @@ const Invoice = () => {
   const endDate = moment().format("Y");
 
   let dispatch = useDispatch();
+
+  const {customerId} = useParams()
   
   let dbConfigL = useSelector((state) => {
     let interdata = state?.financeData?.getInvoice;
@@ -187,16 +186,6 @@ const Invoice = () => {
     {'label':'Dec', 'value':'Dec'},
   ]
 
-  // let customerList = useSelector((state) => {
-  //   return state?.filterData?.getfinancialRevenueManagementCustomer.map((itm) => {
-  //     return {
-  //       label: itm.customer,
-  //       value: itm.customer,
-  //     };
-  //   });
-  // });
-
-
 
   const {
     register,
@@ -284,16 +273,6 @@ const Invoice = () => {
         style:
           "min-w-[140px] max-w-[200px] text-center sticky left-[260px] bg-[#3e454d] z-10",
       },
-      // {
-      //   name: "Project Type",
-      //   value: "projectTypeName",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Sub-Project",
-      //   value: "subProjectName",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
       {
         name: "Project ID",
         value: "projectIdName",
@@ -394,14 +373,6 @@ const Invoice = () => {
         props: {
         }
       },
-      // {
-      //   label: "Customer",
-      //   type: "select",
-      //   name: "customer",
-      //   option:customerList,
-      //   props: {
-      //   }
-      // },
       {
         label: "Project Group",
         type: "text",
@@ -437,17 +408,6 @@ const Invoice = () => {
         props: {
         }
       },
-      // {
-      //   label: "Status",
-      //   type: "select",
-      //   name: "status",
-      //   option:[
-      //   {label:'Partially Billed',value:'Partially Billed'},
-      //   {label:'Billed',value:'Billed'},
-      //   ],
-      //   props: {
-      //   }
-      // },
     ],
   };
   const onSubmit = (data) => {
@@ -455,18 +415,18 @@ const Invoice = () => {
     delete data.reseter;
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    dispatch(FinanceActions.getInvoice(value, strVal));
+    dispatch(FinanceActions.getInvoice(value, strVal,customerId));
   };
 
   useEffect(() => {
-    dispatch(FinanceActions.getInvoice());
+    dispatch(FinanceActions.getInvoice(true,"",customerId));
   }, []);
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "invoice";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        dispatch(FinanceActions.getInvoice());
+        dispatch(FinanceActions.getInvoice(true,"",customerId));
         setFileOpen(false);
         resetting("");
       })
@@ -474,7 +434,6 @@ const Invoice = () => {
   };
 
   const handleBulkDelte = () => {
-   
     dispatch(
       CommonActions.deleteApiCallerBulk(
         `${Urls.finance_Invoice}`,
@@ -482,7 +441,7 @@ const Invoice = () => {
           ids: selectAll
         },
         () => {
-          dispatch(FinanceActions.getInvoice());
+          dispatch(FinanceActions.getInvoice(true,"",customerId));
           dispatch(ALERTS({ show: false }));
           setmodalOpen(false)
         }
@@ -543,7 +502,7 @@ const Invoice = () => {
           </>
         }
         table={table}
-        exportButton={["/export/Invoice"+"?"+strValFil, "Export_Invoice.xlsx"]}
+        exportButton={[`/export/Invoice/${customerId}`+"?"+strValFil, "Export_Invoice.xlsx"]}
         filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}

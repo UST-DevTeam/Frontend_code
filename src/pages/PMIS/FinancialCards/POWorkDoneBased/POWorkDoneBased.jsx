@@ -14,7 +14,7 @@ import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import FinanceActions from '../../../../store/actions/finance-actions';
 import POWorkDoneBasedForm from '../POWorkDoneBased/POWorkDoneBasedForm'
-import FilterActions from '../../../../store/actions/filter-actions';
+import { useParams } from 'react-router-dom';
 
 const POWorkDoneBased = () => {
     const [modalOpen, setmodalOpen] = useState(false)
@@ -22,6 +22,8 @@ const POWorkDoneBased = () => {
     const [modalHead, setmodalHead] = useState(<></>)
     const [strValFil, setstrVal] = useState(false);
     let dispatch = useDispatch()
+
+    const{customerId} = useParams()
 
 
     let dbConfigList = useSelector((state) => {
@@ -85,14 +87,6 @@ const POWorkDoneBased = () => {
         formState: { errors },
     } = useForm()
 
-    let customerList = useSelector((state) => {
-        return state?.filterData?.getfinancialPoWOrkDoneCustomer.map((itm) => {
-          return {
-            label: itm.customer,
-            value: itm.customer,
-          };
-        });
-      });
 
     let table = {
         columns: [
@@ -106,21 +100,11 @@ const POWorkDoneBased = () => {
                 value: "projectGroup",
                 style: "min-w-[150px] max-w-[200px] text-center sticky left-[120px] z-10 bg-[#3e454d]"
             },            
-            // {
-            //     name: "Project Type",
-            //     value: "projectType",
-            //     style: "min-w-[160px] max-w-[200px] text-center"
-            // }, 
             {
                 name: "Project ID",
                 value: "projectId",
                 style: "min-w-[160px] max-w-[200px] text-center sticky left-[270px] z-10 bg-[#3e454d]"
             },           
-            // {
-            //     name: "Sub Project",
-            //     value: "subProject",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },
             {
                 name: "GBPA",
                 value: "gbpa",
@@ -166,13 +150,6 @@ const POWorkDoneBased = () => {
 
         filter: [
             {
-                label: "Customer",
-                type: "select",
-                name: "customer",
-                option:customerList,
-                props: {}
-            },
-            {
                 label: "ProjectGroup",
                 type: "text",
                 name: "projectGroup",
@@ -193,30 +170,22 @@ const POWorkDoneBased = () => {
         ]
     }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
+
         let shouldReset = data.reseter;
-        // let value = data.reseter
         delete data.reseter
         let strVal=objectToQueryString(data)
         setstrVal(strVal)
-        dispatch(FinanceActions.getPOWorkDoneDashboard(shouldReset, {},strVal))
+        dispatch(FinanceActions.getPOWorkDoneDashboard(shouldReset, {},strVal,customerId))
     }
     useEffect(() => {
-        dispatch(FinanceActions.getPOWorkDoneDashboard())
-        dispatch(FilterActions.getfinancialPoWorkDoneCustomer());
+        dispatch(FinanceActions.getPOWorkDoneDashboard(true,{},"",customerId))
     }, [])
     return <>
         <AdvancedTable
-            // headerButton={<><Button onClick={(e) => {
-            //     setmodalOpen(prev => !prev)
-            //     setmodalHead("New PO Life Cycle ")
-            //     setmodalBody(<POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            // }}
-            //     name={"Add New"}></Button></>}
             table={table}
             filterAfter={onSubmit}
             tableName={"UserListTable"}
-            exportButton={["/export/trackingWorkDone"+"?"+strValFil,"Export_Tracking_WorkDone.xlsx"]}
+            exportButton={[`/export/trackingWorkDone/${customerId}`+"?"+strValFil,"Export_Tracking_WorkDone.xlsx"]}
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}
@@ -230,7 +199,6 @@ const POWorkDoneBased = () => {
 
         <Modal size={"smsh"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
-        {/* <CommonForm/> */}
     </>
 
 

@@ -278,7 +278,7 @@ const ManageProjectSiteId = () => {
             ),
 
             mileStoneStatusUpda:
-              iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
+              iewq.mileStoneStatus != "Open" && rolename == "Admin" ? (
                 <>
                   <p
                     className="cursor-pointer"

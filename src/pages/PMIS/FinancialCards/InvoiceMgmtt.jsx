@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate, useParams } from "react-router-dom";
-
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
-import ProjectChart from "../Dashboard1/ProjectChart";
-import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
 import MonthRevenueTrend from "../Formss/FinancialGraph/MonthRevenueTrend";
 import MonthlyRevenueCircle from "../Formss/FinancialGraph/MonthlyRevenueCircle";
-import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
 import CumulativeTrendPlanVsActual from "../Formss/FinancialGraph/CumulativeTrendPlanVsActual";
 
 const InvoiceMgmt = () => {
-  // const [modalOpen, setmodalOpen] = useState(false)
-  // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
-  // const [modalHead, setmodalHead] = useState(<></>)
   let dispatch = useDispatch();
-  const { cname, customeruniqueId } = useParams();
+  const { customer, customerId } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -54,8 +45,8 @@ const InvoiceMgmt = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Revenue Invoiced", "bg-pcol", "/financial/invoiceMgmt/revenueInvoiced"],
-          ["Accrual Revenue", "bg-pcol", "/financial/invoiceMgmt/accrualRevenue",],
+          ["Revenue Invoiced", "bg-pcol", `/financial/${customer}/${customerId}/invoiceMgmt/revenueInvoiced`],
+          ["Accrual Revenue", "bg-pcol", `/financial/${customer}/${customerId}/invoiceMgmt/accrualRevenue`],
         ].map((itm) => {
           return (
             <>

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { UilMultiply } from "@iconscout/react-unicons";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import ComponentActions from "../store/actions/component-actions";
 import { isValidObjectId } from "../utils/commonFunnction";
 
 function changeCase(str) {
@@ -20,18 +18,7 @@ const BreadCrumbs = () => {
   const consoleUrl = window.location.pathname;
   let data = consoleUrl.split("/");
 
-  // let specialUrl={
-  //   "projectManagement_1":[
-  //     "/manageCustomer",
-  //     "/projectManagement/"+data[2]+"/"+data[4]
-  //   ],
-
-  //   "projectManagement_2":[
-  //     "/manageCustomer",
-  //     "/projectManagement/"+data[2]+"/"+data[4]
-  //   ],
-  // }
-  const { cname, customeruniqueId, projecttypeuniqueId } = useParams();
+  const { cname, customeruniqueId, projecttypeuniqueId,customer,customerId } = useParams();
   let itm = "";
 
   let Dtheader = {
@@ -92,7 +79,7 @@ const BreadCrumbs = () => {
     },
     poManagement: {
       name: "PO Management",
-      url: "/financial/poManagement",
+      url: `/financial/${customer}/${customerId}/poManagement`,
     },
     invoiceMgmt: {
       name: "Invoice Management",
@@ -148,7 +135,6 @@ const BreadCrumbs = () => {
     },
   };
 
-  // console.log(consoleUrl.split("/"),"consoleUrlconsoleUrl")
   let breadcrumblist = useSelector((state) => {
     return state.component.breadcrumb;
   });
@@ -156,9 +142,6 @@ const BreadCrumbs = () => {
   let globalValuelist = useSelector((state) => {
     return state.component.globalValue;
   });
-
-
-  // console.log(consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)),"breadcrumblistbreadcrumblist")
 
   const dispatch = useDispatch();
 
@@ -227,90 +210,6 @@ const BreadCrumbs = () => {
       </nav>
     </div>
   );
-  // return (
-  //   <div>
-  //     <nav className="bg-violet-50 p-3 text-[12px]">
-  //       <ol className="list-reset flex text-gray-600">
-  //         {consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).map((item, index) => {
-  //           return (
-  //             <>
-  //               {console.log(index,consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).length,"dsadsadsadasdsadsa")}
-  //               {index != consoleUrl.split("/").filter(item => item !== "" && !isValidObjectId(item)).length - 1  ? (
-
-  //                 <>
-  //                   <li>
-  //                     <a
-  //                       className="text-green-600 hover:text-green-700"
-  //                       onClick={() => {
-  //                         // dispatch(
-  //                         //   ComponentActions.breadcrumb(
-  //                         //     "",
-  //                         //     "",
-  //                         //     item.index,
-  //                         //     false
-  //                         //   )
-  //                         // );
-  //                         navigate(item in Dtheader ? Dtheader[item]["url"] : consoleUrl.split("/")[1] in specialUrl ? specialUrl[consoleUrl.split("/")[1]][index] : "");
-  //                       }}
-  //                     >
-  //                       {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item)?"":item}
-  //                     </a>
-  //                   </li>
-  //                   <li className="mx-2">/</li>
-  //                 </>
-  //               ) : (
-  //                 <>
-  //                       {item in Dtheader ? Dtheader[item]["name"] : isValidObjectId(item)?"":changeCase(item)}
-  //                 </>
-  //               )}
-  //             </>
-  //           );
-  //         })}
-  //       </ol>
-  //     </nav>
-  //   </div>
-  // );
-  // return (
-  //   <div>
-  //     <nav className="bg-violet-50 p-3 text-[12px]">
-  //       <ol className="list-reset flex text-gray-600">
-  //         {breadcrumblist.filter(item=>item.name!="").map((item, index) => {
-  //           return (
-  //             <>
-  //               {index != breadcrumblist.length - 1 ? (
-  //                 <>
-  //                   <li>
-  //                     <a
-  //                       className="text-green-600 hover:text-green-700"
-  //                       onClick={() => {
-  //                         dispatch(
-  //                           ComponentActions.breadcrumb(
-  //                             "",
-  //                             "",
-  //                             item.index,
-  //                             false
-  //                           )
-  //                         );
-  //                         navigate(item.link);
-  //                       }}
-  //                     >
-  //                       {item.name}
-  //                     </a>
-  //                   </li>
-  //                   <li className="mx-2">/</li>
-  //                 </>
-  //               ) : (
-  //                 <>
-  //                   <li className="text-slate-600 font-semibold">{item.name}</li>
-  //                 </>
-  //               )}
-  //             </>
-  //           );
-  //         })}
-  //       </ol>
-  //     </nav>
-  //   </div>
-  // );
 };
 
 export default BreadCrumbs;
