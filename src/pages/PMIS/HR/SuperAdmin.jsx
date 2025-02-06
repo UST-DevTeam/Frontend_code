@@ -129,6 +129,41 @@ const SuperAdmin = () => {
             "/hr/superAdmin/partnerActivity",
             "border-b-[#b8e0d2]",
           ],
+          [
+            "Salary DB",
+            "bg-pcol",
+            "/hr/superAdmin/salaryDB",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Other Fixed Cost Types",
+            "bg-pcol",
+            "/hr/superAdmin/OtherFixedCostTypes",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Other Fixed Cost",
+            "bg-pcol",
+            "/hr/superAdmin/OtherFixedCost",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Vendor Cost",
+            "bg-pcol",
+            "/hr/superAdmin/vendorCost",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "GP Tracking",
+            "bg-pcol",
+            "/hr/superAdmin/gpTracking",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
         ].map((itm) => {
           return (
             <>

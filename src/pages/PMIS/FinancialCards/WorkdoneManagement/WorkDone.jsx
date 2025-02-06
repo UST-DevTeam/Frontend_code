@@ -597,6 +597,7 @@ const WorkDone = () => {
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
+    console.log(data,typeof(data),'duhuuiruiuiu')
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
     // dispatch(FinanceActions.putPOWorkDoneBased(true,{'year':year,'viewBy':month},() => {},strVal));

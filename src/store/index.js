@@ -16,7 +16,7 @@ import filterData from "./reducers/filter-reducer";
 import GraphData from "./reducers/graph-reducer";
 import currentuserData from "./reducers/currentuser-reducer";
 import repository from "./reducers/repository-reducer";
-
+import gpTrackingReducer from "./reducers/gpTracking-reducer"
 const store = configureStore({
     reducer: {
         auth,
@@ -35,7 +35,8 @@ const store = configureStore({
         filterData,
         GraphData,
         currentuserData,
-        repository
+        repository,
+        gpTrackingReducer
     },
     devTools: true
 })
