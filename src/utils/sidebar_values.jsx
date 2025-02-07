@@ -116,7 +116,9 @@ import OtherFixedCost from "../pages/PMIS/gpTracking/OtherFixedCost/OtherFixedCo
 import OtherFixedCostTypes from "../pages/PMIS/gpTracking/OtherFixedCostTypes/OtherFixedCostTypes";
 import GPTracking from "../pages/PMIS/gpTracking/GpTrackingMain/gpTracking";
 import VendorProjectTracking from "../pages/PMIS/VendorProjectTracking/VendorProjectTracking";
-import VendorCost from "../pages/PMIS/gpTracking/VendorCost/vendorCost";
+import VendorCost from "../pages/PMIS/gpTracking/VendorCost/VendorCost";
+
+
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -535,14 +537,6 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    // {
-    //   name: "",
-    //   link: "/vendor/vendorCost",
-    //   // component: <VendorProject />,
-    //   component: <AssetRegistration />,
-    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
-    //   subMenu: [],
-    // },
     {
       name: "",
       link: "/vendor/commercial",
@@ -789,7 +783,7 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/hr/superAdmin/vendorCost",
-      component: <VendorCost/>,
+      component: < VendorCost/>,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
-import AdminActions from "../../../../store/actions/admin-actions";
 import Modal from "../../../../components/Modal";
 import VendorActions from "../../../../store/actions/vendor-actions";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
