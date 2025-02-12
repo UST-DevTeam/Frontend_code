@@ -154,7 +154,7 @@ const AdvancedTable = ({
 
     const element = document.querySelector("#add-not");
     addClassToAllChildren(element);
-  });
+  },[]);
 
 
 
@@ -547,7 +547,7 @@ const AdvancedTable = ({
                           ) : (
                             <>
                               <th className=" border-pcol border-[0.1px] bg-primaryLine ">
-                                <span className="text-white text-[12px]">
+                                <span className="text-white  text-[12px]">
                                   {itts.name}
                                 </span>
                               </th>

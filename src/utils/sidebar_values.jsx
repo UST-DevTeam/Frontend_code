@@ -110,6 +110,7 @@ import VendorWorkDescription from "../pages/PMIS/Admin/VendorWorkDescription/Ven
 import VendorActivity from "../pages/PMIS/Admin/VendorActivity/VendorActivity";
 import ManagePolicy from "../pages/PMIS/MyHome/ManagePolicy";
 import FinancialDashboardCard from "../pages/PMIS/FinancialCards/FinancialDashboardCard";
+import AOPTracking from "../pages/PMIS/Formss/AOP/AOPTracking";
 
 import SalaryDB from "../pages/PMIS/gpTracking/salaryDB";
 import OtherFixedCost from "../pages/PMIS/gpTracking/OtherFixedCost/OtherFixedCost";
@@ -119,6 +120,9 @@ import VendorProjectTracking from "../pages/PMIS/VendorProjectTracking/VendorPro
 import VendorCost from "../pages/PMIS/gpTracking/VendorCost/VendorCost";
 
 
+
+import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
+import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -456,6 +460,13 @@ export const Sidebar_content = {
       icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
     },
     {
+      name: "Exchange Rate",
+      link: "/hr/superAdmin/exchangeRate",
+      subMenu: [],
+      component: <ExChangeRate />,
+      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+    },
+    {
       name: "Manage Zone",
       link: "/hr/superAdmin/manageZone",
       subMenu: [],
@@ -693,6 +704,20 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/P&L",
       component: <PL />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/AopTracking",
+      component: <AOPTracking />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/AopTrackingAirtel",
+      component: <AOPTrackingAirtel />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
