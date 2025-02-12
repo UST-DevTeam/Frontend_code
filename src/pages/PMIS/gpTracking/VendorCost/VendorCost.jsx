@@ -18,8 +18,8 @@ import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import VendorCostForm from "./VendorCostForm";
 
 const VendorCost = () => {
+  const [fileOpen, setFileOpen] = useState(false)
   const [modalOpen, setmodalOpen] = useState(false);
-  const [fileOpen, setFileOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
@@ -160,6 +160,15 @@ const VendorCost = () => {
     formState: { errors },
   } = useForm();
 
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "vendorCost"
+    // data['collection'] = "vendorCost"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+      dispatch(AdminActions.getManageZone())
+      setFileOpen(false)
+    }))
+  }
+
   let table = {
     columns: [
       {
@@ -190,8 +199,8 @@ const VendorCost = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Airtel Item Code",
-        value: "airtelItemCode",
+        name: "Customer Item Code",
+        value: "customerItemCode",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -318,11 +327,11 @@ const VendorCost = () => {
                 );
               }}
             ></Button>
-            {/* <Button
-                        name={"Upload"}
-                        classes="w-auto"
-                        onClick={(e) => {setFileOpen((prev) => !prev);}}>
-                    </Button> */}
+            <Button
+              name={"Upload"}
+              classes="w-auto"
+              onClick={(e) => { setFileOpen((prev) => !prev); }}>
+            </Button>
             <Button
               name={"Export"}
               classes="w-auto"
@@ -371,6 +380,7 @@ const VendorCost = () => {
         ]}
         head={"Upload File"}
       />
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink={["/template/VendorCost.xlsx", "Vendor Cost.xlsx"]} />
     </>
   );
 };

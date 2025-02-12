@@ -12,11 +12,13 @@ import moment from "moment";
 import FilterView from "./FilterView";
 import { useDispatch, useSelector } from "react-redux";
 import AdvancedTableExpandableOneRow from "./AdvancedTableExpandableOneRow";
+import AdvancedTableExpandableOneRowMerged from "./AdvancedTableExpandableOneRowMerged";
 import SearchView from "./SearchView";
 
 const AdvancedTableExpandable = ({
-  parentsite=[],
-  childsite=[],
+  mergedRows = false,
+  parentsite = [],
+  childsite = [],
   tableName = "",
   headerButton,
   filterAfter = () => { },
@@ -36,39 +38,40 @@ const AdvancedTableExpandable = ({
   setmultiSelect = () => { },
 }) => {
   const [hide, setHide] = useState([]);
-  const [finalData , setFinalData] = useState([])
+  const [finalData, setFinalData] = useState([])
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
   const [RPP, setRPP] = useState(50);
   const [sRPP, ssRPP] = useState(0);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
-  data = (data[0]?.uniqueId)?data : [];
+  data = (data[0]?.uniqueId) ? data : [];
 
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
 
+  console.log("data___data", data)
 
   const handleRPPChange = (value) => {
     setRPP(value);
-    setcurrentPage(1); 
-    const callApiPagination = (page,rrp) => {
+    setcurrentPage(1);
+    const callApiPagination = (page, rrp) => {
       setcurrentPage(page);
       const filters = {
         ...activedFilter,
         reseter: true,
         page: page,
-        limit:rrp
-        
+        limit: rrp
+
       };
-      sessionStorage.setItem("page",value)
+      sessionStorage.setItem("page", value)
       filterAfter(filters);
       setActivedFilter(filters);
       setActiveFilter(objectToArray(filters));
-    }; 
-    callApiPagination(1,value)
+    };
+    callApiPagination(1, value)
   };
   useEffect(() => {
     function addClassToAllChildren(el) {
@@ -92,7 +95,7 @@ const AdvancedTableExpandable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50,100,500,1000],
+    rpp: [50, 100, 500, 1000],
   };
 
   const callApiPagination = (value) => {
@@ -101,14 +104,14 @@ const AdvancedTableExpandable = ({
       ...activedFilter,
       reseter: true,
       page: value,
-      limit:RPP
-      
+      limit: RPP
+
     };
-    sessionStorage.setItem("page",value)
+    sessionStorage.setItem("page", value)
     filterAfter(filters);
-  setActivedFilter(filters);
-  setActiveFilter(objectToArray(filters));
-};
+    setActivedFilter(filters);
+    setActiveFilter(objectToArray(filters));
+  };
 
   const onSubmit = (formdata) => {
     formdata["reseter"] = true;
@@ -133,9 +136,9 @@ const AdvancedTableExpandable = ({
     setActivedFilter({});
   }, [tableName]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setFinalData(data)
-  },[data])
+  }, [data])
 
 
 
@@ -144,7 +147,7 @@ const AdvancedTableExpandable = ({
       <div className="absolute left-0 right-0 flex-col">
         <div className="m-2">
           <div className="flex justify-between">
-            <div className="flex flex-row">           
+            <div className="flex flex-row">
               <div className="flex flex-row mt-[6px] text-white">
                 <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
                 <p className="text-[#E6BE8A] font-bold ml-1">{totalCount}</p>
@@ -265,23 +268,57 @@ const AdvancedTableExpandable = ({
             {finalData.length > 0 ? (
               <>
                 <tbody>
-                  {finalData.map((itm) => {
-                    return (
-                      <AdvancedTableExpandableOneRow
-                        getmultiSelect={getmultiSelect}
-                        setmultiSelect={setmultiSelect}
-                        multiSelect={multiSelect}
-                        setModalBody={setModalBody}
-                        setOpenModal={setOpenModal}
-                        table={table}
-                        itm={itm}
-                        hide={hide}
-                      />
-                    );
-                  })}
+                  {
+                    mergedRows ?
+                      finalData.map((itm) => {
+                        return (
+                          <AdvancedTableExpandableOneRowMerged
+                            getmultiSelect={getmultiSelect}
+                            setmultiSelect={setmultiSelect}
+                            multiSelect={multiSelect}
+                            setModalBody={setModalBody}
+                            setOpenModal={setOpenModal}
+                            table={table}
+                            itm={itm}
+                            hide={hide}
+                            finalData={(() =>
+                              itm?.milestoneArray?.reduce((acc = {}, ele) => {
+                                if (!acc[ele['workDescription']]) {
+                                  acc[ele['workDescription']] = [];
+                                }
+                                // const someData = itm?.itemCodeResults.find(itm => itm?.vendorId === ele?.assignerResult?.[0]?.assignerId)
+                                // let temp = { ...ele }
+                                // if (someData) {
+                                //   temp = { ...ele, ...someData }
+                                // }
+                                acc[ele['workDescription']].push(ele)
+                                return acc;
+                              }, {})
+                            )()
+                            }
+                          />
+                        );
+                      })
+
+                      : finalData.map((itm) => {
+                        return (
+                          <AdvancedTableExpandableOneRow
+                            getmultiSelect={getmultiSelect}
+                            setmultiSelect={setmultiSelect}
+                            multiSelect={multiSelect}
+                            setModalBody={setModalBody}
+                            setOpenModal={setOpenModal}
+                            table={table}
+                            itm={itm}
+                            hide={hide}
+                          />
+                        );
+                      })
+                  }
+
                 </tbody>
               </>
-              ):(
+            ) : (
               <>
                 <tbody>
                   <tr className="border-2 border-black text-center">
@@ -291,7 +328,7 @@ const AdvancedTableExpandable = ({
                   </tr>
                 </tbody>
               </>
-              )
+            )
             }
           </table>
         </div>
@@ -303,7 +340,7 @@ const AdvancedTableExpandable = ({
               <select
                 value={RPP}
                 onChange={(e) => handleRPPChange(parseInt(e.target.value))}
-                className="rounded-sm" 
+                className="rounded-sm"
               >
                 {table.properties.rpp.map((itm, idx) => (
                   <option key={idx} value={itm}>{itm} </option>
@@ -314,7 +351,7 @@ const AdvancedTableExpandable = ({
             <div className="flex ml-auto">
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
-                  (index + 3 > currentPage && index - 1 < currentPage) || (index + 1 == 1) || (index + 1 == pages.length)  ? (
+                  (index + 3 > currentPage && index - 1 < currentPage) || (index + 1 == 1) || (index + 1 == pages.length) ? (
                     <span
                       onClick={(e) => {
                         callApiPagination(index + 1);

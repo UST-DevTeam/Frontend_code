@@ -202,9 +202,9 @@ let milestneList = useSelector((state) => {
       classes: "col-span-1",
     },
     {
-      label: "Airtel Item Code",
+      label: "Customer Item Code",
       value: "",
-      name: "airtelItemCode",
+      name: "customerItemCode",
       type: "text",
       // required: true,
       filter: true,

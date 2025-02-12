@@ -12,7 +12,7 @@ const AdvancedTableExpandableOneRow = ({
   hide,
 }) => {
   const [expand, setExpand] = useState(false);
-
+console.log("AdvancedTableExpandableOneRow")
   return (
     <>
       <tr>
@@ -28,7 +28,7 @@ const AdvancedTableExpandableOneRow = ({
 
         {table.columns.map((innerItm, index) => {
           return hide.indexOf(String(index)) == -1 ? (
-            <td
+            <td 
               className={`text-[12px] pl-1 border-[#0e8670] border-[0.1px] text-white ${
                 innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"
               }`}

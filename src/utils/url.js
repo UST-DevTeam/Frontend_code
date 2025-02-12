@@ -4,10 +4,8 @@
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
-
-export const baseUrl = "http://localhost:7980";
-export const backendassetUrl = "http://localhost:7980/";
-
+export const baseUrl = "http://192.168.1.59:7980";
+export const backendassetUrl = "http://192.168.1.59:7980/";
 
 export const Urls = {
   login: "/login",
@@ -27,8 +25,8 @@ export const Urls = {
   admin_getProjectTypeDyform: "/admin/getProjectTypeDyform",
   admin_sub_projecttype: "/admin/manageSubProjectType",
   admin_circle: "/admin/manageCircle",
-  admin_partner_work_description:"/admin/partnerWorkDescription",
-  admin_partner_activity:"/admin/partnerActivity",
+  admin_partner_work_description: "/admin/partnerWorkDescription",
+  admin_partner_activity: "/admin/partnerActivity",
   admin_zone: "/admin/manageZone",
   admin_cost_center: "/admin/manageCostCenter",
   admin_project_group: "/admin/manageProjectGroup",
@@ -64,7 +62,7 @@ export const Urls = {
   projectList_siteEngineer: "/siteEngineer",
   projectList_milestone: "/milestone",
   projectList_globalSaver: "/globalSaver",
-  projectList_partner_group_milestone:"/partner_group_milestone",
+  projectList_partner_group_milestone: "/partner_group_milestone",
   projectList_changeTaskStatus: "/changeTaskStatus",
   projectList_closeMilestone: "/closeMilestone/",
   project_circle: "/project/circle",
@@ -87,14 +85,14 @@ export const Urls = {
   vendor_details: "/hr/vendor",
   vendor_project_allocation: "/vendorProjectAllocation",
   vendor_project_list: "/vendorSiteId",
-  vendor_project_tracking:"/vendor/myTask",
+  vendor_project_tracking: "/vendor/myTask",
   filter_vendor_subProject: "/filter/vendor/subProject",
-  get_vendorCostMilestone:"/vendor/milestone",
-  get_vendortCostMilestoeList:"/vendor/milestoneList",
-  get_vendortCostProjectGroupList:"/vendorCost/projectGroupList",
-  get_vendortCostSubProjectTypeList:"/vendorCost/projectTypeList",
-  get_vendortCostVendorsList:"/vendorCost/vendorsList",
-  filter_vendorActivity_subProject:"filter/vendorActivity/projectType",
+  get_vendorCostMilestone: "/vendor/milestone",
+  get_vendortCostMilestoeList: "/vendor/milestoneList",
+  get_vendortCostProjectGroupList: "/vendorCost/projectGroupList",
+  get_vendortCostSubProjectTypeList: "/vendorCost/projectTypeList",
+  get_vendortCostVendorsList: "/vendorCost/vendorsList",
+  filter_vendorActivity_subProject: "filter/vendorActivity/projectType",
   common_update_site_milestone: "/commonUpdate",
 
   finance_poinvoice_based: "/finance/poInvoiceBased",
@@ -153,15 +151,15 @@ export const Urls = {
   expAdv_user_limit: "/expenses/userLimit",
   admin_claim_type_Expenses: "/expenses/expensesClaimType",
   admin_claim_type_Advances: "/expenses/AdvanceClaimType",
-/// GPTRACKING
-  gpTracking_customer:"/gp/customer",
-  gpTracking_projectGroup:"/gp/costCenter",
-  gpTracking_costCenter:"/gp/costCenter",
-  gpTracking_salaryDB:"/gp/salaryDB",
-  gpTracking_OtherFixedCost:"/gp/OtherFixedCost",
-  gpTracking_Zone:"/gp/zone",
-  gpTracking_OtherCostTypes:"/gp/OtherCostTypes",
-  gpTracking_Main:"/gpTracking",
+  /// GPTRACKING
+  gpTracking_customer: "/gp/customer",
+  gpTracking_projectGroup: "/gp/costCenter",
+  gpTracking_costCenter: "/gp/costCenter",
+  gpTracking_salaryDB: "/gp/salaryDB",
+  gpTracking_OtherFixedCost: "/gp/OtherFixedCost",
+  gpTracking_Zone: "/gp/zone",
+  gpTracking_OtherCostTypes: "/gp/OtherCostTypes",
+  gpTracking_Main: "/gpTracking",
   ///Activity Logs
   approval_Logs: "/Approval/Logs",
   admin_logs: "/admin/AdminLogs",
@@ -264,7 +262,6 @@ export const Urls = {
 
   admin_repositorySiteId: "/admin/repositorySiteId",
   user_myPolicy: "/myHome/myPolicy",
-
 
   // Repository ends   ---------
 
