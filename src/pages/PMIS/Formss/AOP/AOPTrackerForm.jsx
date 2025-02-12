@@ -10,6 +10,11 @@ import Button from "../../../../components/Button";
 // import CurrentuserActions from "../../../store/actions/currentuser-action";
 // import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import { rule } from "postcss";
+import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
+import Api from "../../../../utils/api";
+import { tableAction } from "../../../../store/actions/table-action";
+import { Urls } from "../../../../utils/url";
+import { CLEAR_RECORDS, SET_TABLE } from "../../../../store/reducers/table-reducer";
 
 const AOPTrackerForm = ({
   isOpen,
@@ -19,6 +24,7 @@ const AOPTrackerForm = ({
   year,
   month,
   monthss,
+  forAirtel=false
 }) => {
   const [selectedCustomer, setSelectedCustomer] = useState("");
 
@@ -58,7 +64,7 @@ const AOPTrackerForm = ({
     setSelectedCustomer(selectedValue);
     // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
     dispatch( gpTrackingActions.getGPCostCenter(selectedValue,true));
-    
+
 
   };
 
@@ -126,43 +132,206 @@ const AOPTrackerForm = ({
       option: costCenterList,
       required: true,
     },
-    // {
-    //     label: "Cost Type",
-    //     value: "",
-    //     name: "costType",
-    //     type: "text",
-    //     classes: "col-span-1",
-    //   },
     {
-      label: "Cost Type",
+      label: "UST Project ID",
       value: "",
-      name:
-        Object.entries(formValue).length > 0
-          ? "costType"
-          : "costTypeId",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-      option: gpCostTypesList,
-      required: true,
-    },
-    // {
-    //     label: "Cost Type",
-    //     value: "",
-    //     name: "costType",
-    //     type: "text",
-    //     classes: "col-span-1",
-    //   },
-    {
-      label: "Cost",
-      value: "",
-      name: "cost",
+      name: "ustProjectID",
       type: "text",
       classes: "col-span-1",
+      required:true,
+        // props:{
+        //   // "valueAsNumber":true,
+        //   "min":0
+        // }
       // props: {
       //   valueAsNumber: true,
       //   min: 0,
       // },
     },
+    {
+      label: "planned Revenue",
+      value: "",
+      name: "planRevenue",
+      type: "number",
+      classes: "col-span-1",
+      required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+      // props: {
+      //   valueAsNumber: true,
+      //   min: 0,
+      // },
+    },
+    {
+      label: "COGS",
+      value: "",
+      name: "COGS",
+      type: "number",
+      classes: "col-span-1",
+      required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+      // props: {
+      //   valueAsNumber: true,
+      //   min: 0,
+      // },
+    },
+    {
+      label: "Bussiness unit ",
+      value: "",
+      name: "bussinessUnit",
+      type: "number",
+      classes: "col-span-1",
+      required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+      // props: {
+      //   valueAsNumber: true,
+      //   min: 0,
+      // },
+    },
+  
+      {
+        label: "SGNA Cost",
+        value: "",
+        name: "SGNA",
+        type: "number",
+        classes: "col-span-1",
+        required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+        // props: {
+        //   valueAsNumber: true,
+        //   min: 0,
+        // },
+      },
+      {
+        label: "Actual Revenue",
+        value: "",
+        name: "actualRevenue",
+        type: "number",
+        classes: "col-span-1",
+        required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+        // props: {
+        //   valueAsNumber: true,
+        //   min: 0,
+        // },
+      },
+      {
+        label: "Actual Salary",
+        value: "",
+        name: "actualSalary",
+        type: "number",
+        classes: "col-span-1",
+        required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+        // props: {
+        //   valueAsNumber: true,
+        //   min: 0,
+        // },
+      },
+      {
+        label: "Actual Vendor Cost ",
+        value: "",
+        name: "actualVendorCost",
+        type: "number",
+        classes: "col-span-1",
+        required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+        // props: {
+        //   valueAsNumber: true,
+        //   min: 0,
+        // },
+      },
+      {
+        label: "Other Fixed Cost",
+        value: "",
+        name: "otherFixedCost",
+        type: "number",
+        classes: "col-span-1",
+        required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+   
+      },
+      {
+        label: "Employee Expanse",
+        value: "",
+        name: "employeeExpanse",
+        type: "number",
+        classes: "col-span-1",
+        required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+   
+      },
+      {
+        label: "Actual SGNA Cost",
+        value: "",
+        name: "actualSGNA",
+        type: "number",
+        classes: "col-span-1",
+        // required:true,
+      props:{
+        "valueAsNumber":true,
+        "min":0
+      }
+      },
+      {
+        label: "Miscellaneous Expenses",
+        value: "miscellaneousExpenses",
+        name: "miscellaneousExpenses",
+        type: "number",
+        classes: "col-span-1",
+        // required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+
+      },
+      {
+        label: "Miscellaneous Expenses 2",
+        value: "miscellaneousExpensesSecond",
+        name: "miscellaneousExpensesSecond",
+        type: "number",
+        classes: "col-span-1",
+        // required:true,
+        props:{
+          "valueAsNumber":true,
+          "min":0
+        }
+
+      },
+      
+       
+
   ];
+  if(forAirtel){
+    Form.splice(2, 1);
+  }
 
   const {
     register,
@@ -178,7 +347,7 @@ const AOPTrackerForm = ({
     console.log(data);
   };
 
-  const onTableViewSubmit = (data) => {
+  const onTableViewSubmit =async (data) => {
     const convertToIntOrNull = (value) =>
       isNaN(value) ? null : parseInt(value);
 
@@ -200,20 +369,32 @@ const AOPTrackerForm = ({
         )
       );
     } else {
-      dispatch(
-        gpTrackingActions.postGPOtherFixedCost(true,data, () => {
-          setIsOpen(false);
-          dispatch(gpTrackingActions.getOtherFixedCost());
-        })
-      );
+      // { data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }
+      const resp = await Api.post({ data, url: Urls.aop+(forAirtel?"?forAirtel=true" :""),"cb": () => dispatch(tableAction.getTable(Urls.aop+(forAirtel?"?forAirtel=true":''), SET_TABLE)) })
+      if (resp.status == 201) {
+      
+        setIsOpen(false);
+      }
+      // dispatch(
+      //   gpTrackingActions.postGPOtherFixedCost(true,data, () => {
+      //     dispatch(gpTrackingActions.getOtherFixedCost());
+      //   })
+      // );
     }
   };
 
   useEffect(() => {
     // dispatch(CurrentuserActions.getcurrentuserCostCenter())
+    if(forAirtel){
+      dispatch( gpTrackingActions.getGPCostCenter("airtel",true));
+    }
+    else{
+      dispatch(gpTrackingActions.getGPCustomer());
+      
+    }
     dispatch(gpTrackingActions.getGPCostCenter);
     dispatch(gpTrackingActions.getGPOtherFixedCostTypes())
-    dispatch(gpTrackingActions.getGPCustomer());
+   
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -232,6 +413,8 @@ const AOPTrackerForm = ({
         }
       });
     }
+
+    return ()=>dispatch(CLEAR_RECORDS())
   }, [formValue, resetting]);
   return (
     <>

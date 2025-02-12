@@ -114,6 +114,8 @@ import OtherFixedCostTypes from "../pages/PMIS/gpTracking/OtherFixedCostTypes/Ot
 import GPTracking from "../pages/PMIS/gpTracking/GpTrackingMain/gpTracking";
 import VendorProjectTracking from "../pages/PMIS/VendorProjectTracking/VendorProjectTracking";
 import VendorCost from "../pages/PMIS/gpTracking/VendorCost/vendorCost";
+import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
+import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -445,6 +447,13 @@ export const Sidebar_content = {
       icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
     },
     {
+      name: "Exchange Rate",
+      link: "/hr/superAdmin/exchangeRate",
+      subMenu: [],
+      component: <ExChangeRate />,
+      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+    },
+    {
       name: "Manage Zone",
       link: "/hr/superAdmin/manageZone",
       subMenu: [],
@@ -674,8 +683,15 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/forms/AOPTracking",
+      link: "/forms/AopTracking",
       component: <AOPTracking />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/AopTrackingAirtel",
+      component: <AOPTrackingAirtel />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

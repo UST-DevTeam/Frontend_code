@@ -4,7 +4,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal"; 
+import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
@@ -22,13 +22,62 @@ import FileUploader from "../../../../components/FIleUploader";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
 import AOPTrackerForm from "./AOPTrackerForm";
 import PLform from "../P&L/PLform";
+import AddActualAOP from "./AddActualAOP";
+import { tableAction } from "../../../../store/actions/table-action";
+import { SET_TABLE } from "../../../../store/reducers/table-reducer";
+import Api from "../../../../utils/api";
+import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
+import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
+import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
+
+function Tabs({ data,enable,setEnable }) {
+  
+  return (
+    <div>
+      <div className="flex items-center px-4 space-x-4">
+        {
+          data.map(item => {
+            return <button onClick={() => setEnable(item.label)} className={`text-white rounded-2xl py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
+          })
+        }
+
+      </div>
+      <div className="mt-4 p-4">
+        {
+          data.find(item => item.label === enable)?.body
+        }
+      </div>
+    </div>
+
+  )
+}
 
 const AOPTracking = () => {
+  
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    setValues,
+    reset,
+    formValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+
+  
+
+  const [dollarAmount, setDollarAmount] = useState({
+    amount: null,
+    visibility: false
+  })
 
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
-  const [modalBody, setmodalBody] = useState(<></> );
+  const [modalBody, setmodalBody] = useState(<></>);
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
@@ -38,9 +87,70 @@ const AOPTracking = () => {
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
   const Data = useRef("")
-
+  // let months = [
+  //   "Jan",
+  //   "Feb",
+  //   "Mar",
+  //   "Apr",
+  //   "May",
+  //   "Jun",
+  //   "Jul",
+  //   "Aug",
+  //   "Sep",
+  //   "Oct",
+  //   "Nov",
+  //   "Dec",
+  // ];
+  const monthMap = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
+  const months = [
+    { label: "Jan", value: 1 },
+    { label: "Feb", value: 2 },
+    { label: "Mar", value: 3 },
+    { label: "Apr", value: 4 },
+    { label: "May", value: 5 },
+    { label: "Jun", value: 6 },
+    { label: "Jul", value: 7 },
+    { label: "Aug", value: 8 },
+    { label: "Sep", value: 9 },
+    { label: "Oct", value: 10 },
+    { label: "Nov", value: 11 },
+    { label: "Dec", value: 12 },
+  ];
   let dispatch = useDispatch();
+  let rows = useSelector(state => {
+    return Array.isArray(state.table?.tableContent)
+      ? state.table.tableContent.map(item => {
+        let index = item.month;
+        console.log("first", item)
+        // let pRev=item["planRevenue"]
+        // let pCOGS=item["COGS"]
+        // let pSGNA=item["SGNA"]
+        // if( dollarAmount.visibility==true){
+        //   console.log(dollarAmount.amount,"  =cklemfklemferferfg")
+        //   pRev=dollarAmount.amount*item.planRevenue
+        //   pCOGS=dollarAmount.amount*item.COGS
+        //   pSGNA=dollarAmount.amount*item.SGNA
 
+        // }
+        // console.log("ferf,ekrfeorfeorpifvkev===",pRev)
+        // return { ...item,SGNA:pSGNA,COGS:pCOGS, month: months[index-1],gm:item.gm*100,"planRevenue":pRev };  // Create a new object with updated `month`
+        return { ...item, month: monthMap[index] };  // Create a new object with updated `month`
+      })
+      : [];
+  });
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
       return {
@@ -51,10 +161,18 @@ const AOPTracking = () => {
   });
 
   let costCenterList = useSelector((state) => {
-    return state?.currentuserData?.getcurrentusercostcenter.map((itm) => {
+    return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
       return {
         label: itm?.costCenter,
-        value: itm?.uniqueId,
+        value: itm?.costCenterId,
+      };
+    });
+  });
+  let bussinessUnit = useSelector((state) => {
+    return state?.dropDown?.bussinessUnit.map((itm) => {
+      return {
+        label: itm,
+        value: itm,
       };
     });
   });
@@ -68,7 +186,7 @@ const AOPTracking = () => {
   let showType = getAccessType("Actions(P&L)")
   let shouldIncludeEditColumn = false
 
-  if (showType === "visible"){
+  if (showType === "visible") {
     shouldIncludeEditColumn = true
   }
 
@@ -94,9 +212,9 @@ const AOPTracking = () => {
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={itm}
-                        year = {year}
-                        monthss = {[itm?.month]}
-                        filtervalue = {""}
+                        year={year}
+                        monthss={[itm?.month]}
+                        filtervalue={""}
                       />
                     </>
                   );
@@ -161,31 +279,13 @@ const AOPTracking = () => {
     }
   });
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    setValues,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm();
+  const handleCustomerChange = (value) => {
+    const selectedValue = value;
+    // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
+    dispatch( gpTrackingActions.getGPCostCenter(selectedValue,true));
 
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+
+  };
 
   const getPreviousCurrentAndNextMonth = () => {
     const currentDate = new Date();
@@ -211,99 +311,114 @@ const AOPTracking = () => {
   let table = {
     columns: [
       {
-        name: "Ye,kkkkkkar",
+        name: "Year",
         value: "year",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "px-2 text-center",
       },
       {
         name: "Month",
         value: "month",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Bussiness Unit",
+        value: "bussinessUnit",
+        style: "px-2 text-center",
       },
       {
         name: "Customer",
-        value: "costCenterName",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        value: "customerName",
+        style: "px-2 text-center",
       },
       {
-        name: "UST Priject ID",
-        value: "costCenterName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Zone",
-        value: "zone",
+        name: "UST Project ID",
+        value: "ustProjectID",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "MCT Project ID",
         value: "costCenter",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        style: "px-2 text-center",
       },
       {
-        name: "Revenue",
-        value: "revenue",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "Zone",
+        value: "zone",
+        style: "px-2 text-center",
       },
       {
-        name: "Projected Cost",
-        value: "projectedCost",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "Planned Revenue",
+        value: "planRevenue",
+        style: "px-2 text-center",
       },
       {
-        name: "Actual Cost",
-        value: "actualCost",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "Planned COGS",
+        value: "COGS",
+        style: "px-2 text-center",
       },
       {
-        name: "Projected Gross Profit",
-        value: "projectedGrossProfit",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "planned Gross Profit",
+        value: "planGp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "planned Gross Margin(%)",
+        value: "gm",
+        style: "px-2 text-center",
+      },
+      {
+        name: "planned SGNA",
+        value: "SGNA",
+        style: "px-2 text-center",
+      },
+      {
+        name: "planned Net Profit",
+        value: "np",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Revenue",
+        value: "actualRevenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual COGS",
+        value: "actualCOGS",
+        style: "px-2 text-center",
       },
       {
         name: "Actual Gross Profit",
-        value: "actualGrossProfit",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
-      {
-        name: "Projected Gross Margin(%)",
-        value: "projectedGrossMargin",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        value: "actualGp",
+        style: "px-2 text-center",
       },
       {
         name: "Actual Gross Margin(%)",
-        value: "actualGrossMargin",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        value: "actualGm",
+        style: "px-2 text-center",
       },
       {
-        name: "SGNA Cost",
-        value: "sgna",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "Actual SGNA",
+        value: "actualSGNA",
+        style: "px-2 text-center",
       },
       {
-        name: "Net Profit",
-        value: "netProfit",
-        style: "min-w-[200px] max-w-[200px] text-center",
-      },
-      {
-        name: "Net Margin(%)",
-        value: "netMargin",
-        style: "min-w-[200px] max-w-[200px] text-center",
+        name: "Actual Net Profit",
+        value: "actualNp",
+        style: "px-2 text-center",
       },
       ...newColumns,
       ...(shouldIncludeEditColumn
         ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-          ]
+          {
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[200px] text-center",
+          },
+          {
+            name: "Delete",
+            value: "delete",
+            style: "min-w-[100px] max-w-[200px] text-center",
+          },
+        ]
         : [])
     ],
     properties: {
@@ -314,26 +429,26 @@ const AOPTracking = () => {
 
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
-    listYear.push(ywq);
+    listYear.push({ label: ywq, value: ywq });
   }
 
-  let listDict = {
-    "": [],
-    Month: [
-      { id: 1, name: "Jan" },
-      { id: 2, name: "Feb" },
-      { id: 3, name: "Mar" },
-      { id: 4, name: "Apr" },
-      { id: 5, name: "May" },
-      { id: 6, name: "Jun" },
-      { id: 7, name: "Jul" },
-      { id: 8, name: "Aug" },
-      { id: 9, name: "Sep" },
-      { id: 10, name: "Oct" },
-      { id: 11, name: "Nov" },
-      { id: 12, name: "Dec" }
-    ],
-  };
+  // let listDict = {
+  //   "": [],
+  //   Month: [
+  //     { id: 1, name: "Jan" },
+  //     { id: 2, name: "Feb" },
+  //     { id: 3, name: "Mar" },
+  //     { id: 4, name: "Apr" },
+  //     { id: 5, name: "May" },
+  //     { id: 6, name: "Jun" },
+  //     { id: 7, name: "Jul" },
+  //     { id: 8, name: "Aug" },
+  //     { id: 9, name: "Sep" },
+  //     { id: 10, name: "Oct" },
+  //     { id: 11, name: "Nov" },
+  //     { id: 12, name: "Dec" }
+  //   ],
+  // };
 
   const onSubmit = (data) => {
     let value = data.reseter;
@@ -341,51 +456,248 @@ const AOPTracking = () => {
     let strVal = objectToQueryString(data);
     dispatch(FormssActions.getProfiltLoss(true, strVal));
   };
+  async function inrToUsd() {
+    const response = await fetch('https://api.exchangerate-api.com/v4/latest/INR');
+    const data = await response.json();
+    const rate = data.rates.USD;
+    setDollarAmount((prev) => {
+      return { ...prev, amount: rate }
+    })
+    return rate;
+  }
+  const bussiness=async ()=>{
+    let res=await Api.get({url:Urls.businessUnit,contentType:"application/json"})
+    console.log("================",res.data.data)
+    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.bussinessUnit))
+  }
   useEffect(() => {
-    dispatch(FormssActions.getProfiltLoss())
-    dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
+    // inrToUsd
+    bussiness()
+    // dispatch(FormssActions.getProfiltLoss())
+  
+    dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+    dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0))
   }, []);
-
+  let customerList = useSelector((state) => {
+    return state?.gpTrackingReducer?.getCustomer.map((itm) => {
+      return {
+        label: itm?.customer,
+        value: itm?.uniqueId,
+      };
+    });
+  });
 
   let formD = [
+    // {
+    //   label: "Year",
+    //   name: "year",
+    //   value: "Select",
+    //   bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    //   type: "select",
+    //   option: listYear.map((itmYr) => {
+    //     return {
+    //       label: itmYr,
+    //       value: itmYr,
+    //     };
+    //   }),
+    //   props: {
+    //     onChange: (e) => {
+    //       setValue("year", e.target.value);
+    //       setyear(e.target.value);
+    //     },
+    //   },
+    //   required: true,
+    //   classes: "col-span-1 h-38px",
+    // },
+    // {
+    //   label: ValGm,
+    //   name: "viewBy",
+    //   value: "Select",
+    //   type: "newmuitiSelect2",
+    //   option: listDict[ValGm].map((dasd) => {
+    //     return {
+    //       value: dasd?.id,
+    //       label: dasd?.name,
+    //     };
+    //   }),
+    //   props: {
+    //     selectType: selectType,
+    //   },
+    //   hasSelectAll: true,
+    //   required: true,
+    //   classes: "col-span-1 h-10",
+    // },
     {
       label: "Year",
+      value: "",
       name: "year",
-      value: "Select",
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
-      option: listYear.map((itmYr) => {
-        return {
-          label: itmYr,
-          value: itmYr,
-        };
-      }),
-      props: {
-        onChange: (e) => {
-          setValue("year", e.target.value);
-          setyear(e.target.value);
-        },
-      },
+      option: listYear,
       required: true,
-      classes: "col-span-1 h-38px",
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
     },
     {
-      label: ValGm,
-      name: "viewBy",
-      value: "Select",
-      type: "newmuitiSelect2",
-      option: listDict[ValGm].map((dasd) => {
-        return {
-          value: dasd?.id,
-          label: dasd?.name,
-        };
-      }),
-      props: {
-        selectType:selectType,
-      },
-      hasSelectAll:true,
+      label: "Month",
+      value: "",
+      name: "month",
+      type:"select",
+      option: months,
       required: true,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    },
+    {
+      label: 'Business unit',
+      name: "businessUnit",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: bussinessUnit,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    {
+      label: "Customer",
+      value: "",
+      name:"customerId",
+      type:"select",
+      option: customerList,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      props: {
+        onChange: (e) => {
+          handleCustomerChange(e?.target?.value);
+        },
+      },
+      // required: true,
+    },
+    // {
+    //   label: "Cost Center",
+    //   value: "",
+    //   name:"costCenterId",
+    //   type:  "select",
+    //   option: costCenterList,
+    //   required: true,
+    // },
+   
+    {
+      label: 'Cost Center',
+      name: "costCenter",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: costCenterList,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
       classes: "col-span-1 h-10",
+    },
+    
+  ];
+  let cummulativeFilter = [
+    // {
+    //   label: "Year",
+    //   name: "year",
+    //   value: "Select",
+    //   bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    //   type: "select",
+    //   option: listYear.map((itmYr) => {
+    //     return {
+    //       label: itmYr,
+    //       value: itmYr,
+    //     };
+    //   }),
+    //   props: {
+    //     onChange: (e) => {
+    //       setValue("year", e.target.value);
+    //       setyear(e.target.value);
+    //     },
+    //   },
+    //   required: true,
+    //   classes: "col-span-1 h-38px",
+    // },
+    // {
+    //   label: ValGm,
+    //   name: "viewBy",
+    //   value: "Select",
+    //   type: "newmuitiSelect2",
+    //   option: listDict[ValGm].map((dasd) => {
+    //     return {
+    //       value: dasd?.id,
+    //       label: dasd?.name,
+    //     };
+    //   }),
+    //   props: {
+    //     selectType: selectType,
+    //   },
+    //   hasSelectAll: true,
+    //   required: true,
+    //   classes: "col-span-1 h-10",
+    // },
+    {
+      label: "Year",
+      value: "",
+      name: "year",
+      type: "select",
+      option: listYear,
+      required: true,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    },
+    // {
+    //   label: "Month",
+    //   value: "",
+    //   name: "month",
+    //   type:"select",
+    //   option: months,
+    //   required: true,
+    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    // },
+    {
+      label: 'Month',
+      name: "month",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: months,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    
+    // {
+    //   label: "Cost Center",
+    //   value: "",
+    //   name:"costCenterId",
+    //   type:  "select",
+    //   option: costCenterList,
+    //   required: true,
+    // },
+    {
+      label: 'Business unit',
+      name: "businessUnit",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: bussinessUnit,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    {
+      label: "Customer",
+      value: "",
+      name:"customerId",
+      type:"select",
+      option: customerList,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      props: {
+        onChange: (e) => {
+          handleCustomerChange(e?.target?.value);
+        },
+      },
+      // required: true,
     },
     {
       label: 'Cost Center',
@@ -394,14 +706,90 @@ const AOPTracking = () => {
       type: "newmuitiSelect2",
       option: costCenterList,
       props: {
-        selectType:selectType,
+        selectType: selectType,
       },
-      hasSelectAll:true,
+      hasSelectAll: true,
       classes: "col-span-1 h-10",
     },
+    
   ];
 
+
+  const tabs = [
+    {
+      label: "Month",
+      body:
+          <div className="flex items-center justify-start">
+
+        
+            <div className="w-full">
+              <CommonForm
+                classes="grid grid-cols-6  p-2"
+                Form={formD}
+                errors={errors}
+                register={register}
+                setValue={setValue}
+                getValues={getValues}
+              />
+            </div>
+            <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+              <Button
+                classes="flex h-fit"
+                name=""
+                icon={<UilSearch className="w-5 m-2 h-5" />}
+                onClick={handleSubmit(handleAddActivity)}
+              />
+            </div>
+          </div>
+    },
+    {
+      label: "Cumulative",
+      body: <div className="flex items-center justify-start">
+
+        
+      <div className="w-full">
+        <CommonForm
+          classes="grid grid-cols-6  p-2"
+          Form={cummulativeFilter}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+        />
+      </div>
+      <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+        <Button
+          classes="flex h-fit"
+          name=""
+          icon={<UilSearch className="w-5 m-2 h-5" />}
+          onClick={handleSubmit(handleAddActivity)}
+        />
+      </div>
+    </div>
+    },
+  ]
+  const [enable, setEnable] = useState(tabs[0].label)
+  async  function handleAddActivity(res){
+    Data.current = ""
+    // setExtraColumns(res['Month'])
+    Data.current = res['CostCenter']
+    // FRERFER
+    console.log("============", res)
+    if (enable=="Cumulative"){
+      
+      res['month']=res['Month']
+    }
+    
+    
+    const resp = await Api.post({ data: res, url: Urls.aop + "?filter=true" })
+    if (resp.status == 200) {
+      dispatch(SET_TABLE(resp?.data?.data))
+    }
+    // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
+    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+  };
   useEffect(() => {
+    dispatch(gpTrackingActions.getGPCustomer());
     const monthMap = {
       1: "Jan",
       2: "Feb",
@@ -413,7 +801,7 @@ const AOPTracking = () => {
       8: "Aug",
       9: "Sep",
       10: "Oct",
-      11: "Nov",  
+      11: "Nov",
       12: "Dec",
     };
     let cols = [];
@@ -421,82 +809,104 @@ const AOPTracking = () => {
     setNewColumns(cols);
   }, [extraColumns]);
 
-  const handleAddActivity = (res) => {
-    Data.current = ""
-    setExtraColumns(res['Month'])
-    Data.current  = res['Cost Center']
-    dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-  };
-  
 
-  const onTableViewSubmit = (data) => { 
-    data["fileType"]="profitloss"
+
+
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "AOP"
     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false)
-        dispatch(FormssActions.getProfiltLoss())
+      setFileOpen(false)
+      // dispatch(FormssActions.getProfiltLoss())
+      dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
     }))
   }
 
+  console.log("vkelmfvkfenfvkfd vev===",enable)
+
   return (
     <>
-      <div className="flex items-center justify-start">
-        <div className="col-span-1 md:col-span-1">
-          <CommonForm
-            classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
-            Form={formD}
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            getValues={getValues}
-          />
-        </div>
-        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
-          <Button
-            classes="flex h-fit"
-            name=""
-            icon={<UilSearch className="w-5 m-2 h-5" />}
-            onClick={handleSubmit(handleAddActivity)}
-          />
-        </div>
-      </div>
+    <Tabs data={tabs} setEnable={setEnable} enable={enable} />
+      
 
-      <AdvancedTable 
+      <AdvancedTable
         headerButton={
           <>
-          <div className="flex gap-1">
-            <Button
+            <div className="flex gap-1">
+              <Button
+                onClick={() => {
+
+                  setDollarAmount((prev) => {
+                    if (prev.visibility == true) {
+                      return {
+                        amount: null,
+                        visibility: false
+                      }
+                    }
+                    else {
+                      // let resp= inrToUsd()
+                      // let amount=resp.then((data)=>data)
+                      // console.log(",ckmfdevdf;vrvf",amount)
+                      return {
+                        // amount:resp,
+                        ...prev,
+                        visibility: true
+                      }
+                    }
+                  })
+                  dispatch(tableAction.getTable(Urls.aop + `?dollorView=${!dollarAmount.visibility}`, SET_TABLE))
+                }}
+                //  onClick={(e) => {
+                //       setmodalOpen((prev) => !prev);
+                //       setmodalHead("New Plan");
+                //       // setmodalBody(<PLform isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                //       setmodalBody(<AOPTrackerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                //     }}
+                // name={"Add New Plan"}
+                classes='w-auto'>{dollarAmount.visibility ? <FaDollarSign /> : <FaRupeeSign />}
+              </Button>
+              <Button
+                onClick={(e) => {
+                  setmodalOpen((prev) => !prev);
+                  setmodalHead("New Plan");
+                  // setmodalBody(<PLform isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                  setmodalBody(<AOPTrackerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                }}
+                name={"Add New Plan"}
+                classes='w-auto'>
+              </Button>
+              {/* <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
-                setmodalHead("New Plan");
+                setmodalHead("Add Actual Plan");
                 // setmodalBody(<PLform isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                setmodalBody(<AOPTrackerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalBody(<AddActualAOP isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
               }}
-              name={"Add New"}
+              name={"Add Actual Plan"}
               classes='w-auto'>
-            </Button>
-            <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}>
-            </Button>
-            <Button name={"Export"} classes='w-auto mr-1' onClick = {(e) => {
-              dispatch(CommonActions.commondownloadpost("/export/profit&loss","Export_Profit&Loss.xlsx","POST",{'year':year,'Month':extraColumns,'Cost Center':Data.current}))
+            </Button> */}
+              <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
+                setFileOpen(prev => !prev)
               }}>
-            </Button>
-          </div>
+              </Button>
+              <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                dispatch(CommonActions.commondownloadpost("/export/AOP", "AOP.xlsx", "POST", { 'year': year, 'Month': extraColumns, 'Cost Center': Data.current }))
+              }}>
+              </Button>
+            </div>
           </>
         }
         table={table}
         filterAfter={onSubmit}
         tableName={"PLform"}
-        TableHeight = "h-[51vh]" 
+        TableHeight="h-[51vh]"
         handleSubmit={handleSubmit}
-        data={dbConfigList}
+        data={rows}
         errors={errors}
         register={register}
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        heading = {'Total Count :-'}
+        heading={'Total Count :-'}
       />
       <Modal
         size={"sm"}
@@ -505,7 +915,7 @@ const AOPTracking = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/P&L_Form.xlsx","P&L_Form.xlsx"]} />
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink={["/template/AOP.xlsx", "AOP.xlsx"]} />
     </>
   );
 };

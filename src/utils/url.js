@@ -1,12 +1,12 @@
-// export const baseUrl="https://devapi.mcpspmis.com"
-// export const backendassetUrl="https://devapi.mcpspmis.com/"
+export const baseUrl="https://devapi.mcpspmis.com"
+export const backendassetUrl="https://devapi.mcpspmis.com/"
 
 // export const baseUrl="https://api.mcpspmis.com"
 // export const backendassetUrl="https://api.mcpspmis.com/"
 
 
-export const baseUrl = "http://localhost:7980";
-export const backendassetUrl = "http://localhost:7980/";
+// export const baseUrl = "http://localhost:7980";
+// export const backendassetUrl = "http://localhost:7980/";
 
 // export const baseUrl = "http://192.168.1.24:7980";
 // export const backendassetUrl = "http://192.168.1.24:7980/";
@@ -18,7 +18,8 @@ export const Urls = {
   admin_userList: "/admin/users",
   admin_roleList: "/admin/roles",
   user_notification: "/notification",
-
+  exchangeRate:"/exchange",
+  businessUnit:"/businessUnit",
   // new urlP
   admin_userAccess: "/admin/userAccess",
   admin_customer: "/admin/manageCustomer",
@@ -256,12 +257,14 @@ export const Urls = {
   approverAction: "/admin/approverAction",
   complianceLog: "/complianceLog",
   complianceDegrowTemplateData: "/admin/complianceDegrowTemplateData",
+  
 
   // super admin compiliance  ends -----
 
   // Repository starts  -----
 
-  admin_repositorySiteId: "/admin/repositorySiteId"
+  admin_repositorySiteId: "/admin/repositorySiteId",
+  aop:"/AOP"
 
 
   // Repository ends   ---------

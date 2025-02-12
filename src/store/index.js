@@ -17,8 +17,12 @@ import GraphData from "./reducers/graph-reducer";
 import currentuserData from "./reducers/currentuser-reducer";
 import repository from "./reducers/repository-reducer";
 import gpTrackingReducer from "./reducers/gpTracking-reducer"
+import tableReducer from "./reducers/table-reducer"
+import dropDownReducer from "./reducers/dropDown-reducer"
 const store = configureStore({
     reducer: {
+        dropDown:dropDownReducer,
+        table:tableReducer, 
         auth,
         component,
         adminManagement,
