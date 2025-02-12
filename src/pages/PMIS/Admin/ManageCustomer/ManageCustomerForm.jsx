@@ -30,28 +30,13 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
     })
 
     let Form = [
-        // {
-        //     label: "Login Type",
-        //     name: "loginType",
-        //     value: "Select",
-        //     type: "select",
-        //     option: [
-        //         { "label": "Password Based", "value": "PasswordBased" },
-        //         { "label": "Two Way Auth", "value": "TwoWayAuth" }
-        //     ],
-        //     props: "",
-        //     required: true,
-        //     classes: "col-span-1"
-        // },
-         {
+        {
             label: "Logo",
             value: "",
             name: "img",
             type: "file",
-            // required: true,
             props: {
                 onChange: ((e) => {
-                    console.log(e.target.files, "e geeter")
                     setValue("companyimg",e.target.files[0])
                 }),
             },
@@ -135,6 +120,17 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
                 }),
             },
             required: true,
+            classes: "col-span-1"
+        }, 
+        {
+            label: "Index",
+            name: "index",
+            type: "number",
+            required: true,
+            props: {
+                valueAsNumber: true,
+                min: 1, 
+            },
             classes: "col-span-1"
         }, 
         {

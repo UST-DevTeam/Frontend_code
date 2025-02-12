@@ -28,11 +28,31 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
         console.log(interdata, "interdatainterdata")
         return state?.customQuery?.databaseList
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
-    let Form = [
+
+    let customerList = useSelector((state) => {
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm?.customerName,
+                value: itm?.uniqueId
+            }
+        })
+    })
+
+
+    let Form = [,
+        {
+            label: "Customer",
+            value: "",
+            name: "customer",
+            type: "select",
+            option:customerList,
+            required: true,
+            props: {
+                onChange: ((e) => {
+                }),
+            },
+            classes: "col-span-1"
+        },
         {
             label: "Grade",
             value: "",
@@ -82,6 +102,7 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
     }
     console.log(Form, "Form 11")
     useEffect(() => {
+        dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
 import AdvancedTable from '../../../../components/AdvancedTable';
@@ -13,14 +12,12 @@ import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
-import OperationManagementActions from '../../../../store/actions/admin-actions';
 import AdminActions from '../../../../store/actions/admin-actions';
 import ManageDepartmentForm from '../../../../pages/PMIS/Admin/ManageDepartment/ManageDepartmentForm'
 
 const ManageDepartment = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
-    const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
 
@@ -39,15 +36,8 @@ const ManageDepartment = () => {
                         "enabled": e.target.checked ? 1 : 0
                     }
                     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        // alert(e.target.checked)
                         e.target.checked = e.target.checked
                     }, itm.id))
-                    // if(itm.enabled==0){ 
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
                     console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
@@ -103,15 +93,15 @@ const ManageDepartment = () => {
     let table = {
         columns: [
             {
+                name: "Customer",
+                value: "customerName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },           
+            {
                 name: "Department",
                 value: "department",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            // {
-            //     name: "Circle ID",
-            //     value: "shortCode",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },           
+            },           
             {
                 name: "Edit",
                 value: "edit",
@@ -126,16 +116,7 @@ const ManageDepartment = () => {
         properties: {
             rpp: [10, 20, 50, 100]
         },
-        filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
-        ]
+        filter: []
     }
 
     const onSubmit = (data) => {
@@ -148,15 +129,6 @@ const ManageDepartment = () => {
         dispatch(AdminActions.getManageDepartment())
     }, [])
 
-    // const onTableViewSubmit = (data) => { 
-    //     console.log(data, "datadata")
-    //     data["fileType"]="ManageCircle"
-    //     data['collection'] = "circle"
-    //     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-    //         dispatch(AdminActions.getManageCircle())
-    //         setFileOpen(false)
-    //     }))
-    // }
     return <>
         <AdvancedTable
             headerButton={
@@ -171,12 +143,6 @@ const ManageDepartment = () => {
                         }}
                         name={"Add Department"}>
                     </Button>
-
-                    {/* <Button name={"Upload File"} classes='w-auto ' 
-                        onClick={(e) => {
-                            setFileOpen(prev=>!prev)
-                        }}>
-                    </Button> */}
                 </div>
             }
             table={table}
@@ -192,7 +158,6 @@ const ManageDepartment = () => {
             heading = {'Total Department :- '}
         />
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-        {/* <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen}  /> */}
     </>
 
 };

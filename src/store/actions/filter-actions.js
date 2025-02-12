@@ -194,9 +194,9 @@ const FilterActions = {
         }
     },
 
-    getfinancialWorkDoneProjectType:(reset=true,args="",show=1) => async (dispatch, _) => {
+    getfinancialWorkDoneProjectType:(reset=true,args="",show=1,customerId) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_financial_workdone_projecttype}${args!=""?"?"+args:""}`, reset, show : show})
+            const res = await Api.get({ url:`${Urls.filter_financial_workdone_projecttype}/${customerId}${args!=""?"?"+args:""}`, reset, show : show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll,reset}))

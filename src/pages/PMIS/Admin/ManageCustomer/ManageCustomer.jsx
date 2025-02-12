@@ -202,6 +202,11 @@ const ManageCustomer = () => {
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
+        name: "Index",
+        value: "index",
+        style: "min-w-[70px] max-w-[70px] text-center",
+      },
+      {
         name: "Status",
         value: "status",
         style: "min-w-[100px] max-w-[450px] text-center",

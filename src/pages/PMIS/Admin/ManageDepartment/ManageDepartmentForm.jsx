@@ -27,11 +27,30 @@ const ManageDepartmentForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         console.log(interdata, "interdatainterdata")
         return state?.customQuery?.databaseList
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
+    let customerList = useSelector((state) => {
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm?.customerName,
+                value: itm?.uniqueId
+            }
+        })
+    })
+
     let Form = [
+        {
+            label: "Customer",
+            value: "",
+            name: "customer",
+            type: "select",
+            option:customerList,
+            required: true,
+            props: {
+                onChange: ((e) => {
+                }),
+            },
+            classes: "col-span-1"
+        },
         {
             label: "Department",
             value: "",
@@ -41,8 +60,6 @@ const ManageDepartmentForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -58,23 +75,15 @@ const ManageDepartmentForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data)
-        // dispatch(AuthActions.signIn(data, () => {
-        //     navigate('/authenticate')
-        // }))
     }
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
-        // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageDepartment(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageDepartment())
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postManageDepartment(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageDepartment())
             }))
@@ -82,8 +91,7 @@ const ManageDepartmentForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
     }
     console.log(Form, "Form 11")
     useEffect(() => {
-        console.log("formValue in useEffect:", formValue);
-        dispatch(AdminActions.getManageDepartment())
+        dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -112,14 +120,7 @@ const ManageDepartmentForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-
             <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-            {/* <button></button> */}
-
-
-            {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-            {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-            {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>

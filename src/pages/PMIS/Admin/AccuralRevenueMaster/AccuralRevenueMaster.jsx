@@ -84,6 +84,11 @@ const AccuralRevenueMaster = () => {
     let table = {
         columns: [
             {
+                name: "Customer",
+                value: "customerName",
+                style: "min-w-[120px] max-w-[200px] text-center sticky"
+            },
+            {
                 name: "Project Type",
                 value: "projectTypeName",
                 style: "min-w-[100px] max-w-[200px] text-center sticky"
@@ -93,7 +98,6 @@ const AccuralRevenueMaster = () => {
                 value: "projectId",
                 style: "min-w-[140px] max-w-[200px] text-center sticky"
             },
-             
             {
                 name: "Sub Project",
                 value: "subProjectName",
@@ -148,18 +152,12 @@ const AccuralRevenueMaster = () => {
                 name: "Item Code-07",
                 value: "itemCode07",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-                       
+            },        
             {
                 name: "Edit",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"
             },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // }
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -196,8 +194,6 @@ const AccuralRevenueMaster = () => {
     useEffect(() => {
         dispatch(AdminActions.getAccuralRevenueMasterProject());
         dispatch(AdminActions.getAccuralRevenueMasterProjectType());
-        dispatch(AdminActions.getAccuralRevenueMasterProjectID());
-        dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
         dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
     }, []);
 

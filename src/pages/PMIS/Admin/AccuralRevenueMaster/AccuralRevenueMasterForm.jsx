@@ -5,6 +5,7 @@ import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 import Modal from '../../../../components/Modal';
+import FilterActions from '../../../../store/actions/filter-actions';
 
 
 const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
@@ -41,6 +42,15 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         });
       });
 
+      let customerList = useSelector((state) => {
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm?.customerName,
+                value: itm?.uniqueId
+            }
+        })
+    })
+
 
     const [modalOpen, setmodalOpen] = useState(false)
 
@@ -48,6 +58,21 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
     let Form = [
         
+        {
+            label: "Customer",
+            value: "",
+            name:Object.entries(formValue).length > 0 ? "customerName" : "customer",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+            option: customerList,
+            props: {
+              onChange: (e)=>{
+
+              },
+              
+            },
+            required: true,
+            classes: "col-span-1",
+        },
         {
             label: "Project Type",
             value: "",
@@ -63,7 +88,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             },
             required: true,
             classes: "col-span-1",
-          },
+        },
           {
             label: "Project",
             value: "",
@@ -268,6 +293,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
     }
 
     useEffect(() => {
+      dispatch(AdminActions.getManageCustomer())
+      dispatch(AdminActions.getAccuralRevenueMasterProjectType());
+    //   dispatch(AdminActions.getAccuralRevenueMasterProjectID());
+      dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
+      dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
       if (!isOpen) {
         reset({});
         Form.forEach(key => setValue(key.name, formValue[key.name] || ""));

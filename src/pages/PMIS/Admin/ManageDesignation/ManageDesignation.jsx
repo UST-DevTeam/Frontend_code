@@ -102,15 +102,15 @@ const ManageDesignation = () => {
     let table = {
         columns: [
             {
+                name: "Customer",
+                value: "customerName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },  
+            {
                 name: "Grade",
                 value: "designation",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            // {
-            //     name: "Circle ID",
-            //     value: "shortCode",
-            //     style: "min-w-[140px] max-w-[200px] text-center"
-            // },           
+            },         
             {
                 name: "Edit",
                 value: "edit",

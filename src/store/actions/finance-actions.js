@@ -47,9 +47,9 @@ const FinanceActions = {
         }
     },
 
-    getPOWorkDoneBased:(reset=true,value,args="") => async (dispatch, _) => {
+    getPOWorkDoneBased:(reset=true,value,args="",customerId) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.finance_poworkdone_based}${args!=""?"?"+args:""}`, value })
+            const res = await Api.get({ url:`${Urls.finance_poworkdone_based}/${customerId}${args!=""?"?"+args:""}`, value })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_POWORKDONE_BASED({dataAll,reset}))

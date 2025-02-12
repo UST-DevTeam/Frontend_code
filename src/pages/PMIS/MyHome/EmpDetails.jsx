@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "react-querybuilder/dist/query-builder.css";
-import QueryBuilder from "react-querybuilder";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import CommonForm from "../../../components/CommonForm";
-import Button from "../../../components/Button";
 import AdminActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
-import * as Unicons from "@iconscout/react-unicons";
-import UiTopBar from "../../../components/UiTopBar";
-import SweetAlerts from "../../../components/SweetAlerts";
-import {
-  UilFacebookF,
-  UilTwitter,
-  UilGoogle,
-  UilLinkedin,
-  UilLinkAlt,
-  UilEdit,
-  UilSave,
-} from "@iconscout/react-unicons";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
-import { GET_CITIES } from "../../../store/reducers/admin-reducer";
+import { GET_CITIES, GET_MANAGE_COST_CENTER, GET_MANAGE_DEPARTMENT, GET_MANAGE_DESIGNATION } from "../../../store/reducers/admin-reducer";
 
 const EmpDetails = (props) => {
   const {
@@ -34,6 +20,7 @@ const EmpDetails = (props) => {
     reset,
     formState: { errors },
   } = useForm();
+
   const { empuid } = useParams();
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState({});
@@ -96,6 +83,15 @@ const EmpDetails = (props) => {
       [name]: value,
     });
   };
+
+  let customerList = useSelector((state) => {
+    return state?.adminData?.getManageCustomer?.map((itm) => {
+        return {
+            label: itm?.customerName,
+            value: itm?.uniqueId
+        }
+    })
+  });
 
   let departmentList = useSelector((state) => {
     return state?.adminData?.getManageDepartment.map((itm) => {
@@ -184,9 +180,8 @@ const EmpDetails = (props) => {
   let cityList = useSelector((state) => {
     return state?.adminData?.getCities?.map((itm) => {
       return {
-        label: itm?.name,
-        value: itm?.name,
-        stateCode: itm?.state_code,
+        label: itm?.city,
+        value: itm?.city,
       };
     });
   });
@@ -234,6 +229,24 @@ const EmpDetails = (props) => {
     {
       label: "UST Emp Code",
       name: "ustCode",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "UST Project ID",
+      name: "ustProjectId",
+      value: "",
+      type: "text",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "UST Job Code",
+      name: "ustJobCode",
       value: "",
       type: "text",
       props: "",
@@ -358,7 +371,7 @@ const EmpDetails = (props) => {
       },
     },
     {
-      label: "city",
+      label: "City",
       name: "city",
       value: presentAddress.city,
       type: "select",
@@ -698,6 +711,48 @@ const EmpDetails = (props) => {
       classes: "col-span-1",
     },
     {
+      label: "Allocation Percentage",
+      name: "allocationPercentage",
+      value: "",
+      type: "text",
+      required: false,
+      props: {},
+      classes: "col-span-1",
+    },
+    {
+      label: "Business Unit",
+      name: "businesssUnit",
+      value: "",
+      type: "text",
+      required: false,
+      props: {},
+      classes: "col-span-1",
+    },
+    {
+      label: "Customer Name",
+      name: "customer",
+      value: "",
+      type: "select",
+      required: false,
+      option: customerList,
+      props: {
+        onChange: ((e) => {
+          if (e.target.value){
+            dispatch(AdminActions.getManageDepartment(true,"",e.target.value));
+            dispatch(AdminActions.getManageDesignation(true,"",e.target.value));
+            dispatch(AdminActions.getManageCostCenter(true,"",e.target.value));
+          }
+          else{
+            dispatch(GET_MANAGE_DEPARTMENT({ dataAll:[], reset:true}));
+            dispatch(GET_MANAGE_DESIGNATION({ dataAll:[], reset:true}));
+            dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true}));
+          }
+          
+        }),
+      },
+      classes: "col-span-1",
+    },
+    {
       label: "Grade",
       name: "designation",
       value: "",
@@ -995,15 +1050,12 @@ const EmpDetails = (props) => {
   };
 
   useEffect(() => {
-    dispatch(AdminActions.getManageDepartment());
-    dispatch(AdminActions.getManageDesignation());
+    dispatch(AdminActions.getManageCustomer())
     dispatch(AdminActions.getManageProfile());
     dispatch(AdminActions.getManageCircle());
     dispatch(AdminActions.getState());
-    dispatch(AdminActions.getCities());
     dispatch(HrActions.getHRAllEmployee());
     dispatch(HrActions.getHRManagerInEmployee());
-    dispatch(AdminActions.getManageCostCenter())
     if (empuid) {
       dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
       dispatch(HrActions.getManageEmpDetails(false, empuid));
@@ -1044,7 +1096,7 @@ const EmpDetails = (props) => {
                 <div className="grid grid-cols-1 md:grid-cols-1 mb-14">
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 rounded-lg"
                     }
                     errors={errors}
                     Form={PersonalInformation}
@@ -1055,7 +1107,7 @@ const EmpDetails = (props) => {
 
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={ContactInformation}
@@ -1065,7 +1117,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-2 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-2 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={
@@ -1099,7 +1151,7 @@ const EmpDetails = (props) => {
                   />
                   <CommonForm
                     classes={
-                      "grid-cols-4 gap-4 w-full bg-[#3e454d] p-4 mt-2 rounded-lg"
+                      "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
                     errors={errors}
                     Form={SupportingDoc}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../components/EditButton";
 import EmpDetails from "../MyHome/EmpDetails";
@@ -9,19 +8,17 @@ import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
-import ToggleButton from "../../../components/ToggleButton";
 import { getAccessType, objectToQueryString } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../utils/url";
-import OperationManagementActions from "../../../store/actions/admin-actions";
+import { Urls} from "../../../utils/url";
 import HrActions from "../../../store/actions/hr-actions";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 import AdminActions from "../../../store/actions/admin-actions";
 import ConditionalButton from "../../../components/ConditionalButton";
-import { GET_CITIES } from "../../../store/reducers/admin-reducer";
+import { GET_CITIES, GET_MANAGE_COST_CENTER, GET_MANAGE_DEPARTMENT, GET_MANAGE_DESIGNATION } from "../../../store/reducers/admin-reducer";
 
 const EmpDetailsTable = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -95,8 +92,16 @@ const EmpDetailsTable = () => {
                 name={""}
                 onClick={() => {
                   dispatch(GET_CITIES({dataAll:[],reset:true}))
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true}));
+                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll:[], reset: true}));
+                  dispatch(GET_MANAGE_DEPARTMENT({ dataAll:[], reset:true}));
+                  dispatch(GET_MANAGE_DESIGNATION({ dataAll:[], reset:true }));
+                  dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
                   dispatch(AdminActions.getCities(true, `stateCode=${itm?.state}`));
+                  if (itm.customer){
+                    dispatch(AdminActions.getManageDepartment(true,"",itm.customer));
+                    dispatch(AdminActions.getManageDesignation(true,"",itm.customer));
+                    dispatch(AdminActions.getManageCostCenter(true,"",itm.customer));
+                  }
                   navigate(`/empdetails/${itm.uniqueId}`);
                   setmodalBody(
                     <>

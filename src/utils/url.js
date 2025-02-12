@@ -265,7 +265,6 @@ export const Urls = {
   admin_repositorySiteId: "/admin/repositorySiteId",
   user_myPolicy: "/myHome/myPolicy",
 
-
   // Repository ends   ---------
 
 

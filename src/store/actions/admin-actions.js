@@ -464,16 +464,20 @@ const AdminActions = {
   setComplianceSnapImage: (sIndex, index, imageUrl) => (dispatch, store) => { },
 
   getManageCostCenter:
-    (reset = true, args = "") =>
+    (reset = true, args = "",id=null) =>
       async (dispatch, _) => {
         try {
-          const res = await Api.get({
-            url: `${Urls.admin_cost_center}${args != "" ? "?" + args : ""}`,
-          });
+          let urlName = `${Urls.admin_cost_center}${args != "" ? "?" + args : ""}`
+          if (id){
+            urlName = `${Urls.admin_cost_center}/${id}${args != "" ? "?" + args : ""}`
+          }
+          const res = await Api.get({url: urlName});
           if (res?.status !== 200) return;
           let dataAll = res?.data?.data;
           dispatch(GET_MANAGE_COST_CENTER({ dataAll, reset }));
-        } catch (error) { }
+        } catch (error) { 
+          
+        }
       },
 
   postManageCostCenter: (reset, data, cb, uniqueId) => async (dispatch, _) => {
@@ -671,11 +675,15 @@ const AdminActions = {
     },
 
   getManageDepartment:
-    (reset = true, args = "") =>
+    (reset = true, args = "",id=null) =>
       async (dispatch, _) => {
         try {
+          let urlName = `${Urls.admin_department}${args != "" ? "?" + args : ""}`
+          if (id){
+            urlName = `${Urls.admin_department}/${id}${args != "" ? "?" + args : ""}`
+          }
           const res = await Api.get({
-            url: `${Urls.admin_department}${args != "" ? "?" + args : ""}`,
+            url: urlName,
             reset,
           });
           if (res?.status !== 200) return;
@@ -711,13 +719,14 @@ const AdminActions = {
   },
 
   getManageDesignation:
-    (reset = true, args = "") =>
+    (reset = true, args = "",id=null) =>
       async (dispatch, _) => {
         try {
-          const res = await Api.get({
-            url: `${Urls.admin_designation}${args != "" ? "?" + args : ""}`,
-            reset,
-          });
+          let urlName = `${Urls.admin_designation}${args != "" ? "?" + args : ""}`
+          if (id){
+            urlName = `${Urls.admin_designation}/${id}${args != "" ? "?" + args : ""}`
+          }
+          const res = await Api.get({url:urlName,reset});
           if (res?.status !== 200) return;
           let dataAll = res?.data?.data;
           dispatch(GET_MANAGE_DESIGNATION({ dataAll, reset }));

@@ -623,7 +623,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/financial/poWorkDone",
+      link: "/financial/:customer/:customerId/poWorkDone",
       component: <WorkDone />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
