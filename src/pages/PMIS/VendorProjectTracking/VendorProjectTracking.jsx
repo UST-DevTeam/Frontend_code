@@ -62,6 +62,7 @@ const VendorProjectTracking = () => {
   const currrentYear = new Date().getFullYear();
   const [year, setyear] = useState(currrentYear);
   const [globalData, setGlobalData] = useState({});
+  const [extraColumns, setExtraColumns] = useState("")
   const [SiteId, setSiteId] = useState("Add");
   const [parentsite, setparentsite] = useState([]);
   const [childsite, setchildsite] = useState([]);
@@ -76,7 +77,7 @@ const VendorProjectTracking = () => {
   const navigate = useNavigate();
 
 
-  let Month= [
+  let Month = [
     { id: 1, name: "Jan" },
     { id: 2, name: "Feb" },
     { id: 3, name: "Mar" },
@@ -153,13 +154,13 @@ const VendorProjectTracking = () => {
   //   });
   // });
   let subProjectList = useSelector((state) => {
-      return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
-        return {
-          label: itm.projectType,
-          value: itm.uid,
-        };
-      });
+    return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+      return {
+        label: itm.projectType,
+        value: itm.uid,
+      };
     });
+  });
 
   let dbConfigL = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
@@ -175,13 +176,18 @@ const VendorProjectTracking = () => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
-  const handleAddActivity = (res) => {
-  //  Data.current = ""
-    setExtraColumns(res['Month'])
+  const handleAddActivity = (data) => {
+    //  Data.current = ""
+    console.log("setSelectType", data)
+    setExtraColumns(data['Month'])
+    setSelectType(data["Month"])
+    setValue("viewBy", data['Month'])
+
     // Data.current  = res['Cost Center']
-    alert(res)
+    // alert("called")
     // FilterActions.getMyTaskSubProject(true,res)
     // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+    dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
   };
 
   let dbConfigList = useSelector((state) => {
@@ -232,20 +238,18 @@ const VendorProjectTracking = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${
-              100 -
+            percent={`${100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
                   (iewq) => iewq?.mileStoneStatus == "Closed"
                 ).length) /
                 itm?.milestoneArray?.length) *
-                100
-            }`}
-            text={`${
-              itm?.milestoneArray?.filter(
-                (iewq) => iewq?.mileStoneStatus == "Closed"
-              ).length
-            } / ${itm?.milestoneArray?.length}`}
+              100
+              }`}
+            text={`${itm?.milestoneArray?.filter(
+              (iewq) => iewq?.mileStoneStatus == "Closed"
+            ).length
+              } / ${itm?.milestoneArray?.length}`}
           />
         ),
         // checkboxProject: (
@@ -372,17 +376,17 @@ const VendorProjectTracking = () => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                itwsw.assignerName.trim().split(" ").length > 1
+                                  itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}${itwsw.assignerName
+                                    .split(" ")[0]
+                                    .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                  ? itwsw.assignerName
+                                    ? itwsw.assignerName
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                  : ""}
+                                    : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -421,7 +425,7 @@ const VendorProjectTracking = () => {
             VendorName: (
               <div className="flex">
                 <p
-               
+
                 >
                   {iewq.assignerResult ? (
                     <>
@@ -436,17 +440,17 @@ const VendorProjectTracking = () => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                itwsw.assignerName.trim().split(" ").length > 1
+                                  itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}${itwsw.assignerName
+                                    .split(" ")[0]
+                                    .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                  ? itwsw.assignerName
+                                    ? itwsw.assignerName
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                  : ""}
+                                    : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -485,7 +489,7 @@ const VendorProjectTracking = () => {
             VendorId: (
               <div className="flex">
                 <p
-               
+
                 >
                   {iewq.assignerResult ? (
                     <>
@@ -500,17 +504,17 @@ const VendorProjectTracking = () => {
                               >
                                 {" "}
                                 {itwsw.vendorCode &&
-                                itwsw.vendorCode.trim().split(" ").length > 1
+                                  itwsw.vendorCode.trim().split(" ").length > 1
                                   ? `${itwsw.vendorCode
-                                      .split(" ")[0]
-                                      .substr(0, 1)}${itwsw.vendorCode
+                                    .split(" ")[0]
+                                    .substr(0, 1)}${itwsw.vendorCode
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.vendorCode
-                                  ? itwsw.vendorCode
+                                    ? itwsw.vendorCode
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                  : ""}
+                                    : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -1048,17 +1052,17 @@ const VendorProjectTracking = () => {
       return updateditm;
     });
   });
-  let customerList = useSelector((state)=>{
+  let customerList = useSelector((state) => {
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
-        return {
-            label: itm?.customer,
-            value: itm?.uniqueId,
-        };
-      });
-})
+      return {
+        label: itm?.customer,
+        value: itm?.uniqueId,
+      };
+    });
+  })
   let dbConfigTotalCount =
     useSelector((state) => {
-      
+
       let interdata = state?.vendorData?.getvendorProjectTracking || 0;
       // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
@@ -1117,7 +1121,7 @@ const VendorProjectTracking = () => {
       label: "Year",
       name: "year",
       value: "Select",
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -1146,25 +1150,25 @@ const VendorProjectTracking = () => {
         };
       }),
       props: {
-        selectType:selectType,
+        selectType: selectType,
       },
-      hasSelectAll:true,
+      hasSelectAll: true,
       required: true,
       classes: "col-span-1 h-10",
     },
     {
       label: "Customer",
       value: "",
-      name:"customerId",
+      name: "customerId",
       type: "select",
-      bg:"bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       option: customerList,
       props: {
         onChange: (e) => {
           setSelectedCustomer(e?.target?.value)
-        //   dispatch(VendorActions.getVendorCostprojectGroupList(true,`customerId=${e?.target?.value}`));
-        //   dispatch(VendorActions.getVendorCostprojectTypeList(true,`customerId=${e?.target?.value}`));
-        //   dispatch(VendorActions.getvendorCostVendorsList())
+          //   dispatch(VendorActions.getVendorCostprojectGroupList(true,`customerId=${e?.target?.value}`));
+          //   dispatch(VendorActions.getVendorCostprojectTypeList(true,`customerId=${e?.target?.value}`));
+          //   dispatch(VendorActions.getvendorCostVendorsList())
 
         },
       },
@@ -1250,28 +1254,28 @@ const VendorProjectTracking = () => {
         value: "MS2Date",
         style: "min-w-[240px] max-w-[240px] text-center",
       },
-      
-      
+
+
       //   {
       //     name: "Owner",
       //     value: "PMName",
       //     style: "min-w-[140px] max-w-[200px] text-center",
       //   },
-    //   {
-    //     name: "Planned Start Date",
-    //     value: "siteStartDate",
-    //     style: "min-w-[140px] max-w-[200px] text-center",
-    //   },
-    //   {
-    //     name: "Planned End Date",
-    //     value: "siteEndDate",
-    //     style: "min-w-[140px] max-w-[200px] text-center",
-    //   },
-    //   {
-    //     name: "Completition Date",
-    //     value: "Site_Completion Date",
-    //     style: "min-w-[140px] max-w-[200px] text-center",
-    //   },
+      //   {
+      //     name: "Planned Start Date",
+      //     value: "siteStartDate",
+      //     style: "min-w-[140px] max-w-[200px] text-center",
+      //   },
+      //   {
+      //     name: "Planned End Date",
+      //     value: "siteEndDate",
+      //     style: "min-w-[140px] max-w-[200px] text-center",
+      //   },
+      //   {
+      //     name: "Completition Date",
+      //     value: "Site_Completion Date",
+      //     style: "min-w-[140px] max-w-[200px] text-center",
+      //   },
 
       // {
       //   name: "Completion (%)",
@@ -1291,12 +1295,12 @@ const VendorProjectTracking = () => {
       },
       {
         name: "Vendor Item Code",
-        value: "vendorItemCode",
+        value: "vendorItemCode2",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Vendor Rate",
-        value: "vendorRate",
+        value: "vendorRate2",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -1337,11 +1341,11 @@ const VendorProjectTracking = () => {
     childList: [""],
     childs: {
       milestoneArray: [
-        // {
-        //   name: "",
-        //   value: "checkboxProject",
-        //   style: "min-w-[40px] max-w-[40px] text-center",
-        // },
+        {
+          name: "",
+          value: "checkboxProject",
+          style: "min-w-[40px] max-w-[40px] text-center",
+        },
         {
           name: "Site ID",
           value: "SiteNaming",
@@ -1385,10 +1389,10 @@ const VendorProjectTracking = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-            name: "Task Allocation Date",
-            value: "taskAllocationDate",
-            style: "min-w-[140px] max-w-[200px] text-center",
-          },
+          name: "Task Allocation Date",
+          value: "taskAllocationDate",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "MS Completition Date",
           value: "CC_Completion Date",
@@ -1400,46 +1404,46 @@ const VendorProjectTracking = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-            name: "Ageing",
-            value: "taskmageing",
-            style: "min-w-[140px] max-w-[200px] text-center",
-          },
-          {
-            name: "Predecessor",
-            value: "Predecessor",
-            style: "min-w-[240px] max-w-[240px] text-center",
-          },
-          {
-            name: "MS1 Completion Date",
-            value: "ms1CompletitionDate",
-            style: "min-w-[240px] max-w-[240px] text-center",
-          },
-          {
-            name: "MS2 Completion Date",
-            value: "ms2CompletitionDate",
-            style: "min-w-[240px] max-w-[240px] text-center",
-          },
-          {
-            name: "MS Status",
-            value: "mileStoneStatusUpda",
-            style: "min-w-[140px] max-w-[200px] text-center",
-          },
-          {
-            name: "Vendor Item Code",
-            value: "",
-            style: "min-w-[140px] max-w-[200px] text-center",
-          },
-          {
-            name: "Vendor Rate",
-            value: "",
-            style: "min-w-[140px] max-w-[200px] text-center",
-          },
-          {
-            name: "PO eligibility (Yes/No)",
-            value: "",
-            style: "min-w-[140px] max-w-[200px] text-center",
-          },
-          
+          name: "Ageing",
+          value: "taskmageing",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+        {
+          name: "Predecessor",
+          value: "Predecessor",
+          style: "min-w-[240px] max-w-[240px] text-center",
+        },
+        {
+          name: "MS1 Completion Date",
+          value: "ms1CompletitionDate",
+          style: "min-w-[240px] max-w-[240px] text-center",
+        },
+        {
+          name: "MS2 Completion Date",
+          value: "ms2CompletitionDate",
+          style: "min-w-[240px] max-w-[240px] text-center",
+        },
+        {
+          name: "MS Status",
+          value: "mileStoneStatusUpda",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+        {
+          name: "Vendor Item Code",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+        {
+          name: "Vendor Rate",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+        {
+          name: "PO eligibility (Yes/No)",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+
         // {
         //   name: "Planned Start Date",
         //   value: "mileStoneStartDate",
@@ -1455,15 +1459,15 @@ const VendorProjectTracking = () => {
         //   value: "CC_Completion Date",
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
-        
+
         // {
         //   name: "Completion (%)",
         //   value: "CompletionBar",
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
 
-        
-       
+
+
 
         // {
         //   name: "Billing Status",
@@ -1598,16 +1602,16 @@ const VendorProjectTracking = () => {
     setstrVal(strVal);
     dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
   };
-  useEffect(async ()  =>  {
+  useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
     dispatch(MyHomeActions.getMyTask());
-    
+
     dispatch(FilterActions.getMyTaskSubProject());
-    dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+    dispatch(FilterActions.getfinancialWorkDoneProjectType(true, "", 0));
     dispatch(VendorActions.getVendorActivitySubProject())
     dispatch(VendorActions.getVendorSubProject())
-    await (dispatch(VendorActions.getVendorProjectTracking()))
-    
+    dispatch(VendorActions.getVendorProjectTracking())
+
   }, []);
   const handleBulkDelte = () => {
     // dispatch(
@@ -1628,7 +1632,7 @@ const VendorProjectTracking = () => {
 
   return (
     <>
-    <div className="flex items-center justify-start">
+      <div className="flex items-center justify-start">
         <div className="col-span-1 md:col-span-1">
           <CommonForm
             classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
@@ -1650,6 +1654,7 @@ const VendorProjectTracking = () => {
       </div>
 
       <AdvancedTableExpandable
+        mergedRows={true}
         parentsite={parentsite}
         childsite={childsite}
         searchView={

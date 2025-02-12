@@ -99,7 +99,6 @@ const VendorActions = {
 
     getVendorProjectTracking:(reset=true,args="") => async (dispatch, _) => {
         try {
-
             const res = await Api.get({ url:`${Urls.vendor_project_tracking}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
