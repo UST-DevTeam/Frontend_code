@@ -6,6 +6,7 @@ import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 import Modal from '../../../../components/Modal';
 import FilterActions from '../../../../store/actions/filter-actions';
+import { GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE } from '../../../../store/reducers/admin-reducer';
 
 
 const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
@@ -66,9 +67,13 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             option: customerList,
             props: {
               onChange: (e)=>{
-
+                if (e.target.value){
+                    dispatch(AdminActions.getAccuralRevenueMasterProjectType(true,"",e.target.value));
+                }
+                else{
+                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll:[], reset:true}));
+                }
               },
-              
             },
             required: true,
             classes: "col-span-1",
@@ -81,8 +86,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             option: ProjectTypelist,
             props: {
               onChange: (e)=>{
-                dispatch(AdminActions.getAccuralRevenueMasterProjectID(true, `projectType=${e.target.value}`));
-                dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true, `projectType=${e.target.value}`))
+                if (e.target.value){
+                    dispatch(AdminActions.getAccuralRevenueMasterProjectID(true, `projectType=${e.target.value}`));
+                    dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true, `projectType=${e.target.value}`))
+                }
+                
               },
               
             },
@@ -294,10 +302,10 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
     useEffect(() => {
       dispatch(AdminActions.getManageCustomer())
-      dispatch(AdminActions.getAccuralRevenueMasterProjectType());
-    //   dispatch(AdminActions.getAccuralRevenueMasterProjectID());
-      dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
-      dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+    //  
+    // //   dispatch(AdminActions.getAccuralRevenueMasterProjectID());
+    //   dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
+    //   dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
       if (!isOpen) {
         reset({});
         Form.forEach(key => setValue(key.name, formValue[key.name] || ""));

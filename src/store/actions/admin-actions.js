@@ -801,11 +801,11 @@ const AdminActions = {
         } catch (error) { }
       },
   getAccuralRevenueMasterProjectType:
-    (reset = true, args = "") =>
+    (reset = true, args = "",id) =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
-            url: `${Urls.get_accural_revenue_master_project_projectType}${args != "" ? "?" + args : ""
+            url: `${Urls.get_accural_revenue_master_project_projectType}/${id}${args != "" ? "?" + args : ""
               }`,
             reset,
           });
