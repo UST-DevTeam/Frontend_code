@@ -169,19 +169,13 @@ const AOPTracking = () => {
     });
   });
   let bussinessUnit = useSelector((state) => {
-    return state?.dropDown?.bussinessUnit.map((itm) => {
+    return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
       return {
         label: itm,
         value: itm,
       };
-    });
+    }):[]
   });
-
-
-
-
-
-
 
   let showType = getAccessType("Actions(P&L)")
   let shouldIncludeEditColumn = false
@@ -313,13 +307,14 @@ const AOPTracking = () => {
       {
         name: "Year",
         value: "year",
-        style: "px-2 text-center",
+        style: "px-2 text-center  text-3xl",
       },
       {
         name: "Month",
         value: "month",
         style: "px-2 text-center",
       },
+      
       {
         name: "Bussiness Unit",
         value: "bussinessUnit",
@@ -456,15 +451,15 @@ const AOPTracking = () => {
     let strVal = objectToQueryString(data);
     dispatch(FormssActions.getProfiltLoss(true, strVal));
   };
-  async function inrToUsd() {
-    const response = await fetch('https://api.exchangerate-api.com/v4/latest/INR');
-    const data = await response.json();
-    const rate = data.rates.USD;
-    setDollarAmount((prev) => {
-      return { ...prev, amount: rate }
-    })
-    return rate;
-  }
+  // async function inrToUsd() {
+  //   const response = await fetch('https://api.exchangerate-api.com/v4/latest/INR');
+  //   const data = await response.json();
+  //   const rate = data.rates.USD;
+  //   setDollarAmount((prev) => {
+  //     return { ...prev, amount: rate }
+  //   })
+  //   return rate;
+  // }
   const bussiness=async ()=>{
     let res=await Api.get({url:Urls.businessUnit,contentType:"application/json"})
     console.log("================",res.data.data)
@@ -472,7 +467,7 @@ const AOPTracking = () => {
   }
   useEffect(() => {
     // inrToUsd
-    bussiness()
+    bussiness()                  
     // dispatch(FormssActions.getProfiltLoss())
   
     dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
@@ -724,7 +719,7 @@ const AOPTracking = () => {
         
             <div className="w-full">
               <CommonForm
-                classes="grid grid-cols-6  p-2"
+                classes="grid grid-cols-5"
                 Form={formD}
                 errors={errors}
                 register={register}
@@ -749,7 +744,7 @@ const AOPTracking = () => {
         
       <div className="w-full">
         <CommonForm
-          classes="grid grid-cols-6  p-2"
+          classes="grid grid-cols-5"
           Form={cummulativeFilter}
           errors={errors}
           register={register}
@@ -898,7 +893,7 @@ const AOPTracking = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"PLform"}
-        TableHeight="h-[51vh]"
+        TableHeight="h-[45vh]"
         handleSubmit={handleSubmit}
         data={rows}
         errors={errors}

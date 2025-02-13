@@ -26,9 +26,11 @@ import AddActualAOP from "./AddActualAOP";
 import { tableAction } from "../../../../store/actions/table-action";
 import { SET_TABLE } from "../../../../store/reducers/table-reducer";
 import Api from "../../../../utils/api";
+import Tabs from "../../../../components/Tabs";
+import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
 
 const AOPTrackingAirtel = () => {
-
+  // const Data = useRef("")
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -42,26 +44,40 @@ const AOPTrackingAirtel = () => {
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
   const Data = useRef("")
-  let months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+  const monthMap = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
+  let months =[
+    { label: "Jan", value: 1 },
+    { label: "Feb", value: 2 },
+    { label: "Mar", value: 3 },
+    { label: "Apr", value: 4 },
+    { label: "May", value: 5 },
+    { label: "Jun", value: 6 },
+    { label: "Jul", value: 7 },
+    { label: "Aug", value: 8 },
+    { label: "Sep", value: 9 },
+    { label: "Oct", value: 10 },
+    { label: "Nov", value: 11 },
+    { label: "Dec", value: 12 },
   ];
   let dispatch = useDispatch();
   let rows = useSelector(state => {
     return Array.isArray(state.table?.tableContent) 
       ? state.table.tableContent.map(item => {
           let index = item.month;
-          return { ...item, month: months[index],gm:item.gm*100 };  // Create a new object with updated `month`
+          return { ...item, month: monthMap[index],gm:item.gm*100 };  // Create a new object with updated `month`
         })
       : [];
   });
@@ -224,7 +240,7 @@ const AOPTrackingAirtel = () => {
       {
         name: "Year",
         value: "year",
-        style: "px-2 text-center",
+        style: "px-2 text-center text-3xl",
       },
       {
         name: "Month",
@@ -234,6 +250,11 @@ const AOPTrackingAirtel = () => {
       {
         name: "Customer",
         value: "customerName",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Bussiness Unit",
+        value: "bussinessUnit",
         style: "px-2 text-center",
       },
       {
@@ -335,7 +356,7 @@ const AOPTrackingAirtel = () => {
 
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
-    listYear.push(ywq);
+    listYear.push({ label: ywq, value: ywq });
   }
 
   let listDict = {
@@ -363,66 +384,72 @@ const AOPTrackingAirtel = () => {
     dispatch(FormssActions.getProfiltLoss(true, strVal));
   };
   useEffect(() => {
+    // bussiness()   
     dispatch(FormssActions.getProfiltLoss())
     dispatch(tableAction.getTable(Urls.aop+"?forAirtel=true", SET_TABLE))
     dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
   }, []);
 
 
-  let formD = [
-    {
-      label: "Year",
-      name: "year",
-      value: "Select",
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      type: "select",
-      option: listYear.map((itmYr) => {
-        return {
-          label: itmYr,
-          value: itmYr,
-        };
-      }),
-      props: {
-        onChange: (e) => {
-          setValue("year", e.target.value);
-          setyear(e.target.value);
-        },
-      },
-      required: true,
-      classes: "col-span-1 h-38px",
-    },
-    {
-      label: ValGm,
-      name: "viewBy",
-      value: "Select",
-      type: "newmuitiSelect2",
-      option: listDict[ValGm].map((dasd) => {
-        return {
-          value: dasd?.id,
-          label: dasd?.name,
-        };
-      }),
-      props: {
-        selectType:selectType,
-      },
-      hasSelectAll:true,
-      required: true,
-      classes: "col-span-1 h-10",
-    },
-    {
-      label: 'Cost Center',
-      name: "costCenter",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: costCenterList,
-      props: {
-        selectType:selectType,
-      },
-      hasSelectAll:true,
-      classes: "col-span-1 h-10",
-    },
-  ];
+  // let formD = [
+  //   {
+  //     label: "Year",
+  //     name: "year",
+  //     value: "Select",
+  //     bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+  //     type: "select",
+  //     option: listYear.map((itmYr) => {
+  //       return {
+  //         label: itmYr,
+  //         value: itmYr,
+  //       };
+  //     }),
+  //     props: {
+  //       onChange: (e) => {
+  //         setValue("year", e.target.value);
+  //         setyear(e.target.value);
+  //       },
+  //     },
+  //     required: true,
+  //     classes: "col-span-1 h-38px",
+  //   },
+  //   {
+  //     label: ValGm,
+  //     name: "viewBy",
+  //     value: "Select",
+  //     type: "newmuitiSelect2",
+  //     option: listDict[ValGm].map((dasd) => {
+  //       return {
+  //         value: dasd?.id,
+  //         label: dasd?.name,
+  //       };
+  //     }),
+  //     props: {
+  //       selectType:selectType,
+  //     },
+  //     hasSelectAll:true,
+  //     required: true,
+  //     classes: "col-span-1 h-10",
+  //   },
+  //   {
+  //     label: 'Cost Center',
+  //     name: "costCenter",
+  //     value: "select",
+  //     type: "newmuitiSelect2",
+  //     option: costCenterList,
+  //     props: {
+  //       selectType:selectType,
+  //     },
+  //     hasSelectAll:true,
+  //     classes: "col-span-1 h-10",
+  //   },
+  // ];
 
+  const bussiness=async ()=>{
+    let res=await Api.get({url:Urls.businessUnit,contentType:"application/json"})
+    console.log("================",res.data.data)
+    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.bussinessUnit))
+  }
   useEffect(() => {
     const monthMap = {
       1: "Jan",
@@ -437,26 +464,37 @@ const AOPTrackingAirtel = () => {
       10: "Oct",
       11: "Nov",  
       12: "Dec",
-    };
+    };           
+
+    bussiness()   
+
     let cols = [];
     cols = cols.flat(Infinity);
     setNewColumns(cols);
   }, [extraColumns]);
 
-  const handleAddActivity =async (res) => {
-    Data.current = ""
-    setExtraColumns(res['Month'])
-    Data.current  = res['CostCenter']
-    // FRERFER
-    console.log("============",res)
-    const resp=await Api.post({ data:res, url: Urls.aop+"?filter=true&forAirtel=true" })
-    if (resp.status==200){
-         dispatch(SET_TABLE(resp?.data?.data))
-    }
-    // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
-    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-  };
+  // const handleAddActivity =async (res) => {
+  //   Data.current = ""
+  //   setExtraColumns(res['Month'])
+  //   Data.current  = res['CostCenter']
+  //   // FRERFER
+  //   console.log("============",res)
+  //   const resp=await Api.post({ data:res, url: Urls.aop+"?filter=true&forAirtel=true" })
+  //   if (resp.status==200){
+  //        dispatch(SET_TABLE(resp?.data?.data))
+  //   }
+  //   // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
+  //   // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+  // };
   
+   let bussinessUnit = useSelector((state) => {
+      return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
+        return {
+          label: itm,
+          value: itm,
+        };
+      }):[]
+    });       
 
   const onTableViewSubmit = (data) => { 
     data["fileType"]="AOP"
@@ -466,11 +504,273 @@ const AOPTrackingAirtel = () => {
         dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
     }))
   }
+  let formD = [
+   
+    {
+      label: "Year",
+      value: "",
+      name: "year",
+      type: "select",
+      option: listYear,
+      required: true,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    },
+    {
+      label: "Month",
+      value: "",
+      name: "month",
+      type:"select",
+      option: months,
+      required: true,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    },
+    {
+      label: 'Business unit',
+      name: "bussinessUnit",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: bussinessUnit,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    // {
+    //   label: "Customer",
+    //   value: "",
+    //   name:"customerId",
+    //   type:"select",
+    //   option: customerList,
+    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    //   props: {
+    //     onChange: (e) => {
+    //       handleCustomerChange(e?.target?.value);
+    //     },
+    //   },
+    //   // required: true,
+    // },
+    // {
+    //   label: "Cost Center",
+    //   value: "",
+    //   name:"costCenterId",
+    //   type:  "select",
+    //   option: costCenterList,
+    //   required: true,
+    // },
+   
+    {
+      label: 'Cost Center',
+      name: "costCenter",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: costCenterList,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10",
+    },
+    
+  ];
+  let cummulativeFilter = [
+    // {
+    //   label: "Year",
+    //   name: "year",
+    //   value: "Select",
+    //   bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    //   type: "select",
+    //   option: listYear.map((itmYr) => {
+    //     return {
+    //       label: itmYr,
+    //       value: itmYr,
+    //     };
+    //   }),
+    //   props: {
+    //     onChange: (e) => {
+    //       setValue("year", e.target.value);
+    //       setyear(e.target.value);
+    //     },
+    //   },
+    //   required: true,
+    //   classes: "col-span-1 h-38px",
+    // },
+    // {
+    //   label: ValGm,
+    //   name: "viewBy",
+    //   value: "Select",
+    //   type: "newmuitiSelect2",
+    //   option: listDict[ValGm].map((dasd) => {
+    //     return {
+    //       value: dasd?.id,
+    //       label: dasd?.name,
+    //     };
+    //   }),
+    //   props: {
+    //     selectType: selectType,
+    //   },
+    //   hasSelectAll: true,
+    //   required: true,
+    //   classes: "col-span-1 h-10",
+    // },
+    {
+      label: "Year",
+      value: "",
+      name: "year",
+      type: "select",
+      option: listYear,
+      required: true,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    },
+    // {
+    //   label: "Month",
+    //   value: "",
+    //   name: "month",
+    //   type:"select",
+    //   option: months,
+    //   required: true,
+    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    // },
+    {
+      label: 'Month',
+      name: "month",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: months,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    
+    // {
+    //   label: "Cost Center",
+    //   value: "",
+    //   name:"costCenterId",
+    //   type:  "select",
+    //   option: costCenterList,
+    //   required: true,
+    // },
+    {
+      label: 'Business unit',
+      name: "businessUnit",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: bussinessUnit,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    // {
+    //   label: "Customer",
+    //   value: "",
+    //   name:"customerId",
+    //   type:"select",
+    //   option: customerList,
+    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+    //   props: {
+    //     onChange: (e) => {
+    //       handleCustomerChange(e?.target?.value);
+    //     },
+    //   },
+    //   // required: true,
+    // },
+    {
+      label: 'Cost Center',
+      name: "costCenter",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: costCenterList,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10",
+    },
+    
+  ];
 
+
+  const tabs = [
+    {
+      label: "Month",
+      body:
+          <div className="flex items-center justify-start">
+
+        
+            <div className="w-full">
+              <CommonForm
+                classes="grid grid-cols-6  p-2"
+                Form={formD}
+                errors={errors}
+                register={register}
+                setValue={setValue}
+                getValues={getValues}
+              />
+            </div>
+            <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+              <Button
+                classes="flex h-fit"
+                name=""
+                icon={<UilSearch className="w-5 m-2 h-5" />}
+                onClick={handleSubmit(handleAddActivity)}
+              />
+            </div>
+          </div>
+    },
+    {
+      label: "Cumulative",
+      body: <div className="flex items-center justify-start">
+
+        
+      <div className="w-full">
+        <CommonForm
+          classes="grid grid-cols-6  p-2"
+          Form={cummulativeFilter}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+        />
+      </div>
+      <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+        <Button
+          classes="flex h-fit"
+          name=""
+          icon={<UilSearch className="w-5 m-2 h-5" />}
+          onClick={handleSubmit(handleAddActivity)}
+        />
+      </div>
+    </div>
+    },
+  ]
+  const [enable, setEnable] = useState(tabs[0].label)
+  async  function handleAddActivity(res){
+    Data.current = ""
+    // setExtraColumns(res['Month'])
+    Data.current = res['CostCenter']
+    // FRERFER
+    console.log("============", res)
+    if (enable=="Cumulative"){
+      
+      res['month']=res['Month']
+    }
+    
+    
+    const resp = await Api.post({ data: res, url: Urls.aop + "?filter=true" })
+    if (resp.status == 200) {
+      dispatch(SET_TABLE(resp?.data?.data))
+    }
+    // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
+    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+  };
   return (
     <>
       <div className="flex items-center justify-start">
-        <div className="col-span-1 md:col-span-1">
+        {/* <div className="col-span-1 md:col-span-1">
           <CommonForm
             classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
             Form={formD}
@@ -487,9 +787,9 @@ const AOPTrackingAirtel = () => {
             icon={<UilSearch className="w-5 m-2 h-5" />}
             onClick={handleSubmit(handleAddActivity)}
           />
-        </div>
+        </div> */}
       </div>
-
+      <Tabs data={tabs} setEnable={setEnable} enable={enable} />
       <AdvancedTable 
         headerButton={
           <>
@@ -531,6 +831,7 @@ const AOPTrackingAirtel = () => {
         TableHeight = "h-[51vh]" 
         handleSubmit={handleSubmit}
         data={rows}
+        // data={[]}
         errors={errors}
         register={register}
         setValue={setValue}
