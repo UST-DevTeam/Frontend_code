@@ -6,7 +6,7 @@ import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 import Modal from '../../../../components/Modal';
 import FilterActions from '../../../../store/actions/filter-actions';
-import { GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE } from '../../../../store/reducers/admin-reducer';
+import { GET_ACCURAL_REVENUE_MASTER_PROJECTID, GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE, GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE } from '../../../../store/reducers/admin-reducer';
 
 
 const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
@@ -43,7 +43,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         });
       });
 
-      let customerList = useSelector((state) => {
+    let customerList = useSelector((state) => {
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
                 label: itm?.customerName,
@@ -58,7 +58,6 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
     let dispatch = useDispatch()
 
     let Form = [
-        
         {
             label: "Customer",
             value: "",
@@ -72,6 +71,8 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 }
                 else{
                     dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll:[], reset:true}));
+                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
+                    dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
                 }
               },
             },
@@ -87,8 +88,12 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             props: {
               onChange: (e)=>{
                 if (e.target.value){
-                    dispatch(AdminActions.getAccuralRevenueMasterProjectID(true, `projectType=${e.target.value}`));
-                    dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true, `projectType=${e.target.value}`))
+                    dispatch(AdminActions.getAccuralRevenueMasterProjectID(true,"",e.target.value));
+                    dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true,"",e.target.value));
+                }
+                else{
+                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
+                    dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
                 }
                 
               },
@@ -97,50 +102,42 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             required: true,
             classes: "col-span-1",
         },
-          {
+        {
             label: "Project",
             value: "",
             name:Object.entries(formValue).length > 0 ? "projectId" : "project",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: Projectlist,
             props: {
-              onChange: (e)=>{
+                onChange: (e)=>{
                 
-              },
-              
+                },
+                
             },
             required: true,
             classes: "col-span-1",
-          },
+        },
         {
             label: "Sub Project",
             value: "",
-            // name: "subProject",
-            // type: "select",
             name:Object.entries(formValue).length > 0 ? "subProjectName" : "subProject",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: subProjectTypelist,
             props: {
-            //   onChange: (e)=>{
-            //     handleClaimTypeChange(e.target.value)
-            //     handleClaimTypeChange2(e.target.value)
-            //   },
-              
+              onChange: (e)=>{
+              },
             },
             required: true,
             classes: "col-span-1",
-          },
+        },
         {
             label: "Band",
             value: "",
             name: "band",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -150,12 +147,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "activity",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -169,8 +163,6 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -180,12 +172,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "itemCode01",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -195,12 +184,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "itemCode02",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -210,12 +196,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "itemCode03",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -225,12 +208,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "itemCode04",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -240,12 +220,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "itemCode05",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
-                    // setValue("queries",e.target.name)
                 }),
             },
             classes: "col-span-1"
@@ -255,7 +232,6 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             value: "",
             name: "itemCode06",
             type: "text",
-            // required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
@@ -276,6 +252,8 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-1"
         },
     ]
+
+
     const {
         register,
         handleSubmit,
@@ -301,11 +279,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
     }
 
     useEffect(() => {
-      dispatch(AdminActions.getManageCustomer())
-    //  
-    // //   dispatch(AdminActions.getAccuralRevenueMasterProjectID());
-    //   dispatch(AdminActions.getAccuralRevenueMasterSubProjectType())
-    //   dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll:[], reset:true}));
+        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
+        dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
       if (!isOpen) {
         reset({});
         Form.forEach(key => setValue(key.name, formValue[key.name] || ""));

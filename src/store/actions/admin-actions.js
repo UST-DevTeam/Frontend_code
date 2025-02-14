@@ -787,11 +787,11 @@ const AdminActions = {
         } catch (error) { }
       },
   getAccuralRevenueMasterProjectID:
-    (reset = true, args = "") =>
+    (reset = true, args = "",id) =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
-            url: `${Urls.get_accural_revenue_master_project_projectId}${args != "" ? "?" + args : ""
+            url: `${Urls.get_accural_revenue_master_project_projectId}/${id}${args != "" ? "?" + args : ""
               }`,
             reset,
           });
@@ -815,17 +815,13 @@ const AdminActions = {
         } catch (error) { }
       },
   getAccuralRevenueMasterSubProjectType:
-    (reset = true, args = "") =>
+    (reset = true, args = "",id) =>
       async (dispatch, _) => {
         try {
-          const res = await Api.get({
-            url: `${Urls.get_accural_revenue_master_project_subProjectType}${args != "" ? "?" + args : ""
-              }`,
-            reset,
-          });
+          const res = await Api.get({url: `${Urls.get_accural_revenue_master_project_subProjectType}/${id}${args != "" ? "?" + args : ""}`,reset});
           if (res?.status !== 200) return;
           let dataAll = res?.data?.data;
-          dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll, reset }));
+          dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll,reset}));
         } catch (error) { }
       },
   postAccuralRevenueMasterProject:

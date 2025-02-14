@@ -60,6 +60,7 @@ let subProjectTypeList = useSelector((state) => {
       };
     });
   });
+
   let vendorsList = useSelector((state) => {
     return state?.vendorData?.getVendorCostVendorsList.map((itm) => {
       return {
@@ -77,6 +78,7 @@ let subProjectTypeList = useSelector((state) => {
       };
     });
   });
+
 let milestneList = useSelector((state) => {
     return state?.vendorData?.getVendorCostMilestoneList?.map((itm) => {
       return {
@@ -93,7 +95,6 @@ let milestneList = useSelector((state) => {
             'customerId':selectedCustomer,
             'projectType':projectType,
         }
-        console.log(projectType,filterData,'hujduururuiui')
         setSelectedprojectType(projectType)
         let strVal = objectToQueryString(filterData);
         // dispatch(VendorActions.getVendorCostSubprojectTypeList(true,`customerId=${e?.target?.value}?projectType=${projectType}`))
@@ -112,18 +113,21 @@ let milestneList = useSelector((state) => {
     {
         label: "Customer",
         value: "",
-        name:
-          Object.entries(formValue).length > 0
-            ? "customer"
-            : "customerId",
+        name:Object.entries(formValue).length > 0? "customer": "customerId",
         type: Object.entries(formValue).length > 0 ? "sdisabled" : "newSingleSelect45",
         option: customerList,
         props: {
           onChange: (e) => {
-            setSelectedCustomer(e?.target?.value)
-            dispatch(VendorActions.getVendorCostprojectGroupList(true,`customerId=${e?.target?.value}`));
-            dispatch(VendorActions.getVendorCostprojectTypeList(true,`customerId=${e?.target?.value}`));
-            dispatch(VendorActions.getvendorCostVendorsList())
+            if (e.target.value){
+              setSelectedCustomer(e?.target?.value)
+              dispatch(VendorActions.getVendorCostprojectGroupList(true,`customerId=${e?.target?.value}`));
+              dispatch(VendorActions.getVendorCostprojectTypeList(true,`customerId=${e?.target?.value}`));
+              dispatch(VendorActions.getvendorCostVendorsList())
+            }
+            else {
+
+            }
+            
 
           },
         },

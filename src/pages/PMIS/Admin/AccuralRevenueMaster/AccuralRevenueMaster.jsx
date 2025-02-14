@@ -15,6 +15,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 import FilterActions from '../../../../store/actions/filter-actions';
 import EditButton from '../../../../components/EditButton';
 import AccuralRevenueMasterForm from './AccuralRevenueMasterForm';
+import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
 const AccuralRevenueMaster = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -70,6 +71,15 @@ const AccuralRevenueMaster = () => {
         }
     })
 
+    let customerList = useSelector((state) => {
+        return state?.adminData?.getManageCustomer.map((itm) => {
+            return {
+                label: itm?.customerName,
+                value: itm?.uniqueId
+            }
+        })
+    })
+
     let projectTypeList = useSelector((state) => {
         return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
           return {
@@ -77,7 +87,7 @@ const AccuralRevenueMaster = () => {
             value: itm.uid,
           };
         });
-      });
+    });
 
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
@@ -164,6 +174,22 @@ const AccuralRevenueMaster = () => {
         },
         filter: [
             {
+                label: "Customer",
+                type: "select",
+                name: "customer",
+                option:customerList,
+                props: {
+                    onChange: (e)=>{
+                        if (e.target.value){
+                            dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",1,e.target.value));
+                        }
+                        else{
+                            dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll:[],reset:true}))
+                        }
+                    }
+                }
+            },
+            {
                 label: "Project Type",
                 type: "select",
                 name: "projectType",
@@ -181,32 +207,31 @@ const AccuralRevenueMaster = () => {
     }
 
     const onSubmit = (data) => {
-        delete data.rolename
-        delete data.sub
         let shouldReset = data.reseter;
         delete data.reseter
         let strVal = objectToQueryString(data);
         setstrVal(strVal);
-        dispatch(AdminActions.getAccuralRevenueMasterProject(true, objectToQueryString(data)))
+        dispatch(AdminActions.getAccuralRevenueMasterProject(true,strVal))
     }
 
     
     useEffect(() => {
         dispatch(AdminActions.getAccuralRevenueMasterProject());
-        dispatch(AdminActions.getAccuralRevenueMasterProjectType());
-        dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0));
+        dispatch(AdminActions.getManageCustomer())
+        dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll:[],reset:true}))
     }, []);
 
     const onTableViewSubmit3 = (data) => {
         data["fileType"] = "UploadAccuralRevenueMaster";
         dispatch(
           CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getAccuralRevenueMasterProject());
             setFileOpen(false);
+            dispatch(AdminActions.getAccuralRevenueMasterProject());
             resetting("");
           })
         );
-      };
+    };
+
     return <>
         <AdvancedTable
             headerButton={
@@ -228,7 +253,7 @@ const AccuralRevenueMaster = () => {
                         name={"Export"}
                         classes="w-auto"
                         onClick={() => {
-                            dispatch(CommonActions.commondownload("/export/MasterUnitRate","Export_MasterUnitRate.xlsx"))
+                            dispatch(CommonActions.commondownload("/export/MasterUnitRate?"+strValFil,"Export_MasterUnitRate.xlsx"))
                           }}>
                     </Button>
                 </div>

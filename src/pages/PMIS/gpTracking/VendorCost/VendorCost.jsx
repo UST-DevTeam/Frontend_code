@@ -18,12 +18,14 @@ import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import VendorCostForm from "./VendorCostForm";
 
 const VendorCost = () => {
+
   const [fileOpen, setFileOpen] = useState(false)
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
   let dispatch = useDispatch();
+
   let dbConfigList = useSelector((state) => {
     let interdata = state?.vendorData?.getVendorCostMilestone || [];
     return interdata?.map((itm) => {
@@ -38,7 +40,6 @@ const VendorCost = () => {
                 onClick={() => {
                   setmodalOpen(true);
                   setmodalHead("Edit Master Rate");
-
                   setmodalBody(
                     <>
                       <VendorCostForm
