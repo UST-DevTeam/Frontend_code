@@ -202,12 +202,15 @@ const AdvancedTableGpTracking = ({
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
-              <div className="flex flex-row mt-[6px] text-white">
-                <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
-                {showTotalCount && (
-                  <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
-                )}
-              </div>
+              {
+                heading && <div className="flex flex-row mt-[6px] text-white">
+                  <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
+                  {showTotalCount && (
+                    <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
+                  )}
+                </div>
+              }
+
               <div className="flex flex-row mx-8 gap-1">{searchView}</div>
             </div>
             <div className="flex flex-row">
@@ -452,8 +455,8 @@ const AdvancedTableGpTracking = ({
                           <>
                             <th
                               className={`border-primaryLine border-[1.5px] h-10 ${itts?.bg ? itts?.bg : "bg-primaryLine"}   ${itts.style
-                                  ? itts.style
-                                  : " min-w-[300px] max-w-[500px]"
+                                ? itts.style
+                                : " min-w-[300px] max-w-[500px]"
                                 }`}
                             >
                               <span className="text-black-600 text-[14px]">
@@ -490,8 +493,8 @@ const AdvancedTableGpTracking = ({
                           return hide.indexOf(String(index)) == -1 ? (
                             <td
                               className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${innerItm.style
-                                  ? innerItm.style
-                                  : " min-w-[300px] max-w-[500px]"
+                                ? innerItm.style
+                                : " min-w-[300px] max-w-[500px]"
                                 }`}
                             >
                               <Modalmoreinfo
@@ -597,8 +600,8 @@ const AdvancedTableGpTracking = ({
                         callApiPagination(index + 1, "558");
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
-                          ? "bg-pcol text-white border-primaryLine"
-                          : "bg-white text-black border-primaryLine"
+                        ? "bg-pcol text-white border-primaryLine"
+                        : "bg-white text-black border-primaryLine"
                         } `}
                     >
                       {index + 1}
@@ -612,8 +615,8 @@ const AdvancedTableGpTracking = ({
                       callApiPagination(index + 1);
                     }}
                     className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
-                        ? "bg-pcol text-white"
-                        : "bg-white"
+                      ? "bg-pcol text-white"
+                      : "bg-white"
                       } px-2 mx-2`}
                   >
                     {index + 1}

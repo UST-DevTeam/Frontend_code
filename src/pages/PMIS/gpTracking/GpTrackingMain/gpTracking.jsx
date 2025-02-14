@@ -28,7 +28,7 @@ import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracki
 import CommonForm from "../../../../components/CommonForm";
 
 const GPTracking = () => {
-
+  const saveQuery = useRef("")
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -82,7 +82,7 @@ const GPTracking = () => {
 
 
   let dbConfigList = useSelector((state) => {
-    console.log("bhdjhdhjdhjd", state)
+    
     let interdata = state?.gpTrackingReducer?.getGPTrackingMain || [];
 
     return interdata?.map((itm) => {
@@ -273,14 +273,16 @@ const GPTracking = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    
-    const customerName = customerList.find(item=>item.value === data.customer)?.label
-    const costCenterName = costCenterList.find(item=>item.value === data.costCenter)?.label
+
+    const customerName = customerList.find(item => item.value === data.customer)?.customerName
+    const costCenterName = costCenterList.find(item => item.value === data.costCenter)?.label
     data.customer = customerName
     data.costCenter = costCenterName
-    let strVal = objectToQueryString(data);    
+    let strVal = objectToQueryString(data);
+    saveQuery.current = data
     dispatch(gpTrackingActions.getGPTrackingMain(true, strVal))
   };
+
   useEffect(() => {
     // dispatch(FormssActions.getProfiltLoss())
     dispatch(gpTrackingActions.getGPTrackingMain())
@@ -391,6 +393,7 @@ const GPTracking = () => {
       return {
         label: itm?.customer,
         value: itm?.uniqueId,
+        customerName: itm?.customerName
       };
     });
   });
@@ -399,7 +402,7 @@ const GPTracking = () => {
     const selectedValue = value;
     setSelectedCustomer(selectedValue);
     // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
-    
+
     dispatch(gpTrackingActions.getGPCostCenter(selectedValue, true));
   };
 
@@ -482,53 +485,53 @@ const GPTracking = () => {
           bg: "bg-sky-200"
         },
         {
-          name: "Revenue (In Lakh)",
+          name: "Revenue (Lac)",
           value: "total_Amount",
           style: "min-w-[140px] max-w-[200px] text-center",
-          bg: "bg-orange-400"
+          bg: "bg-orange-400 whitespace-nowrap px-2"
         },
         {
-          name: "Salary",
+          name: "Salary (Lac)",
           value: "totalSalary",
           style: "min-w-[140px] max-w-[200px] text-center",
-          bg: "bg-green-600"
+          bg: "bg-green-600 whitespace-nowrap px-2"
         },
 
         {
-          name: "Vendor Cost",
+          name: "Vendor Cost (Lac)",
           value: "TotalAmountvendorCost",
           style: "min-w-[140px] max-w-[200px] text-center",
-          bg: "bg-green-600"
+          bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "Other Fixed Cost",
+          name: "Other Fixed Cost (Lac)",
           value: "totalOtherFixedCost",
           style: "min-w-[150px] max-w-[200px] text-center",
-          bg: "bg-green-600"
+          bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "Employee Expanse",
+          name: "Employee Expanse (Lac)",
           value: "ApprovedAmount",
           style: "min-w-[170px] max-w-[250px] text-center",
-          bg: "bg-green-600"
+          bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "COGS",
+          name: "COGS (Lac)",
           value: "COGS",
           style: "min-w-[120px] max-w-[200px] text-center",
-          bg: "bg-green-600"
+          bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "GROSS PROFIT (INR)",
+          name: "GROSS PROFIT (Lac)",
           value: "GROSSPROFITINR",
           style: "min-w-[200px] max-w-[200px] text-center",
-          bg: "bg-sky-200"
+          bg: "bg-sky-200 whitespace-nowrap px-2"
         },
         {
           name: "GROSS MARGIN (%)",
           value: "GROSSRevenuePer",
           style: "min-w-[200px] max-w-[200px] text-center",
-          bg: "bg-sky-200"
+          bg: "bg-sky-200 whitespace-nowrap"
         },
 
         ...newColumns,
@@ -598,7 +601,7 @@ const GPTracking = () => {
             </Button> */}
 
               <Button name={"Export"} classes='w-auto mr-1 !h-10' onClick={(e) => {
-                dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", { 'year': year, 'Month': extraColumns, 'Cost Center': Data.current }))
+                dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", saveQuery.current))
               }}>
               </Button>
             </div>
@@ -615,7 +618,7 @@ const GPTracking = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        heading={'Total Count :-'}
+        heading=""
       />
       <Modal
         size={"sm"}

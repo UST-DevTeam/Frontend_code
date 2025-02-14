@@ -359,6 +359,7 @@ const FilterView = ({
                   name={"Reset"}
                   onClick={() => {
                     tablefilter.forEach((itm) => setValue(itm.name, ''));
+                    // onSubmit({})
                     onReset();
                   }}
                   classes="w-18 p-10 mx-2 bg-rose-400"
