@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 // import FormssActions from "../../../store/actions/formss-actions";
 // import CurrentuserActions from "../../../store/actions/currentuser-action";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
-import { rule } from "postcss";
+
 
 const OtherFixedCostForm = ({
   isOpen,
