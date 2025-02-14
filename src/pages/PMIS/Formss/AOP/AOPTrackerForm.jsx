@@ -371,7 +371,7 @@ const AOPTrackerForm = ({
     } else {
       // { data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }
       const resp = await Api.post({ data, url: Urls.aop+(forAirtel?"?forAirtel=true" :""),"cb": () => dispatch(tableAction.getTable(Urls.aop+(forAirtel?"?forAirtel=true":''), SET_TABLE)) })
-      if (resp.status == 201) {
+      if (resp.status == 201 || resp.status == 200) {
       
         setIsOpen(false);
       }
