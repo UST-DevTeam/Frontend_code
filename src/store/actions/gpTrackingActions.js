@@ -16,6 +16,7 @@ const gpTrackingActions = {
         }
     },
     getGPCostCenter:(id="",reset=true,args="") => async (dispatch, _) => {
+    
         try {
             if (id !== ""){
                 const res = await Api.get({ url:`${Urls.gpTracking_costCenter}/${id}${args!=""?"?"+args:""}`, reset })

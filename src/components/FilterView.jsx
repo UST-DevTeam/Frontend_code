@@ -250,12 +250,14 @@ const FilterView = ({
             <>
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => (
+                 
                   <div key={itm.name} className="flex flex-col">
                     <label className="block text-sm p-2 font-medium text-white dark:text-black">
                       {itm.label}
                     </label>
 
                     {itm.type === "select" && (
+                      
                       <>
                         <select
                           {...register(itm.name, {
@@ -355,6 +357,7 @@ const FilterView = ({
                   name={"Reset"}
                   onClick={() => {
                     tablefilter.forEach((itm) => setValue(itm.name, ''));
+                    // onSubmit({})
                     onReset();
                   }}
                   classes="w-18 p-10 mx-2 bg-rose-400"
