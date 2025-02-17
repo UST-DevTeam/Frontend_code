@@ -281,6 +281,11 @@ const L2AdvanceForm = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "Customer",
+        value: "customerName",
+        style: "min-w-[140px] max-w-[250px] text-center",
+      },
+      {
         name: "Cost Center",
         value: "costcenter",
         style: "min-w-[170px] max-w-[450px] text-center",
@@ -481,8 +486,8 @@ const L2AdvanceForm = () => {
       amount: (
         <input
           type="number"
-          className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
-          placeholder={item?.ApprovedAmount || "Enter Amount"}
+          className="p-4 w-full !border amountWithRemark bg-[#3e454d]"
+          placeholder={item?.ApprovedAmount || "Enter Amount..."}
           onChange={(e) => {
             setAmount((prev) => {
               return {
@@ -519,7 +524,7 @@ const L2AdvanceForm = () => {
       remark: (
         <input
           type="text"
-          className="p-5 w-full !border amountWithRemark bg-[#3e454d]"
+          className="p-4 w-full !border amountWithRemark bg-[#3e454d]"
           placeholder={item?.remark || "Enter Your Remark..."}
           onChange={(e) => {
             setAmount((prev) => {

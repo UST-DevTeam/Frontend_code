@@ -121,6 +121,11 @@ const FillAdvance = () => {
                 style: "min-w-[170px] max-w-[450px] text-center",
             },
             {
+                name: "Customer",
+                value: "customerName",
+                style: "min-w-[130px] max-w-[450px] text-center",
+            },
+            {
                 name: "Cost Center",
                 value: "costcenter",
                 style: "min-w-[170px] max-w-[450px] text-center",

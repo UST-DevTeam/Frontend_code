@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate, useParams } from "react-router-dom";
-
 import ComponentActions from "../../../store/actions/component-actions";
 import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
-import ProjectChart from "../Dashboard1/ProjectChart";
-import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
-import MonthRevenueTrend from "./FinancialGraph/MonthRevenueTrend";
-import MonthlyRevenueCircle from "./FinancialGraph/MonthlyRevenueCircle";
-import CumulativeTrendPlanVsActual from "./FinancialGraph/CumulativeTrendPlanVsActual";
-import AccrualRevenueTrendChart from "../Dashboard1/AccrualRevenueTrendChart";
 
 const FormsCards = () => {
-  // const [modalOpen, setmodalOpen] = useState(false)
-  // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
-  // const [modalHead, setmodalHead] = useState(<></>)
   let dispatch = useDispatch();
   const { customeruniqueId } = useParams();
   let navigate = useNavigate();
@@ -33,40 +22,30 @@ const FormsCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["EVM-Financial", "bg-pcol", "/forms/earnValueManagementFinancial",],
-          ["EVM-Delivery", "bg-pcol", "/forms/EVMDelivery"],
+          ["Invoice PVA", "bg-pcol", "/forms/earnValueManagementFinancial",],
+          ["Delivery PVA", "bg-pcol", "/forms/EVMDelivery"],
           ["SOB", "bg-pcol", "/forms/SOB",],
           ["Gap Analysis", "bg-pcol", "/forms/GapAnalysis"],
           ["P&L", "bg-pcol", "/forms/P&L"],
           ["Liquidation Plan", "bg-pcol", "/forms/LiquidationPlan"],
           ["Accrual Revenue Trend", "bg-pcol", "/forms/AccrualRevenueTrend"],
           ['AOP-P&L',"bg-pcol","/forms/P&L"],
-          ['AOP-P&L',"bg-pcol","/forms/AopTracking"],
-          ['AOP-P&L',"bg-pcol","/forms/AopTrackingAirtel"]
+          ['AOP Tracking',"bg-pcol","/forms/AopTracking"],
+          ['Airtel AOP Tracking',"bg-pcol","/forms/AopTrackingAirtel"],
+          ['Forecast COGS Tracking',"bg-pcol","/forms/AopTrackingAirtel"]
         ].map((itm) => {
           return (
+            
             <>
               {getAccessType(itm[0]) == "visible" || getAccessType(itm[0]) == "disabled" ? (
                 <div
                 className={`${itm[1]} bg-pcol text-white text-center text-[14px] md:text-[11px] xl:text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[16px] hover:text-[#444c54] hover:bg-pcolhover`}
                   onClick={() => {
 
-
-                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                     if ( getAccessType(itm[0]) == "visible") {
-
-                      dispatch(
-                        ComponentActions.globalUrlStore(
-                          itm[0],
-                          itm[2]
-                        )
-                      );
+                      dispatch(ComponentActions.globalUrlStore(itm[0],itm[2]));
                       navigate(itm[2]);
-
-
-                      dispatch(
-                        ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
-                      );
+                      dispatch(ComponentActions.breadcrumb(itm[0], itm[2], 1, false));
                     } else {
                       let msgdata = {
                         show: true,
@@ -97,16 +76,7 @@ const FormsCards = () => {
             </>
           );
         })}
-        settype={settype}
-        label="Add / Modify Customer"
       />
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-1 m-2 mt-36 gap-2">
-        {/* <MonthRevenueTrend />
-        <MonthlyRevenueCircle />
-        <CumulativeTrendPlanVsActual />
-        <AccrualRevenueTrendChart customeruniqueId = {customeruniqueId} /> */}
-
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
@@ -8,25 +7,13 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
-import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
+import { getAccessType } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import CommonActions from "../../../../store/actions/common-actions";
-import { Urls } from "../../../../utils/url";
-import EarnValueMgmtForm from "../../../../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtForm";
-import FinanceActions from "../../../../store/actions/finance-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
-import AdminActions from "../../../../store/actions/admin-actions";
-import Multiselection from "../../../../components/FormElements/Multiselection";
-import SelectDropDown from "../../../../components/FormElements/SelectDropDown";
-import { data } from "autoprefixer";
 import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
-
-
 import { UilSearch } from "@iconscout/react-unicons";
 import AccrualRevenueTrendForm from "./AccrualRevenueTrendForm";
-import { GET_ACCRUAL_REVENUE_TREND } from "../../../../store/reducers/formss-reducer";
 
 const AccrualRevenueTrend = () => {
 
@@ -157,7 +144,6 @@ const AccrualRevenueTrend = () => {
     });
   });
 
-
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getAccrualRevenueTrend || [];
     if (interdata.length > 0) {
@@ -174,11 +160,6 @@ const AccrualRevenueTrend = () => {
   if (showType === "visible"){
     shouldIncludeEditColumn = true
   } 
-
-
-
-
-
 
   const {
     register,
@@ -343,7 +324,7 @@ const AccrualRevenueTrend = () => {
       exportData.current = []
 
       months.forEach((itm) => {
-      exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
+        exportData.current =  [...exportData.current,  'M-'+itm+"Y-"+res.year]
       }
 
       )

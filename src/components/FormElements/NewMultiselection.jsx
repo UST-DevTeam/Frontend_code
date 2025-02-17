@@ -242,7 +242,9 @@ const NewMultiselection = ({
   getValues,
   register,
   classes,
-  value=[]
+  value=[],
+  minWidth="min-w-[150px]",
+  maxWidth="max-w-[150px]"
 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
 
@@ -299,7 +301,7 @@ const NewMultiselection = ({
             height: "38px",          
           },
         }}
-        className="max-w-[150px] min-w-[150px] absolute  bg-white rounded-md  text-white-900 shadow-sm  ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        className={`${minWidth} ${maxWidth} absolute bg-white rounded-md  text-white-900 shadow-sm  ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
       />
       <input
         type="hidden"

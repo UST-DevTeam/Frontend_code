@@ -72,7 +72,7 @@ const HomeCards = () => {
               <Unicons.UilFileAlt size="40" color="" />,
             ],
             [
-              "My Task",
+              "My Entitlement",
               "bg-pcol",
               "/home/myPolicy",
               <Unicons.UilFileAlt size="40" color="" />,

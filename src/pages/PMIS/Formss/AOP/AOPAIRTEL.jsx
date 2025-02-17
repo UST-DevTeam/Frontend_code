@@ -77,7 +77,7 @@ const AOPTrackingAirtel = () => {
     return Array.isArray(state.table?.tableContent) 
       ? state.table.tableContent.map(item => {
           let index = item.month;
-          return { ...item, month: monthMap[index],gm:item.gm*100 };  // Create a new object with updated `month`
+          return { ...item, month: monthMap[index],gm:item.gm*100 }; 
         })
       : [];
   });
@@ -193,7 +193,7 @@ const AOPTrackingAirtel = () => {
   });
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getProfitloss || [];
+    let interdata = state?.table?.tableContent || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {

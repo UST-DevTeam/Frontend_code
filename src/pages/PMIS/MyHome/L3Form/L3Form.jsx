@@ -317,6 +317,11 @@ const L3Form = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "Customer",
+        value: "customerName",
+        style: "min-w-[140px] max-w-[250px] text-center",
+      },
+      {
         name: "Cost Center",
         value: "costcenter",
         style: "min-w-[170px] max-w-[450px] text-center",
@@ -743,8 +748,8 @@ const L3Form = () => {
                       <input
                         type="number"
                         defaultValue={item?.ApprovedAmount}
-                        className="p-5 w-full !border amountWithRemark bg-black"
-                        placeholder="Enter Amount"
+                        className="p-4 w-full !border amountWithRemark bg-[#3e454d]"
+                        placeholder="Enter Amount.."
                         onChange={(e) => {
                           setAmount((prev) => {
                             return {
@@ -785,7 +790,7 @@ const L3Form = () => {
                   <input
                     type="text"
                     defaultValue={item?.remark || ""}
-                    className="p-5 w-full !border amountWithRemark bg-black"
+                    className="p-4 w-full !border amountWithRemark bg-[#3e454d]"
                     placeholder="Enter Your Remark..."
                     onChange={(e) => {
                       setAmount((prev) => {

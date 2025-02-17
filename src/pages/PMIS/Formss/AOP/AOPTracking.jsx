@@ -265,7 +265,7 @@ const AOPTracking = () => {
   });
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.formssData?.getProfitloss || [];
+    let interdata = state?.table?.tableContent || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -530,6 +530,7 @@ const AOPTracking = () => {
       option: listYear,
       required: true,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     {
       label: "Month",
@@ -539,6 +540,7 @@ const AOPTracking = () => {
       option: months,
       required: true,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     {
       label: 'Business unit',
@@ -550,7 +552,7 @@ const AOPTracking = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
+      classes: "w-44 sm:w-24 md:w-34 xl:w-44",
     },
     {
       label: "Customer",
@@ -564,7 +566,7 @@ const AOPTracking = () => {
           handleCustomerChange(e?.target?.value);
         },
       },
-      // required: true,
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     // {
     //   label: "Cost Center",
@@ -585,7 +587,7 @@ const AOPTracking = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      classes: "col-span-1 h-10",
+      classes: "col-span-1 h-10 w-44 sm:w-24 md:w-34 xl:w-44",
     },
     
   ];
@@ -637,6 +639,7 @@ const AOPTracking = () => {
       option: listYear,
       required: true,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+       classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     // {
     //   label: "Month",
@@ -658,6 +661,7 @@ const AOPTracking = () => {
       },
       hasSelectAll: true,
       classes: "col-span-1 h-10 ",
+
     },
     
     // {
@@ -687,6 +691,7 @@ const AOPTracking = () => {
       type:"select",
       option: customerList,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+       classes:"w-44 sm:w-24 md:w-34 xl:w-44",
       props: {
         onChange: (e) => {
           handleCustomerChange(e?.target?.value);
@@ -717,7 +722,7 @@ const AOPTracking = () => {
           <div className="flex items-center justify-start">
 
         
-            <div className="w-full">
+            <div className="w-auto">
               <CommonForm
                 classes="grid grid-cols-5"
                 Form={formD}
@@ -727,7 +732,7 @@ const AOPTracking = () => {
                 getValues={getValues}
               />
             </div>
-            <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+            <div className="flex w-auto mt-4 -ml-1 items-center justify-center">
               <Button
                 classes="flex h-fit"
                 name=""
@@ -742,7 +747,7 @@ const AOPTracking = () => {
       body: <div className="flex items-center justify-start">
 
         
-      <div className="w-full">
+      <div className="w-auto">
         <CommonForm
           classes="grid grid-cols-5"
           Form={cummulativeFilter}
@@ -752,7 +757,7 @@ const AOPTracking = () => {
           getValues={getValues}
         />
       </div>
-      <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+      <div className="flex w-auto mt-4 -ml-1 items-center justify-center">
         <Button
           classes="flex h-fit"
           name=""

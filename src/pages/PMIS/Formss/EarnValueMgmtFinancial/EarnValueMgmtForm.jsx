@@ -67,19 +67,19 @@ const EarnValueMgmtForm = ({
     
     let Form = [
       
-      ...monthss.map((itm)=>(
-        {
-          label: `AOP Target (${monthsss[itm]} ${year})`,
-          value: "",
-          name: `aop-${itm}`,
-          type: "number",
-          props: {
-            valueAsNumber:true,
-            min: 0,
-            onChange: (e) => {},
-          },
-          classes: "col-span-1",
-        })),
+      // ...monthss.map((itm)=>(
+      //   {
+      //     label: `AOP Target (${monthsss[itm]} ${year})`,
+      //     value: "",
+      //     name: `aop-${itm}`,
+      //     type: "number",
+      //     props: {
+      //       valueAsNumber:true,
+      //       min: 0,
+      //       onChange: (e) => {},
+      //     },
+      //     classes: "col-span-1",
+      //   })),
         ...monthss.map((itm)=>(
           {
             label: `PV Target (${monthsss[itm]} ${year})`,
@@ -170,28 +170,6 @@ const EarnValueMgmtForm = ({
     }
   }, [isOpen,formValue,resetting]);
 
-
-
-  // useEffect(() => {
-  //   if (resetting) {
-  //     reset({});
-  //     Form.map((fieldName) => {
-  //       setValue(fieldName["name"], fieldName["value"]);
-  //     });
-  //   } else {
-  //     reset({});
-  //     console.log(Object.keys(formValue), "Object.keys(formValue)");
-  //     Form.forEach((key) => {
-  //       if (["endAt", "startAt"].indexOf(key.name) != -1) {
-  //         console.log("date formValuekey", key.name, formValue[key.name]);
-  //         const momentObj = moment(formValue[key.name]);
-  //         setValue(key.name, momentObj.toDate());
-  //       } else {
-  //         setValue(key.name, formValue[key.name]);
-  //       }
-  //     });
-  //   }
-  // }, [formValue, resetting]);
 
   return (
     <>

@@ -118,6 +118,11 @@ const ManageCostCenter = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
+                name: "Business Unit",
+                value: "businessUnit",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },           
+            {
                 name: "Edit",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"

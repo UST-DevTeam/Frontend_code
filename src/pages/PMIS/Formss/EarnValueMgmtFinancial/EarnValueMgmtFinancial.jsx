@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
@@ -8,7 +7,6 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
@@ -16,19 +14,12 @@ import { Urls } from "../../../../utils/url";
 import EarnValueMgmtForm from "../../../../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtForm";
 import FinanceActions from "../../../../store/actions/finance-actions";
 import FormssActions from "../../../../store/actions/formss-actions";
-import AdminActions from "../../../../store/actions/admin-actions";
-import Multiselection from "../../../../components/FormElements/Multiselection";
-import SelectDropDown from "../../../../components/FormElements/SelectDropDown";
-import { data } from "autoprefixer";
 import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
-
 import { UilSearch } from "@iconscout/react-unicons";
 import FileUploader from "../../../../components/FIleUploader";
 import { SET_TABLE } from "../../../../store/reducers/table-reducer";
 import Api from "../../../../utils/api";
-import Tabs from "../../../../components/Tabs";
-import CurrentuserActions from "../../../../store/actions/currentuser-action";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 
 
@@ -38,9 +29,7 @@ const EarnValueMgmtFinancial = () => {
   const Data = useRef("")
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
-  const [refresh, setRefresh] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
-  const [change, setChange] = useState(false);
   const [modalBody, setmodalBody] = useState(<></> );
   const [ValGm, setValGm] = useState("Monthly");
   const endDate = moment().format("Y");
@@ -50,54 +39,39 @@ const EarnValueMgmtFinancial = () => {
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
+  const[viewType,setViewType] = useState("Month")
+  const exportData = useRef([])
+
+  let extraColumnsWithYear;
+
+  if (currentMonth === 1) {
+    extraColumnsWithYear = [
+      {'month':11,"year":currrentYear-1},
+      {'month':12,"year":currrentYear-1},
+      {'month':1,"year":currrentYear}
+    ];
+  } else if (currentMonth === 2) {
+    extraColumnsWithYear = [
+      {'month':12,"year":currrentYear-1},
+      {'month':1,"year":currrentYear},
+      {'month':2,"year":currrentYear}
+    ];
+  } else {
+    extraColumnsWithYear = [
+      {'month':currentMonth-2,"year":currrentYear},
+      {'month':currentMonth-1,"year":currrentYear},
+      {'month':currentMonth,"year":currrentYear}
+    ];
+  }
+  const [extraColumnsState, setExtraColumnsState] = useState(extraColumnsWithYear);
 
   let dispatch = useDispatch();
 
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm?.circleName,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
-      return {
-        label: itm?.projectType,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let ccList = useSelector((state) => {
-    return state?.adminData?.getManageCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-  let projectList = useSelector((state) => {
-    return state?.adminData?.getProject.map((itm) => {
-      return {
-        label: itm?.projectId,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
   let showType = getAccessType("Actions(EVM-Financial)")
-
-
   let shouldIncludeEditColumn = false
-
   if (showType === "visible"){
     shouldIncludeEditColumn = true
   } 
-
-
 
 
   let dbConfigList = useSelector((state) => {
@@ -105,10 +79,6 @@ const EarnValueMgmtFinancial = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        // plan1: itm.earnvalueArray?.[0]?.["plan"],
-        // plan2: itm.earnvalueArray?.[1]?.["plan"],
-        // plan3: itm.earnvalueArray?.[2]?.["plan"],
-
         edit: (
           <CstmButton
             className={"p-2"}
@@ -117,7 +87,6 @@ const EarnValueMgmtFinancial = () => {
                 name={""}
                 onClick={() => {
                   setmodalOpen(true);
-                  // dispatch(FormssActions.getEarnValueMgmtFinancial(true));
                   setmodalHead("Edit Plan");
                   setmodalBody(
                     <>
@@ -136,7 +105,6 @@ const EarnValueMgmtFinancial = () => {
             }
           />
         ),
-
         delete: (
           <CstmButton
             child={
@@ -205,21 +173,6 @@ const EarnValueMgmtFinancial = () => {
     formState: { errors },
   } = useForm();
 
-
-  // const months = [
-  //   "Jan",
-  //   "Feb",
-  //   "Mar",
-  //   "Apr",
-  //   "May",
-  //   "Jun",
-  //   "Jul",
-  //   "Aug",
-  //   "Sep",
-  //   "Oct",
-  //   "Nov",
-  //   "Dec",
-  // ];
   const months = [
     { label: "Jan", value: 1 },
     { label: "Feb", value: 2 },
@@ -259,21 +212,31 @@ const EarnValueMgmtFinancial = () => {
   let table = {
     columns: [
       {
+        name: "Customer",
+        value: "customer",
+        style: "min-w-[90px] max-w-[90px] text-center p-2",
+      },
+      {
         name: "Cost Center",
         value: "costCenter",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[90px] max-w-[90px] text-center",
+      },
+      {
+        name: "Business Unit",
+        value: "businessUnit",
+        style: "min-w-[100px] max-w-[100px] text-center",
       },
       ...newColumns,
     
-      ...(shouldIncludeEditColumn
-        ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-          ]
-        : [])
+      // ...(shouldIncludeEditColumn && viewType === "Month"
+      //   ? [
+      //       {
+      //         name: "Edit",
+      //         value: "edit",
+      //         style: "min-w-[100px] max-w-[100px] text-center",
+      //       },
+      //     ]
+      //   : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -338,6 +301,7 @@ const EarnValueMgmtFinancial = () => {
       { id: 12, name: "Dec" }
     ],
   };
+
   let bussinessUnit = useSelector((state) => {
     return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
       return {
@@ -346,6 +310,7 @@ const EarnValueMgmtFinancial = () => {
       };
     }):[]
   });
+
    let customerList = useSelector((state) => {
       return state?.gpTrackingReducer?.getCustomer.map((itm) => {
         return {
@@ -354,6 +319,7 @@ const EarnValueMgmtFinancial = () => {
         };
       });
     });
+
     let costCenterList = useSelector((state) => {
       return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
         return {
@@ -362,18 +328,23 @@ const EarnValueMgmtFinancial = () => {
         };
       });
     });
+
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
     dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
   };
+
   useEffect(() => {
+    exportData.current = []
+    extraColumnsState.forEach((itm) => {
+      exportData.current =  [...exportData.current, itm.month+"-"+itm.year]
+    });
     dispatch(
       FormssActions.postEarnValueMgmtFinancial(
         {
-          viewBy: extraColumns.join(","),
-          year: `${currrentYear}`,
-          yyear: `${currrentYear}`
+          Monthly: exportData.current.join(","),
+          viewType:"Month"
         },
         () => {}
       )
@@ -382,54 +353,32 @@ const EarnValueMgmtFinancial = () => {
 
   const handleCustomerChange = (value) => {
     const selectedValue = value;
-    // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
     dispatch( gpTrackingActions.getGPCostCenter(selectedValue,true));
-
-
   };
 
   useEffect(() => {
-    const monthMap = {
-      1: "Jan",
-      2: "Feb",
-      3: "Mar",
-      4: "Apr",
-      5: "May",
-      6: "Jun",
-      7: "Jul",
-      8: "Aug",
-      9: "Sep",
-      10: "Oct",
-      11: "Nov",  
-      12: "Dec",
-    };
+    const monthMap = {1: "Jan",2: "Feb",3: "Mar",4: "Apr",5: "May",6: "Jun",7: "Jul",8: "Aug",9: "Sep",10: "Oct",11: "Nov", 12: "Dec"};
     let cols = [];
-    extraColumns.forEach((index) => {
+    extraColumnsState.forEach((itm) => {
+      let monthName = monthMap[itm.month];
+      let year = itm.year;
       if (ValGm && ValGm === "Monthly") {
         cols.push([
-            // {
-            //   name: `AOP Target (${monthMap[index]} ${year})`,
-            //   value: "aop-"+index,
-            //   style: "min-w-[200px] max-w-[200px] text-center",
-            // },
+         
           {
-            name: `PV Target (${monthMap[index]} ${year})`,
-            value: "pv-"+index,
-            style: "min-w-[200px] max-w-[200px] text-center",
+            name: `PV Target (${monthName} ${year})`,
+            value: "pv-"+itm.month+"-"+year,
+            style: "min-w-[150px] max-w-[150px] text-center",
           },
           {
-            name: `Achievement (${monthMap[index]} ${year})`,
-            value: "amount-" + index,
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
+            name: `Achievement (${monthName} ${year})`,
+            value: "amount-"+itm.month+"-"+year,
+            style: "min-w-[180px] max-w-[180px] text-center",
+          },  
         ]);
       } else {
         cols.push([
-          {
-            name: `AOP Target (${index} ${year})`,
-            value: '',
-            style: "min-w-[200px] max-w-[200px] text-center",
-          },
+      
           {
             name: `PV Target (${index} ${year})`,
             value: '',
@@ -444,38 +393,11 @@ const EarnValueMgmtFinancial = () => {
       }
     });
     cols = cols.flat(Infinity);
-
     setNewColumns(cols);
+  }, [extraColumnsState,  modalOpen]);
 
-  }, [extraColumns]);
-
-  // const handleAddActivity = (res) => {
-  //   res['viewBy'] = res['Monthly']
-  //   try {
-  //     if (res?.typeSelectional === "Monthly") {
-  //       setExtraColumns(
-  //         res?.viewBy
-  //           ?.split(",")
-  //           ?.map((key) => +key)
-  //           ?.sort((a, b) => a - b)
-  //       );
-  //     } else {
-  //       setExtraColumns(res?.viewBy?.split(",")?.sort((a, b) => {
-  //         const numA = parseInt(a.split("-")[1]);
-  //         const numB = parseInt(b.split("-")[1]);
-          
-  //         return numA - numB;
-  //       }));
-  //     }
-
-  //     dispatch(FormssActions.postEarnValueMgmtFinancial(res, () => {}));
-  //   } catch (error) {
-  //     console.error("[ERROR] :: " + error.message);
-  //   }
-  // };
 
   let formD = [
-  
     {
       label: "Year",
       value: "",
@@ -484,15 +406,22 @@ const EarnValueMgmtFinancial = () => {
       option: listYear,
       required: true,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     {
       label: "Month",
       value: "",
       name: "month",
-      type:"select",
+      type:"newmuitiSelect2",
       option: months,
       required: true,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      props: {
+        selectType: selectType,
+      },
+      // bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      // classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+      classes: "col-span-1 ",
+      hasSelectAll:true,
     },
     {
       label: 'Business unit',
@@ -504,7 +433,7 @@ const EarnValueMgmtFinancial = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
+      classes: "col-span-1 h-10",
     },
     {
       label: "Customer",
@@ -518,10 +447,8 @@ const EarnValueMgmtFinancial = () => {
           handleCustomerChange(e?.target?.value);
         },
       },
-      // required: true,
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
-
-   
     {
       label: 'Cost Center',
       name: "costCenter",
@@ -539,7 +466,6 @@ const EarnValueMgmtFinancial = () => {
  
 
   let cummulativeFilter = [
-   
     {
       label: "Year",
       value: "",
@@ -548,16 +474,8 @@ const EarnValueMgmtFinancial = () => {
       option: listYear,
       required: true,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
-    // {
-    //   label: "Month",
-    //   value: "",
-    //   name: "month",
-    //   type:"select",
-    //   option: months,
-    //   required: true,
-    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-    // },
     {
       label: 'Month',
       name: "month",
@@ -570,15 +488,6 @@ const EarnValueMgmtFinancial = () => {
       hasSelectAll: true,
       classes: "col-span-1 h-10 ",
     },
-    
-    // {
-    //   label: "Cost Center",
-    //   value: "",
-    //   name:"costCenterId",
-    //   type:  "select",
-    //   option: costCenterList,
-    //   required: true,
-    // },
     {
       label: 'Business unit',
       name: "businessUnit",
@@ -603,7 +512,7 @@ const EarnValueMgmtFinancial = () => {
           handleCustomerChange(e?.target?.value);
         },
       },
-      // required: true,
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     {
       label: 'Cost Center',
@@ -617,93 +526,40 @@ const EarnValueMgmtFinancial = () => {
       hasSelectAll: true,
       classes: "col-span-1 h-10",
     },
-    
-  ];
-
-  let formDate = [
-    {
-      label: "", 
-      name: "dateTime",
-      value: "Select",
-      type: "datetimeRange",
-      // required: true,
-      classes: "col-span-1",
-    },
   ];
 
 
-  const tabs = [
-    {
-      label: "Month",
-      body:
-          <div className="flex items-center justify-start">
-
-        
-            <div className="w-full">
-              <CommonForm
-                classes="grid grid-cols-6  p-2"
-                Form={formD}
-                errors={errors}
-                register={register}
-                setValue={setValue}
-                getValues={getValues}
-              />
-            </div>
-            <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
-              <Button
-                classes="flex h-fit"
-                name=""
-                icon={<UilSearch className="w-5 m-2 h-5" />}
-                onClick={handleSubmit(handleAddActivity)}
-              />
-            </div>
-          </div>
-    },
-    {
-      label: "Cumulative",
-      body: <div className="flex items-center justify-start">
-
-        
-      <div className="w-full">
-        <CommonForm
-          classes="grid grid-cols-6  p-2"
-          Form={cummulativeFilter}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
-      </div>
-      <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
-        <Button
-          classes="flex h-fit"
-          name=""
-          icon={<UilSearch className="w-5 m-2 h-5" />}
-          onClick={handleSubmit(handleAddActivity)}
-        />
-      </div>
-    </div>
-    },
-  ]
-  const [enable, setEnable] = useState(tabs[0].label)
   async  function handleAddActivity(res){
+    let months = res?.Month?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
+    let extraCol = months.map((itm) => ({ month: itm, year: res.year }));
+    setExtraColumnsState(extraCol)
+    exportData.current = []
+    months.forEach((itm) => {
+      exportData.current =  [...exportData.current, itm+"-"+res.year]
+    });
+    dispatch(
+      FormssActions.postEarnValueMgmtFinancial(
+        {
+          Monthly: exportData.current.join(","),
+          viewType:viewType
+        },
+        () => {}
+      )
+    );
     // Data.current = ""
     // setExtraColumns(res['Month'])
-    Data.current = res['CostCenter']
-    // FRERFER
-    console.log("============", res)
-    if (enable=="Cumulative"){
+    // Data.current = res['CostCenter']
+
+    // if (enable=="Cumulative"){
       
-      res['month']=res['Month']
-    }
+    //   res['month']=res['Month']
+    // }
     
     
-    const resp = await Api.post({ data: res, url: Urls.formss_earnValue_mgmt_financial})
-    if (resp.status == 200) {
-      dispatch(SET_TABLE(resp?.data?.data))
-    }
-    // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
-    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+    // const resp = await Api.post({ data: res, url: Urls.formss_earnValue_mgmt_financial})
+    // if (resp.status == 200) {
+    //   dispatch(SET_TABLE(resp?.data?.data))
+    // }
   };
 
   const onTableViewSubmit = (data) => { 
@@ -713,15 +569,62 @@ const EarnValueMgmtFinancial = () => {
     }))
   }
 
-  useEffect(()=>{
-    dispatch(gpTrackingActions.getGPCustomer());
-  },[])
+  // useEffect(()=>{
+  //   dispatch(gpTrackingActions.getGPCustomer());
+  // },[])
   return (
     <>
-      {/* <div className="flex items-center justify-start">
+      <div className="flex items-center px-4 space-x-4 mt-1">
+        <button 
+          onClick={() => {
+            setViewType("Month")
+            if (viewType !== "Month") {
+              exportData.current = []
+              extraColumnsState.forEach((itm) => {
+                exportData.current =  [...exportData.current, itm.month+"-"+itm.year]
+              });
+              dispatch(
+                FormssActions.postEarnValueMgmtFinancial(
+                  {
+                    Monthly: exportData.current.join(","),
+                    viewType:"Month"
+                  },
+                  () => {}
+                )
+              );
+            }
+            
+          }}
+          className={`text-white rounded-full py-[6px] px-3 ${viewType === "Month" ? "bg-onHoverButton" : "bg-pcol"} `}>
+          Month
+        </button>
+        <button 
+          onClick={() => {
+            setViewType("Cumulative")
+            if (viewType !== "Cumulative"){
+              exportData.current = []
+              extraColumnsState.forEach((itm) => {
+                exportData.current =  [...exportData.current, itm.month+"-"+itm.year]
+              });
+              dispatch(
+                FormssActions.postEarnValueMgmtFinancial(
+                  {
+                    Monthly: exportData.current.join(","),
+                    viewType:"Cumulative"
+                  },
+                  () => {}
+                )
+              );
+            }
+          }}
+          className={`text-white rounded-full py-[6px] px-3 ${viewType === "Cumulative" ? "bg-onHoverButton" : "bg-pcol"} `}>
+          Cumulative
+        </button>
+      </div>
+      <div className="flex items-center justify-start ">
         <div className="col-span-1 md:col-span-1">
           <CommonForm
-            classes="grid grid-cols-2 w-[400px] overflow-y-hidden p-2"
+            classes="grid grid-cols-5 w-full overflow-y-hidden"
             Form={formD}
             errors={errors}
             register={register}
@@ -729,7 +632,7 @@ const EarnValueMgmtFinancial = () => {
             getValues={getValues}
           />
         </div>
-        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+        <div className="flex w-fit mt-4  items-center justify-center ">
           <Button
             classes=" flex h-fit "
             name=""
@@ -737,8 +640,7 @@ const EarnValueMgmtFinancial = () => {
             onClick={handleSubmit(handleAddActivity)}
           />
         </div>
-      </div> */}   
-      <Tabs data={tabs} date={true} setEnable={setEnable} enable={enable} />
+      </div>
       <AdvancedTable  
         headerButton={
           <>
@@ -763,9 +665,9 @@ const EarnValueMgmtFinancial = () => {
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={dbConfigTotalCount}
+        totalCount={""}
         getaccessExport={"Export(EVM-Financial)"}
-        heading = {'Total Count :- '}
+        heading = {""}
       />
 
       <Modal

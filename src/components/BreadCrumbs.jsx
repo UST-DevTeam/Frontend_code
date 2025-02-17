@@ -133,6 +133,10 @@ const BreadCrumbs = () => {
       name: "Activity Logs",
       url: "/hr/superAdmin/ActivityLogs",
     },
+    repository: {
+      name: "Repository",
+      url: "/repository",
+    },
   };
 
   let breadcrumblist = useSelector((state) => {

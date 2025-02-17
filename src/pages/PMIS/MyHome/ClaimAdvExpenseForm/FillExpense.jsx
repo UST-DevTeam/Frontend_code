@@ -1,25 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
-import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
+import { Urls, backendassetUrl} from "../../../../utils/url";
 import AdminActions from "../../../../store/actions/admin-actions";
-import FileUploader from "../../../../components/FIleUploader";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import FillExpenseForm from "../../../../pages/PMIS/MyHome/ClaimAdvExpenseForm/FillExpenseForm";
 import AdvancedTableRow from "../../../../components/AdvancedTableRow";
-import { objectKeys } from "react-querybuilder";
 import DownloadButton from "../../../../components/DownloadButton";
 import ViewButton from "../../../../components/ViewButton";
 
@@ -326,20 +320,28 @@ const FillExpense = () => {
         name: "Expense No.",
         value: "ExpenseNo",
         style: "min-w-[200px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
-      },
-      
+      },  
+      ...(!hide
+        ? [
+          {
+            name: "Customer",
+            value: "customerName",
+            style: "min-w-[140px] max-w-[450px] text-center",
+          },
+        ]
+        : []),  
       {
         name: "Cost Center",
         value: "costcenter",
         style: "min-w-[140px] max-w-[450px] text-center",
       },
       {
-        name: "projectIdName",
+        name: "Project ID",
         value: "projectIdName",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
       {
-        name: "Site Id",
+        name: "Site ID",
         value: "Site_Id",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
@@ -530,6 +532,7 @@ const FillExpense = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        heading = {"Total Expense:- "}
       />
 
       <Modal
@@ -590,7 +593,7 @@ const FillExpense = () => {
                       name={""}
                       onClick={() => {
                         setmodalOpen(true);
-                        setmodalHead("Attachment Preview");
+                        setmodalHead("Attachment Preview: "+ item?.ExpenseNo);
                         setmodalBody(
                           <>
                             <div className="flex justify-center items-center">
@@ -614,6 +617,7 @@ const FillExpense = () => {
           setValue={setValue}
           getValues={getValues}
           totalCount={dbConfigTotalCount}
+          showTotalCount = {false}
         />}
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}

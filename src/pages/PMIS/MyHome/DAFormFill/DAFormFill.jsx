@@ -159,6 +159,11 @@ const DAFormFill = () => {
         style: "min-w-[100px] max-w-[450px] text-center",
       },
       {
+        name: "Customer",
+        value: "customerName",
+        style: "min-w-[130px] max-w-[450px] text-center",
+      },
+      {
         name: "Cost Center",
         value: "costcenterName",
         style: "min-w-[130px] max-w-[450px] text-center",

@@ -85,9 +85,9 @@ const FilterActions = {
         }
     },
 
-    getMyTaskSubProject:(reset=true,args="") => async (dispatch, _) => {
+    getMyTaskSubProject:(reset=true,args="",id) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.filter_myTask_subProject}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.get({ url:`${Urls.filter_myTask_subProject}/${id}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_FILTER_MYTASK_SUBPROJECT({dataAll,reset}))

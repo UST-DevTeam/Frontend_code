@@ -197,12 +197,11 @@ const ClaimAndAdvance = () => {
 
   let table = {
     columns: [
-      // {
-      //   name: "Month-Year",
-      //   value: "addedMonth",
-      //   style:
-      //     "min-w-[110px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
-      // },
+      {
+        name: "Customer",
+        value: "customerName",
+        style:"min-w-[130px] max-w-[200px] text-center",
+      },
       {
         name: "Cost Center",
         value: "costCenter",
@@ -213,7 +212,7 @@ const ClaimAndAdvance = () => {
         name: "Expanse/Advance/Settlement ID",
         value: "name",
         style:
-          "min-w-[250px] max-w-[450px] text-center left-[220px] bg-[#3e454d]",
+          "min-w-[230px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Submission Date",

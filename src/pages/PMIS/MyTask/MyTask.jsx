@@ -36,16 +36,13 @@ import AllocateProjectForm from "../Admin/ManageProjectSiteId/AllocateProjectFor
 import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
 import { GET_CIRCLE_WITH_PG_DATA, GET_MAPPED_DATA } from "../../../store/reducers/projectList-reducer";
 import MyHomeActions from "../../../store/actions/myHome-actions";
+import { GET_FILTER_MYTASK_SUBPROJECT } from "../../../store/reducers/filter-reducer";
 
 
 const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
-  // console.log(permission?.pmpermission,"permission")
-  // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
-
-  // console.log(getAccessType("Add Site"), "getAccessType");
   const { projectuniqueId } = useParams();
 
   const [modalOpen, setmodalOpen] = useState(false);
@@ -87,7 +84,6 @@ const MyTask = () => {
       setOld(oldata);
       setValue("ptype", oldata["projectType"]);
     }
-    console.log(oldata, "olddataolddataolddata");
     return state.projectList.getProjectTypeSub;
   });
 
@@ -99,8 +95,14 @@ const MyTask = () => {
     shouldIncludeEditColumn = true
   }
 
-
-  
+  let customerList = useSelector((state) => {
+    return state?.adminData?.getManageCustomer.map((itm) => {
+        return {
+            label: itm?.customerName,
+            value: itm?.uniqueId
+        }
+    })
+}) 
 
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getMyTaskSubProject.map((itm) => {
@@ -228,23 +230,9 @@ const MyTask = () => {
         ) : (
           ""
         ),
-        // siteStartDate: <div className='flex content-center w-full justify-center'>
-        //     <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
-        //         setmodalOpen(true)
-
-        //         dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
-        //         setmodalHead("Add Planned Start Date")
-        //         setmodalBody(<>
-        //             <AllocateProjectDateForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-        //             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //         </>)
-        //         console.log('ahshshhs', itm)
-        //         //setmodalOpen(false)
-        //     }} classes='w-full'></Button>} />
-        // </div>,
+        
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
-          // console.log(iewq, "iewqiewqiewqiewq");
           return {
             ...iewq,
             SubProject: "",
@@ -252,45 +240,6 @@ const MyTask = () => {
             MileDevName: (
               <div className="flex">
                 <p
-                  // className="cursor"
-                  // onClick={() => {
-                  //   if (iewq.mileStoneStatus != "Closed") {
-                  //     setmodalOpen(true);
-
-                  //     dispatch(
-                  //       projectListActions.getUserAllocatedProject(
-                  //         true,
-                  //         projectuniqueId
-                  //       )
-                  //     );
-
-                  //     setmodalHead("Allocate User");
-                  //     setmodalBody(
-                  //       <>
-                  //         <AllocateProjectForm
-                  //           from={"mileStone"}
-                  //           listsite={[]}
-                  //           projectuniqueId={projectuniqueId}
-                  //           isOpen={modalOpen}
-                  //           setIsOpen={setmodalOpen}
-                  //           resetting={false}
-                  //           formValue={iewq}
-                  //         />
-                  //       </>
-                  //     );
-                  //   } else {
-                  //     let msgdata = {
-                  //       show: true,
-                  //       icon: "error",
-                  //       buttons: [],
-                  //       type: 1,
-                  //       text: "This task is already closed so cannot reallocate",
-                  //     };
-                  //     dispatch(ALERTS(msgdata));
-                  //   }
-
-                  //   console.log("ahshshhs", itm);
-                  // }}
                 >
                   {iewq.assignerResult ? (
 
@@ -313,25 +262,6 @@ const MyTask = () => {
                                           : ''}
                               </p>
                           ))}
-                          {/* {iewq.assignerResult
-                            .slice(0, 2)
-                            .map((itwsw, index) => (
-                              <p
-                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
-                              >
-                                {" "}
-                                {itwsw.assignerName.split(" ").length > 1
-                                  ? itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1) +
-                                    itwsw.assignerName
-                                      .split(" ")[1]
-                                      .substr(0, 1)
-                                  : itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}
-                              </p>
-                            ))} */}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
@@ -627,133 +557,9 @@ const MyTask = () => {
                 />
               </>
             ),
-            // MileStartDate: <div className='flex content-center w-full justify-center'>
-            //     <CstmButton className={"p-2 w-full"} child={<Button name={iewq.plannedStartDate ? iewq.plannedStartDate : "Assign Date"} onClick={() => {
-            //         setmodalOpen(true)
-
-            //         dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
-            //         setmodalHead("Add Planned Start Date")
-            //         setmodalBody(<>
-            //             <AllocateProjectDateForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={iewq} />
-            //             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-            //         </>)
-            //         console.log('ahshshhs', itm)
-            //         //setmodalOpen(false)
-            //     }} classes='w-full'></Button>} />
-            // </div>
           };
         }),
-        // "status": <CstmButton child=
-        // {<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
 
-        // projectId: (
-        //   <p
-        //     // onClick={() => handleFullName(item)}
-        //     onClick={() => navigate(`/projectSiteId/${itm.customeruniqueId}`)}
-        //     className="text-pcol font-extrabold hover:underline focus:outline-none hover:font-semibold"
-        //   >
-        //     {itm.projectId}
-        //   </p>
-        // ),
-
-        // "siteStatus": <div className='flex '><CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-        //     setmodalOpen(true)
-        //     setmodalHead("")
-        //     setmodalBody(<>
-        //    <div className='flex justify-between'>
-        //    <label htmlFor="" className='font-bold'> Status:</label>
-        //       <p className='bg-green-400 rounded-lg w-16 text-center'>{itm.siteStatus}</p>
-        //    </div>
-        //    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-        //         <Button classes={"mt-2 w-sm text-center flex mx-auto"} name="Open Task" />
-        //     </div>
-        //     </>)
-        // }}></EditButton>} /></div>,
-
-        // siteStatus:
-        //   itm.siteStatus == "Close" && rolename == "Admin" ? (
-        //     <>
-        //       <p
-        //         className="cursor-pointer"
-        //         onClick={() => {
-        //           setmodalOpen(true);
-        //           setmodalHead("");
-        //           setmodalBody(
-        //             <>
-        //               <div className="flex justify-between">
-        //                 <label htmlFor="" className="font-bold">
-        //                   {" "}
-        //                   Status:
-        //                 </label>
-        //                 <p className="bg-green-400 rounded-lg w-16 text-center">
-        //                   {itm.siteStatus}
-        //                 </p>
-        //               </div>
-        //               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-        //                 <Button
-        //                   classes={"mt-2 w-sm text-center flex mx-auto"}
-        //                   name="Open Task"
-        //                 />
-        //               </div>
-        //             </>
-        //           );
-        //         }}
-        //       >
-        //         {itm.siteStatus}
-        //       </p>
-        //     </>
-        //   ) : (
-        //     <p>{itm.siteStatus}</p>
-        //   ),
-
-        // edit: (
-        //   <div className="flex ">
-        //     <CstmButton
-        //       className={"p-2"}
-        //       child={
-        //         <EditButton
-        //           name={""}
-        //           onClick={() => {
-        //             setmodalOpen(true);
-        //             dispatch(AdminActions.getProject());
-        //             setmodalHead("Edit Site ID");
-        //             setmodalBody(
-        //               <>
-        //                 <ManageProjectSiteIdForm
-        //                   isOpen={modalOpen}
-        //                   setIsOpen={setmodalOpen}
-        //                   resetting={false}
-        //                   formValue={itm}
-        //                 />
-        //                 {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //               </>
-        //             );
-        //             console.log("ahshshhs", itm);
-        //             //setmodalOpen(false)
-        //           }}
-        //         ></EditButton>
-        //       }
-        //     />
-        //   </div>
-        // ),
-
-        // edit: <div className="flex "></div>,
         siteeventLogs: <></>,
         delete: (
           <>
@@ -900,7 +706,12 @@ const MyTask = () => {
         name: "Project ID",
         value: "projectId",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-[140px] bg-[#3e454d] z-20",
+          "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Customer",
+        value: "customerName",
+        style:"min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Sub Project",
@@ -947,36 +758,6 @@ const MyTask = () => {
         value: "siteStatus",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-
-      // {
-      //   name: "Billing Status",
-      //   value: "siteBillingStatus",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Event Logs",
-      //   value: "siteeventLogs",
-      //   style: "min-w-[140px] max-w-[200px] text-center",
-      // },
-      // {
-      //   name: "Edit",
-      //   value: "edit",
-      //   style: "min-w-[100px] max-w-[200px] text-center",
-      // },
-    //   ...(shouldIncludeEditColumn
-    //     ? [
-    //         {
-    //           name: "Delete",
-    //           value: "delete",
-    //           style: "min-w-[50px] max-w-[100px] text-center",
-    //         },
-    //       ]
-    //     : [])
-      // {
-      //   name: "Delete",
-      //   value: "delete",
-      //   style: "min-w-[50px] max-w-[100px] text-center",
-      // },
     ],
     childList: [""],
     childs: {
@@ -1081,6 +862,22 @@ const MyTask = () => {
     },
     filter: [
       {
+        label: "Customer",
+        type: "select",
+        name: "customer",
+        option:customerList,
+        props: {
+          onChange:(e)=>{
+            if (e.target.value){
+              dispatch(FilterActions.getMyTaskSubProject(true,"",e.target.value))
+            }
+            else{
+              dispatch(GET_FILTER_MYTASK_SUBPROJECT({dataAll:[],reset:true}))
+            }
+          }
+        }
+    },
+      {
         label: "Sub Project",
         type: "select",
         name: "subProject",
@@ -1117,33 +914,21 @@ const MyTask = () => {
       }
     ],
   };
+
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
-    dispatch(MyHomeActions.getMyTask(true,objectToQueryString(data)))
+    dispatch(MyHomeActions.getMyTask(true,strVal))
   };
   useEffect(() => {
+    dispatch(AdminActions.getManageCustomer())
     dispatch(MyHomeActions.getMyTask())
-    dispatch(FilterActions.getMyTaskSubProject())
+    dispatch(GET_FILTER_MYTASK_SUBPROJECT({dataAll:[],reset:true}))
   }, []);
-  const handleBulkDelte = () => {
-   
-    // dispatch(
-    //   CommonActions.deleteApiCallerBulk(
-    //     `${Urls.projectList_siteEngineer}`,
-    //     {
-    //       ids: parentsite
-    //     },
-    //     () => {
-    //       dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    //       setmodalOpen(false)
-    //       setparentsite([])
-    //       setmultiSelect([])
-    //     }
-    //   )
-    // );   
+
+  const handleBulkDelte = () => {   
   };
 
 
@@ -1202,7 +987,7 @@ const MyTask = () => {
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
-                  CommonActions.commondownload("/export/myTask","Export_My_Task.xlsx")
+                  CommonActions.commondownload("/export/myTask?"+strValFil,"Export_My_Task.xlsx")
                 );
               }}
               name={"Export"}
@@ -1239,7 +1024,6 @@ const MyTask = () => {
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
-      {/* <CommonForm/> */}
     </>
   );
 };

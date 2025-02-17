@@ -78,6 +78,14 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             required: true,
             classes: "col-span-1"
         },
+        {
+            label: "Business Unit",
+            value: "",
+            name: "businessUnit",
+            type: "text",
+            required: true,
+            classes: "col-span-1"
+        },
     ]
     const {
         register,

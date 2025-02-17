@@ -142,7 +142,11 @@ const ClaimAdvanceOnclick = () => {
         value: "empCode",
         style: "min-w-[150px] max-w-[100px] text-center",
       },
-
+      {
+        name: "Customer",
+        value: "customerName",
+        style: "min-w-[140px] max-w-[250px] text-center",
+      },
       {
         name: "Cost Center",
         value: "costcenter",

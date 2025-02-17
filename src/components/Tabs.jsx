@@ -16,8 +16,6 @@ function Tabs({ data,enable,setEnable, date=false }) {
         body: JSON.stringify({ date }),
       });
       const result = await response.json();
-
-      console.log("API Response:", result);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -33,9 +31,7 @@ function Tabs({ data,enable,setEnable, date=false }) {
           }
 
        {date && <div className="ml-auto">
-          
-        </div>}
-  <DateRangePicking  
+        <DateRangePicking  
        itm={
         {
           label: "Date Range Selector",
@@ -44,11 +40,12 @@ function Tabs({ data,enable,setEnable, date=false }) {
           type: "datetimeRange",
           classes: "col-span-1",
           formatop:"yyyy-MM-DD",
-          onChange :handleDateRange
-          
+          onChange :handleDateRange        
         }
        }
     />
+          
+        </div>}
         </div>
         <div className="mt-4 p-4">
           {
