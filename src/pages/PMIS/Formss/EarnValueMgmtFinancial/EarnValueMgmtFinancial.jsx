@@ -22,9 +22,6 @@ import { SET_TABLE } from "../../../../store/reducers/table-reducer";
 import Api from "../../../../utils/api";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 
-
-
-
 const EarnValueMgmtFinancial = () => {
   const Data = useRef("")
   const currentMonth = new Date().getMonth() + 1;
@@ -73,7 +70,6 @@ const EarnValueMgmtFinancial = () => {
     shouldIncludeEditColumn = true
   } 
 
-
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     return interdata?.map((itm) => {
@@ -97,6 +93,7 @@ const EarnValueMgmtFinancial = () => {
                         formValue={itm}
                         year = {year}
                         monthss = {extraColumns}
+                        columnHeader = {extraColumnsState}
                       />
                     </>
                   );
@@ -153,7 +150,6 @@ const EarnValueMgmtFinancial = () => {
     });
   });
 
-  
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
     if (interdata.length > 0) {
@@ -214,7 +210,7 @@ const EarnValueMgmtFinancial = () => {
       {
         name: "Customer",
         value: "customer",
-        style: "min-w-[90px] max-w-[90px] text-center p-2",
+        style: "min-w-[90px] max-w-[90px] text-center",
       },
       {
         name: "Cost Center",
@@ -228,15 +224,15 @@ const EarnValueMgmtFinancial = () => {
       },
       ...newColumns,
     
-      // ...(shouldIncludeEditColumn && viewType === "Month"
-      //   ? [
-      //       {
-      //         name: "Edit",
-      //         value: "edit",
-      //         style: "min-w-[100px] max-w-[100px] text-center",
-      //       },
-      //     ]
-      //   : [])
+      ...(shouldIncludeEditColumn && viewType === "Month"
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[100px] text-center",
+            },
+          ]
+        : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -262,7 +258,6 @@ const EarnValueMgmtFinancial = () => {
       day = 31,
       week;
 
-
     do {
       let d = new Date(year, month, day--);
       week = getWeekNumber(d)[1];
@@ -277,11 +272,6 @@ const EarnValueMgmtFinancial = () => {
     const weekString = "W-" + wwq;
     listW.push({ id: weekString, name: weekString });
   }
-
-
-  // for (let ywq = 2021; ywq <= +endDate; ywq++) {
-  //   listYear.push(ywq);
-  // }
 
   let listDict = {
     "": [],
@@ -424,18 +414,6 @@ const EarnValueMgmtFinancial = () => {
       hasSelectAll:true,
     },
     {
-      label: 'Business unit',
-      name: "businessUnit",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: bussinessUnit,
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10",
-    },
-    {
       label: "Customer",
       value: "",
       name:"customerId",
@@ -448,6 +426,18 @@ const EarnValueMgmtFinancial = () => {
         },
       },
       classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+    },
+    {
+      label: 'Business unit',
+      name: "businessUnit",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: bussinessUnit,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10",
     },
     {
       label: 'Cost Center',
@@ -489,18 +479,6 @@ const EarnValueMgmtFinancial = () => {
       classes: "col-span-1 h-10 ",
     },
     {
-      label: 'Business unit',
-      name: "businessUnit",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: bussinessUnit,
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
-    },
-    {
       label: "Customer",
       value: "",
       name:"customerId",
@@ -513,6 +491,18 @@ const EarnValueMgmtFinancial = () => {
         },
       },
       classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+    },
+    {
+      label: 'Business unit',
+      name: "businessUnit",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: bussinessUnit,
+      props: {
+        selectType: selectType,
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
     },
     {
       label: 'Cost Center',
