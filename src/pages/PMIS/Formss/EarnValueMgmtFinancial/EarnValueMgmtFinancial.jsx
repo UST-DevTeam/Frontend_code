@@ -18,9 +18,9 @@ import moment from "moment/moment";
 import CommonForm from "../../../../components/CommonForm";
 import { UilSearch } from "@iconscout/react-unicons";
 import FileUploader from "../../../../components/FIleUploader";
-import { SET_TABLE } from "../../../../store/reducers/table-reducer";
-import Api from "../../../../utils/api";
-import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
+import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
+import CurrentuserActions from "../../../../store/actions/currentuser-action";
+import { GET_CURRENT_USER_COST_CENTER } from "../../../../store/reducers/currentuser-reducer";
 
 const EarnValueMgmtFinancial = () => {
   const Data = useRef("")
@@ -38,6 +38,10 @@ const EarnValueMgmtFinancial = () => {
   const [fileOpen, setFileOpen] = useState(false)
   const[viewType,setViewType] = useState("Month")
   const exportData = useRef([])
+  const [amountType, setAmountType] = useState("INR")
+  const[costCenter,setCostCenter] = useState([""])
+  const[customer,setCustomer] = useState([""])
+  const[businessUnit,setBusinessUnit] = useState([""])
 
   let extraColumnsWithYear;
 
@@ -224,15 +228,15 @@ const EarnValueMgmtFinancial = () => {
       },
       ...newColumns,
     
-      ...(shouldIncludeEditColumn && viewType === "Month"
-        ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[100px] text-center",
-            },
-          ]
-        : [])
+      // ...(shouldIncludeEditColumn && viewType === "Month"
+      //   ? [
+      //       {
+      //         name: "Edit",
+      //         value: "edit",
+      //         style: "min-w-[100px] max-w-[100px] text-center",
+      //       },
+      //     ]
+      //   : [])
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -292,38 +296,45 @@ const EarnValueMgmtFinancial = () => {
     ],
   };
 
-  let bussinessUnit = useSelector((state) => {
-    return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
+
+  const bussinessUnit = useSelector((state) =>
+    (state?.currentuserData?.getcurrentuserBusinessUnit ?? []).filter((itm) => itm.businessUnit).map((itm) => ({
+      label: itm.businessUnit,
+      value: itm.businessUnit,
+    }))
+  );
+
+  let customerList = useSelector((state) => {
+    return state?.currentuserData?.getcurrentuserCustomer.map((itm) => {
       return {
-        label: itm,
-        value: itm,
+        label: itm?.customerName,
+        value: itm?.customerId,
       };
-    }):[]
+    });
   });
 
-   let customerList = useSelector((state) => {
-      return state?.gpTrackingReducer?.getCustomer.map((itm) => {
-        return {
-          label: itm?.customer,
-          value: itm?.uniqueId,
-        };
-      });
-    });
+  const costCenterList = useSelector((state) =>
+    (state?.currentuserData?.getcurrentusercostcenter ?? [])?.map((itm) => ({
+      label: itm.costCenter,
+      value: itm.uniqueId,
+    }))
+  );
 
-    let costCenterList = useSelector((state) => {
-      return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
-        return {
-          label: itm?.costCenter,
-          value: itm?.costCenterId,
-        };
-      });
-    });
+
+
+
+
 
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
     dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)));
   };
+
+  useEffect(() => {
+    dispatch(CurrentuserActions.getcurrentuserCustomer())
+    dispatch(CurrentuserActions.getcurrentuserBusinessUnit())
+  }, []);
 
   useEffect(() => {
     exportData.current = []
@@ -334,17 +345,17 @@ const EarnValueMgmtFinancial = () => {
       FormssActions.postEarnValueMgmtFinancial(
         {
           Monthly: exportData.current.join(","),
-          viewType:"Month"
+          viewType:viewType,
+          amountType:amountType,
+          customer:customer,
+          costCenter:costCenter,
+          businessUnit:businessUnit
         },
         () => {}
       )
     );
-  }, []);
+  }, [amountType]);
 
-  const handleCustomerChange = (value) => {
-    const selectedValue = value;
-    dispatch( gpTrackingActions.getGPCostCenter(selectedValue,true));
-  };
 
   useEffect(() => {
     const monthMap = {1: "Jan",2: "Feb",3: "Mar",4: "Apr",5: "May",6: "Jun",7: "Jul",8: "Aug",9: "Sep",10: "Oct",11: "Nov", 12: "Dec"};
@@ -384,7 +395,7 @@ const EarnValueMgmtFinancial = () => {
     });
     cols = cols.flat(Infinity);
     setNewColumns(cols);
-  }, [extraColumnsState,  modalOpen]);
+  }, [extraColumnsState, modalOpen]);
 
 
   let formD = [
@@ -408,24 +419,8 @@ const EarnValueMgmtFinancial = () => {
       props: {
         selectType: selectType,
       },
-      // bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      // classes:"w-44 sm:w-24 md:w-34 xl:w-44"
       classes: "col-span-1 ",
       hasSelectAll:true,
-    },
-    {
-      label: "Customer",
-      value: "",
-      name:"customerId",
-      type:"select",
-      option: customerList,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      props: {
-        onChange: (e) => {
-          handleCustomerChange(e?.target?.value);
-        },
-      },
-      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
     {
       label: 'Business unit',
@@ -439,6 +434,27 @@ const EarnValueMgmtFinancial = () => {
       hasSelectAll: true,
       classes: "col-span-1 h-10",
     },
+    {
+      label: "Customer",
+      value: "",
+      name:"customerId",
+      type:"select",
+      option: customerList,
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      props: {
+        onChange: (e) => {
+          if (e.target.value){
+            dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",1,e.target.value))
+          }
+          else {
+            dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
+          }
+          
+        },
+      },
+      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+    },
+    
     {
       label: 'Cost Center',
       name: "costCenter",
@@ -453,76 +469,17 @@ const EarnValueMgmtFinancial = () => {
     },
     
   ];
- 
-
-  let cummulativeFilter = [
-    {
-      label: "Year",
-      value: "",
-      name: "year",
-      type: "select",
-      option: listYear,
-      required: true,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
-    },
-    {
-      label: 'Month',
-      name: "month",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: months,
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
-    },
-    {
-      label: "Customer",
-      value: "",
-      name:"customerId",
-      type:"select",
-      option: customerList,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      props: {
-        onChange: (e) => {
-          handleCustomerChange(e?.target?.value);
-        },
-      },
-      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
-    },
-    {
-      label: 'Business unit',
-      name: "businessUnit",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: bussinessUnit,
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
-    },
-    {
-      label: 'Cost Center',
-      name: "costCenter",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: costCenterList,
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10",
-    },
-  ];
-
 
   async  function handleAddActivity(res){
     let months = res?.Month?.split(",")?.map((key) => +key)?.sort((a, b) => a - b);
+    let costCenter = res?.['Cost Center'].split(",")
+    let customer = res?.['customerId'].split(",")
+    let businessUnit = res?.['Business unit'].split(",")
     let extraCol = months.map((itm) => ({ month: itm, year: res.year }));
     setExtraColumnsState(extraCol)
+    setCustomer(customer)
+    setCostCenter(costCenter)
+    setBusinessUnit(businessUnit)
     exportData.current = []
     months.forEach((itm) => {
       exportData.current =  [...exportData.current, itm+"-"+res.year]
@@ -531,25 +488,15 @@ const EarnValueMgmtFinancial = () => {
       FormssActions.postEarnValueMgmtFinancial(
         {
           Monthly: exportData.current.join(","),
-          viewType:viewType
+          viewType:viewType,
+          amountType:amountType,
+          customer:customer,
+          costCenter:costCenter,
+          businessUnit:businessUnit
         },
         () => {}
       )
     );
-    // Data.current = ""
-    // setExtraColumns(res['Month'])
-    // Data.current = res['CostCenter']
-
-    // if (enable=="Cumulative"){
-      
-    //   res['month']=res['Month']
-    // }
-    
-    
-    // const resp = await Api.post({ data: res, url: Urls.formss_earnValue_mgmt_financial})
-    // if (resp.status == 200) {
-    //   dispatch(SET_TABLE(resp?.data?.data))
-    // }
   };
 
   const onTableViewSubmit = (data) => { 
@@ -559,9 +506,6 @@ const EarnValueMgmtFinancial = () => {
     }))
   }
 
-  // useEffect(()=>{
-  //   dispatch(gpTrackingActions.getGPCustomer());
-  // },[])
   return (
     <>
       <div className="flex items-center px-4 space-x-4 mt-1">
@@ -577,7 +521,11 @@ const EarnValueMgmtFinancial = () => {
                 FormssActions.postEarnValueMgmtFinancial(
                   {
                     Monthly: exportData.current.join(","),
-                    viewType:"Month"
+                    viewType:"Month",
+                    amountType:amountType,
+                    customer:customer,
+                    costCenter:costCenter,
+                    businessUnit:businessUnit
                   },
                   () => {}
                 )
@@ -600,7 +548,11 @@ const EarnValueMgmtFinancial = () => {
                 FormssActions.postEarnValueMgmtFinancial(
                   {
                     Monthly: exportData.current.join(","),
-                    viewType:"Cumulative"
+                    viewType:"Cumulative",
+                    amountType:amountType,
+                    customer:customer,
+                    costCenter:costCenter,
+                    businessUnit:businessUnit
                   },
                   () => {}
                 )
@@ -610,6 +562,7 @@ const EarnValueMgmtFinancial = () => {
           className={`text-white rounded-full py-[6px] px-3 ${viewType === "Cumulative" ? "bg-onHoverButton" : "bg-pcol"} `}>
           Cumulative
         </button>
+        
       </div>
       <div className="flex items-center justify-start ">
         <div className="col-span-1 md:col-span-1">
@@ -633,7 +586,13 @@ const EarnValueMgmtFinancial = () => {
       </div>
       <AdvancedTable  
         headerButton={
-          <>
+          <> 
+          <Button
+            onClick={() => {
+              setAmountType(amountType === "INR" ? "DOLLAR" : "INR")
+            }}       
+            classes='w-auto mr-1'>{amountType === "INR" ? <FaRupeeSign /> : <FaDollarSign />}
+          </Button>
             <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}>
@@ -641,11 +600,7 @@ const EarnValueMgmtFinancial = () => {
           </>
         }
         table={table}
-        exportButton={["/export/EvmFinancial", "Export_EvmFinancial.xlsx","POST",{viewBy: extraColumns.join(","),
-          year:year,
-          yyear:year,
-          selectional: "Monthly",
-          typeSelectional: "Monthly",}]}
+        exportButton={["/export/EvmFinancial", `Export_${viewType}_${amountType}_Invoice_PVA.xlsx`,"POST",{Monthly: exportData.current.join(","),viewType:viewType,amountType:amountType,customer:customer,costCenter:costCenter,businessUnit:businessUnit}]}
         filterAfter={onSubmit}
         tableName={"EvmFinancialForm"}
         TableHeight = "h-[52vh]" 
@@ -657,7 +612,7 @@ const EarnValueMgmtFinancial = () => {
         getValues={getValues}
         totalCount={""}
         getaccessExport={"Export(EVM-Financial)"}
-        heading = {""}
+        heading = {`Values are shows in Million : ${amountType}`}
       />
 
       <Modal
@@ -671,5 +626,4 @@ const EarnValueMgmtFinancial = () => {
     </>
   );
 };
-
 export default EarnValueMgmtFinancial;

@@ -31,13 +31,25 @@ import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
 
 function Tabs({ data,enable,setEnable }) {
-  
+  const dispatch=useDispatch()
+  const handleTab=(data)=>{
+    console.log("======cmewfjklerfn=",data)
+    setEnable(data)
+    if(data=="Cumulative"){
+      dispatch(tableAction.getTable(Urls.aop+"?Cumulative=true", SET_TABLE))
+    }
+    else{
+      dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+
+    }
+
+  }
   return (
     <div>
       <div className="flex items-center px-4 space-x-4">
         {
           data.map(item => {
-            return <button onClick={() => setEnable(item.label)} className={`text-white rounded-2xl py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
+            return <button onClick={() => handleTab(item.label)} className={`text-white rounded-2xl py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
           })
         }
 
@@ -62,6 +74,7 @@ const AOPTracking = () => {
     setValues,
     reset,
     formValue,
+    clearErrors, 
     getValues,
     formState: { errors },
   } = useForm();
@@ -86,7 +99,8 @@ const AOPTracking = () => {
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
-  const Data = useRef("")
+  const forExport=useRef(false)
+  const Data=useRef()
   // let months = [
   //   "Jan",
   //   "Feb",
@@ -141,7 +155,7 @@ const AOPTracking = () => {
         // if( dollarAmount.visibility==true){
         //   console.log(dollarAmount.amount,"  =cklemfklemferferfg")
         //   pRev=dollarAmount.amount*item.planRevenue
-        //   pCOGS=dollarAmount.amount*item.COGS
+        //   pCOGS=dollarAmount.amount*item.COGS        
         //   pSGNA=dollarAmount.amount*item.SGNA
 
         // }
@@ -713,7 +727,16 @@ const AOPTracking = () => {
     },
     
   ];
+  const onError = (errors) => {
+    if(forExport.current==true){
+      clearErrors()
 
+      dispatch(CommonActions.commondownloadpost("/export/AOP"+ (enable=="Cumulative"?"?Cumulative=true":""), "AOP.xlsx", "POST",{}))
+
+    }
+    console.log("Form Errors:", errors);
+    return {}
+  };
 
   const tabs = [
     {
@@ -737,7 +760,8 @@ const AOPTracking = () => {
                 classes="flex h-fit"
                 name=""
                 icon={<UilSearch className="w-5 m-2 h-5" />}
-                onClick={handleSubmit(handleAddActivity)}
+                onClick={handleSubmit(handleAddActivity,onError) }
+                  
               />
             </div>
           </div>
@@ -762,7 +786,9 @@ const AOPTracking = () => {
           classes="flex h-fit"
           name=""
           icon={<UilSearch className="w-5 m-2 h-5" />}
-          onClick={handleSubmit(handleAddActivity)}
+          onClick={()=>{
+            forExport.current=false;
+            return handleSubmit(handleAddActivity,onError)()}}
         />
       </div>
     </div>
@@ -770,14 +796,18 @@ const AOPTracking = () => {
   ]
   const [enable, setEnable] = useState(tabs[0].label)
   async  function handleAddActivity(res){
-    Data.current = ""
+   console.log("vklenfvjioefivoejncokenfver",errors)
     // setExtraColumns(res['Month'])
     Data.current = res['CostCenter']
     // FRERFER
-    console.log("============", res)
+    console.log("========kldfvjmkldfjgvfdgjfrio====", res)
     if (enable=="Cumulative"){
       
       res['month']=res['Month']
+    }
+    if(forExport.current==true){
+      dispatch(CommonActions.commondownloadpost("/export/AOP"+ (enable=="Cumulative"?"?Cumulative=true&filter=true":""), "AOP.xlsx", "POST",res))
+      return true
     }
     
     
@@ -888,10 +918,20 @@ const AOPTracking = () => {
                 setFileOpen(prev => !prev)
               }}>
               </Button>
-              <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
-                dispatch(CommonActions.commondownloadpost("/export/AOP", "AOP.xlsx", "POST", { 'year': year, 'Month': extraColumns, 'Cost Center': Data.current }))
+              <Button name={"Export"} classes='w-auto mr-1' onClick={() => {
+                forExport.current=true;
+                return handleSubmit(handleAddActivity,onError)()
+               
               }}>
               </Button>
+              {/* <Button
+                classes="flex h-fit"
+                name=""
+                icon={<UilSearch className="w-5 m-2 h-5" />}
+                onClick={()=>{
+                  forExport.current=true;
+                  return handleSubmit(handleAddActivity)}}
+              /> */}
             </div>
           </>
         }

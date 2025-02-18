@@ -48,9 +48,6 @@ const EarnValueMgmtForm = ({
           })),
     ];
 
-
-
-
   const onTableViewSubmit = (data) => {
 
     data['projectgroupuid'] = formValue?.projectgroupuid
@@ -129,3 +126,5 @@ const EarnValueMgmtForm = ({
 };
 
 export default EarnValueMgmtForm;
+
+	
