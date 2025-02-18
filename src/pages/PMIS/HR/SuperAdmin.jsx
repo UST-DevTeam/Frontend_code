@@ -171,6 +171,13 @@ const SuperAdmin = () => {
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
+          [
+            "Sub Project Master Table",
+            "bg-pcol",
+            "/hr/superAdmin/subProjectMaster",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
         ].map((itm) => {
           return (
             <>

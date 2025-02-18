@@ -65,6 +65,8 @@ const initialState = {
   },
   getPartnerWorkDescription:[],
   getPartnerActivity:[],
+  getDeliveryPVA:[],
+  getSubProjectDeliveryPVA:[],
 };
 
 const adminData = createSlice({
@@ -657,6 +659,28 @@ const adminData = createSlice({
       }
     },
 
+    GET_ADMIN_DELIVERY_PVA: (state, { payload }) => {
+      if (payload.reset) {
+        state.getDeliveryPVA = payload.dataAll;
+      } else {
+        state.getDeliveryPVA = [
+          ...state.getDeliveryPVA,
+          ...payload.dataAll,
+        ];
+      }
+    },
+
+    GET_ADMIN_SUB_PROJECT_DELIVERY_PVA: (state, { payload }) => {
+      if (payload.reset) {
+        state.getSubProjectDeliveryPVA = payload.dataAll;
+      } else {
+        state.getSubProjectDeliveryPVA = [
+          ...state.getSubProjectDeliveryPVA,
+          ...payload.dataAll,
+        ];
+      }
+    },
+
     GET_COMPLIANCE_DEGROW_TEMPLATE_DATA: (state, { payload }) => {
       console.log("payload", payload)
       if (payload.reset) {
@@ -745,7 +769,9 @@ export const {
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA,
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS,
   GET_PARTNER_WORK_DESCRIPTION,
-  GET_PARTNER_ACTIVITY
+  GET_PARTNER_ACTIVITY,
+  GET_ADMIN_DELIVERY_PVA,
+  GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
 } = adminData.actions;
 
 export default adminData.reducer;

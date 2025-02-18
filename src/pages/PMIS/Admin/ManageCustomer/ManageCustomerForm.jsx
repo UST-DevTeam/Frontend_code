@@ -128,8 +128,8 @@ const ManageCustomerForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
             type: "number",
             required: true,
             props: {
-                valueAsNumber: true,
-                min: 1, 
+                valueAsNumber:true,
+                min: 1,
             },
             classes: "col-span-1"
         }, 

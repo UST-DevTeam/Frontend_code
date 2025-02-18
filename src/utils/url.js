@@ -1,8 +1,8 @@
 export const baseUrl = "https://devapi.mcpspmis.com"
 export const backendassetUrl = "https://devapi.mcpspmis.com/"
 
-// export const baseUrl="https://api.mcpspmis.com"
-// export const backendassetUrl="https://api.mcpspmis.com/"
+// export const baseUrl="https://androidapi.mcpspmis.com"
+// export const backendassetUrl="https://androidapi.mcpspmis.com/"
 
 
 // export const baseUrl = "http://localhost:7980";
@@ -46,6 +46,8 @@ export const Urls = {
   admin_project_allocation: "/hr/projectAllocation",
   admin_uamView: "/uamView",
   admin_completion_criteria: "/admin/complectionCriteria",
+  admin_delivery_PVA: "/admin/deliveryPva",
+  admin_sub_project_delivery_PVA: "/admin/deliveryPva/subProject",
   upload_bulk_site: "/uploadBulkSite",
   upload_bulk_site_one_project: "/uploadSiteOneProject",
   get_Subproject_Dyanmic: "/subprojects",
@@ -242,6 +244,8 @@ export const Urls = {
   current_user_PID: "/currentuser/ProjectId",
   current_user_circle_projectId: "/currentuser/Circle/projectId",
   current_user_cost_center: "/currentuser/CostCenter",
+  current_user_customer:"/currentuser/customer",
+  current_user_business_unit:"/currentuser/businessUnit",
 
   // super admin compiliance starts  -----
 
@@ -268,7 +272,7 @@ export const Urls = {
 
   admin_repositorySiteId: "/admin/repositorySiteId",
   user_myPolicy: "/myHome/myPolicy",
-  aop:"/AOP"
+  aop:"/AOP",
 
   // Repository ends   ---------
 

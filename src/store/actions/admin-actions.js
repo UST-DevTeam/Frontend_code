@@ -64,6 +64,9 @@ import {
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS,
   GET_PARTNER_WORK_DESCRIPTION,
   GET_PARTNER_ACTIVITY,
+  GET_ADMIN_DELIVERY_PVA,
+  GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
+
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
 
@@ -1793,6 +1796,63 @@ const AdminActions = {
       console.log(error.message)
     }
   },
+  getDeliveryPVA:
+    (reset = true, args = "") =>
+      async (dispatch, _) => {
+        try {
+          const res = await Api.get({
+            url: `${Urls.admin_delivery_PVA}${args != "" ? "?" + args : ""}`,
+            reset,
+          });
+          if (res?.status !== 200) return;
+          const dataAll = res?.data?.data;
+          dispatch(GET_ADMIN_DELIVERY_PVA({ dataAll, reset }));
+        } catch (error) {
+          console.log("12345");
+        }
+      },
+    postDeliveryPVA:
+    (data, cb, uniqueId) => async (dispatch, _) => {
+      try {
+        const res = await Api.post({
+          data: data,
+          url:
+            uniqueId == null
+              ? Urls.admin_delivery_PVA
+              : Urls.admin_delivery_PVA + "/" + uniqueId,
+        });
+        if (res?.status !== 201 && res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: "error",
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          cb();
+        }
+      } catch (error) {
+        return;
+      }
+    },
+
+  getSubProjectDeliveryPVA:
+    (reset = true, args = "",id) =>
+      async (dispatch, _) => {
+        try {
+          const res = await Api.get({
+            url: `${Urls.admin_sub_project_delivery_PVA}/${id}${args != "" ? "?" + args : ""}`,
+            reset,
+          });
+          if (res?.status !== 200) return;
+          const dataAll = res?.data?.data;
+          dispatch(GET_ADMIN_SUB_PROJECT_DELIVERY_PVA({ dataAll, reset }));
+        } catch (error) {
+          console.log("12345");
+        }
+      },
 
   // super admin compiliance  ends -----
 };

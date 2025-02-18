@@ -119,10 +119,9 @@ import GPTracking from "../pages/PMIS/gpTracking/GpTrackingMain/gpTracking";
 import VendorProjectTracking from "../pages/PMIS/VendorProjectTracking/VendorProjectTracking";
 import VendorCost from "../pages/PMIS/gpTracking/VendorCost/VendorCost";
 
-
-
 import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
 import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
+import SubProjectMasterTable from "../pages/PMIS/Admin/SubProjectMasterTable/SubProjectMasterTable";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -276,6 +275,12 @@ export const Sidebar_content = {
       link: "/hr/superAdmin/manageProfile",
       subMenu: [],
       component: <ManageProfile />,
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/subProjectMaster",
+      subMenu: [],
+      component: <SubProjectMasterTable />,
     },
     {
       name: "",

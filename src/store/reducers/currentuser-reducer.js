@@ -8,6 +8,8 @@ const initialState = {
     getcurrentusercircleprojectid: [],
     getcurrentusercostcenter:[],
     getcurrentusermultiplePG: [],
+    getcurrentuserCustomer: [],
+    getcurrentuserBusinessUnit: [],
 }
 
 
@@ -64,11 +66,25 @@ const currentuserData = createSlice({
                 state.getcurrentusermultiplePG  = [...state.getcurrentusermultiplePG,...payload.dataAll]
             }
         },
+        GET_CURRENT_USER_BUSINESS_UNIT:(state,{payload}) => {
+            if(payload.reset){
+                state.getcurrentuserBusinessUnit = payload.dataAll
+            }else{
+                state.getcurrentuserBusinessUnit  = [...state.getcurrentuserBusinessUnit,...payload.dataAll]
+            }
+        },
+        GET_CURRENT_USER_CUSTOMER:(state,{payload}) => {
+            if(payload.reset){
+                state.getcurrentuserCustomer = payload.dataAll
+            }else{
+                state.getcurrentuserCustomer  = [...state.getcurrentuserCustomer,...payload.dataAll]
+            }
+        },
     }
 
 })
 
 
-export const {GET_CURRENT_USER_PG, GET_CURRENT_USER_PT,GET_CURRENT_USER_PID,GET_CURRENT_USER_CIRCLE_PROJECTID,GET_CURRENT_USER_COST_CENTER,GET_CURRENT_USER_MULTIPLE_PG} = currentuserData.actions
+export const {GET_CURRENT_USER_PG, GET_CURRENT_USER_PT,GET_CURRENT_USER_PID,GET_CURRENT_USER_CIRCLE_PROJECTID,GET_CURRENT_USER_COST_CENTER,GET_CURRENT_USER_MULTIPLE_PG,GET_CURRENT_USER_CUSTOMER,GET_CURRENT_USER_BUSINESS_UNIT} = currentuserData.actions
 
 export default currentuserData.reducer
