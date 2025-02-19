@@ -100,7 +100,7 @@ const AOPTrackingAirtel = () => {
     return Array.isArray(state.table?.tableContent) 
       ? state.table.tableContent.map(item => {
           let index = item.month;
-          return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',edit: (
+          return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',actualNp: (item?.actualNp * 100).toFixed(2) + ' %',np: (item?.np * 100).toFixed(2) + ' %',edit: (
             <CstmButton
               className={"p-2"}
               child={

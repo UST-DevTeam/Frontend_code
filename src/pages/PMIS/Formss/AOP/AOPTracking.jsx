@@ -178,7 +178,7 @@ const AOPTracking = () => {
         // }
         // console.log("ferf,ekrfeorfeorpifvkev===",pRev)
         // return { ...item,SGNA:pSGNA,COGS:pCOGS, month: months[index-1],gm:item.gm*100,"planRevenue":pRev };  // Create a new object with updated `month`
-        return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',edit: (
+        return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualNp: (item?.actualNp * 100).toFixed(2) + ' %',np: (item?.np * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',edit: (
           <CstmButton
             className={"p-2"}
             child={
