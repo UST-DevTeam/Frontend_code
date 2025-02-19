@@ -173,7 +173,7 @@ const AOPTrackerForm = ({
     {
       label: "Bussiness Unit ",
       value: "",
-      name: "bussinessUnit",
+      name: "businessUnit",
       type: "text",
       // type: Object.entries(formValue).length > 0 ? "text" : "text",
       classes: "col-span-1",

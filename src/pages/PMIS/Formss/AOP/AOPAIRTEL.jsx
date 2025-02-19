@@ -355,7 +355,7 @@ const AOPTrackingAirtel = () => {
   const bussiness=async ()=>{
     let res=await Api.get({url:Urls.businessUnit,contentType:"application/json"})
     console.log("================",res.data.data)
-    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.bussinessUnit))
+    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.businessUnit))
   }
   useEffect(() => {
     const monthMap = {
@@ -433,7 +433,7 @@ const AOPTrackingAirtel = () => {
     },
     {
       label: 'Business unit',
-      name: "bussinessUnit",
+      name: "businessUnit",
       value: "select",
       type: "newmuitiSelect2",
       option: bussinessUnit,
@@ -693,7 +693,7 @@ const AOPTrackingAirtel = () => {
       },
       {
         name: "Bussiness Unit",
-        value: "bussinessUnit",
+        value: "businessUnit",
         style: "px-2 text-center",
       },
       {

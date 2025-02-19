@@ -200,7 +200,7 @@ const AOPTracking = () => {
                       /> */}
                       <AOPTrackerForm
                       
-                        isOpen={modalOpen}
+                      isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={processItem(item, keysToProcess)}
@@ -280,6 +280,7 @@ const AOPTracking = () => {
     });
   });
   let bussinessUnit = useSelector((state) => {
+    console.log(state,'dkljdjdjijdijodiojoid')
     return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
       return {
         label: itm,
@@ -384,7 +385,7 @@ const AOPTracking = () => {
   const bussiness=async ()=>{
     let res=await Api.get({url:Urls.businessUnit,contentType:"application/json"})
     console.log("================",res.data.data)
-    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.bussinessUnit))
+    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.businessUnit))
   }
   useEffect(() => {
     // inrToUsd
@@ -744,7 +745,7 @@ const AOPTracking = () => {
       
       {
         name: "Bussiness Unit",
-        value: "bussinessUnit",
+        value: "businessUnit",
         style: "px-2 text-center",
       },
       {
