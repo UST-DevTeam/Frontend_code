@@ -145,9 +145,9 @@ const AOPTrackingAirtel = () => {
                           onClick={() => {
                             dispatch(
                               CommonActions.deleteApiCaller(
-                                `${Urls.forms_profit_loss}/${itm.uniqueId}`,
+                                `${Urls.aop}/${item?.uniqueId}`,
                                 () => {
-                                  dispatch(FormssActions.getProfiltLoss());
+                                  dispatch(tableAction.getTable(Urls.aop+'?forAirtel=true', SET_TABLE))
                                   dispatch(ALERTS({ show: false }));
                                 }
                               )
