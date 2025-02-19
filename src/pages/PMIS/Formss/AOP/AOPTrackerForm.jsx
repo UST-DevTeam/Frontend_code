@@ -27,7 +27,7 @@ const AOPTrackerForm = ({
   forAirtel=false
 }) => {
   const [selectedCustomer, setSelectedCustomer] = useState("");
-
+  
   let costCenterList = useSelector((state) => {
     return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
       return {
@@ -68,6 +68,23 @@ const AOPTrackerForm = ({
 
   };
 
+  
+  const monthMap = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
+
+
   const months = [
     { label: "Jan", value: 1 },
     { label: "Feb", value: 2 },
@@ -87,7 +104,7 @@ const AOPTrackerForm = ({
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
     listYear.push({ label: ywq, value: ywq });
   }
-
+ console.log(formValue,'sdujduiiudiudu')
   let Form = [
     {
       label: "Year",
@@ -100,8 +117,12 @@ const AOPTrackerForm = ({
     {
       label: "Month",
       value: "",
-      name: "month",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+      name:
+        Object.entries(formValue).length > 0
+          // ? monthMap[formValue?.month]
+          ? "month"
+          : "month",
+      type: Object?.entries(formValue)?.length > 0 ? "sdisabled" : "select",
       option: months,
       required: true,
     },
@@ -110,7 +131,7 @@ const AOPTrackerForm = ({
       value: "",
       name:
         Object.entries(formValue).length > 0
-          ? "customer"
+          ? "customerName"
           : "customerId",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: customerList,
@@ -136,7 +157,8 @@ const AOPTrackerForm = ({
       label: "UST Project ID",
       value: "",
       name: "ustProjectID",
-      type: "text",
+      // type: "text",
+      type: Object.entries(formValue).length > 0 ? "text" : "text",
       classes: "col-span-1",
       required:true,
         // props:{
@@ -149,7 +171,21 @@ const AOPTrackerForm = ({
       // },
     },
     {
-      label: "planned Revenue",
+      label: "Bussiness Unit ",
+      value: "",
+      name: "bussinessUnit",
+      type: "text",
+      // type: Object.entries(formValue).length > 0 ? "text" : "text",
+      classes: "col-span-1",
+      required:true,
+      
+      // props: {
+      //   valueAsNumber: true,
+      //   min: 0,
+      // },
+    },
+    {
+      label: "Planned Revenue",
       value: "",
       name: "planRevenue",
       type: "number",
@@ -157,7 +193,7 @@ const AOPTrackerForm = ({
       required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+          
         }
       // props: {
       //   valueAsNumber: true,
@@ -165,7 +201,7 @@ const AOPTrackerForm = ({
       // },
     },
     {
-      label: "COGS",
+      label: "Planned COGS",
       value: "",
       name: "COGS",
       type: "number",
@@ -173,32 +209,17 @@ const AOPTrackerForm = ({
       required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+          
         }
       // props: {
       //   valueAsNumber: true,
       //   min: 0,
       // },
     },
-    {
-      label: "Bussiness unit ",
-      value: "",
-      name: "bussinessUnit",
-      type: "number",
-      classes: "col-span-1",
-      required:true,
-        props:{
-          "valueAsNumber":true,
-          "min":0
-        }
-      // props: {
-      //   valueAsNumber: true,
-      //   min: 0,
-      // },
-    },
+    
   
       {
-        label: "SGNA Cost",
+        label: "Planned SGNA Cost",
         value: "",
         name: "SGNA",
         type: "number",
@@ -206,7 +227,7 @@ const AOPTrackerForm = ({
         required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+          
         }
         // props: {
         //   valueAsNumber: true,
@@ -222,7 +243,7 @@ const AOPTrackerForm = ({
         required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+          
         }
         // props: {
         //   valueAsNumber: true,
@@ -238,7 +259,7 @@ const AOPTrackerForm = ({
         required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+         
         }
         // props: {
         //   valueAsNumber: true,
@@ -254,7 +275,7 @@ const AOPTrackerForm = ({
         required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+          
         }
         // props: {
         //   valueAsNumber: true,
@@ -270,7 +291,7 @@ const AOPTrackerForm = ({
         required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+         
         }
    
       },
@@ -283,7 +304,7 @@ const AOPTrackerForm = ({
         required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+         
         }
    
       },
@@ -296,7 +317,7 @@ const AOPTrackerForm = ({
         // required:true,
       props:{
         "valueAsNumber":true,
-        "min":0
+       
       }
       },
       {
@@ -308,7 +329,7 @@ const AOPTrackerForm = ({
         // required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+         
         }
 
       },
@@ -321,7 +342,7 @@ const AOPTrackerForm = ({
         // required:true,
         props:{
           "valueAsNumber":true,
-          "min":0
+         
         }
 
       },
@@ -357,17 +378,13 @@ const AOPTrackerForm = ({
     // data.cost = convertToIntOrNull(data.cost);
     
 
-    if (formValue.uniqueId) {
-      dispatch(
-        gpTrackingActions.postGPOtherFixedCost(true,
-          data,
-          () => {
-            setIsOpen(false);
-            dispatch(gpTrackingActions.getOtherFixedCost());
-          },
-          formValue.uniqueId
-        )
-      );
+    if (formValue?.uniqueId) {
+      
+      const resp = await Api.post({ data, url: Urls.aop+"/"+formValue?.uniqueId+(forAirtel?"?forAirtel=true" :""),"cb": () => dispatch(tableAction.getTable(Urls.aop+(forAirtel?"?forAirtel=true":''), SET_TABLE)) })
+      if (resp.status == 201 || resp.status == 200) {
+        setIsOpen(false);
+      }
+      
     } else {
       // { data, url, contentType = "application/json", show = 1, upload = false, cb = () => { } }
       const resp = await Api.post({ data, url: Urls.aop+(forAirtel?"?forAirtel=true" :""),"cb": () => dispatch(tableAction.getTable(Urls.aop+(forAirtel?"?forAirtel=true":''), SET_TABLE)) })
@@ -375,11 +392,7 @@ const AOPTrackerForm = ({
       
         setIsOpen(false);
       }
-      // dispatch(
-      //   gpTrackingActions.postGPOtherFixedCost(true,data, () => {
-      //     dispatch(gpTrackingActions.getOtherFixedCost());
-      //   })
-      // );
+      
     }
   };
 
@@ -414,7 +427,7 @@ const AOPTrackerForm = ({
       });
     }
 
-    return ()=>dispatch(CLEAR_RECORDS())
+    // return ()=>dispatch(CLEAR_RECORDS())
   }, [formValue, resetting]);
   return (
     <>

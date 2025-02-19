@@ -28,9 +28,11 @@ import { SET_TABLE } from "../../../../store/reducers/table-reducer";
 import Api from "../../../../utils/api";
 import Tabs from "../../../../components/Tabs";
 import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
+import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
 
 const AOPTrackingAirtel = () => {
   // const Data = useRef("")
+  const forExport=useRef()
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -72,12 +74,103 @@ const AOPTrackingAirtel = () => {
     { label: "Nov", value: 11 },
     { label: "Dec", value: 12 },
   ];
+
+
+  const keysToProcess=['COGS','SGNA','actualRevenue','actualSGNA','actualSalary','actualVendorCost','employeeExpanse','miscellaneousExpenses','miscellaneousExpensesSecond','otherFixedCost','planRevenue']
+  const divideAndRound = (value) => {
+    if (value !== null && value !== undefined && value !== '' && !isNaN(value)) {
+      return Math.round((value * 100000) * 100) / 100;
+    }
+    return value;
+  };
+  
+  const processItem = (item, keys) => {
+    const result = { ...item };
+    keys.forEach((key) => {
+      if (result.hasOwnProperty(key)) {
+        result[key] = divideAndRound(result[key]);
+      }
+    });
+    return result;
+  };
+
+
   let dispatch = useDispatch();
   let rows = useSelector(state => {
     return Array.isArray(state.table?.tableContent) 
       ? state.table.tableContent.map(item => {
           let index = item.month;
-          return { ...item, month: monthMap[index],gm:item.gm*100 }; 
+          return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',edit: (
+            <CstmButton
+              className={"p-2"}
+              child={
+                <EditButton
+                  name={""}
+                  onClick={() => {
+                    setmodalOpen(true);
+                    setmodalHead("Edit Plan");
+                    setmodalBody(
+                      <>
+                        <AOPTrackerForm
+                          isOpen={modalOpen}
+                          setIsOpen={setmodalOpen}
+                          resetting={false}
+                          formValue={processItem(item, keysToProcess)}
+                          year={item?.year}
+                          month={item?.month}
+                          monthss={monthMap[item?.month]}
+                          filtervalue={""}
+                          forAirtel={true}
+                        />
+                      </>
+                    );
+                  }}
+                ></EditButton>
+              }
+            />
+          ),
+  
+          delete: (
+            <CstmButton
+              child={
+                <DeleteButton
+                  name={""}
+                  onClick={() => {
+                    let msgdata = {
+                      show: true,
+                      icon: "warning",
+                      buttons: [
+                        <Button
+                          classes='w-15 bg-rose-400'
+                          onClick={() => {
+                            dispatch(
+                              CommonActions.deleteApiCaller(
+                                `${Urls.forms_profit_loss}/${itm.uniqueId}`,
+                                () => {
+                                  dispatch(FormssActions.getProfiltLoss());
+                                  dispatch(ALERTS({ show: false }));
+                                }
+                              )
+                            );
+                          }}
+                          name={"OK"}
+                        />,
+                        <Button
+                          classes="w-auto"
+                          onClick={() => {
+                            dispatch(ALERTS({ show: false }));
+                          }}
+                          name={"Cancel"}
+                        />,
+                      ],
+                      text: "Are you sure you want to Delete?",
+                    };
+                    dispatch(ALERTS(msgdata));
+                  }}
+                ></DeleteButton>
+              }
+            />
+          ), }; 
         })
       : [];
   });
@@ -105,12 +198,7 @@ const AOPTrackingAirtel = () => {
 
 
 
-  let showType = getAccessType("Actions(P&L)")
-  let shouldIncludeEditColumn = false
-
-  if (showType === "visible"){
-    shouldIncludeEditColumn = true
-  }
+  
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getProfitloss || [];
@@ -118,75 +206,7 @@ const AOPTrackingAirtel = () => {
       let updateditm = {
         ...itm,
 
-        edit: (
-          <CstmButton
-            className={"p-2"}
-            child={
-              <EditButton
-                name={""}
-                onClick={() => {
-                  setmodalOpen(true);
-                  setmodalHead("Edit Plan");
-                  setmodalBody(
-                    <>
-                      <PLform
-                        isOpen={modalOpen}
-                        setIsOpen={setmodalOpen}
-                        resetting={false}
-                        formValue={itm}
-                        year = {year}
-                        monthss = {[itm?.month]}
-                        filtervalue = {""}
-                      />
-                    </>
-                  );
-                }}
-              ></EditButton>
-            }
-          />
-        ),
-
-        delete: (
-          <CstmButton
-            child={
-              <DeleteButton
-                name={""}
-                onClick={() => {
-                  let msgdata = {
-                    show: true,
-                    icon: "warning",
-                    buttons: [
-                      <Button
-                        classes='w-15 bg-rose-400'
-                        onClick={() => {
-                          dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.forms_profit_loss}/${itm.uniqueId}`,
-                              () => {
-                                dispatch(FormssActions.getProfiltLoss());
-                                dispatch(ALERTS({ show: false }));
-                              }
-                            )
-                          );
-                        }}
-                        name={"OK"}
-                      />,
-                      <Button
-                        classes="w-auto"
-                        onClick={() => {
-                          dispatch(ALERTS({ show: false }));
-                        }}
-                        name={"Cancel"}
-                      />,
-                    ],
-                    text: "Are you sure you want to Delete?",
-                  };
-                  dispatch(ALERTS(msgdata));
-                }}
-              ></DeleteButton>
-            }
-          />
-        ),
+        
       };
       return updateditm;
     });
@@ -209,10 +229,14 @@ const AOPTrackingAirtel = () => {
     setValues,
     reset,
     getValues,
+    clearErrors, 
     formState: { errors },
   } = useForm();
 
-
+  const [dollarAmount, setDollarAmount] = useState({
+      amount: null,
+      visibility: false
+    })
 
   const getPreviousCurrentAndNextMonth = () => {
     const currentDate = new Date();
@@ -235,124 +259,7 @@ const AOPTrackingAirtel = () => {
   const [previousMonthData, currentMonthData, nextMonthData] =
     getPreviousCurrentAndNextMonth();
 
-  let table = {
-    columns: [
-      {
-        name: "Year",
-        value: "year",
-        style: "px-2 text-center text-3xl",
-      },
-      {
-        name: "Month",
-        value: "month",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Customer",
-        value: "customerName",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Bussiness Unit",
-        value: "bussinessUnit",
-        style: "px-2 text-center",
-      },
-      {
-        name: "UST Project ID",
-        value: "ustProjectID",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "MCT Project ID",
-        value: "costCenter",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Zone",
-        value: "zone",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Revenue",
-        value: "planRevenue",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned COGS",
-        value: "COGS",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Gross Profit",
-        value: "planGp",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Gross Margin(%)",
-        value: "gm",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned SGNA",
-        value: "SGNA",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Net Profit",
-        value: "np",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Revenue",
-        value: "actualRevenue",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual COGS",
-        value: "actualCOGS",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Gross Profit",
-        value: "actualGp",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Gross Margin(%)",
-        value: "actualGm",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual SGNA",
-        value: "actualSGNA",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Net Profit",
-        value: "actualNp",
-        style: "px-2 text-center",
-      },
-      ...newColumns,
-      ...(shouldIncludeEditColumn
-        ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-          ]
-        : [])
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [],
-  };
+  
 
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
@@ -501,7 +408,7 @@ const AOPTrackingAirtel = () => {
     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false)
         // dispatch(FormssActions.getProfiltLoss())
-        dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+        dispatch(tableAction.getTable(Urls.aop+"?forAirtel=true", SET_TABLE))
     }))
   }
   let formD = [
@@ -692,7 +599,16 @@ const AOPTrackingAirtel = () => {
     },
     
   ];
+  const onError = (errors) => {
+    if(forExport.current==true){
+      clearErrors()
 
+      dispatch(CommonActions.commondownloadpost("/export/AOP?forAirtel=true"+ (enable=="Cumulative"?"&Cumulative=true":""), "AOP.xlsx", "POST",{}))
+
+    }
+    console.log("Form Errors:", errors);
+    return {}
+  };
 
   const tabs = [
     {
@@ -716,7 +632,9 @@ const AOPTrackingAirtel = () => {
                 classes="flex h-fit"
                 name=""
                 icon={<UilSearch className="w-5 m-2 h-5" />}
-                onClick={handleSubmit(handleAddActivity)}
+                onClick={()=>{
+            forExport.current=false;
+            return handleSubmit(handleAddActivity,onError)()}}
               />
             </div>
           </div>
@@ -741,13 +659,141 @@ const AOPTrackingAirtel = () => {
           classes="flex h-fit"
           name=""
           icon={<UilSearch className="w-5 m-2 h-5" />}
-          onClick={handleSubmit(handleAddActivity)}
+          onClick={()=>{
+            forExport.current=false;
+            return handleSubmit(handleAddActivity,onError)()}}
         />
       </div>
     </div>
     },
   ]
   const [enable, setEnable] = useState(tabs[0].label)
+
+  let shouldIncludeEditColumn = true
+  if (enable=="Cumulative") {
+    shouldIncludeEditColumn = false
+  }
+
+  let table = {
+    columns: [
+      {
+        name: "Year",
+        value: "year",
+        style: "px-2 text-center text-3xl",
+      },
+      {
+        name: "Month",
+        value: "month",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Customer",
+        value: "customerName",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Bussiness Unit",
+        value: "bussinessUnit",
+        style: "px-2 text-center",
+      },
+      {
+        name: "UST Project ID",
+        value: "ustProjectID",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "MCT Project ID",
+        value: "costCenter",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Zone",
+        value: "zone",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Revenue",
+        value: "planRevenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned COGS",
+        value: "COGS",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Gross Profit",
+        value: "planGp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Gross Margin(%)",
+        value: "gm",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned SGNA",
+        value: "SGNA",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Net Profit",
+        value: "np",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Revenue",
+        value: "actualRevenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual COGS",
+        value: "actualCOGS",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Gross Profit",
+        value: "actualGp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Gross Margin(%)",
+        value: "actualGm",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual SGNA",
+        value: "actualSGNA",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Net Profit",
+        value: "actualNp",
+        style: "px-2 text-center",
+      },
+      ...newColumns,
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+          ]
+        : [])
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+    filter: [],
+  };
+
+
   async  function handleAddActivity(res){
     Data.current = ""
     // setExtraColumns(res['Month'])
@@ -760,7 +806,7 @@ const AOPTrackingAirtel = () => {
     }
     
     
-    const resp = await Api.post({ data: res, url: Urls.aop + "?filter=true" })
+    const resp = await Api.post({ data: res, url: Urls.aop+("?forAirtel=true")+( enable=="Cumulative"?"Cumulative=true":"" )})
     if (resp.status == 200) {
       dispatch(SET_TABLE(resp?.data?.data))
     }
@@ -789,11 +835,43 @@ const AOPTrackingAirtel = () => {
           />
         </div> */}
       </div>
-      <Tabs data={tabs} setEnable={setEnable} enable={enable} />
+      <Tabs data={tabs} setEnable={setEnable} enable={enable}  forAOP={true}/>
       <AdvancedTable 
         headerButton={
           <>
           <div className="flex gap-1">
+          <Button
+                onClick={() => {
+
+                  setDollarAmount((prev) => {
+                    if (prev.visibility == true) {
+                      return {
+                        amount: null,
+                        visibility: false
+                      }
+                    }
+                    else {
+                      // let resp= inrToUsd()
+                      // let amount=resp.then((data)=>data)
+                      // console.log(",ckmfdevdf;vrvf",amount)
+                      return {
+                        // amount:resp,
+                        ...prev,
+                        visibility: true
+                      }
+                    }
+                  })
+                  dispatch(tableAction.getTable(Urls.aop + `?forAirtel=true&dollorView=${!dollarAmount.visibility}`, SET_TABLE))
+                }}
+                //  onClick={(e) => {
+                //       setmodalOpen((prev) => !prev);
+                //       setmodalHead("New Plan");
+                //       // setmodalBody(<PLform isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                //       setmodalBody(<AOPTrackerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                //     }}
+                // name={"Add New Plan"}
+                classes='w-auto'>{dollarAmount.visibility ? <FaDollarSign /> : <FaRupeeSign />}
+              </Button>
             <Button
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
@@ -818,10 +896,12 @@ const AOPTrackingAirtel = () => {
                     setFileOpen(prev=>!prev)
                 }}>
             </Button>
-            <Button name={"Export"} classes='w-auto mr-1' onClick = {(e) => {
-              dispatch(CommonActions.commondownloadpost("/export/AOP","AOP.xlsx","POST",{'year':year,'Month':extraColumns,'Cost Center':Data.current}))
+            <Button name={"Export"} classes='w-auto mr-1' onClick={() => {
+                forExport.current=true;
+                return handleSubmit(handleAddActivity,onError)()
+               
               }}>
-            </Button>
+              </Button>
           </div>
           </>
         }
