@@ -1,13 +1,13 @@
 import React from 'react';
 import { moreinfo } from '../utils/commonFunnction';
 
-const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100 }) => {
-    
+const Modalmoreinfo = ({ value, setModalBody, setOpenModal, ctt = 100 }) => {
+
     if (value?.length > 100) {
         return <>
             <div class="">
                 <div class="group flex flex-col relative items-center w-full">
-                    <p className='cursor-pointer text-center' onClick={()=>{
+                    <p className='cursor-pointer text-center' onClick={() => {
                         setOpenModal(true)
                         setModalBody(<p className='p-3 overflow-y-scroll text-center text-white'>{value}</p>)
                     }}>{moreinfo(value, ctt) + "..."}</p>

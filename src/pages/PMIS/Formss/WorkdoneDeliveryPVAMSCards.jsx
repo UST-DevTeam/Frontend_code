@@ -10,8 +10,10 @@ import { getAccessType } from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import ProjectChart from "../Dashboard1/ProjectChart";
 import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
+import { useSearchParams } from "react-router-dom";
 
-const WorkdoneForecastCards = () => {
+const WorkdoneDeliveryPVAMSCards = () => {
+  const [searchParams, _] = useSearchParams()
   // const [modalOpen, setmodalOpen] = useState(false)
   // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
@@ -23,14 +25,16 @@ const WorkdoneForecastCards = () => {
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Forms", "/forms", 0, true));
   }, []);
+
+  const customerId = searchParams.get("customerId")
   return (
     <>
     <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
      <CCDash
         showbtn={false}
         approveddata={[
-          ["Actual Work Done", "bg-pcol", "/forms/EVMDelivery/ActualWorkDone",],
-          ["PVA", "bg-pcol", "/forms/EVMDelivery/pva",],
+          ["MS1-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS1-PVA/" + customerId,],
+          ["MS2-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS2-PVA/"+customerId,],
           // ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
         ].map((itm) => {
           return (
@@ -107,4 +111,4 @@ const WorkdoneForecastCards = () => {
   );
 };
 
-export default WorkdoneForecastCards;
+export default WorkdoneDeliveryPVAMSCards;

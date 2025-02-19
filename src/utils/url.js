@@ -18,8 +18,8 @@ export const Urls = {
   admin_userList: "/admin/users",
   admin_roleList: "/admin/roles",
   user_notification: "/notification",
-  exchangeRate:"/exchange",
-  businessUnit:"/businessUnit",
+  exchangeRate: "/exchange",
+  businessUnit: "/businessUnit",
   // new urlP
   admin_userAccess: "/admin/userAccess",
   admin_customer: "/admin/manageCustomer",
@@ -260,7 +260,7 @@ export const Urls = {
   approverAction: "/admin/approverAction",
   complianceLog: "/complianceLog",
   complianceDegrowTemplateData: "/admin/complianceDegrowTemplateData",
-  
+
 
   // super admin compiliance  ends -----
 
@@ -268,11 +268,15 @@ export const Urls = {
 
   admin_repositorySiteId: "/admin/repositorySiteId",
   user_myPolicy: "/myHome/myPolicy",
-  aop:"/AOP"
+  aop: "/AOP",
+  ForecastCOGS: "/ForecastCOGS",
 
   // Repository ends   ---------
 
-
+  getCircle: "/currentuser/Circle/projectId/667d593927f39f1ac03d7863",
+  getCircleSubPorjectType: "admin/deliveryPva/masterSubProject/667d593927f39f1ac03d7863",
+  patchEvmActual: "/forms/EVMActual",
+  getPvaData: "/forms/EVMActual"
 
 };
 

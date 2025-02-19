@@ -20,9 +20,9 @@ import CommonForm from "../../../../components/CommonForm";
 import { UilSearch } from "@iconscout/react-unicons";
 import FileUploader from "../../../../components/FIleUploader";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
-import AOPTrackerForm from "./AOPTrackerForm";
+import AOPTrackerForm from "../AOP/AOPTrackerForm";
 import PLform from "../P&L/PLform";
-import AddActualAOP from "./AddActualAOP";
+
 import { tableAction } from "../../../../store/actions/table-action";
 import { SET_TABLE } from "../../../../store/reducers/table-reducer";
 import Api from "../../../../utils/api";
@@ -52,7 +52,7 @@ function Tabs({ data, enable, setEnable }) {
   )
 }
 
-const AOPTracking = () => {
+const ForcastCOPGSTracking = () => {
 
   const {
     register,
@@ -78,10 +78,10 @@ const AOPTracking = () => {
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
-  const [modalHead, setmodalHead] = useState(<></>);
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
+  const [modalHead, setmodalHead] = useState(<></>);
   const [extraColumns, setExtraColumns] = useState("");
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
@@ -130,27 +130,13 @@ const AOPTracking = () => {
     { label: "Dec", value: 12 },
   ];
   let dispatch = useDispatch();
-  let rows = useSelector(state => {
-    return Array.isArray(state.table?.tableContent)
-      ? state.table.tableContent.map(item => {
-        let index = item.month;
-        console.log("first", item)
-        // let pRev=item["planRevenue"]
-        // let pCOGS=item["COGS"]
-        // let pSGNA=item["SGNA"]
-        // if( dollarAmount.visibility==true){
-        //   console.log(dollarAmount.amount,"  =cklemfklemferferfg")
-        //   pRev=dollarAmount.amount*item.planRevenue
-        //   pCOGS=dollarAmount.amount*item.COGS
-        //   pSGNA=dollarAmount.amount*item.SGNA
 
-        // }
-        // console.log("ferf,ekrfeorfeorpifvkev===",pRev)
-        // return { ...item,SGNA:pSGNA,COGS:pCOGS, month: months[index-1],gm:item.gm*100,"planRevenue":pRev };  // Create a new object with updated `month`
-        return { ...item, month: monthMap[index] };  // Create a new object with updated `month`
-      })
+  let rows = useSelector(state => {
+    return Array.isArray(state.formssData.getForecastCOGS)
+      ? state.formssData.getForecastCOGS
       : [];
   });
+
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
       return {
@@ -305,101 +291,21 @@ const AOPTracking = () => {
   let table = {
     columns: [
       {
-        name: "Year",
-        value: "year",
-        style: "px-2 text-center  text-3xl",
-      },
-      {
-        name: "Month",
-        value: "month",
-        style: "px-2 text-center",
-      },
-
-      {
-        name: "Bussiness Unit",
-        value: "bussinessUnit",
-        style: "px-2 text-center",
-      },
-      {
         name: "Customer",
         value: "customerName",
-        style: "px-2 text-center",
+        style: "px-2 text-center  text-3xl",
       },
       {
         name: "UST Project ID",
         value: "ustProjectID",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "px-2 text-center",
       },
       {
-        name: "MCT Project ID",
+        name: "Cost Center",
         value: "costCenter",
         style: "px-2 text-center",
       },
-      {
-        name: "Zone",
-        value: "zone",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Planned Revenue",
-        value: "planRevenue",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Planned COGS",
-        value: "COGS",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Gross Profit",
-        value: "planGp",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Gross Margin(%)",
-        value: "gm",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned SGNA",
-        value: "SGNA",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Net Profit",
-        value: "np",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Revenue",
-        value: "actualRevenue",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual COGS",
-        value: "actualCOGS",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Gross Profit",
-        value: "actualGp",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Gross Margin(%)",
-        value: "actualGm",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual SGNA",
-        value: "actualSGNA",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Net Profit",
-        value: "actualNp",
-        style: "px-2 text-center",
-      },
+
       ...newColumns,
       ...(shouldIncludeEditColumn
         ? [
@@ -467,12 +373,14 @@ const AOPTracking = () => {
   }
   useEffect(() => {
     // inrToUsd
-    bussiness()
+    // bussiness()                  
     // dispatch(FormssActions.getProfiltLoss())
 
-    dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
-    dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0))
+    // dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+    // dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0))
+    dispatch(FormssActions.getForecastCOGS())
   }, []);
+
   let customerList = useSelector((state) => {
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
       return {
@@ -799,10 +707,36 @@ const AOPTracking = () => {
       11: "Nov",
       12: "Dec",
     };
-    let cols = [];
-    cols = cols.flat(Infinity);
-    setNewColumns(cols);
+    // let cols = [];
+    // cols = cols.flat(Infinity);
+    // setNewColumns(cols);
+    const columns = [
+      {
+        name: "Revenue",
+        value: "revenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "COGS",
+        value: "cogs",
+        style: "px-2 text-center",
+      },
+      {
+        name: "GP",
+        value: "gp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "GM (%)",
+        value: "gm",
+        style: "px-2 text-center",
+      },
+    ]
+
   }, [extraColumns]);
+
+
+
 
 
 
@@ -816,12 +750,9 @@ const AOPTracking = () => {
     }))
   }
 
-  console.log("vkelmfvkfenfvkfd vev===", enable)
-
   return (
     <>
       <Tabs data={tabs} setEnable={setEnable} enable={enable} />
-
 
       <AdvancedTable
         headerButton={
@@ -829,7 +760,6 @@ const AOPTracking = () => {
             <div className="flex gap-1">
               <Button
                 onClick={() => {
-
                   setDollarAmount((prev) => {
                     if (prev.visibility == true) {
                       return {
@@ -915,4 +845,6 @@ const AOPTracking = () => {
   );
 };
 
-export default AOPTracking;
+export default ForcastCOPGSTracking;
+
+
