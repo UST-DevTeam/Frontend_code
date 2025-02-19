@@ -129,6 +129,23 @@ const AOPTracking = () => {
     11: "Nov",
     12: "Dec",
   };
+  const keysToProcess=['COGS','SGNA','actualRevenue','actualSGNA','actualSalary','actualVendorCost','employeeExpanse','miscellaneousExpenses','miscellaneousExpensesSecond','otherFixedCost','planRevenue']
+  const divideAndRound = (value) => {
+    if (value !== null && value !== undefined && value !== '' && !isNaN(value)) {
+      return Math.round((value * 100000) * 100) / 100;
+    }
+    return value;
+  };
+  
+  const processItem = (item, keys) => {
+    const result = { ...item };
+    keys.forEach((key) => {
+      if (result.hasOwnProperty(key)) {
+        result[key] = divideAndRound(result[key]);
+      }
+    });
+    return result;
+  };
   const months = [
     { label: "Jan", value: 1 },
     { label: "Feb", value: 2 },
@@ -161,50 +178,7 @@ const AOPTracking = () => {
         // }
         // console.log("ferf,ekrfeorfeorpifvkev===",pRev)
         // return { ...item,SGNA:pSGNA,COGS:pCOGS, month: months[index-1],gm:item.gm*100,"planRevenue":pRev };  // Create a new object with updated `month`
-        return { ...item, month: monthMap[index] };  // Create a new object with updated `month`
-      })
-      : [];
-  });
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm?.circleName,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let costCenterList = useSelector((state) => {
-    return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.costCenterId,
-      };
-    });
-  });
-  let bussinessUnit = useSelector((state) => {
-    return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
-      return {
-        label: itm,
-        value: itm,
-      };
-    }):[]
-  });
-
-  let showType = getAccessType("Actions(P&L)")
-  let shouldIncludeEditColumn = false
-
-  if (showType === "visible") {
-    shouldIncludeEditColumn = true
-  }
-
-  let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getProfitloss || [];
-    return interdata?.map((itm) => {
-      let updateditm = {
-        ...itm,
-
-        edit: (
+        return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',edit: (
           <CstmButton
             className={"p-2"}
             child={
@@ -215,7 +189,7 @@ const AOPTracking = () => {
                   setmodalHead("Edit Plan");
                   setmodalBody(
                     <>
-                      <PLform
+                      {/* <PLform
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
@@ -223,6 +197,18 @@ const AOPTracking = () => {
                         year={year}
                         monthss={[itm?.month]}
                         filtervalue={""}
+                      /> */}
+                      <AOPTrackerForm
+                      
+                        isOpen={modalOpen}
+                        setIsOpen={setmodalOpen}
+                        resetting={false}
+                        formValue={processItem(item, keysToProcess)}
+                        year={item.year}
+                        month={item?.month}
+                        monthss={monthMap[item?.month]}
+                        filtervalue={""}
+                      
                       />
                     </>
                   );
@@ -272,7 +258,46 @@ const AOPTracking = () => {
               ></DeleteButton>
             }
           />
-        ),
+        ), };  // Create a new object with updated `month`
+      })
+      : [];
+  });
+  let circleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle.map((itm) => {
+      return {
+        label: itm?.circleName,
+        value: itm?.uniqueId,
+      };
+    });
+  });
+
+  let costCenterList = useSelector((state) => {
+    return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
+      return {
+        label: itm?.costCenter,
+        value: itm?.costCenterId,
+      };
+    });
+  });
+  let bussinessUnit = useSelector((state) => {
+    return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
+      return {
+        label: itm,
+        value: itm,
+      };
+    }):[]
+  });
+
+  let showType = "visible"
+  
+
+  let dbConfigList = useSelector((state) => {
+    let interdata = state?.formssData?.getProfitloss || [];
+    return interdata?.map((itm) => {
+      let updateditm = {
+        ...itm,
+
+        
       };
       return updateditm;
     });
@@ -316,125 +341,7 @@ const AOPTracking = () => {
   const [previousMonthData, currentMonthData, nextMonthData] =
     getPreviousCurrentAndNextMonth();
 
-  let table = {
-    columns: [
-      {
-        name: "Year",
-        value: "year",
-        style: "px-2 text-center  text-3xl",
-      },
-      {
-        name: "Month",
-        value: "month",
-        style: "px-2 text-center",
-      },
-      
-      {
-        name: "Bussiness Unit",
-        value: "bussinessUnit",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Customer",
-        value: "customerName",
-        style: "px-2 text-center",
-      },
-      {
-        name: "UST Project ID",
-        value: "ustProjectID",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "MCT Project ID",
-        value: "costCenter",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Zone",
-        value: "zone",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Planned Revenue",
-        value: "planRevenue",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Planned COGS",
-        value: "COGS",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Gross Profit",
-        value: "planGp",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Gross Margin(%)",
-        value: "gm",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned SGNA",
-        value: "SGNA",
-        style: "px-2 text-center",
-      },
-      {
-        name: "planned Net Profit",
-        value: "np",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Revenue",
-        value: "actualRevenue",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual COGS",
-        value: "actualCOGS",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Gross Profit",
-        value: "actualGp",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Gross Margin(%)",
-        value: "actualGm",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual SGNA",
-        value: "actualSGNA",
-        style: "px-2 text-center",
-      },
-      {
-        name: "Actual Net Profit",
-        value: "actualNp",
-        style: "px-2 text-center",
-      },
-      ...newColumns,
-      ...(shouldIncludeEditColumn
-        ? [
-          {
-            name: "Edit",
-            value: "edit",
-            style: "min-w-[100px] max-w-[200px] text-center",
-          },
-          {
-            name: "Delete",
-            value: "delete",
-            style: "min-w-[100px] max-w-[200px] text-center",
-          },
-        ]
-        : [])
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [],
-  };
+  
 
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
@@ -818,6 +725,131 @@ const AOPTracking = () => {
     // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
     // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
   };
+  let shouldIncludeEditColumn = true
+  if (enable=="Cumulative") {
+    shouldIncludeEditColumn = false
+  }
+  let table = {
+    columns: [
+      {
+        name: "Year",
+        value: "year",
+        style: "px-2 text-center  text-3xl",
+      },
+      {
+        name: "Month",
+        value: "month",
+        style: "px-2 text-center",
+      },
+      
+      {
+        name: "Bussiness Unit",
+        value: "bussinessUnit",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Customer",
+        value: "customerName",
+        style: "px-2 text-center",
+      },
+      {
+        name: "UST Project ID",
+        value: "ustProjectID",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "MCT Project ID",
+        value: "costCenter",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Zone",
+        value: "zone",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Revenue",
+        value: "planRevenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned COGS",
+        value: "COGS",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Gross Profit",
+        value: "planGp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Gross Margin(%)",
+        value: "gm",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned SGNA",
+        value: "SGNA",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Planned Net Profit",
+        value: "np",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Revenue",
+        value: "actualRevenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual COGS",
+        value: "actualCOGS",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Gross Profit",
+        value: "actualGp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Gross Margin(%)",
+        value: "actualGm",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual SGNA",
+        value: "actualSGNA",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Actual Net Profit",
+        value: "actualNp",
+        style: "px-2 text-center",
+      },
+      ...newColumns,
+      ...(shouldIncludeEditColumn
+        ? [
+          {
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[200px] text-center",
+          },
+          {
+            name: "Delete",
+            value: "delete",
+            style: "min-w-[100px] max-w-[200px] text-center",
+          },
+        ]
+        : [])
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+    filter: [],
+  };
+
+
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
     const monthMap = {
