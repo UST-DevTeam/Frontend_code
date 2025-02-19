@@ -13,7 +13,7 @@ const CustomerCard = ({ dispatch, ...item }) => {
         dispatch(RepositoryActions.getProjectGroups(item.customerId))
     }
     return (
-        <Button classes={`!w-fit !py-2 px-4 ${searchParams.get("customer") === item.customerName ? "bg-yellow-400 text-[#3E454D]" : ""}`} onClick={getProjectGroup}>
+        <Button classes={`!w-fit !py-1 px-3 ${searchParams.get("customer") === item.customerName ? "bg-yellow-400 text-[#3E454D]" : ""}`} onClick={getProjectGroup}>
             <img className="m-auto w-[40px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700" src={backendassetUrl + item.companyimg} />
             <p className="text-center w-full text-[16px] sm:text-[8px] md:text-[10px] xl:text-[16px] ml-2">{item.customerName}</p>
         </Button>

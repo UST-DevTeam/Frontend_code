@@ -26,7 +26,6 @@ const ExChangeRate = () => {
             } = useForm()
 
         let row =useSelector((state)=>state.table.tableContent)
-        console.log("=============",row)
         let table = {
             columns: [
                 {
@@ -40,39 +39,15 @@ const ExChangeRate = () => {
                     style: "min-w-[140px] max-w-[200px] text-center"
                 },
                 // {
-                //     name: "Zone ID",
-                //     value: "shortCode",
-                //     style: "min-w-[140px] max-w-[200px] text-center"
-                // },
-                // {
-                //     name: "Circle",
-                //     value: "circleName",
-                //     style: "min-w-[140px] max-w-[200px] text-center"
-                // },            
-                // {
-                //     name: "Edit",
-                //     value: "edit",
+                //     name: "Action",
+                //     value: "delete",
                 //     style: "min-w-[100px] max-w-[200px] text-center"
-                // },
-                {
-                    name: "Action",
-                    value: "delete",
-                    style: "min-w-[100px] max-w-[200px] text-center"
-                }
+                // }
             ],
             properties: {
                 rpp: [10, 20, 50, 100]
             },
-            filter: [
-                // {
-                //     label: "Role",
-                //     type: "select",
-                //     name: "rolename",
-                //     option: roleList,
-                //     props: {
-                //     }
-                // }
-            ]
+            filter: []
         }
         const onSubmit = (data) => {
             let value = data.reseter
@@ -84,35 +59,30 @@ const ExChangeRate = () => {
             dispatch(tableAction.getTable(Urls.exchangeRate, SET_TABLE))
         },[])
   return (
-    <div><AdvancedTable
-    headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
-        setmodalOpen(prev => !prev)
-        // dispatch(AdminActions.getManageZone())
-        setmodalHead("New Zone")
-        setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-    }}
-        name={"Add Exchange"}></Button>
-        {/* <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
-            setFileOpen(prev=>!prev)
-        }}></Button> */}
-        {/* <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
-            dispatch(CommonActions.commondownload("/export/manageZone","Export_Zone("+dt+").xlsx"))
-        }}></Button> */}
-        </div>}
-    table={table}
-    filterAfter={onSubmit}
-    tableName={"UserListTable"} 
-    // handleSubmit={handleSubmit}
-    data={row}
-    errors={errors}
-    register={register}
-    setValue={setValue}
-    getValues={getValues}
-    totalCount={10}
-    heading = {"Total Exchanges :- "}
-/>
-
-<Modal size={"sm"} modalHead={modalHead} children={<ExchangeForm />} isOpen={modalOpen} setIsOpen={setmodalOpen} /></div>
+    <div>
+      <AdvancedTable
+        headerButton={
+          <div className='flex gap-1'>
+            <Button classes='w-auto ' onClick={(e) => {
+              setmodalOpen(prev => !prev)
+              setmodalHead("Rate")
+              // setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+              }}
+              name={"Add Exchange"}>
+            </Button>
+          </div>}
+        table={table}
+        filterAfter={onSubmit}
+        tableName={"UserListTable"} 
+        data={row}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+        totalCount={""}
+      />
+      <Modal size={"sm"} modalHead={modalHead} children={<ExchangeForm />} isOpen={modalOpen} setIsOpen={setmodalOpen}/>
+    </div>
   )
 }
 
@@ -134,11 +104,9 @@ const ExchangeForm =()=>{
         formState: { errors },
       } = useForm();
       const onSubmit =async (data) => {
-        console.log(data);
 
         const resp = await Api.post({ data, url: Urls.exchangeRate,"cb": () => dispatch(tableAction.getTable(Urls.exchangeRate, SET_TABLE)) })
-      if (resp.status == 201) {
-      
+        if (resp.status == 201) {
         setIsOpen(false);
       }
       };
@@ -156,10 +124,6 @@ const ExchangeForm =()=>{
               "valueAsNumber":true,
               "min":2000
             }
-            // props: {
-            //   valueAsNumber: true,
-            //   min: 0,
-            // },
           },
           {
             label: "Rate",
@@ -172,10 +136,6 @@ const ExchangeForm =()=>{
               "valueAsNumber":true,
               "min":0
             }
-            // props: {
-            //   valueAsNumber: true,
-            //   min: 0,
-            // },
           },
     ]
     

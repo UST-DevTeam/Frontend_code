@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import moment from "moment";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
@@ -17,7 +15,6 @@ const ManageUserProjectAllocForm = ({
 
   let dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
-
 
 
   let projectList = useSelector((state) => {
@@ -70,39 +67,24 @@ const ManageUserProjectAllocForm = ({
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+
+
   const onTableViewSubmit = (data) => {
     if (formValue.uniqueId) {
       dispatch(
         AdminActions.postProjectAllocation(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig");
             setIsOpen(false);
             dispatch(AdminActions.getProjectAllocation());
           },
           formValue.uniqueId
         )
       );
-    } else {
-      dispatch(
-        AdminActions.postProjectAllocation(data, () => {
-          console.log("CustomQueryActions.postDBConfig");
-          setIsOpen(false);
-          dispatch(AdminActions.getProjectAllocation());
-        })
-      );
     }
   };
-  console.log(Form, "Form 11");
+
   useEffect(() => {
-    // dispatch(HrActions.getManageEmpDetails())
-    // dispatch(AdminActions.getProjectAllocation())
     dispatch(AdminActions.getVishal());
     if (resetting) {
       reset({});
@@ -111,19 +93,13 @@ const ManageUserProjectAllocForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
-        if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
-          const momentObj = moment(formValue[key.name]);
-          setValue(key.name, momentObj.toDate());
-        } else {
-          // console.log("formValuekey",key,key)
           setValue(key.name, formValue[key.name]);
-        }
       });
     }
   }, [formValue, resetting]);
+
+
   return (
     <>
       <Modal
@@ -153,11 +129,6 @@ const ManageUserProjectAllocForm = ({
           setValue={setValue}
           getValues={getValues}
         />
-        {/* <button></button> */}
-
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}

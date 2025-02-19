@@ -90,7 +90,6 @@ const Invoice = () => {
                   dispatch(CurrentuserActions.getcurrentuserPT(true, `customer=${itm?.customer}`))
                   dispatch(CurrentuserActions.getcurrentuserPID(true, `projectGroup=${itm?.projectGroup}`))
                   dispatch(AdminActions.getInvoiceSiteId(true,`projectId=${itm?.projectId}`));
-                  // dispatch(FinanceActions.getInvoice());
                   setmodalHead("Edit Invoice");
                   setmodalBody(
                     <>
@@ -156,8 +155,10 @@ const Invoice = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.financeData?.getInvoice;
+    let interdata = state?.financeData?.getInvoice || [];
+    console.log(interdata,"_________interdata___________")
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {

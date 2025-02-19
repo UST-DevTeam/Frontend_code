@@ -24,7 +24,7 @@ const SubProjectMasterTableForm = ({
         name: itm?.subProject,
         id: itm?.subProjectId,
       };
-    });
+    }) || []
   });
 
 

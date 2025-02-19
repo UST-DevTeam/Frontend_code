@@ -763,12 +763,12 @@ const AdminActions = {
   },
 
   getManageProfile:
-    (reset = true, args = "") =>
+    (reset = true, args = "",show=0) =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
             url: `${Urls.admin_profile}${args != "" ? "?" + args : ""}`,
-            reset,
+            reset, show:show
           });
           if (res?.status !== 200) return;
           let dataAll = res?.data?.data;

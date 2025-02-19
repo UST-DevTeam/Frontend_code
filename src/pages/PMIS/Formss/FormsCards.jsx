@@ -23,7 +23,7 @@ const FormsCards = () => {
         showbtn={false}
         approveddata={[
           ["Invoice PVA", "bg-pcol", "/forms/earnValueManagementFinancial",],
-          ["Delivery PVA", "bg-pcol", "/forms/EVMDelivery"],
+          ["Delivery PVA", "bg-pcol", "/forms/PVADeliveryCustomer"],
           ["SOB", "bg-pcol", "/forms/SOB",],
           ["Gap Analysis", "bg-pcol", "/forms/GapAnalysis"],
           ["P&L", "bg-pcol", "/forms/P&L"],

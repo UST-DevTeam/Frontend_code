@@ -49,7 +49,7 @@ import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriter
 import ManageClaimType from "../pages/PMIS/Admin/ManageClaimType/ManageClaimType";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
 import FormsCards from "../pages/PMIS/Formss/FormsCards";
-import WorkdoneForecastCards from "../pages/PMIS/Formss/WorkdoneForecastCards";
+// import WorkdoneForecastCards from "../pages/PMIS/Formss/WorkdoneForecastCards";
 import InvoiceBased from "../pages/PMIS/FinancialCards/InvoiceBased/InvoiceBased";
 import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWorkDoneBased";
 import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
@@ -77,7 +77,7 @@ import L2AdvanceForm from "../pages/PMIS/MyHome/L2Form/L2AdvanceForm";
 import L3AdvanceForm from "../pages/PMIS/MyHome/L3Form/L3AdvanceForm";
 import DAFormFill from "../pages/PMIS/MyHome/DAFormFill/DAFormFill";
 import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
-import ActualWorkdone from "../pages/PMIS/Formss/ActualWorkdone/ActualWorkdone";
+import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
 import PL from "../pages/PMIS/Formss/P&L/PL";
 import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
 import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
@@ -122,6 +122,7 @@ import VendorCost from "../pages/PMIS/gpTracking/VendorCost/VendorCost";
 import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
 import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
 import SubProjectMasterTable from "../pages/PMIS/Admin/SubProjectMasterTable/SubProjectMasterTable";
+import WorkdoneDeliveryPVAMSCards from "../pages/PMIS/Formss/WorkdoneDeliveryPVAMSCards";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -665,13 +666,13 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    {
-      name: "",
-      link: "/forms/EVMDelivery",
-      component: <WorkdoneForecastCards />,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
+    // {
+    //   name: "",
+    //   link: "/forms/EVMDelivery",
+    //   component: <WorkdoneForecastCards />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
       name: "",
       link: "/forms/gapAnalysis",
@@ -700,8 +701,15 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/forms/EVMDelivery/ActualWorkDone",
-      component: <ActualWorkdone />,
+      link: "/forms/PVADeliveryCustomer/MS-PVA",
+      component: <WorkdoneDeliveryPVAMSCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/PVADeliveryCustomer",
+      component: <WorkdoneDeliveryPVACards />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
