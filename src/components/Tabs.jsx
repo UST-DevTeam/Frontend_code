@@ -13,10 +13,10 @@ function Tabs({ data,enable,setEnable, date=false,forAOP=false }) {
       console.log("======cmewfjklerfn=",data)
       setEnable(data)
       if(data=="Cumulative" && forAOP==true){
-        dispatch(tableAction.getTable(Urls.aop+"?Cumulative=true", SET_TABLE))
+        dispatch(tableAction.getTable(Urls.aop+"?Cumulative=true&forAirtel=true", SET_TABLE))
       }
       else if(forAOP==true){
-        dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+        dispatch(tableAction.getTable(Urls.aop+"?forAirtel=true", SET_TABLE))
   
       }
   

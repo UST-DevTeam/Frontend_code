@@ -492,12 +492,14 @@ const AdvancedTableGpTracking = ({
                         {table.columns.map((innerItm, index) => {
                           return hide.indexOf(String(index)) == -1 ? (
                             <td
-                              className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${innerItm.style
+                              
+                              className={`text-[35px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${innerItm.style
                                 ? innerItm.style
-                                : " min-w-[300px] max-w-[500px]"
-                                }`}
+                                : "min-w-[300px] max-w-[500px]"
+                                } `}
                             >
                               <Modalmoreinfo
+                                pStyle={'15px'}
                                 ctt={32}
                                 setModalBody={setModalBody}
                                 setOpenModal={setOpenModal}

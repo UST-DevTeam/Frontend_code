@@ -1,7 +1,7 @@
 import React from 'react';
 import { moreinfo } from '../utils/commonFunnction';
 
-const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100 }) => {
+const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100,pStyle=null }) => {
     
     if (value?.length > 100) {
         return <>
@@ -18,11 +18,16 @@ const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100 }) => {
                     </span>
                 </div>
             </div>
+            
             <p data-tooltip-target="tooltip-hover"></p>
         </>
     } else {
-        return <p>{value}</p>
+        if (pStyle !== null) {
+            return <p id="tdp">{value}</p>;
+        }
+        return <p>{value}</p>;
     }
+    
 
 }
 

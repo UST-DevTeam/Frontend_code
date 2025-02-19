@@ -29,6 +29,7 @@ import Api from "../../../../utils/api";
 import Tabs from "../../../../components/Tabs";
 import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
 import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
+import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracking";
 
 const AOPTrackingAirtel = () => {
   // const Data = useRef("")
@@ -680,96 +681,116 @@ const AOPTrackingAirtel = () => {
         name: "Year",
         value: "year",
         style: "px-2 text-center text-3xl",
+        bg: "bg-sky-200"
       },
       {
         name: "Month",
         value: "month",
         style: "px-2 text-center",
+        bg: "bg-sky-200"
+      },
+      
+      {
+        name: "Bussiness Unit",
+        value: "businessUnit",
+        style: "px-2 text-center",
+        bg: "bg-sky-200"
       },
       {
         name: "Customer",
         value: "customerName",
         style: "px-2 text-center",
-      },
-      {
-        name: "Bussiness Unit",
-        value: "businessUnit",
-        style: "px-2 text-center",
+        bg: "bg-sky-500"
       },
       {
         name: "UST Project ID",
         value: "ustProjectID",
         style: "min-w-[140px] max-w-[200px] text-center",
+         bg: "bg-sky-500"
       },
       {
         name: "MCT Project ID",
         value: "costCenter",
         style: "px-2 text-center",
+         bg: "bg-sky-500"
       },
       {
         name: "Zone",
         value: "zone",
         style: "px-2 text-center",
+         bg: "bg-sky-500"
       },
       {
         name: "Planned Revenue",
         value: "planRevenue",
         style: "px-2 text-center",
+        bg: "bg-orange-400 whitespace-nowrap px-2"
       },
       {
         name: "Planned COGS",
         value: "COGS",
         style: "px-2 text-center",
+        bg: "bg-orange-400 whitespace-nowrap px-2"
       },
       {
         name: "Planned Gross Profit",
         value: "planGp",
         style: "px-2 text-center",
+        bg: "bg-orange-400 whitespace-nowrap px-2"
       },
       {
         name: "Planned Gross Margin(%)",
         value: "gm",
         style: "px-2 text-center",
+        bg: "bg-orange-400 whitespace-nowrap px-2"
       },
       {
         name: "Planned SGNA",
         value: "SGNA",
         style: "px-2 text-center",
+        bg: "bg-orange-400 whitespace-nowrap px-2"
       },
       {
         name: "Planned Net Profit",
         value: "np",
         style: "px-2 text-center",
+        bg: "bg-orange-400 whitespace-nowrap px-2"
       },
       {
         name: "Actual Revenue",
         value: "actualRevenue",
         style: "px-2 text-center",
+         bg: "bg-green-600 whitespace-nowrap px-2"
       },
       {
         name: "Actual COGS",
         value: "actualCOGS",
         style: "px-2 text-center",
+         bg: "bg-green-600 whitespace-nowrap px-2"
       },
       {
         name: "Actual Gross Profit",
         value: "actualGp",
         style: "px-2 text-center",
+         bg: "bg-green-600 whitespace-nowrap px-2"
       },
       {
         name: "Actual Gross Margin(%)",
         value: "actualGm",
         style: "px-2 text-center",
+         bg: "bg-green-600 whitespace-nowrap px-2"
       },
       {
         name: "Actual SGNA",
         value: "actualSGNA",
         style: "px-2 text-center",
+         bg: "bg-green-600 whitespace-nowrap px-2"
       },
       {
         name: "Actual Net Profit",
         value: "actualNp",
         style: "px-2 text-center",
+         bg: "bg-green-600 whitespace-nowrap px-2"
       },
       ...newColumns,
       ...(shouldIncludeEditColumn
@@ -835,8 +856,8 @@ const AOPTrackingAirtel = () => {
           />
         </div> */}
       </div>
-      <Tabs data={tabs} setEnable={setEnable} enable={enable}  forAOP={true}/>
-      <AdvancedTable 
+      <Tabs data={tabs} setEnable={setEnable} enable={enable}  forAOP={true} />
+      <AdvancedTableGpTracking 
         headerButton={
           <>
           <div className="flex gap-1">
@@ -916,8 +937,8 @@ const AOPTrackingAirtel = () => {
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={dbConfigTotalCount}
-        heading = {'Total Count :-'}
+        totalCount={dollarAmount.visibility ? " Dollar" : " INR"}
+        heading = {'Values are shows in Million :'}
       />
       <Modal
         size={"sm"}
