@@ -805,3 +805,8 @@ td p {
 }
 
 }
+
+.vertical-text {
+  writing-mode:sideways-lr;
+  text-orientation: upright;
+}

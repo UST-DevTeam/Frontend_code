@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal"; 
+import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
@@ -27,7 +27,8 @@ const EarnValueMgmtFinancial = () => {
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
-  const [modalBody, setmodalBody] = useState(<></> );
+  const [change, setChange] = useState(false);
+  const [modalBody, setmodalBody] = useState(<></>);
   const [ValGm, setValGm] = useState("Monthly");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
@@ -72,7 +73,7 @@ const EarnValueMgmtFinancial = () => {
   let shouldIncludeEditColumn = false
   if (showType === "visible"){
     shouldIncludeEditColumn = true
-  } 
+  }
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getEarnValueMgmtFinancial || [];
@@ -248,6 +249,7 @@ const EarnValueMgmtFinancial = () => {
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
     listYear.push({ label: ywq, value: ywq });
   }
+
   function getWeekNumber(d) {
     d = new Date(+d);
     d.setHours(0, 0, 0, 0);
@@ -265,7 +267,7 @@ const EarnValueMgmtFinancial = () => {
     do {
       let d = new Date(year, month, day--);
       week = getWeekNumber(d)[1];
-    } 
+    }
     while (week == 1);
 
     return week;
@@ -351,7 +353,7 @@ const EarnValueMgmtFinancial = () => {
           costCenter:costCenter,
           businessUnit:businessUnit
         },
-        () => {}
+        () => { }
       )
     );
   }, [amountType]);
@@ -437,10 +439,10 @@ const EarnValueMgmtFinancial = () => {
     {
       label: "Customer",
       value: "",
-      name:"customerId",
-      type:"select",
+      name: "customerId",
+      type: "select",
       option: customerList,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       props: {
         onChange: (e) => {
           if (e.target.value){
@@ -467,7 +469,7 @@ const EarnValueMgmtFinancial = () => {
       hasSelectAll: true,
       classes: "col-span-1 h-10",
     },
-    
+
   ];
 
   async  function handleAddActivity(res){
@@ -499,10 +501,10 @@ const EarnValueMgmtFinancial = () => {
     );
   };
 
-  const onTableViewSubmit = (data) => { 
-    data["fileType"]="EVMFinancial"
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "EVMFinancial"
     dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false)
+      setFileOpen(false)
     }))
   }
 
@@ -594,8 +596,8 @@ const EarnValueMgmtFinancial = () => {
             classes='w-auto mr-1'>{amountType === "INR" ? <FaRupeeSign /> : <FaDollarSign />}
           </Button>
             <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}>
+              setFileOpen(prev => !prev)
+            }}>
             </Button>
           </>
         }
@@ -603,7 +605,7 @@ const EarnValueMgmtFinancial = () => {
         exportButton={["/export/EvmFinancial", `Export_${viewType}_${amountType}_Invoice_PVA.xlsx`,"POST",{Monthly: exportData.current.join(","),viewType:viewType,amountType:amountType,customer:customer,costCenter:costCenter,businessUnit:businessUnit}]}
         filterAfter={onSubmit}
         tableName={"EvmFinancialForm"}
-        TableHeight = "h-[52vh]" 
+        TableHeight="h-[52vh]"
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -622,7 +624,7 @@ const EarnValueMgmtFinancial = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/EvmFinancial.xlsx","EvmFinancial.xlsx"]} />
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink={["/template/EvmFinancial.xlsx", "EvmFinancial.xlsx"]} />
     </>
   );
 };

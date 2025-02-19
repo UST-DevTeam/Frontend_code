@@ -111,7 +111,7 @@ import VendorActivity from "../pages/PMIS/Admin/VendorActivity/VendorActivity";
 import ManagePolicy from "../pages/PMIS/MyHome/ManagePolicy";
 import FinancialDashboardCard from "../pages/PMIS/FinancialCards/FinancialDashboardCard";
 import AOPTracking from "../pages/PMIS/Formss/AOP/AOPTracking";
-
+import ForcastCOGSTracking from "../pages/PMIS/Formss/ForcastCOGS/ForcastCOGSTracking";
 import SalaryDB from "../pages/PMIS/gpTracking/salaryDB";
 import OtherFixedCost from "../pages/PMIS/gpTracking/OtherFixedCost/OtherFixedCost";
 import OtherFixedCostTypes from "../pages/PMIS/gpTracking/OtherFixedCostTypes/OtherFixedCostTypes";
@@ -122,6 +122,8 @@ import VendorCost from "../pages/PMIS/gpTracking/VendorCost/VendorCost";
 import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
 import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
 import SubProjectMasterTable from "../pages/PMIS/Admin/SubProjectMasterTable/SubProjectMasterTable";
+import DeliveryPVA from "../pages/PMIS/Formss/DeliveryPVA/DeliveryPVA";
+import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
 import WorkdoneDeliveryPVAMSCards from "../pages/PMIS/Formss/WorkdoneDeliveryPVAMSCards";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -715,6 +717,28 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/forms/PVADeliveryCustomer/MS-PVA",
+      component: <WorkdoneDeliveryPVAMSCards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/PVADeliveryCustomer/MS-PVA/:MSType/:customerId",
+      component: <DeliveryPVA />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/PVADeliveryCustomer",
+      component: <WorkdoneDeliveryPVACards />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+  
+    {
+      name: "",
       link: "/forms/P&L",
       component: <PL />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
@@ -724,6 +748,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/AopTracking",
       component: <AOPTracking />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/forcastCOGSTracking",
+      component: <ForcastCOGSTracking />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

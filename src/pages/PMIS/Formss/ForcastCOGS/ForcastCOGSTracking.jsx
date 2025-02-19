@@ -20,37 +20,24 @@ import CommonForm from "../../../../components/CommonForm";
 import { UilSearch } from "@iconscout/react-unicons";
 import FileUploader from "../../../../components/FIleUploader";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
-import AOPTrackerForm from "./AOPTrackerForm";
+import AOPTrackerForm from "../AOP/AOPTrackerForm";
 import PLform from "../P&L/PLform";
-import AddActualAOP from "./AddActualAOP";
+
 import { tableAction } from "../../../../store/actions/table-action";
 import { SET_TABLE } from "../../../../store/reducers/table-reducer";
 import Api from "../../../../utils/api";
 import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
-import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracking";
 
-function Tabs({ data,enable,setEnable }) {
-  const dispatch=useDispatch()
-  const handleTab=(data)=>{
-    console.log("======cmewfjklerfn=",data)
-    setEnable(data)
-    if(data=="Cumulative"){
-      dispatch(tableAction.getTable(Urls.aop+"?Cumulative=true", SET_TABLE))
-    }
-    else{
-      dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+function Tabs({ data, enable, setEnable }) {
 
-    }
-
-  }
   return (
     <div>
       <div className="flex items-center px-4 space-x-4">
         {
           data.map(item => {
-            return <button onClick={() => handleTab(item.label)} className={`text-white rounded-2xl py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
+            return <button onClick={() => setEnable(item.label)} className={`text-white rounded-2xl py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
           })
         }
 
@@ -65,7 +52,7 @@ function Tabs({ data,enable,setEnable }) {
   )
 }
 
-const AOPTracking = () => {
+const ForcastCOPGSTracking = () => {
 
   const {
     register,
@@ -75,7 +62,6 @@ const AOPTracking = () => {
     setValues,
     reset,
     formValue,
-    clearErrors, 
     getValues,
     formState: { errors },
   } = useForm();
@@ -92,16 +78,15 @@ const AOPTracking = () => {
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
-  const [modalHead, setmodalHead] = useState(<></>);
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
+  const [modalHead, setmodalHead] = useState(<></>);
   const [extraColumns, setExtraColumns] = useState("");
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
-  const forExport=useRef(false)
-  const Data=useRef()
+  const Data = useRef("")
   // let months = [
   //   "Jan",
   //   "Feb",
@@ -130,23 +115,6 @@ const AOPTracking = () => {
     11: "Nov",
     12: "Dec",
   };
-  const keysToProcess=['COGS','SGNA','actualRevenue','actualSGNA','actualSalary','actualVendorCost','employeeExpanse','miscellaneousExpenses','miscellaneousExpensesSecond','otherFixedCost','planRevenue']
-  const divideAndRound = (value) => {
-    if (value !== null && value !== undefined && value !== '' && !isNaN(value)) {
-      return Math.round((value * 100000) * 100) / 100;
-    }
-    return value;
-  };
-  
-  const processItem = (item, keys) => {
-    const result = { ...item };
-    keys.forEach((key) => {
-      if (result.hasOwnProperty(key)) {
-        result[key] = divideAndRound(result[key]);
-      }
-    });
-    return result;
-  };
   const months = [
     { label: "Jan", value: 1 },
     { label: "Feb", value: 2 },
@@ -162,24 +130,53 @@ const AOPTracking = () => {
     { label: "Dec", value: 12 },
   ];
   let dispatch = useDispatch();
-  let rows = useSelector(state => {
-    return Array.isArray(state.table?.tableContent)
-      ? state.table.tableContent.map(item => {
-        let index = item.month;
-        console.log("first", item)
-        // let pRev=item["planRevenue"]
-        // let pCOGS=item["COGS"]
-        // let pSGNA=item["SGNA"]
-        // if( dollarAmount.visibility==true){
-        //   console.log(dollarAmount.amount,"  =cklemfklemferferfg")
-        //   pRev=dollarAmount.amount*item.planRevenue
-        //   pCOGS=dollarAmount.amount*item.COGS        
-        //   pSGNA=dollarAmount.amount*item.SGNA
 
-        // }
-        // console.log("ferf,ekrfeorfeorpifvkev===",pRev)
-        // return { ...item,SGNA:pSGNA,COGS:pCOGS, month: months[index-1],gm:item.gm*100,"planRevenue":pRev };  // Create a new object with updated `month`
-        return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualNp: (item?.actualNp * 100).toFixed(2) + ' %',np: (item?.np * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',edit: (
+  let rows = useSelector(state => {
+    return Array.isArray(state.formssData.getForecastCOGS)
+      ? state.formssData.getForecastCOGS
+      : [];
+  });
+
+  let circleList = useSelector((state) => {
+    return state?.adminData?.getManageCircle.map((itm) => {
+      return {
+        label: itm?.circleName,
+        value: itm?.uniqueId,
+      };
+    });
+  });
+
+  let costCenterList = useSelector((state) => {
+    return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
+      return {
+        label: itm?.costCenter,
+        value: itm?.costCenterId,
+      };
+    });
+  });
+  let bussinessUnit = useSelector((state) => {
+    return Array.isArray(state?.dropDown?.bussinessUnit) ? state?.dropDown?.bussinessUnit.map((itm) => {
+      return {
+        label: itm,
+        value: itm,
+      };
+    }) : []
+  });
+
+  let showType = getAccessType("Actions(P&L)")
+  let shouldIncludeEditColumn = false
+
+  if (showType === "visible") {
+    shouldIncludeEditColumn = true
+  }
+
+  let dbConfigList = useSelector((state) => {
+    let interdata = state?.formssData?.getProfitloss || [];
+    return interdata?.map((itm) => {
+      let updateditm = {
+        ...itm,
+
+        edit: (
           <CstmButton
             className={"p-2"}
             child={
@@ -190,7 +187,7 @@ const AOPTracking = () => {
                   setmodalHead("Edit Plan");
                   setmodalBody(
                     <>
-                      {/* <PLform
+                      <PLform
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
                         resetting={false}
@@ -198,18 +195,6 @@ const AOPTracking = () => {
                         year={year}
                         monthss={[itm?.month]}
                         filtervalue={""}
-                      /> */}
-                      <AOPTrackerForm
-                      
-                      isOpen={modalOpen}
-                        setIsOpen={setmodalOpen}
-                        resetting={false}
-                        formValue={processItem(item, keysToProcess)}
-                        year={item.year}
-                        month={item?.month}
-                        monthss={monthMap[item?.month]}
-                        filtervalue={""}
-                      
                       />
                     </>
                   );
@@ -234,9 +219,9 @@ const AOPTracking = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.aop}/${item?.uniqueId}`,
+                              `${Urls.forms_profit_loss}/${itm.uniqueId}`,
                               () => {
-                                dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+                                dispatch(FormssActions.getProfiltLoss());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -259,54 +244,14 @@ const AOPTracking = () => {
               ></DeleteButton>
             }
           />
-        ), };  // Create a new object with updated `month`
-      })
-      : [];
-  });
-  let circleList = useSelector((state) => {
-    return state?.adminData?.getManageCircle.map((itm) => {
-      return {
-        label: itm?.circleName,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  let costCenterList = useSelector((state) => {
-    return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.costCenterId,
-      };
-    });
-  });
-  let bussinessUnit = useSelector((state) => {
-    console.log(state,'dkljdjdjijdijodiojoid')
-    return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
-      return {
-        label: itm,
-        value: itm,
-      };
-    }):[]
-  });
-
-  let showType = "visible"
-  
-
-  let dbConfigList = useSelector((state) => {
-    let interdata = state?.formssData?.getProfitloss || [];
-    return interdata?.map((itm) => {
-      let updateditm = {
-        ...itm,
-
-        
+        ),
       };
       return updateditm;
     });
   });
 
   let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.table?.tableContent || [];
+    let interdata = state?.formssData?.getProfitloss || [];
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -343,7 +288,45 @@ const AOPTracking = () => {
   const [previousMonthData, currentMonthData, nextMonthData] =
     getPreviousCurrentAndNextMonth();
 
-  
+  let table = {
+    columns: [
+      {
+        name: "Customer",
+        value: "customerName",
+        style: "px-2 text-center  text-3xl",
+      },
+      {
+        name: "UST Project ID",
+        value: "ustProjectID",
+        style: "px-2 text-center",
+      },
+      {
+        name: "Cost Center",
+        value: "costCenter",
+        style: "px-2 text-center",
+      },
+
+      ...newColumns,
+      ...(shouldIncludeEditColumn
+        ? [
+          {
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[200px] text-center",
+          },
+          {
+            name: "Delete",
+            value: "delete",
+            style: "min-w-[100px] max-w-[200px] text-center",
+          },
+        ]
+        : [])
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+    filter: [],
+  };
 
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
@@ -383,19 +366,21 @@ const AOPTracking = () => {
   //   })
   //   return rate;
   // }
-  const bussiness=async ()=>{
-    let res=await Api.get({url:Urls.businessUnit,contentType:"application/json"})
-    console.log("================",res.data.data)
-    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.businessUnit))
+  const bussiness = async () => {
+    let res = await Api.get({ url: Urls.businessUnit, contentType: "application/json" })
+    console.log("================", res.data.data)
+    dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.bussinessUnit))
   }
   useEffect(() => {
     // inrToUsd
-    bussiness()
+    // bussiness()                  
     // dispatch(FormssActions.getProfiltLoss())
 
-    dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
-    dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0))
+    // dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
+    // dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0))
+    dispatch(FormssActions.getForecastCOGS())
   }, []);
+
   let customerList = useSelector((state) => {
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
       return {
@@ -452,8 +437,7 @@ const AOPTracking = () => {
       type: "select",
       option: listYear,
       required: true,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
     },
     {
       label: "Month",
@@ -462,8 +446,7 @@ const AOPTracking = () => {
       type: "select",
       option: months,
       required: true,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
     },
     {
       label: 'Business unit',
@@ -475,7 +458,7 @@ const AOPTracking = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      classes: "w-44 sm:w-24 md:w-34 xl:w-44",
+      classes: "col-span-1 h-10 ",
     },
     {
       label: "Customer",
@@ -489,7 +472,7 @@ const AOPTracking = () => {
           handleCustomerChange(e?.target?.value);
         },
       },
-      classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+      // required: true,
     },
     // {
     //   label: "Cost Center",
@@ -510,7 +493,7 @@ const AOPTracking = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      classes: "col-span-1 h-10 w-44 sm:w-24 md:w-34 xl:w-44",
+      classes: "col-span-1 h-10",
     },
 
   ];
@@ -561,8 +544,7 @@ const AOPTracking = () => {
       type: "select",
       option: listYear,
       required: true,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-       classes:"w-44 sm:w-24 md:w-34 xl:w-44"
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
     },
     // {
     //   label: "Month",
@@ -584,7 +566,6 @@ const AOPTracking = () => {
       },
       hasSelectAll: true,
       classes: "col-span-1 h-10 ",
-
     },
 
     // {
@@ -613,8 +594,7 @@ const AOPTracking = () => {
       name: "customerId",
       type: "select",
       option: customerList,
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-       classes:"w-44 sm:w-24 md:w-34 xl:w-44",
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       props: {
         onChange: (e) => {
           handleCustomerChange(e?.target?.value);
@@ -636,16 +616,7 @@ const AOPTracking = () => {
     },
 
   ];
-  const onError = (errors) => {
-    if(forExport.current==true){
-      clearErrors()
 
-      dispatch(CommonActions.commondownloadpost("/export/AOP"+ (enable=="Cumulative"?"?Cumulative=true":""), "AOP.xlsx", "POST",{}))
-
-    }
-    console.log("Form Errors:", errors);
-    return {}
-  };
 
   const tabs = [
     {
@@ -653,26 +624,16 @@ const AOPTracking = () => {
       body:
         <div className="flex items-center justify-start">
 
-        
-            <div className="w-auto">
-              <CommonForm
-                classes="grid grid-cols-5"
-                Form={formD}
-                errors={errors}
-                register={register}
-                setValue={setValue}
-                getValues={getValues}
-              />
-            </div>
-            <div className="flex w-auto mt-4 -ml-1 items-center justify-center">
-              <Button
-                classes="flex h-fit"
-                name=""
-                icon={<UilSearch className="w-5 m-2 h-5" />}
-                onClick={handleSubmit(handleAddActivity,onError) }
-                  
-              />
-            </div>
+
+          <div className="w-full">
+            <CommonForm
+              classes="grid grid-cols-5"
+              Form={formD}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            />
           </div>
           <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
             <Button
@@ -688,47 +649,41 @@ const AOPTracking = () => {
       label: "Cumulative",
       body: <div className="flex items-center justify-start">
 
-        
-      <div className="w-auto">
-        <CommonForm
-          classes="grid grid-cols-5"
-          Form={cummulativeFilter}
-          errors={errors}
-          register={register}
-          setValue={setValue}
-          getValues={getValues}
-        />
+
+        <div className="w-full">
+          <CommonForm
+            classes="grid grid-cols-5"
+            Form={cummulativeFilter}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </div>
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+          <Button
+            classes="flex h-fit"
+            name=""
+            icon={<UilSearch className="w-5 m-2 h-5" />}
+            onClick={handleSubmit(handleAddActivity)}
+          />
+        </div>
       </div>
-      <div className="flex w-auto mt-4 -ml-1 items-center justify-center">
-        <Button
-          classes="flex h-fit"
-          name=""
-          icon={<UilSearch className="w-5 m-2 h-5" />}
-          onClick={()=>{
-            forExport.current=false;
-            return handleSubmit(handleAddActivity,onError)()}}
-        />
-      </div>
-    </div>
     },
   ]
   const [enable, setEnable] = useState(tabs[0].label)
-  async  function handleAddActivity(res){
-   console.log("vklenfvjioefivoejncokenfver",errors)
+  async function handleAddActivity(res) {
+    Data.current = ""
     // setExtraColumns(res['Month'])
     Data.current = res['CostCenter']
     // FRERFER
-    console.log("========kldfvjmkldfjgvfdgjfrio====", res)
-    if (enable=="Cumulative"){
-      
-      res['month']=res['Month']
+    console.log("============", res)
+    if (enable == "Cumulative") {
+
+      res['month'] = res['Month']
     }
-    if(forExport.current==true){
-      dispatch(CommonActions.commondownloadpost("/export/AOP"+ (enable=="Cumulative"?"?Cumulative=true&filter=true":""), "AOP.xlsx", "POST",res))
-      return true
-    }
-    
-    
+
+
     const resp = await Api.post({ data: res, url: Urls.aop + "?filter=true" })
     if (resp.status == 200) {
       dispatch(SET_TABLE(resp?.data?.data))
@@ -736,158 +691,52 @@ const AOPTracking = () => {
     // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
     // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
   };
-  let shouldIncludeEditColumn = true
-  if (enable=="Cumulative") {
-    shouldIncludeEditColumn = false
-  }
-  let table = {
-    columns: [
-      {
-        name: "Year",
-        value: "year",
-        style: "px-2 text-center  text-3xl",
-        bg: "bg-sky-200"
-      },
-      {
-        name: "Month",
-        value: "month",
-        style: "px-2 text-center",
-        bg: "bg-sky-200"
-        
-      },
-      
-      {
-        name: "Bussiness Unit",
-        value: "businessUnit",
-        style: "px-2 text-center",
-        bg: "bg-sky-200"
-      },
-      {
-        name: "Customer",
-        value: "customerName",
-        style: "px-2 text-center",
-        bg: "bg-sky-500"
-      },
-      {
-        name: "UST Project ID",
-        value: "ustProjectID",
-        style: "min-w-[140px] max-w-[200px] text-center",
-        bg: "bg-sky-500"
-      },
-      {
-        name: "MCT Project ID",
-        value: "costCenter",
-        style: "px-2 text-center",
-        bg: "bg-sky-500"
-      },
-      {
-        name: "Zone",
-        value: "zone",
-        style: "px-2 text-center",
-        bg: "bg-sky-500"
-      },
-      {
-        name: "Planned Revenue",
-        value: "planRevenue",
-        style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
-      },
-      {
-        name: "Planned COGS",
-        value: "COGS",
-        style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
-      },
-      {
-        name: "Planned Gross Profit",
-        value: "planGp",
-        style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
-      },
-      {
-        name: "Planned Gross Margin(%)",
-        value: "gm",
-        style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
-      },
-      {
-        name: "Planned SGNA",
-        value: "SGNA",
-        style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
-      },
-      {
-        name: "Planned Net Profit",
-        value: "np",
-        style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
-      },
-      {
-        name: "Actual Revenue",
-        value: "actualRevenue",
-        style: "px-2 text-center",
-        bg: "bg-green-600 whitespace-nowrap px-2"
-      },
-      {
-        name: "Actual COGS",
-        value: "actualCOGS",
-        style: "px-2 text-center",
-        bg: "bg-green-600 whitespace-nowrap px-2"
-      },
-      {
-        name: "Actual Gross Profit",
-        value: "actualGp",
-        style: "px-2 text-center",
-        bg: "bg-green-600 whitespace-nowrap px-2"
-      },
-      {
-        name: "Actual Gross Margin(%)",
-        value: "actualGm",
-        style: "px-2 text-center",
-        bg: "bg-green-600 whitespace-nowrap px-2"
-      },
-      {
-        name: "Actual SGNA",
-        value: "actualSGNA",
-        style: "px-2 text-center",
-        bg: "bg-green-600 whitespace-nowrap px-2"
-      },
-      {
-        name: "Actual Net Profit",
-        value: "actualNp",
-        style: "px-2 text-center",
-        bg: "bg-green-600 whitespace-nowrap px-2"
-      },
-      ...newColumns,
-      ...(shouldIncludeEditColumn
-        ? [
-          {
-            name: "Edit",
-            value: "edit",
-            style: "min-w-[100px] max-w-[200px] text-center",
-          },
-          {
-            name: "Delete",
-            value: "delete",
-            style: "min-w-[100px] max-w-[200px] text-center",
-          },
-        ]
-        : [])
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [],
-  };
-
-
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
-    
-    let cols = [];
-    cols = cols.flat(Infinity);
-    setNewColumns(cols);
+    const monthMap = {
+      1: "Jan",
+      2: "Feb",
+      3: "Mar",
+      4: "Apr",
+      5: "May",
+      6: "Jun",
+      7: "Jul",
+      8: "Aug",
+      9: "Sep",
+      10: "Oct",
+      11: "Nov",
+      12: "Dec",
+    };
+    // let cols = [];
+    // cols = cols.flat(Infinity);
+    // setNewColumns(cols);
+    const columns = [
+      {
+        name: "Revenue",
+        value: "revenue",
+        style: "px-2 text-center",
+      },
+      {
+        name: "COGS",
+        value: "cogs",
+        style: "px-2 text-center",
+      },
+      {
+        name: "GP",
+        value: "gp",
+        style: "px-2 text-center",
+      },
+      {
+        name: "GM (%)",
+        value: "gm",
+        style: "px-2 text-center",
+      },
+    ]
+
   }, [extraColumns]);
+
+
+
 
 
 
@@ -901,20 +750,16 @@ const AOPTracking = () => {
     }))
   }
 
-  console.log("vkelmfvkfenfvkfd vev===", enable)
-
   return (
     <>
       <Tabs data={tabs} setEnable={setEnable} enable={enable} />
 
-
-      <AdvancedTableGpTracking
+      <AdvancedTable
         headerButton={
           <>
             <div className="flex gap-1">
               <Button
                 onClick={() => {
-
                   setDollarAmount((prev) => {
                     if (prev.visibility == true) {
                       return {
@@ -968,20 +813,10 @@ const AOPTracking = () => {
                 setFileOpen(prev => !prev)
               }}>
               </Button>
-              <Button name={"Export"} classes='w-auto mr-1' onClick={() => {
-                forExport.current=true;
-                return handleSubmit(handleAddActivity,onError)()
-               
+              <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
+                dispatch(CommonActions.commondownloadpost("/export/AOP", "AOP.xlsx", "POST", { 'year': year, 'Month': extraColumns, 'Cost Center': Data.current }))
               }}>
               </Button>
-              {/* <Button
-                classes="flex h-fit"
-                name=""
-                icon={<UilSearch className="w-5 m-2 h-5" />}
-                onClick={()=>{
-                  forExport.current=true;
-                  return handleSubmit(handleAddActivity)}}
-              /> */}
             </div>
           </>
         }
@@ -995,8 +830,8 @@ const AOPTracking = () => {
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={dollarAmount.visibility ? " Dollar" : " INR"}
-        heading={'Values are shows in Million :'}
+        totalCount={dbConfigTotalCount}
+        heading={'Total Count :-'}
       />
       <Modal
         size={"sm"}
@@ -1010,4 +845,6 @@ const AOPTracking = () => {
   );
 };
 
-export default AOPTracking;
+export default ForcastCOPGSTracking;
+
+

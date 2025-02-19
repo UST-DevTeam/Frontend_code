@@ -72,7 +72,7 @@ const AdvancedTableExpandableOneRow = ({
     return (
         <>
             <tr>
-                <td className="text-[12px] pl-1 border-[#0e8670] border-[0.1px] text-primaryLine">
+                <td className="text-[12px] pl-1 !h-[10px] border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine">
                     <span
                         onClick={() => {
                             setExpand((prev) => !prev);
@@ -86,9 +86,9 @@ const AdvancedTableExpandableOneRow = ({
                     return hide.indexOf(String(index)) == -1 ? (
 
                         <td rowSpan={`${getRowSpan(itm)}`}
-                            className={`text-[12px] pl-1 border-[#0e8670] border-[0.1px] text-white ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"
-                                }`}
-                        >
+                            className={`text-[12px] !h-[10px] pl-1 border-[#0e8670] border-[0.1px] text-white ${innerItm.style ? innerItm.style : " min-w-[300px] max-w-[500px]"
+                                } `}
+                     >
                             <Modalmoreinfo
                                 ctt={32}
                                 setModalBody={setModalBody}

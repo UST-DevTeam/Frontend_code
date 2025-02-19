@@ -36,6 +36,7 @@ const AdvancedTableExpandable = ({
   searchView = "",
   getmultiSelect = "",
   setmultiSelect = () => { },
+  TableHeight = ''
 }) => {
   const [hide, setHide] = useState([]);
   const [finalData, setFinalData] = useState([])
@@ -213,8 +214,8 @@ const AdvancedTableExpandable = ({
             </div>
           </div>
         </div>
-        <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg ">
-          <table border={1} className="w-[100%] table-auto">
+        <div className={"m-2 overflow-x-scroll pb-6 border-1 border-solid border-black rounded-lg " + TableHeight}>
+          <table border={1} className={"w-[100%]"}>
             <thead className="sticky -top-1 h-4 z-30">
               <tr>
                 <td className="border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[10px] max-w-[10px] text-center"></td>
@@ -225,7 +226,7 @@ const AdvancedTableExpandable = ({
                         ["Edit"].includes(itts.name) ? (
                           <td
                             colSpan={actions.length}
-                            className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
+                            className={`border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
                           >
                             <span className="text-white text-[12px]">
                               {"Actions"}
@@ -286,11 +287,6 @@ const AdvancedTableExpandable = ({
                                 if (!acc[ele['workDescription']]) {
                                   acc[ele['workDescription']] = [];
                                 }
-                                // const someData = itm?.itemCodeResults.find(itm => itm?.vendorId === ele?.assignerResult?.[0]?.assignerId)
-                                // let temp = { ...ele }
-                                // if (someData) {
-                                //   temp = { ...ele, ...someData }
-                                // }
                                 acc[ele['workDescription']].push(ele)
                                 return acc;
                               }, {})

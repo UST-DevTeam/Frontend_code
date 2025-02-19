@@ -1221,7 +1221,7 @@ const VendorProjectTracking = () => {
       },
       {
         name: "Task Allocation Date",
-        value: "taskAllocationDate",
+        value: "assignDate",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -1390,7 +1390,7 @@ const VendorProjectTracking = () => {
         },
         {
           name: "Task Allocation Date",
-          value: "taskAllocationDate",
+          value: "assignDate",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
@@ -1737,6 +1737,7 @@ const VendorProjectTracking = () => {
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
         heading={"Total Sites:-"}
+        TableHeight = "h-[52vh]" 
       />
 
       <Modal
