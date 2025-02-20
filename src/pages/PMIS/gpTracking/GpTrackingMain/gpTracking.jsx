@@ -283,9 +283,9 @@ const GPTracking = () => {
     dispatch(gpTrackingActions.getGPTrackingMain(true, strVal))
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     // dispatch(FormssActions.getProfiltLoss())
-    dispatch(gpTrackingActions.getGPTrackingMain())
+    await dispatch(gpTrackingActions.getGPTrackingMain())
 
     // dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
     // dispatch(gpTrackingActions.getGPProjectGroup())
@@ -602,6 +602,10 @@ const GPTracking = () => {
 
               <Button name={"Export"} classes='w-auto mr-1 !h-10' onClick={(e) => {
                 dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", saveQuery.current))
+              }}>
+              </Button>
+              <Button name={"Export2"} classes='w-auto mr-1 !h-10' onClick={(e) => {
+                dispatch(CommonActions.commondownloadpost("/gpTracking/Test", "GP_Tracking.xlsx", "POST", saveQuery.current))
               }}>
               </Button>
             </div>
