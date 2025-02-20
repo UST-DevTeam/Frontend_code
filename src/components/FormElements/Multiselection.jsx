@@ -257,11 +257,11 @@ const Multiselection = ({
   }
 
   useEffect(() => {
-    if (itm.props.selectType) {
+    if (itm.props?.selectType) {
       setSelectedValues([]);
       setValue(itm.name, '');
     }
-  }, [itm.props.selectType]);
+  }, [itm.props?.selectType]);
 
   const handleSelect = (e) => {
     let finalselection = e.map((itm) => itm.id);

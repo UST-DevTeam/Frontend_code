@@ -383,9 +383,9 @@ const FormssActions = {
             return;
         }
     },
-    getCircle: (reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
+    getCircle: (customerId="", reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.getCircle}${args != "" ? "?" + args : ""}`, reset })
+            const res = await Api.get({ url: `${Urls.getCircle}/${customerId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
 
@@ -394,9 +394,9 @@ const FormssActions = {
         } catch (error) {
         }
     },
-    getCircleSubProjectType: (reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
+    getCircleSubProjectType: (customerId="",reset = true, args = "", cb = () => { }) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url: `${Urls.getCircleSubPorjectType}${args != "" ? "?" + args : ""}`, reset })
+            const res = await Api.get({ url: `${Urls.getCircleSubPorjectType}/${customerId}${args != "" ? "?" + args : ""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
 

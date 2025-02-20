@@ -23,7 +23,7 @@
 //         handleSubmit(onSubmit)();
 //       }
 //     };
-    
+
 //     document.addEventListener("keypress", handleEnterKey);
 //     return () => {
 //       document.removeEventListener("keypress", handleEnterKey);
@@ -85,7 +85,7 @@
 //                               {errors[itm.name]?.message}
 //                             </p>
 //                           </>
-                          
+
 //                         )}
 
 //                         {itm.type == "autoSuggestion" && (
@@ -190,7 +190,7 @@
 //                   }}
 //                   classes="w-18 p-10 mx-2 bg-rose-400"
 //                 />
-                
+
 //               </div>
 //             </>
 //           }
@@ -210,10 +210,11 @@ import PopupMenu from "./PopupMenu";
 import { UilFilter } from "@iconscout/react-unicons";
 import DatePicker from "react-datepicker";
 import Button from "./Button";
+import Multiselection from "./FormElements/Multiselection";
 
 const FilterView = ({
   tablefilter = [],
-  handleSubmit = () => {},
+  handleSubmit = () => { },
   onSubmit,
   errors = {},
   onReset,
@@ -250,14 +251,14 @@ const FilterView = ({
             <>
               <div className="grid grid-cols-2">
                 {tablefilter.map((itm) => (
-                 
+
                   <div key={itm.name} className="flex flex-col">
                     <label className="block text-sm p-2 font-medium text-white dark:text-black">
                       {itm.label}
                     </label>
 
                     {itm.type === "select" && (
-                      
+
                       <>
                         <select
                           {...register(itm.name, {
@@ -269,7 +270,7 @@ const FilterView = ({
                           onChange={(e) => {
                             setValue(itm.name, e.target.value)
                             itm.props?.onChange && itm.props.onChange(e)
-                          } }
+                          }}
                           className="bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         >
                           <option value="">Select</option>

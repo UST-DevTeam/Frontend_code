@@ -8,6 +8,8 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import FormssActions from '../../../../store/actions/formss-actions';
 import { useParams } from 'react-router-dom';
+import { UilSearch } from "@iconscout/react-unicons";
+import CommonForm from '../../../../components/CommonForm';
 
 const tdClasses = "text-[12px] pl-1 !h-[10px] text-center border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine"
 
@@ -124,6 +126,7 @@ const DeliveryPVA = () => {
     const [modalBody, setmodalBody] = useState(<></>);
     const [modalHead, setmodalHead] = useState(<></>);
     const dispatch = useDispatch()
+    const [selectType, _] = useState("")
 
     const { MSType, customerId } = useParams()
     console.log("MSType, customerId", MSType, customerId)
@@ -188,77 +191,131 @@ const DeliveryPVA = () => {
             label: "Year",
             value: "",
             name: "year",
+            bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
             type: "select",
             option: listYear
         },
         {
             label: "Month",
-            value: "",
             name: "month",
+            value: "Select",
             type: "select",
             option: months,
+            props: {
+                selectType: selectType,
+            },
+            hasSelectAll: true,
+            bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        },
+        {
+            label: "Quater",
+            value: "",
+            name: "quater",
+            bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+            type: "select",
+            option: [
+                {
+                    label: "Q1",
+                    value: [1, 2, 3]
+                },
+                {
+                    label: "Q2",
+                    value: [4, 5, 6]
+                },
+                {
+                    label: "Q3",
+                    value: [7, 8, 9]
+                },
+                {
+                    label: "Q4",
+                    value: [10, 11, 12]
+                },
+            ],
         },
         {
             label: "Circle",
             value: "",
             name: "circleId",
+            bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
             type: "select",
             option: circleList
         },
     ]
 
     function onSubmit(data) {
+
+        if (data?.quater) {
+            data.quater = data.quater.split(",").map(item => +item)
+            setValue("month", "")
+        }
+        if (data?.Month) {
+            data.Month = data.Month.split(",").map(item => +item)
+        }
+
         setFilters({
             ...filters,
-            year: data.year,
-            month: data.month,
-            circleId: data.circleId,
+            year: +(data.year || filters.year),
+            month: (data?.quater ? data.quater : data.Month) || filters.month,
+            circleId: (data.circleId || null),
         })
     }
 
     useEffect(() => {
-        dispatch(FormssActions.getCircle())
-        dispatch(FormssActions.getCircleSubProjectType())
+        dispatch(FormssActions.getCircle(customerId))
+        dispatch(FormssActions.getCircleSubProjectType(customerId))
         dispatch(FormssActions.getPvaData(filters))
     }, []);
 
-    // useEffect(() => {
-    //     dispatch(FormssActions.getPvaData(filters))
-    // }, [filters])
+    useEffect(() => {
+        dispatch(FormssActions.getPvaData(filters))
+    }, [filters])
+
+    useEffect(() => {
+        setValue("year", filters.year)
+        setValue("month", filters.month[0])
+    }, [])
 
     const data = useSelector(state => state.formssData.getPvaData)
+
+    const showMonths = filters?.month.map(item => months.find(innerItem => innerItem.value === item).label).join(",")
 
     return (
         <>
 
-            <div className='flex justify-end space-x-4'>
-                <FilterView
-                    onReset={onReset}
-                    tablefilter={formFields}
-                    onSubmit={handleSubmit}
-                    handleSubmit={() => handleSubmit(onSubmit)}
-                    table={{}}
-                    data={{}}
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                />
-                <Button
-                    onClick={(e) => {
-                        setmodalOpen((prev) => !prev);
-                        setmodalHead("New Plan");
-                        setmodalBody(<DeliveryPVAForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                    }}
-                    name={"Add New"}
-                    classes='w-auto !h-10'>
-                </Button>
+            <div className="flex items-center justify-between">
+                <div className="col-span-1 flex space-x-2 md:col-span-1">
+                    <CommonForm
+                        classes="grid grid-cols-4 w-[700px] overflow-y-hidden p-2"
+                        Form={formFields}
+                        errors={errors}
+                        register={register}
+                        setValue={setValue}
+                        getValues={getValues}
+                    />
+                    <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+                        <Button
+                            classes="flex h-fit"
+                            name=""
+                            icon={<UilSearch className="w-5 m-2 h-5" />}
+                            onClick={handleSubmit(onSubmit)}
+                        />
+                    </div>
+                </div>
 
-                <Button name={"Export"} classes='w-auto mr-1 h-10' onClick={(e) => {
-                    dispatch(CommonActions.commondownloadpost("/export/AOP", "AOP.xlsx", "POST", {}))
-                }} />
+                <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+                    <Button
+                        onClick={(e) => {
+                            setmodalOpen((prev) => !prev);
+                            setmodalHead("New Plan");
+                            setmodalBody(<DeliveryPVAForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                        }}
+                        name={"Add New"}
+                        classes='w-auto !h-10'>
+                    </Button>
+                </div>
             </div>
-            <div className="absolute left-0 right-0 flex-col py-4">
+
+            <div className="absolute left-0 right-0 flex-col">
 
                 <div className={`m-2 overflow-x-auto h-[80vh] pb-6 border-1 border-solid border-black rounded-lg`}>
 
@@ -274,8 +331,8 @@ const DeliveryPVA = () => {
 
                             <tr>
                                 <td className={"w-16 bg-[#3E454D]"}></td>
-                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>Jan, 25 (Target)</th>
-                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>Jan, 25 (Achievemnet)</th>
+                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>{showMonths}, {filters?.year} (Target)</th>
+                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>{showMonths}, {filters?.year} (Achievemnet)</th>
                                 <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>Achievemnet %</th>
                             </tr>
 
@@ -290,7 +347,7 @@ const DeliveryPVA = () => {
                         <tbody>
 
                             {
-                                data?.map(item => {
+                                data?.length > 0 ? data.map(item => {
                                     return (
                                         <tr>
                                             <td className={tdClasses + " text-white w-16 text-[12px] font-medium"}>{item?.circle}</td>
@@ -299,7 +356,7 @@ const DeliveryPVA = () => {
                                             {getProjectRowsAchievementInPercentage(subProjectType, item)}
                                         </tr>
                                     )
-                                })
+                                }) : <p className='text-white whitespace-nowrap'>No record found</p>
                             }
                         </tbody>
                     </table>
