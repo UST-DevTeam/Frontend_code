@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
-// import FormssActions from "../../../store/actions/formss-actions";
-// import CurrentuserActions from "../../../store/actions/currentuser-action";
-// import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
-import { rule } from "postcss";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
-import Api from "../../../../utils/api";
-import { tableAction } from "../../../../store/actions/table-action";
-import { Urls } from "../../../../utils/url";
-import { CLEAR_RECORDS, SET_TABLE } from "../../../../store/reducers/table-reducer";
 import FormssActions from "../../../../store/actions/formss-actions";
 import { useParams } from "react-router-dom";
 
@@ -23,13 +14,12 @@ const DeliveryPVAForm = ({
   setIsOpen,
   resetting,
   formValue = {},
-  year,
-  month,
-  monthss,
-  forAirtel = false
+  filters,
 }) => {
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [extraaFormFields, setExtraaFormFields] = useState([])
+
+  const { MSType, customerId } = useParams()
 
   let circleList = useSelector((state) => {
     return state?.formssData?.getCircle.map((itm) => {
@@ -49,13 +39,6 @@ const DeliveryPVAForm = ({
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
-
-  const handleCircleChange = (value) => {
-    const selectedValue = value;
-    setSelectedCustomer(selectedValue);
-    // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
-    dispatch(gpTrackingActions.getGPCostCenter(selectedValue, true));
-  };
 
   const months = [
     { label: "Jan", value: 1 },
@@ -95,23 +78,6 @@ const DeliveryPVAForm = ({
       required: true,
     },
     {
-      label: "MS Type",
-      value: "",
-      name: "MSType",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-      option: [
-        {
-          label : "MS1",
-          value : "MS1",
-        },
-        {
-          label : "MS2",
-          value : "MS2",
-        },
-      ],
-      required: true,
-    },
-    {
       label: "Circle",
       value: "",
       name:
@@ -120,11 +86,6 @@ const DeliveryPVAForm = ({
           : "circleId",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
       option: circleList,
-      // props: {
-      //   onChange: (e) => {
-      //     handleCircleChange(e.target.value);
-      //   },
-      // },
       required: true,
     },
     ...extraaFormFields
@@ -141,12 +102,8 @@ const DeliveryPVAForm = ({
     unregister
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   useEffect(() => {
-
     subProjectType.forEach(item => {
       unregister(item?.subProjectName)
     })
@@ -171,7 +128,7 @@ const DeliveryPVAForm = ({
     newData["year"] = Number(data["year"]);
     newData["month"] = Number(data["month"]);
     newData['circleId'] = data['circleId'];
-    newData['MSType'] = data['MSType'];
+    newData['MSType'] = MSType.split("-")[0];
 
     delete data['circleId']
     delete data['year']
@@ -188,16 +145,16 @@ const DeliveryPVAForm = ({
     })
 
     newData["subProjects"] = subProjects
-    
-    newData["customerId"] = "667d593927f39f1ac03d7863"
+    newData["customerId"] = customerId
 
     dispatch(FormssActions.patchEvmActual(newData, () => {
       setIsOpen(false);
+      dispatch(FormssActions.getPvaData(filters))
       reset()
     }))
 
   };
-const {  customerId } = useParams()
+  
 
   useEffect(() => {
     dispatch(FormssActions.getCircle(customerId))

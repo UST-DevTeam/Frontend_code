@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import DeliveryPVAForm from './DeliveryPVAForm';
 import Button from '../../../../components/Button';
 import Modal from '../../../../components/Modal';
-import FilterView from "../../../../components/FilterView"
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ import FormssActions from '../../../../store/actions/formss-actions';
 import { useParams } from 'react-router-dom';
 import { UilSearch } from "@iconscout/react-unicons";
 import CommonForm from '../../../../components/CommonForm';
+import { GET_PVA_DATA } from '../../../../store/reducers/formss-reducer';
 
 const tdClasses = "text-[12px] pl-1 !h-[10px] text-center border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine"
 
@@ -17,12 +17,12 @@ function getColSpan(subProjectType) {
     return subProjectType?.length + 1 || 0
 }
 
-function getProjectColumns(subProjectType, color) {
+function getProjectColumns(subProjectType, color, dataLength) {
     const columns = []
     subProjectType.forEach(item => {
         columns.push(<th className={tdClasses + " " + color}><span className='whitespace-nowrap text-[12px] font-semibold vertical-text py-1'>{item?.subProjectName}</span></th>)
     })
-    columns.push(<th className={tdClasses + " vertical-text text-[12px] whitespace-nowrap py-2" + " " + color}>Totals</th>)
+    columns.push(<th className={tdClasses + " vertical-text text-[12px] whitespace-nowrap py-2" + " " + color}>{dataLength ? "Totals" : ""}</th>)
     return columns
 }
 
@@ -127,9 +127,7 @@ const DeliveryPVA = () => {
     const [modalHead, setmodalHead] = useState(<></>);
     const dispatch = useDispatch()
     const [selectType, _] = useState("")
-
     const { MSType, customerId } = useParams()
-    console.log("MSType, customerId", MSType, customerId)
 
     const [filters, setFilters] = useState({
         MSType,
@@ -244,31 +242,35 @@ const DeliveryPVA = () => {
 
     function onSubmit(data) {
 
+        data.month = data.quater ? data.quater.split(",").map(item => +item) : [+data.month]
+
         if (data?.quater) {
-            data.quater = data.quater.split(",").map(item => +item)
             setValue("month", "")
-        }
-        if (data?.Month) {
-            data.Month = data.Month.split(",").map(item => +item)
         }
 
         setFilters({
             ...filters,
             year: +(data.year || filters.year),
-            month: (data?.quater ? data.quater : data.Month) || filters.month,
+            month: (data.month || filters.month),
             circleId: (data.circleId || null),
         })
+
+        dispatch(FormssActions.getPvaData({
+            ...filters,
+            year: +(data.year || filters.year),
+            month: (data.month || filters.month),
+            circleId: (data.circleId || null),
+        }))
     }
 
+
     useEffect(() => {
+        dispatch(GET_PVA_DATA({ dataAll:[], reset:true}))
         dispatch(FormssActions.getCircle(customerId))
         dispatch(FormssActions.getCircleSubProjectType(customerId))
         dispatch(FormssActions.getPvaData(filters))
     }, []);
 
-    useEffect(() => {
-        dispatch(FormssActions.getPvaData(filters))
-    }, [filters])
 
     useEffect(() => {
         setValue("year", filters.year)
@@ -277,7 +279,7 @@ const DeliveryPVA = () => {
 
     const data = useSelector(state => state.formssData.getPvaData)
 
-    const showMonths = filters?.month.map(item => months.find(innerItem => innerItem.value === item).label).join(",")
+    const showMonths = filters.month?.map(item => months.find(innerItem => innerItem.value === item).label).join(",")
 
     return (
         <>
@@ -307,7 +309,7 @@ const DeliveryPVA = () => {
                         onClick={(e) => {
                             setmodalOpen((prev) => !prev);
                             setmodalHead("New Plan");
-                            setmodalBody(<DeliveryPVAForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                            setmodalBody(<DeliveryPVAForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} filters = {filters} />)
                         }}
                         name={"Add New"}
                         classes='w-auto !h-10'>
@@ -338,9 +340,9 @@ const DeliveryPVA = () => {
 
                             <tr>
                                 <th className={tdClasses + " !bg-blue-200 w-16 text-[12px] font-semibold"}>Circle</th>
-                                {getProjectColumns(subProjectType, "bg-sky-100")}
-                                {getProjectColumns(subProjectType, "bg-rose-100")}
-                                {getProjectColumns(subProjectType, "bg-green-200")}
+                                {getProjectColumns(subProjectType, "bg-sky-100", data.length)}
+                                {getProjectColumns(subProjectType, "bg-rose-100", data.length)}
+                                {getProjectColumns(subProjectType, "bg-green-200", data.length)}
                             </tr>
 
                         </thead>
