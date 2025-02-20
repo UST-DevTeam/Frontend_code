@@ -33,13 +33,8 @@ const WorkdoneDeliveryPVAMSCards = () => {
      <CCDash
         showbtn={false}
         approveddata={[
-<<<<<<<< HEAD:src/pages/PMIS/Formss/WorkdoneDeliveryPVAMSCards.jsx
           ["MS1-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS1-PVA/" + customerId,],
           ["MS2-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS2-PVA/"+customerId,],
-========
-          ["Actual Work Done", "bg-pcol", "/forms/EVMDelivery/ActualWorkDone",],
-          ["PVA", "bg-pcol", "/forms/EVMDelivery/pva",],
->>>>>>>> origin/notOk:src/pages/PMIS/Formss/WorkdoneForecastCards.jsx
           // ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
         ].map((itm) => {
           return (

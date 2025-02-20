@@ -195,7 +195,7 @@ const DeliveryPVA = () => {
             label: "Month",
             value: "",
             name: "month",
-            type: "muitiselect",
+            type: "select",
             option: months,
         },
         {

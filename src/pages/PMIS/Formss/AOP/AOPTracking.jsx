@@ -66,7 +66,7 @@ function Tabs({ data,enable,setEnable }) {
 }
 
 const AOPTracking = () => {
-
+  
   const {
     register,
     handleSubmit,
@@ -81,7 +81,7 @@ const AOPTracking = () => {
   } = useForm();
 
 
-
+  
 
   const [dollarAmount, setDollarAmount] = useState({
     amount: null,
@@ -92,10 +92,10 @@ const AOPTracking = () => {
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
-  const [modalHead, setmodalHead] = useState(<></>);
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
+  const [modalHead, setmodalHead] = useState(<></>);
   const [extraColumns, setExtraColumns] = useState("");
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
@@ -317,7 +317,7 @@ const AOPTracking = () => {
   const handleCustomerChange = (value) => {
     const selectedValue = value;
     // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
-    dispatch(gpTrackingActions.getGPCostCenter(selectedValue, true));
+    dispatch( gpTrackingActions.getGPCostCenter(selectedValue,true));
 
 
   };
@@ -390,9 +390,9 @@ const AOPTracking = () => {
   }
   useEffect(() => {
     // inrToUsd
-    bussiness()
+    bussiness()                  
     // dispatch(FormssActions.getProfiltLoss())
-
+  
     dispatch(tableAction.getTable(Urls.aop, SET_TABLE))
     dispatch(CurrentuserActions.getcurrentuserCostCenter(true, "", 0))
   }, []);
@@ -459,7 +459,7 @@ const AOPTracking = () => {
       label: "Month",
       value: "",
       name: "month",
-      type: "select",
+      type:"select",
       option: months,
       required: true,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
@@ -480,10 +480,10 @@ const AOPTracking = () => {
     {
       label: "Customer",
       value: "",
-      name: "customerId",
-      type: "select",
+      name:"customerId",
+      type:"select",
       option: customerList,
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       props: {
         onChange: (e) => {
           handleCustomerChange(e?.target?.value);
@@ -499,7 +499,7 @@ const AOPTracking = () => {
     //   option: costCenterList,
     //   required: true,
     // },
-
+   
     {
       label: 'Cost Center',
       name: "costCenter",
@@ -512,7 +512,7 @@ const AOPTracking = () => {
       hasSelectAll: true,
       classes: "col-span-1 h-10 w-44 sm:w-24 md:w-34 xl:w-44",
     },
-
+    
   ];
   let cummulativeFilter = [
     // {
@@ -586,7 +586,7 @@ const AOPTracking = () => {
       classes: "col-span-1 h-10 ",
 
     },
-
+    
     // {
     //   label: "Cost Center",
     //   value: "",
@@ -610,8 +610,8 @@ const AOPTracking = () => {
     {
       label: "Customer",
       value: "",
-      name: "customerId",
-      type: "select",
+      name:"customerId",
+      type:"select",
       option: customerList,
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
        classes:"w-44 sm:w-24 md:w-34 xl:w-44",
@@ -634,7 +634,7 @@ const AOPTracking = () => {
       hasSelectAll: true,
       classes: "col-span-1 h-10",
     },
-
+    
   ];
   const onError = (errors) => {
     if(forExport.current==true){
@@ -651,7 +651,7 @@ const AOPTracking = () => {
     {
       label: "Month",
       body:
-        <div className="flex items-center justify-start">
+          <div className="flex items-center justify-start">
 
         
             <div className="w-auto">
@@ -674,15 +674,6 @@ const AOPTracking = () => {
               />
             </div>
           </div>
-          <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
-            <Button
-              classes="flex h-fit"
-              name=""
-              icon={<UilSearch className="w-5 m-2 h-5" />}
-              onClick={handleSubmit(handleAddActivity)}
-            />
-          </div>
-        </div>
     },
     {
       label: "Cumulative",
@@ -901,12 +892,12 @@ const AOPTracking = () => {
     }))
   }
 
-  console.log("vkelmfvkfenfvkfd vev===", enable)
+  console.log("vkelmfvkfenfvkfd vev===",enable)
 
   return (
     <>
-      <Tabs data={tabs} setEnable={setEnable} enable={enable} />
-
+    <Tabs data={tabs} setEnable={setEnable} enable={enable} />
+      
 
       <AdvancedTableGpTracking
         headerButton={

@@ -77,7 +77,6 @@ import L2AdvanceForm from "../pages/PMIS/MyHome/L2Form/L2AdvanceForm";
 import L3AdvanceForm from "../pages/PMIS/MyHome/L3Form/L3AdvanceForm";
 import DAFormFill from "../pages/PMIS/MyHome/DAFormFill/DAFormFill";
 import GapAnalysisCards from "../pages/PMIS/Formss/GapAnalysisCards";
-import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
 import PL from "../pages/PMIS/Formss/P&L/PL";
 import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
 import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
@@ -123,8 +122,8 @@ import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
 import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
 import SubProjectMasterTable from "../pages/PMIS/Admin/SubProjectMasterTable/SubProjectMasterTable";
 import DeliveryPVA from "../pages/PMIS/Formss/DeliveryPVA/DeliveryPVA";
-import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
 import WorkdoneDeliveryPVAMSCards from "../pages/PMIS/Formss/WorkdoneDeliveryPVAMSCards";
+import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -703,13 +702,6 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/forms/PVADeliveryCustomer/MS-PVA",
-      component: <WorkdoneDeliveryPVAMSCards />,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-    {
-      name: "",
       link: "/forms/PVADeliveryCustomer",
       component: <WorkdoneDeliveryPVACards />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
@@ -729,14 +721,6 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    {
-      name: "",
-      link: "/forms/PVADeliveryCustomer",
-      component: <WorkdoneDeliveryPVACards />,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-  
     {
       name: "",
       link: "/forms/P&L",
