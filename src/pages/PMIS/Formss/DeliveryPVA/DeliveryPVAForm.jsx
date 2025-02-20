@@ -16,6 +16,7 @@ import { tableAction } from "../../../../store/actions/table-action";
 import { Urls } from "../../../../utils/url";
 import { CLEAR_RECORDS, SET_TABLE } from "../../../../store/reducers/table-reducer";
 import FormssActions from "../../../../store/actions/formss-actions";
+import { useParams } from "react-router-dom";
 
 const DeliveryPVAForm = ({
   isOpen,
@@ -196,10 +197,11 @@ const DeliveryPVAForm = ({
     }))
 
   };
+const {  customerId } = useParams()
 
   useEffect(() => {
-    dispatch(FormssActions.getCircle())
-    dispatch(FormssActions.getCircleSubProjectType())
+    dispatch(FormssActions.getCircle(customerId))
+    dispatch(FormssActions.getCircleSubProjectType(customerId))
   }, [formValue, resetting]);
 
   return (

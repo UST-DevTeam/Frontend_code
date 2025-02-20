@@ -273,8 +273,8 @@ export const Urls = {
 
   // Repository ends   ---------
 
-  getCircle: "/currentuser/Circle/projectId/667d593927f39f1ac03d7863",
-  getCircleSubPorjectType: "admin/deliveryPva/masterSubProject/667d593927f39f1ac03d7863",
+  getCircle: "/currentuser/Circle/projectId",
+  getCircleSubPorjectType: "admin/deliveryPva/masterSubProject",
   patchEvmActual: "/forms/EVMActual",
   getPvaData: "/forms/EVMActual"
 

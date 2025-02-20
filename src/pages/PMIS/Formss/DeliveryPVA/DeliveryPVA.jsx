@@ -126,7 +126,7 @@ const DeliveryPVA = () => {
     const [modalBody, setmodalBody] = useState(<></>);
     const [modalHead, setmodalHead] = useState(<></>);
     const dispatch = useDispatch()
-    const [selectType, setSelectType] = useState("")
+    const [selectType, _] = useState("")
 
     const { MSType, customerId } = useParams()
     console.log("MSType, customerId", MSType, customerId)
@@ -261,8 +261,8 @@ const DeliveryPVA = () => {
     }
 
     useEffect(() => {
-        dispatch(FormssActions.getCircle())
-        dispatch(FormssActions.getCircleSubProjectType())
+        dispatch(FormssActions.getCircle(customerId))
+        dispatch(FormssActions.getCircleSubProjectType(customerId))
         dispatch(FormssActions.getPvaData(filters))
     }, []);
 
