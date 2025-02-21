@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { UilSearch } from "@iconscout/react-unicons";
 import CommonForm from '../../../../components/CommonForm';
 import { GET_PVA_DATA } from '../../../../store/reducers/formss-reducer';
+import FileUploader from '../../../../components/FIleUploader';
 
 const tdClasses = "text-[12px] pl-1 !h-[10px] text-center border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine"
 
@@ -128,6 +129,7 @@ const DeliveryPVA = () => {
     const dispatch = useDispatch()
     const [selectType, _] = useState("")
     const { MSType, customerId } = useParams()
+    const [fileOpen, setFileOpen] = useState(false)
 
     const [filters, setFilters] = useState({
         MSType,
@@ -304,7 +306,7 @@ const DeliveryPVA = () => {
                     </div>
                 </div>
 
-                <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+                <div className="flex w-fit mt-4 -ml-3 items-center justify-center gap-1">
                     <Button
                         onClick={(e) => {
                             setmodalOpen((prev) => !prev);
@@ -312,6 +314,13 @@ const DeliveryPVA = () => {
                             setmodalBody(<DeliveryPVAForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} filters = {filters} />)
                         }}
                         name={"Add New"}
+                        classes='w-auto !h-10'>
+                    </Button>
+                    <Button
+                        onClick={(e) => {
+                            setFileOpen(prev=>!prev)
+                        }}
+                        name={"Upload"}
                         classes='w-auto !h-10'>
                     </Button>
                 </div>
@@ -393,6 +402,8 @@ const DeliveryPVA = () => {
                 isOpen={modalOpen}
                 setIsOpen={setmodalOpen}
             />
+
+            <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={""} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {[`/export/deliveryPva/template/${customerId}`,"Delivery_PVA_Template.xlsx"]} />
 
         </>
 

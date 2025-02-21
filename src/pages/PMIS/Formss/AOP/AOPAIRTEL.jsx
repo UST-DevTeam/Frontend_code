@@ -100,8 +100,9 @@ const AOPTrackingAirtel = () => {
   let rows = useSelector(state => {
     return Array.isArray(state.table?.tableContent) 
       ? state.table.tableContent.map(item => {
-          let index = item.month;
-          return { ...item, month: monthMap[index],gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',actualNp: (item?.actualNp * 100).toFixed(2) + ' %',np: (item?.np * 100).toFixed(2) + ' %',edit: (
+        let index =
+        isNaN(item.month) == false ? monthMap[item.month] : item.month;
+          return { ...item, month: index,gm: (item?.gm * 100).toFixed(2) + ' %',actualGm: (item?.actualGm * 100).toFixed(2) + ' %',actualNp: (item?.actualNp * 100).toFixed(2) + ' %',np: (item?.np * 100).toFixed(2) + ' %',edit: (
             <CstmButton
               className={"p-2"}
               child={
@@ -475,35 +476,35 @@ const AOPTrackingAirtel = () => {
     //   option: costCenterList,
     //   required: true,
     // },
-    {
-      label: "Customer",
-      name: "customerName",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: customerList,
-      props: {
-        selectType: selectType,
-        // onChange: (e) => {
-        //   handleCustomerChange(e);
-        // },
-        cb:async (e) => {
+    // {
+    //   label: "Customer",
+    //   name: "customerName",
+    //   value: "select",
+    //   type: "newmuitiSelect2",
+    //   option: customerList,
+    //   props: {
+    //     selectType: selectType,
+    //     // onChange: (e) => {
+    //     //   handleCustomerChange(e);
+    //     // },
+    //     cb:async (e) => {
 
-          // setSeletedCustomerMulti(e)
-          let ids=e.map((item)=>item.value)
-          if (e !== ""){
-            await dispatch(CurrentuserActions.getcurrentuserCostCenter(true,`customerId=${ids.join(",")}`,1,))
-          }
-          else {
-            // dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
-          }
-      },
+    //       // setSeletedCustomerMulti(e)
+    //       let ids=e.map((item)=>item.value)
+    //       if (e !== ""){
+    //         await dispatch(CurrentuserActions.getcurrentuserCostCenter(true,`customerId=${ids.join(",")}`,1,))
+    //       }
+    //       else {
+    //         // dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
+    //       }
+    //   },
      
   
     
-    },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
-    },
+    // },
+    //   hasSelectAll: true,
+    //   classes: "col-span-1 h-10 ",
+    // },
     {
       label: 'Cost Center',
       name: "costCenter",
@@ -623,35 +624,35 @@ const AOPTrackingAirtel = () => {
     //   },
     //   // required: true,
     // },
-    {
-      label: "Customer",
-      name: "customerName",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: customerList,
-      props: {
-        selectType: selectType,
-        // onChange: (e) => {
-        //   handleCustomerChange(e);
-        // },
-        cb:async (e) => {
+    // {
+    //   label: "Customer",
+    //   name: "customerName",
+    //   value: "select",
+    //   type: "newmuitiSelect2",
+    //   option: customerList,
+    //   props: {
+    //     selectType: selectType,
+    //     // onChange: (e) => {
+    //     //   handleCustomerChange(e);
+    //     // },
+    //     cb:async (e) => {
 
-          // setSeletedCustomerMulti(e)
-          let ids=e.map((item)=>item.value)
-          if (e !== ""){
-            await dispatch(CurrentuserActions.getcurrentuserCostCenter(true,`customerId=${ids.join(",")}`,1,))
-          }
-          else {
-            // dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
-          }
-      },
+    //       // setSeletedCustomerMulti(e)
+    //       let ids=e.map((item)=>item.value)
+    //       if (e !== ""){
+    //         await dispatch(CurrentuserActions.getcurrentuserCostCenter(true,`customerId=${ids.join(",")}`,1,))
+    //       }
+    //       else {
+    //         // dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
+    //       }
+    //   },
      
   
     
-    },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10 ",
-    },
+    // },
+    //   hasSelectAll: true,
+    //   classes: "col-span-1 h-10 ",
+    // },
     {
       label: 'Cost Center',
       name: "costCenter",
@@ -914,7 +915,7 @@ const AOPTrackingAirtel = () => {
     }
     
     
-    const resp = await Api.post({ data: res, url: Urls.aop+("?forAirtel=true")+( enable=="Cumulative"?"Cumulative=true":"" )})
+    const resp = await Api.post({ data: res, url: Urls.aop+("?filter=true&forAirtel=true")+( enable=="Cumulative"?"&Cumulative=true":"" )})
     if (resp.status == 200) {
       dispatch(SET_TABLE(resp?.data?.data))
     }
