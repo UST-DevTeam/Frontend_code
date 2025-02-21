@@ -581,6 +581,11 @@ td p {
 
 #tdp {
   font-size: 14px !important;
+  
+}
+#tdp1 {
+  font-size: 30px !important;
+  /* color: var(--mainsec2); */
 }
 
 .rmsc,

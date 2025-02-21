@@ -3,6 +3,7 @@ import { moreinfo } from '../utils/commonFunnction';
 
 const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100,pStyle=null }) => {
     
+    
     if (value?.length > 100) {
         return <>
             <div class="">
@@ -21,8 +22,15 @@ const Modalmoreinfo = ({ value, setModalBody, setOpenModal,ctt=100,pStyle=null }
             
             <p data-tooltip-target="tooltip-hover"></p>
         </>
-    } else {
-        if (pStyle !== null) {
+    } 
+    
+    if (value == 'Yes' || value == 'No'){
+        
+        return <p id="tdp1">{value}</p>
+    }
+    
+    else {
+        if (pStyle !== null ) {
             return <p id="tdp">{value}</p>;
         }
         return <p>{value}</p>;

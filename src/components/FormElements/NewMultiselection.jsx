@@ -268,9 +268,13 @@ const NewMultiselection = ({
   }, [itm.props.selectType]);
 
   const handleSelect = (e) => {
+    console.log("jncjksdnciusehfciducwedf",itm)
     let finalselection = e.map((itm) => itm.value);
     setSelectedValues(e);
     setValue(itm.label, finalselection.join());
+    if (itm.props.cb){
+      itm.props.cb(e)
+    }
   };
 
   const handleRemove = (e) => {

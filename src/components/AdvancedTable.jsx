@@ -450,13 +450,13 @@ const AdvancedTable = ({
                         ) : (
                           <>
                             <th
-                              className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${
+                              className={`border-primaryLine border-[1.5px] h-10  ${itts?.bg ? itts?.bg : "bg-primaryLine"} ${
                                 itts.style
                                   ? itts.style
                                   : " min-w-[300px] max-w-[500px]"
                               }`}
                             >
-                              <span className="text-white text-[14px]">
+                              <span className={` ${itts?.text ? itts?.text : "text-white"}  text-[14px]`}>
                                 {itts.name}
                               </span>
                             </th>
