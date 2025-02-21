@@ -1008,6 +1008,7 @@ const MyTask = () => {
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
         heading = {'Total Sites:-'}
+        TableHeight = "h-[70vh]"
       />
 
       <Modal

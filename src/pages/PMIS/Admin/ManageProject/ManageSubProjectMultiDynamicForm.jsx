@@ -83,16 +83,8 @@ const ManageSubProjectMultiDynamicForm = ({ isOpen, setIsOpen, resetting, formVa
     
     },
   ];
-
-  const onSubmit = (data) => {
-    console.log(data, "datadatadatadata");
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
   
   const onTableViewSubmit = (data) => {
-    console.log('datadatadata',typeof(selectedSubproject2),data,formValue,selectedSubproject2,)
     dispatch(
       CommonActions.commondownload(
         "/export/siteWithOutTask2" +'/'+`${customeruniqueId}`,
@@ -123,6 +115,9 @@ const ManageSubProjectMultiDynamicForm = ({ isOpen, setIsOpen, resetting, formVa
       reset();
     }
   }, [formValue, resetting,]);
+
+
+
   return (
     <>
       <Modal

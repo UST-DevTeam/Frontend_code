@@ -340,9 +340,9 @@ const DeliveryPVA = () => {
 
                             <tr>
                                 <th className={tdClasses + " !bg-blue-200 w-16 text-[12px] font-semibold"}>Circle</th>
-                                {getProjectColumns(subProjectType, "bg-sky-100", data.length)}
-                                {getProjectColumns(subProjectType, "bg-rose-100", data.length)}
-                                {getProjectColumns(subProjectType, "bg-green-200", data.length)}
+                                {getProjectColumns(subProjectType, "bg-sky-100", subProjectType.length)}
+                                {getProjectColumns(subProjectType, "bg-rose-100", subProjectType.length)}
+                                {getProjectColumns(subProjectType, "bg-green-200", subProjectType.length)}
                             </tr>
 
                         </thead>

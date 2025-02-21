@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "react-querybuilder/dist/query-builder.css";
-import QueryBuilder from "react-querybuilder";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -142,6 +141,41 @@ const PersonalInfo = (props) => {
       name: "empName",
       value: "",
       type:"sdisabled",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "Employee Code",
+      name: "empCode",
+      value: "",
+      type:"sdisabled",
+      required: true,
+      placeholder: "",
+    }, 
+    {
+      label: "UST Emp Code",
+      name: "ustCode",
+      value: "",
+      type: "sdisabled",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "UST Project ID",
+      name: "ustProjectId",
+      value: "",
+      type: "sdisabled",
+      props: "",
+      required: false,
+      placeholder: "",
+    },
+    {
+      label: "UST Job Code",
+      name: "ustJobCode",
+      value: "",
+      type: "sdisabled",
       props: "",
       required: false,
       placeholder: "",
@@ -374,15 +408,15 @@ const PersonalInfo = (props) => {
       label: "Employment Details",
       classes: "col-span-4 font-extrabold text-pcol text-start",
     },
-    {
-      label: "Employee Code",
-      name: "empCode",
-      value: "",
-      type:"sdisabled",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
+    // {
+    //   label: "Employee Code",
+    //   name: "empCode",
+    //   value: "",
+    //   type:"sdisabled",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
     {
       label: "PAN Number",
       name: "panNumber",
@@ -564,7 +598,33 @@ const PersonalInfo = (props) => {
       classes: "col-span-1",
     },
     {
-      label: "Designation",
+      label: "Allocation Percentage",
+      name: "allocationPercentage",
+      value: "",
+      type: "sdisabled",
+      required: false,
+      props: {},
+      classes: "col-span-1",
+    },
+    {
+      label: "Business Unit",
+      name: "businesssUnit",
+      value: "",
+      type: "sdisabled",
+      required: false,
+      props: {},
+      classes: "col-span-1",
+    },
+    {
+      label: "Customer Name",
+      name: "customer",
+      value: "",
+      type: "sdisabled",
+      required: false,
+      classes: "col-span-1",
+    },
+    {
+      label: "Grade",
       name: "designation",
       value: "",
       type:"sdisabled",
@@ -604,7 +664,7 @@ const PersonalInfo = (props) => {
       classes: "col-span-1",
     },
     {
-      label: "Band",
+      label: "Designation",
       name: "band",
       value: "",
       type:"sdisabled",

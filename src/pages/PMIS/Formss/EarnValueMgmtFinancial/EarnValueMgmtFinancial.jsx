@@ -43,6 +43,8 @@ const EarnValueMgmtFinancial = () => {
   const[costCenter,setCostCenter] = useState([""])
   const[customer,setCustomer] = useState([""])
   const[businessUnit,setBusinessUnit] = useState([""])
+  const[monthList,setMonthList] = useState([])
+  const[selectedYear,setSelectedYear] = useState(currrentYear)
 
   let extraColumnsWithYear;
 
@@ -174,41 +176,19 @@ const EarnValueMgmtFinancial = () => {
     formState: { errors },
   } = useForm();
 
-  const months = [
-    { label: "Jan", value: 1 },
-    { label: "Feb", value: 2 },
-    { label: "Mar", value: 3 },
-    { label: "Apr", value: 4 },
-    { label: "May", value: 5 },
-    { label: "Jun", value: 6 },
-    { label: "Jul", value: 7 },
-    { label: "Aug", value: 8 },
-    { label: "Sep", value: 9 },
-    { label: "Oct", value: 10 },
-    { label: "Nov", value: 11 },
-    { label: "Dec", value: 12 },
-  ];
+  useEffect(() => {
 
-  const getPreviousCurrentAndNextMonth = () => {
-    const currentDate = new Date();
-    const currentMonthIndex = currentDate.getMonth();
-    const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
-    const nextMonthIndex = (currentMonthIndex + 1) % 12;
-    const currentYear = currentDate.getFullYear();
-    const previousMonthYear =
-      currentMonthIndex === 0 ? currentYear - 1 : currentYear;
-    const nextMonthYear =
-      currentMonthIndex === 11 ? currentYear + 1 : currentYear;
-
-    return [
-      { month: months[previousMonthIndex], year: previousMonthYear },
-      { month: months[currentMonthIndex], year: currentYear },
-      { month: months[nextMonthIndex], year: nextMonthYear },
+    const allMonths = [
+        { label: "Jan", value: 1 }, { label: "Feb", value: 2 }, { label: "Mar", value: 3 },
+        { label: "Apr", value: 4 }, { label: "May", value: 5 }, { label: "Jun", value: 6 },
+        { label: "Jul", value: 7 }, { label: "Aug", value: 8 }, { label: "Sep", value: 9 },
+        { label: "Oct", value: 10 }, { label: "Nov", value: 11 }, { label: "Dec", value: 12 }
     ];
-  };
+    setMonthList(selectedYear == currrentYear ? allMonths.slice(0, currentMonth) : allMonths);
 
-  const [previousMonthData, currentMonthData, nextMonthData] =
-    getPreviousCurrentAndNextMonth();
+  }, [selectedYear]);
+
+
 
   let table = {
     columns: [
@@ -279,24 +259,24 @@ const EarnValueMgmtFinancial = () => {
     listW.push({ id: weekString, name: weekString });
   }
 
-  let listDict = {
-    "": [],
-    Weekly: listW,
-    Monthly: [
-      { id: 1, name: "Jan" },
-      { id: 2, name: "Feb" },
-      { id: 3, name: "Mar" },
-      { id: 4, name: "Apr" },
-      { id: 5, name: "May" },
-      { id: 6, name: "Jun" },
-      { id: 7, name: "Jul" },
-      { id: 8, name: "Aug" },
-      { id: 9, name: "Sep" },
-      { id: 10, name: "Oct" },
-      { id: 11, name: "Nov" },
-      { id: 12, name: "Dec" }
-    ],
-  };
+  // let listDict = {
+  //   "": [],
+  //   Weekly: listW,
+  //   Monthly: [
+  //     { id: 1, name: "Jan" },
+  //     { id: 2, name: "Feb" },
+  //     { id: 3, name: "Mar" },
+  //     { id: 4, name: "Apr" },
+  //     { id: 5, name: "May" },
+  //     { id: 6, name: "Jun" },
+  //     { id: 7, name: "Jul" },
+  //     { id: 8, name: "Aug" },
+  //     { id: 9, name: "Sep" },
+  //     { id: 10, name: "Oct" },
+  //     { id: 11, name: "Nov" },
+  //     { id: 12, name: "Dec" }
+  //   ],
+  // };
 
 
   const bussinessUnit = useSelector((state) =>
@@ -321,10 +301,6 @@ const EarnValueMgmtFinancial = () => {
       value: itm.uniqueId,
     }))
   );
-
-
-
-
 
 
   const onSubmit = (data) => {
@@ -408,6 +384,16 @@ const EarnValueMgmtFinancial = () => {
       type: "select",
       option: listYear,
       required: true,
+      props:{
+        onChange:(e) => {
+          if (e.target.value){
+            setSelectedYear(e.target.value)
+          }
+          else {
+            setSelectedYear(currrentYear)
+          }
+        }
+      },
       bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
       classes:"w-44 sm:w-24 md:w-34 xl:w-44"
     },
@@ -416,7 +402,7 @@ const EarnValueMgmtFinancial = () => {
       value: "",
       name: "month",
       type:"newmuitiSelect2",
-      option: months,
+      option: monthList,
       required: true,
       props: {
         selectType: selectType,

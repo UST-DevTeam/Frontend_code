@@ -14,7 +14,6 @@ import CstmButton from "../../../../components/CstmButton";
 import ToggleButton from "../../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
 
-// import { BsFillChatTextFill } from "react-icons/bs";
 import {
   getAccessType,
   objectToQueryString,
