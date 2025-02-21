@@ -80,7 +80,7 @@ const AOPTrackingAirtel = () => {
   const keysToProcess=['COGS','SGNA','actualRevenue','actualSGNA','actualSalary','actualVendorCost','employeeExpanse','miscellaneousExpenses','miscellaneousExpensesSecond','otherFixedCost','planRevenue']
   const divideAndRound = (value) => {
     if (value !== null && value !== undefined && value !== '' && !isNaN(value)) {
-      return Math.round((value * 100000) * 100) / 100;
+      return Math.round((value * 1000000) * 100) / 100;
     }
     return value;
   };
@@ -394,6 +394,15 @@ const AOPTrackingAirtel = () => {
   //   // dispatch(tableAction.getTable(Urls.aop+"?filter=true", SET_TABLE))
   //   // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
   // };
+
+  let customerList = useSelector((state) => {
+    return state?.gpTrackingReducer?.getCustomer.map((itm) => {
+      return {
+        label: itm?.customer,
+        value: itm?.uniqueId,
+      };
+    });
+  });
   
    let bussinessUnit = useSelector((state) => {
       return Array.isArray(state?.dropDown?.bussinessUnit)?state?.dropDown?.bussinessUnit.map((itm) => {
@@ -466,7 +475,35 @@ const AOPTrackingAirtel = () => {
     //   option: costCenterList,
     //   required: true,
     // },
-   
+    {
+      label: "Customer",
+      name: "customerName",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: customerList,
+      props: {
+        selectType: selectType,
+        // onChange: (e) => {
+        //   handleCustomerChange(e);
+        // },
+        cb:async (e) => {
+
+          // setSeletedCustomerMulti(e)
+          let ids=e.map((item)=>item.value)
+          if (e !== ""){
+            await dispatch(CurrentuserActions.getcurrentuserCostCenter(true,`customerId=${ids.join(",")}`,1,))
+          }
+          else {
+            // dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
+          }
+      },
+     
+  
+    
+    },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
     {
       label: 'Cost Center',
       name: "costCenter",
@@ -587,6 +624,35 @@ const AOPTrackingAirtel = () => {
     //   // required: true,
     // },
     {
+      label: "Customer",
+      name: "customerName",
+      value: "select",
+      type: "newmuitiSelect2",
+      option: customerList,
+      props: {
+        selectType: selectType,
+        // onChange: (e) => {
+        //   handleCustomerChange(e);
+        // },
+        cb:async (e) => {
+
+          // setSeletedCustomerMulti(e)
+          let ids=e.map((item)=>item.value)
+          if (e !== ""){
+            await dispatch(CurrentuserActions.getcurrentuserCostCenter(true,`customerId=${ids.join(",")}`,1,))
+          }
+          else {
+            // dispatch(GET_CURRENT_USER_COST_CENTER({dataAll:[],reset:true}))
+          }
+      },
+     
+  
+    
+    },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10 ",
+    },
+    {
       label: 'Cost Center',
       name: "costCenter",
       value: "select",
@@ -681,116 +747,137 @@ const AOPTrackingAirtel = () => {
         name: "Year",
         value: "year",
         style: "px-2 text-center text-3xl",
-        bg: "bg-sky-200"
+        bg: "bg-sky-200",
+         text:'black'
       },
       {
         name: "Month",
         value: "month",
         style: "px-2 text-center",
-        bg: "bg-sky-200"
+        bg: "bg-sky-200",
+         text:'black'
       },
       
       {
         name: "Bussiness Unit",
         value: "businessUnit",
         style: "px-2 text-center",
-        bg: "bg-sky-200"
+        bg: "bg-sky-200",
+         text:'black'
       },
       {
         name: "Customer",
         value: "customerName",
         style: "px-2 text-center",
-        bg: "bg-sky-500"
+        bg: "bg-sky-500",
+         text:'black'
       },
       {
         name: "UST Project ID",
         value: "ustProjectID",
         style: "min-w-[140px] max-w-[200px] text-center",
-         bg: "bg-sky-500"
+         bg: "bg-sky-500",
+          text:'black'
       },
       {
         name: "MCT Project ID",
         value: "costCenter",
         style: "px-2 text-center",
-         bg: "bg-sky-500"
+         bg: "bg-sky-500",
+          text:'black'
       },
       {
         name: "Zone",
         value: "zone",
         style: "px-2 text-center",
-         bg: "bg-sky-500"
+         bg: "bg-sky-500",
+          text:'black'
       },
       {
         name: "Planned Revenue",
         value: "planRevenue",
+        // style: "px-2 text-center",
+        // bg: "bg-orange-400 whitespace-nowrap"
         style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
+         bg: "bg-sky-500",
+         text:'black'
       },
       {
         name: "Planned COGS",
         value: "COGS",
         style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
+        bg: "bg-orange-400",
+         text:'black'
       },
       {
         name: "Planned Gross Profit",
         value: "planGp",
         style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
+        bg: "bg-orange-400",
+         text:'black'
       },
       {
         name: "Planned Gross Margin(%)",
         value: "gm",
         style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
+        bg: "bg-orange-400",
+         text:'black'
       },
       {
         name: "Planned SGNA",
         value: "SGNA",
         style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
+        bg: "bg-orange-400",
+         text:'black'
       },
       {
         name: "Planned Net Profit",
         value: "np",
         style: "px-2 text-center",
-        bg: "bg-orange-400 whitespace-nowrap px-2"
+        bg: "bg-orange-400",
+         text:'black'
       },
       {
         name: "Actual Revenue",
         value: "actualRevenue",
         style: "px-2 text-center",
-         bg: "bg-green-600 whitespace-nowrap px-2"
+         bg: "bg-green-600",
+          text:'black'
       },
       {
         name: "Actual COGS",
         value: "actualCOGS",
         style: "px-2 text-center",
-         bg: "bg-green-600 whitespace-nowrap px-2"
+         bg: "bg-green-600",
+          text:'black'
       },
       {
         name: "Actual Gross Profit",
         value: "actualGp",
         style: "px-2 text-center",
-         bg: "bg-green-600 whitespace-nowrap px-2"
+         bg: "bg-green-600",
+          text:'black'
       },
       {
         name: "Actual Gross Margin(%)",
         value: "actualGm",
         style: "px-2 text-center",
-         bg: "bg-green-600 whitespace-nowrap px-2"
+         bg: "bg-green-600",
+          text:'black'
       },
       {
         name: "Actual SGNA",
         value: "actualSGNA",
         style: "px-2 text-center",
-         bg: "bg-green-600 whitespace-nowrap px-2"
+         bg: "bg-green-600",
+          text:'black'
       },
       {
         name: "Actual Net Profit",
         value: "actualNp",
         style: "px-2 text-center",
-         bg: "bg-green-600 whitespace-nowrap px-2"
+         bg: "bg-green-600",
+          text:'black'
       },
       ...newColumns,
       ...(shouldIncludeEditColumn
@@ -857,7 +944,7 @@ const AOPTrackingAirtel = () => {
         </div> */}
       </div>
       <Tabs data={tabs} setEnable={setEnable} enable={enable}  forAOP={true} />
-      <AdvancedTableGpTracking 
+      <AdvancedTable 
         headerButton={
           <>
           <div className="flex gap-1">

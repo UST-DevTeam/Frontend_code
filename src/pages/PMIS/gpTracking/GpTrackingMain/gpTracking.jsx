@@ -463,74 +463,74 @@ const GPTracking = () => {
         {
           name: "Cost Center",
           value: "costCenter",
-          style: "min-w-[140px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[90px] text-center",
           bg: "bg-sky-200"
         },
         {
           name: "Zone",
           value: "zone",
-          style: "min-w-[140px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[90px] text-center",
           bg: "bg-sky-200"
         },
         {
           name: "Year",
           value: "year",
-          style: "min-w-[100px] max-w-[200px] text-center",
+          style: "min-w-[70px] max-w-[90px] text-center",
           bg: "bg-sky-200"
         },
         {
           name: "Month",
           value: "monthName",
-          style: "min-w-[100px] max-w-[200px] text-center",
+          style: "min-w-[100px] max-w-[90px] text-center",
           bg: "bg-sky-200"
         },
         {
-          name: "Revenue (Lac)",
+          name: "Revenue",
           value: "total_Amount",
-          style: "min-w-[140px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[90px] text-center",
           bg: "bg-orange-400 whitespace-nowrap px-2"
         },
         {
-          name: "Salary (Lac)",
+          name: "Salary",
           value: "totalSalary",
-          style: "min-w-[140px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[90px] text-center",
           bg: "bg-green-600 whitespace-nowrap px-2"
         },
 
         {
-          name: "Vendor Cost (Lac)",
+          name: "Vendor Cost",
           value: "TotalAmountvendorCost",
-          style: "min-w-[140px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[150px] text-center",
           bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "Other Fixed Cost (Lac)",
+          name: "Other Fixed Cost",
           value: "totalOtherFixedCost",
-          style: "min-w-[150px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[150px] text-center",
           bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "Employee Expanse (Lac)",
+          name: "Employee Expanse",
           value: "ApprovedAmount",
-          style: "min-w-[170px] max-w-[250px] text-center",
+          style: "min-w-[90px] max-w-[150px] text-center",
           bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "COGS (Lac)",
+          name: "COGS",
           value: "COGS",
-          style: "min-w-[120px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[150px] text-center",
           bg: "bg-green-600 whitespace-nowrap px-2"
         },
         {
-          name: "GROSS PROFIT (Lac)",
+          name: "GROSS PROFIT",
           value: "GROSSPROFITINR",
-          style: "min-w-[200px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[150px] text-center",
           bg: "bg-sky-200 whitespace-nowrap px-2"
         },
         {
-          name: "GROSS MARGIN (%)",
+          name: "GROSS MARGIN",
           value: "GROSSRevenuePer",
-          style: "min-w-[200px] max-w-[200px] text-center",
+          style: "min-w-[90px] max-w-[200px] text-center",
           bg: "bg-sky-200 whitespace-nowrap"
         },
 
@@ -583,6 +583,7 @@ const GPTracking = () => {
       </div> */}
 
       <AdvancedTableGpTracking
+      totalHeads={true}
         headerButton={
           <>
             <div className="flex justify-between">
@@ -604,10 +605,10 @@ const GPTracking = () => {
                 dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", saveQuery.current))
               }}>
               </Button>
-              <Button name={"Export2"} classes='w-auto mr-1 !h-10' onClick={(e) => {
+             {/* <Button name={"Export2"} classes='w-auto mr-1 !h-10' onClick={(e) => {
                 dispatch(CommonActions.commondownloadpost("/gpTracking/Test", "GP_Tracking.xlsx", "POST", saveQuery.current))
               }}>
-              </Button>
+              </Button>*/}
             </div>
           </>
         }
@@ -621,8 +622,8 @@ const GPTracking = () => {
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={dbConfigTotalCount}
-        heading=""
+        totalCount={""}
+        heading="Values are in Lakh"
       />
       <Modal
         size={"sm"}

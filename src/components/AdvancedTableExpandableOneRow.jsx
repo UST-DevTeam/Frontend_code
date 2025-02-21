@@ -75,6 +75,8 @@ console.log("AdvancedTableExpandableOneRow")
                       }`}
                     >
                       <Modalmoreinfo
+                        pStyle={'diudui'}
+                        
                         ctt={32}
                         setModalBody={setModalBody}
                         setOpenModal={setOpenModal}

@@ -513,7 +513,7 @@ const SalaryDB = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/SalaryDb.xlsx","Salary_DB.xlsx"]} />
+      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/SalaryDB.xlsx","Salary_DB.xlsx"]} />
     </>
   );
 };

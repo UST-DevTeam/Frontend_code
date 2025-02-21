@@ -256,6 +256,21 @@ const AdvancedTableExpandable = ({
                               {itts.name}
                             </span>
                           </td>
+
+
+                          {/* <td
+                            className={`border-primaryLine border-[1.5px] h-10 bg-primaryLine ${
+                              itts.style ? itts.style : " min-w-[300px] max-w-[500px]"
+                            }`}
+                          >
+                            
+                            {itts.name == "Yes" || itts.name == "No" ? (
+                              <span className="text-red-600 text-[12px]">{itts.name}</span>
+                            ) : (
+                              <span className="text-white text-[12px]">{itts.name}</span>
+                            )}
+                          </td> */}
+
                         </>
                       )}
                     </>

@@ -115,10 +115,10 @@ const OtherFixedCost = () => {
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
-                              `${Urls.gpTracking_salaryDB}/${itm.uniqueId}`,
+                              `${Urls.gpTracking_OtherFixedCost}/${itm.uniqueId}`,
                               () => {
                                 // dispatch(FormssActions.getProfiltLoss());
-                                dispatch(gpTrackingActions.getGPSalaryDB())
+                                dispatch(gpTrackingActions.getOtherFixedCost())
                                 dispatch(ALERTS({ show: false }));
                               }
                             )

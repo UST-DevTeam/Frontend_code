@@ -1306,7 +1306,7 @@ const VendorProjectTracking = () => {
       {
         name: "PO eligibility (Yes/No)",
         value: "",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[120px] max-w-[200px] text-center",
       },
       // {
       //   name: "Billing Status",

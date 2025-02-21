@@ -14,6 +14,7 @@ import ComponentActions from "../store/actions/component-actions";
 
 
 const AdvancedTableGpTracking = ({
+  totalHeads = false,
   tableName = "",
   headerButton,
   templateButton,
@@ -43,6 +44,7 @@ const AdvancedTableGpTracking = ({
   heading = "",
   searchView = "",
   TableHeight = "h-[68vh]"
+  
 }) => {
 
   const [hide, setHide] = useState([]);
@@ -195,6 +197,49 @@ const AdvancedTableGpTracking = ({
       )
     );
   };
+
+
+  function getTotalsHeads() {
+    const row = [];
+
+    Array.from({ length: 5 }).forEach(_ => {
+      row.push(<th className={`border-pcol h-8 text-xs  bg-transparent text-white text-center`}></th>)
+    });
+
+    const keys = {
+      revenueTotal: 0,
+      COGS: 0,
+    }
+    const temp = ["total_Amount", "totalSalary", "TotalAmountvendorCost", "totalOtherFixedCost", "ApprovedAmount", "COGS", "GROSSPROFITINR", "GPRevenuePercentage"]
+
+    temp.forEach(key => {
+
+      let total = data.reduce((acc, item) => {
+        if (item && key in item) {
+          acc += +item[key] || 0
+        }
+        return acc;
+      }, 0)
+
+      if (key === "total_Amount") {
+        keys.revenueTotal = total
+      }
+      if (key === "COGS") {
+        keys.COGS = total
+      }
+      if (key === "GPRevenuePercentage") {
+        total = ((keys.revenueTotal - keys.COGS) / keys.revenueTotal) * 100
+      }
+      if (key === "GROSSPROFITINR") {
+        total = keys.revenueTotal - keys.COGS
+      }
+      
+
+      row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-transparent text-white  text-center`}>{total?.toFixed(2)}</th>);
+    });
+
+    return row;
+  }
 
   return (
     <>
@@ -415,7 +460,8 @@ const AdvancedTableGpTracking = ({
           {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
           {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
-              <thead className="sticky -top-1 h-4 z-30">
+              <thead className="sticky -top-1 h-4 z-30"> 
+              {totalHeads && getTotalsHeads()}
                 <tr>
                   {checkboxshow && (
                     <th className="border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[50px] max-w-[50px] text-center">

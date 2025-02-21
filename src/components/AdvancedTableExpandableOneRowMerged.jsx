@@ -52,9 +52,12 @@ const AdvancedTableExpandableOneRow = ({
             finalData[key].forEach(item => {
                 const data = []
                 table?.childs?.milestoneArray.map(innerItem => {
+
+
+                    
                     if (["Vendor Item Code", "Vendor Rate", "PO eligibility (Yes/No)"].includes(innerItem?.name)) {
                         if (getRowSpan(item)) {
-                            data.push(<td rowSpan={`${getRowSpan(item)}`} className="text-[12px] text-center whitespace-nowrap pl-1 text-white border-[#0e8670] border-[0.1px] bg-[#475058] text-primaryLine">{innerItem.name === "Vendor Item Code" ? finalData[item?.workDescription]?.[0]?.["itemCode"] : innerItem.name === "Vendor Rate" ? finalData[item?.workDescription]?.[0]?.["rate"] : innerItem.name === "PO eligibility (Yes/No)" ? finalData[item?.workDescription]?.[0]?.["POEligibility"] : item[innerItem?.value]}</td>)
+                            data.push(<td rowSpan={`${getRowSpan(item)}`} className="text-[35px] text-center whitespace-nowrap pl-1 text-white border-[#0e8670] border-[0.1px] bg-[#475058] text-primaryLine">{innerItem.name === "Vendor Item Code" ? finalData[item?.workDescription]?.[0]?.["itemCode"] : innerItem.name === "Vendor Rate" ? finalData[item?.workDescription]?.[0]?.["rate"] : innerItem.name === "PO eligibility (Yes/No)" ? finalData[item?.workDescription]?.[0]?.["POEligibility"] : item[innerItem?.value]}</td>)
                         } else {
                             return
                         }
