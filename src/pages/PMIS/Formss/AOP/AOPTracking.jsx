@@ -34,6 +34,7 @@ import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
 import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracking";
 import { GET_CURRENT_USER_COST_CENTER } from "../../../../store/reducers/currentuser-reducer";
+import AdvancedTableAOP from "../../../../components/AdvanceTableAOP";
 
 function Tabs({ data, enable, setEnable }) {
   const dispatch = useDispatch();
@@ -102,7 +103,7 @@ const AOPTracking = () => {
   const [seletedCustomerMulti, setSeletedCustomerMulti] = useState([]);
   const [fileOpen, setFileOpen] = useState(false);
   const forExport = useRef(false);
-  const [actionVisibility, setActionVisibility] = useState(false);
+  const [actionVisibility, setActionVisibility] = useState(true);
   const Data = useRef();
   // let months = [
   //   "Jan",
@@ -829,11 +830,16 @@ const AOPTracking = () => {
   const [enable, setEnable] = useState(tabs[0].label);
   async function handleAddActivity(res) {
     setActionVisibility(true);
+      if (res?.["Business unit"] !== "" || res?.["Cost Center"] !== "" || res?.["Customer"] !== "") {
+        setActionVisibility(false);
+    }
+  
     // setExtraColumns(res['Month'])
     Data.current = res["CostCenter"];
     // FRERFER
     console.log("========kldfvjmkldfjgvfdgjfrio====", res);
     if (enable == "Cumulative") {
+      setActionVisibility(false);
       res["month"] = res["Month"];
     }
     if (forExport.current == true) {
@@ -860,7 +866,7 @@ const AOPTracking = () => {
   if (enable == "Cumulative") {
     shouldIncludeEditColumn = false;
   }
-  if (actionVisibility === true) {
+  if (actionVisibility === false) {
     shouldIncludeEditColumn = false;
   }
   let table = {
@@ -868,20 +874,20 @@ const AOPTracking = () => {
       {
         name: "Year",
         value: "year",
-        style: "px-2 text-center  text-3xl",
+        style: "px-1 text-center  text-3xl",
         bg: "bg-sky-200",
       },
       {
         name: "Month",
         value: "month",
-        style: "px-2 text-center",
+        style: "px-1 text-center",
         bg: "bg-sky-200",
       },
 
       {
         name: "Bussiness Unit",
         value: "businessUnit",
-        style: "px-2 text-center",
+        style: "px-1 text-center",
         bg: "bg-sky-200",
       },
       {
@@ -977,7 +983,7 @@ const AOPTracking = () => {
       {
         name: "Actual Net Profit",
         value: "actualNp",
-        style: "px-2 text-center",
+        style: "px-6 text-center",
         bg: "bg-green-600",
       },
       ...newColumns,
@@ -986,12 +992,12 @@ const AOPTracking = () => {
             {
               name: "Edit",
               value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
+              style: "min-w-[50px] max-w-[80px] text-center",
             },
             {
               name: "Delete",
               value: "delete",
-              style: "min-w-[100px] max-w-[200px] text-center",
+              style: "min-w-[50px] max-w-[80px] text-center",
             },
           ]
         : []),
@@ -1027,7 +1033,8 @@ const AOPTracking = () => {
     <>
       <Tabs data={tabs} setEnable={setEnable} enable={enable} />
 
-      <AdvancedTableGpTracking
+      <AdvancedTableAOP
+      totalHeads={true}
         headerButton={
           <>
             <div className="flex gap-1">

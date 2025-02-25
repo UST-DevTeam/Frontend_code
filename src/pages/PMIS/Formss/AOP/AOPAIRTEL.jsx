@@ -30,6 +30,7 @@ import Tabs from "../../../../components/Tabs";
 import { SET_BUSSINESS_UNIT } from "../../../../store/reducers/dropDown-reducer";
 import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
 import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracking";
+import AdvancedTableAOP from "../../../../components/AdvanceTableAOP";
 
 const AOPTrackingAirtel = () => {
   // const Data = useRef("")
@@ -46,6 +47,7 @@ const AOPTrackingAirtel = () => {
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
+  const [actionVisibility, setActionVisibility] = useState(true);
   const Data = useRef("")
   const monthMap = {
     1: "Jan",
@@ -740,20 +742,23 @@ const AOPTrackingAirtel = () => {
   if (enable=="Cumulative") {
     shouldIncludeEditColumn = false
   }
+  if (actionVisibility === false) {
+    shouldIncludeEditColumn = false;
+  }
 
   let table = {
     columns: [
       {
         name: "Year",
         value: "year",
-        style: "px-2 text-center text-3xl",
+        style: "px-1 text-center text-3xl",
         bg: "bg-sky-200",
          text:'black'
       },
       {
         name: "Month",
         value: "month",
-        style: "px-2 text-center",
+        style: "px-1 text-center",
         bg: "bg-sky-200",
          text:'black'
       },
@@ -761,7 +766,7 @@ const AOPTrackingAirtel = () => {
       {
         name: "Bussiness Unit",
         value: "businessUnit",
-        style: "px-2 text-center",
+        style: "px-1 text-center",
         bg: "bg-sky-200",
          text:'black'
       },
@@ -903,13 +908,17 @@ const AOPTrackingAirtel = () => {
 
 
   async  function handleAddActivity(res){
+    setActionVisibility(true);
+      if (res?.["Business unit"] !== "" || res?.["Cost Center"] !== "" || res?.["Customer"] !== "") {
+        setActionVisibility(false);
+    }
     Data.current = ""
     // setExtraColumns(res['Month'])
     Data.current = res['CostCenter']
     // FRERFER
     console.log("============", res)
     if (enable=="Cumulative"){
-      
+      setActionVisibility(false);
       res['month']=res['Month']
     }
     
@@ -944,7 +953,8 @@ const AOPTrackingAirtel = () => {
         </div> */}
       </div>
       <Tabs data={tabs} setEnable={setEnable} enable={enable}  forAOP={true} />
-      <AdvancedTable 
+      <AdvancedTableAOP 
+      totalHeads={true}
         headerButton={
           <>
           <div className="flex gap-1">
