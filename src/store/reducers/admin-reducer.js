@@ -67,6 +67,7 @@ const initialState = {
   getPartnerActivity:[],
   getDeliveryPVA:[],
   getSubProjectDeliveryPVA:[],
+  getExchnageRate:[],
 };
 
 const adminData = createSlice({
@@ -173,6 +174,14 @@ const adminData = createSlice({
         state.getPartnerActivity = payload.dataAll;
       } else {
         state.getPartnerActivity = [...state.getPartnerActivity, ...payload.getPartnerActivity];
+      }
+    },
+
+    GET_EXCHANGE_RATE: (state, { payload }) => {
+      if (payload.reset) {
+        state.getExchnageRate = payload.dataAll;
+      } else {
+        state.getExchnageRate = [...state.getExchnageRate, ...payload.getExchnageRate];
       }
     },
 
@@ -772,6 +781,7 @@ export const {
   GET_PARTNER_ACTIVITY,
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
+  GET_EXCHANGE_RATE
 } = adminData.actions;
 
 export default adminData.reducer;

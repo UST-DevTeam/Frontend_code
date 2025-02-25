@@ -176,6 +176,8 @@ const VendorProjectTracking = () => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
+
+
   const handleAddActivity = (data) => {
     //  Data.current = ""
     console.log("setSelectType", data)
@@ -1135,7 +1137,7 @@ const VendorProjectTracking = () => {
           setyear(e.target.value);
         },
       },
-      required: true,
+      required: false,
       classes: "col-span-1 h-38px",
     },
     {
@@ -1153,7 +1155,7 @@ const VendorProjectTracking = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      required: true,
+      required: false,
       classes: "col-span-1 h-10",
     },
     {
@@ -1172,9 +1174,20 @@ const VendorProjectTracking = () => {
 
         },
       },
-      required: true,
+      required: false,
     },
+    {
+      label: "Date Range Selector",
+      name: "dateTime",
+      value: "Select",
+      type: "datetimeRange",
+      classes: "col-span-1",
+      formatop:"yyyy-MM-DD",
+      // onChange :handleDateRange        
+    }
   ];
+
+
   let table = {
     columns: [
       {
@@ -1505,9 +1518,9 @@ const VendorProjectTracking = () => {
     },
     filter: [
       {
-        label: "Sub Project",
+        label: "Project Type",
         type: "select",
-        name: "subProject",
+        name: "projectType",
         option: subProjectList,
         props: {},
       },
@@ -1604,12 +1617,9 @@ const VendorProjectTracking = () => {
   };
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
-    dispatch(MyHomeActions.getMyTask());
-
-    dispatch(FilterActions.getMyTaskSubProject());
-    dispatch(FilterActions.getfinancialWorkDoneProjectType(true, "", 0));
-    dispatch(VendorActions.getVendorActivitySubProject())
-    dispatch(VendorActions.getVendorSubProject())
+    // dispatch(FilterActions.getfinancialWorkDoneProjectType(true, "", 0));
+    // dispatch(VendorActions.getVendorActivitySubProject())
+    // dispatch(VendorActions.getVendorSubProject())
     dispatch(VendorActions.getVendorProjectTracking())
 
   }, []);

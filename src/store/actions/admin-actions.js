@@ -66,6 +66,7 @@ import {
   GET_PARTNER_ACTIVITY,
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
+  GET_EXCHANGE_RATE,
 
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
@@ -252,6 +253,47 @@ const AdminActions = {
           uniqueId == null
             ? Urls.admin_partner_work_description
             : Urls.admin_partner_work_description + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } 
+    catch (error) {
+      return;
+    }
+  },
+
+  getExchnageRate:
+    (reset = true, args = "", show = 1) =>
+      async (dispatch, _) => {
+        try {
+          const res = await Api.get({
+            url: `${Urls.exchangeRate}${args != "" ? "?" + args : ""}`,
+            show: show,
+          });
+          if (res?.status !== 200) return;
+          let dataAll = res?.data?.data;
+          dispatch(GET_EXCHANGE_RATE({ dataAll, reset }));
+        } catch (error) { }
+      },
+  
+  postExchnageRate: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.exchangeRate
+            : Urls.exchangeRate + "/" + uniqueId,
       });
       if (res?.status !== 201 && res?.status !== 200) {
         let msgdata = {

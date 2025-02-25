@@ -11,6 +11,8 @@ import { UilSearch } from "@iconscout/react-unicons";
 import CommonForm from '../../../../components/CommonForm';
 import { GET_PVA_DATA } from '../../../../store/reducers/formss-reducer';
 import FileUploader from '../../../../components/FIleUploader';
+import CommonActions from '../../../../store/actions/common-actions';
+import { Urls } from '../../../../utils/url';
 
 const tdClasses = "text-[12px] pl-1 !h-[10px] text-center border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine"
 
@@ -283,6 +285,17 @@ const DeliveryPVA = () => {
 
     const showMonths = filters.month?.map(item => months.find(innerItem => innerItem.value === item).label).join(",")
 
+
+    const onTableViewSubmit = (data) => { 
+        data["fileType"]="EVMDelivery"
+        dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr+`/${customerId}/${MSType.split("-")[0]}`, data, () => {
+            setFileOpen(false)
+            dispatch(FormssActions.getCircle(customerId))
+            dispatch(FormssActions.getCircleSubProjectType(customerId))
+            dispatch(FormssActions.getPvaData(filters))
+        }))
+    }
+
     return (
         <>
 
@@ -403,7 +416,7 @@ const DeliveryPVA = () => {
                 setIsOpen={setmodalOpen}
             />
 
-            <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={""} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {[`/export/deliveryPva/template/${customerId}`,"Delivery_PVA_Template.xlsx"]} />
+            <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {[`/export/deliveryPva/template/${customerId}`,"Delivery_PVA_Template.xlsx"]} />
 
         </>
 
