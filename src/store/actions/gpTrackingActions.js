@@ -1,7 +1,7 @@
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_CUSTOMER,GET_GPPROJECTGROUP,GET_SALARYDB,GET_OTHERFIXEDCOST, GET_GPCOSTCENTER, GET_GPOTHERFIXEDCOSTTYPES, GET_GPTRACKINGMAIN } from "../reducers/gpTracking-reducer"
+import { GET_CUSTOMER,GET_GPPROJECTGROUP,GET_SALARYDB,GET_OTHERFIXEDCOST, GET_GPCOSTCENTER, GET_GPOTHERFIXEDCOSTTYPES, GET_GPTRACKINGMAIN, GET_ZONE_BY_CUSTOMER_ID } from "../reducers/gpTracking-reducer"
 
 
 const gpTrackingActions = {
@@ -182,6 +182,26 @@ const gpTrackingActions = {
         } catch (error) {
             console.log(error,'errorerror')
             return;
+        }
+    },
+
+    getZoneByCustomerId: (id = "", reset = true, args = "") => async (dispatch, _) => {
+
+        try {
+            if (id !== "") {
+                const res = await Api.get({ url: `${Urls.getZoneByCustomerId}/${id}${args != "" ? "?" + args : ""}`, reset })
+                if (res?.status !== 200) return
+                let dataAll = res?.data?.data
+                dispatch(GET_ZONE_BY_CUSTOMER_ID({ dataAll, reset }))
+            }
+            else {
+                const res = await Api.get({ url: `${Urls.gpTracking_costCenter}${args != "" ? "?" + args : ""}`, reset })
+                if (res?.status !== 200) return
+                let dataAll = res?.data?.data
+                dispatch(GET_GPCOSTCENTER({ dataAll, reset }))
+            }
+
+        } catch (error) {
         }
     },
     

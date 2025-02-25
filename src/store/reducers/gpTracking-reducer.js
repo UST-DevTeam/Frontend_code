@@ -8,7 +8,8 @@ const initialState = {
     getSalaryDB:[],
     getOtherFixedCost:[],
     getOtherFixedCostTypes:[],
-    getGPTrackingMain:[]
+    getGPTrackingMain:[],
+    getZoneByCustomerId:[]
     
    
 }
@@ -74,6 +75,14 @@ const gpTrackingReducer = createSlice({
                 state.getGPTrackingMain  = [...state.getGPTrackingMain,...payload.dataAll]
             }
         },
+
+        GET_ZONE_BY_CUSTOMER_ID:(state,{payload}) => {
+            if(payload.reset){
+                state.getZoneByCustomerId = payload.dataAll
+            }else{
+                state.getZoneByCustomerId  = [...state.getZoneByCustomerId,...payload.dataAll]
+            }
+        },
         
 
         
@@ -88,7 +97,8 @@ export const {
     GET_GPCOSTCENTER,
     GET_GPZONE,
     GET_GPOTHERFIXEDCOSTTYPES,
-    GET_GPTRACKINGMAIN
+    GET_GPTRACKINGMAIN,
+    GET_ZONE_BY_CUSTOMER_ID
     
 } = gpTrackingReducer.actions
 export default gpTrackingReducer.reducer

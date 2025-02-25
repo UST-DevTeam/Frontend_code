@@ -26,6 +26,7 @@ import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 import SalaryDBForm from "../salaryDBForm";
 import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracking";
 import CommonForm from "../../../../components/CommonForm";
+import { UilSearch } from "@iconscout/react-unicons";
 
 const GPTracking = () => {
   
@@ -44,6 +45,14 @@ const GPTracking = () => {
   const [fileOpen, setFileOpen] = useState(false)
   const saveQuery = useRef("")
   // const Data = useRef("")
+
+  let zoneList = useSelector(state => state?.gpTrackingReducer?.getZoneByCustomerId.map((itm) => {
+    return {
+      label: itm?.zone,
+      value: itm?.zoneId,
+      zoneName: itm?.zone
+    };
+  }))
 
   const monthss = [
     { label: "Jan", value: 1 },
@@ -274,11 +283,14 @@ const GPTracking = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-
-    const customerName = customerList.find(item => item.value === data.customer)?.customerName
-    const costCenterName = costCenterList.find(item => item.value === data.costCenter)?.label
+    const customerName = customerList.find(item => item.value == data.customer)?.customerName
+    const costCenterName = data["Cost Center"].split(",").map(costCenterId => costCenterList.find(item => item.value == costCenterId)?.label)
+    const zoneName = data.Zone.split(",").map(zoneId => zoneList.find(item => item.value == zoneId)?.zoneName)
     data.customer = customerName
     data.costCenter = costCenterName
+    data.zoneName = zoneName
+    delete data["Cost Center"]
+    delete data["Zone"]
     let strVal = objectToQueryString(data);
     saveQuery.current = data
     dispatch(gpTrackingActions.getGPTrackingMain(true, strVal))
@@ -405,6 +417,7 @@ const GPTracking = () => {
     // dispatch(gpTrackingActions.getGPProjectGroup(selectedValue,true));
 
     dispatch(gpTrackingActions.getGPCostCenter(selectedValue, true));
+    dispatch(gpTrackingActions.getZoneByCustomerId(selectedValue, true));
   };
 
 
@@ -559,29 +572,116 @@ const GPTracking = () => {
   }, [handleCustomerChange])
 
 
+  let formFields = [
+    {
+      label: "Year",
+      value: "",
+      name: "year",
+      type: "select",
+      option: listYear,
+      required: true,
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+
+    },
+    {
+      label: "Month",
+      value: "",
+      name: "month",
+      type: "newmuitiSelect2",
+      option: monthss,
+      required: true,
+      props: {
+        selectType: "selectType",
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10",
+
+    },
+    {
+      label: "Customer",
+      value: "",
+      name: "customer",
+      type: "select",
+      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      option: customerList,
+      props: {
+        onChange: (e) => {
+          // alert(e.target.value)
+          handleCustomerChange(e.target.value);
+        },
+      },
+      required: true,
+
+    },
+    {
+      label: "Cost Center",
+      value: "",
+      name: "costCenter",
+      type: "newmuitiSelect2",
+      option: costCenterList,
+      required: true,
+      props: {
+        selectType: "selectType",
+      },
+      hasSelectAll: true,
+      classes: "col-span-1 h-10",
+
+    },
+    {
+      label: "Zone",
+      value: "Select",
+      name: "zone",
+      type: "newmuitiSelect2",
+      option: zoneList,
+      required: true,
+      props: {
+        selectType: "selectType",
+      },
+      classes: "col-span-1 h-10",
+      hasSelectAll: true,
+    },
+    //   label: ValGm,
+    //   name: "viewBy",
+    //   value: "Select",
+    //   type: "newmuitiSelect2",
+    //   option: listDict[ValGm].map((dasd) => {
+    //     return {
+    //       value: dasd?.id,
+    //       label: dasd?.name,
+    //     };
+    //   }),
+    //   props: {
+    //     selectType: selectType,
+    //   },
+    //   hasSelectAll: true,
+    //   required: false,
+    //   classes: "col-span-1 h-10",
+    // },
+
+  ];
+
+
   return (
     <>
 
-      {/* <div className="flex items-center justify-start">
-        <div className="col-span-1 md:col-span-1">
-          <CommonForm
-            classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
-            Form={formD}
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            getValues={getValues}
-          />
-        </div>
+      <div className="col-span-1 flex space-x-2 md:col-span-1">
+        <CommonForm
+          classes="grid grid-cols-5 w-[900px] overflow-y-hidden p-2"
+          Form={formFields}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+        />
         <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
           <Button
             classes="flex h-fit"
             name=""
             icon={<UilSearch className="w-5 m-2 h-5" />}
-            onClick={handleSubmit(handleAddActivity)}
+            onClick={handleSubmit(onSubmit)}
           />
         </div>
-      </div> */}
+      </div>
 
       <AdvancedTableGpTracking
       totalHeads={true}

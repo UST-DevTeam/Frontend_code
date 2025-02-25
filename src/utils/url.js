@@ -93,6 +93,8 @@ export const Urls = {
   vendor_project_allocation: "/vendorProjectAllocation",
   vendor_project_list: "/vendorSiteId",
   vendor_project_tracking: "/vendor/myTask",
+  getZoneByCustomerId:"/gp/zone2",
+  vendorProjects:"/vendor/ProjectType",
   filter_vendor_subProject: "/filter/vendor/subProject",
   get_vendorCostMilestone: "/vendor/milestone",
   get_vendortCostMilestoeList: "/vendor/milestoneList",

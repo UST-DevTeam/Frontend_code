@@ -44,14 +44,16 @@ import VendorActions from "../../../store/actions/vendor-actions";
 import moment from "moment/moment";
 import CommonForm from "../../../components/CommonForm";
 import gpTrackingActions from "../../../store/actions/gpTrackingActions";
+import Api from "../../../utils/api";
 
 const VendorProjectTracking = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
+  
   // console.log(permission?.pmpermission,"permission")
   // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
-
+  const [assignDate, setAssignDate] = useState()
   // console.log(getAccessType("Add Site"), "getAccessType");
   const { projectuniqueId } = useParams();
   const [ValGm, setValGm] = useState("Month");
@@ -72,7 +74,9 @@ const VendorProjectTracking = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [selectType, setSelectType] = useState("");
   const [modalHead, setmodalHead] = useState(<></>);
+const [ filters, setFilters] = useState({
 
+})
   const [old, setOld] = useState(<></>);
   const navigate = useNavigate();
 
@@ -176,21 +180,31 @@ const VendorProjectTracking = () => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
-
-
   const handleAddActivity = (data) => {
     //  Data.current = ""
     console.log("setSelectType", data)
     setExtraColumns(data['Month'])
     setSelectType(data["Month"])
     setValue("viewBy", data['Month'])
-
-    // Data.current  = res['Cost Center']
-    // alert("called")
-    // FilterActions.getMyTaskSubProject(true,res)
-    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+    if (assignDate) {
+      const { start, end } = assignDate
+      data["start"] = start?.split("T")[0]
+      data["end"] = end?.split("T")[0]
+    }
+      
+     setFilters({
+      ...filters,
+      ...data
+    })
     dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
   };
+
+  const projectType = useSelector(state => {
+    return state.vendorData.getProjectType.map(item => ({
+      label : item?.projectType,
+      value: item?.uid?.join(",")
+    }))
+  })
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.vendorData?.getvendorProjectTracking || [];
@@ -1075,7 +1089,6 @@ const VendorProjectTracking = () => {
         return interdata[0]["overall_table_count"];
       }
     }) || [];
-  console.log("afdasfoja0jdfamssdfghjsdc", dbConfigTotalCount.length);
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -1107,17 +1120,9 @@ const VendorProjectTracking = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //     label: "Role",
-      //     type: "text",
-      //     name: "rolename",
-      //     // option: roleList,
-      //     props: {
-      //     }
-      // }
-    ],
+    filter: [],
   };
+
   let formD = [
     {
       label: "Year",
@@ -1168,26 +1173,28 @@ const VendorProjectTracking = () => {
       props: {
         onChange: (e) => {
           setSelectedCustomer(e?.target?.value)
-          //   dispatch(VendorActions.getVendorCostprojectGroupList(true,`customerId=${e?.target?.value}`));
-          //   dispatch(VendorActions.getVendorCostprojectTypeList(true,`customerId=${e?.target?.value}`));
-          //   dispatch(VendorActions.getvendorCostVendorsList())
-
+          dispatch(VendorActions.getProjectType(true, e.target.value))
         },
       },
       required: false,
     },
     {
-      label: "Date Range Selector",
-      name: "dateTime",
-      value: "Select",
+      label: "Date Range",
+      value: "",
+      name: "assignDate",
       type: "datetimeRange",
-      classes: "col-span-1",
-      formatop:"yyyy-MM-DD",
-      // onChange :handleDateRange        
-    }
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+      required: false,
+      onChange: (data) => {
+        setAssignDate(data)
+      }
+      // props: {
+      //   onChange: (data) => {
+      //     setAssignDate(data)
+      //   }
+      // }
+    },
   ];
-
-
   let table = {
     columns: [
       {
@@ -1319,7 +1326,7 @@ const VendorProjectTracking = () => {
       {
         name: "PO eligibility (Yes/No)",
         value: "",
-        style: "min-w-[120px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       // {
       //   name: "Billing Status",
@@ -1519,110 +1526,63 @@ const VendorProjectTracking = () => {
     filter: [
       {
         label: "Project Type",
+        value: "",
         type: "select",
         name: "projectType",
-        option: subProjectList,
-        props: {},
+        option: projectType,
       },
       {
-        label: "Site Status",
-        type: "select",
-        name: "siteStatus",
-        option: [
-          { label: "Open", value: "Open" },
-          { label: "Close", value: "Close" },
-          { label: "Drop", value: "Drop" },
-          { label: "All", value: "all" },
-        ],
-        props: {},
+        label: "Site Id",
+        value: "",
+        name: "siteId",
+        type: "text",
       },
       {
-        label: "MileStone Status",
-        type: "select",
-        name: "mileStoneStatus",
-        option: [
-          { label: "Open", value: "Open" },
-          { label: "In Process", value: "In Process" },
-          { label: "Submit", value: "Submit" },
-          { label: "Approve", value: "Approve" },
-          { label: "Submit to Airtel", value: "Submit to Airtel" },
-          { label: "Reject", value: "Reject" },
-          { label: "Closed", value: "Closed" },
-          { label: "All", value: "All" },
-        ],
-        props: {},
+        label: "Milestone",
+        value: "",
+        name: "milestone",
+        type: "text",
       },
-      // {
-      //   label: "Year",
-      //   name: "year",
-      //   value: "Select",
-      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      //   type: "select",
-      //   option: listYear.map((itmYr) => {
-      //     return {
-      //       label: itmYr,
-      //       value: itmYr,
-      //     };
-      //   }),
-      //   props: {
-      //     onChange: (e) => {
-      //       setValue("year", e.target.value);
-      //       setyear(e.target.value);
-      //     },
-      //   },
-      //   required: true,
-      //   classes: "col-span-1 h-38px",
-      // },
-      // {
-      //   label: "Month",
-      //   name: "month",
-      //   value: "Select",
-      //   type: "muitiSelect",
-      //   option: Month.map((dasd) => {
-      //     return {
-      //       id: dasd?.id,
-      //       name: dasd?.name,
-      //     };
-      //   }),
-      //   // props: {
-      //   //   selectType:selectType,
-      //   // },
-      //   hasSelectAll:true,
-      //   required: true,
-      //   classes: "col-span-1 h-10",
-      // },
-      // {
-      //   label: "Month",
-      //   name: "month",
-      //   type: "muitiSelect",
-      //     option: Month.map((dasd) => {
-      //     return {
-      //       id: dasd?.id,
-      //       name: dasd?.name,
-      //     };
-      //   }),
-      //   props: "",
-      //   required: false,
-      //   value: "Select",
-      //   placeholder: "",
-      // },
+      {
+        label: "Vendor Name",
+        value: "",
+        type: "text",
+        name: "vendorName",
+      },
+      {
+        label: "Vendor Code",
+        value: "",
+        name: "vendorCode",
+        type: "text",
+      },
     ],
   };
+
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
+
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
+    setFilters({
+      ...filters,
+      ...data
+    })
     dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
   };
+
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
-    // dispatch(FilterActions.getfinancialWorkDoneProjectType(true, "", 0));
-    // dispatch(VendorActions.getVendorActivitySubProject())
-    // dispatch(VendorActions.getVendorSubProject())
+    dispatch(MyHomeActions.getMyTask());
+
+    dispatch(FilterActions.getMyTaskSubProject());
+    dispatch(FilterActions.getfinancialWorkDoneProjectType(true, "", 0));
+    dispatch(VendorActions.getVendorActivitySubProject())
+    dispatch(VendorActions.getVendorSubProject())
     dispatch(VendorActions.getVendorProjectTracking())
 
   }, []);
+
   const handleBulkDelte = () => {
     // dispatch(
     //   CommonActions.deleteApiCallerBulk(
@@ -1653,7 +1613,7 @@ const VendorProjectTracking = () => {
             getValues={getValues}
           />
         </div>
-        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+        <div className="flex w-fit -mt-16 -ml-2 items-center justify-center">
           <Button
             classes="flex h-fit"
             name=""
@@ -1724,8 +1684,8 @@ const VendorProjectTracking = () => {
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownload(
-                    "/export/myTask",
-                    "Export_My_Task.xlsx"
+                    "/export/vendor-project-tracking?"+ objectToQueryString(filters),
+                    "Vendor-Project-Tracking.xlsx"
                   )
                 );
               }}
@@ -1747,7 +1707,7 @@ const VendorProjectTracking = () => {
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
         heading={"Total Sites:-"}
-        TableHeight = "h-[52vh]" 
+        TableHeight="h-[52vh]"
       />
 
       <Modal
@@ -1768,5 +1728,4 @@ const VendorProjectTracking = () => {
     </>
   );
 };
-
 export default VendorProjectTracking;

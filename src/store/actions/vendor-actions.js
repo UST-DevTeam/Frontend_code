@@ -2,6 +2,7 @@ import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
 import { 
+    GET_PROJECT_TYPE,
     GET_VENDOR_COST_MILESTONE,
     GET_VENDOR_COST_MILESTONE_LIST,
     GET_VENDOR_COST_PROJECTGROUP_LIST,
@@ -90,7 +91,15 @@ const VendorActions = {
         }
     },
 
-
+    getProjectType:(reset=true,customerId="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.vendorProjects}/${customerId}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROJECT_TYPE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
 
 
     

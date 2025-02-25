@@ -12,6 +12,7 @@ const initialState = {
     getVendorCostProjectTypeList:[],
     getVendorCostSubProjectTypeList:[],
     getVendorCostVendorsList:[],
+    getProjectType:[],
 }
 
 const vendorData = createSlice({
@@ -97,8 +98,15 @@ const vendorData = createSlice({
                 state.getVendorCostSubProjectTypeList  = [...state.getVendorCostSubProjectTypeList,...payload.dataAll]
             }
         },
+        GET_PROJECT_TYPE:(state,{payload}) => {
+            if(payload.reset){
+                state.getProjectType   = payload.dataAll
+            }else{
+                state.getProjectType  = [...state.getProjectType,...payload.dataAll]
+            }
+        },
     }
 })
 
-export const {GET_VENDOR_DETAILS,GET_VENDOR_PROJECT_LIST,GET_VENDOR_PROJECT_TRAKING,GET_VENDOR_SUBPROJECT,GET_VENDORACTIVITY_SUBPROJECT_LIST,GET_VENDOR_COST_MILESTONE,GET_VENDOR_COST_MILESTONE_LIST,GET_VENDOR_COST_PROJECTGROUP_LIST,GET_VENDOR_COST_SUBPROJECT_LIST,GET_VENDOR_COST_PROJECTTYPE_LIST,GET_VENDOR_COST_VENDORS_LIST} = vendorData.actions
+export const {GET_VENDOR_DETAILS,GET_VENDOR_PROJECT_LIST,GET_VENDOR_PROJECT_TRAKING,GET_VENDOR_SUBPROJECT,GET_VENDORACTIVITY_SUBPROJECT_LIST,GET_VENDOR_COST_MILESTONE,GET_VENDOR_COST_MILESTONE_LIST,GET_VENDOR_COST_PROJECTGROUP_LIST,GET_VENDOR_COST_SUBPROJECT_LIST,GET_VENDOR_COST_PROJECTTYPE_LIST,GET_VENDOR_COST_VENDORS_LIST,GET_PROJECT_TYPE} = vendorData.actions
 export default vendorData.reducer
