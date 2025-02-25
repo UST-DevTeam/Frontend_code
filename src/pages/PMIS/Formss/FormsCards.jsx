@@ -32,7 +32,9 @@ const FormsCards = () => {
           ['AOP-P&L',"bg-pcol","/forms/P&L"],
           ['AOP Tracking',"bg-pcol","/forms/AopTracking"],
           ['Airtel AOP Tracking',"bg-pcol","/forms/AopTrackingAirtel"],
+          ['GP Tracking',"bg-pcol","/forms/gpTracking"],
           ['Forecast COGS Tracking',"bg-pcol","/forms/AopTrackingAirtel"]
+
         ].map((itm) => {
           return (
             

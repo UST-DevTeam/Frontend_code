@@ -28,7 +28,7 @@ import AdvancedTableGpTracking from "../../../../components/AdvanceTableGpTracki
 import CommonForm from "../../../../components/CommonForm";
 
 const GPTracking = () => {
-  const saveQuery = useRef("")
+  
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -42,7 +42,8 @@ const GPTracking = () => {
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false)
-  const Data = useRef("")
+  const saveQuery = useRef("")
+  // const Data = useRef("")
 
   const monthss = [
     { label: "Jan", value: 1 },
@@ -283,9 +284,9 @@ const GPTracking = () => {
     dispatch(gpTrackingActions.getGPTrackingMain(true, strVal))
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     // dispatch(FormssActions.getProfiltLoss())
-    await dispatch(gpTrackingActions.getGPTrackingMain())
+     dispatch(gpTrackingActions.getGPTrackingMain())
 
     // dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
     // dispatch(gpTrackingActions.getGPProjectGroup())
@@ -368,14 +369,14 @@ const GPTracking = () => {
     setNewColumns(cols);
   }, [extraColumns]);
 
-  const handleAddActivity = (res) => {
-    Data.current = ""
-    setExtraColumns(res['Month'])
-    Data.current = res['Cost Center']
-    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-    console.log(res, 'lieoijejiejijied')
-    dispatch(gpTrackingActions.getGPSalaryDB(true, res))
-  };
+  // const handleAddActivity = (res) => {
+  //   Data.current = ""
+  //   setExtraColumns(res['Month'])
+  //   Data.current = res['Cost Center']
+  //   // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
+  //   console.log(res, 'lieoijejiejijied')
+  //   dispatch(gpTrackingActions.getGPSalaryDB(true, res))
+  // };
 
 
   const onTableViewSubmit = (data) => {
@@ -602,7 +603,7 @@ const GPTracking = () => {
             </Button> */}
 
               <Button name={"Export"} classes='w-auto mr-1 !h-10' onClick={(e) => {
-                dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", saveQuery.current))
+                dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", saveQuery?.current))
               }}>
               </Button>
              {/* <Button name={"Export2"} classes='w-auto mr-1 !h-10' onClick={(e) => {

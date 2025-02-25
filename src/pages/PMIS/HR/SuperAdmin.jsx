@@ -157,13 +157,13 @@ const SuperAdmin = () => {
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
-          [
-            "GP Tracking",
-            "bg-pcol",
-            "/hr/superAdmin/gpTracking",
-            <Unicons.UilPagerduty size="32" color="" />,
-            "border-b-[#b8e0d2]",
-          ],
+          // [
+          //   "GP Tracking",
+          //   "bg-pcol",
+          //   "/hr/superAdmin/gpTracking",
+          //   <Unicons.UilPagerduty size="32" color="" />,
+          //   "border-b-[#b8e0d2]",
+          // ],
           [
             "Exchange Rate",
             "bg-pcol",

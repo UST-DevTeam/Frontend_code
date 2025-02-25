@@ -26,6 +26,7 @@ const FillExpenseForm = ({
   const [category, setCategory] = useState([]);
   const [selectedValue2, setSelectedValue2] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedProjectId, setselectedProjectId] = useState('');
   const today = moment().format("YYYY-MM-DD");
   let dispatch = useDispatch();
   
@@ -188,6 +189,7 @@ const FillExpenseForm = ({
       option: projectDetailsList,
       props: {
         onChange: (e) => {
+          setselectedProjectId(e?.target?.value)
           dispatch(
             ExpenseAdvanceActions.getExpADvSiteID(
               true,
@@ -196,7 +198,7 @@ const FillExpenseForm = ({
           );
         },
       },
-      // required: true,
+      required: true,
       classes: "col-span-1",
     
     },
@@ -419,6 +421,21 @@ const FillExpenseForm = ({
 
 
   const onTableViewSubmit = (data) => {
+    
+   
+    if (data?.projectId === '' || data?.projectId === null || data?.projectId === undefined){
+      
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: "Please Select Project ID",
+    };
+    dispatch(ALERTS(msgdata));
+    return
+    }
+    
     if (formValue.expenseuniqueId) {
       dispatch(
         ExpenseAdvanceActions.postFillExpense(

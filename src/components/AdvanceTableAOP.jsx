@@ -11,9 +11,7 @@ import CommonActions from "../store/actions/common-actions";
 import ConditionalButton from "./ConditionalButton";
 import ComponentActions from "../store/actions/component-actions";
 
-
-
-const AdvancedTableGpTracking = ({
+const AdvancedTableAOP = ({
   totalHeads = false,
   tableName = "",
   headerButton,
@@ -202,7 +200,7 @@ const AdvancedTableGpTracking = ({
   function getTotalsHeads() {
     const row = [];
 
-    Array.from({ length: 5 }).forEach(_ => {
+    Array.from({ length: 7 }).forEach(_ => {
       row.push(<th className={`border-pcol h-8 text-xs  bg-transparent text-white text-center`}></th>)
     });
 
@@ -210,7 +208,7 @@ const AdvancedTableGpTracking = ({
       revenueTotal: 0,
       COGS: 0,
     }
-    const temp = ["total_Amount", "totalSalary", "TotalAmountvendorCost", "totalOtherFixedCost", "ApprovedAmount", "COGS", "GROSSPROFITINR", "GPRevenuePercentage"]
+    const temp = ["planRevenue", "COGS", "planGp", "gm", "SGNA", "np", "actualRevenue", "actualCOGS",'actualGp','actualGm','actualSGNA','actualNp']
 
     temp.forEach(key => {
 
@@ -221,18 +219,51 @@ const AdvancedTableGpTracking = ({
         return acc;
       }, 0)
 
-      if (key === "total_Amount") {
-        keys.revenueTotal = total
+      if (key === "planRevenue") {
+        keys.planRevenue = total
       }
       if (key === "COGS") {
         keys.COGS = total
       }
-      if (key === "GPRevenuePercentage") {
-        total = ((keys.revenueTotal - keys.COGS) / keys.revenueTotal) * 100
+      if (key === "planGp") {
+        keys.planGp = total
       }
-      if (key === "GROSSPROFITINR") {
-        total = keys.revenueTotal - keys.COGS
+      if (key === "gm") {
+        total = (keys.planGp / keys.planRevenue)  * 100
       }
+      
+      if (key === "SGNA") {
+        keys.SGNA = total
+      }
+      if (key === "np") {
+        total = (keys.planRevenue === 0 ? 0 : (keys.planGp - keys.SGNA) / keys.planRevenue)*100;
+      }
+      if (key === "actualRevenue") {
+        keys.actualRevenue = total
+      }
+      if (key === "actualCOGS") {
+        keys.actualCOGS = total
+      }
+      if (key === "actualGp") {
+        keys.actualGp = total
+      }
+      if (key === "actualGm") {
+        total = (keys.actualGp / keys.actualRevenue)  * 100
+        
+      }
+      
+      if (key === "actualSGNA") {
+        keys.actualSGNA = total
+      }
+      if (key === "actualNp") {
+        total = (keys.actualRevenue === 0 ? 0 : (keys.actualGp - keys.actualSGNA) / keys.actualRevenue)*100;
+      }
+    //   if (key === "planGp") {
+    //     total = ((keys.revenueTotal - keys.COGS) / keys.revenueTotal) * 100
+    //   }
+    //   if (key === "GROSSPROFITINR") {
+    //     total = keys.revenueTotal - keys.COGS
+    //   }
       
 
       row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-transparent text-white  text-center`}>{total?.toFixed(2)}</th>);
@@ -701,4 +732,4 @@ const AdvancedTableGpTracking = ({
   );
 };
 
-export default AdvancedTableGpTracking;
+export default AdvancedTableAOP;

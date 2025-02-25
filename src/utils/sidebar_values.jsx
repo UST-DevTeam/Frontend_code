@@ -758,6 +758,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/forms/gpTracking",
+      component: <GPTracking />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
       link: "/forms/SOB",
       component: <SOB />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
@@ -840,13 +847,13 @@ export const Sidebar_content = {
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    {
-      name: "",
-      link: "/hr/superAdmin/gpTracking",
-      component: <GPTracking/>,
-      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
+    // {
+    //   name: "",
+    //   link: "/hr/superAdmin/gpTracking",
+    //   component: <GPTracking/>,
+    //   icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
       name: "",
       link: "/home/approverCards/SettlementAmount",
