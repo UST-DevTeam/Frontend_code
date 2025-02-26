@@ -761,7 +761,7 @@ const AOPTracking = () => {
 
       dispatch(
         CommonActions.commondownloadpost(
-          "/export/AOP" + (enable == "Cumulative" ? "?Cumulative=true" : ""),
+          "/export/AOP?filter=true" + (enable == "Cumulative" ? "?Cumulative=true" : ""),
           "AOP.xlsx",
           "POST",
           {}
@@ -845,8 +845,8 @@ const AOPTracking = () => {
     if (forExport.current == true) {
       dispatch(
         CommonActions.commondownloadpost(
-          "/export/AOP" +
-            (enable == "Cumulative" ? "?Cumulative=true&filter=true" : ""),
+          "/export/AOP?filter=true" +
+            (enable == "Cumulative" ? "?Cumulative=true" : ""),
           "AOP.xlsx",
           "POST",
           res

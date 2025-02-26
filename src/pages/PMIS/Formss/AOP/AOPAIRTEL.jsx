@@ -673,7 +673,7 @@ const AOPTrackingAirtel = () => {
     if(forExport.current==true){
       clearErrors()
 
-      dispatch(CommonActions.commondownloadpost("/export/AOP?forAirtel=true"+ (enable=="Cumulative"?"&Cumulative=true":""), "AOP.xlsx", "POST",{}))
+      dispatch(CommonActions.commondownloadpost("/export/AOP?forAirtel=true&filter=true"+ (enable=="Cumulative"?"&Cumulative=true":""), "AOP.xlsx", "POST",{}))
 
     }
     console.log("Form Errors:", errors);
