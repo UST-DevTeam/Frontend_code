@@ -52,7 +52,7 @@ const DateRangePicking = ({ itm, errors, setValue }) => {
             : null
         }
         dateFormat="dd/MM/yyyy"
-        className="bg-[#3e454d] text-white border-[#64676d] border-[1.5px] block h-9 w-auto rounded-md py-1 px-3 focus:ring-2 ring:[#64676d] focus:ring-indigo-600"
+        className="bg-[#3e454d] text-white border-[#64676d] !border-[3px] block h-10 !min-w-[230px] rounded-md py-2 px-3 focus:ring-2 ring:[#64676d] focus:ring-indigo-600"
          {...itm?.props}
       />
       {/* {itm.required && (!startDate || !endDate) && (

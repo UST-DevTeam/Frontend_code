@@ -268,7 +268,7 @@ const NewMultiselection = ({
   }, [itm.props.selectType]);
 
   const handleSelect = (e) => {
-    console.log("jncjksdnciusehfciducwedf",itm)
+
     let finalselection = e.map((itm) => itm.value);
     setSelectedValues(e);
     setValue(itm.label, finalselection.join());
@@ -302,7 +302,8 @@ const NewMultiselection = ({
             "border-radius": "0px",
             padding: "0px",
             color: "white !important",
-            height: "38px",          
+            height: "38px",   
+               
           },
         }}
         className={`${minWidth} ${maxWidth} absolute bg-white rounded-md  text-white-900 shadow-sm  ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
