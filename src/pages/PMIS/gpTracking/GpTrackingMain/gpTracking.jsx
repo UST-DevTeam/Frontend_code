@@ -281,7 +281,7 @@ const GPTracking = () => {
 
 
   const onSubmit = (data) => {
-    alert('dhdjjdjjjd')
+    // alert('dhdjjdjjjd')
     let value = data.reseter;
     delete data.reseter;
     const customerName = customerList.find(item => item.value == data.customer)?.customerName
