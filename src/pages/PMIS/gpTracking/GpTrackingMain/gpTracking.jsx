@@ -613,7 +613,7 @@ const GPTracking = () => {
           handleCustomerChange(e.target.value);
         },
       },
-      required: true,
+      // required: true,
 
     },
     {
@@ -622,7 +622,7 @@ const GPTracking = () => {
       name: "costCenter",
       type: "newmuitiSelect2",
       option: costCenterList,
-      required: true,
+      // required: true,
       props: {
         selectType: "selectType",
       },
@@ -636,7 +636,7 @@ const GPTracking = () => {
       name: "zone",
       type: "newmuitiSelect2",
       option: zoneList,
-      required: true,
+      // required: true,
       props: {
         selectType: "selectType",
       },
