@@ -583,7 +583,7 @@ const GPTracking = () => {
       name: "year",
       type: "select",
       option: listYear,
-      required: false,
+      required: true,
       bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
 
     },
@@ -593,7 +593,7 @@ const GPTracking = () => {
       name: "month",
       type: "newmuitiSelect2",
       option: monthss,
-      required: false,
+      required: true,
       props: {
         selectType: "selectType",
       },

@@ -1589,7 +1589,7 @@ console.log("data_filter", data)
       <div className="flex items-center justify-start">
         <div className="col-span-1 md:col-span-1">
           <CommonForm
-            classes="grid-cols-3 overflow-y-hidden p-2"
+            classes="grid-cols-3 w-[850px] overflow-y-hidden p-2"
             Form={formD}
             errors={errors}
             register={register}
@@ -1597,7 +1597,7 @@ console.log("data_filter", data)
             getValues={getValues}
           />
         </div>
-        <div className="flex w-fit mt-3 -ml-8 items-center justify-center">
+        <div className="flex w-fit mt-3 -ml-5 items-center justify-center">
           <Button
             classes="flex h-fit"
             name=""
