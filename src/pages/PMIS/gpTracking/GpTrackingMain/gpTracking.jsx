@@ -281,6 +281,7 @@ const GPTracking = () => {
 
 
   const onSubmit = (data) => {
+    // alert('dhdjjdjjjd')
     let value = data.reseter;
     delete data.reseter;
     const customerName = customerList.find(item => item.value == data.customer)?.customerName
@@ -296,6 +297,8 @@ const GPTracking = () => {
     dispatch(gpTrackingActions.getGPTrackingMain(true, strVal))
   };
 
+
+  
   useEffect(() => {
     // dispatch(FormssActions.getProfiltLoss())
      dispatch(gpTrackingActions.getGPTrackingMain())
@@ -567,7 +570,7 @@ const GPTracking = () => {
       properties: {
         rpp: [10, 20, 50, 100],
       },
-      filter: Form,
+      filter: [],
     }
   }, [handleCustomerChange])
 
