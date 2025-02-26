@@ -792,7 +792,10 @@ const AOPTracking = () => {
               classes="flex h-fit"
               name=""
               icon={<UilSearch className="w-5 m-2 h-5" />}
-              onClick={handleSubmit(handleAddActivity, onError)}
+              onClick={() => {
+                forExport.current = false;
+                return handleSubmit(handleAddActivity, onError)();
+              }}
             />
           </div>
         </div>
@@ -845,9 +848,9 @@ const AOPTracking = () => {
     if (forExport.current == true) {
       dispatch(
         CommonActions.commondownloadpost(
-          "/export/AOP" +
-            (enable == "Cumulative" ? "?Cumulative=true&filter=true" : ""),
-          "AOP.xlsx",
+          "/export/AOP?filter=true" +
+            (enable == "Cumulative" ? "&Cumulative=true" : ""),
+         "AOP.xlsx",
           "POST",
           res
         )
@@ -855,7 +858,7 @@ const AOPTracking = () => {
       return true;
     }
 
-    const resp = await Api.post({ data: res, url: Urls.aop + "?filter=true" });
+    const resp = await Api.post({ data: res, url: Urls.aop + "?filter=true"+ (enable == "Cumulative" ? "&Cumulative=true" : "") });
     if (resp.status == 200) {
       dispatch(SET_TABLE(resp?.data?.data));
     }

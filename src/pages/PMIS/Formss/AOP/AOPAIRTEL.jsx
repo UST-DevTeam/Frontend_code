@@ -670,7 +670,7 @@ const AOPTrackingAirtel = () => {
     
   ];
   const onError = (errors) => {
-    if(forExport.current==true){
+    if(forExport.current){
       clearErrors()
 
       dispatch(CommonActions.commondownloadpost("/export/AOP?forAirtel=true"+ (enable=="Cumulative"?"&Cumulative=true":""), "AOP.xlsx", "POST",{}))
@@ -703,7 +703,7 @@ const AOPTrackingAirtel = () => {
                 name=""
                 icon={<UilSearch className="w-5 m-2 h-5" />}
                 onClick={()=>{
-            forExport.current=false;
+                  forExport.current=false
             return handleSubmit(handleAddActivity,onError)()}}
               />
             </div>
@@ -730,7 +730,7 @@ const AOPTrackingAirtel = () => {
           name=""
           icon={<UilSearch className="w-5 m-2 h-5" />}
           onClick={()=>{
-            forExport.current=false;
+            forExport.current=false
             return handleSubmit(handleAddActivity,onError)()}}
         />
       </div>
@@ -922,7 +922,19 @@ const AOPTrackingAirtel = () => {
       setActionVisibility(false);
       res['month']=res['Month']
     }
-    
+    console.log("kmjnhvghc vjklhuygv bnjlhbvj==",forExport)
+    if (forExport.current) {
+      dispatch(
+        CommonActions.commondownloadpost(
+          "/export/AOP?filter=true&forAirtel=true" +
+            (enable == "Cumulative" ? "&Cumulative=true" : ""),
+         "AOP.xlsx",
+          "POST",
+          res
+        )
+      );
+      return true;
+    }
     
     const resp = await Api.post({ data: res, url: Urls.aop+("?filter=true&forAirtel=true")+( enable=="Cumulative"?"&Cumulative=true":"" )})
     if (resp.status == 200) {
@@ -1016,7 +1028,7 @@ const AOPTrackingAirtel = () => {
                 }}>
             </Button>
             <Button name={"Export"} classes='w-auto mr-1' onClick={() => {
-                forExport.current=true;
+                forExport.current=true
                 return handleSubmit(handleAddActivity,onError)()
                
               }}>
