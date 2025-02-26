@@ -281,6 +281,7 @@ const GPTracking = () => {
 
 
   const onSubmit = (data) => {
+    console.log("hello_printed")
     let value = data.reseter;
     delete data.reseter;
     const customerName = customerList.find(item => item.value == data.customer)?.customerName
@@ -326,7 +327,7 @@ const GPTracking = () => {
           setyear(e.target.value);
         },
       },
-      required: true,
+      required: false,
       classes: "col-span-1 h-38px",
     },
     {
@@ -344,7 +345,7 @@ const GPTracking = () => {
         selectType: selectType,
       },
       hasSelectAll: true,
-      required: true,
+      required: false,
       classes: "col-span-1 h-10",
     },
     {
@@ -428,7 +429,7 @@ const GPTracking = () => {
       name: "year",
       type: "select",
       option: listYear,
-      required: true,
+      required: false,
     },
     {
       label: "Month",
@@ -436,7 +437,7 @@ const GPTracking = () => {
       name: "month",
       type: "select",
       option: monthss,
-      required: true,
+      required: false,
     },
     {
       label: "Customer",
@@ -450,7 +451,7 @@ const GPTracking = () => {
           handleCustomerChange(e.target.value);
         },
       },
-      required: true,
+      required: false,
     },
     {
       label: "Cost Center",
@@ -458,7 +459,7 @@ const GPTracking = () => {
       name: "costCenter",
       type: "select",
       option: costCenterList,
-      required: true,
+      required: false,
     },
 
   ];
@@ -579,7 +580,7 @@ const GPTracking = () => {
       name: "year",
       type: "select",
       option: listYear,
-      required: true,
+      required: false,
       bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
 
     },
@@ -589,7 +590,7 @@ const GPTracking = () => {
       name: "month",
       type: "newmuitiSelect2",
       option: monthss,
-      required: true,
+      required: false,
       props: {
         selectType: "selectType",
       },
@@ -610,7 +611,7 @@ const GPTracking = () => {
           handleCustomerChange(e.target.value);
         },
       },
-      required: true,
+      required: false,
 
     },
     {
@@ -619,7 +620,7 @@ const GPTracking = () => {
       name: "costCenter",
       type: "newmuitiSelect2",
       option: costCenterList,
-      required: true,
+      required: false,
       props: {
         selectType: "selectType",
       },
@@ -633,7 +634,7 @@ const GPTracking = () => {
       name: "zone",
       type: "newmuitiSelect2",
       option: zoneList,
-      required: true,
+      required: false,
       props: {
         selectType: "selectType",
       },

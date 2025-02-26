@@ -50,7 +50,7 @@ const VendorProjectTracking = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
-  
+
   // console.log(permission?.pmpermission,"permission")
   // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
   const [assignDate, setAssignDate] = useState()
@@ -74,9 +74,9 @@ const VendorProjectTracking = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [selectType, setSelectType] = useState("");
   const [modalHead, setmodalHead] = useState(<></>);
-const [ filters, setFilters] = useState({
+  const [filters, setFilters] = useState({
 
-})
+  })
   const [old, setOld] = useState(<></>);
   const navigate = useNavigate();
 
@@ -180,19 +180,19 @@ const [ filters, setFilters] = useState({
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
+
   const handleAddActivity = (data) => {
-    //  Data.current = ""
-    console.log("setSelectType", data)
+console.log("data_filter", data)
     setExtraColumns(data['Month'])
-    setSelectType(data["Month"])
+    // setSelectType(data["Month"])
     setValue("viewBy", data['Month'])
     if (assignDate) {
       const { start, end } = assignDate
       data["start"] = start?.split("T")[0]
       data["end"] = end?.split("T")[0]
     }
-      
-     setFilters({
+
+    setFilters({
       ...filters,
       ...data
     })
@@ -201,7 +201,7 @@ const [ filters, setFilters] = useState({
 
   const projectType = useSelector(state => {
     return state.vendorData.getProjectType.map(item => ({
-      label : item?.projectType,
+      label: item?.projectType,
       value: item?.uid?.join(",")
     }))
   })
@@ -1156,27 +1156,13 @@ const [ filters, setFilters] = useState({
           label: dasd?.name,
         };
       }),
+      minWidth:"min-w-[260px]",
       props: {
         selectType: selectType,
       },
       hasSelectAll: true,
       required: false,
-      classes: "col-span-1 h-10",
-    },
-    {
-      label: "Customer",
-      value: "",
-      name: "customerId",
-      type: "select",
-      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
-      option: customerList,
-      props: {
-        onChange: (e) => {
-          setSelectedCustomer(e?.target?.value)
-          dispatch(VendorActions.getProjectType(true, e.target.value))
-        },
-      },
-      required: false,
+      classes: "w-full w-[300px] h-10",
     },
     {
       label: "Date Range",
@@ -1525,6 +1511,21 @@ const [ filters, setFilters] = useState({
     },
     filter: [
       {
+        label: "Customer",
+        value: "",
+        name: "customerId",
+        type: "select",
+        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+        option: customerList,
+        props: {
+          onChange: (e) => {
+            setSelectedCustomer(e?.target?.value)
+            dispatch(VendorActions.getProjectType(true, e.target.value))
+          },
+        },
+        required: false,
+      },
+      {
         label: "Project Type",
         value: "",
         type: "select",
@@ -1605,7 +1606,7 @@ const [ filters, setFilters] = useState({
       <div className="flex items-center justify-start">
         <div className="col-span-1 md:col-span-1">
           <CommonForm
-            classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
+            classes="grid-cols-3 overflow-y-hidden p-2"
             Form={formD}
             errors={errors}
             register={register}
@@ -1613,7 +1614,7 @@ const [ filters, setFilters] = useState({
             getValues={getValues}
           />
         </div>
-        <div className="flex w-fit -mt-16 -ml-2 items-center justify-center">
+        <div className="flex w-fit mt-3 -ml-8 items-center justify-center">
           <Button
             classes="flex h-fit"
             name=""
@@ -1684,7 +1685,7 @@ const [ filters, setFilters] = useState({
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownload(
-                    "/export/vendor-project-tracking?"+ objectToQueryString(filters),
+                    "/export/vendor-project-tracking?" + objectToQueryString(filters),
                     "Vendor-Project-Tracking.xlsx"
                   )
                 );

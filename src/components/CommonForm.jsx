@@ -316,6 +316,7 @@ const CommonForm = ({
                         setValue={setValue}
                         getValues={getValues}
                         register={register}
+                        minWidth={itm?.minWidth || "min-w-[150px]"}
                       />
                     ) : (
                       <></>
