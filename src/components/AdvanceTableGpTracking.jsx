@@ -203,12 +203,13 @@ const AdvancedTableGpTracking = ({
     const row = [];
 
     Array.from({ length: 5 }).forEach(_ => {
-      row.push(<th className={`border-pcol h-8 text-xs  bg-transparent text-white text-center`}></th>)
+      row.push(<th className={`border-pcol h-8 text-xs  bg-[#3E454D] text-white text-center`}></th>)
     });
 
     const keys = {
       revenueTotal: 0,
       COGS: 0,
+      
     }
     const temp = ["total_Amount", "totalSalary", "TotalAmountvendorCost", "totalOtherFixedCost", "ApprovedAmount", "COGS", "GROSSPROFITINR", "GPRevenuePercentage"]
 
@@ -233,9 +234,33 @@ const AdvancedTableGpTracking = ({
       if (key === "GROSSPROFITINR") {
         total = keys.revenueTotal - keys.COGS
       }
+
+      
+      
+     
+
+      if (key === "GPRevenuePercentage") {
+        row.push(
+          <th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white text-center`}>
+            {total ? total.toFixed(2) +" "+ "%" :"0.00 %"}
+          </th>
+        );
+      } 
+      
       
 
-      row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-transparent text-white  text-center`}>{total?.toFixed(2)}</th>);
+
+        
+
+        else{row.push(
+          <th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white text-center`}>
+            {total ? total.toFixed(2) : "0.00"}
+          </th>
+        );
+      }
+    
+
+      // row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white  text-center`}>{total?.toFixed(2)}</th>);
     });
 
     return row;

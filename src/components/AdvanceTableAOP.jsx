@@ -197,80 +197,210 @@ const AdvancedTableAOP = ({
   };
 
 
+  // function getTotalsHeads() {
+  //   const row = [];
+
+  //   Array.from({ length: 7 }).forEach(_ => {
+  //     row.push(<th className={`border-pcol h-8 text-xs  bg-transparent text-white text-center`}></th>)
+  //   });
+
+  //   const keys = {
+  //     planRevenue: 0,
+  //     COGS: 0,
+  //     planGp: 0,
+  //     gm: 0,
+  //     SGNA: 0,
+  //     np: 0,
+  //     actualRevenue: 0,
+  //     actualCOGS: 0,
+  //     actualGp: 0,
+  //     actualGm: 0,
+  //     actualSGNA: 0,
+  //     actualNp: 0,
+  //   }
+  //   const temp = ["planRevenue", "COGS", "planGp", "gm", "SGNA", "np", "actualRevenue", "actualCOGS",'actualGp','actualGm','actualSGNA','actualNp']
+
+  //   temp.forEach(key => {
+
+  //     let total = data.reduce((acc, item) => {
+  //       if (item && key in item) {
+  //         acc += +item[key] || 0
+  //       }
+  //       return acc;
+  //     }, 0)
+
+  //     if (key === "planRevenue") {
+  //       keys.planRevenue = total
+  //     }
+  //     if (key === "COGS") {
+  //       keys.COGS = total
+  //     }
+  //     if (key === "planGp") {
+  //       keys.planGp = keys.planRevenue-keys.COGS
+  //     }
+  //     if (key === "gm") {
+  //       total = ((keys.planRevenue-keys.COGS) / keys.planRevenue)  * 100
+  //     }
+      
+  //     if (key === "SGNA") {
+  //       keys.SGNA = total
+  //     }
+  //     if (key === "np") {
+  //       total = (keys.planRevenue === 0 ? 0 : ((keys.planRevenue-keys.COGS) - keys.SGNA) / keys.planRevenue)*100;
+  //     }
+  //     if (key === "actualRevenue") {
+  //       keys.actualRevenue = total
+  //     }
+  //     if (key === "actualCOGS") {
+  //       keys.actualCOGS = total
+  //     }
+  //     if (key === "actualGp") {
+  //       (keys.actualRevenue-keys.actualCOGS) = total
+  //     }
+  //     if (key === "actualGm") {
+  //       total = (((keys?.actualRevenue) || 0 - (keys?.actualCOGS || 0)) / (keys?.actualRevenue || 1))  * 100
+  //     }
+  //     if (key === "actualSGNA") {
+  //       keys.actualSGNA = total
+  //     }
+  //     // if (key === "actualNp") {
+  //     //   total = (keys.actualRevenue === 0 ? 0 : ((keys.actualRevenue - keys.actualCOGS) - keys.actualSGNA) / keys.actualRevenue)*100;
+  //     // }
+    
+      
+
+  //     row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-transparent text-white  text-center`}>{total?.toFixed(2)}</th>);
+  //   });
+
+  //   return row;
+  // }
+
+  
   function getTotalsHeads() {
     const row = [];
 
+    
     Array.from({ length: 7 }).forEach(_ => {
-      row.push(<th className={`border-pcol h-8 text-xs  bg-transparent text-white text-center`}></th>)
+      row.push(<th className={`border-pcol h-8 text-xs bg-[#3E454D] text-white text-center `}></th>);
     });
 
+    
     const keys = {
-      revenueTotal: 0,
+      planRevenue: 0,
       COGS: 0,
-    }
-    const temp = ["planRevenue", "COGS", "planGp", "gm", "SGNA", "np", "actualRevenue", "actualCOGS",'actualGp','actualGm','actualSGNA','actualNp']
+      planGp: 0,
+      gm: 0,
+      SGNA: 0,
+      np: 0,
+      actualRevenue: 0,
+      actualCOGS: 0,
+      actualGp: 0,
+      actualGm: 0,
+      actualSGNA: 0,
+      actualNp: 0,
+      edit:'',
+      delete:''
+    };
 
+    
+    const temp = [
+      "planRevenue", "COGS", "planGp", "gm", "SGNA", "np", 
+      "actualRevenue", "actualCOGS", 'actualGp', 'actualGm', 'actualSGNA', 'actualNp','edit','delete'
+    ];
+
+    
     temp.forEach(key => {
-
       let total = data.reduce((acc, item) => {
         if (item && key in item) {
-          acc += +item[key] || 0
+          acc += +item[key] || 0;
         }
         return acc;
-      }, 0)
+      }, 0);
 
+      
       if (key === "planRevenue") {
-        keys.planRevenue = total
+        keys.planRevenue = total;
       }
       if (key === "COGS") {
-        keys.COGS = total
+        keys.COGS = total;
       }
       if (key === "planGp") {
-        keys.planGp = total
+        keys.planGp = keys.planRevenue - keys.COGS;
       }
       if (key === "gm") {
-        total = (keys.planGp / keys.planRevenue)  * 100
+        keys.gm = ((keys.planRevenue - keys.COGS) / keys.planRevenue) * 100;
+        total = keys.gm;
       }
-      
       if (key === "SGNA") {
-        keys.SGNA = total
+        keys.SGNA = total;
       }
       if (key === "np") {
-        total = (keys.planRevenue === 0 ? 0 : (keys.planGp - keys.SGNA) / keys.planRevenue)*100;
+        keys.np = (keys.planRevenue === 0 ? 0 : ((keys.planRevenue - keys.COGS - keys.SGNA) / keys.planRevenue) * 100);
+        total = keys.np;
       }
       if (key === "actualRevenue") {
-        keys.actualRevenue = total
+        keys.actualRevenue = total;
       }
       if (key === "actualCOGS") {
-        keys.actualCOGS = total
+        keys.actualCOGS = total;
       }
       if (key === "actualGp") {
-        keys.actualGp = total
+        keys.actualGp = keys.actualRevenue - keys.actualCOGS;
+        total = keys.actualGp;
       }
       if (key === "actualGm") {
-        total = (keys.actualGp / keys.actualRevenue)  * 100
-        
+        keys.actualGm = ((keys.actualRevenue - keys.actualCOGS) / keys.actualRevenue) * 100;
+        total = keys.actualGm;
       }
-      
       if (key === "actualSGNA") {
-        keys.actualSGNA = total
+        keys.actualSGNA = total;
       }
       if (key === "actualNp") {
-        total = (keys.actualRevenue === 0 ? 0 : (keys.actualGp - keys.actualSGNA) / keys.actualRevenue)*100;
+        keys.actualNp = (keys.actualRevenue === 0 ? 0 : ((keys.actualRevenue - keys.actualCOGS - keys.actualSGNA) / keys.actualRevenue) * 100);
+        total = keys.actualNp;
       }
-    //   if (key === "planGp") {
-    //     total = ((keys.revenueTotal - keys.COGS) / keys.revenueTotal) * 100
-    //   }
-    //   if (key === "GROSSPROFITINR") {
-    //     total = keys.revenueTotal - keys.COGS
-    //   }
+      if (key === 'edit'){
+        keys.edit = ''
+      }
+      if (key === 'delete'){
+        keys.delete = ''
+      }
+      
       
 
-      row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-transparent text-white  text-center`}>{total?.toFixed(2)}</th>);
+      
+      if (key === "actualNp" || key === "actualGm" || key === "gm" || key === "np") {
+        row.push(
+          <th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white text-center`}>
+            {total ? total.toFixed(2) +" "+ "%" :"0.00 %"}
+          </th>
+        );
+      } 
+      
+      else {
+
+
+        if (key === 'edit' || key === 'delete') {
+          row.push(
+            <th className={`border-pcol h-8 text-xs border-[0px] bg-[#3E454D] text-[#3E454D] text-center`}>
+              {}
+            </th>
+          );
+        }
+
+        else{row.push(
+          <th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white text-center`}>
+            {total ? total.toFixed(2) : "0.00"}
+          </th>
+        );
+      }
+    }
     });
 
     return row;
-  }
+}
+
+
 
   return (
     <>
@@ -510,7 +640,7 @@ const AdvancedTableAOP = ({
                           ["Edit", ""].includes(itts.name) ? (
                             <th
                               colSpan={actions.length}
-                              className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[120px] max-w-[200px] text-center`}
+                              className={`border-primaryLine h-10  border-[1.5px] bg-[#3E454D] min-w-[120px] max-w-[200px] text-center`}
                             >
                               <span className="text-white text-[14px]">
                                 {"Actions"}
@@ -519,7 +649,7 @@ const AdvancedTableAOP = ({
                           ) : !actions.includes("Edit") ? (
                             <td
                               colSpan={actions.length}
-                              className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[120px] max-w-[200px] text-center`}
+                              className={`border-primaryLine h-10  border-[1.5px] bg-[#3E454D] min-w-[120px] max-w-[200px] text-center`}
                             >
                               <span className="text-white text-[14px]">
                                 {"Actions"}

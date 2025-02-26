@@ -945,7 +945,7 @@ const AOPTracking = () => {
         bg: "bg-orange-400",
       },
       {
-        name: "Planned Net Profit",
+        name: "Planned Net Profit(%)",
         value: "np",
         style: "px-2 text-center",
         bg: "bg-orange-400",
@@ -981,7 +981,7 @@ const AOPTracking = () => {
         bg: "bg-green-600",
       },
       {
-        name: "Actual Net Profit",
+        name: "Actual Net Profit(%)",
         value: "actualNp",
         style: "px-6 text-center",
         bg: "bg-green-600",
