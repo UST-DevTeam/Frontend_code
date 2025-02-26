@@ -44,7 +44,7 @@ const AccuralRevenueMaster = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-rose-400' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_profile}/${itm.uniqueId}`, () => {
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.get_accural_revenue_master_project}/${itm.uniqueId}`, () => {
                                     dispatch(AdminActions.getAccuralRevenueMasterProject())
                                     dispatch(ALERTS({ show: false }))
                                 }))
