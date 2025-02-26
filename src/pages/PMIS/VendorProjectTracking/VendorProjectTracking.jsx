@@ -45,6 +45,7 @@ import moment from "moment/moment";
 import CommonForm from "../../../components/CommonForm";
 import gpTrackingActions from "../../../store/actions/gpTrackingActions";
 import Api from "../../../utils/api";
+import { GET_PROJECT_TYPE } from "../../../store/reducers/vendor-reducer";
 
 const VendorProjectTracking = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -1519,8 +1520,14 @@ console.log("data_filter", data)
         option: customerList,
         props: {
           onChange: (e) => {
-            setSelectedCustomer(e?.target?.value)
-            dispatch(VendorActions.getProjectType(true, e.target.value))
+            if (e.target.value){
+              setSelectedCustomer(e?.target?.value)
+              dispatch(VendorActions.getProjectType(true, e.target.value))
+            }
+            else{
+              setSelectedCustomer(null)
+              dispatch(GET_PROJECT_TYPE({dataAll:[],reset:true}))
+            }
           },
         },
         required: false,
@@ -1574,32 +1581,8 @@ console.log("data_filter", data)
 
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
-    dispatch(MyHomeActions.getMyTask());
-
-    dispatch(FilterActions.getMyTaskSubProject());
-    dispatch(FilterActions.getfinancialWorkDoneProjectType(true, "", 0));
-    dispatch(VendorActions.getVendorActivitySubProject())
-    dispatch(VendorActions.getVendorSubProject())
     dispatch(VendorActions.getVendorProjectTracking())
-
   }, []);
-
-  const handleBulkDelte = () => {
-    // dispatch(
-    //   CommonActions.deleteApiCallerBulk(
-    //     `${Urls.projectList_siteEngineer}`,
-    //     {
-    //       ids: parentsite
-    //     },
-    //     () => {
-    //       dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    //       setmodalOpen(false)
-    //       setparentsite([])
-    //       setmultiSelect([])
-    //     }
-    //   )
-    // );
-  };
 
   return (
     <>
@@ -1659,26 +1642,6 @@ console.log("data_filter", data)
         }
         headerButton={
           <div className="flex gap-1">
-            {Array.isArray(parentsite) && parentsite?.length > 0 && (
-              <Button
-                classes="w-auto"
-                onClick={(e) => {
-                  setmodalOpen((prev) => !prev);
-                  setmodalHead("Confirm Delete");
-                  setmodalBody(
-                    <div className="flex justify-center py-6">
-                      <button
-                        onClick={handleBulkDelte}
-                        className="w-1/4 rounded-full bg-green-600"
-                      >
-                        OK
-                      </button>
-                    </div>
-                  );
-                }}
-                name={"Delete"}
-              ></Button>
-            )}
             <ConditionalButton
               showType={getAccessType("Export(Site)")}
               classes="w-auto "

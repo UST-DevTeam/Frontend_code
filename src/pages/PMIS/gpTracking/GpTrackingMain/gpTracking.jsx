@@ -610,7 +610,6 @@ const GPTracking = () => {
       option: customerList,
       props: {
         onChange: (e) => {
-          // alert(e.target.value)
           handleCustomerChange(e.target.value);
         },
       },
