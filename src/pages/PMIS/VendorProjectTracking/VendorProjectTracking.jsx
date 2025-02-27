@@ -131,15 +131,8 @@ const VendorProjectTracking = () => {
     formState: { errors },
   } = useForm();
   let dispatch = useDispatch();
-  const dataGetterOld = useSelector((state) => {
-    let oldata = state.projectList.getProjectTypeSub;
-    if (old["_id"] != oldata["_id"]) {
-      setOld(oldata);
-      setValue("ptype", oldata["projectType"]);
-    }
-    console.log(oldata, "olddataolddataolddata");
-    return state.projectList.getProjectTypeSub;
-  });
+
+
 
   let showTypeforAction = getAccessType("Actions(Site)");
 
@@ -149,43 +142,11 @@ const VendorProjectTracking = () => {
     shouldIncludeEditColumn = true;
   }
 
-  // let subProjectList = useSelector((state) => {
-  //   console.log(state,'statestatestatestate')
-  //   return state?.vendorData?.getvendorSubProject.map((itm) => {
-  //     return {
-  //       label: itm.subprojectName,
-  //       value: itm.subProjectId,
-  //     };
-  //   });
-  // });
-  let subProjectList = useSelector((state) => {
-    return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.uid,
-      };
-    });
-  });
 
-  let dbConfigL = useSelector((state) => {
-    let interdata = state?.myHomeData?.getmyTask || [];
-    return interdata;
-  });
 
-  let milestoneEventLogsData = useSelector((state) => {
-    let interdata = state?.eventlogsReducer?.milestoneeventList || [];
-    return interdata;
-  });
-
-  let sitelogsEventLogsData = useSelector((state) => {
-    let interdata = state?.eventlogsReducer?.siteeventList || [];
-    return interdata;
-  });
 
   const handleAddActivity = (data) => {
-console.log("data_filter", data)
     setExtraColumns(data['Month'])
-    // setSelectType(data["Month"])
     setValue("viewBy", data['Month'])
     if (assignDate) {
       const { start, end } = assignDate
@@ -215,37 +176,37 @@ console.log("data_filter", data)
         siteIdLink: (
           <p
             className="text-[#13b497] font-extrabold"
-            onClick={() => {
-              setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site:-" + itm["Site Id"]);
-              dispatch(
-                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                  dataAll: [],
-                  reset: true,
-                })
-              );
-              // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
-              dispatch(GET_MAPPED_DATA({ dataAll: [], reset: true }));
-              dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-              dispatch(
-                projectListActions.getCircleWithPGData(itm.projectuniqueId)
-              );
-              dispatch(projectListActions.getMappedData(itm.projectuniqueId));
-              setmodalBody(
-                <ManageMilestoneSite
-                  siteCompleteData={itm}
-                  uid={itm["uniqueId"]}
-                  mileStone={{}}
-                  setGlobalData={setGlobalData}
-                  setSiteId={setSiteId}
-                  setmodalFullOpen={setmodalFullOpen}
-                  projectuniqueId={itm["projectuniqueId"]}
-                  myTaskPage="Yes"
-                />
-              );
+            // onClick={() => {
+            //   setmodalFullOpen((prev) => !prev);
+            //   setmodalHead("Update Site:-" + itm["Site Id"]);
+            //   dispatch(
+            //     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+            //       dataAll: [],
+            //       reset: true,
+            //     })
+            //   );
+            //   // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
+            //   dispatch(GET_MAPPED_DATA({ dataAll: [], reset: true }));
+            //   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
+            //   dispatch(
+            //     projectListActions.getCircleWithPGData(itm.projectuniqueId)
+            //   );
+            //   dispatch(projectListActions.getMappedData(itm.projectuniqueId));
+            //   setmodalBody(
+            //     <ManageMilestoneSite
+            //       siteCompleteData={itm}
+            //       uid={itm["uniqueId"]}
+            //       mileStone={{}}
+            //       setGlobalData={setGlobalData}
+            //       setSiteId={setSiteId}
+            //       setmodalFullOpen={setmodalFullOpen}
+            //       projectuniqueId={itm["projectuniqueId"]}
+            //       myTaskPage="Yes"
+            //     />
+            //   );
 
-              // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-            }}
+            //   // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+            // }}
           >
             {itm["Site Id"]}
           </p>
@@ -269,39 +230,6 @@ console.log("data_filter", data)
               } / ${itm?.milestoneArray?.length}`}
           />
         ),
-        // checkboxProject: (
-        //   <>
-        //     <input
-        //       type={"checkbox"}
-        //       id={itm.uniqueId}
-        //       checked={parentsite.indexOf(itm.uniqueId) != -1}
-        //       value={itm.uniqueId}
-        //       onChange={(e) => {
-        //         if (e.target.checked) {
-        //           setparentsite((prev) => [...prev, e.target.value]);
-        //           let dlisting = itm.milestoneArray.map((iewq) => {
-        //             return iewq.uniqueId;
-        //           });
-        //           setchildsite((prev) => [...prev, ...dlisting]);
-        //         } else {
-        //           setparentsite((prev) => {
-        //             let lst = prev.indexOf(e.target.value);
-        //             prev.splice(lst, 1);
-        //             return [...prev];
-        //           });
-
-        //           setchildsite((prev) => {
-        //             itm?.milestoneArray?.map((iewq) => {
-        //               let lst = prev.indexOf(iewq.uniqueId);
-        //               prev.splice(lst, 1);
-        //             });
-        //             return [...prev];
-        //           });
-        //         }
-        //       }}
-        //     />
-        //   </>
-        // ),
 
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
@@ -316,20 +244,6 @@ console.log("data_filter", data)
         ) : (
           ""
         ),
-        // siteStartDate: <div className='flex content-center w-full justify-center'>
-        //     <CstmButton className={"p-2 w-full"} child={<Button name={itm.plannedStartDate ? itm.plannedStartDate : "Assign Date"} onClick={() => {
-        //         setmodalOpen(true)
-
-        //         dispatch(projectListActions.getUserAllocatedProject(true, projectuniqueId))
-        //         setmodalHead("Add Planned Start Date")
-        //         setmodalBody(<>
-        //             <AllocateProjectDateForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-        //             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-        //         </>)
-        //         console.log('ahshshhs', itm)
-        //         //setmodalOpen(false)
-        //     }} classes='w-full'></Button>} />
-        // </div>,
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
           // console.log(iewq, "iewqiewqiewqiewq");
@@ -631,35 +545,35 @@ console.log("data_filter", data)
             SiteNaming: (
               <p
                 className="text-yellow-500 font-extrabold"
-                onClick={() => {
-                  setmodalFullOpen((prev) => !prev);
-                  // dispatch(AdminActions.getProject())
-                  setmodalHead("Update Milestone");
-                  dispatch(
-                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                      dataAll: [],
-                      reset: true,
-                    })
-                  );
-                  // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
-                  // dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
-                  dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
+                // onClick={() => {
+                //   setmodalFullOpen((prev) => !prev);
+                //   // dispatch(AdminActions.getProject())
+                //   setmodalHead("Update Milestone");
+                //   dispatch(
+                //     GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                //       dataAll: [],
+                //       reset: true,
+                //     })
+                //   );
+                //   // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
+                //   // dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
+                //   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
 
-                  setmodalBody(
-                    <ManageMilestoneSite
-                      siteCompleteData={itm}
-                      uid={itm["uniqueId"]}
-                      mileStone={iewq}
-                      setGlobalData={setGlobalData}
-                      setSiteId={setSiteId}
-                      setmodalFullOpen={setmodalFullOpen}
-                      projectuniqueId={itm.projectuniqueId}
-                      myTaskPage="Yes"
-                    />
-                  );
+                //   setmodalBody(
+                //     <ManageMilestoneSite
+                //       siteCompleteData={itm}
+                //       uid={itm["uniqueId"]}
+                //       mileStone={iewq}
+                //       setGlobalData={setGlobalData}
+                //       setSiteId={setSiteId}
+                //       setmodalFullOpen={setmodalFullOpen}
+                //       projectuniqueId={itm.projectuniqueId}
+                //       myTaskPage="Yes"
+                //     />
+                //   );
 
-                  // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                }}
+                //   // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                // }}
               >
                 {iewq.Name}
               </p>
@@ -1069,6 +983,7 @@ console.log("data_filter", data)
       return updateditm;
     });
   });
+
   let customerList = useSelector((state) => {
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
       return {
@@ -1077,52 +992,14 @@ console.log("data_filter", data)
       };
     });
   })
+
   let dbConfigTotalCount =
     useSelector((state) => {
-
       let interdata = state?.vendorData?.getvendorProjectTracking || 0;
-      // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
-        console.log(
-          "asdfas0fjasofnafsdna",
-          interdata[0]["overall_table_count"]
-        );
         return interdata[0]["overall_table_count"];
       }
     }) || [];
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
-
-  let milestoneLogsTable = {
-    columns: [
-      {
-        name: "Site Id",
-        value: "SiteId",
-        style: "min-w-[50px] max-w-[100px] text-center",
-      },
-      {
-        name: "Email",
-        value: "email",
-        style: "min-w-[50px] max-w-[200px] text-center",
-      },
-      {
-        name: "Time & Date ",
-        value: "UpdatedAt",
-        style: "min-w-[80px] max-w-[200px] text-center",
-      },
-      {
-        name: "Updated Data",
-        value: "updatedData",
-        style: "min-w-[50px] max-w-[300px] text-center",
-      },
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [],
-  };
 
   let formD = [
     {
@@ -1175,13 +1052,9 @@ console.log("data_filter", data)
       onChange: (data) => {
         setAssignDate(data)
       }
-      // props: {
-      //   onChange: (data) => {
-      //     setAssignDate(data)
-      //   }
-      // }
     },
   ];
+
   let table = {
     columns: [
       {
@@ -1688,7 +1561,6 @@ console.log("data_filter", data)
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
       />
-      {/* <CommonForm/> */}
     </>
   );
 };
