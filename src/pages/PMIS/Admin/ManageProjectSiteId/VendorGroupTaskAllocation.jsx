@@ -97,16 +97,27 @@ const VendorGroupTaskAllocation = ({
       {
         label: "Assign Vendor",
         name: "vendorId",
-        type: "BigmuitiSelect",
+        type: "newSingleSelect50",
         value: "",
         singleSelect: true,
         option: dataGetterOld
           ? dataGetterOld["vendorDetails"]
-            ? dataGetterOld["vendorDetails"]
+            ? dataGetterOld["vendorDetails"].map((vendor) => ({
+                value: vendor.id,
+                label: vendor.name, 
+              }))
+            : []
+          : [],
+        id: dataGetterOld
+          ? dataGetterOld["vendorDetails"]
+            ? dataGetterOld["vendorDetails"].map((vendor) => ({
+                value: vendor.id,
+                label: vendor.name,
+              }))
             : []
           : [],
         onSelecting: (e) => {
-          console.log("onRemovings vendor", e);
+          console.log("onSelecting vendor", e);
           setValue("userId", "");
         },
         onRemoving: (e) => {
@@ -116,7 +127,7 @@ const VendorGroupTaskAllocation = ({
         required: true,
         classes: "col-span-1",
         width: "400px",
-      },
+      }      
     )
   }
 

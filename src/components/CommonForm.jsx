@@ -28,6 +28,7 @@ import NewSingleSelectCommon from "./FormElements/NewSingleSelectCommon";
 import DatePicking2 from "./FormElements/DatePicking2";
 import NewMuitiSelect007 from "./NewMuitiSelect007";
 import DateRangePicking from "./FormElements/DateRangePicking";
+import NewSingleSelectForm50 from "./FormElements/NewSingleSelectForm50";
 
 const CommonForm = ({
   classes,
@@ -347,6 +348,18 @@ const CommonForm = ({
                     )}
                     {itm.type == "newSingleSelect45" ? (
                       <NewSingleSelectForm45
+                        itm={itm}
+                        errors={errors}
+                        handleSubmit={handleSubmit}
+                        setValue={setValue}
+                        getValues={getValues}
+                        register={register}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    {itm.type == "newSingleSelect50" ? (
+                      <NewSingleSelectForm50
                         itm={itm}
                         errors={errors}
                         handleSubmit={handleSubmit}

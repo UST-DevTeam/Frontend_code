@@ -1,13 +1,10 @@
-export const baseUrl = "https://api.mcpspmis.com"
-export const backendassetUrl = "https://api.mcpspmis.com/"
+export const baseUrl = "https://devapi.mcpspmis.com"
+export const backendassetUrl = "https://devapi.mcpspmis.com/"
 
 // export const baseUrl="https://androidapi.mcpspmis.com"
 // export const backendassetUrl="https://androidapi.mcpspmis.com/"
-
-
 // export const baseUrl = "http://localhost:7980";
 // export const backendassetUrl = "http://localhost:7980/";
-
 // export const baseUrl = "http://192.168.1.59:7980";
 // export const backendassetUrl = "http://192.168.1.59:7980/";
 

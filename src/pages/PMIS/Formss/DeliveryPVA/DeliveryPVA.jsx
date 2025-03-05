@@ -42,20 +42,22 @@ function getProjectRowsAchievementInPercentage(subProjectType, rowData) {
         }
     }
     let total = 0
+    let totalAchivement = 0
+    let totalTarget = 0
     subProjectType.forEach(item => {
         const subProjectType = item?.subProjectName
         const achievement = rowData.achievement.find(item => item.subProjectName === subProjectType)
         const target = rowData.target.find(item => item.subProjectName === subProjectType)
-        if (!achievement || !target || target.value < 1) {
-            rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>0%</td>)
-        }
-        else {
-            const value = Math.round((achievement.value / target.value) * 100)
-            total += value
-            rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{value + "%"}</td>)
-        }
+            let value=0
+            if (achievement?.value && target?.value){
+                value = Math.round((achievement?.value / target?.value) * 100)
+            }
+            totalAchivement += achievement?.value || 0
+            totalTarget += target?.value || 0
+            rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{(value || 0) + "%"}</td>)
     })
-    rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{total + "%"}</td>)
+    let totals = Math.round((totalAchivement / totalTarget) * 100)
+    rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{totals + "%"}</td>)
     return rows
 }
 
@@ -83,25 +85,28 @@ function getProjectRows(subProjectType, rowData) {
 
 function getProjectRowsTotalForAchievement(subProjectType, data) {
     const rows = []
-    let total = 0
-
+    let totalAChivement = 0
+    let totalTarget = 0
     subProjectType.forEach(item => {
         const subProjectType = item?.subProjectName
         let rowsTotal = 0
+        let achievementTotal = 0
+        let targetTotal = 0
         data.forEach(item => {
             const achievement = item.achievement.find(item => item.subProjectName === subProjectType)
             const target = item.target.find(item => item.subProjectName === subProjectType)
-            if (!achievement || !target || target.value < 1) {
-                rowsTotal += 0
-            } else {
-                const value = Math.round((achievement.value / target.value) * 100) || 0
-                rowsTotal += value
-            }
+                achievementTotal += (achievement?.value || 0)
+                targetTotal += (target?.value || 0)
         })
+        if (achievementTotal && targetTotal){
+            totalAChivement +=achievementTotal
+            totalTarget +=targetTotal
+            rowsTotal =  Math.round((achievementTotal / targetTotal) * 100) || 0
+        }
         rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{(rowsTotal || 0) + "%"}</td>)
-        total += rowsTotal
     })
-    rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{total + "%"}</td>)
+    let totals=Math.round((totalAChivement / totalTarget) * 100) || 0
+    rows.push(<td className={tdClasses + " p-1 text-white bg-[#3E454D] font-medium"}>{totals + "%"}</td>)
     return rows
 }
 
@@ -133,13 +138,22 @@ const DeliveryPVA = () => {
     const { MSType, customerId } = useParams()
     const [fileOpen, setFileOpen] = useState(false)
 
+
+    const today = new Date();
+    
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1; 
+    const month = today.getDate() >= 26 ? (currentMonth % 12) + 1 : currentMonth;
+    const year = today.getDate() >= 26 && currentMonth === 12 ? currentYear + 1 : currentYear;
+
     const [filters, setFilters] = useState({
         MSType,
         customerId,
-        month: [new Date().getMonth() + 1],
+        month: [month],
         circleId: null,
-        year: new Date().getFullYear()
+        year: year
     })
+    console.log(filters,'dhhjdhjdhdhjhdj')
 
     const {
         register,
@@ -277,6 +291,7 @@ const DeliveryPVA = () => {
 
 
     useEffect(() => {
+        
         setValue("year", filters.year)
         setValue("month", filters.month[0])
     }, [])
@@ -298,127 +313,182 @@ const DeliveryPVA = () => {
 
     return (
         <>
-
-            <div className="flex items-center justify-between">
-                <div className="col-span-1 flex space-x-2 md:col-span-1">
-                    <CommonForm
-                        classes="grid grid-cols-4 w-[700px] overflow-y-hidden p-2"
-                        Form={formFields}
-                        errors={errors}
-                        register={register}
-                        setValue={setValue}
-                        getValues={getValues}
-                    />
-                    <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
-                        <Button
-                            classes="flex h-fit"
-                            name=""
-                            icon={<UilSearch className="w-5 m-2 h-5" />}
-                            onClick={handleSubmit(onSubmit)}
-                        />
-                    </div>
-                </div>
-
-                <div className="flex w-fit mt-4 -ml-3 items-center justify-center gap-1">
-                    <Button
-                        onClick={(e) => {
-                            setmodalOpen((prev) => !prev);
-                            setmodalHead("New Plan");
-                            setmodalBody(<DeliveryPVAForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} filters = {filters} />)
-                        }}
-                        name={"Add New"}
-                        classes='w-auto !h-10'>
-                    </Button>
-                    <Button
-                        onClick={(e) => {
-                            setFileOpen(prev=>!prev)
-                        }}
-                        name={"Upload"}
-                        classes='w-auto !h-10'>
-                    </Button>
-                </div>
-            </div>
-
-            <div className="absolute left-0 right-0 flex-col">
-
-                <div className={`m-2 overflow-x-auto h-[80vh] pb-6 border-1 border-solid border-black rounded-lg`}>
-
-                    <table className='w-full'>
-                        <thead className='sticky top-0'>
-
-                            <tr>
-                                <td className={"w-16 bg-[#3E454D]"}></td>
-                                {getProjectRowsTotal(subProjectType, data, "target")}
-                                {getProjectRowsTotal(subProjectType, data, "achievement")}
-                                {getProjectRowsTotalForAchievement(subProjectType, data)}
-                            </tr>
-
-                            <tr>
-                                <td className={"w-16 bg-[#3E454D]"}></td>
-                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>{showMonths}, {filters?.year} (Target)</th>
-                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>{showMonths}, {filters?.year} (Achievemnet)</th>
-                                <th colSpan={getColSpan(subProjectType)} className={tdClasses + " !bg-orange-200 p-1"}>Achievemnet %</th>
-                            </tr>
-
-                            <tr>
-                                <th className={tdClasses + " !bg-blue-200 w-16 text-[12px] font-semibold"}>Circle</th>
-                                {getProjectColumns(subProjectType, "bg-sky-100", subProjectType.length)}
-                                {getProjectColumns(subProjectType, "bg-rose-100", subProjectType.length)}
-                                {getProjectColumns(subProjectType, "bg-green-200", subProjectType.length)}
-                            </tr>
-
-                        </thead>
-                        <tbody>
-
-                            {
-                                data?.length > 0 ? data.map(item => {
-                                    return (
-                                        <tr>
-                                            <td className={tdClasses + " text-white w-16 text-[12px] font-medium"}>{item?.circle}</td>
-                                            {getProjectRows(subProjectType, item.target)}
-                                            {getProjectRows(subProjectType, item.achievement)}
-                                            {getProjectRowsAchievementInPercentage(subProjectType, item)}
-                                        </tr>
-                                    )
-                                }) : <p className='text-white whitespace-nowrap'>No record found</p>
-                            }
-                        </tbody>
-                    </table>
-
-                </div>
-
-                <div className="m-2 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d] p-2">
-                    <div className="flex justify-between">
-                        <div>
-                            <label className="mr-2 text-white">Rows Per Page: </label>
-                            <select
-                                // value={RPP}
-                                // onChange={(e) => handleRPPChange(parseInt(e.target.value))}
-                                className="rounded-sm"
-                            >
-                                {[50, 100, 150, 200].map((itm, idx) => (
-                                    <option key={idx} value={itm}>
-                                        {itm}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <Modal
-                size={"sm"}
-                modalHead={modalHead}
-                children={modalBody}
-                isOpen={modalOpen}
-                setIsOpen={setmodalOpen}
+      <div className="flex items-center  justify-between">
+        <div className="col-span-1 flex space-x-2 md:col-span-1">
+          <CommonForm
+            classes="grid grid-cols-4 w-[700px] overflow-y-hidden p-2"
+            Form={formFields}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+          <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+            <Button
+              classes="flex h-fit"
+              name=""
+              icon={<UilSearch className="w-5 m-2 h-5" />}
+              onClick={handleSubmit(onSubmit)}
             />
+          </div>
+        </div>
 
-            <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {[`/export/deliveryPva/template/${customerId}`,"Delivery_PVA_Template.xlsx"]} />
+        <div className="flex w-fit mt-4 -ml-3 items-center justify-center gap-1">
+          <Button
+            onClick={(e) => {
+              setmodalOpen((prev) => !prev);
+              setmodalHead("New Plan");
+              setmodalBody(
+                <DeliveryPVAForm
+                  isOpen={modalOpen}
+                  setIsOpen={setmodalOpen}
+                  resetting={true}
+                  formValue={{}}
+                  filters={filters}
+                />
+              );
+            }}
+            name={"Add New"}
+            classes="w-auto !h-10"
+          ></Button>
+          <Button
+            onClick={(e) => {
+              setFileOpen((prev) => !prev);
+            }}
+            name={"Upload"}
+            classes="w-auto !h-10"
+          ></Button>
+        </div>
+      </div>
 
-        </>
+      <div className="absolute left-0 right-0 flex-col ">
+        <div
+          className={`m-2 overflow-x-auto h-96 border-1 pb-16 border-solid border-black rounded-lg`}
+        >
+          <table className="w-full">
+            <thead className="sticky top-0">
+              <tr>
+                <td className={"w-16 bg-[#3E454D]"}></td>
+                {getProjectRowsTotal(subProjectType, data, "target")}
+                {getProjectRowsTotal(subProjectType, data, "achievement")}
+                {getProjectRowsTotalForAchievement(subProjectType, data)}
+              </tr>
+
+              <tr>
+                <td className={"w-16 bg-[#3E454D]"}></td>
+                <th
+                  colSpan={getColSpan(subProjectType)}
+                  className={tdClasses + " !bg-orange-200 p-1"}
+                >
+                  {showMonths}, {filters?.year} (Target)
+                </th>
+                <th
+                  colSpan={getColSpan(subProjectType)}
+                  className={tdClasses + " !bg-orange-200 p-1"}
+                >
+                  {showMonths}, {filters?.year} (Achievemnet)
+                </th>
+                <th
+                  colSpan={getColSpan(subProjectType)}
+                  className={tdClasses + " !bg-orange-200 p-1"}
+                >
+                  Achievemnet %
+                </th>
+              </tr>
+
+              <tr>
+                <th
+                  className={
+                    tdClasses + " !bg-blue-200 w-16 text-[12px] font-semibold"
+                  }
+                >
+                  Circle
+                </th>
+                {getProjectColumns(
+                  subProjectType,
+                  "bg-sky-100",
+                  subProjectType.length
+                )}
+                {getProjectColumns(
+                  subProjectType,
+                  "bg-rose-100",
+                  subProjectType.length
+                )}
+                {getProjectColumns(
+                  subProjectType,
+                  "bg-green-200",
+                  subProjectType.length
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {data?.length > 0 ? (
+                data.map((item) => {
+                  return (
+                    <tr>
+                      <td
+                        className={
+                          tdClasses + " text-white w-16 text-[12px] font-medium"
+                        }
+                      >
+                        {item?.circle}
+                      </td>
+                      {getProjectRows(subProjectType, item.target)}
+                      {getProjectRows(subProjectType, item.achievement)}
+                      {getProjectRowsAchievementInPercentage(
+                        subProjectType,
+                        item
+                      )}
+                    </tr>
+                  );
+                })
+              ) : (
+                <p className="text-white whitespace-nowrap">No record found</p>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="m-2 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d]">
+          <div className="flex justify-between">
+            <div>
+              <label className="mr-2 text-white">Rows Per Page: </label>
+              <select
+                // value={RPP}
+                // onChange={(e) => handleRPPChange(parseInt(e.target.value))}
+                className="rounded-sm"
+              >
+                {[50, 100, 150, 200].map((itm, idx) => (
+                  <option key={idx} value={itm}>
+                    {itm}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Modal
+        size={"sm"}
+        modalHead={modalHead}
+        children={modalBody}
+        isOpen={modalOpen}
+        setIsOpen={setmodalOpen}
+      />
+
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={[
+          `/export/deliveryPva/template/${customerId}`,
+          "Delivery_PVA_Template.xlsx",
+        ]}
+      />
+    </>
 
     )
 }

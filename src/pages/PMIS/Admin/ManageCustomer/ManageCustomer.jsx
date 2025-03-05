@@ -300,7 +300,7 @@ const ManageCustomer = () => {
     <>
        {/* <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto"> */}
        <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-32  z-10 bg-[#3e454d] overflow-auto`}>
-       <CCDash
+       {/* <CCDash
         approveddata={dbConfiglist2?.map((itm) => {
           return (
             <>
@@ -328,7 +328,49 @@ const ManageCustomer = () => {
         })}
         settype={settype}
         label="Add/Modify Customer"
-      />
+      /> */}
+      <CCDash
+          approveddata={[...dbConfiglist2]?.sort((a,b) => +a.index - +b.index).map((itm) => {
+            return (
+              <>
+                <div
+                  className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-14 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
+                  onClick={() => {
+                    dispatch(
+                      ComponentActions.globalUrlStore(
+                        itm["customerName"],
+                        itm["index"],
+                        `${"/projectManagement"}/${itm["customerName"]}/${
+                          itm["uniqueId"]
+                        }`
+                      )
+                    );
+                    navigate(
+                      `${"/projectManagement"}/${itm["customerName"]}/${
+                        itm["uniqueId"]
+                      }`
+                    );
+                  }}
+                >
+                  {itm["companyimg"] && itm["companyimg"] != "" && (
+                    <>
+                      <img
+                        className="m-auto w-[40px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
+                        src={backendassetUrl + itm["companyimg"]}
+                      />
+                    </>
+                  )}
+                  <div className="m-auto text-[16px] sm:text-[8px] md:text-[10px] xl:text-[16px]">
+                    {itm["customerName"]}
+                  </div>
+                </div>
+              </>
+            );
+          })}
+          settype={settype}
+          label="Add/Modify Customer"
+        />
+
       </div>
       <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
       {graph1 && <ProjectChart />}

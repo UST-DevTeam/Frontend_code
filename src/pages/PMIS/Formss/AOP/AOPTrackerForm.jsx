@@ -37,7 +37,6 @@ const AOPTrackerForm = ({
     });
   });
   let gpCostTypesList = useSelector((state) => {
-    console.log("ygsgdygyegyedygygu",state)
     return state?.gpTrackingReducer?.getOtherFixedCostTypes.map((itm) => {
       return {
         label: itm?.costType,
@@ -153,37 +152,37 @@ const AOPTrackerForm = ({
       option: costCenterList,
       required: true,
     },
-    {
-      label: "UST Project ID",
-      value: "",
-      name: "ustProjectID",
-      // type: "text",
-      type: Object.entries(formValue).length > 0 ? "text" : "text",
-      classes: "col-span-1",
-      required:true,
-        // props:{
-        //   // "valueAsNumber":true,
-        //   "min":0
-        // }
-      // props: {
-      //   valueAsNumber: true,
-      //   min: 0,
-      // },
-    },
-    {
-      label: "Bussiness Unit ",
-      value: "",
-      name: "businessUnit",
-      type: "text",
-      // type: Object.entries(formValue).length > 0 ? "text" : "text",
-      classes: "col-span-1",
-      required:true,
+    // {
+    //   label: "UST Project ID",
+    //   value: "",
+    //   name: "ustProjectID",
+    //   // type: "text",
+    //   type: Object.entries(formValue).length > 0 ? "text" : "text",
+    //   classes: "col-span-1",
+    //   required:true,
+    //     // props:{
+    //     //   // "valueAsNumber":true,
+    //     //   "min":0
+    //     // }
+    //   // props: {
+    //   //   valueAsNumber: true,
+    //   //   min: 0,
+    //   // },
+    // },
+    // {
+    //   label: "Bussiness Unit ",
+    //   value: "",
+    //   name: "businessUnit",
+    //   type: "text",
+    //   // type: Object.entries(formValue).length > 0 ? "text" : "text",
+    //   classes: "col-span-1",
+    //   required:true,
       
-      // props: {
-      //   valueAsNumber: true,
-      //   min: 0,
-      // },
-    },
+    //   // props: {
+    //   //   valueAsNumber: true,
+    //   //   min: 0,
+    //   // },
+    // },
     {
       label: "Planned Revenue",
       value: "",

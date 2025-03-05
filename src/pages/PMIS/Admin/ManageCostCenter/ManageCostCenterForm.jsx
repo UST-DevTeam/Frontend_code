@@ -86,6 +86,14 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             required: true,
             classes: "col-span-1"
         },
+        {
+            label: "UST Project ID",
+            value: "",
+            name: "ustProjectId",
+            type: "text",
+            required: true,
+            classes: "col-span-1"
+        },
     ]
     const {
         register,

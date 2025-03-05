@@ -121,6 +121,11 @@ const ManageCostCenter = () => {
                 name: "Business Unit",
                 value: "businessUnit",
                 style: "min-w-[140px] max-w-[200px] text-center"
+            }, 
+            {
+                name: "UST Project ID",
+                value: "ustProjectId",
+                style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
                 name: "Edit",

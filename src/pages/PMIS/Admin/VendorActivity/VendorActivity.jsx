@@ -153,7 +153,8 @@ const VendorActivity = () => {
                         name={"Export"} 
                         classes='w-auto mr-1' 
                         onClick={(e) => {
-                            dispatch(CommonActions.commondownload("/export/manageCircle","Export_Circle("+dt+").xlsx"))
+                            // dispatch(CommonActions.commondownload("/export/manageCircle","Export_Circle("+dt+").xlsx"))
+                            dispatch(CommonActions.commondownload("/export/partnerActivity","Export_Partner_Activity.xlsx"))
                         }}>
                     </Button>
                 </div>
