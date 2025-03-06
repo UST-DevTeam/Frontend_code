@@ -12,7 +12,10 @@ const CustomerCard = ({ ...item }) => {
    
     return (
         <Button onClick={() => {
-            navigate("/forms/PVADeliveryCustomer/MS-PVA?customerId="+item.customerId);
+            localStorage.setItem("pvaCustomer", item.customerId);
+            let pvaCustomer = localStorage.getItem("pvaCustomer");
+
+            navigate("/forms/PVADeliveryCustomer/MS-PVA?customerId="+pvaCustomer);
           }}  classes={`!w-fit !py-1 px-4`}>
             <img className="m-auto w-[40px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700" src={backendassetUrl + item.companyimg} />
             <p className="text-center w-full text-[16px] sm:text-[8px] md:text-[10px] xl:text-[16px] ml-2">{item.customerName}</p>

@@ -27,14 +27,16 @@ const WorkdoneDeliveryPVAMSCards = () => {
   }, []);
 
   const customerId = searchParams.get("customerId")
+  let pvaCustomer = localStorage.getItem("pvaCustomer");
   return (
     <>
     <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
      <CCDash
         showbtn={false}
+        
         approveddata={[
-          ["MS1-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS1-PVA/" + customerId,],
-          ["MS2-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS2-PVA/"+customerId,],
+          ["MS1-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS1-PVA/" + pvaCustomer,],
+          ["MS2-PVA", "bg-pcol", "/forms/PVADeliveryCustomer/MS-PVA/MS2-PVA/"+pvaCustomer,],
           // ["Forecast Work Done", "bg-gradient-to-r from-purple-200 via-purple-300 to-purple-500", "/forms/workdoneForecast/ForeCastWorkDone"],
         ].map((itm) => {
           return (
