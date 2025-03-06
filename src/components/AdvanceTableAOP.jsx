@@ -197,85 +197,6 @@ const AdvancedTableAOP = ({
   };
 
 
-  // function getTotalsHeads() {
-  //   const row = [];
-
-  //   Array.from({ length: 7 }).forEach(_ => {
-  //     row.push(<th className={`border-pcol h-8 text-xs  bg-transparent text-white text-center`}></th>)
-  //   });
-
-  //   const keys = {
-  //     planRevenue: 0,
-  //     COGS: 0,
-  //     planGp: 0,
-  //     gm: 0,
-  //     SGNA: 0,
-  //     np: 0,
-  //     actualRevenue: 0,
-  //     actualCOGS: 0,
-  //     actualGp: 0,
-  //     actualGm: 0,
-  //     actualSGNA: 0,
-  //     actualNp: 0,
-  //   }
-  //   const temp = ["planRevenue", "COGS", "planGp", "gm", "SGNA", "np", "actualRevenue", "actualCOGS",'actualGp','actualGm','actualSGNA','actualNp']
-
-  //   temp.forEach(key => {
-
-  //     let total = data.reduce((acc, item) => {
-  //       if (item && key in item) {
-  //         acc += +item[key] || 0
-  //       }
-  //       return acc;
-  //     }, 0)
-
-  //     if (key === "planRevenue") {
-  //       keys.planRevenue = total
-  //     }
-  //     if (key === "COGS") {
-  //       keys.COGS = total
-  //     }
-  //     if (key === "planGp") {
-  //       keys.planGp = keys.planRevenue-keys.COGS
-  //     }
-  //     if (key === "gm") {
-  //       total = ((keys.planRevenue-keys.COGS) / keys.planRevenue)  * 100
-  //     }
-      
-  //     if (key === "SGNA") {
-  //       keys.SGNA = total
-  //     }
-  //     if (key === "np") {
-  //       total = (keys.planRevenue === 0 ? 0 : ((keys.planRevenue-keys.COGS) - keys.SGNA) / keys.planRevenue)*100;
-  //     }
-  //     if (key === "actualRevenue") {
-  //       keys.actualRevenue = total
-  //     }
-  //     if (key === "actualCOGS") {
-  //       keys.actualCOGS = total
-  //     }
-  //     if (key === "actualGp") {
-  //       (keys.actualRevenue-keys.actualCOGS) = total
-  //     }
-  //     if (key === "actualGm") {
-  //       total = (((keys?.actualRevenue) || 0 - (keys?.actualCOGS || 0)) / (keys?.actualRevenue || 1))  * 100
-  //     }
-  //     if (key === "actualSGNA") {
-  //       keys.actualSGNA = total
-  //     }
-  //     // if (key === "actualNp") {
-  //     //   total = (keys.actualRevenue === 0 ? 0 : ((keys.actualRevenue - keys.actualCOGS) - keys.actualSGNA) / keys.actualRevenue)*100;
-  //     // }
-    
-      
-
-  //     row.push(<th className={`border-pcol h-8 text-xs border-[1.5px] bg-transparent text-white  text-center`}>{total?.toFixed(2)}</th>);
-  //   });
-
-  //   return row;
-  // }
-
-  
   function getTotalsHeads() {
     const row = [];
 
@@ -404,7 +325,7 @@ const AdvancedTableAOP = ({
 
   return (
     <>
-      <div className="absolute left-0 right-0 flex-col">
+      <div className="absolute left-0 right-0 2xl:top-60 2xl:bottom-0  flex-col">
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
@@ -617,8 +538,10 @@ const AdvancedTableAOP = ({
           </div>
         </div>
 
-        <div className={`m-2 overflow-x-auto ${TableHeight} pb-6 border-1 border-solid border-black rounded-lg`}>
+        {/* <div className={`m-2 overflow-x-auto ${TableHeight} pb-6 border-1 border-solid border-black rounded-lg`}> */}
           {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
+          <div className="m-2 overflow-y-auto h-screen pb-80 top-48   border border-solid border-black  rounded-lg ">
+       {" "}
           {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30"> 
