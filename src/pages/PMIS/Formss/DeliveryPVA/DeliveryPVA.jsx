@@ -457,13 +457,13 @@ const DeliveryPVA = () => {
         </div>
       </div>
 
-      <div className="absolute left-0 right-0 bottom-0  overflow-auto top-48 h-auto flex-col">
+      <div className="absolute left-0 right-0 bottom-0 overflow-y-hidden top-48 flex-col">
         {" "}
         {/* <div className="absolute inset-x-0 bottom-0  md:bottom-0 lg:bottom-0  h-auto  flex-col"> */}
         <div className="m-0 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d] p-2 ">
-          <div className="relative overflow-auto">
-            <table className="w-full  border-collapse">
-              <thead className="sticky top-0 z-10">
+          <div className="relative overflow-x-auto max-h-[64vh] pb-2">
+            <table className="w-full border-collapse">
+              <thead className="sticky top-0 z-20">
                 <tr>
                   <td className={"w-16 bg-[#3E454D]"}></td>
                   {getProjectRowsTotal(subProjectType, data, "target")}
@@ -503,12 +503,12 @@ const DeliveryPVA = () => {
                   </th>
                   {getProjectColumns(
                     subProjectType,
-                    "bg-sky-100 sticky top-0 ",
+                    "bg-sky-100 sticky top-0",
                     subProjectType.length
                   )}
                   {getProjectColumns(
                     subProjectType,
-                    "bg-rose-100 sticky top-0 ",
+                    "bg-rose-100 sticky top-0",
                     subProjectType.length
                   )}
                   {getProjectColumns(
@@ -701,3 +701,4 @@ const DeliveryPVA = () => {
 };
 
 export default DeliveryPVA;
+
