@@ -1039,10 +1039,9 @@ const AOPTrackingAirtel = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"PLform"}
-        TableHeight = "h-[51vh]" 
+        TableHeight="h-[41vh]"
         handleSubmit={handleSubmit}
         data={rows}
-        // data={[]}
         errors={errors}
         register={register}
         setValue={setValue}

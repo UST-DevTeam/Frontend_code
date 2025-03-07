@@ -301,7 +301,7 @@ const DeliveryPVA = () => {
       bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
     },
     {
-      label: "Quater",
+      label: "Quarter",
       value: "",
       name: "quater",
       bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
@@ -457,13 +457,13 @@ const DeliveryPVA = () => {
         </div>
       </div>
 
-      <div className="absolute left-0 right-0 bottom-0  overflow-auto  top-48 h-auto flex-col">
+      <div className="absolute left-0 right-0 bottom-0  overflow-auto top-48 h-auto flex-col">
         {" "}
         {/* <div className="absolute inset-x-0 bottom-0  md:bottom-0 lg:bottom-0  h-auto  flex-col"> */}
-        <div className="m-0 sticky bottom-0 z-10 inset-x-0   mx-auto bg-[#3e454d] p-2 ">
+        <div className="m-0 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d] p-2 ">
           <div className="relative overflow-auto">
-            <table className="w-full  border-collapse   ">
-              <thead className="sticky top-0 z-10  ">
+            <table className="w-full  border-collapse">
+              <thead className="sticky top-0 z-10">
                 <tr>
                   <td className={"w-16 bg-[#3E454D]"}></td>
                   {getProjectRowsTotal(subProjectType, data, "target")}

@@ -1134,7 +1134,7 @@ const AOPTracking = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"PLform"}
-        TableHeight="h-[45vh]"
+        TableHeight="h-[51vh]"
         handleSubmit={handleSubmit}
         data={rows}
         errors={errors}

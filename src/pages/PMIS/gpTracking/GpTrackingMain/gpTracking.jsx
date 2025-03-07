@@ -719,7 +719,7 @@ const GPTracking = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"Salary DB Form"}
-        // TableHeight = "h-[51vh]" 
+        TableHeight = "h-[49vh]" 
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
