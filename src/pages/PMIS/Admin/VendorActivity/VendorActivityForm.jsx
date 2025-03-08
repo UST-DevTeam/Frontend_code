@@ -126,7 +126,7 @@ const VendorActivityForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =>
         },
         {
             label: "Work Description",
-            name: "workDescription",
+            // name: "workDescription",
             name: Object.entries(formValue).length > 0 ? "workDescriptionName" : "workDescription",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
