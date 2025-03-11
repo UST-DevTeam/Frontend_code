@@ -457,13 +457,13 @@ const DeliveryPVA = () => {
         </div>
       </div>
 
-      <div className="absolute left-0 right-0 bottom-0  overflow-auto top-48 h-auto flex-col">
+      <div className="absolute left-0 right-0 bottom-0 overflow-y-hidden top-48 flex-col">
         {" "}
         {/* <div className="absolute inset-x-0 bottom-0  md:bottom-0 lg:bottom-0  h-auto  flex-col"> */}
         <div className="m-0 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d] p-2 ">
-          <div className="relative overflow-auto">
-            <table className="w-full  border-collapse">
-              <thead className="sticky top-0 z-10">
+          <div className="relative overflow-x-auto max-h-[64vh] pb-2">
+            <table className="w-full border-collapse">
+              <thead className="sticky top-0 z-20">
                 <tr>
                   <td className={"w-16 bg-[#3E454D]"}></td>
                   {getProjectRowsTotal(subProjectType, data, "target")}
@@ -503,12 +503,12 @@ const DeliveryPVA = () => {
                   </th>
                   {getProjectColumns(
                     subProjectType,
-                    "bg-sky-100 sticky top-0 ",
+                    "bg-sky-100 sticky top-0",
                     subProjectType.length
                   )}
                   {getProjectColumns(
                     subProjectType,
-                    "bg-rose-100 sticky top-0 ",
+                    "bg-rose-100 sticky top-0",
                     subProjectType.length
                   )}
                   {getProjectColumns(
@@ -568,115 +568,7 @@ const DeliveryPVA = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="absolute left-0 right-0 bottom-0 lg:bottom-0 lg:top-52 h-auto flex-col ">
-        <div
-          className={`m-2 overflow-x-auto h-96 border-1 border-solid border-black rounded-lg`}
-        >
-          <table className="w-full">
-            <thead className="sticky top-0">
-              <tr>
-                <td className={"w-16 bg-[#3E454D]"}></td>
-                {getProjectRowsTotal(subProjectType, data, "target")}
-                {getProjectRowsTotal(subProjectType, data, "achievement")}
-                {getProjectRowsTotalForAchievement(subProjectType, data)}
-              </tr>
-
-              <tr>
-                <td className={"w-16 bg-[#3E454D]"}></td>
-                <th
-                  colSpan={getColSpan(subProjectType)}
-                  className={tdClasses + " !bg-orange-200 p-1"}
-                >
-                  {showMonths}, {filters?.year} (Target)
-                </th>
-                <th
-                  colSpan={getColSpan(subProjectType)}
-                  className={tdClasses + " !bg-orange-200 p-1"}
-                >
-                  {showMonths}, {filters?.year} (Achievemnet)
-                </th>
-                <th
-                  colSpan={getColSpan(subProjectType)}
-                  className={tdClasses + " !bg-orange-200 p-1"}
-                >
-                  Achievemnet %
-                </th>
-              </tr>
-
-              <tr>
-                <th
-                  className={
-                    tdClasses + " !bg-blue-200 w-16 text-[12px] font-semibold"
-                  }
-                >
-                  Circle
-                </th>
-                {getProjectColumns(
-                  subProjectType,
-                  "bg-sky-100",
-                  subProjectType.length
-                )}
-                {getProjectColumns(
-                  subProjectType,
-                  "bg-rose-100",
-                  subProjectType.length
-                )}
-                {getProjectColumns(
-                  subProjectType,
-                  "bg-green-200",
-                  subProjectType.length
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {data?.length > 0 ? (
-                data.map((item) => {
-                  return (
-                    <tr>
-                      <td
-                        className={
-                          tdClasses + " text-white w-16 text-[12px] font-medium"
-                        }
-                      >
-                        {item?.circle}
-                      </td>
-                      {getProjectRows(subProjectType, item.target)}
-                      {getProjectRows(subProjectType, item.achievement)}
-                      {getProjectRowsAchievementInPercentage(
-                        subProjectType,
-                        item
-                      )}
-                    </tr>
-                  );
-                })
-              ) : (
-                <p className="text-white whitespace-nowrap">No record found</p>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="m-2 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d]">
-          <div className="flex justify-between">
-            <div>
-              <label className="mr-2 text-white">Rows Per Page: </label>
-              <select
-                // value={RPP}
-                // onChange={(e) => handleRPPChange(parseInt(e.target.value))}
-                className="rounded-sm"
-              >
-                {[50, 100, 150, 200].map((itm, idx) => (
-                  <option key={idx} value={itm}>
-                    {itm}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
+      
       <Modal
         size={"sm"}
         modalHead={modalHead}

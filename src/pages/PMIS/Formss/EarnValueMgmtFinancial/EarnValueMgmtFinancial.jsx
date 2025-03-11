@@ -591,7 +591,7 @@ const EarnValueMgmtFinancial = () => {
         exportButton={["/export/EvmFinancial", `Export_${viewType}_${amountType}_Invoice_PVA.xlsx`,"POST",{Monthly: exportData.current.join(","),viewType:viewType,amountType:amountType,customer:customer,costCenter:costCenter,businessUnit:businessUnit}]}
         filterAfter={onSubmit}
         tableName={"EvmFinancialForm"}
-        TableHeight="h-[52vh]"
+        TableHeight="h-[50.5vh]"
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}

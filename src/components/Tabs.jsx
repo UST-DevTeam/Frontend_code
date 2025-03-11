@@ -41,7 +41,8 @@ function Tabs({ data,enable,setEnable, date=false,forAOP=false }) {
         <div className="flex items-center px-4 space-x-4 mt-1">
           {
             data.map(item => {
-              return <button onClick={() => handleTab(item.label)} className={`text-white rounded-full py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
+              // return <button onClick={() => handleTab(item.label)} className={`text-white rounded-full py-[6px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
+              return <button onClick={() => handleTab(item.label)} className={`text-white text-center text-[13px] font-semibold rounded-2xl !py-[3px] px-3 ${enable === item.label ? "bg-onHoverButton" : "bg-pcol"}`}>{item.label}</button>
             })
           }
 
@@ -62,7 +63,7 @@ function Tabs({ data,enable,setEnable, date=false,forAOP=false }) {
           
         </div>}
         </div>
-        <div className="mt-4 p-4">
+        <div className="p-4">
           {
             data.find(item => item.label === enable)?.body
           }
