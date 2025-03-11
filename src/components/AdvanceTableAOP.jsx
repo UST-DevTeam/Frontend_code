@@ -202,7 +202,7 @@ const AdvancedTableAOP = ({
 
     
     Array.from({ length: 7 }).forEach(_ => {
-      row.push(<th className={`border-pcol h-8 text-xs bg-[#3E454D] text-white text-center `}></th>);
+      row.push(<th className={`border-pcol h-8 text-[5px] bg-[#3E454D] text-white text-center`}></th>);
     });
 
     
@@ -292,7 +292,7 @@ const AdvancedTableAOP = ({
       
       if (key === "actualNp" || key === "actualGm" || key === "gm" || key === "np") {
         row.push(
-          <th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white text-center`}>
+          <th className={`border-pcol h-8 text-[9px] border-[1.5px] bg-[#3E454D] text-white text-center`}>
             {total ? total.toFixed(2) +" "+ "%" :"0.00 %"}
           </th>
         );
@@ -303,14 +303,14 @@ const AdvancedTableAOP = ({
 
         if (key === 'edit' || key === 'delete') {
           row.push(
-            <th className={`border-pcol h-8 text-xs border-[0px] bg-[#3E454D] text-[#3E454D] text-center`}>
+            <th className={`border-pcol h-8 text-[9px] border-[0px] bg-[#3E454D] text-[#3E454D] text-center`}>
               {}
             </th>
           );
         }
 
         else{row.push(
-          <th className={`border-pcol h-8 text-xs border-[1.5px] bg-[#3E454D] text-white text-center`}>
+          <th className={`border-pcol h-8 text-[9px] border-[1.5px] bg-[#3E454D] text-white text-center`}>
             {total ? total.toFixed(2) : "0.00"}
           </th>
         );
@@ -540,7 +540,7 @@ const AdvancedTableAOP = ({
 
         {/* <div className={`m-2 overflow-x-auto ${TableHeight} pb-6 border-1 border-solid border-black rounded-lg`}> */}
           {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
-          <div className={`m-2 overflow-x-auto ${TableHeight} pb-6 border-1 border-solid border-black  rounded-lg`}>
+          <div className={`m-2 overflow-x-auto ${TableHeight} pb-2 border-1 border-solid border-black  rounded-lg`}>
        {" "}
           {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
@@ -589,7 +589,7 @@ const AdvancedTableAOP = ({
                                 : " min-w-[300px] max-w-[500px]"
                                 }`}
                             >
-                              <span className="text-black-600 text-[10px]">
+                              <span className="text-black-600 text-[11px]">
                                 {itts.name}
                               </span>
                             </th>
@@ -623,7 +623,7 @@ const AdvancedTableAOP = ({
                           return hide.indexOf(String(index)) == -1 ? (
                             <td
                               
-                              className={`text-[25px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${innerItm.style
+                              className={`pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${innerItm.style
                                 ? innerItm.style
                                 : "min-w-[200px] max-w-[500px]"
                                 } `}
@@ -668,10 +668,10 @@ const AdvancedTableAOP = ({
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-pcol border-[0.1px] bg-primaryLine "
+                                  " border-pcol border-[0.1px] bg-primaryLine  "
                                 }
                               >
-                                <span className="text-white text-[12px]">
+                                <span className="text-white text-[12px] ">
                                   {"Actions"}
                                 </span>
                               </th>

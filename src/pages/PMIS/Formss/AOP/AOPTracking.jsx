@@ -54,7 +54,7 @@ function Tabs({ data, enable, setEnable }) {
           return (
             <button
               onClick={() => handleTab(item.label)}
-              className={`text-white rounded-2xl py-[6px] px-3 ${
+              className={`text-white text-center text-[13px] font-semibold rounded-2xl !py-[3px] px-3 ${
                 enable === item.label ? "bg-onHoverButton" : "bg-pcol"
               }`}
             >
@@ -63,7 +63,7 @@ function Tabs({ data, enable, setEnable }) {
           );
         })}
       </div>
-      <div className="mt-4 p-4">
+      <div className="p-4">
         {data.find((item) => item.label === enable)?.body}
       </div>
     </div>
@@ -213,6 +213,7 @@ const AOPTracking = () => {
                 child={
                   <EditButton
                     name={""}
+                    size={14}
                     onClick={() => {
                       setmodalOpen(true);
                       setmodalHead("Edit Plan");
@@ -250,6 +251,7 @@ const AOPTracking = () => {
                 child={
                   <DeleteButton
                     name={""}
+                    size={14}
                     onClick={() => {
                       let msgdata = {
                         show: true,
@@ -840,7 +842,6 @@ const AOPTracking = () => {
     // setExtraColumns(res['Month'])
     Data.current = res["CostCenter"];
     // FRERFER
-    console.log("========kldfvjmkldfjgvfdgjfrio====", res);
     if (enable == "Cumulative") {
       setActionVisibility(false);
       res["month"] = res["Month"];
@@ -1134,7 +1135,7 @@ const AOPTracking = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"PLform"}
-        TableHeight="h-[51vh]"
+        TableHeight="h-[47.5vh]"
         handleSubmit={handleSubmit}
         data={rows}
         errors={errors}

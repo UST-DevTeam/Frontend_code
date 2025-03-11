@@ -110,6 +110,7 @@ const AOPTrackingAirtel = () => {
               child={
                 <EditButton
                   name={""}
+                  size={14}
                   onClick={() => {
                     setmodalOpen(true);
                     setmodalHead("Edit Plan");
@@ -139,6 +140,7 @@ const AOPTrackingAirtel = () => {
               child={
                 <DeleteButton
                   name={""}
+                  size={14}
                   onClick={() => {
                     let msgdata = {
                       show: true,
@@ -689,7 +691,7 @@ const AOPTrackingAirtel = () => {
         
             <div className="w-full">
               <CommonForm
-                classes="grid grid-cols-6  p-2"
+                classes="grid grid-cols-6"
                 Form={formD}
                 errors={errors}
                 register={register}
@@ -697,7 +699,7 @@ const AOPTrackingAirtel = () => {
                 getValues={getValues}
               />
             </div>
-            <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
+            <div className="flex w-auto mt-4 -ml-1 items-center justify-center">
               <Button
                 classes="flex h-fit"
                 name=""
@@ -716,7 +718,7 @@ const AOPTrackingAirtel = () => {
         
       <div className="w-full">
         <CommonForm
-          classes="grid grid-cols-6  p-2"
+          classes="grid grid-cols-6"
           Form={cummulativeFilter}
           errors={errors}
           register={register}
@@ -1039,7 +1041,7 @@ const AOPTrackingAirtel = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"PLform"}
-        TableHeight="h-[41vh]"
+        TableHeight="h-[47vh]"
         handleSubmit={handleSubmit}
         data={rows}
         errors={errors}

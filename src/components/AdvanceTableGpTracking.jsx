@@ -481,7 +481,7 @@ const AdvancedTableGpTracking = ({
           </div>
         </div>
 
-        <div className={`m-2 overflow-x-auto ${TableHeight} pb-3 sm:pb-44 xl:pb-3  border-1 border-solid border-black rounded-lg`}>
+        <div className={`m-2 overflow-x-auto ${TableHeight} pb-2 sm:pb-44 xl:pb-2  border-1 border-solid border-black rounded-lg`}>
           {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
           {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
