@@ -695,7 +695,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/forms/earnValueManagementFinancial",
+      link: "/forms/InvoicePVA",
       component: <EarnValueMgmtFinancial />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],

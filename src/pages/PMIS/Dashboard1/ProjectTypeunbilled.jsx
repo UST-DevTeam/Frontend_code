@@ -117,7 +117,7 @@ const ProjectTypeUnbilled = () => {
       <div className="w-full flex justify-between items-center">
         <div className="flex">
           <p className="text-[#f4d3a8] font-semibold whitespace-nowrap px-1">Total Amount:</p>
-          <p className="text-[#E6BE8A] font-bold">{total}L</p>
+          <p className="text-[#E6BE8A] font-bold">{total ? `${parseFloat(total).toFixed(2)}` : ""}L</p>
         </div>
         <div className="text-center flex-1 mr-32">
             <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Project Type Unbilled</h1>

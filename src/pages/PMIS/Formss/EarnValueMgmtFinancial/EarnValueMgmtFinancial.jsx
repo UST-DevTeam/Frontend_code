@@ -21,6 +21,7 @@ import FileUploader from "../../../../components/FIleUploader";
 import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
 import { GET_CURRENT_USER_COST_CENTER } from "../../../../store/reducers/currentuser-reducer";
+import AdvancedTableInvoicePVA from "../../../../components/AdvancedTableInvoicePVA";
 
 const EarnValueMgmtFinancial = () => {
   const Data = useRef("")
@@ -200,6 +201,11 @@ const EarnValueMgmtFinancial = () => {
       {
         name: "Cost Center",
         value: "costCenter",
+        style: "min-w-[90px] max-w-[90px] text-center",
+      },
+      {
+        name: "Zone",
+        value: "zone",
         style: "min-w-[90px] max-w-[90px] text-center",
       },
       {
@@ -572,7 +578,8 @@ const EarnValueMgmtFinancial = () => {
           />
         </div>
       </div>
-      <AdvancedTable  
+      <AdvancedTableInvoicePVA
+      totalHeads = {true} 
         headerButton={
           <> 
           <Button

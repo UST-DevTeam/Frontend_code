@@ -22,7 +22,7 @@ const FormsCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Invoice PVA", "bg-pcol", "/forms/earnValueManagementFinancial",],
+          ["Invoice PVA", "bg-pcol", "/forms/InvoicePVA"],
           ["Delivery PVA", "bg-pcol", "/forms/PVADeliveryCustomer"],
           ["SOB", "bg-pcol", "/forms/SOB",],
           ["Gap Analysis", "bg-pcol", "/forms/GapAnalysis"],
