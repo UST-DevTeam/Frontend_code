@@ -410,7 +410,14 @@ const ClaimAndAdvance = () => {
                 }}
                 name={"Export Ledger Book"}
               ></Button> 
-                      
+                <Button
+                showType={getAccessType("Export(CA & ADV)")}
+                classes="w-auto ml-1"
+                onClick={() => {
+                  dispatch(CommonActions.commondownload3("/export/currentBalance","Export_CurrentBalance.xlsx"))
+                }}
+                name={"Export Current Balance"}
+              ></Button>  
                      
                      
                 </div>

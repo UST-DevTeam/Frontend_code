@@ -595,7 +595,7 @@ const EarnValueMgmtFinancial = () => {
           </>
         }
         table={table}
-        exportButton={["/export/EvmFinancial", `Export_${viewType}_${amountType}_Invoice_PVA.xlsx`,"POST",{Monthly: exportData.current.join(","),viewType:viewType,amountType:amountType,customer:customer,costCenter:costCenter,businessUnit:businessUnit}]}
+        exportButton={["/forms/earnValue", `Export_${viewType}_${amountType}_Invoice_PVA.xlsx`,"POST",{Monthly: exportData.current.join(","),viewType:viewType,amountType:amountType,customer:customer,costCenter:costCenter,businessUnit:businessUnit}]}
         filterAfter={onSubmit}
         tableName={"EvmFinancialForm"}
         TableHeight="h-[50.5vh]"
