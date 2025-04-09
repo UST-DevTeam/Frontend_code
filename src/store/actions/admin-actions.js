@@ -805,7 +805,7 @@ const AdminActions = {
   },
 
   getManageProfile:
-    (reset = true, args = "",show=0) =>
+    (reset = true, args = "",show=1) =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
