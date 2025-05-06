@@ -83,7 +83,7 @@ const BreadCrumbs = () => {
     },
     invoiceMgmt: {
       name: "Invoice Management",
-      url: "/financial/invoiceMgmt",
+      url: `/financial/${customer}/${customerId}/invoiceMgmt`,
     },
     poWorkDone: {
       name: "Work done",
@@ -157,6 +157,16 @@ const BreadCrumbs = () => {
 
   const dispatch = useDispatch();
 
+  const fallbackData = useSelector(state=> state?.adminData?.getCardCustomer);
+  const markets = {};
+
+  fallbackData.forEach(customer => {
+    const encodedName = encodeURIComponent(customer.customerName);
+    markets[encodedName] = {
+      name: customer.customerName,
+      url: `/projectManagement/${encodedName}/${customer._id}`,
+    };
+  });
   const navigate = useNavigate();
 
   const checkInGlobalValue = (data) => {
@@ -191,14 +201,44 @@ const BreadCrumbs = () => {
                       <li>
                         <a
                           className="text-pcol hover:text-pcolhover cursor-pointer"
-                          onClick={() => {
-                            navigate(
-                              item in Dtheader
-                                ? Dtheader[item]["url"]
-                                : checkInGlobalValue(item) != ""
-                                  ? checkInGlobalValue(item)
-                                  : ""
-                            );
+                          // onClick={() => {
+                          //   console.log(item, '________fallback__________')
+                          //   navigate(
+                          //     item in Dtheader
+                          //       ? Dtheader[item]["url"]
+                          //       : checkInGlobalValue(item) != ""
+                          //         ? checkInGlobalValue(item)
+                          //         : ""
+                          //   );
+                          // }}
+
+                          onClick={() => {           
+                            console.log(item, '________fallback__________')      
+                            if (item in Dtheader) {
+                              console.log(item, '________fallback__________')
+                              navigate(
+                                item in Dtheader
+                                  ? Dtheader[item]["url"]
+                                  : checkInGlobalValue(item) != ""
+                                    ? checkInGlobalValue(item)
+                                    : ""
+                              );
+                            } else if (window.location.href.includes("projectManagement") && item in markets) {
+                              console.log(item, '________fallback__________')
+                              navigate(`/projectManagement/${item}/${customeruniqueId}`);
+                            } else if (window.location.href.includes("repository")) {
+                              console.log(item, '________fallback__________')
+                              navigate(`/repository`);
+                            } else {
+                              console.log(item, '________fallback__________')
+                              navigate(
+                                item in Dtheader
+                                  ? Dtheader[item]["url"]
+                                  : checkInGlobalValue(item) != ""
+                                    ? checkInGlobalValue(item)
+                                    : ""
+                              );
+                            }
                           }}
                         >
                           {item in Dtheader

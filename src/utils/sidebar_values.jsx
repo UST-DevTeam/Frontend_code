@@ -262,7 +262,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/projectManagement_2/:cname/:ptype/:proId/:projectuniqueId",
+      link: "/projectManagement_2/:cname/:ptype/:customeruniqueId/:proId/:projectuniqueId",
       subMenu: [],
       component: <ManageProjectSiteId />,
     },
