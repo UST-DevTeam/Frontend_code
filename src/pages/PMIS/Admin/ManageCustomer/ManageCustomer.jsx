@@ -331,12 +331,12 @@ const ManageCustomer = () => {
       /> */}
       <CCDash
       
-      
+
           approveddata={[...dbConfiglist2]?.sort((a,b) => +a.index - +b.index).map((itm) => {
             return (
               <>
                 <div
-                  className="bg-pcol text-white shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-14 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
+                  className="bg-pcol text-white text-center shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-full flex h-14 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-lg hover:bg-pcolhover hover:text-[#4a525b]"
                   onClick={() => {
                     dispatch(
                       ComponentActions.globalUrlStore(
