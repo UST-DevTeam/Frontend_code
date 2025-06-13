@@ -330,6 +330,7 @@ const ManageCustomer = () => {
         label="Add/Modify Customer"
       /> */}
       <CCDash
+      
           approveddata={[...dbConfiglist2]?.sort((a,b) => +a.index - +b.index).map((itm) => {
             return (
               <>
