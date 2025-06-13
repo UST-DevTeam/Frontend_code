@@ -372,10 +372,10 @@ const ManageCustomer = () => {
         />
 
       </div>
-      <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
+      {/* <div className={`grid grid-cols-1 lg:grid-cols-2 m-2 ${hasCards ? "mt-36" : "mt-12"} gap-2`}>
       {graph1 && <ProjectChart />}
       {graph2 && <TotalActiveCustomer />}
-      </div>
+      </div> */}
     </>
   );
 };
