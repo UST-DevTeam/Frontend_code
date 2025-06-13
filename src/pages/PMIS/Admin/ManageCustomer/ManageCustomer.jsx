@@ -299,7 +299,7 @@ const ManageCustomer = () => {
   ) : (
     <>
        {/* <div className="absolute w-full top-12 mt-12 h-1/4 z-10 bg-[#3e454d] overflow-auto"> */}
-       <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-32  z-10 bg-[#3e454d] overflow-auto`}>
+       <div className={`absolute w-full ${hasCards ? "top-12 mt-12" : "top-0"} h-full  z-10 bg-[#3e454d] overflow-auto`}>
        {/* <CCDash
         approveddata={dbConfiglist2?.map((itm) => {
           return (
