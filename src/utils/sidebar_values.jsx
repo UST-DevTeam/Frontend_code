@@ -127,11 +127,12 @@ import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACa
 import RTWS from "../pages/PMIS/Admin/RTWS/RTWS";
 import DriveTestActivity from "../pages/PMIS/Admin/DriveTestActivity/DriveTestActivity";
 import GroundActivity from "../pages/PMIS/Admin/GroundActivity/GroundActivity";
-import WorkAtHeight from "../pages/PMIS/Admin/WorkAtHeight/WorkAtHeight";
+
 import Ptw from "../pages/PMIS/Admin/PTW/ptw";
 import MDBApprover from "../pages/PMIS/Admin/MDBApprover/MDBApprover";
 import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
 import L2Approver from "../pages/PMIS/Admin/L2Approver/L2Approver";
+import PtwForm from "../pages/PMIS/Admin/PTW/PtwForm";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -950,29 +951,8 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/superAdmin/ptw/workatheight",
-      component:<WorkAtHeight/>,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-    {
-      name: "",
-      link: "/superAdmin/ptw/groundActivity",
-      component:<GroundActivity/>,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-    {
-      name: "",
-      link: "/superAdmin/ptw/driveTestActivity",
-      component:<DriveTestActivity/>,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-    {
-      name: "",
-      link: "/superAdmin/ptw/rtws",
-      component:<RTWS/>,
+      link: "/superAdmin/ptw/:page",
+      component:<PtwForm/>,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

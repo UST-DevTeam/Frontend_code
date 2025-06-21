@@ -49,6 +49,7 @@ const CommonTableForm = ({
   Form,
   tabHead,
   errors,
+  ptwPage,
   setValue,
   getValues,
   register,
@@ -62,9 +63,12 @@ const CommonTableForm = ({
   const [value, onChange] = useState(new Date());
   const [editing, setediting] = useState(false);
   const [edit, setedit] = useState(false);
+  const dispatch = useDispatch();
   let newars = {
     childView: false,
   };
+
+  
 
 
   let listing = useSelector((state) => {
@@ -77,7 +81,7 @@ const CommonTableForm = ({
     newars[itm.name] = newars[itm.value];
   });
 
-  const dispatch = useDispatch();
+  
   const [selectedDate, setSelectedDate] = useState(true);
   const [selectFile, setSelectFile] = useState(false);
   newars["index"] = 1;

@@ -69,6 +69,7 @@ import {
   GET_EXCHANGE_RATE,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
+import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
 
 const AdminActions = {
   getManageCustomer:
@@ -1928,7 +1929,7 @@ const AdminActions = {
     }
   },
 
-  getSubProjectDeliveryPVA:
+  getSubProjectDeliveryPVA :
     (reset = true, args = "", id) =>
     async (dispatch, _) => {
       try {
@@ -1945,6 +1946,8 @@ const AdminActions = {
         console.log("12345");
       }
     },
+
+ 
 
   // super admin compiliance  ends -----
 };

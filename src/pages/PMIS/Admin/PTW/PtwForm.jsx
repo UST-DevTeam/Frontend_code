@@ -25,7 +25,8 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import ComponentActions from "../../../../store/actions/component-actions";
 import FilterActions from "../../../../store/actions/filter-actions";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
-const WorkAtHeight = () => {
+import PTWActions from "../../../../store/actions/ptw-actions";
+const PtwForm = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const {page} = useParams()
   const dispatch = useDispatch()
@@ -54,7 +55,19 @@ const WorkAtHeight = () => {
     formState: { errors },
   } = useForm();
 
-  
+  useEffect(() => {
+    console.log('called...........................')
+      dispatch(
+      PTWActions.managePtwApiGet( `/admin/ptw/${page}`, () => {
+        // dispatch(SET_DYNAMIC_FORM({
+        //               label: "Site Engg",
+        //               value: itm["t_sengg"] ? itm["t_sengg"] : [],
+        //               reseter: true,
+        //             }))
+        console.log('Activity Added');
+      }  )
+    );
+  } , [page])
 
   
 
@@ -154,9 +167,9 @@ const WorkAtHeight = () => {
     },
   ];
 
-  const handleAddActivity = (res, head) => {
+  const handleAddActivity = (data, head) => {
     dispatch(
-      AdminActions.managePtwApi(res , `/admin/ptw/${page}/${head.toLowerCase()}` , "post" , 'json' , () => {
+      AdminActions.managePtwApi(data , `/admin/ptw/${page}/${head.toLowerCase()}` , "post" , 'json' , () => {
         console.log('Activity Added');
       }  )
     );
@@ -164,10 +177,13 @@ const WorkAtHeight = () => {
     
   };
 
+  
+
   const form = (head ) => {
     return <CommonTableForm
                 setmodalOpen={setmodalOpen}
                 tabHead={head}
+                ptwPage = {page}
                 classes={"grid-cols-2 gap-1"}
                 Form={conditionmultiForm}
                 errors={errors}
@@ -202,4 +218,4 @@ const WorkAtHeight = () => {
   );
 };
 
-export default WorkAtHeight;
+export default PtwForm;
