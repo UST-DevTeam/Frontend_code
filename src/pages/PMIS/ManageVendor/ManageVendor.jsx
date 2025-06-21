@@ -10,7 +10,10 @@ import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
-import { getAccessType, objectToQueryString } from "../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
 import HrActions from "../../../store/actions/hr-actions";
@@ -44,12 +47,12 @@ const ManageVendor = () => {
     formState: { errors },
   } = useForm();
 
-  let showType = getAccessType("Actions(Partner On-Board)")
+  let showType = getAccessType("Actions(Partner On-Board)");
 
-  let shouldIncludeEditColumn = false
+  let shouldIncludeEditColumn = false;
 
-  if (showType === "visible"){
-    shouldIncludeEditColumn = true
+  if (showType === "visible") {
+    shouldIncludeEditColumn = true;
   }
 
   let dbConfigList = useSelector((state) => {
@@ -93,16 +96,18 @@ const ManageVendor = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes='w-15 bg-rose-400'
+                        classes="w-15 bg-rose-400"
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCallerBulk(
                               `${Urls.vendor_details}`,
                               {
-                                ids:[itm.uniqueId]
+                                ids: [itm.uniqueId],
                               },
                               () => {
-                                dispatch(VendorActions.getManageVendorDetails());
+                                dispatch(
+                                  VendorActions.getManageVendorDetails()
+                                );
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -150,6 +155,7 @@ const ManageVendor = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.vendorData?.getManageVendorDetails;
     if (interdata.length > 0) {
@@ -168,12 +174,14 @@ const ManageVendor = () => {
       {
         name: "Partner Code",
         value: "vendorCode",
-        style: "min-w-[150px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d] z-10",
+        style:
+          "min-w-[150px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d] z-10",
       },
       {
         name: "Partner Name",
         value: "vendorName",
-        style: "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-[#3e454d] z-10",
+        style:
+          "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-[#3e454d] z-10",
       },
       {
         name: "Email ID",
@@ -218,50 +226,46 @@ const ManageVendor = () => {
               style: "min-w-[100px] max-w-[100px] text-center",
             },
           ]
-        : [])
+        : []),
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
     filter: [
       {
-          label: "Vendor Name",
-          type: "text",
-          name: "vendorName",
-          props: {
-          }
+        label: "Vendor Name",
+        type: "text",
+        name: "vendorName",
+        props: {},
       },
       {
-          label: "Vendor Code",
-          type: "text",
-          name: "vendorCode",
-          props: {
-          }
+        label: "Vendor Code",
+        type: "text",
+        name: "vendorCode",
+        props: {},
       },
       {
-          label: "Status",
-          type: "select",
-          name: "status",
-          option: [
-            { label: "Active", value: "Active" },
-            { label: "Inactive", value: "Inactive" },
-          ],
-          props: {}
+        label: "Status",
+        type: "select",
+        name: "status",
+        option: [
+          { label: "Active", value: "Active" },
+          { label: "Inactive", value: "Inactive" },
+        ],
+        props: {},
       },
     ],
   };
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    let strVal=objectToQueryString(data)
+    let strVal = objectToQueryString(data);
 
+    setstrVal(strVal);
 
-
-    setstrVal(strVal)
-    
-    dispatch(VendorActions.getManageVendorDetails(value, "",strVal));
+    dispatch(VendorActions.getManageVendorDetails(value, "", strVal));
   };
-  
+
   useEffect(() => {
     dispatch(VendorActions.getManageVendorDetails());
   }, []);
@@ -319,7 +323,7 @@ const ManageVendor = () => {
           </div>
         }
         table={table}
-        exportButton={["/export/vendor"+"?"+strValFil,"Vendor.xlsx"]}
+        exportButton={["/export/vendor" + "?" + strValFil, "Vendor.xlsx"]}
         filterAfter={onSubmit}
         tableName={"ManagePartner"}
         handleSubmit={handleSubmit}
@@ -329,12 +333,11 @@ const ManageVendor = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        checkboxshow = {shouldIncludeEditColumn}
-        delurl = {Urls.vendor_details}
-        geturl = {VendorActions.getManageVendorDetails()}
-        getaccessExport = {"Export(Partner On-Board)"}
-        heading = {"Total Partner :- "}
-
+        checkboxshow={shouldIncludeEditColumn}
+        delurl={Urls.vendor_details}
+        geturl={VendorActions.getManageVendorDetails()}
+        getaccessExport={"Export(Partner On-Board)"}
+        heading={"Total Partner :- "}
       />
 
       <Modal
@@ -351,14 +354,16 @@ const ManageVendor = () => {
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
-        tempbtn={true} tempbtnlink = {["/template/ManageVendor.xlsx","ManageVendor.xlsx"]}
+        tempbtn={true}
+        tempbtnlink={["/template/ManageVendor.xlsx", "ManageVendor.xlsx"]}
       />
       <FileUploader
         isOpen={fileOpen2}
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit2}
         setIsOpen={setFileOpen2}
-        tempbtn={true} tempbtnlink = {["/template/ManageVendor.xlsx","ManageVendor.xlsx"]}
+        tempbtn={true}
+        tempbtnlink={["/template/ManageVendor.xlsx", "ManageVendor.xlsx"]}
       />
     </>
   );

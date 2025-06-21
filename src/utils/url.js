@@ -1,12 +1,12 @@
 // export const baseUrl = "https://devapi.mcpspmis.com"
 // export const backendassetUrl = "https://devapi.mcpspmis.com/"
 
-export const baseUrl = "https://api.mcpspmis.com"
-export const backendassetUrl = "https://api.mcpspmis.com/"
+// export const baseUrl = "https://api.mcpspmis.com"
+// export const backendassetUrl = "https://api.mcpspmis.com/"
 // export const baseUrl="https://androidapi.mcpspmis.com"
 // export const backendassetUrl="https://androidapi.mcpspmis.com/"
-// export const baseUrl = "http://localhost:7980";
-// export const backendassetUrl = "http://localhost:7980/";
+export const baseUrl = "http://192.168.1.58:7980";
+export const backendassetUrl = "http://192.168.1.58:7980";
 // export const baseUrl = "http://192.168.1.59:7980";
 // export const backendassetUrl = "http://192.168.1.59:7980/";
 
@@ -281,7 +281,16 @@ export const Urls = {
   getCircle: "/currentuser/Circle/projectId",
   getCircleSubPorjectType: "admin/deliveryPva/masterSubProject",
   patchEvmActual: "/forms/EVMActual",
-  getPvaData: "/forms/EVMActual"
+  getPvaData: "/forms/EVMActual",
+
+
+  ptwCustomers:'/Ptw/customers',
+  ptwEmployee:'/Ptw/employee',
+  ptwProjectType:'/Ptw/projectType',
+  PtwProjectGroup:'/Ptw/projectGroup',
+  PtwMilestone:'/Ptw/milestoneList',
+  l1ApproverSubmit:'/Ptw/MDBApprover',
+
 
 };
 

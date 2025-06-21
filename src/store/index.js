@@ -8,6 +8,7 @@ import projectList from "./reducers/projectList-reducer"
 import myHomeData from "./reducers/myHome-reducer";
 import hrReducer from "./reducers/hr-reduces"
 import vendorData from "./reducers/vendor-reducer"
+import ptwData from "./reducers/ptw-reducer"
 import financeData from "./reducers/finance-reducer"
 import formssData from "./reducers/formss-reducer"
 import expenseAdvanceData from "./reducers/expenseAdvance-reducer"
@@ -19,6 +20,7 @@ import repository from "./reducers/repository-reducer";
 import gpTrackingReducer from "./reducers/gpTracking-reducer"
 import tableReducer from "./reducers/table-reducer"
 import dropDownReducer from "./reducers/dropDown-reducer"
+
 const store = configureStore({
     reducer: {
         dropDown:dropDownReducer,
@@ -32,6 +34,7 @@ const store = configureStore({
         myHomeData,
         hrReducer,
         vendorData,
+        ptwData,
         financeData,
         formssData,
         expenseAdvanceData,

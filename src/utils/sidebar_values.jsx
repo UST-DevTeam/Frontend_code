@@ -124,6 +124,15 @@ import SubProjectMasterTable from "../pages/PMIS/Admin/SubProjectMasterTable/Sub
 import DeliveryPVA from "../pages/PMIS/Formss/DeliveryPVA/DeliveryPVA";
 import WorkdoneDeliveryPVAMSCards from "../pages/PMIS/Formss/WorkdoneDeliveryPVAMSCards";
 import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
+import RTWS from "../pages/PMIS/Admin/RTWS/RTWS";
+import DriveTestActivity from "../pages/PMIS/Admin/DriveTestActivity/DriveTestActivity";
+import GroundActivity from "../pages/PMIS/Admin/GroundActivity/GroundActivity";
+import WorkAtHeight from "../pages/PMIS/Admin/WorkAtHeight/WorkAtHeight";
+import Ptw from "../pages/PMIS/Admin/PTW/ptw";
+import MDBApprover from "../pages/PMIS/Admin/MDBApprover/MDBApprover";
+import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
+import L2Approver from "../pages/PMIS/Admin/L2Approver/L2Approver";
+
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -929,6 +938,63 @@ export const Sidebar_content = {
       link: "/forms",
       component: <FormsCards />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+    {
+      name: "PTW",
+      link: "/superAdmin/ptw",
+      component:<Ptw/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/workatheight",
+      component:<WorkAtHeight/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/groundActivity",
+      component:<GroundActivity/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/driveTestActivity",
+      component:<DriveTestActivity/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/rtws",
+      component:<RTWS/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/mdbApprover",
+      component:<MDBApprover/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/mdbApprover/l1Approver",
+      component:<L1Approver/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/superAdmin/ptw/mdbApprover/l2Approver",
+      component:<L2Approver/>,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
 
