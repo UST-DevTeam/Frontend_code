@@ -290,6 +290,7 @@ export const Urls = {
   PtwProjectGroup:'/Ptw/projectGroup',
   PtwMilestone:'/Ptw/milestoneList',
   l1ApproverSubmit:'/Ptw/MDBApprover',
+ 
 
 
 };

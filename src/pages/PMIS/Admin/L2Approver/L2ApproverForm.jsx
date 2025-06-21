@@ -7,15 +7,14 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import PTWActions from "../../../../store/actions/ptw-actions";
-
-const L1ApproverForm = ({
-  isOpen,
+const L2ApproverForm = () => {
+   isOpen,
   setIsOpen,
   resetting,
   formValue = {},
 
   onSuccess,
-}) => {
+
   console.log(formValue, "formValueformValueformValue");
 
   const dispatch = useDispatch();
@@ -153,7 +152,7 @@ const L1ApproverForm = ({
         employee: data.employeeId,
         projectType: data.projectType,
         projectGroup: data.projectGroup,
-        ApproverType: "L1-Approver",
+        ApproverType: "L2-Approver",
         milestone: data.Milestone,
         projectTypeName: selectedProjectTypeName,
       };
@@ -285,4 +284,5 @@ const L1ApproverForm = ({
   );
 };
 
-export default L1ApproverForm;
+
+export default L2ApproverForm
