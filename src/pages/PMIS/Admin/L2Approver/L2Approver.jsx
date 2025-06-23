@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,10 +19,13 @@ import FileUploader from "../../../../components/FIleUploader";
 import { GET_VENDOR_DETAILS } from "../../../../store/reducers/vendor-reducer";
 import { Urls } from "../../../../utils/url";
 import ConditionalButton from "../../../../components/ConditionalButton";
-import { getAccessType } from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../../utils/commonFunnction";
 import L2ApproverForm from "./L2ApproverForm";
 const L2Approver = () => {
-     const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -53,7 +56,7 @@ const L2Approver = () => {
           child={<EditButton name="" onClick={() => handleEditClick(itm)} />}
         />
       ),
-   
+
       delete: (
         <CstmButton
           child={
@@ -71,7 +74,14 @@ const L2Approver = () => {
                           CommonActions.deleteApiCaller(
                             `${Urls.l1ApproverSubmit}/${itm.uniqueId}`,
                             () => {
-                              dispatch(PTWActions.getL1ApproverData(true));
+                              dispatch(
+                                PTWActions.getL1ApproverData(
+                                  true,
+                                  objectToQueryString({
+                                    ApproverType: "L2-Approver",
+                                  })
+                                )
+                              );
                               dispatch(ALERTS({ show: false }));
                             }
                           )
@@ -82,7 +92,6 @@ const L2Approver = () => {
                     <Button
                       classes="w-auto"
                       onClick={() => {
-                        
                         dispatch(ALERTS({ show: false }));
                       }}
                       name={"Cancel"}
@@ -163,7 +172,13 @@ const L2Approver = () => {
     let value = data.reseter;
     delete data.reseter;
     const strVal = objectToQueryString(data);
-    dispatch(PTWActions.getL1ApproverData(true, strVal));
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        strVal,
+        objectToQueryString({ ApproverType: "L2-Approver" })
+      )
+    );
   };
 
   const onTableViewSubmit = (data) => {
@@ -171,25 +186,40 @@ const L2Approver = () => {
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false);
-        dispatch(PTWActions.getL1ApproverData(true));
+        dispatch(
+          PTWActions.getL1ApproverData(
+            true,
+            objectToQueryString({ ApproverType: "L2-Approver" })
+          )
+        );
       })
     );
   };
 
   // Handle modal close
   const handleModalClose = () => {
-  // If we were editing an item, refresh the data
-  if (editingItem) {
-    dispatch(PTWActions.getL1ApproverData(true));
-  }
-  
-  setmodalOpen(false);
-  setEditingItem(null);
-  setmodalBody(<></>);
-  setmodalHead(<></>);
-};
+    // If we were editing an item, refresh the data
+    if (editingItem) {
+      dispatch(
+        PTWActions.getL1ApproverData(
+          true,
+          objectToQueryString({ ApproverType: "L2-Approver" })
+        )
+      );
+    }
+
+    setmodalOpen(false);
+    setEditingItem(null);
+    setmodalBody(<></>);
+    setmodalHead(<></>);
+  };
   useEffect(() => {
-    dispatch(PTWActions.getL1ApproverData(true));
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({ ApproverType: "L2-Approver" })
+      )
+    );
   }, [dispatch]);
 
   return (
@@ -201,7 +231,7 @@ const L2Approver = () => {
               onClick={() => {
                 setmodalHead("Add Approver");
                 setmodalBody(
-                  <L1ApproverForm
+                  <L2ApproverForm
                     isOpen={true}
                     setIsOpen={setmodalOpen}
                     resetting={true}
@@ -227,7 +257,7 @@ const L2Approver = () => {
               onClick={() => {
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/export/L1Approver",
+                    "/export/L2Approver",
                     "Export_L1Approver.xlsx",
                     "POST",
                     {}
@@ -255,7 +285,7 @@ const L2Approver = () => {
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
-        setIsOpen={handleModalClose} // Use the handler function
+        setIsOpen={handleModalClose} 
       />
       <FileUploader
         isOpen={fileOpen}
@@ -269,4 +299,4 @@ const L2Approver = () => {
   );
 };
 
-export default L2Approver
+export default L2Approver;

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
@@ -10,18 +9,14 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import FileUploader from "../../../../components/FIleUploader";
-
 import L1ApproverForm from "./L1ApproverForm";
 import PTWActions from "../../../../store/actions/ptw-actions";
 import CommonActions from "../../../../store/actions/common-actions";
-
 import { Urls } from "../../../../utils/url";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-
 const L1Approver = () => {
   const dispatch = useDispatch();
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -29,7 +24,7 @@ const L1Approver = () => {
   const [editingItem, setEditingItem] = useState(null);
   const Data = useRef("");
 
-  // Add year state or get it from props/context
+ 
   const [year] = useState(new Date().getFullYear());
 
   const {
@@ -39,6 +34,18 @@ const L1Approver = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
+
+  const refreshData = () => {
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({
+          ApproverType: "L1-Approver",
+        })
+      )
+    );
+  };
 
   const l1ApproverList = useSelector((state) => {
     console.log("Redux state:", state);
@@ -51,7 +58,7 @@ const L1Approver = () => {
           child={<EditButton name="" onClick={() => handleEditClick(itm)} />}
         />
       ),
-   
+
       delete: (
         <CstmButton
           child={
@@ -69,7 +76,7 @@ const L1Approver = () => {
                           CommonActions.deleteApiCaller(
                             `${Urls.l1ApproverSubmit}/${itm.uniqueId}`,
                             () => {
-                              dispatch(PTWActions.getL1ApproverData(true));
+                              refreshData(); // Use the refresh function
                               dispatch(ALERTS({ show: false }));
                             }
                           )
@@ -80,7 +87,6 @@ const L1Approver = () => {
                     <Button
                       classes="w-auto"
                       onClick={() => {
-                        
                         dispatch(ALERTS({ show: false }));
                       }}
                       name={"Cancel"}
@@ -114,6 +120,7 @@ const L1Approver = () => {
         resetting={false}
         formValue={item}
         filtervalue=""
+        onSuccess={refreshData} 
       />
     );
 
@@ -161,7 +168,13 @@ const L1Approver = () => {
     let value = data.reseter;
     delete data.reseter;
     const strVal = objectToQueryString(data);
-    dispatch(PTWActions.getL1ApproverData(true, strVal));
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        strVal,
+        objectToQueryString({ ApproverType: "L1-Approver" })
+      )
+    );
   };
 
   const onTableViewSubmit = (data) => {
@@ -169,25 +182,24 @@ const L1Approver = () => {
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false);
-        dispatch(PTWActions.getL1ApproverData(true));
+        refreshData(); 
       })
     );
   };
 
-  // Handle modal close
-  const handleModalClose = () => {
-  // If we were editing an item, refresh the data
-  if (editingItem) {
-    dispatch(PTWActions.getL1ApproverData(true));
-  }
   
-  setmodalOpen(false);
-  setEditingItem(null);
-  setmodalBody(<></>);
-  setmodalHead(<></>);
-};
+  const handleModalClose = () => {
+    
+    refreshData();
+    
+    setmodalOpen(false);
+    setEditingItem(null);
+    setmodalBody(<></>);
+    setmodalHead(<></>);
+  };
+
   useEffect(() => {
-    dispatch(PTWActions.getL1ApproverData(true));
+    refreshData();
   }, [dispatch]);
 
   return (
@@ -207,6 +219,7 @@ const L1Approver = () => {
                     year={year}
                     monthss={[]}
                     filtervalue=""
+                    onSuccess={refreshData} 
                   />
                 );
                 setmodalOpen(true);
@@ -224,14 +237,14 @@ const L1Approver = () => {
               classes="w-auto mr-1"
               onClick={() => {
                 dispatch(
-                  CommonActions.commondownloadpost(
-                    "/export/L1Approver",
-                    "Export_L1Approver.xlsx",
-                    "POST",
+                  CommonActions.commondownload(
+                    "/export/Ptw/MDBApprover",
+                    "Export_L1_Approval.xlsx",
+                   
                     {}
                   )
                 );
-              }}
+              }}  
             />
           </div>
         }
@@ -253,7 +266,7 @@ const L1Approver = () => {
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
-        setIsOpen={handleModalClose} // Use the handler function
+        setIsOpen={handleModalClose} 
       />
       <FileUploader
         isOpen={fileOpen}

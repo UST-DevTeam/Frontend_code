@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +8,13 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import PTWActions from "../../../../store/actions/ptw-actions";
+import { objectToQueryString } from "../../../../utils/commonFunnction"; // Import the function
 
 const L1ApproverForm = ({
   isOpen,
   setIsOpen,
   resetting,
   formValue = {},
-
   onSuccess,
 }) => {
   console.log(formValue, "formValueformValueformValue");
@@ -35,7 +36,7 @@ const L1ApproverForm = ({
   const ptwMilestone = useSelector((state) => state.ptwData.getPtwMilestone);
 
   const isEditMode = Object.entries(formValue).length > 0 && !resetting;
-  
+
   useEffect(() => {
     dispatch(PTWActions.getPtwCustomers(true, "", ""));
     dispatch(PTWActions.getPtwEmployee(true, "", ""));
@@ -160,30 +161,54 @@ const L1ApproverForm = ({
 
       console.log("Form Data to Submit:", formData);
 
+      // Create a promise-based wrapper for the actions
+      const submitAction = (actionCreator, ...args) => {
+        return new Promise((resolve, reject) => {
+          const callback = () => {
+            console.log("Action completed successfully");
+            resolve();
+          };
+
+          // If it's an update operation, pass the callback as the third parameter
+          if (isEditMode) {
+            dispatch(actionCreator(...args, callback));
+          } else {
+            // For submit operation, pass callback as second parameter
+            dispatch(actionCreator(args[0], callback));
+          }
+        });
+      };
+
       if (isEditMode) {
-        console.log(formValue?.projectTypeName,typeof(formValue?.projectTypeName),formData?.projectTypeName,typeof(formData?.projectTypeName),'djjhydyyueyutegvgh')
+        console.log(
+          formValue?.projectTypeName,
+          typeof formValue?.projectTypeName,
+          formData?.projectTypeName,
+          typeof formData?.projectTypeName,
+          "djjhydyyueyutegvgh"
+        );
         if (formValue?.projectTypeName && formData?.projectTypeName === "") {
           formData.projectTypeName = formValue.projectTypeName;
         }
-        await dispatch(
-          PTWActions.updateL1ApproverForm(formData, formValue.uniqueId, () => {
-            // Success callback
-            reset();
-            if (setIsOpen) setIsOpen(false);
-            if (onSuccess) onSuccess();
-          })
-          
+
+        // Wait for the update to complete
+        await submitAction(
+          PTWActions.updateL1ApproverForm,
+          formData,
+          formValue.uniqueId
         );
-        await dispatch(PTWActions.getL1ApproverData(true));
       } else {
-        await dispatch(
-          PTWActions.submitL1ApproverForm(formData, () => {
-            reset();
-            if (setIsOpen) setIsOpen(false);
-            if (onSuccess) onSuccess();
-          })
-        );
-         await dispatch(PTWActions.getL1ApproverData(true));
+        // Wait for the submit to complete
+        await submitAction(PTWActions.submitL1ApproverForm, formData);
+      }
+
+      // Reset form and close modal after successful submission
+      reset();
+      if (setIsOpen) setIsOpen(false);
+
+      // Call the success callback from parent component (this will refresh the data)
+      if (onSuccess) {
+        onSuccess();
       }
     } catch (error) {
       console.error("Error submitting form:", error);

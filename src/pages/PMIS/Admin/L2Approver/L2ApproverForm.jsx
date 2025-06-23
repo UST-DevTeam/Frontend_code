@@ -7,16 +7,15 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import PTWActions from "../../../../store/actions/ptw-actions";
-const L2ApproverForm = () => {
-   isOpen,
+const L2ApproverForm = ({
+  isOpen,
   setIsOpen,
   resetting,
   formValue = {},
 
   onSuccess,
-
+}) => {
   console.log(formValue, "formValueformValueformValue");
-
   const dispatch = useDispatch();
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [selectedProjectTypeName, setSelectedProjectTypeName] = useState("");
@@ -34,7 +33,7 @@ const L2ApproverForm = () => {
   const ptwMilestone = useSelector((state) => state.ptwData.getPtwMilestone);
 
   const isEditMode = Object.entries(formValue).length > 0 && !resetting;
-  
+
   useEffect(() => {
     dispatch(PTWActions.getPtwCustomers(true, "", ""));
     dispatch(PTWActions.getPtwEmployee(true, "", ""));
@@ -160,7 +159,13 @@ const L2ApproverForm = () => {
       console.log("Form Data to Submit:", formData);
 
       if (isEditMode) {
-        console.log(formValue?.projectTypeName,typeof(formValue?.projectTypeName),formData?.projectTypeName,typeof(formData?.projectTypeName),'djjhydyyueyutegvgh')
+        console.log(
+          formValue?.projectTypeName,
+          typeof formValue?.projectTypeName,
+          formData?.projectTypeName,
+          typeof formData?.projectTypeName,
+          "djjhydyyueyutegvgh"
+        );
         if (formValue?.projectTypeName && formData?.projectTypeName === "") {
           formData.projectTypeName = formValue.projectTypeName;
         }
@@ -171,9 +176,8 @@ const L2ApproverForm = () => {
             if (setIsOpen) setIsOpen(false);
             if (onSuccess) onSuccess();
           })
-          
         );
-        await dispatch(PTWActions.getL1ApproverData(true));
+        await dispatch(PTWActions.getL1ApproverData(true, objectToQueryString({'ApproverType':'L2-Approver'})));
       } else {
         await dispatch(
           PTWActions.submitL1ApproverForm(formData, () => {
@@ -182,7 +186,7 @@ const L2ApproverForm = () => {
             if (onSuccess) onSuccess();
           })
         );
-         await dispatch(PTWActions.getL1ApproverData(true));
+        await dispatch(PTWActions.getL1ApproverData(true, objectToQueryString({'ApproverType':'L2-Approver'})));
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -284,5 +288,4 @@ const L2ApproverForm = () => {
   );
 };
 
-
-export default L2ApproverForm
+export default L2ApproverForm;
