@@ -271,7 +271,8 @@ const PTWActions = {
     }
   },
   managePtwApiPatch: (data = null, path, contentType = 'img', id = null, cb = () => { }) => async (dispatch, _) => {
-    let res = await Api.patch({ url: path + (id != null ? '/' + id : '') })
+    console.log('called......')
+    let res = await Api.patch({ url: path + (id != null ? '/' + id : '') , data  , contentType: contentType === 'img' ? 'multipart/form-data' : 'application/json' })
     if (res?.status === 200) {
       cb(res?.data)
     }

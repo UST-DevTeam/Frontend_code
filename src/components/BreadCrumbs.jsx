@@ -145,6 +145,26 @@ const BreadCrumbs = () => {
       name: "MS-PVA",
       url: "/forms/PVADeliveryCustomer/MS-PVA",
     },
+    ptw: {
+      name: "PTW",
+      url: "/superAdmin/ptw",
+    },
+    rtws: {
+      name: "RTWS",
+      url: "/superAdmin/rtws",
+    },
+    drivetestactivity: {
+      name: "drivetest Activity",
+      url: "/superAdmin/drivetestactivity",
+    },
+    groundactivity: {
+      name: "Ground Activity",
+      url: "/superAdmin/groundactivity",
+    },
+    workatheight: {
+      name: "Workat Height",
+      url: "/superAdmin/workatheight",
+    },
   };
 
   let breadcrumblist = useSelector((state) => {
@@ -213,9 +233,9 @@ const BreadCrumbs = () => {
                           // }}
 
                           onClick={() => {           
-                            console.log(item, '________fallback__________')      
+                              console.log(item, consoleUrl, '________fallback__________')   
                             if (item in Dtheader) {
-                              console.log(item, '________fallback__________')
+                              
                               navigate(
                                 item in Dtheader
                                   ? Dtheader[item]["url"]
@@ -224,13 +244,13 @@ const BreadCrumbs = () => {
                                     : ""
                               );
                             } else if (window.location.href.includes("projectManagement") && item in markets) {
-                              console.log(item, '________fallback__________')
+                              
                               navigate(`/projectManagement/${item}/${customeruniqueId}`);
                             } else if (window.location.href.includes("repository")) {
-                              console.log(item, '________fallback__________')
+                              
                               navigate(`/repository`);
                             } else {
-                              console.log(item, '________fallback__________')
+                              
                               navigate(
                                 item in Dtheader
                                   ? Dtheader[item]["url"]

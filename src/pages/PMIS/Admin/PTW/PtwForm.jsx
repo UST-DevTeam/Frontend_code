@@ -45,6 +45,7 @@ const PtwForm = () => {
   const [modalSize, setmodalSize] = useState("full");
   const [uniqueness, setUniqueness] = useState("");
   const [listing, setlisting] = useState([]);
+  const [data, setData] = useState({});
   const {
     register,
     handleSubmit,
@@ -55,18 +56,18 @@ const PtwForm = () => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    console.log('called...........................')
-      dispatch(
-      PTWActions.managePtwApiGet( `/admin/ptw/${page}`, () => {
-        // dispatch(SET_DYNAMIC_FORM({
-        //               label: "Site Engg",
-        //               value: itm["t_sengg"] ? itm["t_sengg"] : [],
-        //               reseter: true,
-        //             }))
-        console.log('Activity Added');
+
+  const getPtwFormData = () => {
+    dispatch(
+      PTWActions.managePtwApiGet( `/admin/ptw/${page}`, (data) => {
+        setData(data?.data[0])
       }  )
     );
+  }
+
+  useEffect(() => {
+    console.log('called...........................')
+      getPtwFormData()
   } , [page])
 
   
@@ -124,6 +125,10 @@ const PtwForm = () => {
           value: "Date",
         },
         {
+          label: "Image",
+          value: "img",
+        },
+        {
           label: "Dropdown",
           value: "Dropdown",
           extended: {
@@ -167,14 +172,11 @@ const PtwForm = () => {
     },
   ];
 
-  const handleAddActivity = (data, head) => {
-    dispatch(
-      AdminActions.managePtwApi(data , `/admin/ptw/${page}/${head.toLowerCase()}` , "post" , 'json' , () => {
-        console.log('Activity Added');
-      }  )
-    );
-
-    
+  const handleAddActivity = (datas, head) => {
+    console.log(data , head , 'data........')
+    dispatch(PTWActions.managePtwApiPatch(datas , `/admin/ptw/${page}/${head.toLowerCase()}` , '' , data?._id , () =>{
+      getPtwFormData()
+    } ))
   };
 
   
@@ -182,11 +184,13 @@ const PtwForm = () => {
   const form = (head ) => {
     return <CommonTableForm
                 setmodalOpen={setmodalOpen}
-                tabHead={head}
+                tabHead={head.toLowerCase()}
                 ptwPage = {page}
                 classes={"grid-cols-2 gap-1"}
                 Form={conditionmultiForm}
                 errors={errors}
+                ptwData = {data}
+                isPtw = {true}
                 register={register}
                 setValue={setValue}
                 getValues={getValues}
@@ -202,7 +206,14 @@ const PtwForm = () => {
   return (
     <>
       <div>
-        <CommonTableFormSiteParent
+        { page === 'rejectionreasoin'?  <CommonTableFormSiteParent
+          funcaller={() => {}}
+          defaultValue={"CheckList"}
+          tabslist={{
+            CheckList: form("CheckList"),
+            
+          }}
+        /> :  <CommonTableFormSiteParent
           funcaller={() => {}}
           defaultValue={"CheckList"}
           tabslist={{
@@ -212,7 +223,7 @@ const PtwForm = () => {
             PtwPhoto : form("PtwPhoto") ,
             OneAtRisk: form("OneAtRisk"),
           }}
-        />
+        /> }
       </div>
     </>
   );

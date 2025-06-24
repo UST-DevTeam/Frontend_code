@@ -39,6 +39,7 @@ import FileUploader from "./FIleUploader";
 import { Urls } from "../utils/url";
 import CommonActions from "../store/actions/common-actions";
 import AdminActions from "../store/actions/admin-actions";
+import { keys } from "highcharts";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
@@ -48,6 +49,8 @@ const CommonTableForm = ({
   encType = false,
   Form,
   tabHead,
+  isPtw = false,
+  ptwData,
   errors,
   ptwPage,
   setValue,
@@ -68,7 +71,24 @@ const CommonTableForm = ({
     childView: false,
   };
 
-  
+  useEffect(() => {
+    console.log(ptwData , 'adsfasdfasdfasdfasdfasfads')
+    if( ptwData && Object.keys(ptwData)?.length > 0){
+      dispatch(SET_DYNAMIC_FORM({
+                      label: tabHead,
+                      value: ptwData[tabHead] ? ptwData[tabHead] : [],
+                      reseter: true,
+                    }))
+    }
+    else{
+      dispatch(SET_DYNAMIC_FORM({
+                      label: tabHead,
+                      value:  [],
+                      reseter: true,
+                    }))
+    }
+  setediting(false)
+  } , [tabHead , ptwData])
 
 
   let listing = useSelector((state) => {
@@ -76,6 +96,9 @@ const CommonTableForm = ({
       ? state.projectList.dynamicForm[tabHead]
       : [];
   });
+
+ 
+  console.log(listing, tabHead , 'asdfasdfasdfasdfasdfasf')
 
   Form.map((itm) => {
     newars[itm.name] = newars[itm.value];
@@ -92,8 +115,20 @@ const CommonTableForm = ({
 
 
   const onTableViewSubmit = (data) => {
+    
     data["fileType"] = tabHead;
-    dispatch(CommonActions.fileSubmit(Urls.templateUploadFile + "/" + `${rowId}`,data,() => {
+    
+    if(["oneatrisk" , 'photo',  'riskassessment' , 'checklist' , 'ptwphoto'].includes(tabHead)){
+      dispatch(CommonActions.fileSubmit('/admin/ptw' + "/" + `${ptwPage}/${tabHead}?file=true`,data,() => {
+          setSelectFile(false);
+          setmodalOpen(false);
+          
+        }
+      )
+    );
+    }
+    else{
+      dispatch(CommonActions.fileSubmit(Urls.templateUploadFile + "/" + `${rowId}`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
           if (page === "Compliance"){
@@ -105,6 +140,7 @@ const CommonTableForm = ({
         }
       )
     );
+    }
   };
 
 
@@ -129,7 +165,7 @@ const CommonTableForm = ({
               onClick={() => {
                 const fileName = page === "Compliance" ? "Export_Forms_Checklist_" + name + ".xlsx" : "Export_Project_Type_" + name + ".xlsx";
                 dispatch(
-                  CommonActions.commondownload("/export/Template/" + `${tabHead}` + "/" + `${rowId}`,fileName)
+                  CommonActions.commondownload("/export/ptw/" + `${isPtw ? ptwData?.fileType : tabHead}` + "/" + `${isPtw ? ptwData?._id : rowId}`,fileName)
                 );
               }}
             />
@@ -631,7 +667,7 @@ const CommonTableForm = ({
         onTableViewSubmit={onTableViewSubmit}
         tempbtn={true}
         label={"Template"}
-        tempbtnlink={[`${"/template"}/${tabHead}`, "Tempalte.xlsx"]}
+        tempbtnlink={[`${"/template"}/${tabHead}${isPtw ? `/ptw` : ''}`, "Tempalte.xlsx"]}
       />
     </>
   );

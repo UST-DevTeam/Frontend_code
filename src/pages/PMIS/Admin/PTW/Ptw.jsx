@@ -30,9 +30,10 @@ const Ptw = () => {
           showbtn={false}
           approveddata={[
             ["Work At Height", "bg-pcol", "/superAdmin/ptw/workatheight"],
-            ["Ground Activity", "bg-pcol", "/superAdmin/ptw/groundActivity"],
-            ["Drive Test Activity", "bg-pcol", "/superAdmin/ptw/driveTestActivity"],
+            ["Ground Activity", "bg-pcol", "/superAdmin/ptw/groundactivity"],
+            ["Drive Test Activity", "bg-pcol", "/superAdmin/ptw/drivetestactivity"],
             ["RTWS", "bg-pcol", "/superAdmin/ptw/rtws"],
+            ["Rejection reasons", "bg-pcol", "/superAdmin/ptw/rejectionreasoin"],
             ["MDB Approver", "bg-pcol", "/superAdmin/ptw/mdbApprover"],
           ].map((itm) => {
             return (
