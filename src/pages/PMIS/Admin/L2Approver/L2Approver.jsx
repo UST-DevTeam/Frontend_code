@@ -251,20 +251,20 @@ const L2Approver = () => {
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
-            <Button
-              name="Export"
+           <Button
+              name={"Export"}
               classes="w-auto mr-1"
-              onClick={() => {
+              onClick={(e) => {
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/export/L2Approver",
-                    "Export_L1Approver.xlsx",
+                    "/Export/ptwMDB",
+                    "Export_L2Approval.xlsx",
                     "POST",
-                    {}
+                    { ApproverType: "L2-Approver" }
                   )
                 );
               }}
-            />
+            ></Button>
           </div>
         }
         table={table}

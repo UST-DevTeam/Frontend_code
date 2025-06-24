@@ -24,7 +24,6 @@ const L1Approver = () => {
   const [editingItem, setEditingItem] = useState(null);
   const Data = useRef("");
 
- 
   const [year] = useState(new Date().getFullYear());
 
   const {
@@ -34,7 +33,6 @@ const L1Approver = () => {
     getValues,
     formState: { errors },
   } = useForm();
-
 
   const refreshData = () => {
     dispatch(
@@ -120,7 +118,7 @@ const L1Approver = () => {
         resetting={false}
         formValue={item}
         filtervalue=""
-        onSuccess={refreshData} 
+        onSuccess={refreshData}
       />
     );
 
@@ -182,16 +180,14 @@ const L1Approver = () => {
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false);
-        refreshData(); 
+        refreshData();
       })
     );
   };
 
-  
   const handleModalClose = () => {
-    
     refreshData();
-    
+
     setmodalOpen(false);
     setEditingItem(null);
     setmodalBody(<></>);
@@ -219,7 +215,7 @@ const L1Approver = () => {
                     year={year}
                     monthss={[]}
                     filtervalue=""
-                    onSuccess={refreshData} 
+                    onSuccess={refreshData}
                   />
                 );
                 setmodalOpen(true);
@@ -233,19 +229,19 @@ const L1Approver = () => {
               onClick={() => setFileOpen(true)}
             />
             <Button
-              name="Export"
+              name={"Export"}
               classes="w-auto mr-1"
-              onClick={() => {
+              onClick={(e) => {
                 dispatch(
-                  CommonActions.commondownload(
-                    "/export/Ptw/MDBApprover",
-                    "Export_L1_Approval.xlsx",
-                   
-                    {}
+                  CommonActions.commondownloadpost(
+                    "/Export/ptwMDB",
+                    "Export_L1Approval.xlsx",
+                    "POST",
+                    { ApproverType: "L1-Approver" }
                   )
                 );
-              }}  
-            />
+              }}
+            ></Button>
           </div>
         }
         table={table}
@@ -259,14 +255,14 @@ const L1Approver = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={l1ApproverTotalCount}
-        heading="Total Count :-"
+        heading="Total Count :-"  
       />
       <Modal
         size="sm"
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
-        setIsOpen={handleModalClose} 
+        setIsOpen={handleModalClose}
       />
       <FileUploader
         isOpen={fileOpen}

@@ -263,7 +263,6 @@ const ManageCostCenter = () => {
         totalCount={dbConfigTotalCount}
         heading={"Total Cost Center :- "}
       />
-
       <Modal
         size={"sm"}
         modalHead={modalHead}
