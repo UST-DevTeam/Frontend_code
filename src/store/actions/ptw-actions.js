@@ -1,20 +1,17 @@
-
-
-
-
 import Api from "../../utils/api";
 import { Urls } from "../../utils/url";
 import { ALERTS } from "../reducers/component-reducer";
-import { 
-  GET_PTW_CUSTOMERS, 
-  GET_PTW_Circle, 
-  GET_PTW_EMPLOYEE, 
-  GET_PTW_PROJECTTYPE, 
+import {
+  GET_PTW_CUSTOMERS,
+  GET_PTW_Circle,
+  GET_PTW_EMPLOYEE,
+  GET_PTW_PROJECTTYPE,
   GET_PTW_PROJECTGROUP,
   GET_PTW_APPROVER_DATA,
+  GET_PTW_LOGBACKUP,
   ADD_PTW_APPROVER_DATA,
   UPDATE_PTW_APPROVER_DATA,
-  DELETE_PTW_APPROVER_DATA
+  DELETE_PTW_APPROVER_DATA,
 } from "../reducers/ptw-reducer";
 
 const PTWActions = {
@@ -118,7 +115,7 @@ const PTWActions = {
           url: Urls.l1ApproverSubmit,
           data: formData,
         });
-        console.log(res,'resresresresresres')
+        console.log(res, "resresresresresres");
         if (res?.status == 200 || res?.status == 201) {
           let msgdata = {
             show: true,
@@ -130,7 +127,7 @@ const PTWActions = {
           dispatch(ALERTS(msgdata));
 
           if (callback) callback();
-          
+
           return res?.data;
         } else {
           let msgdata = {
@@ -167,8 +164,10 @@ const PTWActions = {
 
         if (res?.status === 200) {
           // Update the data in the store
-          dispatch(UPDATE_PTW_APPROVER_DATA({ uniqueId, data: res?.data?.data }));
-          
+          dispatch(
+            UPDATE_PTW_APPROVER_DATA({ uniqueId, data: res?.data?.data })
+          );
+
           // Show success message
           let msgdata = {
             show: true,
@@ -181,7 +180,7 @@ const PTWActions = {
 
           // Call callback if provided
           if (callback) callback();
-          
+
           return res?.data;
         } else {
           // Show error message
@@ -217,9 +216,8 @@ const PTWActions = {
         });
 
         if (res?.status === 200) {
-         
           // dispatch(DELETE_PTW_APPROVER_DATA(uniqueId));
-          
+
           // Show success message
           let msgdata = {
             show: true,
@@ -232,7 +230,7 @@ const PTWActions = {
 
           // Call callback if provided
           if (callback) callback();
-          
+
           return res?.data;
         } else {
           // Show error message
@@ -255,6 +253,23 @@ const PTWActions = {
           text: "Error deleting data. Please try again.",
         };
         dispatch(ALERTS(msgdata));
+      }
+    },
+
+  // =========PTW LOG Backup=======
+
+  getPtwLogBackup:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.PTWBackup}${args != "" ? "?" + args : ""}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PTW_LOGBACKUP({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching ptwlogBackup:", error);
       }
     },
 };

@@ -181,7 +181,7 @@ const SuperAdmin = () => {
           [
               "PTW",
               "bg-pcol",
-              "/superAdmin/ptw",
+              "/superAdmin/PTW",
               <Unicons.UilPagerduty size="32" color="" />,
               "border-b-[#b8e0d2]",
             ],

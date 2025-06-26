@@ -7,8 +7,8 @@
 // export const backendassetUrl="https://androidapi.mcpspmis.com/"
 // export const baseUrl = "http://192.168.1.9:7980";
 // export const backendassetUrl = "http://192.168.1.9:7980";
-export const baseUrl = "http://192.168.1.14:7980";
-export const backendassetUrl = "http://192.168.1.14:7980/";
+export const baseUrl = "http://192.168.1.6:7980";
+export const backendassetUrl = "http://192.168.1.6:7980/";
 
 export const Urls = {
   login: "/login",
@@ -290,6 +290,7 @@ export const Urls = {
   PtwProjectGroup:'/Ptw/projectGroup',
   PtwCircle:'/Ptw/circleList',
   l1ApproverSubmit:'/Ptw/MDBApprover',
+  PTWBackup:'',
  
 
 

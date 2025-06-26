@@ -29,11 +29,16 @@ const Ptw = () => {
         <CCDash
           showbtn={false}
           approveddata={[
-            ["Work At Height", "bg-pcol", "/superAdmin/ptw/workatheight"],
-            ["Ground Activity", "bg-pcol", "/superAdmin/ptw/groundActivity"],
-            ["Drive Test Activity", "bg-pcol", "/superAdmin/ptw/driveTestActivity"],
-            ["RTWS", "bg-pcol", "/superAdmin/ptw/rtws"],
-            ["MDB Approver", "bg-pcol", "/superAdmin/ptw/mdbApprover"],
+            ["Work At Height", "bg-pcol", "/superAdmin/PTW/workatheight"],
+            ["Ground Activity", "bg-pcol", "/superAdmin/PTW/groundActivity"],
+            [
+              "Drive Test Activity",
+              "bg-pcol",
+              "/superAdmin/PTW/driveTestActivity",
+            ],
+            ["RTWS", "bg-pcol", "/superAdmin/PTW/rtws"],
+            ["MDB Approver", "bg-pcol", "/superAdmin/PTW/mdbApprover"],
+            ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
           ].map((itm) => {
             return (
               <>
