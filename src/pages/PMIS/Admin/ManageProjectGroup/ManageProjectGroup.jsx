@@ -50,7 +50,7 @@ const ManageProjectGroup = () => {
                     // itm.enabled=itm.enabled==0?1:0
                     console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                "ed it": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     dispatch(AdminActions.getManageProjectGroup())
                     setmodalHead("Edit Project Group")

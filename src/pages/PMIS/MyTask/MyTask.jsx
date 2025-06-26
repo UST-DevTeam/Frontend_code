@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +37,8 @@ import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
 import { GET_CIRCLE_WITH_PG_DATA, GET_MAPPED_DATA } from "../../../store/reducers/projectList-reducer";
 import MyHomeActions from "../../../store/actions/myHome-actions";
 import { GET_FILTER_MYTASK_SUBPROJECT } from "../../../store/reducers/filter-reducer";
+import Api from "../../../utils/api";
+import CommonForm from "../../../components/CommonForm";
 
 
 const MyTask = () => {
@@ -47,8 +49,15 @@ const MyTask = () => {
 
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [ptwOption, setPtwOption] = useState(null);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
+  const [ptwModalFullOpen, setPtwModalFullOpen] = useState(false);
+  const [ptwModalBody, setPtwModalBody] = useState(<></>);
+  const [ptwModalHead, setPtwModalHead] = useState({
+    title : 'Checklist',
+    value : 'checklist'
+  });
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -56,8 +65,155 @@ const MyTask = () => {
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
+  const mileStoneItemRef = useRef(null)
+  const subFormRef = useRef({
+    checklist : [],
+    oneatrisk : [],
+    photo : [],
+    ptwphoto : [],
+    riskassessment : []
+  })
 
+  // let Form = [
+  //       {
+  //           label: "Logo",
+  //           value: "",
+  //           name: "img",
+  //           type: "file",
+  //           props: {
+  //               onChange: ((e) => {
+  //                   setValue("companyimg",e.target.files[0])
+  //               }),
+  //           },
+  //           classes: "col-span-1",
+  //           multiple:false,
+  //       },
+  //        {
+  //           label: "Customer Name",
+  //           value: "",
+  //           name: "customerName",
+  //           type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
+  //           required: true,
+  //           props: {
+  //               onChange: ((e) => {
+  //                   // console.log(e.target.value, "e geeter")
+  //                   // setValue("queries",e.target.name)
+  //               }),
+  //           },
+  //           classes: "col-span-1"
+  //       },
+  //       {
+  //           label: "ShortName",
+  //           value: "",
+  //           name: "shortName",
+  //           type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
+  //           required: true,
+  //           props: {
+  //               onChange: ((e) => {
+  //               }),
+  //           },
+  //           classes: "col-span-1"
+  //       }, 
+  //       {
+  //           label: "Contact Person Name",
+  //           value: "",
+  //           name: "personName",
+  //           type: "text",
+  //           // required: true,
+  //           props: {
+  //               onChange: ((e) => {
+                
+  //               }),
+  //           },
+  //           classes: "col-span-1"
+  //       }, 
+  //       {
+  //           label: "Email",
+  //           value: "",
+  //           name: "email",
+  //           type: "text",
+  //           required: true,
+  //           props: {
+  //               onChange: ((e) => {
+                
 
+  //               }),
+  //           },
+  //           classes: "col-span-1"
+  //       }, 
+  //       {
+  //           label: "Mobile No.",
+  //           value: "",
+  //           name: "mobile",
+  //           type: "number",
+  //           required: true,
+  //           props: {
+  //               onChange: ((e) => {
+                 
+
+  //               }),
+  //           },
+  //           classes: "col-span-1"
+  //       }, 
+  //       {
+  //           label: "Address",
+  //           name: "address",
+  //           type: "text",
+  //           props: {
+  //               onChange: ((e) => {
+                
+  //               }),
+  //           },
+  //           required: true,
+  //           classes: "col-span-1"
+  //       }, 
+  //       {
+  //           label: "Index",
+  //           name: "index",
+  //           type: "number",
+  //           required: true,
+  //           props: {
+  //               valueAsNumber:true,
+  //               min: 1,
+  //           },
+  //           classes: "col-span-1"
+  //       }, 
+  //       {
+  //           label: "Attachment",
+
+  //           value: "",
+  //           name: "attachment",
+  //           type: "file",
+  //           // required: true,
+  //           props: {
+  //               onChange: ((e) => {
+  //                   console.log(e.target.files, "e geeter")
+
+  //                   setValue("attachment",e.target.files[0])
+
+  //               }),
+  //           },
+  //           classes: "col-span-1",
+  //           multiple:false,
+  //       },
+  //       {
+  //           label: "Status",
+  //           name: "status",
+  //           type: "select",
+  //           option: [
+  //               { "label": "Active", "value": "Active" },
+  //               { "label": "Inactive", "value": "Inactive" }
+  //           ],
+  //           props: {
+  //               onChange: ((e) => {
+                  
+  //               }),
+  //           },
+  //           required: true,
+  //           classes: "col-span-1"
+  //       }, 
+  //       // { label: "User", value: "", option: ["User Name"], type: "select" }
+  //   ]
 
 
 
@@ -75,6 +231,7 @@ const MyTask = () => {
     setValue,
     setValues,
     getValues,
+    reset,
     formState: { errors },
   } = useForm();
   let dispatch = useDispatch();
@@ -104,6 +261,27 @@ const MyTask = () => {
     })
 }) 
 
+
+const handleAddActivity  = async (data , formType) => {
+   let newData = {
+      projectID : '',
+      siteId : '',
+      customerName : '',
+      circle : '',
+      mileStoneId : ''
+   }
+   Object.keys(data)?.forEach((item) => {
+    if(data[item] ){
+      newData[formType][item] = data[item]
+    }
+   })
+    const res = await Api.post({
+      url: `/submit/ptw/${formType}/${ptwModalHead.value}`,
+      data: newData,
+    })
+    console.log(res ,'fasdfasdfasf')
+}
+
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getMyTaskSubProject.map((itm) => {
       return {
@@ -128,7 +306,63 @@ const MyTask = () => {
   let sitelogsEventLogsData = useSelector((state) => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
+
   });
+
+  const getPtwSubForm = async (formName) => {
+    reset()
+      const res = await Api.get({url : `/show/ptw/${formName}`})
+      if(res?.status === 200){
+        
+        Object.keys(subFormRef.current)?.forEach((itm) => {
+          subFormRef.current[itm] =  res?.data?.data[0][itm]?.map((item) => {
+            if(item?.dataType === 'AutoFill'){
+              setValue(item?.fieldName, mileStoneItemRef.current[item?.fieldName]);
+            }
+          return {
+            ...item,
+            label: item?.fieldName,
+            defaultValue: item?.dataType === 'AutoFill' ? 'aman' : '',
+            // disabled :  item?.dataType === 'AutoFill' ? true : false ,
+            name: item?.fieldName,
+            type: item?.dataType === 'AutoFill' ? 'sdisabled' : (item?.dataType === 'Dropdown' ? 'select' : item?.dataType === 'DateTime' ? 'datetime' : item?.dataType.toLowerCase() ==='date' ? 'datetime2' :item?.dataType.toLowerCase()) ,
+            ...( item?.dataType === 'Dropdown' ? { option : item?.dropdownValue.split(",")?.map((item) => {
+              return {
+                label: item.trim(),
+                value: item.trim()
+              }
+            })} : {} ),
+          //  ...( item?.dataType === 'DateTime' ? { formattype : 'time' , 
+          //   formatop: "DD/MM/YYYY HH:mm",
+          //   } : {} ),
+            required: item?.required === 'Yes' ? true : false ,
+            
+        }
+        })
+        })
+        console.log(mileStoneItemRef.current , 'asdfasdfasdfsadfasdfasdasdfasdf')
+        console.log(subFormRef.current.checklist , 'asdfasdfasdfsadfasdfasdasdfasdf')
+        setPtwModalHead({
+          title: 'Checklist',
+          value : 'checklist'
+        })
+        setPtwModalFullOpen(true)
+        setPtwModalBody(<>
+        <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
+          <CommonForm classes={"grid-cols-3 gap-1"} Form={subFormRef.current?.checklist} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+          <Button
+                    name="Submit"
+                    classes="w-fit"
+                    onClick={handleSubmit((data) => {
+                      handleAddActivity(data , formName)
+                    })}
+                  />
+        </div>
+        </>)
+        setPtwOption(null);
+        setPtwModel(true);
+      }
+  }
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
@@ -139,6 +373,7 @@ const MyTask = () => {
           <p
             className="text-[#13b497] font-extrabold"
             onClick={() => {
+              console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-"+itm['Site Id']);
               dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
@@ -195,6 +430,7 @@ const MyTask = () => {
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
+                console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
                 if (e.target.checked) {
                   setparentsite((prev) => [...prev, e.target.value]);
                   let dlisting = itm.milestoneArray.map((iewq) => {
@@ -557,6 +793,62 @@ const MyTask = () => {
                 />
               </>
             ),
+            ptwButton : (
+              <div className="relative" >
+              <button onClick={() =>{
+                
+                
+                if(ptwOption && ptwOption === iewq?._id ){
+                  setPtwOption(null)
+                }
+                else{
+                  setPtwOption(iewq?._id)
+                }
+              }} className="bg-yellow-700 p-[1px] text-[10px] px-6 hover:scale-[101%] rounded-md text-white">
+                Raise PTW
+              </button>
+              {
+                iewq?._id === ptwOption && <div className="absolute bg-gray-200 grid p-2 w-full gap-1  top-5 z-40  ">
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          ...itm,
+                          Customer : itm?.customerName,
+                          siteId : itm['Site Id'],
+                          Milestone : iewq?.Name,
+                          mileStoneId : iewq?.mileStoneId,
+                          SSID : itm?.systemId,
+                          Projecttype : itm?.projectType,
+                          'PTW Receiver name' : user?.benificiaryname,
+                          'Partner name' : user?.benificiaryname,
+                          
+                        }
+                        getPtwSubForm('workatheight')
+                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">Work At Height</div>
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          sideData : itm,
+                          milestoneCount : iewq,
+                        }
+                        getPtwSubForm('rtws')
+                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">RTWS</div>
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          sideData : itm,
+                          milestoneCount : iewq,
+                        }
+                        getPtwSubForm('groundactivity')
+                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">Ground Activity</div>
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          sideData : itm,
+                          milestoneCount : iewq,
+                        }
+                        getPtwSubForm('drivertestactivity')
+                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">Driver Test Activity</div>
+                </div>
+              }
+              </div>
+            )
           };
         }),
 
@@ -826,11 +1118,11 @@ const MyTask = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-        // {
-        //   name: "Billing Status",
-        //   value: "",
-        //   style: "min-w-[140px] max-w-[200px] text-center",
-        // },
+        {
+          name: "",
+          value: "ptwButton",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         // {
         //   name: "Event Logs",
         //   value: "eventLogsmilestone",
@@ -931,7 +1223,7 @@ const MyTask = () => {
   const handleBulkDelte = () => {   
   };
 
-
+console.log(childsite , parentsite , dbConfigList[0]?.uniqueId , dbConfigList , 'asdfasdfasdfasdfasdf')
   return (
     <>
       <AdvancedTableExpandable
@@ -1024,6 +1316,13 @@ const MyTask = () => {
         children={modalBody}
         isOpen={modalFullOpen}
         setIsOpen={setmodalFullOpen}
+      />
+      <Modal
+        size={"lg"}
+        modalHead={ptwModalHead.title}
+        children={ptwModalBody}
+        isOpen={ptwModalFullOpen}
+        setIsOpen={setPtwModalFullOpen}
       />
     </>
   );

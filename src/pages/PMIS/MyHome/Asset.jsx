@@ -17,6 +17,7 @@ import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
 import OperationManagementActions from '../../../store/actions/admin-actions';
 import AdminActions from '../../../store/actions/admin-actions';
 import { useNavigate, useParams } from 'react-router-dom';
+import ManageCustomerForm from '../Admin/ManageCustomer/ManageCustomerForm';
 
 
 
@@ -33,12 +34,6 @@ const Asset = () => {
     let dispatch = useDispatch()
 
     let navigate = useNavigate()
-
-
-
-
-
-
 
     let dbConfigList = useSelector((state) => {
         console.log(state, "state statejjjj")
@@ -71,7 +66,7 @@ const Asset = () => {
                     setmodalHead("Edit Customer Details")
                     setmodalBody(<>
                         <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                       
                     </>)
                 }}></EditButton>} />,
 

@@ -81,6 +81,7 @@ const AdvancedTableExpandableOneRow = ({
                 <td className="text-[12px] pl-1 !h-[10px] border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine">
                     <span
                         onClick={() => {
+                            console.log('object ...' , 'called')
                             setExpand((prev) => !prev);
                         }}
                     >

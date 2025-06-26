@@ -30,7 +30,7 @@ const DatePicking = ({ itm, errors, handleSubmit, setValue, getValues, register 
                 }
             }}
             showTimeSelect={itm.formattype == "time" || itm.formattype == "datetime"}
-            showTimeSelectOnly={itm.formattype == "time" || itm.formattype == "datetime"}
+            showTimeSelectOnly={itm.formattype == "time"}
             show={false}
             showIcon={true}
             dateFormat="dd/MM/yyyy"

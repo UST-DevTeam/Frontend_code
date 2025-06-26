@@ -40,6 +40,7 @@ import { Urls } from "../utils/url";
 import CommonActions from "../store/actions/common-actions";
 import AdminActions from "../store/actions/admin-actions";
 import { keys } from "highcharts";
+import PTWActions from "../store/actions/ptw-actions";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
@@ -122,7 +123,11 @@ const CommonTableForm = ({
       dispatch(CommonActions.fileSubmit('/admin/ptw' + "/" + `${ptwPage}/${tabHead}?file=true`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
-          
+          dispatch(
+        PTWActions.managePtwApiGet( `/admin/ptw/${ptwPage}`, (data) => {
+        setData(data?.data[0])
+      }  )
+    );
         }
       )
     );
@@ -249,7 +254,7 @@ const CommonTableForm = ({
             headers={Form.map((its) => {
               return its.label;
             })}
-            columns={listing.map((itm, indexes) => {
+            columns={listing?.map((itm, indexes) => {
               return Form.map((its, innerIndex) => {
                 console.log(
                   itm[its.name],
@@ -637,7 +642,7 @@ const CommonTableForm = ({
               headers={Form.map((its) => {
                 return its.label;
               })}
-              columns={listing.map((itm, indexes) => {
+              columns={listing?.map((itm, indexes) => {
                 let newObj = {};
 
                 console.log(itm, "itmitmitm");
