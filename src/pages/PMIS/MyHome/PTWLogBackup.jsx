@@ -59,11 +59,7 @@ const PTWLogBackup = () => {
         value: "ptw",
         style: "text-center min-w-[150px]",
       },
-      { 
-        name: "Profile", 
-        value: "profile", 
-        style: "text-center min-w-[150px]" 
-      },
+      
       {
         name: "PTW Requester",
         value: "ptwRequester",
