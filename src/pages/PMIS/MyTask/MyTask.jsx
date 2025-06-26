@@ -9,6 +9,7 @@ import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
 import PopupMenu from "../../../components/PopupMenu";
+import { IoTicketOutline } from "react-icons/io5";
 import {
   getAccessType,
   objectToQueryString,
@@ -440,7 +441,60 @@ const handleAddActivity  = async (data , formType) => {
                   </p>
                 </> 
               ) : (
-                <p>{iewq.mileStoneStatus}</p>
+                iewq?.mileStoneStatus === 'Open' ? <div className="relative" >
+              <button onClick={() =>{
+                
+                
+                if(ptwOption && ptwOption === iewq?._id ){
+                  setPtwOption(null)
+                }
+                else{
+                  setPtwOption(iewq?._id)
+                }
+              }} className="">
+                <IoTicketOutline />
+              </button>
+              {
+                iewq?._id === ptwOption && <div className="absolute bg-gray-200 grid p-2 w-[150px] rounded-md right-0 gap-1  top-5 z-40  ">
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          ...itm,
+                          Customer : itm?.customerName,
+                          siteId : itm['Site Id'],
+                          Milestone : iewq?.Name,
+                          mileStoneId : iewq?.mileStoneId,
+                          SSID : itm?.systemId,
+                          Projecttype : itm?.projectType,
+                          'PTW Receiver name' : user?.benificiaryname,
+                          'Partner name' : user?.benificiaryname,
+                          
+                        }
+                        getPtwSubForm('workatheight')
+                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">Work At Height</div>
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          sideData : itm,
+                          milestoneCount : iewq,
+                        }
+                        getPtwSubForm('rtws')
+                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">RTWS</div>
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          sideData : itm,
+                          milestoneCount : iewq,
+                        }
+                        getPtwSubForm('groundactivity')
+                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">Ground Activity</div>
+                      <div onClick={() => {
+                        mileStoneItemRef.current = {
+                          sideData : itm,
+                          milestoneCount : iewq,
+                        }
+                        getPtwSubForm('drivertestactivity')
+                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  ">Driver Test Activity</div>
+                </div>
+              }
+              </div> : iewq?.mileStoneStatus
               ),
 
             SiteNaming: (
@@ -677,7 +731,7 @@ const handleAddActivity  = async (data , formType) => {
                 />
               </>
             ),
-           
+            
           };
         }),
 
