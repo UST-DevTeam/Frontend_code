@@ -677,62 +677,7 @@ const handleAddActivity  = async (data , formType) => {
                 />
               </>
             ),
-            ptwButton : (
-              <div className="relative" >
-              <button onClick={() =>{
-                
-                
-                if(ptwOption && ptwOption === iewq?._id ){
-                  setPtwOption(null)
-                }
-                else{
-                  setPtwOption(iewq?._id)
-                }
-              }} className="bg-yellow-700 p-[1px] text-[10px] px-6 hover:scale-[101%] rounded-md text-white">
-                Raise PTW
-              </button>
-              {
-                iewq?._id === ptwOption && <div className="absolute bg-gray-200 grid p-2 w-full gap-1  top-5 z-40  ">
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          ...itm,
-                          Customer : itm?.customerName,
-                          siteId : itm['Site Id'],
-                          Milestone : iewq?.Name,
-                          mileStoneId : iewq?.mileStoneId,
-                          SSID : itm?.systemId,
-                          Projecttype : itm?.projectType,
-                          'PTW Receiver name' : user?.benificiaryname,
-                          'Partner name' : user?.benificiaryname,
-                          
-                        }
-                        getPtwSubForm('workatheight')
-                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">Work At Height</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('rtws')
-                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">RTWS</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('groundactivity')
-                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">Ground Activity</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('drivertestactivity')
-                      }} className="text-left w-full text-[10px] text-gray-800 hover:bg-gray-300 p-2 w-fit  ">Driver Test Activity</div>
-                </div>
-              }
-              </div>
-            )
+           
           };
         }),
 
@@ -948,13 +893,19 @@ const handleAddActivity  = async (data , formType) => {
           name: "Site ID",
           value: "SiteNaming",
           style:
-            "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center  z-20",
+            " sticky left-0 bg-[#3e454d] text-center  z-20",
         },
         {
           name: "Project ID",
           value: "projectId",
           style:
-            "min-w-[140px] max-w-[200px] sticky left-[140px] bg-[#3e454d] text-center z-20",
+            "  left-[140px] bg-[#3e454d] text-center ",
+        },
+        {
+          name: "",
+          value: "",
+          style:
+            " left-[140px] bg-[#3e454d] text-center ",
         },
         {
           name: "Sub Project",
@@ -1003,11 +954,7 @@ const handleAddActivity  = async (data , formType) => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-        {
-          name: "",
-          value: "ptwButton",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+        
         // {
         //   name: "Event Logs",
         //   value: "eventLogsmilestone",
