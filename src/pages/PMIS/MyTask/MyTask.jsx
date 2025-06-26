@@ -34,12 +34,14 @@ import FilterActions from "../../../store/actions/filter-actions";
 import ManageProjectSiteIdForm from "../Admin/ManageProjectSiteId/ManageProjectSiteIdForm";
 import AllocateProjectForm from "../Admin/ManageProjectSiteId/AllocateProjectForm";
 import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
-import { GET_CIRCLE_WITH_PG_DATA, GET_MAPPED_DATA } from "../../../store/reducers/projectList-reducer";
+import {
+  GET_CIRCLE_WITH_PG_DATA,
+  GET_MAPPED_DATA,
+} from "../../../store/reducers/projectList-reducer";
 import MyHomeActions from "../../../store/actions/myHome-actions";
 import { GET_FILTER_MYTASK_SUBPROJECT } from "../../../store/reducers/filter-reducer";
 import Api from "../../../utils/api";
 import CommonForm from "../../../components/CommonForm";
-
 
 const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -74,150 +76,6 @@ const MyTask = () => {
     riskassessment : []
   })
 
-  // let Form = [
-  //       {
-  //           label: "Logo",
-  //           value: "",
-  //           name: "img",
-  //           type: "file",
-  //           props: {
-  //               onChange: ((e) => {
-  //                   setValue("companyimg",e.target.files[0])
-  //               }),
-  //           },
-  //           classes: "col-span-1",
-  //           multiple:false,
-  //       },
-  //        {
-  //           label: "Customer Name",
-  //           value: "",
-  //           name: "customerName",
-  //           type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
-  //           required: true,
-  //           props: {
-  //               onChange: ((e) => {
-  //                   // console.log(e.target.value, "e geeter")
-  //                   // setValue("queries",e.target.name)
-  //               }),
-  //           },
-  //           classes: "col-span-1"
-  //       },
-  //       {
-  //           label: "ShortName",
-  //           value: "",
-  //           name: "shortName",
-  //           type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
-  //           required: true,
-  //           props: {
-  //               onChange: ((e) => {
-  //               }),
-  //           },
-  //           classes: "col-span-1"
-  //       }, 
-  //       {
-  //           label: "Contact Person Name",
-  //           value: "",
-  //           name: "personName",
-  //           type: "text",
-  //           // required: true,
-  //           props: {
-  //               onChange: ((e) => {
-                
-  //               }),
-  //           },
-  //           classes: "col-span-1"
-  //       }, 
-  //       {
-  //           label: "Email",
-  //           value: "",
-  //           name: "email",
-  //           type: "text",
-  //           required: true,
-  //           props: {
-  //               onChange: ((e) => {
-                
-
-  //               }),
-  //           },
-  //           classes: "col-span-1"
-  //       }, 
-  //       {
-  //           label: "Mobile No.",
-  //           value: "",
-  //           name: "mobile",
-  //           type: "number",
-  //           required: true,
-  //           props: {
-  //               onChange: ((e) => {
-                 
-
-  //               }),
-  //           },
-  //           classes: "col-span-1"
-  //       }, 
-  //       {
-  //           label: "Address",
-  //           name: "address",
-  //           type: "text",
-  //           props: {
-  //               onChange: ((e) => {
-                
-  //               }),
-  //           },
-  //           required: true,
-  //           classes: "col-span-1"
-  //       }, 
-  //       {
-  //           label: "Index",
-  //           name: "index",
-  //           type: "number",
-  //           required: true,
-  //           props: {
-  //               valueAsNumber:true,
-  //               min: 1,
-  //           },
-  //           classes: "col-span-1"
-  //       }, 
-  //       {
-  //           label: "Attachment",
-
-  //           value: "",
-  //           name: "attachment",
-  //           type: "file",
-  //           // required: true,
-  //           props: {
-  //               onChange: ((e) => {
-  //                   console.log(e.target.files, "e geeter")
-
-  //                   setValue("attachment",e.target.files[0])
-
-  //               }),
-  //           },
-  //           classes: "col-span-1",
-  //           multiple:false,
-  //       },
-  //       {
-  //           label: "Status",
-  //           name: "status",
-  //           type: "select",
-  //           option: [
-  //               { "label": "Active", "value": "Active" },
-  //               { "label": "Inactive", "value": "Inactive" }
-  //           ],
-  //           props: {
-  //               onChange: ((e) => {
-                  
-  //               }),
-  //           },
-  //           required: true,
-  //           classes: "col-span-1"
-  //       }, 
-  //       // { label: "User", value: "", option: ["User Name"], type: "select" }
-  //   ]
-
-
-
-
   const [modalHead, setmodalHead] = useState(<></>);
 
   const [old, setOld] = useState(<></>);
@@ -244,22 +102,22 @@ const MyTask = () => {
     return state.projectList.getProjectTypeSub;
   });
 
-  let showTypeforAction = getAccessType("Actions(Site)")
+  let showTypeforAction = getAccessType("Actions(Site)");
 
-  let shouldIncludeEditColumn = false
+  let shouldIncludeEditColumn = false;
 
-  if (showTypeforAction === "visible"){
-    shouldIncludeEditColumn = true
+  if (showTypeforAction === "visible") {
+    shouldIncludeEditColumn = true;
   }
 
   let customerList = useSelector((state) => {
     return state?.adminData?.getManageCustomer.map((itm) => {
-        return {
-            label: itm?.customerName,
-            value: itm?.uniqueId
-        }
-    })
-}) 
+      return {
+        label: itm?.customerName,
+        value: itm?.uniqueId,
+      };
+    });
+  });
 
 
 const handleAddActivity  = async (data , formType) => {
@@ -290,8 +148,6 @@ const handleAddActivity  = async (data , formType) => {
       };
     });
   });
-
-
 
   let dbConfigL = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
@@ -375,12 +231,19 @@ const handleAddActivity  = async (data , formType) => {
             onClick={() => {
               console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
               setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site:-"+itm['Site Id']);
-              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
+              setmodalHead("Update Site:-" + itm["Site Id"]);
+              dispatch(
+                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                  dataAll: [],
+                  reset: true,
+                })
+              );
               // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
-              dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
+              dispatch(GET_MAPPED_DATA({ dataAll: [], reset: true }));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-              dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
+              dispatch(
+                projectListActions.getCircleWithPGData(itm.projectuniqueId)
+              );
               dispatch(projectListActions.getMappedData(itm.projectuniqueId));
               setmodalBody(
                 <ManageMilestoneSite
@@ -390,8 +253,8 @@ const handleAddActivity  = async (data , formType) => {
                   setGlobalData={setGlobalData}
                   setSiteId={setSiteId}
                   setmodalFullOpen={setmodalFullOpen}
-                  projectuniqueId={itm['projectuniqueId']}
-                  myTaskPage = "Yes"
+                  projectuniqueId={itm["projectuniqueId"]}
+                  myTaskPage="Yes"
                 />
               );
 
@@ -459,14 +322,17 @@ const handleAddActivity  = async (data , formType) => {
 
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
-            <p className="text-[#13b497] font-extrabold">{itm.siteageing + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">
+              {itm.siteageing + " Days"}
+            </p>
           ) : (
-            <p className="text-rose-400 font-extrabold">{itm.siteageing + " Days"}</p>
+            <p className="text-rose-400 font-extrabold">
+              {itm.siteageing + " Days"}
+            </p>
           )
         ) : (
           ""
         ),
-        
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
           return {
@@ -475,29 +341,33 @@ const handleAddActivity  = async (data , formType) => {
 
             MileDevName: (
               <div className="flex">
-                <p
-                >
+                <p>
                   {iewq.assignerResult ? (
-
-                   
                     <>
                       <div class="">
                         <div class="group flex flex-row relative items-center w-full">
-                        {iewq.assignerResult
-                          .slice(0, 2)
-                          .map((itwsw, index) => (
+                          {iewq.assignerResult
+                            .slice(0, 2)
+                            .map((itwsw, index) => (
                               <p
-                                  key={index}
-                                  className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                                key={index}
+                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
                               >
-                                  {" "}
-                                  {itwsw.assignerName && itwsw.assignerName.trim().split(" ").length > 1
-                                      ? `${itwsw.assignerName.split(" ")[0].substr(0, 1)}${itwsw.assignerName.split(" ")[1].substr(0, 1)}`
-                                      : itwsw.assignerName
-                                          ? itwsw.assignerName.split(" ")[0].substr(0, 1)
-                                          : ''}
+                                {" "}
+                                {itwsw.assignerName &&
+                                itwsw.assignerName.trim().split(" ").length > 1
+                                  ? `${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[1]
+                                      .substr(0, 1)}`
+                                  : itwsw.assignerName
+                                  ? itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)
+                                  : ""}
                               </p>
-                          ))}
+                            ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
@@ -524,7 +394,10 @@ const handleAddActivity  = async (data , formType) => {
                       setmodalBody(
                         <>
                           <div className="flex justify-between">
-                            <label htmlFor="" className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap">
+                            <label
+                              htmlFor=""
+                              className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap"
+                            >
                               {" "}
                               Current Status:
                             </label>
@@ -533,7 +406,7 @@ const handleAddActivity  = async (data , formType) => {
                             </p>
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-                          <Button
+                            <Button
                               classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
                               onClick={() => {
@@ -548,7 +421,8 @@ const handleAddActivity  = async (data , formType) => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId,strValFil
+                                          projectuniqueId,
+                                          strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -564,7 +438,7 @@ const handleAddActivity  = async (data , formType) => {
                   >
                     {iewq.mileStoneStatus}
                   </p>
-                </>
+                </> 
               ) : (
                 <p>{iewq.mileStoneStatus}</p>
               ),
@@ -576,11 +450,16 @@ const handleAddActivity  = async (data , formType) => {
                   setmodalFullOpen((prev) => !prev);
                   // dispatch(AdminActions.getProject())
                   setmodalHead("Update Milestone");
-                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [], reset: true}));
+                  dispatch(
+                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
+                      dataAll: [],
+                      reset: true,
+                    })
+                  );
                   // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
                   // dispatch(GET_MAPPED_DATA({dataAll: [], reset: true}))
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-                  
+
                   setmodalBody(
                     <ManageMilestoneSite
                       siteCompleteData={itm}
@@ -590,7 +469,7 @@ const handleAddActivity  = async (data , formType) => {
                       setSiteId={setSiteId}
                       setmodalFullOpen={setmodalFullOpen}
                       projectuniqueId={itm.projectuniqueId}
-                      myTaskPage = "Yes"
+                      myTaskPage="Yes"
                     />
                   );
 
@@ -603,9 +482,13 @@ const handleAddActivity  = async (data , formType) => {
             eventLogsmilestone: <></>,
             taskmageing:
               iewq.taskageing >= 0 ? (
-                <p className="text-[#13b497] font-extrabold">{iewq.taskageing + " Days"}</p>
+                <p className="text-[#13b497] font-extrabold">
+                  {iewq.taskageing + " Days"}
+                </p>
               ) : (
-                <p className="text-rose-400 font-extrabold">{iewq.taskageing + " Days"}</p>
+                <p className="text-rose-400 font-extrabold">
+                  {iewq.taskageing + " Days"}
+                </p>
               ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (
@@ -653,7 +536,8 @@ const handleAddActivity  = async (data , formType) => {
                                     () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
-                                          projectuniqueId,strValFil
+                                          projectuniqueId,
+                                          strValFil
                                         )
                                       );
                                       setmodalOpen(false);
@@ -709,7 +593,7 @@ const handleAddActivity  = async (data , formType) => {
 
                             buttons: [
                               <Button
-                                classes='w-15 bg-rose-400'
+                                classes="w-15 bg-rose-400"
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCaller(
@@ -886,11 +770,12 @@ const handleAddActivity  = async (data , formType) => {
                             icon: "warning",
                             buttons: [
                               <Button
-                                classes='w-15 bg-rose-400'
+                                classes="w-15 bg-rose-400"
                                 onClick={() => {
                                   dispatch(
                                     CommonActions.deleteApiCallerBulk(
-                                      `${Urls.projectList_siteEngineer}`,{ids : [itm.uniqueId]},
+                                      `${Urls.projectList_siteEngineer}`,
+                                      { ids: [itm.uniqueId] },
                                       () => {
                                         dispatch(
                                           projectListActions.getProjectTypeAll(
@@ -934,7 +819,7 @@ const handleAddActivity  = async (data , formType) => {
   console.log("safasfasfasfasfasdfasdfasdfabc4545", dbConfigList[0]);
   let dbConfigTotalCount =
     useSelector((state) => {
-        let interdata = state?.myHomeData?.getmyTask || 0;
+      let interdata = state?.myHomeData?.getmyTask || 0;
       // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
         console.log(
@@ -992,18 +877,18 @@ const handleAddActivity  = async (data , formType) => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style:"min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style:
+          "min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "Project ID",
         value: "projectId",
-        style:
-          "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Customer",
         value: "customerName",
-        style:"min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Sub Project",
@@ -1157,129 +1042,143 @@ const handleAddActivity  = async (data , formType) => {
         label: "Customer",
         type: "select",
         name: "customer",
-        option:customerList,
+        option: customerList,
         props: {
-          onChange:(e)=>{
-            if (e.target.value){
-              dispatch(FilterActions.getMyTaskSubProject(true,"",e.target.value))
+          onChange: (e) => {
+            if (e.target.value) {
+              dispatch(
+                FilterActions.getMyTaskSubProject(true, "", e.target.value)
+              );
+            } else {
+              dispatch(
+                GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true })
+              );
             }
-            else{
-              dispatch(GET_FILTER_MYTASK_SUBPROJECT({dataAll:[],reset:true}))
-            }
-          }
-        }
-    },
+          },
+        },
+      },
       {
         label: "Sub Project",
         type: "select",
         name: "subProject",
-        option:subProjectList,
-        props: {}
+        option: subProjectList,
+        props: {},
       },
       {
-          label: "Site Status",
-          type: "select",
-          name: "siteStatus",
-          option: [
-            { label: "Open", value: "Open" },
-            { label: "Close", value: "Close" },
-            { label: "Drop", value: "Drop" },
-            { label: "All", value: "all" },
-          ],
-          props: {}
+        label: "Site Status",
+        type: "select",
+        name: "siteStatus",
+        option: [
+          { label: "Open", value: "Open" },
+          { label: "Close", value: "Close" },
+          { label: "Drop", value: "Drop" },
+          { label: "All", value: "all" },
+        ],
+        props: {},
       },
       {
-          label: "MileStone Status",
-          type: "select",
-          name: "mileStoneStatus",
-          option:[
-            {label:'Open', value:'Open'},
-            {label:'In Process', value:'In Process'},
-            {label:'Submit', value:'Submit'},
-            {label:'Approve', value:'Approve'},
-            {label:'Submit to Airtel', value:'Submit to Airtel'},
-            {label:'Reject', value:'Reject'},
-            {label:'Closed', value:'Closed'},
-            {label:'All', value:'All'},
-          ],
-          props: {}
-      }
+        label: "MileStone Status",
+        type: "select",
+        name: "mileStoneStatus",
+        option: [
+          { label: "Open", value: "Open" },
+          { label: "In Process", value: "In Process" },
+          { label: "Submit", value: "Submit" },
+          { label: "Approve", value: "Approve" },
+          { label: "Submit to Airtel", value: "Submit to Airtel" },
+          { label: "Reject", value: "Reject" },
+          { label: "Closed", value: "Closed" },
+          { label: "All", value: "All" },
+        ],
+        props: {},
+      },
     ],
   };
 
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
-    let strVal=objectToQueryString(data)
-    setstrVal(strVal)
-    dispatch(MyHomeActions.getMyTask(true,strVal))
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    dispatch(MyHomeActions.getMyTask(true, strVal));
   };
   useEffect(() => {
-    dispatch(AdminActions.getManageCustomer())
-    dispatch(MyHomeActions.getMyTask())
-    dispatch(GET_FILTER_MYTASK_SUBPROJECT({dataAll:[],reset:true}))
+    dispatch(AdminActions.getManageCustomer());
+    dispatch(MyHomeActions.getMyTask());
+    dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));
   }, []);
 
   const handleBulkDelte = () => {   
   };
 
-console.log(childsite , parentsite , dbConfigList[0]?.uniqueId , dbConfigList , 'asdfasdfasdfasdfasdf')
+
+  
+
   return (
     <>
       <AdvancedTableExpandable
-      parentsite={parentsite}
-      childsite={childsite}
+        parentsite={parentsite}
+        childsite={childsite}
         searchView={
           <>
             <SearchBarView
-              onblur={(e) => {
-              }}
+              onblur={(e) => {}}
               onchange={(e) => {
-                const siteNameQuery = (e.target.value ? "siteName=" + (e.target.value + '&') : "" ) +strValFil;
-                dispatch(MyHomeActions.getMyTask(true,siteNameQuery));  
+                const siteNameQuery =
+                  (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
+                  strValFil;
+                dispatch(MyHomeActions.getMyTask(true, siteNameQuery));
               }}
               placeHolder={"Site Name"}
             />
 
             <SearchBarView
-              onblur={(e) => {
-              }}
+              onblur={(e) => {}}
               onchange={(e) => {
-                dispatch(MyHomeActions.getMyTask(true,(e.target.value ? "mileStoneName=" + (e.target.value + '&'): "") +strValFil));
+                dispatch(
+                  MyHomeActions.getMyTask(
+                    true,
+                    (e.target.value
+                      ? "mileStoneName=" + (e.target.value + "&")
+                      : "") + strValFil
+                  )
+                );
               }}
               placeHolder={"Milestone Name"}
             />
           </>
         }
-        
         headerButton={
           <div className="flex gap-1">
-          {(Array.isArray(parentsite) && parentsite?.length > 0 ) && (
-                <Button
-                  classes="w-auto"
-                  onClick={(e) => {
-                    setmodalOpen((prev) => !prev);
-                    setmodalHead("Confirm Delete");
-                    setmodalBody(
-                      <div className="flex justify-center py-6">
-                        <button 
-                          onClick={handleBulkDelte}
-                          className="w-1/4 rounded-full bg-green-600"
-                        >
+            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+              <Button
+                classes="w-auto"
+                onClick={(e) => {
+                  setmodalOpen((prev) => !prev);
+                  setmodalHead("Confirm Delete");
+                  setmodalBody(
+                    <div className="flex justify-center py-6">
+                      <button
+                        onClick={handleBulkDelte}
+                        className="w-1/4 rounded-full bg-green-600"
+                      >
                         OK
-                        </button>
-                      </div>
-                    );
-                  }}
-                  name={"Delete"}
-                ></Button>
+                      </button>
+                    </div>
+                  );
+                }}
+                name={"Delete"}
+              ></Button>
             )}
             <ConditionalButton
               showType={getAccessType("Export(Site)")}
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
-                  CommonActions.commondownload("/export/myTask?"+strValFil,"Export_My_Task.xlsx")
+                  CommonActions.commondownload(
+                    "/export/myTask?" + strValFil,
+                    "Export_My_Task.xlsx"
+                  )
                 );
               }}
               name={"Export"}
@@ -1299,8 +1198,8 @@ console.log(childsite , parentsite , dbConfigList[0]?.uniqueId , dbConfigList , 
         getmultiSelect={getmultiSelect}
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
-        heading = {'Total Sites:-'}
-        TableHeight = "h-[70vh]"
+        heading={"Total Sites:-"}
+        TableHeight="h-[70vh]"
       />
 
       <Modal

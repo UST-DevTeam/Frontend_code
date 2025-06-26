@@ -1,544 +1,294 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-
-import { ALERTS } from "../../../../store/reducers/component-reducer";
+import FileUploader from "../../../../components/FIleUploader";
+import L1ApproverForm from "./L1ApproverForm";
+import PTWActions from "../../../../store/actions/ptw-actions";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
-// import FinanceActions from "../../../../store/actions/finance-actions";
-
-import moment from "moment/moment";
-
-import FileUploader from "../../../../components/FIleUploader";
-
-import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
-// import SalaryDBForm from "./salaryDBForm";
-// import OtherFixedCostForm from "./OtherFixedCostForm";
-
-import {
-  objectToQueryString,
-  getAccessType,
-} from "../../../../utils/commonFunnction";
-import L1ApproverForm from "./L1ApproverForm";
-
+import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
 const L1Approver = () => {
-  const currentMonth = new Date().getMonth() + 1;
-  const currrentYear = new Date().getFullYear();
+  const dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
-  const [ValGm, setValGm] = useState("Month");
-  const endDate = moment().format("Y");
-  const [year, setyear] = useState(currrentYear);
   const [modalHead, setmodalHead] = useState(<></>);
-  const [extraColumns, setExtraColumns] = useState("");
-  const [newColumns, setNewColumns] = useState([]);
-  const [selectType, setSelectType] = useState("");
   const [fileOpen, setFileOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
   const Data = useRef("");
 
-  let dispatch = useDispatch();
-
-  let costCenterList = useSelector((state) => {
-    return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm?.costCenterId,
-      };
-    });
-  });
-
-  let showType = getAccessType("Actions(P&L)");
-  let shouldIncludeEditColumn = false;
-
-  if (showType === "visible") {
-    shouldIncludeEditColumn = true;
-  }
-
-  let dbConfigList = useSelector((state) => {
-    let interdata = state?.gpTrackingReducer?.getOtherFixedCost || [];
-    return interdata?.map((itm) => {
-      let updateditm = {
-        ...itm,
-
-        edit: (
-          <CstmButton
-            className={"p-2"}
-            child={
-              <EditButton
-                name={""}
-                onClick={() => {
-                  setmodalOpen(true);
-                  setmodalHead("Edit Plan");
-                  setmodalBody(
-                    <>
-                      <L1ApproverForm
-                        isOpen={modalOpen}
-                        setIsOpen={setmodalOpen}
-                        resetting={false}
-                        formValue={itm}
-                        year={year}
-                        monthss={[itm?.month]}
-                        filtervalue={""}
-                      />
-                    </>
-                  );
-                }}
-              ></EditButton>
-            }
-          />
-        ),
-
-        delete: (
-          <CstmButton
-            child={
-              <DeleteButton
-                name={""}
-                onClick={() => {
-                  let msgdata = {
-                    show: true,
-                    icon: "warning",
-                    buttons: [
-                      <Button
-                        classes="w-15 bg-rose-400"
-                        onClick={() => {
-                          dispatch(
-                            CommonActions.deleteApiCaller(
-                              `${Urls.gpTracking_OtherFixedCost}/${itm.uniqueId}`,
-                              () => {
-                                // dispatch(FormssActions.getProfiltLoss());
-                                dispatch(gpTrackingActions.getOtherFixedCost());
-                                dispatch(ALERTS({ show: false }));
-                              }
-                            )
-                          );
-                        }}
-                        name={"OK"}
-                      />,
-                      <Button
-                        classes="w-auto"
-                        onClick={() => {
-                          dispatch(ALERTS({ show: false }));
-                        }}
-                        name={"Cancel"}
-                      />,
-                    ],
-                    text: "Are you sure you want to Delete?",
-                  };
-                  dispatch(ALERTS(msgdata));
-                }}
-              ></DeleteButton>
-            }
-          />
-        ),
-      };
-      return updateditm;
-    });
-  });
-
-  let dbConfigTotalCount = useSelector((state) => {
-    let interdata = state?.gpTrackingReducer?.getOtherFixedCost || [];
-    if (interdata.length > 0) {
-      return interdata[0]["overall_table_count"];
-    } else {
-      return 0;
-    }
-  });
+  const [year] = useState(new Date().getFullYear());
 
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
-    setValues,
-    reset,
     getValues,
     formState: { errors },
   } = useForm();
 
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  const getPreviousCurrentAndNextMonth = () => {
-    const currentDate = new Date();
-    const currentMonthIndex = currentDate.getMonth();
-    const previousMonthIndex = (currentMonthIndex - 1 + 12) % 12;
-    const nextMonthIndex = (currentMonthIndex + 1) % 12;
-    const currentYear = currentDate.getFullYear();
-    const previousMonthYear =
-      currentMonthIndex === 0 ? currentYear - 1 : currentYear;
-    const nextMonthYear =
-      currentMonthIndex === 11 ? currentYear + 1 : currentYear;
-
-    return [
-      { month: months[previousMonthIndex], year: previousMonthYear },
-      { month: months[currentMonthIndex], year: currentYear },
-      { month: months[nextMonthIndex], year: nextMonthYear },
-    ];
+  const refreshData = () => {
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({
+          ApproverType: "L1-Approver",
+        })
+      )
+    );
   };
 
-  const [previousMonthData, currentMonthData, nextMonthData] =
-    getPreviousCurrentAndNextMonth();
-  let listYear = [];
-  for (let ywq = 2023; ywq <= +endDate; ywq++) {
-    listYear.push(ywq);
-  }
 
-  let listDict = {
-    "": [],
-    Month: [
-      { id: 1, name: "Jan" },
-      { id: 2, name: "Feb" },
-      { id: 3, name: "Mar" },
-      { id: 4, name: "Apr" },
-      { id: 5, name: "May" },
-      { id: 6, name: "Jun" },
-      { id: 7, name: "Jul" },
-      { id: 8, name: "Aug" },
-      { id: 9, name: "Sep" },
-      { id: 10, name: "Oct" },
-      { id: 11, name: "Nov" },
-      { id: 12, name: "Dec" },
-    ],
+  
+  
+  const l1ApproverList = useSelector((state) => {
+    console.log("Redux state:", state);
+    const interdata = state?.ptwData?.getL1ApproverData || [];
+    return interdata.map((itm) => ({
+      ...itm,
+      edit: (
+        <CstmButton
+          className="p-2"
+          child={<EditButton name="" onClick={() => handleEditClick(itm)} />}
+        />
+      ),
+
+      delete: (
+        <CstmButton
+          child={
+            <DeleteButton
+              name={""}
+              onClick={() => {
+                let msgdata = {
+                  show: true,
+                  icon: "warning",
+                  buttons: [
+                    <Button
+                      classes="w-15 bg-rose-400"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.deleteApiCaller(
+                            `${Urls.l1ApproverSubmit}/${itm.uniqueId}`,
+                            () => {
+                              refreshData(); // Use the refresh function
+                              dispatch(ALERTS({ show: false }));
+                            }
+                          )
+                        );
+                      }}
+                      name={"OK"}
+                    />,
+                    <Button
+                      classes="w-auto"
+                      onClick={() => {
+                        dispatch(ALERTS({ show: false }));
+                      }}
+                      name={"Cancel"}
+                    />,
+                  ],
+                  text: "Are you sure you want to Delete?",
+                };
+                dispatch(ALERTS(msgdata));
+              }}
+            ></DeleteButton>
+          }
+        />
+      ),
+    }));
+  });
+
+  const l1ApproverTotalCount = useSelector((state) => {
+    const interdata = state?.ptwData?.getL1ApproverData || [];
+    return interdata.length > 0 ? interdata[0]["overall_table_count"] : 0;
+  });
+
+  const handleEditClick = (item) => {
+    console.log("Edit clicked for item:", item);
+    setEditingItem(item);
+    setmodalHead("Edit Approver");
+
+    setmodalBody(
+      <L1ApproverForm
+        isOpen={true}
+        setIsOpen={setmodalOpen}
+        resetting={false}
+        formValue={item}
+        filtervalue=""
+        onSuccess={refreshData}
+      />
+    );
+
+    setmodalOpen(true);
   };
-  let table = {
+
+  const table = {
     columns: [
-      //   {
-      //     name: "Year",
-      //     value: "year",
-      //     style: "min-w-[140px] max-w-[200px] text-center",
-      //   },
-      //   {
-      //     name: "Month",
-      //     value: "month",
-      //     style: "min-w-[140px] max-w-[200px] text-center",
-      //   },
       {
         name: "Emp Name",
         value: "empName",
-        style:
-          "min-w-[150px] max-w-[450px] text-center font-extrabold sticky left-0 bg-[#3e454d] z-10",
+        style: "text-center min-w-[150px]",
       },
+      { name: "Profile", value: "profile", style: "text-center min-w-[150px]" },
       {
         name: "Customer Name",
         value: "customerName",
-        style:
-          "min-w-[200px] max-w-[200px] text-center sticky left-[149px] bg-[#3e454d] z-10",
+        style: "text-center min-w-[150px]",
       },
       {
         name: "Project Group",
-        value: "projectGroup",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        value: "projectGroupName",
+        style: "text-center min-w-[150px]",
       },
       {
         name: "Project Type",
-        value: "projectType",
-        style: "min-w-[120px] max-w-[450px] text-center",
+        value: "projectTypeName",
+        style: "text-center min-w-[150px]",
       },
       {
-        name: "Milestone",
-        value: "milestone",
-        style: "min-w-[170px] max-w-[450px] text-center whitespace-nowrap",
+        name: "Circle",
+        value: "circleName",
+        style: "text-center min-w-[150px]",
       },
-      ...newColumns,
-      ...(shouldIncludeEditColumn
-        ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-          ]
-        : []),
+      { name: "Edit", value: "edit", style: "text-center min-w-[100px]" },
+      { name: "Delete", value: "delete", style: "text-center min-w-[100px]" },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      //   {
-      //   label: "Year",
-      //   name: "year",
-      //   value: "Select",
-      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      //   type: "select",
-      //   option: listYear.map((itmYr) => {
-      //     return {
-      //       label: itmYr,
-      //       value: itmYr,
-      //     };
-      //   }),
-      //   props: {
-      //     onChange: (e) => {
-      //       setValue("year", e.target.value);
-      //       setyear(e.target.value);
-      //     },
-      //   },
-      //   required: true,
-      //   classes: "col-span-1 h-38px",
-      // },
-      // {
-      //   label: ValGm,
-      //   name: "viewBy",
-      //   value: "Select",
-      //   type: "newmuitiSelect2",
-      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      //   option: listDict[ValGm].map((dasd) => {
-      //     return {
-      //       value: dasd?.id,
-      //       label: dasd?.name,
-      //     };
-      //   }),
-      //   props: {
-      //     selectType:selectType,
-      //   },
-      //   hasSelectAll:true,
-      //   required: true,
-      //   classes: "col-span-1 h-10",
-      // },
-      // {
-      //   label: 'Project Group',
-      //   name: "projectGroup",
-      //   value: "select",
-      //   type: "newmuitiSelect2",
-      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      //   option: costCenterList,
-      //   props: {
-      //     selectType:selectType,
-      //   },
-      //   hasSelectAll:true,
-      //   classes: "col-span-1 h-10",
-      // }
-    ],
+    filter: [],
   };
 
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    let strVal = objectToQueryString(data);
-    dispatch(gpTrackingActions.getOtherFixedCost(true, strVal));
-  };
-  useEffect(() => {
-    // dispatch(FormssActions.getProfiltLoss())
-    dispatch(gpTrackingActions.getOtherFixedCost());
-    // dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
-    dispatch(gpTrackingActions.getGPCostCenter());
-    dispatch(gpTrackingActions.getGPCustomer());
-  }, []);
-
-  let formD = [
-    {
-      label: "Year",
-      name: "year",
-      value: "Select",
-      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
-      type: "select",
-      option: listYear.map((itmYr) => {
-        return {
-          label: itmYr,
-          value: itmYr,
-        };
-      }),
-      props: {
-        onChange: (e) => {
-          setValue("year", e.target.value);
-          setyear(e.target.value);
-        },
-      },
-      required: true,
-      classes: "col-span-1 h-38px",
-    },
-    {
-      label: ValGm,
-      name: "viewBy",
-      value: "Select",
-      type: "newmuitiSelect2",
-      option: listDict[ValGm].map((dasd) => {
-        return {
-          value: dasd?.id,
-          label: dasd?.name,
-        };
-      }),
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      required: true,
-      classes: "col-span-1 h-10",
-    },
-    {
-      label: "Cost Center",
-      name: "costCenter",
-      value: "select",
-      type: "newmuitiSelect2",
-      option: costCenterList,
-      props: {
-        selectType: selectType,
-      },
-      hasSelectAll: true,
-      classes: "col-span-1 h-10",
-    },
-  ];
-
-  useEffect(() => {
-    const monthMap = {
-      1: "Jan",
-      2: "Feb",
-      3: "Mar",
-      4: "Apr",
-      5: "May",
-      6: "Jun",
-      7: "Jul",
-      8: "Aug",
-      9: "Sep",
-      10: "Oct",
-      11: "Nov",
-      12: "Dec",
-    };
-    let cols = [];
-    cols = cols.flat(Infinity);
-    setNewColumns(cols);
-  }, [extraColumns]);
-
-  const handleAddActivity = (res) => {
-    Data.current = "";
-    setExtraColumns(res["Month"]);
-    Data.current = res["Cost Center"];
-    // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-    console.log(res, "lieoijejiejijied");
-    dispatch(gpTrackingActions.getOtherFixedCost(true, res));
-  };
-
-  const onTableViewSubmit = (data) => {
-    data["fileType"] = "OtherFixedCost";
+    const strVal = objectToQueryString(data);
     dispatch(
-      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false);
-        dispatch(gpTrackingActions.getOtherFixedCost());
-      })
+      PTWActions.getL1ApproverData(
+        true,
+        strVal,
+        objectToQueryString({ ApproverType: "L1-Approver" })
+      )
     );
   };
 
+  // const onTableViewSubmit = (data) => {
+  //   data["fileType"] = "L1Approver";
+  //   dispatch(
+  //     CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+  //       setFileOpen(false);
+  //       refreshData();
+  //     })
+  //   );
+  // };
+
+  const onTableViewSubmit = (data) => { 
+    data["fileType"]="L1_Approver_MDB"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false)
+       dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({
+          ApproverType: "L1-Approver",
+        })
+      )
+    );
+    }))
+  }
+
+  const handleModalClose = () => {
+    refreshData();
+
+    setmodalOpen(false);
+    setEditingItem(null);
+    setmodalBody(<></>);
+    setmodalHead(<></>);
+  };
+
+  useEffect(() => {
+    refreshData();
+  }, [dispatch]);
+
   return (
     <>
-      {/* <div className="flex items-center justify-start">
-        <div className="col-span-1 md:col-span-1">
-          <CommonForm
-            classes="grid grid-cols-3 w-[550px] overflow-y-hidden p-2"
-            Form={formD}
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            getValues={getValues}
-          />
-        </div>
-        <div className="flex w-fit mt-4 -ml-3 items-center justify-center">
-          <Button
-            classes="flex h-fit"
-            name=""
-            icon={<UilSearch className="w-5 m-2 h-5" />}
-            onClick={handleSubmit(handleAddActivity)}
-          />
-        </div>
-      </div> */}
-
       <AdvancedTable
         headerButton={
-          <>
-            <div className="flex">
-              <Button
-                onClick={(e) => {
-                  setmodalOpen((prev) => !prev);
-                  setmodalHead("Add Approver");
-                  setmodalBody(
-                    <L1ApproverForm
-                      isOpen={modalOpen}
-                      setIsOpen={setmodalOpen}
-                      resetting={true}
-                      formValue={{}}
-                    />
-                  );
-                }}
-                name={"Add New"}
-                classes="w-auto mr-1"
-              ></Button>
-              <Button
-                name={"Upload File"}
-                classes="w-auto mr-1"
-                onClick={(e) => {
-                  setFileOpen((prev) => !prev);
-                }}
-              ></Button>
-              <Button
-                name={"Export"}
-                classes="w-auto mr-1"
-                onClick={(e) => {
-                  dispatch(
-                    CommonActions.commondownloadpost(
-                      "/export/OtherFixedCost",
-                      "Export_OtherFixedCost.xlsx",
-                      "POST",
-                      {
-                        year: year,
-                        Month: extraColumns,
-                        "Cost Center": Data.current,
-                      }
-                    )
-                  );
-                }}
-              ></Button>
-            </div>
-          </>
+          <div className="flex">
+            <Button
+              onClick={() => {
+                setmodalHead("Add Approver");
+                setmodalBody(
+                  <L1ApproverForm
+                    isOpen={true}
+                    setIsOpen={setmodalOpen}
+                    resetting={true}
+                    formValue={{}}
+                    year={year}
+                    monthss={[]}
+                    filtervalue=""
+                    onSuccess={refreshData}
+                  />
+                );
+                setmodalOpen(true);
+              }}
+              name="Add New"
+              classes="w-auto mr-1"
+            />
+            <Button
+              name="Upload File"
+              classes="w-auto mr-1"
+              onClick={() => setFileOpen(true)}
+            />
+            <Button
+              name={"Export"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                dispatch(
+                  CommonActions.commondownloadpost(
+                    "/Export/ptwMDB",
+                    "Export_L1Approval.xlsx",
+                    "POST",
+                    { ApproverType: "L1-Approver" }
+                  )
+                );
+              }}
+            ></Button>
+          </div>
         }
         table={table}
         filterAfter={onSubmit}
-        tableName={"Other Fixed Cost Form"}
+        tableName="L1 Approver Table"
         TableHeight="h-[68vh]"
         handleSubmit={handleSubmit}
-        data={dbConfigList}
+        data={l1ApproverList}
         errors={errors}
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={dbConfigTotalCount}
-        heading={"Total Count :-"}
+        totalCount={l1ApproverTotalCount}
+        heading="Total Count :-"  
       />
       <Modal
-        size={"sm"}
+        size="sm"
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
-        setIsOpen={setmodalOpen}
+        setIsOpen={handleModalClose}
       />
-      <FileUploader
+       <FileUploader
         isOpen={fileOpen}
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/OtherFixedCost.xlsx", "OtherFixedCost.xlsx"]}
+        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
       />
     </>
   );

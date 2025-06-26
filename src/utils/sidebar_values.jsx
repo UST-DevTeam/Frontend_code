@@ -133,6 +133,7 @@ import MDBApprover from "../pages/PMIS/Admin/MDBApprover/MDBApprover";
 import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
 import L2Approver from "../pages/PMIS/Admin/L2Approver/L2Approver";
 import PtwForm from "../pages/PMIS/Admin/PTW/PtwForm";
+import PTWLogBackup from "../pages/PMIS/MyHome/PTWLogBackup";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -360,6 +361,12 @@ export const Sidebar_content = {
       link: "/home/parentApproverCards",
       subMenu: [],
       component: <ParentApproverCards />,
+    },
+    {
+      name: "",
+      link: "/superAdmin/PtwLogBackup",
+      subMenu: [],
+      component: <PTWLogBackup/>,
     },
     {
       name: "",
@@ -944,7 +951,7 @@ export const Sidebar_content = {
 
     {
       name: "PTW",
-      link: "/superAdmin/ptw",
+      link: "/superAdmin/PTW",
       component:<Ptw/>,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
@@ -958,21 +965,21 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/superAdmin/ptw/mdbApprover",
+      link: "/superAdmin/PTW/mdbApprover",
       component:<MDBApprover/>,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/superAdmin/ptw/mdbApprover/l1Approver",
+      link: "/superAdmin/PTW/mdbApprover/l1Approver",
       component:<L1Approver/>,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/superAdmin/ptw/mdbApprover/l2Approver",
+      link: "/superAdmin/PTW/mdbApprover/l2Approver",
       component:<L2Approver/>,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],

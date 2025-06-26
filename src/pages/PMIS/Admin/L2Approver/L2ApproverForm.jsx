@@ -9,7 +9,7 @@ import Button from "../../../../components/Button";
 import PTWActions from "../../../../store/actions/ptw-actions";
 import { objectToQueryString } from "../../../../utils/commonFunnction"; // Import the function
 
-const L1ApproverForm = ({
+const L2ApproverForm = ({
   isOpen,
   setIsOpen,
   resetting,
@@ -81,7 +81,6 @@ const L1ApproverForm = ({
           console.log("selectedCustomerselectedCustomer", e?.target?.value);
           dispatch(PTWActions.getPtwProjectType(true, e?.target?.value, ""));
           dispatch(PTWActions.getPtwProjectGroup(true, e?.target?.value, ""));
-          
         },
       },
     },
@@ -129,14 +128,21 @@ const L1ApproverForm = ({
         onChange: (e) => {
           setSelectedProjectGroup(e?.target?.value);
           console.log("selectedProjectGroup", e?.target?.value);
-          dispatch(PTWActions.getPtwCircle(true,selectedCustomer, e?.target?.value, ""));
+          dispatch(
+            PTWActions.getPtwCircle(
+              true,
+              selectedCustomer,
+              e?.target?.value,
+              ""
+            )
+          );
         },
       },
     },
     {
       label: "Circle",
       value: "",
-      name: "circle", 
+      name: "circle",
       type: "select",
       option: CircleList,
       required: true,
@@ -162,7 +168,7 @@ const L1ApproverForm = ({
         employee: data.employeeId,
         projectType: data.projectType,
         projectGroup: data.projectGroup,
-        ApproverType: "L1-Approver",
+        ApproverType: "L2-Approver",
         circle: data.circle,
         projectTypeName: selectedProjectTypeName,
       };
@@ -196,7 +202,6 @@ const L1ApproverForm = ({
           formData.projectTypeName = formValue.projectTypeName;
         }
 
-        // Wait for the update to complete
         await submitAction(
           PTWActions.updateL1ApproverForm,
           formData,
@@ -246,7 +251,14 @@ const L1ApproverForm = ({
       // If project group exists in form value, also fetch circles
       if (formValue?.projectGroup && formValue?.customer) {
         setSelectedProjectGroup(formValue.projectGroup);
-        dispatch(PTWActions.getPtwCircle(true,formValue?.customer, formValue.projectGroup, ""));
+        dispatch(
+          PTWActions.getPtwCircle(
+            true,
+            formValue?.customer,
+            formValue.projectGroup,
+            ""
+          )
+        );
       }
 
       Form.forEach((field) => {
@@ -304,4 +316,4 @@ const L1ApproverForm = ({
   );
 };
 
-export default L1ApproverForm;
+export default L2ApproverForm;

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import PopupMenu from "./PopupMenu";
-import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
+import { UilColumns, UilExclamationTriangle } from "@iconscout/react-unicons";
 import Modalmoreinfo from "./Modalmoreinfo";
 import Modal from "./Modal";
 import { getAccessType, objectToArray } from "../utils/commonFunnction";
 import FilterView from "./FilterView";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import CommonActions from "../store/actions/common-actions";
 import ConditionalButton from "./ConditionalButton";
 import ComponentActions from "../store/actions/component-actions";
-
 
 const AdvancedTable = ({
   tableName = "",
@@ -41,11 +40,10 @@ const AdvancedTable = ({
   getaccessExport = "",
   heading = "",
   searchView = "",
-  TableHeight = "h-[68vh]" 
+  TableHeight = "h-[68vh]",
 }) => {
-
   const [hide, setHide] = useState([]);
-  const [finalData , setFinalData] = useState([])
+  const [finalData, setFinalData] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
   const [RPP, setRPP] = useState(50);
   const [sRPP, ssRPP] = useState(0);
@@ -56,30 +54,34 @@ const AdvancedTable = ({
   const [selectAll, setSelectAll] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   data = (data[0]?.uniqueId) ? data : [];
+  // data = Array.isArray(data) ? data : [];
+
+  // if (!data[0]?.uniqueId) {
+  //   data = [];
+  // }
+
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
-    const handleRPPChange = (value) => {
-      setRPP(value);
-      setcurrentPage(1); 
-      const callApiPagination = (page,rrp) => {
-        setcurrentPage(page);
-        const filters = {
-          ...activedFilter,
-          reseter: true,
-          page: page,
-          limit:rrp
-          
-        };
-        sessionStorage.setItem("page",value)
-        filterAfter(filters);
-        setActivedFilter(filters);
-        setActiveFilter(objectToArray(filters));
-      }; 
-      callApiPagination(1,value)
+  const handleRPPChange = (value) => {
+    setRPP(value);
+    setcurrentPage(1);
+    const callApiPagination = (page, rrp) => {
+      setcurrentPage(page);
+      const filters = {
+        ...activedFilter,
+        reseter: true,
+        page: page,
+        limit: rrp,
+      };
+      sessionStorage.setItem("page", value);
+      filterAfter(filters);
+      setActivedFilter(filters);
+      setActiveFilter(objectToArray(filters));
     };
-
+    callApiPagination(1, value);
+  };
 
   // const pages = Math.ceil(totalCount / RPP);
 
@@ -89,33 +91,29 @@ const AdvancedTable = ({
   const [modalBody, setModalBody] = useState("");
   table.properties = {
     ...table.properties,
-    rpp: [50,100,500,1000],
+    rpp: [50, 100, 500, 1000],
   };
 
   const callApiPagination = (value) => {
-      setcurrentPage(value);
-      const filters = {
-        ...activedFilter,
-        reseter: true,
-        page: value,
-        limit:RPP
-        
-      };
-      sessionStorage.setItem("page",value)
-      filterAfter(filters);
+    setcurrentPage(value);
+    const filters = {
+      ...activedFilter,
+      reseter: true,
+      page: value,
+      limit: RPP,
+    };
+    sessionStorage.setItem("page", value);
+    filterAfter(filters);
     setActivedFilter(filters);
     setActiveFilter(objectToArray(filters));
   };
-
- 
-
 
   const onSubmit = (formdata) => {
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,
-      ...formdata
-    }
+      ...formdata,
+    };
 
     filterAfter(data);
     setActivedFilter(data);
@@ -134,11 +132,11 @@ const AdvancedTable = ({
     setActivedFilter({});
   }, [tableName]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (data !== finalData) {
       setFinalData(data);
     }
-  },[data])
+  }, [data]);
 
   useEffect(() => {
     function addClassToAllChildren(el) {
@@ -154,10 +152,7 @@ const AdvancedTable = ({
 
     const element = document.querySelector("#add-not");
     addClassToAllChildren(element);
-  },[]);
-
-
-
+  }, []);
 
   const handleSelectAll = () => {
     if (selectAll) {
@@ -179,16 +174,16 @@ const AdvancedTable = ({
   const handleDelete = () => {
     dispatch(
       CommonActions.deleteApiCallerBulk(
-         `${delurl}`,
+        `${delurl}`,
         {
-          ids: selectedRows
+          ids: selectedRows,
         },
         () => {
           setShowDeleteModal(false);
           setSelectedRows([]);
           setSelectAll(false);
-          setRPP(50)
-          setcurrentPage(1); 
+          setRPP(50);
+          setcurrentPage(1);
           dispatch(geturl);
         }
       )
@@ -201,16 +196,17 @@ const AdvancedTable = ({
         <div className="m-2 ">
           <div className="flex justify-between">
             <div className="flex flex-row">
-            <div className="flex flex-row mt-[6px] text-white">
-            <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
-            {showTotalCount && (
+              <div className="flex flex-row mt-[6px] text-white">
+                <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">
+                  {heading}
+                </p>
+                {showTotalCount && (
                   <p className="text-[#E6BE8A] font-bold">{totalCount}</p>
                 )}
               </div>
               <div className="flex flex-row mx-8 gap-1">{searchView}</div>
             </div>
             <div className="flex flex-row">
-            
               {selectedRows.length > 0 && (
                 <Button
                   name={""}
@@ -227,7 +223,7 @@ const AdvancedTable = ({
                 onSubmit={onSubmit}
                 handleSubmit={handleSubmit}
                 table={table}
-                data={data} 
+                data={data}
                 errors={errors}
                 register={register}
                 setValue={setValue}
@@ -235,7 +231,9 @@ const AdvancedTable = ({
               />
               <PopupMenu
                 name={"Hide/Unhide"}
-                icon={icon ? icon : <UilColumns size="32" className={"hello"} />}
+                icon={
+                  icon ? icon : <UilColumns size="32" className={"hello"} />
+                }
                 child={
                   <>
                     <div className="flex z-40 max-h-96 overflow-scroll flex-col not">
@@ -301,26 +299,57 @@ const AdvancedTable = ({
                   classes="w-full mr-1"
                   onClick={() => {
                     if (tableName === "AccrualRevenueTrend") {
-                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                      dispatch(
+                        CommonActions.commondownloadpost(
+                          exportButton[0],
+                          exportButton[1],
+                          exportButton[2],
+                          exportButton[3]
+                        )
                       );
                     } else if (tableName === "AcctualWorkdoneform") {
-                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                      dispatch(
+                        CommonActions.commondownloadpost(
+                          exportButton[0],
+                          exportButton[1],
+                          exportButton[2],
+                          exportButton[3]
+                        )
                       );
-                    }
-                    else if (tableName === "EvmFinancialForm") {
-                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                    } else if (tableName === "EvmFinancialForm") {
+                      dispatch(
+                        CommonActions.commondownloadpost(
+                          exportButton[0],
+                          exportButton[1],
+                          exportButton[2],
+                          exportButton[3]
+                        )
                       );
-                    }
-                    else if (tableName === "PLform") {
-                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                    } else if (tableName === "PLform") {
+                      dispatch(
+                        CommonActions.commondownloadpost(
+                          exportButton[0],
+                          exportButton[1],
+                          exportButton[2],
+                          exportButton[3]
+                        )
                       );
-                    }
-                    else if (tableName === "SobTable") {
-                      dispatch(CommonActions.commondownloadpost(exportButton[0],exportButton[1],exportButton[2],exportButton[3])
+                    } else if (tableName === "SobTable") {
+                      dispatch(
+                        CommonActions.commondownloadpost(
+                          exportButton[0],
+                          exportButton[1],
+                          exportButton[2],
+                          exportButton[3]
+                        )
                       );
-                    }
-                     else {
-                      dispatch(CommonActions.commondownload(exportButton[0],exportButton[1]))
+                    } else {
+                      dispatch(
+                        CommonActions.commondownload(
+                          exportButton[0],
+                          exportButton[1]
+                        )
+                      );
                     }
                   }}
                 >
@@ -407,8 +436,10 @@ const AdvancedTable = ({
           </div>
         </div>
 
-        <div className={`m-2 overflow-x-auto ${TableHeight} pb-4 border-1 border-solid border-black rounded-lg`}>
-        {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
+        <div
+          className={`m-2 overflow-x-auto ${TableHeight} pb-4 border-1 border-solid border-black rounded-lg`}
+        >
+          {/* <div className="m-2 overflow-x-scroll h-[68vh] pb-6 border-1 border-solid border-black rounded-lg"> */}
           {1 == 1 ? (
             <table border={1} className="w-[100%] table-auto">
               <thead className="sticky -top-1 h-4 z-30">
@@ -426,7 +457,7 @@ const AdvancedTable = ({
                     return hide.indexOf(String(index)) == -1 ? (
                       <>
                         {actions.includes(itts.name) ? (
-                          ["Edit",""].includes(itts.name) ? (
+                          ["Edit", ""].includes(itts.name) ? (
                             <th
                               colSpan={actions.length}
                               className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
@@ -450,13 +481,19 @@ const AdvancedTable = ({
                         ) : (
                           <>
                             <th
-                              className={`border-primaryLine border-[1.5px] h-10  ${itts?.bg ? itts?.bg : "bg-primaryLine"} ${
+                              className={`border-primaryLine border-[1.5px] h-10  ${
+                                itts?.bg ? itts?.bg : "bg-primaryLine"
+                              } ${
                                 itts.style
                                   ? itts.style
                                   : " min-w-[300px] max-w-[500px]"
                               }`}
                             >
-                              <span className={` ${itts?.text ? itts?.text : "text-white"}  text-[14px]`}>
+                              <span
+                                className={` ${
+                                  itts?.text ? itts?.text : "text-white"
+                                }  text-[14px]`}
+                              >
                                 {itts.name}
                               </span>
                             </th>
@@ -470,51 +507,51 @@ const AdvancedTable = ({
                 </tr>
               </thead>
 
-              
-
               {finalData.length > 0 ? (
                 <tbody>
                   {finalData.map((itm) => {
-                      return (
-                        <tr>
-                          {checkboxshow && (
-                            <td className="text-[12px] h-2 pl-1 border-pcol border-[0.1px] overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
-                              <input
-                                type="checkbox"
-                                checked={selectedRows.includes(itm.uniqueId)}
-                                onChange={() => handleSelectRow(itm.uniqueId)}
+                    return (
+                      <tr>
+                        {checkboxshow && (
+                          <td className="text-[12px] h-2 pl-1 border-pcol border-[0.1px] overflow-hidden text-white min-w-[50px] max-w-[50px] text-center">
+                            <input
+                              type="checkbox"
+                              checked={selectedRows.includes(itm.uniqueId)}
+                              onChange={() => handleSelectRow(itm.uniqueId)}
+                            />
+                          </td>
+                        )}
+                        {table.columns.map((innerItm, index) => {
+                          return hide.indexOf(String(index)) == -1 ? (
+                            <td
+                              className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${
+                                innerItm.style
+                                  ? innerItm.style
+                                  : " min-w-[300px] max-w-[500px]"
+                              }`}
+                            >
+                              <Modalmoreinfo
+                                ctt={32}
+                                setModalBody={setModalBody}
+                                setOpenModal={setOpenModal}
+                                value={itm[innerItm.value]}
                               />
                             </td>
-                          )}
-                          {table.columns.map((innerItm, index) => {
-                            return hide.indexOf(String(index)) == -1 ? (
-                              <td 
-                                className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${
-                                  innerItm.style
-                                    ? innerItm.style
-                                    : " min-w-[300px] max-w-[500px]"
-                                }`}
-                              >
-                                <Modalmoreinfo
-                                  ctt={32}
-                                  setModalBody={setModalBody}
-                                  setOpenModal={setOpenModal}
-                                  value={itm[innerItm.value]}
-                                />
-                              </td>
-                            ) : (
-                              <></>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
+                          ) : (
+                            <></>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               ) : (
                 <tbody>
                   <tr className="border-[1.5px] border-pcol text-center text-slate-200">
                     <td colSpan={table.columns.length} className="text-xl">
-                      <span className="text-[13px] font-bold">No Records Found</span>
+                      <span className="text-[13px] font-bold">
+                        No Records Found
+                      </span>
                     </td>
                   </tr>
                 </tbody>
@@ -524,7 +561,6 @@ const AdvancedTable = ({
             <>
               <table border={1} className="w-[100%] table-auto">
                 <thead className="sticky -top-1 h-4 z-30">
-
                   <tr className="flex">
                     {table.columns.map((itts, index) => {
                       return hide.indexOf(String(index)) == -1 ? (
@@ -571,21 +607,20 @@ const AdvancedTable = ({
         </div>
         <div className="m-2 sticky bottom-0 z-10 inset-x-0 mx-auto bg-[#3e454d] p-2">
           <div className="flex justify-between">
-              <div>
-                <label className="mr-2 text-white">Rows Per Page :</label>
-                <select
-                  value={RPP}
-                  onChange={(e) => handleRPPChange(parseInt(e.target.value))}
-                  className="rounded-sm" 
-                >
-                  {table.properties.rpp.map((itm, idx) => (
-                    <option key={idx} value={itm}>
-                      {itm} 
-                    </option>
-                  ))}
-                </select>
-              </div>
-           
+            <div>
+              <label className="mr-2 text-white">Rows Per Page :</label>
+              <select
+                value={RPP}
+                onChange={(e) => handleRPPChange(parseInt(e.target.value))}
+                className="rounded-sm"
+              >
+                {table.properties.rpp.map((itm, idx) => (
+                  <option key={idx} value={itm}>
+                    {itm}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className="flex ml-auto">
               {pages.map((itm, index) => {
@@ -643,9 +678,16 @@ const AdvancedTable = ({
               selectedRows.length > 1 ? "these rows" : "this row"
             }?`}</p>
             <div className="mt-6 flex justify-center space-x-4">
-              <Button name="Delete" classes="w-auto bg-rose-500" onClick={handleDelete} />
-              <Button name="Cancel" classes="w-auto" onClick={() => setShowDeleteModal(false)} />
-              
+              <Button
+                name="Delete"
+                classes="w-auto bg-rose-500"
+                onClick={handleDelete}
+              />
+              <Button
+                name="Cancel"
+                classes="w-auto"
+                onClick={() => setShowDeleteModal(false)}
+              />
             </div>
           </div>
         </div>

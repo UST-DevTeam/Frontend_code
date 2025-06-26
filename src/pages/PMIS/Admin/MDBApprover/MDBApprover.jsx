@@ -28,8 +28,8 @@ const MDBApprover = () => {
         <CCDash
           showbtn={false}
           approveddata={[
-            ["L1 Approver", "bg-pcol", "/superAdmin/ptw/mdbApprover/l1Approver"],
-            ["L2 Approver", "bg-pcol", "/superAdmin/ptw/mdbApprover/l2Approver"],
+            ["L1 Approver", "bg-pcol", "/superAdmin/PTW/mdbApprover/l1Approver"],
+            ["L2 Approver", "bg-pcol", "/superAdmin/PTW/mdbApprover/l2Approver"],
            
           ].map((itm) => {
             return (

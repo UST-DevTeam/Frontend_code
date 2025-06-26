@@ -21,14 +21,16 @@ import FileUploader from "../../../../components/FIleUploader";
 import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
 // import SalaryDBForm from "./salaryDBForm";
 import OtherFixedCostForm from "./OtherFixedCostForm";
-import { getAccessType,objectToQueryString } from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../../utils/commonFunnction";
 
 const OtherFixedCost = () => {
-
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
-  const [modalBody, setmodalBody] = useState(<></> );
+  const [modalBody, setmodalBody] = useState(<></>);
   const [ValGm, setValGm] = useState("Month");
   const endDate = moment().format("Y");
   const [year, setyear] = useState(currrentYear);
@@ -36,15 +38,12 @@ const OtherFixedCost = () => {
   const [extraColumns, setExtraColumns] = useState("");
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
-  const [fileOpen, setFileOpen] = useState(false)
-  const Data = useRef("")
+  const [fileOpen, setFileOpen] = useState(false);
+  const Data = useRef("");
 
   let dispatch = useDispatch();
 
-  
-
   let costCenterList = useSelector((state) => {
-    
     return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
       return {
         label: itm?.costCenter,
@@ -53,17 +52,11 @@ const OtherFixedCost = () => {
     });
   });
 
+  let showType = getAccessType("Actions(P&L)");
+  let shouldIncludeEditColumn = false;
 
-
-
-
-
-
-  let showType = getAccessType("Actions(P&L)")
-  let shouldIncludeEditColumn = false
-
-  if (showType === "visible"){
-    shouldIncludeEditColumn = true
+  if (showType === "visible") {
+    shouldIncludeEditColumn = true;
   }
 
   let dbConfigList = useSelector((state) => {
@@ -88,9 +81,9 @@ const OtherFixedCost = () => {
                         setIsOpen={setmodalOpen}
                         resetting={false}
                         formValue={itm}
-                        year = {year}
-                        monthss = {[itm?.month]}
-                        filtervalue = {""}
+                        year={year}
+                        monthss={[itm?.month]}
+                        filtervalue={""}
                       />
                     </>
                   );
@@ -111,14 +104,14 @@ const OtherFixedCost = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes='w-15 bg-rose-400'
+                        classes="w-15 bg-rose-400"
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
                               `${Urls.gpTracking_OtherFixedCost}/${itm.uniqueId}`,
                               () => {
                                 // dispatch(FormssActions.getProfiltLoss());
-                                dispatch(gpTrackingActions.getOtherFixedCost())
+                                dispatch(gpTrackingActions.getOtherFixedCost());
                                 dispatch(ALERTS({ show: false }));
                               }
                             )
@@ -202,28 +195,28 @@ const OtherFixedCost = () => {
 
   const [previousMonthData, currentMonthData, nextMonthData] =
     getPreviousCurrentAndNextMonth();
-    let listYear = [];
-    for (let ywq = 2023; ywq <= +endDate; ywq++) {
-      listYear.push(ywq);
-    }
-  
-    let listDict = {
-      "": [],
-      Month: [
-        { id: 1, name: "Jan" },
-        { id: 2, name: "Feb" },
-        { id: 3, name: "Mar" },
-        { id: 4, name: "Apr" },
-        { id: 5, name: "May" },
-        { id: 6, name: "Jun" },
-        { id: 7, name: "Jul" },
-        { id: 8, name: "Aug" },
-        { id: 9, name: "Sep" },
-        { id: 10, name: "Oct" },
-        { id: 11, name: "Nov" },
-        { id: 12, name: "Dec" }
-      ],
-    };
+  let listYear = [];
+  for (let ywq = 2023; ywq <= +endDate; ywq++) {
+    listYear.push(ywq);
+  }
+
+  let listDict = {
+    "": [],
+    Month: [
+      { id: 1, name: "Jan" },
+      { id: 2, name: "Feb" },
+      { id: 3, name: "Mar" },
+      { id: 4, name: "Apr" },
+      { id: 5, name: "May" },
+      { id: 6, name: "Jun" },
+      { id: 7, name: "Jul" },
+      { id: 8, name: "Aug" },
+      { id: 9, name: "Sep" },
+      { id: 10, name: "Oct" },
+      { id: 11, name: "Nov" },
+      { id: 12, name: "Dec" },
+    ],
+  };
   let table = {
     columns: [
       {
@@ -261,7 +254,7 @@ const OtherFixedCost = () => {
         value: "cost",
         style: "min-w-[200px] max-w-[200px] text-center",
       },
-      
+
       ...newColumns,
       ...(shouldIncludeEditColumn
         ? [
@@ -276,69 +269,67 @@ const OtherFixedCost = () => {
               style: "min-w-[100px] max-w-[200px] text-center",
             },
           ]
-        : [])
+        : []),
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-    //   {
-    //   label: "Year",
-    //   name: "year",
-    //   value: "Select",
-    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-    //   type: "select",
-    //   option: listYear.map((itmYr) => {
-    //     return {
-    //       label: itmYr,
-    //       value: itmYr,
-    //     };
-    //   }),
-    //   props: {
-    //     onChange: (e) => {
-    //       setValue("year", e.target.value);
-    //       setyear(e.target.value);
-    //     },
-    //   },
-    //   required: true,
-    //   classes: "col-span-1 h-38px",
-    // },
-    // {
-    //   label: ValGm,
-    //   name: "viewBy",
-    //   value: "Select",
-    //   type: "newmuitiSelect2",
-    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-    //   option: listDict[ValGm].map((dasd) => {
-    //     return {
-    //       value: dasd?.id,
-    //       label: dasd?.name,
-    //     };
-    //   }),
-    //   props: {
-    //     selectType:selectType,
-    //   },
-    //   hasSelectAll:true,
-    //   required: true,
-    //   classes: "col-span-1 h-10",
-    // },
-    // {
-    //   label: 'Project Group',
-    //   name: "projectGroup",
-    //   value: "select",
-    //   type: "newmuitiSelect2",
-    //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-    //   option: costCenterList,
-    //   props: {
-    //     selectType:selectType,
-    //   },
-    //   hasSelectAll:true,
-    //   classes: "col-span-1 h-10",
-    // }
-  ],
+      //   {
+      //   label: "Year",
+      //   name: "year",
+      //   value: "Select",
+      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      //   type: "select",
+      //   option: listYear.map((itmYr) => {
+      //     return {
+      //       label: itmYr,
+      //       value: itmYr,
+      //     };
+      //   }),
+      //   props: {
+      //     onChange: (e) => {
+      //       setValue("year", e.target.value);
+      //       setyear(e.target.value);
+      //     },
+      //   },
+      //   required: true,
+      //   classes: "col-span-1 h-38px",
+      // },
+      // {
+      //   label: ValGm,
+      //   name: "viewBy",
+      //   value: "Select",
+      //   type: "newmuitiSelect2",
+      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      //   option: listDict[ValGm].map((dasd) => {
+      //     return {
+      //       value: dasd?.id,
+      //       label: dasd?.name,
+      //     };
+      //   }),
+      //   props: {
+      //     selectType:selectType,
+      //   },
+      //   hasSelectAll:true,
+      //   required: true,
+      //   classes: "col-span-1 h-10",
+      // },
+      // {
+      //   label: 'Project Group',
+      //   name: "projectGroup",
+      //   value: "select",
+      //   type: "newmuitiSelect2",
+      //   bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      //   option: costCenterList,
+      //   props: {
+      //     selectType:selectType,
+      //   },
+      //   hasSelectAll:true,
+      //   classes: "col-span-1 h-10",
+      // }
+    ],
   };
-
-  
 
   const onSubmit = (data) => {
     let value = data.reseter;
@@ -348,20 +339,18 @@ const OtherFixedCost = () => {
   };
   useEffect(() => {
     // dispatch(FormssActions.getProfiltLoss())
-    dispatch(gpTrackingActions.getOtherFixedCost())
+    dispatch(gpTrackingActions.getOtherFixedCost());
     // dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
-    dispatch(gpTrackingActions.getGPCostCenter())
-    dispatch(gpTrackingActions.getGPCustomer())
-
+    dispatch(gpTrackingActions.getGPCostCenter());
+    dispatch(gpTrackingActions.getGPCustomer());
   }, []);
-
 
   let formD = [
     {
       label: "Year",
       name: "year",
       value: "Select",
-      bg : 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -390,22 +379,22 @@ const OtherFixedCost = () => {
         };
       }),
       props: {
-        selectType:selectType,
+        selectType: selectType,
       },
-      hasSelectAll:true,
+      hasSelectAll: true,
       required: true,
       classes: "col-span-1 h-10",
     },
     {
-      label: 'Cost Center',
+      label: "Cost Center",
       name: "costCenter",
       value: "select",
       type: "newmuitiSelect2",
       option: costCenterList,
       props: {
-        selectType:selectType,
+        selectType: selectType,
       },
-      hasSelectAll:true,
+      hasSelectAll: true,
       classes: "col-span-1 h-10",
     },
   ];
@@ -422,7 +411,7 @@ const OtherFixedCost = () => {
       8: "Aug",
       9: "Sep",
       10: "Oct",
-      11: "Nov",  
+      11: "Nov",
       12: "Dec",
     };
     let cols = [];
@@ -431,26 +420,26 @@ const OtherFixedCost = () => {
   }, [extraColumns]);
 
   const handleAddActivity = (res) => {
-    Data.current = ""
-    setExtraColumns(res['Month'])
-    Data.current  = res['Cost Center']
+    Data.current = "";
+    setExtraColumns(res["Month"]);
+    Data.current = res["Cost Center"];
     // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-    console.log(res,'lieoijejiejijied')
-    dispatch(gpTrackingActions.getOtherFixedCost(true,res))
+    console.log(res, "lieoijejiejijied");
+    dispatch(gpTrackingActions.getOtherFixedCost(true, res));
   };
-  
 
-  const onTableViewSubmit = (data) => { 
-    data["fileType"]="OtherFixedCost"
-    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false)
-        dispatch(gpTrackingActions.getOtherFixedCost())
-    }))
-  }
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "OtherFixedCost";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false);
+        dispatch(gpTrackingActions.getOtherFixedCost());
+      })
+    );
+  };
 
   return (
     <>
-    
       {/* <div className="flex items-center justify-start">
         <div className="col-span-1 md:col-span-1">
           <CommonForm
@@ -472,34 +461,58 @@ const OtherFixedCost = () => {
         </div>
       </div> */}
 
-      <AdvancedTable 
+      <AdvancedTable
         headerButton={
           <>
-          <div className="flex">
-            <Button
-              onClick={(e) => {
-                setmodalOpen((prev) => !prev);
-                setmodalHead("New Cost");
-                setmodalBody(<OtherFixedCostForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-              }}
-              name={"Add New"}
-              classes='w-auto mr-1'>
-            </Button>
-            <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}>
-            </Button>
-            <Button name={"Export"} classes='w-auto mr-1' onClick = {(e) => {
-              dispatch(CommonActions.commondownloadpost("/export/OtherFixedCost","Export_OtherFixedCost.xlsx","POST",{'year':year,'Month':extraColumns,'Cost Center':Data.current}))
-              }}>
-            </Button>
-          </div>
+            <div className="flex">
+              <Button
+                onClick={(e) => {
+                  setmodalOpen((prev) => !prev);
+                  setmodalHead("New Cost");
+                  setmodalBody(
+                    <OtherFixedCostForm
+                      isOpen={modalOpen}
+                      setIsOpen={setmodalOpen}
+                      resetting={true}
+                      formValue={{}}
+                    />
+                  );
+                }}
+                name={"Add New"}
+                classes="w-auto mr-1"
+              ></Button>
+              <Button
+                name={"Upload File"}
+                classes="w-auto mr-1"
+                onClick={(e) => {
+                  setFileOpen((prev) => !prev);
+                }}
+              ></Button>
+              <Button
+                name={"Export"}
+                classes="w-auto mr-1"
+                onClick={(e) => {
+                  dispatch(
+                    CommonActions.commondownloadpost(
+                      "/export/OtherFixedCost",
+                      "Export_OtherFixedCost.xlsx",
+                      "POST",
+                      {
+                        year: year,
+                        Month: extraColumns,
+                        "Cost Center": Data.current,
+                      }
+                    )
+                  );
+                }}
+              ></Button>
+            </div>
           </>
         }
         table={table}
         filterAfter={onSubmit}
         tableName={"Other Fixed Cost Form"}
-        TableHeight = "h-[68vh]" 
+        TableHeight="h-[68vh]"
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -507,7 +520,7 @@ const OtherFixedCost = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        heading = {'Total Count :-'}
+        heading={"Total Count :-"}
       />
       <Modal
         size={"sm"}
@@ -516,7 +529,14 @@ const OtherFixedCost = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/OtherFixedCost.xlsx","OtherFixedCost.xlsx"]} />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={["/template/OtherFixedCost.xlsx", "OtherFixedCost.xlsx"]}
+      />
     </>
   );
 };

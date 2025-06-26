@@ -94,7 +94,7 @@ const MyHome = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes='w-15 bg-rose-400'
+                        classes="w-15 bg-rose-400"
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -347,15 +347,16 @@ const MyHome = () => {
               <div
                 className="bg-gradient-to-r from-indigo-500/50 to-green-500/50 shadow-md hover:shadow-rxl w-[98%] flex h-24 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold  hover:text-lg  "
                 onClick={() => {
-
                   dispatch(
-                    ComponentActions.globalUrlStore(
-                      itm["name"],
-                      itm.uniqueId
-                    )
+                    ComponentActions.globalUrlStore(itm["name"], itm.uniqueId)
                   );
                   dispatch(
-                    ComponentActions.breadcrumb(itm["name"], itm.uniqueId, 1, false)
+                    ComponentActions.breadcrumb(
+                      itm["name"],
+                      itm.uniqueId,
+                      1,
+                      false
+                    )
                   );
                   navigateToRoute(itm.uniqueId);
                 }}
