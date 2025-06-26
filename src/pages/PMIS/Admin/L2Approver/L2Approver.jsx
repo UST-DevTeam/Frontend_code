@@ -1,32 +1,22 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import EditButton from "../../../../components/EditButton";
-import Modal from "../../../../components/Modal";
-import PTWActions from "../../../../store/actions/ptw-actions";
 import AdvancedTable from "../../../../components/AdvancedTable";
+import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
-
-import CommonActions from "../../../../store/actions/common-actions";
-import HrActions from "../../../../store/actions/hr-actions";
-import VendorActions from "../../../../store/actions/vendor-actions";
-import { json, useNavigate, useParams } from "react-router-dom";
 import FileUploader from "../../../../components/FIleUploader";
-import { GET_VENDOR_DETAILS } from "../../../../store/reducers/vendor-reducer";
-import { Urls } from "../../../../utils/url";
-import ConditionalButton from "../../../../components/ConditionalButton";
-import {
-  getAccessType,
-  objectToQueryString,
-} from "../../../../utils/commonFunnction";
 import L2ApproverForm from "./L2ApproverForm";
+import PTWActions from "../../../../store/actions/ptw-actions";
+import CommonActions from "../../../../store/actions/common-actions";
+import { Urls } from "../../../../utils/url";
+import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
 const L2Approver = () => {
   const dispatch = useDispatch();
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -34,7 +24,6 @@ const L2Approver = () => {
   const [editingItem, setEditingItem] = useState(null);
   const Data = useRef("");
 
-  // Add year state or get it from props/context
   const [year] = useState(new Date().getFullYear());
 
   const {
@@ -45,6 +34,20 @@ const L2Approver = () => {
     formState: { errors },
   } = useForm();
 
+  const refreshData = () => {
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({
+          ApproverType: "L2-Approver",
+        })
+      )
+    );
+  };
+
+
+  
+  
   const l1ApproverList = useSelector((state) => {
     console.log("Redux state:", state);
     const interdata = state?.ptwData?.getL1ApproverData || [];
@@ -74,14 +77,7 @@ const L2Approver = () => {
                           CommonActions.deleteApiCaller(
                             `${Urls.l1ApproverSubmit}/${itm.uniqueId}`,
                             () => {
-                              dispatch(
-                                PTWActions.getL1ApproverData(
-                                  true,
-                                  objectToQueryString({
-                                    ApproverType: "L2-Approver",
-                                  })
-                                )
-                              );
+                              refreshData(); // Use the refresh function
                               dispatch(ALERTS({ show: false }));
                             }
                           )
@@ -125,6 +121,7 @@ const L2Approver = () => {
         resetting={false}
         formValue={item}
         filtervalue=""
+        onSuccess={refreshData}
       />
     );
 
@@ -155,8 +152,8 @@ const L2Approver = () => {
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Milestone",
-        value: "Milestone",
+        name: "Circle",
+        value: "circleName",
         style: "text-center min-w-[150px]",
       },
       { name: "Edit", value: "edit", style: "text-center min-w-[100px]" },
@@ -181,45 +178,42 @@ const L2Approver = () => {
     );
   };
 
-  const onTableViewSubmit = (data) => {
-    data["fileType"] = "L2Approver";
-    dispatch(
-      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false);
-        dispatch(
-          PTWActions.getL1ApproverData(
-            true,
-            objectToQueryString({ ApproverType: "L2-Approver" })
-          )
-        );
-      })
-    );
-  };
+  // const onTableViewSubmit = (data) => {
+  //   data["fileType"] = "L1Approver";
+  //   dispatch(
+  //     CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+  //       setFileOpen(false);
+  //       refreshData();
+  //     })
+  //   );
+  // };
 
-  // Handle modal close
+  const onTableViewSubmit = (data) => { 
+    data["fileType"]="L2_Approver_MDB"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false)
+       dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({
+          ApproverType: "L2-Approver",
+        })
+      )
+    );
+    }))
+  }
+
   const handleModalClose = () => {
-    // If we were editing an item, refresh the data
-    if (editingItem) {
-      dispatch(
-        PTWActions.getL1ApproverData(
-          true,
-          objectToQueryString({ ApproverType: "L2-Approver" })
-        )
-      );
-    }
+    refreshData();
 
     setmodalOpen(false);
     setEditingItem(null);
     setmodalBody(<></>);
     setmodalHead(<></>);
   };
+
   useEffect(() => {
-    dispatch(
-      PTWActions.getL1ApproverData(
-        true,
-        objectToQueryString({ ApproverType: "L2-Approver" })
-      )
-    );
+    refreshData();
   }, [dispatch]);
 
   return (
@@ -239,6 +233,7 @@ const L2Approver = () => {
                     year={year}
                     monthss={[]}
                     filtervalue=""
+                    onSuccess={refreshData}
                   />
                 );
                 setmodalOpen(true);
@@ -251,7 +246,7 @@ const L2Approver = () => {
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
-           <Button
+            <Button
               name={"Export"}
               classes="w-auto mr-1"
               onClick={(e) => {
@@ -278,22 +273,22 @@ const L2Approver = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={l1ApproverTotalCount}
-        heading="Total Count :-"
+        heading="Total Count :-"  
       />
       <Modal
         size="sm"
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
-        setIsOpen={handleModalClose} 
+        setIsOpen={handleModalClose}
       />
-      <FileUploader
+       <FileUploader
         isOpen={fileOpen}
-        fileUploadUrl=""
+        fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/L1Approver.xlsx", "L1Approver.xlsx"]}
+        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
       />
     </>
   );

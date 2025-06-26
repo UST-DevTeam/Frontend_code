@@ -165,7 +165,7 @@ const initialState = {
     getPtwEmployee: [],
     getPtwProjectType: [],
     getPtwProjectGroup: [],
-    getPtwMilestone: [],
+    getPtwCircle: [],
     getL1ApproverData: [], // L1 Approver table data
     totalCount: 0, // For pagination
 }
@@ -202,11 +202,11 @@ const ptwData = createSlice({
                 state.getPtwProjectGroup = [...state.getPtwProjectGroup, ...payload.dataAll]
             }
         },
-        GET_PTW_MILESTONE: (state, { payload }) => {
+        GET_PTW_Circle: (state, { payload }) => {
             if (payload.reset) {
-                state.getPtwMilestone = payload.dataAll
+                state.getPtwCircle = payload.dataAll
             } else {
-                state.getPtwMilestone = [...state.getPtwMilestone, ...payload.dataAll]
+                state.getPtwCircle = [...state.getPtwCircle, ...payload.dataAll]
             }
         },
        
@@ -255,7 +255,7 @@ export const {
     GET_PTW_EMPLOYEE,
     GET_PTW_PROJECTTYPE,
     GET_PTW_PROJECTGROUP,
-    GET_PTW_MILESTONE,
+    GET_PTW_Circle,
     GET_PTW_APPROVER_DATA,
     ADD_PTW_APPROVER_DATA,
     UPDATE_PTW_APPROVER_DATA,

@@ -7,18 +7,21 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import PTWActions from "../../../../store/actions/ptw-actions";
+import { objectToQueryString } from "../../../../utils/commonFunnction"; // Import the function
+
 const L2ApproverForm = ({
   isOpen,
   setIsOpen,
   resetting,
   formValue = {},
-
   onSuccess,
 }) => {
   console.log(formValue, "formValueformValueformValue");
+
   const dispatch = useDispatch();
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [selectedProjectTypeName, setSelectedProjectTypeName] = useState("");
+  const [selectedProjectGroup, setSelectedProjectGroup] = useState(""); // Add state for selected project group
   const [modalOpen, setmodalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -30,7 +33,7 @@ const L2ApproverForm = ({
   const ptwProjectGroup = useSelector(
     (state) => state.ptwData.getPtwProjectGroup
   );
-  const ptwMilestone = useSelector((state) => state.ptwData.getPtwMilestone);
+  const ptwCircle = useSelector((state) => state.ptwData.getPtwCircle);
 
   const isEditMode = Object.entries(formValue).length > 0 && !resetting;
 
@@ -59,9 +62,9 @@ const L2ApproverForm = ({
     value: projectGroup?.projectGroup || projectGroup?.projectGroupName,
   }));
 
-  const MilestoneList = ptwMilestone?.map((Milestone) => ({
-    label: Milestone?.MileStone,
-    value: Milestone?.MileStone,
+  const CircleList = ptwCircle?.map((Circle) => ({
+    label: Circle?.circleName,
+    value: Circle?.circle,
   }));
 
   let Form = [
@@ -121,13 +124,27 @@ const L2ApproverForm = ({
       type: "select",
       option: projectGroupList,
       required: true,
+      props: {
+        onChange: (e) => {
+          setSelectedProjectGroup(e?.target?.value);
+          console.log("selectedProjectGroup", e?.target?.value);
+          dispatch(
+            PTWActions.getPtwCircle(
+              true,
+              selectedCustomer,
+              e?.target?.value,
+              ""
+            )
+          );
+        },
+      },
     },
     {
-      label: "Milestone",
+      label: "Circle",
       value: "",
-      name: "Milestone",
+      name: "circle",
       type: "select",
-      option: MilestoneList,
+      option: CircleList,
       required: true,
     },
   ];
@@ -152,11 +169,26 @@ const L2ApproverForm = ({
         projectType: data.projectType,
         projectGroup: data.projectGroup,
         ApproverType: "L2-Approver",
-        milestone: data.Milestone,
+        circle: data.circle,
         projectTypeName: selectedProjectTypeName,
       };
 
       console.log("Form Data to Submit:", formData);
+
+      const submitAction = (actionCreator, ...args) => {
+        return new Promise((resolve, reject) => {
+          const callback = () => {
+            console.log("Action completed successfully");
+            resolve();
+          };
+
+          if (isEditMode) {
+            dispatch(actionCreator(...args, callback));
+          } else {
+            dispatch(actionCreator(args[0], callback));
+          }
+        });
+      };
 
       if (isEditMode) {
         console.log(
@@ -169,24 +201,21 @@ const L2ApproverForm = ({
         if (formValue?.projectTypeName && formData?.projectTypeName === "") {
           formData.projectTypeName = formValue.projectTypeName;
         }
-        await dispatch(
-          PTWActions.updateL1ApproverForm(formData, formValue.uniqueId, () => {
-            // Success callback
-            reset();
-            if (setIsOpen) setIsOpen(false);
-            if (onSuccess) onSuccess();
-          })
+
+        await submitAction(
+          PTWActions.updateL1ApproverForm,
+          formData,
+          formValue.uniqueId
         );
-        await dispatch(PTWActions.getL1ApproverData(true, objectToQueryString({'ApproverType':'L2-Approver'})));
       } else {
-        await dispatch(
-          PTWActions.submitL1ApproverForm(formData, () => {
-            reset();
-            if (setIsOpen) setIsOpen(false);
-            if (onSuccess) onSuccess();
-          })
-        );
-        await dispatch(PTWActions.getL1ApproverData(true, objectToQueryString({'ApproverType':'L2-Approver'})));
+        await submitAction(PTWActions.submitL1ApproverForm, formData);
+      }
+
+      reset();
+      if (setIsOpen) setIsOpen(false);
+
+      if (onSuccess) {
+        onSuccess();
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -219,7 +248,19 @@ const L2ApproverForm = ({
         dispatch(PTWActions.getPtwProjectGroup(true, formValue.customer, ""));
       }
 
-      // Set form values
+      // If project group exists in form value, also fetch circles
+      if (formValue?.projectGroup && formValue?.customer) {
+        setSelectedProjectGroup(formValue.projectGroup);
+        dispatch(
+          PTWActions.getPtwCircle(
+            true,
+            formValue?.customer,
+            formValue.projectGroup,
+            ""
+          )
+        );
+      }
+
       Form.forEach((field) => {
         if (["endAt", "startAt"].indexOf(field.name) !== -1) {
           console.log("date formValuekey", field.name, formValue[field.name]);
@@ -229,19 +270,6 @@ const L2ApproverForm = ({
           setValue(field.name, formValue[field.name]);
         }
       });
-
-      // Load milestones if project type is selected
-      if (formValue.customerName && formValue.projectType) {
-        dispatch(
-          PTWActions.getPtwProjectMilestone(
-            true,
-            formValue.customer,
-            formValue.projectType,
-            "",
-            ""
-          )
-        );
-      }
     }
   }, [formValue, resetting, setValue, dispatch]);
 

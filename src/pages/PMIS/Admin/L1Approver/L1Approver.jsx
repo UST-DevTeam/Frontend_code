@@ -45,6 +45,9 @@ const L1Approver = () => {
     );
   };
 
+
+  
+  
   const l1ApproverList = useSelector((state) => {
     console.log("Redux state:", state);
     const interdata = state?.ptwData?.getL1ApproverData || [];
@@ -149,8 +152,8 @@ const L1Approver = () => {
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Milestone",
-        value: "Milestone",
+        name: "Circle",
+        value: "circleName",
         style: "text-center min-w-[150px]",
       },
       { name: "Edit", value: "edit", style: "text-center min-w-[100px]" },
@@ -175,15 +178,30 @@ const L1Approver = () => {
     );
   };
 
-  const onTableViewSubmit = (data) => {
-    data["fileType"] = "L1Approver";
-    dispatch(
-      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false);
-        refreshData();
-      })
+  // const onTableViewSubmit = (data) => {
+  //   data["fileType"] = "L1Approver";
+  //   dispatch(
+  //     CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+  //       setFileOpen(false);
+  //       refreshData();
+  //     })
+  //   );
+  // };
+
+  const onTableViewSubmit = (data) => { 
+    data["fileType"]="L1_Approver_MDB"
+    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false)
+       dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        objectToQueryString({
+          ApproverType: "L1-Approver",
+        })
+      )
     );
-  };
+    }))
+  }
 
   const handleModalClose = () => {
     refreshData();
@@ -264,13 +282,13 @@ const L1Approver = () => {
         isOpen={modalOpen}
         setIsOpen={handleModalClose}
       />
-      <FileUploader
+       <FileUploader
         isOpen={fileOpen}
-        fileUploadUrl=""
+        fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/L1Approver.xlsx", "L1Approver.xlsx"]}
+        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
       />
     </>
   );

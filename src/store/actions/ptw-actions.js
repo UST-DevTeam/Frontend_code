@@ -7,7 +7,7 @@ import { Urls } from "../../utils/url";
 import { ALERTS } from "../reducers/component-reducer";
 import { 
   GET_PTW_CUSTOMERS, 
-  GET_PTW_MILESTONE, 
+  GET_PTW_Circle, 
   GET_PTW_EMPLOYEE, 
   GET_PTW_PROJECTTYPE, 
   GET_PTW_PROJECTGROUP,
@@ -78,18 +78,18 @@ const PTWActions = {
       } catch (error) {}
     },
 
-  getPtwProjectMilestone:
+  getPtwCircle:
     (reset = true, custId = "", projectTypeId = "", uid = "", args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.PtwMilestone}${custId != "" ? "/" + custId : ""}${
+          url: `${Urls.PtwCircle}${custId != "" ? "/" + custId : ""}${
             projectTypeId != "" ? "/" + projectTypeId : ""
           }${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
         let dataAll = res?.data?.data;
-        dispatch(GET_PTW_MILESTONE({ dataAll, reset }));
+        dispatch(GET_PTW_Circle({ dataAll, reset }));
       } catch (error) {}
     },
 

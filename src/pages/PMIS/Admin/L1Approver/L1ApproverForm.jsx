@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +21,7 @@ const L1ApproverForm = ({
   const dispatch = useDispatch();
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [selectedProjectTypeName, setSelectedProjectTypeName] = useState("");
+  const [selectedProjectGroup, setSelectedProjectGroup] = useState(""); // Add state for selected project group
   const [modalOpen, setmodalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -33,7 +33,7 @@ const L1ApproverForm = ({
   const ptwProjectGroup = useSelector(
     (state) => state.ptwData.getPtwProjectGroup
   );
-  const ptwMilestone = useSelector((state) => state.ptwData.getPtwMilestone);
+  const ptwCircle = useSelector((state) => state.ptwData.getPtwCircle);
 
   const isEditMode = Object.entries(formValue).length > 0 && !resetting;
 
@@ -62,9 +62,9 @@ const L1ApproverForm = ({
     value: projectGroup?.projectGroup || projectGroup?.projectGroupName,
   }));
 
-  const MilestoneList = ptwMilestone?.map((Milestone) => ({
-    label: Milestone?.MileStone,
-    value: Milestone?.MileStone,
+  const CircleList = ptwCircle?.map((Circle) => ({
+    label: Circle?.circleName,
+    value: Circle?.circle,
   }));
 
   let Form = [
@@ -81,6 +81,7 @@ const L1ApproverForm = ({
           console.log("selectedCustomerselectedCustomer", e?.target?.value);
           dispatch(PTWActions.getPtwProjectType(true, e?.target?.value, ""));
           dispatch(PTWActions.getPtwProjectGroup(true, e?.target?.value, ""));
+          
         },
       },
     },
@@ -124,13 +125,20 @@ const L1ApproverForm = ({
       type: "select",
       option: projectGroupList,
       required: true,
+      props: {
+        onChange: (e) => {
+          setSelectedProjectGroup(e?.target?.value);
+          console.log("selectedProjectGroup", e?.target?.value);
+          dispatch(PTWActions.getPtwCircle(true,selectedCustomer, e?.target?.value, ""));
+        },
+      },
     },
     {
-      label: "Milestone",
+      label: "Circle",
       value: "",
-      name: "Milestone",
+      name: "circle", 
       type: "select",
-      option: MilestoneList,
+      option: CircleList,
       required: true,
     },
   ];
@@ -155,13 +163,12 @@ const L1ApproverForm = ({
         projectType: data.projectType,
         projectGroup: data.projectGroup,
         ApproverType: "L1-Approver",
-        milestone: data.Milestone,
+        circle: data.circle,
         projectTypeName: selectedProjectTypeName,
       };
 
       console.log("Form Data to Submit:", formData);
 
-      // Create a promise-based wrapper for the actions
       const submitAction = (actionCreator, ...args) => {
         return new Promise((resolve, reject) => {
           const callback = () => {
@@ -169,11 +176,9 @@ const L1ApproverForm = ({
             resolve();
           };
 
-          // If it's an update operation, pass the callback as the third parameter
           if (isEditMode) {
             dispatch(actionCreator(...args, callback));
           } else {
-            // For submit operation, pass callback as second parameter
             dispatch(actionCreator(args[0], callback));
           }
         });
@@ -198,15 +203,12 @@ const L1ApproverForm = ({
           formValue.uniqueId
         );
       } else {
-        // Wait for the submit to complete
         await submitAction(PTWActions.submitL1ApproverForm, formData);
       }
 
-      // Reset form and close modal after successful submission
       reset();
       if (setIsOpen) setIsOpen(false);
 
-      // Call the success callback from parent component (this will refresh the data)
       if (onSuccess) {
         onSuccess();
       }
@@ -241,7 +243,12 @@ const L1ApproverForm = ({
         dispatch(PTWActions.getPtwProjectGroup(true, formValue.customer, ""));
       }
 
-      // Set form values
+      // If project group exists in form value, also fetch circles
+      if (formValue?.projectGroup && formValue?.customer) {
+        setSelectedProjectGroup(formValue.projectGroup);
+        dispatch(PTWActions.getPtwCircle(true,formValue?.customer, formValue.projectGroup, ""));
+      }
+
       Form.forEach((field) => {
         if (["endAt", "startAt"].indexOf(field.name) !== -1) {
           console.log("date formValuekey", field.name, formValue[field.name]);
@@ -251,19 +258,6 @@ const L1ApproverForm = ({
           setValue(field.name, formValue[field.name]);
         }
       });
-
-      // Load milestones if project type is selected
-      if (formValue.customerName && formValue.projectType) {
-        dispatch(
-          PTWActions.getPtwProjectMilestone(
-            true,
-            formValue.customer,
-            formValue.projectType,
-            "",
-            ""
-          )
-        );
-      }
     }
   }, [formValue, resetting, setValue, dispatch]);
 

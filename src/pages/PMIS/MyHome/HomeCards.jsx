@@ -102,6 +102,12 @@ const HomeCards = () => {
               "/home/ptw",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
+            [
+              "PTWLogBackup",
+              "bg-pcol",
+              "/home/PtwLogBackup",
+              <Unicons.UilFileAlt size="40" color="" />,
+            ],
             
           ].map((itm) => (
             <>
