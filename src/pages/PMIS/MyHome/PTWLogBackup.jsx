@@ -6,13 +6,13 @@ import PTWActions from "../../../store/actions/ptw-actions";
 
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
-  
+  const dataAll = useSelector(
+    (state) => (state?.getPtwLogBackup
+    )
+  );
+  console.log(dataAll,"csddsffffdff");
  
-  const { l1ApproverList, loading, l1ApproverTotalCount } = useSelector((state) => ({
-    l1ApproverList: state.ptwLogBackup?.data || [],
-    loading: state.ptwLogBackup?.loading || false,
-    l1ApproverTotalCount: state.ptwLogBackup?.totalCount || 0,
-  }));
+  
 
   const {
     register,
@@ -25,26 +25,21 @@ const PTWLogBackup = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
- 
   useEffect(() => {
     fetchPTWLogBackupData();
   }, []);
 
- 
   const fetchPTWLogBackupData = (reset = true, additionalArgs = "") => {
     const args = `page=${currentPage}&limit=${rowsPerPage}${additionalArgs}`;
     dispatch(PTWActions.getPtwLogBackup(reset, args));
   };
 
-  
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-   
     const args = `page=${newPage}&limit=${rowsPerPage}`;
     dispatch(PTWActions.getPtwLogBackup(false, args));
   };
 
- 
   const handleRowsPerPageChange = (newRowsPerPage) => {
     setRowsPerPage(newRowsPerPage);
     setCurrentPage(1);
@@ -56,13 +51,12 @@ const PTWLogBackup = () => {
     columns: [
       {
         name: "PTW",
-        value: "ptw",
+        value: "ptwNumber",
         style: "text-center min-w-[150px]",
       },
-      
       {
         name: "PTW Requester",
-        value: "ptwRequester",
+        value: "ptwRequestorName",
         style: "text-center min-w-[150px]",
       },
       {
@@ -77,27 +71,27 @@ const PTWLogBackup = () => {
       },
       {
         name: "SSID",
-        value: "ssid", 
+        value: "SSID",
         style: "text-center min-w-[150px]",
       },
       {
         name: "Unique ID",
-        value: "uniqueId",
+        value: "UniqueID",
         style: "text-center min-w-[150px]",
       },
       {
         name: "SR Number",
-        value: "srNumber", 
+        value: "SRNumber",
         style: "text-center min-w-[150px]",
       },
       {
         name: "Project Group",
-        value: "projectGroup", 
+        value: "ProjectGroup",
         style: "text-center min-w-[150px]",
       },
       {
         name: "Project ID",
-        value: "projectId", 
+        value: "projectID",
         style: "text-center min-w-[150px]",
       },
       {
@@ -112,70 +106,85 @@ const PTWLogBackup = () => {
       },
       {
         name: "Activity",
-        value: "activity",
+        value: "Activity",
         style: "text-center min-w-[150px]",
       },
       {
         name: "PTW Submission Date",
-        value: "ptwSubmissionDate", 
+        value: "PtwSubmissionDate",
         style: "text-center min-w-[150px]",
       },
       {
         name: "Approval/Rejection Date",
-        value: "approvalRejectionDate",
+        value: "approvalAndRejectionDate",
         style: "text-center min-w-[150px]",
       },
       {
         name: "PTW Form & Checklist Attachment",
-        value: "ptwFormChecklistAttachment", 
+        value: "PtwAndChecklistAttachment",
         style: "text-center min-w-[150px]",
       },
       {
         name: "Current Status",
-        value: "currentStatus",
+        value: "CurrentStatus",
         style: "text-center min-w-[150px]",
       },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
+
     filter: [],
   };
 
   const onSubmit = (data) => {
     console.log("Filter form submitted:", data);
-    
-   
+
     const queryParams = new URLSearchParams();
-    Object.keys(data).forEach(key => {
-      if (data[key] && data[key] !== '') {
+    Object.keys(data).forEach((key) => {
+      if (data[key] && data[key] !== "") {
         queryParams.append(key, data[key]);
       }
     });
-    
+
     const filterArgs = queryParams.toString();
-    const args = `page=1&limit=${rowsPerPage}${filterArgs ? '&' + filterArgs : ''}`;
-    
+    const args = `page=1&limit=${rowsPerPage}${
+      filterArgs ? "&" + filterArgs : ""
+    }`;
+
     setCurrentPage(1);
-    dispatch(getPtwLogBackup(true, args));
+    dispatch(PTWActions.getPtwLogBackup(true, args));
   };
+
+ 
+  useEffect(() => {
+    if (dataAll && dataAll.length > 0) {
+      console.log("PTW Data received:", dataAll);
+      console.log("Total items:", dataAll.length);
+      console.log("First item structure:", dataAll[0]);
+      console.log(
+        "Overall table count:",
+        dataAll[0]?.overall_table_count
+      );
+    }
+  }, [dataAll]);
 
   return (
     <>
       <AdvancedTable
         table={table}
         filterAfter={onSubmit}
-        tableName="L1 Approver Table"
+        tableName="PTW Log Backup Table"
         TableHeight="h-[68vh]"
         handleSubmit={handleSubmit}
-        data={l1ApproverList}
-        errors={errors}
+        data={dataAll || []}
+        errors={errors || {}}
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={l1ApproverTotalCount}
+        totalCount=""
         heading="Total Count :-"
-        loading={loading}
+       
         currentPage={currentPage}
         rowsPerPage={rowsPerPage}
         onPageChange={handlePageChange}

@@ -1,83 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { useDispatch} from "react-redux";
-// import CCDash from "../../../components/CCDash";
-// import { useNavigate } from "react-router-dom";
-// import ComponentActions from "../../../store/actions/component-actions";
-// import { getAccessType } from "../../../utils/commonFunnction";
-// import { ALERTS } from "../../../store/reducers/component-reducer";
-
-// const ParentApproverCards = () => {
-//   const [type, settype] = useState(false);
-//   let dispatch = useDispatch();
-
-//   let navigate = useNavigate();
-
-//   useEffect(() => {
-//     dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
-//   }, []);
-//   return (
-//     <>
-//       <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto">
-//       <CCDash
-//         showbtn={false}
-//         approveddata={[
-//           [
-//           "Expense/Advance",
-//           "bg-pcol",
-//           "/home/approverCards"
-//           ],
-//           [
-//           "Compliance",
-//           "bg-pcol",
-//           "/home/approverCards"
-//           ],
-//           [
-//           "Compliance",
-//           "bg-pcol",
-//           "/home/complianceMilestoneCard"
-//           ],
-//         ].map((itm) => {
-//           return (
-//             <>
-//               {/* {(getAccessType(itm[0]) == "visible" || getAccessType(itm[0]) == "disabled") ? ( */}
-//               {(1==1) ? (
-//                 <div
-//                   className={`${itm[1]} bg-pcol text-white text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
-//                   onClick={() => {
-//                     // if (getAccessType(itm[0]) == "visible") {
-//                     if (1==1) {
-//                       dispatch(ComponentActions.globalUrlStore(itm[0], itm[2]));
-//                       navigate(itm[2]);
-//                       dispatch(ComponentActions.breadcrumb(itm[0], itm[2], 1, false));
-//                     } else {
-//                       let msgdata = {
-//                         show: true,
-//                         icon: "error",
-//                         buttons: [],
-//                         type: 1,
-//                         text: "This option is disabled",
-//                       };
-//                       dispatch(ALERTS(msgdata));
-//                     }
-//                   }}
-//                 >
-//                   <div className="m-auto">{itm[0]}</div>
-//                 </div>
-//               ) : (
-//                 <></>
-//               )}
-//             </>
-//           );
-//         })}
-//         settype={settype}
-//       />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ParentApproverCards;
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
@@ -150,8 +70,13 @@ const ParentApproverCards = () => {
           })
         : [],
     };
+    const data3 = {
+      title: "PTW Approver",
+      href: "/home/parentApproverCards/ptwApprover",
+      children: [],
+    };
 
-    return [...complianceData, data];
+    return [...complianceData, data, data3];
   });
 
   Compliance: [
@@ -203,9 +128,7 @@ const ParentApproverCards = () => {
 
       {selectedCard && (
         <div className="mt-16">
-          <h3 className="text-white font-bold text-lg">
-            {/* Additional Cards for {selectedCard}: */}
-          </h3>
+          <h3 className="text-white font-bold text-lg"></h3>
           <div className="flex flex-wrap w-3/4 gap-5 p-2">
             {additionalCards[selectedCard]?.map((itm) => (
               <div

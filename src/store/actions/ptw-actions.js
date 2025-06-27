@@ -266,41 +266,56 @@ const PTWActions = {
           url: `${Urls.PTWBackup}${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
-        let dataAll = res?.data?.data;
+        let dataAll = res?.data?.data[0];
         dispatch(GET_PTW_LOGBACKUP({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching ptwlogBackup:", error);
       }
     },
 
-     managePtwApiGet: (path, cb = () => { }, id = null) => async (dispatch, _) => {
-    let res = await Api.get({ url: path + (id != null ? '/' + id : '') })
-    if (res?.status === 200) {
-      cb(res?.data)
-    }
-
-  },
-  managePtwApiPost: (data = null, path, contentType = 'img', cb = () => { }) => async (dispatch, _) => {
-    let res = await Api.post({ data: data, url: path, contentType: contentType === 'img' ? 'multipart/form-data' : 'application/json' })
-    if (res?.status === 201) {
-      cb(res?.data)
-    }
-  },
-  managePtwApiPatch: (data = null, path, contentType = 'img', id = null, cb = () => { }) => async (dispatch, _) => {
-    console.log('called......')
-    let res = await Api.patch({ url: path + (id != null ? '/' + id : '') , data  , contentType: contentType === 'img' ? 'multipart/form-data' : 'application/json' })
-    if (res?.status === 200) {
-      cb(res?.data)
-    }
-
-  },
-  managePtwApiDelete: (path, id = null, cb = () => { }) => async (dispatch, _) => {
-    let res = await Api.patch({ url: path + (id != null ? '/' + id : '') })
-    if (res?.status === '200') {
-      cb(res?.data)
-    }
-  },
+  managePtwApiGet:
+    (path, cb = () => {}, id = null) =>
+    async (dispatch, _) => {
+      let res = await Api.get({ url: path + (id != null ? "/" + id : "") });
+      if (res?.status === 200) {
+        cb(res?.data);
+      }
+    },
+  managePtwApiPost:
+    (data = null, path, contentType = "img", cb = () => {}) =>
+    async (dispatch, _) => {
+      let res = await Api.post({
+        data: data,
+        url: path,
+        contentType:
+          contentType === "img" ? "multipart/form-data" : "application/json",
+      });
+      if (res?.status === 201) {
+        cb(res?.data);
+      }
+    },
+  managePtwApiPatch:
+    (data = null, path, contentType = "img", id = null, cb = () => {}) =>
+    async (dispatch, _) => {
+      console.log("called......");
+      let res = await Api.patch({
+        url: path + (id != null ? "/" + id : ""),
+        data,
+        contentType:
+          contentType === "img" ? "multipart/form-data" : "application/json",
+      });
+      if (res?.status === 200) {
+        cb(res?.data);
+      }
+    },
+  managePtwApiDelete:
+    (path, id = null, cb = () => {}) =>
+    async (dispatch, _) => {
+      let res = await Api.patch({ url: path + (id != null ? "/" + id : "") });
+      if (res?.status === "200") {
+        cb(res?.data);
+      }
+    },
 };
-
 
 export default PTWActions;

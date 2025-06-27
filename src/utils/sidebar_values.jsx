@@ -134,6 +134,7 @@ import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
 import L2Approver from "../pages/PMIS/Admin/L2Approver/L2Approver";
 import PtwForm from "../pages/PMIS/Admin/PTW/PtwForm";
 import PTWLogBackup from "../pages/PMIS/MyHome/PTWLogBackup";
+import ApproverPage from "../pages/PMIS/MyHome/ApproverPage";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -361,6 +362,12 @@ export const Sidebar_content = {
       link: "/home/parentApproverCards",
       subMenu: [],
       component: <ParentApproverCards />,
+    },
+    {
+      name: "",
+      link: "/home/parentApproverCards/ptwApprover",
+      subMenu: [],
+      component: <ApproverPage/>,
     },
     {
       name: "",
