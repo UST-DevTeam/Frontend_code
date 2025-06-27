@@ -9,7 +9,7 @@ import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
 import PopupMenu from "../../../components/PopupMenu";
-import { IoTicketOutline } from "react-icons/io5";
+import { LuTicketCheck, LuTicketX } from "react-icons/lu";
 import {
   getAccessType,
   objectToQueryString,
@@ -51,16 +51,31 @@ const MyTask = () => {
   const { projectuniqueId } = useParams();
 
   const [modalOpen, setmodalOpen] = useState(false);
+  const [isSelect, setSelect] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [isMultiStep, setIsMultiStep] = useState(false);
+
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] = useState(false);
   const [ptwOption, setPtwOption] = useState(null);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
   const [ptwModalFullOpen, setPtwModalFullOpen] = useState(false);
   const [ptwModalBody, setPtwModalBody] = useState(<></>);
+  const [ptwApprovalModalBody, setPtwApprovalModalBody] = useState(<></>);
+  const [formName, setFormName] = useState("");
   const [ptwModalHead, setPtwModalHead] = useState({
-    title : 'Checklist',
-    value : 'checklist'
+    title: "",
+    value: "",
   });
+
+  const options = [
+    { id: 'riskassessment', name: 'Risk Assessment' },
+    { id: 'oneatrisk', name: 'One At Risk' },
+    { id: 'ptwphoto', name: 'PTW Photo' }
+  ];
+  const FORM_FLOW_SEQUENCE = ['riskassessment', 'oneatrisk', 'ptwphoto'];
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -68,19 +83,35 @@ const MyTask = () => {
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
-  const mileStoneItemRef = useRef(null)
+  const [operationID, setOperationId] = useState("");
+  const mileStoneItemRef = useRef(null);
+  const operationApprovalID = useRef(null);
   const subFormRef = useRef({
-    checklist : [],
-    oneatrisk : [],
-    photo : [],
-    ptwphoto : [],
-    riskassessment : []
-  })
+    checklist: [],
+    oneatrisk: [],
+    photo: [],
+    ptwphoto: [],
+    riskassessment: [],
+  });
 
   const [modalHead, setmodalHead] = useState(<></>);
 
   const [old, setOld] = useState(<></>);
   const navigate = useNavigate();
+
+  const handleCheckboxChange = (optionId, optionName) => {
+    setSelectedItems(prev => {
+      const isSelected = prev.some(item => item.id === optionId);
+
+      if (isSelected) {
+        // Remove item if already selected
+        return prev.filter(item => item.id !== optionId);
+      } else {
+        // Add item if not selected
+        return [...prev, { id: optionId, name: optionName }];
+      }
+    });
+  };
 
   const {
     register,
@@ -120,26 +151,223 @@ const MyTask = () => {
     });
   });
 
-
-const handleAddActivity  = async (data , formType) => {
-   let newData = {
-      projectID : '',
-      siteId : '',
-      customerName : '',
-      circle : '',
-      mileStoneId : ''
-   }
-   Object.keys(data)?.forEach((item) => {
-    if(data[item] ){
-      newData[formType][item] = data[item]
-    }
-   })
-    const res = await Api.post({
-      url: `/submit/ptw/${formType}/${ptwModalHead.value}`,
-      data: newData,
+  const handleApprovalData = async () => {
+    const dropdown = document.getElementById("dropdown");
+    const res = await Api.patch({
+      url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
+      data: {
+        empId : dropdown.value,
+        ApproverType : 'L1-Aprover'
+      },
     })
-    console.log(res ,'fasdfasdfasf')
-}
+    if (res?.status === 200) {
+        setPtwModalFullApprovalOpen(false)
+        setPtwOption(null)
+        sessionStorage.removeItem("opid")
+        operationApprovalID.current = null
+         dispatch(MyHomeActions.getMyTask());
+
+    }
+  }
+
+
+  const getApprovalsData = async (operationId) => {
+    
+    setIsMultiStep(false); // all done
+    setPtwModalFullOpen(false);
+    operationApprovalID.current = operationId
+    const res = await Api.get({
+      url: `/getPtwApprover/${mileStoneItemRef.current?.projectType}`,
+    })
+    if (res?.status === 200) {
+      setPtwApprovalModalBody(<>
+        <div className="w-full flex flex-col items-scenter min-h-[50vh] max-h-full ">
+          <div className="max-w-md mx-auto p-2  flex flex-col gap-3 rounded-lg shadow-md">
+              <div>
+                <label htmlFor="dropdown" className="block text-sm font-medium text-white mb-2">
+                  Choose an option:
+                </label>
+                <select
+                  id="dropdown"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#13B497] focus:border-[#13B497]"
+                >
+                  <option value="">Select L1 Approver</option>
+                  {
+                    res?.data?.data?.length > 0 ? res?.data?.data?.filter((item) => item?.ApproverType === 'L1-Approver')?.map((item) => {
+                      return (
+                        <option className="" value={item?.empId}>{item?.empName}</option>
+                      )
+                    }) : []
+                  }
+                 
+                </select>
+              </div>
+
+              <button
+                onClick={(e) => handleApprovalData()
+                }
+                className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+              >
+                Submit
+              </button>
+         
+
+          </div>
+          
+        </div>
+      </>)
+      setPtwModalFullApprovalOpen(true)
+      
+    }
+  }
+
+  const handleAddActivity = async (data, formType) => {
+    let res = null;
+
+    try {
+      if (!['photo' , 'ptwphoto' , 'oneatrisk'].includes(ptwModalHead.value) ) {
+        let newData = {
+          projectID: mileStoneItemRef.current?.projectId,
+          siteId: mileStoneItemRef.current?.siteId,
+          customerName: mileStoneItemRef.current?.customerName,
+          circle: mileStoneItemRef.current?.CIRCLE,
+          mileStoneId: mileStoneItemRef.current?.mileStoneId,
+          Milestone: mileStoneItemRef.current?.Milestone,
+          [ptwModalHead.value]: {}, // Initialize nested object dynamically
+        };
+
+        Object.keys(data)?.forEach((item) => {
+          if (data[item]) {
+            newData[ptwModalHead.value][item] = data[item];
+          }
+        });
+        if(sessionStorage.getItem("opid")){
+          res = await Api.patch({
+          url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
+            }`,
+          data: newData,
+        });
+        }
+        else{
+          res = await Api.post({
+          url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
+            }`,
+          data: newData,
+        });
+        }
+      } else {
+        let formData = new FormData()
+        formData.append("projectID", mileStoneItemRef.current?.projectId);
+        formData.append("siteId", mileStoneItemRef.current?.siteId);
+        formData.append("customerName", mileStoneItemRef.current?.customerName);
+        formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+        formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+        formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+
+        // Append files or other form fields under ptwModalHead.value.*
+        Object.keys(data)?.forEach((item) => {
+          if (data[item]) {
+            formData.append(`${item}`, data[item][0]);
+          }
+        });
+
+        res = await Api.patch({
+          url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")}`,
+          contentType: "multipart/form-data",
+          data: formData,
+        });
+      }
+
+      if (res?.status === 201 || res?.status === 200) {
+        
+        sessionStorage.setItem('opid' , sessionStorage.getItem("opid") ? sessionStorage.getItem("opid") : res?.data?.operation_id)
+    
+        if (ptwModalHead.value === 'photo') {
+          setSelect(true);
+          reset();
+          setPtwModalHead({
+            title: '',
+            value: 'formSelection'
+          });
+          return;
+        }
+
+        if (ptwModalHead.value === 'ptwphoto') {
+          reset();
+          getApprovalsData(res?.data?.operation_id);
+          return;
+        }
+
+        // 🔄 Multi-step handling
+        if (isMultiStep) {
+          const nextIndex = currentStepIndex + 1;
+
+          if (nextIndex < selectedItems.length) {
+            setCurrentStepIndex(nextIndex);
+            const nextForm = selectedItems[nextIndex];
+            setPtwModalHead({
+              title: nextForm.name,
+              value: nextForm.id
+            });
+          } else {
+            // ✅ Last form submitted, always show approval
+            setIsMultiStep(false);
+            setPtwModalFullOpen(false);
+            getApprovalsData(res?.data?.operation_id); // always show
+          }
+          reset();
+          return;
+        }
+
+
+        // fallback: move to photo after checklist
+        setPtwModalHead({
+          title: ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.value,
+          value: ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value
+        });
+        reset();
+      }
+
+    } catch (err) {
+      console.error("Error in handleAddActivity:", err);
+    }
+  };
+
+  const setForm = (form, formName) => {
+    setPtwModalBody(
+      <>
+        <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
+          <CommonForm
+            classes={` ${subFormRef.current[ptwModalHead.value] &&
+              subFormRef.current[ptwModalHead.value]?.length > 3
+              ? "grid-cols-3"
+              : "grid-cols-1"
+              }  gap-1`}
+            Form={form}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+          <Button
+            name="Submit"
+            classes="w-fit"
+            onClick={handleSubmit((data) => {
+              handleAddActivity(data, formName);
+            })}
+          />
+        </div>
+      </>
+    );
+  };
+
+  useEffect(() => {
+    if (ptwModalHead.value) {
+      setPtwModalFullOpen(true);
+      setForm(subFormRef.current[ptwModalHead.value], formName);
+    }
+  }, [ptwModalHead.value]);
 
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getMyTaskSubProject.map((itm) => {
@@ -163,63 +391,96 @@ const handleAddActivity  = async (data , formType) => {
   let sitelogsEventLogsData = useSelector((state) => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
-
   });
 
   const getPtwSubForm = async (formName) => {
-    reset()
-      const res = await Api.get({url : `/show/ptw/${formName}`})
-      if(res?.status === 200){
-        
-        Object.keys(subFormRef.current)?.forEach((itm) => {
-          subFormRef.current[itm] =  res?.data?.data[0][itm]?.map((item) => {
-            if(item?.dataType === 'AutoFill'){
-              setValue(item?.fieldName, mileStoneItemRef.current[item?.fieldName]);
-            }
+    reset();
+    setPtwModalHead({
+      title: "",
+      value: "",
+    });
+    const res = await Api.get({ url: `/show/ptw/${formName}` });
+    if (res?.status === 200) {
+      if (!res?.data?.data?.length) {
+        alert("No Form Found.");
+        return;
+      }
+      console.log(
+        res?.data?.data[0],
+        mileStoneItemRef.current,
+        "asdfasdfasdfasdfasdfasdfsdf"
+      );
+      Object.keys(subFormRef.current)?.forEach((itm) => {
+        if (res?.data?.data[0][itm]?.length === 0) {
+          alert("Please submit all form first.")
+          return
+        }
+        subFormRef.current[itm] = res?.data?.data[0][itm]?.map((item) => {
+          if (item?.dataType === "AutoFill") {
+            setValue(
+              item?.fieldName,
+              mileStoneItemRef.current[item?.fieldName]
+            );
+          }
           return {
             ...item,
             label: item?.fieldName,
-            defaultValue: item?.dataType === 'AutoFill' ? 'aman' : '',
+            defaultValue: item?.dataType === "AutoFill" ? "aman" : "",
             // disabled :  item?.dataType === 'AutoFill' ? true : false ,
             name: item?.fieldName,
-            type: item?.dataType === 'AutoFill' ? 'sdisabled' : (item?.dataType === 'Dropdown' ? 'select' : item?.dataType === 'DateTime' ? 'datetime' : item?.dataType.toLowerCase() ==='date' ? 'datetime2' :item?.dataType.toLowerCase()) ,
-            ...( item?.dataType === 'Dropdown' ? { option : item?.dropdownValue.split(",")?.map((item) => {
-              return {
-                label: item.trim(),
-                value: item.trim()
+            type:
+              item?.dataType === "AutoFill"
+                ? "sdisabled"
+                : item?.dataType === "Dropdown"
+                  ? "select"
+                  : item?.dataType === "DateTime"
+                    ? "datetime-local"
+                    : item?.dataType.toLowerCase() === "date"
+                      ? "datetime"
+                      : item?.dataType.toLowerCase() === "img"
+                        ? "file"
+                        : item?.dataType.toLowerCase(),
+            ...(item?.dataType === "Dropdown"
+              ? {
+                option: item?.dropdownValue.split(",")?.map((item) => {
+                  return {
+                    label: item.trim(),
+                    value: item.trim(),
+                  };
+                }),
               }
-            })} : {} ),
-          //  ...( item?.dataType === 'DateTime' ? { formattype : 'time' , 
-          //   formatop: "DD/MM/YYYY HH:mm",
-          //   } : {} ),
-            required: item?.required === 'Yes' ? true : false ,
-            
-        }
-        })
-        })
-        console.log(mileStoneItemRef.current , 'asdfasdfasdfsadfasdfasdasdfasdf')
-        console.log(subFormRef.current.checklist , 'asdfasdfasdfsadfasdfasdasdfasdf')
-        setPtwModalHead({
-          title: 'Checklist',
-          value : 'checklist'
-        })
-        setPtwModalFullOpen(true)
-        setPtwModalBody(<>
-        <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
-          <CommonForm classes={"grid-cols-3 gap-1"} Form={subFormRef.current?.checklist} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-          <Button
-                    name="Submit"
-                    classes="w-fit"
-                    onClick={handleSubmit((data) => {
-                      handleAddActivity(data , formName)
-                    })}
-                  />
-        </div>
-        </>)
-        setPtwOption(null);
-        setPtwModel(true);
-      }
-  }
+              : {}),
+            // ...(item?.dataType === 'img' ? {
+            //   props: {
+            //     onChange: (e) => {
+            //       console.log(e.target.files, "e geeter");
+            //       setValue(item?.fieldName, e.target.files[0]);
+            //     },
+
+            //   },
+            // } : {}),
+            required: item?.required === "Yes" ? true : false,
+          };
+        });
+      });
+
+      setPtwModalHead({
+        title: "Checklist",
+        value: "checklist",
+      });
+      setFormName(formName);
+
+      setPtwOption(null);
+    } else {
+    }
+  };
+
+  useEffect(() => {
+    setPtwOption(null);
+    if (formName) {
+      getPtwSubForm(formName);
+    }
+  }, [formName]);
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
@@ -230,7 +491,7 @@ const handleAddActivity  = async (data , formType) => {
           <p
             className="text-[#13b497] font-extrabold"
             onClick={() => {
-              console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
+              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-" + itm["Site Id"]);
               dispatch(
@@ -270,20 +531,18 @@ const handleAddActivity  = async (data , formType) => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${
-              100 -
+            percent={`${100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
                   (iewq) => iewq?.mileStoneStatus == "Closed"
                 ).length) /
                 itm?.milestoneArray?.length) *
-                100
-            }`}
-            text={`${
-              itm?.milestoneArray?.filter(
-                (iewq) => iewq?.mileStoneStatus == "Closed"
-              ).length
-            } / ${itm?.milestoneArray?.length}`}
+              100
+              }`}
+            text={`${itm?.milestoneArray?.filter(
+              (iewq) => iewq?.mileStoneStatus == "Closed"
+            ).length
+              } / ${itm?.milestoneArray?.length}`}
           />
         ),
         checkboxProject: (
@@ -294,7 +553,7 @@ const handleAddActivity  = async (data , formType) => {
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
-                console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
+                console.log("asdfasdfasdfasdfasdfasdf.......", "called");
                 if (e.target.checked) {
                   setparentsite((prev) => [...prev, e.target.value]);
                   let dlisting = itm.milestoneArray.map((iewq) => {
@@ -356,17 +615,17 @@ const handleAddActivity  = async (data , formType) => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                itwsw.assignerName.trim().split(" ").length > 1
+                                  itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}${itwsw.assignerName
+                                    .split(" ")[0]
+                                    .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                  ? itwsw.assignerName
+                                    ? itwsw.assignerName
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                  : ""}
+                                    : ""}
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -439,62 +698,114 @@ const handleAddActivity  = async (data , formType) => {
                   >
                     {iewq.mileStoneStatus}
                   </p>
-                </> 
-              ) : (
-                iewq?.mileStoneStatus === 'Open' ? <div className="relative" >
-              <button onClick={() =>{
-                
-                
-                if(ptwOption && ptwOption === iewq?._id ){
-                  setPtwOption(null)
-                }
-                else{
-                  setPtwOption(iewq?._id)
-                }
-              }} className="">
-                <IoTicketOutline />
-              </button>
-              {
-                iewq?._id === ptwOption && <div className="absolute bg-gray-200 grid p-2 w-[150px] rounded-md right-0 gap-1  top-5 z-40  ">
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          ...itm,
-                          Customer : itm?.customerName,
-                          siteId : itm['Site Id'],
-                          Milestone : iewq?.Name,
-                          mileStoneId : iewq?.mileStoneId,
-                          SSID : itm?.systemId,
-                          Projecttype : itm?.projectType,
-                          'PTW Receiver name' : user?.benificiaryname,
-                          'Partner name' : user?.benificiaryname,
-                          
+                </>
+              ) : iewq?.mileStoneStatus === "Open" ? (
+                <div className="relative">
+                  <div className="h-full w-full cursor-default flex items-center gap-2 justify-center">
+                    <span
+                      onClick={() => {
+                        setFormName("");
+                        sessionStorage.removeItem("opid")
+                        setSelect(false)
+                        setSelectedItems([])
+                        if (iewq?.isPtwRaise) return;
+
+                        if (ptwOption && ptwOption === iewq?._id) {
+                          setPtwOption(null);
+                        } else {
+                          setPtwOption(iewq?._id);
                         }
-                        getPtwSubForm('workatheight')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">Work At Height</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('rtws')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">RTWS</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('groundactivity')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">Ground Activity</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('drivertestactivity')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  ">Driver Test Activity</div>
+                      }}
+                      title="Raise PTW"
+                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-60"
+                        } rounded-md bg-[#13B497]`}
+                    >
+                      <LuTicketCheck size={20} />
+                    </span>{" "}
+                    <span
+                      onClick={() => {
+                        setSelect(false)
+                        setSelectedItems([])
+                        sessionStorage.removeItem("opid")
+                      }}
+                      title="Close PTW"
+                      className={`p-[1px] ${iewq?.isPtwRaise
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-60"
+                        } px-2 rounded-md bg-[#F43F5E]`}
+                    >
+                      <LuTicketX size={20} />
+                    </span>
+                  </div>
+                  {iewq?._id === ptwOption && (
+                    <div className="absolute bg-gray-200 grid p-2 w-[150px] rounded-md right-0 gap-1  top-6 z-40  ">
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            ...itm,
+                            Customer: itm?.customerName,
+                            siteId: itm["Site Id"],
+                            Milestone: iewq?.Name,
+                            mileStoneId: iewq?._id,
+                            SSID: itm?.systemId,
+                            "Project type": itm?.projectType,
+                            "PTW Requestor name": user?.benificiaryname,
+                            "Partner name": user?.benificiaryname,
+                            "SR Number": itm?.srNumber,
+                            "User type": itm?.customerName,
+                            Activity: itm?.ACTIVITY || 'null',
+                            "RFAI Date": itm["RFAI Date"],
+                          };
+
+                          setFormName("workatheight");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  "
+                      >
+                        Work At Height
+                      </div>
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            sideData: itm,
+                            milestoneCount: iewq,
+                          };
+                          setFormName("rtws");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  "
+                      >
+                        RTWS
+                      </div>
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            sideData: itm,
+                            milestoneCount: iewq,
+                          };
+                          setFormName("groundactivity");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  "
+                      >
+                        Ground Activity
+                      </div>
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            sideData: itm,
+                            milestoneCount: iewq,
+                          };
+                          setFormName("drivertestactivity");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  "
+                      >
+                        Driver Test Activity
+                      </div>
+                    </div>
+                  )}
                 </div>
-              }
-              </div> : iewq?.mileStoneStatus
+              ) : (
+                iewq?.mileStoneStatus
               ),
 
             SiteNaming: (
@@ -731,7 +1042,6 @@ const handleAddActivity  = async (data , formType) => {
                 />
               </>
             ),
-            
           };
         }),
 
@@ -946,20 +1256,17 @@ const handleAddActivity  = async (data , formType) => {
         {
           name: "Site ID",
           value: "SiteNaming",
-          style:
-            " sticky left-0 bg-[#3e454d] text-center  z-20",
+          style: " sticky left-0 bg-[#3e454d] text-center  z-20",
         },
         {
           name: "Project ID",
           value: "projectId",
-          style:
-            "  left-[140px] bg-[#3e454d] text-center ",
+          style: "  left-[140px] bg-[#3e454d] text-center ",
         },
         {
           name: "",
           value: "",
-          style:
-            " left-[140px] bg-[#3e454d] text-center ",
+          style: " left-[140px] bg-[#3e454d] text-center ",
         },
         {
           name: "Sub Project",
@@ -1008,7 +1315,6 @@ const handleAddActivity  = async (data , formType) => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-        
         // {
         //   name: "Event Logs",
         //   value: "eventLogsmilestone",
@@ -1104,16 +1410,66 @@ const handleAddActivity  = async (data , formType) => {
     dispatch(MyHomeActions.getMyTask(true, strVal));
   };
   useEffect(() => {
+    setFormName("");
     dispatch(AdminActions.getManageCustomer());
     dispatch(MyHomeActions.getMyTask());
     dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));
   }, []);
 
-  const handleBulkDelte = () => {   
+  const handleBulkDelte = () => { };
+  const submitNextFormsSequentially = async (forms, index = 0) => {
+    if (index >= forms.length) {
+      // All selected forms are submitted
+      setSelect(false);
+      setPtwModalFullOpen(false);
+      reset();
+      return;
+    }
+
+    const currentFormId = forms[index].id;
+    const currentFormName = formName; // Keep using the same formName set earlier
+
+    setPtwModalHead({
+      title: forms[index].name,
+      value: currentFormId
+    });
+
+    // Delay to allow modal to update and form to render
+    setTimeout(() => {
+      setTimeout(() => {
+        const currentFormData = getValues(); // collect values for this form
+        handleAddActivity(currentFormData, currentFormName).then(() => {
+          submitNextFormsSequentially(forms, index + 1);
+        });
+      }, 500); // small buffer to let form UI appear
+    }, 100);
+  };
+
+  const handleContinue = (opId) => {
+    if (selectedItems.length === 0) {
+      alert("Please select at least one form.");
+      return;
+    }
+
+    const sortedItems = FORM_FLOW_SEQUENCE
+      .map(id => selectedItems.find(item => item.id === id))
+      .filter(Boolean);
+
+    setSelectedItems(sortedItems);
+    setIsMultiStep(true);
+    setCurrentStepIndex(0);
+    setSelect(false);
+
+    const firstForm = sortedItems[0];
+    setPtwModalHead({
+      title: firstForm.name,
+      value: firstForm.id
+    });
+    
   };
 
 
-  
+
 
   return (
     <>
@@ -1123,7 +1479,7 @@ const handleAddActivity  = async (data , formType) => {
         searchView={
           <>
             <SearchBarView
-              onblur={(e) => {}}
+              onblur={(e) => { }}
               onchange={(e) => {
                 const siteNameQuery =
                   (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
@@ -1134,7 +1490,7 @@ const handleAddActivity  = async (data , formType) => {
             />
 
             <SearchBarView
-              onblur={(e) => {}}
+              onblur={(e) => { }}
               onchange={(e) => {
                 dispatch(
                   MyHomeActions.getMyTask(
@@ -1220,9 +1576,40 @@ const handleAddActivity  = async (data , formType) => {
       <Modal
         size={"lg"}
         modalHead={ptwModalHead.title}
-        children={ptwModalBody}
+        children={isSelect ? <div className="max-w-md mx-auto mt-8  rounded-lg shadow-lg p-6">
+          <h2 className="text-xl font-semibold text-white mb-4">Select Your Forms</h2>
+
+          <div className="space-y-3 mb-6">
+            {options.map(option => (
+              <label key={option.id} className="flex items-center space-x-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedItems.some(item => item.id === option.id)}
+                  onChange={() => handleCheckboxChange(option.id, option.name)}
+                  className="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                />
+                <span className="text-white">{option.name}</span>
+              </label>
+            ))}
+          </div>
+
+          <button
+            onClick={() => handleContinue(sessionStorage.getItem("opid"))}
+            className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+          >
+            Continue
+          </button>
+
+        </div> : ptwModalBody}
         isOpen={ptwModalFullOpen}
         setIsOpen={setPtwModalFullOpen}
+      />
+      <Modal
+        size={"sm"}
+        modalHead={'Select PTW L1 Approver'}
+        children={ptwApprovalModalBody}
+        isOpen={ptwModalFullApprovalOpen}
+        setIsOpen={setPtwModalFullApprovalOpen}
       />
     </>
   );

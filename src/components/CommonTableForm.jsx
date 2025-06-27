@@ -52,6 +52,7 @@ const CommonTableForm = ({
   tabHead,
   isPtw = false,
   ptwData,
+  getPtwFormData= () =>{},
   errors,
   ptwPage,
   setValue,
@@ -123,11 +124,7 @@ const CommonTableForm = ({
       dispatch(CommonActions.fileSubmit('/admin/ptw' + "/" + `${ptwPage}/${tabHead}?file=true`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
-          dispatch(
-        PTWActions.managePtwApiGet( `/admin/ptw/${ptwPage}`, (data) => {
-        setData(data?.data[0])
-      }  )
-    );
+          getPtwFormData()
         }
       )
     );

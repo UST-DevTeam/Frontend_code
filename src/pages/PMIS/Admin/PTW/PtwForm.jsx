@@ -125,8 +125,16 @@ const PtwForm = () => {
           value: "Date",
         },
         {
+          label: "DateTime",
+          value: "DateTime",
+        },
+        {
           label: "Image",
           value: "img",
+        },
+        {
+          label: "AutoFill",
+          value: "AutoFill",
         },
         {
           label: "Dropdown",
@@ -173,10 +181,18 @@ const PtwForm = () => {
   ];
 
   const handleAddActivity = (datas, head) => {
-    console.log(data , head , 'data........')
-    dispatch(PTWActions.managePtwApiPatch(datas , `/admin/ptw/${page}/${head.toLowerCase()}` , '' , data?._id , () =>{
+
+    console.log(datas , head , 'data........')
+    if(data?._id){
+      dispatch(PTWActions.managePtwApiPatch(datas , `/admin/ptw/${page}/${head.toLowerCase()}` , '' , data?._id , () =>{
       getPtwFormData()
     } ))
+    }else{
+      dispatch(PTWActions.managePtwApiPost(datas , `/admin/ptw/${page}/${head.toLowerCase()}` , '' , cb=> {
+        getPtwFormData()
+      } ))
+    }
+    
   };
 
   
@@ -189,6 +205,7 @@ const PtwForm = () => {
                 classes={"grid-cols-2 gap-1"}
                 Form={conditionmultiForm}
                 errors={errors}
+                getPtwFormData={getPtwFormData}
                 ptwData = {data}
                 isPtw = {true}
                 register={register}

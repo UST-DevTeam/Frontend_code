@@ -29,6 +29,7 @@ import DatePicking2 from "./FormElements/DatePicking2";
 import NewMuitiSelect007 from "./NewMuitiSelect007";
 import DateRangePicking from "./FormElements/DateRangePicking";
 import NewSingleSelectForm50 from "./FormElements/NewSingleSelectForm50";
+import DateTime from "./FormElements/DateTime";
 
 const CommonForm = ({
   classes,
@@ -48,11 +49,11 @@ const CommonForm = ({
     <>
       <form
         className={`overflow-scroll grid ${classes} ${
-          Form.length > 12 ? " h-[70vh] " : " h-auto "
+          Form?.length > 12 ? " h-[70vh] " : " h-auto "
         }`}
         encType="multipart/form-data"
       >
-        {Form.map((itm) => {
+        {Form?.map((itm) => {
           return (
             <>
               {itm.type == "heading" ? (
@@ -286,6 +287,20 @@ const CommonForm = ({
                      {itm.type == "datetimeRange" ? (
                       <>
                         <DateRangePicking
+                          itm={itm}
+                          errors={errors}
+                          handleSubmit={handleSubmit}
+                          setValue={setValue}
+                          getValues={getValues}
+                          register={register}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                     {itm.type == "datetime-local" ? (
+                      <>
+                        <DateTime
                           itm={itm}
                           errors={errors}
                           handleSubmit={handleSubmit}
