@@ -220,6 +220,40 @@ const PtwForm = () => {
               />
   }
 
+  const ptwForm = {
+    'workathight' : {
+            CheckList: form("CheckList"),
+            Photo: form("Photo"),
+            RiskAssessment: form("RiskAssessment"),
+            PtwPhoto : form("PtwPhoto") ,
+            OneAtRisk: form("OneAtRisk"),
+          },
+    'groundactivity' : {
+            CheckList: form("CheckList"),
+            Photo: form("Photo"),
+            RiskAssessment: form("RiskAssessment"),
+            PtwPhoto : form("PtwPhoto") ,
+            OneAtRisk: form("OneAtRisk"),
+          },
+     'drivetestactivity' : {
+            CheckList: form("CheckList"),
+            Photo: form("Photo"),
+            RiskAssessment: form("RiskAssessment"),
+            PtwPhoto : form("PtwPhoto") ,
+            OneAtRisk: form("OneAtRisk"),
+            'fourWheeler': form("fourWheeler"),
+            'twoWheeler': form("twoWheeler"),
+           
+          } ,
+      'rtws' : {
+            CheckList: form("CheckList"),
+            Photo: form("Photo"),
+            RiskAssessment: form("RiskAssessment"),
+            PtwPhoto : form("PtwPhoto") ,
+            OneAtRisk: form("OneAtRisk"),
+          },
+  }
+
   return (
     <>
       <div>
@@ -228,18 +262,11 @@ const PtwForm = () => {
           defaultValue={"CheckList"}
           tabslist={{
             CheckList: form("CheckList"),
-            
           }}
         /> :  <CommonTableFormSiteParent
           funcaller={() => {}}
           defaultValue={"CheckList"}
-          tabslist={{
-            CheckList: form("CheckList"),
-            Photo: form("Photo"),
-            RiskAssessment: form("RiskAssessment"),
-            PtwPhoto : form("PtwPhoto") ,
-            OneAtRisk: form("OneAtRisk"),
-          }}
+          tabslist={ptwForm[page]}
         /> }
       </div>
     </>

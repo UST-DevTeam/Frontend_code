@@ -62,7 +62,9 @@ const MyTask = () => {
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
   const [ptwModalFullOpen, setPtwModalFullOpen] = useState(false);
+  const [ptwDriveTest, setPtwDriveTest] = useState(false);
   const [ptwModalBody, setPtwModalBody] = useState(<></>);
+  const [ptwDriveTestBody, setPtwDriveTestBody] = useState(<></>);
   const [ptwApprovalModalBody, setPtwApprovalModalBody] = useState(<></>);
   const [formName, setFormName] = useState("");
   const [ptwModalHead, setPtwModalHead] = useState({
@@ -92,6 +94,8 @@ const MyTask = () => {
     photo: [],
     ptwphoto: [],
     riskassessment: [],
+    twowheeler : [],
+    fourwheeler : []
   });
 
   const [modalHead, setmodalHead] = useState(<></>);
@@ -113,17 +117,8 @@ const MyTask = () => {
     });
   };
 
-  const {
-    register,
-    handleSubmit,
-    SubmitTask,
-    watch,
-    setValue,
-    setValues,
-    getValues,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, SubmitTask, watch, setValue, setValues, getValues, reset, formState: { errors }} = useForm();
+  const { register: registerForm1, setValue: setValueForm1, getValues: getValuesForm1, handleSubmit: handleSubmitForm1, formState: { errors: errorsForm1 } } = useForm();
   let dispatch = useDispatch();
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub;
@@ -156,23 +151,25 @@ const MyTask = () => {
     const res = await Api.patch({
       url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
       data: {
-        empId : dropdown.value,
-        ApproverType : 'L1-Aprover'
+        empId: dropdown.value,
+        ApproverType: 'L1-Aprover'
       },
     })
     if (res?.status === 200) {
-        setPtwModalFullApprovalOpen(false)
-        setPtwOption(null)
-        sessionStorage.removeItem("opid")
-        operationApprovalID.current = null
-         dispatch(MyHomeActions.getMyTask());
+      setPtwModalFullApprovalOpen(false)
+      setPtwOption(null)
+      sessionStorage.removeItem("opid")
+      operationApprovalID.current = null
+      dispatch(MyHomeActions.getMyTask());
 
     }
   }
 
+ 
+
 
   const getApprovalsData = async (operationId) => {
-    
+
     setIsMultiStep(false); // all done
     setPtwModalFullOpen(false);
     operationApprovalID.current = operationId
@@ -183,49 +180,118 @@ const MyTask = () => {
       setPtwApprovalModalBody(<>
         <div className="w-full flex flex-col items-scenter min-h-[50vh] max-h-full ">
           <div className="max-w-md mx-auto p-2  flex flex-col gap-3 rounded-lg shadow-md">
-              <div>
-                <label htmlFor="dropdown" className="block text-sm font-medium text-white mb-2">
-                  Choose an option:
-                </label>
-                <select
-                  id="dropdown"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#13B497] focus:border-[#13B497]"
-                >
-                  <option value="">Select L1 Approver</option>
-                  {
-                    res?.data?.data?.length > 0 ? res?.data?.data?.filter((item) => item?.ApproverType === 'L1-Approver')?.map((item) => {
-                      return (
-                        <option className="" value={item?.empId}>{item?.empName}</option>
-                      )
-                    }) : []
-                  }
-                 
-                </select>
-              </div>
-
-              <button
-                onClick={(e) => handleApprovalData()
-                }
-                className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+            <div>
+              <label htmlFor="dropdown" className="block text-sm font-medium text-white mb-2">
+                Choose an option:
+              </label>
+              <select
+                id="dropdown"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#13B497] focus:border-[#13B497]"
               >
-                Submit
-              </button>
-         
+                <option value="">Select L1 Approver</option>
+                {
+                  res?.data?.data?.length > 0 ? res?.data?.data?.filter((item) => item?.ApproverType === 'L1-Approver')?.map((item) => {
+                    return (
+                      <option className="" value={item?.empId}>{item?.empName}</option>
+                    )
+                  }) : []
+                }
+
+              </select>
+            </div>
+
+            <button
+              onClick={(e) => handleApprovalData()
+              }
+              className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+            >
+              Submit
+            </button>
+
 
           </div>
-          
+
         </div>
       </>)
       setPtwModalFullApprovalOpen(true)
-      
+
     }
   }
+
+ const handleVaichel = async (dataTwo, formType, subForm) => {
+  const dataFour = getValuesForm1();
+
+  let formData = new FormData();
+
+  // Append shared metadata
+  formData.append("projectID", mileStoneItemRef.current?.projectId);
+  formData.append("siteId", mileStoneItemRef.current?.siteId);
+  formData.append("customerName", mileStoneItemRef.current?.customerName);
+  formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+  formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+  formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+  // 🔑 Get actual field names from field configs
+  const twoWheelerKeys = (subFormRef.current.twowheeler || []).map(f => f.fieldName);
+  const fourWheelerKeys = (subFormRef.current.fourwheeler || []).map(f => f.fieldName);
+
+  const twoWheelerData = {};
+  const fourWheelerData = {};
+
+  // 🛵 Two Wheeler
+  for (let key in dataTwo) {
+    if (twoWheelerKeys.includes(key)) {
+      twoWheelerData[key] = dataTwo[key];
+    }
+  }
+
+  // 🚗 Four Wheeler
+  for (let key in dataFour) {
+    if (fourWheelerKeys.includes(key)) {
+      fourWheelerData[key] = dataFour[key];
+    }
+  }
+
+  // ➕ Append Two Wheeler
+  Object.entries(twoWheelerData).forEach(([key, value]) => {
+    if (value instanceof FileList) {
+      formData.append(`twoWheeler[${key}]`, value[0]);
+    } else {
+      formData.append(`twoWheeler[${key}]`, value);
+    }
+  });
+
+  // ➕ Append Four Wheeler
+  Object.entries(fourWheelerData).forEach(([key, value]) => {
+    if (value instanceof FileList) {
+      formData.append(`fourWheeler[${key}]`, value[0]);
+    } else {
+      formData.append(`fourWheeler[${key}]`, value);
+    }
+  });
+
+  // 📤 Submit
+  const res = await Api.patch({
+    url: `/submit/ptw/${formType}/${subForm + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")}`,
+    contentType: "multipart/form-data",
+    data: formData,
+  });
+
+  if (res?.status === 200) {
+    reset(); // Reset two-wheeler form
+    reset({}, { keepValues: false }); // Also reset four-wheeler form
+    setPtwDriveTest(false);
+    getApprovalsData(res?.data?.operation_id);
+  }
+};
+
+
 
   const handleAddActivity = async (data, formType) => {
     let res = null;
 
     try {
-      if (!['photo' , 'ptwphoto' , 'oneatrisk'].includes(ptwModalHead.value) ) {
+      if (!['photo', 'ptwphoto', 'oneatrisk','vehicle'].includes(ptwModalHead.value)) {
         let newData = {
           projectID: mileStoneItemRef.current?.projectId,
           siteId: mileStoneItemRef.current?.siteId,
@@ -242,19 +308,19 @@ const MyTask = () => {
             newData[ptwModalHead.value][item] = data[item];
           }
         });
-        if(sessionStorage.getItem("opid")){
+        if (sessionStorage.getItem("opid")){
           res = await Api.patch({
-          url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
-            }`,
-          data: newData,
-        });
+            url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
+              }`,
+            data: newData,
+          });
         }
-        else{
+        else {
           res = await Api.post({
-          url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
-            }`,
-          data: newData,
-        });
+            url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
+              }`,
+            data: newData,
+          });
         }
       } else {
         let formData = new FormData()
@@ -272,7 +338,7 @@ const MyTask = () => {
             formData.append(`${item}`, typeof data[item] === 'object' ? data[item][0] : data[item]);
           }
         });
-
+        console.log(ptwModalHead.value ,'9876543234567898765456789')
         res = await Api.patch({
           url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")}`,
           contentType: "multipart/form-data",
@@ -281,9 +347,9 @@ const MyTask = () => {
       }
 
       if (res?.status === 201 || res?.status === 200) {
-        
-        sessionStorage.setItem('opid' , sessionStorage.getItem("opid") ? sessionStorage.getItem("opid") : res?.data?.operation_id)
-    
+
+        sessionStorage.setItem('opid', sessionStorage.getItem("opid") ? sessionStorage.getItem("opid") : res?.data?.operation_id)
+
         if (ptwModalHead.value === 'photo') {
           setSelect(true);
           reset();
@@ -294,16 +360,11 @@ const MyTask = () => {
           return;
         }
 
-        if (ptwModalHead.value === 'ptwphoto') {
-          reset();
-          getApprovalsData(res?.data?.operation_id);
-          return;
-        }
+       
 
         // 🔄 Multi-step handling
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
-
           if (nextIndex < selectedItems.length) {
             setCurrentStepIndex(nextIndex);
             const nextForm = selectedItems[nextIndex];
@@ -315,7 +376,51 @@ const MyTask = () => {
             // ✅ Last form submitted, always show approval
             setIsMultiStep(false);
             setPtwModalFullOpen(false);
-            getApprovalsData(res?.data?.operation_id); // always show
+            if(formType === 'drivetestactivity'){
+              setPtwModalHead({
+                title: '',
+                value : 'vehicle'
+              })
+              reset()
+              setPtwDriveTestBody(<>
+                <div className="w-full  items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto ">
+                  <h1 className="text-white text-xl py-2">Two Wheeler Photo Data</h1>
+                  <CommonForm
+                    classes={`grid-cols-3
+                        gap-1`}
+                    Form={subFormRef.current.twowheeler}
+                    errors={errors}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  />
+                  <h1 className="text-white text-xl py-2">Four Wheeler Photo Data</h1>
+                  <CommonForm
+                    classes={`grid-cols-3
+                        gap-1`}
+                    Form={subFormRef.current.fourwheeler}
+                    errors={errorsForm1}
+                    register={registerForm1}
+                    setValue={setValueForm1}
+                    getValues={getValuesForm1}
+                  />
+                  <Button
+                    name="Submit"
+                    classes="w-fit"
+                    onClick={handleSubmit((data) => {
+                      handleVaichel(data, formName , 'vehicle');
+                    })}
+                  />
+                </div>
+              </>)
+              setPtwDriveTest(true)
+            }
+            else{
+              getApprovalsData(res?.data?.operation_id);
+              
+            }
+             
+             // always show
           }
           reset();
           return;
@@ -364,7 +469,7 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-    if (ptwModalHead.value) {
+    if (ptwModalHead.value && ptwModalHead.value !== 'vehicle') {
       setPtwModalFullOpen(true);
       setForm(subFormRef.current[ptwModalHead.value], formName);
     }
@@ -393,6 +498,8 @@ const MyTask = () => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
   });
+
+  console.log(subFormRef.current , 'asdfasdfasdfsadffgsdfgdghdfghjfhjgfhdf')
 
   const getPtwSubForm = async (formName) => {
     reset();
@@ -436,11 +543,11 @@ const MyTask = () => {
                   ? "select"
                   : item?.dataType === "DateTime"
                     ? "datetime-local"
-                    : item?.dataType.toLowerCase() === "date"
+                    : item?.dataType?.toLowerCase() === "date"
                       ? "datetime"
-                      : item?.dataType.toLowerCase() === "img"
+                      : item?.dataType === "img"
                         ? "file"
-                        : item?.dataType.toLowerCase(),
+                        : item?.dataType?.toLowerCase(),
             ...(item?.dataType === "Dropdown"
               ? {
                 option: item?.dropdownValue.split(",")?.map((item) => {
@@ -702,11 +809,12 @@ const MyTask = () => {
                 </>
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
-                  <div className="h-full w-full cursor-default flex items-center gap-2 justify-center">
+                  <div className="h-full w-full cursor-default flex items-center gap-2 justify-end">
+                    <span>{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
                         setFormName("");
-                        sessionStorage.removeItem("opid")
+                        
                         setSelect(false)
                         setSelectedItems([])
                         if (iewq?.isPtwRaise) return;
@@ -718,21 +826,25 @@ const MyTask = () => {
                         }
                       }}
                       title="Raise PTW"
-                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise
+                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise || ['L1-Rejected' , 'L2-Rejected'].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } rounded-md bg-[#13B497]`}
                     >
                       <LuTicketCheck size={20} />
-                    </span>{" "}
+                    </span>
+                    
                     <span
                       onClick={() => {
-                        setSelect(false)
-                        setSelectedItems([])
-                        sessionStorage.removeItem("opid")
+                        if (iewq?.isPtwRaise && iewq?.isL2Approve) {
+                          setSelect(false)
+                          setSelectedItems([])
+                          
+                        }
+
                       }}
                       title="Close PTW"
-                      className={`p-[1px] ${iewq?.isPtwRaise
+                      className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } px-2 rounded-md bg-[#F43F5E]`}
@@ -756,7 +868,7 @@ const MyTask = () => {
                             "Partner name": user?.benificiaryname,
                             "SR Number": itm?.srNumber,
                             "User type": itm?.customerName,
-                           
+
                             Activity: itm?.ACTIVITY || 'null',
                             "RFAI Date": itm["RFAI Date"],
                           };
@@ -770,8 +882,20 @@ const MyTask = () => {
                       <div
                         onClick={() => {
                           mileStoneItemRef.current = {
-                            sideData: itm,
-                            milestoneCount: iewq,
+                            ...itm,
+                            Customer: itm?.customerName,
+                            siteId: itm["Site Id"],
+                            Milestone: iewq?.Name,
+                            mileStoneId: iewq?._id,
+                            SSID: itm?.systemId,
+                            "Project type": itm?.projectType,
+                            "PTW Requestor name": user?.benificiaryname,
+                            "Partner name": user?.benificiaryname,
+                            "SR Number": itm?.srNumber,
+                            "User type": itm?.customerName,
+
+                            Activity: itm?.ACTIVITY || 'null',
+                            "RFAI Date": itm["RFAI Date"],
                           };
                           setFormName("rtws");
                         }}
@@ -782,8 +906,20 @@ const MyTask = () => {
                       <div
                         onClick={() => {
                           mileStoneItemRef.current = {
-                            sideData: itm,
-                            milestoneCount: iewq,
+                            ...itm,
+                            Customer: itm?.customerName,
+                            siteId: itm["Site Id"],
+                            Milestone: iewq?.Name,
+                            mileStoneId: iewq?._id,
+                            SSID: itm?.systemId,
+                            "Project type": itm?.projectType,
+                            "PTW Requestor name": user?.benificiaryname,
+                            "Partner name": user?.benificiaryname,
+                            "SR Number": itm?.srNumber,
+                            "User type": itm?.customerName,
+
+                            Activity: itm?.ACTIVITY || 'null',
+                            "RFAI Date": itm["RFAI Date"],
                           };
                           setFormName("groundactivity");
                         }}
@@ -793,11 +929,24 @@ const MyTask = () => {
                       </div>
                       <div
                         onClick={() => {
+                          console.log(itm ,user , 'asdfasdfasdfasd')
                           mileStoneItemRef.current = {
-                            sideData: itm,
-                            milestoneCount: iewq,
+                            ...itm,
+                            Customer: itm?.customerName,
+                            siteId: itm["Site Id"],
+                            Milestone: iewq?.Name,
+                            mileStoneId: iewq?._id,
+                            SSID: itm?.systemId,
+                            "Project type": itm?.projectType,
+                            "PTW Requestor name": user?.benificiaryname,
+                            "Partner name": user?.benificiaryname,
+                            "SR Number": itm?.srNumber,
+                            "User type": itm?.customerName,
+
+                            Activity: itm['ACTIVITY'] || 'null',
+                            "RFAI Date": itm["RFAI Date"],
                           };
-                          setFormName("drivertestactivity");
+                          setFormName("drivetestactivity");
                         }}
                         className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  "
                       >
@@ -1419,33 +1568,6 @@ const MyTask = () => {
   }, []);
 
   const handleBulkDelte = () => { };
-  const submitNextFormsSequentially = async (forms, index = 0) => {
-    if (index >= forms.length) {
-      // All selected forms are submitted
-      setSelect(false);
-      setPtwModalFullOpen(false);
-      reset();
-      return;
-    }
-
-    const currentFormId = forms[index].id;
-    const currentFormName = formName; // Keep using the same formName set earlier
-
-    setPtwModalHead({
-      title: forms[index].name,
-      value: currentFormId
-    });
-
-    // Delay to allow modal to update and form to render
-    setTimeout(() => {
-      setTimeout(() => {
-        const currentFormData = getValues(); // collect values for this form
-        handleAddActivity(currentFormData, currentFormName).then(() => {
-          submitNextFormsSequentially(forms, index + 1);
-        });
-      }, 500); // small buffer to let form UI appear
-    }, 100);
-  };
 
   const handleContinue = (opId) => {
     if (selectedItems.length === 0) {
@@ -1467,7 +1589,7 @@ const MyTask = () => {
       title: firstForm.name,
       value: firstForm.id
     });
-    
+
   };
 
 
@@ -1612,6 +1734,13 @@ const MyTask = () => {
         children={ptwApprovalModalBody}
         isOpen={ptwModalFullApprovalOpen}
         setIsOpen={setPtwModalFullApprovalOpen}
+      />
+      <Modal
+        size={"xl"}
+        modalHead={''}
+        children={ptwDriveTestBody}
+        isOpen={ptwDriveTest}
+        setIsOpen={setPtwDriveTest}
       />
     </>
   );

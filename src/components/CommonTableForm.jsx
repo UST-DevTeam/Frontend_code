@@ -120,7 +120,7 @@ const CommonTableForm = ({
     
     data["fileType"] = tabHead;
     
-    if(["oneatrisk" , 'photo',  'riskassessment' , 'checklist' , 'ptwphoto'].includes(tabHead)){
+    if(["oneatrisk" , 'photo',  'riskassessment' , 'checklist' , 'ptwphoto','fourWheeler' , 'twoWheeler'].includes(tabHead)){
       dispatch(CommonActions.fileSubmit('/admin/ptw' + "/" + `${ptwPage}/${tabHead}?file=true`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
