@@ -230,6 +230,7 @@ const MyTask = () => {
           projectID: mileStoneItemRef.current?.projectId,
           siteId: mileStoneItemRef.current?.siteId,
           customerName: mileStoneItemRef.current?.customerName,
+          subProject: mileStoneItemRef.current?.SubProject,
           circle: mileStoneItemRef.current?.CIRCLE,
           mileStoneId: mileStoneItemRef.current?.mileStoneId,
           Milestone: mileStoneItemRef.current?.Milestone,
@@ -268,7 +269,7 @@ const MyTask = () => {
         // Append files or other form fields under ptwModalHead.value.*
         Object.keys(data)?.forEach((item) => {
           if (data[item]) {
-            formData.append(`${item}`, data[item][0]);
+            formData.append(`${item}`, typeof data[item] === 'object' ? data[item][0] : data[item]);
           }
         });
 
@@ -755,6 +756,7 @@ const MyTask = () => {
                             "Partner name": user?.benificiaryname,
                             "SR Number": itm?.srNumber,
                             "User type": itm?.customerName,
+                           
                             Activity: itm?.ACTIVITY || 'null',
                             "RFAI Date": itm["RFAI Date"],
                           };
