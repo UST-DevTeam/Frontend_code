@@ -51,13 +51,15 @@ const MyTask = () => {
   const { projectuniqueId } = useParams();
 
   const [modalOpen, setmodalOpen] = useState(false);
+  const [vehicleType, setVehicleType] = useState('twowheeler');
   const [isSelect, setSelect] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isMultiStep, setIsMultiStep] = useState(false);
 
   const [selectedItems, setSelectedItems] = useState([]);
-  const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] = useState(false);
+  const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] =
+    useState(false);
   const [ptwOption, setPtwOption] = useState(null);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [strValFil, setstrVal] = useState(false);
@@ -73,11 +75,11 @@ const MyTask = () => {
   });
 
   const options = [
-    { id: 'riskassessment', name: 'Risk Assessment' },
-    { id: 'oneatrisk', name: 'One At Risk' },
-    { id: 'ptwphoto', name: 'PTW Photo' }
+    { id: "riskassessment", name: "Risk Assessment" },
+    { id: "oneatrisk", name: "One At Risk" },
+    { id: "ptwphoto", name: "PTW Photo" },
   ];
-  const FORM_FLOW_SEQUENCE = ['riskassessment', 'oneatrisk', 'ptwphoto'];
+  const FORM_FLOW_SEQUENCE = ["riskassessment", "oneatrisk", "ptwphoto"];
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -94,8 +96,8 @@ const MyTask = () => {
     photo: [],
     ptwphoto: [],
     riskassessment: [],
-    twowheeler : [],
-    fourwheeler : []
+    twowheeler: [],
+    fourwheeler: [],
   });
 
   const [modalHead, setmodalHead] = useState(<></>);
@@ -104,12 +106,12 @@ const MyTask = () => {
   const navigate = useNavigate();
 
   const handleCheckboxChange = (optionId, optionName) => {
-    setSelectedItems(prev => {
-      const isSelected = prev.some(item => item.id === optionId);
+    setSelectedItems((prev) => {
+      const isSelected = prev.some((item) => item.id === optionId);
 
       if (isSelected) {
         // Remove item if already selected
-        return prev.filter(item => item.id !== optionId);
+        return prev.filter((item) => item.id !== optionId);
       } else {
         // Add item if not selected
         return [...prev, { id: optionId, name: optionName }];
@@ -117,8 +119,24 @@ const MyTask = () => {
     });
   };
 
-  const { register, handleSubmit, SubmitTask, watch, setValue, setValues, getValues, reset, formState: { errors }} = useForm();
-  const { register: registerForm1, setValue: setValueForm1, getValues: getValuesForm1, handleSubmit: handleSubmitForm1, formState: { errors: errorsForm1 } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    SubmitTask,
+    watch,
+    setValue,
+    setValues,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const {
+    register: registerForm1,
+    setValue: setValueForm1,
+    getValues: getValuesForm1,
+    handleSubmit: handleSubmitForm1,
+    formState: { errors: errorsForm1 },
+  } = useForm();
   let dispatch = useDispatch();
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub;
@@ -152,293 +170,231 @@ const MyTask = () => {
       url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
       data: {
         empId: dropdown.value,
-        ApproverType: 'L1-Aprover'
+        ApproverType: "L1-Aprover",
       },
-    })
+    });
     if (res?.status === 200) {
-      setPtwModalFullApprovalOpen(false)
-      setPtwOption(null)
-      sessionStorage.removeItem("opid")
-      operationApprovalID.current = null
+      setPtwModalFullApprovalOpen(false);
+      setPtwOption(null);
+      sessionStorage.removeItem("opid");
+      operationApprovalID.current = null;
       dispatch(MyHomeActions.getMyTask());
-
     }
-  }
-
- 
-
+  };
 
   const getApprovalsData = async (operationId) => {
-
     setIsMultiStep(false); // all done
     setPtwModalFullOpen(false);
-    operationApprovalID.current = operationId
+    operationApprovalID.current = operationId;
     const res = await Api.get({
       url: `/getPtwApprover/${mileStoneItemRef.current?.projectType}`,
-    })
+    });
     if (res?.status === 200) {
-      setPtwApprovalModalBody(<>
-        <div className="w-full flex flex-col items-scenter min-h-[50vh] max-h-full ">
-          <div className="max-w-md mx-auto p-2  flex flex-col gap-3 rounded-lg shadow-md">
-            <div>
-              <label htmlFor="dropdown" className="block text-sm font-medium text-white mb-2">
-                Choose an option:
-              </label>
-              <select
-                id="dropdown"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#13B497] focus:border-[#13B497]"
+      setPtwApprovalModalBody(
+        <>
+          <div className="w-full flex flex-col items-scenter min-h-[50vh] max-h-full ">
+            <div className="max-w-md mx-auto p-2  flex flex-col gap-3 rounded-lg shadow-md">
+              <div>
+                <label
+                  htmlFor="dropdown"
+                  className="block text-sm font-medium text-white mb-2"
+                >
+                  Choose an option:
+                </label>
+                <select
+                  id="dropdown"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#13B497] focus:border-[#13B497]"
+                >
+                  <option value="">Select L1 Approver</option>
+                  {res?.data?.data?.length > 0
+                    ? res?.data?.data
+                      ?.filter((item) => item?.ApproverType === "L1-Approver")
+                      ?.map((item) => {
+                        return (
+                          <option className="" value={item?.empId}>
+                            {item?.empName}
+                          </option>
+                        );
+                      })
+                    : []}
+                </select>
+              </div>
+
+              <button
+                onClick={(e) => handleApprovalData()}
+                className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               >
-                <option value="">Select L1 Approver</option>
-                {
-                  res?.data?.data?.length > 0 ? res?.data?.data?.filter((item) => item?.ApproverType === 'L1-Approver')?.map((item) => {
-                    return (
-                      <option className="" value={item?.empId}>{item?.empName}</option>
-                    )
-                  }) : []
-                }
-
-              </select>
+                Submit
+              </button>
             </div>
-
-            <button
-              onClick={(e) => handleApprovalData()
-              }
-              className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-            >
-              Submit
-            </button>
-
-
           </div>
-
-        </div>
-      </>)
-      setPtwModalFullApprovalOpen(true)
-
+        </>
+      );
+      setPtwModalFullApprovalOpen(true);
     }
-  }
+  };
 
- const handleVaichel = async (dataTwo, formType, subForm) => {
-  const dataFour = getValuesForm1();
+  const handleVaichel = async (formDataInput, subForm) => {
+    const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
 
-  let formData = new FormData();
+    const formData = new FormData();
 
-  // Append shared metadata
-  formData.append("projectID", mileStoneItemRef.current?.projectId);
-  formData.append("siteId", mileStoneItemRef.current?.siteId);
-  formData.append("customerName", mileStoneItemRef.current?.customerName);
-  formData.append("circle", mileStoneItemRef.current?.CIRCLE);
-  formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
-  formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+    // Shared metadata
+    formData.append("projectID", mileStoneItemRef.current?.projectId);
+    formData.append("siteId", mileStoneItemRef.current?.siteId);
+    formData.append("customerName", mileStoneItemRef.current?.customerName);
+    formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+    formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+    formData.append("Milestone", mileStoneItemRef.current?.Milestone);
 
-  // 🔑 Get actual field names from field configs
-  const twoWheelerKeys = (subFormRef.current.twowheeler || []).map(f => f.fieldName);
-  const fourWheelerKeys = (subFormRef.current.fourwheeler || []).map(f => f.fieldName);
+    // Only selected form's fields
+    for (let key in formDataInput) {
+      if (formKeys.includes(key)) {
+        const value = formDataInput[key];
+        const finalKey = `${key}`;
 
-  const twoWheelerData = {};
-  const fourWheelerData = {};
-
-  // 🛵 Two Wheeler
-  for (let key in dataTwo) {
-    if (twoWheelerKeys.includes(key)) {
-      twoWheelerData[key] = dataTwo[key];
+        if (value instanceof FileList) {
+          formData.append(finalKey, value[0]);
+        } else {
+          formData.append(finalKey, value);
+        }
+      }
     }
-  }
 
-  // 🚗 Four Wheeler
-  for (let key in dataFour) {
-    if (fourWheelerKeys.includes(key)) {
-      fourWheelerData[key] = dataFour[key];
+    const res = await Api.patch({
+      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      contentType: "multipart/form-data",
+      data: formData,
+    });
+
+    if (res?.status === 200) {
+      reset(); // If you use one useForm
+      setPtwDriveTest(false);
+      getApprovalsData(res?.data?.operation_id);
     }
-  }
-
-  // ➕ Append Two Wheeler
-  Object.entries(twoWheelerData).forEach(([key, value]) => {
-    if (value instanceof FileList) {
-      formData.append(`twoWheeler[${key}]`, value[0]);
-    } else {
-      formData.append(`twoWheeler[${key}]`, value);
-    }
-  });
-
-  // ➕ Append Four Wheeler
-  Object.entries(fourWheelerData).forEach(([key, value]) => {
-    if (value instanceof FileList) {
-      formData.append(`fourWheeler[${key}]`, value[0]);
-    } else {
-      formData.append(`fourWheeler[${key}]`, value);
-    }
-  });
-
-  // 📤 Submit
-  const res = await Api.patch({
-    url: `/submit/ptw/${formType}/${subForm + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")}`,
-    contentType: "multipart/form-data",
-    data: formData,
-  });
-
-  if (res?.status === 200) {
-    reset(); // Reset two-wheeler form
-    reset({}, { keepValues: false }); // Also reset four-wheeler form
-    setPtwDriveTest(false);
-    getApprovalsData(res?.data?.operation_id);
-  }
-};
-
+  };
 
 
   const handleAddActivity = async (data, formType) => {
-    let res = null;
+  let res = null;
 
-    try {
-      if (!['photo', 'ptwphoto', 'oneatrisk','vehicle'].includes(ptwModalHead.value)) {
-        let newData = {
-          projectID: mileStoneItemRef.current?.projectId,
-          siteId: mileStoneItemRef.current?.siteId,
-          customerName: mileStoneItemRef.current?.customerName,
-          subProject: mileStoneItemRef.current?.SubProject,
-          circle: mileStoneItemRef.current?.CIRCLE,
-          mileStoneId: mileStoneItemRef.current?.mileStoneId,
-          Milestone: mileStoneItemRef.current?.Milestone,
-          [ptwModalHead.value]: {}, // Initialize nested object dynamically
-        };
+  try {
+    // Handle normal (non-photo/vehicle) forms
+    if (!["photo", "ptwphoto", "oneatrisk", "vehicle"].includes(ptwModalHead.value)) {
+      const newData = {
+        projectID: mileStoneItemRef.current?.projectId,
+        siteId: mileStoneItemRef.current?.siteId,
+        customerName: mileStoneItemRef.current?.customerName,
+        subProject: mileStoneItemRef.current?.SubProject,
+        circle: mileStoneItemRef.current?.CIRCLE,
+        mileStoneId: mileStoneItemRef.current?.mileStoneId,
+        Milestone: mileStoneItemRef.current?.Milestone,
+        [ptwModalHead.value]: {},
+      };
 
-        Object.keys(data)?.forEach((item) => {
-          if (data[item]) {
-            newData[ptwModalHead.value][item] = data[item];
-          }
-        });
-        if (sessionStorage.getItem("opid")){
-          res = await Api.patch({
-            url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
-              }`,
-            data: newData,
-          });
+      Object.keys(data)?.forEach((key) => {
+        if (data[key]) {
+          newData[ptwModalHead.value][key] = data[key];
         }
-        else {
-          res = await Api.post({
-            url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")
-              }`,
-            data: newData,
-          });
-        }
-      } else {
-        let formData = new FormData()
-        formData.append("projectID", mileStoneItemRef.current?.projectId);
-        formData.append("siteId", mileStoneItemRef.current?.siteId);
-        formData.append("customerName", mileStoneItemRef.current?.customerName);
-        formData.append("circle", mileStoneItemRef.current?.CIRCLE);
-        formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
-        formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+      });
 
+      const url = `/submit/ptw/${formType}/${ptwModalHead.value}${
+        sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+      }`;
 
-        // Append files or other form fields under ptwModalHead.value.*
-        Object.keys(data)?.forEach((item) => {
-          if (data[item]) {
-            formData.append(`${item}`, typeof data[item] === 'object' ? data[item][0] : data[item]);
-          }
-        });
-        console.log(ptwModalHead.value ,'9876543234567898765456789')
-        res = await Api.patch({
-          url: `/submit/ptw/${formType}/${ptwModalHead.value + (sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : "")}`,
-          contentType: "multipart/form-data",
-          data: formData,
-        });
-      }
-
-      if (res?.status === 201 || res?.status === 200) {
-
-        sessionStorage.setItem('opid', sessionStorage.getItem("opid") ? sessionStorage.getItem("opid") : res?.data?.operation_id)
-
-        if (ptwModalHead.value === 'photo') {
-          setSelect(true);
-          reset();
-          setPtwModalHead({
-            title: '',
-            value: 'formSelection'
-          });
-          return;
-        }
-
-       
-
-        // 🔄 Multi-step handling
-        if (isMultiStep) {
-          const nextIndex = currentStepIndex + 1;
-          if (nextIndex < selectedItems.length) {
-            setCurrentStepIndex(nextIndex);
-            const nextForm = selectedItems[nextIndex];
-            setPtwModalHead({
-              title: nextForm.name,
-              value: nextForm.id
-            });
-          } else {
-            // ✅ Last form submitted, always show approval
-            setIsMultiStep(false);
-            setPtwModalFullOpen(false);
-            if(formType === 'drivetestactivity'){
-              setPtwModalHead({
-                title: '',
-                value : 'vehicle'
-              })
-              reset()
-              setPtwDriveTestBody(<>
-                <div className="w-full  items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto ">
-                  <h1 className="text-white text-xl py-2">Two Wheeler Photo Data</h1>
-                  <CommonForm
-                    classes={`grid-cols-3
-                        gap-1`}
-                    Form={subFormRef.current.twowheeler}
-                    errors={errors}
-                    register={register}
-                    setValue={setValue}
-                    getValues={getValues}
-                  />
-                  <h1 className="text-white text-xl py-2">Four Wheeler Photo Data</h1>
-                  <CommonForm
-                    classes={`grid-cols-3
-                        gap-1`}
-                    Form={subFormRef.current.fourwheeler}
-                    errors={errorsForm1}
-                    register={registerForm1}
-                    setValue={setValueForm1}
-                    getValues={getValuesForm1}
-                  />
-                  <Button
-                    name="Submit"
-                    classes="w-fit"
-                    onClick={handleSubmit((data) => {
-                      handleVaichel(data, formName , 'vehicle');
-                    })}
-                  />
-                </div>
-              </>)
-              setPtwDriveTest(true)
-            }
-            else{
-              getApprovalsData(res?.data?.operation_id);
-              
-            }
-             
-             // always show
-          }
-          reset();
-          return;
-        }
-
-
-        // fallback: move to photo after checklist
-        setPtwModalHead({
-          title: ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.value,
-          value: ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value
-        });
-        reset();
-      }
-
-    } catch (err) {
-      console.error("Error in handleAddActivity:", err);
+      res = sessionStorage.getItem("opid")
+        ? await Api.patch({ url, data: newData })
+        : await Api.post({ url, data: newData });
     }
-  };
+
+    // Handle special forms (photo, ptwphoto, oneatrisk, vehicle)
+    else {
+      const formData = new FormData();
+
+      formData.append("projectID", mileStoneItemRef.current?.projectId);
+      formData.append("siteId", mileStoneItemRef.current?.siteId);
+      formData.append("customerName", mileStoneItemRef.current?.customerName);
+      formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+      formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+      formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+      // Append each field (file or text)
+      Object.keys(data)?.forEach((key) => {
+        const value = data[key];
+        if (value) {
+          formData.append(
+            key,
+            value instanceof FileList ? value[0] : value
+          );
+        }
+      });
+
+      const url = `/submit/ptw/${formType}/${ptwModalHead.value}${
+        sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+      }`;
+
+      res = await Api.patch({
+        url,
+        contentType: "multipart/form-data",
+        data: formData,
+      });
+    }
+
+    // Handle response
+    if (res?.status === 200 || res?.status === 201) {
+      sessionStorage.setItem(
+        "opid",
+        sessionStorage.getItem("opid") || res?.data?.operation_id
+      );
+
+      // Special redirect after photo
+      if (ptwModalHead.value === "photo") {
+        setSelect(true);
+        reset();
+        setPtwModalHead({ title: "", value: "formSelection" });
+        return;
+      }
+
+      // Multi-step form logic
+      if (isMultiStep) {
+        const nextIndex = currentStepIndex + 1;
+
+        if (nextIndex < selectedItems.length) {
+          setCurrentStepIndex(nextIndex);
+          const nextForm = selectedItems[nextIndex];
+          setPtwModalHead({ title: nextForm.name, value: nextForm.id });
+        } else {
+          // Final step (show vehicle form)
+          setIsMultiStep(false);
+          setPtwModalFullOpen(false);
+
+          if (formType === "drivetestactivity") {
+            setPtwModalHead({ title: "", value: "vehicle" });
+
+            
+
+            setPtwDriveTest(true);
+          } else {
+            getApprovalsData(res?.data?.operation_id);
+          }
+        }
+
+        reset();
+        return;
+      }
+
+      // Fallback (non-multi-step)
+      setPtwModalHead({
+        title: ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.title,
+        value: ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value,
+      });
+      reset();
+    }
+  } catch (err) {
+    console.error("Error in handleAddActivity:", err);
+  }
+};
+
 
   const setForm = (form, formName) => {
     setPtwModalBody(
@@ -469,7 +425,7 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-    if (ptwModalHead.value && ptwModalHead.value !== 'vehicle') {
+    if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
       setPtwModalFullOpen(true);
       setForm(subFormRef.current[ptwModalHead.value], formName);
     }
@@ -499,7 +455,7 @@ const MyTask = () => {
     return interdata;
   });
 
-  console.log(subFormRef.current , 'asdfasdfasdfsadffgsdfgdghdfghjfhjgfhdf')
+  console.log(subFormRef.current, "asdfasdfasdfsadffgsdfgdghdfghjfhjgfhdf");
 
   const getPtwSubForm = async (formName) => {
     reset();
@@ -520,8 +476,8 @@ const MyTask = () => {
       );
       Object.keys(subFormRef.current)?.forEach((itm) => {
         if (res?.data?.data[0][itm]?.length === 0) {
-          alert("Please submit all form first.")
-          return
+          alert("Please submit all form first.");
+          return;
         }
         subFormRef.current[itm] = res?.data?.data[0][itm]?.map((item) => {
           if (item?.dataType === "AutoFill") {
@@ -810,13 +766,13 @@ const MyTask = () => {
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
                   <div className="h-full w-full cursor-default flex items-center gap-2 justify-end">
-                    <span>{iewq?.ptwStatus}</span>
+                    <span>{ iewq?.isAutoClose ? 'Auto Close' :  iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
                         setFormName("");
-                        
-                        setSelect(false)
-                        setSelectedItems([])
+
+                        setSelect(false);
+                        setSelectedItems([]);
                         if (iewq?.isPtwRaise) return;
 
                         if (ptwOption && ptwOption === iewq?._id) {
@@ -826,22 +782,21 @@ const MyTask = () => {
                         }
                       }}
                       title="Raise PTW"
-                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise || ['L1-Rejected' , 'L2-Rejected'].includes(iewq?.ptwStatus)
+                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
+                        ["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } rounded-md bg-[#13B497]`}
                     >
                       <LuTicketCheck size={20} />
                     </span>
-                    
+
                     <span
                       onClick={() => {
                         if (iewq?.isPtwRaise && iewq?.isL2Approve) {
-                          setSelect(false)
-                          setSelectedItems([])
-                          
+                          setSelect(false);
+                          setSelectedItems([]);
                         }
-
                       }}
                       title="Close PTW"
                       className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve
@@ -869,7 +824,7 @@ const MyTask = () => {
                             "SR Number": itm?.srNumber,
                             "User type": itm?.customerName,
 
-                            Activity: itm?.ACTIVITY || 'null',
+                            Activity: itm?.ACTIVITY || "null",
                             "RFAI Date": itm["RFAI Date"],
                           };
 
@@ -894,7 +849,7 @@ const MyTask = () => {
                             "SR Number": itm?.srNumber,
                             "User type": itm?.customerName,
 
-                            Activity: itm?.ACTIVITY || 'null',
+                            Activity: itm?.ACTIVITY || "null",
                             "RFAI Date": itm["RFAI Date"],
                           };
                           setFormName("rtws");
@@ -918,7 +873,7 @@ const MyTask = () => {
                             "SR Number": itm?.srNumber,
                             "User type": itm?.customerName,
 
-                            Activity: itm?.ACTIVITY || 'null',
+                            Activity: itm?.ACTIVITY || "null",
                             "RFAI Date": itm["RFAI Date"],
                           };
                           setFormName("groundactivity");
@@ -929,7 +884,7 @@ const MyTask = () => {
                       </div>
                       <div
                         onClick={() => {
-                          console.log(itm ,user , 'asdfasdfasdfasd')
+                          console.log(itm, user, "asdfasdfasdfasd");
                           mileStoneItemRef.current = {
                             ...itm,
                             Customer: itm?.customerName,
@@ -943,7 +898,7 @@ const MyTask = () => {
                             "SR Number": itm?.srNumber,
                             "User type": itm?.customerName,
 
-                            Activity: itm['ACTIVITY'] || 'null',
+                            Activity: itm["ACTIVITY"] || "null",
                             "RFAI Date": itm["RFAI Date"],
                           };
                           setFormName("drivetestactivity");
@@ -1575,9 +1530,9 @@ const MyTask = () => {
       return;
     }
 
-    const sortedItems = FORM_FLOW_SEQUENCE
-      .map(id => selectedItems.find(item => item.id === id))
-      .filter(Boolean);
+    const sortedItems = FORM_FLOW_SEQUENCE.map((id) =>
+      selectedItems.find((item) => item.id === id)
+    ).filter(Boolean);
 
     setSelectedItems(sortedItems);
     setIsMultiStep(true);
@@ -1587,13 +1542,9 @@ const MyTask = () => {
     const firstForm = sortedItems[0];
     setPtwModalHead({
       title: firstForm.name,
-      value: firstForm.id
+      value: firstForm.id,
     });
-
   };
-
-
-
 
   return (
     <>
@@ -1700,45 +1651,132 @@ const MyTask = () => {
       <Modal
         size={"lg"}
         modalHead={ptwModalHead.title}
-        children={isSelect ? <div className="max-w-md mx-auto mt-8  rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Select Your Forms</h2>
+        children={
+          isSelect ? (
+            <div className="max-w-md mx-auto mt-8  rounded-lg shadow-lg p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Select Your Forms
+              </h2>
 
-          <div className="space-y-3 mb-6">
-            {options.map(option => (
-              <label key={option.id} className="flex items-center space-x-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedItems.some(item => item.id === option.id)}
-                  onChange={() => handleCheckboxChange(option.id, option.name)}
-                  className="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                />
-                <span className="text-white">{option.name}</span>
-              </label>
-            ))}
-          </div>
+              <div className="space-y-3 mb-6">
+                {options.map((option) => (
+                  <label
+                    key={option.id}
+                    className="flex items-center space-x-3 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.some(
+                        (item) => item.id === option.id
+                      )}
+                      onChange={() =>
+                        handleCheckboxChange(option.id, option.name)
+                      }
+                      className="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                    />
+                    <span className="text-white">{option.name}</span>
+                  </label>
+                ))}
+              </div>
 
-          <button
-            onClick={() => handleContinue(sessionStorage.getItem("opid"))}
-            className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-          >
-            Continue
-          </button>
-
-        </div> : ptwModalBody}
+              <button
+                onClick={() => handleContinue(sessionStorage.getItem("opid"))}
+                className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+              >
+                Continue
+              </button>
+            </div>
+          ) : (
+            ptwModalBody
+          )
+        }
         isOpen={ptwModalFullOpen}
         setIsOpen={setPtwModalFullOpen}
       />
       <Modal
         size={"sm"}
-        modalHead={'Select PTW L1 Approver'}
+        modalHead={"Select PTW L1 Approver"}
         children={ptwApprovalModalBody}
         isOpen={ptwModalFullApprovalOpen}
         setIsOpen={setPtwModalFullApprovalOpen}
       />
       <Modal
         size={"xl"}
-        modalHead={''}
-        children={ptwDriveTestBody}
+        modalHead={""}
+        children={<div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto">
+                <div className="flex gap-6 text-white mb-6">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="vehicleType"
+                      value="twowheeler"
+                      checked={vehicleType === "twowheeler"}
+                      onChange={(e) => setVehicleType(e.target.value)}
+                      className="w-4 h-4"
+                    />
+                    <span className="text-sm">Two Wheeler</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="vehicleType"
+                      value="fourwheeler"
+                      checked={vehicleType === "fourwheeler"}
+                      onChange={(e) => setVehicleType(e.target.value)}
+                      className="w-4 h-4"
+                    />
+                    <span className="text-sm">Four Wheeler</span>
+                  </label>
+                </div>
+
+                <div className="w-full ">
+                  {vehicleType === "twowheeler" ? (
+                    <>
+                      <h1 className="text-white text-xl py-2">Two Wheeler Photo Data</h1>
+                      <CommonForm
+                        classes="grid-cols-3 gap-4"
+                        Form={subFormRef.current?.twowheeler}
+                        errors={errors}
+                        register={register}
+                        setValue={setValue}
+                        getValues={getValues}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <h1 className="text-white text-xl py-2">Four Wheeler Photo Data</h1>
+                      <CommonForm
+                        classes="grid-cols-3 gap-4"
+                        Form={subFormRef.current?.fourwheeler}
+                        errors={errorsForm1}
+                        register={registerForm1}
+                        setValue={setValueForm1}
+                        getValues={getValuesForm1}
+                      />
+                    </>
+                  )}
+                </div>
+
+                <div className="w-full flex justify-center mt-6">
+                  {vehicleType === "twowheeler" ? (
+                    <Button
+                      name="Submit"
+                      className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+                      onClick={handleSubmit((data) =>
+                        handleVaichel(data,  "twowheeler")
+                      )}
+                    />
+                  ) : (
+                    <Button
+                      name="Submit"
+                      className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+                      onClick={handleSubmitForm1((data) =>
+                        handleVaichel(data,  "fourwheeler")
+                      )}
+                    />
+                  )}
+                </div>
+              </div>}
         isOpen={ptwDriveTest}
         setIsOpen={setPtwDriveTest}
       />

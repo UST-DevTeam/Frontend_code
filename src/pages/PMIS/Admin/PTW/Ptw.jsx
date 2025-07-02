@@ -35,7 +35,7 @@ const Ptw = () => {
             ["RTWS", "bg-pcol", "/superAdmin/ptw/rtws"],
             ["Rejection reasons", "bg-pcol", "/superAdmin/ptw/rejectionreasoin"],
             ["MDB Approver", "bg-pcol", "/superAdmin/PTW/mdbApprover"],
-            ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
+            ["PTW Log Backup", "bg-pcol", "cPTWLogBackup"],
           ].map((itm) => {
             return (
               <>

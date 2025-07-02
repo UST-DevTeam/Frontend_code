@@ -221,7 +221,7 @@ const PtwForm = () => {
   }
 
   const ptwForm = {
-    'workathight' : {
+    'workatheight' : {
             CheckList: form("CheckList"),
             Photo: form("Photo"),
             RiskAssessment: form("RiskAssessment"),
