@@ -367,16 +367,11 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/parentApproverCards/ptwL1Approver",
+      link: "/home/parentApproverCards/:type",
       subMenu: [],
       component: <ApproverPage/>,
     },
-    {
-      name: "",
-      link: "/home/parentApproverCards/ptwL2Approver",
-      subMenu: [],
-      component:<ApproverPageL2/>
-    },
+    
     {
       name: "",
       link: "/home/parentApproverCards/ptwApprover/ptwApproverPage",
@@ -391,7 +386,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/superAdmin/PtwLogBackup",
+      link: "/superAdmin/ptw/PtwLogBackup",
       subMenu: [],
       component: <PTWLogBackup/>,
     },

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import AdvancedTable from "../../../components/AdvancedTable";
 import Modal from "../../../components/Modal";
@@ -16,6 +16,7 @@ import { objectToQueryString } from "../../../utils/commonFunnction";
 const ApproverPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {type} = useParams()
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -34,7 +35,7 @@ const ApproverPage = () => {
   } = useForm();
 
   const dataAll = () => {
-    dispatch(PTWActions.getApproverPage(true, "approverType=l1Approver"));
+    dispatch(PTWActions.getApproverPage(true, `approverType=${type}`));
   };
 
   const tableData = {
@@ -56,7 +57,6 @@ const ApproverPage = () => {
     l2Ageing: "L2-Aging",
     status: "Current Status",
     logs: "Logs",
-
     ptwId: "PTW ID",
     rejectionReason: "Rejection Reason",
   };
@@ -239,8 +239,8 @@ const ApproverPage = () => {
         value: "logs",
         style: "text-center min-w-[100px]",
       },
-      { name: "Edit", value: "edit", style: "text-center min-w-[100px]" },
-      { name: "Delete", value: "delete", style: "text-center min-w-[100px]" },
+      { name: "Action", value: "action", style: "text-center min-w-[100px]" },
+      
     ],
     properties: {
       rpp: [10, 20, 50, 100],

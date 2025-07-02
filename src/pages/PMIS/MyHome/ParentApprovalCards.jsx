@@ -44,6 +44,25 @@ const ParentApproverCards = () => {
     },
   ];
 
+  const data3 = [{
+      title: "PTW Approver",
+      href: null,
+      children: [
+        {
+          title: "PTW L1 Approver",
+          use : true,
+          href: "/home/parentApproverCards/l1Approver",
+          children: [],
+        },
+        {
+          title: "L2 Approver",
+          use : true,
+          href: "/home/parentApproverCards/l2Approver",
+          children: [],
+        },
+      ],
+    }]
+
   const complianceMilestoneData = useSelector((state) => {
     const lApprover = [
       {
@@ -70,24 +89,9 @@ const ParentApproverCards = () => {
           })
         : [],
     };
-    const data3 = {
-      title: "PTW Approver",
-      href: null,
-      children: [
-        {
-          title: "PTW L1 Approver",
-          href: "/home/parentApproverCards/ptwL1Approver",
-          children: [],
-        },
-        {
-          title: "L2 Approver",
-          href: "/home/parentApproverCards/",
-          children: [],
-        },
-      ],
-    };
+    
 
-    return [...complianceData, data, data3];
+    return [...complianceData, data, ...data3];
   });
 
   Compliance: [
@@ -142,7 +146,7 @@ const ParentApproverCards = () => {
         <TreeStructure data={complianceMilestoneData} />
       </div>
 
-      {selectedCard && (
+      {/* {selectedCard && (
         <div className="mt-16">
           <h3 className="text-white font-bold text-lg"></h3>
           <div className="flex flex-wrap w-3/4 gap-5 p-2">
@@ -157,7 +161,7 @@ const ParentApproverCards = () => {
             ))}
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -25,7 +25,7 @@ const Ptw = () => {
 
   return (
     <>
-      <div className="absolute w-full top-12 mt-12 h-16 z-10 bg-[#3e454d] overflow-auto ">
+      <div className="absolute w-full top-12 mt-12  z-10 bg-[#3e454d] overflow-auto ">
         <CCDash
           showbtn={false}
           approveddata={[
@@ -35,7 +35,7 @@ const Ptw = () => {
             ["RTWS", "bg-pcol", "/superAdmin/ptw/rtws"],
             ["Rejection reasons", "bg-pcol", "/superAdmin/ptw/rejectionreasoin"],
             ["MDB Approver", "bg-pcol", "/superAdmin/PTW/mdbApprover"],
-            ["PTW Log Backup", "bg-pcol", "cPTWLogBackup"],
+            ["PTW Log Backup", "bg-pcol", "/superAdmin/ptw/PTWLogBackup"],
           ].map((itm) => {
             return (
               <>
