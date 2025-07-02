@@ -64,7 +64,8 @@ const PTWLogBackup = () => {
         {
           rowData,
           columns: table["columns"]
-        }
+        } 
+        
       )
     );
   };
