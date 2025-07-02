@@ -27,8 +27,8 @@ import FilterActions from "../../../../store/actions/filter-actions";
 import CurrentuserActions from "../../../../store/actions/currentuser-action";
 const WorkAtHeight = () => {
   const [modalOpen, setmodalOpen] = useState(false);
-  const {page} = useParams()
-  const dispatch = useDispatch()
+  const { page } = useParams();
+  const dispatch = useDispatch();
   let completionCriteriaList = useSelector((state) => {
     let interdata = state?.adminData?.getManageCompletionCriteria || [];
     return interdata?.map((itm) => {
@@ -36,6 +36,8 @@ const WorkAtHeight = () => {
         name: itm.completion,
         id: itm.completion,
       };
+      console.log(data, "datadatadatadata");
+
       return data;
     });
   });
@@ -53,10 +55,6 @@ const WorkAtHeight = () => {
     getValues,
     formState: { errors },
   } = useForm();
-
-  
-
-  
 
   let conditionmultiForm = [
     {
@@ -156,32 +154,36 @@ const WorkAtHeight = () => {
 
   const handleAddActivity = (res, head) => {
     dispatch(
-      AdminActions.managePtwApi(res , `/admin/ptw/${page}/${head.toLowerCase()}` , "post" , 'json' , () => {
-        console.log('Activity Added');
-      }  )
+      AdminActions.managePtwApi(
+        res,
+        `/admin/ptw/${page}/${head.toLowerCase()}`,
+        "post",
+        "json",
+        () => {
+          console.log("Activity Added");
+        }
+      )
     );
-
-    
   };
 
-  const form = (head ) => {
-    return <CommonTableForm
-                setmodalOpen={setmodalOpen}
-                tabHead={head}
-                classes={"grid-cols-2 gap-1"}
-                Form={conditionmultiForm}
-                errors={errors}
-                register={register}
-                setValue={setValue}
-                getValues={getValues}
-                functioning={(res) =>
-                  handleAddActivity(res, head)
-                }
-                oldList={[]}
-                listing={listing}
-                setlisting={setlisting}
-              />
-  }
+  const form = (head) => {
+    return (
+      <CommonTableForm
+        setmodalOpen={setmodalOpen}
+        tabHead={head}
+        classes={"grid-cols-2 gap-1"}
+        Form={conditionmultiForm}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+        functioning={(res) => handleAddActivity(res, head)}
+        oldList={[]}
+        listing={listing}
+        setlisting={setlisting}
+      />
+    );
+  };
 
   return (
     <>
@@ -193,7 +195,7 @@ const WorkAtHeight = () => {
             CheckList: form("CheckList"),
             Photo: form("Photo"),
             RiskAssessment: form("RiskAssessment"),
-            PtwPhoto : form("PtwPhoto") ,
+            PtwPhoto: form("PtwPhoto"),
             OneAtRisk: form("OneAtRisk"),
           }}
         />

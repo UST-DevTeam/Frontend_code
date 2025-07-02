@@ -79,6 +79,7 @@ console.log("____data__", data)
   return (
     <div className="px-4 flex space-x-4 h-[80vh] overflow-y-scroll mb-[300px]">
       {data.map((itm, index) => {
+        console.log(itm , 'asdfasdfasdfasdfsdfsdfgsdfgsdfgdsfds')
         return (
           <Expander
             key={index + itm.title}

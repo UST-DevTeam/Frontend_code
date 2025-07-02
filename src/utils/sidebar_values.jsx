@@ -127,13 +127,16 @@ import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACa
 import RTWS from "../pages/PMIS/Admin/RTWS/RTWS";
 import DriveTestActivity from "../pages/PMIS/Admin/DriveTestActivity/DriveTestActivity";
 import GroundActivity from "../pages/PMIS/Admin/GroundActivity/GroundActivity";
-
 import Ptw from "../pages/PMIS/Admin/PTW/ptw";
 import MDBApprover from "../pages/PMIS/Admin/MDBApprover/MDBApprover";
 import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
 import L2Approver from "../pages/PMIS/Admin/L2Approver/L2Approver";
 import PtwForm from "../pages/PMIS/Admin/PTW/PtwForm";
 import PTWLogBackup from "../pages/PMIS/MyHome/PTWLogBackup";
+import ApproverPage from "../pages/PMIS/MyHome/ApproverPage";
+import PTWApproverPage from "../pages/PMIS/MyHome/PTWApproverPage";
+import ApproverPageL2 from "../pages/PMIS/MyHome/ApproverPAgeL2";
+import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -361,6 +364,30 @@ export const Sidebar_content = {
       link: "/home/parentApproverCards",
       subMenu: [],
       component: <ParentApproverCards />,
+    },
+    {
+      name: "",
+      link: "/home/parentApproverCards/ptwL1Approver",
+      subMenu: [],
+      component: <ApproverPage/>,
+    },
+    {
+      name: "",
+      link: "/home/parentApproverCards/ptwL2Approver",
+      subMenu: [],
+      component:<ApproverPageL2/>
+    },
+    {
+      name: "",
+      link: "/home/parentApproverCards/ptwApprover/ptwApproverPage",
+      subMenu: [],
+      component:<PTWApproverPage/> ,
+    },
+    {
+      name: "",
+      link: "/home/parentApproverCards/ptwApprover/ptwApproverPageL2",
+      subMenu: [],
+      component:<PTWApproverPageL2/>
     },
     {
       name: "",

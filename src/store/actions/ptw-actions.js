@@ -9,9 +9,11 @@ import {
   GET_PTW_PROJECTGROUP,
   GET_PTW_APPROVER_DATA,
   GET_PTW_LOGBACKUP,
+  GET_APPROVER_PAGE_DATA_FORM,
   ADD_PTW_APPROVER_DATA,
   UPDATE_PTW_APPROVER_DATA,
   DELETE_PTW_APPROVER_DATA,
+  GET_APPROVER_PAGE,
 } from "../reducers/ptw-reducer";
 
 const PTWActions = {
@@ -273,34 +275,80 @@ const PTWActions = {
       }
     },
 
-     managePtwApiGet: (path, cb = () => { }, id = null) => async (dispatch, _) => {
-    let res = await Api.get({ url: path + (id != null ? '/' + id : '') })
-    if (res?.status === 200) {
-      cb(res?.data)
-    }
+  managePtwApiGet:
+    (path, cb = () => {}, id = null) =>
+    async (dispatch, _) => {
+      let res = await Api.get({ url: path + (id != null ? "/" + id : "") });
+      if (res?.status === 200) {
+        cb(res?.data);
+      }
+    },
+  managePtwApiPost:
+    (data = null, path, contentType = "img", cb = () => {}) =>
+    async (dispatch, _) => {
+      let res = await Api.post({
+        data: data,
+        url: path,
+        contentType:
+          contentType === "img" ? "multipart/form-data" : "application/json",
+      });
+      if (res?.status === 201) {
+        cb(res?.data);
+      }
+    },
+  managePtwApiPatch:
+    (data = null, path, contentType = "img", id = null, cb = () => {}) =>
+    async (dispatch, _) => {
+      console.log("called......");
+      let res = await Api.patch({
+        url: path + (id != null ? "/" + id : ""),
+        data,
+        contentType:
+          contentType === "img" ? "multipart/form-data" : "application/json",
+      });
+      if (res?.status === 200) {
+        cb(res?.data);
+      }
+    },
+  managePtwApiDelete:
+    (path, id = null, cb = () => {}) =>
+    async (dispatch, _) => {
+      let res = await Api.patch({ url: path + (id != null ? "/" + id : "") });
+      if (res?.status === "200") {
+        cb(res?.data);
+      }
+    },
 
-  },
-  managePtwApiPost: (data = null, path, contentType = 'img', cb = () => { }) => async (dispatch, _) => {
-    let res = await Api.post({ data: data, url: path, contentType: contentType === 'img' ? 'multipart/form-data' : 'application/json' })
-    if (res?.status === 201) {
-      cb(res?.data)
-    }
-  },
-  managePtwApiPatch: (data = null, path, contentType = 'img', id = null, cb = () => { }) => async (dispatch, _) => {
-    console.log('called......')
-    let res = await Api.patch({ url: path + (id != null ? '/' + id : '') , data  , contentType: contentType === 'img' ? 'multipart/form-data' : 'application/json' })
-    if (res?.status === 200) {
-      cb(res?.data)
-    }
-
-  },
-  managePtwApiDelete: (path, id = null, cb = () => { }) => async (dispatch, _) => {
-    let res = await Api.patch({ url: path + (id != null ? '/' + id : '') })
-    if (res?.status === '200') {
-      cb(res?.data)
-    }
-  },
+  getApproverPage:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.ApproverPageData}${args != "" ? "?" + args : ""}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data
+        console.log(dataAll,"__dataALl")
+        dispatch(GET_APPROVER_PAGE({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
+  getApproverPageDataForm:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.ApproverPageDataForm}${args != "" ? "?" + args : ""  }`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsafsd')
+        dispatch(GET_APPROVER_PAGE_DATA_FORM({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
 };
-
 
 export default PTWActions;

@@ -490,6 +490,7 @@ const MyTask = () => {
             ...item,
             label: item?.fieldName,
             defaultValue: item?.dataType === "AutoFill" ? "aman" : "",
+            defaultValue: item?.dataType === "AutoFill" ? "aman" : "",
             // disabled :  item?.dataType === 'AutoFill' ? true : false ,
             name: item?.fieldName,
             type:
@@ -556,6 +557,7 @@ const MyTask = () => {
             className="text-[#13b497] font-extrabold"
             onClick={() => {
               console.log("asdfasdfasdfasdfasdfasdf.......", "called");
+              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-" + itm["Site Id"]);
               dispatch(
@@ -617,6 +619,7 @@ const MyTask = () => {
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
+                console.log("asdfasdfasdfasdfasdfasdf.......", "called");
                 console.log("asdfasdfasdfasdfasdfasdf.......", "called");
                 if (e.target.checked) {
                   setparentsite((prev) => [...prev, e.target.value]);
@@ -1363,15 +1366,18 @@ const MyTask = () => {
           name: "Site ID",
           value: "SiteNaming",
           style: " sticky left-0 bg-[#3e454d] text-center  z-20",
+          style: " sticky left-0 bg-[#3e454d] text-center  z-20",
         },
         {
           name: "Project ID",
           value: "projectId",
           style: "  left-[140px] bg-[#3e454d] text-center ",
+          style: "  left-[140px] bg-[#3e454d] text-center ",
         },
         {
           name: "",
           value: "",
+          style: " left-[140px] bg-[#3e454d] text-center ",
           style: " left-[140px] bg-[#3e454d] text-center ",
         },
         {
@@ -1420,6 +1426,7 @@ const MyTask = () => {
           value: "mileStoneStatusUpda",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
+
 
         // {
         //   name: "Event Logs",

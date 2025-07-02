@@ -53,12 +53,14 @@ const AdvancedTable = ({
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  data = (data[0]?.uniqueId) ? data : [];
+  // data = data[0]?.uniqueId ? data : [];
   // data = Array.isArray(data) ? data : [];
 
   // if (!data[0]?.uniqueId) {
   //   data = [];
   // }
+
+ 
 
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
@@ -133,6 +135,7 @@ const AdvancedTable = ({
   }, [tableName]);
 
   useEffect(() => {
+    
     if (data !== finalData) {
       setFinalData(data);
     }
