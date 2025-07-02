@@ -293,6 +293,7 @@ const CommonActions = {
     (urls, filename, method = "POST", data = {}, cb = () => {}) =>
     async (dispatch, _) => {
       try {
+        console.log(data,"__Data")
         store.dispatch(ComponentActions.loaders(true));
         const res = await Api.blobFile({
           url: urls,
@@ -320,7 +321,7 @@ const CommonActions = {
           link.click();
         }
       } catch (error) {
-        console.log(error, "shubham errorerror 37");
+        console.log(error, "shubhamThakur errorerror 37");
       } finally {
         store.dispatch(ComponentActions.loaders(false));
       }

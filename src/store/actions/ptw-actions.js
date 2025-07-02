@@ -9,9 +9,11 @@ import {
   GET_PTW_PROJECTGROUP,
   GET_PTW_APPROVER_DATA,
   GET_PTW_LOGBACKUP,
+  GET_APPROVER_PAGE_DATA_FORM,
   ADD_PTW_APPROVER_DATA,
   UPDATE_PTW_APPROVER_DATA,
   DELETE_PTW_APPROVER_DATA,
+  GET_APPROVER_PAGE,
 } from "../reducers/ptw-reducer";
 
 const PTWActions = {
@@ -266,7 +268,7 @@ const PTWActions = {
           url: `${Urls.PTWBackup}${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
-        let dataAll = res?.data?.data[0];
+        let dataAll = res?.data?.data;
         dispatch(GET_PTW_LOGBACKUP({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching ptwlogBackup:", error);
@@ -314,6 +316,37 @@ const PTWActions = {
       let res = await Api.patch({ url: path + (id != null ? "/" + id : "") });
       if (res?.status === "200") {
         cb(res?.data);
+      }
+    },
+
+  getApproverPage:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.ApproverPageData}${args != "" ? "?" + args : ""}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data
+        console.log(dataAll,"__dataALl")
+        dispatch(GET_APPROVER_PAGE({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
+  getApproverPageDataForm:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.ApproverPageDataForm}${args != "" ? "?" + args : ""  }`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsafsd')
+        dispatch(GET_APPROVER_PAGE_DATA_FORM({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
       }
     },
 };

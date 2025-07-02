@@ -7,6 +7,8 @@ const initialState = {
   getPtwProjectGroup: [],
   getPtwCircle: [],
   getL1ApproverData: [],
+  getApproverPage: [],
+  getApproverPageDataForm: [],
   getPtwLogBackup: [],
   totalCount: 0,
 };
@@ -115,6 +117,41 @@ const ptwData = createSlice({
         state.totalCount = payload.dataAll[0].overall_table_count;
       }
     },
+    GET_APPROVER_PAGE: (state, { payload }) => {
+      console.log(payload,"__payload")
+      if (payload.reset) {
+        state.getApproverPage = payload.dataAll;
+      } else {
+        state.getApproverPage = [...state.getApproverPage, ...payload.dataAll];
+      
+        
+      }
+      if (
+        payload.dataAll &&
+        payload.dataAll.length > 0 &&
+        payload.dataAll[0].overall_table_count
+      ) {
+        state.totalCount = payload.dataAll[0].overall_table_count;
+      }
+    },
+    GET_APPROVER_PAGE_DATA_FORM: (state, { payload }) => {
+      console.log(payload,"__payload")
+      if (payload.reset) {
+        state.getApproverPageDataForm = payload.dataAll;
+      } else {
+        state.getApproverPageDataForm = [
+          ...state.getApproverPageDataForm,
+          ...payload.dataAll,
+        ];
+      }
+      if (
+        payload.dataAll &&
+        payload.dataAll.length > 0 &&
+        payload.dataAll[0].overall_table_count
+      ) {
+        state.totalCount = payload.dataAll[0].overall_table_count;
+      }
+    },
   },
 });
 
@@ -129,6 +166,8 @@ export const {
   UPDATE_PTW_APPROVER_DATA,
   DELETE_PTW_APPROVER_DATA,
   GET_PTW_LOGBACKUP,
+  GET_APPROVER_PAGE,
+  GET_APPROVER_PAGE_DATA_FORM,
 } = ptwData.actions;
 
 export default ptwData.reducer;

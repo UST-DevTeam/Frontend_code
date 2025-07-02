@@ -58,8 +58,8 @@ const MyTask = () => {
   const [ptwModalFullOpen, setPtwModalFullOpen] = useState(false);
   const [ptwModalBody, setPtwModalBody] = useState(<></>);
   const [ptwModalHead, setPtwModalHead] = useState({
-    title : 'Checklist',
-    value : 'checklist'
+    title: "Checklist",
+    value: "checklist",
   });
 
   const [globalData, setGlobalData] = useState({});
@@ -68,14 +68,14 @@ const MyTask = () => {
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
-  const mileStoneItemRef = useRef(null)
+  const mileStoneItemRef = useRef(null);
   const subFormRef = useRef({
-    checklist : [],
-    oneatrisk : [],
-    photo : [],
-    ptwphoto : [],
-    riskassessment : []
-  })
+    checklist: [],
+    oneatrisk: [],
+    photo: [],
+    ptwphoto: [],
+    riskassessment: [],
+  });
 
   const [modalHead, setmodalHead] = useState(<></>);
 
@@ -120,26 +120,25 @@ const MyTask = () => {
     });
   });
 
-
-const handleAddActivity  = async (data , formType) => {
-   let newData = {
-      projectID : '',
-      siteId : '',
-      customerName : '',
-      circle : '',
-      mileStoneId : ''
-   }
-   Object.keys(data)?.forEach((item) => {
-    if(data[item] ){
-      newData[formType][item] = data[item]
-    }
-   })
+  const handleAddActivity = async (data, formType) => {
+    let newData = {
+      projectID: "",
+      siteId: "",
+      customerName: "",
+      circle: "",
+      mileStoneId: "",
+    };
+    Object.keys(data)?.forEach((item) => {
+      if (data[item]) {
+        newData[formType][item] = data[item];
+      }
+    });
     const res = await Api.post({
       url: `/submit/ptw/${formType}/${ptwModalHead.value}`,
       data: newData,
-    })
-    console.log(res ,'fasdfasdfasf')
-}
+    });
+    console.log(res, "fasdfasdfasf");
+  };
 
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getMyTaskSubProject.map((itm) => {
@@ -163,63 +162,88 @@ const handleAddActivity  = async (data , formType) => {
   let sitelogsEventLogsData = useSelector((state) => {
     let interdata = state?.eventlogsReducer?.siteeventList || [];
     return interdata;
-
   });
 
   const getPtwSubForm = async (formName) => {
-    reset()
-      const res = await Api.get({url : `/show/ptw/${formName}`})
-      if(res?.status === 200){
-        
-        Object.keys(subFormRef.current)?.forEach((itm) => {
-          subFormRef.current[itm] =  res?.data?.data[0][itm]?.map((item) => {
-            if(item?.dataType === 'AutoFill'){
-              setValue(item?.fieldName, mileStoneItemRef.current[item?.fieldName]);
-            }
+    reset();
+    const res = await Api.get({ url: `/show/ptw/${formName}` });
+    if (res?.status === 200) {
+      Object.keys(subFormRef.current)?.forEach((itm) => {
+        subFormRef.current[itm] = res?.data?.data[0][itm]?.map((item) => {
+          if (item?.dataType === "AutoFill") {
+            setValue(
+              item?.fieldName,
+              mileStoneItemRef.current[item?.fieldName]
+            );
+          }
           return {
             ...item,
             label: item?.fieldName,
-            defaultValue: item?.dataType === 'AutoFill' ? 'aman' : '',
+            defaultValue: item?.dataType === "AutoFill" ? "aman" : "",
             // disabled :  item?.dataType === 'AutoFill' ? true : false ,
             name: item?.fieldName,
-            type: item?.dataType === 'AutoFill' ? 'sdisabled' : (item?.dataType === 'Dropdown' ? 'select' : item?.dataType === 'DateTime' ? 'datetime' : item?.dataType.toLowerCase() ==='date' ? 'datetime2' :item?.dataType.toLowerCase()) ,
-            ...( item?.dataType === 'Dropdown' ? { option : item?.dropdownValue.split(",")?.map((item) => {
-              return {
-                label: item.trim(),
-                value: item.trim()
-              }
-            })} : {} ),
-          //  ...( item?.dataType === 'DateTime' ? { formattype : 'time' , 
-          //   formatop: "DD/MM/YYYY HH:mm",
-          //   } : {} ),
-            required: item?.required === 'Yes' ? true : false ,
-            
-        }
-        })
-        })
-        console.log(mileStoneItemRef.current , 'asdfasdfasdfsadfasdfasdasdfasdf')
-        console.log(subFormRef.current.checklist , 'asdfasdfasdfsadfasdfasdasdfasdf')
-        setPtwModalHead({
-          title: 'Checklist',
-          value : 'checklist'
-        })
-        setPtwModalFullOpen(true)
-        setPtwModalBody(<>
-        <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
-          <CommonForm classes={"grid-cols-3 gap-1"} Form={subFormRef.current?.checklist} errors={errors} register={register} setValue={setValue} getValues={getValues} />
-          <Button
-                    name="Submit"
-                    classes="w-fit"
-                    onClick={handleSubmit((data) => {
-                      handleAddActivity(data , formName)
-                    })}
-                  />
-        </div>
-        </>)
-        setPtwOption(null);
-        setPtwModel(true);
-      }
-  }
+            type:
+              item?.dataType === "AutoFill"
+                ? "sdisabled"
+                : item?.dataType === "Dropdown"
+                ? "select"
+                : item?.dataType === "DateTime"
+                ? "datetime"
+                : item?.dataType.toLowerCase() === "date"
+                ? "datetime2"
+                : item?.dataType.toLowerCase(),
+            ...(item?.dataType === "Dropdown"
+              ? {
+                  option: item?.dropdownValue.split(",")?.map((item) => {
+                    return {
+                      label: item.trim(),
+                      value: item.trim(),
+                    };
+                  }),
+                }
+              : {}),
+            //  ...( item?.dataType === 'DateTime' ? { formattype : 'time' ,
+            //   formatop: "DD/MM/YYYY HH:mm",
+            //   } : {} ),
+            required: item?.required === "Yes" ? true : false,
+          };
+        });
+      });
+      console.log(mileStoneItemRef.current, "asdfasdfasdfsadfasdfasdasdfasdf");
+      console.log(
+        subFormRef.current.checklist,
+        "asdfasdfasdfsadfasdfasdasdfasdf"
+      );
+      setPtwModalHead({
+        title: "Checklist",
+        value: "checklist",
+      });
+      setPtwModalFullOpen(true);
+      setPtwModalBody(
+        <>
+          <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
+            <CommonForm
+              classes={"grid-cols-3 gap-1"}
+              Form={subFormRef.current?.checklist}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            />
+            <Button
+              name="Submit"
+              classes="w-fit"
+              onClick={handleSubmit((data) => {
+                handleAddActivity(data, formName);
+              })}
+            />
+          </div>
+        </>
+      );
+      setPtwOption(null);
+      setPtwModel(true);
+    }
+  };
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.myHomeData?.getmyTask || [];
@@ -230,7 +254,7 @@ const handleAddActivity  = async (data , formType) => {
           <p
             className="text-[#13b497] font-extrabold"
             onClick={() => {
-              console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
+              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-" + itm["Site Id"]);
               dispatch(
@@ -294,7 +318,7 @@ const handleAddActivity  = async (data , formType) => {
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
-                console.log('asdfasdfasdfasdfasdfasdf.......' , 'called')
+                console.log("asdfasdfasdfasdfasdfasdf.......", "called");
                 if (e.target.checked) {
                   setparentsite((prev) => [...prev, e.target.value]);
                   let dlisting = itm.milestoneArray.map((iewq) => {
@@ -439,62 +463,83 @@ const handleAddActivity  = async (data , formType) => {
                   >
                     {iewq.mileStoneStatus}
                   </p>
-                </> 
-              ) : (
-                iewq?.mileStoneStatus === 'Open' ? <div className="relative" >
-              <button onClick={() =>{
-                
-                
-                if(ptwOption && ptwOption === iewq?._id ){
-                  setPtwOption(null)
-                }
-                else{
-                  setPtwOption(iewq?._id)
-                }
-              }} className="">
-                <IoTicketOutline />
-              </button>
-              {
-                iewq?._id === ptwOption && <div className="absolute bg-gray-200 grid p-2 w-[150px] rounded-md right-0 gap-1  top-5 z-40  ">
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          ...itm,
-                          Customer : itm?.customerName,
-                          siteId : itm['Site Id'],
-                          Milestone : iewq?.Name,
-                          mileStoneId : iewq?.mileStoneId,
-                          SSID : itm?.systemId,
-                          Projecttype : itm?.projectType,
-                          'PTW Receiver name' : user?.benificiaryname,
-                          'Partner name' : user?.benificiaryname,
-                          
-                        }
-                        getPtwSubForm('workatheight')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">Work At Height</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('rtws')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">RTWS</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('groundactivity')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  ">Ground Activity</div>
-                      <div onClick={() => {
-                        mileStoneItemRef.current = {
-                          sideData : itm,
-                          milestoneCount : iewq,
-                        }
-                        getPtwSubForm('drivertestactivity')
-                      }} className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  ">Driver Test Activity</div>
+                </>
+              ) : iewq?.mileStoneStatus === "Open" ? (
+                <div className="relative">
+                  <button
+                    onClick={() => {
+                      if (ptwOption && ptwOption === iewq?._id) {
+                        setPtwOption(null);
+                      } else {
+                        setPtwOption(iewq?._id);
+                      }
+                    }}
+                    className=""
+                  >
+                    <IoTicketOutline />
+                  </button>
+                  {iewq?._id === ptwOption && (
+                    <div className="absolute bg-gray-200 grid p-2 w-[150px] rounded-md right-0 gap-1  top-5 z-40  ">
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            ...itm,
+                            Customer: itm?.customerName,
+                            siteId: itm["Site Id"],
+                            Milestone: iewq?.Name,
+                            mileStoneId: iewq?.mileStoneId,
+                            SSID: itm?.systemId,
+                            Projecttype: itm?.projectType,
+                            "PTW Receiver name": user?.benificiaryname,
+                            "Partner name": user?.benificiaryname,
+                          };
+                          getPtwSubForm("workatheight");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  "
+                      >
+                        Work At Height
+                      </div>
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            sideData: itm,
+                            milestoneCount: iewq,
+                          };
+                          getPtwSubForm("rtws");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  "
+                      >
+                        RTWS
+                      </div>
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            sideData: itm,
+                            milestoneCount: iewq,
+                          };
+                          getPtwSubForm("groundactivity");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white p-2 w-fit  "
+                      >
+                        Ground Activity
+                      </div>
+                      <div
+                        onClick={() => {
+                          mileStoneItemRef.current = {
+                            sideData: itm,
+                            milestoneCount: iewq,
+                          };
+                          getPtwSubForm("drivertestactivity");
+                        }}
+                        className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  "
+                      >
+                        Driver Test Activity
+                      </div>
+                    </div>
+                  )}
                 </div>
-              }
-              </div> : iewq?.mileStoneStatus
+              ) : (
+                iewq?.mileStoneStatus
               ),
 
             SiteNaming: (
@@ -731,7 +776,6 @@ const handleAddActivity  = async (data , formType) => {
                 />
               </>
             ),
-            
           };
         }),
 
@@ -946,20 +990,17 @@ const handleAddActivity  = async (data , formType) => {
         {
           name: "Site ID",
           value: "SiteNaming",
-          style:
-            " sticky left-0 bg-[#3e454d] text-center  z-20",
+          style: " sticky left-0 bg-[#3e454d] text-center  z-20",
         },
         {
           name: "Project ID",
           value: "projectId",
-          style:
-            "  left-[140px] bg-[#3e454d] text-center ",
+          style: "  left-[140px] bg-[#3e454d] text-center ",
         },
         {
           name: "",
           value: "",
-          style:
-            " left-[140px] bg-[#3e454d] text-center ",
+          style: " left-[140px] bg-[#3e454d] text-center ",
         },
         {
           name: "Sub Project",
@@ -1008,7 +1049,6 @@ const handleAddActivity  = async (data , formType) => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-        
         // {
         //   name: "Event Logs",
         //   value: "eventLogsmilestone",
@@ -1109,11 +1149,7 @@ const handleAddActivity  = async (data , formType) => {
     dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));
   }, []);
 
-  const handleBulkDelte = () => {   
-  };
-
-
-  
+  const handleBulkDelte = () => {};
 
   return (
     <>
