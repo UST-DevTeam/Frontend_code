@@ -51,7 +51,7 @@ const MyTask = () => {
   const { projectuniqueId } = useParams();
 
   const [modalOpen, setmodalOpen] = useState(false);
-  const [vehicleType, setVehicleType] = useState('twowheeler');
+  const [vehicleType, setVehicleType] = useState("twowheeler");
   const [isSelect, setSelect] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -170,7 +170,7 @@ const MyTask = () => {
       url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
       data: {
         empId: dropdown.value,
-        ApproverType: "L1-Aprover",
+        ApproverType: "L1-Approver",
       },
     });
     if (res?.status === 200) {
@@ -208,14 +208,14 @@ const MyTask = () => {
                   <option value="">Select L1 Approver</option>
                   {res?.data?.data?.length > 0
                     ? res?.data?.data
-                      ?.filter((item) => item?.ApproverType === "L1-Approver")
-                      ?.map((item) => {
-                        return (
-                          <option className="" value={item?.empId}>
-                            {item?.empName}
-                          </option>
-                        );
-                      })
+                        ?.filter((item) => item?.ApproverType === "L1-Approver")
+                        ?.map((item) => {
+                          return (
+                            <option className="" value={item?.empId}>
+                              {item?.empName}
+                            </option>
+                          );
+                        })
                     : []}
                 </select>
               </div>
@@ -235,7 +235,9 @@ const MyTask = () => {
   };
 
   const handleVaichel = async (formDataInput, subForm) => {
-    const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
+    const formKeys = (subFormRef.current[subForm] || []).map(
+      (f) => f.fieldName
+    );
 
     const formData = new FormData();
 
@@ -262,7 +264,11 @@ const MyTask = () => {
     }
 
     const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      url: `/submit/ptw/drivetestactivity/${subForm}${
+        sessionStorage.getItem("opid")
+          ? `/${sessionStorage.getItem("opid")}`
+          : ""
+      }`,
       contentType: "multipart/form-data",
       data: formData,
     });
@@ -274,138 +280,142 @@ const MyTask = () => {
     }
   };
 
-
   const handleAddActivity = async (data, formType) => {
-  let res = null;
+    let res = null;
 
-  try {
-    // Handle normal (non-photo/vehicle) forms
-    if (!["photo", "ptwphoto", "oneatrisk", "vehicle"].includes(ptwModalHead.value)) {
-      const newData = {
-        projectID: mileStoneItemRef.current?.projectId,
-        siteId: mileStoneItemRef.current?.siteId,
-        customerName: mileStoneItemRef.current?.customerName,
-        subProject: mileStoneItemRef.current?.SubProject,
-        circle: mileStoneItemRef.current?.CIRCLE,
-        mileStoneId: mileStoneItemRef.current?.mileStoneId,
-        Milestone: mileStoneItemRef.current?.Milestone,
-        [ptwModalHead.value]: {},
-      };
+    try {
+      // Handle normal (non-photo/vehicle) forms
+      if (
+        !["photo", "ptwphoto", "oneatrisk", "vehicle"].includes(
+          ptwModalHead.value
+        )
+      ) {
+        const newData = {
+          projectID: mileStoneItemRef.current?.projectId,
+          siteId: mileStoneItemRef.current?.siteId,
+          customerName: mileStoneItemRef.current?.customerName,
+          subProject: mileStoneItemRef.current?.SubProject,
+          circle: mileStoneItemRef.current?.CIRCLE,
+          mileStoneId: mileStoneItemRef.current?.mileStoneId,
+          Milestone: mileStoneItemRef.current?.Milestone,
+          [ptwModalHead.value]: {},
+        };
 
-      Object.keys(data)?.forEach((key) => {
-        if (data[key]) {
-          newData[ptwModalHead.value][key] = data[key];
-        }
-      });
-
-      const url = `/submit/ptw/${formType}/${ptwModalHead.value}${
-        sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
-      }`;
-
-      res = sessionStorage.getItem("opid")
-        ? await Api.patch({ url, data: newData })
-        : await Api.post({ url, data: newData });
-    }
-
-    // Handle special forms (photo, ptwphoto, oneatrisk, vehicle)
-    else {
-      const formData = new FormData();
-
-      formData.append("projectID", mileStoneItemRef.current?.projectId);
-      formData.append("siteId", mileStoneItemRef.current?.siteId);
-      formData.append("customerName", mileStoneItemRef.current?.customerName);
-      formData.append("circle", mileStoneItemRef.current?.CIRCLE);
-      formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
-      formData.append("Milestone", mileStoneItemRef.current?.Milestone);
-
-      // Append each field (file or text)
-      Object.keys(data)?.forEach((key) => {
-        const value = data[key];
-        if (value) {
-          formData.append(
-            key,
-            value instanceof FileList ? value[0] : value
-          );
-        }
-      });
-
-      const url = `/submit/ptw/${formType}/${ptwModalHead.value}${
-        sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
-      }`;
-
-      res = await Api.patch({
-        url,
-        contentType: "multipart/form-data",
-        data: formData,
-      });
-    }
-
-    // Handle response
-    if (res?.status === 200 || res?.status === 201) {
-      sessionStorage.setItem(
-        "opid",
-        sessionStorage.getItem("opid") || res?.data?.operation_id
-      );
-
-      // Special redirect after photo
-      if (ptwModalHead.value === "photo") {
-        setSelect(true);
-        reset();
-        setPtwModalHead({ title: "", value: "formSelection" });
-        return;
-      }
-
-      // Multi-step form logic
-      if (isMultiStep) {
-        const nextIndex = currentStepIndex + 1;
-
-        if (nextIndex < selectedItems.length) {
-          setCurrentStepIndex(nextIndex);
-          const nextForm = selectedItems[nextIndex];
-          setPtwModalHead({ title: nextForm.name, value: nextForm.id });
-        } else {
-          // Final step (show vehicle form)
-          setIsMultiStep(false);
-          setPtwModalFullOpen(false);
-
-          if (formType === "drivetestactivity") {
-            setPtwModalHead({ title: "", value: "vehicle" });
-
-            
-
-            setPtwDriveTest(true);
-          } else {
-            getApprovalsData(res?.data?.operation_id);
+        Object.keys(data)?.forEach((key) => {
+          if (data[key]) {
+            newData[ptwModalHead.value][key] = data[key];
           }
-        }
+        });
 
-        reset();
-        return;
+        const url = `/submit/ptw/${formType}/${ptwModalHead.value}${
+          sessionStorage.getItem("opid")
+            ? `/${sessionStorage.getItem("opid")}`
+            : ""
+        }`;
+
+        res = sessionStorage.getItem("opid")
+          ? await Api.patch({ url, data: newData })
+          : await Api.post({ url, data: newData });
       }
 
-      // Fallback (non-multi-step)
-      setPtwModalHead({
-        title: ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.title,
-        value: ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value,
-      });
-      reset();
-    }
-  } catch (err) {
-    console.error("Error in handleAddActivity:", err);
-  }
-};
+      // Handle special forms (photo, ptwphoto, oneatrisk, vehicle)
+      else {
+        const formData = new FormData();
 
+        formData.append("projectID", mileStoneItemRef.current?.projectId);
+        formData.append("siteId", mileStoneItemRef.current?.siteId);
+        formData.append("customerName", mileStoneItemRef.current?.customerName);
+        formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+        formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+        formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+        // Append each field (file or text)
+        Object.keys(data)?.forEach((key) => {
+          const value = data[key];
+          if (value) {
+            formData.append(key, value instanceof FileList ? value[0] : value);
+          }
+        });
+
+        const url = `/submit/ptw/${formType}/${ptwModalHead.value}${
+          sessionStorage.getItem("opid")
+            ? `/${sessionStorage.getItem("opid")}`
+            : ""
+        }`;
+
+        res = await Api.patch({
+          url,
+          contentType: "multipart/form-data",
+          data: formData,
+        });
+      }
+
+      // Handle response
+      if (res?.status === 200 || res?.status === 201) {
+        sessionStorage.setItem(
+          "opid",
+          sessionStorage.getItem("opid") || res?.data?.operation_id
+        );
+
+        // Special redirect after photo
+        if (ptwModalHead.value === "photo") {
+          setSelect(true);
+          reset();
+          setPtwModalHead({ title: "", value: "formSelection" });
+          return;
+        }
+
+        // Multi-step form logic
+        if (isMultiStep) {
+          const nextIndex = currentStepIndex + 1;
+
+          if (nextIndex < selectedItems.length) {
+            setCurrentStepIndex(nextIndex);
+            const nextForm = selectedItems[nextIndex];
+            setPtwModalHead({ title: nextForm.name, value: nextForm.id });
+          } else {
+            // Final step (show vehicle form)
+            setIsMultiStep(false);
+            setPtwModalFullOpen(false);
+
+            if (formType === "drivetestactivity") {
+              setPtwModalHead({ title: "", value: "vehicle" });
+
+              setPtwDriveTest(true);
+            } else {
+              getApprovalsData(res?.data?.operation_id);
+            }
+          }
+
+          reset();
+          return;
+        }
+
+        // Fallback (non-multi-step)
+        setPtwModalHead({
+          title:
+            ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.title,
+          value:
+            ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value,
+        });
+        reset();
+      }
+    } catch (err) {
+      console.error("Error in handleAddActivity:", err);
+    }
+  };
 
   const setForm = (form, formName) => {
     setPtwModalBody(
       <>
         <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
           <CommonForm
-            classes={` ${subFormRef.current[ptwModalHead.value] &&
+            classes={` ${
+              subFormRef.current[ptwModalHead.value] &&
               subFormRef.current[ptwModalHead.value]?.length > 3
-              ? "grid-cols-3"
-              : "grid-cols-1"
-              }  gap-1`}
+                ? "grid-cols-3"
+                : "grid-cols-1"
+            }  gap-1`}
             Form={form}
             errors={errors}
             register={register}
@@ -497,23 +507,23 @@ const MyTask = () => {
               item?.dataType === "AutoFill"
                 ? "sdisabled"
                 : item?.dataType === "Dropdown"
-                  ? "select"
-                  : item?.dataType === "DateTime"
-                    ? "datetime-local"
-                    : item?.dataType?.toLowerCase() === "date"
-                      ? "datetime"
-                      : item?.dataType === "img"
-                        ? "file"
-                        : item?.dataType?.toLowerCase(),
+                ? "select"
+                : item?.dataType === "DateTime"
+                ? "datetime-local"
+                : item?.dataType?.toLowerCase() === "date"
+                ? "datetime"
+                : item?.dataType === "img"
+                ? "file"
+                : item?.dataType?.toLowerCase(),
             ...(item?.dataType === "Dropdown"
               ? {
-                option: item?.dropdownValue.split(",")?.map((item) => {
-                  return {
-                    label: item.trim(),
-                    value: item.trim(),
-                  };
-                }),
-              }
+                  option: item?.dropdownValue.split(",")?.map((item) => {
+                    return {
+                      label: item.trim(),
+                      value: item.trim(),
+                    };
+                  }),
+                }
               : {}),
             // ...(item?.dataType === 'img' ? {
             //   props: {
@@ -597,18 +607,20 @@ const MyTask = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${100 -
+            percent={`${
+              100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
                   (iewq) => iewq?.mileStoneStatus == "Closed"
                 ).length) /
                 itm?.milestoneArray?.length) *
-              100
-              }`}
-            text={`${itm?.milestoneArray?.filter(
-              (iewq) => iewq?.mileStoneStatus == "Closed"
-            ).length
-              } / ${itm?.milestoneArray?.length}`}
+                100
+            }`}
+            text={`${
+              itm?.milestoneArray?.filter(
+                (iewq) => iewq?.mileStoneStatus == "Closed"
+              ).length
+            } / ${itm?.milestoneArray?.length}`}
           />
         ),
         checkboxProject: (
@@ -682,17 +694,17 @@ const MyTask = () => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                  itwsw.assignerName.trim().split(" ").length > 1
+                                itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                    ? itwsw.assignerName
+                                  ? itwsw.assignerName
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                    : ""}
+                                  : ""}
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -769,7 +781,9 @@ const MyTask = () => {
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
                   <div className="h-full w-full cursor-default flex items-center gap-2 justify-end">
-                    <span>{ iewq?.isAutoClose ? 'Auto Close' :  iewq?.ptwStatus}</span>
+                    <span>
+                      {iewq?.isAutoClose ? "Auto Close" : iewq?.ptwStatus}
+                    </span>
                     <span
                       onClick={() => {
                         setFormName("");
@@ -785,11 +799,12 @@ const MyTask = () => {
                         }
                       }}
                       title="Raise PTW"
-                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
+                      className={`p-[1px] px-2 ${
+                        !iewq?.isPtwRaise ||
                         ["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)
-                        ? "cursor-pointer"
-                        : "cursor-not-allowed opacity-60"
-                        } rounded-md bg-[#13B497]`}
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed opacity-60"
+                      } rounded-md bg-[#13B497]`}
                     >
                       <LuTicketCheck size={20} />
                     </span>
@@ -802,10 +817,11 @@ const MyTask = () => {
                         }
                       }}
                       title="Close PTW"
-                      className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve
-                        ? "cursor-pointer"
-                        : "cursor-not-allowed opacity-60"
-                        } px-2 rounded-md bg-[#F43F5E]`}
+                      className={`p-[1px] ${
+                        iewq?.isPtwRaise && iewq?.isL2Approve
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed opacity-60"
+                      } px-2 rounded-md bg-[#F43F5E]`}
                     >
                       <LuTicketX size={20} />
                     </span>
@@ -1427,7 +1443,6 @@ const MyTask = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-
         // {
         //   name: "Event Logs",
         //   value: "eventLogsmilestone",
@@ -1529,7 +1544,7 @@ const MyTask = () => {
     dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));
   }, []);
 
-  const handleBulkDelte = () => { };
+  const handleBulkDelte = () => {};
 
   const handleContinue = (opId) => {
     if (selectedItems.length === 0) {
@@ -1561,7 +1576,7 @@ const MyTask = () => {
         searchView={
           <>
             <SearchBarView
-              onblur={(e) => { }}
+              onblur={(e) => {}}
               onchange={(e) => {
                 const siteNameQuery =
                   (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
@@ -1572,7 +1587,7 @@ const MyTask = () => {
             />
 
             <SearchBarView
-              onblur={(e) => { }}
+              onblur={(e) => {}}
               onchange={(e) => {
                 dispatch(
                   MyHomeActions.getMyTask(
@@ -1710,80 +1725,86 @@ const MyTask = () => {
       <Modal
         size={"xl"}
         modalHead={""}
-        children={<div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto">
-                <div className="flex gap-6 text-white mb-6">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="vehicleType"
-                      value="twowheeler"
-                      checked={vehicleType === "twowheeler"}
-                      onChange={(e) => setVehicleType(e.target.value)}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm">Two Wheeler</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="vehicleType"
-                      value="fourwheeler"
-                      checked={vehicleType === "fourwheeler"}
-                      onChange={(e) => setVehicleType(e.target.value)}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm">Four Wheeler</span>
-                  </label>
-                </div>
+        children={
+          <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto">
+            <div className="flex gap-6 text-white mb-6">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="vehicleType"
+                  value="twowheeler"
+                  checked={vehicleType === "twowheeler"}
+                  onChange={(e) => setVehicleType(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">Two Wheeler</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="vehicleType"
+                  value="fourwheeler"
+                  checked={vehicleType === "fourwheeler"}
+                  onChange={(e) => setVehicleType(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">Four Wheeler</span>
+              </label>
+            </div>
 
-                <div className="w-full ">
-                  {vehicleType === "twowheeler" ? (
-                    <>
-                      <h1 className="text-white text-xl py-2">Two Wheeler Photo Data</h1>
-                      <CommonForm
-                        classes="grid-cols-3 gap-4"
-                        Form={subFormRef.current?.twowheeler}
-                        errors={errors}
-                        register={register}
-                        setValue={setValue}
-                        getValues={getValues}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <h1 className="text-white text-xl py-2">Four Wheeler Photo Data</h1>
-                      <CommonForm
-                        classes="grid-cols-3 gap-4"
-                        Form={subFormRef.current?.fourwheeler}
-                        errors={errorsForm1}
-                        register={registerForm1}
-                        setValue={setValueForm1}
-                        getValues={getValuesForm1}
-                      />
-                    </>
-                  )}
-                </div>
+            <div className="w-full ">
+              {vehicleType === "twowheeler" ? (
+                <>
+                  <h1 className="text-white text-xl py-2">
+                    Two Wheeler Photo Data
+                  </h1>
+                  <CommonForm
+                    classes="grid-cols-3 gap-4"
+                    Form={subFormRef.current?.twowheeler}
+                    errors={errors}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                  />
+                </>
+              ) : (
+                <>
+                  <h1 className="text-white text-xl py-2">
+                    Four Wheeler Photo Data
+                  </h1>
+                  <CommonForm
+                    classes="grid-cols-3 gap-4"
+                    Form={subFormRef.current?.fourwheeler}
+                    errors={errorsForm1}
+                    register={registerForm1}
+                    setValue={setValueForm1}
+                    getValues={getValuesForm1}
+                  />
+                </>
+              )}
+            </div>
 
-                <div className="w-full flex justify-center mt-6">
-                  {vehicleType === "twowheeler" ? (
-                    <Button
-                      name="Submit"
-                      className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-                      onClick={handleSubmit((data) =>
-                        handleVaichel(data,  "twowheeler")
-                      )}
-                    />
-                  ) : (
-                    <Button
-                      name="Submit"
-                      className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-                      onClick={handleSubmitForm1((data) =>
-                        handleVaichel(data,  "fourwheeler")
-                      )}
-                    />
+            <div className="w-full flex justify-center mt-6">
+              {vehicleType === "twowheeler" ? (
+                <Button
+                  name="Submit"
+                  className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+                  onClick={handleSubmit((data) =>
+                    handleVaichel(data, "twowheeler")
                   )}
-                </div>
-              </div>}
+                />
+              ) : (
+                <Button
+                  name="Submit"
+                  className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+                  onClick={handleSubmitForm1((data) =>
+                    handleVaichel(data, "fourwheeler")
+                  )}
+                />
+              )}
+            </div>
+          </div>
+        }
         isOpen={ptwDriveTest}
         setIsOpen={setPtwDriveTest}
       />

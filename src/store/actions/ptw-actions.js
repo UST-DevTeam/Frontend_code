@@ -14,6 +14,7 @@ import {
   UPDATE_PTW_APPROVER_DATA,
   DELETE_PTW_APPROVER_DATA,
   GET_APPROVER_PAGE,
+  GET_PTW_APPROVER_L1,
 } from "../reducers/ptw-reducer";
 
 const PTWActions = {
@@ -345,6 +346,21 @@ const PTWActions = {
         let dataAll = res?.data?.data;
         console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsafsd')
         dispatch(GET_APPROVER_PAGE_DATA_FORM({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
+  getPtwApprover:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.PtwApproverPage}${args != "" ? "?" + args : ""  }`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
+        dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
       }

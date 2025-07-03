@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AdvancedTable from "../../../components/AdvancedTable";
 import PTWActions from "../../../store/actions/ptw-actions";
 import CommonActions from "../../../store/actions/common-actions";
+import Button from "../../../components/Button";
 
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const PTWLogBackup = () => {
           rowData,
           columns: table["columns"]
         } 
-        
+
       )
     );
   };
@@ -336,6 +337,26 @@ const PTWLogBackup = () => {
   return (
     <>
       <AdvancedTable
+       headerButton={
+            <div className="flex gap-2">
+             
+              <Button
+                name={"Export"}
+                classes="w-auto bg-teal-500 hover:bg-teal-600"
+                onClick={(e) => {
+                  dispatch(
+                    CommonActions.commondownloadpost(
+                      "/ptwTableExport?exportTableName=ptwLogBackup",
+                      // {exportTableName:"ptwBackupData"},
+                      "New_file.xlsx",
+                      "GET",
+                     
+                    )
+                  );
+                }}
+              />
+            </div>
+          }
         table={table}
         filterAfter={onSubmit}
         tableName="PTW Log Backup Table"

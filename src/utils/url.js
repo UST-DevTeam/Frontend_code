@@ -292,7 +292,8 @@ export const Urls = {
   l1ApproverSubmit:'/Ptw/MDBApprover',
   PTWBackup:'/ptw/backupLog',
   ApproverPageData:'/approverData',
-  ApproverPageDataForm:'/rtwsGetFormsData'
+  ApproverPageDataForm:'/rtwsGetFormsData',
+  PtwApproverPage:'/getPtwApprover'
  
 
 
