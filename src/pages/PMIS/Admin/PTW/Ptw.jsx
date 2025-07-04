@@ -33,7 +33,7 @@ const Ptw = () => {
             ["Ground Activity", "bg-pcol", "/superAdmin/ptw/groundactivity"],
             ["Drive Test Activity", "bg-pcol", "/superAdmin/ptw/drivetestactivity"],
             ["RTWS", "bg-pcol", "/superAdmin/ptw/rtws"],
-            ["Rejection reasons", "bg-pcol", "/superAdmin/ptw/rejectionreasoin"],
+            ["Rejection reasons", "bg-pcol", "/superAdmin/ptw/rejectionreason"],
             ["MDB Approver", "bg-pcol", "/superAdmin/PTW/mdbApprover"],
             ["PTW Log Backup", "bg-pcol", "/superAdmin/ptw/PTWLogBackup"],
           ].map((itm) => {

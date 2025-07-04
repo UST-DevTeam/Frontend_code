@@ -430,7 +430,7 @@ const MyTask = () => {
       if (res?.status === 200 || res?.status === 201) {
         sessionStorage.setItem(
           "opid",
-          sessionStorage.getItem("opid") || res?.data?.operation_id
+          sessionStorage.getItem("opid") || mileStoneItemRef.current?.mileStoneId
         );
 
         // Special redirect after photo
@@ -896,7 +896,7 @@ const MyTask = () => {
                 </>
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
-                  <div className="h-full w-full cursor-default flex items-center gap-2 justify-end">
+                  <div className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
                     <span>{iewq?.isAutoClose ? 'Auto Close' : iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
@@ -1474,12 +1474,12 @@ const MyTask = () => {
       {
         name: "Predecessor",
         value: "Predecessor",
-        style: "min-w-[240px] max-w-[240px] text-center",
+        style: "min-w-[140px] max-w-[180px] text-center",
       },
       {
         name: "Status",
         value: "siteStatus",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[240px] max-w-[280px] text-center",
       },
     ],
     childList: [""],
@@ -1547,12 +1547,12 @@ const MyTask = () => {
         {
           name: "Predecessor",
           value: "Predecessor",
-          style: "min-w-[240px] max-w-[240px] text-center",
+          style: "min-w-[140px] max-w-[180px] text-center",
         },
         {
           name: "Status",
           value: "mileStoneStatusUpda",
-          style: "min-w-[140px] max-w-[200px] text-center",
+          style: "min-w-[240px] max-w-[280px] text-center",
         },
 
 
@@ -1652,6 +1652,9 @@ const MyTask = () => {
   };
   useEffect(() => {
     setFormName("");
+    if(sessionStorage.getItem('opid')){
+      sessionStorage.removeItem('opid')
+    }
     dispatch(AdminActions.getManageCustomer());
     dispatch(MyHomeActions.getMyTask());
     dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));

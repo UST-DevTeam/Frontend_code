@@ -258,11 +258,11 @@ const PtwForm = () => {
   return (
     <>
       <div>
-        { page === 'rejectionreasoin'?  <CommonTableFormSiteParent
+        { page === 'rejectionreason'?  <CommonTableFormSiteParent
           funcaller={() => {}}
-          defaultValue={"CheckList"}
+          defaultValue={"RejectionReason"}
           tabslist={{
-            CheckList: form("CheckList"),
+            RejectionReason: form("RejectionReason"),
           }}
         /> :  <CommonTableFormSiteParent
           funcaller={() => {}}

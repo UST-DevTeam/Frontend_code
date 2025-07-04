@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import AdvancedTable from "../../../components/AdvancedTable";
+import { CiFilter } from "react-icons/ci";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import CstmButton from "../../../components/CstmButton";
@@ -14,6 +15,8 @@ import { Urls } from "../../../utils/url";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import ApproverForm from "../../../components/ApproverForm";
 import RejectionForm from "../../../components/RejectionForm";
+import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
+import Api from "../../../utils/api";
 
 const ApproverPage = () => {
   const dispatch = useDispatch();
@@ -22,11 +25,24 @@ const ApproverPage = () => {
   const { projectType } = useParams();
   const { _id } = useParams();
   const [modalOpen, setmodalOpen] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [filter, setFilter] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
+  let {uniqueId} = JSON.parse(localStorage.getItem("user"));
   const [fileOpen, setFileOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const Data = useRef("");
+  const options = [
+
+    { id: "Submitted", name: "Submitted" },
+    { id: "L1-Approved", name: "L1-Approved" },
+    { id: "L2-Approved", name: "L2-Approved" },
+    { id: "L1-Rejected", name: "L1-Rejected" },
+    { id: "L2-Rejected", name: "L2-Rejected" },
+    { id: "Closed", name: "Closed" },
+    { id: "Auto Closed", name: "Auto Closed" },
+  ];
 
   const [year] = useState(new Date().getFullYear());
 
@@ -202,13 +218,12 @@ const ApproverPage = () => {
         style: "text-center min-w-[120px]",
         render: (value, row) => (
           <span
-            className={`px-2 py-1 rounded text-xs font-medium ${
-              value === "Approved"
-                ? "bg-green-100 text-green-800"
-                : value === "Rejected"
+            className={`px-2 py-1 rounded text-xs font-medium ${value === "Approved"
+              ? "bg-green-100 text-green-800"
+              : value === "Rejected"
                 ? "bg-red-100 text-red-800"
                 : "bg-yellow-100 text-yellow-800"
-            }`}
+              }`}
           >
             {value}
           </span>
@@ -256,13 +271,27 @@ const ApproverPage = () => {
     filter: [],
   };
 
-  const handleApprove = (rowData) => {};
+  const handleApprove = (rowData) => { };
   const handleReject = (rowData) => {
     setmodalBody(
       // <>
       // <RejectionForm/>
       // </>
     )
+  };
+
+  const handleCheckboxChange = (optionId, optionName) => {
+    setSelectedItems((prev) => {
+      const isSelected = prev.some((item) => item.id === optionId);
+
+      if (isSelected) {
+        // Remove item if already selected
+        return prev.filter((item) => item.id !== optionId);
+      } else {
+        // Add item if not selected
+        return [...prev, { id: optionId, name: optionName }];
+      }
+    });
   };
 
   const handleApprover = (rowData) => {
@@ -324,6 +353,7 @@ const ApproverPage = () => {
     queryParams.append("ptwNumber", rowData?.ptwNumber);
     queryParams.append("l1Approver", "l1Approver");
 
+
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
     console.log("PDF Download endpoint:", endpoint);
@@ -360,8 +390,7 @@ const ApproverPage = () => {
     dispatch(
       CommonActions.commondownloadpost(
         endpoint,
-        `PTW_${
-          extractedData.ptwNumber || rowData.ptwNumber || Date.now()
+        `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()
         }.xlsx`,
         "POST",
         {
@@ -401,8 +430,8 @@ const ApproverPage = () => {
         itm.ptwStatus === "APPROVED"
           ? "Approved"
           : itm.ptwStatus === "REJECTED"
-          ? "Rejected"
-          : itm.ptwStatus || "Pending",
+            ? "Rejected"
+            : itm.ptwStatus || "Pending",
 
       ptwNumber: (
         <div onClick={() => handlePTWClick(itm)}>{itm?.ptwNumber}</div>
@@ -615,6 +644,21 @@ const ApproverPage = () => {
     setmodalOpen(true);
   };
 
+  const handleContinue = async () => {
+    const res = await Api.post({
+      url: '/approverData',
+      data: {
+        userUniqueId : uniqueId,
+        ApproverType : type === 'l1Approver' ? 'l1Approver' : 'l2Approver',
+        status : selectedItems?.map(item => item.id)
+      }
+    })
+    if (res?.status === 200) {
+      dispatch(GET_APPROVER_PAGE({ allData: res?.data?.data, reset: true }));
+    }
+
+  }
+
   const submitLog = (item) => {
     console.log("Submitting log for:", item);
     handleModalClose();
@@ -678,6 +722,52 @@ const ApproverPage = () => {
       <AdvancedTable
         headerButton={
           <div className="flex gap-2">
+            <div className="relative">
+              <Button
+                classes="h-full "
+                name={<CiFilter size={32} />}
+                onClick={() => {
+                  setFilter(filter ? false : true)
+                }}
+                title="Filter"
+              />
+              {filter && <div className="absolute w-[250px]  -right-3  top-12 z-[9999999]">
+                <div className="max-w-md mx-auto p-3 bg-white  rounded-lg shadow-lg ">
+  <h1 className="text-xl font-semibold text-center  text-gray-700 my-2">Select Filter</h1>
+  <hr className="mb-3" />
+
+                  <div className="space-y-3  mb-6">
+
+                    {options?.map((option) => (
+
+                      <label
+                        key={option.id}
+                        className="flex items-center space-x-3 cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedItems.some(
+                            (item) => item.id === option.id
+                          )}
+                          onChange={() =>
+                            handleCheckboxChange(option.id, option.name)
+                          }
+                          className="w-4 h-4 text-gray-700  border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                        />
+                        <span className="text-gray-700 text-lg ">{option.name}</span>
+                      </label>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => handleContinue()}
+                    className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>}
+            </div>
             <Button
               name={"Export"}
               classes="w-auto"
@@ -707,7 +797,7 @@ const ApproverPage = () => {
         totalCount={approverTotalCount}
         heading="Total Count :-"
         selectable={true}
-        onSelectionChange={(selectedItems) => {}}
+        onSelectionChange={(selectedItems) => { }}
       />
       <Modal
         size="sm"
