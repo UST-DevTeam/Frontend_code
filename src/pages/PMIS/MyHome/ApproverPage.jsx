@@ -14,7 +14,7 @@ import { Urls } from "../../../utils/url";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import ApproverForm from "../../../components/ApproverForm";
 import RejectionForm from "../../../components/RejectionForm";
-import CommonAlert from "../../../components/Common Alert/CommonAlert";
+
 import Api from "../../../utils/api";
 
 import { CiFilter } from "react-icons/ci";
