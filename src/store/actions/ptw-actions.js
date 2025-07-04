@@ -16,6 +16,7 @@ import {
   GET_APPROVER_PAGE,
   GET_PTW_APPROVER_L1,
   GET_PTW_REJECTION_L1,
+  GET_PTW_APPROVER_ALERT,
 } from "../reducers/ptw-reducer";
 
 const PTWActions = {
@@ -329,8 +330,8 @@ const PTWActions = {
           url: `${Urls.ApproverPageData}${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
-        let dataAll = res?.data?.data
-        console.log(dataAll,"__dataALl")
+        let dataAll = res?.data?.data;
+        console.log(dataAll, "__dataALl");
         dispatch(GET_APPROVER_PAGE({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
@@ -341,11 +342,11 @@ const PTWActions = {
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.ApproverPageDataForm}${args != "" ? "?" + args : ""  }`,
+          url: `${Urls.ApproverPageDataForm}${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
         let dataAll = res?.data?.data;
-        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsafsd')
+        console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsafsd");
         dispatch(GET_APPROVER_PAGE_DATA_FORM({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
@@ -356,43 +357,66 @@ const PTWActions = {
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.PtwApproverPage}${args != "" ? "?" + args : ""  }`,
+          url: `${Urls.PtwApproverPage}${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
         let dataAll = res?.data?.data;
-        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
+        console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
         dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
       }
     },
   getPtwApproverPatch:
-    (reset = true,data, args = "") =>
+    (reset = true, data, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.patch({
-          url: `${Urls.PtwApproverPage+"/"+data?._id}${args != "" ? "?" + args : ""  }`,
-          data
+          url: `${Urls.PtwApproverPage + "/" + data?._id}${
+            args != "" ? "?" + args : ""
+          }`,
+          data,
         });
         if (res?.status !== 200) return;
         let dataAll = res?.data?.data;
-        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
+        console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
         dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
       }
     },
-    getPtwRejection:
+  getPtwRejection:
     (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.PtwRejectionPage}${args != "" ? "?" + args : ""  }`,
+          url: `${Urls.PtwRejectionPage}${args != "" ? "?" + args : ""}`,
         });
         if (res?.status !== 200) return;
         let dataAll = res?.data?.data;
-        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
+        console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
         dispatch(GET_PTW_REJECTION_L1({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
+
+    getPtwApproverAlert:
+    (reset = true, data, args = "") =>
+    async (dispatch, _) => {
+      try {
+
+        console.log(data,"___data")
+        const res = await Api.patch({
+          url: `${Urls.PtwApproverPageAlert + "/" + data?._id}${
+            args != "" ? "?" + args : ""
+          }`,
+          data,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
+        dispatch(GET_PTW_APPROVER_ALERT({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
       }

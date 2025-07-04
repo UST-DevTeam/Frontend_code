@@ -178,18 +178,12 @@ const ApproverForm = ({
     }
 
     const data = {
-    //   ptwId: rowData.ptwId || rowData._id,
-    //   ptwNumber: rowData.ptwNumber,
-      _id:rowData._id,
+      _id:rowData.mileStoneId,
       empId: selectedApprover,
       ApproverType:"L2-Approver",
       approved:true,
       status:"L1-Approved",
-    //   comments: comments,
-    //   assignedBy: "current_user",
-    //   assignedDate: new Date().toISOString(),
     };
-
     dispatch(PTWActions.getPtwApproverPatch(true,data,""))
 
     console.log("Submitting approver assignment:", data);
@@ -230,6 +224,8 @@ const ApproverForm = ({
           )}
         </select>
       </div>
+
+     
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <Button
           name="Submit"

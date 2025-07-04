@@ -13,6 +13,7 @@ const initialState = {
   PtwApproverPage:[],
   PtwApproverPage:[],
   getPtwRejection:[],
+  PtwApproverPageAlert:[],
   totalCount: 0,
 };
 
@@ -209,6 +210,24 @@ const ptwData = createSlice({
         state.totalCount = payload.dataAll[0].overall_table_count;
       }
     },
+    GET_PTW_APPROVER_ALERT: (state, { payload }) => {
+      console.log(payload,"__payload")
+      if (payload.reset) {
+        state.PtwApproverPageAlert = payload.dataAll;
+      } else {
+        state.PtwApproverPageAlert = [
+          ...state.PtwApproverPageAlert,
+          ...payload.dataAll,
+        ];
+      }
+      if (
+        payload.dataAll &&
+        payload.dataAll.length > 0 &&
+        payload.dataAll[0].overall_table_count
+      ) {
+        state.totalCount = payload.dataAll[0].overall_table_count;
+      }
+    },
   },
 });
 
@@ -227,7 +246,8 @@ export const {
   GET_APPROVER_PAGE_DATA_FORM,
   GET_PTW_APPROVER_L1,
   GET_PTW_APPROVER_L1_PATCH,
-  GET_PTW_REJECTION_L1
+  GET_PTW_REJECTION_L1,
+  GET_PTW_APPROVER_ALERT
 } = ptwData.actions;
 
 export default ptwData.reducer;
