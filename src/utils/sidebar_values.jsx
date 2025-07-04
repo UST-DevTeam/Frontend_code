@@ -127,7 +127,7 @@ import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACa
 import RTWS from "../pages/PMIS/Admin/RTWS/RTWS";
 import DriveTestActivity from "../pages/PMIS/Admin/DriveTestActivity/DriveTestActivity";
 import GroundActivity from "../pages/PMIS/Admin/GroundActivity/GroundActivity";
-import Ptw from "../pages/PMIS/Admin/PTW/ptw";
+import Ptw from "../pages/PMIS/Admin/PTW/Ptw";
 import MDBApprover from "../pages/PMIS/Admin/MDBApprover/MDBApprover";
 import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
 import L2Approver from "../pages/PMIS/Admin/L2Approver/L2Approver";

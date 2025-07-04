@@ -10,6 +10,9 @@ const initialState = {
   getApproverPage: [],
   getApproverPageDataForm: [],
   getPtwLogBackup: [],
+  PtwApproverPage:[],
+  PtwApproverPage:[],
+  getPtwRejection:[],
   totalCount: 0,
 };
 
@@ -152,6 +155,60 @@ const ptwData = createSlice({
         state.totalCount = payload.dataAll[0].overall_table_count;
       }
     },
+    GET_PTW_APPROVER_L1: (state, { payload }) => {
+      console.log(payload,"__payload")
+      if (payload.reset) {
+        state.PtwApproverPage = payload.dataAll;
+      } else {
+        state.PtwApproverPage = [
+          ...state.PtwApproverPage,
+          ...payload.dataAll,
+        ];
+      }
+      if (
+        payload.dataAll &&
+        payload.dataAll.length > 0 &&
+        payload.dataAll[0].overall_table_count
+      ) {
+        state.totalCount = payload.dataAll[0].overall_table_count;
+      }
+    },
+    GET_PTW_APPROVER_L1_PATCH: (state, { payload }) => {
+      console.log(payload,"__payload")
+      if (payload.reset) {
+        state.PtwApproverPage = payload.dataAll;
+      } else {
+        state.PtwApproverPage = [
+          ...state.PtwApproverPage,
+          ...payload.dataAll,
+        ];
+      }
+      if (
+        payload.dataAll &&
+        payload.dataAll.length > 0 &&
+        payload.dataAll[0].overall_table_count
+      ) {
+        state.totalCount = payload.dataAll[0].overall_table_count;
+      }
+    },
+    GET_PTW_REJECTION_L1: (state, { payload }) => {
+      console.log(payload,"__payload")
+      if (payload.reset) {
+        state.getPtwRejection = payload.dataAll;
+      } else {
+        state.getPtwRejection = [
+          ...state.getPtwRejection,
+          ...payload.dataAll,
+        ];
+      }
+      if (
+        payload.dataAll &&
+        payload.dataAll.length > 0 &&
+        payload.dataAll[0].overall_table_count
+      ) {
+        state.totalCount = payload.dataAll[0].overall_table_count;
+      }
+    },
   },
 });
 
@@ -168,6 +225,9 @@ export const {
   GET_PTW_LOGBACKUP,
   GET_APPROVER_PAGE,
   GET_APPROVER_PAGE_DATA_FORM,
+  GET_PTW_APPROVER_L1,
+  GET_PTW_APPROVER_L1_PATCH,
+  GET_PTW_REJECTION_L1
 } = ptwData.actions;
 
 export default ptwData.reducer;

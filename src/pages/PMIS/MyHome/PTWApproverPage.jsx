@@ -301,7 +301,7 @@ const PTWApproverPage = () => {
           headerButton={
             <div className="flex gap-2">
              
-              <Button
+              {/* <Button
                 name={"Export"}
                 classes="w-auto bg-teal-500 hover:bg-teal-600"
                 onClick={(e) => {
@@ -314,7 +314,7 @@ const PTWApproverPage = () => {
                     )
                   );
                 }}
-              />
+              /> */}
             </div>
           }
           table={table}

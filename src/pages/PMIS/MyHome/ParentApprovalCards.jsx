@@ -49,7 +49,7 @@ const ParentApproverCards = () => {
       href: null,
       children: [
         {
-          title: "PTW L1 Approver",
+          title: "L1 Approver",
           use : true,
           href: "/home/parentApproverCards/l1Approver",
           children: [],
@@ -127,7 +127,7 @@ const ParentApproverCards = () => {
       ["Compliance 2", "bg-pcol", "/home/compliance2"],
     ],
     PTWApprover: [
-      ["PTW L1 Approver", "bg-pcol", "/home/parentApproverCards/ptwL1Approver"],
+      ["L1 Approver", "bg-pcol", "/home/parentApproverCards/ptwL1Approver"],
       ["PTW L2 Approver", "bg-pcol", "/home/parentApproverCards/ptwL2Approver"],
     ],
   };

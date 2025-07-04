@@ -12,11 +12,15 @@ import PTWActions from "../../../store/actions/ptw-actions";
 import CommonActions from "../../../store/actions/common-actions";
 import { Urls } from "../../../utils/url";
 import { objectToQueryString } from "../../../utils/commonFunnction";
+import ApproverForm from "../../../components/ApproverForm";
+import RejectionForm from "../../../components/RejectionForm";
 
 const ApproverPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {type} = useParams()
+  const { type } = useParams();
+  const { projectType } = useParams();
+  const { _id } = useParams();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
@@ -35,30 +39,7 @@ const ApproverPage = () => {
   } = useForm();
 
   const dataAll = () => {
-    dispatch(PTWActions.getApproverPage(true, `approverType=${type}`));
-  };
-
-  const tableData = {
-    ptwNumber: "PTW Number",
-    ptwCreationDate: "PTW Creation Date",
-    Milestone: "Milestone",
-    siteId: "Site ID",
-    ssId: "SSID",
-    uniqueId: "Unique ID",
-    srNumber: "SR Number",
-    projectGroupName: "Project Group",
-    projectID: "Project ID",
-    projectType: "Project Type",
-    subProject: "Sub Project",
-    submissionDate: "PTW Submission Date",
-    actionDate: "Approval/Rejection Date",
-    l2ActionDAte: "L2 Action Date",
-    l1Ageing: "L1-Aging",
-    l2Ageing: "L2-Aging",
-    status: "Current Status",
-    logs: "Logs",
-    ptwId: "PTW ID",
-    rejectionReason: "Rejection Reason",
+    dispatch(PTWActions.getApproverPage(true, `ApproverType=${type}`));
   };
 
   const extractRowData = (rowData) => {
@@ -75,7 +56,6 @@ const ApproverPage = () => {
 
     return extractedData;
   };
-
 
   const table = {
     columns: [
@@ -239,13 +219,97 @@ const ApproverPage = () => {
         value: "logs",
         style: "text-center min-w-[100px]",
       },
-      { name: "Action", value: "action", style: "text-center min-w-[100px]" },
-      
+      {
+        name: "Action",
+        value: "action",
+        style: "text-center min-w-[100px]",
+        render: (value, rowData) => {
+          console.log("Rendering buttons for row:", rowData);
+          return (
+            <div className="flex justify-center gap-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleApprover(rowData);
+                }}
+                className="bg-green-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+                title="Approve"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+                </svg>
+                Approve
+              </button>
+            </div>
+          );
+        },
+      },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
     },
     filter: [],
+  };
+
+  const handleApprove = (rowData) => {};
+  const handleReject = (rowData) => {
+    setmodalBody(
+      // <>
+      // <RejectionForm/>
+      // </>
+    )
+  };
+
+  const handleApprover = (rowData) => {
+    console.log(rowData, "___rowadsdad");
+    setSelectedRow(rowData);
+    setmodalHead(rowData?.ptwNumber || "Select Approver");
+
+    setmodalBody(
+      <>
+        <ApproverForm
+          selectedRow={rowData}
+          type={type}
+          _id={_id}
+          projectType={projectType}
+          setmodalHead={setmodalHead}
+          setmodalBody={setmodalBody}
+          setmodalOpen={setmodalOpen}
+          setSelectedRow={setSelectedRow}
+        />
+      </>
+    );
+
+    setmodalOpen(true);
+  };
+
+  const submitApproverAssignment = (rowData) => {
+    const selectedApprover = ApproverData.current?.value;
+    const comments = Data.current?.value || "";
+
+    if (!selectedApprover) {
+      alert("Please select an approver level");
+      return;
+    }
+
+    const data = {
+      ptwId: rowData.ptwId || rowData._id,
+      ptwNumber: rowData.ptwNumber,
+      approverLevel: selectedApprover,
+      comments: comments,
+      assignedBy: "current_user",
+      assignedDate: new Date().toISOString(),
+    };
+
+    console.log("Assigning approver:", data);
+
+    handleModalClose();
+    dataAll();
   };
 
   const handlePdfDownload = (rowData) => {
@@ -260,13 +324,6 @@ const ApproverPage = () => {
     queryParams.append("ptwNumber", rowData?.ptwNumber);
     queryParams.append("l1Approver", "l1Approver");
 
-    // Object.keys(tableData).forEach(key => {
-    //   const value = extractedData[key] || rowData[key] || "";
-    //   if (value !== "") {
-    //     queryParams.append(key, value);
-    //   }
-    // });
-
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
     console.log("PDF Download endpoint:", endpoint);
@@ -277,7 +334,7 @@ const ApproverPage = () => {
         endpoint,
         `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()}.pdf`,
         "POST",
-        { rowData , columns: table["columns"]}
+        { rowData, columns: table["columns"] }
       )
     );
   };
@@ -295,13 +352,6 @@ const ApproverPage = () => {
     queryParams.append("ptwNumber", rowData?.ptwNumber);
     queryParams.append("l1Approver", "l1Approver");
 
-    // Object.keys(tableData).forEach((key) => {
-    //   const value = extractedData[key] || rowData[key] || "";
-    //   if (value !== "") {
-    //     queryParams.append(key, value);
-    //   }
-    // });
-
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
     console.log("Excel Download endpoint:", endpoint);
@@ -316,7 +366,7 @@ const ApproverPage = () => {
         "POST",
         {
           rowData,
-          columns: table["columns"]
+          columns: table["columns"],
         }
       )
     );
@@ -326,7 +376,11 @@ const ApproverPage = () => {
     sessionStorage.setItem("ptwNo", item.ptwNumber);
     navigate(`/home/parentApproverCards/ptwApprover/ptwApproverPage`);
   };
-
+  // const ApproverType = useSelector ((state)=>{
+  // console.log(state,"sdsdfssdsdsf");
+  // const AproverTypeList = state?.ptwData?.ptwApproverPage || [];
+  // // const approverTypeList = state
+  //   })
   const approverList = useSelector((state) => {
     console.log("Redux state:", state);
     const interdata = state?.ptwData?.getApproverPage || [];
@@ -353,7 +407,6 @@ const ApproverPage = () => {
       ptwNumber: (
         <div onClick={() => handlePTWClick(itm)}>{itm?.ptwNumber}</div>
       ),
-      // actionDate:<p>{}</p>
 
       ptwFormStatus: (
         <div className="flex justify-center gap-2">
@@ -376,6 +429,36 @@ const ApproverPage = () => {
               <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.5,13L9.5,17H11.5L13.25,15L15,17H17L14,13L17,9H15L13.25,11L11.5,9H9.5L12.5,13Z" />
             </svg>
             Excel
+          </button>
+        </div>
+      ),
+      action: (
+        <div className="flex justify-center gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleApprover(itm);
+            }}
+            className="bg-green-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+            title="Approve"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+            </svg>
+            Approve
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleReject(itm);
+            }}
+            className="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+            title="Reject"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.5,13L9.5,17H11.5L13.25,15L15,17H17L14,13L17,9H15L13.25,11L11.5,9H9.5L12.5,13Z" />
+            </svg>
+            Reject
           </button>
         </div>
       ),
@@ -429,7 +512,7 @@ const ApproverPage = () => {
 
     return <div className="flex flex-wrap gap-1">{buttons}</div>;
   };
-
+  console.log(modalOpen, "__modalOpen");
   const handleApproveReject = (item, status) => {
     if (status === "REJECTED") {
       setSelectedRow(item);
@@ -537,8 +620,6 @@ const ApproverPage = () => {
     handleModalClose();
   };
 
-  
-
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
@@ -567,6 +648,30 @@ const ApproverPage = () => {
   useEffect(() => {
     dataAll();
   }, [dispatch]);
+
+  const tableData = {
+    ptwNumber: "PTW Number",
+    ptwCreationDate: "PTW Creation Date",
+    Milestone: "Milestone",
+    siteId: "Site ID",
+    ssId: "SSID",
+    uniqueId: "Unique ID",
+    srNumber: "SR Number",
+    projectGroupName: "Project Group",
+    projectID: "Project ID",
+    projectType: "Project Type",
+    subProject: "Sub Project",
+    submissionDate: "PTW Submission Date",
+    actionDate: "Approval/Rejection Date",
+    l2ActionDAte: "L2 Action Date",
+    l1Ageing: "L1-Aging",
+    l2Ageing: "L2-Aging",
+    status: "Current Status",
+    logs: "Logs",
+    ptwId: "PTW ID",
+    rejectionReason: "Rejection Reason",
+    action: "Action",
+  };
 
   return (
     <>
@@ -605,7 +710,7 @@ const ApproverPage = () => {
         onSelectionChange={(selectedItems) => {}}
       />
       <Modal
-        size="md"
+        size="sm"
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
