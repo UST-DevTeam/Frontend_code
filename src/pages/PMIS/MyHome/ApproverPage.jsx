@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import AdvancedTable from "../../../components/AdvancedTable";
-import { CiFilter } from "react-icons/ci";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import CstmButton from "../../../components/CstmButton";
@@ -15,8 +14,13 @@ import { Urls } from "../../../utils/url";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import ApproverForm from "../../../components/ApproverForm";
 import RejectionForm from "../../../components/RejectionForm";
-import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
+import CommonAlert from "../../../components/Common Alert/CommonAlert";
 import Api from "../../../utils/api";
+import CommonForm from "../../../components/CommonForm";
+import { CiFilter } from "react-icons/ci";
+import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
+
+
 
 const ApproverPage = () => {
   const dispatch = useDispatch();
@@ -25,13 +29,15 @@ const ApproverPage = () => {
   const { projectType } = useParams();
   const { _id } = useParams();
   const [modalOpen, setmodalOpen] = useState(false);
+  const [rejectionModal, setRejectionModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [filter, setFilter] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
-  let {uniqueId} = JSON.parse(localStorage.getItem("user"));
+  const RejectionForm = useRef(null);
   const [fileOpen, setFileOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+   let {uniqueId} = JSON.parse(localStorage.getItem("user"));
   const Data = useRef("");
   const options = [
 
@@ -43,20 +49,53 @@ const ApproverPage = () => {
     { id: "Closed", name: "Closed" },
     { id: "Auto Closed", name: "Auto Closed" },
   ];
-
-  const [year] = useState(new Date().getFullYear());
-
   const {
     register,
     handleSubmit,
+    SubmitTask,
+    watch,
     setValue,
+    setValues,
     getValues,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const [year] = useState(new Date().getFullYear());
 
   const dataAll = () => {
     dispatch(PTWActions.getApproverPage(true, `ApproverType=${type}`));
   };
+const handleCheckboxChange = (optionId, optionName) => {
+    setSelectedItems((prev) => {
+      const isSelected = prev.some((item) => item.id === optionId);
+
+      if (isSelected) {
+        // Remove item if already selected
+        return prev.filter((item) => item.id !== optionId);
+      } else {
+        // Add item if not selected
+        return [...prev, { id: optionId, name: optionName }];
+      }
+    });
+  };
+  const handleContinue = async () => {
+    const res = await Api.post({
+      url: '/approverData',
+      data: {
+        userUniqueId : uniqueId,
+        ApproverType : type === 'l1Approver' ? 'l1Approver' : 'l2Approver',
+        status : selectedItems?.map(item => item.id)
+      }
+    })
+    if (res?.status === 200) {
+      dispatch(GET_APPROVER_PAGE({ allData: res?.data?.data, reset: true }));
+      setFilter(false)
+    }
+
+  }
+
+
 
   const extractRowData = (rowData) => {
     const extractedData = {};
@@ -71,6 +110,24 @@ const ApproverPage = () => {
     extractedData.downloadType = "";
 
     return extractedData;
+  };
+
+  const handleRejection = async (data , id) => {
+    const allData = {
+      rejectionReason: data,
+      approved: false,
+      empId: uniqueId,
+      ApproverType: type === 'l1Approver' ? 'L1-Approver' : 'L2-Approver',
+      status: type === 'l1Approver' ? 'L1-Rejected' : 'L2-Rejected', 
+    };
+    const res = await Api.patch({
+      url : `/submit/rejection/${id}`,
+      data : allData,
+    })
+    if(res?.status === 200){
+      setRejectionModal(false)
+      dataAll()
+    }
   };
 
   const table = {
@@ -218,12 +275,13 @@ const ApproverPage = () => {
         style: "text-center min-w-[120px]",
         render: (value, row) => (
           <span
-            className={`px-2 py-1 rounded text-xs font-medium ${value === "Approved"
-              ? "bg-green-100 text-green-800"
-              : value === "Rejected"
+            className={`px-2 py-1 rounded text-xs font-medium ${
+              value === "Approved"
+                ? "bg-green-100 text-green-800"
+                : value === "Rejected"
                 ? "bg-red-100 text-red-800"
                 : "bg-yellow-100 text-yellow-800"
-              }`}
+            }`}
           >
             {value}
           </span>
@@ -271,27 +329,53 @@ const ApproverPage = () => {
     filter: [],
   };
 
-  const handleApprove = (rowData) => { };
-  const handleReject = (rowData) => {
-    setmodalBody(
-      // <>
-      // <RejectionForm/>
-      // </>
-    )
-  };
-
-  const handleCheckboxChange = (optionId, optionName) => {
-    setSelectedItems((prev) => {
-      const isSelected = prev.some((item) => item.id === optionId);
-
-      if (isSelected) {
-        // Remove item if already selected
-        return prev.filter((item) => item.id !== optionId);
-      } else {
-        // Add item if not selected
-        return [...prev, { id: optionId, name: optionName }];
-      }
+  const handleApprove = (rowData) => {};
+  const handleReject = async (itm) => {
+    const res = await Api.get({
+      url: "/show/ptw/rejectionreason",
     });
+    if (res?.status === 200) {
+      RejectionForm.current = {
+        mId : itm?.mileStoneId,
+        form : res?.data?.data[0]["rejectionreason"]?.map(
+        (item) => {
+          return {
+            ...item,
+            label: item?.fieldName,
+
+            // disabled :  item?.dataType === 'AutoFill' ? true : false ,
+            name: item?.fieldName,
+            type:
+              item?.dataType === "AutoFill"
+                ? "sdisabled"
+                : item?.dataType === "Dropdown"
+                ? "select"
+                : item?.dataType === "DateTime"
+                ? "datetime-local"
+                : item?.dataType?.toLowerCase() === "date"
+                ? "datetime"
+                : item?.dataType === "img"
+                ? "file"
+                : item?.dataType?.toLowerCase(),
+            ...(item?.dataType === "Dropdown"
+              ? {
+                  option: item?.dropdownValue.split(",")?.map((item) => {
+                    return {
+                      label: item.trim(),
+                      value: item.trim(),
+                    };
+                  }),
+                }
+              : {}),
+
+            required: item?.required === "Yes" ? true : false,
+          };
+        }
+      )
+      }
+
+      setRejectionModal(true);
+    }
   };
 
   const handleApprover = (rowData) => {
@@ -299,20 +383,39 @@ const ApproverPage = () => {
     setSelectedRow(rowData);
     setmodalHead(rowData?.ptwNumber || "Select Approver");
 
-    setmodalBody(
-      <>
-        <ApproverForm
-          selectedRow={rowData}
-          type={type}
-          _id={_id}
-          projectType={projectType}
-          setmodalHead={setmodalHead}
-          setmodalBody={setmodalBody}
-          setmodalOpen={setmodalOpen}
-          setSelectedRow={setSelectedRow}
-        />
-      </>
-    );
+    let modalBodyData = <></>;
+    console.log(type, "___type");
+    if (type === "l1Approver") {
+      setmodalBody(
+        <>
+          <ApproverForm
+            selectedRow={rowData}
+            type={type}
+            _id={_id}
+            projectType={projectType}
+            setmodalHead={setmodalHead}
+            setmodalBody={setmodalBody}
+            setmodalOpen={setmodalOpen}
+            setSelectedRow={setSelectedRow}
+          />
+        </>
+      );
+    } else {
+      const sendData = {
+        _id: rowData?.mileStoneId,
+        approved: true,
+        status: "L2-Approved",
+      };
+      setmodalBody(
+        <>
+          <CommonAlert
+            Heading={"Are yopu Sure ?"}
+            setmodalOpen={setmodalOpen}
+            sendData={sendData}
+          />
+        </>
+      );
+    }
 
     setmodalOpen(true);
   };
@@ -353,7 +456,6 @@ const ApproverPage = () => {
     queryParams.append("ptwNumber", rowData?.ptwNumber);
     queryParams.append("l1Approver", "l1Approver");
 
-
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
     console.log("PDF Download endpoint:", endpoint);
@@ -390,7 +492,8 @@ const ApproverPage = () => {
     dispatch(
       CommonActions.commondownloadpost(
         endpoint,
-        `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()
+        `PTW_${
+          extractedData.ptwNumber || rowData.ptwNumber || Date.now()
         }.xlsx`,
         "POST",
         {
@@ -430,8 +533,8 @@ const ApproverPage = () => {
         itm.ptwStatus === "APPROVED"
           ? "Approved"
           : itm.ptwStatus === "REJECTED"
-            ? "Rejected"
-            : itm.ptwStatus || "Pending",
+          ? "Rejected"
+          : itm.ptwStatus || "Pending",
 
       ptwNumber: (
         <div onClick={() => handlePTWClick(itm)}>{itm?.ptwNumber}</div>
@@ -644,21 +747,6 @@ const ApproverPage = () => {
     setmodalOpen(true);
   };
 
-  const handleContinue = async () => {
-    const res = await Api.post({
-      url: '/approverData',
-      data: {
-        userUniqueId : uniqueId,
-        ApproverType : type === 'l1Approver' ? 'l1Approver' : 'l2Approver',
-        status : selectedItems?.map(item => item.id)
-      }
-    })
-    if (res?.status === 200) {
-      dispatch(GET_APPROVER_PAGE({ allData: res?.data?.data, reset: true }));
-    }
-
-  }
-
   const submitLog = (item) => {
     console.log("Submitting log for:", item);
     handleModalClose();
@@ -722,7 +810,7 @@ const ApproverPage = () => {
       <AdvancedTable
         headerButton={
           <div className="flex gap-2">
-            <div className="relative">
+ <div className="relative">
               <Button
                 classes="h-full "
                 name={<CiFilter size={32} />}
@@ -768,6 +856,7 @@ const ApproverPage = () => {
                 </div>
               </div>}
             </div>
+
             <Button
               name={"Export"}
               classes="w-auto"
@@ -797,7 +886,7 @@ const ApproverPage = () => {
         totalCount={approverTotalCount}
         heading="Total Count :-"
         selectable={true}
-        onSelectionChange={(selectedItems) => { }}
+        onSelectionChange={(selectedItems) => {}}
       />
       <Modal
         size="sm"
@@ -805,6 +894,31 @@ const ApproverPage = () => {
         children={modalBody}
         isOpen={modalOpen}
         setIsOpen={handleModalClose}
+      />
+      <Modal
+        size="lg"
+        modalHead={<h1>Rejection Reason</h1>}
+        children={
+          <>
+            <CommonForm
+              classes="grid-cols-3  gap-4"
+              Form={RejectionForm.current && RejectionForm.current?.form}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            />
+            <Button
+              name="Submit"
+              classes="w-fit"
+              onClick={handleSubmit((data) => {
+                handleRejection(data , RejectionForm.current?.mId);
+              })}
+            />
+          </>
+        }
+        isOpen={rejectionModal}
+        setIsOpen={setRejectionModal}
       />
       <FileUploader
         isOpen={fileOpen}
