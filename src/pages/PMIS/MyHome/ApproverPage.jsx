@@ -22,14 +22,6 @@ import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
 
 
 
-import Api from "../../../utils/api";
-
-import { CiFilter } from "react-icons/ci";
-import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
-import CommonForm from "../../../components/CommonForm";
-
-
-
 const ApproverPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
