@@ -226,23 +226,24 @@ const PtwForm = () => {
             Photo: form("Photo"),
             RiskAssessment: form("RiskAssessment"),
             PtwPhoto : form("PtwPhoto") ,
-            OneAtRisk: form("OneAtRisk"),
+            TeamDetails: form("TeamDetails"),
           },
     'groundactivity' : {
             CheckList: form("CheckList"),
             Photo: form("Photo"),
             RiskAssessment: form("RiskAssessment"),
             PtwPhoto : form("PtwPhoto") ,
-            OneAtRisk: form("OneAtRisk"),
+            TeamDetails: form("TeamDetails"),
           },
      'drivetestactivity' : {
             CheckList: form("CheckList"),
             Photo: form("Photo"),
-            RiskAssessment: form("RiskAssessment"),
-            PtwPhoto : form("PtwPhoto") ,
-            OneAtRisk: form("OneAtRisk"),
-            'fourWheeler': form("fourWheeler"),
-            'twoWheeler': form("twoWheeler"),
+            RoadSafetyChecklist2Wheeler: form("RoadSafetyChecklist2Wheeler"),
+            RoadSafetyChecklist4Wheeler: form("RoadSafetyChecklist4Wheeler"),
+            Ptwphoto2Wheeler : form("Ptwphoto2Wheeler") ,
+            Ptwphoto4Wheeler : form("Ptwphoto4Wheeler") ,
+            TeamDetails: form("TeamDetails"),
+           
            
           } ,
       'rtws' : {
@@ -250,7 +251,7 @@ const PtwForm = () => {
             Photo: form("Photo"),
             RiskAssessment: form("RiskAssessment"),
             PtwPhoto : form("PtwPhoto") ,
-            OneAtRisk: form("OneAtRisk"),
+            TeamDetails: form("TeamDetails"),
           },
   }
 

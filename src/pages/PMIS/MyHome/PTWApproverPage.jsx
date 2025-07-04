@@ -28,6 +28,8 @@ const PTWApproverPage = () => {
 
   const ptwNumber = location?.state?.ptwData;
 
+  console.log(data , 'asdfasdfasdfasdfasdf')
+
   const approverPageData = useSelector(
     (state) => state?.ptwData?.getApproverPageDataForm || []
   );
