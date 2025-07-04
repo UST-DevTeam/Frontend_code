@@ -15,6 +15,7 @@ import {
   DELETE_PTW_APPROVER_DATA,
   GET_APPROVER_PAGE,
   GET_PTW_APPROVER_L1,
+  GET_PTW_REJECTION_L1,
 } from "../reducers/ptw-reducer";
 
 const PTWActions = {
@@ -361,6 +362,37 @@ const PTWActions = {
         let dataAll = res?.data?.data;
         console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
         dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
+  getPtwApproverPatch:
+    (reset = true,data, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.patch({
+          url: `${Urls.PtwApproverPage+"/"+data?._id}${args != "" ? "?" + args : ""  }`,
+          data
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
+        dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
+      } catch (error) {
+        console.error("Error fetching  Approver page data:", error);
+      }
+    },
+    getPtwRejection:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.PtwRejectionPage}${args != "" ? "?" + args : ""  }`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll , 'dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd')
+        dispatch(GET_PTW_REJECTION_L1({ dataAll, reset }));
       } catch (error) {
         console.error("Error fetching  Approver page data:", error);
       }

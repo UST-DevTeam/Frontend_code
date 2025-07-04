@@ -293,7 +293,8 @@ export const Urls = {
   PTWBackup:'/ptw/backupLog',
   ApproverPageData:'/approverData',
   ApproverPageDataForm:'/rtwsGetFormsData',
-  PtwApproverPage:'/getPtwApprover'
+  PtwApproverPage:'/getPtwApprover',
+  PtwRejectionPage:"/show/ptw/rejectionreasoin"
  
 
 
