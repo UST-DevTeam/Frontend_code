@@ -935,7 +935,10 @@ const MyTask = () => {
                     <span className="text-[1px]]">{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
-                        setFormName("");
+                        if(["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)){
+                          
+                        }else{
+                          setFormName("");
                         reset()
                         clearAllFields()
                         setSelect(false);
@@ -947,8 +950,9 @@ const MyTask = () => {
                         } else {
                           setPtwOption(iewq?._id);
                         }
+                        }
                       }}
-                      title="Raise PTW"
+                      title={ ["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus) ? 'Raise PTW Again' : "Raise PTW"}
                       className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
                         ["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
