@@ -150,9 +150,9 @@ const ApproverPage = () => {
   };
 
   const table = {
-    columns: [
+     columns: [
       {
-        name: "PTW",
+        name: "PTW No.",
         value: "ptwNumber",
         style: "text-center min-w-[100px]",
         render: (value, row) => (
@@ -165,11 +165,7 @@ const ApproverPage = () => {
           </span>
         ),
       },
-      {
-        name: "PTW Creation Date",
-        value: "ptwCreationDate",
-        style: "text-center min-w-[120px]",
-      },
+
       {
         name: "Milestone",
         value: "Milestone",
@@ -216,9 +212,14 @@ const ApproverPage = () => {
         style: "text-center min-w-[120px]",
       },
       {
-        name: "PTW Submission Date",
+        name: "Submission Date",
         value: "submissionDate",
         style: "text-center min-w-[150px]",
+      },
+      {
+        name: "Completion Date",
+        value: "ptwCreationDate",
+        style: "text-center min-w-[120px]",
       },
       {
         name: "Approval/Rejection Date",
@@ -241,9 +242,9 @@ const ApproverPage = () => {
         style: "text-center min-w-[100px]",
       },
       {
-        name: "PTW Form & Checklist Attachment",
+        name: "Form & Checklist Attachment",
         value: "ptwFormStatus",
-        style: "text-center min-w-[180px]",
+        style: "text-center min-w-[210px]",
         render: (value, rowData) => {
           console.log("Rendering buttons for row:", rowData);
           return (
@@ -294,12 +295,13 @@ const ApproverPage = () => {
         style: "text-center min-w-[120px]",
         render: (value, row) => (
           <span
-            className={`px-2 py-1 rounded text-xs font-medium ${value === "Approved"
+            className={`px-2 py-1 rounded text-xs font-medium ${
+              value === "Approved"
                 ? "bg-green-100 text-green-800"
                 : value === "Rejected"
-                  ? "bg-red-100 text-red-800"
-                  : "bg-yellow-100 text-yellow-800"
-              }`}
+                ? "bg-red-100 text-red-800"
+                : "bg-yellow-100 text-yellow-800"
+            }`}
           >
             {value}
           </span>

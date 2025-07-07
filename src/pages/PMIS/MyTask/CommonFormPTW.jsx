@@ -381,6 +381,7 @@ getForm()
       // Shared metadata
       formData.append("projectID", formData?.projectId);
       formData.append("projectuniqueId", formData?.projectuniqueId);
+      formData.append("siteUid", formData?.siteUid);
       formData.append("siteId", formData?.siteId);
       formData.append("customerName", formData?.customerName);
       formData.append("circle", formData?.CIRCLE);

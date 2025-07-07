@@ -387,6 +387,7 @@ const MyTask = () => {
         const newData = {
           projectID: mileStoneItemRef.current?.projectId,
           projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
+          siteUid: mileStoneItemRef.current?.siteUid,
           siteId: mileStoneItemRef.current?.siteId,
           customerName: mileStoneItemRef.current?.customerName,
           subProject: mileStoneItemRef.current?.SubProject,
@@ -417,6 +418,7 @@ const MyTask = () => {
         const formData = new FormData();
 
         formData.append("projectID", mileStoneItemRef.current?.projectId);
+        formData.append("siteUid", mileStoneItemRef.current?.siteUid);
         formData.append("projectuniqueId", mileStoneItemRef.current?.projectuniqueId);
         formData.append("siteId", mileStoneItemRef.current?.siteId);
         formData.append("customerName", mileStoneItemRef.current?.customerName);
@@ -1399,7 +1401,7 @@ const MyTask = () => {
       return updateditm;
     });
   });
-  console.log("safasfasfasfasfasdfasdfasdfabc4545", dbConfigList[0]);
+  console.log("safasfasfasfasfasdfasdfasdfabc4545", mileStoneItemRef.current);
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.myHomeData?.getmyTask || 0;
