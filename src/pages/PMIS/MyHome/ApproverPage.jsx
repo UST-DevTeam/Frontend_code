@@ -20,6 +20,7 @@ import Api from "../../../utils/api";
 import CommonForm from "../../../components/CommonForm";
 import { CiFilter } from "react-icons/ci";
 import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
+import PTWApproverFormEdit from "../../../components/PTW form Edit Approver Page/PTWApproverFormEdit";
 
 
 
@@ -57,6 +58,7 @@ const ApproverPage = () => {
     watch,
     setValue,
     setValues,
+    setError,
     getValues,
     reset,
     formState: { errors },
@@ -109,11 +111,23 @@ const ApproverPage = () => {
     const res = await Api.get({
       url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`,
     })
-
+    console.log(item,"___itemdata")
     if(res?.status === 200){
+
       console.log(res?.data?.data , 'afsdfasdfasdfasdfasdfs')
+      
+      const formType = res?.data?.data?.formType
+      const formData = res?.data?.data?.formData
+      console.log(formType,"__FormType")
+      
+      
+      setmodalBody(<PTWApproverFormEdit formType={formType} formData={formData} setmodalOpen={setmodalOpen} flowType={res?.data?.data?.flow} itemData={item} setmodalHead={setmodalHead}/>)
+      setmodalOpen(true)
+
+
     }
   }
+
 
 
   const extractRowData = (rowData) => {
@@ -942,27 +956,44 @@ const ApproverPage = () => {
         isOpen={modalOpen}
         setIsOpen={handleModalClose}
       />
-      <Modal
+   <Modal
         size="lg"
         modalHead={<h1>Rejection Reason</h1>}
         children={
-          <>
+          <div className="h-full" >
             <CommonForm
-              classes="grid-cols-3  gap-4"
+              classes="grid-cols-2 h-full  "
               Form={RejectionForm.current && RejectionForm.current?.form}
               errors={errors}
               register={register}
               setValue={setValue}
               getValues={getValues}
             />
+            {errors.root && (
+              <p className="text-red-500 text-sm mt-2">{errors.root.message}</p>
+            )}
             <Button
               name="Submit"
               classes="w-fit"
               onClick={handleSubmit((data) => {
+                const values = Object.values(data);
+                const hasAnyValue = values.some(
+                  (value) =>
+                    value !== null && value !== undefined && value !== ""
+                );
+
+                if (!hasAnyValue) {
+                  setError("root", {
+                    type: "manual",
+                    message: "At least one field is required",
+                  });
+                  return;
+                }
+
                 handleRejection(data, RejectionForm.current?.mId);
               })}
             />
-          </>
+          </div>
         }
         isOpen={rejectionModal}
         setIsOpen={setRejectionModal}
