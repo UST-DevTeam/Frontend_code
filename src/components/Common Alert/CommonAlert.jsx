@@ -3,7 +3,7 @@ import Button from '../Button'
 import { useDispatch } from 'react-redux'
 import PTWActions from '../../store/actions/ptw-actions'
 
-const CommonAlert = ({ Heading, setmodalOpen, sendData }) => {
+const CommonAlert = ({ Heading, setmodalOpen,getAllDAta, sendData }) => {
   const dispatch = useDispatch()
 
   return (
@@ -18,6 +18,8 @@ const CommonAlert = ({ Heading, setmodalOpen, sendData }) => {
           classes="w-auto"
           onClick={() => {
             dispatch(PTWActions.getPtwApproverAlert(true, sendData, ''))
+            setmodalOpen(false)
+            getAllDAta()
           }}
         />
         <Button

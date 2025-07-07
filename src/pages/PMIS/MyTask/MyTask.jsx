@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
+import { PiWarningCircle } from "react-icons/pi";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
@@ -43,6 +44,7 @@ import MyHomeActions from "../../../store/actions/myHome-actions";
 import { GET_FILTER_MYTASK_SUBPROJECT } from "../../../store/reducers/filter-reducer";
 import Api from "../../../utils/api";
 import CommonForm from "../../../components/CommonForm";
+import CommonFormPTW from "./CommonFormPTW";
 
 const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -57,10 +59,14 @@ const MyTask = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isMultiStep, setIsMultiStep] = useState(false);
   const [ptwDriveModel, setPtwDriveModel] = useState(false);
+  const [driveFormModel, setDriveFormModel] = useState(false);
+  const [closePtw, setClosePtw] = useState(false);
 
   const [selectedItems, setSelectedItems] = useState([]);
-  const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] =
-    useState(false);
+  const [ptwApprovalModalBody, setPtwApprovalModalBody] = useState(<></>);
+     const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] =
+      useState(false);
+  
   const [ptwOption, setPtwOption] = useState(null);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [ptwDrivePhoto, setPtwDrivePhoto] = useState(<></>);
@@ -69,7 +75,7 @@ const MyTask = () => {
   const [ptwDriveTest, setPtwDriveTest] = useState(false);
   const [ptwModalBody, setPtwModalBody] = useState(<></>);
   const [ptwDriveTestBody, setPtwDriveTestBody] = useState(<></>);
-  const [ptwApprovalModalBody, setPtwApprovalModalBody] = useState(<></>);
+ 
   const [formName, setFormName] = useState("");
   const [ptwModalHead, setPtwModalHead] = useState({
     title: "",
@@ -77,7 +83,7 @@ const MyTask = () => {
   });
 
 
-  const FORM_FLOW_SEQUENCE = [formName === 'drivetestactivity' ? "roadSafetyChecklist" : 'riskassessment', "teamdetails",  "ptwphoto"];
+  const FORM_FLOW_SEQUENCE = [ 'riskassessment', "teamdetails", "ptwphoto"];
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -89,16 +95,14 @@ const MyTask = () => {
   const [operationID, setOperationId] = useState("");
   const mileStoneItemRef = useRef(null);
   const operationApprovalID = useRef(null);
+  const ptwNumberRef = useRef(null)
   const subFormRef = useRef({
     checklist: [],
     teamdetails: [],
     photo: [],
     ptwphoto: [],
     riskassessment: [],
-    roadsafetychecklist2Wheeler: [],
-    ptwphoto4wheeler : [],
-    ptwphoto2wheeler : [],
-    roadsafetychecklist4Wheeler: [],
+   
   });
   console.log(allFormType, 'asdfafasdfsadfasdfadddddddddasdfasdfasdfas')
 
@@ -108,89 +112,12 @@ const MyTask = () => {
   const navigate = useNavigate();
 
   const options = [
-    ...(formName === 'drivetestactivity' ? [{ id: "roadSafetyChecklist", name: "Road Safety Checklist" }] : [{ id: "riskassessment", name: "Risk Assessment" }]),
+    { id: "riskassessment", name: "Risk Assessment" },
     { id: "teamdetails", name: "Team Details" },
     { id: "ptwphoto", name: "PTW Photo" },
   ];
 
-  const handleCheckboxChange = (optionId, optionName) => {
-    setSelectedItems((prev) => {
-      const isSelected = prev.some((item) => item.id === optionId);
-
-      if (isSelected) {
-        // Remove item if already selected
-        return prev.filter((item) => item.id !== optionId);
-      } else {
-        // Add item if not selected
-        return [...prev, { id: optionId, name: optionName }];
-      }
-    });
-  };
-
-  const {
-    register,
-    handleSubmit,
-    SubmitTask,
-    watch,
-    setValue,
-    setValues,
-    getValues,
-    reset,
-    formState: { errors },
-  } = useForm();
-  const {
-    register: registerForm1,
-    setValue: setValueForm1,
-    getValues: getValuesForm1,
-    handleSubmit: handleSubmitForm1,
-    formState: { errors: errorsForm1 },
-  } = useForm();
-  let dispatch = useDispatch();
-  const dataGetterOld = useSelector((state) => {
-    let oldata = state.projectList.getProjectTypeSub;
-    if (old["_id"] != oldata["_id"]) {
-      setOld(oldata);
-      setValue("ptype", oldata["projectType"]);
-    }
-    return state.projectList.getProjectTypeSub;
-  });
-
-  let showTypeforAction = getAccessType("Actions(Site)");
-
-  let shouldIncludeEditColumn = false;
-
-  if (showTypeforAction === "visible") {
-    shouldIncludeEditColumn = true;
-  }
-
-  let customerList = useSelector((state) => {
-    return state?.adminData?.getManageCustomer.map((itm) => {
-      return {
-        label: itm?.customerName,
-        value: itm?.uniqueId,
-      };
-    });
-  });
-
-  const handleApprovalData = async () => {
-    const dropdown = document.getElementById("dropdown");
-    const res = await Api.patch({
-      url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
-      data: {
-        empId: dropdown.value,
-        ApproverType: "L1-Approver",
-      },
-    });
-    if (res?.status === 200) {
-      setPtwModalFullApprovalOpen(false);
-      setPtwOption(null);
-      sessionStorage.removeItem("opid");
-      operationApprovalID.current = null;
-      dispatch(MyHomeActions.getMyTask());
-    }
-  };
-
-  const getApprovalsData = async (operationId) => {
+   const getApprovalsData = async (operationId = '') => {
     setIsMultiStep(false); // all done
     setPtwModalFullOpen(false);
     operationApprovalID.current = operationId;
@@ -242,25 +169,112 @@ const MyTask = () => {
     }
   };
 
+   const handleApprovalData = async () => {
+    const dropdown = document.getElementById("dropdown");
+    const res = await Api.patch({
+      url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
+      data: {
+        empId: dropdown.value,
+        ApproverType: "L1-Approver",
+      },
+    });
+    if (res?.status === 200) {
+      setPtwModalFullApprovalOpen(false);
+      setPtwOption(null);
+      sessionStorage.removeItem("opid");
+      operationApprovalID.current = null;
+      dispatch(MyHomeActions.getMyTask());
+    }
+  };
+
+  const handleCheckboxChange = (optionId, optionName) => {
+    setSelectedItems((prev) => {
+      const isSelected = prev.some((item) => item.id === optionId);
+
+      if (isSelected) {
+        // Remove item if already selected
+        return prev.filter((item) => item.id !== optionId);
+      } else {
+        // Add item if not selected
+        return [...prev, { id: optionId, name: optionName }];
+      }
+    });
+  };
+
+  const {
+    register,
+    handleSubmit,
+    SubmitTask,
+    watch,
+    setValue,
+    setValues,
+    unregister,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const {
+    register: registerForm1,
+    setValue: setValueForm1,
+    getValues: getValuesForm1,
+    handleSubmit: handleSubmitForm1,
+    formState: { errors: errorsForm1 },
+  } = useForm();
+  let dispatch = useDispatch();
+  const dataGetterOld = useSelector((state) => {
+    let oldata = state.projectList.getProjectTypeSub;
+    if (old["_id"] != oldata["_id"]) {
+      setOld(oldata);
+      setValue("ptype", oldata["projectType"]);
+    }
+    return state.projectList.getProjectTypeSub;
+  });
+
+  let showTypeforAction = getAccessType("Actions(Site)");
+
+  let shouldIncludeEditColumn = false;
+
+  if (showTypeforAction === "visible") {
+    shouldIncludeEditColumn = true;
+  }
+
+  const clearAllFields = () => {
+  const allKeys = Object.keys(getValues()); // get all field names
+  allKeys.forEach((key) => unregister(key));
+};
+
+  let customerList = useSelector((state) => {
+    return state?.adminData?.getManageCustomer.map((itm) => {
+      return {
+        label: itm?.customerName,
+        value: itm?.uniqueId,
+      };
+    });
+  });
+
+ 
+
+ 
+
   const handleVaichel = async (formDataInput, subForm) => {
 
-     const newData = {
-          projectID: mileStoneItemRef.current?.projectId,
-          siteId: mileStoneItemRef.current?.siteId,
-          customerName: mileStoneItemRef.current?.customerName,
-          subProject: mileStoneItemRef.current?.SubProject,
-          circle: mileStoneItemRef.current?.CIRCLE,
-          mileStoneId: mileStoneItemRef.current?.mileStoneId,
-          Milestone: mileStoneItemRef.current?.Milestone,
-          [subForm]: {},
-        };
+    const newData = {
+      projectID: mileStoneItemRef.current?.projectId,
+      siteId: mileStoneItemRef.current?.siteId,
+      customerName: mileStoneItemRef.current?.customerName,
+      subProject: mileStoneItemRef.current?.SubProject,
+      circle: mileStoneItemRef.current?.CIRCLE,
+      mileStoneId: mileStoneItemRef.current?.mileStoneId,
+      Milestone: mileStoneItemRef.current?.Milestone,
+      [subForm]: {},
+    };
 
-        Object.keys(formDataInput)?.forEach((key) => {
-          if (formDataInput[key]) {
-            newData[subForm][key] = formDataInput[key];
-          }
-        });
-    
+    Object.keys(formDataInput)?.forEach((key) => {
+      if (formDataInput[key]) {
+        newData[subForm][key] = formDataInput[key];
+      }
+    });
+
 
     const res = await Api.patch({
       url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
@@ -270,12 +284,13 @@ const MyTask = () => {
     if (res?.status === 200) {
       reset(); // If you use one useForm
       // setPtwDriveTest(false);
-      if( selectedItems?.map((item) => item.id).includes('ptwphoto') ){
+      if (selectedItems?.map((item) => item.id).includes('ptwphoto')) {
         setPtwDriveModel(true)
         setPtwDriveTest(false)
       }
-      else{console.log(selectedItems , currentStepIndex , 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
-         if (isMultiStep) {
+      else {
+        console.log(selectedItems, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
+        if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
           setVehicleType('')
           if (nextIndex < selectedItems.length) {
@@ -289,21 +304,21 @@ const MyTask = () => {
             // Final step (show vehicle form)
             setIsMultiStep(false);
             setPtwDriveTest(false);
-              getApprovalsData(res?.data?.operation_id);
+            getApprovalsData(res?.data?.operation_id);
           }
 
           reset();
           return;
         }
       }
-     
-      
+
+
     }
   };
 
 
   const handleVaichelPhoto = async (formDataInput, subForm) => {
-     const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
+    const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
 
     const formData = new FormData();
 
@@ -328,9 +343,9 @@ const MyTask = () => {
         }
       }
     }
-     const res = await Api.patch({
+    const res = await Api.patch({
       url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
-      contentType : "multipart/form-data",
+      contentType: "multipart/form-data",
       data: formData,
     });
 
@@ -338,39 +353,40 @@ const MyTask = () => {
       reset(); // If you use one useForm
       // setPtwDriveTest(false);
       if (isMultiStep) {
-          const nextIndex = currentStepIndex + 1;
-          setVehicleType('')  
-          if (nextIndex < selectedItems.length) {
-            setCurrentStepIndex(nextIndex);
-            const nextForm = selectedItems[nextIndex];
-            setPtwModalHead({ title: nextForm.name, value: nextForm.id });
-            setPtwDriveTest(false)
-            setPtwModalFullOpen(true)
-            
+        const nextIndex = currentStepIndex + 1;
+        setVehicleType('')
+        if (nextIndex < selectedItems.length) {
+          setCurrentStepIndex(nextIndex);
+          const nextForm = selectedItems[nextIndex];
+          setPtwModalHead({ title: nextForm.name, value: nextForm.id });
+          setPtwDriveTest(false)
+          setPtwModalFullOpen(true)
 
-          } else {
-            // Final step (show vehicle form)
-            setIsMultiStep(false);
-            setPtwDriveTest(false);
-              getApprovalsData(res?.data?.operation_id);
-          }
 
-          reset();
-          return;
+        } else {
+          // Final step (show vehicle form)
+          setIsMultiStep(false);
+          setPtwDriveTest(false);
+          getApprovalsData(res?.data?.operation_id);
         }
+
+        reset();
+        return;
+      }
     }
   }
 
 
   const handleAddActivity = async (data, formType) => {
     let res = null;
-    console.log(ptwModalHead.value , 'fasdfasdfsadfasdfasdfasdf')
+    console.log(ptwModalHead.value, 'fasdfasdfsadfasdfasdfasdf')
 
     try {
       // Handle normal (non-photo/vehicle) forms
       if (!["photo", "ptwphoto", "teamdetails", "vehicle"].includes(ptwModalHead.value)) {
         const newData = {
           projectID: mileStoneItemRef.current?.projectId,
+          projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
           siteId: mileStoneItemRef.current?.siteId,
           customerName: mileStoneItemRef.current?.customerName,
           subProject: mileStoneItemRef.current?.SubProject,
@@ -379,6 +395,8 @@ const MyTask = () => {
           Milestone: mileStoneItemRef.current?.Milestone,
           [ptwModalHead.value]: {},
         };
+
+        console.log('called ..............', newData, '123456789876543212345678765432')
 
         Object.keys(data)?.forEach((key) => {
           if (data[key]) {
@@ -399,6 +417,7 @@ const MyTask = () => {
         const formData = new FormData();
 
         formData.append("projectID", mileStoneItemRef.current?.projectId);
+        formData.append("projectuniqueId", mileStoneItemRef.current?.projectuniqueId);
         formData.append("siteId", mileStoneItemRef.current?.siteId);
         formData.append("customerName", mileStoneItemRef.current?.customerName);
         formData.append("circle", mileStoneItemRef.current?.CIRCLE);
@@ -444,7 +463,7 @@ const MyTask = () => {
         // Multi-step form logic
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
-          
+
           if (nextIndex < selectedItems.length) {
             setCurrentStepIndex(nextIndex);
             const nextForm = selectedItems[nextIndex];
@@ -487,8 +506,7 @@ const MyTask = () => {
   };
 
 
-  console.log(selectedItems , 'afsfsdfasdfasfggkjghfdstirweyhdgfsfd')
-
+  console.log(selectedItems, 'afsfsdfasdfasfggkjghfdstirweyhdgfsfd')
 
   const setForm = (form, formName) => {
     setPtwModalBody(
@@ -503,16 +521,38 @@ const MyTask = () => {
             Form={form}
             errors={errors}
             register={register}
+            unregister={unregister}
             setValue={setValue}
             getValues={getValues}
           />
-          <Button
+          { formName === 'drivetestactivity' ? <Button
+            name="Submit"
+            classes="w-fit"
+            onClick={() => {
+              
+              const driveData = getValues()
+              let driverData = []
+              console.log(form , driveData , 'o987654323456789876543234567876543123456776543212' )
+              const data = form?.forEach((item) => {
+                if(item?.required && driveData[item?.fieldName] ){
+                  
+                }
+                const dt = {
+                  [item?.fieldName] : driveData[item?.fieldName]
+                }
+              } )
+             
+            }}
+            
+          />:  <Button
             name="Submit"
             classes="w-fit"
             onClick={handleSubmit((data) => {
+            
               handleAddActivity(data, formName);
             })}
-          />
+            
+          />}
         </div>
       </>
     );
@@ -520,31 +560,33 @@ const MyTask = () => {
 
   useEffect(() => {
     if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
-      setPtwModalFullOpen(true);
-      
       setForm(subFormRef.current[ptwModalHead.value], formName);
+      setPtwModalFullOpen(true);
     }
 
-    
-    subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
-        if (item?.dataType === "AutoFill") {
-            if(vehicleType === 'roadsafetychecklist4Wheeler'){
-              setValueForm1(
-              item?.fieldName,
-              mileStoneItemRef.current[item?.fieldName]
-            );
-            }else{
-              setValue(
-              item?.fieldName,
-              mileStoneItemRef.current[item?.fieldName]
-            );
-            }
-          }
-      })
 
-    console.log(vehicleType  , subFormRef.current , mileStoneItemRef.current , 'adsfasdfasdfasdfasdfasdf')
-    
-  }, [ptwModalHead.value , vehicleType]);
+    if (true) {
+      subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
+        console.log(item, 'asdfasdfasdfasdfa')
+        if (item?.dataType === "AutoFill") {
+          if (vehicleType === 'roadsafetychecklist4Wheeler') {
+            setValueForm1(
+              item?.fieldName,
+              mileStoneItemRef.current[item?.fieldName]
+            );
+          } else {
+            setValue(
+              item?.fieldName,
+              mileStoneItemRef.current[item?.fieldName]
+            );
+          }
+        }
+      })
+    }
+
+    console.log(vehicleType, subFormRef.current, mileStoneItemRef.current, 'adsfasdfasdfasdfasdfasdf')
+
+  }, [ptwModalHead.value, vehicleType]);
 
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getMyTaskSubProject.map((itm) => {
@@ -596,12 +638,6 @@ const MyTask = () => {
           return;
         }
         subFormRef.current[itm] = res?.data?.data[0][itm]?.map((item) => {
-          if (item?.dataType === "AutoFill") {
-            setValue(
-              item?.fieldName,
-              mileStoneItemRef.current[item?.fieldName]
-            );
-          }
           return {
             ...item,
             label: item?.fieldName,
@@ -660,9 +696,6 @@ const MyTask = () => {
         setPtwModalHead({ title: "", value: "formSelection" });
         return;
       }
-
-      setFormName(formName);
-
       setPtwOption(null);
     } else {
     }
@@ -897,11 +930,12 @@ const MyTask = () => {
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
                   <div className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
-                    <span>{iewq?.isAutoClose ? 'Auto Close' : iewq?.ptwStatus}</span>
+                    <span className="text-[1px]]">{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
                         setFormName("");
-
+                        reset()
+                        clearAllFields()
                         setSelect(false);
                         setSelectedItems([]);
                         if (iewq?.isPtwRaise) return;
@@ -924,13 +958,15 @@ const MyTask = () => {
 
                     <span
                       onClick={() => {
-                        if (iewq?.isPtwRaise && iewq?.isL2Approve) {
+                        if (iewq?.isPtwRaise && iewq?.isL2Approve &&  !['Closed' , 'Auto Closed'].includes(iewq?.ptwStatus) ) {
                           setSelect(false);
                           setSelectedItems([]);
+                          ptwNumberRef.current = iewq.ptwNumber
+                          setClosePtw(true)
                         }
                       }}
                       title="Close PTW"
-                      className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve
+                      className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve && !['Closed' , 'Auto Closed'].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } px-2 rounded-md bg-[#F43F5E]`}
@@ -1015,6 +1051,7 @@ const MyTask = () => {
                       </div>
                       <div
                         onClick={() => {
+                          clearAllFields()
                           console.log(itm, user, "asdfasdfasdfasd");
                           mileStoneItemRef.current = {
                             ...itm,
@@ -1032,7 +1069,7 @@ const MyTask = () => {
                             Activity: itm["ACTIVITY"] || "null",
                             "RFAI Date": itm["RFAI Date"],
                           };
-                          setFormName("drivetestactivity");
+                          setDriveFormModel(true)
                         }}
                         className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  "
                       >
@@ -1652,7 +1689,7 @@ const MyTask = () => {
   };
   useEffect(() => {
     setFormName("");
-    if(sessionStorage.getItem('opid')){
+    if (sessionStorage.getItem('opid')) {
       sessionStorage.removeItem('opid')
     }
     dispatch(AdminActions.getManageCustomer());
@@ -1691,31 +1728,45 @@ const MyTask = () => {
 
   };
 
+  const handleClosePTW = async (id) => {
+    const res = await Api.patch({
+      url: `/ptw/close?ptwNumber=${id}`, data: {
+        status: "Closed"
+      }
+    })
+    if (res?.status === 200) {
+      dispatch(MyHomeActions.getMyTask());
+      setClosePtw(false)
+    }
+  }
+
   const isForDriveTest = (isPhoto = false) => {
     console.log(allFormType, formName, 'fasdfasdfasdfasdfsadfasdfasdfasdfasdfas')
-    if(isPhoto){
-        if (((allFormType?.includes('ptwphoto4wheeler') || allFormType?.includes('ptwphoto2wheeler')))){
+    if (isPhoto) {
+      if (((allFormType?.includes('ptwphoto4wheeler') || allFormType?.includes('ptwphoto2wheeler')))) {
+        return true
+      }
+      else {
+        if (allFormType.includes('ptwphoto')) {
           return true
         }
-        else{
-          if(allFormType.includes('ptwphoto')){
-            return true
-          }
-          else{
-            return false
-          }
-          
+        else {
+          return false
         }
-    }else{
+
+      }
+    } else {
       if (((allFormType?.includes('roadsafetychecklist4Wheeler') || allFormType?.includes('roadsafetychecklist2Wheeler')))) {
-      return true;
+        return true;
+      }
+      else {
+        return false;
+      }
     }
-    else {
-      return false;
-    }
-    }
-    
+
   }
+
+  
 
   return (
     <>
@@ -1830,8 +1881,8 @@ const MyTask = () => {
               </h2>
 
               <div className="space-y-3 mb-6">
-                {console.log(options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []) ,...(isForDriveTest(true) ? ['ptwphoto'] : [])  ].includes(item.id)) , '0987654323456789876')}
-                {options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []) ,...(isForDriveTest(true) ? ['ptwphoto'] : [])  ].includes(item.id)).map((option) => (
+                {console.log(options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []), ...(isForDriveTest(true) ? ['ptwphoto'] : [])].includes(item.id)), '0987654323456789876')}
+                {options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []), ...(isForDriveTest(true) ? ['ptwphoto'] : [])].includes(item.id)).map((option) => (
 
                   <label
                     key={option.id}
@@ -1874,118 +1925,64 @@ const MyTask = () => {
         setIsOpen={setPtwModalFullApprovalOpen}
       />
       <Modal
-        size={"xl"}
-        modalHead={""}
-        children={<div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto">
-          <div className="w-full ">
-          
-                <h1 className="text-white text-xl py-2">{ vehicleType === 'roadsafetychecklist4Wheeler'  ? 'PTW Photo 4-Wheeler' : 'PTW Photo 2-Wheeler'}</h1>
-                <CommonForm
-                  classes="grid-cols-3  gap-4"
-                  Form={subFormRef.current[vehicleType === 'roadsafetychecklist4Wheeler' ? 'ptwphoto4wheeler' : 'ptwphoto2wheeler']}
-                  errors={errors}
-                  register={register}
-                  setValue={setValue}
-                  getValues={getValues}
-                />
-             
+        size={"sm"}
+        modalHead={"Close PTW"}
+        children={<>
+          <div className="w-full flex flex-col items-center justify-center gap-4 h-full py-6">
+            <PiWarningCircle size={66} className="text-orange-500" />
+            <h1 className="text-white text-4xl">Are you sure close PTW!</h1>
+            <p className="text-white text-xl">PTW No. :- {" " + ptwNumberRef.current}</p>
+            <div>
+              <button onClick={() => {
+                handleClosePTW(ptwNumberRef.current)
+              }} className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"  >Yes Close</button>
+            </div>
           </div>
-
-          <div className="w-full flex justify-center mt-6">
-           
-              <Button
-                name="Submit"
-                className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-                onClick={handleSubmitForm1((data) =>
-                  handleVaichelPhoto(data, vehicleType === 'roadsafetychecklist4Wheeler' ? 'ptwphoto4Wheeler' : 'ptwphoto2Wheeler')
-                )}
-              />
-            
-          </div>
-        </div>}
-        isOpen={ptwDriveModel}
-        setIsOpen={setPtwDriveModel}
+        </>}
+        isOpen={closePtw}
+        setIsOpen={setClosePtw}
       />
       <Modal
         size={"xl"}
         modalHead={""}
         children={<div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto">
-          <div className="flex gap-6 text-white mb-6">
-            { allFormType.includes('roadsafetychecklist2Wheeler') && <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="vehicleType"
-                value="roadsafetychecklist2Wheeler"
-                checked={vehicleType === "roadsafetychecklist2Wheeler"}
-                onChange={(e) => setVehicleType(e.target.value)}
-                className="w-4 h-4"
-              />
-              <span className="text-sm"> Two Wheeler</span>
-            </label>}
-            { allFormType.includes('roadsafetychecklist4Wheeler') && <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="vehicleType"
-                value="roadsafetychecklist4Wheeler"
-                checked={vehicleType === "roadsafetychecklist4Wheeler"}
-                onChange={(e) => setVehicleType(e.target.value)}
-                className="w-4 h-4"
-              />
-              <span className="text-sm">Four Wheeler</span>
-            </label>}
-          </div>
-
           <div className="w-full ">
-            {vehicleType === "twowheeler" ? (
-              <>
-                <h1 className="text-white text-xl py-2">Two Wheeler Checklist</h1>
-                <CommonForm
-                  classes="grid-cols-3  gap-4"
-                  Form={subFormRef.current?.roadsafetychecklist2Wheeler}
-                  errors={errors}
-                  register={register}
-                  setValue={setValue}
-                  getValues={getValues}
-                />
-              </>
-            ) : (
-              <>
-                <h1 className="text-white text-xl py-2">Four Wheeler Checklist</h1>
-                <CommonForm
-                  classes="grid-cols-3 gap-4"
-                  Form={subFormRef.current?.roadsafetychecklist4Wheeler}
-                  errors={errorsForm1}
-                  register={registerForm1}
-                  setValue={setValueForm1}
-                  getValues={getValuesForm1}
-                />
-              </>
-            )}
+
+            <h1 className="text-white text-xl py-2">{vehicleType === 'roadsafetychecklist4Wheeler' ? 'PTW Photo 4-Wheeler' : 'PTW Photo 2-Wheeler'}</h1>
+            <CommonForm
+              classes="grid-cols-3  gap-4"
+              Form={subFormRef.current[vehicleType === 'roadsafetychecklist4Wheeler' ? 'ptwphoto4wheeler' : 'ptwphoto2wheeler']}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            />
+
           </div>
 
           <div className="w-full flex justify-center mt-6">
-            {vehicleType === "roadsafetychecklist2Wheeler" ? (
-              <Button
-                name="Submit"
-                className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-                onClick={handleSubmit((data) =>
-                  handleVaichel(data, "roadsafetychecklist2Wheeler")
-                )}
-              />
-            ) : (
-              <Button
-                name="Submit"
-                className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-                onClick={handleSubmitForm1((data) =>
-                  handleVaichel(data, "roadsafetychecklist4Wheeler")
-                )}
-              />
-            )}
+
+            <Button
+              name="Submit"
+              className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+              onClick={handleSubmitForm1((data) =>
+                handleVaichelPhoto(data, vehicleType === 'roadsafetychecklist4Wheeler' ? 'ptwphoto4Wheeler' : 'ptwphoto2Wheeler')
+              )}
+            />
+
           </div>
         </div>}
-        isOpen={ptwDriveTest}
-        setIsOpen={setPtwDriveTest}
+        isOpen={ptwDriveModel}
+        setIsOpen={setPtwDriveModel}
       />
+     <Modal
+        size={"xl"}
+        modalHead={ptwModalHead.title}
+        children={driveFormModel && <CommonFormPTW setDriveFormModel={setDriveFormModel} getApprovalsData={getApprovalsData}  setPtwModalHead={setPtwModalHead} formName='drivetestactivity' formData={mileStoneItemRef.current} /> }
+        isOpen={driveFormModel}
+        setIsOpen={setDriveFormModel}
+      />
+     
     </>
   );
 };

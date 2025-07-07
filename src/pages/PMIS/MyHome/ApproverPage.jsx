@@ -9,6 +9,7 @@ import Button from "../../../components/Button";
 import CstmButton from "../../../components/CstmButton";
 import FileUploader from "../../../components/FIleUploader";
 import PTWActions from "../../../store/actions/ptw-actions";
+import { AiOutlineEdit } from "react-icons/ai";
 import CommonActions from "../../../store/actions/common-actions";
 import { Urls } from "../../../utils/url";
 import { objectToQueryString } from "../../../utils/commonFunnction";
@@ -37,7 +38,7 @@ const ApproverPage = () => {
   const RejectionForm = useRef(null);
   const [fileOpen, setFileOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
-   let {uniqueId} = JSON.parse(localStorage.getItem("user"));
+  let { uniqueId } = JSON.parse(localStorage.getItem("user"));
   const Data = useRef("");
   const options = [
 
@@ -66,7 +67,15 @@ const ApproverPage = () => {
   const dataAll = () => {
     dispatch(PTWActions.getApproverPage(true, `ApproverType=${type}`));
   };
-const handleCheckboxChange = (optionId, optionName) => {
+
+  const handleSelectAll = (checked) => {
+    if (checked) {
+      setSelectedItems([...options]);
+    } else {
+      setSelectedItems([]);
+    }
+  };
+  const handleCheckboxChange = (optionId, optionName) => {
     setSelectedItems((prev) => {
       const isSelected = prev.some((item) => item.id === optionId);
 
@@ -83,18 +92,28 @@ const handleCheckboxChange = (optionId, optionName) => {
     const res = await Api.post({
       url: '/approverData',
       data: {
-        userUniqueId : uniqueId,
-        ApproverType : type === 'l1Approver' ? 'l1Approver' : 'l2Approver',
-        status : selectedItems?.map(item => item.id)
+        userUniqueId: uniqueId,
+        ApproverType: type === 'l1Approver' ? 'l1Approver' : 'l2Approver',
+        status: selectedItems?.map(item => item.id)
       }
     })
+    console.log(res?.data?.data, 'fasdfasdfasdfasdfasdfasdfasdfasdfas')
     if (res?.status === 200) {
-      dispatch(GET_APPROVER_PAGE({ allData: res?.data?.data, reset: true }));
+      dispatch(GET_APPROVER_PAGE({ dataAll: res?.data?.data, reset: true }));
       setFilter(false)
     }
 
   }
 
+  const handleEdit = async (item) => {
+    const res = await Api.get({
+      url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`,
+    })
+
+    if(res?.status === 200){
+      console.log(res?.data?.data , 'afsdfasdfasdfasdfasdfs')
+    }
+  }
 
 
   const extractRowData = (rowData) => {
@@ -112,19 +131,19 @@ const handleCheckboxChange = (optionId, optionName) => {
     return extractedData;
   };
 
-  const handleRejection = async (data , id) => {
+  const handleRejection = async (data, id) => {
     const allData = {
       rejectionReason: data,
       approved: false,
       empId: uniqueId,
       ApproverType: type === 'l1Approver' ? 'L1-Approver' : 'L2-Approver',
-      status: type === 'l1Approver' ? 'L1-Rejected' : 'L2-Rejected', 
+      status: type === 'l1Approver' ? 'L1-Rejected' : 'L2-Rejected',
     };
     const res = await Api.patch({
-      url : `/submit/rejection/${id}`,
-      data : allData,
+      url: `/submit/rejection/${id}`,
+      data: allData,
     })
-    if(res?.status === 200){
+    if (res?.status === 200) {
       setRejectionModal(false)
       dataAll()
     }
@@ -275,13 +294,12 @@ const handleCheckboxChange = (optionId, optionName) => {
         style: "text-center min-w-[120px]",
         render: (value, row) => (
           <span
-            className={`px-2 py-1 rounded text-xs font-medium ${
-              value === "Approved"
+            className={`px-2 py-1 rounded text-xs font-medium ${value === "Approved"
                 ? "bg-green-100 text-green-800"
                 : value === "Rejected"
-                ? "bg-red-100 text-red-800"
-                : "bg-yellow-100 text-yellow-800"
-            }`}
+                  ? "bg-red-100 text-red-800"
+                  : "bg-yellow-100 text-yellow-800"
+              }`}
           >
             {value}
           </span>
@@ -329,36 +347,36 @@ const handleCheckboxChange = (optionId, optionName) => {
     filter: [],
   };
 
-  const handleApprove = (rowData) => {};
+  const handleApprove = (rowData) => { };
   const handleReject = async (itm) => {
     const res = await Api.get({
       url: "/show/ptw/rejectionreason",
     });
     if (res?.status === 200) {
       RejectionForm.current = {
-        mId : itm?.mileStoneId,
-        form : res?.data?.data[0]["rejectionreason"]?.map(
-        (item) => {
-          return {
-            ...item,
-            label: item?.fieldName,
+        mId: itm?.mileStoneId,
+        form: res?.data?.data[0]["rejectionreason"]?.map(
+          (item) => {
+            return {
+              ...item,
+              label: item?.fieldName,
 
-            // disabled :  item?.dataType === 'AutoFill' ? true : false ,
-            name: item?.fieldName,
-            type:
-              item?.dataType === "AutoFill"
-                ? "sdisabled"
-                : item?.dataType === "Dropdown"
-                ? "select"
-                : item?.dataType === "DateTime"
-                ? "datetime-local"
-                : item?.dataType?.toLowerCase() === "date"
-                ? "datetime"
-                : item?.dataType === "img"
-                ? "file"
-                : item?.dataType?.toLowerCase(),
-            ...(item?.dataType === "Dropdown"
-              ? {
+              // disabled :  item?.dataType === 'AutoFill' ? true : false ,
+              name: item?.fieldName,
+              type:
+                item?.dataType === "AutoFill"
+                  ? "sdisabled"
+                  : item?.dataType === "Dropdown"
+                    ? "select"
+                    : item?.dataType === "DateTime"
+                      ? "datetime-local"
+                      : item?.dataType?.toLowerCase() === "date"
+                        ? "datetime"
+                        : item?.dataType === "img"
+                          ? "file"
+                          : item?.dataType?.toLowerCase(),
+              ...(item?.dataType === "Dropdown"
+                ? {
                   option: item?.dropdownValue.split(",")?.map((item) => {
                     return {
                       label: item.trim(),
@@ -366,12 +384,12 @@ const handleCheckboxChange = (optionId, optionName) => {
                     };
                   }),
                 }
-              : {}),
+                : {}),
 
-            required: item?.required === "Yes" ? true : false,
-          };
-        }
-      )
+              required: item?.required === "Yes" ? true : false,
+            };
+          }
+        )
       }
 
       setRejectionModal(true);
@@ -409,6 +427,7 @@ const handleCheckboxChange = (optionId, optionName) => {
       setmodalBody(
         <>
           <CommonAlert
+          
             Heading={"Are yopu Sure ?"}
             setmodalOpen={setmodalOpen}
             sendData={sendData}
@@ -492,8 +511,7 @@ const handleCheckboxChange = (optionId, optionName) => {
     dispatch(
       CommonActions.commondownloadpost(
         endpoint,
-        `PTW_${
-          extractedData.ptwNumber || rowData.ptwNumber || Date.now()
+        `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()
         }.xlsx`,
         "POST",
         {
@@ -533,8 +551,8 @@ const handleCheckboxChange = (optionId, optionName) => {
         itm.ptwStatus === "APPROVED"
           ? "Approved"
           : itm.ptwStatus === "REJECTED"
-          ? "Rejected"
-          : itm.ptwStatus || "Pending",
+            ? "Rejected"
+            : itm.ptwStatus || "Pending",
 
       ptwNumber: (
         <div onClick={() => handlePTWClick(itm)}>{itm?.ptwNumber}</div>
@@ -566,6 +584,17 @@ const handleCheckboxChange = (optionId, optionName) => {
       ),
       action: (
         <div className="flex justify-center gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEdit(itm);
+            }}
+            className="bg-yellow-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+            title="Edit"
+          >
+            <AiOutlineEdit />
+            Edit
+          </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -774,12 +803,13 @@ const handleCheckboxChange = (optionId, optionName) => {
     setmodalOpen(false);
     setmodalBody(<></>);
     setmodalHead(<></>);
+    
     setSelectedRow(null);
   };
 
   useEffect(() => {
     dataAll();
-  }, [dispatch]);
+  }, [dispatch , modalOpen]);
 
   const tableData = {
     ptwNumber: "PTW Number",
@@ -810,7 +840,7 @@ const handleCheckboxChange = (optionId, optionName) => {
       <AdvancedTable
         headerButton={
           <div className="flex gap-2">
- <div className="relative">
+            <div className="relative">
               <Button
                 classes="h-full "
                 name={<CiFilter size={32} />}
@@ -821,34 +851,49 @@ const handleCheckboxChange = (optionId, optionName) => {
               />
               {filter && <div className="absolute w-[250px]  -right-3  top-12 z-[9999999]">
                 <div className="max-w-md mx-auto p-3 bg-white  rounded-lg shadow-lg ">
-  <h1 className="text-xl font-semibold text-center  text-gray-700 my-2">Select Filter</h1>
-  <hr className="mb-3" />
+                  <h1 className="text-xl font-semibold text-center  text-gray-700 my-2">Select Filter</h1>
+                  <hr className="mb-3" />
 
                   <div className="space-y-3  mb-6">
 
-                    {options?.map((option) => (
+                    <label className="flex items-center space-x-3 cursor-pointer mb-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.length === options.length}
+                        onChange={(e) => handleSelectAll(e.target.checked)}
+                        className="w-4 h-4 text-gray-700 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                      />
+                      <span className="text-gray-800 font-semibold text-lg"> All</span>
+                    </label>
 
+                    {options.map((option) => (
                       <label
                         key={option.id}
                         className="flex items-center space-x-3 cursor-pointer"
                       >
                         <input
                           type="checkbox"
-                          checked={selectedItems.some(
-                            (item) => item.id === option.id
-                          )}
+                          checked={selectedItems.some((item) => item.id === option.id)}
                           onChange={() =>
                             handleCheckboxChange(option.id, option.name)
                           }
-                          className="w-4 h-4 text-gray-700  border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                          className="w-4 h-4 text-gray-700 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                         />
-                        <span className="text-gray-700 text-lg ">{option.name}</span>
+                        <span className="text-gray-700 text-lg">{option.name}</span>
                       </label>
                     ))}
+
                   </div>
 
                   <button
-                    onClick={() => handleContinue()}
+                    onClick={() => {
+                      if(selectedItems.length){
+                        handleContinue()
+                      }
+                      else{
+                        setFilter(false)
+                      }
+                    }}
                     className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
                   >
                     Continue
@@ -886,7 +931,7 @@ const handleCheckboxChange = (optionId, optionName) => {
         totalCount={approverTotalCount}
         heading="Total Count :-"
         selectable={true}
-        onSelectionChange={(selectedItems) => {}}
+        onSelectionChange={(selectedItems) => { }}
       />
       <Modal
         size="sm"
@@ -912,7 +957,7 @@ const handleCheckboxChange = (optionId, optionName) => {
               name="Submit"
               classes="w-fit"
               onClick={handleSubmit((data) => {
-                handleRejection(data , RejectionForm.current?.mId);
+                handleRejection(data, RejectionForm.current?.mId);
               })}
             />
           </>

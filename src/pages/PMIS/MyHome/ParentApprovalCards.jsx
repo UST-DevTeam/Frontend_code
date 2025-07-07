@@ -19,25 +19,25 @@ const ParentApproverCards = () => {
         {
           title: "L1 Approver",
           use: true,
-          href: "/home/approverCards/L1Approver",
+          href: "/home/approval/L1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
           use: true,
-          href: "/home/approverCards/L2Approver",
+          href: "/home/approval/L2Approver",
           children: [],
         },
         {
           title: "Finance Approver",
           use: true,
-          href: "/home/approverCards/FinanceApprover",
+          href: "/home/approval/FinanceApprover",
           children: [],
         },
         {
           title: "Settlement Amount",
           use: true,
-          href: "/home/approverCards/SettlementAmount",
+          href: "/home/approval/SettlementAmount",
           children: [],
         },
       ],
@@ -51,13 +51,13 @@ const ParentApproverCards = () => {
         {
           title: "L1 Approver",
           use : true,
-          href: "/home/parentApproverCards/l1Approver",
+          href: "/home/Approval/l1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
           use : true,
-          href: "/home/parentApproverCards/l2Approver",
+          href: "/home/Approval/l2Approver",
           children: [],
         },
       ],
@@ -67,12 +67,12 @@ const ParentApproverCards = () => {
     const lApprover = [
       {
         title: "L1 Approver",
-        href: "/home/parentApproverCards/",
+        href: "/home/parentApproval/",
         children: [],
       },
       {
         title: "L2 Approver",
-        href: "/home/parentApproverCards/",
+        href: "/home/parentApproval/",
         children: [],
       },
     ];
@@ -110,15 +110,15 @@ const ParentApproverCards = () => {
   });
 
   const cards = [
-    ["Expense/Advance", "bg-pcol", "/home/parentApproverCards/ptwL1Approver"],
+    ["Expense/Advance", "bg-pcol", "/home/parentApproval/ptwL1Approver"],
     ["Compliance", "bg-pcol", "/home/complianceMilestoneCard"],
   ];
 
   const additionalCards = {
     "Expense/Advance": [
-      ["L1 Approver", "bg-pcol", "/home/approverCards/L1Approver"],
-      ["L2 Approver", "bg-pcol", "/home/approverCards/L2Approver"],
-      ["Finance Approver", "bg-pcol", "/home/approverCards/FinanceApprover"],
+      ["L1 Approver", "bg-pcol", "/home/approval/L1Approver"],
+      ["L2 Approver", "bg-pcol", "/home/approval/L2Approver"],
+      ["Finance Approver", "bg-pcol", "/home/approval/FinanceApprover"],
       ["Settlement Amount", "bg-pcol", "/home/approverCards/SettlementAmount"],
       
     ],
@@ -127,8 +127,8 @@ const ParentApproverCards = () => {
       ["Compliance 2", "bg-pcol", "/home/compliance2"],
     ],
     PTWApprover: [
-      ["L1 Approver", "bg-pcol", "/home/parentApproverCards/ptwL1Approver"],
-      ["PTW L2 Approver", "bg-pcol", "/home/parentApproverCards/ptwL2Approver"],
+      ["L1 Approver", "bg-pcol", "/home/Approval/ptwL1Approver"],
+      ["PTW L2 Approver", "bg-pcol", "/home/Approval/ptwL2Approver"],
     ],
   };
 

@@ -1,5 +1,5 @@
 import Multiselect from "multiselect-react-dropdown";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -37,6 +37,7 @@ const CommonForm = ({
   Form,
   errors,
   handleSubmit,
+  
   setValue,
   getValues,
   register,
@@ -44,6 +45,13 @@ const CommonForm = ({
 }) => {
   const [value, onChange] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(true);
+  const clearAllFields = () => {
+  const allKeys = Object.keys(getValues()); // get all field names
+ 
+};
+  useEffect(() => {
+    clearAllFields()
+  } , [])
 
   return (
     <>

@@ -361,26 +361,26 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/parentApproverCards",
+      link: "/home/Approval",
       subMenu: [],
       component: <ParentApproverCards />,
     },
     {
       name: "",
-      link: "/home/parentApproverCards/:type",
+      link: "/home/Approval/:type",
       subMenu: [],
       component: <ApproverPage/>,
     },
     
     {
       name: "",
-      link: "/home/parentApproverCards/ptwApprover/ptwApproverPage",
+      link: "/home/Approval/ptwApprover/ptwApproverPage",
       subMenu: [],
       component:<PTWApproverPage/> ,
     },
     {
       name: "",
-      link: "/home/parentApproverCards/ptwApprover/ptwApproverPageL2",
+      link: "/home/Approval/ptwApprover/ptwApproverPageL2",
       subMenu: [],
       component:<PTWApproverPageL2/>
     },
@@ -392,13 +392,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/parentApproverCards/approverCards",
+      link: "/home/Approval/approverCards",
       subMenu: [],
       component: <ApproverCards />,
     },
     {
       name: "",
-      link: "/home/parentApproverCards/complianceMilestoneCard",
+      link: "/home/parentApproval/complianceMilestoneCard",
       subMenu: [],
       component: <ComplianceMilestoneCard />,
     },
@@ -410,13 +410,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/parentApproverCards/compliance/:mName/L1 Approver",
+      link: "/home/parentApproval/compliance/:mName/L1 Approver",
       subMenu: [],
       component: <ComplianceL1ApproverTable />,
     },
     {
       name: "",
-      link: "/home/parentApproverCards/compliance/:mName/L2 Approver",
+      link: "/home/parentApproval/compliance/:mName/L2 Approver",
       subMenu: [],
       component: <ComplianceL2ApproverTable />,
     },
