@@ -346,7 +346,8 @@ const MyTask = () => {
       }
     }
     const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      
+      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}` : `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
       contentType: "multipart/form-data",
       data: formData,
     });
@@ -407,7 +408,7 @@ const MyTask = () => {
           }
         });
 
-        const url = `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
           }`;
 
         res = sessionStorage.getItem("opid")
@@ -439,7 +440,7 @@ const MyTask = () => {
           }
         });
 
-        const url = `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
           }`;
 
         res = await Api.patch({
@@ -563,10 +564,7 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-    if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
-      setForm(subFormRef.current[ptwModalHead.value], formName);
-      setPtwModalFullOpen(true);
-    }
+    
 
 
     if (!isPtwRaise) {
@@ -580,12 +578,20 @@ const MyTask = () => {
         }
       })
     }else{
-      subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
-            setValue(
+      console.log(isRaiseFormData.current , 'asdfasdfasdfasdfasdfasdf')
+      subFormRef.current[ptwModalHead.value]?.forEach(item => {
+         if (allFormType.includes(ptwModalHead.value)){
+          setValue(
               item?.fieldName,
-              isRaiseFormData.current[item?.fieldName]
+              isRaiseFormData.current[ptwModalHead.value][item?.fieldName]
             );
+         }
+            
       })
+    }
+    if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
+      setForm(subFormRef.current[ptwModalHead.value], formName);
+      setPtwModalFullOpen(true);
     }
 
     console.log(vehicleType, subFormRef.current, mileStoneItemRef.current, 'adsfasdfasdfasdfasdfasdf')
@@ -630,11 +636,7 @@ const MyTask = () => {
         alert("No Form Found.");
         return;
       }
-      console.log(
-        res?.data?.data[0],
-        mileStoneItemRef.current,
-        "asdfasdfasdfasdfasdfasdfsdf"
-      );
+     
       setAllFormType(Object.keys(res?.data?.data[0]))
       Object.keys(subFormRef.current)?.forEach((itm) => {
         if (res?.data?.data[0][itm]?.length === 0) {
@@ -934,7 +936,7 @@ const MyTask = () => {
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
                   <div className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
-                    <span className="text-[1px]]">{iewq?.ptwStatus}</span>
+                    <span className="text-[13px]">{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
                         if (["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)) {
@@ -1311,8 +1313,6 @@ const MyTask = () => {
                           }
                         });
 
-                        console.log(tkChaeck, "tkChaecktkChaecktkChaeck");
-
                         if (tkChaeck && itm.totalCount == itm.milestoneCount) {
                           setparentsite((prev) => [...prev, itm.uniqueId]);
                         }
@@ -1320,10 +1320,6 @@ const MyTask = () => {
                         return finalinzingdata;
                       });
 
-                      console.log(
-                        childsite,
-                        "childsitechildsitechildsitechildsite"
-                      );
                     } else {
                       setchildsite((prev) => {
                         let lst = prev.indexOf(e.target.value);
@@ -1427,20 +1423,17 @@ const MyTask = () => {
 
   const reRaisePtw = async (item) => {
     setIsPtwRaise(true)
-    console.log(item , 'dfasdfasdfasdfasdfasdfasdf')
     sessionStorage.setItem("opid" , item?._id)
     const res = await Api.get({
       url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`
     })
     if (res?.status === 200) {
-      
       if (item.ptwType === 'drivetestactivity') {
           isRaiseFormData.current = res?.data?.data?.formData
           setDriveFormModel(true)
       } else {
-        getPtwSubForm(iewq?.ptwType)
+        isRaiseFormData.current = res?.data?.data?.formData
         setFormName(item.ptwType)
-        
       }
     }
   }
@@ -1457,7 +1450,7 @@ const MyTask = () => {
         return interdata[0]["overall_table_count"];
       }
     }) || [];
-  console.log("afdasfoja0jdfamssdfghjsdc", dbConfigTotalCount.length);
+ 
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }

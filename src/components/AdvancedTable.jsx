@@ -20,13 +20,14 @@ const AdvancedTable = ({
   exportSiteWithTask,
   UploadSites,
   UploadTask,
-  filterAfter = () => {},
-  handleSubmit = () => {},
+  filterAfter = () => { },
+  handleSubmit = () => { },
   table,
   data,
   errors,
   reset,
   register,
+  defaultHide = false,
   setValue,
   getValues,
   totalCount = 0,
@@ -60,7 +61,7 @@ const AdvancedTable = ({
   //   data = [];
   // }
 
- 
+
 
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
@@ -95,6 +96,8 @@ const AdvancedTable = ({
     ...table.properties,
     rpp: [50, 100, 500, 1000],
   };
+
+
 
   const callApiPagination = (value) => {
     setcurrentPage(value);
@@ -135,7 +138,7 @@ const AdvancedTable = ({
   }, [tableName]);
 
   useEffect(() => {
-    
+
     if (data !== finalData) {
       setFinalData(data);
     }
@@ -192,6 +195,17 @@ const AdvancedTable = ({
       )
     );
   };
+
+  useEffect(() => {
+    if (defaultHide) {
+      
+      table.columns.forEach((itts, index) => {
+        if (itts.hide) {
+          setHide(prev => [...prev, String(index)]);
+        }
+      })
+    }
+  }, [defaultHide])
 
   return (
     <>
@@ -484,18 +498,15 @@ const AdvancedTable = ({
                         ) : (
                           <>
                             <th
-                              className={`border-primaryLine border-[1.5px] h-10  ${
-                                itts?.bg ? itts?.bg : "bg-primaryLine"
-                              } ${
-                                itts.style
+                              className={`border-primaryLine border-[1.5px] h-10  ${itts?.bg ? itts?.bg : "bg-primaryLine"
+                                } ${itts.style
                                   ? itts.style
                                   : " min-w-[300px] max-w-[500px]"
-                              }`}
+                                }`}
                             >
                               <span
-                                className={` ${
-                                  itts?.text ? itts?.text : "text-white"
-                                }  text-[14px]`}
+                                className={` ${itts?.text ? itts?.text : "text-white"
+                                  }  text-[14px]`}
                               >
                                 {itts.name}
                               </span>
@@ -527,11 +538,10 @@ const AdvancedTable = ({
                         {table.columns.map((innerItm, index) => {
                           return hide.indexOf(String(index)) == -1 ? (
                             <td
-                              className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${
-                                innerItm.style
+                              className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${innerItm.style
                                   ? innerItm.style
                                   : " min-w-[300px] max-w-[500px]"
-                              }`}
+                                }`}
                             >
                               <Modalmoreinfo
                                 ctt={32}
@@ -629,17 +639,16 @@ const AdvancedTable = ({
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
                   (index + 3 > currentPage && index - 1 < currentPage) ||
-                  index + 1 == 1 ||
-                  index + 1 == pages.length ? (
+                    index + 1 == 1 ||
+                    index + 1 == pages.length ? (
                     <span
                       onClick={(e) => {
                         callApiPagination(index + 1, "558");
                       }}
-                      className={`border cursor-pointer px-2 mx-2 ${
-                        currentPage == index + 1
+                      className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1
                           ? "bg-pcol text-white border-primaryLine"
                           : "bg-white text-black border-primaryLine"
-                      } `}
+                        } `}
                     >
                       {index + 1}
                     </span>
@@ -651,11 +660,10 @@ const AdvancedTable = ({
                     onClick={(e) => {
                       callApiPagination(index + 1);
                     }}
-                    className={`border cursor-pointer border-primaryLine ${
-                      currentPage == index + 1
+                    className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
                         ? "bg-pcol text-white"
                         : "bg-white"
-                    } px-2 mx-2`}
+                      } px-2 mx-2`}
                   >
                     {index + 1}
                   </span>
@@ -677,9 +685,8 @@ const AdvancedTable = ({
         <div className="fixed inset-0 flex items-center justify-center  bg-opacity-75 z-[10]">
           <div className="bg-white p-4 rounded-lg shadow-xl">
             <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
-            <p className="mt-4">{`Are you sure you want to delete ${
-              selectedRows.length > 1 ? "these rows" : "this row"
-            }?`}</p>
+            <p className="mt-4">{`Are you sure you want to delete ${selectedRows.length > 1 ? "these rows" : "this row"
+              }?`}</p>
             <div className="mt-6 flex justify-center space-x-4">
               <Button
                 name="Delete"

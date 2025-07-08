@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { TbPlayerEjectFilled } from "react-icons/tb";
 import moment from "moment";
 import AdvancedTable from "../../../components/AdvancedTable";
 import Modal from "../../../components/Modal";
@@ -21,6 +22,7 @@ import CommonForm from "../../../components/CommonForm";
 import { CiFilter } from "react-icons/ci";
 import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
 import PTWApproverFormEdit from "../../../components/PTW form Edit Approver Page/PTWApproverFormEdit";
+import { FaRegFileExcel, FaRegFilePdf } from "react-icons/fa";
 
 
 
@@ -43,10 +45,11 @@ const ApproverPage = () => {
   const Data = useRef("");
   const options = [
 
-    { id: "Submitted", name: "Submitted" },
+    
+    ...(type === 'l1Approver' ? [{ id: "Submitted", name: "Submitted" },{ id: "L1-Rejected", name: "L1-Rejected" }] : [] ),
     { id: "L1-Approved", name: "L1-Approved" },
     { id: "L2-Approved", name: "L2-Approved" },
-    { id: "L1-Rejected", name: "L1-Rejected" },
+    
     { id: "L2-Rejected", name: "L2-Rejected" },
     { id: "Closed", name: "Closed" },
     { id: "Auto Closed", name: "Auto Closed" },
@@ -193,21 +196,25 @@ const ApproverPage = () => {
       {
         name: "SSID",
         value: "ssId",
+       
         style: "text-center min-w-[100px]",
       },
       {
         name: "Unique ID",
         value: "uniqueId",
+        hide : true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "SR Number",
         value: "srNumber",
+        hide : true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "Project Group",
         value: "projectGroupName",
+        hide : true,
         style: "text-center min-w-[120px]",
       },
       {
@@ -248,60 +255,54 @@ const ApproverPage = () => {
       {
         name: "L1-Aging",
         value: "l1Ageing",
+        hide : true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "L2-Aging",
         value: "l2Ageing",
+        hide : true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "Form & Checklist Attachment",
         value: "ptwFormStatus",
         style: "text-center min-w-[210px]",
-        render: (value, rowData) => {
-          console.log("Rendering buttons for row:", rowData);
-          return (
-            <div className="flex justify-center gap-2">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePdfDownload(rowData);
-                }}
-                className="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600 transition flex items-center gap-1"
-                title="Download PDF"
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                </svg>
-                PDF
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleExcelDownload(rowData);
-                }}
-                className="bg-green-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
-                title="Download Excel"
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.5,13L9.5,17H11.5L13.25,15L15,17H17L14,13L17,9H15L13.25,11L11.5,9H9.5L12.5,13Z" />
-                </svg>
-                Excel
-              </button>
-            </div>
-          );
-        },
+        // render: (value, rowData) => {
+        //   console.log("Rendering buttons for row:", rowData);
+        //   return (
+        //     <div className="flex justify-center gap-2">
+        //       <button
+        //         onClick={(e) => {
+        //           e.stopPropagation();
+        //           handlePdfDownload(rowData);
+        //         }}
+        //         className="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+        //         title="Download PDF"
+        //       >
+               
+        //       </button>
+        //       <button
+        //         onClick={(e) => {
+        //           e.stopPropagation();
+        //           handleExcelDownload(rowData);
+        //         }}
+        //         className="bg-green-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+        //         title="Download Excel"
+        //       >
+        //         <svg
+        //           width="12"
+        //           height="12"
+        //           viewBox="0 0 24 24"
+        //           fill="currentColor"
+        //         >
+        //           <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.5,13L9.5,17H11.5L13.25,15L15,17H17L14,13L17,9H15L13.25,11L11.5,9H9.5L12.5,13Z" />
+        //         </svg>
+        //         Excel
+        //       </button>
+        //     </div>
+        //   );
+        // },
       },
       {
         name: "Current Status",
@@ -321,11 +322,7 @@ const ApproverPage = () => {
           </span>
         ),
       },
-      {
-        name: "Logs",
-        value: "logs",
-        style: "text-center min-w-[100px]",
-      },
+      
       {
         name: "Action",
         value: "action",
@@ -577,66 +574,61 @@ const ApproverPage = () => {
       ptwFormStatus: (
         <div className="flex justify-center gap-2">
           <button
-            onClick={() => handlePdfDownload(itm)}
-            className="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+            onClick={() =>  { 
+              
+              handlePdfDownload(itm)}}
+            className="bg-red-500 text-white text-xs p-1 rounded-md hover:bg-red-600 transition flex items-center gap-1"
             title="Download PDF"
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-            </svg>
-            PDF
+           <FaRegFilePdf size={22} />
           </button>
           <button
             onClick={() => handleExcelDownload(itm)}
-            className="bg-green-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+            className="bg-green-500 text-white text-xs p-1 rounded-md hover:bg-green-600 transition flex items-center gap-1"
             title="Download Excel"
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.5,13L9.5,17H11.5L13.25,15L15,17H17L14,13L17,9H15L13.25,11L11.5,9H9.5L12.5,13Z" />
-            </svg>
-            Excel
+            <FaRegFileExcel className="" size={22} />
           </button>
         </div>
       ),
       action: (
-        <div className="flex justify-center gap-2">
-          <button
+        <div className="flex justify-end gap-2">
+          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) &&<button
             onClick={(e) => {
               e.stopPropagation();
               handleEdit(itm);
             }}
-            className="bg-yellow-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+            className="bg-yellow-500 text-white text-xs p-1 rounded hover:bg-green-600 transition flex items-center gap-1"
             title="Edit"
           >
-            <AiOutlineEdit />
-            Edit
-          </button>
-          <button
+            <AiOutlineEdit size={28} />
+            
+          </button>}
+          {console.log(type , 'fasdfasdfasdfasdfasdf')}
+          { (type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
             onClick={(e) => {
               e.stopPropagation();
               handleApprover(itm);
             }}
-            className="bg-green-500 text-white text-xs px-3 py-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+            className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
             title="Approve"
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
             </svg>
-            Approve
-          </button>
-          <button
+            
+          </button>}
+          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) &&<button
             onClick={(e) => {
               e.stopPropagation();
               handleReject(itm);
             }}
-            className="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+            className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
             title="Reject"
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.5,13L9.5,17H11.5L13.25,15L15,17H17L14,13L17,9H15L13.25,11L11.5,9H9.5L12.5,13Z" />
-            </svg>
-            Reject
-          </button>
+            <TbPlayerEjectFilled size={28} />
+          
+          </button>}
         </div>
       ),
     }));
@@ -861,6 +853,7 @@ const ApproverPage = () => {
                 classes="h-full "
                 name={<CiFilter size={32} />}
                 onClick={() => {
+                  setSelectedItems([])
                   setFilter(filter ? false : true)
                 }}
                 title="Filter"
@@ -948,6 +941,7 @@ const ApproverPage = () => {
         heading="Total Count :-"
         selectable={true}
         onSelectionChange={(selectedItems) => { }}
+        defaultHide = {true}
       />
       <Modal
         size="sm"

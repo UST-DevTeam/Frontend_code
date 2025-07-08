@@ -76,16 +76,19 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
                 formDataSubmit.append("Milestone", itemData?.Milestone);
 
                 // Append each field (file or text)
-                Object.keys(data)?.forEach((key) => {
-                    const value = data[key];
+               Object.keys(data)?.forEach((key) => {
+                    if(key==="Seflie")
+                    {
+                        const value = data[key];
+                      
                     if (value) {
                         formDataSubmit.append(
                             key,
                             value instanceof FileList ? value[0] : value
                         );
                     }
+                    }
                 });
-
                 const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}`;
 
                 res = await Api.patch({
