@@ -538,7 +538,7 @@ const ApproverPage = () => {
 
   const handlePTWClick = (item) => {
     sessionStorage.setItem("ptwNo", item.ptwNumber);
-    navigate(`/home/parentApproverCards/ptwApprover/ptwApproverPage`);
+    navigate(`/home/Approval/ptwApprover/ptwApproverPage`);
   };
   // const ApproverType = useSelector ((state)=>{
   // console.log(state,"sdsdfssdsdsf");
