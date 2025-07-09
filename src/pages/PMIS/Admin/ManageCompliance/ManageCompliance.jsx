@@ -480,6 +480,8 @@ const   ManageCompliance = () => {
     });
   });
 
+  console.log(dbConfigList , 'fasdfsadfsadfasdfasdfasdfasdfasdf')
+
 
 
 

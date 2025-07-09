@@ -50,12 +50,12 @@ const CommonTableForm = ({
   encType = false,
   Form,
   tabHead,
-  isPtw = false,
-  ptwData,
+  ptwData = null,
   getPtwFormData= () =>{},
   errors,
   ptwPage,
   setValue,
+  isPtw = false,
   getValues,
   register,
   functioning,
@@ -74,8 +74,8 @@ const CommonTableForm = ({
   };
 
   useEffect(() => {
-    console.log(ptwData , 'adsfasdfasdfasdfasdfasfads')
-    if( ptwData && Object.keys(ptwData)?.length > 0){
+    
+    if(isPtw && ptwData && Object.keys(ptwData)?.length > 0){
       dispatch(SET_DYNAMIC_FORM({
                       label: tabHead,
                       value: ptwData[tabHead] ? ptwData[tabHead] : [],
@@ -84,8 +84,8 @@ const CommonTableForm = ({
     }
     else{
       dispatch(SET_DYNAMIC_FORM({
-                      label: tabHead,
-                      value:  [],
+                      label: tabHead ,
+                      value:  listing,
                       reseter: true,
                     }))
     }
