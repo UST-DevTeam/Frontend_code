@@ -122,7 +122,7 @@ const MyTask = () => {
   const getApprovalsData = async (operationId = '') => {
     setIsMultiStep(false); // all done
     setPtwModalFullOpen(false);
-    
+
     const res = await Api.get({
       url: `/getPtwApprover/${mileStoneItemRef.current?.projectType}`,
     });
@@ -181,11 +181,18 @@ const MyTask = () => {
       },
     });
     if (res?.status === 200) {
+      let msgdata={
+        show: true,
+        icon:'success',
+        text: 'PTW raised successfully.',
+    }
+    dispatch(ALERTS(msgdata))
       setPtwModalFullApprovalOpen(false);
       setPtwOption(null);
       sessionStorage.removeItem("opid");
       operationApprovalID.current = null;
       dispatch(MyHomeActions.getMyTask());
+
     }
   };
 
@@ -346,7 +353,7 @@ const MyTask = () => {
       }
     }
     const res = await Api.patch({
-      
+
       url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}` : `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
       contentType: "multipart/form-data",
       data: formData,
@@ -564,29 +571,29 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-    
+
 
 
     if (!isPtwRaise) {
       subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
         console.log(item, 'asdfasdfasdfasdfa')
         if (item?.dataType === "AutoFill") {
-            setValue(
-              item?.fieldName,
-              mileStoneItemRef.current[item?.fieldName]
-            );
+          setValue(
+            item?.fieldName,
+            mileStoneItemRef.current[item?.fieldName]
+          );
         }
       })
-    }else{
-      console.log(isRaiseFormData.current , 'asdfasdfasdfasdfasdfasdf')
+    } else {
+      console.log(isRaiseFormData.current, 'asdfasdfasdfasdfasdfasdf')
       subFormRef.current[ptwModalHead.value]?.forEach(item => {
-         if (allFormType.includes(ptwModalHead.value)){
+        if (allFormType.includes(ptwModalHead.value)) {
           setValue(
-              item?.fieldName,
-              isRaiseFormData.current[ptwModalHead.value][item?.fieldName]
-            );
-         }
-            
+            item?.fieldName,
+            isRaiseFormData.current[ptwModalHead.value][item?.fieldName]
+          );
+        }
+
       })
     }
     if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
@@ -636,7 +643,7 @@ const MyTask = () => {
         alert("No Form Found.");
         return;
       }
-     
+
       setAllFormType(Object.keys(res?.data?.data[0]))
       Object.keys(subFormRef.current)?.forEach((itm) => {
         if (res?.data?.data[0][itm]?.length === 0) {
@@ -933,9 +940,12 @@ const MyTask = () => {
                     {iewq.mileStoneStatus}
                   </p>
                 </>
-              ) : iewq?.mileStoneStatus === "Open" ? (
-                <div className="relative">
-                  <div className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
+              ) : iewq?.mileStoneStatus 
+              ,
+            ptwStatus : <div style={{
+                    display: getAccessType('PTW Raise Actions') === 'invisible' ? 'none' : 'block'
+                  }} className="relative">
+                  <div  className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
                     <span className="text-[13px]">{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
@@ -1103,11 +1113,7 @@ const MyTask = () => {
                       </div>
                     </div>
                   )}
-                </div>
-              ) : (
-                iewq?.mileStoneStatus
-              ),
-
+                </div> ,
             SiteNaming: (
               <p
                 className="text-yellow-500 font-extrabold"
@@ -1419,18 +1425,18 @@ const MyTask = () => {
       return updateditm;
     });
   });
-  
+
 
   const reRaisePtw = async (item) => {
     setIsPtwRaise(true)
-    sessionStorage.setItem("opid" , item?._id)
+    sessionStorage.setItem("opid", item?._id)
     const res = await Api.get({
       url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`
     })
     if (res?.status === 200) {
       if (item.ptwType === 'drivetestactivity') {
-          isRaiseFormData.current = res?.data?.data?.formData
-          setDriveFormModel(true)
+        isRaiseFormData.current = res?.data?.data?.formData
+        setDriveFormModel(true)
       } else {
         isRaiseFormData.current = res?.data?.data?.formData
         setFormName(item.ptwType)
@@ -1450,7 +1456,7 @@ const MyTask = () => {
         return interdata[0]["overall_table_count"];
       }
     }) || [];
- 
+
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -1556,6 +1562,11 @@ const MyTask = () => {
         value: "siteStatus",
         style: "min-w-[240px] max-w-[280px] text-center",
       },
+      ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
+        name: "PTW status",
+        value: "ptwStatus",
+        style: "min-w-[240px] max-w-[280px] text-center",
+      }] : []),
     ],
     childList: [""],
     childs: {
@@ -1629,6 +1640,11 @@ const MyTask = () => {
           value: "mileStoneStatusUpda",
           style: "min-w-[240px] max-w-[280px] text-center",
         },
+         ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
+        name: "PTW status",
+        value: "ptwStatus",
+        style: "min-w-[240px] max-w-[280px] text-center",
+      }] : []),
 
 
         // {
@@ -2016,7 +2032,7 @@ const MyTask = () => {
       <Modal
         size={"xl"}
         modalHead={ptwModalHead.title}
-        children={driveFormModel && <CommonFormPTW isPtwRaise={isPtwRaise} setDriveFormModel={setDriveFormModel} getApprovalsData={getApprovalsData} setPtwModalHead={setPtwModalHead} formName='drivetestactivity' fillData = {isRaiseFormData.current}  formData={mileStoneItemRef.current} />}
+        children={driveFormModel && <CommonFormPTW isPtwRaise={isPtwRaise} setDriveFormModel={setDriveFormModel} getApprovalsData={getApprovalsData} setPtwModalHead={setPtwModalHead} formName='drivetestactivity' fillData={isRaiseFormData.current} formData={mileStoneItemRef.current} />}
         isOpen={driveFormModel}
         setIsOpen={setDriveFormModel}
       />

@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ComponentActions from "../store/actions/component-actions";
+import { getAccessType } from "../utils/commonFunnction";
 
 const Expander = ({
   itm,
@@ -17,7 +18,7 @@ const Expander = ({
   };
 
   return (
-    <div className="relative w-fit mt-5 -top-[14px]">
+    <div  className="relative w-fit mt-5 -top-[14px]">
       <Button
         onClick={
           itm.children.length
@@ -80,13 +81,17 @@ console.log("____data__", data)
     <div className="px-4 flex space-x-4 h-[80vh] overflow-y-scroll mb-[300px]">
       {data.map((itm, index) => {
         console.log(itm , 'asdfasdfasdfasdfsdfsdfgsdfgsdfgdsfds')
-        return (
+        return (<div style={{
+      display : getAccessType(itm.title) === 'invisible' ? 'none' : 'block'
+    }} >
           <Expander
             key={index + itm.title}
             itm={itm}
             navigate={navigate}
             parentTitle={itm.title}
           />
+        </div>
+          
         );
       })}
     </div>

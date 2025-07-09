@@ -23,6 +23,7 @@ import { CiFilter } from "react-icons/ci";
 import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
 import PTWApproverFormEdit from "../../../components/PTW form Edit Approver Page/PTWApproverFormEdit";
 import { FaRegFileExcel, FaRegFilePdf } from "react-icons/fa";
+import { LuLogs } from "react-icons/lu";
 
 
 
@@ -593,12 +594,23 @@ const ApproverPage = () => {
       ),
       action: (
         <div className="flex justify-end gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              
+            }}
+            className="bg-blue-500 text-white text-xs p-1 rounded hover:bg-blue-600 transition flex items-center gap-1"
+            title="Logs"
+          >
+            <LuLogs size={28} />
+            
+          </button>
           {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) &&<button
             onClick={(e) => {
               e.stopPropagation();
               handleEdit(itm);
             }}
-            className="bg-yellow-500 text-white text-xs p-1 rounded hover:bg-green-600 transition flex items-center gap-1"
+            className="bg-yellow-500 text-white text-xs p-1 rounded hover:bg-yellow-600 transition flex items-center gap-1"
             title="Edit"
           >
             <AiOutlineEdit size={28} />
@@ -932,7 +944,12 @@ const ApproverPage = () => {
         tableName="PTW Approver Dashboard"
         TableHeight="h-[68vh]"
         handleSubmit={handleSubmit}
-        data={approverList}
+        data={approverList?.map((item) => {
+          return {
+            ...item,
+            ptwNumber : <p className="text-blue-600 cursor-pointer hover:underline">{item?.ptwNumber}</p>
+          }
+        })}
         errors={errors}
         register={register}
         setValue={setValue}
