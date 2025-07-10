@@ -409,13 +409,11 @@ let dataAll = res?.data?.data;
           });
           if (res?.status === 200) {
             let dataAll = res?.data?.data;
-            console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
             dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
             cb()
           }else {
             dispatch(ALERTS(res?.data));
           }
-
         } catch (error) {
           console.error("Error fetching  Approver page data:", error);
         }
@@ -439,7 +437,6 @@ let dataAll = res?.data?.data;
           console.error("Error fetching  Approver page data:", error);
         }
       },
-
   getPtwApproverAlert:
     (reset = true, data, args = "") =>
       async (dispatch, _) => {

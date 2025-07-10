@@ -601,9 +601,15 @@ const ApproverPage = () => {
         <div className="flex justify-end gap-2">
           <button
             onClick={(e) => {
-              e.stopPropagation();
-
-            }}
+                dispatch(
+                  CommonActions.commondownloadpost(
+                    `/ptwLogsExport?mileStoneId=${itm?.mileStoneId}&logsCollection=ptwRaiseTicketLogs`,
+                    "Export_PTW_Approval_Logs.xlsx",
+                    "GET",
+                    {}
+                  )
+                );
+              }}
             className="bg-blue-500 text-white text-xs p-1 rounded hover:bg-blue-600 transition flex items-center gap-1"
             title="Logs"
           >
