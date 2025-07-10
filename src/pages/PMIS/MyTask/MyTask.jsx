@@ -223,7 +223,6 @@ const MyTask = () => {
     formState: { errors },
   } = useForm();
   useEffect(()=>{
-      console.log(errors , 'asdfasdfasdfasdfasdfasdfasdfasdf')
       if(Object.keys(errors).length > 0){
           alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
       }   
@@ -271,127 +270,6 @@ const MyTask = () => {
 
 
 
-  const handleVaichel = async (formDataInput, subForm) => {
-
-    const newData = {
-      projectID: mileStoneItemRef.current?.projectId,
-      siteId: mileStoneItemRef.current?.siteId,
-      customerName: mileStoneItemRef.current?.customerName,
-      subProject: mileStoneItemRef.current?.SubProject,
-      circle: mileStoneItemRef.current?.CIRCLE,
-      mileStoneId: mileStoneItemRef.current?.mileStoneId,
-      Milestone: mileStoneItemRef.current?.Milestone,
-      [subForm]: {},
-    };
-
-    Object.keys(formDataInput)?.forEach((key) => {
-      if (formDataInput[key]) {
-        newData[subForm][key] = formDataInput[key];
-      }
-    });
-
-
-    const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
-      data: newData,
-    });
-
-    if (res?.status === 200) {
-      reset(); // If you use one useForm
-      // setPtwDriveTest(false);
-      if (selectedItems?.map((item) => item.id).includes('ptwphoto')) {
-        setPtwDriveModel(true)
-        setPtwDriveTest(false)
-      }
-      else {
-        console.log(selectedItems, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
-        if (isMultiStep) {
-          const nextIndex = currentStepIndex + 1;
-          setVehicleType('')
-          if (nextIndex < selectedItems.length) {
-            setCurrentStepIndex(nextIndex);
-            const nextForm = selectedItems[nextIndex];
-            setPtwModalHead({ title: nextForm.name, value: nextForm.id });
-            setPtwDriveTest(false)
-            setPtwModalFullOpen(true)
-
-          } else {
-            // Final step (show vehicle form)
-            setIsMultiStep(false);
-            setPtwDriveTest(false);
-            getApprovalsData(res?.data?.operation_id);
-          }
-
-          reset();
-          return;
-        }
-      }
-
-
-    }
-  };
-
-
-  const handleVaichelPhoto = async (formDataInput, subForm) => {
-    const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
-
-    const formData = new FormData();
-
-    // Shared metadata
-    formData.append("projectID", mileStoneItemRef.current?.projectId);
-    formData.append("siteId", mileStoneItemRef.current?.siteId);
-    formData.append("customerName", mileStoneItemRef.current?.customerName);
-    formData.append("circle", mileStoneItemRef.current?.CIRCLE);
-    formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
-    formData.append("Milestone", mileStoneItemRef.current?.Milestone);
-
-    // Only selected form's fields
-    for (let key in formDataInput) {
-      if (formKeys.includes(key)) {
-        const value = formDataInput[key];
-        const finalKey = `${key}`;
-
-        if (value instanceof FileList) {
-          formData.append(finalKey, value[0]);
-        } else {
-          formData.append(finalKey, value);
-        }
-      }
-    }
-    const res = await Api.patch({
-
-      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}` : `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
-      contentType: "multipart/form-data",
-      data: formData,
-    });
-
-    if (res?.status === 200) {
-      reset(); // If you use one useForm
-      // setPtwDriveTest(false);
-      if (isMultiStep) {
-        const nextIndex = currentStepIndex + 1;
-        setVehicleType('')
-        if (nextIndex < selectedItems.length) {
-          setCurrentStepIndex(nextIndex);
-          const nextForm = selectedItems[nextIndex];
-          setPtwModalHead({ title: nextForm.name, value: nextForm.id });
-          setPtwDriveTest(false)
-          setPtwModalFullOpen(true)
-
-
-        } else {
-          // Final step (show vehicle form)
-          setIsMultiStep(false);
-          setPtwDriveTest(false);
-          getApprovalsData(res?.data?.operation_id);
-        }
-
-        reset();
-        return;
-      }
-    }
-  }
-
 
   const handleAddActivity = async (data, formType) => {
     let res = null;
@@ -408,6 +286,7 @@ const MyTask = () => {
           customerName: mileStoneItemRef.current?.customerName,
           subProject: mileStoneItemRef.current?.SubProject,
           circle: mileStoneItemRef.current?.CIRCLE,
+          circleId: mileStoneItemRef.current?.circleId,
           mileStoneId: mileStoneItemRef.current?.mileStoneId,
           Milestone: mileStoneItemRef.current?.Milestone,
           [ptwModalHead.value]: {},
@@ -439,6 +318,7 @@ const MyTask = () => {
         formData.append("siteId", mileStoneItemRef.current?.siteId);
         formData.append("customerName", mileStoneItemRef.current?.customerName);
         formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+        formData.append("circleId", mileStoneItemRef.current?.circleId);
         formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
         formData.append("Milestone", mileStoneItemRef.current?.Milestone);
 
@@ -490,12 +370,12 @@ const MyTask = () => {
             // Final step (show vehicle form)
             setIsMultiStep(false);
             setPtwModalFullOpen(false);
-
+            getApprovalsData(res?.data?.operation_id);
             if (formType === "drivetestactivity" && vehicleType !== '') {
               setPtwModalHead({ title: "", value: "vehicle" });
               setPtwDriveTest(true);
             } else {
-              getApprovalsData(res?.data?.operation_id);
+              
             }
           }
 

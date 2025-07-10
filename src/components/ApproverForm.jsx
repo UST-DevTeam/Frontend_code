@@ -108,11 +108,11 @@ const ApproverForm = ({
   const Data = useRef(""); 
   const dispatch = useDispatch();
 
-  console.log(selectedRow.projectType, "__rowData");
+  console.log(selectedRow, "__rowData");
   
   useEffect(() => {
     dispatch(
-      PTWActions.getPtwApprover(true, `projectType=${selectedRow?.projectType}`)
+      PTWActions.getPtwApprover(true,selectedRow?.circleId , `projectType=${selectedRow?.projectType}`)
     );
   }, [dispatch, selectedRow?.projectType]);
 
@@ -137,7 +137,7 @@ const ApproverForm = ({
       console.log("Using ptwApproverData.data");
     } else if (Array.isArray(ptwApproverData)) {
       dataArray = ptwApproverData;
-      console.log("Using ptwApproverData directly");
+     
     } else if (ptwApproverData?.response?.data && Array.isArray(ptwApproverData.response.data)) {
       dataArray = ptwApproverData.response.data;
       console.log("Using ptwApproverData.response.data");

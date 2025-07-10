@@ -380,11 +380,11 @@ let dataAll = res?.data?.data;
         }
       },
   getPtwApprover:
-    (reset = true, args = "") =>
+    (reset = true,circle = '' ,  args = "") =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
-            url: `${Urls.PtwApproverPage}${args != "" ? "?" + args : ""}`,
+            url: `${Urls.PtwApproverPage}/${circle}${args != "" ? "?" + args : ""}`,
           });
           if (res?.status === 200) {
             let dataAll = res?.data?.data;
