@@ -98,6 +98,7 @@ const ApproverForm = ({
   selectedRow,
   type,
   setmodalOpen,
+  getAllData,
   setmodalBody,
   setmodalHead,
   setSelectedRow,
@@ -184,7 +185,9 @@ const ApproverForm = ({
       approved:true,
       status:"L1-Approved",
     };
-    dispatch(PTWActions.getPtwApproverPatch(true,data,""))
+    dispatch(PTWActions.getPtwApproverPatch(true,data,"" , () => {
+      getAllData()
+    }))
 
     console.log("Submitting approver assignment:", data);
     handleModalClose();

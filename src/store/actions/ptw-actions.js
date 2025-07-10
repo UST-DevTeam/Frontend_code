@@ -399,7 +399,7 @@ let dataAll = res?.data?.data;
         }
       },
   getPtwApproverPatch:
-    (reset = true, data, args = "") =>
+    (reset = true, data, args = "" , cb = () => {}) =>
       async (dispatch, _) => {
         try {
           const res = await Api.patch({
@@ -411,6 +411,7 @@ let dataAll = res?.data?.data;
             let dataAll = res?.data?.data;
             console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
             dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
+            cb()
           }else {
             dispatch(ALERTS(res?.data));
           }

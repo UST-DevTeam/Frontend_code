@@ -426,6 +426,7 @@ const ApproverPage = () => {
             selectedRow={rowData}
             type={type}
             _id={_id}
+            getAllData={dataAll}
             projectType={projectType}
             setmodalHead={setmodalHead}
             setmodalBody={setmodalBody}
