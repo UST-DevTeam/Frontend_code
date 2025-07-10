@@ -473,7 +473,7 @@ const MyTask = () => {
     } else {
       console.log(isRaiseFormData.current, 'asdfasdfasdfasdfasdfasdf')
       subFormRef.current[ptwModalHead.value]?.forEach(item => {
-        if (allFormType.includes(ptwModalHead.value)) {
+        if (allFormType.includes(ptwModalHead.value) && isRaiseFormData.current[ptwModalHead.value]) {
           setValue(
             item?.fieldName,
             isRaiseFormData.current[ptwModalHead.value][item?.fieldName]
