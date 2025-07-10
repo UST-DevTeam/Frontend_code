@@ -137,6 +137,7 @@ import ApproverPage from "../pages/PMIS/MyHome/ApproverPage";
 import PTWApproverPage from "../pages/PMIS/MyHome/PTWApproverPage";
 import ApproverPageL2 from "../pages/PMIS/MyHome/ApproverPAgeL2";
 import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
+import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -262,6 +263,7 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageSubProject />,
     },
+    
     {
       name: "",
       link: "/projectManagement_1/:cname/:ptname/:customeruniqueId/:projecttypeuniqueId",
@@ -285,6 +287,12 @@ export const Sidebar_content = {
       link: "/hr/superAdmin/userProjectAllocation",
       subMenu: [],
       component: <ManageUserProjectAllocation />,
+    },
+    {
+      name: "",
+      link: "/superAdmin/OHS",
+      subMenu: [],
+      component: <OhsNitification />,
     },
     {
       name: "",

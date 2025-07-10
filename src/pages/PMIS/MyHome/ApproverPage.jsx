@@ -107,6 +107,7 @@ const ApproverPage = () => {
     if (res?.status === 200) {
       dispatch(GET_APPROVER_PAGE({ dataAll: res?.data?.data, reset: true }));
       setFilter(false)
+      
     } else {
       dispatch(ALERTS(res?.data));
     }
@@ -444,6 +445,7 @@ const ApproverPage = () => {
           <CommonAlert
 
             Heading={"Are you Sure ?"}
+            getAllDAta = {dataAll}
             setmodalOpen={setmodalOpen}
             sendData={sendData}
           />
@@ -740,8 +742,9 @@ const ApproverPage = () => {
 
     dispatch(
       PTWActions.updatePTWStatus(data, () => {
-        handleModalClose();
+        
         dataAll();
+        handleModalClose();
       })
     );
   };

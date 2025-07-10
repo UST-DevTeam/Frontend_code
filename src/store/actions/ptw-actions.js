@@ -450,9 +450,8 @@ let dataAll = res?.data?.data;
               }`,
             data,
           });
-          if (res?.status !== 200){
-let dataAll = res?.data?.data;
-          console.log(dataAll, "dfasdfasdfasdfasdfasfgdfgsdfgsakkkkkkfsd");
+          if (res?.status === 200){
+let dataAll = res?.data?.data; 
           dispatch(GET_PTW_APPROVER_ALERT({ dataAll, reset }));
           }else {
             dispatch(ALERTS(res?.data));
