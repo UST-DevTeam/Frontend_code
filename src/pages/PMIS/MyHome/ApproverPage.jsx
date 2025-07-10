@@ -46,11 +46,11 @@ const ApproverPage = () => {
   const Data = useRef("");
   const options = [
 
-    
-    ...(type === 'l1Approver' ? [{ id: "Submitted", name: "Submitted" },{ id: "L1-Rejected", name: "L1-Rejected" }] : [] ),
+
+    ...(type === 'l1Approver' ? [{ id: "Submitted", name: "Submitted" }, { id: "L1-Rejected", name: "L1-Rejected" }] : []),
     { id: "L1-Approved", name: "L1-Approved" },
     { id: "L2-Approved", name: "L2-Approved" },
-    
+
     { id: "L2-Rejected", name: "L2-Rejected" },
     { id: "Closed", name: "Closed" },
     { id: "Auto Closed", name: "Auto Closed" },
@@ -103,10 +103,12 @@ const ApproverPage = () => {
         status: selectedItems?.map(item => item.id)
       }
     })
-    console.log(res?.data?.data, 'fasdfasdfasdfasdfasdfasdfasdfasdfas')
+
     if (res?.status === 200) {
       dispatch(GET_APPROVER_PAGE({ dataAll: res?.data?.data, reset: true }));
       setFilter(false)
+    } else {
+      dispatch(ALERTS(res?.data));
     }
 
   }
@@ -115,17 +117,17 @@ const ApproverPage = () => {
     const res = await Api.get({
       url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`,
     })
-    console.log(item,"___itemdata")
-    if(res?.status === 200){
+    console.log(item, "___itemdata")
+    if (res?.status === 200) {
 
-      console.log(res?.data?.data , 'afsdfasdfasdfasdfasdfs')
-      
+      console.log(res?.data?.data, 'afsdfasdfasdfasdfasdfs')
+
       const formType = res?.data?.data?.formType
       const formData = res?.data?.data?.formData
-      console.log(formType,"__FormType")
-      
-      
-      setmodalBody(<PTWApproverFormEdit formType={formType} formData={formData} setmodalOpen={setmodalOpen} flowType={res?.data?.data?.flow} itemData={item} setmodalHead={setmodalHead}/>)
+      console.log(formType, "__FormType")
+
+
+      setmodalBody(<PTWApproverFormEdit formType={formType} formData={formData} setmodalOpen={setmodalOpen} flowType={res?.data?.data?.flow} itemData={item} setmodalHead={setmodalHead} />)
       setmodalOpen(true)
 
 
@@ -168,7 +170,7 @@ const ApproverPage = () => {
   };
 
   const table = {
-     columns: [
+    columns: [
       {
         name: "PTW No.",
         value: "ptwNumber",
@@ -197,25 +199,25 @@ const ApproverPage = () => {
       {
         name: "SSID",
         value: "ssId",
-       
+
         style: "text-center min-w-[100px]",
       },
       {
         name: "Unique ID",
         value: "uniqueId",
-        hide : true,
+        hide: true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "SR Number",
         value: "srNumber",
-        hide : true,
+        hide: true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "Project Group",
         value: "projectGroupName",
-        hide : true,
+        hide: true,
         style: "text-center min-w-[120px]",
       },
       {
@@ -256,13 +258,13 @@ const ApproverPage = () => {
       {
         name: "L1-Aging",
         value: "l1Ageing",
-        hide : true,
+        hide: true,
         style: "text-center min-w-[100px]",
       },
       {
         name: "L2-Aging",
         value: "l2Ageing",
-        hide : true,
+        hide: true,
         style: "text-center min-w-[100px]",
       },
       {
@@ -281,7 +283,7 @@ const ApproverPage = () => {
         //         className="bg-red-500 text-white text-xs px-3 py-1 rounded hover:bg-red-600 transition flex items-center gap-1"
         //         title="Download PDF"
         //       >
-               
+
         //       </button>
         //       <button
         //         onClick={(e) => {
@@ -311,19 +313,18 @@ const ApproverPage = () => {
         style: "text-center min-w-[120px]",
         render: (value, row) => (
           <span
-            className={`px-2 py-1 rounded text-xs font-medium ${
-              value === "Approved"
+            className={`px-2 py-1 rounded text-xs font-medium ${value === "Approved"
                 ? "bg-green-100 text-green-800"
                 : value === "Rejected"
-                ? "bg-red-100 text-red-800"
-                : "bg-yellow-100 text-yellow-800"
-            }`}
+                  ? "bg-red-100 text-red-800"
+                  : "bg-yellow-100 text-yellow-800"
+              }`}
           >
             {value}
           </span>
         ),
       },
-      
+
       {
         name: "Action",
         value: "action",
@@ -441,8 +442,8 @@ const ApproverPage = () => {
       setmodalBody(
         <>
           <CommonAlert
-          
-            Heading={"Are yopu Sure ?"}
+
+            Heading={"Are you Sure ?"}
             setmodalOpen={setmodalOpen}
             sendData={sendData}
           />
@@ -575,13 +576,14 @@ const ApproverPage = () => {
       ptwFormStatus: (
         <div className="flex justify-center gap-2">
           <button
-            onClick={() =>  { 
-              
-              handlePdfDownload(itm)}}
+            onClick={() => {
+
+              handlePdfDownload(itm)
+            }}
             className="bg-red-500 text-white text-xs p-1 rounded-md hover:bg-red-600 transition flex items-center gap-1"
             title="Download PDF"
           >
-           <FaRegFilePdf size={22} />
+            <FaRegFilePdf size={22} />
           </button>
           <button
             onClick={() => handleExcelDownload(itm)}
@@ -597,15 +599,15 @@ const ApproverPage = () => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              
+
             }}
             className="bg-blue-500 text-white text-xs p-1 rounded hover:bg-blue-600 transition flex items-center gap-1"
             title="Logs"
           >
             <LuLogs size={28} />
-            
+
           </button>
-          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) &&<button
+          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
             onClick={(e) => {
               e.stopPropagation();
               handleEdit(itm);
@@ -614,10 +616,10 @@ const ApproverPage = () => {
             title="Edit"
           >
             <AiOutlineEdit size={28} />
-            
+
           </button>}
-          {console.log(type , 'fasdfasdfasdfasdfasdf')}
-          { (type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
+          {console.log(type, 'fasdfasdfasdfasdfasdf')}
+          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
             onClick={(e) => {
               e.stopPropagation();
               handleApprover(itm);
@@ -628,9 +630,9 @@ const ApproverPage = () => {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
             </svg>
-            
+
           </button>}
-          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) &&<button
+          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
             onClick={(e) => {
               e.stopPropagation();
               handleReject(itm);
@@ -639,7 +641,7 @@ const ApproverPage = () => {
             title="Reject"
           >
             <TbPlayerEjectFilled size={28} />
-          
+
           </button>}
         </div>
       ),
@@ -823,13 +825,13 @@ const ApproverPage = () => {
     setmodalOpen(false);
     setmodalBody(<></>);
     setmodalHead(<></>);
-    
+
     setSelectedRow(null);
   };
 
   useEffect(() => {
     dataAll();
-  }, [dispatch , modalOpen]);
+  }, [dispatch, modalOpen]);
 
   const tableData = {
     ptwNumber: "PTW Number",
@@ -908,10 +910,10 @@ const ApproverPage = () => {
 
                   <button
                     onClick={() => {
-                      if(selectedItems.length){
+                      if (selectedItems.length) {
                         handleContinue()
                       }
-                      else{
+                      else {
                         setFilter(false)
                       }
                     }}
@@ -929,9 +931,9 @@ const ApproverPage = () => {
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/Export/ptwMDB",
+                    `/ptwTableExport?exportTableName=${type === 'l1Approver' ? 'L1ApproverExport' : 'L2ApproverExport'}`,
                     "Export_Approval.xlsx",
-                    "POST",
+                    "GET",
                     {}
                   )
                 );
@@ -947,7 +949,7 @@ const ApproverPage = () => {
         data={approverList?.map((item) => {
           return {
             ...item,
-            ptwNumber : <p className="text-blue-600 cursor-pointer hover:underline">{item?.ptwNumber}</p>
+            ptwNumber: <p className="text-blue-600 cursor-pointer hover:underline">{item?.ptwNumber}</p>
           }
         })}
         errors={errors}
@@ -958,7 +960,7 @@ const ApproverPage = () => {
         heading="Total Count :-"
         selectable={true}
         onSelectionChange={(selectedItems) => { }}
-        defaultHide = {true}
+        defaultHide={true}
       />
       <Modal
         size="sm"
@@ -967,7 +969,7 @@ const ApproverPage = () => {
         isOpen={modalOpen}
         setIsOpen={handleModalClose}
       />
-   <Modal
+      <Modal
         size="lg"
         modalHead={<h1>Rejection Reason</h1>}
         children={

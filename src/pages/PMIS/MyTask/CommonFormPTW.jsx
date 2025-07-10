@@ -19,6 +19,8 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     reset,
     formState: { errors },
   } = useForm();
+
+  
   const [allFormType, setAllFormType] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -43,6 +45,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     handleSubmit: handleSubmitForm1,
     formState: { errors: errorsForm1 },
   } = useForm();
+  useEffect(()=>{
+      
+      if(Object.keys(errorsForm1).length > 0){
+          alert(` ${errorsForm1[Object.keys(errorsForm1)[0]]?.message} :- ${Object.keys(errorsForm1)[0]} `)
+      }   
+     } , [errorsForm1])
   const {
     register: registerForm3,
     setValue: setValueForm3,
@@ -50,6 +58,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     handleSubmit: handleSubmitForm3,
     formState: { errors: errorsForm3 },
   } = useForm();
+  useEffect(()=>{
+    
+    if(Object.keys(errorsForm3).length > 0){
+        alert(` ${errorsForm3[Object.keys(errorsForm3)[0]]?.message} :- ${Object.keys(errorsForm3)[0]} `)
+    }   
+   } , [errorsForm3])
   const {
     register: registerForm2,
     setValue: setValueForm2,
@@ -57,6 +71,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     handleSubmit: handleSubmitForm2,
     formState: { errors: errorsForm2 },
   } = useForm();
+  useEffect(()=>{
+    
+    if(Object.keys(errorsForm2).length > 0){
+        alert(` ${errorsForm2[Object.keys(errorsForm2)[0]]?.message} :- ${Object.keys(errorsForm2)[0]} `)
+    }   
+   } , [errorsForm2])
   const subFormRef = useRef({
     checklist: [],
     teamdetails: [],
@@ -349,6 +369,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
       }
     });
   };
+  useEffect(()=>{
+    console.log(errors , 'asdfsdfasdfasdfasdf')
+      if(Object.keys(errors).length > 0){
+          alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
+      }   
+     } , [errors, subFormRef.current[which]])
 
   const handleVehicle = async (formDataInput, subForm) => {
 

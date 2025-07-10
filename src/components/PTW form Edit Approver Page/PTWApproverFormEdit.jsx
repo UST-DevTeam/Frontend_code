@@ -25,6 +25,14 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
     } = useForm();
 
 
+   useEffect(()=>{
+    console.log(errors , 'asdfasdfasdfasdfasdfasdfasdfasdf')
+    if(Object.keys(errors).length > 0){
+        alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
+    }   
+   } , [errors])
+
+
     const submitFormData = async (data, id) => {
         console.log(data, "___newnNWnenw")
 
@@ -135,12 +143,10 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
 
     useEffect(() => {
 
-
-        const tempForm = formType?.[type]?.map((item) => {
+        console.log(formType , type , 'adsfasdfasdfasdfadsf')
+        const tempForm = formType[type]?.map((item) => {
             const fieldName = item?.fieldName;
-            const fieldValue = formData?.[type]?.[fieldName];
-
-
+            const fieldValue = formData[type]?.[fieldName];
             if (item?.dataType === 'img' && fieldValue) {
                 setValue(fieldName, baseUrl + fieldValue);
             } else {

@@ -7,7 +7,7 @@ import CommonTableForm from "../../../components/CommonTableForm";
 import CommonTableFormSiteParent from "../../../components/CommonTableFormSiteParent";
 import PTWActions from "../../../store/actions/ptw-actions";
 import CommonActions from "../../../store/actions/common-actions";
-import { Urls } from "../../../utils/url";
+import { baseUrl, Urls } from "../../../utils/url";
 
 import AdvancedTable from "../../../components/AdvancedTable";
 import Button from "../../../components/Button";
@@ -322,7 +322,13 @@ const PTWApproverPage = () => {
           tableName={`PTW ${tabLabels[activeTab]} Dashboard`}
           TableHeight="h-[68vh]"
           handleSubmit={handleSubmit}
-          data={data}
+          data={data?.map((item) => {
+            console.log(item?.value?.split('/').includes('uploads') , 'asdfasdfasdfasdfasdfasdfasd')
+            return {
+              ...item,
+              value : item?.value?.split('/').includes('uploads') ? <img src={baseUrl+'/' +item?.value} className="h-20 object-cover flex mx-auto rounded-full w-20" alt="" /> : item?.value
+            }
+          })}
           errors={errors}
           register={register}
           setValue={setValue}

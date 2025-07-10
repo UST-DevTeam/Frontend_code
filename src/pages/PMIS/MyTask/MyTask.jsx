@@ -183,7 +183,7 @@ const MyTask = () => {
     if (res?.status === 200) {
       let msgdata={
         show: true,
-        icon:'success',
+        icon:'',
         text: 'PTW raised successfully.',
     }
     dispatch(ALERTS(msgdata))
@@ -222,6 +222,12 @@ const MyTask = () => {
     reset,
     formState: { errors },
   } = useForm();
+  useEffect(()=>{
+      console.log(errors , 'asdfasdfasdfasdfasdfasdfasdfasdf')
+      if(Object.keys(errors).length > 0){
+          alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
+      }   
+     } , [errors])
   const {
     register: registerForm1,
     setValue: setValueForm1,
@@ -1996,7 +2002,7 @@ const MyTask = () => {
         isOpen={closePtw}
         setIsOpen={setClosePtw}
       />
-      <Modal
+      {/* <Modal
         size={"xl"}
         modalHead={""}
         children={<div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-[80vh] overflow-y-auto">
@@ -2028,7 +2034,7 @@ const MyTask = () => {
         </div>}
         isOpen={ptwDriveModel}
         setIsOpen={setPtwDriveModel}
-      />
+      /> */}
       <Modal
         size={"xl"}
         modalHead={ptwModalHead.title}
