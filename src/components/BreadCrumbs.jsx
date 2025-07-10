@@ -154,16 +154,24 @@ const BreadCrumbs = () => {
       url: "/superAdmin/rtws",
     },
     drivetestactivity: {
-      name: "drivetest Activity",
+      name: "Drive Test Activity",
       url: "/superAdmin/drivetestactivity",
     },
     groundactivity: {
       name: "Ground Activity",
       url: "/superAdmin/groundactivity",
     },
+    rejectionreason: {
+      name: "Rejection Reason",
+      url: "/superAdmin/ptw/rejectionreason",
+    },
     workatheight: {
       name: "Workat Height",
       url: "/superAdmin/workatheight",
+    },
+    Approval: {
+      name: "Approval",
+      url: "/home/Approval",
     },
   };
 
