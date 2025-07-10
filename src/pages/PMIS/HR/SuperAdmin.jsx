@@ -186,6 +186,13 @@ const SuperAdmin = () => {
               <Unicons.UilPagerduty size="32" color="" />,
               "border-b-[#b8e0d2]",
             ],
+          [
+              "PTW",
+              "bg-pcol",
+              "/superAdmin/PTW",
+              <Unicons.UilPagerduty size="32" color="" />,
+              "border-b-[#b8e0d2]",
+            ],
         ].map((itm) => {
           return (
             <>

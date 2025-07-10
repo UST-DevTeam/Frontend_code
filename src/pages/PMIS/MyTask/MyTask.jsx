@@ -124,7 +124,7 @@ const MyTask = () => {
     setPtwModalFullOpen(false);
 
     const res = await Api.get({
-      url: `/getPtwApprover/${mileStoneItemRef.current?.projectType}`,
+      url: `/getPtwApprover/${mileStoneItemRef.current?.projectType}/${mileStoneItemRef.current?.circleId}`,
     });
     if (res?.status === 200) {
       setPtwApprovalModalBody(
