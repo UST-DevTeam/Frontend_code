@@ -324,13 +324,12 @@ const MyTask = () => {
 
         // Append each field (file or text)
         Object.keys(data)?.forEach((key) => {
-          const value = data[key];
-          if (value) {
+          
             formData.append(
               key,
               value instanceof FileList ? value[0] : value
             );
-          }
+          
         });
 
         const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""

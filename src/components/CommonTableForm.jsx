@@ -119,8 +119,8 @@ const CommonTableForm = ({
   const onTableViewSubmit = (data) => {
     
     data["fileType"] = tabHead;
-    
-    if(["oneatrisk" , 'photo',  'riskassessment' , 'checklist' , 'ptwphoto','fourWheeler', 'rejectionreason' , 'twoWheeler'].includes(tabHead)){
+    console.log(tabHead , 'afdsfasdfsadfasdfasdfsadfasdfadsf')
+    if(["teamdetails" , 'roadsafetychecklist4wheeler', 'roadsafetychecklist2wheeler' , 'photo','roadsafetychecklist4wheeler' , 'riskassessment' , 'road' , 'checklist' , 'ptwphoto','ptwphoto2wheeler', 'rejectionreason' , 'ptwphoto2wheeler'].includes(tabHead)){
       dispatch(CommonActions.fileSubmit('/admin/ptw' + "/" + `${ptwPage}/${tabHead}?file=true`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);

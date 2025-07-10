@@ -14,6 +14,12 @@ const SelectDropDown = ({
 }) => {
 
   console.log("itm_itm", itm)
+    useEffect(()=>{
+      console.log(errors , 'asdfasdfadsfasfdasgfsdgdhgsdrfsdgfsdfgdfg')
+        if(Object.keys(errors).length > 0){
+            alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
+        }   
+       } , [errors[itm.name]?.message])
 
   return (
     itm && (
