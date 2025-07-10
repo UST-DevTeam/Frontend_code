@@ -187,9 +187,9 @@ const SuperAdmin = () => {
               "border-b-[#b8e0d2]",
             ],
           [
-              "PTW",
+              "OHS Guidelines",
               "bg-pcol",
-              "/superAdmin/PTW",
+              "/superAdmin/OHS",
               <Unicons.UilPagerduty size="32" color="" />,
               "border-b-[#b8e0d2]",
             ],
