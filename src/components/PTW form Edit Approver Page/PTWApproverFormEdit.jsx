@@ -21,6 +21,8 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
   } = useForm();
 
   const submitFormData = async (data) => {
+
+    
     unregister();
     reset();
 
@@ -56,16 +58,25 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
         formDataSubmit.append("mileStoneId", itemData?.mileStoneId);
         formDataSubmit.append("Milestone", itemData?.Milestone);
 
-        Object.keys(data).forEach((key) => {
-          const value = data[key];
-          if (value) {
-            formDataSubmit.append(key, value instanceof FileList ? value[0] : value);
-          }
-        });
+                // Append each field (file or text)
+                Object.keys(data)?.forEach((key) => {
+                    const value = data[key];
+                    if (value) {
+                        formDataSubmit.append(
+                            key,
+                            value instanceof FileList ? value[0] : value
+                        );
+                    }
+                });
 
-        const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}`;
-        res = await Api.patch({ url, contentType: 'multipart/form-data', data: formDataSubmit });
-      }
+                const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}`;
+
+                res = await Api.patch({
+                    url,
+                    contentType: "multipart/form-data",
+                    data: formDataSubmit,
+                });
+            }
 
       if (res?.status === 200 || res?.status === 201) {
         const nextIndex = index + 1;
@@ -131,6 +142,17 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
     setFormConfig(tempForm || []);
   }, [index, formType, formData]);
 
+  const onError = (errors) => {
+    
+    
+    const errorMessages = Object.entries(errors).map(([fieldName, error]) => {
+      return `${fieldName} field is required`;
+    });
+
+    
+    alert(errorMessages.join('\n'));
+  };
+
   return (
     <div>
       <CommonForm
@@ -145,7 +167,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
         <Button
           name="Submit"
           classes="w-fit"
-          onClick={handleSubmit(submitFormData)}
+          onClick={handleSubmit(submitFormData,onError)}
         />
 
         <div className='flex gap-4'>

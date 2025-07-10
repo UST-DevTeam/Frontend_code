@@ -58,15 +58,16 @@ const MyTask = () => {
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isMultiStep, setIsMultiStep] = useState(false);
+  const [isPtwRaise, setIsPtwRaise] = useState(false);
   const [ptwDriveModel, setPtwDriveModel] = useState(false);
   const [driveFormModel, setDriveFormModel] = useState(false);
   const [closePtw, setClosePtw] = useState(false);
 
   const [selectedItems, setSelectedItems] = useState([]);
   const [ptwApprovalModalBody, setPtwApprovalModalBody] = useState(<></>);
-     const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] =
-      useState(false);
-  
+  const [ptwModalFullApprovalOpen, setPtwModalFullApprovalOpen] =
+    useState(false);
+
   const [ptwOption, setPtwOption] = useState(null);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [ptwDrivePhoto, setPtwDrivePhoto] = useState(<></>);
@@ -75,7 +76,7 @@ const MyTask = () => {
   const [ptwDriveTest, setPtwDriveTest] = useState(false);
   const [ptwModalBody, setPtwModalBody] = useState(<></>);
   const [ptwDriveTestBody, setPtwDriveTestBody] = useState(<></>);
- 
+
   const [formName, setFormName] = useState("");
   const [ptwModalHead, setPtwModalHead] = useState({
     title: "",
@@ -83,7 +84,7 @@ const MyTask = () => {
   });
 
 
-  const FORM_FLOW_SEQUENCE = [ 'riskassessment', "teamdetails", "ptwphoto"];
+  const FORM_FLOW_SEQUENCE = ['riskassessment', "teamdetails", "ptwphoto"];
 
   const [globalData, setGlobalData] = useState({});
   const [SiteId, setSiteId] = useState("Add");
@@ -96,15 +97,16 @@ const MyTask = () => {
   const mileStoneItemRef = useRef(null);
   const operationApprovalID = useRef(null);
   const ptwNumberRef = useRef(null)
+  const isRaiseFormData = useRef(null)
   const subFormRef = useRef({
     checklist: [],
     teamdetails: [],
     photo: [],
     ptwphoto: [],
     riskassessment: [],
-   
+
   });
-  console.log(allFormType, 'asdfafasdfsadfasdfadddddddddasdfasdfasdfas')
+  console.log(isRaiseFormData.current, 'asdfafasdfsadfasdfadddddddddasdfasdfasdfas')
 
   const [modalHead, setmodalHead] = useState(<></>);
 
@@ -117,10 +119,10 @@ const MyTask = () => {
     { id: "ptwphoto", name: "PTW Photo" },
   ];
 
-   const getApprovalsData = async (operationId = '') => {
+  const getApprovalsData = async (operationId = '') => {
     setIsMultiStep(false); // all done
     setPtwModalFullOpen(false);
-    operationApprovalID.current = operationId;
+    
     const res = await Api.get({
       url: `/getPtwApprover/${mileStoneItemRef.current?.projectType}`,
     });
@@ -169,7 +171,7 @@ const MyTask = () => {
     }
   };
 
-   const handleApprovalData = async () => {
+  const handleApprovalData = async () => {
     const dropdown = document.getElementById("dropdown");
     const res = await Api.patch({
       url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
@@ -239,9 +241,9 @@ const MyTask = () => {
   }
 
   const clearAllFields = () => {
-  const allKeys = Object.keys(getValues()); // get all field names
-  allKeys.forEach((key) => unregister(key));
-};
+    const allKeys = Object.keys(getValues()); // get all field names
+    allKeys.forEach((key) => unregister(key));
+  };
 
   let customerList = useSelector((state) => {
     return state?.adminData?.getManageCustomer.map((itm) => {
@@ -252,9 +254,9 @@ const MyTask = () => {
     });
   });
 
- 
 
- 
+
+
 
   const handleVaichel = async (formDataInput, subForm) => {
 
@@ -344,7 +346,8 @@ const MyTask = () => {
       }
     }
     const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      
+      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}` : `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
       contentType: "multipart/form-data",
       data: formData,
     });
@@ -405,7 +408,7 @@ const MyTask = () => {
           }
         });
 
-        const url = `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
           }`;
 
         res = sessionStorage.getItem("opid")
@@ -437,7 +440,7 @@ const MyTask = () => {
           }
         });
 
-        const url = `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
           }`;
 
         res = await Api.patch({
@@ -527,33 +530,33 @@ const MyTask = () => {
             setValue={setValue}
             getValues={getValues}
           />
-          { formName === 'drivetestactivity' ? <Button
+          {formName === 'drivetestactivity' ? <Button
             name="Submit"
             classes="w-fit"
             onClick={() => {
-              
+
               const driveData = getValues()
               let driverData = []
-              console.log(form , driveData , 'o987654323456789876543234567876543123456776543212' )
+              console.log(form, driveData, 'o987654323456789876543234567876543123456776543212')
               const data = form?.forEach((item) => {
-                if(item?.required && driveData[item?.fieldName] ){
-                  
+                if (item?.required && driveData[item?.fieldName]) {
+
                 }
                 const dt = {
-                  [item?.fieldName] : driveData[item?.fieldName]
+                  [item?.fieldName]: driveData[item?.fieldName]
                 }
-              } )
-             
+              })
+
             }}
-            
-          />:  <Button
+
+          /> : <Button
             name="Submit"
             classes="w-fit"
             onClick={handleSubmit((data) => {
-            
+
               handleAddActivity(data, formName);
             })}
-            
+
           />}
         </div>
       </>
@@ -561,29 +564,34 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-    if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
-      setForm(subFormRef.current[ptwModalHead.value], formName);
-      setPtwModalFullOpen(true);
-    }
+    
 
 
-    if (true) {
+    if (!isPtwRaise) {
       subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
         console.log(item, 'asdfasdfasdfasdfa')
         if (item?.dataType === "AutoFill") {
-          if (vehicleType === 'roadsafetychecklist4Wheeler') {
-            setValueForm1(
-              item?.fieldName,
-              mileStoneItemRef.current[item?.fieldName]
-            );
-          } else {
             setValue(
               item?.fieldName,
               mileStoneItemRef.current[item?.fieldName]
             );
-          }
         }
       })
+    }else{
+      console.log(isRaiseFormData.current , 'asdfasdfasdfasdfasdfasdf')
+      subFormRef.current[ptwModalHead.value]?.forEach(item => {
+         if (allFormType.includes(ptwModalHead.value)){
+          setValue(
+              item?.fieldName,
+              isRaiseFormData.current[ptwModalHead.value][item?.fieldName]
+            );
+         }
+            
+      })
+    }
+    if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
+      setForm(subFormRef.current[ptwModalHead.value], formName);
+      setPtwModalFullOpen(true);
     }
 
     console.log(vehicleType, subFormRef.current, mileStoneItemRef.current, 'adsfasdfasdfasdfasdfasdf')
@@ -628,11 +636,7 @@ const MyTask = () => {
         alert("No Form Found.");
         return;
       }
-      console.log(
-        res?.data?.data[0],
-        mileStoneItemRef.current,
-        "asdfasdfasdfasdfasdfasdfsdf"
-      );
+     
       setAllFormType(Object.keys(res?.data?.data[0]))
       Object.keys(subFormRef.current)?.forEach((itm) => {
         if (res?.data?.data[0][itm]?.length === 0) {
@@ -932,23 +936,43 @@ const MyTask = () => {
               ) : iewq?.mileStoneStatus === "Open" ? (
                 <div className="relative">
                   <div className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
-                    <span className="text-[1px]]">{iewq?.ptwStatus}</span>
+                    <span className="text-[13px]">{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
-                        setFormName("");
-                        reset()
-                        clearAllFields()
-                        setSelect(false);
-                        setSelectedItems([]);
-                        if (iewq?.isPtwRaise) return;
+                        if (["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)) {
+                          mileStoneItemRef.current = {
+                            ...itm,
+                            Customer: itm?.customerName,
+                            siteId: itm["Site Id"],
+                            Milestone: iewq?.Name,
+                            mileStoneId: iewq?._id,
+                            SSID: itm?.systemId,
+                            "Project type": itm?.projectType,
+                            "PTW Requestor name": user?.benificiaryname,
+                            "Partner name": user?.benificiaryname,
+                            "SR Number": itm?.srNumber,
+                            "User type": itm?.customerName,
 
-                        if (ptwOption && ptwOption === iewq?._id) {
-                          setPtwOption(null);
+                            Activity: itm?.ACTIVITY || "null",
+                            "RFAI Date": itm["RFAI Date"],
+                          };
+                          reRaisePtw(iewq)
                         } else {
-                          setPtwOption(iewq?._id);
+                          setFormName("");
+                          reset()
+                          clearAllFields()
+                          setSelect(false);
+                          setSelectedItems([]);
+                          if (iewq?.isPtwRaise) return;
+
+                          if (ptwOption && ptwOption === iewq?._id) {
+                            setPtwOption(null);
+                          } else {
+                            setPtwOption(iewq?._id);
+                          }
                         }
                       }}
-                      title="Raise PTW"
+                      title={["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus) ? 'Raise PTW Again' : "Raise PTW"}
                       className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
                         ["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
@@ -960,7 +984,7 @@ const MyTask = () => {
 
                     <span
                       onClick={() => {
-                        if (iewq?.isPtwRaise && iewq?.isL2Approve &&  !['Closed' , 'Auto Closed'].includes(iewq?.ptwStatus) ) {
+                        if (iewq?.isPtwRaise && iewq?.isL2Approve && !['Closed', 'Auto Closed'].includes(iewq?.ptwStatus)) {
                           setSelect(false);
                           setSelectedItems([]);
                           ptwNumberRef.current = iewq.ptwNumber
@@ -968,7 +992,7 @@ const MyTask = () => {
                         }
                       }}
                       title="Close PTW"
-                      className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve && !['Closed' , 'Auto Closed'].includes(iewq?.ptwStatus)
+                      className={`p-[1px] ${iewq?.isPtwRaise && iewq?.isL2Approve && !['Closed', 'Auto Closed'].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } px-2 rounded-md bg-[#F43F5E]`}
@@ -1289,8 +1313,6 @@ const MyTask = () => {
                           }
                         });
 
-                        console.log(tkChaeck, "tkChaecktkChaecktkChaeck");
-
                         if (tkChaeck && itm.totalCount == itm.milestoneCount) {
                           setparentsite((prev) => [...prev, itm.uniqueId]);
                         }
@@ -1298,10 +1320,6 @@ const MyTask = () => {
                         return finalinzingdata;
                       });
 
-                      console.log(
-                        childsite,
-                        "childsitechildsitechildsitechildsite"
-                      );
                     } else {
                       setchildsite((prev) => {
                         let lst = prev.indexOf(e.target.value);
@@ -1401,7 +1419,25 @@ const MyTask = () => {
       return updateditm;
     });
   });
-  console.log("safasfasfasfasfasdfasdfasdfabc4545", mileStoneItemRef.current);
+  
+
+  const reRaisePtw = async (item) => {
+    setIsPtwRaise(true)
+    sessionStorage.setItem("opid" , item?._id)
+    const res = await Api.get({
+      url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`
+    })
+    if (res?.status === 200) {
+      if (item.ptwType === 'drivetestactivity') {
+          isRaiseFormData.current = res?.data?.data?.formData
+          setDriveFormModel(true)
+      } else {
+        isRaiseFormData.current = res?.data?.data?.formData
+        setFormName(item.ptwType)
+      }
+    }
+  }
+
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.myHomeData?.getmyTask || 0;
@@ -1414,7 +1450,7 @@ const MyTask = () => {
         return interdata[0]["overall_table_count"];
       }
     }) || [];
-  console.log("afdasfoja0jdfamssdfghjsdc", dbConfigTotalCount.length);
+ 
   // let Form = [
   //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
   //     { label: "Custom Queries", value: "", type: "textarea" }
@@ -1768,7 +1804,7 @@ const MyTask = () => {
 
   }
 
-  
+
 
   return (
     <>
@@ -1977,14 +2013,14 @@ const MyTask = () => {
         isOpen={ptwDriveModel}
         setIsOpen={setPtwDriveModel}
       />
-     <Modal
+      <Modal
         size={"xl"}
         modalHead={ptwModalHead.title}
-        children={driveFormModel && <CommonFormPTW setDriveFormModel={setDriveFormModel} getApprovalsData={getApprovalsData}  setPtwModalHead={setPtwModalHead} formName='drivetestactivity' formData={mileStoneItemRef.current} /> }
+        children={driveFormModel && <CommonFormPTW isPtwRaise={isPtwRaise} setDriveFormModel={setDriveFormModel} getApprovalsData={getApprovalsData} setPtwModalHead={setPtwModalHead} formName='drivetestactivity' fillData = {isRaiseFormData.current}  formData={mileStoneItemRef.current} />}
         isOpen={driveFormModel}
         setIsOpen={setDriveFormModel}
       />
-     
+
     </>
   );
 };

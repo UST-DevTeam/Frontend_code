@@ -13,7 +13,7 @@ const SelectDropDown = ({
   widthFull="w-full"
 }) => {
 
-  console.log("itm_itm", itm)
+  // console.log("itm_itm", register)
 
   return (
     itm && (
