@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -25,6 +25,8 @@ const PTWApproverPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalHead, setModalHead] = useState("");
   const [modalBody, setModalBody] = useState(null);
+  const imageRefValue = useRef(null)
+  const [image, setImage] = useState(false)
 
   const ptwNumber = location?.state?.ptwData;
 
@@ -323,10 +325,13 @@ const PTWApproverPage = () => {
           TableHeight="h-[68vh]"
           handleSubmit={handleSubmit}
           data={data?.map((item) => {
-            console.log(item?.value?.split('/').includes('uploads') , 'asdfasdfasdfasdfasdfasdfasd')
+            
             return {
               ...item,
-              value : item?.value?.split('/').includes('uploads') ? <img src={baseUrl+'/' +item?.value} className="h-20 object-cover flex mx-auto rounded-full w-20" alt="" /> : item?.value
+              value : item?.value?.split('/').includes('uploads') ? <img onClick={() => {
+                // imageRefValue.current = baseUrl +'/' + item?.value
+                setImage(true)
+              }} src={baseUrl+'/' +item?.value} className="h-20 object-cover flex mx-auto cursor-pointer rounded-full w-20" alt="" /> : item?.value
             }
           })}
           errors={errors}
@@ -351,6 +356,16 @@ const PTWApproverPage = () => {
           isOpen={modalOpen}
           setIsOpen={handleModalClose}
         />
+        <Modal
+        size="sm"
+        modalHead={<h1>Image View</h1>}
+        children={<div className='w-[50wv] h-[50vh]'>
+          <img src={imageRefValue.current} className='w-full h-full object-cover  rounded-md' alt="" />
+        </div>}
+        isOpen={image}
+        setIsOpen={setImage}
+      />
+       
 
         {/* <FileUploader
           isOpen={fileOpen}
@@ -361,7 +376,9 @@ const PTWApproverPage = () => {
           tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
         /> */}
       </div>
+      
     </div>
+     
    </>
   );
 };

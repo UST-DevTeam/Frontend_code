@@ -43,7 +43,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
 
                 return itm?.dataType === "img"
             })
-            console.log(formType[type], checkImg, "___checkImg__")
+           
 
             let res;
             if (checkImg?.length === 0) {
@@ -85,7 +85,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
 
                 // Append each field (file or text)
                Object.keys(data)?.forEach((key) => {
-                    if(key==="Seflie")
+                    if(key==="Selfie")
                     {
                         const value = data[key];
                       

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Button from '../../../../components/Button';
 import Modal from '../../../../components/Modal';
 import { useForm } from 'react-hook-form';
 import CommonForm from '../../../../components/CommonForm';
 import Api from '../../../../utils/api';
+import { baseUrl } from '../../../../utils/url';
+import { ALERTS } from '../../../../store/reducers/component-reducer';
+import { useDispatch } from 'react-redux';
 
 const OhsNitification = () => {
   const {
@@ -22,6 +25,9 @@ const OhsNitification = () => {
        formState: { errors: errorsForm2 },
      } = useForm()
   const [notification, setNotification] = useState(false)
+  const dispatch = useDispatch()
+  const imageRef = useRef(null)
+  const [image, setImage] = useState(false)
   const [allData, setAllData] = useState([])
   const getAllData = async () => {
     const res = await Api.get({
@@ -35,6 +41,47 @@ const OhsNitification = () => {
     getAllData()
   }, [])
   const [type, setType] = useState('text')
+
+  const handelNotification = async (data) => {
+    let res = null
+    const url = `/globalNotify?File=${type==='text'? `false` : `true`}`
+    if(type === 'file'){
+      const formDataSubmit = new FormData()
+      Object.keys(data)?.forEach((key) => {
+          const value = data[key];
+          if (value) {
+            formDataSubmit.append(
+              key,
+              value instanceof FileList ? value[0] : value
+            );
+          }
+        });
+       res = await Api.post({
+        url ,   
+             contentType: "multipart/form-data",
+        data : formDataSubmit
+    })
+    }
+    else{
+      res = await Api.post({
+        url,
+        data 
+      })
+    }
+
+    if(res?.status === 201){
+        let msgdata={
+              show: true,
+              icon:'',
+              text: 'Notification sent successfully.',
+          }
+          dispatch(ALERTS(msgdata))
+          setNotification(false)
+      getAllData()
+    }
+    
+  }
+
   const table = {
     columns: [
       {
@@ -93,7 +140,15 @@ const OhsNitification = () => {
         tableName="OHS Notifications"
         TableHeight="h-[68vh]"
 
-        data={allData}
+        data={allData?.map((item) => {
+          return {
+            ...item,
+            message : item?.message ? (item?.message.split('/').includes('uploads') ?  <p className='underline-offset-1 underline text-blue-500 cursor-pointer' onClick={() => {
+              imageRef.current = baseUrl + '/' + item?.message
+              setImage(true)
+            }} >{item?.message}</p> : item?.message) : ''
+           }
+        })}
 
         totalCount={0}
         heading="Total Count :-"
@@ -161,7 +216,7 @@ const OhsNitification = () => {
               name="Submit"
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm1((data) =>
-                console.log(data, "roadsafetychecklist2wheeler")
+                handelNotification(data)
               )}
             />
           ) : (
@@ -169,7 +224,7 @@ const OhsNitification = () => {
               name="Submit"
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm2((data) =>
-                console.log(data, "roadsafetychecklist4wheeler")
+                handelNotification(data)
               )}
             />
           )}
@@ -177,6 +232,15 @@ const OhsNitification = () => {
         </div>}
         isOpen={notification}
         setIsOpen={setNotification}
+      />
+      <Modal
+        size="sm"
+        modalHead={<h1>Image View</h1>}
+        children={<div className='w-[50wv] h-[50vh]'>
+          <iframe src={imageRef.current} className='w-full h-full object-cover  rounded-md' alt="" />
+        </div>}
+        isOpen={image}
+        setIsOpen={setImage}
       />
     </div>
   )
