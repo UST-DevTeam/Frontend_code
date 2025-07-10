@@ -173,6 +173,10 @@ const BreadCrumbs = () => {
       name: "Approval",
       url: "/home/Approval",
     },
+    ptwApprover: {
+      name: "PTW Approver Page",
+      url: "/home/Approval/l1Approver",
+    },
   };
 
   let breadcrumblist = useSelector((state) => {

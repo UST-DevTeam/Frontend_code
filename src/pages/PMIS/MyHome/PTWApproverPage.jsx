@@ -11,8 +11,9 @@ import { baseUrl, Urls } from "../../../utils/url";
 
 import AdvancedTable from "../../../components/AdvancedTable";
 import Button from "../../../components/Button";
-import { Modal } from "@material-ui/core";
+
 import FileUploader from "../../../components/FIleUploader";
+import Modal from "../../../components/Modal";
 
 const PTWApproverPage = () => {
   const { page } = useParams();
@@ -329,7 +330,8 @@ const PTWApproverPage = () => {
             return {
               ...item,
               value : item?.value?.split('/').includes('uploads') ? <img onClick={() => {
-                // imageRefValue.current = baseUrl +'/' + item?.value
+                
+                imageRefValue.current = baseUrl +'/' + item?.value
                 setImage(true)
               }} src={baseUrl+'/' +item?.value} className="h-20 object-cover flex mx-auto cursor-pointer rounded-full w-20" alt="" /> : item?.value
             }
@@ -348,14 +350,6 @@ const PTWApproverPage = () => {
             console.log("Selected items:", selectedItems);
           }}
         />
-
-        <Modal
-          size="md"
-          modalHead={modalHead}
-          children={modalBody}
-          isOpen={modalOpen}
-          setIsOpen={handleModalClose}
-        />
         <Modal
         size="sm"
         modalHead={<h1>Image View</h1>}
@@ -365,6 +359,9 @@ const PTWApproverPage = () => {
         isOpen={image}
         setIsOpen={setImage}
       />
+
+        
+        
        
 
         {/* <FileUploader
