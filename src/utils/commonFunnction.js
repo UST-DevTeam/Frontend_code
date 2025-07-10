@@ -71,6 +71,15 @@ export function parseTwoDigit(text){
 
 }
 
+export function alertError(error){
+    console.log(error , Object.keys(error)[0]  , 'asdfasdfasdfasdfasdfsfdsadfasdfasdfasdf')
+    
+    const defaultError =  `${Object.keys(error)[0]} field is required`
+
+    alert(defaultError);
+    
+}
+
 
 
 

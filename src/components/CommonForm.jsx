@@ -52,6 +52,7 @@ const CommonForm = ({
   useEffect(() => {
     clearAllFields()
   } , [])
+ 
 
  
 

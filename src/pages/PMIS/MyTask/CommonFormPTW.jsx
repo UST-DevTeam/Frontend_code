@@ -5,6 +5,7 @@ import Api from "../../../utils/api";
 import Button from "../../../components/Button";
 import Modal from "../../../components/Modal";
 import { baseUrl, Urls } from "../../../utils/url";
+import { alertError } from "../../../utils/commonFunnction";
 
 const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDriveFormModel, setPtwModalHead, formData }) => {
   const {
@@ -273,11 +274,11 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setWhich("formSelection");
           return;
         }
-
+        
         // Multi-step form logic
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
-
+          
           if (nextIndex < selectedItems.length) {
             setCurrentStepIndex(nextIndex);
             const nextForm = selectedItems[nextIndex];
@@ -285,13 +286,14 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           } else {
             // Final step (show vehicle form)
             setIsMultiStep(false);
-            setPtwModalFullOpen(false);
-
+            
+            setDriveFormModel(false)
+            getApprovalsData(res?.data?.operation_id);
+            
+            
             if (formType === "drivetestactivity" && vehicleType !== '') {
               setPtwModalHead({ title: "", value: "vehicle" });
               setPtwDriveTest(true);
-            } else {
-              getApprovalsData(res?.data?.operation_id);
             }
           }
 
@@ -501,8 +503,6 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setPtwModalHead({ title: nextForm.name, value: nextForm.id });
           setPtwDriveTest(false)
           setPtwModalFullOpen(true)
-
-
         } else {
           // Final step (show vehicle form)
           setIsMultiStep(false);
@@ -601,7 +601,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm1((data) =>
                 handleVehicle(data, "roadsafetychecklist2wheeler")
-              )}
+              , alertError)}
             />
           ) : (
             <Button
@@ -609,7 +609,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm2((data) =>
                 handleVehicle(data, "roadsafetychecklist4wheeler")
-              )}
+              , alertError)}
             />
           )}
         </div>
@@ -675,7 +675,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             onClick={handleSubmit((data) => {
 
               handleAddActivity(data, formName);
-            })}
+            } , alertError)}
 
           />
         </div>

@@ -12,6 +12,7 @@ import { MdMessage } from "react-icons/md";
 import PopupMenu from "../../../components/PopupMenu";
 import { LuTicketCheck, LuTicketX } from "react-icons/lu";
 import {
+  alertError,
   getAccessType,
   objectToQueryString,
   parseTwoDigit,
@@ -222,11 +223,7 @@ const MyTask = () => {
     reset,
     formState: { errors },
   } = useForm();
-  useEffect(()=>{
-      if(Object.keys(errors).length > 0){
-          alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
-      }   
-     } , [errors])
+ 
   const {
     register: registerForm1,
     setValue: setValueForm1,
@@ -357,6 +354,8 @@ const MyTask = () => {
           return;
         }
 
+        
+
         // Multi-step form logic
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
@@ -447,7 +446,7 @@ const MyTask = () => {
             onClick={handleSubmit((data) => {
 
               handleAddActivity(data, formName);
-            })}
+            },alertError)}
 
           />}
         </div>
