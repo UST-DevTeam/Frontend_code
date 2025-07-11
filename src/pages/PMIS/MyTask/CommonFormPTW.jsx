@@ -31,13 +31,13 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
   const [ptwDriveModel, setPtwDriveModel] = useState(false);
 
 
-  const [vehicleType, setVehicleType] = useState(false);
+  const [vehicleType, setVehicleType] = useState('');
   const [isSelect, setSelect] = useState(false);
   const FORM_FLOW_SEQUENCE = ['roadSafetyChecklist', "teamdetails", "ptwphoto"];
   const options = [
     { id: "roadSafetyChecklist", name: "Road Safety Checklist" },
     { id: "teamdetails", name: "Team Details" },
-    { id: "ptwphoto", name: "PTW Photo" },
+    ...( selectedItems?.map((item) => item.id).includes('roadSafetyChecklist') ? [{ id: "ptwphoto", name: "PTW Photo" }] : [] ),
   ];
   const {
     register: registerForm1,
@@ -285,15 +285,15 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             setPtwModalHead({ title: nextForm.name, value: nextForm.id });
           } else {
             // Final step (show vehicle form)
-            setIsMultiStep(false);
-            
+  
             setDriveFormModel(false)
-            getApprovalsData(res?.data?.operation_id);
-            
             
             if (formType === "drivetestactivity" && vehicleType !== '') {
               setPtwModalHead({ title: "", value: "vehicle" });
               setPtwDriveTest(true);
+            }else{
+              setIsMultiStep(false)
+              getApprovalsData(res?.data?.operation_id);
             }
           }
 
@@ -336,10 +336,10 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     const firstForm = sortedItems[0];
     if (firstForm.id === 'roadSafetyChecklist') {
       setPtwDriveTest(true)
+      setVehicleType(allFormType.includes('roadsafetychecklist2wheeler') ? 'roadsafetychecklist2wheeler' : 'roadsafetychecklist4wheeler')
       if (allFormType.includes('roadsafetychecklist2wheeler')) {
         if (isPtwRaise) {
           subFormRef.current.roadsafetychecklist2wheeler?.forEach((item) => {
-
             setValueForm1(item?.fieldName, fillData['roadsafetychecklist2wheeler'][item?.fieldName])
 
           })
@@ -349,7 +349,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           })
         }
       }
-      setVehicleType(allFormType.includes('roadsafetychecklist2wheeler') ? 'roadsafetychecklist2wheeler' : 'roadsafetychecklist4wheeler')
+      
     } else {
       setWhich(firstForm.id);
     }
@@ -438,7 +438,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             setCurrentStepIndex(nextIndex);
             const nextForm = selectedItems[nextIndex];
             setWhich(nextForm.id);
-            setPtwDriveTest(false)
+            setPtwDriveModel(false)
           } else {
             // Final step (show vehicle form)
             setIsMultiStep(false);
@@ -460,35 +460,37 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
   const handleVehiclePhoto = async (formDataInput, subForm) => {
     const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
 
-    const formData = new FormData();
+    const formDataV = new FormData();
 
     // Shared metadata
-    formData.append("projectID", formData?.projectId);
-    formData.append("projectuniqueId", formData?.projectuniqueId);
-    formData.append("siteUid", formData?.siteUid);
-    formData.append("siteId", formData?.siteId);
-    formData.append("customerName", formData?.customerName);
-    formData.append("circle", formData?.CIRCLE);
-    formData.append("mileStoneId", formData?.mileStoneId);
-    formData.append("Milestone", formData?.Milestone);
+    formDataV.append("projectID", formData?.projectId);
+    formDataV.append("projectuniqueId", formData?.projectuniqueId);
+    formDataV.append("siteUid", formData?.siteUid);
+    formDataV.append("siteId", formData?.siteId);
+    formDataV.append("customerName", formData?.customerName);
+    formDataV.append("circle", formData?.CIRCLE);
+    formDataV.append("mileStoneId", formData?.mileStoneId);
+    formDataV.append("Milestone", formData?.Milestone);
 
+    console.log(formKeys , 'asdfasdfasdfadsfadsfasd')
     // Only selected form's fields
-    for (let key in formDataInput) {
-      if (formKeys.includes(key)) {
+    formKeys?.filter((key) => {
+      if (Object.keys(formDataInput).includes(key)) {
         const value = formDataInput[key];
         const finalKey = `${key}`;
 
         if (value instanceof FileList) {
-          formData.append(finalKey, value[0]);
+          formDataV.append(finalKey, value[0]);
         } else {
-          formData.append(finalKey, value);
+          formDataV.append(finalKey, value);
         }
       }
-    }
+    })
+
     const res = await Api.patch({
       url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
       contentType: "multipart/form-data",
-      data: formData,
+      data: formDataV,
     });
 
     if (res?.status === 200) {
@@ -501,12 +503,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setCurrentStepIndex(nextIndex);
           const nextForm = selectedItems[nextIndex];
           setPtwModalHead({ title: nextForm.name, value: nextForm.id });
-          setPtwDriveTest(false)
+          setPtwDriveModel(false)
           setPtwModalFullOpen(true)
         } else {
           // Final step (show vehicle form)
           setIsMultiStep(false);
-          setPtwDriveTest(false);
+          setPtwDriveModel(false);
           getApprovalsData(res?.data?.operation_id);
         }
 
@@ -519,18 +521,19 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
 
   const checkOptionList = (type = '') => {
-    if (type !== 'photo' && (allFormType.includes('roadsafetychecklist4wheeler') || allFormType.includes('roadsafetychecklist2wheeler'))) {
+    console.log(allFormType , 'lkjhgjkhghjkhgfhjgh')
+    if (type && (allFormType.includes('roadsafetychecklist4wheeler') || allFormType.includes('roadsafetychecklist2wheeler'))) {
       return ['roadSafetyChecklist']
     }
     else {
       if (allFormType.includes('roadsafetychecklist4wheeler')) {
         if (allFormType.includes('ptwphoto4wheeler')) {
-          return ['ptwPhoto']
+          return ['ptwphoto']
         }
       }
       else if (allFormType.includes('roadsafetychecklist2wheeler')) {
         if (allFormType.includes('ptwphoto2wheeler')) {
-          return ['ptwPhoto']
+          return ['ptwphoto']
         }
       }
       else[]
@@ -626,7 +629,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           </h2>
 
           <div className="space-y-3 mb-6">
-
+        { console.log(options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)) , '9676876876876876876876876')}
             {options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)).map((option) => (
 
               <label
@@ -706,7 +709,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
               name="Submit"
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm3((data) =>
-                handleVehiclePhoto(data, vehicleType === 'roadsafetychecklist4Wheeler' ? 'ptwphoto4Wheeler' : 'ptwphoto2Wheeler')
+                handleVehiclePhoto(data, vehicleType === 'roadsafetychecklist4wheeler' ? 'ptwphoto4wheeler' : 'ptwphoto2wheeler')
               )}
             />
 
