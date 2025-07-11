@@ -120,7 +120,7 @@ const CommonTableForm = ({
     
     data["fileType"] = tabHead;
     console.log(tabHead , 'afdsfasdfsadfasdfasdfsadfasdfadsf')
-    if(["teamdetails" , 'roadsafetychecklist4wheeler', 'roadsafetychecklist2wheeler' , 'photo','roadsafetychecklist4wheeler' , 'riskassessment' , 'road' , 'checklist' , 'ptwphoto','ptwphoto2wheeler', 'rejectionreason' , 'ptwphoto2wheeler'].includes(tabHead)){
+    if(["teamdetails" , 'roadsafetychecklist4wheeler', 'roadsafetychecklist2wheeler' , 'photo','roadsafetychecklist4wheeler' , 'riskassessment' , 'road' , 'checklist' , 'ptwphoto','ptwphoto4wheeler', 'rejectionreason' , 'ptwphoto2wheeler'].includes(tabHead)){
       dispatch(CommonActions.fileSubmit('/admin/ptw' + "/" + `${ptwPage}/${tabHead}?file=true`,data,() => {
           setSelectFile(false);
           setmodalOpen(false);
