@@ -330,6 +330,8 @@ const MyTask = () => {
           }
         });
 
+        console.log(data, 'adfasdfasdfsadf')
+
         const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
           }`;
 
