@@ -321,11 +321,13 @@ const MyTask = () => {
 
         // Append each field (file or text)
         Object.keys(data)?.forEach((key) => {
-          
-            formData.append(
+            if(data[key]){
+              formData.append(
               key,
-              value instanceof FileList ? value[0] : value
+              data[key][0]
             );
+            }
+            
           
         });
 
