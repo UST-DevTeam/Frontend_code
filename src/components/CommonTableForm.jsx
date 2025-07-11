@@ -100,7 +100,6 @@ const CommonTableForm = ({
   });
 
  
-  console.log(listing, tabHead , 'asdfasdfasdfasdfasdfasf')
 
   Form.map((itm) => {
     newars[itm.name] = newars[itm.value];
