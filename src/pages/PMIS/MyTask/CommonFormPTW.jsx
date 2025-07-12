@@ -293,14 +293,18 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
               setPtwDriveTest(true);
             }else{
               setIsMultiStep(false)
-              getApprovalsData(res?.data?.operation_id);
+              getApprovalsData();
             }
           }
 
           reset();
           return;
         }
-        if ((allFormType).includes(which === "checklist" ? "photo" : which)) {
+        if(which === 'teamdetails'){
+          getApprovalsData()
+          setDriveFormModel(false)
+        }else{
+          if ((allFormType).includes(which === "checklist" ? "photo" : which)) {
           setWhich(which === "checklist" ? "photo" : which);
         } else {
           setSelect(true);
@@ -308,6 +312,8 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setPtwModalHead({ title: "", value: "formSelection" });
           return;
         }
+        }
+        
 
         // Fallback (non-multi-step)
 
@@ -439,6 +445,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             const nextForm = selectedItems[nextIndex];
             setWhich(nextForm.id);
             setPtwDriveModel(false)
+            setIsMultiStep(false);
           } else {
             // Final step (show vehicle form)
             setIsMultiStep(false);
@@ -496,19 +503,24 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     if (res?.status === 200) {
       reset(); // If you use one useForm
       // setPtwDriveTest(false);
+      
       if (isMultiStep) {
         const nextIndex = currentStepIndex + 1;
+        console.log(isMultiStep , selectedItems , nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf' )
         setVehicleType('')
         if (nextIndex < selectedItems.length) {
           setCurrentStepIndex(nextIndex);
           const nextForm = selectedItems[nextIndex];
-          setPtwModalHead({ title: nextForm.name, value: nextForm.id });
+          setWhich(nextForm.id);
           setPtwDriveModel(false)
-          setPtwModalFullOpen(true)
+          setDriveFormModel(true)
+          setIsMultiStep(false);
+          
         } else {
           // Final step (show vehicle form)
           setIsMultiStep(false);
-          setPtwDriveModel(false);
+          setPtwDriveModel(false)
+          setDriveFormModel(false);
           getApprovalsData(res?.data?.operation_id);
         }
 
