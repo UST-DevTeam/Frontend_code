@@ -21,7 +21,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     formState: { errors },
   } = useForm();
 
-  
+
   const [allFormType, setAllFormType] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -37,7 +37,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
   const options = [
     { id: "roadSafetyChecklist", name: "Road Safety Checklist" },
     { id: "teamdetails", name: "Team Details" },
-    ...( selectedItems?.map((item) => item.id).includes('roadSafetyChecklist') ? [{ id: "ptwphoto", name: "PTW Photo" }] : [] ),
+    ...(selectedItems?.map((item) => item.id).includes('roadSafetyChecklist') ? [{ id: "ptwphoto", name: "PTW Photo" }] : []),
   ];
   const {
     register: registerForm1,
@@ -46,12 +46,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     handleSubmit: handleSubmitForm1,
     formState: { errors: errorsForm1 },
   } = useForm();
-  useEffect(()=>{
-      
-      if(Object.keys(errorsForm1).length > 0){
-          alert(` ${errorsForm1[Object.keys(errorsForm1)[0]]?.message} :- ${Object.keys(errorsForm1)[0]} `)
-      }   
-     } , [errorsForm1])
+  useEffect(() => {
+
+    if (Object.keys(errorsForm1).length > 0) {
+      alert(` ${errorsForm1[Object.keys(errorsForm1)[0]]?.message} :- ${Object.keys(errorsForm1)[0]} `)
+    }
+  }, [errorsForm1])
   const {
     register: registerForm3,
     setValue: setValueForm3,
@@ -59,12 +59,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     handleSubmit: handleSubmitForm3,
     formState: { errors: errorsForm3 },
   } = useForm();
-  useEffect(()=>{
-    
-    if(Object.keys(errorsForm3).length > 0){
-        alert(` ${errorsForm3[Object.keys(errorsForm3)[0]]?.message} :- ${Object.keys(errorsForm3)[0]} `)
-    }   
-   } , [errorsForm3])
+  useEffect(() => {
+
+    if (Object.keys(errorsForm3).length > 0) {
+      alert(` ${errorsForm3[Object.keys(errorsForm3)[0]]?.message} :- ${Object.keys(errorsForm3)[0]} `)
+    }
+  }, [errorsForm3])
   const {
     register: registerForm2,
     setValue: setValueForm2,
@@ -72,12 +72,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     handleSubmit: handleSubmitForm2,
     formState: { errors: errorsForm2 },
   } = useForm();
-  useEffect(()=>{
-    
-    if(Object.keys(errorsForm2).length > 0){
-        alert(` ${errorsForm2[Object.keys(errorsForm2)[0]]?.message} :- ${Object.keys(errorsForm2)[0]} `)
-    }   
-   } , [errorsForm2])
+  useEffect(() => {
+
+    if (Object.keys(errorsForm2).length > 0) {
+      alert(` ${errorsForm2[Object.keys(errorsForm2)[0]]?.message} :- ${Object.keys(errorsForm2)[0]} `)
+    }
+  }, [errorsForm2])
   const subFormRef = useRef({
     checklist: [],
     teamdetails: [],
@@ -274,24 +274,24 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setWhich("formSelection");
           return;
         }
-        
+
         // Multi-step form logic
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
-          
+
           if (nextIndex < selectedItems.length) {
             setCurrentStepIndex(nextIndex);
             const nextForm = selectedItems[nextIndex];
             setPtwModalHead({ title: nextForm.name, value: nextForm.id });
           } else {
             // Final step (show vehicle form)
-  
+
             setDriveFormModel(false)
-            
+
             if (formType === "drivetestactivity" && vehicleType !== '') {
               setPtwModalHead({ title: "", value: "vehicle" });
               setPtwDriveTest(true);
-            }else{
+            } else {
               setIsMultiStep(false)
               getApprovalsData();
             }
@@ -300,20 +300,20 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           reset();
           return;
         }
-        if(which === 'teamdetails'){
+        if (which === 'teamdetails') {
           getApprovalsData()
           setDriveFormModel(false)
-        }else{
-          if ((allFormType).includes(which === "checklist" ? "photo" : which)) {
-          setWhich(which === "checklist" ? "photo" : which);
         } else {
-          setSelect(true);
-          reset();
-          setPtwModalHead({ title: "", value: "formSelection" });
-          return;
+          if ((allFormType).includes(which === "checklist" ? "photo" : which)) {
+            setWhich(which === "checklist" ? "photo" : which);
+          } else {
+            setSelect(true);
+            reset();
+            setPtwModalHead({ title: "", value: "formSelection" });
+            return;
+          }
         }
-        }
-        
+
 
         // Fallback (non-multi-step)
 
@@ -355,7 +355,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           })
         }
       }
-      
+
     } else {
       setWhich(firstForm.id);
     }
@@ -379,12 +379,12 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
       }
     });
   };
-  useEffect(()=>{
-    console.log(errors , 'asdfsdfasdfasdfasdf')
-      if(Object.keys(errors).length > 0){
-          alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
-      }   
-     } , [errors, subFormRef.current[which]])
+  useEffect(() => {
+    console.log(errors, 'asdfsdfasdfasdfasdf')
+    if (Object.keys(errors).length > 0) {
+      alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
+    }
+  }, [errors, subFormRef.current[which]])
 
   const handleVehicle = async (formDataInput, subForm) => {
 
@@ -421,45 +421,23 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
       if (selectedItems?.map((item) => item.id).includes('ptwphoto')) {
         setPtwDriveTest(false)
         setPtwDriveModel(true)
+        if(!selectedItems.map(item => item?.id).includes('teamdetails')){
+          setIsMultiStep(false)
+        }
+        console.log(selectedItems, isMultiStep, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
         if (allFormType.includes('roadsafetychecklist2wheeler')) {
           if (isPtwRaise) {
             subFormRef.current.ptwphoto2wheeler?.forEach((item) => {
-
               setValueForm1(item?.fieldName, fillData['ptwphoto2wheeler'][item?.fieldName])
-
             })
           } else {
             subFormRef.current.ptwphoto4wheeler?.forEach((item) => {
-              setValueForm2(item?.fieldName, formData[['ptwphoto4wheeler']][item?.fieldName])
+              setValueForm2(item?.fieldName, formData['ptwphoto4wheeler'][item?.fieldName])
             })
           }
         }
+        
       }
-      else {
-        console.log(selectedItems, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
-        if (isMultiStep) {
-          const nextIndex = currentStepIndex + 1;
-          setVehicleType('')
-          if (nextIndex < selectedItems.length) {
-            setCurrentStepIndex(nextIndex);
-            const nextForm = selectedItems[nextIndex];
-            setWhich(nextForm.id);
-            setPtwDriveModel(false)
-            setIsMultiStep(false);
-          } else {
-            // Final step (show vehicle form)
-            setIsMultiStep(false);
-            setPtwDriveTest(false);
-            setDriveFormModel(false)
-            getApprovalsData(res?.data?.operation_id);
-          }
-
-          reset();
-          return;
-        }
-      }
-
-
     }
   };
 
@@ -479,7 +457,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     formDataV.append("mileStoneId", formData?.mileStoneId);
     formDataV.append("Milestone", formData?.Milestone);
 
-    console.log(formKeys , 'asdfasdfasdfadsfadsfasd')
+    console.log(formKeys, 'asdfasdfasdfadsfadsfasd')
     // Only selected form's fields
     formKeys?.filter((key) => {
       if (Object.keys(formDataInput).includes(key)) {
@@ -503,10 +481,10 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     if (res?.status === 200) {
       reset(); // If you use one useForm
       // setPtwDriveTest(false);
-      
+
       if (isMultiStep) {
         const nextIndex = currentStepIndex + 1;
-        console.log(isMultiStep , selectedItems , nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf' )
+        console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
         setVehicleType('')
         if (nextIndex < selectedItems.length) {
           setCurrentStepIndex(nextIndex);
@@ -515,7 +493,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setPtwDriveModel(false)
           setDriveFormModel(true)
           setIsMultiStep(false);
-          
+
         } else {
           // Final step (show vehicle form)
           setIsMultiStep(false);
@@ -526,6 +504,11 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
         reset();
         return;
+      } else {
+        setIsMultiStep(false);
+        setPtwDriveModel(false)
+        setDriveFormModel(false);
+        getApprovalsData(res?.data?.operation_id);
       }
     }
   }
@@ -533,7 +516,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
 
   const checkOptionList = (type = '') => {
-    console.log(allFormType , 'lkjhgjkhghjkhgfhjgh')
+    console.log(allFormType, 'lkjhgjkhghjkhgfhjgh')
     if (type && (allFormType.includes('roadsafetychecklist4wheeler') || allFormType.includes('roadsafetychecklist2wheeler'))) {
       return ['roadSafetyChecklist']
     }
@@ -616,7 +599,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm1((data) =>
                 handleVehicle(data, "roadsafetychecklist2wheeler")
-              , alertError)}
+                , alertError)}
             />
           ) : (
             <Button
@@ -624,7 +607,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
               className="w-fit bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
               onClick={handleSubmitForm2((data) =>
                 handleVehicle(data, "roadsafetychecklist4wheeler")
-              , alertError)}
+                , alertError)}
             />
           )}
         </div>
@@ -641,7 +624,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           </h2>
 
           <div className="space-y-3 mb-6">
-        { console.log(options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)) , '9676876876876876876876876')}
+            {console.log(options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)), '9676876876876876876876876')}
             {options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)).map((option) => (
 
               <label
@@ -690,7 +673,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             onClick={handleSubmit((data) => {
 
               handleAddActivity(data, formName);
-            } , alertError)}
+            }, alertError)}
 
           />
         </div>
