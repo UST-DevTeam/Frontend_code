@@ -417,14 +417,14 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     if (res?.status === 200) {
       reset(); // If you use one useForm
       setPtwDriveTest(false);
-
+      console.log(selectedItems, isMultiStep, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
       if (selectedItems?.map((item) => item.id).includes('ptwphoto')) {
         setPtwDriveTest(false)
         setPtwDriveModel(true)
-        if(!selectedItems.map(item => item?.id).includes('teamdetails')){
+        if (!selectedItems.map(item => item?.id).includes('teamdetails')) {
           setIsMultiStep(false)
         }
-        console.log(selectedItems, isMultiStep, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
+        
         if (allFormType.includes('roadsafetychecklist2wheeler')) {
           if (isPtwRaise) {
             subFormRef.current.ptwphoto2wheeler?.forEach((item) => {
@@ -436,7 +436,39 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             })
           }
         }
-        
+
+      }
+      else {
+        if (!selectedItems.map(item => item?.id).includes('teamdetails')) {
+          setIsMultiStep(false);
+          setPtwDriveModel(false)
+          setDriveFormModel(false);
+          getApprovalsData(res?.data?.operation_id);
+        }else{
+          if (isMultiStep) {
+        const nextIndex = currentStepIndex + 1;
+        console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
+        setVehicleType('')
+        if (nextIndex < selectedItems.length) {
+          setCurrentStepIndex(nextIndex);
+          const nextForm = selectedItems[nextIndex];
+          setWhich(nextForm.id);
+          setPtwDriveModel(false)
+          setDriveFormModel(true)
+          setIsMultiStep(false);
+
+        } else {
+          // Final step (show vehicle form)
+          setIsMultiStep(false);
+          setPtwDriveModel(false)
+          setDriveFormModel(false);
+          getApprovalsData(res?.data?.operation_id);
+        }
+
+        reset();
+        return;
+      }
+        }
       }
     }
   };
