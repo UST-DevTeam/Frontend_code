@@ -161,7 +161,7 @@ const ApproverPage = () => {
       status: type === 'l1Approver' ? 'L1-Rejected' : 'L2-Rejected',
     };
     const res = await Api.patch({
-      url: `/submit/rejection/${id}`,
+      url: `/submit/rejection/${id}?ptwNumber=${selectedRow?.ptwNumber}`,
       data: allData,
     })
     if (res?.status === 200) {
@@ -368,6 +368,7 @@ const ApproverPage = () => {
     const res = await Api.get({
       url: "/show/ptw/rejectionreason",
     });
+    setSelectedRow(itm);
     if (res?.status === 200) {
       RejectionForm.current = {
         mId: itm?.mileStoneId,
@@ -414,7 +415,7 @@ const ApproverPage = () => {
 
   const handleApprover = (rowData) => {
     console.log(rowData, "___rowadsdad");
-    setSelectedRow(rowData);
+    
     setmodalHead(rowData?.ptwNumber || "Select Approver");
 
     let modalBodyData = <></>;
@@ -444,7 +445,7 @@ const ApproverPage = () => {
       setmodalBody(
         <>
           <CommonAlert
-
+            selectedRow={rowData}
             Heading={"Are you Sure ?"}
             getAllDAta = {dataAll}
             setmodalOpen={setmodalOpen}

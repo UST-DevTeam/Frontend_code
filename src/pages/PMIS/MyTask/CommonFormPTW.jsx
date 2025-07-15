@@ -90,6 +90,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     roadsafetychecklist4wheeler: [],
   });
 
+  console.log(subFormRef.current,"||",subFormRef.current[which],"||",which, "__newWHeeler" )
   useEffect(() => {
     setPtwModalHead({
       title: which
@@ -404,7 +405,8 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
     const res = await Api.patch({
 
-      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}` : `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")} ${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}` : 
+      `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}`,
       data: newData,
     });
 
@@ -428,6 +430,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             })
           }
         }
+        
       }
       else {
         console.log(selectedItems, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
@@ -455,7 +458,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
     }
   };
-
+  console.log(currentStepIndex,"__nextIndex")
 
   const handleVehiclePhoto = async (formDataInput, subForm) => {
     const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
@@ -488,7 +491,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     })
 
     const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}`,
       contentType: "multipart/form-data",
       data: formDataV,
     });

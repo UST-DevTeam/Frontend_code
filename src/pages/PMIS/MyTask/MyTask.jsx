@@ -175,7 +175,7 @@ const MyTask = () => {
   const handleApprovalData = async () => {
     const dropdown = document.getElementById("dropdown");
     const res = await Api.patch({
-      url: `/getPtwApprover/${sessionStorage.getItem("opid")}`,
+      url: `/getPtwApprover/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}`,
       data: {
         empId: dropdown.value,
         ApproverType: "L1-Approver",
@@ -297,7 +297,7 @@ const MyTask = () => {
           }
         });
 
-        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")  ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
           }`;
 
         res = sessionStorage.getItem("opid")
@@ -332,7 +332,7 @@ const MyTask = () => {
 
         console.log(data, 'adfasdfasdfsadf')
 
-        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
           }`;
 
         res = await Api.patch({
@@ -343,12 +343,17 @@ const MyTask = () => {
       }
 
       // Handle response
+      console.log(res?.data?.operation_id,"___res___")
       if (res?.status === 200 || res?.status === 201) {
         sessionStorage.setItem(
           "opid",
           sessionStorage.getItem("opid") || mileStoneItemRef.current?.mileStoneId
         );
 
+        sessionStorage.setItem(
+        "operationId",
+          sessionStorage.getItem("operationId") || res?.data?.operation_id
+        )
         // Special redirect after photo
         if (ptwModalHead.value === "photo") {
           setSelect(true);
@@ -829,7 +834,7 @@ const MyTask = () => {
                 </>
               ) : iewq?.mileStoneStatus 
               ,
-            ptwStatus : <div style={{
+            ptwStatus : ( iewq.mileStoneStatus !== "Closed"  ? <div style={{
                     display: getAccessType('PTW Raise Actions') === 'invisible' ? 'none' : 'block'
                   }} className="relative">
                   <div  className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
@@ -860,7 +865,8 @@ const MyTask = () => {
                           clearAllFields()
                           setSelect(false);
                           setSelectedItems([]);
-                          if (iewq?.isPtwRaise) return;
+                          sessionStorage.removeItem("operationId")
+                          if (iewq?.isPtwRaise && !["L1-Rejected", "Closed","Auto Close","L2-Rejected"].includes(iewq?.ptwStatus) ) return;
 
                           if (ptwOption && ptwOption === iewq?._id) {
                             setPtwOption(null);
@@ -871,7 +877,7 @@ const MyTask = () => {
                       }}
                       title={["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus) ? 'Raise PTW Again' : "Raise PTW"}
                       className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
-                        ["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)
+                        ["L1-Rejected", "Closed","Auto Close","L2-Rejected"].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } rounded-md bg-[#13B497]`}
@@ -1000,7 +1006,7 @@ const MyTask = () => {
                       </div>
                     </div>
                   )}
-                </div> ,
+                </div> : <></>) ,
             SiteNaming: (
               <p
                 className="text-yellow-500 font-extrabold"

@@ -185,8 +185,8 @@ const ApproverForm = ({
       approved:true,
       status:"L1-Approved",
     };
-    dispatch(PTWActions.getPtwApproverPatch(true,data,"" , () => {
-      getAllData()
+    dispatch(PTWActions.getPtwApproverPatch(true,data,`ptwNumber=${selectedRow?.ptwNumber}` , () => {
+     dispatch(PTWActions.getApproverPage(true, `ApproverType=${type}`));
     }))
 
     console.log("Submitting approver assignment:", data);
