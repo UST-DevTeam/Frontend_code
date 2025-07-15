@@ -191,6 +191,7 @@ const MyTask = () => {
       setPtwModalFullApprovalOpen(false);
       setPtwOption(null);
       sessionStorage.removeItem("opid");
+      sessionStorage.removeItem("operationId");
       operationApprovalID.current = null;
       dispatch(MyHomeActions.getMyTask());
 

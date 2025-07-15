@@ -219,7 +219,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
 
 
-        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")} ${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
           }`;
 
         res = sessionStorage.getItem("opid")
@@ -267,6 +267,11 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
         sessionStorage.setItem("opid",
           sessionStorage.getItem("opid") || formData?.mileStoneId
         );
+        
+        sessionStorage.setItem(
+        "operationId",
+          sessionStorage.getItem("operationId") || res?.data?.operation_id
+        )
 
         // Special redirect after photo
         if (which === "photo") {
