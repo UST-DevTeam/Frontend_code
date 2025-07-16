@@ -348,18 +348,12 @@ const MyTask = () => {
           "opid",
           sessionStorage.getItem("opid") || mileStoneItemRef.current?.mileStoneId
         );
-
-        // Special redirect after photo
         if (ptwModalHead.value === "photo") {
           setSelect(true);
           reset();
           setPtwModalHead({ title: "", value: "formSelection" });
           return;
         }
-
-        
-
-        // Multi-step form logic
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
 
@@ -403,10 +397,6 @@ const MyTask = () => {
       console.error("Error in handleAddActivity:", err);
     }
   };
-
-
-  console.log(selectedItems, 'afsfsdfasdfasfggkjghfdstirweyhdgfsfd')
-
   const setForm = (form, formName) => {
     setPtwModalBody(
       <>
@@ -431,7 +421,6 @@ const MyTask = () => {
 
               const driveData = getValues()
               let driverData = []
-              console.log(form, driveData, 'o987654323456789876543234567876543123456776543212')
               const data = form?.forEach((item) => {
                 if (item?.required && driveData[item?.fieldName]) {
 
@@ -472,7 +461,7 @@ const MyTask = () => {
         }
       })
     } else {
-      console.log(isRaiseFormData.current, 'asdfasdfasdfasdfasdfasdf')
+      
       subFormRef.current[ptwModalHead.value]?.forEach(item => {
         if (allFormType.includes(ptwModalHead.value) && isRaiseFormData.current[ptwModalHead.value]) {
           setValue(
@@ -487,8 +476,6 @@ const MyTask = () => {
       setForm(subFormRef.current[ptwModalHead.value], formName);
       setPtwModalFullOpen(true);
     }
-
-    console.log(vehicleType, subFormRef.current, mileStoneItemRef.current, 'adsfasdfasdfasdfasdfasdf')
 
   }, [ptwModalHead.value, vehicleType]);
 
@@ -516,7 +503,6 @@ const MyTask = () => {
     return interdata;
   });
 
-  console.log(subFormRef.current, "asdfasdfasdfsadffgsdfgdghdfghjfhjgfhdf");
 
   const getPtwSubForm = async (formName) => {
     reset();
@@ -543,7 +529,6 @@ const MyTask = () => {
             label: item?.fieldName,
             defaultValue: item?.dataType === "AutoFill" ? "aman" : "",
             defaultValue: item?.dataType === "AutoFill" ? "aman" : "",
-            // disabled :  item?.dataType === 'AutoFill' ? true : false ,
             name: item?.fieldName,
             type:
               item?.dataType === "AutoFill"
@@ -680,8 +665,7 @@ const MyTask = () => {
               checked={parentsite.indexOf(itm.uniqueId) != -1}
               value={itm.uniqueId}
               onChange={(e) => {
-                console.log("asdfasdfasdfasdfasdfasdf.......", "called");
-                console.log("asdfasdfasdfasdfasdfasdf.......", "called");
+                
                 if (e.target.checked) {
                   setparentsite((prev) => [...prev, e.target.value]);
                   let dlisting = itm.milestoneArray.map((iewq) => {

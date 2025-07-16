@@ -464,7 +464,6 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setDriveFormModel(false);
           getApprovalsData(res?.data?.operation_id);
         }
-
         reset();
         return;
       }
