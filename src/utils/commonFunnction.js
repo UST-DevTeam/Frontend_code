@@ -9,6 +9,7 @@ export function moreinfo(text, len) {
 
 export function getAccessType(valName){
 
+    console.log(valName,"__valName")
     let permission=JSON.parse(localStorage.getItem("permission")) || {}
 
     if(permission && permission?.pmpermission && permission?.pmpermission.findIndex(prev=>prev.moduleName==valName)!=-1){
