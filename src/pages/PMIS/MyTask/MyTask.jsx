@@ -731,7 +731,7 @@ const MyTask = () => {
                             .map((itwsw, index) => (
                               <p
                                 key={index}
-                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                                className={`flex justify-center items-center s rounded-full text-white w-6 h-6 ${onehundcolor[index]}`}
                               >
                                 {" "}
                                 {itwsw.assignerName &&
@@ -748,7 +748,7 @@ const MyTask = () => {
                                     : ""}
                               </p>
                             ))}
-                          <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
+                          <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 text-lg z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
                             })}
@@ -828,6 +828,8 @@ const MyTask = () => {
                     <span className="text-[13px]">{iewq?.ptwStatus}</span>
                     <span
                       onClick={() => {
+                         
+                         
                         if (["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus)) {
                           mileStoneItemRef.current = {
                             ...itm,
@@ -852,7 +854,7 @@ const MyTask = () => {
                           clearAllFields()
                           setSelect(false);
                           setSelectedItems([]);
-                          sessionStorage.removeItem("operationId")
+                         
                           if (iewq?.isPtwRaise && !["L1-Rejected", "Closed","Auto Close","L2-Rejected"].includes(iewq?.ptwStatus) ) return;
 
                           if (ptwOption && ptwOption === iewq?._id) {
@@ -985,6 +987,7 @@ const MyTask = () => {
                             Activity: itm["ACTIVITY"] || "null",
                             "RFAI Date": itm["RFAI Date"],
                           };
+                          setPtwOption(null);
                           setDriveFormModel(true)
                         }}
                         className="text-left w-full text-[13px] text-gray-800 text-center font-semibold rounded-md hover:scale-105 hover:bg-gray-500 hover:text-white  p-2 w-fit  "
@@ -1625,6 +1628,8 @@ const MyTask = () => {
     setFormName("");
     if (sessionStorage.getItem('opid')) {
       sessionStorage.removeItem('opid')
+      sessionStorage.removeItem("operationId");
+
     }
     dispatch(AdminActions.getManageCustomer());
     dispatch(MyHomeActions.getMyTask());

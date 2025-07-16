@@ -92,6 +92,8 @@ const CommonTableForm = ({
   setediting(false)
   } , [tabHead , ptwData])
 
+  console.log(isPtw , 'sdfsdfsadfasdfkasjdfwuroiu34532945928eufwoifjsdhf')
+
 
   let listing = useSelector((state) => {
     return state.projectList.dynamicForm[tabHead]
@@ -166,7 +168,7 @@ const CommonTableForm = ({
               onClick={() => {
                 const fileName = page === "Compliance" ? "Export_Forms_Checklist_" + name + ".xlsx" : "Export_Project_Type_" + name + ".xlsx";
                 dispatch(
-                  CommonActions.commondownload("/export/ptw/" + `${isPtw ? ptwData?.fileType : tabHead}` + "/" + `${isPtw ? ptwData?._id : rowId}`,fileName)
+                  CommonActions.commondownload("/export/" + `${isPtw ? 'ptw/'+ptwData?.fileType : 'Template/'+tabHead}` + "/" + `${isPtw ? ptwData?._id : rowId}`,fileName)
                 );
               }}
             />
@@ -668,7 +670,7 @@ const CommonTableForm = ({
         onTableViewSubmit={onTableViewSubmit}
         tempbtn={true}
         label={"Template"}
-        tempbtnlink={[`${"/template"}/${tabHead}${isPtw ? `/ptw` : ''}`, "Tempalte.xlsx"]}
+        tempbtnlink={[`${"/template"}/${tabHead}${isPtw && `/ptw`}`, "Tempalte.xlsx"]}
       />
     </>
   );
