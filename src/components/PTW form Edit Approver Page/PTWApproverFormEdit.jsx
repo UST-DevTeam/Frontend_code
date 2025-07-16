@@ -42,7 +42,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
           [type]: { ...data },
         };
 
-        const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}`;
+        const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}?operation_id=${itemData?._id}`;
         res = await Api.patch({ url, data: newData });
 
       } else {
@@ -67,7 +67,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
                     }
                 });
 
-                const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}`;
+                const url = `/submit/ptw/${itemData?.formType}/${type}/${itemData?.mileStoneId}?operation_id=${itemData?._id}`;
 
                 res = await Api.patch({
                     url,
