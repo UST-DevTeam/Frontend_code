@@ -90,6 +90,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     roadsafetychecklist4wheeler: [],
   });
 
+  console.log(subFormRef.current,"||",subFormRef.current[which],"||",which, "__newWHeeler" )
   useEffect(() => {
     setPtwModalHead({
       title: which
@@ -218,7 +219,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
 
 
-        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")} ${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
           }`;
 
         res = sessionStorage.getItem("opid")
@@ -266,6 +267,11 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
         sessionStorage.setItem("opid",
           sessionStorage.getItem("opid") || formData?.mileStoneId
         );
+        
+        sessionStorage.setItem(
+        "operationId",
+          sessionStorage.getItem("operationId") || res?.data?.operation_id
+        )
 
         // Special redirect after photo
         if (which === "photo") {
@@ -410,7 +416,8 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
     const res = await Api.patch({
 
-      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}` : `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")} ${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}` : 
+      `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}`,
       data: newData,
     });
 
@@ -436,7 +443,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
             })
           }
         }
-
+        
       }
       else {
         if (!selectedItems.map(item => item?.id).includes('teamdetails')) {
@@ -471,7 +478,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
       }
     }
   };
-
+  console.log(currentStepIndex,"__nextIndex")
 
   const handleVehiclePhoto = async (formDataInput, subForm) => {
     const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
@@ -504,7 +511,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     })
 
     const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}` : ""}`,
+      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}`,
       contentType: "multipart/form-data",
       data: formDataV,
     });
