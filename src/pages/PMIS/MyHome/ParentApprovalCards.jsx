@@ -28,12 +28,12 @@ const ParentApproverCards = () => {
           href: "/home/approval/L2Approver",
           children: [],
         },
-        {
-          title: "Finance Approver",
-          use: true,
-          href: "/home/approval/FinanceApprover",
-          children: [],
-        },
+        // {
+        //   title: "Finance Approver",
+        //   use: true,
+        //   href: "/home/approval/FinanceApprover",
+        //   children: [],
+        // },
         {
           title: "Settlement Amount",
           use: true,
