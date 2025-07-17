@@ -28,13 +28,13 @@ const PTWActions = {
             url: `${Urls.ptwCustomers}${uid != "" ? "/" + uid : ""}${args != "" ? "?" + args : ""
               }`,
           });
-          if (res?.status === 200){
-let dataAll = res?.data?.data;
-          dispatch(GET_PTW_CUSTOMERS({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_PTW_CUSTOMERS({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-          
+
         } catch (error) { }
       },
 
@@ -46,13 +46,13 @@ let dataAll = res?.data?.data;
             url: `${Urls.ptwEmployee}${uid != "" ? "/" + uid : ""}${args != "" ? "?" + args : ""
               }`,
           });
-          if (res?.status === 200){
- let dataAll = res?.data?.data;
-          dispatch(GET_PTW_EMPLOYEE({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_PTW_EMPLOYEE({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-         
+
         } catch (error) { }
       },
 
@@ -64,13 +64,13 @@ let dataAll = res?.data?.data;
             url: `${Urls.ptwProjectType}${uid != "" ? "/" + uid : ""}${args != "" ? "?" + args : ""
               }`,
           });
-          if (res?.status === 200){
-let dataAll = res?.data?.data;
-          dispatch(GET_PTW_PROJECTTYPE({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_PTW_PROJECTTYPE({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-          
+
         } catch (error) { }
       },
 
@@ -82,13 +82,13 @@ let dataAll = res?.data?.data;
             url: `${Urls.PtwProjectGroup}${uid != "" ? "/" + uid : ""}${args != "" ? "?" + args : ""
               }`,
           });
-          if (res?.status === 200){
-let dataAll = res?.data?.data;
-          dispatch(GET_PTW_PROJECTGROUP({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_PTW_PROJECTGROUP({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-          
+
         } catch (error) { }
       },
 
@@ -100,13 +100,13 @@ let dataAll = res?.data?.data;
             url: `${Urls.PtwCircle}${custId != "" ? "/" + custId : ""}${projectTypeId != "" ? "/" + projectTypeId : ""
               }${args != "" ? "?" + args : ""}`,
           });
-          if (res?.status === 200){
-let dataAll = res?.data?.data;
-          dispatch(GET_PTW_Circle({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_PTW_Circle({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-          
+
         } catch (error) { }
       },
 
@@ -142,7 +142,7 @@ let dataAll = res?.data?.data;
               icon: "success",
               buttons: [],
               type: 1,
-              text: "L1 Approver form submitted successfully!",
+              text: "Approver form submitted successfully!",
             };
             dispatch(ALERTS(msgdata));
 
@@ -380,7 +380,7 @@ let dataAll = res?.data?.data;
         }
       },
   getPtwApprover:
-    (reset = true,circle = '' ,  args = "") =>
+    (reset = true, circle = '', args = "") =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
@@ -399,7 +399,7 @@ let dataAll = res?.data?.data;
         }
       },
   getPtwApproverPatch:
-    (reset = true, data, args = "" , cb = () => {}) =>
+    (reset = true, data, args = "", cb = () => { }) =>
       async (dispatch, _) => {
         try {
           const res = await Api.patch({
@@ -411,7 +411,7 @@ let dataAll = res?.data?.data;
             let dataAll = res?.data?.data;
             dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
             cb()
-          }else {
+          } else {
             dispatch(ALERTS(res?.data));
           }
         } catch (error) {
@@ -425,14 +425,14 @@ let dataAll = res?.data?.data;
           const res = await Api.get({
             url: `${Urls.PtwRejectionPage}${args != "" ? "?" + args : ""}`,
           });
-          if (res?.status === 200){
- let dataAll = res?.data?.data;
-         
-          dispatch(GET_PTW_REJECTION_L1({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+
+            dispatch(GET_PTW_REJECTION_L1({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-         
+
         } catch (error) {
           console.error("Error fetching  Approver page data:", error);
         }
@@ -448,13 +448,13 @@ let dataAll = res?.data?.data;
               }`,
             data,
           });
-          if (res?.status === 200){
-let dataAll = res?.data?.data; 
-          dispatch(GET_PTW_APPROVER_ALERT({ dataAll, reset }));
-          }else {
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_PTW_APPROVER_ALERT({ dataAll, reset }));
+          } else {
             dispatch(ALERTS(res?.data));
           }
-          
+
         } catch (error) {
           console.error("Error fetching  Approver page data:", error);
         }

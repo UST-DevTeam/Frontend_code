@@ -133,6 +133,10 @@ const BreadCrumbs = () => {
       name: "Activity Logs",
       url: "/hr/superAdmin/ActivityLogs",
     },
+    mdbApprover: {
+      name: "MdbApprover",
+      url: "/superAdmin/PTW/mdbApprover",
+    },
     repository: {
       name: "Repository",
       url: "/repository",
