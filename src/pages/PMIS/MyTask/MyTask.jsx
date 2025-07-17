@@ -855,7 +855,7 @@ const MyTask = () => {
                           setSelect(false);
                           setSelectedItems([]);
                          
-                          if (iewq?.isPtwRaise && !["L1-Rejected", "Closed","Auto Close","L2-Rejected"].includes(iewq?.ptwStatus) ) return;
+                          if (iewq?.isPtwRaise && !["L1-Rejected", "Closed","Auto Closed","L2-Rejected"].includes(iewq?.ptwStatus) ) return;
 
                           if (ptwOption && ptwOption === iewq?._id) {
                             setPtwOption(null);
@@ -866,7 +866,7 @@ const MyTask = () => {
                       }}
                       title={["L1-Rejected", "L2-Rejected"].includes(iewq?.ptwStatus) ? 'Raise PTW Again' : "Raise PTW"}
                       className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
-                        ["L1-Rejected", "Closed","Auto Close","L2-Rejected"].includes(iewq?.ptwStatus)
+                        ["L1-Rejected", "Closed","Auto Closed","L2-Rejected"].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
                         } rounded-md bg-[#13B497]`}

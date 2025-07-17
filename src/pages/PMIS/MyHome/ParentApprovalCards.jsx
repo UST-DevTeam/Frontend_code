@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CCDash from "../../../components/CCDash";
-import { useNavigate } from "react-router-dom";
+// import CCDash from "../../../components/CCDash";
+// import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../store/actions/component-actions";
-import { getAccessType } from "../../../utils/commonFunnction";
-import { ALERTS } from "../../../store/reducers/component-reducer";
+// import { getAccessType } from "../../../utils/commonFunnction";
+// import { ALERTS } from "../../../store/reducers/component-reducer";
 import AdminActions from "../../../store/actions/admin-actions";
 import TreeStructure from "../../../components/TreeStructure";
 
 const ParentApproverCards = () => {
   let dispatch = useDispatch();
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const complianceData = [
     {
       title: "Expense/Advance",
@@ -99,41 +99,40 @@ const ParentApproverCards = () => {
     ["Compliance 2", "bg-pcol", "/home/compliance2"],
   ];
 
-  let dbConfigListCard = useSelector((state) => {
-    let interdata = state?.adminData?.getCardComplainceMilestone;
-    return interdata?.map((itm) => {
-      let updateditm = {
-        ...itm,
-      };
-      return updateditm;
-    });
-  });
+  // let dbConfigListCard = useSelector((state) => {
+  //   let interdata = state?.adminData?.getCardComplainceMilestone;
+  //   return interdata?.map((itm) => {
+  //     let updateditm = {
+  //       ...itm,
+  //     };
+  //     return updateditm;
+  //   });
+  // });
 
-  const cards = [
-    ["Expense/Advance", "bg-pcol", "/home/parentApproval/ptwL1Approver"],
-    ["Compliance", "bg-pcol", "/home/complianceMilestoneCard"],
-  ];
+  // const cards = [
+  //   ["Expense/Advance", "bg-pcol", "/home/parentApproval/ptwL1Approver"],
+  //   ["Compliance", "bg-pcol", "/home/complianceMilestoneCard"],
+  // ];
 
-  const additionalCards = {
-    "Expense/Advance": [
-      ["L1 Approver", "bg-pcol", "/home/approval/L1Approver"],
-      ["L2 Approver", "bg-pcol", "/home/approval/L2Approver"],
-      ["Finance Approver", "bg-pcol", "/home/approval/FinanceApprover"],
-      ["Settlement Amount", "bg-pcol", "/home/approverCards/SettlementAmount"],
+  // const additionalCards = {
+  //   "Expense/Advance": [
+  //     ["L1 Approver", "bg-pcol", "/home/approval/L1Approver"],
+  //     ["L2 Approver", "bg-pcol", "/home/approval/L2Approver"],
+  //     ["Finance Approver", "bg-pcol", "/home/approval/FinanceApprover"],
+  //     ["Settlement Amount", "bg-pcol", "/home/approverCards/SettlementAmount"],
       
-    ],
-    Compliance: [
-      ["Compliance 1", "bg-pcol", "/home/compliance1"],
-      ["Compliance 2", "bg-pcol", "/home/compliance2"],
-    ],
-    PTWApprover: [
-      ["L1 Approver", "bg-pcol", "/home/Approval/ptwL1Approver"],
-      ["PTW L2 Approver", "bg-pcol", "/home/Approval/ptwL2Approver"],
-    ],
-  };
+  //   ],
+  //   Compliance: [
+  //     ["Compliance 1", "bg-pcol", "/home/compliance1"],
+  //     ["Compliance 2", "bg-pcol", "/home/compliance2"],
+  //   ],
+  //   PTWApprover: [
+  //     ["L1 Approver", "bg-pcol", "/home/Approval/ptwL1Approver"],
+  //     ["PTW L2 Approver", "bg-pcol", "/home/Approval/ptwL2Approver"],
+  //   ],
+  // };
 
-  const [type, settype] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
+ 
 
   useEffect(() => {
     dispatch(AdminActions.getCardComplianceMilestone());

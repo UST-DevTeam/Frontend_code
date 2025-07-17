@@ -696,8 +696,7 @@ const ManageProjectSiteId = () => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style:"min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "System ID",
