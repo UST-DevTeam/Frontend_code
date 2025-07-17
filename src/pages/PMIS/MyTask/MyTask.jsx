@@ -1395,7 +1395,6 @@ const MyTask = () => {
         value: "systemId",
         style:"min-w-[140px] max-w-[200px] text-center",
       },
- 
       {
         name: "Project ID",
         value: "projectId",
@@ -1471,6 +1470,11 @@ const MyTask = () => {
           style: " sticky left-0 bg-[#3e454d] text-center  z-20",
           style: " sticky left-0 bg-[#3e454d] text-center  z-20",
         },
+        {
+        name: "System ID",
+        value: "System ID",
+        style:"min-w-[140px] max-w-[200px] text-center",
+      },
         {
           name: "Project ID",
           value: "projectId",
