@@ -46,6 +46,7 @@ import { GET_FILTER_MYTASK_SUBPROJECT } from "../../../store/reducers/filter-red
 import Api from "../../../utils/api";
 import CommonForm from "../../../components/CommonForm";
 import CommonFormPTW from "./CommonFormPTW";
+import RejectionReason from "../../../components/Rejection Reason/RejectionReason";
 
 const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -455,9 +456,6 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-
-
-
     if (!isPtwRaise) {
       subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
         console.log(item, 'asdfasdfasdfasdfa')
@@ -891,6 +889,22 @@ const MyTask = () => {
                     >
                       <LuTicketX size={20} />
                     </span>
+                    {['L1-Rejected', 'L2-Rejected'].includes(iewq?.ptwStatus)? 
+                    <span
+                      onClick={() => {
+                        setmodalBody(<RejectionReason itemData={itm}/>)
+                        setmodalOpen(true)
+                        
+                      }}
+                      title={"Rejection Reason"}
+                      className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
+                        ["L1-Rejected", "Closed","Auto Closed","L2-Rejected"].includes(iewq?.ptwStatus)
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-60"
+                        } rounded-md bg-[#13B497]`}
+                    >
+                      <LuTicketCheck size={20} />
+                    </span>:""}
                   </div>
                   {iewq?._id === ptwOption && (
                     <div className="absolute bg-gray-200 grid p-2 w-[150px] rounded-md right-0 gap-1  top-6 z-40  ">
