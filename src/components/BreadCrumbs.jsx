@@ -115,7 +115,7 @@ const BreadCrumbs = () => {
     },
     approverCards: {
       name: "Approval",
-      url: "/home/parentApproverCards/approverCards",
+      url: "/home/approval",
     },
     vendor: {
       name: "Partner",

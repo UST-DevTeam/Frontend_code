@@ -19,13 +19,13 @@ const ParentApproverCards = () => {
         {
           title: "L1 Approver",
           use: true,
-          href: "/home/approval/L1Approver",
+          href: "/home/approverCards/L1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
           use: true,
-          href: "/home/approval/L2Approver",
+          href: "/home/approverCards/L2Approver",
           children: [],
         },
         // {
@@ -37,7 +37,7 @@ const ParentApproverCards = () => {
         {
           title: "Settlement Amount",
           use: true,
-          href: "/home/approval/SettlementAmount",
+          href: "/home/approverCards/SettlementAmount",
           children: [],
         },
       ],
@@ -51,13 +51,13 @@ const ParentApproverCards = () => {
         {
           title: "L1 Approver",
           use : true,
-          href: "/home/ptw/Approval/l1Approver",
+          href: "/home/Approval/l1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
           use : true,
-          href: "/home/ptw/Approval/l2Approver",
+          href: "/home/Approval/l2Approver",
           children: [],
         },
       ],
