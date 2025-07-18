@@ -90,7 +90,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     roadsafetychecklist4wheeler: [],
   });
 
-  console.log(subFormRef.current,"||",subFormRef.current[which],"||",which, "__newWHeeler" )
+  console.log(subFormRef.current, "||", subFormRef.current[which], "||", which, "__newWHeeler")
   useEffect(() => {
     setPtwModalHead({
       title: which
@@ -98,14 +98,14 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     if (isPtwRaise) {
       subFormRef.current[which]?.forEach((item) => {
         console.log(item, '987654323456789876545678765')
-        if (['checklist', 'photo'].includes(which)) {
+        if (['checklist', 'photo']?.includes(which) && Object.keys(fillData)?.includes(which)) {
           setValue(item?.fieldName, item?.dataType === 'img' ? baseUrl + fillData[which][item?.fieldName] : fillData[which][item?.fieldName])
         }
       })
     } else {
       subFormRef.current[which]?.forEach((item) => {
         console.log(item, '987654323456789876545678765')
-        if (['checklist', 'photo'].includes(which)) {
+        if (['checklist', 'photo']?.includes(which) && Object.keys(fillData)?.includes(which)) {
           setValue(item?.fieldName, formData[item?.fieldName])
         }
       })
@@ -219,7 +219,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
 
 
-        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")} ${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")} ${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : ""
           }`;
 
         res = sessionStorage.getItem("opid")
@@ -252,7 +252,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           }
         });
 
-        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
+        const url = isPtwRaise ? `/regeneratePtw/${formType}/${which}/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : `/submit/ptw/${formType}/${which}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : ""
           }`;
 
         res = await Api.patch({
@@ -267,9 +267,9 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
         sessionStorage.setItem("opid",
           sessionStorage.getItem("opid") || formData?.mileStoneId
         );
-        
+
         sessionStorage.setItem(
-        "operationId",
+          "operationId",
           sessionStorage.getItem("operationId") || res?.data?.operation_id
         )
 
@@ -416,8 +416,8 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
     const res = await Api.patch({
 
-      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}` : 
-      `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}`,
+      url: isPtwRaise ? `/regeneratePtw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : ""}` :
+        `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : ""}`,
       data: newData,
     });
 
@@ -431,19 +431,25 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
         if (!selectedItems.map(item => item?.id).includes('teamdetails')) {
           setIsMultiStep(false)
         }
-        
+
         if (allFormType.includes('roadsafetychecklist2wheeler')) {
           if (isPtwRaise) {
-            subFormRef.current.ptwphoto2wheeler?.forEach((item) => {
-              setValueForm1(item?.fieldName, fillData['ptwphoto2wheeler'][item?.fieldName])
-            })
+            if (Object.keys(fillData)?.includes("ptwphoto2wheeler")) {
+              subFormRef.current.ptwphoto2wheeler?.forEach((item) => {
+                setValueForm1(item?.fieldName, fillData['ptwphoto2wheeler'][item?.fieldName])
+              })
+            }
+
           } else {
-            subFormRef.current.ptwphoto4wheeler?.forEach((item) => {
-              setValueForm2(item?.fieldName, formData['ptwphoto4wheeler'][item?.fieldName])
-            })
+            if (Object.keys(fillData)?.includes("ptwphoto4wheeler")) {
+              subFormRef.current.ptwphoto4wheeler?.forEach((item) => {
+                setValueForm2(item?.fieldName, formData['ptwphoto4wheeler'][item?.fieldName])
+              })
+            }
+
           }
         }
-        
+
       }
       else {
         if (!selectedItems.map(item => item?.id).includes('teamdetails')) {
@@ -451,34 +457,34 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
           setPtwDriveModel(false)
           setDriveFormModel(false);
           getApprovalsData(res?.data?.operation_id);
-        }else{
-          if (isMultiStep) {
-        const nextIndex = currentStepIndex + 1;
-        console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
-        setVehicleType('')
-        if (nextIndex < selectedItems.length) {
-          setCurrentStepIndex(nextIndex);
-          const nextForm = selectedItems[nextIndex];
-          setWhich(nextForm.id);
-          setPtwDriveModel(false)
-          setDriveFormModel(true)
-          setIsMultiStep(false);
-
         } else {
-          // Final step (show vehicle form)
-          setIsMultiStep(false);
-          setPtwDriveModel(false)
-          setDriveFormModel(false);
-          getApprovalsData(res?.data?.operation_id);
-        }
-        reset();
-        return;
-      }
+          if (isMultiStep) {
+            const nextIndex = currentStepIndex + 1;
+            console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
+            setVehicleType('')
+            if (nextIndex < selectedItems.length) {
+              setCurrentStepIndex(nextIndex);
+              const nextForm = selectedItems[nextIndex];
+              setWhich(nextForm.id);
+              setPtwDriveModel(false)
+              setDriveFormModel(true)
+              setIsMultiStep(false);
+
+            } else {
+              // Final step (show vehicle form)
+              setIsMultiStep(false);
+              setPtwDriveModel(false)
+              setDriveFormModel(false);
+              getApprovalsData(res?.data?.operation_id);
+            }
+            reset();
+            return;
+          }
         }
       }
     }
   };
-  console.log(currentStepIndex,"__nextIndex")
+  console.log(currentStepIndex, "__nextIndex")
 
   const handleVehiclePhoto = async (formDataInput, subForm) => {
     const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
@@ -511,7 +517,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     })
 
     const res = await Api.patch({
-      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")!== undefined ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""}`,
+      url: `/submit/ptw/drivetestactivity/${subForm}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined ? "?operation_id=" + sessionStorage.getItem("operationId") : ""}` : ""}`,
       contentType: "multipart/form-data",
       data: formDataV,
     });
