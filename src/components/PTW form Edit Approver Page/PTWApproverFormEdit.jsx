@@ -109,7 +109,8 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
       const fieldValue = formData?.[tempType]?.[fieldName];
 
       if (item?.dataType === 'img' && fieldValue) {
-        setValue(fieldName, `${baseUrl}${fieldValue}`);
+        setValue(fieldName, `${baseUrl}/${fieldValue}`);
+       
       } else {
         setValue(fieldName, fieldValue);
       }
@@ -134,6 +135,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
             }
           : {}),
         required: item?.required === 'Yes',
+        fieldValue:fieldValue? fieldValue:""
       };
     });
 
@@ -143,7 +145,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
   return (
     <div>
       <CommonForm
-        classes="grid-cols-3 gap-4"
+        classes={`${ formConfig?.length > 3 ? 'grid-cols-3' : 'grid-cols-1' } gap-4`}
         Form={formConfig}
         errors={errors}
         register={register}
