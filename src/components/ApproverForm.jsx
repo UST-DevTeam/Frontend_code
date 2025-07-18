@@ -112,7 +112,7 @@ const ApproverForm = ({
   
   useEffect(() => {
     dispatch(
-      PTWActions.getPtwApprover(true,selectedRow?.circleId , selectedRow?.projectType)
+      PTWActions.getPtwApprover(true,selectedRow?.circleId , `projectType=${selectedRow?.projectType}`)
     );
   }, [dispatch, selectedRow?.projectType]);
 

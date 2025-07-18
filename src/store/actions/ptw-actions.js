@@ -380,14 +380,14 @@ const PTWActions = {
         }
       },
   getPtwApprover:
-    (reset = true, circle = '' , projectId = '', args = "") =>
+    (reset = true, circle = '', args = "") =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({
-            url: `${Urls.PtwApproverPage}/${projectId}/${circle}${args != "" ? "?" + args : ""}`,
+            url: `${Urls.PtwApproverPage}/${circle}${args != "" ? "?" + args : ""}`,
           });
           if (res?.status === 200) {
-            let dataAll = res?.data?.data?.filter((item) =>  (item?.ApproverType === 'L2-Approver') );
+            let dataAll = res?.data?.data;
             dispatch(GET_PTW_APPROVER_L1({ dataAll, reset }));
           } else {
             dispatch(ALERTS(res?.data));
