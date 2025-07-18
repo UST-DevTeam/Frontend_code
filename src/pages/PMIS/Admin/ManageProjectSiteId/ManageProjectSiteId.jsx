@@ -788,6 +788,11 @@ const ManageProjectSiteId = () => {
             "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
         },
         {
+        name: "System ID",
+        value: "",
+        style:"min-w-[140px] max-w-[200px] text-center",
+      },
+        {
           name: "Sub Project",
           value: "SubProject",
           style: "min-w-[140px] max-w-[200px] text-center",
