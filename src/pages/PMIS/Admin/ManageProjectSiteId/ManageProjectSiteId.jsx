@@ -960,7 +960,7 @@ const ManageProjectSiteId = () => {
       })
     );
   };
-
+console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
   return (
     <>
       <AdvancedTableExpandable

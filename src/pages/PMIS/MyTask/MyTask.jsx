@@ -8,7 +8,7 @@ import DeleteButton from "../../../components/DeleteButton";
 import { PiWarningCircle } from "react-icons/pi";
 import CstmButton from "../../../components/CstmButton";
 import ToggleButton from "../../../components/ToggleButton";
-import { MdMessage } from "react-icons/md";
+import { MdMessage, MdSmsFailed } from "react-icons/md";
 import PopupMenu from "../../../components/PopupMenu";
 import { LuTicketCheck, LuTicketX } from "react-icons/lu";
 import {
@@ -47,6 +47,7 @@ import Api from "../../../utils/api";
 import CommonForm from "../../../components/CommonForm";
 import CommonFormPTW from "./CommonFormPTW";
 import RejectionReason from "../../../components/Rejection Reason/RejectionReason";
+import { TbBrandReason } from "react-icons/tb";
 
 const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -712,7 +713,7 @@ const MyTask = () => {
           ""
         ),
 
-        milestoneArray: itm?.milestoneArray?.map((iewq) => {
+        milestoneArray: itm?.milestoneArray?.map((iewq,index) => {
           return {
             ...iewq,
             SubProject: "",
@@ -822,6 +823,7 @@ const MyTask = () => {
             ptwStatus : ( iewq.mileStoneStatus !== "Closed"  ? <div style={{
                     display: getAccessType('PTW Raise Actions') === 'invisible' ? 'none' : 'block'
                   }} className="relative">
+                    
                   <div  className="h-full w-[80%] cursor-default  flex items-center gap-2 justify-end">
                     <span className="text-[13px]">{iewq?.ptwStatus}</span>
                     <span
@@ -892,8 +894,9 @@ const MyTask = () => {
                     {['L1-Rejected', 'L2-Rejected'].includes(iewq?.ptwStatus)? 
                     <span
                       onClick={() => {
-                        setmodalBody(<RejectionReason itemData={itm}/>)
+                        setmodalBody(<RejectionReason itemData={itm?.milestoneArray[index]}/>)
                         setmodalOpen(true)
+                        setmodalHead("Rejection Reason's")
                         
                       }}
                       title={"Rejection Reason"}
@@ -901,9 +904,9 @@ const MyTask = () => {
                         ["L1-Rejected", "Closed","Auto Closed","L2-Rejected"].includes(iewq?.ptwStatus)
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-60"
-                        } rounded-md bg-[#13B497]`}
+                        } rounded-md bg-[#F43F5E]`}
                     >
-                      <LuTicketCheck size={20} />
+                      <MdSmsFailed   size={20} />
                     </span>:""}
                   </div>
                   {iewq?._id === ptwOption && (
@@ -1467,7 +1470,7 @@ const MyTask = () => {
       ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
         name: "PTW status",
         value: "ptwStatus",
-        style: "min-w-[240px] max-w-[280px] text-center",
+        style: "min-w-[271px] max-w-[280px] text-center",
       }] : []),
     ],
     childList: [""],

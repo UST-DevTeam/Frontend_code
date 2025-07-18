@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Api from '../../utils/api'
 
 const RejectionReason = ({itemData}) => {
 
+  const [response, setResponse] = useState([])
+
+console.log(itemData,"__itemData___")
+
 const getRejectionData=async()=>{
-const res = await Api.get({url: `/rejection?ptwNumber=${itemData?.ptwNumber}`,
+const res = await Api.get({url: `/web/rejection?ptwNumber=${itemData?.ptwNumber}`,
     })
-    console.log(res,"___res")
+    
+    setResponse(res?.data?.data)
 }
 
 useEffect(()=>{
@@ -15,12 +20,19 @@ useEffect(()=>{
 getRejectionData()
 
 },[])
-
+console.log(response,"___reponse")
 
   return (
-    <div>
-      Dharmender
-    </div>
+    <>
+    
+      {
+        response[0]?.rejectionReason?.map((itm, index)=>{
+          return <div className='dark:text-white pl-5'>
+              {index+1}. {itm}
+          </div>
+        })
+      }
+    </>
   )
 }
 

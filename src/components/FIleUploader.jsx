@@ -54,6 +54,7 @@ const FileUploader = ({
                   classes={"w-auto flex ml-auto mb-1 bg-[#d07407] text-black"}
                   name={label}
                   onClick={() => {
+                    console.log(tempbtnlink,"___tempbtnlink__")
                     dispatch(
                       CommonActions.commondownload(
                         tempbtnlink[0],

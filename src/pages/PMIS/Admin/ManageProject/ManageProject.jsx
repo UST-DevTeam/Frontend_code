@@ -346,7 +346,7 @@ const ManageProject = () => {
       };
     });
   });
-
+console.log(fileOpenlink,"___fileOpenlink__")
   let projectGroupList = useSelector((state) => {
     return state?.filterData?.getProjectProjectGroup.map((itm) => {
       return {

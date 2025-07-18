@@ -14,8 +14,8 @@ const AdvancedTableExpandableOneRow = ({
     finalData
 }) => {
     const [expand, setExpand] = useState(false);
-    console.log("called_____")
-    console.log("finalData___", finalData)
+    // console.log("called_____")
+    // console.log("finalData___", finalData)
 
 
     const countRef = useRef({})

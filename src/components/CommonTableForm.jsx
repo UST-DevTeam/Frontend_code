@@ -670,7 +670,7 @@ const CommonTableForm = ({
         onTableViewSubmit={onTableViewSubmit}
         tempbtn={true}
         label={"Template"}
-        tempbtnlink={[`${"/template"}/${tabHead}${isPtw && `/ptw`}`, "Tempalte.xlsx"]}
+        tempbtnlink={[`${"/template"}/${tabHead}${isPtw ? `/ptw`:""}`, "Tempalte.xlsx"]}
       />
     </>
   );
