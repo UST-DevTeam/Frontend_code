@@ -333,7 +333,10 @@ const ManageCustomer = () => {
       
 
       
-          approveddata={[...dbConfiglist2]?.sort((a,b) => +a.index - +b.index).map((itm) => {
+          approveddata={[...dbConfiglist2]?.sort((a,b) => +a.index - +b.index).map((itm,index) => {
+            if(index==0){
+              console.log(itm,"__itm__")
+            }
             return (
               <>
                 <div
@@ -344,13 +347,13 @@ const ManageCustomer = () => {
                         itm["customerName"],
                         itm["index"],
                         `${"/projectManagement"}/${itm["customerName"]}/${
-                          itm["uniqueId"]
+                          itm["uniqueId"]!== undefined ?itm["uniqueId"]:itm["customerId"]
                         }`
                       )
                     );
                     navigate(
                       `${"/projectManagement"}/${itm["customerName"]}/${
-                        itm["uniqueId"]
+                        itm["uniqueId"]!== undefined ?itm["uniqueId"]:itm["customerId"]
                       }`
                     );
                   }}
