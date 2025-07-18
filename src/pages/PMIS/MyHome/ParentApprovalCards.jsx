@@ -51,13 +51,13 @@ const ParentApproverCards = () => {
         {
           title: "L1 Approver",
           use : true,
-          href: "/home/Approval/l1Approver",
+          href: "/home/ptw/Approval/l1Approver",
           children: [],
         },
         {
           title: "L2 Approver",
           use : true,
-          href: "/home/Approval/l2Approver",
+          href: "/home/ptw/Approval/l2Approver",
           children: [],
         },
       ],

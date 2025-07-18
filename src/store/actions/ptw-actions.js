@@ -142,7 +142,7 @@ const PTWActions = {
               icon: "success",
               buttons: [],
               type: 1,
-              text: "Approver form submitted successfully!",
+              text: formData?.ApproverType === 'L2-Approver' ? 'L2-Approver form submitted successfully!' : "L1-Approver form submitted successfully!",
             };
             dispatch(ALERTS(msgdata));
 

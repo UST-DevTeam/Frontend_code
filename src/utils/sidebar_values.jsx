@@ -375,7 +375,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/home/Approval/:type",
+      link: "/home/ptw/Approval/:type",
       subMenu: [],
       component: <ApproverPage/>,
     },
