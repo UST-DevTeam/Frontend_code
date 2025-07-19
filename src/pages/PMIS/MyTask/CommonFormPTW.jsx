@@ -7,7 +7,7 @@ import Modal from "../../../components/Modal";
 import { baseUrl, Urls } from "../../../utils/url";
 import { alertError } from "../../../utils/commonFunnction";
 
-const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDriveFormModel, setPtwModalHead, formData }) => {
+const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = {}, setDriveFormModel, setPtwModalHead, formData }) => {
   const {
     register,
     handleSubmit,
@@ -98,14 +98,14 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
     if (isPtwRaise) {
       subFormRef.current[which]?.forEach((item) => {
         console.log(item, '987654323456789876545678765')
-        if (['checklist', 'photo']?.includes(which) && Object.keys(fillData)?.includes(which)) {
+        if (['checklist', 'photo']?.includes(which) && fillData!==null  && Object.keys(fillData)?.includes(which)) {
           setValue(item?.fieldName, item?.dataType === 'img' ? baseUrl + fillData[which][item?.fieldName] : fillData[which][item?.fieldName])
         }
       })
     } else {
       subFormRef.current[which]?.forEach((item) => {
-        console.log(item, '987654323456789876545678765')
-        if (['checklist', 'photo']?.includes(which) && Object.keys(fillData)?.includes(which)) {
+        console.log(item, fillData,'987654323456789876545678765')
+        if (['checklist', 'photo']?.includes(which)  && Object?.keys(fillData)?.includes(which)) {
           setValue(item?.fieldName, formData[item?.fieldName])
         }
       })
@@ -434,14 +434,14 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData, setDr
 
         if (allFormType.includes('roadsafetychecklist2wheeler')) {
           if (isPtwRaise) {
-            if (Object.keys(fillData)?.includes("ptwphoto2wheeler")) {
+            if (Object.keys(fillData)?.includes("ptwphoto2wheeler")&& fillData!==null ) {
               subFormRef.current.ptwphoto2wheeler?.forEach((item) => {
                 setValueForm1(item?.fieldName, fillData['ptwphoto2wheeler'][item?.fieldName])
               })
             }
 
           } else {
-            if (Object.keys(fillData)?.includes("ptwphoto4wheeler")) {
+            if (Object.keys(fillData)?.includes("ptwphoto4wheeler")&& fillData!==null ) {
               subFormRef.current.ptwphoto4wheeler?.forEach((item) => {
                 setValueForm2(item?.fieldName, formData['ptwphoto4wheeler'][item?.fieldName])
               })
