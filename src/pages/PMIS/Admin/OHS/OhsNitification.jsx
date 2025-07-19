@@ -234,11 +234,9 @@ const OhsNitification = () => {
         setIsOpen={setNotification}
       />
       <Modal
-        size="sm"
+        size="full"
         modalHead={<h1>Image View</h1>}
-        children={<div className='w-[50wv] h-[50vh]'>
-          <iframe src={imageRef.current} className='w-full h-full object-cover  rounded-md' alt="" />
-        </div>}
+        children={ <img src={imageRef.current} className='w-full h-[90vh] object-fill  rounded-md' alt="" />}
         isOpen={image}
         setIsOpen={setImage}
       />

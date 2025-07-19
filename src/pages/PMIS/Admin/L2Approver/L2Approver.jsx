@@ -168,7 +168,14 @@ const L2Approver = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    const strVal = objectToQueryString(data);
+    // const strVal = objectToQueryString(data);
+    let strVal = objectToQueryString(data);
+    if(strVal?.length>0){
+      strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
+    }else{
+      strVal =objectToQueryString({ ApproverType: "L2-Approver" })
+    }
+    
     dispatch(
       PTWActions.getL1ApproverData(
         true,

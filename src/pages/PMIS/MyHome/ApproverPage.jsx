@@ -815,9 +815,18 @@ const ApproverPage = () => {
   };
 
   const onSubmit = (data) => {
-    let value = data.reseter;
+   
+
+     let value = data.reseter;
     delete data.reseter;
-    const strVal = objectToQueryString(data);
+    // const strVal = objectToQueryString(data);
+    let strVal = objectToQueryString(data);
+    if(strVal?.length>0){
+      strVal = strVal+"&"+objectToQueryString({ ApproverType: type })
+    }else{
+      strVal =objectToQueryString({ ApproverType: type })
+    }
+    
     dispatch(PTWActions.getApproverPage(true, strVal));
   };
 

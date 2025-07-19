@@ -5,6 +5,7 @@ import AdvancedTable from "../../../components/AdvancedTable";
 import PTWActions from "../../../store/actions/ptw-actions";
 import CommonActions from "../../../store/actions/common-actions";
 import Button from "../../../components/Button";
+import { objectToQueryString } from "../../../utils/commonFunnction";
 
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
@@ -307,22 +308,32 @@ const PTWLogBackup = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("Filter form submitted:", data);
+    // console.log("Filter form submitted:", data);
 
-    const queryParams = new URLSearchParams();
-    Object.keys(data).forEach((key) => {
-      if (data[key] && data[key] !== "") {
-        queryParams.append(key, data[key]);
-      }
-    });
+    // const queryParams = new URLSearchParams();
+    // Object.keys(data).forEach((key) => {
+    //   if (data[key] && data[key] !== "") {
+    //     queryParams.append(key, data[key]);
+    //   }
+    // });
 
-    const filterArgs = queryParams.toString();
-    const args = `page=1&limit=${rowsPerPage}${
-      filterArgs ? "&" + filterArgs : ""
-    }`;
+    // const filterArgs = queryParams.toString();
+    // const args = `page=1&limit=${rowsPerPage}${
+    //   filterArgs ? "&" + filterArgs : ""
+    // }`;
 
-    setCurrentPage(1);
-    dispatch(PTWActions.getPtwLogBackup(true, args));
+    // setCurrentPage(1);
+     let value = data.reseter;
+        delete data.reseter;
+        // const strVal = objectToQueryString(data);
+        const strVal = objectToQueryString(data);
+        // if(strVal?.length>0){
+        //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
+        // }else{
+        //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
+        // }
+        
+    dispatch(PTWActions.getPtwLogBackup(true, strVal));
   };
 
   useEffect(() => {
