@@ -338,7 +338,7 @@ const PTWActions = {
       },
 
   getApproverPage:
-    (reset = true, args = "") =>
+    (reset = true, args = "",cb=()=>{}) =>
       async (dispatch, _) => {
         try {
           const res = await Api.get({

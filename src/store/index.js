@@ -20,6 +20,7 @@ import repository from "./reducers/repository-reducer";
 import gpTrackingReducer from "./reducers/gpTracking-reducer"
 import tableReducer from "./reducers/table-reducer"
 import dropDownReducer from "./reducers/dropDown-reducer"
+import globalFiltersReducer from "./reducers/globalFilter-reducer";
 
 const store = configureStore({
     reducer: {
@@ -43,7 +44,8 @@ const store = configureStore({
         GraphData,
         currentuserData,
         repository,
-        gpTrackingReducer
+        gpTrackingReducer,
+        globalFiltersReducer
     },
     devTools: true
 })
