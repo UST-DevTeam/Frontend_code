@@ -999,48 +999,48 @@ const ApproverPage = () => {
               Form={RejectionForm.current && RejectionForm.current?.form}
               errors={errors}
               register={register}
-              setValue={setValue}
-              getValues={getValues}
-            />
-            {errors.root && (
-              <p className="text-red-500 text-sm mt-2">{errors.root.message}</p>
-            )}
-            <Button
-              name="Submit"
-              classes="w-fit"
-              onClick={handleSubmit((data) => {
-                const values = Object.values(data);
-                const hasAnyValue = values.some(
-                  (value) =>
-                    value !== null && value !== undefined && value !== ""
-                );
+                setValue={setValue}
+                getValues={getValues}
+              />
+              {errors.root && (
+                <p className="text-red-500 text-sm mt-2">{errors.root.message}</p>
+              )}
+              <Button
+                name="Submit"
+                classes="w-fit"
+                onClick={handleSubmit((data) => {
+                  const values = Object.values(data);
+                  const hasAnyValue = values.some(
+                    (value) =>
+                      value !== null && value !== undefined && value !== ""
+                  );
 
-                if (!hasAnyValue) {
-                  setError("root", {
-                    type: "manual",
-                    message: "At least one field is required",
-                  });
-                  return;
-                }
+                  if (!hasAnyValue) {
+                    setError("root", {
+                      type: "manual",
+                      message: "At least one field is required",
+                    });
+                    return;
+                  }
 
-                handleRejection(data, RejectionForm.current?.mId);
-              })}
-            />
-          </div>
-        }
-        isOpen={rejectionModal}
-        setIsOpen={setRejectionModal}
-      />
-      <FileUploader
-        isOpen={fileOpen}
-        fileUploadUrl={""}
-        onTableViewSubmit={onTableViewSubmit}
-        setIsOpen={setFileOpen}
-        tempbtn={true}
-        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
-      />
-    </>
-  );
-};
+                  handleRejection(data, RejectionForm.current?.mId);
+                })}
+              />
+            </div>
+          }
+          isOpen={rejectionModal}
+          setIsOpen={setRejectionModal}
+        />
+        <FileUploader
+          isOpen={fileOpen}
+          fileUploadUrl={""}
+          onTableViewSubmit={onTableViewSubmit}
+          setIsOpen={setFileOpen}
+          tempbtn={true}
+          tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
+        />
+      </>
+    );
+  };
 
-export default ApproverPage;
+  export default ApproverPage;

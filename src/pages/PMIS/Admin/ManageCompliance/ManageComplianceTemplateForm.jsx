@@ -140,7 +140,7 @@ const ManageComplianceTemplateForm = ({
     }, 0)
   }, [L1UserId, L1UserName]);
 
-
+  console.log(L1Approver,"___L1Approver__")
   let dataOfOldProject = useSelector((state) => {
     let datew = state.projectList.globalComplianceTypeData;
 

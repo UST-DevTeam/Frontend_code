@@ -15,6 +15,7 @@ import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import pagination from "../../../../components/CommonObjectsAndVariables";
 const L2Approver = () => {
   const dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -35,12 +36,15 @@ const L2Approver = () => {
   } = useForm();
 
   const refreshData = () => {
+    const defaultArhgs = objectToQueryString({
+          ApproverType: "L2-Approver",
+         
+
+        })+"&"+objectToQueryString(pagination)
     dispatch(
       PTWActions.getL1ApproverData(
         true,
-        objectToQueryString({
-          ApproverType: "L2-Approver",
-        })
+        defaultArhgs
       )
     );
   };

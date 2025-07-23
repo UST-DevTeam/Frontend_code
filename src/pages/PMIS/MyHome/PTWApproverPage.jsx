@@ -14,6 +14,7 @@ import Button from "../../../components/Button";
 
 import FileUploader from "../../../components/FIleUploader";
 import Modal from "../../../components/Modal";
+import CommonImage from "../../../components/Common Image/CommonImage";
 
 const PTWApproverPage = () => {
   const { page } = useParams();
@@ -354,7 +355,8 @@ const PTWApproverPage = () => {
         size="full"
         modalHead={<h1>Image View</h1>}
         children={
-          <img src={imageRefValue.current} className='w-full h-[90vh] object-fill  rounded-md' alt="" />
+          // <img src={imageRefValue.current}  alt="" />
+          <CommonImage imageSrc={imageRefValue.current}/>
       }
         isOpen={image}
         setIsOpen={setImage}

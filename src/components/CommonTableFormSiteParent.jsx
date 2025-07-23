@@ -5,10 +5,14 @@ import "react-clock/dist/Clock.css";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./Button";
 import CustomizedButton from "./CustomizedButton";
+import Api from "../utils/api";
+import axios from "axios";
+import { baseUrl } from "../utils/url";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
 const CommonTableFormSiteParent = ({
+  itemData,
   tabslist,
   setmodalFullOpen,
   funcaller,
@@ -37,7 +41,6 @@ const CommonTableFormSiteParent = ({
       [tabName]: newData,
     }));
   };
-
   useEffect(() => {
     // funcaller()
     // setType(true)
@@ -49,12 +52,15 @@ const CommonTableFormSiteParent = ({
     beforeAnyChange()
   }, [activeTab]);
 
+console.log(tabslist,"____tabslist__")
   return (
     <div className="max-w-full mx-auto">
+      
       {tabslist && (
         <>
-          <div className="flex border-b-[1.5px] border-gray-400 p-1">
-            {Object.keys(tabslist).map((itm) => {
+          <div className="flex border-b-[1.5px] border-gray-400 py-1  justify-between">
+           <div className="flex  border-gray-400 p-1">
+             {Object.keys(tabslist).map((itm) => {
               return (
                 <CustomizedButton
                   onClick={() => handleTabClick(itm)}
@@ -66,6 +72,43 @@ const CommonTableFormSiteParent = ({
                 ></CustomizedButton>
               );
             })}
+           </div>
+            <div className="flex  border-gray-400 ">
+               {
+          activeTab === "Snap"  && (
+          <Button
+            name={"Export Snaps"}
+            classes="w-auto h-[38px]"
+           onClick={async () => {
+
+                    try {
+                      const response = await axios.get(`${baseUrl}/downloadSnapZip/${itemData?.uniqueId}`, {
+                        responseType: 'blob', 
+                      });
+                     
+                      
+                      const url = window.URL.createObjectURL(new Blob([response.data]));
+                      const link = document.createElement('a');
+                      link.href = url;
+
+                      
+                      link.setAttribute('download', `${itemData?.siteIdName}.zip`);
+                      document.body.appendChild(link);
+                      link.click();
+
+                      link.remove();
+                      window.URL.revokeObjectURL(url);
+                    } catch (error) {
+                      console.error('Download failed:', error);
+                    }
+
+                  }}
+
+          />
+        )
+        }
+            </div>
+           
           </div>
 
           <div className="p-1">
@@ -77,6 +120,8 @@ const CommonTableFormSiteParent = ({
       )}
 
       <div className="flex">
+        
+        
         {setmodalFullOpen && activeTab !== "Financials" && (
           <Button
             name={"Submit"}

@@ -153,13 +153,16 @@ const PTWLogBackup = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const fetchPTWLogBackupData = (reset = true, additionalArgs = "") => {
+    dispatch(PTWActions.getPtwLogBackup(reset,additionalArgs));
+  };
+
   useEffect(() => {
-    fetchPTWLogBackupData();
+    const defaultPagination = objectToQueryString({"page":1, "limit":50})
+    fetchPTWLogBackupData(true,defaultPagination);
   }, []);
 
-  const fetchPTWLogBackupData = (reset = true, additionalArgs = "") => {
-    dispatch(PTWActions.getPtwLogBackup(reset));
-  };
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -332,7 +335,7 @@ const PTWLogBackup = () => {
         // }else{
         //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
         // }
-        
+        console.log(strVal,"___strVal__")
     dispatch(PTWActions.getPtwLogBackup(true, strVal));
   };
 
@@ -345,11 +348,12 @@ const PTWLogBackup = () => {
     }
   }, [dataAll]);
 
+  
   return (
     <>
       <AdvancedTable
        headerButton={
-            <div className="flex gap-2">
+            <div className="flex gap-2"> 
              
               <Button
                 name={"Export"}
@@ -378,7 +382,7 @@ const PTWLogBackup = () => {
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount=""
+        totalCount={tableData[0]?.overall_table_count}
         heading="Total Count :-"
         currentPage={currentPage}
         rowsPerPage={rowsPerPage}

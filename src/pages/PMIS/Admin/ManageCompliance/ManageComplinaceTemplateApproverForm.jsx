@@ -575,6 +575,7 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
         </div>
 
         <CommonTableFormSiteParent
+          itemData={CompleteData}
           setType={settype}
           funcaller={funcaller}
           defaultValue={"Template"}

@@ -79,6 +79,7 @@ const AdvancedTable = ({
         limit: rrp,
       };
       sessionStorage.setItem("page", value);
+      
       filterAfter(filters);
       setActivedFilter(filters);
       setActiveFilter(objectToArray(filters));

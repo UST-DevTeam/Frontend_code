@@ -29,6 +29,7 @@ const FormCard = ({ sIndex, checkL1 = true, indexes, projectData, L1Approver, l1
     setFormState((prev) => !prev);
   };
 
+  
   const handleImageSubmition = (data) => {
     const formData = new FormData();
 
@@ -444,7 +445,7 @@ const ManageSnap = ({
     if (Array.isArray(data)) return data;
     return [];
   });
-
+console.log(viewOnly,"___L1Approver__")
   return (
     <div className="grid grid-cols-2 content-start md:grid-cols-4 gap-4 py-6 p-4 !overflow-y-scroll">
 

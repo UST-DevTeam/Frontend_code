@@ -8,6 +8,8 @@ import Api from '../../../../utils/api';
 import { baseUrl } from '../../../../utils/url';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import { useDispatch } from 'react-redux';
+import { objectToQueryString } from '../../../../utils/commonFunnction';
+import pagination from '../../../../components/CommonObjectsAndVariables';
 
 const OhsNitification = () => {
   const {
@@ -29,18 +31,50 @@ const OhsNitification = () => {
   const imageRef = useRef(null)
   const [image, setImage] = useState(false)
   const [allData, setAllData] = useState([])
-  const getAllData = async () => {
+  const getAllData = async (defaultPagination) => {
     const res = await Api.get({
-      url : `/globalNotify`
+      url : `/globalNotify?${defaultPagination}`,
+      
     })
     if(res?.status === 200){
       setAllData(res?.data?.data || [])
     }
   }
   useEffect(() => {
-    getAllData()
+    
+    const defaultPagination = objectToQueryString(pagination)
+    getAllData(defaultPagination)
   }, [])
   const [type, setType] = useState('text')
+
+  const onSubmit = async (data) => {
+    console.log(data,"___datat")
+    let value = data.reseter;
+    delete data.reseter;
+    // const strVal = objectToQueryString(data);
+    let strVal = objectToQueryString(data);
+    // if(strVal?.length>0){
+    //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
+    // }else{
+    //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
+    // }
+
+     const res = await Api.get({
+      url : `/globalNotify?${strVal}`
+    })
+    if(res?.status === 200){
+      setAllData(res?.data?.data || [])
+    }
+    
+    // dispatch(
+    //   PTWActions.getL1ApproverData(
+    //     true,
+    //     strVal,
+    //     objectToQueryString({ ApproverType: "L2-Approver" })
+    //   )
+    // );
+  };
+
 
   const handelNotification = async (data) => {
     let res = null
@@ -123,6 +157,7 @@ const OhsNitification = () => {
             classes: "w-full"
         }]
   }
+
   return (
     <div className=''>
       <AdvancedTable
@@ -150,8 +185,9 @@ const OhsNitification = () => {
            }
         })}
 
-        totalCount={0}
+        totalCount={allData[0]?.overall_table_count}
         heading="Total Count :-"
+        filterAfter={onSubmit}
 
       />
       <Modal
