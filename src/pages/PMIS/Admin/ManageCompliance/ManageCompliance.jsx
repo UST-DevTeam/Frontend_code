@@ -18,6 +18,8 @@ import CommonTableFormSiteParent from "../../../../components/CommonTableFormSit
 import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer";
 import ManageComplianceForm from "./ManageComplianceForm";
 import { GET_MANAGE_CUSTOMER } from "../../../../store/reducers/admin-reducer";
+import { MdSmsFailed } from "react-icons/md";
+import SnapImagesManageComplieance from "./SnapImagesManageComplieance";
 
 const   ManageCompliance = () => {
 
@@ -36,7 +38,9 @@ const   ManageCompliance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
 
   const [type, settype] = useState(false);
+
   const [modalHead, setmodalHead] = useState(<></>);
+    const [modalBody, setmodalBody] = useState(<></>);
   const [modalSize, setmodalSize] = useState("full");
   const [uniqueness, setUniqueness] = useState("");
   const [listing, setlisting] = useState([]);
@@ -151,7 +155,9 @@ const   ManageCompliance = () => {
     );
   };
 
-  const [modalBody, setmodalBody] = useState(<></>);
+
+
+  console.log(conditionmultiForm,"___conditionmultiForm___")
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getCompiliance;
@@ -160,6 +166,7 @@ const   ManageCompliance = () => {
         ...itm,
 
         checkList: (
+          <div className="flex gap-2">
           <CstmButton
             className={"p-2"}
             child={
@@ -390,6 +397,24 @@ const   ManageCompliance = () => {
               ></Button>
             }
           />
+          <CstmButton
+            className={"p-2"}
+            child={
+              <Button
+              classes="w-10"
+                name={""}
+                icon={<Unicons.UilImage  />}
+              onClick={()=>{
+                        setmodalBody(<SnapImagesManageComplieance keyId={itm?.uniqueId} itemData={itm?.snap} setmodalOpen={setmodalOpen}/>)
+                        setmodalOpen(true)
+                        setmodalHead("Snap Images Manage Complieance")
+              }}
+          />
+            }
+          />
+         
+          
+          </div>
         ),
         // template: (
         //   <CstmButton
@@ -480,7 +505,7 @@ const   ManageCompliance = () => {
     });
   });
 
-  console.log(dbConfigList , 'fasdfsadfsadfasdfasdfasdfasdfasdf')
+  // console.log(dbConfigList , 'fasdfsadfsadfasdfasdfasdfasdfasdf')
 
 
 

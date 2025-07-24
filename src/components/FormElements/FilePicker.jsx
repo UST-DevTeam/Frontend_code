@@ -55,7 +55,7 @@ const FilePicker = ({ itm, errors, register }) => {
           {selectedFileName
             ? selectedFileName
             : existingFileName
-            ? existingFileName.slice(0, 25) + "..."
+            ? existingFileName?.slice(0, 25) + "..."
             : "No File Chosen"}
         </p>}
       </div>

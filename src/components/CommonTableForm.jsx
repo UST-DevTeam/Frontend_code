@@ -73,6 +73,7 @@ const CommonTableForm = ({
     childView: false,
   };
 
+  console.log(editing,"___editing___")
   useEffect(() => {
     
     if(isPtw && ptwData && Object.keys(ptwData)?.length > 0){

@@ -10,7 +10,7 @@ import Modal from "../../../../components/Modal";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import projectListActions from "../../../../store/actions/projectList-actions";
 
-const FormCard = ({ sIndex, checkL1 = true, indexes, projectData, L1Approver, l1ApproverForm }) => {
+const FormCard = ({shouldUpload,sampleImage, sIndex, checkL1 = true, indexes, projectData, L1Approver, l1ApproverForm }) => {
   const dispatch = useDispatch();
   const [formState, setFormState] = useState(false);
   const {
@@ -26,7 +26,10 @@ const FormCard = ({ sIndex, checkL1 = true, indexes, projectData, L1Approver, l1
   });
 
   const handleFormState = () => {
-    setFormState((prev) => !prev);
+    if(shouldUpload){
+  setFormState((prev) => !prev);
+    }
+   
   };
 
   
@@ -92,6 +95,7 @@ const FormCard = ({ sIndex, checkL1 = true, indexes, projectData, L1Approver, l1
     reset()
   };
 
+
   const imageSubmitionForm = [
     {
       label: "Index",
@@ -120,23 +124,24 @@ const FormCard = ({ sIndex, checkL1 = true, indexes, projectData, L1Approver, l1
   return (
     <>
       <div
-        onClick={handleFormState}
-        className="p-4 h-[160px] border-2 overflow-hidden relative rounded-md border-gray-500 group cursor-pointer grid place-items-center"
-      >
-        <h2 className="text-sm font-bold absolute top-4 left-4 text-gray-100">
-          {sIndex}
-        </h2>
-        <div className="w-12 h-12 absolute -top-4 -left-4 formCard-shadow" />
-        <div className="w-12 h-12 absolute -bottom-4 -right-4 formCard-shadow-2" />
-        <svg
-          className="w-[80px] group-hover:scale-[105%] h-[80px] fill-slate-300 transition-transform duration-300"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M21 15V18H24V20H21V23H19V20H16V18H19V15H21ZM21.0082 3C21.556 3 22 3.44495 22 3.9934V13H20V5H4V18.999L14 9L17 12V14.829L14 11.8284L6.827 19H14V21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082ZM8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7Z"></path>
-        </svg>
-      </div>
+  onClick={handleFormState}
+  className="p-4 h-[160px] border-2 overflow-hidden relative rounded-md border-gray-500 group cursor-pointer grid place-items-center bg-cover bg-center"
+  style={{ backgroundImage: `url(${sampleImage})` }}
+>
+  <h2 className="text-sm font-bold absolute top-4 left-4 text-gray-100">
+    {sIndex}
+  </h2>
+  <div className="w-12 h-12 absolute -top-4 -left-4 formCard-shadow" />
+  <div className="w-12 h-12 absolute -bottom-4 -right-4 formCard-shadow-2" />
+  <svg
+    className="w-[80px] group-hover:scale-[105%] h-[80px] fill-slate-300 transition-transform duration-300"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="..." />
+  </svg>
+</div>
       {formState ? (
         <>
           <Modal
@@ -439,13 +444,13 @@ const ManageSnap = ({
      beforeLoad()
   },[])
   
-  console.log("snapFieldssnapFields", externalData)
+
   const snaps = useSelector((state) => {
     const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap;
     if (Array.isArray(data)) return data;
     return [];
   });
-console.log(viewOnly,"___L1Approver__")
+
   return (
     <div className="grid grid-cols-2 content-start md:grid-cols-4 gap-4 py-6 p-4 !overflow-y-scroll">
 
@@ -456,7 +461,7 @@ console.log(viewOnly,"___L1Approver__")
           const images = Array.from({ length: externalData[item] }).map((_, index) => ({
             index: index + 1, image: snapData[item] ? snapData[item]?.images.find(item => item.index === `${index + 1}`)?.image : null
           }))
-
+console.log(viewOnly,"___viewOnly__")
           return (
             <>
               {viewOnly ? (
@@ -512,7 +517,16 @@ console.log(viewOnly,"___L1Approver__")
             return (
               <>
                 {viewOnly ? (
-                  <></>
+                  <FormCard
+                    indexes={10}
+                    key={sIndex}
+                    sIndex={sIndex}
+                    projectData={projectData}
+                    L1Approver={L1Approver}
+                    l1ApproverForm={l1ApproverForm}
+                    sampleImage={`${backendassetUrl+"/"+item?.image}`}
+                    shouldUpload={false}
+                  />
                 ) : (
                   <FormCard
                     indexes={10}
@@ -521,6 +535,8 @@ console.log(viewOnly,"___L1Approver__")
                     projectData={projectData}
                     L1Approver={L1Approver}
                     l1ApproverForm={l1ApproverForm}
+                    sampleImage={backendassetUrl+"/"+item?.image}
+                    shouldUpload={true}
                   />
                 )}
 

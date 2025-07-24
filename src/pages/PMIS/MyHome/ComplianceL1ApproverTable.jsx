@@ -487,6 +487,7 @@ const ComplianceL1ApproverTable = () => {
 
   useEffect(() => {
     dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/")));
+    
   }, []);
 
   return (

@@ -13,9 +13,9 @@ const Layout = ({ child }) => {
   const navigate = useNavigate();
   // const [Width, setWidth] = useState(window.innerWidth)
   const handleResize = () => {
-    console.log(window, "windowwindow");
+    // console.log(window, "windowwindow");
     setWidth(window.innerWidth, "windowwindow");
-    console.log(window.innerHeight, "windowwindow");
+    // console.log(window.innerHeight, "windowwindow");
   };
 
   let breadcrumblist = useSelector((state) => {

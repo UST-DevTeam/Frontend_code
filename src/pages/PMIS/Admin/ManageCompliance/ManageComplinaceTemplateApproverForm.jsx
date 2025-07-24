@@ -18,6 +18,9 @@ import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 
 const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { }, CompleteData ,approverType}) => {
+
+  console.log(CompleteData,"___CompleteData__")
+  
   const { L1UserId = "", SnapData = {} } =
     useSelector(
       (state) => state.projectList.globalComplianceTypeApproverData?.[0]
@@ -288,6 +291,7 @@ const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { },
     
   }
 
+  
   const tabslist = {};
 
   if (dataOfProject?.Template) {
