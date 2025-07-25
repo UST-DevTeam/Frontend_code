@@ -8,6 +8,8 @@ import CustomizedButton from "./CustomizedButton";
 import Api from "../utils/api";
 import axios from "axios";
 import { baseUrl } from "../utils/url";
+import ComponentActions from "../store/actions/component-actions";
+import { useDispatch } from "react-redux";
 
 let types = ["text", "password", "email", "hidden", "number"];
 
@@ -20,6 +22,8 @@ const CommonTableFormSiteParent = ({
   beforeAnyChange = () => {},
   setType = () => {},
 }) => {
+
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(defaultValue);
 
   useEffect(() => {
@@ -78,6 +82,7 @@ const CommonTableFormSiteParent = ({
                   classes="w-auto h-[38px]"
                   onClick={async () => {
                     try {
+                      dispatch(ComponentActions.loaders(true))
                       const response = await axios.get(
                         `${baseUrl}/downloadSnapZip/${itemData?.uniqueId}`,
                         {
@@ -85,6 +90,10 @@ const CommonTableFormSiteParent = ({
                         }
                       );
 
+                      if(response?.status === 200){
+                        dispatch(ComponentActions.loaders(false))
+                      }
+                       
                       const url = window.URL.createObjectURL(
                         new Blob([response.data])
                       );
@@ -102,6 +111,7 @@ const CommonTableFormSiteParent = ({
                       window.URL.revokeObjectURL(url);
                     } catch (error) {
                       console.error("Download failed:", error);
+                      dispatch(ComponentActions.loaders(false))
                     }
                   }}
                 />
