@@ -10,7 +10,16 @@ import Modal from "../../../../components/Modal";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import projectListActions from "../../../../store/actions/projectList-actions";
 
-const FormCard = ({shouldUpload,sampleImage, sIndex, checkL1 = true, indexes, projectData, L1Approver, l1ApproverForm }) => {
+const FormCard = ({
+  shouldUpload,
+  sampleImage,
+  sIndex,
+  checkL1 = true,
+  indexes,
+  projectData,
+  L1Approver,
+  l1ApproverForm,
+}) => {
   const dispatch = useDispatch();
   const [formState, setFormState] = useState(false);
   const {
@@ -26,13 +35,11 @@ const FormCard = ({shouldUpload,sampleImage, sIndex, checkL1 = true, indexes, pr
   });
 
   const handleFormState = () => {
-    if(shouldUpload){
-  setFormState((prev) => !prev);
+    if (shouldUpload) {
+      setFormState((prev) => !prev);
     }
-   
   };
 
-  
   const handleImageSubmition = (data) => {
     const formData = new FormData();
 
@@ -60,17 +67,22 @@ const FormCard = ({shouldUpload,sampleImage, sIndex, checkL1 = true, indexes, pr
       }
 
       dispatch(
-        AdminActions.patchComplinaceSnapImageSubmition(formData, () => {
-          handleFormState();
-          dispatch(
-            projectListActions.globalComplianceTypeDataGet(
-              projectData.siteuid,
-              projectData.milestoneuid,
-              "",
-              true
-            )
-          );
-        }, (checkL1 ? "" : projectData.siteuid), (checkL1 ? "" : projectData.milestoneuid))
+        AdminActions.patchComplinaceSnapImageSubmition(
+          formData,
+          () => {
+            handleFormState();
+            dispatch(
+              projectListActions.globalComplianceTypeDataGet(
+                projectData.siteuid,
+                projectData.milestoneuid,
+                "",
+                true
+              )
+            );
+          },
+          checkL1 ? "" : projectData.siteuid,
+          checkL1 ? "" : projectData.milestoneuid
+        )
       );
     } else {
       formData.delete("uniqueId");
@@ -92,9 +104,8 @@ const FormCard = ({shouldUpload,sampleImage, sIndex, checkL1 = true, indexes, pr
         )
       );
     }
-    reset()
+    reset();
   };
-
 
   const imageSubmitionForm = [
     {
@@ -124,24 +135,24 @@ const FormCard = ({shouldUpload,sampleImage, sIndex, checkL1 = true, indexes, pr
   return (
     <>
       <div
-  onClick={handleFormState}
-  className="p-4 h-[160px] border-2 overflow-hidden relative rounded-md border-gray-500 group cursor-pointer grid place-items-center bg-cover bg-center"
-  style={{ backgroundImage: `url(${sampleImage})` }}
->
-  <h2 className="text-sm font-bold absolute top-4 left-4 text-gray-100">
-    {sIndex}
-  </h2>
-  <div className="w-12 h-12 absolute -top-4 -left-4 formCard-shadow" />
-  <div className="w-12 h-12 absolute -bottom-4 -right-4 formCard-shadow-2" />
-  <svg
-    className="w-[80px] group-hover:scale-[105%] h-[80px] fill-slate-300 transition-transform duration-300"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-  >
-    <path d="..." />
-  </svg>
-</div>
+        onClick={handleFormState}
+        className="p-4 h-[160px] border-2 overflow-hidden bg-whit relative rounded-md border-gray-500 group cursor-pointer  grid place-items-center bg-cover bg-center"
+        style={{ backgroundImage: `url(${sampleImage})` }}
+      >
+        <h2 className="text-sm font-bold absolute top-4 left-4 text-gray-100">
+          {/* {sIndex} */}
+        </h2>
+        <div className="w-12 h-12 absolute -top-4 -left-4 formCard-shadow" />
+        <div className="w-12 h-12 absolute -bottom-4 -right-4 formCard-shadow-2" />
+        <svg
+          className="w-[80px] group-hover:scale-[105%] h-[80px] fill-slate-300 transition-transform duration-300"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="..." />
+        </svg>
+      </div>
       {formState ? (
         <>
           <Modal
@@ -245,13 +256,11 @@ const FullViewImage = ({
   return (
     <div className="fixed inset-0 bg-[rgba(0,0,0,.8)] text-white z-[9999]">
       <div className="absolute flex justify-between inset-0 h-16 bg-[rgba(0,0,0,.1)] transition-all duration-500 hover:bg-[rgba(0,0,0,.4)] items-center gap-4 px-8">
-
         <div className="flex items-center space-x-2">
           <h2>{sIndex}</h2>
           <div className="w-3 h-[2px] bg-white"></div>
           <p>{fullView.index}</p>
         </div>
-
 
         <svg
           onClick={handleFullView}
@@ -408,7 +417,7 @@ const ImageGrid = ({
   images,
   projectData,
   l1ApproverForm,
-  viewOnly
+  viewOnly,
 }) => {
   return (
     <div className="grid grid-cols-5 grid-rows-2 h-[160px] border-2 gap-1 p-1 rounded-md border-gray-300 cursor-pointer">
@@ -430,7 +439,7 @@ const ImageGrid = ({
 };
 
 const ManageSnap = ({
-  beforeLoad=()=>{},
+  beforeLoad = () => {},
   externalData = null,
   viewOnly = false,
   projectData = {},
@@ -438,12 +447,9 @@ const ManageSnap = ({
   snapData,
   l1ApproverForm = false,
 }) => {
-
-
   useEffect(() => {
-     beforeLoad()
-  },[])
-  
+    beforeLoad();
+  }, []);
 
   const snaps = useSelector((state) => {
     const data = state.adminData?.getOneComplianceDyform?.[0]?.result?.snap;
@@ -452,90 +458,109 @@ const ManageSnap = ({
   });
 
   return (
-    <div className="grid grid-cols-2 content-start md:grid-cols-4 gap-4 py-6 p-4 !overflow-y-scroll">
-
-      {
-        externalData && Object.keys(externalData).map(item => {
-
-          if (!externalData[item]) return <></>
-          const images = Array.from({ length: externalData[item] }).map((_, index) => ({
-            index: index + 1, image: snapData[item] ? snapData[item]?.images.find(item => item.index === `${index + 1}`)?.image : null
-          }))
-console.log(viewOnly,"___viewOnly__")
-          return (
-            <>
-              {viewOnly ? (
-                <></>
-              ) : (
-                <FormCard
-                  checkL1={false}
-                  indexes={externalData[item]}
-                  key={item}
-                  sIndex={item}
-                  projectData={projectData}
-                  L1Approver={''}
-                  l1ApproverForm={false}
-                />
-              )}
-
-              {images ? (
-                <ImageGrid
-                  sIndex={item}
-                  approvedIndex={[]}
-                  images={images}
-                  projectData={projectData}
-                  l1ApproverForm={false}
-                  viewOnly={viewOnly}
-                />
-              ) : (
-                <></>
-              )}
-            </>
+    <div className="grid grid-cols-2 content-start md:grid-cols-2 gap-4 py-6 p-4 !overflow-y-scroll">
+      {externalData &&
+        Object.keys(externalData).map((item) => {
+          if (!externalData[item]) return <></>;
+          const images = Array.from({ length: externalData[item] }).map(
+            (_, index) => ({
+              index: index + 1,
+              image: snapData[item]
+                ? snapData[item]?.images.find(
+                    (item) => item.index === `${index + 1}`
+                  )?.image
+                : null,
+            })
           );
-        })
-      }
+          console.log(viewOnly, "___viewOnly__");
+          return (
+            <div key={item} className="col-span-2 space-y-4">
+              {/* Header text section */}
+              <div className="bg-white rounded-lg shadow-sm p-4 border">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  {item} {/* or any other text you want to display */}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Total items: {externalData[item]}
+                </p>
+              </div>
 
-      {
-        !externalData && snaps && snaps.length ? (
-          snaps.map((item) => {
-            const sIndex = item.fieldName;
-            const fieldData = snapData?.[sIndex]
-              ? { ...snapData[sIndex] }
-              : { images: [], approvedIndex: null };
+              {/* Cards section */}
+              <div className="grid grid-cols-2 gap-4">
+                {viewOnly ? (
+                  <></>
+                ) : (
+                  <FormCard
+                    checkL1={false}
+                    indexes={externalData[item]}
+                    sIndex={item}
+                    projectData={projectData}
+                    L1Approver={""}
+                    l1ApproverForm={false}
+                  />
+                )}
 
-            const existingIndices = new Set(
-              fieldData.images.map((itm) => +itm.index)
-            );
-            const newImages = Array.from({ length: 10 }, (_, index) => index + 1)
-              .filter((idx) => !existingIndices.has(idx))
-              .map((idx) => ({ index: `${idx}`, image: "" }));
+                {images ? (
+                  <ImageGrid
+                    sIndex={item}
+                    approvedIndex={[]}
+                    images={images}
+                    projectData={projectData}
+                    l1ApproverForm={false}
+                    viewOnly={viewOnly}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          );
+        })}
 
-            fieldData.images = [...fieldData.images, ...newImages].sort(
-              (a, b) => +a.index - +b.index
-            );
+      {!externalData && snaps && snaps.length ? (
+        snaps.map((item) => {
+          const sIndex = item.fieldName;
+          const fieldData = snapData?.[sIndex]
+            ? { ...snapData[sIndex] }
+            : { images: [], approvedIndex: null };
 
-            return (
-              <>
+          const existingIndices = new Set(
+            fieldData.images.map((itm) => +itm.index)
+          );
+          const newImages = Array.from({ length: 10 }, (_, index) => index + 1)
+            .filter((idx) => !existingIndices.has(idx))
+            .map((idx) => ({ index: `${idx}`, image: "" }));
+
+          fieldData.images = [...fieldData.images, ...newImages].sort(
+            (a, b) => +a.index - +b.index
+          );
+
+          return (
+            <div key={sIndex} className="col-span-2 space-y-4">
+              <div className=" shadow-sm">
+                <h3 className="text-sm font-semibold text-white mb-4 pl-1">
+                  {item.fieldName || sIndex}
+                </h3>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
                 {viewOnly ? (
                   <FormCard
                     indexes={10}
-                    key={sIndex}
                     sIndex={sIndex}
                     projectData={projectData}
                     L1Approver={L1Approver}
                     l1ApproverForm={l1ApproverForm}
-                    sampleImage={`${backendassetUrl+"/"+item?.image}`}
+                    sampleImage={`${backendassetUrl + "/" + item?.image}`}
                     shouldUpload={false}
                   />
                 ) : (
                   <FormCard
                     indexes={10}
-                    key={sIndex}
                     sIndex={sIndex}
                     projectData={projectData}
                     L1Approver={L1Approver}
                     l1ApproverForm={l1ApproverForm}
-                    sampleImage={backendassetUrl+"/"+item?.image}
+                    sampleImage={backendassetUrl + "/" + item?.image}
                     shouldUpload={true}
                   />
                 )}
@@ -556,15 +581,14 @@ console.log(viewOnly,"___viewOnly__")
                 ) : (
                   <></>
                 )}
-              </>
-            );
-          })
-        ) : (
-          // <p className="text-gray-100">No data to display</p>
-          <></>
-        )
-      }
-    </div >
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <></>
+      )}
+    </div>
   );
 };
 

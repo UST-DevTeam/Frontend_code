@@ -7,7 +7,7 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import {objectToQueryString,} from "../../../../utils/commonFunnction";
+import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
@@ -21,8 +21,7 @@ import { GET_MANAGE_CUSTOMER } from "../../../../store/reducers/admin-reducer";
 import { MdSmsFailed } from "react-icons/md";
 import SnapImagesManageComplieance from "./SnapImagesManageComplieance";
 
-const   ManageCompliance = () => {
-
+const ManageCompliance = () => {
   const { cname, customeruniqueId } = useParams();
 
   const {
@@ -40,15 +39,12 @@ const   ManageCompliance = () => {
   const [type, settype] = useState(false);
 
   const [modalHead, setmodalHead] = useState(<></>);
-    const [modalBody, setmodalBody] = useState(<></>);
+  const [modalBody, setmodalBody] = useState(<></>);
   const [modalSize, setmodalSize] = useState("full");
   const [uniqueness, setUniqueness] = useState("");
   const [listing, setlisting] = useState([]);
 
   let dispatch = useDispatch();
-
-
-
 
   let conditionmultiForm = [
     {
@@ -137,10 +133,6 @@ const   ManageCompliance = () => {
     },
   ];
 
-
-
-
-
   const handleAddActivity = (res, sediting, targ, itm) => {
     // console.log(res, "sediting", sediting, targ,itm,"uniqueness", "handleAddActivity");
     let newdata = {
@@ -155,9 +147,7 @@ const   ManageCompliance = () => {
     );
   };
 
-
-
-  console.log(conditionmultiForm,"___conditionmultiForm___")
+  console.log(conditionmultiForm, "___conditionmultiForm___");
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getCompiliance;
@@ -167,253 +157,260 @@ const   ManageCompliance = () => {
 
         checkList: (
           <div className="flex gap-2">
-          <CstmButton
-            className={"p-2"}
-            child={
-              <Button
-                classes="w-10"
-                name={""}
-                icon={<Unicons.UilFileCheck />}
-                onClick={() => {
-                  setUniqueness((prev) => itm.uniqueId);
-                  setmodalOpen(true);
-                  setmodalSize("full");
-                  setmodalHead("Compliance Form");
-                  dispatch(SET_DYNAMIC_FORM({ label: "Template", value: itm["Template"] ? itm["Template"] : [], reseter: true }));
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Planning Details",
-                      value: itm["planDetails"] ? itm["planDetails"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Site Details",
-                      value: itm["siteDetails"] ? itm["siteDetails"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Checklist",
-                      value: itm["ranChecklist"] ? itm["ranChecklist"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Snap",
-                      value: itm["snap"] ? itm["snap"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Acceptance Log",
-                      value: itm["acceptanceLog"] ? itm["acceptanceLog"] : [],
-                      reseter: true,
-                    })
-                  );
-                  setmodalBody(
-                    <>
-                      <div className="flex flex-col justify-between p-2">
-                        <div class="overflow-scroll">
+            <CstmButton
+              className={"p-2"}
+              child={
+                <Button
+                  classes="w-10"
+                  name={""}
+                  icon={<Unicons.UilFileCheck />}
+                  onClick={() => {
+                    setUniqueness((prev) => itm.uniqueId);
+                    setmodalOpen(true);
+                    setmodalSize("full");
+                    setmodalHead("Compliance Form");
+                    dispatch(
+                      SET_DYNAMIC_FORM({
+                        label: "Template",
+                        value: itm["Template"] ? itm["Template"] : [],
+                        reseter: true,
+                      })
+                    );
+                    dispatch(
+                      SET_DYNAMIC_FORM({
+                        label: "Planning Details",
+                        value: itm["planDetails"] ? itm["planDetails"] : [],
+                        reseter: true,
+                      })
+                    );
+                    dispatch(
+                      SET_DYNAMIC_FORM({
+                        label: "Site Details",
+                        value: itm["siteDetails"] ? itm["siteDetails"] : [],
+                        reseter: true,
+                      })
+                    );
+                    dispatch(
+                      SET_DYNAMIC_FORM({
+                        label: "Checklist",
+                        value: itm["ranChecklist"] ? itm["ranChecklist"] : [],
+                        reseter: true,
+                      })
+                    );
+                    dispatch(
+                      SET_DYNAMIC_FORM({
+                        label: "Snap",
+                        value: itm["snap"] ? itm["snap"] : [],
+                        reseter: true,
+                      })
+                    );
+                    dispatch(
+                      SET_DYNAMIC_FORM({
+                        label: "Acceptance Log",
+                        value: itm["acceptanceLog"] ? itm["acceptanceLog"] : [],
+                        reseter: true,
+                      })
+                    );
+                    setmodalBody(
+                      <>
+                        <div className="flex flex-col justify-between p-2">
+                          <div class="overflow-scroll"></div>
                         </div>
-                      </div>
-                      <CommonTableFormSiteParent
-                        funcaller={() => { }}
-                        defaultValue={"Template"}
-                        tabslist={{
-                          "Template": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Template"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "Template",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Tempalte"}
-                              page={"Compliance"}
-
-                            />
-                          ),
-                          "Planning Details": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Planning Details"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "planDetails",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Tempalte"}
-                              page={"Compliance"}
-
-                            />
-                          ),
-                          "Site Details": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Site Details"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "siteDetails",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Tempalte"}
-                              page={"Compliance"}
-                            />
-                          ),
-                          "Checklist": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Checklist"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "ranChecklist",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Tempalte"}
-                              page={"Compliance"}
-                            />
-                          ),
-                          Snap: (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Snap"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "snap",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Tempalte"}
-                              page={"Compliance"}
-                            />
-                          ),
-                          "Acceptance Log": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Acceptance Log"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "acceptanceLog",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Tempalte"}
-                              page={"Compliance"}
-                            />
-                          ),
-                        }}
+                        <CommonTableFormSiteParent
+                          funcaller={() => {}}
+                          defaultValue={"Template"}
+                          tabslist={{
+                            Template: (
+                              <CommonTableForm
+                                setmodalOpen={setmodalOpen}
+                                tabHead={"Template"}
+                                customeruniqueId={customeruniqueId}
+                                classes={"grid-cols-2 gap-1"}
+                                Form={conditionmultiForm}
+                                errors={errors}
+                                register={register}
+                                setValue={setValue}
+                                getValues={getValues}
+                                functioning={(res, changeState) =>
+                                  handleAddActivity(
+                                    res,
+                                    changeState,
+                                    "Template",
+                                    itm
+                                  )
+                                }
+                                oldList={[]}
+                                listing={listing}
+                                setlisting={setlisting}
+                                rowId={itm["uniqueId"]}
+                                name={"Tempalte"}
+                                page={"Compliance"}
+                              />
+                            ),
+                            "Planning Details": (
+                              <CommonTableForm
+                                setmodalOpen={setmodalOpen}
+                                tabHead={"Planning Details"}
+                                customeruniqueId={customeruniqueId}
+                                classes={"grid-cols-2 gap-1"}
+                                Form={conditionmultiForm}
+                                errors={errors}
+                                register={register}
+                                setValue={setValue}
+                                getValues={getValues}
+                                functioning={(res, changeState) =>
+                                  handleAddActivity(
+                                    res,
+                                    changeState,
+                                    "planDetails",
+                                    itm
+                                  )
+                                }
+                                oldList={[]}
+                                listing={listing}
+                                setlisting={setlisting}
+                                rowId={itm["uniqueId"]}
+                                name={"Tempalte"}
+                                page={"Compliance"}
+                              />
+                            ),
+                            "Site Details": (
+                              <CommonTableForm
+                                setmodalOpen={setmodalOpen}
+                                tabHead={"Site Details"}
+                                customeruniqueId={customeruniqueId}
+                                classes={"grid-cols-2 gap-1"}
+                                Form={conditionmultiForm}
+                                errors={errors}
+                                register={register}
+                                setValue={setValue}
+                                getValues={getValues}
+                                functioning={(res, changeState) =>
+                                  handleAddActivity(
+                                    res,
+                                    changeState,
+                                    "siteDetails",
+                                    itm
+                                  )
+                                }
+                                oldList={[]}
+                                listing={listing}
+                                setlisting={setlisting}
+                                rowId={itm["uniqueId"]}
+                                name={"Tempalte"}
+                                page={"Compliance"}
+                              />
+                            ),
+                            Checklist: (
+                              <CommonTableForm
+                                setmodalOpen={setmodalOpen}
+                                tabHead={"Checklist"}
+                                customeruniqueId={customeruniqueId}
+                                classes={"grid-cols-2 gap-1"}
+                                Form={conditionmultiForm}
+                                errors={errors}
+                                register={register}
+                                setValue={setValue}
+                                getValues={getValues}
+                                functioning={(res, changeState) =>
+                                  handleAddActivity(
+                                    res,
+                                    changeState,
+                                    "ranChecklist",
+                                    itm
+                                  )
+                                }
+                                oldList={[]}
+                                listing={listing}
+                                setlisting={setlisting}
+                                rowId={itm["uniqueId"]}
+                                name={"Tempalte"}
+                                page={"Compliance"}
+                              />
+                            ),
+                            Snap: (
+                              <CommonTableForm
+                                setmodalOpen={setmodalOpen}
+                                tabHead={"Snap"}
+                                customeruniqueId={customeruniqueId}
+                                classes={"grid-cols-2 gap-1"}
+                                Form={conditionmultiForm}
+                                errors={errors}
+                                register={register}
+                                setValue={setValue}
+                                getValues={getValues}
+                                functioning={(res, changeState) =>
+                                  handleAddActivity(
+                                    res,
+                                    changeState,
+                                    "snap",
+                                    itm
+                                  )
+                                }
+                                oldList={[]}
+                                listing={listing}
+                                setlisting={setlisting}
+                                rowId={itm["uniqueId"]}
+                                name={"Tempalte"}
+                                page={"Compliance"}
+                              />
+                            ),
+                            "Acceptance Log": (
+                              <CommonTableForm
+                                setmodalOpen={setmodalOpen}
+                                tabHead={"Acceptance Log"}
+                                customeruniqueId={customeruniqueId}
+                                classes={"grid-cols-2 gap-1"}
+                                Form={conditionmultiForm}
+                                errors={errors}
+                                register={register}
+                                setValue={setValue}
+                                getValues={getValues}
+                                functioning={(res, changeState) =>
+                                  handleAddActivity(
+                                    res,
+                                    changeState,
+                                    "acceptanceLog",
+                                    itm
+                                  )
+                                }
+                                oldList={[]}
+                                listing={listing}
+                                setlisting={setlisting}
+                                rowId={itm["uniqueId"]}
+                                name={"Tempalte"}
+                                page={"Compliance"}
+                              />
+                            ),
+                          }}
+                        />
+                      </>
+                    );
+                  }}
+                ></Button>
+              }
+            />
+            <CstmButton
+              className={"p-2"}
+              child={
+                <Button
+                  classes="w-10"
+                  name={""}
+                  icon={<Unicons.UilImage />}
+                  onClick={() => {
+                    setmodalBody(
+                      <SnapImagesManageComplieance
+                        keyId={itm?.uniqueId}
+                        itemData={itm?.snap}
+                        setmodalOpen={setmodalOpen}
                       />
-                    </>
-                  );
-                }}
-              ></Button>
-            }
-          />
-          <CstmButton
-            className={"p-2"}
-            child={
-              <Button
-              classes="w-10"
-                name={""}
-                icon={<Unicons.UilImage  />}
-              onClick={()=>{
-                        setmodalBody(<SnapImagesManageComplieance keyId={itm?.uniqueId} itemData={itm?.snap} setmodalOpen={setmodalOpen}/>)
-                        setmodalOpen(true)
-                        setmodalHead("Snap Images Manage Complieance")
-              }}
-          />
-            }
-          />
-         
-          
+                    );
+                    setmodalOpen(true);
+                    setmodalHead("Snap Images Manage Complieance");
+                  }}
+                />
+              }
+            />
           </div>
         ),
         // template: (
@@ -458,7 +455,7 @@ const   ManageCompliance = () => {
         //     }
         //   />
         // ),
-        
+
         delete: (
           <CstmButton
             child={
@@ -470,7 +467,7 @@ const   ManageCompliance = () => {
                     icon: "warning",
                     buttons: [
                       <Button
-                        classes='w-15 bg-rose-400'
+                        classes="w-15 bg-rose-400"
                         onClick={() => {
                           dispatch(
                             CommonActions.deleteApiCaller(
@@ -506,9 +503,6 @@ const   ManageCompliance = () => {
   });
 
   // console.log(dbConfigList , 'fasdfsadfsadfasdfasdfasdfasdfasdf')
-
-
-
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getCompiliance;
@@ -579,15 +573,11 @@ const   ManageCompliance = () => {
     dispatch(AdminActions.getCompiliance(value, objectToQueryString(data)));
   };
 
-
   useEffect(() => {
     dispatch(AdminActions.getCompiliance());
   }, []);
 
-
-
-
-  return  (
+  return (
     <>
       <AdvancedTable
         headerButton={
@@ -597,7 +587,7 @@ const   ManageCompliance = () => {
                 setmodalOpen((prev) => !prev);
                 setmodalHead("New Compliance");
                 setmodalSize("sm");
-                dispatch(GET_MANAGE_CUSTOMER({dataAll:[],reset:true}))
+                dispatch(GET_MANAGE_CUSTOMER({ dataAll: [], reset: true }));
                 setmodalBody(
                   <ManageComplianceForm
                     customeruniqueId={customeruniqueId}
@@ -622,7 +612,7 @@ const   ManageCompliance = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        heading = {'Total Count :- '}
+        heading={"Total Count :- "}
         actions={["Delete"]}
       />
 
@@ -634,7 +624,7 @@ const   ManageCompliance = () => {
         setIsOpen={setmodalOpen}
       />
     </>
-  ) 
+  );
 };
 
 export default ManageCompliance;

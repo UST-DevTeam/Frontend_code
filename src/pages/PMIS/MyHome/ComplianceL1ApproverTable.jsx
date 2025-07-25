@@ -25,7 +25,7 @@ import { COMPLIANCELOGLIST } from "../../../store/reducers/eventlogs-reducer";
 import eventManagementActions from "../../../store/actions/eventLogs-actions";
 
 const ComplianceL1ApproverTable = () => {
-  const childFunction = useRef()
+  const childFunction = useRef();
   const [URLSearchParams, setURLSearchParams] = useSearchParams();
   const route = URLSearchParams.get("from");
   const [modalOpen, setmodalOpen] = useState(false);
@@ -58,14 +58,19 @@ const ComplianceL1ApproverTable = () => {
     })
     .replace(/\//g, "-");
 
-  function downloadAttachment(type,id,siteName,milestoneName) {
+  function downloadAttachment(type, id, siteName, milestoneName) {
     dispatch(
-      CommonActions.commondownload(`/compliance/export/${type}/${id}`,`${siteName}_${milestoneName}_(${dt})_report.${type === "Excel" ? "xlsx" : "pdf"}`)
+      CommonActions.commondownload(
+        `/compliance/export/${type}/${id}`,
+        `${siteName}_${milestoneName}_(${dt})_report.${
+          type === "Excel" ? "xlsx" : "pdf"
+        }`
+      )
     );
   }
 
-  function callbackFoResetForm(cb = () => { }) {
-    childFunction.current = cb
+  function callbackFoResetForm(cb = () => {}) {
+    childFunction.current = cb;
   }
 
   let dbConfigList = useSelector((state) => {
@@ -79,7 +84,7 @@ const ComplianceL1ApproverTable = () => {
             className="text-[#13b497] cursor-pointer font-extrabold"
             onClick={() => {
               if (childFunction.current) {
-                childFunction.current()
+                childFunction.current();
               }
 
               setmodalFullOpen((prev) => !prev);
@@ -110,7 +115,11 @@ const ComplianceL1ApproverTable = () => {
                 )
               );
               setmodalBody(
-                <ManageComplianceTemplateApproverForm callbackFoResetForm={callbackFoResetForm} CompleteData={itm} approverType = {"L1"} />
+                <ManageComplianceTemplateApproverForm
+                  callbackFoResetForm={callbackFoResetForm}
+                  CompleteData={itm}
+                  approverType={"L1"}
+                />
               );
             }}
           >
@@ -124,7 +133,12 @@ const ComplianceL1ApproverTable = () => {
               <div className="flex space-x-2 items-center">
                 <Button
                   onClick={() => {
-                    downloadAttachment("Excel", itm?.uniqueId,itm?.siteIdName,itm?.milestoneName);
+                    downloadAttachment(
+                      "Excel",
+                      itm?.uniqueId,
+                      itm?.siteIdName,
+                      itm?.milestoneName
+                    );
                   }}
                   classes="!py-[2px] bg-green-600"
                   title="Download Excel"
@@ -142,7 +156,12 @@ const ComplianceL1ApproverTable = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    downloadAttachment("pdf", itm?.uniqueId,itm?.siteIdName,itm?.milestoneName);
+                    downloadAttachment(
+                      "pdf",
+                      itm?.uniqueId,
+                      itm?.siteIdName,
+                      itm?.milestoneName
+                    );
                   }}
                   classes="!py-[2px] bg-red-600"
                   title="Download Pdf"
@@ -160,22 +179,32 @@ const ComplianceL1ApproverTable = () => {
             }
           />
         ),
-        L1Age: itm.L1Age?(
+        L1Age: itm.L1Age ? (
           itm.L1Age > 2 ? (
-            <p className="text-rose-400 font-extrabold">{itm.L1Age + " Days"}</p>
-            
+            <p className="text-rose-400 font-extrabold">
+              {itm.L1Age + " Days"}
+            </p>
           ) : (
-            <p className="text-[#13b497] font-extrabold">{itm.L1Age + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">
+              {itm.L1Age + " Days"}
+            </p>
           )
-        ):(""),
-        L2Age: itm.L2Age?(
+        ) : (
+          ""
+        ),
+        L2Age: itm.L2Age ? (
           itm.L2Age > 2 ? (
-            <p className="text-rose-400 font-extrabold">{itm.L2Age + " Days"}</p>
-            
+            <p className="text-rose-400 font-extrabold">
+              {itm.L2Age + " Days"}
+            </p>
           ) : (
-            <p className="text-[#13b497] font-extrabold">{itm.L2Age + " Days"}</p>
+            <p className="text-[#13b497] font-extrabold">
+              {itm.L2Age + " Days"}
+            </p>
           )
-        ):(""),
+        ) : (
+          ""
+        ),
         logs: (
           <CstmButton
             className={"p-2"}
@@ -184,13 +213,26 @@ const ComplianceL1ApproverTable = () => {
                 <div className="flex space-x-2">
                   <ActionButton
                     bgColor="bg-yellow-600"
-                    icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 22H5C3.34315 22 2 20.6569 2 19V3C2 2.44772 2.44772 2 3 2H17C17.5523 2 18 2.44772 18 3V15H22V19C22 20.6569 20.6569 22 19 22ZM18 17V19C18 19.5523 18.4477 20 19 20C19.5523 20 20 19.5523 20 19V17H18ZM16 20V4H4V19C4 19.5523 4.44772 20 5 20H16ZM6 7H14V9H6V7ZM6 11H14V13H6V11ZM6 15H11V17H6V15Z"></path></svg>}
+                    icon={
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M19 22H5C3.34315 22 2 20.6569 2 19V3C2 2.44772 2.44772 2 3 2H17C17.5523 2 18 2.44772 18 3V15H22V19C22 20.6569 20.6569 22 19 22ZM18 17V19C18 19.5523 18.4477 20 19 20C19.5523 20 20 19.5523 20 19V17H18ZM16 20V4H4V19C4 19.5523 4.44772 20 5 20H16ZM6 7H14V9H6V7ZM6 11H14V13H6V11ZM6 15H11V17H6V15Z"></path>
+                      </svg>
+                    }
                     name={""}
                     onClick={() => {
-                      dispatch(COMPLIANCELOGLIST({dataAll:[],reset:true}))
+                      dispatch(COMPLIANCELOGLIST({ dataAll: [], reset: true }));
                       setmodalOpen((prev) => !prev);
                       setmodalHead("Approval Logs");
-                      dispatch(eventManagementActions.getComplianceLog(true,itm?.uniqueId))
+                      dispatch(
+                        eventManagementActions.getComplianceLog(
+                          true,
+                          itm?.uniqueId
+                        )
+                      );
                       setmodalBody(
                         <ComplianceApprovalLog
                           type={"Approval"}
@@ -204,9 +246,15 @@ const ComplianceL1ApproverTable = () => {
             }
           />
         ),
-        currentStatus:(
+        currentStatus: (
           <p
-            className={`px-3.5 font-extrabold rounded-xl text-center ${itm["currentStatus"] === "Reject" ? "bg-red-600 " : itm["currentStatus"] === "Closed"? "bg-green-600":"bg-yellow-600" }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
+            className={`px-3.5 font-extrabold rounded-xl text-center ${
+              itm["currentStatus"] === "Reject"
+                ? "bg-red-600 "
+                : itm["currentStatus"] === "Closed"
+                ? "bg-green-600"
+                : "bg-yellow-600"
+            }  border-[0.01px] border-[#eed398] whitespace-nowrap `}
           >
             {itm["currentStatus"]}
           </p>
@@ -487,7 +535,6 @@ const ComplianceL1ApproverTable = () => {
 
   useEffect(() => {
     dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/")));
-    
   }, []);
 
   return (
