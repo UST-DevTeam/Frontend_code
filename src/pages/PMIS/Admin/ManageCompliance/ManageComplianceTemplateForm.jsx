@@ -164,9 +164,22 @@ const ManageComplianceTemplateForm = ({
           setValueForm3(iytm, dtresult["RanCheckListData"][iytm]);
         });
 
-      dtresult["SiteDetailsData"] &&
+        // Old
+      // dtresult["SiteDetailsData"] &&
+      //   Object.keys(dtresult["SiteDetailsData"]).map((iytm) => {
+      //     setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
+      //   });
+
+      // NEw
+       dtresult["SiteDetailsData"] &&
         Object.keys(dtresult["SiteDetailsData"]).map((iytm) => {
-          setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
+          // setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
+          if (iytm == "Band" || iytm == "BAND"){
+            setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]?.split("-")?.join(","));
+          }else{
+            setValueForm2(iytm, dtresult["SiteDetailsData"][iytm]);
+          }
+ 
         });
 
       dtresult["TemplateData"] &&
@@ -295,9 +308,21 @@ const ManageComplianceTemplateForm = ({
     }
 
     let Site_Deatils_data = {};
-    dataOfProject["siteDetails"].map((itew) => {
+    // Old
+    // dataOfProject["siteDetails"].map((itew) => {
+    //   let fieldNaming = labelToValue(itew.fieldName);
+    //   Site_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
+    // });
+
+    // new
+     dataOfProject["siteDetails"].map((itew) => {
       let fieldNaming = labelToValue(itew.fieldName);
-      Site_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
+      // Site_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
+      if(fieldNaming === "BAND" || fieldNaming === "Band"){
+        Site_Deatils_data[fieldNaming] = data[fieldNaming]?.split(",")?.join("-");
+      }else{
+        Site_Deatils_data[fieldNaming] = data[fieldNaming]?.trim();
+      }
     });
 
     final_data["SiteDetailsData"] = Site_Deatils_data;
@@ -537,7 +562,8 @@ const ManageComplianceTemplateForm = ({
           />
         )}
         </div>
-        <CommonForm
+        {/* OLD */}
+        {/* <CommonForm
           classes={"grid-cols-4 gap-1"}
           Form={
             dataOfProject
@@ -556,6 +582,53 @@ const ManageComplianceTemplateForm = ({
                         };
                       })
                       : [],
+                    required: its.required == "Yes" ? true : false,
+                    props: {
+                      maxSelectableDate: today,
+                    },
+                  };
+                })
+                : []
+              : []
+          }
+          errors={errorsForm2}
+          register={registerForm2}
+          setValue={setValueForm2}
+          getValues={getValuesForm2}
+        /> */}
+        {/* NEW */}
+        <CommonForm
+          classes={"grid-cols-4 gap-1"}
+          Form={
+            dataOfProject
+              ? dataOfProject["siteDetails"]
+                ? dataOfProject["siteDetails"].map((its) => {
+                  let type = isViewOnly() || dtype[its.dataType];
+                  let option = its.dropdownValue
+                    ? its.dropdownValue.split(",").map((itm) => {
+                        return {
+                          value: itm,
+                          label: itm,
+                        };
+                      })
+                    : [];
+                  if (its["fieldName"] === "BAND" || its["fieldName"] === "Band") {
+                    type = isViewOnly() || "muitiSelect";
+                    option = its.dropdownValue
+                      ? its.dropdownValue.split(",").map((itm) => {
+                          return {
+                            id: itm,
+                            name: itm,
+                          };
+                        })
+                      : [];
+                  }
+                  return {
+                    label: its.fieldName,
+                    value: "abc",
+                    name: its.fieldName,
+                    type: type,
+                    option: option,
                     required: its.required == "Yes" ? true : false,
                     props: {
                       maxSelectableDate: today,
