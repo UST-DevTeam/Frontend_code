@@ -615,6 +615,7 @@ import ManageSnap from "./ManageSnap";
 import moment from "moment";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import FileUploader from "../../../../components/FIleUploader";
+import CommonActions from "../../../../store/actions/common-actions";
 
 const ManageComplianceTemplateApproverForm = ({ callbackFoResetForm = () => { }, CompleteData ,approverType}) => {
 
