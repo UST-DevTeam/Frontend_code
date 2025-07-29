@@ -53,7 +53,7 @@ const Form = itemData?.map((itm,index)=>{
                     contentType: "multipart/form-data",
                     data: formDataSubmit,
                 });
-                console.log(res,"__res__")
+                
                 if(res?.status==200){
                     setmodalOpen((prev)=>!prev)
                 }
