@@ -1,0 +1,307 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import * as Unicons from "@iconscout/react-unicons";
+import Modal from "../../../../components/Modal";
+import CommonForm from "../../../../components/CommonForm";
+import Button from "../../../../components/Button";
+import PTWActions from "../../../../store/actions/ptw-actions";
+import { objectToQueryString } from "../../../../utils/commonFunnction"; // Import the function
+
+const L1ApproverForm = ({
+  isOpen,
+  setIsOpen,
+  resetting,
+  formValue = {},
+  onSuccess,
+}) => {
+  console.log(formValue, "formValueformValueformValue");
+
+  const dispatch = useDispatch();
+  const [selectedCustomer, setSelectedCustomer] = useState("");
+  const [selectedProjectTypeName, setSelectedProjectTypeName] = useState("");
+  const [selectedProjectGroup, setSelectedProjectGroup] = useState(""); // Add state for selected project group
+  const [modalOpen, setmodalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const ptwCustomers = useSelector((state) => state.ptwData.getPtwCustomers);
+  const ptwEmployee = useSelector((state) => state.ptwData.getPtwEmployee);
+  const ptwProjectType = useSelector(
+    (state) => state.ptwData.getPtwProjectType
+  );
+  const ptwProjectGroup = useSelector(
+    (state) => state.ptwData.getPtwProjectGroup
+  );
+  const ptwCircle = useSelector((state) => state.ptwData.getPtwCircle);
+
+  const isEditMode = Object.entries(formValue).length > 0 && !resetting;
+
+  useEffect(() => {
+    dispatch(PTWActions.getPtwCustomers(true, "", ""));
+    dispatch(PTWActions.getPtwEmployee(true, "", ""));
+  }, [dispatch]);
+
+  const customerList = ptwCustomers?.map((customer) => ({
+    label: customer?.customerName,
+    value: customer?.customer || customer?.customerName,
+  }));
+
+  const employeeList = ptwEmployee?.map((employee) => ({
+    label: employee?.empName,
+    value: employee?.employeeId || employee?.empName,
+  }));
+
+  const projectTypeList = ptwProjectType?.map((projectType) => ({
+    label: projectType?.projectTypeName,
+    value: projectType?.projectType || projectType?.projectTypeName,
+  }));
+
+  const projectGroupList = ptwProjectGroup?.map((projectGroup) => ({
+    label: projectGroup?.projectGroupName,
+    value: projectGroup?.projectGroup || projectGroup?.projectGroupName,
+  }));
+
+  const CircleList = ptwCircle?.map((Circle) => ({
+    label: Circle?.circleName,
+    value: Circle?.circle,
+  }));
+
+  let Form = [
+    {
+      label: "Customer Name",
+      value: "",
+      name: "customer",
+      type: "select",
+      option: customerList,
+      required: true,
+      props: {
+        onChange: (e) => {
+          setSelectedCustomer(e?.target?.value);
+          console.log("selectedCustomerselectedCustomer", e?.target?.value);
+          dispatch(PTWActions.getPtwProjectType(true, e?.target?.value, ""));
+          dispatch(PTWActions.getPtwProjectGroup(true, e?.target?.value, ""));
+          
+        },
+      },
+    },
+    {
+      label: "Emp Name",
+      value: "",
+      name: "employeeId",
+      type: "select",
+      option: employeeList,
+      required: true,
+    },
+    {
+      label: "Project Type",
+      value: "",
+      name: "projectType",
+      type: "select",
+      option: projectTypeList,
+      required: true,
+      props: {
+        onChange: (e) => {
+          let selectedIndex = e?.target?.selectedIndex;
+
+          setSelectedProjectTypeName(e?.target?.options[selectedIndex].text);
+
+          dispatch(
+            PTWActions.getPtwProjectMilestone(
+              true,
+              selectedCustomer,
+              e?.target?.value,
+              "",
+              ""
+            )
+          );
+        },
+      },
+    },
+    {
+      label: "Project Group",
+      value: "",
+      name: "projectGroup",
+      type: "select",
+      option: projectGroupList,
+      required: true,
+      props: {
+        onChange: (e) => {
+          setSelectedProjectGroup(e?.target?.value);
+          console.log("selectedProjectGroup", e?.target?.value);
+          dispatch(PTWActions.getPtwCircle(true,selectedCustomer, e?.target?.value, ""));
+        },
+      },
+    },
+    {
+      label: "Circle",
+      value: "",
+      name: "circle", 
+      type: "select",
+      option: CircleList,
+      required: true,
+    },
+  ];
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      setIsSubmitting(true);
+
+      const formData = {
+        customer: data.customer,
+        employee: data.employeeId,
+        projectType: data.projectType,
+        projectGroup: data.projectGroup,
+        ApproverType: "L1-Approver",
+        circle: data.circle,
+        projectTypeName: selectedProjectTypeName,
+      };
+
+      console.log("Form Data to Submit:", formData);
+
+      const submitAction = (actionCreator, ...args) => {
+        return new Promise((resolve, reject) => {
+          const callback = () => {
+            console.log("Action completed successfully");
+            resolve();
+          };
+
+          if (isEditMode) {
+            dispatch(actionCreator(...args, callback));
+          } else {
+            dispatch(actionCreator(args[0], callback));
+          }
+        });
+      };
+
+      if (isEditMode) {
+        console.log(
+          formValue?.projectTypeName,
+          typeof formValue?.projectTypeName,
+          formData?.projectTypeName,
+          typeof formData?.projectTypeName,
+          "djjhydyyueyutegvgh"
+        );
+        if (formValue?.projectTypeName && formData?.projectTypeName === "") {
+          formData.projectTypeName = formValue.projectTypeName;
+        }
+
+        // Wait for the update to complete
+        await submitAction(
+          PTWActions.updateL1ApproverForm,
+          formData,
+          formValue.uniqueId
+        );
+      } else {
+        await submitAction(PTWActions.submitL1ApproverForm, formData);
+      }
+
+      reset();
+      if (setIsOpen) setIsOpen(false);
+
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const onTableViewSubmit = (data) => {
+    onSubmit(data);
+  };
+
+  useEffect(() => {
+    dispatch(PTWActions.getPtwCustomers(true, "", ""));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (resetting) {
+      reset({});
+      Form.forEach((fieldName) => {
+        setValue(fieldName["name"], fieldName["value"]);
+      });
+    } else if (isEditMode) {
+      reset({});
+      console.log(Object.keys(formValue), "Object.keys(formValue)");
+
+      if (formValue?.customer) {
+        setSelectedCustomer(formValue.customer);
+        dispatch(PTWActions.getPtwProjectType(true, formValue.customer, ""));
+        dispatch(PTWActions.getPtwProjectGroup(true, formValue.customer, ""));
+      }
+
+      // If project group exists in form value, also fetch circles
+      if (formValue?.projectGroup && formValue?.customer) {
+        setSelectedProjectGroup(formValue.projectGroup);
+        dispatch(PTWActions.getPtwCircle(true,formValue?.customer, formValue.projectGroup, ""));
+      }
+
+      Form.forEach((field) => {
+        if (["endAt", "startAt"].indexOf(field.name) !== -1) {
+          console.log("date formValuekey", field.name, formValue[field.name]);
+          const momentObj = moment(formValue[field.name]);
+          setValue(field.name, momentObj.toDate());
+        } else {
+          setValue(field.name, formValue[field.name]);
+        }
+      });
+    }
+  }, [formValue, resetting, setValue, dispatch]);
+
+  return (
+    <>
+      <Modal
+        size={"xl"}
+        children={
+          <>
+            <CommonForm
+              classes={"grid-cols-1 gap-1"}
+              Form={Form}
+              errors={errors}
+              register={register}
+              setValue={setValue}
+              getValues={getValues}
+            />
+          </>
+        }
+        isOpen={modalOpen}
+        setIsOpen={setmodalOpen}
+      />
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
+        <>
+          <CommonForm
+            classes={"grid-cols-2 gap-1"}
+            Form={Form}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            getValues={getValues}
+          />
+        </>
+        <Button
+          classes={"mt-2 w-sm text-center flex mx-auto"}
+          onClick={handleSubmit(onTableViewSubmit)}
+          name={
+            isSubmitting ? "Submitting..." : isEditMode ? "Update" : "Submit"
+          }
+          disabled={isSubmitting}
+        />
+      </div>
+    </>
+  );
+};
+
+export default L1ApproverForm;
