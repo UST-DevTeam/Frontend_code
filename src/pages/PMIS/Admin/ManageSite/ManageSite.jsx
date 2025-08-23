@@ -1,33 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
-import ManageProjectTypeForm from "../../../PMIS/Admin/ManageProjectType/ManageProjectTypeForm";
-import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
-import DeleteButton from "../../../../components/DeleteButton";
-import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
-import {
-  getAccessType,
-  labelToValue,
-  objectToQueryString,
-} from "../../../../utils/commonFunnction";
+import {getAccessType,labelToValue} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import CommonActions from "../../../../store/actions/common-actions";
-import { Urls, backendassetUrl, baseUrl } from "../../../../utils/url";
-// import AdminActions from '../../../../store/actions/admin-actions';
 import AdminActions from "../../../../store/actions/admin-actions";
-import { useNavigate, useParams } from "react-router-dom";
-import CCDash from "../../../../components/CCDash";
+import { useParams } from "react-router-dom";
 import CommonForm from "../../../../components/CommonForm";
-import CommonTableForm from "../../../../components/CommonTableForm";
-import CommonTableFormParent from "../../../../components/CommonTableFormSiteParent";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";
-import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer";
-import projectListActions from "../../../../store/actions/projectList-actions";
 import moment from "moment";
 
 const ManageSite = ({
@@ -80,14 +60,6 @@ const ManageSite = ({
     formState: { errors: errorsForm4 },
   } = useForm();
 
-  const [modalOpen, setmodalOpen] = useState(false);
-
-  const [type, settype] = useState(false);
-  const [modalHead, setmodalHead] = useState(<></>);
-  const [uniqueness, setUniqueness] = useState("");
-
-  const [listing, setlisting] = useState([]);
-
   const dispatch = useDispatch();
 
   let showType = getAccessType("Financial button under Template");
@@ -99,66 +71,37 @@ const ManageSite = ({
   }
 
   // let mappedDataList = useSelector((state) => {
-  //   return state?.projectList?.getMappedData
-  // })
+  //   const data = state?.projectList?.getMappedData;
+  //   return data && data.length > 0 ? data : [{ headerName: "" }];
+  // });
 
-  let mappedDataList = useSelector((state) => {
-    const data = state?.projectList?.getMappedData;
-    return data && data.length > 0 ? data : [{ headerName: "" }];
-  });
+  // let circleWithPGList = useSelector((state) => {
+  //   return state?.projectList?.getCircleWithPGData?.map((itm) => {
+  //     return {
+  //       label: itm.Circle,
+  //       value: itm.Circle,
+  //     };
+  //   });
+  // });
 
-  let circleWithPGList = useSelector((state) => {
-    return state?.projectList?.getCircleWithPGData?.map((itm) => {
-      return {
-        label: itm.Circle,
-        value: itm.Circle,
-      };
-    });
-  });
-
-  let bandList = useSelector((state) => {
-    return (
-      state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
-        return Object.keys(itm).includes("BAND")
-          ? itm?.BAND?.split(",").map((its) => {
-              return {
-                id: its,
-                name: its,
-              };
-            })
-          : [];
-      }) || []
-    );
-  });
+  // let bandList = useSelector((state) => {
+  //   return (
+  //     state?.projectList?.getCircleWithPGData?.flatMap((itm) => {
+  //       return Object.keys(itm).includes("BAND")
+  //         ? itm?.BAND?.split(",").map((its) => {
+  //             return {
+  //               id: its,
+  //               name: its,
+  //             };
+  //           })
+  //         : [];
+  //     }) || []
+  //   );
+  // });
 
   let dataOfProject = useSelector((state) => {
-
     let dataOlder = state.adminData.getProjectTypeDyform[0];
-    console.log(dataOlder,"dataOlderdataOlder")
     return dataOlder;
-    
-    // if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
-    //   let data = dataOlder[0]["t_sengg"].map((its) => {
-    //     console.log(its, "itsitsitsitsitsits");
-    //     return {
-    //       label: its.fieldName,
-    //       required: its.dataType != "Auto Created" ? its.required : false,
-    //       value: "",
-    //       name: its.fieldName,
-    //       type: its.dataType,
-    //     };
-    //   });
-    //   dataOlder[0]["t_sengg"].map((its) => {
-    //     if (its.dataType == "Auto Created") {
-    //       setValue(its.fieldName, "");
-    //     }
-    //   });
-    //   return data;
-    // } else {
-    //   return [];
-    // }
-
-
   });
 
   const handleSiteEnggSubmit = (data) => {
@@ -215,7 +158,6 @@ const ManageSite = ({
       }
     });
 
-    console.log(final_data, "final_datafinal_data");
     setGlobalData((prev) => {
       return {
         ...prev,
@@ -235,24 +177,6 @@ const ManageSite = ({
   };
 
   const handleTrackingSubmit = (data) => {
-    // setSiteId(data["siteid"]?data["siteid"]:"Add")
-
-    // let final_data = {
-    //     "SubProjectId": dataOfProject["uniqueId"],
-    //     "new_u_id": dataOfProject["new_u_id"],
-    //     "projectuniqueId": projectuniqueId
-
-    // }
-    // dataOfProject["t_tracking"].map((itew) => {
-    //     let fieldNaming = labelToValue(itew.fieldName)
-
-    //     final_data[fieldNaming] = data[fieldNaming]
-    // })
-
-    // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_trackingData, final_data, () => {
-    //     setmodalFullOpen(false)
-    //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-    // }))
 
     let final_data = {};
     dataOfProject["t_tracking"].map((itew) => {
@@ -276,140 +200,61 @@ const ManageSite = ({
       text: "Tracking Data Added Click on submit to close menu",
     };
     dispatch(ALERTS(msgdata));
-    // setmodalFullOpen(false)
   };
 
-  const handleIssuesSubmit = (data) => {
-    // console.log(data, "dasugdjsahj")
-    // setSiteId(data["siteid"]?data["siteid"]:"Add")
+  // const handleIssuesSubmit = (data) => {
 
-    // let final_data = {
-    //     "SubProjectId": dataOfProject["uniqueId"],
-    //     "new_u_id": dataOfProject["new_u_id"],
-    //     "projectuniqueId": projectuniqueId
+  //   let final_data = {};
+  //   dataOfProject["t_issues"].map((itew) => {
+  //     let fieldNaming = labelToValue(itew["fieldName"]);
 
-    // }
-    // dataOfProject["t_issues"].map((itew) => {
-    //     let fieldNaming = labelToValue(itew.fieldName)
+  //     final_data[fieldNaming] = data[fieldNaming];
+  //   });
 
-    //     final_data[fieldNaming] = data[fieldNaming]
-    // })
+  //   setGlobalData((prev) => {
+  //     return {
+  //       ...prev,
+  //       t_issues: final_data,
+  //     };
+  //   });
 
-    // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_issueData, final_data, () => {
-    //     setmodalFullOpen(false)
-    //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-    // }))
+  //   let msgdata = {
+  //     show: true,
+  //     icon: "success",
+  //     buttons: [],
+  //     type: 1,
+  //     text: "Issues Data Added Click on submit to close menu",
+  //   };
+  //   dispatch(ALERTS(msgdata));
+  // };
 
-    let final_data = {};
-    dataOfProject["t_issues"].map((itew) => {
-      let fieldNaming = labelToValue(itew["fieldName"]);
-
-      final_data[fieldNaming] = data[fieldNaming];
-    });
-
-    setGlobalData((prev) => {
-      return {
-        ...prev,
-        t_issues: final_data,
-      };
-    });
-
-    let msgdata = {
-      show: true,
-      icon: "success",
-      buttons: [],
-      type: 1,
-      text: "Issues Data Added Click on submit to close menu",
-    };
-    dispatch(ALERTS(msgdata));
-    // setmodalFullOpen(false)
-  };
   const bodyData = [];
 
-  const handleFinancialsSubmit = (data) => {
-    // console.log(data, "dasugdjsahj")
-    // setSiteId(data["siteid"]?data["siteid"]:"Add")
-
-    // let final_data = {
-    //     "SubProjectId": dataOfProject["uniqueId"],
-    //     "new_u_id": dataOfProject["new_u_id"],
-    //     "projectuniqueId": projectuniqueId
-
-    // }
-    // dataOfProject["t_sFinancials"].map((itew) => {
-    //     let fieldNaming = labelToValue(itew.fieldName)
-
-    //     final_data[fieldNaming] = data[fieldNaming]
-    // })
-
-    // dispatch(projectListActions.submitProjectTypeData(Urls.projectList_financialData, final_data, () => {
-    //     setmodalFullOpen(false)
-    //     dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
-    // }))
-    let final_data = {};
-    dataOfProject["t_sFinancials"].map((itew) => {
-      let fieldNaming = labelToValue(itew["fieldName"]);
-      final_data[fieldNaming] = data[fieldNaming];
-    });
-
-    setGlobalData((prev) => {
-      return {
-        ...prev,
-        t_sFinancials: final_data,
-      };
-    });
-
-    // let msgdata = {
-    //   show: true,
-    //   icon: "success",
-    //   buttons: [],
-    //   type: 1,
-    //   text: "Financial Data Added Click on submit to close menu",
-    // };
-    // dispatch(ALERTS(msgdata));
-    // setmodalFullOpen(false)
-  };
   const funcaller = () => {
     reset({});
   };
-
-  const handleAddActivity = (res, targ, itm) => {
-    console.log(
-      res,
-      "uniqueness",
-      itm.uniqueId,
-      "uniqueness",
-      "handleAddActivity"
-    );
-
-    let newdata = {
-      [targ]: res,
-    };
-
-    dispatch(
-      AdminActions.patchManageProjectType(true, itm.uniqueId, newdata, () => {
-        // alert("done")
-
-        dispatch(AdminActions.getManageProjectType(customeruniqueId));
-      })
-    );
-  };
-
-  const [modalBody, setmodalBody] = useState(
-    <>
-      {/* <Button name={"sasaass"} onClick={(handleSubmit(handleAddActivity))}></Button> */}
-    </>
-  );
 
   useEffect(() => {
     if (dataOfProject) {
       setValueForm1("project", dataOfProject.projectType);
       setValueForm1("subProject", dataOfProject.subProject);
+      setValueForm1("clientName", dataOfProject.clientName);
     }
     reset({});
-
-    // dispatch(AdminActions.getOneManageProjectType("65dee316811c797c9f26d836/65e59c4488b1db430076f576"))
   }, [dataOfProject, reset]);
+
+
+    let marketList = useSelector((state) => {
+    return state?.adminData?.getManageMarket.map((itm) => {
+      return {
+        label: itm?.marketName,
+        value: itm.marketName,
+      };
+    });
+  });
+
+
+
 
   let dtype = {
     Decimal: "number",
@@ -425,6 +270,8 @@ const ManageSite = ({
     { label: "file", value: "", name: "file", required: true, type: "file" },
     { label: "Note", value: "", name: "note", required: true, type: "text" },
   ];
+
+
   return (
     <>
       <div className="p-4">
@@ -449,19 +296,34 @@ const ManageSite = ({
                       ? dataOfProject["t_sengg"]
                         ? [
                             {
-                              label: "Project Type",
+                              label: "Client Name",
+                              value: "",
+                              name: "clientName",
+                              type: "sdisabled",
+                              classes: "col-span-1",
+                            },
+                            {
+                              label: "Scope",
                               value: "",
                               name: "project",
                               type: "sdisabled",
                               classes: "col-span-1",
                             },
                             {
-                              label: "Sub Project",
+                              label: "Sub Scope",
                               value: "",
                               name: "subProject",
                               type: "sdisabled",
                               classes: "col-span-1",
                             },
+                            // {
+                            //   label: "Market",
+                            //   value: "",
+                            //   name: "Market",
+                            //   type: "select",
+                            //   option:marketList,
+                            //   classes: "col-span-1",
+                            // },
                             ...dataOfProject["t_sengg"].map((its) => {
                               let type = dtype[its.dataType];
                               let option = its.dropdownValue
@@ -473,47 +335,47 @@ const ManageSite = ({
                                   })
                                 : [];
 
-                              if (its["fieldName"] === "CIRCLE") {
-                                option = circleWithPGList;
+                              if (its["fieldName"] === "Market" || its["fieldName"] === "MARKET" ) {
+                                option = marketList;
                                 type = "select";
                               }
-                              if (its["fieldName"] === "BAND") {
-                                option = bandList;
-                                type = "muitiSelect";
-                              }
-                              if (its["fieldName"] === "CELL ID") {
-                                type = "muitiSelect";
-                                option = its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      id: itm,
-                                      name: itm,
-                                    };
-                                  })
-                                : [];
-                              }
-                              if (its["fieldName"] === "SECTOR") {
-                                type = "muitiSelect";
-                                option = its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      id: itm,
-                                      name: itm,
-                                    };
-                                  })
-                                : [];
-                              }
-                              if (its["fieldName"] === "PARENT PROJECT ID") {
-                                type = "newSingleSelect45";
-                                option = its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      label: itm,
-                                      value: itm,
-                                    };
-                                  })
-                                : [];
-                              }
+                              // if (its["fieldName"] === "BAND") {
+                              //   option = bandList;
+                              //   type = "muitiSelect";
+                              // }
+                              // if (its["fieldName"] === "CELL ID") {
+                              //   type = "muitiSelect";
+                              //   option = its.dropdownValue
+                              //   ? its.dropdownValue.split(",").map((itm) => {
+                              //       return {
+                              //         id: itm,
+                              //         name: itm,
+                              //       };
+                              //     })
+                              //   : [];
+                              // }
+                              // if (its["fieldName"] === "SECTOR") {
+                              //   type = "muitiSelect";
+                              //   option = its.dropdownValue
+                              //   ? its.dropdownValue.split(",").map((itm) => {
+                              //       return {
+                              //         id: itm,
+                              //         name: itm,
+                              //       };
+                              //     })
+                              //   : [];
+                              // }
+                              // if (its["fieldName"] === "PARENT PROJECT ID") {
+                              //   type = "newSingleSelect45";
+                              //   option = its.dropdownValue
+                              //   ? its.dropdownValue.split(",").map((itm) => {
+                              //       return {
+                              //         label: itm,
+                              //         value: itm,
+                              //       };
+                              //     })
+                              //   : [];
+                              // }
                               return {
                                 label: its.fieldName,
                                 value: "Select",
@@ -588,88 +450,220 @@ const ManageSite = ({
                 />
               </>
             ),
-            Issues: (
+            // Issues: (
+            //   <>
+            //     <div className="flex justify-end">
+            //       <Button
+            //         classes="w-30"
+            //         name="Save Issues"
+            //         onClick={handleSubmitForm3(handleIssuesSubmit)}
+            //       />
+            //     </div>
+            //     <CommonForm
+            //       classes={"grid-cols-4 gap-1"}
+            //       Form={
+            //         dataOfProject
+            //           ? dataOfProject["t_issues"]
+            //             ? dataOfProject["t_issues"].map((its) => {
+            //                 return {
+            //                   label: its.fieldName,
+            //                   value: "abc",
+            //                   name: its.fieldName,
+            //                   required: its.required == "Yes" ? true : false,
+            //                   type: dtype[its.dataType],
+            //                   option:its.dropdownValue
+            //                     ? its.dropdownValue.split(",").map((itm) => {
+            //                         return {
+            //                           value: itm,
+            //                           label: itm,
+            //                         };
+            //                       })
+            //                     : [],
+            //                   props: {
+            //                     maxSelectableDate: today,
+            //                   },
+            //                 };
+            //               })
+            //             : []
+            //           : []
+            //       }
+            //       // Form={filesUploadForm}
+            //       errors={errorsForm3}
+            //       register={registerForm3}
+            //       setValue={setValueForm3}
+            //       getValues={getValuesForm3}
+            //     />
+            //   </>
+            // ),
+            "Financial-Survey": (
               <>
-                <div className="flex justify-end">
-                  <Button
-                    classes="w-30"
-                    name="Save Issues"
-                    onClick={handleSubmitForm3(handleIssuesSubmit)}
-                  />
+                <div className="overflow-auto h-[80vh]">
+                  {dataOfProject &&
+                    Array.isArray(dataOfProject["t_sFinancials-survey"]) &&
+                    dataOfProject["t_sFinancials-survey"] && (
+                      <table>
+                        <thead>
+                          <tr className="bg-black w-full overflow-x-auto flex ">
+                            {dataOfProject["t_sFinancials-survey"].map((its) => {
+                              return (
+                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+                                  {its.fieldName}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Array.isArray(bodyData) &&
+                            bodyData?.map((itm, i) => (
+                              <tr key={i}>
+                                {Object.keys(itm)?.map((key, j) => {
+                                  return <td>{itm[key]}</td>;
+                                })}
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    )}
                 </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["t_issues"]
-                        ? dataOfProject["t_issues"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              required: its.required == "Yes" ? true : false,
-                              type: dtype[its.dataType],
-                              option:its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm3}
-                  register={registerForm3}
-                  setValue={setValueForm3}
-                  getValues={getValuesForm3}
-                />
               </>
             ),
-            ...(assignfinacial
-              ? {
-                  Financials: (
-                    <>
-                      <div className="overflow-auto h-[80vh]">
-                        {dataOfProject &&
-                          Array.isArray(dataOfProject["t_sFinancials"]) &&
-                          dataOfProject["t_sFinancials"] && (
-                            <table>
-                              <thead>
-                                <tr className="bg-black w-full overflow-x-auto flex ">
-                                  {dataOfProject["t_sFinancials"].map((its) => {
-                                    return (
-                                      <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
-                                        {its.fieldName}
-                                      </th>
-                                    );
-                                  })}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {Array.isArray(bodyData) &&
-                                  bodyData?.map((itm, i) => (
-                                    <tr key={i}>
-                                      {Object.keys(itm)?.map((key, j) => {
-                                        return <td>{itm[key]}</td>;
-                                      })}
-                                    </tr>
-                                  ))}
-                              </tbody>
-                            </table>
-                          )}
-                      </div>
-                    </>
-                  ),
-                }
-              : {}),
+            "Financial-Signange": (
+              <>
+                <div className="overflow-auto h-[80vh]">
+                  {dataOfProject &&
+                    Array.isArray(dataOfProject["t_sFinancials-signange"]) &&
+                    dataOfProject["t_sFinancials-signange"] && (
+                      <table>
+                        <thead>
+                          <tr className="bg-black w-full overflow-x-auto flex ">
+                            {dataOfProject["t_sFinancials-signange"].map((its) => {
+                              return (
+                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white">
+                                  {its.fieldName}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Array.isArray(bodyData) &&
+                            bodyData?.map((itm, i) => (
+                              <tr key={i}>
+                                {Object.keys(itm)?.map((key, j) => {
+                                  return <td>{itm[key]}</td>;
+                                })}
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    )}
+                </div>
+              </>
+            ),
+            "Financial-Revisit": (
+              <>
+                <div className="overflow-auto h-[80vh]">
+                  {dataOfProject &&
+                    Array.isArray(dataOfProject["t_sFinancials-revisit"]) &&
+                    dataOfProject["t_sFinancials-revisit"] && (
+                      <table>
+                        <thead>
+                          <tr className="bg-black w-full overflow-x-auto flex ">
+                            {dataOfProject["t_sFinancials-revisit"].map((its) => {
+                              return (
+                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+                                  {its.fieldName}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Array.isArray(bodyData) &&
+                            bodyData?.map((itm, i) => (
+                              <tr key={i}>
+                                {Object.keys(itm)?.map((key, j) => {
+                                  return <td>{itm[key]}</td>;
+                                })}
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    )}
+                </div>
+              </>
+            ),
+            "Financial-Colo": (
+              <>
+                <div className="overflow-auto h-[80vh]">
+                  {dataOfProject &&
+                    Array.isArray(dataOfProject["t_sFinancials-colo"]) &&
+                    dataOfProject["t_sFinancials-colo"] && (
+                      <table>
+                        <thead>
+                          <tr className="bg-black w-full overflow-x-auto flex ">
+                            {dataOfProject["t_sFinancials-colo"].map((its) => {
+                              return (
+                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+                                  {its.fieldName}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Array.isArray(bodyData) &&
+                            bodyData?.map((itm, i) => (
+                              <tr key={i}>
+                                {Object.keys(itm)?.map((key, j) => {
+                                  return <td>{itm[key]}</td>;
+                                })}
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    )}
+                </div>
+              </>
+            ),
+            // ...(assignfinacial
+            //   ? {
+            //       Financials: (
+            //         <>
+            //           <div className="overflow-auto h-[80vh]">
+            //             {dataOfProject &&
+            //               Array.isArray(dataOfProject["t_sFinancials"]) &&
+            //               dataOfProject["t_sFinancials"] && (
+            //                 <table>
+            //                   <thead>
+            //                     <tr className="bg-black w-full overflow-x-auto flex ">
+            //                       {dataOfProject["t_sFinancials"].map((its) => {
+            //                         return (
+            //                           <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+            //                             {its.fieldName}
+            //                           </th>
+            //                         );
+            //                       })}
+            //                     </tr>
+            //                   </thead>
+            //                   <tbody>
+            //                     {Array.isArray(bodyData) &&
+            //                       bodyData?.map((itm, i) => (
+            //                         <tr key={i}>
+            //                           {Object.keys(itm)?.map((key, j) => {
+            //                             return <td>{itm[key]}</td>;
+            //                           })}
+            //                         </tr>
+            //                       ))}
+            //                   </tbody>
+            //                 </table>
+            //               )}
+            //           </div>
+            //         </>
+            //       ),
+            //     }
+            //   : {}),
           }}
         />
       </div>

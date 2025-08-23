@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
-import AdminActions from "../../../../store/actions/admin-actions";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import { json } from "react-router-dom";
@@ -19,6 +18,7 @@ const FillExpenseForm = ({
   formValue = {},
   expenseRef = { current: {} },
 }) => {
+
   const [modalOpen, setmodalOpen] = useState(false);
   const [Km, setKm] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState('');
@@ -44,6 +44,7 @@ const FillExpenseForm = ({
       };
     });
   });
+
   let projectDetailsList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvPrjectDetails.map((itm) => {
       return {
@@ -202,45 +203,6 @@ const FillExpenseForm = ({
       classes: "col-span-1",
     
     },
-    // {},
-    // {
-    //   label: "Project Id",
-    //   value: "",
-    //   name:
-    //     Object.entries(formValue).length > 0 ? "projectIdName" : "projectId",
-    //   type: Object.entries(formValue).length > 0 ? "sdisabled" : "newmultiselect",
-    //   option: projectDetailsList,
-    //   props: {
-    //     onChange: (e) => {
-    //       dispatch(
-    //         ExpenseAdvanceActions.getExpADvSiteID(
-    //           true,
-    //           `projectId=${e.target.value}`
-    //         )
-    //       );
-    //     },
-    //   },
-    //   // required: true,
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Project Id",
-    //   name: "projectId",
-    //   type: "newSingleSelect45",
-    //   option: projectDetailsList,
-    //   props: {
-    //   onChange: (e) => {
-    //     console.log('ehjdjduduyhyh',e)
-    //     dispatch(
-    //       ExpenseAdvanceActions.getExpADvSiteID(
-    //         true,
-    //         `projectId=${e.target.value}`
-    //       )
-    //     );
-    //   },
-    // },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Site Id",
       value: "",
@@ -266,7 +228,6 @@ const FillExpenseForm = ({
       name: Object.entries(formValue).length > 0 ? "Task" : "Name",
       type: Object.entries(formValue).length > 0 ? "sdisabled" : "newSingleSelect45",
       option: projectTaskNameList,
-      // required: true,
       classes: "col-span-1",
     },
     {
@@ -370,6 +331,7 @@ const FillExpenseForm = ({
       }
     );
   }
+
   const {
     register,
     handleSubmit,
@@ -384,6 +346,7 @@ const FillExpenseForm = ({
   const endKm = watch("endKm");
   const checkInDate = watch("checkInDate");
   const checkOutDate = watch("checkOutDate");
+
   useEffect(() => {
     if (!Km) {
       reset({

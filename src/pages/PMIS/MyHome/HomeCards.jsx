@@ -146,10 +146,10 @@ const HomeCards = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-32  gap-2">
-        {graph1 && <MileStoneChart />}
+        {/* {graph1 && <MileStoneChart />} */}
         {/* <TrendExpenseAdvance /> */}
-        {graph2 && <ExpenseApprovalStatus />}
-        {graph3 && <AdvanceApprovalStatus />}
+        {/* {graph2 && <ExpenseApprovalStatus />} */}
+        {/* {graph3 && <AdvanceApprovalStatus />} */}
       </div>
        {/* <div className="grid lg:grid-cols-2 m-2 gap-2">
         {graphs.slice(0, viewMoreGraphs)?.map((AllGraphs, index) => (

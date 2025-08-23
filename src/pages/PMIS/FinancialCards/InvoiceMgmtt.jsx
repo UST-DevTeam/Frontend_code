@@ -110,11 +110,11 @@ const InvoiceMgmt = () => {
         label="Add / Modify Customer"
       />
       </div>
-      <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
+      {/* <div className="grid lg:grid-cols-1 m-2 mt-20 gap-2">
         {graph1 && <MonthRevenueTrend />}
         {graph2 && <MonthlyRevenueCircle />}
         {graph3 && <CumulativeTrendPlanVsActual />}
-      </div>
+      </div> */}
     </>
   );
 };

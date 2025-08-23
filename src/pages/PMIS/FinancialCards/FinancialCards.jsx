@@ -82,50 +82,53 @@ const FinancialCards = () => {
     graph7 = true
   }
 
-  const cardData = [
-    ...(graph1 ? [{
-      icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
-      title: "Trend - Revenue Plan VS Actual",
-      component: <MonthRevenueTrend />,
-    }] : []),
-    ...(graph2 ?[{
-      icon: <UilComparison className="text-[#13b497] w-28 h-28" />,
-      title: "Circle - Revenue Plan VS Actual",
-      component: <MonthlyRevenueCircle />, 
-    }] : []),
-    ...(graph3 ?[{
-      icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
-      // icon: <img src="/revanueCumulative.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
-      title: "Revenue - Plan VS Actual Trend Cumulative",
-      component:  <CumulativeTrendPlanVsActual />,
-    }] : []),
-    ...(graph4 ?[{ 
-      icon: <UilVerticalAlignBottom className="text-[#13b497] w-28 h-28" />,
-      title: "PO Item Code Workdone",
-      component:  <PoTrackingWorkdoneChart customerId = {customerId} />,
-    }] : []),
-    ...(graph5 ?[{
-      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
-      title: "Accrual Revenue Trend",
-      component: <AccrualRevenueTrendChart customerId = {customerId} />,
-    }] : []),
-    ...(graph6 ?[{
-      icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      // icon: <img src="/PL.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
-      title: "Profit & Loss",
-      component: < ProfitAndLoss  customerId = {customerId} />,
-    }] : []),
-    ...(graph7 ?[{
-      icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      title: "Profit & Loss Trend",
-      component: <ProfitAndLossTrend customerId = {customerId} />,
-    }] : []),
-    ...(graph7 ?[{
-      icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
-      title: "Unbilled",
-      component: <ProjectTypeUnbilled customerId = {customerId} />,
-    }] : []),
-  ];
+  // const cardData = [
+  //   ...(graph1 ? [{
+  //     icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
+  //     title: "Trend - Revenue Plan VS Actual",
+  //     component: <MonthRevenueTrend />,
+  //   }] : []),
+  //   ...(graph2 ?[{
+  //     icon: <UilComparison className="text-[#13b497] w-28 h-28" />,
+  //     title: "Circle - Revenue Plan VS Actual",
+  //     component: <MonthlyRevenueCircle />, 
+  //   }] : []),
+  //   ...(graph3 ?[{
+  //     icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
+  //     // icon: <img src="/revanueCumulative.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
+  //     title: "Revenue - Plan VS Actual Trend Cumulative",
+  //     component:  <CumulativeTrendPlanVsActual />,
+  //   }] : []),
+  //   ...(graph4 ?[{ 
+  //     icon: <UilVerticalAlignBottom className="text-[#13b497] w-28 h-28" />,
+  //     title: "PO Item Code Workdone",
+  //     component:  <PoTrackingWorkdoneChart customerId = {customerId} />,
+  //   }] : []),
+  //   ...(graph5 ?[{
+  //     icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+  //     title: "Accrual Revenue Trend",
+  //     component: <AccrualRevenueTrendChart customerId = {customerId} />,
+  //   }] : []),
+  //   ...(graph6 ?[{
+  //     icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
+  //     // icon: <img src="/PL.png" alt="Profit & Loss Trend icon Not Found" className="w-full h-full object-cover"/>,
+  //     title: "Profit & Loss",
+  //     component: < ProfitAndLoss  customerId = {customerId} />,
+  //   }] : []),
+  //   ...(graph7 ?[{
+  //     icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
+  //     title: "Profit & Loss Trend",
+  //     component: <ProfitAndLossTrend customerId = {customerId} />,
+  //   }] : []),
+  //   ...(graph7 ?[{
+  //     icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
+  //     title: "Unbilled",
+  //     component: <ProjectTypeUnbilled customerId = {customerId} />,
+  //   }] : []),
+  // ];
+
+
+  const cardData = []
   
   const handleCardClick = (index) => {
     setSelectedCard(index);
@@ -141,9 +144,10 @@ const FinancialCards = () => {
      <CCDash
         showbtn={false}
         approveddata={[
+          // ["PO Management", "bg-pcol", `/financial/${customer}/${customerId}/poManagement`],
           ["PO Management", "bg-pcol", `/financial/${customer}/${customerId}/poManagement`],
-          ["Revenue Management", "bg-pcol", `/financial/${customer}/${customerId}/invoiceMgmt`],
-          ["Workdone", "bg-pcol",`/financial/${customer}/${customerId}/poWorkDone`],
+          // ["Revenue Management", "bg-pcol", `/financial/${customer}/${customerId}/invoiceMgmt`],
+          // ["Workdone", "bg-pcol",`/financial/${customer}/${customerId}/poWorkDone`],
           ["Unbilled", "bg-pcol", "/financial/unbilled"],
   
         ].map((itm) => {

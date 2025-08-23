@@ -1,32 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import DeleteButton from "../../../components/DeleteButton";
 import { PiWarningCircle } from "react-icons/pi";
 import CstmButton from "../../../components/CstmButton";
-import ToggleButton from "../../../components/ToggleButton";
 import { MdMessage, MdSmsFailed } from "react-icons/md";
-import PopupMenu from "../../../components/PopupMenu";
 import { LuTicketCheck, LuTicketX } from "react-icons/lu";
-import {
-  alertError,
-  getAccessType,
-  objectToQueryString,
-  parseTwoDigit,
-} from "../../../utils/commonFunnction";
+import {alertError,getAccessType,objectToQueryString,parseTwoDigit} from "../../../utils/commonFunnction";
 import { ALERTS } from "../../../store/reducers/component-reducer";
 import CommonActions from "../../../store/actions/common-actions";
 import { Urls } from "../../../utils/url";
-import OperationManagementActions from "../../../store/actions/admin-actions";
 import AdminActions from "../../../store/actions/admin-actions";
 import { useNavigate, useParams } from "react-router-dom";
 import projectListActions from "../../../store/actions/projectList-actions";
 import AdvancedTableExpandable from "../../../components/AdvancedTableExpandable";
 import SearchBarView from "../../../components/SearchBarView";
-
 import ProgressBar from "../../../components/ProgressBar";
 import { onehundcolor } from "../../../utils/queryBuilder";
 import ConditionalButton from "../../../components/ConditionalButton";
@@ -34,20 +24,14 @@ import eventManagementActions from "../../../store/actions/eventLogs-actions";
 import EventLog from "../../../components/EventLogs";
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../store/reducers/admin-reducer";
 import FilterActions from "../../../store/actions/filter-actions";
-import ManageProjectSiteIdForm from "../Admin/ManageProjectSiteId/ManageProjectSiteIdForm";
-import AllocateProjectForm from "../Admin/ManageProjectSiteId/AllocateProjectForm";
 import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
-import {
-  GET_CIRCLE_WITH_PG_DATA,
-  GET_MAPPED_DATA,
-} from "../../../store/reducers/projectList-reducer";
+import {GET_CIRCLE_WITH_PG_DATA,GET_MAPPED_DATA} from "../../../store/reducers/projectList-reducer";
 import MyHomeActions from "../../../store/actions/myHome-actions";
 import { GET_FILTER_MYTASK_SUBPROJECT } from "../../../store/reducers/filter-reducer";
 import Api from "../../../utils/api";
 import CommonForm from "../../../components/CommonForm";
 import CommonFormPTW from "./CommonFormPTW";
 import RejectionReason from "../../../components/Rejection Reason/RejectionReason";
-import { TbBrandReason } from "react-icons/tb";
 
 const MyTask = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -109,7 +93,6 @@ const MyTask = () => {
     riskassessment: [],
 
   });
-  console.log(isRaiseFormData.current, 'asdfafasdfsadfasdfadddddddddasdfasdfasdfas')
 
   const [modalHead, setmodalHead] = useState(<></>);
 
@@ -609,10 +592,8 @@ const MyTask = () => {
           <p
             className="text-[#13b497] font-extrabold"
             onClick={() => {
-              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
-              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
               setmodalFullOpen((prev) => !prev);
-              setmodalHead("Update Site:-" + itm["Site Id"]);
+              setmodalHead("Update FA Code:-" + itm["FA Code"]);
               dispatch(
                 GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
                   dataAll: [],
@@ -638,15 +619,11 @@ const MyTask = () => {
                   myTaskPage="Yes"
                 />
               );
-
-              // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
           >
-            {itm["Site Id"]}
+            {itm["FA Code"]}
           </p>
         ),
-
-        // CompletionBar: <ProgressBar notifyType={"success"} text={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} />,
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
@@ -1357,52 +1334,10 @@ const MyTask = () => {
       }
     }) || [];
 
-  // let Form = [
-  //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-  //     { label: "Custom Queries", value: "", type: "textarea" }
-  // ]
-
-  let milestoneLogsTable = {
-    columns: [
-      {
-        name: "Site Id",
-        value: "SiteId",
-        style: "min-w-[50px] max-w-[100px] text-center",
-      },
-      {
-        name: "Email",
-        value: "email",
-        style: "min-w-[50px] max-w-[200px] text-center",
-      },
-      {
-        name: "Time & Date ",
-        value: "UpdatedAt",
-        style: "min-w-[80px] max-w-[200px] text-center",
-      },
-      {
-        name: "Updated Data",
-        value: "updatedData",
-        style: "min-w-[50px] max-w-[300px] text-center",
-      },
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [
-      // {
-      //     label: "Role",
-      //     type: "text",
-      //     name: "rolename",
-      //     // option: roleList,
-      //     props: {
-      //     }
-      // }
-    ],
-  };
   let table = {
     columns: [
       {
-        name: "Site ID",
+        name: "FA Code",
         value: "siteIdLink",
         style:
           "min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
@@ -1428,20 +1363,20 @@ const MyTask = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Owner",
+        name: "Task Owner",
         value: "PMName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Planned Start Date",
-        value: "siteStartDate",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Planned End Date",
-        value: "siteEndDate",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Planned Start Date",
+      //   value: "siteStartDate",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Planned End Date",
+      //   value: "siteEndDate",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Completition Date",
         value: "Site_Completion Date",
@@ -1457,21 +1392,21 @@ const MyTask = () => {
       //   value: "CompletionBar",
       //   style: "min-w-[140px] max-w-[200px] text-center",
       // },
-      {
-        name: "Predecessor",
-        value: "Predecessor",
-        style: "min-w-[140px] max-w-[180px] text-center",
-      },
+      // {
+      //   name: "Predecessor",
+      //   value: "Predecessor",
+      //   style: "min-w-[140px] max-w-[180px] text-center",
+      // },
       {
         name: "Status",
         value: "siteStatus",
         style: "min-w-[240px] max-w-[280px] text-center",
       },
-      ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
-        name: "PTW status",
-        value: "ptwStatus",
-        style: "min-w-[271px] max-w-[280px] text-center",
-      }] : []),
+      // ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
+      //   name: "PTW status",
+      //   value: "ptwStatus",
+      //   style: "min-w-[271px] max-w-[280px] text-center",
+      // }] : []),
     ],
     childList: [""],
     childs: {
@@ -1514,16 +1449,16 @@ const MyTask = () => {
           value: "MileDevName",
           style: "min-w-[180px] max-w-[180px] text-center",
         },
-        {
-          name: "Planned Start Date",
-          value: "mileStoneStartDate",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
-        {
-          name: "Planned End Date",
-          value: "mileStoneEndDate",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+        // {
+        //   name: "Planned Start Date",
+        //   value: "mileStoneStartDate",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
+        // {
+        //   name: "Planned End Date",
+        //   value: "mileStoneEndDate",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
         {
           name: "Completition Date",
           value: "CC_Completion Date",
@@ -1540,21 +1475,21 @@ const MyTask = () => {
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
 
-        {
-          name: "Predecessor",
-          value: "Predecessor",
-          style: "min-w-[140px] max-w-[180px] text-center",
-        },
+        // {
+        //   name: "Predecessor",
+        //   value: "Predecessor",
+        //   style: "min-w-[140px] max-w-[180px] text-center",
+        // },
         {
           name: "Status",
           value: "mileStoneStatusUpda",
           style: "min-w-[240px] max-w-[280px] text-center",
         },
-         ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
-        name: "PTW status",
-        value: "ptwStatus",
-        style: "min-w-[240px] max-w-[280px] text-center",
-      }] : []),
+      //    ...( getAccessType('PTW Raise Actions') !== 'invisible'  ? [{
+      //   name: "PTW status",
+      //   value: "ptwStatus",
+      //   style: "min-w-[240px] max-w-[280px] text-center",
+      // }] : []),
 
 
         // {

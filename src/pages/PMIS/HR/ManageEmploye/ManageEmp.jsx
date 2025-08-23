@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-// import ManageCircleForm from '../../Admin/ManageCircle/ManageCircleForm'
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
@@ -186,7 +184,6 @@ const ManageEmp = () => {
                 setmodalOpen(prev => !prev)
                 dispatch(OperationManagementActions.getOperationUserList())
                 setmodalHead("New User")
-                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 setmodalBody("")
             }}
                 name={"Add New"}></Button></>}

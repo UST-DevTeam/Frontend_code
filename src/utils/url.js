@@ -3,6 +3,9 @@
 export const baseUrl = "https://projectapi.mcpspmis.com"
 export const backendassetUrl = "https://projectapi.mcpspmis.com/"
 
+// export const baseUrl = "https://api.mcpspmis.com"
+// export const backendassetUrl = "https://api.mcpspmis.com/"
+
 
 // export const baseUrl = "http://localhost:7585";
 // export const backendassetUrl = "http://localhost:7585/";
@@ -103,6 +106,7 @@ export const Urls = {
 
   finance_poinvoice_based: "/finance/poInvoiceBased",
   finance_Invoice: "/finance/invoice",
+  finance_Invoice_Wcc: "/finance/invoiceWcc",
   finance_poworkdone_based: "/finance/poWorkdoneBased",
   finance_poworkdone_itemCode: "/finance/commercial",
   finance_poworkdone_dashboard: "/finance/poTrackingWorkdone",
@@ -293,7 +297,15 @@ export const Urls = {
   ApproverPageDataForm:'/rtwsGetFormsData',
   PtwApproverPage:'/getPtwApprover',
   PtwRejectionPage:"/show/ptw/rejectionreason",
-  PtwApproverPageAlert:"/getPtwApprover"
+  PtwApproverPageAlert:"/getPtwApprover",
+
+
+
+  // internal Project Start -------------------
+
+  admin_manageMarket:"/admin/manageMarket",
+  project_by_customer:"/customers/projects",
+  admin_manageResource:"/admin/manageResource",
  
 
 

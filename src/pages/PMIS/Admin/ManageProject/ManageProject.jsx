@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../../components/EditButton";
-import TrashButton from "../../../../components/TrashButton";
 import ManageProjectForm from "../../../../pages/PMIS/Admin/ManageProject/ManageProjectForm";
 import ManageSubProjectMultiDynamicForm from "../../../../pages/PMIS/Admin/ManageProject/ManageSubProjectMultiDynamicForm";
 import AdvancedTable from "../../../../components/AdvancedTable";
@@ -11,34 +9,23 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import ToggleButton from "../../../../components/ToggleButton";
 import { MdMessage } from "react-icons/md";
-
-import {
-  getAccessType,
-  objectToQueryString,
-} from "../../../../utils/commonFunnction";
+import {getAccessType,objectToQueryString} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import ComponentActions from "../../../../store/actions/component-actions";
-
 import { Urls } from "../../../../utils/url";
 import { useNavigate, useParams } from "react-router-dom";
-import OperationManagementActions from "../../../../store/actions/admin-actions";
 import AdminActions from "../../../../store/actions/admin-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import ConditionalButton from "../../../../components/ConditionalButton";
-import ButtonWithTooltip from "../../../../components/ButtonWithTooltip";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
-import CommonForm from "../../../../components/CommonForm";
 import PopupMenu from "../../../../components/PopupMenu";
-import FilterActions from "../../../../store/actions/filter-actions";
 import ManageSubProjectMultiDynamicFormTask from "./ManageSubProjectMultiDynamicFormTask";
 import { GET_PROJECT_ALL_LIST } from "../../../../store/reducers/projectList-reducer";
 import { PROJECTEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 import SearchBarView from "../../../../components/SearchBarView";
-import projectListActions from "../../../../store/actions/projectList-actions";
 
 
 const ManageProject = () => {
@@ -60,52 +47,32 @@ const ManageProject = () => {
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
-  let projectTypeForm = [
-    {
-      label: "Select Project Type",
-      name: "projectType",
-      type: "BigmuitiSelect",
-      value: "",
-      option: [
-        { id: "hiii", name: "hello" },
-        { id: "hello", name: "hii" },
-      ],
-      props: {
-        onChange: (e) => {
-          console.log(e.target.value, "e.target.value");
-        },
-      },
-      required: true,
-      classes: "col-span-1",
-      width:"350px"
-    },
-  ];
+  // let projectTypeForm = [
+  //   {
+  //     label: "Select Project Type",
+  //     name: "projectType",
+  //     type: "BigmuitiSelect",
+  //     value: "",
+  //     option: [
+  //       { id: "hiii", name: "hello" },
+  //       { id: "hello", name: "hii" },
+  //     ],
+  //     props: {
+  //       onChange: (e) => {
+  //         console.log(e.target.value, "e.target.value");
+  //       },
+  //     },
+  //     required: true,
+  //     classes: "col-span-1",
+  //     width:"350px"
+  //   },
+  // ];
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.adminData?.getProject;
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        // "status": <CstmButton child=
-        // {<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         // alert(e.target.checked)
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        //     // if(itm.enabled==0){
-        //     //     itm.enabled=1
-        //     // }else{
-        //     //     itm.enabled=0
-        //     // }
-        //     // itm.enabled=itm.enabled==0?1:0
-        //     console.log(itm.enabled, "itm.enabled")
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-
-        // status:"dsadsadsa",
         projectId: (
           <button>
             <p
@@ -133,7 +100,6 @@ const ManageProject = () => {
             </p>
           </button>
         ),  
-        eventLogs: <></>,
         edit: (
           <>
             <div className="flex justify-center gap-3">
@@ -329,51 +295,6 @@ const ManageProject = () => {
     formState: { errors },
   } = useForm();
 
-  let circleList = useSelector((state) => {
-    return state?.filterData?.getProjectCircle.map((itm) => {
-      return {
-        label: itm.circle,
-        value: itm.circle,
-      };
-    });
-  });
-
-  let projectIdList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectId.map((itm) => {
-      return {
-        label: itm.projectId,
-        value: itm.projectId,
-      };
-    });
-  });
-console.log(fileOpenlink,"___fileOpenlink__")
-  let projectGroupList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectGroup.map((itm) => {
-      return {
-        label: itm.ProjectGroup,
-        value: itm.ProjectGroup,
-      };
-    });
-  });
-
-  let projectTypeList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectType.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.projectType,
-      };
-    });
-  });
-
-  let projectManagerList = useSelector((state) => {
-    return state?.filterData?.getProjectProjectManager.map((itm) => {
-      return {
-        label: itm.projectManager,
-        value: itm.projectManager,
-      };
-    });
-  });
-
   let showTypeforAction = getAccessType("Action(Project)")
 
   let shouldIncludeEditColumn = false
@@ -390,11 +311,11 @@ console.log(fileOpenlink,"___fileOpenlink__")
         value: "projectId",
         style: "min-w-[170px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
       },
-      {
-        name: "Project Group",
-        value: "projectGroupId",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Project Group",
+      //   value: "projectGroupId",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Project Type",
         value: "projectTypeName",
@@ -405,11 +326,11 @@ console.log(fileOpenlink,"___fileOpenlink__")
         value: "PMName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Circle",
-        value: "circleName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Circle",
+      //   value: "circleName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Start Date",
         value: "startDate",
@@ -435,9 +356,7 @@ console.log(fileOpenlink,"___fileOpenlink__")
           ]
         : [])
     ],
-    // properties: {
-    //   rpp: [10, 20, 50, 100],
-    // },
+    
     filter: [
       // {
       //   label: "Project ID",
@@ -484,29 +403,11 @@ console.log(fileOpenlink,"___fileOpenlink__")
           { label: "Archive", value: "Archive" },
         ],
         props: {},
-      },
-      // {
-      //   label: "Select Project Type",
-      //   name: "projectType",
-      //   type: "BigmuitiSelect",
-      //   value: "",
-      //   option: [
-      //     // dispatch(AdminActions.getCardProjectType(customeruniqueId))
-      //   ],
-      //   props: {
-      //     onChange: (e) => {
-      //       console.log(e.target.value, "e.target.value");
-      //     },
-      //   },
-      //   required: true,
-      //   classes: "col-span-1",
-      //   width:"350px"
-      // },
-      
+      }
     ],
   };
-  const onSubmit = (data) => {
 
+  const onSubmit = (data) => {
     let value = data.reseter
     delete data["reseter"];
     let strVal=objectToQueryString(data)
@@ -515,12 +416,6 @@ console.log(fileOpenlink,"___fileOpenlink__")
   };
   useEffect(() => {
     dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    // dispatch(FilterActions.getProjectCircle(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    // dispatch(FilterActions.getProjectProjectId(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    // dispatch(FilterActions.getProjectProjectGroup(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    // dispatch(FilterActions.getProjectProjectType(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    // dispatch(FilterActions.getProjectProjectManager(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
-    // dispatch(eventManagementActions.getprojecteventList());
   }, []);
 
   const onTableViewSubmit = (data) => {

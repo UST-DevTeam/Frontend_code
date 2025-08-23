@@ -54,7 +54,6 @@ const CommonTableFormSiteParent = ({
     beforeAnyChange();
   }, [activeTab]);
 
-  console.log(tabslist, "____tabslist__");
   return (
     <div className="max-w-full mx-auto ">
       {tabslist && (
@@ -128,7 +127,7 @@ const CommonTableFormSiteParent = ({
       )}
 
       <div className="flex">
-        {setmodalFullOpen && activeTab !== "Financials" && (
+        {setmodalFullOpen && !["Financials","Financial-Survey","Financial-Signange","Financial-Revisit","Financial-Colo",].includes(activeTab) && (
           <Button
             name={"Submit"}
             classes="w-auto"

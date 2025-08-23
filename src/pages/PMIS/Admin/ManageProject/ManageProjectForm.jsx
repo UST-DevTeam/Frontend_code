@@ -40,14 +40,14 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
   });
 
 
-  let projectGroupList = useSelector((state) => {
-    return state?.adminData?.getManageProjectGroup.map((itm) => {
-      return {
-        label: itm.projectGroupId,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  // let projectGroupList = useSelector((state) => {
+  //   return state?.adminData?.getManageProjectGroup.map((itm) => {
+  //     return {
+  //       label: itm.projectGroupId,
+  //       value: itm.uniqueId,
+  //     };
+  //   });
+  // });
 
 
   let projectTypeList = useSelector((state) => {
@@ -109,25 +109,25 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       required: true,
       classes: "col-span-1",
     },
-    {
-      label: "Project Group",
-      name: "projectGroup",
-      type: "select",
-      value: "",
-      option: projectGroupList,
-      props: {
-        onChange: (e) => {
-          dispatch(
-            projectListActions.getProjectCircle(
-              true,
-              `projectGroupId=${e.target.value}`
-            )
-          );
-        },
-      },
-      required: true,
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Project Group",
+    //   name: "projectGroup",
+    //   type: "select",
+    //   value: "",
+    //   option: projectGroupList,
+    //   props: {
+    //     onChange: (e) => {
+    //       dispatch(
+    //         projectListActions.getProjectCircle(
+    //           true,
+    //           `projectGroupId=${e.target.value}`
+    //         )
+    //       );
+    //     },
+    //   },
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
     {
       label: "Project Type",
       value: "",
@@ -161,20 +161,20 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
     //   },
     //   classes: "col-span-1",
     // },
-    {
-      label: "Circle",
-      name: "circle",
-      type: "select",
-      value: "",
-      option: circleList,
-      required: true,
-      props: {
-        onChange: (e) => {
-          // alert(e.target.value)
-        },
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Circle",
+    //   name: "circle",
+    //   type: "select",
+    //   value: "",
+    //   option: circleList,
+    //   required: true,
+    //   props: {
+    //     onChange: (e) => {
+    //       // alert(e.target.value)
+    //     },
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
       label: "Start Date",
       name: "startDate",
@@ -201,30 +201,30 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       required: true,
       classes: "col-span-1",
     },
-    {
-      label: "Project Manager",
-      name: "PMName",
-      type: "autoSuggestion",
-      value: "",
-      option: pmempList,
-      props: {
-        onChange: (e) => {
-          let filteredData = pmempList.filter(
-            (itm) => itm.label == e.target.value
-          );
-          if (filteredData.length > 0) {
-            setValue("PMId", filteredData[0]["value"]);
-          }
-          console.log(
-            pmempList.filter((itm) => itm.label == e.target.value),
-            e.target.value,
-            "e.target.value"
-          );
-        },
-      },
-      required: true,
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Project Manager",
+    //   name: "PMName",
+    //   type: "autoSuggestion",
+    //   value: "",
+    //   option: pmempList,
+    //   props: {
+    //     onChange: (e) => {
+    //       let filteredData = pmempList.filter(
+    //         (itm) => itm.label == e.target.value
+    //       );
+    //       if (filteredData.length > 0) {
+    //         setValue("PMId", filteredData[0]["value"]);
+    //       }
+    //       console.log(
+    //         pmempList.filter((itm) => itm.label == e.target.value),
+    //         e.target.value,
+    //         "e.target.value"
+    //       );
+    //     },
+    //   },
+    //   required: true,
+    //   classes: "col-span-1",
+    // },
     {
       label: "Status",
       name: "status",
@@ -238,12 +238,15 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       classes: "col-span-1",
     },
   ];
+
   const onSubmit = (data) => {
     console.log(data, "datadatadatadata");
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
   };
+
+
   const onTableViewSubmit = (data) => {
 
     let startDate = data['startDate'];
@@ -303,8 +306,10 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       );
     }
   };
+
+
+
   useEffect(() => {
-    dispatch(AdminActions.getManageProjectGroup(true, "", customeruniqueId));
     dispatch(AdminActions.getManageProjectType(customeruniqueId));
     dispatch(FilterActions.getautosuggestionProjectManager());
     if (customeruniqueId && projecttypeuniqueId) {
@@ -312,10 +317,6 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
     } else if (customeruniqueId) {
       dispatch(AdminActions.getCardProjectType(customeruniqueId));
     }
-    dispatch(GET_PROJECT_CIRCLE({dataAll:[],reset:true}))
-    // dispatch(AdminActions.getCardProjectType(customeruniqueId));
-
-
 
     if (resetting) {
       reset({});
@@ -324,38 +325,21 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       });
     } else {
       reset({});
-      // console.log(formValue, "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["startDate", "endDate"].indexOf(key.name) != -1) {
-          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name], "DD/MM/YYYY");
           setValue(key.name, momentObj.toDate());
         } else if (key.type == "select") {
           if (key.name == "projectType") {
             setpType(formValue["projectTypeName"]);
           }
-
-          if (key.name == "projectGroup") {
-            dispatch(projectListActions.getProjectCircle(true, `projectGroupId=${formValue["projectGroup"]}`));
-            setcircle(true);
-          }
-
-          let dtwq = key.option.filter(
-            (itq) => itq.label == formValue[key.name]
-          );
-
-          console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
-          if (dtwq.length > 0) {
-            setValue(key.name, dtwq[0]["value"]);
-          } else {
-            setValue(key.name, formValue[key.name]);
-          }
         } else {
           setValue(key.name, formValue[key.name]);
         }
       });
     }
-  }, [formValue, resetting,]);
+  }, []);
+  
   return (
     <>
       <Modal

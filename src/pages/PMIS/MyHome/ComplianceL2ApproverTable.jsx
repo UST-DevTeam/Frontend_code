@@ -241,50 +241,7 @@ const ComplianceL2ApproverTable = () => {
                         />
                     )}
                 ),
-                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                //     let data = {
-                //         "enabled": e.target.checked ? 1 : 0
-                //     }
-                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                //         alert(e.target.checked)
-                //         e.target.checked = e.target.checked
-                //     }, itm.id))
-                //     // if(itm.enabled==0){ 
-                //     //     itm.enabled=1
-                //     // }else{
-                //     //     itm.enabled=0
-                //     // }
-                //     // itm.enabled=itm.enabled==0?1:0
-                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
-                // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                //     setmodalOpen(true)
-                //     dispatch(AdminActions.getManageCircle())
-                //     setmodalHead("Edit Circle")
-                //     setmodalBody(<>
-                //         <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
-                //     </>)
-                // }}></EditButton>} />,
-                
-                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                //     let msgdata = {
-                //         show: true,
-                //         icon: 'warning',
-                //         buttons: [
-                //             <Button classes='w-15 bg-rose-400' onClick={() => {
-                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_circle}/${itm.uniqueId}`, () => {
-                //                     dispatch(AdminActions.getManageCircle())
-                //                     dispatch(ALERTS({ show: false }))
-                //                 }))
-                //             }} name={"OK"} />,
-                //             <Button classes='w-auto' onClick={() => {
-                //                 dispatch(ALERTS({ show: false }))
-                //             }} name={"Cancel"} />
-                //         ],
-                //         text: "Are you sure you want to Delete?"
-                //     }
-                //     dispatch(ALERTS(msgdata))
-                // }}></DeleteButton>} />
             }
             return updateditm
         });
@@ -511,20 +468,7 @@ const ComplianceL2ApproverTable = () => {
         <AdvancedTable
             headerButton={
             <div className='flex gap-1'>
-                {/* <Button classes='w-auto' onClick={(e) => {
-                setmodalOpen(prev => !prev)
-                dispatch(AdminActions.getManageCircle())
-                setmodalHead("New Circle")
-                setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                }}
-                name={"Add Circle"}></Button>
-                <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
-                    setFileOpen(prev=>!prev)
-                }}></Button>
-                <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
-                    dispatch(CommonActions.commondownload("/export/manageCircle","Export_Circle("+dt+").xlsx"))
-                }}></Button> */}
-                </div>
+            </div>
             }
             table={table}
             filterAfter={onSubmit}

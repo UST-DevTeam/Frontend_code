@@ -224,18 +224,18 @@ const ExpAdvForClaim = () => {
           style: "min-w-[120px] max-w-[450px] text-center",
       },
         {
-            name: "Employee Name",
-            value: "Employee Name",
+            name: "empName",
+            value: "empName",
             style: "min-w-[150px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]",
         },
         {
-            name: "Employee Code",
-            value: "Employee Code",
+            name: "empCode",
+            value: "empCode",
             style: "min-w-[130px] max-w-[450px] text-center sticky left-[149px] bg-[#3e454d]",
         },
         {
-          name: "UST Employee Code",
-          value: "UST Employee Code",
+          name: "UST empCode",
+          value: "UST empCode",
           style: "min-w-[150px] max-w-[450px] text-center sticky left-[169px] bg-[#3e454d]",
       },
         {
@@ -433,7 +433,7 @@ const ExpAdvForClaim = () => {
       },
       
       {
-        label: "Employee Code",
+        label: "empCode",
         type: "text",
         name: "empCode",
         props: {},

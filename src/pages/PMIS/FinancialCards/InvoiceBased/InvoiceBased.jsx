@@ -216,80 +216,85 @@ const InvoiceBased = () => {
             ]
             : []),
             {
-                name: "Customer",
+                name: "Client Name",
                 value: "customerName",
                 style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]  -top-1 z-20"
             },          
             {
-                name: "Project Group",
+                name: "UST Project ID",
                 value: "projectGroupId",
                 style: "min-w-[140px] max-w-[200px] text-center sticky left-[160px] bg-[#3e454d]  -top-1 z-20"
             },                                    
             {
-                name: "GBPA",
+                name: "Project ID",
                 value: "gbpa",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "PO Number",
+                name: "Market",
                 value: "poNumber",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "PO Start Date",
+                name: "Project Type",
                 value: "poStartDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "PO End Date",
+                name: "Project sub-Type",
                 value: "poEndDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Validity(Days)",
+                name: "PO#",
                 value: "povalidity",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Item Code",
+                name: "Line no#",
                 value: "itemCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Description",
+                name: "PO Description",
                 value: "description",
                 style: "min-w-[500px] max-w-[500px] text-center -z-10"
             },            
             {
-                name: "Unit Rate(INR)",
+                name: "PO Received Date",
                 value: "unitRate(INR)",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Initial PO Qty",
+                name: "PO Validity Date",
                 value: "initialPoQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Invoiced Quantity",
+                name: "Unit Price",
                 value: "invoicedQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
-                name: "Open Quantity(Post Invoice)",
+                name: "Quantity",
                 value: "openQty",
                 style: "min-w-[250px] max-w-[250px] text-center"
             },                    
             {
-                name: "Open PO Value(INR)-Invoiced",
+                name: "PO Value",
                 value: "OpenPoValue",
                 style: "min-w-[250px] max-w-[250px] text-center"
             },            
             {
-                name: "Item Code Status",
+                name: "Used Qty",
                 value: "itemCodeStatus",
                 style: "min-w-[140px] max-w-[200px] text-center"
             }, 
+            {
+                name: "Open Qty",
+                value: "poStatus",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },           
             {
                 name: "PO Status",
                 value: "poStatus",

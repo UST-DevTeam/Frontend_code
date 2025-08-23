@@ -68,6 +68,19 @@ const initialState = {
   getDeliveryPVA:[],
   getSubProjectDeliveryPVA:[],
   getExchnageRate:[],
+
+
+
+  // internal Project
+
+  getManageMarket:[],
+  getProjectByCustomer:[],
+  getManageResource:[]
+
+
+
+
+
 };
 
 const adminData = createSlice({
@@ -712,6 +725,40 @@ const adminData = createSlice({
     GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS: (state, { payload }) => {
       state.getComplianceDegrowTemplateData.usedfields[0][payload.tabName] = payload.dataAll
     },
+
+
+
+    // internal Project
+
+    GET_MANAGE_MARKET: (state, { payload }) => {
+      if (payload.reset) {
+        state.getManageMarket = payload.dataAll;
+      } else {
+        state.getManageMarket = [...state.getManageMarket, ...payload.dataAll];
+      }
+    },
+
+    GET_PROJECT_BY_CUSTOMER: (state, { payload }) => {
+      if (payload.reset) {
+        state.getProjectByCustomer = payload.dataAll;
+      } else {
+        state.getProjectByCustomer = [...state.getProjectByCustomer, ...payload.dataAll];
+      }
+    },
+
+    GET_MANAGE_RESOURCE: (state, { payload }) => {
+      if (payload.reset) {
+        state.getManageResource = payload.dataAll;
+      } else {
+        state.getManageResource = [...state.getManageResource, ...payload.dataAll];
+      }
+    },
+
+
+
+
+
+
   },
 });
 
@@ -781,7 +828,17 @@ export const {
   GET_PARTNER_ACTIVITY,
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
-  GET_EXCHANGE_RATE
+  GET_EXCHANGE_RATE,
+
+  // Internal Project
+
+  GET_MANAGE_MARKET,
+  GET_PROJECT_BY_CUSTOMER,
+  GET_MANAGE_RESOURCE,
+
+
+
+
 } = adminData.actions;
 
 export default adminData.reducer;

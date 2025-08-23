@@ -67,9 +67,16 @@ import {
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
   GET_EXCHANGE_RATE,
+  // internal Project --------
+  GET_MANAGE_MARKET,
+  GET_PROJECT_BY_CUSTOMER,
+  GET_MANAGE_RESOURCE,
+
+
+
+
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
-import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
 
 const AdminActions = {
   getManageCustomer:
@@ -1950,5 +1957,106 @@ const AdminActions = {
  
 
   // super admin compiliance  ends -----
+
+
+
+  // internal Project start -----------------
+
+
+  getManageMarket:
+    (reset = true, args = "", show = 1) =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.admin_manageMarket}${args != "" ? "?" + args : ""}`,
+          show: show,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_MANAGE_MARKET({ dataAll, reset }));
+      } catch (error) {
+
+      }
+    },
+
+  postManageMarket: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url: uniqueId == null ? Urls.admin_manageMarket : Urls.admin_manageMarket + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+
+  getProjectByCustomer:
+    (reset = true, uniqueId, args = "", show = 1) =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.project_by_customer}/${uniqueId}${args != "" ? "?" + args : ""}`,
+          show: show,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PROJECT_BY_CUSTOMER({ dataAll, reset }));
+      } catch (error) {
+
+      }
+    },
+
+    getManageResource:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.admin_manageResource}${args != "" ? "?" + args : ""}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_MANAGE_RESOURCE({ dataAll, reset }));
+      } catch (error) {}
+    },
+
+  postManageResource: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null ? Urls.admin_manageResource : Urls.admin_manageResource + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+
+
+
+
 };
 export default AdminActions;

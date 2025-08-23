@@ -9,8 +9,8 @@ const TextBox = ({
   register,
 }) => {
 
-  console.log(register,"___itm")
-  console.log(document.getElementById("ppp")?.innerHTML,"__inereHTLN")
+  // console.log(register,"___itm")
+  // console.log(document.getElementById("ppp")?.innerHTML,"__inereHTLN")
 
   return (
     <>

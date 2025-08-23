@@ -83,10 +83,10 @@ const POMgmtCards = () => {
         })}
       />
      </div>
-     <div className="grid lg:grid-cols-2 m-2 mt-20 gap-2">
+     {/* <div className="grid lg:grid-cols-2 m-2 mt-20 gap-2">
       {graph1 && <PoStatusChart  />}
       {graph2 && <PoTrackingWorkdoneChart />}
-      </div>
+      </div> */}
     </>
   );
 };

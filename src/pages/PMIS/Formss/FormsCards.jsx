@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import CCDash from "../../../components/CCDash";
 import { useNavigate, useParams } from "react-router-dom";
@@ -33,7 +32,8 @@ const FormsCards = () => {
           ['AOP Tracking',"bg-pcol","/forms/AopTracking"],
           ['Airtel AOP Tracking',"bg-pcol","/forms/AopTrackingAirtel"],
           ['GP Tracking',"bg-pcol","/forms/gpTracking"],
-          ['Forecast COGS Tracking',"bg-pcol","/forms/AopTrackingAirtel"]
+          ['Forecast COGS Tracking',"bg-pcol","/forms/AopTrackingAirtel"],
+          ['Invoice v/s WCC',"bg-pcol","/forms/InvoiceWcc"]
 
         ].map((itm) => {
           return (

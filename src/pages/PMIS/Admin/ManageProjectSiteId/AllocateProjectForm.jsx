@@ -63,7 +63,7 @@ const AllocateProjectForm = ({
 
   let Form = [
     {
-      label: "Assign User",
+      label: "In House",
       name: "userId",
       type: "BigmuitiSelect",
       value: "",
@@ -94,7 +94,7 @@ const AllocateProjectForm = ({
 
   let VendorForm = [
     {
-      label: "Assign Vendor",
+      label: "Contractor",
       name: "vendorId",
       type: "BigmuitiSelect",
       value: "",
@@ -124,23 +124,39 @@ const AllocateProjectForm = ({
       width:"400px"
     },
   ];
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   const onTableViewSubmit = (data) => {
 
-    if (!("userId" in data) || data['userId'] === null || data['userId'] === ""){
-      let msgdata = {
-        show: true,
-        icon: "error",
-        buttons: [],
-        type: 1,
-        text: "Please select al least one User",
-      };
-      dispatch(ALERTS(msgdata));
-      return
+    if (activeTab == 0){
+
+      if (!("userId" in data) || data['userId'] === null || data['userId'] === ""){
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: "Please select at least one User",
+        };
+        dispatch(ALERTS(msgdata));
+        return
+      }
     }
+    else if (activeTab == 1){
+
+      if (!("vendorId" in data) || data['vendorId'] === null || data['vendorId'] === ""){
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: "Please select at least one Contractor",
+        };
+        dispatch(ALERTS(msgdata));
+        return
+      }
+    }
+
+    
 
     let dataForApp = [];
 
@@ -149,10 +165,10 @@ const AllocateProjectForm = ({
     let assigningTo = ""
     if (activeTab == 0) {
       dataForApp = data["userId"];
-      assigningTo = "userRegister"
+      assigningTo = "In House"
     } else if (activeTab == 1) {
       dataForApp = data["vendorId"];
-      assigningTo = "vendor"
+      assigningTo = "Contractor"
     }
     if (listsite.length == 0) {
       let finaldata = {
@@ -217,19 +233,19 @@ const AllocateProjectForm = ({
 
       <div className="flex justify-evenly">
         <Button
-          name={"Allocate User"}
+          name={"Allocate In House"}
           onClick={() => {
             setactiveTab(0);
           }}
           classes="w-auto mt-10"
         />
-        {/* <Button
-          name={"Allocate Vendor"}
+        <Button
+          name={"Allocate Contractor"}
           onClick={() => {
             setactiveTab(1);
           }}
           classes="w-auto mt-10"
-        /> */}
+        />
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">

@@ -158,7 +158,6 @@ const Invoice = () => {
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.financeData?.getInvoice || [];
-    console.log(interdata,"_________interdata___________")
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {

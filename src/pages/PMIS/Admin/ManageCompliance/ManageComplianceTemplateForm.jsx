@@ -446,7 +446,7 @@ const ManageComplianceTemplateForm = ({
 
 
   function isViewOnly() {
-    return ["In Process", "Reject", ""].includes(currentStatus)
+    return ["In Process", "Reject","","Open"].includes(currentStatus)
       ? null
       : "sdisabled";
   }

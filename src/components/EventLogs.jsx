@@ -67,7 +67,7 @@ const EventLog = ({type,unqeId,urlType}) => {
     let siteIdLogsTable = {
         columns: [
           {
-            name: "Site Id",
+            name: "FA Code",
             value: "siteName",
             style: "min-w-[70px] max-w-[100px] text-center p-1",
           },

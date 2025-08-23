@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-import ManageZoneForm from '../../../../pages/PMIS/Admin/ManageZone/ManageZoneForm'
-import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
 import DeleteButton from '../../../../components/DeleteButton';
 import CstmButton from '../../../../components/CstmButton';
-import ToggleButton from '../../../../components/ToggleButton';
 import { objectToQueryString } from '../../../../utils/commonFunnction';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
 import FileUploader from '../../../../components/FIleUploader';
-import { GET_MANAGE_CIRCLE } from '../../../../store/reducers/admin-reducer';
+import ManageMarketForm from './ManageMarketForm';
+import { GET_MANAGE_CUSTOMER } from '../../../../store/reducers/admin-reducer';
+import AdvancedTable from '../../../../components/AdvancedTable';
 
-const ManageZone = () => {
+const ManageMarket = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
+    const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
-    const [fileOpen, setFileOpen] = useState(false)
-
 
     let dispatch = useDispatch()
-
 
     const currentDate = new Date();
     const dt = currentDate.toLocaleDateString('en-GB', {
@@ -34,19 +31,18 @@ const ManageZone = () => {
         month: '2-digit',
         year: 'numeric'
       }).replace(/\//g, '-')
-  
-
+    
     let dbConfigList = useSelector((state) => {
-        let interdata = state?.adminData?.getManageZone
+        let interdata = state?.adminData?.getManageMarket || [""]
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    setmodalHead("Edit Zone")
-                    dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
-                    dispatch(AdminActions.getManageCircle(true, `customer=${itm.customer}`));
-                    setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />)
+                    setmodalHead("Edit Circle")
+                    setmodalBody(<>
+                        <ManageMarketForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+                    </>)
                 }}></EditButton>} />,
                 
                 "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
@@ -55,13 +51,12 @@ const ManageZone = () => {
                         icon: 'warning',
                         buttons: [
                             <Button classes='w-15 bg-rose-400' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_zone}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageZone())
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_manageMarket}/${itm.uniqueId}`, () => {
                                     dispatch(ALERTS({ show: false }))
+                                    dispatch(AdminActions.getManageMarket())
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-auto' onClick={() => {
-                                console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],
@@ -75,7 +70,7 @@ const ManageZone = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageZone
+        let interdata = state?.adminData?.getManageMarket
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -83,38 +78,31 @@ const ManageZone = () => {
         }
     })
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        setValue,
-        setValues,
-        getValues,
-        formState: { errors },
-    } = useForm()
+
+    const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors }} = useForm()
 
     let table = {
         columns: [
             {
-                name: "Customer Name",
+                name: "Customer",
                 value: "customerName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
+            // {
+            //     name: "Project",
+            //     value: "projectName",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
             {
-                name: "Zone Name",
-                value: "zoneName",
+                name: "Market Name",
+                value: "marketName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Zone ID",
-                value: "shortCode",
+                name: "Market ID",
+                value: "marketCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Circle",
-                value: "circleName",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            },                  
             {
                 name: "Edit",
                 value: "edit",
@@ -131,46 +119,50 @@ const ManageZone = () => {
         },
         filter: []
     }
+
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageZone(value, objectToQueryString(data)))
+        dispatch(AdminActions.getManageMarket(value, objectToQueryString(data)))
     }
+
     useEffect(() => {
-        dispatch(AdminActions.getManageZone())
-        dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
+        dispatch(AdminActions.getManageMarket())
     }, [])
 
-    const onTableViewSubmit = (data) => {
-        data["fileType"]="ManageZone"
-        data['collection'] = "zone"
+    const onTableViewSubmit = (data) => { 
+        data["fileType"]="ManageMarket"
+        data['collection'] = "circle"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getManageZone())
+            dispatch(AdminActions.getManageMarket())
             setFileOpen(false)
         }))
     }
 
 
 
+
+
     return <>
         <AdvancedTable
-            headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
+            headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("New Zone")
-                dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
-                setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
+                setmodalHead("New Market")
+                dispatch(GET_MANAGE_CUSTOMER({ dataAll:[], reset:true }));
+                dispatch(AdminActions.getManageCustomer())
+                setmodalBody(<ManageMarketForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Zone"}></Button>
+                name={"Add Market"}></Button>
                 <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
-                    dispatch(CommonActions.commondownload("/export/manageZone","Export_Zone("+dt+").xlsx"))
+                    dispatch(CommonActions.commondownload("/export/manageCircle","Export_Circle("+dt+").xlsx"))
                 }}></Button>
                 </div>}
             table={table}
             filterAfter={onSubmit}
-            tableName={"UserListTable"} 
+            tableName={"manageMarket"}
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}
@@ -178,14 +170,14 @@ const ManageZone = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {"Total Zone :- "}
+            heading = {"Total Market :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Zone.xlsx","Zone.xlsx"]}  />
+        <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink = {["/template/Circle.xlsx","Circle.xlsx"]} />
     </>
 
 
 };
 
-export default ManageZone;
+export default ManageMarket;

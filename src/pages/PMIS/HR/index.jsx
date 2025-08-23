@@ -85,17 +85,17 @@ const HRHomeView = () => {
               "/hr/empDetailsTable",
               <Unicons.UilUserCircle size="30" color="" />,
             ],
-            ["Asset Management", "bg-pcol", "/hr/assetManagement",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
+            // ["Asset Management", "bg-pcol", "/hr/assetManagement",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
             ["Manage Policy",
               "bg-pcol",
               "",
             ],
-            [
-              "Expense & Advance",
-              "bg-pcol",
-              "/hr/Claim", "/hr/Advance",
-            ],
-            ["Attendance", "bg-pcol", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
+            // [
+            //   "Expense & Advance",
+            //   "bg-pcol",
+            //   "/hr/Claim", "/hr/Advance",
+            // ],
+            // ["Attendance", "bg-pcol", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
             [
               "Super Admin",
               "bg-pcol",
@@ -155,14 +155,14 @@ const HRHomeView = () => {
           label="Add / Modify Customer"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 gap-2">
       {graph1 && <NewJoiningMonthly />}
       {graph2 && <MonthlyActiveTrend />}
       {graph3 && <MonthlyJoiningVsExit />}
       {graph4 && <WeeklyActiveEmpList />}
       {graph5 && <ActiveEmpwithCostCenter />}
       {graph6 && <TrendExpenseAdvance />}
-      </div>
+      </div> */}
     </>
   );
 };

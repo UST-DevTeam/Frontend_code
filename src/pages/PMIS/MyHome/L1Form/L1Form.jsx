@@ -358,12 +358,12 @@ const L1Form = () => {
           },
           ]),
       {
-        name: "Employee Name",
+        name: "empName",
         value: "empName",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
-        name: "Employee Code",
+        name: "empCode",
         value: "empCode",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
@@ -553,13 +553,13 @@ const L1Form = () => {
         ],
       },
       {
-        label: "Employee Name",
+        label: "empName",
         type: "text",
         name: "empName",
         props: {},
       },
       {
-        label: "Employee Code",
+        label: "empCode",
         type: "text",
         name: "empCode",
         props: {},

@@ -26,6 +26,15 @@ const ManageUserProjectAllocForm = ({
     });
   });
 
+  let marketList = useSelector((state) => {
+    return state?.adminData?.getManageMarket.map((itm) => {
+      return {
+        name: itm?.marketName,
+        id: itm?.uniqueId,
+      };
+    });
+  });
+
 
   let Form = [
     {
@@ -56,6 +65,18 @@ const ManageUserProjectAllocForm = ({
       classes: "col-span-2",
       width:"450px"
     },
+    {
+      label: "Market",
+      name: "marketIds",
+      type: "BigmuitiSelect",
+      value: "",
+      option: marketList,
+      props: {
+        onChange: (e) => { },
+      },
+      classes: "col-span-2",
+      width:"450px"
+    },
   ];
 
   const {
@@ -70,6 +91,7 @@ const ManageUserProjectAllocForm = ({
 
 
   const onTableViewSubmit = (data) => {
+
     if (formValue.uniqueId) {
       dispatch(
         AdminActions.postProjectAllocation(
@@ -86,6 +108,7 @@ const ManageUserProjectAllocForm = ({
 
   useEffect(() => {
     dispatch(AdminActions.getVishal());
+    dispatch(AdminActions.getManageMarket());
     if (resetting) {
       reset({});
       Form.map((fieldName) => {

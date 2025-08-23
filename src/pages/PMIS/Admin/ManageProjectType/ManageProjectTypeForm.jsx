@@ -47,7 +47,7 @@ const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting,
         // },
 
         {
-            label: "Project Type",
+            label: "Scope",
             name: "projectType",
             type: "text",
             props: {
@@ -60,7 +60,7 @@ const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting,
             classes: "col-span-1"
         },
         {
-            label: " Sub Project",
+            label: "Sub Scope",
             name: "subProject",
             type: "text",
             value: "",

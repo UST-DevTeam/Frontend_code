@@ -38,7 +38,7 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     // ]
     let Form = [
         {
-            label: "Employee Name",
+            label: "empName",
             value: "",
             name: "empName",
             type: "text",
@@ -54,7 +54,7 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Employee Code",
+            label: "empCode",
             value: "",
             name: "empCode",
             type: "text",
@@ -70,7 +70,7 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Employee Code",
+            label: "empCode",
             value: "",
             name: "empCode",
             type: "text",
@@ -102,7 +102,7 @@ const ManageEmpForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Employee Code",
+            label: "empCode",
             value: "",
             name: "empCode",
             type: "text",

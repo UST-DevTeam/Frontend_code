@@ -1,29 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
-import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from '../../../../components/Modal';
 import CommonForm from '../../../../components/CommonForm';
 import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
+import { GET_PROJECT_BY_CUSTOMER } from '../../../../store/reducers/admin-reducer';
 
-const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+const ManageMarketForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
+
+    console.log(isOpen,"isOpen")
+    console.log(setIsOpen,"setIsOpen")
+    console.log(resetting,"resetting")
+    console.log(formValue,"formValue")
 
     const [modalOpen, setmodalOpen] = useState(false)
 
 
     let dispatch = useDispatch()
-
-
-    let roleList = useSelector((state) => {
-        return state?.adminManagement?.roleList
-    })
-
-    let databaseList = useSelector((state) => {
-        let interdata = state?.customQuery?.databaseList
-        return state?.customQuery?.databaseList
-    })
 
     let customerList = useSelector((state) => {
         return state?.adminData?.getManageCustomer.map((itm) => {
@@ -34,20 +28,48 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         })
     })
 
+    // let projectList = useSelector((state) => {
+    //     return state?.adminData?.getProjectByCustomer.map((itm) => {
+    //         return {
+    //             label: itm?.projectIdName,
+    //             value: itm?.projectIdUid
+    //         }
+    //     })
+    // })
+
     let Form = [
         {
-            label: "Customer Name",
+            label: "Customer",
             value: "",
             name: Object.entries(formValue).length > 0  ? "customerName" : "customer",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
             option: customerList,
+            // props: {
+            //     onChange: ((e) => {
+            //         if(e.target.value){
+            //             dispatch(AdminActions.getProjectByCustomer(true,e.target.value,""))
+            //         }
+            //         else{
+            //           dispatch(GET_PROJECT_BY_CUSTOMER({ dataAll:[], reset:true }));  
+            //         }
+            //     }),
+            // },
             classes: "col-span-1"
         },
+        // {
+        //     label: "Project",
+        //     value: "",
+        //     name: Object.entries(formValue).length > 0  ? "projectName" : "project",
+        //     type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+        //     required: true,
+        //     option: projectList,
+        //     classes: "col-span-1"
+        // },
         {
-            label: "Circle Name",
+            label: "Market Name",
             value: "",
-            name: "circleName",
+            name: "marketName",
             type: "text",
             required: true,
             props: {
@@ -58,10 +80,10 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Circle ID",
+            label: "Market ID",
             value: "",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
-            name: "circleCode",
+            name: "marketCode",
             required: true,
             props: {
                 onChange: ((e) => {
@@ -70,19 +92,6 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             },
             classes: "col-span-1"
         },
-        {
-            label: "Band",
-            value: "",
-            name: "band",
-            type: "text",
-            // required: true,
-            props: {
-                onChange: ((e) => {
-
-                }),
-            },
-            classes: "col-span-1"
-        }
     ]
     const {
         register,
@@ -96,21 +105,27 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
     const onTableViewSubmit = (data) => {
+        
+        Object.keys(data).forEach(key => {
+            if (typeof data[key] === "string") {
+                data[key] = data[key].trim()
+            }
+        })
+
         if (formValue.uniqueId) {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postManageMarket(true, data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageMarket())
             }, formValue.uniqueId))
         } else {
-            dispatch(AdminActions.postManageCircle(true, data, () => {
+            dispatch(AdminActions.postManageMarket(true, data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getManageCircle())
+                dispatch(AdminActions.getManageMarket())
             }))
         }
     }
-    // console.log(Form, "Form 11")
+
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
@@ -125,22 +140,16 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
                     console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
-
-
                 } else {
-                    // console.log("formValuekey",key,key)
                     setValue(key, formValue[key]);
                 }
             })
         }
     }, [formValue, resetting])
+
     return <>
-
-
-        <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
-            <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>
     </>
@@ -148,4 +157,4 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
 
 
-export default ManageCircleForm;
+export default ManageMarketForm;

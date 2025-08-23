@@ -133,7 +133,7 @@ const ClaimAdvanceOnclick = () => {
         style: "min-w-[150px] max-w-[100px] text-center",
       },
       {
-        name: "Employee Name",
+        name: "empName",
         value: "empName",
         style: "min-w-[150px] max-w-[100px] text-center",
       },

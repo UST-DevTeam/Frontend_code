@@ -137,7 +137,7 @@ const PersonalInfo = (props) => {
       ],
     },
     {
-      label: "Employee Name",
+      label: "empName",
       name: "empName",
       value: "",
       type:"sdisabled",
@@ -146,7 +146,7 @@ const PersonalInfo = (props) => {
       placeholder: "",
     },
     {
-      label: "Employee Code",
+      label: "empCode",
       name: "empCode",
       value: "",
       type:"sdisabled",
@@ -409,7 +409,7 @@ const PersonalInfo = (props) => {
       classes: "col-span-4 font-extrabold text-pcol text-start",
     },
     // {
-    //   label: "Employee Code",
+    //   label: "empCode",
     //   name: "empCode",
     //   value: "",
     //   type:"sdisabled",

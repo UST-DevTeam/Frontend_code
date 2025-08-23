@@ -109,68 +109,71 @@ const CCDash = ({
 
 
 
-  const cardData = [
-    ...(graph1 ? [{
-      icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
-      title: "Circle - Plan VS Actual Work Done",
-      component: <CirclePlanVSActualWorkdone />,
-    }] : []),
-    ...(graph2 ?[{
-      icon: <UilComparison className="text-[#13b497] w-28 h-28" />,
-      title: "Cumulative - Plan VS Actual Work Done",
-      component: <CumulativeWorkdonePlanVsActual />, 
-    }] : []),
-    ...(graph3 ?[{
-      icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
-      title: "Trend - Plan VS Actual Work Done",
-      component: <TrendPlanVSActualWorkdone />,
-    }] : []),
-    ...(graph4 ?[{
-      icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      title: "MS1 / MS2 Report",
-      component: <MS1AndMS2CircleWise />,
-    }] : []),
-    ...(graph5 ?[{
-      icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
-      title: "RFAI VS MS1 Reason",
-    //   component: <TotalActiveCustomer />,
-    }] : []),
-    // ...(graph6 ?[{
-    //   icon: <UilChartPieAlt className="text-[#13b497] w-28 h-28" />,
-    //   title: "MS1 VS MS2 Reason",
-    // //   component: <TotalActiveCustomer />,
-    // }] : []),
-    ...(graph7 ?[{
-      icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
-      title: "MS2 Vs WCC Pending Reason",
-      component: <MS2vsWCCPendingReason />,
-    }] : []),
-    ...(graph8 ?[{
-      icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
-      title: "Pendency Bucket- MS2 Aging",
-    //   component: <TotalActiveCustomer />,
-    }] : []),
-    ...(graph9 ?[{
-      icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
-      title: "SOB",
-    //   component: <TotalActiveCustomer />,
-    }] : []),
-    ...(graph10 ?[{
-      icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
-      title: "Soft MS1 Vs MS2",
-      component: <SoftMS1VsMS2 />,
-    }] : []),
-    ...(graph11 ?[{
-      icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
-      title: "Phy MS1 Vs MS2",
-      component: <PHYMS1VsMS2 />,
-    }] : []),
-    ...(graph12 ?[{
-      icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
-      title: "KPI MS1 Vs MS2",
-      component: <KPIMS1VsMS2 />,
-    }] : []),
-  ];
+  // const cardData = [
+  //   ...(graph1 ? [{
+  //     icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
+  //     title: "Circle - Plan VS Actual Work Done",
+  //     component: <CirclePlanVSActualWorkdone />,
+  //   }] : []),
+  //   ...(graph2 ?[{
+  //     icon: <UilComparison className="text-[#13b497] w-28 h-28" />,
+  //     title: "Cumulative - Plan VS Actual Work Done",
+  //     component: <CumulativeWorkdonePlanVsActual />, 
+  //   }] : []),
+  //   ...(graph3 ?[{
+  //     icon: <UilChartLine className="text-[#13b497] w-28 h-28" />,
+  //     title: "Trend - Plan VS Actual Work Done",
+  //     component: <TrendPlanVSActualWorkdone />,
+  //   }] : []),
+  //   ...(graph4 ?[{
+  //     icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
+  //     title: "MS1 / MS2 Report",
+  //     component: <MS1AndMS2CircleWise />,
+  //   }] : []),
+  //   ...(graph5 ?[{
+  //     icon: <UilChartPie className="text-[#13b497] w-28 h-28" />,
+  //     title: "RFAI VS MS1 Reason",
+  //   //   component: <TotalActiveCustomer />,
+  //   }] : []),
+  //   // ...(graph6 ?[{
+  //   //   icon: <UilChartPieAlt className="text-[#13b497] w-28 h-28" />,
+  //   //   title: "MS1 VS MS2 Reason",
+  //   // //   component: <TotalActiveCustomer />,
+  //   // }] : []),
+  //   ...(graph7 ?[{
+  //     icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
+  //     title: "MS2 Vs WCC Pending Reason",
+  //     component: <MS2vsWCCPendingReason />,
+  //   }] : []),
+  //   ...(graph8 ?[{
+  //     icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
+  //     title: "Pendency Bucket- MS2 Aging",
+  //   //   component: <TotalActiveCustomer />,
+  //   }] : []),
+  //   ...(graph9 ?[{
+  //     icon: <UilAnalysis className="text-[#13b497] w-28 h-28" />,
+  //     title: "SOB",
+  //   //   component: <TotalActiveCustomer />,
+  //   }] : []),
+  //   ...(graph10 ?[{
+  //     icon: <UilChartBar className="text-[#13b497] w-28 h-28" />,
+  //     title: "Soft MS1 Vs MS2",
+  //     component: <SoftMS1VsMS2 />,
+  //   }] : []),
+  //   ...(graph11 ?[{
+  //     icon: <UilAnalytics className="text-[#13b497] w-28 h-28" />,
+  //     title: "Phy MS1 Vs MS2",
+  //     component: <PHYMS1VsMS2 />,
+  //   }] : []),
+  //   ...(graph12 ?[{
+  //     icon: <UilSignalAlt3 className="text-[#13b497] w-28 h-28" />,
+  //     title: "KPI MS1 Vs MS2",
+  //     component: <KPIMS1VsMS2 />,
+  //   }] : []),
+  // ];
+
+
+  const cardData = []
 
   const handleCardClick = (index) => {
     setSelectedCard(index);
@@ -277,11 +280,6 @@ const CCDash = ({
           </div>
         </div>
       </div>
-
-
-      {/* <div className={`p-2 w-1/6 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 col-span-12 rounded-md gap-2 flex flex-wrap justify-center items-start ${className}`}>
-            {approveddata}
-        </div> */}
     </>
   );
 };

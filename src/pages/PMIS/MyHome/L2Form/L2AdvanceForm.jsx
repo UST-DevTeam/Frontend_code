@@ -296,12 +296,12 @@ const L2AdvanceForm = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
-        name: "Employee Name",
+        name: "empName",
         value: "empName",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
-        name: "Employee Code",
+        name: "empCode",
         value: "empCode",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
@@ -382,7 +382,7 @@ const L2AdvanceForm = () => {
         // }
       },
       {
-        label: "Employee Code",
+        label: "empCode",
         type: "text",
         name: "empCode",
         props: {},

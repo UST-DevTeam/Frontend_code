@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../../components/EditButton';
-// import ManageCircleForm from '../../../../pages/PMIS/Admin/ManageCircle/ManageCircleForm'
 import AssetRegistrationForm from "./AssetRegistrationForm"
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
@@ -23,6 +22,8 @@ const AssetRegistration = () => {
     const [modalOpen, setmodalOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
+
+    
 
 
     let dispatch = useDispatch()
@@ -156,6 +157,7 @@ const AssetRegistration = () => {
             // }
         ]
     }
+
     const onSubmit = (data) => {
         // console.log("jsjsjsjss", data)
         let value = data.reseter
@@ -166,6 +168,7 @@ const AssetRegistration = () => {
         dispatch(AdminActions.getAssetRegistration())
         // dispatch(OperationManagementActions.getRoleList())
     }, [])
+
     return <>
         <AdvancedTable
             headerButton={<><Button onClick={(e) => {

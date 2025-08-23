@@ -130,7 +130,7 @@ const  Settlement = () => {
                 style: "min-w-[140px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Employee Name",
+                name: "empName",
                 value: "empName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },

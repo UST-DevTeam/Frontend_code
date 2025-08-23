@@ -56,8 +56,6 @@ const projectListActions = {
             dispatch(GET_PROJECT_TYPE_SUB({ dataAll, reset }))
         } catch (error) {
             console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     getMappedData: (uniqueId, reset = true, show = 1) => async (dispatch, _) => {
@@ -68,8 +66,6 @@ const projectListActions = {
             dispatch(GET_MAPPED_DATA({ dataAll, reset }))
         } catch (error) {
             console.log(error, "amit errorerror 37")
-
-            // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
 

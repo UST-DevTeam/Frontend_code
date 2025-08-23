@@ -37,9 +37,13 @@ const ManageProjectSiteIdForm = ({
 
   const [globalData, setGlobalData] = useState({
     "siteEngineer": {},
-    "t_issues": {},
+    // "t_issues": {},
     "t_tracking": {},
-    "t_sFinancials": {},
+    // "t_sFinancials": {},
+    // "t_sFinancials-survey": {},
+    // "t_sFinancials-signange": {},
+    // "t_sFinancials-revisit": {},
+    // "t_sFinancials-colo": {},
     "mileStone": {},
   });
 
@@ -63,7 +67,7 @@ const ManageProjectSiteIdForm = ({
   let Form = [
 
     {
-      label: "Project Type",
+      label: "Scope",
       name: "ptype",
       type: "sdisabled",
       value: "",
@@ -71,7 +75,7 @@ const ManageProjectSiteIdForm = ({
       classes: "col-span-1",
     },
     {
-      label: "SubProject Type",
+      label: "Sub Scope",
       name: "roleName",
       type: "select",
       value: "Select",
@@ -89,7 +93,7 @@ const ManageProjectSiteIdForm = ({
       classes: "col-span-1",
     },
     {
-      label: "Site ID",
+      label: "FA Code",
       name: "siteId",
       type: "jsxcmpt",
       value: "",

@@ -59,16 +59,6 @@ const EmpDetailsTable = () => {
       };
     });
   });
-
-
-  let costCenterList = useSelector((state) => {
-    return state?.adminData?.getManageCostCenter.map((itm) => {
-      return {
-        label: itm?.costCenter,
-        value: itm._id,
-      };
-    });
-  });
   
   let showType = getAccessType("Action(ManageEmployee)")
 
@@ -91,17 +81,6 @@ const EmpDetailsTable = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  dispatch(GET_CITIES({dataAll:[],reset:true}))
-                  dispatch(GET_EMPLOYEE_DETAILS({ dataAll:[], reset: true}));
-                  dispatch(GET_MANAGE_DEPARTMENT({ dataAll:[], reset:true}));
-                  dispatch(GET_MANAGE_DESIGNATION({ dataAll:[], reset:true }));
-                  dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
-                  dispatch(AdminActions.getCities(true, `stateCode=${itm?.state}`));
-                  if (itm.customer){
-                    dispatch(AdminActions.getManageDepartment(true,"",itm.customer));
-                    dispatch(AdminActions.getManageDesignation(true,"",itm.customer));
-                    dispatch(AdminActions.getManageCostCenter(true,"",itm.customer));
-                  }
                   navigate(`/empdetails/${itm.uniqueId}`);
                   setmodalBody(
                     <>
@@ -197,17 +176,17 @@ const EmpDetailsTable = () => {
   let table = {
     columns: [
       {
-        name: "Emp Name",
+        name: "empName",
         value: "empName",
         style: "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
       },
       {
-        name: "Emp Code",
+        name: "empCode",
         value: "empCode",
         style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
       },
       {
-        name: "Email ID",
+        name: "Official Email-ID",
         value: "email",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
@@ -302,7 +281,7 @@ const EmpDetailsTable = () => {
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
     dispatch(AdminActions.getManageProfile());
-    dispatch(AdminActions.getManageCostCenter())
+    dispatch(AdminActions.getManageResource());
 
   }, []);
   
@@ -355,30 +334,30 @@ const EmpDetailsTable = () => {
               name={"Add New"}
             ></ConditionalButton>
 
-            <ConditionalButton
+            {/* <ConditionalButton
             showType={getAccessType("Upload(ManageEmployee)")}
               name={"Upload"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></ConditionalButton>
-            <ConditionalButton
+            ></ConditionalButton> */}
+            {/* <ConditionalButton
             showType={getAccessType("Upgrade(ManageEmployee)")}
               name={"Upgrade"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen2((prev) => !prev);
               }}
-            ></ConditionalButton>
-            <ConditionalButton
+            ></ConditionalButton> */}
+            {/* <ConditionalButton
             showType={getAccessType("Upgrade(ManageEmployee)")}
               name={"Upgrade Email"}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setFileOpen3((prev) => !prev);
               }}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
             
           </div>
         }

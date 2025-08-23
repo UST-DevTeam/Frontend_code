@@ -162,7 +162,6 @@ const UserAllocation = () => {
                 setmodalOpen(prev => !prev)
                 dispatch(OperationManagementActions.getOperationUserList())
                 setmodalHead("New User")
-                // setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
                 setmodalBody("dasda")
             }}
                 name={"Add New"}></Button></>}

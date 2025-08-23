@@ -4,6 +4,7 @@ const initialState = {
     getPOInvoicedBased:[],
     getPOWorkDoneBased:[],
     getInvoice:[],
+    getInvoiceWcc:[],
     getPOWorkDoneItemCode:[],
     getPOWorkDoneDashboard:[],
     getPOAccrualRevenue:[],
@@ -53,6 +54,14 @@ const FinanceReducer = createSlice({
                 state.getInvoice  = [...state.getInvoice,...payload.dataAll]
             }
         },
+
+        GET_INVOICE_WCC:(state,{payload}) => {
+            if(payload.reset){
+                state.getInvoiceWcc = payload.dataAll
+            }else{
+                state.getInvoiceWcc  = [...state.getInvoiceWcc,...payload.dataAll]
+            }
+        },
         
         GET_POACCRUAL_REVENUE:(state,{payload}) => {
             if(payload.reset){
@@ -67,5 +76,5 @@ const FinanceReducer = createSlice({
     }
 })
 
-export const {GET_INVOICE,GET_POWORKDONE_DASHBOARD,GET_POINVOICED_BASED,GET_POWORKDONE_BASED,GET_POWORKDONE_ITEMCODE,GET_POACCRUAL_REVENUE,GET_CUSTOMERS} = FinanceReducer.actions
+export const {GET_INVOICE,GET_POWORKDONE_DASHBOARD,GET_POINVOICED_BASED,GET_POWORKDONE_BASED,GET_POWORKDONE_ITEMCODE,GET_POACCRUAL_REVENUE,GET_CUSTOMERS,GET_INVOICE_WCC} = FinanceReducer.actions
 export default FinanceReducer.reducer

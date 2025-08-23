@@ -81,6 +81,11 @@ const ManageUserProjectAllocation = () => {
                 style: "min-w-[300px] max-w-[250px] text-center"
             },                    
             {
+                name: "Market",
+                value: "marketName",
+                style: "min-w-[300px] max-w-[250px] text-center"
+            },                    
+            {
                 name: "Action",
                 value: "edit",
                 style: "min-w-[100px] max-w-[200px] text-center"

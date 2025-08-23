@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../components/Modal";
 import AdminManagementActions from "../../../store/actions/adminManagement-actions";
@@ -8,15 +7,19 @@ import { Sidebar_content } from "../../../utils/sidebar_values";
 import UserAccessManagementChild from "./UserAccessManagementChild";
 import AdminActions from "../../../store/actions/admin-actions";
 const UserAccessManagement = () => {
+
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
   const [showData, setshowData] = useState("");
+
   let dispatch = useDispatch();
+
   let roleList = useSelector((state) => {
     let interdata = state?.adminManagement?.roleList;
     return interdata;
   });
+
 
   let getComponentAllocation = useSelector((state) => {
     return state?.adminData?.getComponentAllocation;
@@ -49,7 +52,6 @@ const UserAccessManagement = () => {
             <tr className="sticky top-0 z-[10]">
               <th className="min-w-[300px] max-w-[300px] border-black border-[1.5px]  bg-primaryLine text-white  sticky left-0">
                 Module Name
-                {/* {showData} */}
               </th>
               {roleList.map((itm) => {
                 return (
@@ -108,7 +110,7 @@ const UserAccessManagement = () => {
               />
             }
 
-            {
+            {/* {
               <UserAccessManagementChild
                 showData={showData}
                 setshowData={setshowData}
@@ -118,7 +120,7 @@ const UserAccessManagement = () => {
                 btnName={"Partner Mangment"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="PartnerView")}
               />
-            }
+            } */}
             {
               <UserAccessManagementChild
                 showData={showData}
@@ -126,11 +128,11 @@ const UserAccessManagement = () => {
                 fromCall={"pmpermission"}
                 name={"componentType"}
                 child={"select"}
-                btnName={"Financial"}
+                btnName={"Financial Management"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FinancialView")}
               />
             }
-            {
+            {/* {
               <UserAccessManagementChild
                 showData={showData}
                 setshowData={setshowData}
@@ -140,7 +142,7 @@ const UserAccessManagement = () => {
                 btnName={"Forms"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FormsView")}
               />
-            }
+            } */}
           </table>
         </div>
       </div>
@@ -152,8 +154,6 @@ const UserAccessManagement = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-
-      {/* <CommonForm/> */}
     </>
   );
 };

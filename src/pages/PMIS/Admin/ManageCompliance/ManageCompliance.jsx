@@ -18,7 +18,6 @@ import CommonTableFormSiteParent from "../../../../components/CommonTableFormSit
 import { SET_DYNAMIC_FORM } from "../../../../store/reducers/projectList-reducer";
 import ManageComplianceForm from "./ManageComplianceForm";
 import { GET_MANAGE_CUSTOMER } from "../../../../store/reducers/admin-reducer";
-import { MdSmsFailed } from "react-icons/md";
 import SnapImagesManageComplieance from "./SnapImagesManageComplieance";
 
 const ManageCompliance = () => {
@@ -413,48 +412,6 @@ const ManageCompliance = () => {
             />
           </div>
         ),
-        // template: (
-        //   <CstmButton
-        //     className={"p-2"}
-        //     child={
-        //       <Button
-        //         classes="w-10"
-        //         name={""}
-        //         icon={<Unicons.UilAirplay />}
-        //         onClick={() => {
-        //           setmodalOpen(true);
-        //           setmodalSize("full");
-        //           setmodalHead("Template");
-
-        //           dispatch(SET_DYNAMIC_FORM({ label: "Template", value: itm["Template"] ? itm["Template"] : [], reseter: true }));
-        //           setmodalBody(
-        //             <>
-        //               <CommonTableForm
-        //                 setmodalOpen={setmodalOpen}
-        //                 tabHead={"Template"}
-        //                 customeruniqueId={customeruniqueId}
-        //                 classes={"grid-cols-2 gap-1"}
-        //                 Form={conditionmultiForm}
-        //                 errors={errors}
-        //                 register={register}
-        //                 setValue={setValue}
-        //                 getValues={getValues}
-        //                 functioning={(res, changeState) =>
-        //                   handleAddActivity(res, changeState, "Template", itm)
-        //                 }
-        //                 oldList={[]}
-        //                 listing={listing}
-        //                 setlisting={setlisting}
-        //                 rowId={itm["uniqueId"]}
-        //                 name={"Tempalte"}
-        //               />
-        //             </>
-        //           );
-        //         }}
-        //       ></Button>
-        //     }
-        //   />
-        // ),
 
         delete: (
           <CstmButton

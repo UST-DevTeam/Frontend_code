@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
-import { useNavigate, useParams } from "react-router-dom";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
-import { ALERTS } from "../../../../store/reducers/component-reducer";
-import { GET_EXPENSE_DA_COST_CENTER } from "../../../../store/reducers/expenseAdvance-reducer";
-// import state from "sweetalert/typings/modules/state";
 
-const DAFormFillFORM = ({
-  isOpen,
-  setIsOpen,
-  resetting,
-  formValue = {},
-}) => {
+
+const DAFormFillFORM = ({isOpen,setIsOpen,resetting,formValue = {}}) => {
+
+
+  // console.log(isOpen,"isOpen")
+  // console.log(setIsOpen,"setIsOpen")
+  // console.log(resetting,"resetting")
+  // console.log(formValue,"formValue")
+
   const [modalOpen, setmodalOpen] = useState(false);
 
   let dispatch = useDispatch();
+
   const today = moment().format('YYYY-MM-DD');
+
+
+
 
   let claimTypeList = useSelector((state) => {
     return state?.adminData?.getManageExpenseAdvance?.map((itm) => {
@@ -33,6 +35,7 @@ const DAFormFillFORM = ({
       };
     });
   });
+
 
   let EmpCodeList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpenseEMPCode.map((itm) => {
@@ -53,13 +56,6 @@ const DAFormFillFORM = ({
   });
 
 
-
-  // let EmpName = useSelector((state) => {
-  //   return state?.expenseAdvanceData?.getExpenseEMPName.map((itm) => {
-  //     return itm?.empName || ""
-  //   });
-  // });
-
   let projectList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpenseDAProjectId?.map((itm) => {
       return {
@@ -69,6 +65,7 @@ const DAFormFillFORM = ({
     });
   });
 
+
   let CostCenterList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpenseDACostCenter?.map((itm) => {
       return {
@@ -77,6 +74,7 @@ const DAFormFillFORM = ({
       };
     });
   });
+
 
   let Form = [  
     {
@@ -101,17 +99,6 @@ const DAFormFillFORM = ({
         classes: "col-span-1",
     },
     {
-      label: "DA Date",
-      value: "",
-      name: "Claim_Date",
-      type: "datetime",
-      required: true,
-      props: {
-        maxSelectableDate: today,
-      },
-      classes: "col-span-1",
-    },
-    {
         label: "Employee",
         value: "",
         name: "EmpCode",
@@ -127,20 +114,6 @@ const DAFormFillFORM = ({
         // required: true,
         classes: "col-span-1",
     },
-    // {
-    //     label: "Employee Name",
-    //     value: "",
-    //     name: "empName",
-    //     option: EmpNameList,
-    //     type: "select",
-    //     props: {
-    //         onchange: (e) => {
-    //         },
-    //     },
-    //     // required: true,
-    //     classes: "col-span-1",
-    // },
-    
     {
         label: "Project ID",
         value: "",
@@ -157,7 +130,7 @@ const DAFormFillFORM = ({
               );
             },
           },
-        // required: true,
+        required: true,
         classes: "col-span-1",
     },
     {
@@ -166,18 +139,59 @@ const DAFormFillFORM = ({
         name: "CostCenter",
         type: "select",
         option: CostCenterList,
-        // required: true,
         classes: "col-span-1",
+    },
+    {
+      label: "DA Applied Date",
+      value: "",
+      name: "Claim_Date",
+      type: "datetime",
+      required: true,
+      props: {
+        maxSelectableDate: today,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Start Date",
+      value: "",
+      name: "startAt",
+      type: "datetime",
+      // required: true,
+      props: {
+        onChange: (e) => {
+        },
+        maxSelectableDate: today,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "End Date",
+      value: "",
+      name: "endAt",
+      type: "datetime",
+      // required: true,
+      props: {
+        onChange: (e) => {
+        },
+        maxSelectableDate: today,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Total DA Days",
+      value: "",
+      name: "totalDays",
+      type: "sdisabled",
+      // required: true,
+      classes: "col-span-1",
     },
     {
         label: "DA Amount",
         value: "",
         name: "Amount",
         type: "number",
-        props: {
-            onchange: (e) => {},
-        },
-        // required: true,
+        required:true,
         classes: "col-span-1",
     },
     {
@@ -186,19 +200,18 @@ const DAFormFillFORM = ({
       name: "additionalInfo",
       type: "text",
       props: {},
-      // required: true,
       classes: "col-span-1",
     },
     {
-      label: "Remarks ",
+      label: "Remarks",
       value: "",
       name: "remark",
       type: "text",
       props: {},
-      // required: true,
       classes: "col-span-1",
     },
   ];
+
   const {
     register,
     handleSubmit,
@@ -207,14 +220,21 @@ const DAFormFillFORM = ({
     setValue,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+
+  const startDate = watch("startAt")
+  const endDate = watch("endAt")
+
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const totalDays = moment(endDate).diff(moment(startDate), 'days');
+      setValue("totalDays", totalDays >= 0 ? totalDays : 0);
+    }
+  }, [startDate, endDate, setValue]);
+
+
   const onTableViewSubmit = (data) => {
     if (formValue.uniqueId) {
       dispatch(
@@ -237,7 +257,6 @@ const DAFormFillFORM = ({
       );
     }
   };
-  console.log(Form, "Form 11");
 
   useEffect(() => {
     // dispatch(GET_EXPENSE_DA_COST_CENTER({ dataAll: [], reset: true }))
@@ -248,6 +267,7 @@ const DAFormFillFORM = ({
     if (resetting) {
       
       reset({});
+      // setValue("totalDays","")
       Form.map((fieldName) => {
         setValue(fieldName["name"], fieldName["value"]);
       });
@@ -273,26 +293,9 @@ const DAFormFillFORM = ({
       })
     }
   }, [formValue, resetting]);
+
   return (
     <>
-      <Modal
-        size={"xl"}
-        children={
-          <>
-            <CommonForm
-              classes={"grid-cols-1 gap-1"}
-              Form={Form}
-              errors={errors}
-              register={register}
-              setValue={setValue}
-              getValues={getValues}
-            />
-          </>
-        }
-        isOpen={modalOpen}
-        setIsOpen={setmodalOpen}
-      />
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
@@ -302,11 +305,7 @@ const DAFormFillFORM = ({
           setValue={setValue}
           getValues={getValues}
         />
-        {/* <button></button> */}
 
-        {/* <button onClick={() => { setmodalOpen(true) }} className='flex bg-primaryLine mt-6 w-42 absolute right-1 top-1 justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Add DB Type <Unicons.UilPlus /></button> */}
-        {/* <Table headers={["S.No.", "DB Type", "DB Server", "DB Name", "Created By", "Created Date", "Last Modified By", "Last Modified Date", "Actions"]} columns={[["1", "abcd", "ancd", "abcd", "ancd"], ["2", "adsa", "dasdas", "abcd", "ancd"]]} /> */}
-        {/* <button onClick={(handleSubmit(onTableViewSubmit))} className='bg-primaryLine mt-6 w-full justify-center rounded-md bg-pbutton px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-pbutton'>Submit</button> */}
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}
@@ -436,7 +435,7 @@ export default DAFormFillFORM;
 //       classes: "col-span-1",
 //     },
 //     {
-//         label: "Employee Code ",
+//         label: "empCode ",
 //         value: "",
 //         name: "EmpCode",
 //         type: "select",
@@ -452,7 +451,7 @@ export default DAFormFillFORM;
 //         classes: "col-span-1",
 //     },
 //     {
-//         label: "Employee Name",
+//         label: "empName",
 //         value: "",
 //         name: "empName",
 //         option: EmpNameList,

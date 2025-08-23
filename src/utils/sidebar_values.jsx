@@ -1,37 +1,18 @@
 import * as Unicons from "@iconscout/react-unicons";
-import {
-  UilAirplay,
-  UilStore,
-  UilFileShieldAlt,
-  UilHome,
-  UilUserSquare,
-  UilCoins,
-  UilDatabase,
-  UilFileContract,
-} from "@iconscout/react-unicons";
-
-
-// newimport
+import {UilStore,UilFileShieldAlt,UilHome,UilUserSquare,UilCoins,UilFileContract} from "@iconscout/react-unicons";
 import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer";
 import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
 import ManageProjectType from "../pages/PMIS/Admin/ManageProjectType/ManageProjectType";
-import ManageCircle from "../pages/PMIS/Admin/ManageCircle/ManageCircle";
-import ManageZone from "../pages/PMIS/Admin/ManageZone/ManageZone";
-import MyHome from "../pages/PMIS/MyHome/Home";
 import EmpDetails from "../pages/PMIS/MyHome/EmpDetails";
 import PersonalInfo from "../pages/PMIS/MyHome/PersonalInfo";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
 import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
-// import Home from "../pages/PMIS/MyHome/Home"
-
-import Claim from "../pages/PMIS/MyHome/Claim";
 import Asset from "../pages/PMIS/MyHome/Asset";
 import AssetRegistration from "../pages/PMIS/Admin/AssetRegistration/AssetRegistration";
 import SuperAdmin from "../pages/PMIS/HR/SuperAdmin";
 import ManageCostCenter from "../pages/PMIS/Admin/ManageCostCenter/ManageCostCenter";
 import ManageProjectGroup from "../pages/PMIS/Admin/ManageProjectGroup/ManageProjectGroup";
-// import Project from "../pages/PMIS/Admin/Project/Project";
 import ManageSubProject from "../pages/PMIS/Admin/ManageSubProject/ManageSubProject";
 import ManageUserProjectAllocation from "../pages/PMIS/Admin/ManageUserProjectAllocation/ManageUserProjectAllocation";
 import VendorProjectAllocation from "../pages/PMIS/Admin/VendorProjectAllocation/VendorProjectAllocation";
@@ -40,16 +21,11 @@ import ManageDepartment from "../pages/PMIS/Admin/ManageDepartment/ManageDepartm
 import ManageDesignation from "../pages/PMIS/Admin/ManageDesignation/ManageDesignation";
 import ManageProfile from "../pages/PMIS/Admin/ManageProfile(userrole)/ManageProfile";
 import ManageProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageProjectSiteId";
-import ExpenseAndAdvance from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ManageVendorForm from "../pages/PMIS/ManageVendor/ManageVendorForm";
-import VendorCards from "../pages/PMIS/VendorCards/VendorCards";
-import VendorProject from "../pages/PMIS/VendorCards/VendorProject";
 import ManageUserProjectSiteId from "../pages/PMIS/Admin/ManageProjectSiteId/ManageUserProjectSiteId";
 import ManageCompletionCriteria from "../pages/PMIS/Admin/ManageCompletionCriteria/ManageCompletionCriteria";
 import ManageClaimType from "../pages/PMIS/Admin/ManageClaimType/ManageClaimType";
 import FinancialCards from "../pages/PMIS/FinancialCards/FinancialCards";
-import FormsCards from "../pages/PMIS/Formss/FormsCards";
-// import WorkdoneForecastCards from "../pages/PMIS/Formss/WorkdoneForecastCards";
 import InvoiceBased from "../pages/PMIS/FinancialCards/InvoiceBased/InvoiceBased";
 import POWorkDoneBased from "../pages/PMIS/FinancialCards/POWorkDoneBased/POWorkDoneBased";
 import POMgmtCards from "../pages/PMIS/FinancialCards/POMgmtCards";
@@ -82,13 +58,8 @@ import Dashboard1 from "../pages/PMIS/Dashboard1/Dashboard1";
 import ExpAdvForClaim from "../pages/PMIS/MyHome/ExpAdvForClaim";
 import ExpAdvForAdvance from "../pages/PMIS/MyHome/ExpAdvForAdvance";
 import AccrualRevenueTrend from "../pages/PMIS/Formss/AccrualRevenueTrend/AccrualRevenueTrend";
-import DashboardCard from "../pages/PMIS/Dashboard1/DashboardCard";
 import MyTask from "../pages/PMIS/MyTask/MyTask";
 import SOB from "../pages/PMIS/Formss/SOB/SOB";
-import MonthRevenueTrend from "../pages/PMIS/Formss/FinancialGraph/MonthRevenueTrend";
-import MonthlyRevenueCircle from "../pages/PMIS/Formss/FinancialGraph/MonthlyRevenueCircle";
-import CumulativeTrendPlanVsActual from "../pages/PMIS/Formss/FinancialGraph/CumulativeTrendPlanVsActual";
-import MS1AndMS2CircleWise from "../pages/PMIS/Dashboard1/MS1AndMS2CircleWise";
 import Settlement from "../pages/PMIS/MyHome/SettlementForm/Settlement";
 import ActivityLogs from "../pages/PMIS/HR/ActivityLogs/ActivityLogs";
 import ApprovalLogs from "../pages/PMIS/HR/ActivityLogs/ApprovalLogs";
@@ -103,7 +74,6 @@ import ComplianceMilestoneCard from "../pages/PMIS/MyHome/ComplianceMilestoneCar
 import ComplianceApproverCard from "../pages/PMIS/MyHome/ComplianceApproverCard";
 import ComplianceL1ApproverTable from "../pages/PMIS/MyHome/ComplianceL1ApproverTable";
 import ComplianceL2ApproverTable from "../pages/PMIS/MyHome/ComplianceL2ApproverTable";
-import RepositoryCustomerCard from "../pages/PMIS/Repository/RepositoryCustomerCard";
 import RepositoryProjectGroupSites from "../pages/PMIS/Repository/RepositoryProjectGroupSites";
 import VendorWorkDescription from "../pages/PMIS/Admin/VendorWorkDescription/VendorWorkDescription";
 import VendorActivity from "../pages/PMIS/Admin/VendorActivity/VendorActivity";
@@ -117,16 +87,12 @@ import OtherFixedCostTypes from "../pages/PMIS/gpTracking/OtherFixedCostTypes/Ot
 import GPTracking from "../pages/PMIS/gpTracking/GpTrackingMain/gpTracking";
 import VendorProjectTracking from "../pages/PMIS/VendorProjectTracking/VendorProjectTracking";
 import VendorCost from "../pages/PMIS/gpTracking/VendorCost/VendorCost";
-
 import AOPTrackingAirtel from "../pages/PMIS/Formss/AOP/AOPAIRTEL";
 import ExChangeRate from "../pages/PMIS/Admin/ExchangeRate/ExChangeRate";
 import SubProjectMasterTable from "../pages/PMIS/Admin/SubProjectMasterTable/SubProjectMasterTable";
 import DeliveryPVA from "../pages/PMIS/Formss/DeliveryPVA/DeliveryPVA";
 import WorkdoneDeliveryPVAMSCards from "../pages/PMIS/Formss/WorkdoneDeliveryPVAMSCards";
 import WorkdoneDeliveryPVACards from "../pages/PMIS/Formss/WorkdoneDeliveryPVACards";
-import RTWS from "../pages/PMIS/Admin/RTWS/RTWS";
-import DriveTestActivity from "../pages/PMIS/Admin/DriveTestActivity/DriveTestActivity";
-import GroundActivity from "../pages/PMIS/Admin/GroundActivity/GroundActivity";
 import Ptw from "../pages/PMIS/Admin/PTW/Ptw";
 import MDBApprover from "../pages/PMIS/Admin/MDBApprover/MDBApprover";
 import L1Approver from "../pages/PMIS/Admin/L1Approver/L1Approver";
@@ -135,9 +101,11 @@ import PtwForm from "../pages/PMIS/Admin/PTW/PtwForm";
 import PTWLogBackup from "../pages/PMIS/MyHome/PTWLogBackup";
 import ApproverPage from "../pages/PMIS/MyHome/ApproverPage";
 import PTWApproverPage from "../pages/PMIS/MyHome/PTWApproverPage";
-import ApproverPageL2 from "../pages/PMIS/MyHome/ApproverPAgeL2";
 import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
 import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
+import InvoiceWcc from "../pages/PMIS/Formss/InvoiceWcc/InvoiceWcc";
+import ManageMarket from "../pages/PMIS/Admin/ManageMarket/ManageMarket";
+import ManageResource from "../pages/PMIS/Admin/ManageResource/ManageResource";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -284,7 +252,7 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/hr/superAdmin/userProjectAllocation",
+      link: "/hr/superAdmin/userMarketAllocation",
       subMenu: [],
       component: <ManageUserProjectAllocation />,
     },
@@ -507,10 +475,10 @@ export const Sidebar_content = {
       component: <SuperAdmin />,
     },
     {
-      name: "Manage Circle",
-      link: "/hr/superAdmin/manageCircle",
+      name: "",
+      link: "/hr/superAdmin/manageMarket",
       subMenu: [],
-      component: <ManageCircle />,
+      component: <ManageMarket />,
       icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
     },
     {
@@ -522,9 +490,9 @@ export const Sidebar_content = {
     },
     {
       name: "Manage Zone",
-      link: "/hr/superAdmin/manageZone",
+      link: "/hr/superAdmin/manageResource",
       subMenu: [],
-      component: <ManageZone />,
+      component: <ManageResource />,
       icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
     },
     {
@@ -651,16 +619,16 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+    // {
+    //   name: "",
+    //   link: "/financial/:customer/:customerId/poManagement",
+    //   component: <POMgmtCards />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
       name: "",
       link: "/financial/:customer/:customerId/poManagement",
-      component: <POMgmtCards />,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-    {
-      name: "",
-      link: "/financial/:customer/:customerId/poManagement/poStatusInvoice",
       component: <InvoiceBased />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
@@ -714,13 +682,6 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    // {
-    //   name: "",
-    //   link: "/forms/EVMDelivery",
-    //   component: <WorkdoneForecastCards />,
-    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
-    //   subMenu: [],
-    // },
     {
       name: "",
       link: "/forms/gapAnalysis",
@@ -814,6 +775,13 @@ export const Sidebar_content = {
       name: "",
       link: "/forms/SOB",
       component: <SOB />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/InvoiceWcc",
+      component: <InvoiceWcc />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
@@ -962,13 +930,13 @@ export const Sidebar_content = {
   ],
 
   all_routes: [
-    {
-      name: "My Dashboard",
-      link: "/mydash-board",
-      component: <DashboardCard />,
-      icon: <UilAirplay className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
+    // {
+    //   name: "My Dashboard",
+    //   link: "/mydash-board",
+    //   component: <DashboardCard />,
+    //   icon: <UilAirplay className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
       name: "My Home",
       link: "/",
@@ -991,35 +959,35 @@ export const Sidebar_content = {
       component: <HRHomeView />,
       icon: <UilUserSquare className="hover:text-heading cursor-pointer" />,
     },
+    // {
+    //   name: "Partner Management",
+    //   link: "/vendor",
+    //   component: <VendorCards />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
-      name: "Partner Management",
-      link: "/vendor",
-      component: <VendorCards />,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
-    {
-      name: "Financial",
+      name: "Financial Management",
       link: "/financial",
       component: <FinancialDashboardCard />,
       icon: <UilCoins className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    {
-      name: "Repository",
-      link: "/repository",
-      component: <RepositoryCustomerCard />,
-      icon: <UilDatabase className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
+    // {
+    //   name: "Repository",
+    //   link: "/repository",
+    //   component: <RepositoryCustomerCard />,
+    //   icon: <UilDatabase className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
 
-    {
-      name: "Forms",
-      link: "/forms",
-      component: <FormsCards />,
-      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
+    // {
+    //   name: "Forms",
+    //   link: "/forms",
+    //   component: <FormsCards />,
+    //   icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
   ],
 
 

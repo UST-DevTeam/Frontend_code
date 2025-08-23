@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { UilImport } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
 import AdvancedTable from "../../../../components/AdvancedTable";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
@@ -279,7 +277,7 @@ const ClaimAndAdvance = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
-      <p className="p-2 text-white font-extrabold">
+      {/* <p className="p-2 text-white font-extrabold">
             Opening balance :{" "}
             <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"}`}>
             {Amounts?.Openingbalance > 0 
@@ -289,35 +287,33 @@ const ClaimAndAdvance = () => {
               ? `${Math.abs(Amounts?.Openingbalance)} Cr`
               : Amounts?.Openingbalance}
             </span>
-        </p>
+        </p> */}
         
-        <p className="p-2 text-white font-extrabold">
+        {/* <p className="p-2 text-white font-extrabold">
           Expanse Approved :{" "}
           <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal ? "text-rose-400" : "text-pcol"}`}>
            
             {`${Amounts?.ExpenseAmountTotal} Cr`}
           </span>
-        </p>
-        <p className="p-2 text-white font-extrabold">
+        </p> */}
+
+        {/* <p className="p-2 text-white font-extrabold">
           Advance Approved/Reimbursed :{" "}
           <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-400"}`}>
             
             {`${Amounts?.AdvanceAmountTotal} Dr`}
           </span>
-        </p>
+        </p> */}
         
-        <p className="p-2 text-white font-extrabold">
+        {/* <p className="p-2 text-white font-extrabold">
           Current Balance :{" "}
-          {/* <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
-            {Amounts?.finalAmount}
-          </span> */}
           <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-pcol" : "text-rose-400"}`}>
             {Amounts?.finalAmount < 0 
               ? `${Math.abs(Amounts.finalAmount)} Cr` 
               : `${Amounts?.finalAmount} Dr`
             }
           </span>
-        </p>
+        </p> */}
 
 
         {/* <p className="p-2 text-white font-extrabold">

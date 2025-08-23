@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
@@ -40,12 +39,13 @@ import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectL
 import VendorGroupTaskAllocation from "./VendorGroupTaskAllocation";
 import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
 
+
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
   let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
 
-  const { proId, projectuniqueId } = useParams();
+  const {customeruniqueId,proId,projectuniqueId } = useParams();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [fileOpen, setFileOpen] = useState(false);
@@ -149,7 +149,7 @@ const ManageProjectSiteId = () => {
               // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
           >
-            {itm["Site Id"]}
+            {itm["FA Code"]}
           </p>
         ),
 
@@ -373,15 +373,19 @@ const ManageProjectSiteId = () => {
             ),
             eventLogsmilestone: <></>,
             taskmageing:
-              iewq.taskageing >= 0 ? (
-                <p className="text-[#13b497] font-extrabold">
-                  {iewq.taskageing + " Days"}
-                </p>
-              ) : (
-                <p className="text-rose-400 font-extrabold">
-                  {iewq.taskageing + " Days"}
-                </p>
-              ),
+              <>
+                <p>{iewq.taskageing}</p>
+              </>,
+              
+              // iewq.taskageing >= 0 ? (
+              //   <p className="text-[#13b497] font-extrabold">
+              //     {iewq.taskageing + " Days"}
+              //   </p>
+              // ) : (
+              //   <p className="text-rose-400 font-extrabold">
+              //     {iewq.taskageing + " Days"}
+              //   </p>
+              // ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (
               <ProgressBar
@@ -458,7 +462,7 @@ const ManageProjectSiteId = () => {
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
-                      setmodalHead(`MileStone Event Log:-( ${iewq?.["Name"]})`);
+                      setmodalHead(`Milestone Event Log:-( ${iewq?.["Name"]})`);
                       dispatch(
                         eventManagementActions.getmilestoneeventList(
                           true,
@@ -576,7 +580,7 @@ const ManageProjectSiteId = () => {
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
-                      setmodalHead(`Site Event Log:-( ${itm?.["Site Id"]})`);
+                      setmodalHead(`FA Code Event Log:-( ${itm?.["FA Code"]})`);
                       dispatch(SITEEVENTLIST({ dataAll: [], reset: true }));
                       dispatch(
                         eventManagementActions.getsiteeventList(
@@ -694,7 +698,7 @@ const ManageProjectSiteId = () => {
         style: "min-w-[40px] max-w-[40px] text-center",
       },
       {
-        name: "Site ID",
+        name: "FA Code",
         value: "siteIdLink",
         style:"min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
@@ -709,20 +713,20 @@ const ManageProjectSiteId = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Owner",
+        name: "Task Owner",
         value: "PMName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Planned Start Date",
+        name: "Allocation Date",
         value: "siteStartDate",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Planned End Date",
-        value: "siteEndDate",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Planned End Date",
+      //   value: "siteEndDate",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Completition Date",
         value: "Site_Completion Date",
@@ -738,11 +742,11 @@ const ManageProjectSiteId = () => {
         value: "CompletionBar",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Predecessor",
-        value: "Predecessor",
-        style: "min-w-[240px] max-w-[240px] text-center",
-      },
+      // {
+      //   name: "Predecessor",
+      //   value: "Predecessor",
+      //   style: "min-w-[240px] max-w-[240px] text-center",
+      // },
       {
         name: "Status",
         value: "siteStatus",
@@ -803,15 +807,15 @@ const ManageProjectSiteId = () => {
           style: "min-w-[180px] max-w-[180px] text-center",
         },
         {
-          name: "Planned Start Date",
-          value: "mileStoneStartDate",
+          name: "Allocation Date",
+          value: "assignDate",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
-        {
-          name: "Planned End Date",
-          value: "mileStoneEndDate",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+        // {
+        //   name: "Planned End Date",
+        //   value: "mileStoneEndDate",
+        //   style: "min-w-[140px] max-w-[200px] text-center",
+        // },
         {
           name: "Completition Date",
           value: "CC_Completion Date",
@@ -828,11 +832,11 @@ const ManageProjectSiteId = () => {
           style: "min-w-[140px] max-w-[200px] text-center",
         },
 
-        {
-          name: "Predecessor",
-          value: "Predecessor",
-          style: "min-w-[240px] max-w-[240px] text-center",
-        },
+        // {
+        //   name: "Predecessor",
+        //   value: "Predecessor",
+        //   style: "min-w-[240px] max-w-[240px] text-center",
+        // },
         {
           name: "Status",
           value: "mileStoneStatusUpda",
@@ -913,10 +917,11 @@ const ManageProjectSiteId = () => {
 
   useEffect(() => {
     dispatch(projectListActions.getProjectType(projectuniqueId, true, 0));
-    dispatch(projectListActions.getCircleWithPGData(projectuniqueId, true, 0));
+    // dispatch(projectListActions.getCircleWithPGData(projectuniqueId, true, 0));
     dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
-    dispatch(projectListActions.getMappedData(projectuniqueId, true, 0));
+    // dispatch(projectListActions.getMappedData(projectuniqueId, true, 0));
     dispatch(FilterActions.getSiteSubProject(projectuniqueId, true, "", 0));
+    dispatch(AdminActions.getManageMarket(true,`customerId=${customeruniqueId}`,0))
   }, []);
 
   const handleBulkDelte = () => {
@@ -1030,7 +1035,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                 //   name={"Delete"}
                 // ></Button>
               )}
-            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+            {/* {Array.isArray(parentsite) && parentsite?.length > 0 && (
               <ConditionalButton
                 showType={getAccessType("Task Allocation")}
                 classes="mr-1 bg-[#ebad5d]"
@@ -1085,8 +1090,8 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                 }}
                 name={"Allocate to Partner"}
               ></ConditionalButton>
-            )}
-            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+            )} */}
+            {/* {Array.isArray(parentsite) && parentsite?.length > 0 && (
               <ConditionalButton
                 showType={getAccessType("Task Allocation")}
                 classes="mr-1 bg-[#4b8085]"
@@ -1142,14 +1147,14 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                 }}
                 name={"Deallocate Task"}
               ></ConditionalButton>
-            )}
+            )} */}
 
             <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
-                setmodalHead("Add Site");
+                setmodalHead("Add FA Code");
                 setmodalBody(
                   <ManageProjectSiteIdForm
                     projectuniqueId={projectuniqueId}
@@ -1160,7 +1165,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                   />
                 );
               }}
-              name={"Add Site"}
+              name={"Add FA Code"}
             ></ConditionalButton>
 
             <ConditionalButton
@@ -1169,15 +1174,8 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
               onClick={(e) => {
                 if (childsite.length > 0) {
                   setmodalOpen((prev) => !prev);
-                  dispatch(
-                    GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
-                  );
-                  dispatch(
-                    projectListActions.getUserAllocatedProject(
-                      true,
-                      projectuniqueId
-                    )
-                  );
+                  dispatch(GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true }));
+                  dispatch(projectListActions.getUserAllocatedProject(true,projectuniqueId));
                   setmodalHead("Allocate Task");
                   setmodalBody(
                     <AllocateProjectForm
@@ -1205,7 +1203,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                   dispatch(ALERTS(msgdata));
                 }
               }}
-              name={"Allocate to In-house"}
+              name={"Allocate"}
             ></ConditionalButton>
 
             {/* <ConditionalButton
@@ -1256,7 +1254,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
               }}
             ></ConditionalButton>
 
-            {upgradepopupShowType && (
+            {/* {upgradepopupShowType && (
               <PopupMenu
                 name={"Upgrade"}
                 icon={"Upgrade"}
@@ -1291,7 +1289,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                   </div>
                 }
               />
-            )}
+            )} */}
             {siteexportpopup && (
               <PopupMenu
                 name={"Export"}

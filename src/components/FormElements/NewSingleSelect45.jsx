@@ -73,7 +73,7 @@ const NewSingleSelectForm45 = ({ itm, errors, setValue, getValues }) => {
         isClearable={true} // Optional clear option
         styles={customStyles} 
         // className="pt-1 bg-white block h-max rounded-md py-1.5 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      className="rounded-md text-white-900 shadow-lg focus:shadow-indigo-500/30 ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      className="font-semibold block h-10 w-full rounded-md text-white-900 shadow-lg focus:shadow-indigo-500/30 ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
       {errors[itm.name] && <span className="text-red-500">{errors[itm.name].message}</span>}
     </div>
