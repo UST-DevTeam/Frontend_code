@@ -321,11 +321,11 @@ const ManageProject = () => {
         value: "projectTypeName",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Project Manager",
-        value: "PMName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Project Manager",
+      //   value: "PMName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       // {
       //   name: "Circle",
       //   value: "circleName",

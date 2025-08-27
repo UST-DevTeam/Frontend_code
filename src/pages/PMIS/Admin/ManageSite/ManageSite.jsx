@@ -70,10 +70,10 @@ const ManageSite = ({
     assignfinacial = true;
   }
 
-  // let mappedDataList = useSelector((state) => {
-  //   const data = state?.projectList?.getMappedData;
-  //   return data && data.length > 0 ? data : [{ headerName: "" }];
-  // });
+  let mappedDataList = useSelector((state) => {
+    const data = state?.projectList?.getMappedData;
+    return data && data.length > 0 ? data : [{ headerName: "" }];
+  });
 
   // let circleWithPGList = useSelector((state) => {
   //   return state?.projectList?.getCircleWithPGData?.map((itm) => {
@@ -316,14 +316,6 @@ const ManageSite = ({
                               type: "sdisabled",
                               classes: "col-span-1",
                             },
-                            // {
-                            //   label: "Market",
-                            //   value: "",
-                            //   name: "Market",
-                            //   type: "select",
-                            //   option:marketList,
-                            //   classes: "col-span-1",
-                            // },
                             ...dataOfProject["t_sengg"].map((its) => {
                               let type = dtype[its.dataType];
                               let option = its.dropdownValue
@@ -383,6 +375,7 @@ const ManageSite = ({
                                 option: option,
                                 name: its.fieldName,
                                 type: type,
+                                formatop:"MM-DD-YYYY",
                                 props: {
                                   maxSelectableDate: today,
                                 },
@@ -434,6 +427,7 @@ const ManageSite = ({
                               option: option,
                               name: its.fieldName,
                               type: type,
+                              formatop:"MM-DD-YYYY",
                               props: {
                                 maxSelectableDate: today,
                               },
@@ -495,138 +489,138 @@ const ManageSite = ({
             //     />
             //   </>
             // ),
-            "Financial-Survey": (
-              <>
-                <div className="overflow-auto h-[80vh]">
-                  {dataOfProject &&
-                    Array.isArray(dataOfProject["t_sFinancials-survey"]) &&
-                    dataOfProject["t_sFinancials-survey"] && (
-                      <table>
-                        <thead>
-                          <tr className="bg-black w-full overflow-x-auto flex ">
-                            {dataOfProject["t_sFinancials-survey"].map((its) => {
-                              return (
-                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
-                                  {its.fieldName}
-                                </th>
-                              );
-                            })}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Array.isArray(bodyData) &&
-                            bodyData?.map((itm, i) => (
-                              <tr key={i}>
-                                {Object.keys(itm)?.map((key, j) => {
-                                  return <td>{itm[key]}</td>;
-                                })}
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    )}
-                </div>
-              </>
-            ),
-            "Financial-Signange": (
-              <>
-                <div className="overflow-auto h-[80vh]">
-                  {dataOfProject &&
-                    Array.isArray(dataOfProject["t_sFinancials-signange"]) &&
-                    dataOfProject["t_sFinancials-signange"] && (
-                      <table>
-                        <thead>
-                          <tr className="bg-black w-full overflow-x-auto flex ">
-                            {dataOfProject["t_sFinancials-signange"].map((its) => {
-                              return (
-                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white">
-                                  {its.fieldName}
-                                </th>
-                              );
-                            })}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Array.isArray(bodyData) &&
-                            bodyData?.map((itm, i) => (
-                              <tr key={i}>
-                                {Object.keys(itm)?.map((key, j) => {
-                                  return <td>{itm[key]}</td>;
-                                })}
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    )}
-                </div>
-              </>
-            ),
-            "Financial-Revisit": (
-              <>
-                <div className="overflow-auto h-[80vh]">
-                  {dataOfProject &&
-                    Array.isArray(dataOfProject["t_sFinancials-revisit"]) &&
-                    dataOfProject["t_sFinancials-revisit"] && (
-                      <table>
-                        <thead>
-                          <tr className="bg-black w-full overflow-x-auto flex ">
-                            {dataOfProject["t_sFinancials-revisit"].map((its) => {
-                              return (
-                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
-                                  {its.fieldName}
-                                </th>
-                              );
-                            })}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Array.isArray(bodyData) &&
-                            bodyData?.map((itm, i) => (
-                              <tr key={i}>
-                                {Object.keys(itm)?.map((key, j) => {
-                                  return <td>{itm[key]}</td>;
-                                })}
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    )}
-                </div>
-              </>
-            ),
-            "Financial-Colo": (
-              <>
-                <div className="overflow-auto h-[80vh]">
-                  {dataOfProject &&
-                    Array.isArray(dataOfProject["t_sFinancials-colo"]) &&
-                    dataOfProject["t_sFinancials-colo"] && (
-                      <table>
-                        <thead>
-                          <tr className="bg-black w-full overflow-x-auto flex ">
-                            {dataOfProject["t_sFinancials-colo"].map((its) => {
-                              return (
-                                <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
-                                  {its.fieldName}
-                                </th>
-                              );
-                            })}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Array.isArray(bodyData) &&
-                            bodyData?.map((itm, i) => (
-                              <tr key={i}>
-                                {Object.keys(itm)?.map((key, j) => {
-                                  return <td>{itm[key]}</td>;
-                                })}
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    )}
-                </div>
-              </>
-            ),
+            // "Financial-Survey": (
+            //   <>
+            //     <div className="overflow-auto h-[80vh]">
+            //       {dataOfProject &&
+            //         Array.isArray(dataOfProject["t_sFinancials-survey"]) &&
+            //         dataOfProject["t_sFinancials-survey"] && (
+            //           <table>
+            //             <thead>
+            //               <tr className="bg-black w-full overflow-x-auto flex ">
+            //                 {dataOfProject["t_sFinancials-survey"].map((its) => {
+            //                   return (
+            //                     <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+            //                       {its.fieldName}
+            //                     </th>
+            //                   );
+            //                 })}
+            //               </tr>
+            //             </thead>
+            //             <tbody>
+            //               {Array.isArray(bodyData) &&
+            //                 bodyData?.map((itm, i) => (
+            //                   <tr key={i}>
+            //                     {Object.keys(itm)?.map((key, j) => {
+            //                       return <td>{itm[key]}</td>;
+            //                     })}
+            //                   </tr>
+            //                 ))}
+            //             </tbody>
+            //           </table>
+            //         )}
+            //     </div>
+            //   </>
+            // ),
+            // "Financial-Signange": (
+            //   <>
+            //     <div className="overflow-auto h-[80vh]">
+            //       {dataOfProject &&
+            //         Array.isArray(dataOfProject["t_sFinancials-signange"]) &&
+            //         dataOfProject["t_sFinancials-signange"] && (
+            //           <table>
+            //             <thead>
+            //               <tr className="bg-black w-full overflow-x-auto flex ">
+            //                 {dataOfProject["t_sFinancials-signange"].map((its) => {
+            //                   return (
+            //                     <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white">
+            //                       {its.fieldName}
+            //                     </th>
+            //                   );
+            //                 })}
+            //               </tr>
+            //             </thead>
+            //             <tbody>
+            //               {Array.isArray(bodyData) &&
+            //                 bodyData?.map((itm, i) => (
+            //                   <tr key={i}>
+            //                     {Object.keys(itm)?.map((key, j) => {
+            //                       return <td>{itm[key]}</td>;
+            //                     })}
+            //                   </tr>
+            //                 ))}
+            //             </tbody>
+            //           </table>
+            //         )}
+            //     </div>
+            //   </>
+            // ),
+            // "Financial-Revisit": (
+            //   <>
+            //     <div className="overflow-auto h-[80vh]">
+            //       {dataOfProject &&
+            //         Array.isArray(dataOfProject["t_sFinancials-revisit"]) &&
+            //         dataOfProject["t_sFinancials-revisit"] && (
+            //           <table>
+            //             <thead>
+            //               <tr className="bg-black w-full overflow-x-auto flex ">
+            //                 {dataOfProject["t_sFinancials-revisit"].map((its) => {
+            //                   return (
+            //                     <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+            //                       {its.fieldName}
+            //                     </th>
+            //                   );
+            //                 })}
+            //               </tr>
+            //             </thead>
+            //             <tbody>
+            //               {Array.isArray(bodyData) &&
+            //                 bodyData?.map((itm, i) => (
+            //                   <tr key={i}>
+            //                     {Object.keys(itm)?.map((key, j) => {
+            //                       return <td>{itm[key]}</td>;
+            //                     })}
+            //                   </tr>
+            //                 ))}
+            //             </tbody>
+            //           </table>
+            //         )}
+            //     </div>
+            //   </>
+            // ),
+            // "Financial-Colo": (
+            //   <>
+            //     <div className="overflow-auto h-[80vh]">
+            //       {dataOfProject &&
+            //         Array.isArray(dataOfProject["t_sFinancials-colo"]) &&
+            //         dataOfProject["t_sFinancials-colo"] && (
+            //           <table>
+            //             <thead>
+            //               <tr className="bg-black w-full overflow-x-auto flex ">
+            //                 {dataOfProject["t_sFinancials-colo"].map((its) => {
+            //                   return (
+            //                     <th className="px-4 w-auto whitespace-nowrap border p-1 bg-[#24292d] text-white  ">
+            //                       {its.fieldName}
+            //                     </th>
+            //                   );
+            //                 })}
+            //               </tr>
+            //             </thead>
+            //             <tbody>
+            //               {Array.isArray(bodyData) &&
+            //                 bodyData?.map((itm, i) => (
+            //                   <tr key={i}>
+            //                     {Object.keys(itm)?.map((key, j) => {
+            //                       return <td>{itm[key]}</td>;
+            //                     })}
+            //                   </tr>
+            //                 ))}
+            //             </tbody>
+            //           </table>
+            //         )}
+            //     </div>
+            //   </>
+            // ),
             // ...(assignfinacial
             //   ? {
             //       Financials: (

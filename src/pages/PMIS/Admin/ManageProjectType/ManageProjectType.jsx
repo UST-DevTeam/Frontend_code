@@ -362,34 +362,34 @@ const   ManageProjectType = () => {
                   //     reseter: true,
                   //   })
                   // );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Financial-Survey",
-                      value: itm["t_sFinancials-survey"] ? itm["t_sFinancials-survey"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Financial-Signange",
-                      value: itm["t_sFinancials-signange"] ? itm["t_sFinancials-signange"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Financial-Revisit",
-                      value: itm["t_sFinancials-revisit"] ? itm["t_sFinancials-revisit"] : [],
-                      reseter: true,
-                    })
-                  );
-                  dispatch(
-                    SET_DYNAMIC_FORM({
-                      label: "Financial-Colo",
-                      value: itm["t_sFinancials-colo"] ? itm["t_sFinancials-colo"] : [],
-                      reseter: true,
-                    })
-                  );
+                  // dispatch(
+                  //   SET_DYNAMIC_FORM({
+                  //     label: "Financial-Survey",
+                  //     value: itm["t_sFinancials-survey"] ? itm["t_sFinancials-survey"] : [],
+                  //     reseter: true,
+                  //   })
+                  // );
+                  // dispatch(
+                  //   SET_DYNAMIC_FORM({
+                  //     label: "Financial-Signange",
+                  //     value: itm["t_sFinancials-signange"] ? itm["t_sFinancials-signange"] : [],
+                  //     reseter: true,
+                  //   })
+                  // );
+                  // dispatch(
+                  //   SET_DYNAMIC_FORM({
+                  //     label: "Financial-Revisit",
+                  //     value: itm["t_sFinancials-revisit"] ? itm["t_sFinancials-revisit"] : [],
+                  //     reseter: true,
+                  //   })
+                  // );
+                  // dispatch(
+                  //   SET_DYNAMIC_FORM({
+                  //     label: "Financial-Colo",
+                  //     value: itm["t_sFinancials-colo"] ? itm["t_sFinancials-colo"] : [],
+                  //     reseter: true,
+                  //   })
+                  // );
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">
@@ -504,110 +504,110 @@ const   ManageProjectType = () => {
                           //     name={"Template"}
                           //   />
                           // ),
-                          "Financial-Survey": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Financial-Survey"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "t_sFinancials-survey",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Template"}
-                            />
-                          ),
-                          "Financial-Signange": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Financial-Signange"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "t_sFinancials-signange",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Template"}
-                            />
-                          ),
-                          "Financial-Revisit": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Financial-Revisit"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "t_sFinancials-revisit",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Template"}
-                            />
-                          ),
-                          "Financial-Colo": (
-                            <CommonTableForm
-                              setmodalOpen={setmodalOpen}
-                              tabHead={"Financial-Colo"}
-                              customeruniqueId={customeruniqueId}
-                              classes={"grid-cols-2 gap-1"}
-                              Form={conditionmultiForm}
-                              errors={errors}
-                              register={register}
-                              setValue={setValue}
-                              getValues={getValues}
-                              functioning={(res, changeState) =>
-                                handleAddActivity(
-                                  res,
-                                  changeState,
-                                  "t_sFinancials-colo",
-                                  itm
-                                )
-                              }
-                              oldList={[]}
-                              listing={listing}
-                              setlisting={setlisting}
-                              rowId={itm["uniqueId"]}
-                              name={"Template"}
-                            />
-                          ),
+                          // "Financial-Survey": (
+                          //   <CommonTableForm
+                          //     setmodalOpen={setmodalOpen}
+                          //     tabHead={"Financial-Survey"}
+                          //     customeruniqueId={customeruniqueId}
+                          //     classes={"grid-cols-2 gap-1"}
+                          //     Form={conditionmultiForm}
+                          //     errors={errors}
+                          //     register={register}
+                          //     setValue={setValue}
+                          //     getValues={getValues}
+                          //     functioning={(res, changeState) =>
+                          //       handleAddActivity(
+                          //         res,
+                          //         changeState,
+                          //         "t_sFinancials-survey",
+                          //         itm
+                          //       )
+                          //     }
+                          //     oldList={[]}
+                          //     listing={listing}
+                          //     setlisting={setlisting}
+                          //     rowId={itm["uniqueId"]}
+                          //     name={"Template"}
+                          //   />
+                          // ),
+                          // "Financial-Signange": (
+                          //   <CommonTableForm
+                          //     setmodalOpen={setmodalOpen}
+                          //     tabHead={"Financial-Signange"}
+                          //     customeruniqueId={customeruniqueId}
+                          //     classes={"grid-cols-2 gap-1"}
+                          //     Form={conditionmultiForm}
+                          //     errors={errors}
+                          //     register={register}
+                          //     setValue={setValue}
+                          //     getValues={getValues}
+                          //     functioning={(res, changeState) =>
+                          //       handleAddActivity(
+                          //         res,
+                          //         changeState,
+                          //         "t_sFinancials-signange",
+                          //         itm
+                          //       )
+                          //     }
+                          //     oldList={[]}
+                          //     listing={listing}
+                          //     setlisting={setlisting}
+                          //     rowId={itm["uniqueId"]}
+                          //     name={"Template"}
+                          //   />
+                          // ),
+                          // "Financial-Revisit": (
+                          //   <CommonTableForm
+                          //     setmodalOpen={setmodalOpen}
+                          //     tabHead={"Financial-Revisit"}
+                          //     customeruniqueId={customeruniqueId}
+                          //     classes={"grid-cols-2 gap-1"}
+                          //     Form={conditionmultiForm}
+                          //     errors={errors}
+                          //     register={register}
+                          //     setValue={setValue}
+                          //     getValues={getValues}
+                          //     functioning={(res, changeState) =>
+                          //       handleAddActivity(
+                          //         res,
+                          //         changeState,
+                          //         "t_sFinancials-revisit",
+                          //         itm
+                          //       )
+                          //     }
+                          //     oldList={[]}
+                          //     listing={listing}
+                          //     setlisting={setlisting}
+                          //     rowId={itm["uniqueId"]}
+                          //     name={"Template"}
+                          //   />
+                          // ),
+                          // "Financial-Colo": (
+                          //   <CommonTableForm
+                          //     setmodalOpen={setmodalOpen}
+                          //     tabHead={"Financial-Colo"}
+                          //     customeruniqueId={customeruniqueId}
+                          //     classes={"grid-cols-2 gap-1"}
+                          //     Form={conditionmultiForm}
+                          //     errors={errors}
+                          //     register={register}
+                          //     setValue={setValue}
+                          //     getValues={getValues}
+                          //     functioning={(res, changeState) =>
+                          //       handleAddActivity(
+                          //         res,
+                          //         changeState,
+                          //         "t_sFinancials-colo",
+                          //         itm
+                          //       )
+                          //     }
+                          //     oldList={[]}
+                          //     listing={listing}
+                          //     setlisting={setlisting}
+                          //     rowId={itm["uniqueId"]}
+                          //     name={"Template"}
+                          //   />
+                          // ),
                         }}
                       />
                     </>

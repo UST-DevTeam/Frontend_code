@@ -29,9 +29,11 @@ const CompletitonCreiteriaForm = ({
 }) => {
 
   const dispatch = useDispatch();
-  const dateString = siteCompleteData["siteStartDate"];
-  const [day, month, year] = dateString?.split("-")?.map(Number);
-  const datestr = new Date(year, month - 1, day);
+
+  // const dateString = siteCompleteData["siteStartDate"];
+  // const [day, month, year] = dateString?.split("-")?.map(Number);
+  // const datestr = new Date(year, month - 1, day);
+
   // const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [modalFullOpen1, setmodalFullOpen1] = useState(false);
@@ -61,12 +63,12 @@ const CompletitonCreiteriaForm = ({
     formState: { errors: errors },
   } = useForm();
 
-  let mileStoneprops = {
-    "Completion Date": {
-      maxSelectableDate: new Date(),
-      minSelectableDate: datestr,
-    },
-  };
+  // let mileStoneprops = {
+  //   "Completion Date": {
+  //     maxSelectableDate: new Date(),
+  //     minSelectableDate: datestr,
+  //   },
+  // };
 
   let dataecoder = {
     Date: "datetime",
@@ -154,13 +156,14 @@ const CompletitonCreiteriaForm = ({
           name: "CC_" + dta,
           required: true,
           type: geeter.length > 0 ? dataecoder[geeter[0]["type"]] : "",
+          formatop:"MM-DD-YYYY",
           option: geeter?.[0]?.type == "Dropdown" ? geeter[0]["dropdown"]?.split(",").map((itm) => {
             return {
               label: itm,
               value: itm,
             };
           }) : [],
-          props: mileStoneprops[dta] || {},
+          // props: mileStoneprops[dta] || {}, # for Completition Date Condition
         };
       }
     });

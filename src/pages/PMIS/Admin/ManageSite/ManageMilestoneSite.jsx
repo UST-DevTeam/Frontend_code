@@ -42,6 +42,7 @@ const ManageMilestoneSite = ({
 
 
 
+
   const {
     register,
     handleSubmit,
@@ -273,7 +274,8 @@ const ManageMilestoneSite = ({
 
 
   useEffect(() => {
-    dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
+    // dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
+    // dispatch(projectListActions.getMappedData(projectuniqueId, true, 0));
     reset({});
     settype(true);
     dispatch(AdminActions.getManageCompletionCriteria());
@@ -439,6 +441,7 @@ const ManageMilestoneSite = ({
                               option: option,
                               name: its.fieldName,
                               type: type,
+                              formatop:"MM-DD-YYYY",
                               props: {
                                 maxSelectableDate: today,
                               },
@@ -483,6 +486,7 @@ const ManageMilestoneSite = ({
                                   })
                                 : [],
                               required: its.required == "Yes" ? true : false,
+                              formatop:"MM-DD-YYYY",
                               props: {
                                 maxSelectableDate: today,
                               },
@@ -499,149 +503,149 @@ const ManageMilestoneSite = ({
                 />
               </>
             ),
-            Issues: (
-              <>
-                <div className="flex justify-end">
-                  <Button
-                    classes="w-30"
-                    name="Save Issues"
-                    onClick={handleSubmitForm3(handleIssuesSubmit)}
-                  />
-                </div>
-                <CommonForm
-                  classes={"grid-cols-4 gap-1"}
-                  Form={
-                    dataOfProject
-                      ? dataOfProject["t_issues"]
-                        ? dataOfProject["t_issues"].map((its) => {
-                            return {
-                              label: its.fieldName,
-                              value: "abc",
-                              name: its.fieldName,
-                              type: dtype[its.dataType],
-                              option:its.dropdownValue
-                                ? its.dropdownValue.split(",").map((itm) => {
-                                    return {
-                                      value: itm,
-                                      label: itm,
-                                    };
-                                  })
-                                : [],
-                              required: its.required == "Yes" ? true : false,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
-                          })
-                        : []
-                      : []
-                  }
-                  // Form={filesUploadForm}
-                  errors={errorsForm3}
-                  register={registerForm3}
-                  setValue={setValueForm3}
-                  getValues={getValuesForm3}
-                />
-              </>
-            ),
-            ...(assignfinacial
-              ? {
-                  Financials: (
-                    <>
-                      <div className="overflow-auto h-[80vh] m-12 mt-1">
-                        {dataOfProject &&
-                          Array.isArray(dataOfProject["t_sFinancials"]) &&
-                          dataOfProject["t_sFinancials"] && (
-                            <table
-                              className="border-collapse border"
-                              border="2"
-                            >
-                              <tr className="border border-black">
-                                {dataOfProject["t_sFinancials"].map((its) => {
-                                  return (
-                                    <th className="px-2 w-auto mxax-w-full whitespace-nowrap border-[1.5px] border-black p-1 bg-[#24292d] text-white ">
-                                      {its.fieldName}
-                                    </th>
-                                  );
-                                })}
-                              </tr>
+            // Issues: (
+            //   <>
+            //     <div className="flex justify-end">
+            //       <Button
+            //         classes="w-30"
+            //         name="Save Issues"
+            //         onClick={handleSubmitForm3(handleIssuesSubmit)}
+            //       />
+            //     </div>
+            //     <CommonForm
+            //       classes={"grid-cols-4 gap-1"}
+            //       Form={
+            //         dataOfProject
+            //           ? dataOfProject["t_issues"]
+            //             ? dataOfProject["t_issues"].map((its) => {
+            //                 return {
+            //                   label: its.fieldName,
+            //                   value: "abc",
+            //                   name: its.fieldName,
+            //                   type: dtype[its.dataType],
+            //                   option:its.dropdownValue
+            //                     ? its.dropdownValue.split(",").map((itm) => {
+            //                         return {
+            //                           value: itm,
+            //                           label: itm,
+            //                         };
+            //                       })
+            //                     : [],
+            //                   required: its.required == "Yes" ? true : false,
+            //                   props: {
+            //                     maxSelectableDate: today,
+            //                   },
+            //                 };
+            //               })
+            //             : []
+            //           : []
+            //       }
+            //       // Form={filesUploadForm}
+            //       errors={errorsForm3}
+            //       register={registerForm3}
+            //       setValue={setValueForm3}
+            //       getValues={getValuesForm3}
+            //     />
+            //   </>
+            // ),
+            // ...(assignfinacial
+            //   ? {
+            //       Financials: (
+            //         <>
+            //           <div className="overflow-auto h-[80vh] m-12 mt-1">
+            //             {dataOfProject &&
+            //               Array.isArray(dataOfProject["t_sFinancials"]) &&
+            //               dataOfProject["t_sFinancials"] && (
+            //                 <table
+            //                   className="border-collapse border"
+            //                   border="2"
+            //                 >
+            //                   <tr className="border border-black">
+            //                     {dataOfProject["t_sFinancials"].map((its) => {
+            //                       return (
+            //                         <th className="px-2 w-auto mxax-w-full whitespace-nowrap border-[1.5px] border-black p-1 bg-[#24292d] text-white ">
+            //                           {its.fieldName}
+            //                         </th>
+            //                       );
+            //                     })}
+            //                   </tr>
 
-                              {(() => {
-                                let tamount = 0;
+            //                   {(() => {
+            //                     let tamount = 0;
 
-                                // Your map function
-                                return (
-                                  <>
-                                    {invoiceData.map((itm, index) => {
-                                      return (
-                                        <tr
-                                          key={index}
-                                          className="text-[11px] h-2 pl-1 border-['#4ADE80'] text-center border-[1.5px] overflow-hidden text-white"
-                                        >
-                                          {dataOfProject["t_sFinancials"].map(
-                                            (its, columnIndex) => {
-                                              const value = itm[its.fieldName];
-                                              if (
-                                                typeof value !== "undefined"
-                                              ) {
-                                                if (its.fieldName == "Amount") {
-                                                  tamount = tamount + value;
-                                                  return (
-                                                    <td
-                                                      key={columnIndex}
-                                                      className=" border-black border-[1.5px]"
-                                                    >
-                                                      {value}
-                                                    </td>
-                                                  );
-                                                } else {
-                                                  return (
-                                                    <td
-                                                      key={columnIndex}
-                                                      className=" border-[1px] border-black "
-                                                    >
-                                                      {value}
-                                                    </td>
-                                                  );
-                                                }
-                                              } else {
-                                                console.error(
-                                                  `Missing data for field "${its.fieldName}"`
-                                                );
-                                                return (
-                                                  <td key={columnIndex}>N/A</td>
-                                                );
-                                              }
-                                            }
-                                          )}
-                                        </tr>
-                                      );
-                                    })}
-                                    <>
-                                      <tr className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-800">
-                                        <td
-                                          colSpan={
-                                            dataOfProject["t_sFinancials"]
-                                              .length
-                                          }
-                                        >
-                                          <p className="float-right p-2 rounded-sm bg-yellow-300 font-extrabold">
-                                            Total Amount = {tamount}
-                                          </p>
-                                        </td>
-                                      </tr>
-                                    </>
-                                  </>
-                                );
-                              })()}
-                              {}
-                            </table>
-                          )}
-                      </div>
-                    </>
-                  ),
-                }
-              : {}),
+            //                     // Your map function
+            //                     return (
+            //                       <>
+            //                         {invoiceData.map((itm, index) => {
+            //                           return (
+            //                             <tr
+            //                               key={index}
+            //                               className="text-[11px] h-2 pl-1 border-['#4ADE80'] text-center border-[1.5px] overflow-hidden text-white"
+            //                             >
+            //                               {dataOfProject["t_sFinancials"].map(
+            //                                 (its, columnIndex) => {
+            //                                   const value = itm[its.fieldName];
+            //                                   if (
+            //                                     typeof value !== "undefined"
+            //                                   ) {
+            //                                     if (its.fieldName == "Amount") {
+            //                                       tamount = tamount + value;
+            //                                       return (
+            //                                         <td
+            //                                           key={columnIndex}
+            //                                           className=" border-black border-[1.5px]"
+            //                                         >
+            //                                           {value}
+            //                                         </td>
+            //                                       );
+            //                                     } else {
+            //                                       return (
+            //                                         <td
+            //                                           key={columnIndex}
+            //                                           className=" border-[1px] border-black "
+            //                                         >
+            //                                           {value}
+            //                                         </td>
+            //                                       );
+            //                                     }
+            //                                   } else {
+            //                                     console.error(
+            //                                       `Missing data for field "${its.fieldName}"`
+            //                                     );
+            //                                     return (
+            //                                       <td key={columnIndex}>N/A</td>
+            //                                     );
+            //                                   }
+            //                                 }
+            //                               )}
+            //                             </tr>
+            //                           );
+            //                         })}
+            //                         <>
+            //                           <tr className="text-[11px] h-2 pl-1 border-black text-center border-[1.5px] overflow-hidden text-slate-800">
+            //                             <td
+            //                               colSpan={
+            //                                 dataOfProject["t_sFinancials"]
+            //                                   .length
+            //                               }
+            //                             >
+            //                               <p className="float-right p-2 rounded-sm bg-yellow-300 font-extrabold">
+            //                                 Total Amount = {tamount}
+            //                               </p>
+            //                             </td>
+            //                           </tr>
+            //                         </>
+            //                       </>
+            //                     );
+            //                   })()}
+            //                   {}
+            //                 </table>
+            //               )}
+            //           </div>
+            //         </>
+            //       ),
+            //     }
+            //   : {}),
           }}
         />
       </div>

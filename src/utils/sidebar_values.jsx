@@ -106,6 +106,7 @@ import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
 import InvoiceWcc from "../pages/PMIS/Formss/InvoiceWcc/InvoiceWcc";
 import ManageMarket from "../pages/PMIS/Admin/ManageMarket/ManageMarket";
 import ManageResource from "../pages/PMIS/Admin/ManageResource/ManageResource";
+import ManageMappedMilestone from "../pages/PMIS/Admin/ManageMappedMilestone/ManageMappedMilestone";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -475,10 +476,17 @@ export const Sidebar_content = {
       component: <SuperAdmin />,
     },
     {
-      name: "",
+      name: "ManageMarket",
       link: "/hr/superAdmin/manageMarket",
       subMenu: [],
       component: <ManageMarket />,
+      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+    },
+    {
+      name: "ManageMappedMilestone",
+      link: "/hr/superAdmin/manageMappedMilestone",
+      subMenu: [],
+      component: <ManageMappedMilestone />,
       icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
     },
     {

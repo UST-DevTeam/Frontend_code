@@ -71,6 +71,7 @@ import {
   GET_MANAGE_MARKET,
   GET_PROJECT_BY_CUSTOMER,
   GET_MANAGE_RESOURCE,
+  GET_MANAGE_MAPPED_MILESTONE,
 
 
 
@@ -2018,7 +2019,7 @@ const AdminActions = {
       }
     },
 
-    getManageResource:
+  getManageResource:
     (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
@@ -2037,6 +2038,43 @@ const AdminActions = {
         data: data,
         url:
           uniqueId == null ? Urls.admin_manageResource : Urls.admin_manageResource + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+
+  getManageMappedMilestone:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.admin_manageMappedMilestone}${args != "" ? "?" + args : ""}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_MANAGE_MAPPED_MILESTONE({ dataAll, reset }));
+      } catch (error) {}
+    },
+
+  postManageMappedMilestone: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null ? Urls.admin_manageMappedMilestone : Urls.admin_manageMappedMilestone + "/" + uniqueId,
       });
       if (res?.status !== 201 && res?.status !== 200) {
         let msgdata = {

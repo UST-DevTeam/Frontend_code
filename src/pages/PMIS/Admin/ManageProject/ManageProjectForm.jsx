@@ -109,25 +109,6 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       required: true,
       classes: "col-span-1",
     },
-    // {
-    //   label: "Project Group",
-    //   name: "projectGroup",
-    //   type: "select",
-    //   value: "",
-    //   option: projectGroupList,
-    //   props: {
-    //     onChange: (e) => {
-    //       dispatch(
-    //         projectListActions.getProjectCircle(
-    //           true,
-    //           `projectGroupId=${e.target.value}`
-    //         )
-    //       );
-    //     },
-    //   },
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
     {
       label: "Project Type",
       value: "",
@@ -149,41 +130,15 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       },
       classes: "col-span-1",
     },
-    // {
-    //   label: "Sub-Project Type",
-    //   name: "subProject",
-    //   type: "select",
-    //   value: "",
-    //   option: subProjectList,
-    //   required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
-    // {
-    //   label: "Circle",
-    //   name: "circle",
-    //   type: "select",
-    //   value: "",
-    //   option: circleList,
-    //   required: true,
-    //   props: {
-    //     onChange: (e) => {
-    //       // alert(e.target.value)
-    //     },
-    //   },
-    //   classes: "col-span-1",
-    // },
     {
       label: "Start Date",
       name: "startDate",
       type: "datetime",
       value: "",
+      formatop:"MM-DD-YYYY",
       props: {
         maxSelectableDate:today,
         onChange: (e) => {
-          // console.log(e.target.value);
         },
       },
       required: true,
@@ -201,30 +156,6 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       required: true,
       classes: "col-span-1",
     },
-    // {
-    //   label: "Project Manager",
-    //   name: "PMName",
-    //   type: "autoSuggestion",
-    //   value: "",
-    //   option: pmempList,
-    //   props: {
-    //     onChange: (e) => {
-    //       let filteredData = pmempList.filter(
-    //         (itm) => itm.label == e.target.value
-    //       );
-    //       if (filteredData.length > 0) {
-    //         setValue("PMId", filteredData[0]["value"]);
-    //       }
-    //       console.log(
-    //         pmempList.filter((itm) => itm.label == e.target.value),
-    //         e.target.value,
-    //         "e.target.value"
-    //       );
-    //     },
-    //   },
-    //   required: true,
-    //   classes: "col-span-1",
-    // },
     {
       label: "Status",
       name: "status",
@@ -239,15 +170,14 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
     },
   ];
 
-  const onSubmit = (data) => {
-    console.log(data, "datadatadatadata");
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
-
 
   const onTableViewSubmit = (data) => {
+
+
+    console.log(data['startDate'],data['endDate'],"qwertyu")
+
+
+    qwertyu
 
     let startDate = data['startDate'];
     let endDate = data['endDate']
@@ -265,12 +195,6 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       dispatch(ALERTS(msgdata));
       return;
     }
-
-
-
-
-
-
 
     const options = {
       timeZone: "Asia/Kolkata",

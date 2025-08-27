@@ -424,6 +424,11 @@ const L2Form = () => {
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {
+        name: "Total Days",
+        value: "totalDays",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
         name: "Claimed Amount",
         value: "Amount",
         style: "min-w-[170px] max-w-[450px] text-center sticky left-[248px] bg-[#3e454d]",

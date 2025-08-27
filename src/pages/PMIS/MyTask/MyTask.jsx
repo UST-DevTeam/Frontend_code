@@ -390,6 +390,7 @@ const MyTask = () => {
       console.error("Error in handleAddActivity:", err);
     }
   };
+
   const setForm = (form, formName) => {
     setPtwModalBody(
       <>
@@ -476,21 +477,6 @@ const MyTask = () => {
         value: itm.subProjectId,
       };
     });
-  });
-
-  let dbConfigL = useSelector((state) => {
-    let interdata = state?.myHomeData?.getmyTask || [];
-    return interdata;
-  });
-
-  let milestoneEventLogsData = useSelector((state) => {
-    let interdata = state?.eventlogsReducer?.milestoneeventList || [];
-    return interdata;
-  });
-
-  let sitelogsEventLogsData = useSelector((state) => {
-    let interdata = state?.eventlogsReducer?.siteeventList || [];
-    return interdata;
   });
 
 
@@ -600,13 +586,10 @@ const MyTask = () => {
                   reset: true,
                 })
               );
-              // dispatch(GET_CIRCLE_WITH_PG_DATA({dataAll: [], reset: true}))
               dispatch(GET_MAPPED_DATA({ dataAll: [], reset: true }));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
-              dispatch(
-                projectListActions.getCircleWithPGData(itm.projectuniqueId)
-              );
-              dispatch(projectListActions.getMappedData(itm.projectuniqueId));
+              dispatch(projectListActions.getCircleWithPGData(itm.projectuniqueId));
+              dispatch(projectListActions.getMappedData(itm.SubProjectId));
               setmodalBody(
                 <ManageMilestoneSite
                   siteCompleteData={itm}
@@ -724,10 +707,11 @@ const MyTask = () => {
                                     : ""}
                               </p>
                             ))}
-                          <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 text-lg z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
-                            {iewq.assignerResult.map((itws) => {
+                          <span class="pointer-events-none w-max absolute -top-8 bg-gray-500  z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
+                            {/* {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
-                            })}
+                            })} */}
+                            {iewq.assignerResult.map((itws) => itws.assignerName).join(", ")}
                           </span>
                         </div>
                       </div>
@@ -1352,11 +1336,11 @@ const MyTask = () => {
         value: "projectId",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Customer",
-        value: "customerName",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Customer",
+      //   value: "customerName",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
       {
         name: "Sub Project",
         value: "subProject",
@@ -1378,8 +1362,13 @@ const MyTask = () => {
       //   style: "min-w-[140px] max-w-[200px] text-center",
       // },
       {
+        name: "Allocation Date",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Completition Date",
-        value: "Site_Completion Date",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -1433,12 +1422,12 @@ const MyTask = () => {
           style: "  left-[140px] bg-[#3e454d] text-center ",
           style: "  left-[140px] bg-[#3e454d] text-center ",
         },
-        {
-          name: "",
-          value: "",
-          style: " left-[140px] bg-[#3e454d] text-center ",
-          style: " left-[140px] bg-[#3e454d] text-center ",
-        },
+        // {
+        //   name: "",
+        //   value: "",
+        //   style: " left-[140px] bg-[#3e454d] text-center ",
+        //   style: " left-[140px] bg-[#3e454d] text-center ",
+        // },
         {
           name: "Sub Project",
           value: "SubProject",
@@ -1459,6 +1448,11 @@ const MyTask = () => {
         //   value: "mileStoneEndDate",
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
+        {
+          name: "Allocation Date",
+          value: "assignDate",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "Completition Date",
           value: "CC_Completion Date",

@@ -306,6 +306,7 @@ export const Urls = {
   admin_manageMarket:"/admin/manageMarket",
   project_by_customer:"/customers/projects",
   admin_manageResource:"/admin/manageResource",
+  admin_manageMappedMilestone:"/admin/manageMappedMilestone",
  
 
 

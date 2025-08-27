@@ -157,7 +157,6 @@ const DAFormFillFORM = ({isOpen,setIsOpen,resetting,formValue = {}}) => {
       value: "",
       name: "startAt",
       type: "datetime",
-      // required: true,
       props: {
         onChange: (e) => {
         },
@@ -170,7 +169,6 @@ const DAFormFillFORM = ({isOpen,setIsOpen,resetting,formValue = {}}) => {
       value: "",
       name: "endAt",
       type: "datetime",
-      // required: true,
       props: {
         onChange: (e) => {
         },
@@ -183,7 +181,6 @@ const DAFormFillFORM = ({isOpen,setIsOpen,resetting,formValue = {}}) => {
       value: "",
       name: "totalDays",
       type: "sdisabled",
-      // required: true,
       classes: "col-span-1",
     },
     {

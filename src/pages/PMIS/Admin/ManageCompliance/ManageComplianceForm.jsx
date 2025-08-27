@@ -230,6 +230,7 @@ const ManageComplianceForm = ({
       });
     }
   }, [formValue, resetting]);
+  
   return (
     <>
       <Modal

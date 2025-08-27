@@ -75,7 +75,9 @@ const initialState = {
 
   getManageMarket:[],
   getProjectByCustomer:[],
-  getManageResource:[]
+  getManageResource:[],
+  getManageMappedMilestone:[],
+
 
 
 
@@ -754,6 +756,14 @@ const adminData = createSlice({
       }
     },
 
+    GET_MANAGE_MAPPED_MILESTONE: (state, { payload }) => {
+      if (payload.reset) {
+        state.getManageMappedMilestone = payload.dataAll;
+      } else {
+        state.getManageMappedMilestone = [...state.getManageMappedMilestone, ...payload.dataAll];
+      }
+    },
+
 
 
 
@@ -835,6 +845,7 @@ export const {
   GET_MANAGE_MARKET,
   GET_PROJECT_BY_CUSTOMER,
   GET_MANAGE_RESOURCE,
+  GET_MANAGE_MAPPED_MILESTONE,
 
 
 

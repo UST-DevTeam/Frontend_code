@@ -127,13 +127,9 @@ const ManageProjectSiteId = () => {
             onClick={() => {
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-" + itm["Site Id"]);
-              dispatch(
-                GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                  dataAll: [],
-                  reset: true,
-                })
-              );
+              dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
               dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
+              dispatch(projectListActions.getMappedData(itm?.SubProjectId, true, 0));
               setmodalBody(
                 <ManageMilestoneSite
                   siteCompleteData={itm}
@@ -245,7 +241,8 @@ const ManageProjectSiteId = () => {
                             .map((itwsw, index) => (
                               <p
                                 key={index}
-                                className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                                // className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
+                                className={`flex justify-center items-center rounded-full text-white w-6 h-6 ${onehundcolor[index]}`}
                               >
                                 {" "}
                                 {itwsw.assignerName &&
@@ -263,9 +260,10 @@ const ManageProjectSiteId = () => {
                               </p>
                             ))}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
-                            {iewq.assignerResult.map((itws) => {
+                            {/* {iewq.assignerResult.map((itws) => {
                               return itws.assignerName + ", ";
-                            })}
+                            })} */}
+                            {iewq.assignerResult.map((itws) => itws.assignerName).join(", ")}
                           </span>
                         </div>
                       </div>
@@ -345,13 +343,9 @@ const ManageProjectSiteId = () => {
                 onClick={() => {
                   setmodalFullOpen((prev) => !prev);
                   setmodalHead("Update Milestone");
-                  dispatch(
-                    GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({
-                      dataAll: [],
-                      reset: true,
-                    })
-                  );
+                  dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
                   dispatch(AdminActions.getOneProjectTypeDyform(itm.uniqueId));
+                  dispatch(projectListActions.getMappedData(itm?.SubProjectId, true, 0));
                   setmodalBody(
                     <ManageMilestoneSite
                       siteCompleteData={itm}
@@ -719,7 +713,7 @@ const ManageProjectSiteId = () => {
       },
       {
         name: "Allocation Date",
-        value: "siteStartDate",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       // {
@@ -729,7 +723,8 @@ const ManageProjectSiteId = () => {
       // },
       {
         name: "Completition Date",
-        value: "Site_Completion Date",
+        // value: "Site_Completion Date",
+        value:"",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -1245,14 +1240,14 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
               name={"Site Allocate"}
             ></ConditionalButton> */}
 
-            <ConditionalButton
+            {/* <ConditionalButton
               name={"Upload"}
               showType={getAccessType("Upload(Site Page)")}
               classes="mr-1"
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
               }}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
 
             {/* {upgradepopupShowType && (
               <PopupMenu
@@ -1290,7 +1285,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                 }
               />
             )} */}
-            {siteexportpopup && (
+            {/* {siteexportpopup && (
               <PopupMenu
                 name={"Export"}
                 icon={"Export"}
@@ -1298,7 +1293,6 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                 bgColor={"bg-[#147b99]"}
                 child={
                   <div classes="flex z-40 max-h-96 flex-col p-1">
-                    {/* <div classes="z-40 max-h-96 justify-center"> */}
                     <Button
                       name={"Export"}
                       classes="w-auto m-5"
@@ -1332,7 +1326,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                   </div>
                 }
               />
-            )}
+            )} */}
           </div>
         }
         table={table}

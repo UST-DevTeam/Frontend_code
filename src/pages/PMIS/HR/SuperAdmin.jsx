@@ -83,6 +83,11 @@ const SuperAdmin = () => {
             "bg-pcol",
             "/hr/superAdmin/completionCriteria",
           ],
+          [
+            "Manage Mapped Milestone",
+            "bg-pcol",
+            "/hr/superAdmin/manageMappedMilestone",
+          ],
           // [
           //   "Claim Type",
           //   "bg-pcol",
