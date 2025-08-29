@@ -12,6 +12,10 @@ const initialState = {
     getusernotification: [],
     globalComplianceTypeData: [],
     globalComplianceTypeApproverData: [],
+
+    //  internal Project
+    getPoNumber:[],
+    getPoLineItem:[],
 }
 
 const projectList = createSlice({
@@ -152,9 +156,29 @@ const projectList = createSlice({
             state.databaseList = [];
             state.tableList = {};
             generatedSqlQuery: { }
-        }
+        },
+
+
+
+        // InterProject
+
+        GET_PO_NUMBER_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.getPoNumber = payload.dataAll
+            } else {
+                state.getPoNumber = [...state.getPoNumber, ...payload.dataAll]
+            }
+        },
+
+        GET_PO_LINE_ITEM: (state, { payload }) => {
+            if (payload.reset) {
+                state.getPoLineItem = payload.dataAll
+            } else {
+                state.getPoLineItem = [...state.getPoLineItem, ...payload.dataAll]
+            }
+        },
     }
 })
 
-export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION,GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA,GET_PARTNER_GROUP_MILESTONE } = projectList.actions
+export const { SET_DYNAMIC_FORM, GET_GLOBAL_COMPLAINCE_TYPE_DATA, SET_DYNAMIC_FORM_INDEX, SET_DYNAMIC_FORM_INDEX_INNER, GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, SET_DYNAMIC_RM_INDEX, SET_DYNAMIC_FORM_MOVE, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, RESET_STATE, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION,GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA,GET_PARTNER_GROUP_MILESTONE,GET_PO_NUMBER_DATA,GET_PO_LINE_ITEM} = projectList.actions
 export default projectList.reducer

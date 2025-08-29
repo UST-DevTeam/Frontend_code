@@ -12,7 +12,7 @@ import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTe
 import Modal from "../../../../components/Modal";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { GET_COMPLIANCE_DEGROW_TEMPLATE_DATA, GET_ONE_COMPLIANCE_DY_FORM, GET_ONE_COMPLIANCE_L1_LIST } from "../../../../store/reducers/admin-reducer";
-import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/projectList-reducer";
+import { GET_GLOBAL_COMPLAINCE_TYPE_DATA, GET_PO_LINE_ITEM } from "../../../../store/reducers/projectList-reducer";
 import ManageComplianceTemplateApproverForm from "../ManageCompliance/ManageComplinaceTemplateApproverForm";
 import ManageComplianceDegrowTemplateForm from "../ManageCompliance/ManageComplianceDegrowTemplateForm";
 import ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm from "../ManageCompliance/ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm";
@@ -46,6 +46,27 @@ const CompletitonCreiteriaForm = ({
   const checkmilestone = mileStone["Completion Criteria"].split(",")
   const checkmilestoneStatus = mileStone['mileStoneStatus']
   const milestoneName = mileStone['Name']
+
+  const marketName = siteCompleteData['Market']
+
+
+  const poNumberList = useSelector((state) =>{
+      return state?.projectList?.getPoNumber.map((itm) => {
+      return {
+        label: itm?.poNumber,
+        value: itm?.poNumber,
+      };
+    });
+  })
+
+  const poLineItemList = useSelector((state) =>{
+      return state?.projectList?.getPoLineItem.map((itm) => {
+      return {
+        label: itm?.itemCode,
+        value: itm?.itemCode,
+      };
+    });
+  })
 
 
 
@@ -81,72 +102,74 @@ const CompletitonCreiteriaForm = ({
   let mileStoneCompletion = useSelector((state) => {
 
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
-    return mileStone["Completion Criteria"].split(",").map((dta) => {
+    return mileStone["Completion Criteria"].split(",").flatMap((dta) => {
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
-      if (dta == "Forms & Checklist") {
-        return {
-          label: dta,
-          name: "Checklist",
-          type: "jsxcmpt",
-          value: "",
-          component:
-            <p className="cursor-pointer"
-              onClick={() => {
-                dispatch(GET_GLOBAL_COMPLAINCE_TYPE_DATA({ dataAll: [], reset: true }))
-                if (projectTypeName !== "DEGROW") {
-                  dispatch(GET_ONE_COMPLIANCE_L1_LIST({ dataAll: [], reset: true }))
-                  dispatch(GET_ONE_COMPLIANCE_DY_FORM({ dataAll: [], reset: true }))
-                  dispatch(AdminActions.getOneComplianceDyform(siteCompleteData.uniqueId, mileStone.Name, true, ""));
-                  dispatch(AdminActions.getOneComplianceL1List(siteCompleteData.uniqueId, mileStone.Name, true, ""));
+      if (dta == "Form") {
+        let baseFields = [
+          {
+            label: "Po Numer",
+            name: "poNumber",
+            type: "select",
+            value: "",
+            props: {
+              onChange: (e) => {
+                if (e.target.value){
+                  dispatch(projectListActions.getPoLineItem(marketName,milestoneName,`${e.target.value}`,true));
                 }
-                dispatch(projectListActions.globalComplianceTypeDataGet(siteCompleteData.uniqueId, mileStone.uniqueId, "", true));
-                setmodalFullOpen1(true)
-                setmodalFullBody(
-                  projectTypeName === "DEGROW" && milestoneName === "Survey" ?
-                    <ManageComplianceDegrowTemplateForm
-                      siteCompleteData={siteCompleteData}
-                      uid={siteCompleteData.uniqueId}
-                      customeruniqueId={customeruniqueId}
-                      projectuniqueId={projectuniqueId}
-                      setmodalFullOpen={setmodalFullOpen}
-                      setmodalOpen={setmodalOpen}
-                      mileStone={mileStone}
-                      myTaskPage={myTaskPage}
-                      filterView={filterView}
-                    />
-                    : projectTypeName === "DEGROW" && (milestoneName === "SRQ Raise" || milestoneName === "Dismantle") ?
-                      <ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm
-                        siteCompleteData={siteCompleteData}
-                        uid={siteCompleteData.uniqueId}
-                        customeruniqueId={customeruniqueId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView={filterView}
-                      />
-                      : <ManageComplianceTemplateForm
-                        siteCompleteData={siteCompleteData}
-                        uid={siteCompleteData.uniqueId}
-                        customeruniqueId={customeruniqueId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView={filterView}
-                      />
-                )
-              }}>
-              <NewLookBadge text={"Form"} notifyType={"info"} />
-            </p>,
-          props: {
-            onChange: (e) => { },
+                else{
+                  dispatch(GET_PO_LINE_ITEM({ dataAll:[], reset:true }))
+                }
+               },
+            },
+            required: true,
+            option:poNumberList,
+            classes: "col-span-1",
           },
-          required: false,
-          classes: "col-span-1",
-        };
+          {
+            label: "PO Line Item#",
+            name: "itemCode",
+            type: "select",
+            value: "",
+            props: {
+              onChange: (e) => { },
+            },
+            required: true,
+            option:poLineItemList,
+            classes: "col-span-1",
+
+          },
+          {
+            label: "Quantity",
+            name: "qty",
+            type: "number",
+            value: "",
+            props: {
+              valueAsNumber: true,
+              min: 1,
+              onChange: (e) => { },
+            },
+            required: true,
+            classes: "col-span-1",
+
+          }
+
+        ]
+        if (milestoneName === "Signage WCC") {
+          baseFields.push({
+            label: "Sigange Count",
+            name: "Sigange Count",
+            type: "number",
+            value: "",
+            required: true,
+            props: {
+              valueAsNumber: true,
+              min: 1,
+              onChange: (e) => { },
+            },
+            classes: "col-span-1",
+          });
+        }
+        return baseFields;
 
       }
       else {
@@ -176,12 +199,13 @@ const CompletitonCreiteriaForm = ({
 
 
   const onsubmiting = (data) => {
-    if (checkmilestone.includes("Forms & Checklist")) {
-      data['Checklist'] = "Yes"
-      data['siteuid'] = siteCompleteData.uniqueId
+    if (checkmilestone.includes("Form")) {
+      data['Form'] = "Yes"
+      // data['siteuid'] = siteCompleteData.uniqueId
       data['mName'] = mileStone['Name']
-      data['projectTypeName'] = projectTypeName
-      data['subProjectTypeName'] = subProjectName
+      data['market'] = marketName
+      // data['projectTypeName'] = projectTypeName
+      // data['subProjectTypeName'] = subProjectName
     }
     dispatch(
       projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
@@ -194,7 +218,11 @@ const CompletitonCreiteriaForm = ({
   };
 
   useEffect(() => {
-  }, []);
+    dispatch(GET_PO_LINE_ITEM({ dataAll:[], reset:true }))
+    if (checkmilestone.includes("Form")) {
+      dispatch(projectListActions.getPoNumber(marketName,milestoneName,true));
+    }
+  }, [milestoneName]);
 
   return (
     <>
@@ -207,7 +235,7 @@ const CompletitonCreiteriaForm = ({
       />
 
       <CommonForm
-        classes={"grid-cols-1 gap-1"}
+        classes={"grid-cols-2 gap-1"}
         Form={mileStoneCompletion}
         errors={errors}
         register={register}

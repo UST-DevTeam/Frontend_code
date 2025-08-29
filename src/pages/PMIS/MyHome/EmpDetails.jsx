@@ -309,11 +309,11 @@ const EmpDetails = (props) => {
     }
     if (its["fieldName"] === "L1 Approver") {
       option = allEmployeeList;
-      type = "newSingleSelect45";
+      type = "select";
     }
     if (its["fieldName"] === "L2 Approver") {
       option = allEmployeeList;
-      type = "newSingleSelect45";
+      type = "select";
     }
     PersonalInformation.push (
       {
@@ -341,19 +341,17 @@ const EmpDetails = (props) => {
 
 
   const onTableViewGenerateSubmit = (data) => {
-    data["samePerAdd"] = isSame;
-    if (isSame) {
-      data["paddress"] = data["address"];
-      data["pstate"] = data["state"];
-      data["ppincode"] = data["pincode"];
-      data["pcountry"] = data["country"];
-      data["pcity"] = data["city"];
-    }
+    // data["samePerAdd"] = isSame;
+    // if (isSame) {
+    //   data["paddress"] = data["address"];
+    //   data["pstate"] = data["state"];
+    //   data["ppincode"] = data["pincode"];
+    //   data["pcountry"] = data["country"];
+    //   data["pcity"] = data["city"];
+    // }
     if (empuid) {
       dispatch(
-        HrActions.postManageEmpDetails(
-          false,
-          data,
+        HrActions.postManageEmpDetails(false,data,
           () => {
             alert("Data submitted successfully!");
             navigate("/hr/empDetailsTable");

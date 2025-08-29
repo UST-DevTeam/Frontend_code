@@ -127,7 +127,7 @@ const CommonTableFormSiteParent = ({
       )}
 
       <div className="flex">
-        {setmodalFullOpen && !["Financials","Financial-Survey","Financial-Signange","Financial-Revisit","Financial-Colo",].includes(activeTab) && (
+        {setmodalFullOpen && !["Basic Details"].includes(activeTab) && (
           <Button
             name={"Submit"}
             classes="w-auto"

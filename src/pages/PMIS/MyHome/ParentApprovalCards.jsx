@@ -13,19 +13,21 @@ const ParentApproverCards = () => {
   // let navigate = useNavigate();
   const complianceData = [
     {
-      title: "Expense/Advance",
+      title: "Survey Approver",
       href: null,
       children: [
         {
           title: "L1 Approver",
           use: true,
-          href: "/home/approverCards/L1Approver",
+          // href: "/home/approverCards/L1Approver",
+          href: "",
           children: [],
         },
         {
           title: "L2 Approver",
           use: true,
-          href: "/home/approverCards/L2Approver",
+          // href: "/home/approverCards/L2Approver",
+          href: "",
           children: [],
         },
         // {
@@ -34,30 +36,53 @@ const ParentApproverCards = () => {
         //   href: "/home/approval/FinanceApprover",
         //   children: [],
         // },
-        {
-          title: "Settlement Amount",
-          use: true,
-          href: "/home/approverCards/SettlementAmount",
-          children: [],
-        },
+        // {
+        //   title: "Settlement Amount",
+        //   use: true,
+        //   href: "/home/approverCards/SettlementAmount",
+        //   children: [],
+        // },
       ],
     },
   ];
 
   const data3 = [{
-      title: "PTW Approver",
+      title: "Signage",
       href: null,
       children: [
         {
           title: "L1 Approver",
           use : true,
-          href: "/home/Approval/l1Approver",
+          // href: "/home/Approval/l1Approver",
+          href: "",
           children: [],
         },
         {
           title: "L2 Approver",
           use : true,
+          href: "",
           href: "/home/Approval/l2Approver",
+          children: [],
+        },
+      ],
+    }]
+
+  const data4 = [{
+      title: "Revisit",
+      href: null,
+      children: [
+        {
+          title: "L1 Approver",
+          use : true,
+          // href: "/home/Approval/l1Approver",
+          href: "",
+          children: [],
+        },
+        {
+          title: "L2 Approver",
+          use : true,
+          // href: "/home/Approval/l2Approver",
+          href: "",
           children: [],
         },
       ],
@@ -76,6 +101,7 @@ const ParentApproverCards = () => {
         children: [],
       },
     ];
+
     const data = {
       title: "Compliance",
       href: null,
@@ -91,13 +117,9 @@ const ParentApproverCards = () => {
     };
     
 
-    return [...complianceData, data, ...data3];
+    return [...complianceData, ...data3,...data4];
   });
 
-  Compliance: [
-    ["Compliance 1", "bg-pcol", "/home/compliance1"],
-    ["Compliance 2", "bg-pcol", "/home/compliance2"],
-  ];
 
   // let dbConfigListCard = useSelector((state) => {
   //   let interdata = state?.adminData?.getCardComplainceMilestone;

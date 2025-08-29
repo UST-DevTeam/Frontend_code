@@ -30,28 +30,28 @@ const ManageMappedMilestoneForm = ({ isOpen, setIsOpen, resetting, formValue = {
 
     const { customerList, projectTypes, subProjectTypes, milestone,tracking } =
     useSelector((state) => {
-      const customerList = state?.adminData?.getManageCustomer.map((itm) => {
+    const customerList = state?.adminData?.getManageCustomer.map((itm) => {
         return {
-          label: itm?.customerName,
-          value: itm?.uniqueId,
+        label: itm?.customerName,
+        value: itm?.uniqueId,
         };
-      });
-      const projectTypes = state?.adminData?.getProjectTypeCompliance.map(
+    });
+    const projectTypes = state?.adminData?.getProjectTypeCompliance.map(
         (itm) => {
-          return {
+        return {
             label: itm?.projectType,
             value: itm?.projectType,
-          };
+        };
         }
-      );
-      const subProjectTypes = state?.adminData?.getSubProjectTypeCompliance.map(
+    );
+    const subProjectTypes = state?.adminData?.getSubProjectTypeCompliance.map(
         (itm) => {
-          return {
+        return {
             label: itm?.subProject,
             value: itm?.uniqueId,
-          };
+        };
         }
-      );
+    );
 
     //   const activity = state?.adminData?.getActivityAndOemCompliance.find(itm => itm.fieldName === "ACTIVITY")?.dropdownValue.split(",").map(
     //     (itm) => {
@@ -71,24 +71,24 @@ const ManageMappedMilestoneForm = ({ isOpen, setIsOpen, resetting, formValue = {
     //     }
     //   ) || []
 
-      const milestone = state?.adminData?.getActivityAndOemCompliance[0]?.MileStone?.map(
+    const milestone = state?.adminData?.getActivityAndOemCompliance[0]?.MileStone?.map(
         (itm) => {
-          return {
+        return {
             label: itm.fieldName,
             value: itm.fieldName,
-          };
+        };
         }
-      ) || []
-      const tracking = state?.adminData?.getActivityAndOemCompliance[0]?.t_tracking?.map(
+    ) || []
+    const tracking = state?.adminData?.getActivityAndOemCompliance[0]?.t_tracking?.map(
         (itm) => {
-          return {
+        return {
             label: itm.fieldName,
             value: itm.fieldName,
-          };
+        };
         }
-      ) || []
+    ) || []
 
-      return { customerList, projectTypes, subProjectTypes,milestone,tracking};
+    return { customerList, projectTypes, subProjectTypes,milestone,tracking};
     });
 
     let Form = [

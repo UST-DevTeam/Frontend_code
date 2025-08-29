@@ -3,9 +3,7 @@ import Button from "../../components/Button"
 import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
-import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, SET_DYNAMIC_FORM, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION, GET_GLOBAL_COMPLAINCE_TYPE_DATA, GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA } from "../reducers/projectList-reducer"
-import CommonActions from "./common-actions"
-// import Notify from "./notify-actions"
+import { GET_PROJECT_ALL_LIST, GET_PROJECT_TYPE_SUB, GET_USER_ALLLOCATED_PROJECT, GET_PROJECT_CIRCLE, SET_DYNAMIC_FORM, GET_MAPPED_DATA, GET_CIRCLE_WITH_PG_DATA, GET_USR_NOTIFICATION, GET_GLOBAL_COMPLAINCE_TYPE_DATA, GET_GLOBAL_COMPLAINCE_TYPE_APPROVER_DATA, GET_PO_NUMBER_DATA, GET_PO_LINE_ITEM } from "../reducers/projectList-reducer"
 
 
 const projectListActions = {
@@ -13,7 +11,6 @@ const projectListActions = {
     postSubmit: (url, data, cb,reset) => async (dispatch, _) => {
         try {
             const res = await Api.post({ url: url, data: data, contentType: "multipart/form-data",reset })
-            console.log(res, "res?.statusres?.status")
 
             const dtaa = res.data
             if (res?.status !== 201 && res?.status !== 200) {
@@ -355,7 +352,35 @@ const projectListActions = {
 
     resetTablesList: () => async (dispatch, _) => {
         dispatch(TABLES_LIST({}))
-    }
+    },
+
+
+    //  internal Project
+
+    getPoNumber: (market,mName,reset = true, show = 1) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.project_poNumber}/${market}/${mName}`, show: show })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PO_NUMBER_DATA({ dataAll, reset }))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
+
+    getPoLineItem: (market,mName,poNumber,reset = true, show = 1) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.project_poLineItem}/${market}/${mName}/${poNumber}`, show: show })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PO_LINE_ITEM({ dataAll, reset }))
+        } catch (error) {
+            console.log(error, "amit errorerror 37")
+        }
+    },
+
+
+    
 }
 
 

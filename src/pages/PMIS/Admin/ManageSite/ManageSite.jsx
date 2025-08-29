@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../../components/Button";
 import {getAccessType,labelToValue} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import AdminActions from "../../../../store/actions/admin-actions";
 import { useParams } from "react-router-dom";
 import CommonForm from "../../../../components/CommonForm";
 import CommonTableFormSiteParent from "../../../../components/CommonTableFormSiteParent";

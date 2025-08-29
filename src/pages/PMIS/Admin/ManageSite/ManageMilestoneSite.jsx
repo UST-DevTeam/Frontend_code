@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
@@ -272,6 +272,16 @@ const ManageMilestoneSite = ({
   };
 
 
+  let marketList = useSelector((state) => {
+    return state?.adminData?.getManageMarket.map((itm) => {
+      return {
+        label: itm?.marketName,
+        value: itm.marketName,
+      };
+    });
+  });
+
+
 
   useEffect(() => {
     // dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
@@ -432,6 +442,11 @@ const ManageMilestoneSite = ({
                                   };
                                 })
                               : [];
+                            }
+
+                            if (its["fieldName"] === "Market" || its["fieldName"] === "MARKET" ) {
+                                option = marketList;
+                                type = "select";
                             }
 
                             return {

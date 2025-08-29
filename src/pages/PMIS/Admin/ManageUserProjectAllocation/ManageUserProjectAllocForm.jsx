@@ -46,6 +46,14 @@ const ManageUserProjectAllocForm = ({
       classes: "col-span-1",
     },
     {
+      label: "Employment Type",
+      name: "Employment Type",
+      value: "",
+      required: true,
+      type: "sdisabled",
+      classes: "col-span-1",
+    },
+    {
       label: "Profile",
       name: "userRole",
       value: "",

@@ -71,6 +71,11 @@ const ManageUserProjectAllocation = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
+                name: "Employment Type",
+                value: "Employment Type",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
+            {
                 name: "Profile",
                 value: "userRole",
                 style: "min-w-[140px] max-w-[160px] text-center"

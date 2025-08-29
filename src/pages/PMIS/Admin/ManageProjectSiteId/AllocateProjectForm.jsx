@@ -220,8 +220,14 @@ const AllocateProjectForm = ({
       );
     }
   };
+
   useEffect(() => {
-  }, [isOpen]);
+    reset({})
+    setactiveTab(3)
+    setValue("userId", "");
+    setValue("vendorId", "");
+  }, []);
+
   return (
     <>
       <Modal

@@ -77,26 +77,26 @@ const HomeCards = () => {
               "/home/myPolicy",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
-            [
-              "Claim & Advance",
-              "bg-pcol",
-              "/home/claimAndAdvance",
-              <Unicons.UilMoneyWithdrawal size="40" color="#b39800" />,
-              "border-b-[#b39800]",
-            ],
-            [
-              "Asset",
-              "bg-pcol",
-              "/home/assets",
-              <Unicons.UilArchive size="40" color="white" />,
-            ],
+            // [
+            //   "Claim & Advance",
+            //   "bg-pcol",
+            //   "/home/claimAndAdvance",
+            //   <Unicons.UilMoneyWithdrawal size="40" color="#b39800" />,
+            //   "border-b-[#b39800]",
+            // ],
+            // [
+            //   "Asset",
+            //   "bg-pcol",
+            //   "/home/assets",
+            //   <Unicons.UilArchive size="40" color="white" />,
+            // ],
             [
               "Approvals",
               "bg-pcol",
               "/home/Approval",
               <Unicons.UilCheckCircle size="40" color="" />,
             ],
-            ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
+            // ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
             
             
           ].map((itm) => (

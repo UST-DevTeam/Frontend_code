@@ -83,7 +83,7 @@ const InvoiceBased = () => {
                     setmodalOpen(true)
                     dispatch(CurrentuserActions.getcurrentuserPG(true, `customer=${itm?.customer}`,1))
                     dispatch(FinanceActions.getPOInvoicedBased())
-                    setmodalHead("Update PO Invoice Based")
+                    setmodalHead("Update PO")
                     setmodalBody(<>
                         <InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                     </>)
@@ -219,35 +219,45 @@ const InvoiceBased = () => {
                 name: "Client Name",
                 value: "customerName",
                 style: "min-w-[160px] max-w-[160px] text-center sticky left-0 bg-[#3e454d]  -top-1 z-20"
-            },          
-            {
-                name: "UST Project ID",
-                value: "projectGroupId",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-[160px] bg-[#3e454d]  -top-1 z-20"
-            },                                    
-            {
-                name: "Project ID",
-                value: "gbpa",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
-            {
-                name: "Market",
-                value: "poNumber",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },            
+            },
+            // {
+            //     name: "UST Project ID",
+            //     value: "projectGroupId",
+            //     style: "min-w-[140px] max-w-[200px] text-center sticky left-[160px] bg-[#3e454d]  -top-1 z-20"
+            // }, 
             {
                 name: "Project Type",
-                value: "poStartDate",
+                value: "projectType",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Project sub-Type",
-                value: "poEndDate",
+                value: "projectSubTypeName",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },          
+            {
+                name: "UST Project ID",
+                value: "ustProjectId",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                                    
+            {
+                name: "Project ID",
+                value: "projectIdName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
+                name: "Market",
+                value: "market",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },            
+            {
+                name: "Scope",
+                value: "scope",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },                       
+            {
                 name: "PO#",
-                value: "povalidity",
+                value: "poNumber",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
@@ -258,41 +268,41 @@ const InvoiceBased = () => {
             {
                 name: "PO Description",
                 value: "description",
-                style: "min-w-[500px] max-w-[500px] text-center -z-10"
+                style: "min-w-[140px] max-w-[500px] text-center -z-10"
             },            
             {
                 name: "PO Received Date",
-                value: "unitRate(INR)",
+                value: "poReceivedDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "PO Validity Date",
-                value: "initialPoQty",
+                value: "poValidityDate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Unit Price",
-                value: "invoicedQty",
+                value: "unitPrice",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },            
             {
                 name: "Quantity",
-                value: "openQty",
+                value: "qty",
                 style: "min-w-[250px] max-w-[250px] text-center"
             },                    
             {
                 name: "PO Value",
-                value: "OpenPoValue",
+                value: "poValue",
                 style: "min-w-[250px] max-w-[250px] text-center"
             },            
             {
                 name: "Used Qty",
-                value: "itemCodeStatus",
+                value: "usedQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             }, 
             {
                 name: "Open Qty",
-                value: "poStatus",
+                value: "opnQty",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },           
             {
@@ -307,11 +317,11 @@ const InvoiceBased = () => {
                   value: "edit",
                   style: "min-w-[100px] max-w-[200px] text-center"
               },
-              {
-                  name: "Delete",
-                  value: "delete",
-                  style: "min-w-[100px] max-w-[200px] text-center"
-              }
+              // {
+              //     name: "Delete",
+              //     value: "delete",
+              //     style: "min-w-[100px] max-w-[200px] text-center"
+              // }
                 ]
               : [])
         ],
@@ -422,12 +432,12 @@ const InvoiceBased = () => {
               showType={getAccessType("Add New(PO Status Invoice)")} 
               classes="w-auto mr-1" onClick={(e) => {
               setmodalOpen(prev => !prev)
-              setmodalHead("New PO Invoice Based")
+              setmodalHead("New PO")
               setmodalBody(<InvoiceBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
               name={"Add"}>                
             </ConditionalButton>
-            <ConditionalButton
+            {/* <ConditionalButton
               showType={getAccessType("Upload file(PO Status Invoice)")}
               name={"Upload File"}
               classes="w-auto mr-1"
@@ -435,9 +445,9 @@ const InvoiceBased = () => {
                 setFileOpen((prev) => !prev);
                 setfileType(`PoInvoice`)
               }}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
 
-            <ConditionalButton
+            {/* <ConditionalButton
               showType={getAccessType("Upload file(PO Status Invoice)")}
               name={"Upgrade File"}
               classes="w-auto mr-1"
@@ -445,7 +455,7 @@ const InvoiceBased = () => {
                 setbulkfileOpen((prev) => !prev);
                 setfileType(`PoUpgrade`)
               }}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
                 
                 </>}
             table={table}
@@ -460,7 +470,7 @@ const InvoiceBased = () => {
             getValues={getValues}
             totalCount={dbConfigTotalCount}
             heading = {'Total Count:- '}
-            getaccessExport = {"Export(PO Status Invoice)"}
+            getaccessExport = {"Export(PO Status Invoice"}
         />
         <FileUploader
           isOpen={fileOpen}

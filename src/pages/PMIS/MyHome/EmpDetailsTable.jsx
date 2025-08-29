@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../components/EditButton";
-import EmpDetails from "../MyHome/EmpDetails";
 import AdvancedTable from "../../../components/AdvancedTable";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
@@ -15,10 +14,10 @@ import { Urls} from "../../../utils/url";
 import HrActions from "../../../store/actions/hr-actions";
 import { useNavigate} from "react-router-dom";
 import FileUploader from "../../../components/FIleUploader";
-import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
 import AdminActions from "../../../store/actions/admin-actions";
 import ConditionalButton from "../../../components/ConditionalButton";
-import { GET_CITIES, GET_MANAGE_COST_CENTER, GET_MANAGE_DEPARTMENT, GET_MANAGE_DESIGNATION } from "../../../store/reducers/admin-reducer";
+import EmpAddForm from "./EmpAddForm";
+import EmpEditForm from "./EmpEditForm";
 
 const EmpDetailsTable = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -30,6 +29,10 @@ const EmpDetailsTable = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const [strVal, setstrVal] = useState(false);
 
+  const [modalFullOpen, setmodalFullOpen] = useState(false);
+  const [modalFullBody, setmodalFullBody] = useState(<></>);
+
+
   let dispatch = useDispatch();
 
   let navigate = useNavigate();
@@ -40,6 +43,8 @@ const EmpDetailsTable = () => {
       month: '2-digit',
       year: 'numeric'
     }).replace(/\//g, '-')
+
+
 
   const {
     register,
@@ -69,7 +74,6 @@ const EmpDetailsTable = () => {
   }
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
     let interdata = state?.hrReducer?.getManageEmpDetails;
     return interdata?.map((itm) => {
       let updateditm = {
@@ -81,12 +85,10 @@ const EmpDetailsTable = () => {
               <EditButton
                 name={""}
                 onClick={() => {
-                  navigate(`/empdetails/${itm.uniqueId}`);
-                  setmodalBody(
-                    <>
-                      <EmpDetails resetting={false} formValue={itm} />
-                    </>
-                  );
+                  setmodalHead("Edit")
+                  setmodalFullOpen(prev => !prev)
+                  dispatch(HrActions.getHRAllEmployee());
+                  // setmodalFullBody(<EmpEditForm  setmodalFullOpen={setmodalFullOpen} />)
                 }}
               ></EditButton>
             }
@@ -161,9 +163,9 @@ const EmpDetailsTable = () => {
       return updateditm;
     });
   });
+
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.hrReducer?.getManageEmpDetails;
-    console.log(interdata,1234567)
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -176,28 +178,28 @@ const EmpDetailsTable = () => {
   let table = {
     columns: [
       {
-        name: "empName",
+        name: "Emp Name",
         value: "empName",
         style: "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
       },
       {
-        name: "empCode",
+        name: "Emp Code",
         value: "empCode",
         style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
       },
       {
-        name: "Official Email-ID",
+        name: "Email",
         value: "email",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
-        name: "Mobile No.",
+        name: "Mobile No",
         value: "mobile",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "Grade",
-        value: "designationName",
+        name: "Employment Type",
+        value: "Employment Type",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
       {
@@ -270,6 +272,7 @@ const EmpDetailsTable = () => {
       },
     ],
   };
+
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
@@ -280,8 +283,8 @@ const EmpDetailsTable = () => {
 
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
-    dispatch(AdminActions.getManageProfile());
     dispatch(AdminActions.getManageResource());
+    dispatch(AdminActions.getManageProfile());
 
   }, []);
   
@@ -296,6 +299,8 @@ const EmpDetailsTable = () => {
       })
     );
   };
+
+
   const onTableViewSubmit2 = (data) => {
     data["fileType"] = "UpgradeEmployee";
     console.log('datadatadatadatadata',data)
@@ -307,6 +312,7 @@ const EmpDetailsTable = () => {
       })
     );
   };
+
   const onTableViewSubmit3 = (data) => {
     data["fileType"] = "UpgradeEmployeeWithEmpCode";
     
@@ -318,6 +324,7 @@ const EmpDetailsTable = () => {
       })
     );
   };
+
   return (
     <>
       <AdvancedTable
@@ -328,8 +335,10 @@ const EmpDetailsTable = () => {
               showType={getAccessType("Add New(ManageEmployee)")}
               classes="w-auto mr-1"
               onClick={() => {
-                dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: true, }));
-                navigate(`${"/empdetails"}`);
+                setmodalHead("Add New Resource")
+                setmodalFullOpen(prev => !prev)
+                dispatch(HrActions.getHRAllEmployee());
+                setmodalFullBody(<EmpAddForm setmodalFullOpen={setmodalFullOpen} />)
               }}
               name={"Add New"}
             ></ConditionalButton>
@@ -379,13 +388,16 @@ const EmpDetailsTable = () => {
         heading = {"Total Employee:-"}
       />
 
+
       <Modal
-        size={"sm"}
-        modalHead={modalHead}
-        children={modalBody}
-        isOpen={modalOpen}
-        setIsOpen={setmodalOpen}
+        size={"full"}
+        modalHead = {modalHead}
+        children={modalFullBody}
+        isOpen={modalFullOpen}
+        setIsOpen={setmodalFullOpen}
       />
+
+      
 
       {/* <CommonForm/> */}
       <FileUploader

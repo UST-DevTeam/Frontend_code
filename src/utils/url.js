@@ -73,6 +73,8 @@ export const Urls = {
   projectList_changeTaskStatus: "/changeTaskStatus",
   projectList_closeMilestone: "/closeMilestone/",
   project_circle: "/project/circle",
+  project_poNumber:"/checkPo",
+  project_poLineItem:"/checkLineItem",
   settlementAmount: "/Expenses/SettlementAmountEmp",
   setuppassword_stepOne: "/setupPassword",
   register: "/forgetPassword",
